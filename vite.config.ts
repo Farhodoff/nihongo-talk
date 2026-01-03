@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
+// @ts-ignore - Vitest test config is supported via tsconfig.node.json types
 export default defineConfig({
     plugins: [react()],
     resolve: {
@@ -11,6 +12,7 @@ export default defineConfig({
         },
     },
     build: {
+        outDir: 'build', // Vercel uchun output papkasini 'build' ga o'zgartirish
         rollupOptions: {
             output: {
                 manualChunks: {
@@ -34,5 +36,20 @@ export default defineConfig({
         globals: true,
         environment: 'jsdom',
         setupFiles: './vitest.setup.ts',
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'json', 'html'],
+            exclude: [
+                'node_modules/',
+                'src/test-env.d.ts',
+                '**/*.test.{ts,tsx}',
+                '**/*.test.{js,jsx}',
+                'vite.config.ts',
+                'vitest.setup.ts',
+                'eslint.config.js',
+                'postcss.config.js',
+                'tailwind.config.js'
+            ]
+        }
     },
 });
