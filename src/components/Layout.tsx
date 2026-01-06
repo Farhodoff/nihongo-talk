@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X } from 'lucide-react';
 
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import LevelUpModal from './LevelUpModal';
 import LevelProgress from './LevelProgress';
 import { SessionCompleteModal } from './SessionCompleteModal';
 
@@ -86,7 +85,6 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto p-4 md:p-8 relative">
-                <LevelUpModal />
                 <Outlet />
             </main>
             {/* Global Modals */}

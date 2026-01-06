@@ -20,12 +20,12 @@ const SOUNDS = [
 ];
 
 const FocusPage: React.FC = () => {
-    const { subjects, addSession, awardXP, focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setBgSound, setMuted, tasks, updateTaskStatus } = useStudyData();
+    const { subjects, addSession, awardXP, focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted, tasks, updateTaskStatus } = useStudyData();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);
     const [showMoodCheck, setShowMoodCheck] = useState<'before' | 'after' | null>(null);
-    const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+    // Removed local state: selectedTaskId
 
     // Pending Tasks
     const pendingTasks = tasks.filter(t => t.status !== 'done' && t.status !== 'completed');
@@ -96,9 +96,9 @@ const FocusPage: React.FC = () => {
         let taskCompleted = false;
 
         // If a task was selected, ask if it's done
-        if (selectedTaskId) {
+        if (focusState.selectedTaskId) {
             if (window.confirm("Tanlangan vazifani tugatdingizmi?")) {
-                await updateTaskStatus(selectedTaskId, 'done');
+                await updateTaskStatus(focusState.selectedTaskId, 'done');
                 taskCompleted = true;
                 // bonusXp = 50; // Task bonus (already handled in updateTaskStatus but we track here for logic if needed)
                 // Note: updateTaskStatus inside context awards XP. prevent double dipping if context does it.
@@ -120,7 +120,7 @@ const FocusPage: React.FC = () => {
         await awardXP(250);
 
         // Reset selection
-        if (taskCompleted) setSelectedTaskId(null);
+        if (taskCompleted) setFocusTask(null);
     };
 
 
@@ -163,8 +163,8 @@ const FocusPage: React.FC = () => {
                 </label>
                 <div className="relative">
                     <select
-                        value={selectedTaskId || ''}
-                        onChange={(e) => setSelectedTaskId(e.target.value)}
+                        value={focusState.selectedTaskId || ''}
+                        onChange={(e) => setFocusTask(e.target.value || null)}
                         className="w-full pl-4 pr-10 py-3 bg-white dark:bg-gray-800 border-none rounded-2xl shadow-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all"
                         disabled={focusState.isActive}
                     >

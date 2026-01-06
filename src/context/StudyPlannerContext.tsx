@@ -34,6 +34,8 @@ export interface Subject {
     id: string;
     name: string;
     color: string;
+    description?: string;
+    icon?: string;
     teacher_name?: string;
     room_location?: string;
     schedule?: any[];
@@ -134,6 +136,7 @@ interface StudyContextType {
     resetTimer: () => void;
     switchMode: (mode: any) => void;
     setFocusSubject: (id: string) => void;
+    setFocusTask: (id: string | null) => void;
     setBgSound: (sound: string) => void;
     setMuted: (muted: boolean) => void;
     getRank: (level: number) => string;
@@ -243,7 +246,20 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateTask = async (id: string, updates: Partial<Task>) => {
-        await supabase.from('tasks').update(updates).eq('id', id);
+        // Convert camelCase to snake_case for Supabase
+        const dbUpdates: any = {};
+        if (updates.subjectId !== undefined) dbUpdates.subject_id = updates.subjectId;
+        if (updates.goalId !== undefined) dbUpdates.goal_id = updates.goalId;
+        if (updates.dueDate !== undefined) dbUpdates.due_date = updates.dueDate;
+        if (updates.title !== undefined) dbUpdates.title = updates.title;
+        if (updates.status !== undefined) dbUpdates.status = updates.status;
+        if (updates.priority !== undefined) dbUpdates.priority = updates.priority;
+        if (updates.completed !== undefined) dbUpdates.completed = updates.completed;
+
+        console.log('🔍 Updating task:', id, 'with dbUpdates:', dbUpdates);
+        const { data, error } = await supabase.from('tasks').update(dbUpdates).eq('id', id).select();
+        console.log('✅ Update result:', { data, error });
+
         setTasks(tasks.map(t => t.id === id ? { ...t, ...updates } : t));
     };
 
@@ -255,9 +271,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const toggleTask = async (id: string) => {
         const task = tasks.find(t => t.id === id);
         if (!task) return;
+
         const newCompleted = !task.completed;
-        await updateTask(id, { completed: newCompleted, status: newCompleted ? 'completed' : 'todo' });
-        if (newCompleted) await awardXP(50);
+
+        // Update task - use 'done' status as per database constraint
+        await updateTask(id, { completed: newCompleted, status: newCompleted ? 'done' : 'todo' });
+
+        // Award XP only if newly completed (not if unchecking)
+        if (newCompleted) {
+            await awardXP(50);
+        }
     };
 
     const updateTaskStatus = async (id: string, status: string) => {
@@ -423,6 +446,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         isActive: boolean;
         mode: 'focus' | 'short_break' | 'long_break';
         selectedSubjectId: string | null;
+        selectedTaskId: string | null;
         lastUpdated?: number;
         isSessionCompleted: boolean;
         bgSound: string;
@@ -455,6 +479,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             isActive: false,
             mode: 'focus',
             selectedSubjectId: null,
+            selectedTaskId: null,
             isSessionCompleted: false,
             bgSound: 'none',
             isMuted: false
@@ -501,7 +526,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const initial = mode === 'focus' ? 25 * 60 : mode === 'short_break' ? 5 * 60 : 15 * 60;
         setFocusState(prev => ({ ...prev, mode, isActive: false, isSessionCompleted: false, timeLeft: initial }));
     };
+
     const setFocusSubject = (id: string) => setFocusState(prev => ({ ...prev, selectedSubjectId: id }));
+    const setFocusTask = (id: string | null) => setFocusState(prev => ({ ...prev, selectedTaskId: id }));
     const setBgSound = (sound: string) => setFocusState(prev => ({ ...prev, bgSound: sound }));
     const setMuted = (muted: boolean) => setFocusState(prev => ({ ...prev, isMuted: muted }));
 
@@ -529,7 +556,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             addNote, updateNote, deleteNote,
             addSession,
             updateSettings, awardXP, refreshData: fetchData,
-            focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setBgSound, setMuted,
+            focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted,
             getRank
         }}>
             {children}
