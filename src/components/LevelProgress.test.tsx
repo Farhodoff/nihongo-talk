@@ -7,15 +7,15 @@ vi.mock('../context/StudyPlannerContext', async () => {
     const actual = await vi.importActual('../context/StudyPlannerContext');
     return {
         ...actual,
-        useStudyPlanner: vi.fn()
+        useStudyData: vi.fn()
     };
 });
 
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 describe('LevelProgress Component', () => {
     it('should render level 1 for 0 XP', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -32,7 +32,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should display current XP', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -50,7 +50,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should display XP to next level', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -66,7 +66,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should display current streak', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -82,7 +82,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should render level 2 for 500 XP', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -99,7 +99,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should render level 5 for 5000 XP', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -116,7 +116,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should handle undefined totalXp gracefully', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -132,7 +132,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should display 0 streak when currentStreak is undefined', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,
@@ -148,7 +148,7 @@ describe('LevelProgress Component', () => {
     });
 
     it('should render progress bar', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             settings: {
                 theme: 'light',
                 notificationsEnabled: true,

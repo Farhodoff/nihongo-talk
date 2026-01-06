@@ -2,14 +2,14 @@ import { ArrowLeft } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const FlashcardForm: React.FC = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const defaultSubjectId = searchParams.get('subjectId') || '';
 
-    const { addFlashcard, subjects } = useStudyPlanner();
+    const { addFlashcard, subjects } = useStudyData();
 
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');

@@ -2,10 +2,10 @@ import { BookOpen, MapPin, Plus, Trash2, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const SubjectsPage: React.FC = () => {
-    const { subjects, addSubject, deleteSubject } = useStudyPlanner();
+    const { subjects, addSubject, deleteSubject } = useStudyData();
     const [isAdding, setIsAdding] = useState(false);
 
     // Form State

@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const NoteEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { notes, subjects, addNote, updateNote } = useStudyPlanner();
+    const { notes, subjects, addNote, updateNote } = useStudyData();
 
     const isNew = !id || id === 'new';
 

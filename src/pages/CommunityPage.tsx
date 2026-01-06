@@ -30,7 +30,7 @@ const ROOMS = [
 ];
 
 const CommunityPage: React.FC = () => {
-    // const { settings } = useStudyPlanner();
+    // const { settings } = useStudyData();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'leaderboard' | 'rooms' | 'chat'>('leaderboard');
     const [leaderboard, setLeaderboard] = useState<CommunityUser[]>([]);

@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const DecksPage: React.FC = () => {
-    const { subjects, flashcards } = useStudyPlanner();
+    const { flashcards } = useStudyData();
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
+
+    // Subjects feature is not yet implemented in simplified context
+    const subjects: any[] = [];
 
     return (
         <div>
@@ -34,8 +37,8 @@ const DecksPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {subjects.map(subject => {
-                    const deckCards = flashcards.filter(c => c.subjectId === subject.id);
-                    const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
+                    const deckCards = flashcards.filter(c => c.subject_id === subject.id);
+                    const dueCards = deckCards.filter(c => new Date(c.next_review_date) <= new Date());
 
                     return (
                         <div key={subject.id} className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">

@@ -1,7 +1,7 @@
 import { Bell, Key, Moon, Sun, Trash } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
 import { requestNotificationPermission } from '../utils/notifications';
 
@@ -44,7 +44,7 @@ const PasswordChangeSection = () => {
 };
 
 const SettingsPage: React.FC = () => {
-    const { settings, updateSettings, refreshData } = useStudyPlanner();
+    const { settings, updateSettings, refreshData } = useStudyData();
 
     const toggleTheme = () => {
         updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });

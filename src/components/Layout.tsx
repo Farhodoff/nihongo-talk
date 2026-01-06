@@ -1,6 +1,8 @@
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Menu, Settings, Users, X } from 'lucide-react';
 import React, { useState } from 'react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X } from 'lucide-react';
+
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import LevelUpModal from './LevelUpModal';
 import LevelProgress from './LevelProgress';
 import { SessionCompleteModal } from './SessionCompleteModal';
 
@@ -10,6 +12,7 @@ const Layout: React.FC = () => {
     const location = useLocation();
 
     const navItems = [
+        { name: 'Dashboard', path: '/dashboard', icon: Home },
         { name: 'Maqsadlar', path: '/goals', icon: Flag },
         { name: 'Fanlar', path: '/subjects', icon: BookOpen },
         { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
@@ -19,7 +22,7 @@ const Layout: React.FC = () => {
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
-        { name: 'Sozlamalar', path: '/settings', icon: Settings },
+        { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
     ];
 
     const getPageTitle = () => {
@@ -82,7 +85,8 @@ const Layout: React.FC = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 md:p-8 overflow-y-auto h-[calc(100vh-64px)] md:h-screen">
+            <main className="flex-1 overflow-y-auto p-4 md:p-8 relative">
+                <LevelUpModal />
                 <Outlet />
             </main>
             {/* Global Modals */}

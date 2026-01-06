@@ -1,96 +1,93 @@
-import { Brain, Lightbulb, Loader2, Sparkles, TrendingDown } from 'lucide-react';
+import { Brain, Lightbulb, Loader2, Sparkles } from 'lucide-react';
 import React, { useState } from 'react';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
-import { generateStudyInsight } from '../utils/ai';
-import { calculateMasteryScore } from '../utils/analytics';
+import ReactMarkdown from 'react-markdown';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { generateStudyInsights } from '../utils/aiAnalytics';
 import { Button } from './ui/Button';
 
 const SmartInsight: React.FC = () => {
-    const { sessions, subjects, tasks, settings, flashcards } = useStudyPlanner();
-    const [insights, setInsights] = useState<{ subject: string; advice: string }[]>([]);
+    const { sessions, subjects, settings } = useStudyData();
+    const [insight, setInsight] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const handleAnalyze = async () => {
+        if (!settings.googleApiKey) {
+            alert("Iltimos, avval Sozlamalar sahifasida Google API kalitini kiriting.");
+            return;
+        }
+
+        if (sessions.length < 5) {
+            alert("Tahlil uchun kamida 5 ta o'qish sessiyasi kerak. Ko'proq shug'ullaning! 📚");
+            return;
+        }
+
         setLoading(true);
         try {
-            // 1. Prepare Stats
-            const stats = subjects.map(sub => {
-                const subSessions = sessions.filter(s => s.subjectId === sub.id);
-                const subTasks = tasks.filter(t => t.subjectId === sub.id && !t.completed);
-
-                const totalHours = subSessions.reduce((acc, s) => acc + s.duration, 0) / 60;
-                const avgMood = subSessions.length > 0
-                    ? subSessions.reduce((acc, s) => acc + (s.moodAfter || 0), 0) / subSessions.length
-                    : 0;
-
-                const subjectCards = flashcards.filter(c => c.subjectId === sub.id);
-                const masteryScore = calculateMasteryScore(subjectCards);
-
-                return {
-                    subject: sub.name,
-                    hours: Number(totalHours.toFixed(1)),
-                    mood: Number(avgMood.toFixed(1)),
-                    pendingTasks: subTasks.length,
-                    masteryScore
-                };
-            });
-
-            // 2. Call AI
-            const result = await generateStudyInsight(stats, settings.googleApiKey);
-            setInsights(result);
-
-        } catch (e) {
-            alert("Tahlil qilishda xatolik yuz berdi");
+            const result = await generateStudyInsights(sessions, subjects, settings.googleApiKey);
+            setInsight(result);
+        } catch (e: any) {
+            console.error(e);
+            alert("Tahlil qilishda xatolik: " + (e.message || "Noma'lum xato"));
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg mb-8 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-[2.5rem] p-8 text-white shadow-2xl mb-8 relative overflow-hidden border border-white/10">
             {/* Decor */}
             <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Brain size={120} />
+                <Brain size={150} />
             </div>
+            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
 
             <div className="relative z-10">
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                        <h2 className="text-2xl font-bold flex items-center gap-2">
-                            <Sparkles className="text-yellow-300" /> Aqlli Analitika
+                        <h2 className="text-3xl font-bold flex items-center gap-3">
+                            <Sparkles className="text-yellow-300 animate-pulse" size={28} />
+                            AI Aqlli Tahlil
                         </h2>
-                        <p className="text-indigo-100 mt-1 max-w-lg">
-                            Sun'iy Intellekt yordamida o'zlashtirish darajangizni tahlil qiling va qaysi mavzularda oqsayotganingizni aniqlang.
+                        <p className="text-indigo-100 mt-2 text-lg max-w-xl leading-relaxed">
+                            Sun'iy intellekt sizning o'qish odatlaringizni o'rganib, samaradorlikni oshirish bo'yicha shaxsiy maslahatlar beradi.
                         </p>
                     </div>
-                    <Button
-                        onClick={handleAnalyze}
-                        disabled={loading}
-                        className="bg-white text-indigo-600 hover:bg-gray-100 border-none shadow-md"
-                    >
-                        {loading ? <Loader2 className="animate-spin" /> : 'Tahlilni Boshlash'}
-                    </Button>
+                    {!insight && (
+                        <Button
+                            onClick={handleAnalyze}
+                            disabled={loading}
+                            className="bg-white text-indigo-700 hover:bg-gray-100 border-none shadow-xl px-8 py-4 text-lg font-semibold rounded-2xl transition-all transform hover:scale-105 active:scale-95"
+                        >
+                            {loading ? (
+                                <span className="flex items-center gap-2">
+                                    <Loader2 className="animate-spin" /> Tahlil qilinmoqda...
+                                </span>
+                            ) : (
+                                '🔍 Tahlilni Boshlash'
+                            )}
+                        </Button>
+                    )}
                 </div>
 
-                {insights.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 animate-in fade-in slide-in-from-bottom-4">
-                        {insights.map((insight, idx) => (
-                            <div key={idx} className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                                <div className="flex items-center gap-2 mb-2 font-bold text-yellow-300">
-                                    <TrendingDown size={18} />
-                                    <span>{insight.subject}</span>
-                                </div>
-                                {/** Display Mastery Score if available in the text or maybe just rely on the AI text? 
-                                     The AI text serves as the qualitative feedback. 
-                                     But we can also visualize it if we mapped it back. 
-                                     For now, let's trust the AI advice. 
-                                 **/}
-                                <p className="text-white/90 text-sm leading-relaxed">
-                                    <Lightbulb size={14} className="inline mr-1" />
-                                    {insight.advice}
-                                </p>
+                {insight && (
+                    <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 border border-white/20 animate-in fade-in slide-in-from-bottom-6 shadow-inner">
+                        <div className="flex items-start gap-4">
+                            <div className="p-3 bg-yellow-400/20 rounded-2xl text-yellow-300 shrink-0">
+                                <Lightbulb size={32} />
                             </div>
-                        ))}
+                            <div className="prose prose-invert prose-lg max-w-none">
+                                <ReactMarkdown>{insight}</ReactMarkdown>
+                            </div>
+                        </div>
+                        <div className="mt-6 flex justify-end">
+                            <Button
+                                onClick={() => setInsight(null)}
+                                variant="ghost"
+                                className="text-indigo-200 hover:text-white hover:bg-white/10"
+                            >
+                                Yopish
+                            </Button>
+                        </div>
                     </div>
                 )}
             </div>

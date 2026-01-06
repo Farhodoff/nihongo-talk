@@ -1,7 +1,7 @@
-import { Bell, Music, Pause, Play, RefreshCw, Volume2, VolumeX } from 'lucide-react';
+import { Bell, CheckCircle2, Music, Pause, Play, RefreshCw, Volume2, VolumeX } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const MOODS = [
     { value: 1, label: 'Stressed', emoji: '😫' },
@@ -20,11 +20,15 @@ const SOUNDS = [
 ];
 
 const FocusPage: React.FC = () => {
-    const { subjects, addSession, awardXP, focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setBgSound, setMuted } = useStudyPlanner();
+    const { subjects, addSession, awardXP, focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setBgSound, setMuted, tasks, updateTaskStatus } = useStudyData();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);
     const [showMoodCheck, setShowMoodCheck] = useState<'before' | 'after' | null>(null);
+    const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+    // Pending Tasks
+    const pendingTasks = tasks.filter(t => t.status !== 'done' && t.status !== 'completed');
 
     // Ringtone State (removed - now in Context)
     const ringtoneRef = useRef<HTMLAudioElement | null>(null);
@@ -87,18 +91,36 @@ const FocusPage: React.FC = () => {
         }
     };
 
-    const saveSession = (moodAfterValue: number) => {
+    const saveSession = async (moodAfterValue: number) => {
+
+        let taskCompleted = false;
+
+        // If a task was selected, ask if it's done
+        if (selectedTaskId) {
+            if (window.confirm("Tanlangan vazifani tugatdingizmi?")) {
+                await updateTaskStatus(selectedTaskId, 'done');
+                taskCompleted = true;
+                // bonusXp = 50; // Task bonus (already handled in updateTaskStatus but we track here for logic if needed)
+                // Note: updateTaskStatus inside context awards XP. prevent double dipping if context does it.
+                // Yes, context's updateTaskStatus awards 50 XP.
+            }
+        }
+
         addSession({
-            subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date().toISOString(), // This is approximate end time as start? Or we should track start time. 
-            // For simplicity, we log it now. Ideally we track start time in global state too.
+            subject_id: focusState.selectedSubjectId || undefined,
+            start_time: new Date().toISOString(),
             duration: 25,
             type: 'focus',
             completed: true,
-            moodBefore: moodBefore || undefined,
-            moodAfter: moodAfterValue
+            mood_before: moodBefore || undefined,
+            mood_after: moodAfterValue
         });
-        awardXP(250);
+
+        // Base session XP
+        await awardXP(250);
+
+        // Reset selection
+        if (taskCompleted) setSelectedTaskId(null);
     };
 
 
@@ -133,6 +155,29 @@ const FocusPage: React.FC = () => {
                     <button onClick={() => setShowMoodCheck(null)} className="mt-8 text-gray-400">O'tkazib yuborish</button>
                 </div>
             )}
+
+            {/* Task Selector (New) */}
+            <div className="w-full max-w-sm mb-6">
+                <label className="block text-xs font-bold text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-widest text-center">
+                    Hozir nima ustida ishlayapsiz?
+                </label>
+                <div className="relative">
+                    <select
+                        value={selectedTaskId || ''}
+                        onChange={(e) => setSelectedTaskId(e.target.value)}
+                        className="w-full pl-4 pr-10 py-3 bg-white dark:bg-gray-800 border-none rounded-2xl shadow-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all"
+                        disabled={focusState.isActive}
+                    >
+                        <option value="">Shunchaki fokuslanish...</option>
+                        {pendingTasks.map(task => (
+                            <option key={task.id} value={task.id}>{task.title}</option>
+                        ))}
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                        <CheckCircle2 size={16} />
+                    </div>
+                </div>
+            </div>
 
             <div className="mb-4 text-center">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Fokus Mod</h2>

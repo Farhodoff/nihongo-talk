@@ -1,10 +1,10 @@
 import { Flame } from 'lucide-react';
 import React from 'react';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { getLevelInfo } from '../utils/gamification';
 
 const LevelProgress: React.FC = () => {
-    const { settings } = useStudyPlanner();
+    const { settings } = useStudyData();
     const { level, title, progress, currentXp, xpToNext } = getLevelInfo(settings.totalXp || 0);
 
     return (

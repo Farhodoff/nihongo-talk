@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { TaskStatus } from '../types';
 import { sendNotification } from '../utils/notifications';
 import KanbanBoard from './kanban/KanbanBoard';
 
 const TasksPage: React.FC = () => {
-    const { tasks, subjects, goals, updateTask, deleteTask, toggleTask, addTask, settings, awardXP } = useStudyPlanner();
+    const { tasks, subjects, goals, updateTask, deleteTask, toggleTask, addTask, settings, awardXP } = useStudyData();
     const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
 
     // New Task Form

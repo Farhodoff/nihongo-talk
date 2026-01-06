@@ -4,10 +4,10 @@ import { SessionCompleteModal } from './SessionCompleteModal';
 
 // Mock the context
 vi.mock('../context/StudyPlannerContext', () => ({
-    useStudyPlanner: vi.fn()
+    useStudyData: vi.fn()
 }));
 
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 describe('SessionCompleteModal Component', () => {
     const mockAddSession = vi.fn();
@@ -19,7 +19,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should not render when session is not completed', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: false,
                 mode: 'focus',
@@ -35,7 +35,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should not render when mode is not focus', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'short_break',
@@ -51,7 +51,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should render when session is completed and mode is focus', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -67,7 +67,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should display congratulations message', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -83,7 +83,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should render all mood options', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -103,7 +103,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should allow selecting a mood', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -123,7 +123,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should have save button disabled when no mood selected', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -140,7 +140,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should enable save button when mood is selected', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -160,7 +160,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should call addSession, awardXP, and resetTimer when save is clicked', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -195,7 +195,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should call resetTimer when skip is clicked', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
@@ -216,7 +216,7 @@ describe('SessionCompleteModal Component', () => {
     });
 
     it('should use default mood (3) when saving without selection', () => {
-        vi.mocked(useStudyPlanner).mockReturnValue({
+        vi.mocked(useStudyData).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',

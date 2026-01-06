@@ -4,14 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ResourceRecommendations from '../components/ResourceRecommendations';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
 // Removed generateResourcesWithAI import as distinct logic is now in the component
 
 const SubjectDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { subjects, tasks, toggleTask, deleteSubject, flashcards } = useStudyPlanner();
+    const { subjects, tasks, toggleTask, deleteSubject, flashcards } = useStudyData();
     const [activeTab, setActiveTab] = useState<'tasks' | 'resources'>('tasks');
 
     // Removed local resource state, now handled by child component

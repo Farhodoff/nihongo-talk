@@ -7,14 +7,14 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import CustomToolbar from '../components/CustomToolbar';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import '../styles/calendar.css';
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 const CalendarPage: React.FC = () => {
-    const { tasks, updateTask, deleteTask } = useStudyPlanner();
+    const { tasks, updateTask, deleteTask } = useStudyData();
     const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
     const events = tasks.map(task => ({

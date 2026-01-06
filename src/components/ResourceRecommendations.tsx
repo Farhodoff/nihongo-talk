@@ -1,6 +1,6 @@
 import { BookOpen, FileText, GraduationCap, Loader2, Search, Video } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { SmartResource, recommendResourcesWithAI } from '../utils/ai';
 import { Button } from './ui/Button';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ResourceRecommendations: React.FC<Props> = ({ initialTopic }) => {
-    const { settings } = useStudyPlanner();
+    const { settings } = useStudyData();
     const [query, setQuery] = useState(initialTopic);
     const [resources, setResources] = useState<SmartResource[]>([]);
     const [loading, setLoading] = useState(false);

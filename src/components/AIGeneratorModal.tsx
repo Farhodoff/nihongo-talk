@@ -1,7 +1,7 @@
 import { Bot, Loader2, Save, Sparkles, X } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { generateFlashcardsWithAI } from '../utils/ai';
 
 interface AIGeneratorModalProps {
@@ -11,7 +11,7 @@ interface AIGeneratorModalProps {
 }
 
 const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, subjectId: propSubjectId }) => {
-    const { addFlashcard, settings, subjects } = useStudyPlanner();
+    const { addFlashcard, settings, subjects } = useStudyData();
     const [topic, setTopic] = useState('');
     const [subjectId, setSubjectId] = useState(propSubjectId || '');
     const [count, setCount] = useState(5);
@@ -43,10 +43,12 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         if (!subjectId) return;
         generatedCards.forEach(card => {
             addFlashcard({
-                subjectId,
+                subject_id: subjectId,
                 front: card.front,
-                back: card.back
-            });
+                back: card.back,
+                // Add default values for required fields if needed, or rely on addFlashcard implementation
+                // Assuming addFlashcard handles ID and dates
+            } as any); // Using 'as any' temporarily if full type isn't matched or if addFlashcard signature is partial
         });
         onClose();
         // Reset state
@@ -74,8 +76,9 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                         <div className="space-y-6">
                             {!propSubjectId && (
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fan</label>
+                                    <label htmlFor="subject-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fan</label>
                                     <select
+                                        id="subject-select"
                                         value={subjectId}
                                         onChange={(e) => setSubjectId(e.target.value)}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
@@ -87,10 +90,11 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                             )}
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label htmlFor="topic-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Mavzu yoki Matn:
                                 </label>
                                 <textarea
+                                    id="topic-input"
                                     value={topic}
                                     onChange={(e) => setTopic(e.target.value)}
                                     placeholder="Mavzu nomini yozing (masalan: 'Python Asoslari') yoki o'quv materialini shu yerga nusxalab qo'ying..."
@@ -100,8 +104,9 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Kartalar soni:</label>
+                                <label htmlFor="count-select" className="text-sm font-medium text-gray-700 dark:text-gray-300">Kartalar soni:</label>
                                 <select
+                                    id="count-select"
                                     value={count}
                                     onChange={(e) => setCount(Number(e.target.value))}
                                     className="px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border-none outline-none"

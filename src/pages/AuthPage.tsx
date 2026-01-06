@@ -1,16 +1,18 @@
-import { Loader2, Lock, Mail, User } from 'lucide-react';
+import { Loader2, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
 
 const AuthPage: React.FC = () => {
-    // const navigate = useNavigate(); // Navigation handled by App.tsx state change
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    // Parolni ko'rsatish/yashirish uchun state
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -24,7 +26,6 @@ const AuthPage: React.FC = () => {
                     password,
                 });
                 if (error) throw error;
-                // Navigation will be handled by App.tsx listener
             } else {
                 const { error } = await supabase.auth.signUp({
                     email,
@@ -105,14 +106,22 @@ const AuthPage: React.FC = () => {
                         <div className="relative">
                             <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"} // Dinamik o'zgarish
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
                             />
+                            {/* Ko'zcha tugmasi */}
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-500 transition-colors focus:outline-none"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
                     </div>
 
@@ -123,8 +132,11 @@ const AuthPage: React.FC = () => {
 
                 <div className="mt-6 text-center">
                     <button
-                        onClick={() => setIsLogin(!isLogin)}
-                        className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                        onClick={() => {
+                            setIsLogin(!isLogin);
+                            setError('');
+                        }}
+                        className="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
                     >
                         {isLogin ? "Akkauntingiz yo'qmi? Ro'yxatdan o'tish" : 'Akkauntingiz bormi? Kirish'}
                     </button>

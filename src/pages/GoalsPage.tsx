@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import AIPlanModal from '../components/AIPlanModal';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const GoalsPage: React.FC = () => {
-    const { goals, addGoal, deleteGoal, updateGoal } = useStudyPlanner();
+    const { goals, addGoal, deleteGoal, updateGoal } = useStudyData();
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAIModalOpen, setAIModalOpen] = useState(false);
     const [newTitle, setNewTitle] = useState('');

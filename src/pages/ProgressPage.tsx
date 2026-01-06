@@ -2,11 +2,11 @@ import { Clock, Flame, Smile, TrendingUp } from 'lucide-react';
 import React from 'react';
 import { Bar, CartesianGrid, Cell, Legend, Pie, PieChart, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import SmartInsight from '../components/SmartInsight';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
 
 const ProgressPage: React.FC = () => {
-    const { sessions, subjects, tasks, settings, flashcards } = useStudyPlanner();
+    const { sessions, subjects, tasks, settings, flashcards } = useStudyData();
 
     // 1. Weekly Activity Data
     const getWeeklyData = () => {
@@ -18,7 +18,7 @@ const ProgressPage: React.FC = () => {
         oneWeekAgo.setDate(now.getDate() - 7);
 
         sessions.forEach(session => {
-            const date = new Date(session.startTime);
+            const date = new Date(session.start_time);
             if (date >= oneWeekAgo) {
                 const dayIndex = date.getDay();
                 data[dayIndex].hours += (session.duration / 60);
@@ -33,7 +33,7 @@ const ProgressPage: React.FC = () => {
     const getSubjectData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectSessions = sessions.filter(s => s.subjectId === subject.id);
+            const subjectSessions = sessions.filter(s => s.subject_id === subject.id);
             const totalMinutes = subjectSessions.reduce((acc, s) => acc + s.duration, 0);
             if (totalMinutes > 0) {
                 data.push({
@@ -51,7 +51,7 @@ const ProgressPage: React.FC = () => {
         const hours = Array.from({ length: 24 }, (_, i) => ({ name: i, value: 0 }));
 
         sessions.forEach(session => {
-            const date = new Date(session.startTime);
+            const date = new Date(session.start_time);
             const hour = date.getHours();
             hours[hour].value += session.duration; // Total minutes studied at this hour
         });
@@ -66,9 +66,9 @@ const ProgressPage: React.FC = () => {
     const getSubjectMoodData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectSessions = sessions.filter(s => s.subjectId === subject.id && s.moodAfter);
+            const subjectSessions = sessions.filter(s => s.subject_id === subject.id && s.mood_after);
             if (subjectSessions.length > 0) {
-                const totalMood = subjectSessions.reduce((acc, s) => acc + (s.moodAfter || 0), 0);
+                const totalMood = subjectSessions.reduce((acc, s) => acc + (s.mood_after || 0), 0);
                 const avgMood = totalMood / subjectSessions.length;
                 data.push({
                     name: subject.name,
@@ -84,7 +84,7 @@ const ProgressPage: React.FC = () => {
     const getSubjectMasteryData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
+            const subjectCards = flashcards.filter(c => c.subject_id === subject.id);
             if (subjectCards.length > 0) {
                 const score = calculateMasteryScore(subjectCards);
                 data.push({
@@ -155,8 +155,8 @@ const ProgressPage: React.FC = () => {
                 {/* 1. Weekly Activity */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Haftalik Faoliyat (Soatlar)</h3>
-                    <div className="h-64">
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <ReBarChart data={getWeeklyData()}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
@@ -171,8 +171,8 @@ const ProgressPage: React.FC = () => {
                 {/* 2. Hourly Productivity (New) */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Unumli Soatlar (Jami Daqiqalar)</h3>
-                    <div className="h-64">
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <ReBarChart data={getHourlyData()}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} interval={3} />
@@ -189,8 +189,8 @@ const ProgressPage: React.FC = () => {
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                         <Smile size={20} className="text-yellow-500" /> Fanlar bo'yicha O'rtacha Kayfiyat
                     </h3>
-                    <div className="h-64">
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <ReBarChart data={getSubjectMoodData()} layout="vertical">
                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
                                 <XAxis type="number" domain={[0, 5]} hide />
@@ -212,8 +212,8 @@ const ProgressPage: React.FC = () => {
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                         <TrendingUp size={20} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
                     </h3>
-                    <div className="h-64">
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <ReBarChart data={getSubjectMasteryData()}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
@@ -232,8 +232,8 @@ const ProgressPage: React.FC = () => {
                 {/* 5. Subject Distribution (Renumbered) */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fanlar bo'yicha Jami Vaqt</h3>
-                    <div className="h-64">
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <PieChart>
                                 <Pie
                                     data={getSubjectData()}

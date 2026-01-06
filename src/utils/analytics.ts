@@ -1,4 +1,5 @@
-import { Flashcard, Subject } from '../types';
+import { Flashcard } from '../context/StudyPlannerContext';
+import { Subject } from '../types';
 
 /**
  * Calculates a mastery score (0-100) for a given set of flashcards.
@@ -11,28 +12,23 @@ export const calculateMasteryScore = (cards: Flashcard[]): number => {
 
     cards.forEach(card => {
         // New cards or never reviewed
-        if (card.repetitions === 0) {
+        if (!card.repetitions || card.repetitions === 0) {
             totalScore += 0;
             return;
         }
 
         // Interval based scoring
-        // > 21 days: Solidly mastered (100%)
-        // > 14 days: Very good (85%)
-        // > 6 days: Learning well (60%)
-        // > 3 days: Getting there (40%)
-        // > 1 day: Just reviewed / Weak (20%)
-        // <= 1 day: Struggling (10%)
+        const interval = card.interval || 0;
 
-        if (card.interval >= 21) {
+        if (interval >= 21) {
             totalScore += 100;
-        } else if (card.interval >= 14) {
+        } else if (interval >= 14) {
             totalScore += 85;
-        } else if (card.interval >= 7) {
+        } else if (interval >= 7) {
             totalScore += 60;
-        } else if (card.interval >= 3) {
+        } else if (interval >= 3) {
             totalScore += 40;
-        } else if (card.interval > 1) {
+        } else if (interval > 1) {
             totalScore += 20;
         } else {
             totalScore += 10;
@@ -53,11 +49,11 @@ export interface SubjectAnalytics {
 
 export const getSubjectAnalytics = (subjects: Subject[], flashcards: Flashcard[]): SubjectAnalytics[] => {
     return subjects.map(subject => {
-        const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
+        const subjectCards = flashcards.filter(c => c.subject_id === subject.id);
         const masteryScore = calculateMasteryScore(subjectCards);
 
-        const masteredCards = subjectCards.filter(c => c.interval >= 21).length;
-        const strugglingCards = subjectCards.filter(c => c.interval <= 1 && c.repetitions > 0).length;
+        const masteredCards = subjectCards.filter(c => (c.interval || 0) >= 21).length;
+        const strugglingCards = subjectCards.filter(c => (c.interval || 0) <= 1 && (c.repetitions || 0) > 0).length;
 
         return {
             subjectId: subject.id,

@@ -2,10 +2,10 @@ import { Edit, FileText, Plus, Search, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const NotesPage: React.FC = () => {
-    const { notes, subjects, deleteNote } = useStudyPlanner();
+    const { notes, subjects, deleteNote } = useStudyData();
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
 

@@ -8,6 +8,7 @@ import { supabase } from './lib/supabase';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 const DecksPage = lazy(() => import('./pages/DecksPage'));
@@ -75,7 +76,8 @@ const App: React.FC = () => {
                         <Suspense fallback={<PageLoader />}>
                             <Routes>
                                 <Route path="/" element={<Layout />}>
-                                    <Route index element={<Navigate to="/tasks" replace />} />
+                                    <Route index element={<Navigate to="/dashboard" replace />} />
+                                    <Route path="dashboard" element={<DashboardPage />} />
                                     <Route path="calendar" element={<CalendarPage />} />
                                     <Route path="subjects" element={<SubjectsPage />} />
                                     <Route path="subjects/:id" element={<SubjectDetailPage />} />

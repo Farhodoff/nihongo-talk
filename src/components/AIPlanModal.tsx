@@ -1,8 +1,8 @@
-import { Loader2, Sparkles } from 'lucide-react';
+import { BookOpen, Loader2, Sparkles, Youtube } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
-import { useStudyPlanner } from '../context/StudyPlannerContext';
-import { generateStudyPlanWithAI } from '../utils/ai';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { generateFullStudyPlan, SmartResource } from '../utils/ai';
 
 interface AIPlanModalProps {
     isOpen: boolean;
@@ -10,13 +10,16 @@ interface AIPlanModalProps {
 }
 
 const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
-    const { subjects, addTask, awardXP, settings } = useStudyPlanner();
+    const { subjects, addTask, awardXP, settings, addGoal, addNote } = useStudyData();
     const [topic, setTopic] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
     const [examDate, setExamDate] = useState('');
     const [hoursPerDay, setHoursPerDay] = useState(2);
     const [isLoading, setIsLoading] = useState(false);
     const [previewTasks, setPreviewTasks] = useState<any[]>([]);
+    const [resources, setResources] = useState<SmartResource[]>([]);
+    const [createGoal, setCreateGoal] = useState(true);
+    const [activeTab, setActiveTab] = useState<'plan' | 'resources'>('plan');
 
     if (!isOpen) return null;
 
@@ -37,17 +40,45 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
 
         setIsLoading(true);
         try {
-            const plan = await generateStudyPlanWithAI(effectiveTopic, days, hoursPerDay, settings.googleApiKey);
-            setPreviewTasks(plan);
+            // Optimized: Single API call for both Plan and Resources
+            const fullPlan = await generateFullStudyPlan(effectiveTopic, days, hoursPerDay, settings.googleApiKey);
+
+            setPreviewTasks(fullPlan.schedule || []);
+            setResources(fullPlan.resources || []);
+            setActiveTab('plan');
         } catch (error: any) {
             console.error(error);
-            alert(`Xatolik: ${error.message || 'AI xizmatida muammo yuz berdi'}. Iltimos, birozdan so'ng urinib ko'ring.`);
+            const isRateLimit = error.message?.includes('429') || error.message?.includes('quota');
+            const message = isRateLimit
+                ? "AI hozir band. Iltimos keyinroq urinib ko'ring."
+                : `Xatolik: ${error.message || 'AI xizmatida muammo yuz berdi'}.`;
+
+            alert(message);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
+        const effectiveTopic = topic || subjects.find(s => s.id === selectedSubject)?.name || 'Study Plan';
+        let goalId: string | undefined = undefined;
+        let subjectId = selectedSubject || undefined;
+
+        // 1. Create Goal if requested
+        if (createGoal) {
+            const newGoal = await addGoal({
+                title: effectiveTopic,
+                description: `AI Generated Plan for ${effectiveTopic}`,
+                target_date: examDate || undefined,
+                progress: 0,
+                color: '#6366f1' // Default indigo
+            });
+            if (newGoal) {
+                goalId = newGoal.id;
+            }
+        }
+
+        // 2. Save Tasks (Linked to Goal if created)
         previewTasks.forEach(item => {
             const date = new Date();
             date.setDate(date.getDate() + item.dayOffset);
@@ -56,17 +87,29 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                 title: item.description ? `${item.title}: ${item.description}` : item.title,
                 priority: 'medium',
                 status: 'todo',
-                subjectId: selectedSubject || undefined,
-                deadline: date.toISOString(), // Use deadline for scheduling
+                subject_id: subjectId,
+                goal_id: goalId, // Now properly linked!
+                due_date: date.toISOString(), // Use due_date as per schema
                 completed: false
             });
         });
+
+        // 3. Save Resources as Note
+        if (resources.length > 0) {
+            const content = resources.map(r => `## ${r.title} (${r.type})\n${r.description}\n[Link](${r.link})`).join('\n\n');
+            addNote({
+                title: `📚 Resources: ${effectiveTopic}`,
+                content: content,
+                subject_id: subjectId || undefined,
+            });
+        }
 
         // Bonus XP for using AI Planner
         awardXP(100);
 
         onClose();
         setPreviewTasks([]);
+        setResources([]);
         setTopic('');
     };
 
@@ -132,35 +175,86 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                             </div>
 
                             <Button onClick={handleGenerate} disabled={isLoading || (!topic && !selectedSubject)} className="w-full py-4 mt-4 bg-indigo-600 hover:bg-indigo-700">
-                                {isLoading ? <span className="flex items-center gap-2"><Loader2 className="animate-spin" /> O'ylanmoqda...</span> : 'Reja Yaratish'}
+                                {isLoading ? <span className="flex items-center gap-2"><Loader2 className="animate-spin" /> Sun'iy Intellekt Ishlamoqda...</span> : 'Reja Yaratish'}
                             </Button>
                         </div>
                     ) : (
-                        <div className="space-y-4">
-                            <h3 className="font-bold text-gray-900 dark:text-white">Rejani Ko'rish ({previewTasks.length} vazifalar)</h3>
-                            <div className="space-y-4">
-                                {previewTasks.map((t, idx) => (
-                                    <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-indigo-200 transition-colors">
-                                        <div className="flex justify-between items-start mb-1">
-                                            <span className="font-semibold text-gray-900 dark:text-white">{t.title}</span>
-                                            <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
-                                                Kun {t.dayOffset + 1}
-                                            </span>
-                                        </div>
-                                        {t.description && (
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                                                {t.description}
-                                            </p>
-                                        )}
-                                        <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
-                                            <span>⏱ {t.duration} daqiqa</span>
-                                        </div>
-                                    </div>
-                                ))}
+                        <div className="space-y-4 h-full flex flex-col">
+                            <div className="flex items-center justify-between">
+                                <h3 className="font-bold text-gray-900 dark:text-white">Natija ({previewTasks.length} vazifa)</h3>
+                                <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+                                    <button
+                                        onClick={() => setActiveTab('plan')}
+                                        className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${activeTab === 'plan' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                    >
+                                        Reja
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab('resources')}
+                                        className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${activeTab === 'resources' ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                    >
+                                        Resurslar
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex gap-4 pt-4">
-                                <Button variant="secondary" onClick={() => setPreviewTasks([])} className="flex-1">Orqaga</Button>
-                                <Button onClick={handleConfirm} className="flex-1 bg-green-600 hover:bg-green-700">Rejani Qabul Qilish</Button>
+
+                            <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+                                {activeTab === 'plan' ? (
+                                    previewTasks.map((t, idx) => (
+                                        <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-indigo-200 transition-colors">
+                                            <div className="flex justify-between items-start mb-1">
+                                                <span className="font-semibold text-gray-900 dark:text-white">{t.title}</span>
+                                                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded">
+                                                    Kun {t.dayOffset + 1}
+                                                </span>
+                                            </div>
+                                            {t.description && (
+                                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                                                    {t.description}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="grid gap-3">
+                                        {resources.map((r, idx) => (
+                                            <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+                                                <div className="flex items-start gap-3">
+                                                    <div className={`p-2 rounded-lg ${r.type === 'video' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}`}>
+                                                        {r.type === 'video' ? <Youtube size={20} /> : <BookOpen size={20} />}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-gray-900 dark:text-white text-sm">{r.title}</h4>
+                                                        <p className="text-xs text-gray-500 mt-1 mb-2">{r.description}</p>
+                                                        <a href={r.link} target="_blank" rel="noopener noreferrer" className="text-xs text-indigo-500 hover:underline">
+                                                            Ko'rish &rarr;
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <label className="flex items-center gap-2 mb-4 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800/50 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={createGoal}
+                                        onChange={(e) => setCreateGoal(e.target.checked)}
+                                        className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                                    />
+                                    <div>
+                                        <div className="font-bold text-gray-900 dark:text-white text-sm">Avtomatik Maqsad Yaratish</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400">Yangi maqsad ochib, barcha vazifalarni unga bog'laydi</div>
+                                    </div>
+                                </label>
+
+                                <div className="flex gap-4">
+                                    <Button variant="secondary" onClick={() => setPreviewTasks([])} className="flex-1">Orqaga</Button>
+                                    <Button onClick={handleConfirm} className="flex-1 bg-green-600 hover:bg-green-700">Rejani Qabul Qilish</Button>
+                                </div>
                             </div>
                         </div>
                     )}
