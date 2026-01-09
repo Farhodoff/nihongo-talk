@@ -16,6 +16,7 @@ const FlashcardForm = lazy(() => import('./pages/FlashcardForm'));
 const FocusPage = lazy(() => import('./pages/FocusPage'));
 const GoalsPage = lazy(() => import('./pages/GoalsPage'));
 const NoteEditorPage = lazy(() => import('./pages/NoteEditorPage'));
+const StudyNotesPage = lazy(() => import('./pages/StudyNotesPage'));
 const NotesPage = lazy(() => import('./pages/NotesPage'));
 const ProgressPage = lazy(() => import('./pages/ProgressPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
@@ -86,6 +87,7 @@ const App: React.FC = () => {
                                     <Route path="focus" element={<FocusPage />} />
                                     <Route path="notes" element={<NotesPage />} />
                                     <Route path="notes/:id" element={<NoteEditorPage />} />
+                                    <Route path="study-notes" element={<StudyNotesPage />} />
                                     <Route path="flashcards" element={<DecksPage />} />
                                     <Route path="flashcards/new" element={<FlashcardForm />} />
                                     <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />

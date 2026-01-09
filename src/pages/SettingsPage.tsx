@@ -1,4 +1,4 @@
-import { Bell, Key, Moon, Sun, Trash } from 'lucide-react';
+import { Bell, Key, Moon, Sun, Trash, AlertTriangle, X } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -45,6 +45,7 @@ const PasswordChangeSection = () => {
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
+    const [showClearModal, setShowClearModal] = useState(false);
 
     const toggleTheme = () => {
         updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
@@ -64,9 +65,9 @@ const SettingsPage: React.FC = () => {
     };
 
     const handleClear = async () => {
-        if (window.confirm("Ishonchingiz komilmi? Bu barcha ma'lumotlarni o'chirib yuboradi.")) {
-            await refreshData(); // This clears it based on Context logic
-        }
+        await refreshData();
+        setShowClearModal(false);
+        alert("Barcha ma'lumotlar tozalandi.");
     };
 
     return (
@@ -127,7 +128,7 @@ const SettingsPage: React.FC = () => {
                             </div>
                             <span className="font-medium text-red-600">Barcha ma'lumotlarni tozalash</span>
                         </div>
-                        <Button variant="danger" onClick={handleClear} className="px-3 py-1 text-sm">
+                        <Button variant="danger" onClick={() => setShowClearModal(true)} className="px-3 py-1 text-sm">
                             Tozalash
                         </Button>
                     </div>
@@ -189,6 +190,38 @@ const SettingsPage: React.FC = () => {
                             </span>
                         </Button>
                     </div>
+                    {/* Clear Data Modal */}
+                    {showClearModal && (
+                        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
+                            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-sm w-full p-6 relative">
+                                <button
+                                    onClick={() => setShowClearModal(false)}
+                                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                                >
+                                    <X size={24} />
+                                </button>
+
+                                <div className="flex flex-col items-center text-center mb-6">
+                                    <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full flex items-center justify-center mb-4">
+                                        <AlertTriangle size={32} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Haqiqatan ham o'chirmoqchimisiz?</h3>
+                                    <p className="text-gray-500 dark:text-gray-400 text-sm">
+                                        Bu amalni ortga qaytarib bo'lmaydi. Barcha vazifalar, fanlar va statistikalar o'chib ketadi.
+                                    </p>
+                                </div>
+
+                                <div className="flex gap-3">
+                                    <Button variant="secondary" onClick={() => setShowClearModal(false)} className="flex-1">
+                                        Bekor qilish
+                                    </Button>
+                                    <Button variant="danger" onClick={handleClear} className="flex-1">
+                                        O'chirish
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Flashcard } from '../context/StudyPlannerContext';
+import { Flashcard } from '../types';
 import { Subject } from '../types';
 
 /**
@@ -49,7 +49,7 @@ export interface SubjectAnalytics {
 
 export const getSubjectAnalytics = (subjects: Subject[], flashcards: Flashcard[]): SubjectAnalytics[] => {
     return subjects.map(subject => {
-        const subjectCards = flashcards.filter(c => c.subject_id === subject.id);
+        const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
         const masteryScore = calculateMasteryScore(subjectCards);
 
         const masteredCards = subjectCards.filter(c => (c.interval || 0) >= 21).length;

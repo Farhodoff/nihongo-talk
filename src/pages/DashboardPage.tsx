@@ -8,7 +8,7 @@ const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus } = useStudyData();
 
     // Faqat bugungi va hali bajarilmagan vazifalarni filtrlaymiz
-    const pendingTasks = tasks.filter(t => t.status !== 'done' && t.status !== 'completed');
+    const pendingTasks = tasks.filter(t => t.status !== 'done');
 
     if (loading) {
         return <div className="flex justify-center p-10"><Loader2 className="animate-spin" /></div>;

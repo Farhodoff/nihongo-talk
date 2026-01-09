@@ -75,6 +75,7 @@ const GoalsPage: React.FC = () => {
                                 onChange={(e) => updateGoal(goal.id, { progress: Number(e.target.value) })}
                                 className="w-full mt-2 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                             />
+                            <p className="text-xs text-center text-gray-400 mt-1">Suring va o'z progressingizni belgilang</p>
                         </div>
 
                         <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mt-4">

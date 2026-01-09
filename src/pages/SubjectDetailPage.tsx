@@ -4,18 +4,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ResourceRecommendations from '../components/ResourceRecommendations';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
+import SubjectNotes from '../components/SubjectNotes';
+import Whiteboard from '../components/Whiteboard';
+import WhiteboardList from '../components/WhiteboardList';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
-// Removed generateResourcesWithAI import as distinct logic is now in the component
 
 const SubjectDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { subjects, tasks, toggleTask, deleteSubject, flashcards } = useStudyData();
-    const [activeTab, setActiveTab] = useState<'tasks' | 'resources'>('tasks');
-
-    // Removed local resource state, now handled by child component
-
+    const [activeTab, setActiveTab] = useState<'tasks' | 'resources' | 'notes' | 'whiteboard'>('tasks');
+    const [selectedWhiteboardId, setSelectedWhiteboardId] = useState<string | null>(null);
 
     const subject = subjects.find(s => s.id === id);
     if (!subject) return <div>Subject not found</div>;
@@ -30,9 +30,6 @@ const SubjectDetailPage: React.FC = () => {
             navigate('/subjects');
         }
     };
-
-    // Old handleGetResources logic removed as it's now internal to ResourceRecommendations
-
 
     return (
         <div>
@@ -83,6 +80,18 @@ const SubjectDetailPage: React.FC = () => {
                 >
                     <Sparkles size={16} /> Aqlli Manbalar
                 </button>
+                <button
+                    onClick={() => setActiveTab('notes')}
+                    className={`pb-4 font-medium transition-all ${activeTab === 'notes' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
+                >
+                    Konspektlar
+                </button>
+                <button
+                    onClick={() => setActiveTab('whiteboard')}
+                    className={`pb-4 font-medium transition-all ${activeTab === 'whiteboard' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
+                >
+                    Doska
+                </button>
             </div>
 
             {activeTab === 'tasks' && (
@@ -112,6 +121,33 @@ const SubjectDetailPage: React.FC = () => {
             {activeTab === 'resources' && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <ResourceRecommendations initialTopic={subject.name} />
+                </div>
+            )}
+
+            {activeTab === 'notes' && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <SubjectNotes subjectId={subject.id} />
+                </div>
+            )}
+
+            {activeTab === 'whiteboard' && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    {selectedWhiteboardId ? (
+                        <div className="space-y-4">
+                            <button
+                                onClick={() => setSelectedWhiteboardId(null)}
+                                className="text-sm px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors"
+                            >
+                                ← Orqaga
+                            </button>
+                            <Whiteboard whiteboardId={selectedWhiteboardId} />
+                        </div>
+                    ) : (
+                        <WhiteboardList
+                            subjectId={subject.id}
+                            onSelect={(id) => setSelectedWhiteboardId(id)}
+                        />
+                    )}
                 </div>
             )}
         </div>

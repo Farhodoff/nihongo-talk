@@ -18,8 +18,8 @@ const NotesPage: React.FC = () => {
         <div>
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Qaydlar</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Bilimlaringizni saqlang.</p>
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Stikerlar</h2>
+                    <p className="text-gray-500 dark:text-gray-400 mt-1">Tezkor eslatmalar va g'oyalar.</p>
                 </div>
                 <Link to="/notes/new">
                     <Button className="flex items-center gap-2">

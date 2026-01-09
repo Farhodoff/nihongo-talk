@@ -18,7 +18,7 @@ const ProgressPage: React.FC = () => {
         oneWeekAgo.setDate(now.getDate() - 7);
 
         sessions.forEach(session => {
-            const date = new Date(session.start_time);
+            const date = new Date(session.startTime);
             if (date >= oneWeekAgo) {
                 const dayIndex = date.getDay();
                 data[dayIndex].hours += (session.duration / 60);
@@ -33,7 +33,7 @@ const ProgressPage: React.FC = () => {
     const getSubjectData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectSessions = sessions.filter(s => s.subject_id === subject.id);
+            const subjectSessions = sessions.filter(s => s.subjectId === subject.id);
             const totalMinutes = subjectSessions.reduce((acc, s) => acc + s.duration, 0);
             if (totalMinutes > 0) {
                 data.push({
@@ -51,7 +51,7 @@ const ProgressPage: React.FC = () => {
         const hours = Array.from({ length: 24 }, (_, i) => ({ name: i, value: 0 }));
 
         sessions.forEach(session => {
-            const date = new Date(session.start_time);
+            const date = new Date(session.startTime);
             const hour = date.getHours();
             hours[hour].value += session.duration; // Total minutes studied at this hour
         });
@@ -66,9 +66,9 @@ const ProgressPage: React.FC = () => {
     const getSubjectMoodData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectSessions = sessions.filter(s => s.subject_id === subject.id && s.mood_after);
+            const subjectSessions = sessions.filter(s => s.subjectId === subject.id && s.moodAfter);
             if (subjectSessions.length > 0) {
-                const totalMood = subjectSessions.reduce((acc, s) => acc + (s.mood_after || 0), 0);
+                const totalMood = subjectSessions.reduce((acc, s) => acc + (s.moodAfter || 0), 0);
                 const avgMood = totalMood / subjectSessions.length;
                 data.push({
                     name: subject.name,
@@ -84,7 +84,7 @@ const ProgressPage: React.FC = () => {
     const getSubjectMasteryData = () => {
         const data: any[] = [];
         subjects.forEach(subject => {
-            const subjectCards = flashcards.filter(c => c.subject_id === subject.id);
+            const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
             if (subjectCards.length > 0) {
                 const score = calculateMasteryScore(subjectCards);
                 data.push({

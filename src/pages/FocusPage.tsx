@@ -28,7 +28,7 @@ const FocusPage: React.FC = () => {
     // Removed local state: selectedTaskId
 
     // Pending Tasks
-    const pendingTasks = tasks.filter(t => t.status !== 'done' && t.status !== 'completed');
+    const pendingTasks = tasks.filter(t => t.status !== 'done');
 
     // Ringtone State (removed - now in Context)
     const ringtoneRef = useRef<HTMLAudioElement | null>(null);
@@ -107,13 +107,13 @@ const FocusPage: React.FC = () => {
         }
 
         addSession({
-            subject_id: focusState.selectedSubjectId || undefined,
-            start_time: new Date().toISOString(),
+            subjectId: focusState.selectedSubjectId || undefined,
+            startTime: new Date().toISOString(),
             duration: 25,
             type: 'focus',
             completed: true,
-            mood_before: moodBefore || undefined,
-            mood_after: moodAfterValue
+            moodBefore: moodBefore || undefined,
+            moodAfter: moodAfterValue
         });
 
         // Base session XP

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X } from 'lucide-react';
-
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import LevelProgress from './LevelProgress';
 import { SessionCompleteModal } from './SessionCompleteModal';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
     const location = useLocation();
+    const { focusState } = useStudyData();
+    const navigate = useNavigate();
 
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
@@ -17,7 +19,8 @@ const Layout: React.FC = () => {
         { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
         { name: 'Kalendar', path: '/calendar', icon: Calendar },
         { name: 'Fokus', path: '/focus', icon: Clock },
-        { name: 'Qaydlar', path: '/notes', icon: FileText },
+        { name: 'Stikerlar', path: '/notes', icon: FileText },
+        { name: 'Konspektlar', path: '/study-notes', icon: BookOpen },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
@@ -63,7 +66,18 @@ const Layout: React.FC = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
-                            onClick={() => setSidebarOpen(false)}
+                            onClick={(e) => {
+                                if (focusState.isActive) {
+                                    e.preventDefault();
+                                    if (window.confirm("Diqqat! Fokus rejimi faol. Agar chiqib ketsangiz, taymer to'xtaydi. Davom etasizmi?")) {
+                                        // If confirmed, navigate manually
+                                        setSidebarOpen(false);
+                                        navigate(item.path);
+                                    }
+                                } else {
+                                    setSidebarOpen(false);
+                                }
+                            }}
                             className={({ isActive }) =>
                                 `flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-4 py-3 rounded-xl transition-all ${isActive
                                     ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 font-medium'

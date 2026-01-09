@@ -21,6 +21,7 @@ export interface Task {
     priority: Priority;
     goalId?: string; // Optional link to a goal
     subjectId?: string; // Optional link to a subject
+    link?: string; // Optional URL resource
     dueDate?: string;
     deadline?: string; // Synonymous with dueDate in some legacy logic, keeping for compat
     startTime?: string;
@@ -34,8 +35,10 @@ export interface Subject {
     color: string;
     schedule: string[]; // e.g., ["Mon 10:00", "Wed 14:00"]
     goal?: string;
+    description?: string;
     teacherName?: string;
     roomLocation?: string;
+    icon?: string;
 }
 
 export interface StudySession {
@@ -55,6 +58,16 @@ export interface Note {
     title: string;
     content: string; // Markdown
     attachments: { name: string; type: 'image' | 'pdf'; url: string }[];
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface StudyNote {
+    id: string;
+    subjectId: string;
+    userId: string;
+    title: string;
+    content: string; // Markdown
     createdAt: string;
     updatedAt: string;
 }
@@ -88,3 +101,11 @@ export const PRIORITY_COLORS = {
 };
 
 export const TASK_STATUSES: TaskStatus[] = ['todo', 'in_progress', 'done'];
+
+export interface WhiteboardMetadata {
+    id: string;
+    subjectId: string;
+    userId: string;
+    title: string;
+    updatedAt: string;
+}

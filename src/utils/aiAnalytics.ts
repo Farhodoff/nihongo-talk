@@ -1,30 +1,36 @@
-import { StudySession } from '../context/StudyPlannerContext';
+import { StudySession } from '../types';
 
 export const generateStudyInsights = async (sessions: StudySession[], subjects: any[], apiKey: string) => {
     // 1. Data Aggregation
-    const nightSessions = sessions.filter(s => {
-        const hour = new Date(s.start_time).getHours();
-        return hour >= 22 || hour <= 4;
-    });
+    // completedSessions removed as unused
+    // totalStudyTime removed as unused
 
+    // Subject Breakdown logic removed as unused
+
+    // Time of Day Analysis
     const morningSessions = sessions.filter(s => {
-        const hour = new Date(s.start_time).getHours();
-        return hour >= 5 && hour <= 11;
+        const hour = new Date(s.startTime).getHours();
+        return hour >= 6 && hour < 12;
     });
 
     const afternoonSessions = sessions.filter(s => {
-        const hour = new Date(s.start_time).getHours();
-        return hour >= 12 && hour <= 17;
+        const hour = new Date(s.startTime).getHours();
+        return hour >= 12 && hour < 18;
     });
 
     const eveningSessions = sessions.filter(s => {
-        const hour = new Date(s.start_time).getHours();
-        return hour >= 18 && hour <= 21;
+        const hour = new Date(s.startTime).getHours();
+        return hour >= 18 && hour < 24;
+    });
+
+    const nightSessions = sessions.filter(s => {
+        const hour = new Date(s.startTime).getHours();
+        return hour >= 0 && hour < 6;
     });
 
     const calculateAvgMood = (sessionsArr: StudySession[]) => {
         if (sessionsArr.length === 0) return 0;
-        const total = sessionsArr.reduce((acc, s) => acc + (s.mood_after || 0), 0);
+        const total = sessionsArr.reduce((acc, s) => acc + (s.moodAfter || 0), 0);
         return (total / sessionsArr.length).toFixed(1);
     };
 
@@ -36,8 +42,8 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
     // Subject popularity
     const subjectCounts: Record<string, number> = {};
     sessions.forEach(s => {
-        if (s.subject_id) {
-            subjectCounts[s.subject_id] = (subjectCounts[s.subject_id] || 0) + 1;
+        if (s.subjectId) {
+            subjectCounts[s.subjectId] = (subjectCounts[s.subjectId] || 0) + 1;
         }
     });
 

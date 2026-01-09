@@ -1,10 +1,17 @@
-import { ArrowLeft, CheckCircle2, Loader2, Sparkles } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { useStudyData, Flashcard } from '../context/StudyPlannerContext';
-import { Rating } from '../utils/srs';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { Flashcard } from '../types';
 import { supabase } from '../lib/supabase';
+
+enum Rating {
+    AGAIN = 1,
+    HARD = 2,
+    GOOD = 3,
+    EASY = 4
+}
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
@@ -23,8 +30,10 @@ const StudyModePage: React.FC = () => {
     useEffect(() => {
         if (subjectId && flashcards.length > 0) {
             const due = flashcards.filter((c: Flashcard) =>
-                c.subject_id === subjectId && new Date(c.next_review_date) <= new Date()
+                c.subjectId === subjectId && new Date(c.nextReviewDate) <= new Date()
             );
+            // Agar bugungi kartalar bo'lmasa, hammasini o'qish uchun chiqarib berish (optional tweak)
+            // Hozircha faqat due kartalar
             setQueue([...due].sort(() => Math.random() - 0.5));
         }
     }, [subjectId, flashcards]);
@@ -85,11 +94,11 @@ const StudyModePage: React.FC = () => {
                 >
                     {/* Front */}
                     <div className="absolute inset-0 backface-hidden bg-white dark:bg-gray-800 rounded-3xl shadow-xl flex items-center justify-center p-8 border border-gray-100 dark:border-gray-700">
-                        <p className="text-3xl font-bold">{currentCard?.front}</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">{currentCard?.front}</p>
                     </div>
                     {/* Back */}
                     <div className="absolute inset-0 backface-hidden rotate-y-180 bg-indigo-50 dark:bg-gray-700 rounded-3xl shadow-xl flex items-center justify-center p-8">
-                        <p className="text-2xl font-medium">{currentCard?.back}</p>
+                        <p className="text-2xl font-medium text-gray-900 dark:text-white">{currentCard?.back}</p>
                     </div>
                 </div>
             </div>
@@ -105,7 +114,7 @@ const StudyModePage: React.FC = () => {
                             { l: 'Yaxshi', v: Rating.GOOD, c: 'bg-blue-50 text-blue-600' },
                             { l: 'Oson', v: Rating.EASY, c: 'bg-green-50 text-green-600' }
                         ].map(b => (
-                            <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs`}>
+                            <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs hover:opacity-80`}>
                                 {b.l}
                             </button>
                         ))}

@@ -69,7 +69,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
             const newGoal = await addGoal({
                 title: effectiveTopic,
                 description: `AI Generated Plan for ${effectiveTopic}`,
-                target_date: examDate || undefined,
+                deadline: examDate || new Date().toISOString(), // Fallback if no date
                 progress: 0,
                 color: '#6366f1' // Default indigo
             });
@@ -87,9 +87,9 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                 title: item.description ? `${item.title}: ${item.description}` : item.title,
                 priority: 'medium',
                 status: 'todo',
-                subject_id: subjectId,
-                goal_id: goalId, // Now properly linked!
-                due_date: date.toISOString(), // Use due_date as per schema
+                subjectId: subjectId,
+                goalId: goalId, // Now properly linked!
+                dueDate: date.toISOString(), // Use dueDate as per schema
                 completed: false
             });
         });
@@ -100,7 +100,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
             addNote({
                 title: `📚 Resources: ${effectiveTopic}`,
                 content: content,
-                subject_id: subjectId || undefined,
+                subjectId: subjectId || undefined,
             });
         }
 

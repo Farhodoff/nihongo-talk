@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { calculateMasteryScore, getSubjectAnalytics } from './analytics';
-import { Flashcard } from '../context/StudyPlannerContext';
+import { Flashcard } from '../types';
 import { Subject } from '../types';
 
 describe('Analytics Utils', () => {
@@ -14,13 +14,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 0,
                     repetitions: 0,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -31,13 +31,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 1,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -48,13 +48,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 2,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -65,13 +65,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 5,
                     repetitions: 2,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -82,13 +82,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 10,
                     repetitions: 3,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -99,13 +99,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 15,
                     repetitions: 4,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -116,13 +116,13 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 30,
                     repetitions: 5,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = calculateMasteryScore(cards);
@@ -133,23 +133,23 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 1,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }, // 10%
                 {
                     id: '2',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q2',
                     back: 'A2',
                     interval: 30,
                     repetitions: 5,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 } // 100%
             ];
             const result = calculateMasteryScore(cards);
@@ -160,33 +160,33 @@ describe('Analytics Utils', () => {
             const cards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 2,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }, // 20
                 {
                     id: '2',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q2',
                     back: 'A2',
                     interval: 5,
                     repetitions: 2,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }, // 40
                 {
                     id: '3',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q3',
                     back: 'A3',
                     interval: 10,
                     repetitions: 3,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 } // 60
             ];
             const result = calculateMasteryScore(cards);
@@ -229,23 +229,23 @@ describe('Analytics Utils', () => {
             const flashcards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 10,
                     repetitions: 3,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 },
                 {
                     id: '2',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q2',
                     back: 'A2',
                     interval: 20,
                     repetitions: 4,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = getSubjectAnalytics(subjects, flashcards);
@@ -257,23 +257,23 @@ describe('Analytics Utils', () => {
             const flashcards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 30,
                     repetitions: 5,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 },
                 {
                     id: '2',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q2',
                     back: 'A2',
                     interval: 10,
                     repetitions: 3,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = getSubjectAnalytics(subjects, flashcards);
@@ -285,23 +285,23 @@ describe('Analytics Utils', () => {
             const flashcards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 1,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 },
                 {
                     id: '2',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q2',
                     back: 'A2',
                     interval: 0,
                     repetitions: 0,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = getSubjectAnalytics(subjects, flashcards);
@@ -313,13 +313,13 @@ describe('Analytics Utils', () => {
             const flashcards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 30,
                     repetitions: 5,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }
             ];
             const result = getSubjectAnalytics(subjects, flashcards);
@@ -331,23 +331,23 @@ describe('Analytics Utils', () => {
             const flashcards: Flashcard[] = [
                 {
                     id: '1',
-                    subject_id: 'sub1',
+                    subjectId: 'sub1',
                     front: 'Q1',
                     back: 'A1',
                     interval: 30,
                     repetitions: 5,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 }, // 100%
                 {
                     id: '2',
-                    subject_id: 'sub2',
+                    subjectId: 'sub2',
                     front: 'Q2',
                     back: 'A2',
                     interval: 1,
                     repetitions: 1,
-                    ease_factor: 2.5,
-                    next_review_date: new Date().toISOString()
+                    easeFactor: 2.5,
+                    nextReviewDate: new Date().toISOString()
                 } // 10%
             ];
             const result = getSubjectAnalytics(subjects, flashcards);

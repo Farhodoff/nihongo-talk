@@ -11,6 +11,7 @@ const TasksPage: React.FC = () => {
 
     // New Task Form
     const [newTaskTitle, setNewTaskTitle] = useState('');
+    const [newTaskLink, setNewTaskLink] = useState('');
     const [selectedGoal, setSelectedGoal] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
 
@@ -27,7 +28,8 @@ const TasksPage: React.FC = () => {
             title: newTaskTitle,
             priority: 'medium',
             goalId: selectedGoal || undefined,
-            subjectId: selectedSubject || undefined
+            subjectId: selectedSubject || undefined,
+            link: newTaskLink || undefined
         });
 
         if (settings.notificationsEnabled) {
@@ -35,6 +37,7 @@ const TasksPage: React.FC = () => {
         }
 
         setNewTaskTitle('');
+        setNewTaskLink('');
     };
 
     const handleToggleTask = (taskId: string) => {
@@ -44,8 +47,6 @@ const TasksPage: React.FC = () => {
             awardXP(50);
         }
     };
-
-
 
     const getGoalTitle = (id?: string) => {
         const g = goals.find(x => x.id === id);
@@ -88,6 +89,13 @@ const TasksPage: React.FC = () => {
                         placeholder="Yangi vazifa qo'shish..."
                         className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
+                    <input
+                        type="text"
+                        value={newTaskLink}
+                        onChange={(e) => setNewTaskLink(e.target.value)}
+                        placeholder="Havola (ixtiyoriy)..."
+                        className="flex-1 md:max-w-xs px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
                     <select
                         value={selectedGoal}
                         onChange={(e) => setSelectedGoal(e.target.value)}
@@ -117,38 +125,45 @@ const TasksPage: React.FC = () => {
                     {tasks.map(task => {
                         const subject = getSubjectInfo(task.subjectId);
                         return (
-                            <div key={task.id} className={`group bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 transition-all ${task.completed ? 'opacity-50' : ''}`}>
-                                <button
-                                    onClick={() => handleToggleTask(task.id)}
-                                    className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300 dark:border-gray-600 hover:border-indigo-600'}`}
-                                >
-                                    {task.completed && <div className="w-2.5 h-2.5 bg-white rounded-sm" />}
-                                </button>
+                            <div key={task.id} className={`group bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row md:items-center gap-4 transition-all ${task.completed ? 'opacity-50' : ''}`}>
+                                <div className="flex items-center gap-4 flex-1">
+                                    <button
+                                        onClick={() => handleToggleTask(task.id)}
+                                        className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300 dark:border-gray-600 hover:border-indigo-600'}`}
+                                    >
+                                        {task.completed && <div className="w-2.5 h-2.5 bg-white rounded-sm" />}
+                                    </button>
 
-                                <div className="flex-1 min-w-0">
-                                    <p className={`font-medium text-gray-900 dark:text-white truncate ${task.completed ? 'line-through text-gray-500' : ''}`}>
-                                        {task.title}
-                                    </p>
-                                    <div className="flex items-center gap-2 mt-1">
-                                        {task.goalId && (
-                                            <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium">
-                                                {getGoalTitle(task.goalId)}
-                                            </span>
-                                        )}
-                                        {subject && (
-                                            <span
-                                                className="text-xs px-2 py-0.5 rounded-full font-medium"
-                                                style={{ backgroundColor: subject.color + '20', color: subject.color }}
-                                            >
-                                                {subject.name}
-                                            </span>
-                                        )}
+                                    <div className="flex-1 min-w-0">
+                                        <p className={`font-medium text-gray-900 dark:text-white truncate ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                                            {task.title}
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-1">
+                                            {task.link && (
+                                                <a href={task.link} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
+                                                    🔗 Havola
+                                                </a>
+                                            )}
+                                            {task.goalId && (
+                                                <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium">
+                                                    {getGoalTitle(task.goalId)}
+                                                </span>
+                                            )}
+                                            {subject && (
+                                                <span
+                                                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                                                    style={{ backgroundColor: subject.color + '20', color: subject.color }}
+                                                >
+                                                    {subject.name}
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <button
                                     onClick={() => deleteTask(task.id)}
-                                    className="opacity-0 group-hover:opacity-100 p-2 text-gray-400 hover:text-red-500 transition-all"
+                                    className="opacity-0 group-hover:opacity-100 p-2 text-gray-400 hover:text-red-500 transition-all self-end md:self-auto"
                                 >
                                     O'chirish
                                 </button>

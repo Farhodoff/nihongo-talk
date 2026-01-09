@@ -1,19 +1,21 @@
-import { Beaker, BookOpen, Calculator, Code, Globe, MapPin, Mic, Music, Palette, Plus, Trash2, User } from 'lucide-react';
+import { Atom, Beaker, BookOpen, Calculator, Code, Dumbbell, Globe, MapPin, Mic, Music, Palette, Plus, Trash2, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 
-// Icon options for subjects
+// Merged Icon options
 const SUBJECT_ICONS = [
-    { id: 'code', Icon: Code, label: 'Code' },
-    { id: 'microphone', Icon: Mic, label: 'Microphone' },
-    { id: 'globe', Icon: Globe, label: 'Globe' },
-    { id: 'book', Icon: BookOpen, label: 'Book' },
-    { id: 'calculator', Icon: Calculator, label: 'Calculator' },
-    { id: 'beaker', Icon: Beaker, label: 'Science' },
-    { id: 'music', Icon: Music, label: 'Music' },
-    { id: 'palette', Icon: Palette, label: 'Art' },
+    { id: 'book', Icon: BookOpen, label: 'Kitob' },
+    { id: 'code', Icon: Code, label: 'IT' },
+    { id: 'calculator', Icon: Calculator, label: 'Matematika' },
+    { id: 'mic', Icon: Mic, label: 'Til' },
+    { id: 'globe', Icon: Globe, label: 'Geografiya' },
+    { id: 'science', Icon: Beaker, label: 'Kimyo' },
+    { id: 'atom', Icon: Atom, label: 'Fizika' },
+    { id: 'music', Icon: Music, label: 'Musiqa' },
+    { id: 'art', Icon: Palette, label: 'San\'at' },
+    { id: 'sport', Icon: Dumbbell, label: 'Sport' },
 ];
 
 const SubjectsPage: React.FC = () => {
@@ -39,7 +41,7 @@ const SubjectsPage: React.FC = () => {
             teacherName: teacher,
             roomLocation: room,
             color,
-            schedule: []
+            schedule: [],
         });
 
         // Reset
@@ -56,8 +58,7 @@ const SubjectsPage: React.FC = () => {
         const subjectTasks = tasks.filter(t => t.subjectId === subjectId);
         const completedTasks = subjectTasks.filter(t => t.completed || t.status === 'done').length;
 
-        const subjectFlashcards = flashcards.filter(f => f.subject_id === subjectId);
-        // Assume reviewed flashcards have repetitions > 0
+        const subjectFlashcards = flashcards.filter(f => f.subjectId === subjectId);
         const reviewedCards = subjectFlashcards.filter(f => (f.repetitions || 0) > 0).length;
 
         const total = subjectTasks.length + subjectFlashcards.length;
@@ -66,7 +67,7 @@ const SubjectsPage: React.FC = () => {
         return total > 0 ? Math.round((completed / total) * 100) : 0;
     };
 
-    // Get icon component
+    // Get icon component helper
     const getIconComponent = (iconId?: string) => {
         const iconData = SUBJECT_ICONS.find(i => i.id === iconId);
         return iconData ? iconData.Icon : BookOpen;
@@ -126,26 +127,26 @@ const SubjectsPage: React.FC = () => {
                                 maxLength={100}
                                 rows={2}
                                 className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
-                                placeholder="Server-side logic, databases, and APIs."
+                                placeholder="Fan haqida qisqacha ma'lumot..."
                             />
                             <div className="text-xs text-gray-400 text-right">{description.length}/100</div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Icon</label>
-                            <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
+                            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Belgi (Ikonka)</label>
+                            <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
                                 {SUBJECT_ICONS.map(({ id, Icon, label }) => (
                                     <button
                                         key={id}
                                         type="button"
                                         onClick={() => setSelectedIcon(id)}
-                                        className={`p-3 rounded-xl border-2 transition-all ${selectedIcon === id
-                                                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                                                : 'border-gray-200 dark:border-gray-600 hover:border-indigo-300'
+                                        className={`p-2 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-1 ${selectedIcon === id
+                                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
+                                            : 'border-gray-200 dark:border-gray-600 hover:border-indigo-300'
                                             }`}
                                         title={label}
                                     >
-                                        <Icon size={24} className={selectedIcon === id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'} />
+                                        <Icon size={20} className={selectedIcon === id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'} />
                                     </button>
                                 ))}
                             </div>
@@ -210,7 +211,8 @@ const SubjectsPage: React.FC = () => {
                             <div className="relative z-10">
                                 <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
-                                        onClick={() => {
+                                        onClick={(e) => {
+                                            e.preventDefault();
                                             if (window.confirm('Fanni o\'chirasizmi?')) deleteSubject(subject.id);
                                         }}
                                         className="p-2 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
@@ -276,10 +278,17 @@ const SubjectsPage: React.FC = () => {
                 })}
 
                 {subjects.length === 0 && !isAdding && (
-                    <div className="col-span-full py-12 text-center text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-                        <BookOpen size={48} className="mx-auto mb-4 opacity-20" />
-                        <p className="text-lg font-medium">Fanlar yo'q</p>
-                        <p className="text-sm">Boshlash uchun "Fan Qo'shish" ni bosing</p>
+                    <div className="col-span-full flex flex-col items-center justify-center p-12 text-center bg-white dark:bg-[#1f2937] rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700">
+                        <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/20 rounded-full flex items-center justify-center mb-6 text-indigo-500">
+                            <BookOpen size={40} />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Hali fanlar yaratilmagan</h3>
+                        <p className="text-gray-500 dark:text-gray-400 max-w-sm mb-8">
+                            O'qish rejangizni tuzishni boshlash uchun birinchi faningizni qo'shing.
+                        </p>
+                        <Button onClick={() => setIsAdding(true)} className="px-8">
+                            <Plus size={20} className="mr-2" /> Birinchi Fanni Qo'shish
+                        </Button>
                     </div>
                 )}
             </div>
