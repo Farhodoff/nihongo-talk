@@ -140,15 +140,6 @@ const ProgressPage: React.FC = () => {
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{settings.currentStreak} Kun</h3>
                     <p className="text-sm text-gray-500">Joriy Streak</p>
                 </div>
-                <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div className="flex justify-between items-start mb-2">
-                        <div className="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg text-yellow-600 dark:text-yellow-400">
-                            <TrendingUp size={20} />
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Daraja {settings.level}</h3>
-                    <p className="text-sm text-gray-500">Jami XP: {settings.totalXp}</p>
-                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">

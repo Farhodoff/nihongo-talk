@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import LevelProgress from './LevelProgress';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import { useStudyData } from '../context/StudyPlannerContext';
 
@@ -55,10 +54,6 @@ const Layout: React.FC = () => {
                     >
                         {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
                     </button>
-                </div>
-
-                <div className={`p-4 pb-0 ${isCollapsed ? 'hidden' : 'block'}`}>
-                    <LevelProgress />
                 </div>
 
                 <nav className="flex-1 p-4 space-y-1">
