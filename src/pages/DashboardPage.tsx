@@ -1,6 +1,5 @@
 import { CheckCircle, Loader2 } from 'lucide-react';
 import React from 'react';
-import UserRankBadge from '../components/UserRankBadge';
 import CountdownWidget from '../components/CountdownWidget';
 import { useStudyData } from '../context/StudyPlannerContext';
 
@@ -17,8 +16,6 @@ const DashboardPage: React.FC = () => {
 
     return (
         <div className="p-6 max-w-5xl mx-auto">
-            <UserRankBadge />
-
             <CountdownWidget />
 
             <h1 className="text-2xl font-bold mb-6 mt-6 text-gray-900 dark:text-white">Bugungi Reja</h1>
