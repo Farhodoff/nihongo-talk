@@ -87,18 +87,30 @@ const StudyModePage: React.FC = () => {
                 <span className="text-sm font-bold text-indigo-600">{currentCardIndex + 1} / {queue.length}</span>
             </div>
 
-            <div className="perspective-1000 h-80">
+
+            {/* Professional 3D Flip Card */}
+            <div className="perspective-1000 h-96 mb-8">
                 <div
-                    className={`relative w-full h-full transition-all duration-500 transform-style-3d cursor-pointer ${isFlipped ? 'rotate-y-180' : ''}`}
-                    onClick={() => setIsFlipped(!isFlipped)}
+                    className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}
                 >
-                    {/* Front */}
-                    <div className="absolute inset-0 backface-hidden bg-white dark:bg-gray-800 rounded-3xl shadow-xl flex items-center justify-center p-8 border border-gray-100 dark:border-gray-700">
-                        <p className="text-3xl font-bold text-gray-900 dark:text-white">{currentCard?.front}</p>
+                    {/* Front Side */}
+                    <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-white to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center p-12 border-2 border-indigo-100 dark:border-gray-700">
+                        <div className="text-center">
+                            <p className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{currentCard?.front}</p>
+                            <p className="text-sm text-gray-400 mt-8">Kartani bosib javobni ko'ring</p>
+                        </div>
                     </div>
-                    {/* Back */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-indigo-50 dark:bg-gray-700 rounded-3xl shadow-xl flex items-center justify-center p-8">
-                        <p className="text-2xl font-medium text-gray-900 dark:text-white">{currentCard?.back}</p>
+
+                    {/* Back Side */}
+                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-3xl shadow-2xl flex items-center justify-center p-12">
+                        <div className="text-center text-white">
+                            <p className="text-3xl font-bold mb-4">{currentCard?.back}</p>
+                            {currentCard?.front && (
+                                <div className="mt-6 pt-6 border-t border-white/20">
+                                    <p className="text-sm opacity-80 italic">Ma'lumot: {currentCard.front}</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,24 @@ body {
     .text-gradient {
         @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600;
     }
+
+    /* 3D Transform utilities for flashcard flip */
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    .transform-style-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
 }
 
 /* Custom Scrollbar */

@@ -15,12 +15,21 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import CalendarDay from '../components/calendar/CalendarDay';
 import DraggableTask from '../components/calendar/DraggableTask';
 import AddEventModal from '../components/AddEventModal';
+import DayDetailsModal from '../components/calendar/DayDetailsModal';
 
 const CalendarPage: React.FC = () => {
     const { tasks, updateTask, sessions, events } = useStudyData();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [activeId, setActiveId] = useState<string | null>(null);
     const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
+    // Day details modal state
+    const [selectedDayData, setSelectedDayData] = useState<{
+        date: Date;
+        tasks: typeof tasks;
+        events: typeof events;
+        studyDuration: number;
+    } | null>(null);
 
     // Sensors for drag detection (Mouse + Touch)
     const sensors = useSensors(
@@ -142,6 +151,19 @@ const CalendarPage: React.FC = () => {
         }
     };
 
+    const openDayDetails = (date: Date) => {
+        setSelectedDayData({
+            date,
+            tasks: getTasksForDate(date),
+            events: getEventsForDate(date),
+            studyDuration: getStudyDurationForDate(date)
+        });
+    };
+
+    const closeDayDetails = () => {
+        setSelectedDayData(null);
+    };
+
     return (
         <div className="h-[calc(100vh-100px)] flex flex-col p-4 md:p-6 max-w-7xl mx-auto w-full">
             {/* Toolbar */}
@@ -197,6 +219,7 @@ const CalendarPage: React.FC = () => {
                             tasks={getTasksForDate(date)}
                             events={getEventsForDate(date)}
                             studyDuration={getStudyDurationForDate(date)}
+                            onShowMore={() => openDayDetails(date)}
                         />
                     ))}
                 </div>
@@ -219,6 +242,16 @@ const CalendarPage: React.FC = () => {
             <AddEventModal
                 isOpen={isEventModalOpen}
                 onClose={() => setIsEventModalOpen(false)}
+            />
+
+            {/* Day Details Modal */}
+            <DayDetailsModal
+                isOpen={selectedDayData !== null}
+                onClose={closeDayDetails}
+                date={selectedDayData?.date || null}
+                tasks={selectedDayData?.tasks || []}
+                events={selectedDayData?.events || []}
+                studyDuration={selectedDayData?.studyDuration || 0}
             />
         </div>
     );

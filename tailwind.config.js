@@ -21,7 +21,17 @@ export default {
                     card: '#f3f4f6',
                     text: '#1f2937'
                 }
-            }
+            },
+            // 3D Transform utilities for flashcard flip
+            transformStyle: {
+                '3d': 'preserve-3d',
+            },
+            backfaceVisibility: {
+                'hidden': 'hidden',
+            },
+            perspective: {
+                '1000': '1000px',
+            },
         },
     },
     plugins: [],

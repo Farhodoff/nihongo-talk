@@ -97,6 +97,55 @@ const ProgressPage: React.FC = () => {
         return data;
     };
 
+    // 6. Daily Flashcard Reviews (Last 7 days)
+    const getDailyReviewsData = () => {
+        const days = ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'];
+        const data = days.map((name, index) => ({ name, cards: 0, dayIndex: index }));
+
+        const now = new Date();
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(now.getDate() - 7);
+
+        flashcards.forEach(card => {
+            // Count cards reviewed in the last 7 days
+            if (card.repetitions > 0) {
+                // Use nextReviewDate as proxy for last review
+                const lastReview = new Date(card.nextReviewDate);
+                if (lastReview >= oneWeekAgo && lastReview <= now) {
+                    const dayIndex = lastReview.getDay();
+                    data[dayIndex].cards += 1;
+                }
+            }
+        });
+
+        return data;
+    };
+
+    // 7. Flashcard Status Distribution
+    const getFlashcardStatusData = () => {
+        const statuses = {
+            mastered: 0,  // repetitions >= 10
+            learning: 0,  // 3 <= repetitions < 10
+            new: 0        // repetitions < 3
+        };
+
+        flashcards.forEach(card => {
+            if (card.repetitions >= 10) {
+                statuses.mastered++;
+            } else if (card.repetitions >= 3) {
+                statuses.learning++;
+            } else {
+                statuses.new++;
+            }
+        });
+
+        return [
+            { name: 'Yodlangan', value: statuses.mastered, color: '#10b981' },
+            { name: "O'rganilmoqda", value: statuses.learning, color: '#f59e0b' },
+            { name: 'Yangi/Qiyin', value: statuses.new, color: '#ef4444' }
+        ].filter(item => item.value > 0); // Only show non-zero categories
+    };
+
     const totalHours = (sessions.reduce((acc, s) => acc + s.duration, 0) / 60).toFixed(1);
     const completedTasks = tasks.filter(t => t.completed).length;
 
@@ -198,29 +247,66 @@ const ProgressPage: React.FC = () => {
                     <p className="text-xs text-center text-gray-400 mt-2">Shkala: 1 (Yomon) - 5 (Zo'r)</p>
                 </div>
 
-                {/* 4. Subject Mastery (New) */}
+                {/* 5. Daily Flashcard Reviews (New) */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                        <TrendingUp size={20} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
+                        <TrendingUp size={20} className="text-purple-500" /> Kunlik Fleshkartalar
                     </h3>
                     <div className="h-64 w-full">
                         <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                            <ReBarChart data={getSubjectMasteryData()}>
+                            <ReBarChart data={getDailyReviewsData()}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} domain={[0, 100]} />
+                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
                                 <Tooltip cursor={{ fill: 'transparent' }} />
-                                <Bar dataKey="score" radius={[6, 6, 0, 0]}>
-                                    {getSubjectMasteryData().map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
-                                    ))}
-                                </Bar>
+                                <Bar dataKey="cards" fill="#a855f7" radius={[6, 6, 0, 0]} />
                             </ReBarChart>
                         </ResponsiveContainer>
                     </div>
+                    <p className="text-xs text-center text-gray-400 mt-2">Oxirgi 7 kunda ko'rib chiqilgan kartalar</p>
                 </div>
 
-                {/* 5. Subject Distribution (Renumbered) */}
+                {/* 6. Flashcard Status Distribution (New) */}
+                <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fleshkartalar Holati</h3>
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                            <PieChart>
+                                <Pie
+                                    data={getFlashcardStatusData()}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={50}
+                                    outerRadius={80}
+                                    paddingAngle={8}
+                                    dataKey="value"
+                                >
+                                    {getFlashcardStatusData().map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 mt-4 text-xs text-center">
+                        <div>
+                            <div className="w-3 h-3 rounded-full bg-green-500 mx-auto mb-1"></div>
+                            <p className="text-gray-600 dark:text-gray-400">Yodlangan (10+)</p>
+                        </div>
+                        <div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-500 mx-auto mb-1"></div>
+                            <p className="text-gray-600 dark:text-gray-400">O'rganilmoqda (3-9)</p>
+                        </div>
+                        <div>
+                            <div className="w-3 h-3 rounded-full bg-red-500 mx-auto mb-1"></div>
+                            <p className="text-gray-600 dark:text-gray-400">Yangi (<3)</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 7. Subject Distribution (Renumbered) */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fanlar bo'yicha Jami Vaqt</h3>
                     <div className="h-64 w-full">

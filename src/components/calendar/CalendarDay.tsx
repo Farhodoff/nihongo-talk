@@ -11,9 +11,10 @@ interface CalendarDayProps {
     studyDuration: number; // in minutes
     isCurrentMonth: boolean;
     isToday: boolean;
+    onShowMore?: () => void;
 }
 
-const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDuration, isCurrentMonth, isToday }) => {
+const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDuration, isCurrentMonth, isToday, onShowMore }) => {
     // Unique ID for droppable: simple date string YYYY-MM-DD
     const dateId = moment(date).format('YYYY-MM-DD');
 
@@ -35,6 +36,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDur
     };
 
     const heatmapClass = getHeatmapColor(studyDuration);
+
+    // Task display limit
+    const DISPLAY_LIMIT = 3;
+    const visibleTasks = tasks.slice(0, DISPLAY_LIMIT);
+    const remainingTasksCount = tasks.length - DISPLAY_LIMIT;
 
     return (
         <div
@@ -61,12 +67,26 @@ const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDur
 
             {/* Tasks List */}
             <div className="flex flex-col gap-1 min-h-[60px]">
-                {tasks.map(task => (
+                {visibleTasks.map(task => (
                     <DraggableTask key={task.id} task={task} />
                 ))}
 
+                {/* Show More Button */}
+                {remainingTasksCount > 0 && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onShowMore?.();
+                        }}
+                        className="text-[10px] text-purple-600 dark:text-purple-400 font-bold hover:underline hover:text-purple-700 dark:hover:text-purple-300 transition-colors text-left px-2 py-1 rounded hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                    >
+                        + {remainingTasksCount} ko'proq
+                    </button>
+                )}
+
                 {/* Event Badges */}
                 {events.map(event => (
+
                     <div
                         key={event.id}
                         className="px-2 py-1 rounded text-[10px] font-medium truncate border-l-2 shadow-sm"

@@ -113,25 +113,6 @@ const CommunityPage: React.FC = () => {
             users = data.map((u: any) => ({ ...u, isMe: user?.id === u.id }));
         }
 
-        // Dummy Data for Motivation
-        if (users.length < 3) {
-            const dummyUsers = [
-                { id: 'd1', full_name: 'Alex Johnson', level: 42, total_xp: 45000, avatar_url: '', isMe: false },
-                { id: 'd2', full_name: 'Sarah Kim', level: 38, total_xp: 38500, avatar_url: '', isMe: false },
-                { id: 'd3', full_name: 'Mike Chen', level: 35, total_xp: 32000, avatar_url: '', isMe: false }
-            ];
-
-            // Filter out existing real users from dummy slots if any collision (unlikely)
-            // But main goal is to fill top spots.
-            // If real user has low XP, they should be below dummy users? 
-            // The user wants "Top 3 ko'rsatib turing". If I just add them, they will be top.
-
-            const combined = [...users, ...dummyUsers];
-            // Sort again
-            combined.sort((a, b) => b.total_xp - a.total_xp);
-            users = combined.slice(0, 50);
-        }
-
         setLeaderboard(users);
         setLoading(false);
     };
