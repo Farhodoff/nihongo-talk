@@ -72,9 +72,38 @@ const CalendarPage: React.FC = () => {
 
     const getEventsForDate = (date: Date) => {
         const dateStr = moment(date).format('YYYY-MM-DD');
-        return events.filter(event =>
-            moment(event.eventDate).format('YYYY-MM-DD') === dateStr
-        );
+        const dateMoment = moment(date);
+
+        return events.filter(event => {
+            const eventStart = moment(event.eventDate);
+            const eventEnd = event.repetitionEndDate ? moment(event.repetitionEndDate) : null;
+
+            switch (event.repetitionType) {
+                case 'daily':
+                    // Show on all days from start to end
+                    if (dateMoment.isBefore(eventStart, 'day')) return false;
+                    if (eventEnd && dateMoment.isAfter(eventEnd, 'day')) return false;
+                    return true;
+
+                case 'weekly':
+                    // Show only on selected weekdays
+                    if (dateMoment.isBefore(eventStart, 'day')) return false;
+                    if (eventEnd && dateMoment.isAfter(eventEnd, 'day')) return false;
+                    const dayOfWeek = date.getDay();
+                    return event.repetitionDays?.includes(dayOfWeek) || false;
+
+                case 'monthly':
+                    // Show on same day-of-month
+                    if (dateMoment.isBefore(eventStart, 'day')) return false;
+                    if (eventEnd && dateMoment.isAfter(eventEnd, 'day')) return false;
+                    return date.getDate() === eventStart.date();
+
+                case 'none':
+                default:
+                    // One-time event: exact date match
+                    return moment(event.eventDate).format('YYYY-MM-DD') === dateStr;
+            }
+        });
     };
 
     // Handlers

@@ -111,6 +111,7 @@ export interface WhiteboardMetadata {
 }
 
 export type EventType = 'jdu' | 'career' | 'jlpt' | 'personal';
+export type RepetitionType = 'none' | 'daily' | 'weekly' | 'monthly';
 
 export interface Event {
     id: string;
@@ -121,6 +122,9 @@ export interface Event {
     eventDate: string; // ISO DateTime
     notifyBeforeMinutes: number;
     isNotified: boolean;
+    repetitionType: RepetitionType;
+    repetitionEndDate?: string; // Optional end date for recurring events
+    repetitionDays?: number[]; // For weekly: which days (0=Sunday, 6=Saturday)
     createdAt: string;
     updatedAt: string;
 }
@@ -138,3 +142,12 @@ export const EVENT_TYPE_LABELS = {
     jlpt: '🇯🇵 JLPT',
     personal: '🏠 Shaxsiy'
 };
+
+export const REPETITION_LABELS = {
+    none: 'Bir marta',
+    daily: 'Har kuni',
+    weekly: 'Har hafta',
+    monthly: 'Har oy'
+};
+
+export const WEEKDAY_LABELS = ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'];

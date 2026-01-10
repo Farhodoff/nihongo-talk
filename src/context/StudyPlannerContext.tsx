@@ -239,6 +239,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     eventDate: e.event_date,
                     notifyBeforeMinutes: e.notify_before_minutes,
                     isNotified: e.is_notified,
+                    repetitionType: e.repetition_type || 'none',
+                    repetitionEndDate: e.repetition_end_date,
+                    repetitionDays: e.repetition_days,
                     createdAt: e.created_at,
                     updatedAt: e.updated_at
                 })));
@@ -673,6 +676,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             event_type: eventData.eventType,
             event_date: eventData.eventDate,
             notify_before_minutes: eventData.notifyBeforeMinutes || 60,
+            repetition_type: eventData.repetitionType || 'none',
+            repetition_end_date: eventData.repetitionEndDate,
+            repetition_days: eventData.repetitionDays,
             is_notified: false
         };
 
@@ -693,6 +699,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 eventDate: data.event_date,
                 notifyBeforeMinutes: data.notify_before_minutes,
                 isNotified: data.is_notified,
+                repetitionType: data.repetition_type || 'none',
+                repetitionEndDate: data.repetition_end_date,
+                repetitionDays: data.repetition_days,
                 createdAt: data.created_at,
                 updatedAt: data.updated_at
             };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, Calendar, Clock, Bell } from 'lucide-react';
+import { X, Calendar, Clock, Bell, Repeat } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { EventType, EVENT_TYPE_COLORS, EVENT_TYPE_LABELS } from '../types';
+import { EventType, RepetitionType, EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, REPETITION_LABELS, WEEKDAY_LABELS } from '../types';
 import moment from 'moment';
 
 interface AddEventModalProps {
@@ -19,8 +19,19 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
     const [eventDate, setEventDate] = useState(
         defaultDate ? moment(defaultDate).format('YYYY-MM-DDTHH:mm') : moment().format('YYYY-MM-DDTHH:mm')
     );
-    const [notifyBefore, setNotifyBefore] = useState(60); // minutes
+    const [notifyBefore, setNotifyBefore] = useState(60);
+    const [repetitionType, setRepetitionType] = useState<RepetitionType>('none');
+    const [repetitionEndDate, setRepetitionEndDate] = useState('');
+    const [selectedDays, setSelectedDays] = useState<number[]>([]);
     const [loading, setLoading] = useState(false);
+
+    const handleDayToggle = (dayIndex: number) => {
+        setSelectedDays(prev =>
+            prev.includes(dayIndex)
+                ? prev.filter(d => d !== dayIndex)
+                : [...prev, dayIndex]
+        );
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,15 +44,21 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
                 description: description.trim() || undefined,
                 eventType,
                 eventDate: moment(eventDate).toISOString(),
-                notifyBeforeMinutes: notifyBefore
+                notifyBeforeMinutes: notifyBefore,
+                repetitionType,
+                repetitionEndDate: repetitionEndDate ? moment(repetitionEndDate).toISOString() : undefined,
+                repetitionDays: repetitionType === 'weekly' ? selectedDays : undefined
             });
 
-            // Reset and close
+            // Reset
             setTitle('');
             setDescription('');
             setEventType('personal');
             setEventDate(moment().format('YYYY-MM-DDTHH:mm'));
             setNotifyBefore(60);
+            setRepetitionType('none');
+            setRepetitionEndDate('');
+            setSelectedDays([]);
             onClose();
         } catch (error) {
             console.error('Error adding event:', error);
@@ -53,24 +70,21 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-700">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-700 my-8">
                 {/* Header */}
                 <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                         <Calendar className="text-indigo-600" size={24} />
                         Yangi Tadbir Qo'shish
                     </h3>
-                    <button
-                        onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                    >
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
                         <X size={24} />
                     </button>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto">
                     {/* Title */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -80,7 +94,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Masalan: JLPT N2 Mock Exam"
+                            placeholder="Masalan: JLPT N2 So'z Yodlash"
                             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             required
                         />
@@ -88,22 +102,14 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
 
                     {/* Event Type */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Tur
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tur</label>
                         <div className="grid grid-cols-2 gap-2">
                             {(Object.keys(EVENT_TYPE_LABELS) as EventType[]).map((type) => (
                                 <button
                                     key={type}
                                     type="button"
                                     onClick={() => setEventType(type)}
-                                    className={`
-                                        p-3 rounded-lg border-2 text-sm font-medium transition-all
-                                        ${eventType === type
-                                            ? 'border-opacity-100 shadow-md'
-                                            : 'border-gray-300 dark:border-gray-600 opacity-60'
-                                        }
-                                    `}
+                                    className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${eventType === type ? 'border-opacity-100 shadow-md' : 'border-gray-300 dark:border-gray-600 opacity-60'}`}
                                     style={{
                                         borderColor: eventType === type ? EVENT_TYPE_COLORS[type] : undefined,
                                         backgroundColor: eventType === type ? `${EVENT_TYPE_COLORS[type]}15` : undefined
@@ -129,6 +135,69 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
                             required
                         />
                     </div>
+
+                    {/* Repetition */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+                            <Repeat size={16} />
+                            Takrorlanish
+                        </label>
+                        <select
+                            value={repetitionType}
+                            onChange={(e) => {
+                                setRepetitionType(e.target.value as RepetitionType);
+                                if (e.target.value === 'none') {
+                                    setRepetitionEndDate('');
+                                    setSelectedDays([]);
+                                }
+                            }}
+                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                            {(Object.keys(REPETITION_LABELS) as RepetitionType[]).map((type) => (
+                                <option key={type} value={type}>{REPETITION_LABELS[type]}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Weekly Day Selection */}
+                    {repetitionType === 'weekly' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Kunlar
+                            </label>
+                            <div className="grid grid-cols-7 gap-1">
+                                {WEEKDAY_LABELS.map((day, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        onClick={() => handleDayToggle(index)}
+                                        className={`p-2 rounded text-xs font-medium transition-all ${selectedDays.includes(index)
+                                                ? 'bg-indigo-600 text-white'
+                                                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                                            }`}
+                                    >
+                                        {day}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Repetition End Date */}
+                    {repetitionType !== 'none' && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Tugash Sanasi (Ixtiyoriy)
+                            </label>
+                            <input
+                                type="date"
+                                value={repetitionEndDate}
+                                onChange={(e) => setRepetitionEndDate(e.target.value)}
+                                min={moment(eventDate).format('YYYY-MM-DD')}
+                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            />
+                        </div>
+                    )}
 
                     {/* Description */}
                     <div>

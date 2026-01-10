@@ -74,8 +74,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDur
                             borderLeftColor: EVENT_TYPE_COLORS[event.eventType],
                             backgroundColor: `${EVENT_TYPE_COLORS[event.eventType]}20`
                         }}
-                        title={`${event.title}\n${moment(event.eventDate).format('HH:mm')}`}
+                        title={`${event.title}\n${moment(event.eventDate).format('HH:mm')}${event.repetitionType !== 'none' ? ' (Takrorlanuvchi)' : ''}`}
                     >
+                        {event.repetitionType !== 'none' && '🔁 '}
                         {moment(event.eventDate).format('HH:mm')} {event.title}
                     </div>
                 ))}
