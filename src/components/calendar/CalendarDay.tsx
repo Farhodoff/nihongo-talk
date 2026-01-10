@@ -1,18 +1,19 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
-import { Task } from '../../types';
+import { Task, Event, EVENT_TYPE_COLORS } from '../../types';
 import DraggableTask from './DraggableTask';
 import moment from 'moment';
 
 interface CalendarDayProps {
     date: Date;
     tasks: Task[];
+    events: Event[];
     studyDuration: number; // in minutes
     isCurrentMonth: boolean;
     isToday: boolean;
 }
 
-const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, studyDuration, isCurrentMonth, isToday }) => {
+const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDuration, isCurrentMonth, isToday }) => {
     // Unique ID for droppable: simple date string YYYY-MM-DD
     const dateId = moment(date).format('YYYY-MM-DD');
 
@@ -62,6 +63,21 @@ const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, studyDuration, i
             <div className="flex flex-col gap-1 min-h-[60px]">
                 {tasks.map(task => (
                     <DraggableTask key={task.id} task={task} />
+                ))}
+
+                {/* Event Badges */}
+                {events.map(event => (
+                    <div
+                        key={event.id}
+                        className="px-2 py-1 rounded text-[10px] font-medium truncate border-l-2 shadow-sm"
+                        style={{
+                            borderLeftColor: EVENT_TYPE_COLORS[event.eventType],
+                            backgroundColor: `${EVENT_TYPE_COLORS[event.eventType]}20`
+                        }}
+                        title={`${event.title}\n${moment(event.eventDate).format('HH:mm')}`}
+                    >
+                        {moment(event.eventDate).format('HH:mm')} {event.title}
+                    </div>
                 ))}
             </div>
         </div>

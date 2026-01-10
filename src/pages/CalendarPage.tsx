@@ -10,15 +10,17 @@ import {
     DragStartEvent
 } from '@dnd-kit/core';
 import moment from 'moment';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Plus } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import CalendarDay from '../components/calendar/CalendarDay';
 import DraggableTask from '../components/calendar/DraggableTask';
+import AddEventModal from '../components/AddEventModal';
 
 const CalendarPage: React.FC = () => {
-    const { tasks, updateTask, sessions } = useStudyData();
+    const { tasks, updateTask, sessions, events } = useStudyData();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [activeId, setActiveId] = useState<string | null>(null);
+    const [isEventModalOpen, setIsEventModalOpen] = useState(false);
 
     // Sensors for drag detection (Mouse + Touch)
     const sensors = useSensors(
@@ -66,6 +68,13 @@ const CalendarPage: React.FC = () => {
         return sessions
             .filter(s => moment(s.startTime).format('YYYY-MM-DD') === dateStr)
             .reduce((acc, s) => acc + s.duration, 0);
+    };
+
+    const getEventsForDate = (date: Date) => {
+        const dateStr = moment(date).format('YYYY-MM-DD');
+        return events.filter(event =>
+            moment(event.eventDate).format('YYYY-MM-DD') === dateStr
+        );
     };
 
     // Handlers
@@ -157,6 +166,7 @@ const CalendarPage: React.FC = () => {
                             isCurrentMonth={moment(date).isSame(currentDate, 'month')}
                             isToday={moment(date).isSame(new Date(), 'day')}
                             tasks={getTasksForDate(date)}
+                            events={getEventsForDate(date)}
                             studyDuration={getStudyDurationForDate(date)}
                         />
                     ))}
@@ -166,6 +176,21 @@ const CalendarPage: React.FC = () => {
                     {activeTask ? <DraggableTask task={activeTask} /> : null}
                 </DragOverlay>
             </DndContext>
+
+            {/* Floating Action Button */}
+            <button
+                onClick={() => setIsEventModalOpen(true)}
+                className="fixed bottom-6 right-6 p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all z-50"
+                title="Yangi Tadbir Qo'shish"
+            >
+                <Plus size={24} />
+            </button>
+
+            {/* Add Event Modal */}
+            <AddEventModal
+                isOpen={isEventModalOpen}
+                onClose={() => setIsEventModalOpen(false)}
+            />
         </div>
     );
 };

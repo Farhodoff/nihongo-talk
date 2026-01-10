@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
+import notificationManager from '../services/NotificationManager';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -275,6 +276,24 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
         localStorage.setItem('study_planner_theme', settings.theme);
     }, [settings.theme]);
+
+    // Notification Manager Lifecycle
+    useEffect(() => {
+        if (settings.notificationsEnabled && events.length > 0) {
+            notificationManager.requestPermission().then(granted => {
+                if (granted) {
+                    notificationManager.startMonitoring(events, (eventId) => {
+                        // Mark event as notified
+                        updateEvent(eventId, { isNotified: true });
+                    });
+                }
+            });
+        }
+
+        return () => {
+            notificationManager.stopMonitoring();
+        };
+    }, [events, settings.notificationsEnabled]);
 
     // Notification Checker
     useEffect(() => {
