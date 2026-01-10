@@ -247,6 +247,28 @@ const ProgressPage: React.FC = () => {
                     <p className="text-xs text-center text-gray-400 mt-2">Shkala: 1 (Yomon) - 5 (Zo'r)</p>
                 </div>
 
+                {/* 4. Subject Mastery */}
+                <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                        <TrendingUp size={20} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
+                    </h3>
+                    <div className="h-64 w-full">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                            <ReBarChart data={getSubjectMasteryData()}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
+                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} domain={[0, 100]} />
+                                <Tooltip cursor={{ fill: 'transparent' }} />
+                                <Bar dataKey="score" radius={[6, 6, 0, 0]}>
+                                    {getSubjectMasteryData().map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Bar>
+                            </ReBarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
                 {/* 5. Daily Flashcard Reviews (New) */}
                 <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
@@ -301,7 +323,7 @@ const ProgressPage: React.FC = () => {
                         </div>
                         <div>
                             <div className="w-3 h-3 rounded-full bg-red-500 mx-auto mb-1"></div>
-                            <p className="text-gray-600 dark:text-gray-400">Yangi (<3)</p>
+                            <p className="text-gray-600 dark:text-gray-400">Yangi (&lt;3)</p>
                         </div>
                     </div>
                 </div>
