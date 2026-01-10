@@ -1,5 +1,6 @@
 import { Calendar, Plus, Sparkles, Target } from 'lucide-react';
 import React, { useState } from 'react';
+import moment from 'moment';
 import AIPlanModal from '../components/AIPlanModal';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
@@ -10,6 +11,7 @@ const GoalsPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAIModalOpen, setAIModalOpen] = useState(false);
     const [newTitle, setNewTitle] = useState('');
+    const [newDeadline, setNewDeadline] = useState(moment().add(1, 'week').format('YYYY-MM-DDTHH:mm'));
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,11 +20,12 @@ const GoalsPage: React.FC = () => {
         addGoal({
             title: newTitle,
             description: '',
-            deadline: new Date().toISOString(),
+            deadline: moment(newDeadline).toISOString(),
             priority: 'medium',
             progress: 0
         });
         setNewTitle('');
+        setNewDeadline(moment().add(1, 'week').format('YYYY-MM-DDTHH:mm'));
         setModalOpen(false);
     };
 
@@ -78,9 +81,14 @@ const GoalsPage: React.FC = () => {
                             <p className="text-xs text-center text-gray-400 mt-1">Suring va o'z progressingizni belgilang</p>
                         </div>
 
-                        <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mt-4">
-                            <Calendar size={14} className="mr-2" />
-                            {new Date(goal.createdAt || Date.now()).toLocaleDateString()}
+                        <div className="flex items-center justify-between text-gray-500 dark:text-gray-400 text-sm mt-4">
+                            <div className="flex items-center">
+                                <Calendar size={14} className="mr-2" />
+                                {new Date(goal.createdAt || Date.now()).toLocaleDateString()}
+                            </div>
+                            <div className="text-xs font-medium">
+                                Tugash: {moment(goal.deadline).format('DD.MM.YYYY HH:mm')}
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -90,16 +98,34 @@ const GoalsPage: React.FC = () => {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
                     <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl w-full max-w-md">
                         <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Yangi Maqsad</h3>
-                        <form onSubmit={handleAdd}>
-                            <input
-                                type="text"
-                                value={newTitle}
-                                onChange={(e) => setNewTitle(e.target.value)}
-                                placeholder="Nimalarga erishmoqchisiz?"
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white mb-4"
-                                autoFocus
-                            />
-                            <div className="flex gap-3 justify-end">
+                        <form onSubmit={handleAdd} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Maqsad Nomi *
+                                </label>
+                                <input
+                                    type="text"
+                                    value={newTitle}
+                                    onChange={(e) => setNewTitle(e.target.value)}
+                                    placeholder="Nimalarga erishmoqchisiz?"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    autoFocus
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Tugash Vaqti *
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    value={newDeadline}
+                                    onChange={(e) => setNewDeadline(e.target.value)}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    required
+                                />
+                            </div>
+                            <div className="flex gap-3 justify-end pt-2">
                                 <Button type="button" variant="secondary" onClick={() => setModalOpen(false)}>Bekor qilish</Button>
                                 <Button type="submit">Maqsad Yaratish</Button>
                             </div>
