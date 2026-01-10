@@ -190,8 +190,8 @@ const SubjectsPage: React.FC = () => {
                 </div>
             )}
 
-            {/* Subjects Grid - Modern Gradient Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Subjects Grid - Compact Modern Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {subjects.map(subject => {
                     const IconComponent = getIconComponent(subject.icon);
                     const progress = getSubjectProgress(subject.id);
@@ -199,7 +199,7 @@ const SubjectsPage: React.FC = () => {
                     return (
                         <div
                             key={subject.id}
-                            className="group relative rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 overflow-hidden"
+                            className="group relative rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                             style={{
                                 background: `linear-gradient(135deg, ${subject.color}dd 0%, ${subject.color}aa 100%)`,
                             }}
@@ -215,50 +215,50 @@ const SubjectsPage: React.FC = () => {
                                             e.preventDefault();
                                             if (window.confirm('Fanni o\'chirasizmi?')) deleteSubject(subject.id);
                                         }}
-                                        className="p-2 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
+                                        className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={16} />
                                     </button>
                                 </div>
 
                                 <Link to={`/subjects/${subject.id}`} className="block">
-                                    {/* Icon Circle */}
-                                    <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 border border-white/30">
-                                        <IconComponent size={32} className="text-white" />
+                                    {/* Icon Circle - Smaller */}
+                                    <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-3 border border-white/30">
+                                        <IconComponent size={24} className="text-white" />
                                     </div>
 
                                     {/* Text Content */}
-                                    <h3 className="text-xl font-bold text-white mb-2">{subject.name}</h3>
+                                    <h3 className="text-base font-semibold text-white mb-2 truncate">{subject.name}</h3>
 
                                     {subject.description && (
-                                        <p className="text-white/80 text-sm mb-4 line-clamp-2">
+                                        <p className="text-white/80 text-xs mb-3 line-clamp-2 leading-tight">
                                             {subject.description}
                                         </p>
                                     )}
 
-                                    {/* Teacher & Room Info */}
-                                    <div className="space-y-1 mb-4">
+                                    {/* Teacher & Room Info - Compact */}
+                                    <div className="space-y-1 mb-3">
                                         {subject.teacherName && (
-                                            <div className="flex items-center text-sm text-white/70">
-                                                <User size={14} className="mr-2" />
-                                                {subject.teacherName}
+                                            <div className="flex items-center text-xs text-white/70 truncate">
+                                                <User size={12} className="mr-1.5 flex-shrink-0" />
+                                                <span className="truncate">{subject.teacherName}</span>
                                             </div>
                                         )}
                                         {subject.roomLocation && (
-                                            <div className="flex items-center text-sm text-white/70">
-                                                <MapPin size={14} className="mr-2" />
-                                                {subject.roomLocation}
+                                            <div className="flex items-center text-xs text-white/70 truncate">
+                                                <MapPin size={12} className="mr-1.5 flex-shrink-0" />
+                                                <span className="truncate">{subject.roomLocation}</span>
                                             </div>
                                         )}
                                     </div>
 
-                                    {/* Progress Bar */}
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between items-center text-xs text-white/90 font-medium">
+                                    {/* Progress Bar - Thinner */}
+                                    <div className="space-y-1.5">
+                                        <div className="flex justify-between items-center text-[10px] text-white/90 font-medium">
                                             <span>O'zlashtirish</span>
                                             <span>{progress}%</span>
                                         </div>
-                                        <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+                                        <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
                                             <div
                                                 className="h-full bg-white/90 rounded-full transition-all duration-500"
                                                 style={{ width: `${progress}%` }}
