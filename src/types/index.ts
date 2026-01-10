@@ -109,3 +109,32 @@ export interface WhiteboardMetadata {
     title: string;
     updatedAt: string;
 }
+
+export type EventType = 'jdu' | 'career' | 'jlpt' | 'personal';
+
+export interface Event {
+    id: string;
+    userId: string;
+    title: string;
+    description?: string;
+    eventType: EventType;
+    eventDate: string; // ISO DateTime
+    notifyBeforeMinutes: number;
+    isNotified: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export const EVENT_TYPE_COLORS = {
+    jdu: '#3b82f6',      // Blue
+    career: '#f59e0b',   // Amber
+    jlpt: '#10b981',     // Green
+    personal: '#6366f1'  // Indigo
+};
+
+export const EVENT_TYPE_LABELS = {
+    jdu: '🎓 JDU (Akademik)',
+    career: '💼 Karyera',
+    jlpt: '🇯🇵 JLPT',
+    personal: '🏠 Shaxsiy'
+};

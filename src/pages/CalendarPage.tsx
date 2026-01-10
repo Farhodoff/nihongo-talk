@@ -1,148 +1,171 @@
-import { Trash2, X } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import {
+    DndContext,
+    DragEndEvent,
+    DragOverlay,
+    MouseSensor,
+    TouchSensor,
+    useSensor,
+    useSensors,
+    DragStartEvent
+} from '@dnd-kit/core';
 import moment from 'moment';
-import React, { useState } from 'react';
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import CustomToolbar from '../components/CustomToolbar';
-import { Button } from '../components/ui/Button';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
-import '../styles/calendar.css';
-
-const localizer = momentLocalizer(moment);
-const DnDCalendar = withDragAndDrop(Calendar);
+import CalendarDay from '../components/calendar/CalendarDay';
+import DraggableTask from '../components/calendar/DraggableTask';
 
 const CalendarPage: React.FC = () => {
-    const { tasks, updateTask, deleteTask } = useStudyData();
-    const [selectedEvent, setSelectedEvent] = useState<any>(null);
+    const { tasks, updateTask, sessions } = useStudyData();
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [activeId, setActiveId] = useState<string | null>(null);
 
-    const events = tasks.map(task => ({
-        id: task.id,
-        title: task.title,
-        start: task.startTime ? new Date(task.startTime) : (task.deadline ? new Date(task.deadline) : new Date()),
-        end: task.endTime ? new Date(task.endTime) : (task.deadline ? new Date(new Date(task.deadline).getTime() + 3600000) : new Date(new Date().getTime() + 3600000)),
-        resource: task,
-        color: task.priority === 'high' ? '#ef4444' : task.priority === 'medium' ? '#f59e0b' : '#3b82f6'
-    }));
+    // Sensors for drag detection (Mouse + Touch)
+    const sensors = useSensors(
+        useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+        useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 5 } })
+    );
 
-    const eventStyleGetter = (event: any) => {
-        return {
-            style: {
-                backgroundColor: event.color,
-                borderRadius: '8px',
-                opacity: 0.9,
-                color: 'white',
-                border: '0px',
-                display: 'block',
-                padding: '2px 5px',
-                fontSize: '0.85rem'
-            }
-        };
-    };
+    // Active Task for Overlay
+    const activeTask = useMemo(() =>
+        tasks.find(t => t.id === activeId),
+        [activeId, tasks]);
 
-    const handleEventDrop = ({ event, start, end }: any) => {
-        if (event.resource) {
-            updateTask(event.resource.id, {
-                startTime: start.toISOString(),
-                endTime: end.toISOString()
-            });
+    // Calendar Generation Logic
+    const calendarDays = useMemo(() => {
+        const startOfMonth = moment(currentDate).startOf('month');
+        const endOfMonth = moment(currentDate).endOf('month');
+        const startDate = startOfMonth.clone().startOf('week'); // Start from Sunday/Monday
+        const endDate = endOfMonth.clone().endOf('week');
+
+
+
+        // Re-do concise loop
+        const _days = [];
+        let _day = startDate.clone();
+        // Since we want inclusive end, and endOf('week') is usually Saturday night
+        while (_day.isSameOrBefore(endDate, 'day')) {
+            _days.push(_day.toDate());
+            _day.add(1, 'day');
         }
+        return _days;
+    }, [currentDate]);
+
+    // Data Mapping
+    const getTasksForDate = (date: Date) => {
+        const dateStr = moment(date).format('YYYY-MM-DD');
+        return tasks.filter(task => {
+            const targetDate = task.dueDate || task.deadline || task.startTime;
+            if (!targetDate) return false;
+            return moment(targetDate).format('YYYY-MM-DD') === dateStr;
+        });
     };
 
-    const handleSelectEvent = (event: any) => {
-        setSelectedEvent(event);
+    const getStudyDurationForDate = (date: Date) => {
+        const dateStr = moment(date).format('YYYY-MM-DD');
+        return sessions
+            .filter(s => moment(s.startTime).format('YYYY-MM-DD') === dateStr)
+            .reduce((acc, s) => acc + s.duration, 0);
     };
 
-    const handleDelete = () => {
-        if (selectedEvent && selectedEvent.resource) {
-            if (window.confirm('Ushbu vazifani o\'chirasizmi?')) {
-                deleteTask(selectedEvent.resource.id);
-                setSelectedEvent(null);
+    // Handlers
+    const handleDragStart = (event: DragStartEvent) => {
+        setActiveId(event.active.id as string);
+    };
+
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+        setActiveId(null);
+
+        if (over && active.id !== over.id) {
+            // New Date is the ID of the droppable day
+            const newDateStr = over.id as string; // YYYY-MM-DD
+
+            // Only update if actually changed
+            const task = tasks.find(t => t.id === active.id);
+            if (!task) return;
+
+            const oldDateStr = task.dueDate || task.deadline || task.startTime
+                ? moment(task.dueDate || task.deadline || task.startTime).format('YYYY-MM-DD')
+                : null;
+
+            if (oldDateStr !== newDateStr) {
+                // Format as ISO string preserving time if needed, but for now midnight or keep time
+                // Simple approach: set YYYY-MM-DD with current time or 9am
+                const newIso = moment(newDateStr).hour(9).minute(0).toISOString();
+
+                console.log(`Moving Task ${task.title} to ${newDateStr}`);
+                updateTask(task.id, {
+                    dueDate: newIso,
+                    deadline: newIso, // Sync both just in case
+                    startTime: newIso // Check if we want to move start time too. Usually yes for calendar.
+                });
             }
         }
     };
 
     return (
-        <div className="h-[calc(100vh-100px)] flex flex-col relative">
-
-            <div className="flex-1 bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <DnDCalendar
-                    localizer={localizer}
-                    events={events}
-                    startAccessor={(e: any) => e.start}
-                    endAccessor={(e: any) => e.end}
-                    style={{ height: '100%' }}
-                    eventPropGetter={eventStyleGetter}
-                    views={[Views.MONTH, Views.WEEK, Views.DAY]}
-                    defaultView={Views.MONTH}
-                    onEventDrop={handleEventDrop}
-                    draggableAccessor={() => true}
-                    components={{
-                        toolbar: CustomToolbar
-                    }}
-                    onSelectEvent={handleSelectEvent}
-                />
+        <div className="h-[calc(100vh-100px)] flex flex-col p-4 md:p-6 max-w-7xl mx-auto w-full">
+            {/* Toolbar */}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold flex items-center gap-2 dark:text-white">
+                    <CalendarIcon className="text-indigo-600" />
+                    {moment(currentDate).format('MMMM YYYY')}
+                </h2>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setCurrentDate(moment(currentDate).subtract(1, 'month').toDate())}
+                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300"
+                    >
+                        <ChevronLeft />
+                    </button>
+                    <button
+                        onClick={() => setCurrentDate(new Date())}
+                        className="px-4 py-2 text-sm font-medium bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400"
+                    >
+                        Bugun
+                    </button>
+                    <button
+                        onClick={() => setCurrentDate(moment(currentDate).add(1, 'month').toDate())}
+                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300"
+                    >
+                        <ChevronRight />
+                    </button>
+                </div>
             </div>
 
-            {/* Event Detail Modal */}
-            {selectedEvent && (
-                <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm rounded-2xl">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-sm m-4 animate-in fade-in zoom-in duration-200">
-                        <div className="flex justify-between items-start mb-4">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2">
-                                {selectedEvent.title}
-                            </h3>
-                            <button
-                                onClick={() => setSelectedEvent(null)}
-                                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        <div className="space-y-3 mb-6">
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-500 dark:text-gray-400">Holat:</span>
-                                <span className={`text-xs px-2 py-1 rounded-md font-medium capitalize 
-                                    ${selectedEvent.resource.status === 'done' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                        'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}>
-                                    {selectedEvent.resource.status === 'done' || selectedEvent.resource.completed ? 'Bajarildi' : 'Bajarish kerak'}
-                                </span>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-500 dark:text-gray-400">Vaqt:</span>
-                                <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                    {moment(selectedEvent.start).format('MMM D, h:mm A')} - {moment(selectedEvent.end).format('h:mm A')}
-                                </span>
-                            </div>
-
-                            {selectedEvent.resource.priority && (
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">Muhimlik:</span>
-                                    <span className={`text-xs px-2 py-1 rounded-md font-medium capitalize 
-                                        ${selectedEvent.resource.priority === 'high' ? 'bg-red-100 text-red-700' :
-                                            selectedEvent.resource.priority === 'medium' ? 'bg-orange-100 text-orange-700' :
-                                                'bg-blue-100 text-blue-700'}`}>
-                                        {selectedEvent.resource.priority === 'high' ? 'Yuqori' : selectedEvent.resource.priority === 'medium' ? 'O\'rta' : 'Past'}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="flex gap-3">
-                            <Button
-                                variant="danger"
-                                onClick={handleDelete}
-                                className="flex-1 flex justify-center items-center gap-2"
-                            >
-                                <Trash2 size={16} /> O'chirish
-                            </Button>
-                        </div>
+            {/* Grid Header */}
+            <div className="grid grid-cols-7 gap-px mb-2 text-center">
+                {['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'].map(day => (
+                    <div key={day} className="text-sm font-medium text-gray-400 py-2">
+                        {day}
                     </div>
+                ))}
+            </div>
+
+            {/* Calendar Grid */}
+            <DndContext
+                sensors={sensors}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+            >
+                <div className="flex-1 grid grid-cols-7 grid-rows-5 gap-px bg-gray-200 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden shadow-sm">
+                    {calendarDays.map((date, idx) => (
+                        <CalendarDay
+                            key={idx}
+                            date={date}
+                            isCurrentMonth={moment(date).isSame(currentDate, 'month')}
+                            isToday={moment(date).isSame(new Date(), 'day')}
+                            tasks={getTasksForDate(date)}
+                            studyDuration={getStudyDurationForDate(date)}
+                        />
+                    ))}
                 </div>
-            )}
+
+                <DragOverlay>
+                    {activeTask ? <DraggableTask task={activeTask} /> : null}
+                </DragOverlay>
+            </DndContext>
         </div>
     );
 };

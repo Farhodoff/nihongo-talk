@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote } from '../types';
+import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -21,6 +21,7 @@ interface StudyPlannerContextType {
     studyNotes: StudyNote[];
     sessions: StudySession[];
     whiteboards: WhiteboardMetadata[];
+    events: Event[];
     settings: Settings;
     loading: boolean;
     user: any;
@@ -63,6 +64,11 @@ interface StudyPlannerContextType {
     deleteWhiteboard: (id: string) => Promise<void>;
     updateWhiteboardTitle: (id: string, title: string) => Promise<void>;
 
+    // Event operatsiyalari
+    addEvent: (event: Partial<Event>) => Promise<Event | null>;
+    updateEvent: (id: string, updates: Partial<Event>) => Promise<void>;
+    deleteEvent: (id: string) => Promise<void>;
+
     // Session operatsiyalari
     addSession: (session: Partial<StudySession>) => Promise<void>;
 
@@ -98,6 +104,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [studyNotes, setStudyNotes] = useState<StudyNote[]>([]);
     const [sessions, setSessions] = useState<StudySession[]>([]);
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<any>(null);
 
@@ -126,7 +133,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             // Parallel yuklash
-            const [tasksRes, cardsRes, subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, profileRes] = await Promise.all([
+            const [tasksRes, cardsRes, subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
                 supabase.from('tasks').select('*').eq('user_id', currentUser.id),
                 supabase.from('flashcards').select('*').eq('user_id', currentUser.id),
                 supabase.from('subjects').select('*').eq('user_id', currentUser.id),
@@ -135,6 +142,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 supabase.from('study_sessions').select('*').eq('user_id', currentUser.id),
                 supabase.from('study_notes').select('*').eq('user_id', currentUser.id),
                 supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
+                supabase.from('events').select('*').eq('user_id', currentUser.id),
                 supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
             ]);
 
@@ -217,6 +225,21 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     userId: w.user_id,
                     title: w.title || 'Adsiz Doska',
                     updatedAt: w.updated_at
+                })));
+            }
+
+            if (eventsRes.data) {
+                setEvents(eventsRes.data.map((e: any) => ({
+                    id: e.id,
+                    userId: e.user_id,
+                    title: e.title,
+                    description: e.description,
+                    eventType: e.event_type,
+                    eventDate: e.event_date,
+                    notifyBeforeMinutes: e.notify_before_minutes,
+                    isNotified: e.is_notified,
+                    createdAt: e.created_at,
+                    updatedAt: e.updated_at
                 })));
             }
 
@@ -619,6 +642,71 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         await supabase.from('whiteboards').update({ title }).eq('id', id);
     };
 
+    // ===== EVENT OPERATSIYALARI =====
+    const addEvent = async (eventData: Partial<Event>) => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return null;
+
+        const dbEvent = {
+            user_id: user.id,
+            title: eventData.title,
+            description: eventData.description,
+            event_type: eventData.eventType,
+            event_date: eventData.eventDate,
+            notify_before_minutes: eventData.notifyBeforeMinutes || 60,
+            is_notified: false
+        };
+
+        const { data, error } = await supabase.from('events').insert(dbEvent).select().single();
+
+        if (error) {
+            console.error("addEvent error:", error);
+            return null;
+        }
+
+        if (data) {
+            const newEvent: Event = {
+                id: data.id,
+                userId: data.user_id,
+                title: data.title,
+                description: data.description,
+                eventType: data.event_type,
+                eventDate: data.event_date,
+                notifyBeforeMinutes: data.notify_before_minutes,
+                isNotified: data.is_notified,
+                createdAt: data.created_at,
+                updatedAt: data.updated_at
+            };
+            setEvents([...events, newEvent]);
+            return newEvent;
+        }
+        return null;
+    };
+
+    const updateEvent = async (id: string, updates: Partial<Event>) => {
+        const dbUpdates: any = { ...updates };
+        if (updates.eventType) dbUpdates.event_type = updates.eventType;
+        if (updates.eventDate) dbUpdates.event_date = updates.eventDate;
+        if (updates.notifyBeforeMinutes) dbUpdates.notify_before_minutes = updates.notifyBeforeMinutes;
+        if (updates.isNotified !== undefined) dbUpdates.is_notified = updates.isNotified;
+
+        delete dbUpdates.eventType;
+        delete dbUpdates.eventDate;
+        delete dbUpdates.notifyBeforeMinutes;
+        delete dbUpdates.isNotified;
+        delete dbUpdates.userId;
+        delete dbUpdates.createdAt;
+        delete dbUpdates.updatedAt;
+
+        await supabase.from('events').update(dbUpdates).eq('id', id);
+        setEvents(events.map(e => e.id === id ? { ...e, ...updates } : e));
+    };
+
+    const deleteEvent = async (id: string) => {
+        setEvents(events.filter(e => e.id !== id));
+        await supabase.from('events').delete().eq('id', id);
+    };
+
     const awardXP = async (amount: number) => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
@@ -743,6 +831,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
             flashcards, addFlashcard, updateFlashcard, deleteFlashcard, reviewFlashcard, importFlashcards,
             whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
+            events, addEvent, updateEvent, deleteEvent,
             refreshData: fetchData,
             settings, updateSettings, getRank,
             // Exposed Focus State
