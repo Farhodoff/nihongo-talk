@@ -46,6 +46,7 @@ const PasswordChangeSection = () => {
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
     const [showClearModal, setShowClearModal] = useState(false);
+    const [apiKey, setApiKey] = useState(settings.googleApiKey || '');
 
     const toggleTheme = () => {
         updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
@@ -68,6 +69,11 @@ const SettingsPage: React.FC = () => {
         await refreshData();
         setShowClearModal(false);
         alert("Barcha ma'lumotlar tozalandi.");
+    };
+
+    const handleSaveApiKey = async () => {
+        await updateSettings({ googleApiKey: apiKey });
+        alert("API Kalit Saqlandi! ✅");
     };
 
     return (
@@ -150,18 +156,10 @@ const SettingsPage: React.FC = () => {
                                 type="password"
                                 placeholder="AI ishlatish uchun shaxsiy kalit..."
                                 className="flex-1 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                defaultValue={settings.googleApiKey || ''}
-                                id="apiKeyInput"
+                                value={apiKey}
+                                onChange={(e) => setApiKey(e.target.value)}
                             />
-                            <Button
-                                onClick={() => {
-                                    const input = document.getElementById('apiKeyInput') as HTMLInputElement;
-                                    if (input) {
-                                        updateSettings({ googleApiKey: input.value });
-                                        alert("API Kalit Saqlandi! ✅");
-                                    }
-                                }}
-                            >
+                            <Button onClick={handleSaveApiKey}>
                                 Saqlash
                             </Button>
                         </div>
