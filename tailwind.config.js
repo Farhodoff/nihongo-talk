@@ -22,6 +22,11 @@ export default {
                     text: '#1f2937'
                 }
             },
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                serif: ['Merriweather', 'serif'],
+                mono: ['JetBrains Mono', 'monospace'],
+            },
             // 3D Transform utilities for flashcard flip
             transformStyle: {
                 '3d': 'preserve-3d',
@@ -34,5 +39,7 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 }
