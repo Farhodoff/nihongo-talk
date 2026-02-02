@@ -18,7 +18,7 @@ const SubjectDetailPage: React.FC = () => {
     const [selectedWhiteboardId, setSelectedWhiteboardId] = useState<string | null>(null);
 
     const subject = subjects.find(s => s.id === id);
-    if (!subject) return <div>Subject not found</div>;
+    if (!subject) return <div>Fan topilmadi</div>;
 
     const subjectTasks = tasks.filter(t => t.subjectId === id);
     const subjectCards = flashcards.filter(c => c.subjectId === id);

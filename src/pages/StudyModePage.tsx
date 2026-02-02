@@ -34,7 +34,7 @@ const StudyModePage: React.FC = () => {
             );
             // Agar bugungi kartalar bo'lmasa, hammasini o'qish uchun chiqarib berish (optional tweak)
             // Hozircha faqat due kartalar
-            setQueue([...due].sort(() => Math.random() - 0.5));
+            setQueue([...due].sort(() => Math.random() - 0.5).slice(0, 20));
         }
     }, [subjectId, flashcards]);
 
