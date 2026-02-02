@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Calendar, Clock } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { EVENT_TYPE_LABELS, EVENT_TYPE_COLORS } from '../types';
+import { EVENT_TYPE_LABELS, EVENT_TYPE_COLORS, Event } from '../types';
 import moment from 'moment';
 
 const CountdownWidget: React.FC = () => {
@@ -33,7 +33,7 @@ const CountdownWidget: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-                {upcomingEvents.map(event => {
+                {upcomingEvents.map((event: Event) => {
                     const daysLeft = moment(event.eventDate).diff(moment(), 'days');
                     const hoursLeft = moment(event.eventDate).diff(moment(), 'hours') % 24;
 
@@ -46,24 +46,26 @@ const CountdownWidget: React.FC = () => {
                                 backgroundColor: `${EVENT_TYPE_COLORS[event.eventType]}10`
                             }}
                         >
-                            <div className="flex justify-between items-start gap-2">
+                            <div className="flex justify-between items-center gap-2">
                                 <div className="flex-1 min-w-0">
                                     <p className="font-medium text-gray-900 dark:text-white text-sm truncate">
                                         {event.title}
                                     </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                        {EVENT_TYPE_LABELS[event.eventType]}
-                                    </p>
-                                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 flex items-center gap-1">
-                                        <Clock size={12} />
-                                        {moment(event.eventDate).format('MMM D, HH:mm')}
-                                    </p>
+                                    <div className="flex flex-wrap gap-x-2 gap-y-1 mt-1">
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            {EVENT_TYPE_LABELS[event.eventType]}
+                                        </p>
+                                        <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                                            <Clock size={12} />
+                                            {moment(event.eventDate).format('MMM D, HH:mm')}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className="text-right shrink-0">
-                                    <p className="text-2xl font-bold" style={{ color: EVENT_TYPE_COLORS[event.eventType] }}>
+                                    <p className="text-xl md:text-2xl font-bold" style={{ color: EVENT_TYPE_COLORS[event.eventType] }}>
                                         {daysLeft}
                                     </p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 leading-none">
                                         {daysLeft === 0 ? `${hoursLeft}s` : 'kun'}
                                     </p>
                                 </div>

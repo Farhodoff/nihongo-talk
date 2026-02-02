@@ -209,19 +209,21 @@ const CalendarPage: React.FC = () => {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex-1 grid grid-cols-7 grid-rows-5 gap-px bg-gray-200 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden shadow-sm">
-                    {calendarDays.map((date, idx) => (
-                        <CalendarDay
-                            key={idx}
-                            date={date}
-                            isCurrentMonth={moment(date).isSame(currentDate, 'month')}
-                            isToday={moment(date).isSame(new Date(), 'day')}
-                            tasks={getTasksForDate(date)}
-                            events={getEventsForDate(date)}
-                            studyDuration={getStudyDurationForDate(date)}
-                            onShowMore={() => openDayDetails(date)}
-                        />
-                    ))}
+                <div className="flex-1 overflow-x-auto overflow-y-hidden rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
+                    <div className="min-w-[800px] h-full grid grid-cols-7 grid-rows-5 gap-px">
+                        {calendarDays.map((date, idx) => (
+                            <CalendarDay
+                                key={idx}
+                                date={date}
+                                isCurrentMonth={moment(date).isSame(currentDate, 'month')}
+                                isToday={moment(date).isSame(new Date(), 'day')}
+                                tasks={getTasksForDate(date)}
+                                events={getEventsForDate(date)}
+                                studyDuration={getStudyDurationForDate(date)}
+                                onShowMore={() => openDayDetails(date)}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <DragOverlay>

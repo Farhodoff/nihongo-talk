@@ -34,16 +34,24 @@ const Layout: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-[#f3f4f6] dark:bg-[#111827] text-gray-900 dark:text-gray-100 transition-colors duration-200">
             {/* Mobile Header */}
-            <header className="md:hidden bg-white dark:bg-[#1f2937] p-4 flex justify-between items-center shadow-sm z-20">
+            <header className="md:hidden bg-white dark:bg-[#1f2937] p-4 flex justify-between items-center shadow-sm z-30 relative">
                 <h1 className="text-xl font-bold">{getPageTitle()}</h1>
                 <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
                     {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </header>
 
+            {/* Mobile Sidebar Overlay */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-64'} w-64 bg-white dark:bg-[#1f2937] shadow-lg transition-all duration-300 ease-in-out z-10 flex flex-col`}
+                className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-64'} w-64 bg-white dark:bg-[#1f2937] shadow-lg transition-all duration-300 ease-in-out z-30 flex flex-col`}
             >
                 <div className={`p-6 border-b border-gray-100 dark:border-gray-700 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
                     {!isCollapsed && <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">StudyPlanner</h1>}
@@ -56,7 +64,7 @@ const Layout: React.FC = () => {
                     </button>
                 </div>
 
-                <nav className="flex-1 p-4 space-y-1">
+                <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.path}
@@ -93,7 +101,7 @@ const Layout: React.FC = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto p-4 md:p-8 relative">
+            <main className="flex-1 overflow-y-auto p-4 md:p-8 relative w-full">
                 <Outlet />
             </main>
             {/* Global Modals */}

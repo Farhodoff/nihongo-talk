@@ -15,7 +15,7 @@ const DashboardPage: React.FC = () => {
     }
 
     return (
-        <div className="p-6 max-w-5xl mx-auto">
+        <div className="p-4 md:p-6 max-w-5xl mx-auto">
             <CountdownWidget />
 
             <h1 className="text-2xl font-bold mb-6 mt-6 text-gray-900 dark:text-white">Bugungi Reja</h1>
