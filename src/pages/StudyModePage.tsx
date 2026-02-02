@@ -121,13 +121,17 @@ const StudyModePage: React.FC = () => {
                 ) : (
                     <div className="grid grid-cols-4 gap-2">
                         {[
-                            { l: 'Qayta', v: Rating.AGAIN, c: 'bg-red-50 text-red-600' },
-                            { l: 'Qiyin', v: Rating.HARD, c: 'bg-orange-50 text-orange-600' },
-                            { l: 'Yaxshi', v: Rating.GOOD, c: 'bg-blue-50 text-blue-600' },
-                            { l: 'Oson', v: Rating.EASY, c: 'bg-green-50 text-green-600' }
+                            { l: 'Bilmayman (❌)', v: Rating.AGAIN, c: 'bg-red-50 text-red-600' },
+                            { l: 'Qiyin (😐)', v: Rating.HARD, c: 'bg-orange-50 text-orange-600' },
+                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, c: 'bg-blue-50 text-blue-600' },
+                            { l: 'Juda oson (😄)', v: Rating.EASY, c: 'bg-green-50 text-green-600' }
                         ].map(b => (
                             <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs hover:opacity-80`}>
                                 {b.l}
+                                <br />
+                                <span className="text-[10px] opacity-70 font-normal">
+                                    {b.v === 1 ? '10 daq' : b.v === 2 ? '1 kun' : b.v === 3 ? '3 kun' : '7 kun'}
+                                </span>
                             </button>
                         ))}
                     </div>

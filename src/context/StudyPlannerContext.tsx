@@ -424,7 +424,39 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     const reviewFlashcard = async (id: string, rating: number) => {
         console.log(`Card ${id} rated: ${rating}`);
-        await awardXP(5);
+
+        const now = new Date();
+        const nextReviewDate = new Date(now);
+
+        // SRS Logic (Custom as per user request)
+        // 1 (Bilmayman) -> 10 minutes
+        // 2 (Qiyin) -> 1 day
+        // 3 (Yaxshi) -> 3 days
+        // 4 (Juda oson) -> 7 days
+
+        switch (rating) {
+            case 1: // Again / Bilmayman
+                nextReviewDate.setMinutes(now.getMinutes() + 10);
+                break;
+            case 2: // Hard / Qiyin
+                nextReviewDate.setDate(now.getDate() + 1);
+                break;
+            case 3: // Good / Yaxshi
+                nextReviewDate.setDate(now.getDate() + 3);
+                break;
+            case 4: // Easy / Juda oson
+                nextReviewDate.setDate(now.getDate() + 7);
+                break;
+            default:
+                nextReviewDate.setDate(now.getDate() + 1);
+        }
+
+        const updates = {
+            nextReviewDate: nextReviewDate.toISOString(),
+        };
+
+        await updateFlashcard(id, updates);
+        await awardXP(rating * 2); // XP based on performance: 2, 4, 6, 8 XP
     };
 
     const importFlashcards = async (subjectId: string, cards: any[]) => {
