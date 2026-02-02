@@ -1,10 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
+import { FocusState, FocusMode } from '../types/focus';
 import notificationManager from '../services/NotificationManager';
 import { useFocusTimer } from '../hooks/useFocusTimer';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
+import { useFlashcards } from '../hooks/useFlashcards';
+import { TaskService } from '../services/TaskService';
+import { FlashcardService } from '../services/FlashcardService';
+import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent } from '../types/supabase-types';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -28,7 +34,7 @@ interface StudyPlannerContextType {
     events: Event[];
     settings: Settings;
     loading: boolean;
-    user: any;
+    user: User | null;
 
     // Task operatsiyalari
     addTask: (task: Partial<Task>) => Promise<void>;
@@ -42,7 +48,7 @@ interface StudyPlannerContextType {
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
     deleteFlashcard: (id: string) => Promise<void>;
     reviewFlashcard: (id: string, rating: number) => Promise<void>;
-    importFlashcards: (subjectId: string, cards: any[]) => Promise<boolean>;
+    importFlashcards: (subjectId: string, cards: { front: string; back: string; example?: string }[]) => Promise<boolean>;
 
     // Subject operatsiyalari
     addSubject: (subject: Partial<Subject>) => Promise<Subject | null>;
@@ -85,11 +91,11 @@ interface StudyPlannerContextType {
     getRank: (level: number) => string;
 
     // Focus Timer
-    focusState: any;
+    focusState: FocusState;
     startTimer: () => void;
     pauseTimer: () => void;
     resetTimer: () => void;
-    switchMode: (mode: any) => void;
+    switchMode: (mode: FocusMode) => void;
     setFocusSubject: (id: string) => void;
     setFocusTask: (id: string | null) => void;
     setBgSound: (sound: string) => void;
@@ -124,7 +130,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         deleteTask
     } = useTasks(awardXP);
 
-    const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+    const {
+        flashcards,
+        setFlashcards,
+        addFlashcard,
+        updateFlashcard,
+        deleteFlashcard,
+        reviewFlashcard,
+        importFlashcards
+    } = useFlashcards(awardXP);
+
     const [subjects, setSubjects] = useState<Subject[]>([]);
     const [goals, setGoals] = useState<Goal[]>([]);
     const [notes, setNotes] = useState<Note[]>([]);
@@ -132,6 +147,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [sessions, setSessions] = useState<StudySession[]>([]);
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
+
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<any>(null);
 
@@ -178,10 +194,24 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 return;
             }
 
-            // Parallel yuklash
-            const [tasksRes, cardsRes, subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
-                supabase.from('tasks').select('*').eq('user_id', currentUser.id),
-                supabase.from('flashcards').select('*').eq('user_id', currentUser.id),
+            // --- TASKS via Service ---
+            try {
+                const fetchedTasks = await TaskService.fetchTasks(currentUser.id);
+                setTasks(fetchedTasks);
+            } catch (e) {
+                console.error("Error fetching tasks:", e);
+            }
+
+            // --- FLASHCARDS via Service ---
+            try {
+                const fetchedCards = await FlashcardService.fetchFlashcards(currentUser.id);
+                setFlashcards(fetchedCards);
+            } catch (e) {
+                console.error("Error fetching flashcards:", e);
+            }
+
+            // Parallel yuklash for other entities
+            const [subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
                 supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                 supabase.from('goals').select('*').eq('user_id', currentUser.id),
                 supabase.from('notes').select('*').eq('user_id', currentUser.id),
@@ -192,26 +222,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
             ]);
 
-            // Tasks - using hook setter
-            if (tasksRes.data) {
-                const normalizedTasks: Task[] = tasksRes.data.map((t: any) => ({
-                    id: t.id,
-                    title: t.title,
-                    status: t.status,
-                    priority: t.priority,
-                    completed: t.completed !== undefined ? t.completed : (t.status === 'done' || t.status === 'completed'),
-                    subjectId: t.subject_id,
-                    dueDate: t.due_date,
-                    deadline: t.due_date, // shim
-                    createdAt: t.created_at,
-                    goalId: t.goal_id
-                })) as any;
-                setTasks(normalizedTasks);
-            }
+
 
             // ... (Other setters remain the same: subjects, goals, notes, etc.)
             if (subjectsRes.data) {
-                setSubjects(subjectsRes.data.map((s: any) => ({
+                setSubjects(subjectsRes.data.map((s: DatabaseSubject) => ({
                     id: s.id,
                     name: s.name,
                     color: s.color,
@@ -220,53 +235,46 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     roomLocation: s.room_location,
                     description: s.description,
                     icon: s.icon
-                })) as any);
+                })));
             }
 
             if (sessionsRes.data) {
-                setSessions(sessionsRes.data.map((s: any) => ({
+                setSessions(sessionsRes.data.map((s: DatabaseSession) => ({
                     ...s,
                     subjectId: s.subject_id,
                     startTime: s.start_time,
                     moodBefore: s.mood_before,
                     moodAfter: s.mood_after
-                })) as any);
+                })));
             }
 
             if (notesRes.data) {
-                setNotes(notesRes.data.map((n: any) => ({
+                setNotes(notesRes.data.map((n: DatabaseNote) => ({
                     ...n,
                     subjectId: n.subject_id,
                     createdAt: n.created_at,
                     updatedAt: n.updated_at
-                })) as any);
+                })));
             }
 
             if (studyNotesRes.data) {
-                setStudyNotes(studyNotesRes.data.map((n: any) => ({
+                setStudyNotes(studyNotesRes.data.map((n: DatabaseStudyNote) => ({
                     ...n,
                     userId: n.user_id,
                     subjectId: n.subject_id,
                     createdAt: n.created_at,
                     updatedAt: n.updated_at
-                })) as any);
+                })));
             }
 
-            if (cardsRes.data) {
-                setFlashcards(cardsRes.data.map((c: any) => ({
-                    ...c,
-                    subjectId: c.subject_id,
-                    nextReviewDate: c.next_review_date,
-                    easeFactor: c.ease_factor
-                })) as any);
-            }
+
 
             if (goalsRes.data) {
                 setGoals(goalsRes.data);
             }
 
             if (whiteboardsRes.data) {
-                setWhiteboards(whiteboardsRes.data.map((w: any) => ({
+                setWhiteboards(whiteboardsRes.data.map((w: DatabaseWhiteboard) => ({
                     id: w.id,
                     subjectId: w.subject_id,
                     userId: w.user_id,
@@ -276,7 +284,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (eventsRes.data) {
-                setEvents(eventsRes.data.map((e: any) => ({
+                setEvents(eventsRes.data.map((e: DatabaseEvent) => ({
                     id: e.id,
                     userId: e.user_id,
                     title: e.title,
@@ -400,100 +408,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     // Task & XP logic moved to hooks, but other entity logic stays:
 
     // ===== FLASHCARD OPERATSIYALARI =====
-    const addFlashcard = async (cardData: Partial<Flashcard>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
 
-        const { data } = await supabase.from('flashcards').insert({
-            ...cardData,
-            user_id: user.id,
-            next_review_date: new Date().toISOString(),
-        }).select().single();
-        if (data) setFlashcards([...flashcards, { ...data, subjectId: data.subject_id, nextReviewDate: data.next_review_date, easeFactor: data.ease_factor }]);
-    };
-
-    const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
-        await supabase.from('flashcards').update(updates).eq('id', id);
-        setFlashcards(flashcards.map(c => c.id === id ? { ...c, ...updates } : c));
-    };
-
-    const deleteFlashcard = async (id: string) => {
-        await supabase.from('flashcards').delete().eq('id', id);
-        setFlashcards(flashcards.filter(c => c.id !== id));
-    };
-
-    const reviewFlashcard = async (id: string, rating: number) => {
-        console.log(`Card ${id} rated: ${rating}`);
-
-        const now = new Date();
-        const nextReviewDate = new Date(now);
-
-        // SRS Logic (Custom as per user request)
-        // 1 (Bilmayman) -> 10 minutes
-        // 2 (Qiyin) -> 1 day
-        // 3 (Yaxshi) -> 3 days
-        // 4 (Juda oson) -> 7 days
-
-        switch (rating) {
-            case 1: // Again / Bilmayman
-                nextReviewDate.setMinutes(now.getMinutes() + 10);
-                break;
-            case 2: // Hard / Qiyin
-                nextReviewDate.setDate(now.getDate() + 1);
-                break;
-            case 3: // Good / Yaxshi
-                nextReviewDate.setDate(now.getDate() + 3);
-                break;
-            case 4: // Easy / Juda oson
-                nextReviewDate.setDate(now.getDate() + 7);
-                break;
-            default:
-                nextReviewDate.setDate(now.getDate() + 1);
-        }
-
-        const updates = {
-            nextReviewDate: nextReviewDate.toISOString(),
-        };
-
-        await updateFlashcard(id, updates);
-        await awardXP(rating * 2); // XP based on performance: 2, 4, 6, 8 XP
-    };
-
-    const importFlashcards = async (subjectId: string, cards: any[]) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return false;
-
-        try {
-            const dbCards = cards.map(c => ({
-                user_id: user.id,
-                subject_id: subjectId,
-                front: c.front,
-                back: c.back + (c.example ? `\n\nMisol: ${c.example}` : ''),
-                next_review_date: new Date().toISOString(),
-                ease_factor: 2.5,
-                interval: 0,
-                repetitions: 0
-            }));
-
-            const { error } = await supabase.from('flashcards').insert(dbCards);
-
-            if (error) throw error;
-
-            // Reload to get IDs and sync state
-            const { data: _cards } = await supabase.from('flashcards').select('*').eq('user_id', user.id);
-            if (_cards) setFlashcards(_cards.map((c: any) => ({
-                ...c,
-                subjectId: c.subject_id,
-                nextReviewDate: c.next_review_date,
-                easeFactor: c.ease_factor
-            })) as any);
-
-            return true;
-        } catch (e) {
-            console.error("Import error:", e);
-            return false;
-        }
-    };
 
 
     // ===== SUBJECT OPERATSIYALARI =====
@@ -558,7 +473,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateNote = async (id: string, updates: Partial<Note>) => {
-        const dbUpdates: any = { ...updates };
+        const dbUpdates: Record<string, unknown> = { ...updates };
         if (updates.subjectId) {
             dbUpdates.subject_id = updates.subjectId;
             delete dbUpdates.subjectId;
@@ -587,11 +502,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateStudyNote = async (id: string, updates: Partial<StudyNote>) => {
-        const dbUpdates: any = { ...updates };
-        if (updates.subjectId) {
-            dbUpdates.subject_id = updates.subjectId;
-            delete dbUpdates.subjectId;
-        }
+        const dbUpdates: import('../types/supabase-types').DatabaseStudyNoteUpdate = {};
+
+        if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
+        if (updates.title) dbUpdates.title = updates.title;
+        if (updates.content) dbUpdates.content = updates.content;
+
+        // Add updated_at
+        dbUpdates.updated_at = new Date().toISOString();
+
         await supabase.from('study_notes').update(dbUpdates).eq('id', id);
         setStudyNotes(studyNotes.map(n => n.id === id ? { ...n, ...updates } : n));
     };
@@ -749,19 +668,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateEvent = async (id: string, updates: Partial<Event>) => {
-        const dbUpdates: any = { ...updates };
+        // Construct dbUpdates with explicit mapping to avoid 'any'
+        const dbUpdates: import('../types/supabase-types').DatabaseEventUpdate = {};
+
         if (updates.eventType) dbUpdates.event_type = updates.eventType;
         if (updates.eventDate) dbUpdates.event_date = updates.eventDate;
-        if (updates.notifyBeforeMinutes) dbUpdates.notify_before_minutes = updates.notifyBeforeMinutes;
+        if (updates.notifyBeforeMinutes !== undefined) dbUpdates.notify_before_minutes = updates.notifyBeforeMinutes;
         if (updates.isNotified !== undefined) dbUpdates.is_notified = updates.isNotified;
 
-        delete dbUpdates.eventType;
-        delete dbUpdates.eventDate;
-        delete dbUpdates.notifyBeforeMinutes;
-        delete dbUpdates.isNotified;
-        delete dbUpdates.userId;
-        delete dbUpdates.createdAt;
-        delete dbUpdates.updatedAt;
+        // No need to delete keys if we build a fresh object
 
         await supabase.from('events').update(dbUpdates).eq('id', id);
         setEvents(events.map(e => e.id === id ? { ...e, ...updates } : e));

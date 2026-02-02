@@ -50,7 +50,7 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
 
     // Timer interval
     useEffect(() => {
-        let interval: any = null;
+        let interval: ReturnType<typeof setInterval> | null = null;
         if (focusState.isActive && focusState.timeLeft > 0) {
             interval = setInterval(() => {
                 setFocusState(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
@@ -67,7 +67,9 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
                 });
             }
         }
-        return () => clearInterval(interval);
+        return () => {
+            if (interval) clearInterval(interval);
+        };
     }, [focusState.isActive, focusState.timeLeft, focusState.mode, notificationsEnabled]);
 
     // localStorage'ga saqlash

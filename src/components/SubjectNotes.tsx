@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
+import { StudyNote } from '../types';
 import FontSelector from './FontSelector';
 import { Button } from './ui/Button';
 
@@ -26,7 +27,7 @@ const SubjectNotes: React.FC<SubjectNotesProps> = ({ subjectId }) => {
     // Ensure studyNotes is defined before filtering
     const subjectNotes = (studyNotes || []).filter(n => n.subjectId === subjectId);
 
-    const startEditing = (note: any) => {
+    const startEditing = (note: StudyNote) => {
         setEditingNoteId(note.id);
         setTitle(note.title);
         setContent(note.content);

@@ -1,74 +1,23 @@
-import { Book, Play, Plus, Sparkles, Upload, Download, X, FileText } from 'lucide-react';
-import React, { useState, useRef } from 'react';
+import { Book, Plus, Sparkles, Upload } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
+import DeckCard from '../components/decks/DeckCard';
+import ImportModal from '../components/decks/ImportModal';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useFlashcardImport } from '../hooks/useFlashcardImport';
 
 const DecksPage: React.FC = () => {
     const { subjects, flashcards, importFlashcards } = useStudyData();
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
     const [isImportModalOpen, setImportModalOpen] = useState(false);
-    const [importSubjectId, setImportSubjectId] = useState('');
-    const [importFile, setImportFile] = useState<File | null>(null);
-    const [isImporting, setIsImporting] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileUpload = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!importSubjectId || !importFile) return;
+    const { handleImport, downloadTemplate, isImporting } = useFlashcardImport(importFlashcards);
 
-        setIsImporting(true);
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            try {
-                const json = JSON.parse(event.target?.result as string);
-                if (!Array.isArray(json)) throw new Error("JSON must be an array");
-
-                // Validate structure roughly
-                if (json.length > 0 && (!json[0].front || !json[0].back)) {
-                    throw new Error("Invalid JSON structure. Needs 'front' and 'back' fields.");
-                }
-
-                const success = await importFlashcards(importSubjectId, json);
-                if (success) {
-                    alert("Muvaffaqiyatli yuklandi!");
-                    setImportModalOpen(false);
-                    setImportFile(null);
-                    setImportSubjectId('');
-                } else {
-                    alert("Xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("JSON fayl xato formatda! Iltimos, namunani tekshiring.");
-            } finally {
-                setIsImporting(false);
-            }
-        };
-        reader.readAsText(importFile);
-    };
-
-    const downloadTemplate = () => {
-        const template = [
-            {
-                "front": "Mizu",
-                "back": "Suv",
-                "example": "Mizu o nomimasu (Suv ichaman)"
-            },
-            {
-                "front": "Hon",
-                "back": "Kitob",
-                "example": "Hon o yomimasu (Kitob o'qiyman)"
-            }
-        ];
-        const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'flashcards_template.json';
-        a.click();
-        URL.revokeObjectURL(url);
+    const onImport = async (subjectId: string, file: File) => {
+        await handleImport(subjectId, file);
+        setImportModalOpen(false);
     };
 
     return (
@@ -107,45 +56,13 @@ const DecksPage: React.FC = () => {
                     const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
 
                     return (
-                        <div key={subject.id} className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: subject.color + '20', color: subject.color }}>
-                                    <Book size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{subject.name}</h3>
-                                    <p className="text-sm text-gray-500">{deckCards.length} kartalar</p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-3">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-gray-500">Hozirgi</span>
-                                    <span className="font-bold text-indigo-600">{dueCards.length}</span>
-                                </div>
-
-                                <div className="pt-4 flex gap-2">
-                                    <Link to={`/flashcards/study/${subject.id}`} className="flex-1">
-                                        <Button className="w-full flex justify-center items-center gap-2" disabled={dueCards.length === 0}>
-                                            <Play size={16} /> O'rganish
-                                        </Button>
-                                    </Link>
-                                    <Button
-                                        variant="secondary"
-                                        className="px-3 text-indigo-600"
-                                        onClick={() => setAiSubjectId(subject.id)}
-                                        title="AI bilan yaratish"
-                                    >
-                                        <Sparkles size={20} />
-                                    </Button>
-                                    <Link to={`/flashcards/new?subjectId=${subject.id}`}>
-                                        <Button variant="secondary" className="px-3">
-                                            <Plus size={20} />
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                        <DeckCard
+                            key={subject.id}
+                            subject={subject}
+                            cardCount={deckCards.length}
+                            dueCount={dueCards.length}
+                            onAIGenerate={() => setAiSubjectId(subject.id)}
+                        />
                     );
                 })}
 
@@ -175,70 +92,14 @@ const DecksPage: React.FC = () => {
                 />
             )}
 
-            {isImportModalOpen && (
-                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full p-6 relative">
-                        <button
-                            onClick={() => setImportModalOpen(false)}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                        >
-                            <X size={24} />
-                        </button>
-
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">JSON orqali yuklash</h3>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-                            Katta hajmdagi ma'lumotlarni tezkor yuklash uchun.
-                        </p>
-
-                        <form onSubmit={handleFileUpload} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Qaysi fanga?</label>
-                                <select
-                                    className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                    value={importSubjectId}
-                                    onChange={(e) => setImportSubjectId(e.target.value)}
-                                    required
-                                >
-                                    <option value="">Fanni tanlang...</option>
-                                    {subjects.map(s => (
-                                        <option key={s.id} value={s.id}>{s.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">JSON Fayl</label>
-                                <div
-                                    className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 text-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
-                                    onClick={() => fileInputRef.current?.click()}
-                                >
-                                    <input
-                                        type="file"
-                                        ref={fileInputRef}
-                                        className="hidden"
-                                        accept=".json"
-                                        onChange={(e) => setImportFile(e.target.files?.[0] || null)}
-                                    />
-                                    <FileText className="mx-auto text-gray-400 mb-2" size={32} />
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                        {importFile ? importFile.name : "Faylni tanlang yoki shu yerga tashlang"}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex justify-between items-center text-sm">
-                                <button type="button" onClick={downloadTemplate} className="text-indigo-600 hover:underline flex items-center gap-1">
-                                    <Download size={14} /> Namuna yuklab olish
-                                </button>
-                            </div>
-
-                            <Button type="submit" disabled={isImporting} className="w-full">
-                                {isImporting ? 'Yuklanmoqda...' : 'Yuklash'}
-                            </Button>
-                        </form>
-                    </div>
-                </div>
-            )}
+            <ImportModal
+                isOpen={isImportModalOpen}
+                onClose={() => setImportModalOpen(false)}
+                subjects={subjects}
+                onImport={onImport}
+                isImporting={isImporting}
+                downloadTemplate={downloadTemplate}
+            />
         </div>
     );
 };

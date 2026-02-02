@@ -10,10 +10,10 @@ interface WhiteboardProps {
 
 const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
     const { user } = useStudyData();
-    const [storeData, setStoreData] = useState<any>(null);
+    const [storeData, setStoreData] = useState<Record<string, unknown> | null>(null);
     const [loading, setLoading] = useState(true);
-    const saveTimeoutRef = useRef<any>(null);
-    const localSaveTimeoutRef = useRef<any>(null);
+    const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const localSaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'error' | 'unsaved'>('saved');
 

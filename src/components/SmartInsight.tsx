@@ -25,9 +25,9 @@ const SmartInsight: React.FC = () => {
         try {
             const result = await generateStudyInsights(sessions, subjects, settings.googleApiKey);
             setInsight(result);
-        } catch (e: any) {
-            console.error(e);
-            alert("Tahlil qilishda xatolik: " + (e.message || "Noma'lum xato"));
+        } catch (error: unknown) {
+            console.error('AI Insight Error:', error);
+            alert("Tahlil qilishda xatolik: " + ((error as Error).message || "Noma'lum xato"));
         } finally {
             setLoading(false);
         }

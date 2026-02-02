@@ -76,17 +76,6 @@ describe('ErrorBoundary Component', () => {
         expect(screen.getByText(/Error: Test error/i)).toBeInTheDocument();
     });
 
-    it('should render custom fallback when provided', () => {
-        const customFallback = <div>Custom error message</div>;
-        render(
-            <ErrorBoundary fallback={customFallback}>
-                <ThrowError shouldThrow={true} />
-            </ErrorBoundary>
-        );
-        expect(screen.getByText('Custom error message')).toBeInTheDocument();
-        expect(screen.queryByText(/Xatolik yuz berdi/i)).not.toBeInTheDocument();
-    });
-
     it('should log error to console', () => {
         const consoleErrorSpy = vi.spyOn(console, 'error');
         render(

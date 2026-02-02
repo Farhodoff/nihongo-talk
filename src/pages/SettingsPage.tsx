@@ -1,52 +1,11 @@
-import { Bell, Key, Moon, Sun, Trash, AlertTriangle, X } from 'lucide-react';
-import React, { useState } from 'react';
-import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { supabase } from '../lib/supabase';
 import { requestNotificationPermission } from '../utils/notifications';
-
-const PasswordChangeSection = () => {
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const handleUpdate = async () => {
-        if (password.length < 6) return alert("Parol kamida 6 belgidan iborat bo'lishi kerak.");
-        setLoading(true);
-        const { error } = await supabase.auth.updateUser({ password: password });
-        if (error) alert("Xatolik: " + error.message);
-        else {
-            alert("Parol muvaffaqiyatli yangilandi!");
-            setPassword('');
-        }
-        setLoading(false);
-    };
-
-    return (
-        <div className="p-4 flex flex-col gap-3">
-            <div className="flex items-center gap-3 mb-1">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg">
-                    <Key size={20} />
-                </div>
-                <span className="font-medium text-gray-900 dark:text-white">Parolni O'zgartirish</span>
-            </div>
-            <div className="flex gap-2">
-                <input
-                    type="password"
-                    placeholder="Yangi parol..."
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="flex-1 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-                <Button onClick={handleUpdate} disabled={loading}>{loading ? 'Saqlanmoqda...' : 'Saqlash'}</Button>
-            </div>
-        </div>
-    );
-};
+import PreferencesSection from '../components/settings/PreferencesSection';
+import DataManagementSection from '../components/settings/DataManagementSection';
+import AccountSection from '../components/settings/AccountSection';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
-    const [showClearModal, setShowClearModal] = useState(false);
-    const [apiKey, setApiKey] = useState(settings.googleApiKey || '');
 
     const toggleTheme = () => {
         updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
@@ -65,15 +24,12 @@ const SettingsPage: React.FC = () => {
         }
     };
 
-    const handleClear = async () => {
+    const handleClearData = async () => {
         await refreshData();
-        setShowClearModal(false);
-        alert("Barcha ma'lumotlar tozalandi.");
     };
 
-    const handleSaveApiKey = async () => {
-        await updateSettings({ googleApiKey: apiKey });
-        alert("API Kalit Saqlandi! ✅");
+    const handleSaveApiKey = async (key: string) => {
+        await updateSettings({ googleApiKey: key });
     };
 
     return (
@@ -84,143 +40,18 @@ const SettingsPage: React.FC = () => {
             </div>
 
             <div className="space-y-6 max-w-2xl">
-                {/* Preferences */}
-                <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-400 text-sm">
-                        AFZALLIKLAR
-                    </div>
+                <PreferencesSection
+                    settings={settings}
+                    onToggleTheme={toggleTheme}
+                    onToggleNotifications={toggleNotifications}
+                />
 
-                    <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-lg">
-                                {settings.theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
-                            </div>
-                            <span className="font-medium text-gray-900 dark:text-white">Tungi Rejim</span>
-                        </div>
-                        <button
-                            onClick={toggleTheme}
-                            className={`w-12 h-6 rounded-full transition-colors relative ${settings.theme === 'dark' ? 'bg-indigo-500' : 'bg-gray-300'}`}
-                        >
-                            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${settings.theme === 'dark' ? 'left-7' : 'left-1'}`} />
-                        </button>
-                    </div>
+                <DataManagementSection onClearData={handleClearData} />
 
-                    <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-t border-gray-100 dark:border-gray-700">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-lg">
-                                <Bell size={20} />
-                            </div>
-                            <span className="font-medium text-gray-900 dark:text-white">Bildirishnomalar</span>
-                        </div>
-                        <button
-                            onClick={toggleNotifications}
-                            className={`w-12 h-6 rounded-full transition-colors relative ${settings.notificationsEnabled ? 'bg-indigo-500' : 'bg-gray-300'}`}
-                        >
-                            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${settings.notificationsEnabled ? 'left-7' : 'left-1'}`} />
-                        </button>
-                    </div>
-                </div>
-
-                {/* Data */}
-                <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-400 text-sm">
-                        MA'LUMOTLARNI BOSHQARISH
-                    </div>
-
-                    <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-lg">
-                                <Trash size={20} />
-                            </div>
-                            <span className="font-medium text-red-600">Barcha ma'lumotlarni tozalash</span>
-                        </div>
-                        <Button variant="danger" onClick={() => setShowClearModal(true)} className="px-3 py-1 text-sm">
-                            Tozalash
-                        </Button>
-                    </div>
-                </div>
-
-                {/* Account Settings */}
-                <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-400 text-sm">
-                        HISOB SOZLAMALARI
-                    </div>
-
-                    {/* Google API Key */}
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Google Gemini API Key
-                        </label>
-                        <div className="flex gap-2">
-                            <input
-                                type="password"
-                                placeholder="AI ishlatish uchun shaxsiy kalit..."
-                                className="flex-1 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                value={apiKey}
-                                onChange={(e) => setApiKey(e.target.value)}
-                            />
-                            <Button onClick={handleSaveApiKey}>
-                                Saqlash
-                            </Button>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-2">
-                            Shaxsiy API kalitingiz bo'lsa, AI funksiyalari (Fleshkarta, Reja) shaxsiy hisobingizdan foydalanadi va limitga tushmaydi.
-                            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-indigo-500 ml-1 hover:underline">Kalit olish.</a>
-                        </p>
-                    </div>
-
-                    {/* Password Change */}
-                    <PasswordChangeSection />
-
-                    <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-                        <Button
-                            variant="danger"
-                            onClick={async () => {
-                                if (confirm('Tizimdan chiqishni xohlaysizmi?')) {
-                                    await supabase.auth.signOut();
-                                    // App.tsx listener will handle redirection
-                                }
-                            }}
-                            className="w-full"
-                        >
-                            <span className="flex items-center justify-center gap-2">
-                                🚪 Tizimdan Chiqish
-                            </span>
-                        </Button>
-                    </div>
-                    {/* Clear Data Modal */}
-                    {showClearModal && (
-                        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-sm w-full p-6 relative">
-                                <button
-                                    onClick={() => setShowClearModal(false)}
-                                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                                >
-                                    <X size={24} />
-                                </button>
-
-                                <div className="flex flex-col items-center text-center mb-6">
-                                    <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full flex items-center justify-center mb-4">
-                                        <AlertTriangle size={32} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Haqiqatan ham o'chirmoqchimisiz?</h3>
-                                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                                        Bu amalni ortga qaytarib bo'lmaydi. Barcha vazifalar, fanlar va statistikalar o'chib ketadi.
-                                    </p>
-                                </div>
-
-                                <div className="flex gap-3">
-                                    <Button variant="secondary" onClick={() => setShowClearModal(false)} className="flex-1">
-                                        Bekor qilish
-                                    </Button>
-                                    <Button variant="danger" onClick={handleClear} className="flex-1">
-                                        O'chirish
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <AccountSection
+                    apiKey={settings.googleApiKey || ''}
+                    onSaveApiKey={handleSaveApiKey}
+                />
             </div>
         </div>
     );

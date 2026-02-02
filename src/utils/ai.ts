@@ -64,8 +64,8 @@ export const generateFlashcardsWithAI = async (
             back: String(item.back)
         }));
 
-    } catch (error) {
-        console.error("AI Flashcard Error:", error);
+    } catch (error: unknown) {
+        console.error('AI Request Error:', error);
         throw error;
     }
 };

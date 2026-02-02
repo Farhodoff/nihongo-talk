@@ -40,8 +40,8 @@ const AuthPage: React.FC = () => {
                 if (error) throw error;
                 alert('Muvaffaqiyatli! Iltimos, tasdiqlash linki uchun emailingizni tekshiring.');
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (error: unknown) {
+            setError(error instanceof Error ? error.message : 'Xatolik yuz berdi');
         } finally {
             setLoading(false);
         }

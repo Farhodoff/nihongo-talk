@@ -2,7 +2,7 @@ import { BookOpen, Loader2, Sparkles, Youtube } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateFullStudyPlan, SmartResource } from '../utils/ai';
+import { generateFullStudyPlan, SmartResource, FullStudyPlan } from '../utils/ai';
 
 interface AIPlanModalProps {
     isOpen: boolean;
@@ -16,7 +16,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
     const [examDate, setExamDate] = useState('');
     const [hoursPerDay, setHoursPerDay] = useState(2);
     const [isLoading, setIsLoading] = useState(false);
-    const [previewTasks, setPreviewTasks] = useState<any[]>([]);
+    const [previewTasks, setPreviewTasks] = useState<FullStudyPlan['schedule']>([]);
     const [resources, setResources] = useState<SmartResource[]>([]);
     const [createGoal, setCreateGoal] = useState(true);
     const [activeTab, setActiveTab] = useState<'plan' | 'resources'>('plan');
@@ -46,13 +46,13 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
             setPreviewTasks(fullPlan.schedule || []);
             setResources(fullPlan.resources || []);
             setActiveTab('plan');
-        } catch (error: any) {
-            console.error(error);
-            const isRateLimit = error.message?.includes('429') || error.message?.includes('quota');
+        } catch (error: unknown) {
+            console.error('AI Plan Generation Error:', error);
+            const errorMessage = (error as Error).message || 'Noma\'lum xato';
+            const isRateLimit = errorMessage.includes('429') || errorMessage.includes('quota');
             const message = isRateLimit
                 ? "AI hozir band. Iltimos keyinroq urinib ko'ring."
-                : `Xatolik: ${error.message || 'AI xizmatida muammo yuz berdi'}.`;
-
+                : `Reja yaratishda xatolik: ${errorMessage}`;
             alert(message);
         } finally {
             setIsLoading(false);
