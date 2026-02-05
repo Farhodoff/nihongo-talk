@@ -1,5 +1,5 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { Bot, webhookCallback } from 'https://deno.land/x/grammy@v1.8.3/mod.ts';
+import { Bot, webhookCallback } from 'https://esm.sh/grammy@1.8.3';
 
 const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
 if (!botToken) {
