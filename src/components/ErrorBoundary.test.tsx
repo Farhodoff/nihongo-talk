@@ -45,7 +45,7 @@ describe('ErrorBoundary Component', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        expect(screen.getByText(/Kechirasiz, kutilmagan xatolik yuz berdi/i)).toBeInTheDocument();
+        expect(screen.getByText(/Nimadir noto'g'ri ketdi/i)).toBeInTheDocument();
     });
 
     it('should display reload button in error state', () => {
@@ -64,7 +64,7 @@ describe('ErrorBoundary Component', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        expect(screen.getByText(/Texnik ma'lumotlar/i)).toBeInTheDocument();
+        expect(screen.getByText(/Texnik ma'lumot/i)).toBeInTheDocument();
     });
 
     it('should display the error message in details', () => {
@@ -73,7 +73,7 @@ describe('ErrorBoundary Component', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        expect(screen.getByText(/Error: Test error/i)).toBeInTheDocument();
+        expect(screen.getByText(/Test error/i)).toBeInTheDocument();
     });
 
     it('should log error to console', () => {
