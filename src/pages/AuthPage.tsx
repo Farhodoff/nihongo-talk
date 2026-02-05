@@ -2,6 +2,7 @@ import { Loader2, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
+import ForgotPasswordModal from '../components/auth/ForgotPasswordModal';
 
 const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,9 @@ const AuthPage: React.FC = () => {
 
     // Parolni ko'rsatish/yashirish uchun state
     const [showPassword, setShowPassword] = useState(false);
+
+    // Forgot password modal state
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
 
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,6 +98,7 @@ const AuthPage: React.FC = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                autoComplete="email"
                                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
                                 placeholder="siz@example.com"
                                 required
@@ -109,6 +114,7 @@ const AuthPage: React.FC = () => {
                                 type={showPassword ? "text" : "password"} // Dinamik o'zgarish
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete={isLogin ? "current-password" : "new-password"}
                                 className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
                                 placeholder="••••••••"
                                 required
@@ -124,6 +130,19 @@ const AuthPage: React.FC = () => {
                             </button>
                         </div>
                     </div>
+
+                    {/* Forgot Password Link (Login mode only) */}
+                    {isLogin && (
+                        <div className="text-right">
+                            <button
+                                type="button"
+                                onClick={() => setShowForgotPassword(true)}
+                                className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium transition-colors"
+                            >
+                                Parolni unutdingizmi?
+                            </button>
+                        </div>
+                    )}
 
                     <Button type="submit" className="w-full py-3 mt-4" disabled={loading}>
                         {loading ? <Loader2 className="animate-spin mr-2" /> : (isLogin ? 'Kirish' : 'Ro\'yxatdan o\'tish')}
@@ -142,6 +161,12 @@ const AuthPage: React.FC = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Forgot Password Modal */}
+            <ForgotPasswordModal
+                isOpen={showForgotPassword}
+                onClose={() => setShowForgotPassword(false)}
+            />
         </div>
     );
 };
