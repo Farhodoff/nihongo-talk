@@ -40,8 +40,6 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     };
 
     const reviewFlashcard = async (id: string, rating: number) => {
-        console.log(`Card ${id} rated: ${rating}`);
-
         const now = new Date();
         const nextReviewDate = new Date(now);
 

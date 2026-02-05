@@ -576,11 +576,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const addWhiteboard = async (subjectId: string, title: string) => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
-            console.error("addWhiteboard: No user found");
             return null;
         }
-
-        console.log("addWhiteboard: Attempting to create whiteboard", { subjectId, title, userId: user.id });
 
         const { data, error } = await supabase.from('whiteboards').insert({
             user_id: user.id,
@@ -596,7 +593,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
 
         if (data) {
-            console.log("addWhiteboard: Success", data);
             const newWb: WhiteboardMetadata = {
                 id: data.id,
                 subjectId: data.subject_id,

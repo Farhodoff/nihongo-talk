@@ -141,7 +141,6 @@ const CalendarPage: React.FC = () => {
                 // Simple approach: set YYYY-MM-DD with current time or 9am
                 const newIso = moment(newDateStr).hour(9).minute(0).toISOString();
 
-                console.log(`Moving Task ${task.title} to ${newDateStr}`);
                 updateTask(task.id, {
                     dueDate: newIso,
                     deadline: newIso, // Sync both just in case

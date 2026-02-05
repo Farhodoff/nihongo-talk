@@ -21,7 +21,8 @@ const GlobalAudioPlayer = () => {
             if (audioRef.current.src !== soundUrl) {
                 audioRef.current.src = soundUrl;
             }
-            audioRef.current.play().catch(e => console.log("Audio play failed (user interaction needed)", e));
+            // Silent fail if browser blocks autoplay
+            audioRef.current.play().catch(() => { });
         } else {
             audioRef.current.pause();
         }

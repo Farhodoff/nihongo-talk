@@ -60,7 +60,8 @@ const FocusPage: React.FC = () => {
     const playRingtone = () => {
         if (ringtoneRef.current) {
             ringtoneRef.current.currentTime = 0;
-            ringtoneRef.current.play().catch(e => console.log("Ringtone play failed", e));
+            // Silent fail if browser blocks autoplay
+            ringtoneRef.current.play().catch(() => { });
         }
     };
 

@@ -43,6 +43,12 @@ export default defineConfig({
         // Source map o'chirish (production uchun)
         sourcemap: false,
     },
+    // Production build uchun console.log larni olib tashlash
+    esbuild: {
+        drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+        // Faqat console.log va console.warn olib tashlanadi, console.error qoladi
+        pure: process.env.NODE_ENV === 'production' ? ['console.log', 'console.warn'] : [],
+    },
     // Development server optimizatsiyasi
     server: {
         port: 5173,

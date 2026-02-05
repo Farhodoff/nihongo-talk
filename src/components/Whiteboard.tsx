@@ -26,8 +26,6 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
             if (!user) return;
             setLoading(true);
 
-            console.log(`Loading whiteboard ${whiteboardId}...`);
-
             // 1. Try Supabase
             const { data, error } = await supabase
                 .from('whiteboards')
@@ -40,16 +38,13 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
             }
 
             if (data?.data && Object.keys(data.data).length > 0) {
-                console.log("Loaded from Supabase:", data.data);
                 setStoreData(data.data);
             } else {
-                console.log("No data in Supabase or empty, checking LocalStorage...");
                 // 2. Fallback to LocalStorage
                 const local = localStorage.getItem(persistenceKey);
                 if (local) {
                     try {
                         const parsed = JSON.parse(local);
-                        console.log("Loaded from LocalStorage:", parsed);
                         setStoreData(parsed);
                     } catch (e) {
                         console.error("Failed to parse local whiteboard", e);
@@ -66,7 +61,6 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
         // Load initial data
         if (storeData) {
             try {
-                console.log("Restoring snapshot to editor...");
                 loadSnapshot(editor.store, storeData);
             } catch (e) {
                 console.error("Failed to load snapshot", e);
@@ -93,7 +87,6 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
                 if (!user) return;
                 const snapshot = getSnapshot(editor.store);
 
-                console.log("Auto-saving to Supabase...");
                 // Update by ID, not subject_id
                 const { error } = await supabase.from('whiteboards').update({
                     data: snapshot,
@@ -101,11 +94,9 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
                 }).eq('id', whiteboardId);
 
                 if (error) {
-                    console.error("Whiteboard save failed:", error.message);
                     setSaveStatus('error');
                     // alert("Saqlashda xatolik bo'ldi! Internetni tekshiring."); // Optional
                 } else {
-                    console.log("Auto-save success!");
                     setSaveStatus('saved');
                 }
             }, 3000);

@@ -140,9 +140,6 @@ const AuthPage: React.FC = () => {
                     >
                         {isLogin ? "Akkauntingiz yo'qmi? Ro'yxatdan o'tish" : 'Akkauntingiz bormi? Kirish'}
                     </button>
-                    <div className="mt-4 text-xs text-gray-400">
-                        Supabase tomonidan quvvatlanadi ⚡
-                    </div>
                 </div>
             </div>
         </div>
