@@ -3,6 +3,7 @@ import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
 import DataManagementSection from '../components/settings/DataManagementSection';
 import AccountSection from '../components/settings/AccountSection';
+import TelegramSection from '../components/settings/TelegramSection';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
@@ -45,6 +46,11 @@ const SettingsPage: React.FC = () => {
                     onToggleTheme={toggleTheme}
                     onToggleNotifications={toggleNotifications}
                 />
+
+                {/* Telegram Integration Section */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                    <TelegramSection />
+                </div>
 
                 <DataManagementSection onClearData={handleClearData} />
 
