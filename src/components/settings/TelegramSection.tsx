@@ -78,7 +78,7 @@ const TelegramSection: React.FC = () => {
         return `${minutes} daqiqa`;
     };
 
-    const botUsername = 'YourBotUsername'; // Replace with actual bot username
+    const botUsername = 'study_plannerr_bot';
 
     return (
         <div className="space-y-6">
