@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Loader2, CheckCircle2, XCircle, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/Button';
 import telegramService from '../../services/TelegramService';
-import { useStudyPlanner } from '../../context/StudyPlannerContext';
+import { useStudyData } from '../../context/StudyPlannerContext';
 
 const TelegramSection: React.FC = () => {
-    const { user } = useStudyPlanner();
+    const { user } = useStudyData();
     const [linkCode, setLinkCode] = useState<string | null>(null);
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
     const [linkedAccount, setLinkedAccount] = useState<any>(null);
@@ -129,8 +129,8 @@ const TelegramSection: React.FC = () => {
                         <button
                             onClick={handleToggleNotifications}
                             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationsEnabled
-                                    ? 'bg-indigo-600'
-                                    : 'bg-gray-200 dark:bg-gray-700'
+                                ? 'bg-indigo-600'
+                                : 'bg-gray-200 dark:bg-gray-700'
                                 }`}
                         >
                             <span
