@@ -47,6 +47,13 @@ Zamonaviy talabalar uchun to'liq AI-quvvatli o'quv rejalashtirish veb-ilovasi. *
 - **🔄 Real-time Sync**: Bir necha qurilmada sinxronlash
 - **💾 Offline Support**: LocalStorage orqali offline ishlash
 
+### 📱 Telegram Bot Integratsiyasi
+- **🔗 Account Linking**: Telegram akkauntni web app bilan bog'lash
+- **🔔 Smart Notifications**: Ertalabki va kechki kun xabarnomalar (Schedule: 9 AM / 8 PM)
+- **⏰ Deadline Reminders**: Imtihon va vazifa deadline eslatmalari (24h & 1h oldin)
+- **⚙️ Sozlanadigan Vaqtlar**: Xabarnoma vaqtlarini konfiguratsiya qilish
+- **🤖 Bot Commands**: `/start`, `/help` buyruqlari (Task management - kelgusida)
+
 ---
 
 ## 🚀 Texnologiyalar
@@ -64,6 +71,7 @@ Zamonaviy talabalar uchun to'liq AI-quvvatli o'quv rejalashtirish veb-ilovasi. *
   - Real-time subscriptions
   - Authentication
   - Row Level Security (RLS)
+  - **Edge Functions** - Telegram Bot webhook handler
 
 ### AI & Integrations
 - **Google Generative AI SDK** (Gemini 2.0 Flash)
@@ -102,6 +110,9 @@ VITE_GEMINI_API_KEY=your_google_gemini_api_key_here
 # Supabase Configuration
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Telegram Bot (Supabase Edge Functions secrets)
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token_from_botfather
 ```
 
 **API Keys olish:**
