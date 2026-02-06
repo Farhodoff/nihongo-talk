@@ -1,10 +1,12 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { Bot, webhookCallback } from 'https://esm.sh/grammy@1.8.3';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
 const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
 const supabaseUrl = Deno.env.get('SUPABASE_URL');
 const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+
+console.log('Bot starting...');
 
 if (!botToken || !supabaseUrl || !supabaseKey) {
     throw new Error('Missing required environment variables');
@@ -15,17 +17,19 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // /start command handler
 bot.command('start', async (ctx) => {
-    const args = ctx.match?.trim(); // Gets text after /start
-    const telegramId = ctx.from?.id;
-    const chatId = ctx.chat?.id;
-    const username = ctx.from?.username;
-    const firstName = ctx.from?.first_name;
-    const lastName = ctx.from?.last_name;
+    try {
+        const args = ctx.match?.trim();
+        const telegramId = ctx.from?.id;
+        const chatId = ctx.chat?.id;
+        const username = ctx.from?.username;
+        const firstName = ctx.from?.first_name;
+        const lastName = ctx.from?.last_name;
 
-    if (args && telegramId && chatId) {
-        // Handle account linking: /start CODE123
-        try {
-            // Find valid code
+        console.log('Received /start command:', { args, telegramId });
+
+        if (args && telegramId && chatId) {
+            console.log('Attempting to link account with code:', args);
+
             const { data: linkCode, error: codeError } = await supabase
                 .from('telegram_link_codes')
                 .select('*')
@@ -34,15 +38,13 @@ bot.command('start', async (ctx) => {
                 .gt('expires_at', new Date().toISOString())
                 .single();
 
+            console.log('Code lookup result:', { found: !!linkCode, error: codeError });
+
             if (codeError || !linkCode) {
-                await ctx.reply(
-                    `❌ Noto'g'ri yoki muddati o'tgan kod!\n\n` +
-                    `Iltimos, veb saytdan yangi kod oling.`
-                );
+                await ctx.reply("Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, veb saytdan yangi kod oling.");
                 return;
             }
 
-            // Create telegram_users record
             const { error: linkError } = await supabase
                 .from('telegram_users')
                 .insert({
@@ -54,67 +56,47 @@ bot.command('start', async (ctx) => {
                     chat_id: chatId,
                 });
 
+            console.log('Link insert result:', { error: linkError });
+
             if (linkError) {
-                await ctx.reply(
-                    `⚠️ Akkaunt ulashda xatolik yuz berdi.\n\n` +
-                    `Iltimos, qaytadan urinib ko'ring.`
-                );
+                console.error('Failed to link:', linkError);
+                await ctx.reply("Akkaunt ulashda xatolik yuz berdi.\n\nIltimos, qaytadan urinib ko'ring.");
                 return;
             }
 
-            // Mark code as used
             await supabase
                 .from('telegram_link_codes')
                 .update({ used: true })
                 .eq('id', linkCode.id);
 
-            await ctx.reply(
-                `✅ Muvaffaqiyatli ulandi!\n\n` +
-                `Akkauntingiz Telegram bilan bog'landi.\n` +
-                `Endi siz vazifalar va maqsadlar haqida xabarnomalar olasiz.\n\n` +
-                `Buyruqlar ro'yxati: /help`
-            );
-        } catch (error) {
-            console.error('Linking error:', error);
-            await ctx.reply(
-                `⚠️ Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.`
-            );
+            console.log('Successfully linked account');
+
+            await ctx.reply("Muvaffaqiyatli ulandi!\n\nAkkauntingiz Telegram bilan bog'landi.\nEndi siz vazifalar va maqsadlar haqida xabarnomalar olasiz.\n\nBuyruqlar ro'yxati: /help");
+        } else {
+            await ctx.reply("Salom! Study Planner botiga xush kelibsiz!\n\nMen sizning o'quv rejalaringizni boshqarishga yordam beraman.\n\nIshlatish uchun akkauntingizni bog'lash kerak:\n1. Veb saytga kiring\n2. Settings → Telegram Bo'limiga o'ting\n3. Telegram ni bog'lash tugmasini bosing\n\nYordam kerakmi? /help buyrug'ini yuboring.");
         }
-    } else {
-        // Normal /start - welcome message
-        await ctx.reply(
-            `👋 Salom! Study Planner botiga xush kelibsiz! 🎓\n\n` +
-            `Men sizning o'quv rejalaringizni boshqarishga yordam beraman.\n\n` +
-            `Ishlatish uchun akkauntingizni bog'lash kerak:\n` +
-            `1. Veb saytga kiring: study-planner.uz\n` +
-            `2. Settings → Telegram Bo'limiga o'ting\n` +
-            `3. "Telegram ni bog'lash" tugmasini bosing\n\n` +
-            `Yordam kerakmi? /help buyrug'ini yuboring.`
-        );
+    } catch (error) {
+        console.error('Error in /start handler:', error);
+        await ctx.reply("Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.");
     }
 });
 
 // /help command
 bot.command('help', async (ctx) => {
-    await ctx.reply(
-        `📖 Buyruqlar ro'yxati:\n\n` +
-        `/start - Botni ishga tushirish\n` +
-        `/help - Yordam\n` +
-        `/tasks - Vazifalaringizni ko'rish\n` +
-        `/add - Yangi vazifa qo'shish\n` +
-        `/goals - Maqsadlaringizni ko'rish\n` +
-        `/settings - Sozlamalar\n\n` +
-        `❗ Hozirda faqat /start va /help ishlaydi.\n` +
-        `Boshqa funksiyalar tez orada qo'shiladi!`
-    );
+    try {
+        await ctx.reply("Buyruqlar ro'yxati:\n\n/start - Botni ishga tushirish\n/help - Yordam\n/tasks - Vazifalaringizni ko'rish\n/add - Yangi vazifa qo'shish\n/goals - Maqsadlaringizni ko'rish\n/settings - Sozlamalar\n\nHozirda faqat /start va /help ishlaydi.\nBoshqa funksiyalar tez orada qo'shiladi!");
+    } catch (error) {
+        console.error('Error in /help handler:', error);
+    }
 });
 
 // Default message handler
 bot.on('message', async (ctx) => {
-    await ctx.reply(
-        `Men hali bu xabarni tushunmadim 😅\n\n` +
-        `Buyruqlar ro'yxati uchun /help yuboring.`
-    );
+    try {
+        await ctx.reply("Men hali bu xabarni tushunmadim\n\nBuyruqlar ro'yxati uchun /help yuboring.");
+    } catch (error) {
+        console.error('Error in message handler:', error);
+    }
 });
 
 // Error handler
@@ -130,7 +112,7 @@ serve(async (req) => {
         const url = new URL(req.url);
 
         // Health check endpoint
-        if (url.pathname === '/health') {
+        if (url.pathname === '/health' || req.method === 'GET') {
             return new Response(JSON.stringify({ status: 'ok' }), {
                 headers: { 'Content-Type': 'application/json' },
             });
