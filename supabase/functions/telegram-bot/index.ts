@@ -1,131 +1,136 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { Bot, webhookCallback } from 'https://esm.sh/grammy@1.8.3';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
-const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
-const supabaseUrl = Deno.env.get('SUPABASE_URL');
-const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+const SUPABASE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-console.log('Bot starting...');
+console.log('Bot initializing...', {
+    hasToken: !!BOT_TOKEN,
+    hasUrl: !!SUPABASE_URL,
+    hasKey: !!SUPABASE_KEY
+});
 
-if (!botToken || !supabaseUrl || !supabaseKey) {
-    throw new Error('Missing required environment variables');
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Send message to Telegram
+async function sendMessage(chatId: number, text: string) {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
+    });
+    return response.json();
 }
 
-const bot = new Bot(botToken);
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Handle /start command
+async function handleStart(message: any) {
+    const chatId = message.chat.id;
+    const text = message.text || '';
+    const args = text.split(' ')[1]?.trim(); // Get code after /start
 
-// /start command handler
-bot.command('start', async (ctx) => {
-    try {
-        const args = ctx.match?.trim();
-        const telegramId = ctx.from?.id;
-        const chatId = ctx.chat?.id;
-        const username = ctx.from?.username;
-        const firstName = ctx.from?.first_name;
-        const lastName = ctx.from?.last_name;
+    const telegramId = message.from?.id;
+    const username = message.from?.username;
+    const firstName = message.from?.first_name;
+    const lastName = message.from?.last_name;
 
-        console.log('Received /start command:', { args, telegramId });
+    console.log('/start received:', { chatId, args, telegramId });
 
-        if (args && telegramId && chatId) {
-            console.log('Attempting to link account with code:', args);
+    if (args && telegramId) {
+        // Code linking flow
+        console.log('Checking code:', args);
 
-            const { data: linkCode, error: codeError } = await supabase
-                .from('telegram_link_codes')
-                .select('*')
-                .eq('code', args)
-                .eq('used', false)
-                .gt('expires_at', new Date().toISOString())
-                .single();
+        const { data: linkCode, error } = await supabase
+            .from('telegram_link_codes')
+            .select('*')
+            .eq('code', args)
+            .eq('used', false)
+            .gt('expires_at', new Date().toISOString())
+            .single();
 
-            console.log('Code lookup result:', { found: !!linkCode, error: codeError });
-
-            if (codeError || !linkCode) {
-                await ctx.reply("Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, veb saytdan yangi kod oling.");
-                return;
-            }
-
-            const { error: linkError } = await supabase
-                .from('telegram_users')
-                .insert({
-                    user_id: linkCode.user_id,
-                    telegram_id: telegramId,
-                    telegram_username: username,
-                    telegram_first_name: firstName,
-                    telegram_last_name: lastName,
-                    chat_id: chatId,
-                });
-
-            console.log('Link insert result:', { error: linkError });
-
-            if (linkError) {
-                console.error('Failed to link:', linkError);
-                await ctx.reply("Akkaunt ulashda xatolik yuz berdi.\n\nIltimos, qaytadan urinib ko'ring.");
-                return;
-            }
-
-            await supabase
-                .from('telegram_link_codes')
-                .update({ used: true })
-                .eq('id', linkCode.id);
-
-            console.log('Successfully linked account');
-
-            await ctx.reply("Muvaffaqiyatli ulandi!\n\nAkkauntingiz Telegram bilan bog'landi.\nEndi siz vazifalar va maqsadlar haqida xabarnomalar olasiz.\n\nBuyruqlar ro'yxati: /help");
-        } else {
-            await ctx.reply("Salom! Study Planner botiga xush kelibsiz!\n\nMen sizning o'quv rejalaringizni boshqarishga yordam beraman.\n\nIshlatish uchun akkauntingizni bog'lash kerak:\n1. Veb saytga kiring\n2. Settings → Telegram Bo'limiga o'ting\n3. Telegram ni bog'lash tugmasini bosing\n\nYordam kerakmi? /help buyrug'ini yuboring.");
+        if (error || !linkCode) {
+            console.log('Invalid code:', error);
+            return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, veb saytdan yangi kod oling.");
         }
-    } catch (error) {
-        console.error('Error in /start handler:', error);
-        await ctx.reply("Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.");
+
+        // Create link
+        const { error: linkError } = await supabase
+            .from('telegram_users')
+            .insert({
+                user_id: linkCode.user_id,
+                telegram_id: telegramId,
+                telegram_username: username,
+                telegram_first_name: firstName,
+                telegram_last_name: lastName,
+                chat_id: chatId,
+            });
+
+        if (linkError) {
+            console.error('Link error:', linkError);
+            return sendMessage(chatId, "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.");
+        }
+
+        // Mark code used
+        await supabase
+            .from('telegram_link_codes')
+            .update({ used: true })
+            .eq('id', linkCode.id);
+
+        console.log('Successfully linked!');
+        return sendMessage(chatId, "Muvaffaqiyatli ulandi!\n\nAkkauntingiz Telegram bilan bog'landi.\nEndi vazifalar va maqsadlar haqida xabarnomalar olasiz.");
+    } else {
+        // Welcome message
+        return sendMessage(chatId, "Salom! Study Planner botiga xush kelibsiz!\n\nAkkauntingizni bog'lash uchun:\n1. Veb saytga kiring\n2. Settings → Telegram ga o'ting\n3. Kod oling va /start KOD yuboring\n\nYordam: /help");
     }
-});
+}
 
-// /help command
-bot.command('help', async (ctx) => {
-    try {
-        await ctx.reply("Buyruqlar ro'yxati:\n\n/start - Botni ishga tushirish\n/help - Yordam\n/tasks - Vazifalaringizni ko'rish\n/add - Yangi vazifa qo'shish\n/goals - Maqsadlaringizni ko'rish\n/settings - Sozlamalar\n\nHozirda faqat /start va /help ishlaydi.\nBoshqa funksiyalar tez orada qo'shiladi!");
-    } catch (error) {
-        console.error('Error in /help handler:', error);
-    }
-});
+// Handle /help command
+async function handleHelp(message: any) {
+    const chatId = message.chat.id;
+    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
+}
 
-// Default message handler
-bot.on('message', async (ctx) => {
-    try {
-        await ctx.reply("Men hali bu xabarni tushunmadim\n\nBuyruqlar ro'yxati uchun /help yuboring.");
-    } catch (error) {
-        console.error('Error in message handler:', error);
-    }
-});
-
-// Error handler
-bot.catch((err) => {
-    console.error('Bot error:', err);
-});
-
-// Start webhook server
-const handleUpdate = webhookCallback(bot, 'std/http');
-
+// Main webhook handler
 serve(async (req) => {
     try {
         const url = new URL(req.url);
 
-        // Health check endpoint
-        if (url.pathname === '/health' || req.method === 'GET') {
-            return new Response(JSON.stringify({ status: 'ok' }), {
+        // Health check
+        if (req.method === 'GET' || url.pathname.includes('health')) {
+            return new Response(JSON.stringify({ status: 'ok', timestamp: Date.now() }), {
                 headers: { 'Content-Type': 'application/json' },
             });
         }
 
-        // Webhook endpoint
+        // Webhook
         if (req.method === 'POST') {
-            return await handleUpdate(req);
+            const update = await req.json();
+            console.log('Update received:', JSON.stringify(update));
+
+            const message = update.message;
+            if (!message) {
+                return new Response('OK', { status: 200 });
+            }
+
+            const text = message.text || '';
+
+            if (text.startsWith('/start')) {
+                await handleStart(message);
+            } else if (text.startsWith('/help')) {
+                await handleHelp(message);
+            } else {
+                await sendMessage(message.chat.id, "Tushunmadim. /help dan foydalaning.");
+            }
+
+            return new Response('OK', { status: 200 });
         }
 
         return new Response('Method not allowed', { status: 405 });
     } catch (error) {
-        console.error('Request error:', error);
-        return new Response('Internal server error', { status: 500 });
+        console.error('Error:', error);
+        return new Response('OK', { status: 200 }); // Always return 200 to Telegram
     }
 });
+
+console.log('Bot started successfully');
