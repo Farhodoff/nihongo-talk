@@ -37,6 +37,34 @@ async function handleStart(message: any) {
 
     console.log('/start received:', { chatId, args, telegramId });
 
+    // Check if user already linked
+    if (!args) {
+        const { data: existingLink } = await supabase
+            .from('telegram_users')
+            .select('*')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (existingLink) {
+            // Already linked - show status
+            return sendMessage(chatId, `✅ Akkauntingiz allaqachon bog'langan!
+
+👤 Ism: ${existingLink.telegram_first_name}
+📱 Username: @${existingLink.telegram_username || 'yo\'q'}
+
+🔔 Xabarnomalar: ${existingLink.notifications_enabled ? 'Yoniq' : 'O\'chiq'}
+
+📋 Nima qila olasiz:
+• Vazifalar va maqsadlar haqida xabarnomalar olish
+• Deadline eslatmalari (24h & 1h oldin)
+• Kunlik xulosalar (9:00 va 20:00)
+
+⚙️ Sozlamalar: veb saytda Settings → Telegram
+
+Yordam: /help`);
+        }
+    }
+
     if (args && telegramId) {
         // Code linking flow
         console.log('Checking code:', args);
@@ -80,7 +108,7 @@ async function handleStart(message: any) {
         console.log('Successfully linked!');
         return sendMessage(chatId, "Muvaffaqiyatli ulandi!\n\nAkkauntingiz Telegram bilan bog'landi.\nEndi vazifalar va maqsadlar haqida xabarnomalar olasiz.");
     } else {
-        // Welcome message
+        // Welcome message - not linked yet
         return sendMessage(chatId, "Salom! Study Planner botiga xush kelibsiz!\n\nAkkauntingizni bog'lash uchun:\n1. Veb saytga kiring\n2. Settings → Telegram ga o'ting\n3. Kod oling va /start KOD yuboring\n\nYordam: /help");
     }
 }
