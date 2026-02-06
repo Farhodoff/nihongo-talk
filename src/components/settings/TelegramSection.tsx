@@ -144,7 +144,7 @@ const TelegramSection: React.FC = () => {
                     <Button
                         onClick={handleUnlink}
                         disabled={loading}
-                        variant="outline"
+                        variant="secondary"
                         className="w-full text-red-600 border-red-200 hover:bg-red-50"
                     >
                         {loading ? (
@@ -202,7 +202,7 @@ const TelegramSection: React.FC = () => {
 
                     <Button
                         onClick={() => setLinkCode(null)}
-                        variant="outline"
+                        variant="secondary"
                         className="w-full"
                     >
                         Bekor qilish

@@ -1,13 +1,5 @@
 import { supabase } from '../lib/supabase';
 
-interface TelegramLinkCode {
-    id: string;
-    user_id: string;
-    code: string;
-    expires_at: string;
-    used: boolean;
-}
-
 interface TelegramUser {
     id: string;
     user_id: string;
