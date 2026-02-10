@@ -1,4 +1,23 @@
 import { StudySession } from '../types';
+import { callOllama, isOllamaAvailable } from './ollama';
+
+type AIProvider = 'ollama' | 'gemini';
+
+const getAIProvider = async (): Promise<AIProvider> => {
+    const ollamaUrl = import.meta.env.VITE_OLLAMA_URL;
+    const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+    // Prefer Ollama if configured and available
+    if (ollamaUrl) {
+        const available = await isOllamaAvailable();
+        if (available) return 'ollama';
+    }
+
+    // Fallback to Gemini
+    if (geminiKey) return 'gemini';
+
+    throw new Error("AI provider not configured.");
+};
 
 export const generateStudyInsights = async (sessions: StudySession[], subjects: any[], apiKey: string) => {
     // 1. Data Aggregation
@@ -77,23 +96,31 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
     4. Motivatsion ohangda bo'lsin.
     `;
 
-    // 3. Call Gemini API
+    // 3. Call AI Provider
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
+        const provider = await getAIProvider();
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'API request failed');
+        if (provider === 'ollama') {
+            // Use Ollama
+            return await callOllama(prompt);
+        } else {
+            // Use Gemini
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }]
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'API request failed');
+            }
+
+            const result = await response.json();
+            return result.candidates[0].content.parts[0].text;
         }
-
-        const result = await response.json();
-        return result.candidates[0].content.parts[0].text;
     } catch (error) {
         console.error("AI Generation Error:", error);
         throw error;
