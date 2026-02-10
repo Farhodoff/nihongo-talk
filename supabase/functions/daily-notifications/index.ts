@@ -62,9 +62,12 @@ serve(async (req: Request) => {
         });
 
         // Use debug time if provided, otherwise use current time
-        const currentTime = debugTime || formatter.format(new Date());
+        let currentTime = debugTime || formatter.format(new Date());
 
-        console.log(`Checking for notifications scheduled at: ${currentTime} (Tashkent Time)`);
+        // Normalize: trim whitespace and ensure HH:MM format
+        currentTime = currentTime.trim();
+
+        console.log(`Checking for notifications scheduled at: "${currentTime}" (Tashkent Time)`);
 
         // 2. Get all users with notifications enabled AND matching time
         const { data: users, error: userError } = await supabase
@@ -81,11 +84,14 @@ serve(async (req: Request) => {
         }
 
         if (!users || users.length === 0) {
-            console.log('No users to notify.');
-            return new Response(JSON.stringify({ message: 'No users found' }), { status: 200 });
+            console.log(`No users to notify. Searched for time: "${currentTime}"`);
+            return new Response(JSON.stringify({
+                message: 'No users found',
+                searched_time: currentTime
+            }), { status: 200 });
         }
 
-        console.log(`Found ${users.length} users to check.`);
+        console.log(`Found ${users.length} users to check for time: "${currentTime}"`);
 
         let sentCount = 0;
 
@@ -108,7 +114,16 @@ serve(async (req: Request) => {
             }
 
             if (!tasks || tasks.length === 0) {
-                // Optional: Send "No tasks today!" message or just skip
+                // Send "No tasks today" message
+                const message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
+
+Bugungi kun uchun rejalashtirilgan vazifalar yo'q.
+Yangi vazifa qo'shish uchun saytga kiring! 🚀
+
+_Unumli kun tilayman!_ ✨`;
+
+                await sendMessage(user.chat_id, message);
+                sentCount++;
                 continue;
             }
 
