@@ -50,7 +50,8 @@ async function sendMessage(chatId: number, text: string) {
 
 serve(async (req: Request) => {
     try {
-        console.log('Starting daily notifications...');
+        const url = new URL(req.url);
+        const debugTime = url.searchParams.get('time');
 
         // 1. Get current time (HH:MM) in Uzbekistan Time (UTC+5)
         const formatter = new Intl.DateTimeFormat('en-US', {
@@ -59,7 +60,10 @@ serve(async (req: Request) => {
             minute: '2-digit',
             hour12: false
         });
-        const currentTime = formatter.format(new Date()); // Returns "21:21"
+
+        // Use debug time if provided, otherwise use current time
+        const currentTime = debugTime || formatter.format(new Date());
+
         console.log(`Checking for notifications scheduled at: ${currentTime} (Tashkent Time)`);
 
         // 2. Get all users with notifications enabled AND matching time
@@ -138,8 +142,8 @@ _Unumli kun tilayman!_ ✨`;
             status: 200
         });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Unexpected error:', error);
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: error.message || String(error) }), { status: 500 });
     }
 });
