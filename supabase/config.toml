@@ -9,3 +9,8 @@ entrypoint = "./functions/update-xp/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/update-xp/*.html" ]
+
+[functions.daily-notifications]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/daily-notifications/index.ts"

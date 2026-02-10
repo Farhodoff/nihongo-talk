@@ -116,7 +116,7 @@ Yordam: /help`);
 // Handle /help command
 async function handleHelp(message: any) {
     const chatId = message.chat.id;
-    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
+    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/time HH:MM - Vaqtni sozlash (masalan /time 08:00)\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
 }
 
 // Main webhook handler
@@ -145,6 +145,28 @@ serve(async (req) => {
 
             if (text.startsWith('/start')) {
                 await handleStart(message);
+            } else if (text.startsWith('/time')) {
+                const time = text.split(' ')[1]?.trim();
+                const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
+
+                if (!time || !timeRegex.test(time)) {
+                    await sendMessage(message.chat.id, "❌ Noto'g'ri format! \n\nIltimos, vaqtni `HH:MM` formatida kiriting.\nMasalan: `/time 07:00` yoki `/time 21:30`");
+                    return new Response('OK', { status: 200 });
+                }
+
+                // Update user time
+                const { error } = await supabase
+                    .from('telegram_users')
+                    .update({ notification_time: time })
+                    .eq('telegram_id', message.from.id);
+
+                if (error) {
+                    console.error('Update time error:', error);
+                    await sendMessage(message.chat.id, "❌ Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+                } else {
+                    await sendMessage(message.chat.id, `✅ Xabarnoma vaqti o'zgartirildi: *${time}* ga.\n\nEndi har kuni shu vaqtda xabar olasiz.`);
+                }
+
             } else if (text.startsWith('/help')) {
                 await handleHelp(message);
             } else {
