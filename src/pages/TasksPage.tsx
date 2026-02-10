@@ -12,6 +12,7 @@ const TasksPage: React.FC = () => {
     // New Task Form
     const [newTaskTitle, setNewTaskTitle] = useState('');
     const [newTaskLink, setNewTaskLink] = useState('');
+    const [newTaskDate, setNewTaskDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
     const [selectedGoal, setSelectedGoal] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
 
@@ -27,6 +28,7 @@ const TasksPage: React.FC = () => {
         addTask({
             title: newTaskTitle,
             priority: 'medium',
+            dueDate: newTaskDate, // Pass the date
             goalId: selectedGoal || undefined,
             subjectId: selectedSubject || undefined,
             link: newTaskLink || undefined
@@ -38,6 +40,7 @@ const TasksPage: React.FC = () => {
 
         setNewTaskTitle('');
         setNewTaskLink('');
+        // Keep date as today or reset? Better keep as today for multiple entries.
     };
 
     const handleToggleTask = (taskId: string) => {
@@ -81,13 +84,19 @@ const TasksPage: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-[#1f2937] p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
-                <form onSubmit={handleCreate} className="flex flex-col md:flex-row gap-4">
+                <form onSubmit={handleCreate} className="flex flex-col md:flex-row gap-4 flex-wrap">
                     <input
                         type="text"
                         value={newTaskTitle}
                         onChange={(e) => setNewTaskTitle(e.target.value)}
                         placeholder="Yangi vazifa qo'shish..."
-                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="flex-1 min-w-[200px] px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                    <input
+                        type="date"
+                        value={newTaskDate}
+                        onChange={(e) => setNewTaskDate(e.target.value)}
+                        className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                     <input
                         type="text"
