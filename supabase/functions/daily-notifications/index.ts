@@ -52,12 +52,15 @@ serve(async (req: Request) => {
     try {
         console.log('Starting daily notifications...');
 
-        // 1. Get current hour (HH) to match notification_time
-        // Note: This relies on Supabase Edge Function server time (usually UTC).
-        // If users are in UZT (UTC+5), 09:00 AM UZT is 04:00 AM UTC.
-        // For simplicity, we currently match server time.
-        const currentHour = new Date().getHours().toString().padStart(2, '0');
-        console.log(`Checking for notifications scheduled at hour: ${currentHour}`);
+        // 1. Get current time (HH:MM) in Uzbekistan Time (UTC+5)
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Tashkent',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+        const currentTime = formatter.format(new Date()); // Returns "21:21"
+        console.log(`Checking for notifications scheduled at: ${currentTime} (Tashkent Time)`);
 
         // 2. Get all users with notifications enabled AND matching time
         const { data: users, error: userError } = await supabase
@@ -65,7 +68,7 @@ serve(async (req: Request) => {
             .select('user_id, chat_id, telegram_first_name')
             .eq('notifications_enabled', true)
             .eq('is_active', true)
-            .like('notification_time', `${currentHour}:%`);
+            .eq('notification_time', currentTime); // Match exact HH:MM
 
 
         if (userError) {
