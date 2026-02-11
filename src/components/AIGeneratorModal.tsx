@@ -43,12 +43,10 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         if (!subjectId) return;
         generatedCards.forEach(card => {
             addFlashcard({
-                subject_id: subjectId,
+                subjectId: subjectId,  // Fixed: use camelCase
                 front: card.front,
                 back: card.back,
-                // Add default values for required fields if needed, or rely on addFlashcard implementation
-                // Assuming addFlashcard handles ID and dates
-            } as any); // Using 'as any' temporarily if full type isn't matched or if addFlashcard signature is partial
+            } as any);
         });
         onClose();
         // Reset state
