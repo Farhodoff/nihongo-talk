@@ -8,16 +8,15 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
 
     const addFlashcard = async (cardData: Partial<Flashcard>) => {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
-
-        try {
-            const newCard = await FlashcardService.addFlashcard(user.id, cardData);
-            if (newCard) {
-                setFlashcards(prev => [...prev, newCard]);
-            }
-        } catch (error) {
-            console.error("Failed to add flashcard:", error);
+        if (!user) {
+            throw new Error('User not authenticated');
         }
+
+        const newCard = await FlashcardService.addFlashcard(user.id, cardData);
+        if (newCard) {
+            setFlashcards(prev => [...prev, newCard]);
+        }
+        return newCard;
     };
 
     const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
