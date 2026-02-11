@@ -16,6 +16,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
     const [subjectId, setSubjectId] = useState(propSubjectId || '');
     const [count, setCount] = useState(5);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const [generatedCards, setGeneratedCards] = useState<{ front: string; back: string }[]>([]);
     const [step, setStep] = useState<'input' | 'preview'>('input');
 
@@ -39,20 +40,35 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         }
     };
 
-    const handleSaveAll = () => {
+    const handleSaveAll = async () => {
         if (!subjectId) return;
-        generatedCards.forEach(card => {
-            addFlashcard({
-                subjectId: subjectId,  // Fixed: use camelCase
-                front: card.front,
-                back: card.back,
-            } as any);
-        });
-        onClose();
-        // Reset state
-        setTopic('');
-        setGeneratedCards([]);
-        setStep('input');
+
+        setIsSaving(true);
+        try {
+            // Save all cards and wait for completion
+            const savePromises = generatedCards.map(card =>
+                addFlashcard({
+                    subjectId: subjectId,
+                    front: card.front,
+                    back: card.back,
+                } as any)
+            );
+
+            // Wait for all saves to complete
+            await Promise.all(savePromises);
+
+            // Only close after all saves are done
+            onClose();
+            // Reset state
+            setTopic('');
+            setGeneratedCards([]);
+            setStep('input');
+        } catch (error) {
+            console.error('Failed to save flashcards:', error);
+            alert('Saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -152,11 +168,19 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                                 ))}
                             </div>
                             <div className="pt-6 mt-4 border-t border-gray-100 dark:border-gray-700 flex gap-4">
-                                <Button variant="secondary" onClick={() => setStep('input')} className="flex-1">
+                                <Button variant="secondary" onClick={() => setStep('input')} className="flex-1" disabled={isSaving}>
                                     Orqaga
                                 </Button>
-                                <Button onClick={handleSaveAll} className="flex-1">
-                                    <Save size={18} className="mr-2" /> Kartalarni Saqlash
+                                <Button onClick={handleSaveAll} className="flex-1" disabled={isSaving}>
+                                    {isSaving ? (
+                                        <>
+                                            <Loader2 size={18} className="mr-2 animate-spin" /> Saqlanmoqda...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Save size={18} className="mr-2" /> Kartalarni Saqlash
+                                        </>
+                                    )}
                                 </Button>
                             </div>
                         </div>
