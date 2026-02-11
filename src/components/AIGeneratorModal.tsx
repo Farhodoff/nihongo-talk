@@ -45,17 +45,35 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
 
         setIsSaving(true);
         try {
-            // Save all cards and wait for completion
-            const savePromises = generatedCards.map(card =>
-                addFlashcard({
-                    subjectId: subjectId,
-                    front: card.front,
-                    back: card.back,
-                } as any)
-            );
+            const BATCH_SIZE = 10; // Save 10 cards at a time
+            const totalCards = generatedCards.length;
+            let savedCount = 0;
 
-            // Wait for all saves to complete
-            await Promise.all(savePromises);
+            // Save in batches to avoid connection limit
+            for (let i = 0; i < totalCards; i += BATCH_SIZE) {
+                const batch = generatedCards.slice(i, i + BATCH_SIZE);
+
+                // Save current batch
+                await Promise.all(
+                    batch.map(card =>
+                        addFlashcard({
+                            subjectId: subjectId,
+                            front: card.front,
+                            back: card.back,
+                        } as any)
+                    )
+                );
+
+                savedCount += batch.length;
+                console.log(`[Batch Save] Saved ${savedCount}/${totalCards} cards`);
+
+                // Small delay between batches to avoid rate limiting
+                if (i + BATCH_SIZE < totalCards) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+            }
+
+            console.log(`[Batch Save] All ${totalCards} cards saved successfully!`);
 
             // Only close after all saves are done
             onClose();
