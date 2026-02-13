@@ -52,4 +52,7 @@ app-example
 
 # logs
 logs/
-*.log
+
+# testing
+coverage/
+
