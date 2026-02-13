@@ -17,13 +17,6 @@ interface Task {
     status: string;
 }
 
-interface TelegramUser {
-    user_id: string;
-    chat_id: number;
-    telegram_first_name: string;
-}
-
-
 // Helper to send message
 async function sendMessage(chatId: number, text: string) {
     try {
@@ -53,30 +46,38 @@ serve(async (req: Request) => {
         const url = new URL(req.url);
         const debugTime = url.searchParams.get('time');
 
-        // 1. Get current time (HH:MM) in Uzbekistan Time (UTC+5)
-        const formatter = new Intl.DateTimeFormat('en-US', {
+        // 1. Get current time in Uzbekistan Time (UTC+5)
+        const timeFormatter = new Intl.DateTimeFormat('en-US', {
             timeZone: 'Asia/Tashkent',
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
         });
 
-        // Use debug time if provided, otherwise use current time
-        let currentTime = debugTime || formatter.format(new Date());
+        const dateFormatter = new Intl.DateTimeFormat('en-CA', { // YYYY-MM-DD format
+            timeZone: 'Asia/Tashkent',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
 
-        // Normalize: trim whitespace and ensure HH:MM format
-        currentTime = currentTime.trim();
+        const now = new Date();
+        const currentTime = (debugTime || timeFormatter.format(now)).trim();
+        const todayDate = dateFormatter.format(now); // Local YYYY-MM-DD
 
-        console.log(`Checking for notifications scheduled at: "${currentTime}" (Tashkent Time)`);
+        console.log(`Checking notifications at: "${currentTime}" (Tashkent Time), Date: ${todayDate}`);
 
-        // 2. Get all users with notifications enabled AND matching time
+        // Default: Do nothing if not 09:00 or 21:00
+        if (currentTime !== '09:00' && currentTime !== '21:00' && !debugTime) {
+            return new Response(JSON.stringify({ message: `No scheduled notifications for ${currentTime}` }), { status: 200 });
+        }
+
+        // 2. Get ALL active users with notifications enabled
         const { data: users, error: userError } = await supabase
             .from('telegram_users')
             .select('user_id, chat_id, telegram_first_name')
             .eq('notifications_enabled', true)
-            .eq('is_active', true)
-            .eq('notification_time', currentTime); // Match exact HH:MM
-
+            .eq('is_active', true);
 
         if (userError) {
             console.error('Error fetching users:', userError);
@@ -84,28 +85,19 @@ serve(async (req: Request) => {
         }
 
         if (!users || users.length === 0) {
-            console.log(`No users to notify. Searched for time: "${currentTime}"`);
-            return new Response(JSON.stringify({
-                message: 'No users found',
-                searched_time: currentTime
-            }), { status: 200 });
+            return new Response(JSON.stringify({ message: 'No active users found' }), { status: 200 });
         }
 
-        console.log(`Found ${users.length} users to check for time: "${currentTime}"`);
-
+        console.log(`Found ${users.length} users to notify`);
         let sentCount = 0;
 
-        // 2. Iterate users and check for tasks
         for (const user of users) {
-            const today = new Date().toISOString().split('T')[0];
-
-            // Get tasks due today or overdue
+            // Fetch tasks for TODAY (Local Date)
             const { data: tasks, error: taskError } = await supabase
                 .from('tasks')
                 .select('title, due_date, priority, status')
                 .eq('user_id', user.user_id)
-                .neq('status', 'done')
-                .lte('due_date', today + 'T23:59:59') // Due today or before
+                .lte('due_date', todayDate + 'T23:59:59') // Tasks due today or earlier
                 .order('due_date', { ascending: true });
 
             if (taskError) {
@@ -113,44 +105,72 @@ serve(async (req: Request) => {
                 continue;
             }
 
-            if (!tasks || tasks.length === 0) {
-                // Send "No tasks today" message
-                const message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
+            const pendingTasks = tasks?.filter((t: any) => t.status !== 'done') || [];
+            const completedTasks = tasks?.filter((t: any) => t.status === 'done' && t.due_date?.startsWith(todayDate)) || [];
+
+            let message = '';
+
+            // --- MORNING NOTIFICATION (09:00) ---
+            if (currentTime === '09:00') {
+                if (pendingTasks.length === 0) {
+                    message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
 
 Bugungi kun uchun rejalashtirilgan vazifalar yo'q.
 Yangi vazifa qo'shish uchun saytga kiring! 🚀
 
 _Unumli kun tilayman!_ ✨`;
+                } else {
+                    const taskList = pendingTasks.map((t: any) => {
+                        const icon = t.priority === 'urgent' ? '🔴' : t.priority === 'high' ? '🟠' : '🔵';
+                        return `${icon} *${t.title}*`;
+                    }).join('\n');
 
-                await sendMessage(user.chat_id, message);
-                sentCount++;
-                continue;
-            }
+                    message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
 
-            // 3. Format Message
-            const taskList = tasks.map((t: any) => {
-                const icon = t.priority === 'urgent' ? '🔴' : t.priority === 'high' ? '🟠' : '🔵';
-                return `${icon} *${t.title}*`;
-            }).join('\n');
-
-            const message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
-
-Bugungi rejalaringiz:
+Bugungi rejalaringiz (${pendingTasks.length} ta):
 
 ${taskList}
 
 _Unumli kun tilayman!_ ✨`;
+                }
+            }
 
-            // 4. Send Message
-            await sendMessage(user.chat_id, message);
-            sentCount++;
+            // --- EVENING NOTIFICATION (21:00) ---
+            else if (currentTime === '21:00') {
+                const totalToday = pendingTasks.length + completedTasks.length;
 
-            // Basic rate limiting (avoid hitting 30 msg/sec limit for large user bases)
-            await new Promise(resolve => setTimeout(resolve, 100));
+                if (totalToday === 0) {
+                    message = `🌙 *Xayrli kech, ${user.telegram_first_name || 'Foydalanuvchi'}!*
+
+Bugun hech qanday vazifa belgilanmagan edi.
+Ertangi kunni rejalashtirishni unutmang! 📅
+
+_Tinch osuda tun tilayman!_ 😴`;
+                } else {
+                    const progress = totalToday > 0 ? Math.round((completedTasks.length / totalToday) * 100) : 0;
+
+                    message = `🌙 *Xayrli kech, ${user.telegram_first_name || 'Foydalanuvchi'}!*
+
+📊 *Bugungi hisobot:*
+✅ Bajarildi: ${completedTasks.length} ta
+⏳ Qoldi: ${pendingTasks.length} ta
+📈 Samardorlik: ${progress}%
+
+${pendingTasks.length > 0 ? `_Ertaga qolgan vazifalarni bajarishni unutmang!_ 💪` : `_Barchasini uddaladingiz! Barakalla!_ 🎉`}
+
+_Tinch osuda tun tilayman!_ 😴`;
+                }
+            }
+
+            if (message) {
+                await sendMessage(user.chat_id, message);
+                sentCount++;
+                await new Promise(resolve => setTimeout(resolve, 100)); // Rate limiting
+            }
         }
 
         return new Response(JSON.stringify({
-            message: `Notifications sent to ${sentCount} users`,
+            message: `Notifications sent to ${sentCount} users at ${currentTime}`,
             total_users: users.length
         }), {
             headers: { 'Content-Type': 'application/json' },
