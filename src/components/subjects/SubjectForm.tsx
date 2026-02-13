@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/Button';
 import { SUBJECT_ICONS } from './constants';
+import { Subject } from '../../types';
 
 interface SubjectFormProps {
     onClose: () => void;
@@ -13,15 +14,16 @@ interface SubjectFormProps {
         icon: string;
         schedule: string[];
     }) => void;
+    initialData?: Subject;
 }
 
-const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit }) => {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [teacher, setTeacher] = useState('');
-    const [room, setRoom] = useState('');
-    const [color, setColor] = useState('#8b5cf6');
-    const [selectedIcon, setSelectedIcon] = useState('book');
+const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialData }) => {
+    const [name, setName] = useState(initialData?.name || '');
+    const [description, setDescription] = useState(initialData?.description || '');
+    const [teacher, setTeacher] = useState(initialData?.teacherName || '');
+    const [room, setRoom] = useState(initialData?.roomLocation || '');
+    const [color, setColor] = useState(initialData?.color || '#8b5cf6');
+    const [selectedIcon, setSelectedIcon] = useState(initialData?.icon || 'book');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -34,13 +36,15 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit }) => {
             teacherName: teacher,
             roomLocation: room,
             color,
-            schedule: [],
+            schedule: initialData?.schedule || [],
         });
     };
 
     return (
         <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8 animate-in slide-in-from-top-4 duration-300">
-            <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Yangi Fan</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
+                {initialData ? 'Fanni Tahrirlash' : 'Yangi Fan'}
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -136,7 +140,7 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit }) => {
                     >
                         Bekor qilish
                     </button>
-                    <Button type="submit">Saqlash</Button>
+                    <Button type="submit">{initialData ? 'Yangilash' : 'Saqlash'}</Button>
                 </div>
             </form>
         </div>

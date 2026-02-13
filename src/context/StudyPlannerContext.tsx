@@ -44,7 +44,7 @@ interface StudyPlannerContextType {
     updateTaskStatus: (id: string, status: string) => Promise<void>;
 
     // Flashcard operatsiyalari
-    addFlashcard: (card: Partial<Flashcard>) => Promise<void>;
+    addFlashcard: (card: Partial<Flashcard>) => Promise<Flashcard | null>;
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
     deleteFlashcard: (id: string) => Promise<void>;
     reviewFlashcard: (id: string, rating: number) => Promise<void>;
@@ -52,6 +52,7 @@ interface StudyPlannerContextType {
 
     // Subject operatsiyalari
     addSubject: (subject: Partial<Subject>) => Promise<Subject | null>;
+    updateSubject: (id: string, updates: Partial<Subject>) => Promise<void>;
     deleteSubject: (id: string) => Promise<void>;
 
     // Goal operatsiyalari
@@ -450,6 +451,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setSubjects(subjects.filter(s => s.id !== id));
     };
 
+    const updateSubject = async (id: string, updates: Partial<Subject>) => {
+        const dbUpdates: any = {};
+        if (updates.name) dbUpdates.name = updates.name;
+        if (updates.color) dbUpdates.color = updates.color;
+        if (updates.teacherName !== undefined) dbUpdates.teacher_name = updates.teacherName;
+        if (updates.roomLocation !== undefined) dbUpdates.room_location = updates.roomLocation;
+        if (updates.description !== undefined) dbUpdates.description = updates.description;
+        if (updates.icon) dbUpdates.icon = updates.icon;
+        if (updates.schedule) dbUpdates.schedule = updates.schedule;
+
+        const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
+
+        if (!error) {
+            setSubjects(subjects.map(s => s.id === id ? { ...s, ...updates } : s));
+        } else {
+            console.error("Error updating subject:", error);
+        }
+    };
+
     // ===== NOTE OPERATSIYALARI =====
     const addNote = async (noteData: Partial<Note>) => {
         const { data: { user } } = await supabase.auth.getUser();
@@ -688,7 +708,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             goals, tasks, subjects, sessions,
             addGoal, updateGoal, deleteGoal,
             addTask, toggleTask, deleteTask, updateTask, updateTaskStatus,
-            addSubject, deleteSubject,
+            addSubject, updateSubject, deleteSubject,
             addSession, awardXP,
             notes, addNote, updateNote, deleteNote,
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,

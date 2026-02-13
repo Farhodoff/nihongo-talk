@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Trash2, User } from 'lucide-react';
+import { MapPin, Trash2, User, Pencil } from 'lucide-react';
 import { Subject } from '../../types';
 import { getIconComponent } from './constants';
 
@@ -8,9 +8,10 @@ interface SubjectCardProps {
     subject: Subject;
     progress: number;
     onDelete: (id: string) => void;
+    onEdit: (subject: Subject) => void;
 }
 
-const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete }) => {
+const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete, onEdit }) => {
     const IconComponent = getIconComponent(subject.icon);
 
     return (
@@ -25,13 +26,24 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete }
 
             {/* Content */}
             <div className="relative z-10">
-                <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onEdit(subject);
+                        }}
+                        className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
+                        title="Tahrirlash"
+                    >
+                        <Pencil size={16} />
+                    </button>
                     <button
                         onClick={(e) => {
                             e.preventDefault();
                             if (window.confirm('Fanni o\'chirasizmi?')) onDelete(subject.id);
                         }}
                         className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
+                        title="O'chirish"
                     >
                         <Trash2 size={16} />
                     </button>

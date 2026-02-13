@@ -6,8 +6,9 @@ import SubjectCard from '../components/subjects/SubjectCard';
 import SubjectForm from '../components/subjects/SubjectForm';
 
 const SubjectsPage: React.FC = () => {
-    const { subjects, addSubject, deleteSubject, tasks, flashcards } = useStudyData();
+    const { subjects, addSubject, updateSubject, deleteSubject, tasks, flashcards } = useStudyData();
     const [isAdding, setIsAdding] = useState(false);
+    const [editingSubject, setEditingSubject] = useState<any>(null);
 
     // Calculate progress for a subject
     const getSubjectProgress = (subjectId: string): number => {
@@ -23,9 +24,24 @@ const SubjectsPage: React.FC = () => {
         return total > 0 ? Math.round((completed / total) * 100) : 0;
     };
 
-    const handleCreateSubject = (data: any) => {
-        addSubject(data);
+    const handleSubjectSubmit = (data: any) => {
+        if (editingSubject) {
+            updateSubject(editingSubject.id, data);
+        } else {
+            addSubject(data);
+        }
         setIsAdding(false);
+        setEditingSubject(null);
+    };
+
+    const handleEditClick = (subject: any) => {
+        setEditingSubject(subject);
+        setIsAdding(true);
+    };
+
+    const handleCloseForm = () => {
+        setIsAdding(false);
+        setEditingSubject(null);
     };
 
     return (
@@ -35,16 +51,17 @@ const SubjectsPage: React.FC = () => {
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Fanlar</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">Kurslar va materiallarni boshqaring</p>
                 </div>
-                <Button onClick={() => setIsAdding(!isAdding)}>
+                <Button onClick={() => { setIsAdding(!isAdding); setEditingSubject(null); }}>
                     <Plus size={20} className="mr-2" /> Fan Qo'shish
                 </Button>
             </div>
 
-            {/* Add Subject Form */}
+            {/* Add/Edit Subject Form */}
             {isAdding && (
                 <SubjectForm
-                    onClose={() => setIsAdding(false)}
-                    onSubmit={handleCreateSubject}
+                    onClose={handleCloseForm}
+                    onSubmit={handleSubjectSubmit}
+                    initialData={editingSubject}
                 />
             )}
 
@@ -56,6 +73,7 @@ const SubjectsPage: React.FC = () => {
                         subject={subject}
                         progress={getSubjectProgress(subject.id)}
                         onDelete={deleteSubject}
+                        onEdit={handleEditClick}
                     />
                 ))}
 
