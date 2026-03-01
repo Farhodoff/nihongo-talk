@@ -30,35 +30,23 @@ While my CV mentions **FastAPI**, **WebSockets**, and direct **PostgreSQL** unde
 
 ---
 
-## ✨ Asosiy Funksiyalar
+## 💡 Why This Project?
+Traditional to-do apps just list tasks. **AI Study Planner** goes further by understanding *what* you need to study, finding the best resources, and structuring your time using scientifically proven methods like Spaced Repetition (SRS) and the Pomodoro technique. It bridges the gap between task management, content discovery, and active recall.
 
-### 🧠 AI-Quvvatli Xususiyatlar
-- **📚 O'quv Rejasi Generatori**: Imtihon sanasi va mavzuni kiriting - AI kunlik jadval tuzadi
-- **🎯 Aqlli Manbalar**: Mavzular uchun eng yaxshi video va maqolalarni avtomatik topadi
-- **🃏 Flashcard Generator**: Bir kalit so'zdan Anki-uslubidagi kartochkalar yaratadi
-- **💡 AI Insights**: O'quv jarayonini tahlil qiladi va tavsiyalar beradi
+**Perfect for:**
+- Students managing multiple heavy coursework subjects.
+- Self-taught developers or language learners needing structured curriculum generation.
+- Anyone looking to gamify their focus and escape the procrastination loop.
 
-### 🎮 Gamifikatsiya
-- **⭐ XP va Daraja Tizimi**: Har bir vazifa, fokus sessiyasi va flashcard uchun XP oling
-- **🔥 Streaklar**: Kunlik faollikni davom ettiring va motivatsiyani saqlang
-- **🏆 Yutuqlar**: Maxsus yutuqlarga erishing
-- **📊 Taraqqiyot Kuzatuvi**: Vizual statistika va grafiklar
+## ✨ Core Features (Highlights)
 
-### ⚡ Fokus va Chuqur Ish
-- **⏱️ Pomodoro Timer**: Sozlanuvchi fokus/tanaffus intervallari
-- **🎵 Ambient Tovushlar**: O'rnatilgan audio player (Yomg'ir, O'rmon, Kafe)
-- **😊 Kayfiyat Kuzatuvi**: Sessiyalar oldidan va keyin kayfiyatni qayd eting
-- **🌍 Global Audio**: Barcha sahifalarda musiqa va ringtone
+- **🧠 AI-Powered Generation:** Instantly generate daily study schedules, curated resources (videos/articles), and Anki-style flashcards from a single keyword.
+- **🎮 Gamified Focus:** Earn XP, maintain streaks, unlock achievements, and track your progress visually.
+- **⚡ Deep Work Suite:** Built-in Pomodoro timer, ambient background sounds (Rain, Cafe, Forest), and session mood tracking.
+- **🛠️ All-in-One Toolkit:** Drag-and-drop Kanban board, interactive calendar, rich-text markdown notes, and real-time study rooms (Jitsi Meet).
+- **📱 Smart Notifications:** Telegram bot integration for daily schedules and deadline reminders.
 
-### 🛠 Asosiy Vositalar
-- **📋 Kanban Board**: Drag-and-drop vazifalar boshqaruvi
-- **📅 Interaktiv Kalendar**: To'liq oy/hafta/kun ko'rinishlari
-- **📝 Markdown Eslatmalar**: Fanlarga bog'langan boy matn yozish
-- **🔄 Spaced Repetition (SRS)**: SM-2 algoritmi asosidagi flashcard tizimi
-- **👥 Hamjamiyat**: Real-time o'quv xonalari (Jitsi Meet integratsiyasi)
-
-### 🔒 Xavfsizlik va Saqlash
-- **☁️ Supabase Backend**: Barcha ma'lumotlar bulutda xavfsiz saqlanadi
+---- **☁️ Supabase Backend**: Barcha ma'lumotlar bulutda xavfsiz saqlanadi
 - **🔐 Row Level Security**: Har bir foydalanuvchi faqat o'z ma'lumotlarini ko'radi
 - **🔄 Real-time Sync**: Bir necha qurilmada sinxronlash
 - **💾 Offline Support**: LocalStorage orqali offline ishlash
