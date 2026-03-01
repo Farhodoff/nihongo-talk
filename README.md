@@ -1,14 +1,24 @@
 # 🎓 AI Study Planner
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-18-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![Vite](https://img.shields.io/badge/Vite-5.0-purple)
-![Tailwind](https://img.shields.io/badge/Tailwind-3.0-cyan)
-![Gemini AI](https://img.shields.io/badge/AI-Gemini%202.0-green)
-![Supabase](https://img.shields.io/badge/Supabase-Enabled-green)
+> **Your intelligent companion for academic success.** 🚀  
+> An advanced study management platform powered by AI, designed to optimize productivity, enhance focus, and gamify the learning experience. Built for the modern student.
 
-**AI Study Planner** is a comprehensive, intelligent study management application designed to elevate the modern student's academic journey. By leveraging advanced AI capabilities, the platform seamlessly integrates personalized study scheduling, dynamic resource discovery, and intelligent flashcard generation. Built with a focus on both productivity and well-being, it incorporates gamification mechanics, deep work tools (like the Pomodoro technique), and real-time collaboration features to create a holistic learning environment.
+## 📸 Sneak Peek
+<div align="center">
+  <img src="./docs/images/dashboard-preview.png" alt="Dashboard Preview" width="800" />
+  <p><em>(Add a screenshot or GIF here showing the dashboard in action)</em></p>
+</div>
+
+## 🛠️ Tech Stack
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)
+
+---
 
 [🇺🇿 O'zbek tilida qo'llanma](./docs/USER_GUIDE_UZ.md) | [📖 Documentation](./docs/)
 
@@ -86,54 +96,54 @@
 
 ---
 
-## 📦 O'rnatish
+## 📦 O'rnatish to Local Setup (Quick Start)
 
-### 1. Repository ni Clone qiling
+### Option A: Standard Setup (Web Version)
+
+**1. Repository ni Clone qiling**
 ```bash
 git clone https://github.com/yourusername/study-planner-ai.git
 cd study-planner-ai
 ```
 
-### 2. Dependencies ni o'rnating
+**2. Dependencies ni o'rnating**
 ```bash
 npm install
 ```
 
-### 3. Environment Variables ni sozlang
-
-`.env` faylini yarating:
-
-```env
-# Gemini AI API Key
-VITE_GEMINI_API_KEY=your_google_gemini_api_key_here
-
-# Supabase Configuration
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Telegram Bot (Supabase Edge Functions secrets)
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token_from_botfather
-```
-
-**API Keys olish:**
-- **Gemini AI**: [Google AI Studio](https://makersuite.google.com/app/apikey)
-- **Supabase**: [Supabase Dashboard](https://supabase.com/dashboard)
-
-### 4. Database Schema ni o'rnating
-
-Supabase SQL Editor da `database_schema_fixed.sql` faylini ishga tushiring:
-
+**3. Environment Variables ni sozlang**
+`.env.example` faylidan nusxa olib, `.env` faylini yarating:
 ```bash
-# Supabase Dashboard -> SQL Editor -> New Query
-# database_schema_fixed.sql ni copy-paste qiling va Run bosing
+cp .env.example .env
 ```
+Keyin `.env` faylini o'zingizning API kalitlaringiz bilan to'ldiring.
 
-### 5. Development Server ni ishga tushiring
+**4. Database Schema ni o'rnating**
+Supabase SQL Editor da `database_schema_fixed.sql` faylini ishga tushiring.
+
+**5. Ishga tushirish**
 ```bash
 npm run dev
 ```
 
-Brauzerda `http://localhost:5173` ni oching.
+### Option B: Local Offline Setup (Docker + Ollama/Gemini)
+Loyihani to'liq local va offline ishlatish uchun:
+
+**1. Docker va Ollama ni o'rnating**
+- Docker Desktop
+- [Ollama](https://ollama.ai/) (Local AI xususiyatlari uchun)
+
+**2. Modellarni yuklab oling**
+```bash
+ollama run llama3.2  # Yoki qwen2.5-coder kabi boshqa model
+```
+
+**3. Docker yordamida ishga tushiring (Tez orada)**
+```bash
+# Agar root da docker-compose.yml mavjud bo'lsa
+docker-compose up -d --build
+```
+*Eslatma: Docker orqali ishga tushirishda backend servislari ajratilgan bo'lishi talab etiladi.*
 
 ---
 
