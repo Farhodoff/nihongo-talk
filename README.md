@@ -246,4 +246,3 @@ Savollar yoki takliflar uchun issue oching yoki Pull Request yuboring!
 
 **O'zbek tilida to'liq qo'llanma:** [USER_GUIDE_UZ.md](./docs/USER_GUIDE_UZ.md)
 
-*Zamonaviy talaba uchun ❤️ bilan qurilgan.*
