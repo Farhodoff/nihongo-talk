@@ -1,5 +1,7 @@
 # 🎓 AI Study Planner
 
+**[🌐 Live Demo (task-planner-tau.vercel.app)](https://task-planner-tau.vercel.app)** &nbsp;|&nbsp; Deployling & About
+
 > **Your intelligent companion for academic success.** 🚀  
 > An advanced study management platform powered by AI, designed to optimize productivity, enhance focus, and gamify the learning experience. Built for the modern student.
 
