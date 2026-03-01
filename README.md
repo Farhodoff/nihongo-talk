@@ -7,9 +7,7 @@
 
 ## 📸 Sneak Peek
 <div align="center">
-  <!-- TODO: Upload your actual screenshot to your repo or drag-and-drop it here in GitHub -->
-  <img src="https://placehold.co/800x450/1a1a1a/ffffff?text=Your+Dashboard+Screenshot+Here+.png|.gif" alt="Dashboard Preview" width="800" />
-  <p><em>(Replace the placeholder above with your actual screenshot or GIF)</em></p>
+  <img src="./docs/images/dashboard-preview.png" alt="Dashboard Preview" width="800" />
 </div>
 
 ## 🛠️ Tech Stack
