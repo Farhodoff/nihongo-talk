@@ -22,6 +22,11 @@
 
 ---
 
+### 💡 Note on Technical Stack (Portfolio Context)
+While my CV mentions **FastAPI**, **WebSockets**, and direct **PostgreSQL** under building similar realtime logic, this specific showcase project leverages **Supabase** to handle those exact backend responsibilities. Supabase provides the direct PostgreSQL database under the hood, uses its Realtime engine (built on WebSockets) for live syncing, and Edge Functions (Deno) replacing a traditional FastAPI layer to ensure faster prototyping and serverless deployment. This architecture demonstrates my ability to adapt to modern Backend-as-a-Service (BaaS) ecosystems while retaining the core principles of database design, realtime events, and AI integration.
+
+---
+
 [🇺🇿 O'zbek tilida qo'llanma](./docs/USER_GUIDE_UZ.md) | [📖 Documentation](./docs/)
 
 ---
