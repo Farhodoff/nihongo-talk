@@ -8,7 +8,7 @@
 ![Gemini AI](https://img.shields.io/badge/AI-Gemini%202.0-green)
 ![Supabase](https://img.shields.io/badge/Supabase-Enabled-green)
 
-Zamonaviy talabalar uchun to'liq AI-quvvatli o'quv rejalashtirish veb-ilovasi. **Sun'iy intellekt**, **Gamifikatsiya**, **Real-time hamkorlik** va **Bulutli saqlash** bilan jihozlangan.
+**AI Study Planner** is a comprehensive, intelligent study management application designed to elevate the modern student's academic journey. By leveraging advanced AI capabilities, the platform seamlessly integrates personalized study scheduling, dynamic resource discovery, and intelligent flashcard generation. Built with a focus on both productivity and well-being, it incorporates gamification mechanics, deep work tools (like the Pomodoro technique), and real-time collaboration features to create a holistic learning environment.
 
 [🇺🇿 O'zbek tilida qo'llanma](./docs/USER_GUIDE_UZ.md) | [📖 Documentation](./docs/)
 
