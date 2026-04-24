@@ -32,7 +32,7 @@ const Layout: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row bg-[#f3f4f6] dark:bg-[#111827] text-gray-900 dark:text-gray-100 transition-colors duration-200">
+        <div className="h-screen flex flex-col md:flex-row bg-[#f3f4f6] dark:bg-[#111827] text-gray-900 dark:text-gray-100 transition-colors duration-200 overflow-hidden">
             {/* Mobile Header */}
             <header className="md:hidden bg-white dark:bg-[#1f2937] p-4 flex justify-between items-center shadow-sm z-30 relative">
                 <h1 className="text-xl font-bold">{getPageTitle()}</h1>
