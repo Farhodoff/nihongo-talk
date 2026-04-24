@@ -1,0 +1,149 @@
+maqsad.mdx` – Loyihadagi barcha funksiyalar bo‘yicha sodda tavsif**  
+
+> Quyidagi ro‘yxat **`src`** papkasidagi **utils** va **services** kataloglarida (`export` bilan e`xport qilingan) funksiyalarni qamrab oladi. Har bir funksiya uchun:  
+> 1️⃣ Funksiya nomi  
+> 2️⃣ Qisqacha nima qiladi (oddiy tillarda)  
+> 3️⃣ Qanday ishlaydi (asosiy mantigi)  
+> 4️⃣ Qabul qiladigan argumentlar (turlari bilan)  
+> 5️⃣ Qaytaradigan qiymat
+
+---
+
+## `src/utils/ai.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`getAIProvider`** | AI‑provayderni (`ollama` yoki `gemini`) tanlaydi. | `VITE_OLLAMA_URL` bo‘lsa → `isOllamaAvailable()` ni chaqiradi; muvaffaqiyatli bo‘lsa `ollama` qaytadi, aks holda `VITE_GEMINI_API_KEY` bo‘lsa `gemini`ni tanlaydi; hech narsa bo‘lmasa xato chiqaradi. | (`void`) | `Promise<'ollama' | 'gemini'>` |
+| **`getGenAI`** | Google Gemini‑API obyektini yaratadi. | `userKey` (API‑kalit) kiritilmasa xato beradi, aks holda `new GoogleGenerativeAI(userKey)` qaytadi. | `userKey?: string` | `GoogleGenerativeAI` |
+| **`requestWithRetry`** | API‑chaqiruvni (yoki har qanday async operatsiyani) qayta‑urinish bilan bajaradi. | Operatsiyani bajaradi; 429 (rate‑limit) yoki quota xatolari chiqsa, belgilangan kechikish (exponential back‑off) bilan qayta‑urinish qiladi; maksimal `retries` soniga yetganda hatoni uzatadi. | `operation: () => Promise<T>`, `retries: number = 3`, `delay: number = 20000` | `Promise<T>` |
+| **`generateFlashcardsWithAI`** | Berilgan `topic` bo‘yicha `count` ta flashcard (sarlavha‑javob) yaratadi. | Provayderni (`ollama` yoki `gemini`) aniqlaydi → promptni yuboradi → javobni JSON‑ga tozalab, `front` va `back` maydonlarini olib qaytaradi (maksimal `count`). | `topic: string`, `count: number = 5`, `userKey?: string` | `Promise<{front:string; back:string}[]>` |
+| **`generateFullStudyPlan`** | `topic`, `daysUntilExam`, `hoursPerDay` ma’lumotlaridan to‘liq kunlik jadval + resurslar ro‘yxatini yaratadi. | Provayderni aniqlaydi → promptni yuboradi → json‑ob’ektini pars qiladi → resurs linklarini kerak bo‘lganda qidiruv URL‑ga aylantiradi. | `topic: string`, `daysUntilExam: number`, `hoursPerDay: number`, `userKey?: string` | `Promise<FullStudyPlan>` (jadval + resurslar) |
+| **`generateStudyPlanWithAI`** | **Legacy**: eski `generateStudyPlan` ga moslamadir, hozirda bo‘sh array qaytaradi. | Faqat “stub” → hech narsa qilmaydi. | `_topic: string`, `_days: number`, `_hours: number`, `_key?: string` | `Promise<any[]>` (bo‘sh) |
+| **`recommendResourcesWithAI`** | `topic` bo‘yicha 8 ta (2 video, 2 article, 2 book, 2 course) bepul resurs tavsiya qiladi. | Provayderni aniqlaydi → promptni yuboradi → json‑ma’lumotni pars qiladi → linklar `http` bo‘lmasa, YouTube yoki Google qidiruv URL‑ga aylantiradi. | `topic: string`, `userKey?: string` | `Promise<SmartResource[]>` |
+| **`generateStudyInsight`** | Foydalanuvchining o‘rganish statistikalariga qarab “eng zaif” fanlar va tavsiyalarni beradi. | Provayderni aniqlaydi → promptni yuboradi → json‑arrayni pars qiladi → natijani qaytaradi. | `stats: {subject:string; hours:number; mood:number; pendingTasks:number; masteryScore:number}[]`, `userKey?: string` | `Promise<{subject:string; advice:string}[]>` |
+
+---
+
+## `src/utils/analytics.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`calculateMasteryScore`** | Flashcard‑lar to‘plamining “mastery” (o‘zlashtirish) ballini 0‑100 oraliqda hisoblaydi. | Har bir kartaning `interval` (SRS intervali) ga qarab 10‑100 ball beriladi; umumiy ballni o‘rtacha qilib, yaxlitlaydi. | `cards: Flashcard[]` | `number` (0‑100) |
+| **`getSubjectAnalytics`** | Har bir fan (subject) bo‘yicha kartalar soni, mastered, struggling, mastery‑ballini chiqaradi. | `subjects` ro‘yxatidan o‘tadi → tegishli kartalarni filtrlaydi → `calculateMasteryScore` ni chaqiradi → natijalarni `masteryScore` bo‘yicha o‘sish tartibida (eng zaif boshda) saralaydi. | `subjects: Subject[]`, `flashcards: Flashcard[]` | `SubjectAnalytics[]` (har bir ob’ektda `subjectId`, `subjectName`, `totalCards`, `masteredCards`, `strugglingCards`, `masteryScore`) |
+
+---
+
+## `src/utils/gamification.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`getLevelInfo`** | Foydalanuvchining **XP** ga qarab joriy daraja, darajaga yetish progress‑i va keyingi darajaga kerakli XP ni beradi. | `LEVELS` massivini teskari o‘qib, `xp >= minXp` bo‘lgan eng yuqori darajani topadi → keyingi darajani aniqlab, progress % ni hisoblaydi. | `xp: number` | `{ level:number; title:string; progress:number; currentXp:number; nextLevelXp:number; xpToNext:number }` |
+
+---
+
+## `src/utils/notifications.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`requestNotificationPermission`** | Brauzerdan bildirishnoma ruxsatini so‘raydi. | `Notification` obyektining `permission` holatini tekshiradi; `granted`, `denied` yoki `default` holatiga qarab `requestPermission()` ni chaqiradi. | `void` | `Promise<boolean>` (`true` → ruxsat berildi) |
+| **`sendNotification`** | Foydalanuvchiga desktop‑bildirishnoma yuboradi (faqat ruxsat berilgan bo‘lsa). | `new Notification(title, {body, icon})` ni chaqiradi. | `title: string`, `body?: string` | `void` |
+
+---
+
+## `src/utils/ollama.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`callOllama`** | Ollama (lokal LLM) API‑ga prompt yuboradi, natijani string sifatida oladi, kerak bo‘lsa qayta‑urinish qiladi. | `fetch(OLLAMA_URL/api/generate, {POST, JSON body})` → JSON javobdan `response` maydonini qaytaradi; xato bo‘lsa `retries` marta kechikish bilan qayta‑urinish. | `prompt: string`, `model: string = OLLAMA_MODEL`, `retries: number = 3` | `Promise<string>` |
+| **`isOllamaAvailable`** | Ollama serverining `/api/tags` endpointiga GET so‘rov yuboradi, javob OK bo‘lsa `true` qaytaradi. | `fetch(`${OLLAMA_URL}/api/tags`)` → `response.ok` ni tekshiradi. | `void` | `Promise<boolean>` |
+| **`getOllamaModels`** | Ollama serverida mavjud modellarning ro‘yxatini (`string[]`) oladi. | `/api/tags` endpointdan JSON oladi → `data.models` ichidan `name` larni ajratadi. | `void` | `Promise<string[]>` |
+
+---
+
+## `src/utils/srs.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`calculateReview`** | SuperMemo‑2 (SM‑2) algoritmi asosida foydalanuvchi bergan `grade` (rating) ga qarab keyingi takrorlash intervali, repetitions, ease‑factor va keyingi ko‘rish sanasini hisoblaydi. | Rating ≥ GOOD → algoritm standart SM‑2 formulalariga (1‑day, 6‑day, keyingi * EF) amal qiladi; aks holda interval = 1 kun, repetitions = 0. Ease‑factor 1.3 dan kam bo‘lmasligi uchun tekshiriladi. | `grade: Grade`, `priorInterval: number`, `priorRepetitions: number`, `priorEaseFactor: number` | `{interval:number; repetitions:number; easeFactor:number; nextReviewDate:string}` |
+| **`Rating` (konstant obyekt)** | 4 ta baholash qiymati: `AGAIN` 0, `HARD` 1, `GOOD` 2, `EASY` 3. | Statik obyekt; `as const` bilan turini saqlab qoladi. | — | — |
+| **`state_grade_adjust`** (ichki yordamchi) | Ease‑factorni 2 onlik nuqtaga yaxlitlaydi (float‑precision). | `Math.round(ef*100)/100`. | `ef: number` | `number` |
+
+---
+
+## `src/utils/statistics.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`calculateStreak`** | Yakunlangan (completed) topshiriqlar ketma‑ketligi bo‘yicha “streak”‑ni (ketma‑ketuvchi kunlar sonini) hisoblaydi. | `tasks` ichidan `completed && deadline` ga ega bo‘lganlarni saralaydi → `deadline` sana qiymatlarini oling → bugun yoki kecha bo‘lsa davomiylikni hisoblaydi; kunlar uzluksiz bo‘lmasa to‘xtaydi. | `tasks: Task[]` | `number` (streak kunlari) |
+| **`calculateCompletionRates`** | Maqsadlar (`goals`) va vazifalar (`tasks`) bo‘yicha umumiy va bajarilgan sonlarini, hamda umumiy bajarilish foizini (percentage) beradi. | `goals` va `tasks` massivlarini filtrlaydi → `total`, `completed`, `overallPercentage` (tamomlangan vazifalar / jami) hisoblaydi. | `goals: Goal[]`, `tasks: Task[]` | `{ totalGoals:number; completedGoals:number; totalTasks:number; completedTasks:number; overallPercentage:number }` |
+| **`getWeeklyProgress`** | Oxirgi 7 kun ichida qaysi kunlarda necha “completed” topshiriq bo‘lganini (kunlik statistika) beradi. | Bugundan 6 kun oldinga qarab sanalar ro‘yxatini yaratadi → har bir kun uchun `tasks.filter(t => t.completed && t.deadline === thatDay)` sonini sanaydi. | `tasks: Task[]` | `Array<{ label:string; count:number; date:Date }>` (7 element) |
+
+---
+
+## `src/utils/storage.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`storeData`** | Berilgan `key` bo‘yicha `value` ni `localStorage` ga JSON ko‘rinishda saqlaydi. | `JSON.stringify(value)` → `localStorage.setItem(key, json)`. Xato bo‘lsa console’da chiqadi va uzatadi. | `key: string`, `value: T` (generik) | `Promise<void>` |
+| **`getData`** | `localStorage` dan `key` bo‘yicha JSON ma’lumotni o‘qiyp, object ga aylantiradi. | `localStorage.getItem(key)` → `JSON.parse`; `null` bo‘lsa `null` qaytaradi. | `key: string` | `Promise<T | null>` |
+| **`removeData`** | `localStorage` dan berilgan `key` ni o‘chiradi. | `localStorage.removeItem(key)`. | `key: string` | `Promise<void>` |
+| **`clearAll`** | `localStorage` ning barcha elementlarini o‘chiradi. | `localStorage.clear()`. | `void` | `Promise<void>` |
+
+---
+
+## `src/services/FlashcardService.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`fetchFlashcards`** | Foydalanuvchiga tegishli barcha flashcard‑larni Supabase bazadan olib keladi. | `supabase.from('flashcards').select().eq('user_id', userId)` → natijani Frontend‑model (`Flashcard`) ga xaritalaydi. | `userId: string` | `Promise<Flashcard[]>` |
+| **`addFlashcard`** | Yangi flashcard‑ni Supabase bazaga qo‘shadi, keyin qaytadi. | `dbCard` obyektini yaratadi (default `next_review_date`, `ease_factor` = 2.5) → `insert(...).select().single()` → natijani `Flashcard`ga aylantiradi. | `userId: string`, `cardData: Partial<Flashcard>` | `Promise<Flashcard | null>` |
+| **`updateFlashcard`** | Mavjud flashcard‑ni berilgan `updates` bo‘yicha yangilaydi. | `updates` dagi har bir maydonni DB‑fieldga (masalan `nextReviewDate` → `next_review_date`) xaritalab, `supabase.from('flashcards').update(...).eq('id', id)` ni bajaradi. | `id: string`, `updates: Partial<Flashcard>` | `Promise<void>` |
+| **`deleteFlashcard`** | Flashcard‑ni ID bo‘yicha o‘chiradi. | `supabase.from('flashcards').delete().eq('id', id)` | `id: string` | `Promise<void>` |
+| **`importFlashcards`** | Ko‘p flashcard‑ni (array) bir martada Supabase bazaga import qiladi. | Har bir element uchun DB‑structure yaratiladi → `supabase.from('flashcards').insert(dbCards)`; muvaffaqiyatli bo‘lsa `true`, xato bo‘lsa `false`. | `userId: string`, `subjectId: string`, `cards: {front:string; back:string; example?:string}[]` | `Promise<boolean>` |
+
+---
+
+## `src/services/NotificationManager.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`requestPermission`** | Brauzerdan bildirishnoma ruxsatini so‘raydi (bu utils`‑dan farq qiladi: u `window` ob’ektini tekshiradi). | `Notification` API sini tekshirib, `requestPermission()` ni chaqiradi. | `void` | `Promise<boolean>` |
+| **`sendNotification`** | Ruxsat berilgan bo‘lsa, desktop‑bildirishnoma yuboradi. | `new Notification(title, {icon, badge, …options})`. | `title: string`, `options?: NotificationOptions` | `void` |
+| **`startMonitoring`** | Berilgan **events** ro‘yxatini har 60 sekundda tekshiradi, kelayotgan (notifyBeforeMinutes) vaqtga yetgan topshiriqlar uchun bildirishnoma yuboradi. | `setInterval` orqali `checkEvents` ni chaqiradi → `checkEvents` davrida `moment` bilan vaqtlarni solishtiradi → bildirishnoma jo‘natadi → `updateEventCallback(id)` bilan `isNotified` holatini yangilaydi. | `events: Event[]`, `updateEventCallback: (id:string)=>void` | `void` |
+| **`stopMonitoring`** | Bildirishnoma tekshirish intervalini to‘xtatadi. | `clearInterval(this.checkInterval)` | `void` | `void` |
+
+---
+
+## `src/services/TaskService.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`fetchTasks`** | Foydalanuvchi ID bo‘yicha barcha vazifalarni Supabase bazadan olib keladi (so‘ngi yaratilganidan boshlab). | `supabase.from('tasks').select().eq('user_id', userId).order('created_at', {ascending:false})` → natijani Frontend‑model (`Task`) ga xaritalaydi. | `userId: string` | `Promise<Task[]>` |
+| **`addTask`** | Yangi vazifani Supabase ga qo‘shadi, keyin qaytaradi. | `dbTask` obyektini (user_id, title, status, …) yaratadi → `insert(...).select().single()` → natijani `Task`ga aylantiradi. | `userId: string`, `taskData: Partial<Task>` | `Promise<Task | null>` |
+| **`updateTask`** | Mavjud vazifani berilgan `updates` boyicha yangilaydi. | Frontend‑fieldlarni DB‑fieldga (masalan `subjectId` → `subject_id`) xaritalab, `supabase.from('tasks').update(...).eq('id', id)` ni bajaradi. | `id: string`, `updates: Partial<Task>` | `Promise<void>` |
+| **`updateTaskStatus`** | Vazifa `status` va `completed` flag‑larini alohida yangilaydi. | `supabase.from('tasks').update({status, completed}).eq('id', id)` | `id: string`, `status: string`, `completed: boolean` | `Promise<void>` |
+| **`deleteTask`** | Vazifani ID bo‘yicha o‘chiradi. | `supabase.from('tasks').delete().eq('id', id)` | `id: string` | `Promise<void>` |
+
+---
+
+## `src/services/TelegramService.ts`
+
+| Funksiya | Qisqacha nima qiladi | Qanday ishlaydi | Argumentlar | Qaytaradi |
+|----------|----------------------|----------------|-------------|-----------|
+| **`generateCode`** (private) | 6‑ta tasodifiy harf/raqamdan iborat “link‑code” yaratadi (o‘xshash belgilardan holi). | `chars` stringdan tasodifiy tanlab, 6 marta qo‘shadi. | `void` | `string` |
+| **`generateLinkCode`** | Foydalanuvchi uchun Telegram‑botga **link‑code** yaratadi, uni DB ga saqlaydi, kodning amal qilish muddatini (`expires_at`) qaytaradi. | Avval `telegram_users` tablosida foydalanuvchi allaqachon bog‘langan‑mi tekshiradi → kodni yaratadi → `telegram_link_codes` tablosiga `user_id`, `code` kiritadi → natija (`code`, `expires_at`) qaytaradi. | `userId: string` | `Promise<{code:string; expires_at:string} | null>` |
+| **`verifyLinkCode`** | Telegram‑bot tomonidan yuborilgan `code`ni tekshiradi, foydalanuvchini bog‘laydi, kodni “used” holatiga o‘tkazadi. | `telegram_link_codes` da `code` yoki `used === false` va `expires_at` kelgusi bo‘lsa topadi → `telegram_users` tablosiga yangi yozuv qo‘shadi → kodni `used:true` ga yangilaydi → foydalanuvchi ID ni qaytaradi. | `code: string`, `telegramId: number`, `chatId: number`, `username?`, `firstName?`, `lastName?` | `Promise<string | null>` (bog‘langan `user_id`) |
+| **`getLinkedAccount`** | Foydalanuvchi ID bo‘yicha Telegram‑akount ma’lumotlarini oladi. | `supabase.from('telegram_users').select().eq('user_id', userId).single()` | `userId: string` | `Promise<TelegramUser | null>` |
+| **`unlinkAccount`** | Foydalanuvchining Telegram‑bog‘lanishini o‘chiradi. | `supabase.from('telegram_users').delete().eq('user_id', userId)` | `userId: string` | `Promise<boolean>` (`true` → muvaffaqiyat) |
+| **`updateNotificationSettings`** | Telegram‑xabar yuborish (push) yoqilgan/yoqilmaganligini yangilaydi. | `supabase.from('telegram_users').update({notifications_enabled: enabled}).eq('user_id', userId)` | `userId: string`, `enabled: boolean` | `Promise<boolean>` |
+| **`sendNotification`** (placeholder) | Kelgusida Telegram‑xabar yuborish funksiyasini “mock” qiladi (hozirda faqat console.log). | `console.log('Sending notification …')` | `userId: string`, `message: string` | `Promise<boolean>` (`true` → log yozildi) |
+
+---
+
+### Qanday foydalanish?
+
+* **UI** (React komponentlar) bu funksiyalarni `import { … } from '@/utils/…'` yoki `import { … } from '@/services/…'` tarzida chaqiradi.  
+* **AI** funksiyalar (`ai.ts`) mantiqiy tarzda provayder tanlash (`getAIProvider`) ⇒ **Ollama** yoki **Gemini** ⇒ **prompt** yuborish ⇒ natija JSON → komponentga qaytarish.  
+* **Supabase** servislar (`FlashcardService`, `TaskService`, `TelegramService`) barcha **CRUD** operatsiyalarini soddalashtiradi, shuningdek **link‑code** generatsiyasini ham qo‘llab‑quvvatlaydi.  
+* **Gamification** (`gamification.ts`) va **Analytics** (`analytics.ts`) foydalanuvchi darajasi, mastery‑balli va statistikalarni hisoblab beradi, UI‑da “progress bar”, “level badge” va “insight” bildirishlar uchun ishlatiladi.  
+* **NotificationManager** + **utils/notifications** birgalikda brauzer‑bildirishnomalari (desktop) va Telegram‑ishonchli bildirishnomalarini boshqaradi.
