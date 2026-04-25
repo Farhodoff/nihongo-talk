@@ -250,3 +250,4 @@ Savollar yoki takliflar uchun issue oching yoki Pull Request yuboring!
 
 **O'zbek tilida to'liq qo'llanma:** [USER_GUIDE_UZ.md](./docs/USER_GUIDE_UZ.md)
 
+\n\n## AI Optimization (Updated by Farhodoff)\n- **Caching:** AI results are now cached in-memory to save tokens.\n- **Batching:** Sequential batching for large flashcard sets to avoid API timeouts.\n- **Optimistic UI:** Tasks and Subjects update instantly in the UI for a better UX.
