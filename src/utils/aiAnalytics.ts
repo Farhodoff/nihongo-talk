@@ -1,5 +1,7 @@
 import { StudySession } from '../types';
 import { callOllama, isOllamaAvailable } from './ollama';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { requestWithRetry } from "./ai";
 
 type AIProvider = 'ollama' | 'gemini';
 
@@ -7,25 +9,15 @@ const getAIProvider = async (): Promise<AIProvider> => {
     const ollamaUrl = import.meta.env.VITE_OLLAMA_URL;
     const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-    // Prefer Ollama if configured and available
     if (ollamaUrl) {
         const available = await isOllamaAvailable();
         if (available) return 'ollama';
     }
-
-    // Fallback to Gemini
     if (geminiKey) return 'gemini';
-
     throw new Error("AI provider not configured.");
 };
 
 export const generateStudyInsights = async (sessions: StudySession[], subjects: any[], apiKey: string) => {
-    // 1. Data Aggregation
-    // completedSessions removed as unused
-    // totalStudyTime removed as unused
-
-    // Subject Breakdown logic removed as unused
-
     // Time of Day Analysis
     const morningSessions = sessions.filter(s => {
         const hour = new Date(s.startTime).getHours();
@@ -58,7 +50,6 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
     const avgAfternoonMood = calculateAvgMood(afternoonSessions);
     const avgEveningMood = calculateAvgMood(eveningSessions);
 
-    // Subject popularity
     const subjectCounts: Record<string, number> = {};
     sessions.forEach(s => {
         if (s.subjectId) {
@@ -66,7 +57,6 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
         }
     });
 
-    // Get top 3 subjects names
     const topSubjectIds = Object.entries(subjectCounts)
         .sort(([, a], [, b]) => b - a)
         .slice(0, 3)
@@ -74,7 +64,6 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
 
     const topSubjects = topSubjectIds.map(id => subjects.find(s => s.id === id)?.name).filter(Boolean).join(", ");
 
-    // 2. Prepare Prompt
     const prompt = `
     Siz professional ta'lim tahlilchisisiz (AI Study Coach). Quyida foydalanuvchining o'qish statistikasi keltirilgan:
 
@@ -86,40 +75,22 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
 
     📚 ENG KO'P O'QILGAN FANLAR: ${topSubjects || "Ma'lum emas"}
 
-    VAZIFA:
-    Ushbu ma'lumotlarga asoslanib, foydalanuvchiga O'ZBEK tilida qisqa, aniq va do'stona tahliliy xulosa bering.
-    
-    TALABLAR:
-    1. Agar bir vaqt oralig'ida samaradorlik boshqasiga qaraganda ancha yuqori bo'lsa (masalan, Tong > Tun), buni foizda yoki aniq farq bilan ko'rsating va shu vaqtda qiyin fanlarni o'qishni maslahat bering.
-    2. Agar tuni bilan ko'p o'qigan bo'lsa va kayfiyat past bo'lsa, uyqu rejimini to'g'irlashni maslahat bering.
-    3. Javobingiz 3-4 ta qisqa jumladan iborat bo'lsin. Juda uzun bo'lmasin.
-    4. Motivatsion ohangda bo'lsin.
+    VAZIFA: O'ZBEK tilida qisqa (3-4 jumla), motivatsion tahliliy xulosa bering.
     `;
 
-    // 3. Call AI Provider
     try {
         const provider = await getAIProvider();
 
         if (provider === 'ollama') {
-            // Use Ollama
             return await callOllama(prompt);
         } else {
-            // Use Gemini
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }]
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error?.message || 'API request failed');
-            }
-
-            const result = await response.json();
-            return result.candidates[0].content.parts[0].text;
+            // Standardized using SDK and requestWithRetry
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const response = await result.response;
+            return response.text();
         }
     } catch (error) {
         console.error("AI Generation Error:", error);

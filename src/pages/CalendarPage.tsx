@@ -166,29 +166,29 @@ const CalendarPage: React.FC = () => {
     return (
         <div className="h-[calc(100vh-100px)] flex flex-col p-4 md:p-6 max-w-7xl mx-auto w-full">
             {/* Toolbar */}
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold flex items-center gap-2 dark:text-white">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 dark:text-white">
                     <CalendarIcon className="text-indigo-600" />
                     {moment(currentDate).format('MMMM YYYY')}
                 </h2>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                     <button
                         onClick={() => setCurrentDate(moment(currentDate).subtract(1, 'month').toDate())}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300"
+                        className="flex-1 sm:flex-none p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 sm:border-none"
                     >
-                        <ChevronLeft />
+                        <ChevronLeft className="mx-auto" />
                     </button>
                     <button
                         onClick={() => setCurrentDate(new Date())}
-                        className="px-4 py-2 text-sm font-medium bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400"
+                        className="flex-[2] sm:flex-none px-4 py-2 text-sm font-medium bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400"
                     >
                         Bugun
                     </button>
                     <button
                         onClick={() => setCurrentDate(moment(currentDate).add(1, 'month').toDate())}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300"
+                        className="flex-1 sm:flex-none p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 sm:border-none"
                     >
-                        <ChevronRight />
+                        <ChevronRight className="mx-auto" />
                     </button>
                 </div>
             </div>
@@ -196,8 +196,9 @@ const CalendarPage: React.FC = () => {
             {/* Grid Header */}
             <div className="grid grid-cols-7 gap-px mb-2 text-center">
                 {['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'].map(day => (
-                    <div key={day} className="text-sm font-medium text-gray-400 py-2">
-                        {day}
+                    <div key={day} className="text-xs md:text-sm font-medium text-gray-400 py-2">
+                        <span className="hidden md:inline">{day}</span>
+                        <span className="md:hidden">{day.charAt(0)}</span>
                     </div>
                 ))}
             </div>
@@ -208,8 +209,8 @@ const CalendarPage: React.FC = () => {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex-1 overflow-x-auto overflow-y-hidden rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
-                    <div className="min-w-[800px] h-full grid grid-cols-7 grid-rows-5 gap-px">
+                <div className="flex-1 overflow-auto rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700 custom-scrollbar">
+                    <div className="min-w-[600px] md:min-w-full h-full grid grid-cols-7 grid-rows-5 gap-px">
                         {calendarDays.map((date, idx) => (
                             <CalendarDay
                                 key={idx}

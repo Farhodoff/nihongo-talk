@@ -69,11 +69,21 @@ const CommunityChat: React.FC = () => {
     const fetchMessages = async () => {
         const { data, error } = await supabase
             .from('messages')
-            .select('*, profiles(full_name, avatar_url)')
+            .select(`
+                id,
+                content,
+                created_at,
+                user_id,
+                profiles:user_id (
+                    full_name,
+                    avatar_url
+                )
+            `)
             .order('created_at', { ascending: false })
             .limit(100);
 
         if (error) {
+            console.error("Fetch error:", error);
             setChatError("Chat xizmati vaqtincha mavjud emas.");
         } else {
             setMessages(data || []);
@@ -336,11 +346,12 @@ const CommunityChat: React.FC = () => {
                             <Smile size={22} />
                         </button>
                     </div>
-                    <button 
-                        type="submit" 
-                        disabled={!newMessage.trim() || isSending || !!chatError}
-                        className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white p-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center justify-center min-w-[52px] h-[52px]"
-                    >
+                <button 
+                    type="submit" 
+                    disabled={!newMessage.trim() || isSending || !!chatError}
+                    aria-label="Xabarni yuborish"
+                    className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white p-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center justify-center min-w-[52px] h-[52px]"
+                >
                         {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send size={20} />}
                     </button>
                 </form>
