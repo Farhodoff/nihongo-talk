@@ -62,70 +62,74 @@ const TasksPage: React.FC = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-end mb-8">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
                 <div>
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Kunlik Vazifalar</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">Kunlik faoliyatingizni boshqaring</p>
                 </div>
-                <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl w-fit">
                     <button
                         onClick={() => setViewMode('list')}
-                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${viewMode === 'list' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'list' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
                     >
                         Ro'yxat
                     </button>
                     <button
                         onClick={() => setViewMode('board')}
-                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
                     >
                         Doska
                     </button>
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-[#1f2937] p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
-                <form onSubmit={handleCreate} className="flex flex-col md:flex-row gap-4 flex-wrap">
-                    <input
-                        type="text"
-                        value={newTaskTitle}
-                        onChange={(e) => setNewTaskTitle(e.target.value)}
-                        placeholder="Yangi vazifa qo'shish..."
-                        className="flex-1 min-w-[200px] px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <input
-                        type="date"
-                        value={newTaskDate}
-                        onChange={(e) => setNewTaskDate(e.target.value)}
-                        className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <input
-                        type="text"
-                        value={newTaskLink}
-                        onChange={(e) => setNewTaskLink(e.target.value)}
-                        placeholder="Havola (ixtiyoriy)..."
-                        className="flex-1 md:max-w-xs px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <select
-                        value={selectedGoal}
-                        onChange={(e) => setSelectedGoal(e.target.value)}
-                        className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1f2937] text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                        <option value="">Maqsadga bog'lash (Ixtiyoriy)</option>
-                        {goals.map(g => (
-                            <option key={g.id} value={g.id}>{g.title}</option>
-                        ))}
-                    </select>
-                    <select
-                        value={selectedSubject}
-                        onChange={(e) => setSelectedSubject(e.target.value)}
-                        className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1f2937] text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                        <option value="">Fanga bog'lash (Ixtiyoriy)</option>
-                        {subjects.map(s => (
-                            <option key={s.id} value={s.id}>{s.name}</option>
-                        ))}
-                    </select>
-                    <Button type="submit">Qo'shish</Button>
+            <div className="bg-white dark:bg-[#1f2937] p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
+                <form onSubmit={handleCreate} className="flex flex-col gap-4">
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <input
+                            type="text"
+                            value={newTaskTitle}
+                            onChange={(e) => setNewTaskTitle(e.target.value)}
+                            placeholder="Yangi vazifa qo'shish..."
+                            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <input
+                            type="date"
+                            value={newTaskDate}
+                            onChange={(e) => setNewTaskDate(e.target.value)}
+                            className="w-full md:w-auto px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <input
+                            type="text"
+                            value={newTaskLink}
+                            onChange={(e) => setNewTaskLink(e.target.value)}
+                            placeholder="Havola (ixtiyoriy)..."
+                            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <select
+                            value={selectedGoal}
+                            onChange={(e) => setSelectedGoal(e.target.value)}
+                            className="w-full md:w-auto px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1f2937] text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                            <option value="">Maqsadga bog'lash</option>
+                            {goals.map(g => (
+                                <option key={g.id} value={g.id}>{g.title}</option>
+                            ))}
+                        </select>
+                        <select
+                            value={selectedSubject}
+                            onChange={(e) => setSelectedSubject(e.target.value)}
+                            className="w-full md:w-auto px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1f2937] text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                            <option value="">Fanga bog'lash</option>
+                            {subjects.map(s => (
+                                <option key={s.id} value={s.id}>{s.name}</option>
+                            ))}
+                        </select>
+                        <Button type="submit" className="w-full md:w-auto">Qo'shish</Button>
+                    </div>
                 </form>
             </div>
 

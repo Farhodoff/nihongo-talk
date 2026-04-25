@@ -10,13 +10,32 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
 
+        // Optimistic update
+        const tempId = `temp-${Date.now()}`;
+        const optimisticTask: Task = {
+            id: tempId,
+            userId: user.id,
+            title: taskData.title || '',
+            status: taskData.status || 'todo',
+            priority: taskData.priority || 'medium',
+            dueDate: taskData.dueDate || new Date().toISOString(),
+            completed: false,
+            createdAt: new Date().toISOString(),
+            ...taskData
+        } as Task;
+
+        setTasks(prev => [...prev, optimisticTask]);
+
         try {
             const newTask = await TaskService.addTask(user.id, taskData);
             if (newTask) {
-                setTasks(prev => [...prev, newTask]);
+                // Replace temp task with real one
+                setTasks(prev => prev.map(t => t.id === tempId ? newTask : t));
             }
         } catch (error) {
             console.error("Failed to add task:", error);
+            // Revert on failure
+            setTasks(prev => prev.filter(t => t.id !== tempId));
         }
     };
 

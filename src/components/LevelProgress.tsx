@@ -1,11 +1,15 @@
 import { Flame } from 'lucide-react';
-import React from 'react';
+import React, { memo } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { getLevelInfo } from '../utils/gamification';
 
-const LevelProgress: React.FC = () => {
-    const { settings } = useStudyData();
-    const { level, title, progress, currentXp, xpToNext } = getLevelInfo(settings.totalXp || 0);
+interface LevelProgressContentProps {
+    totalXp: number;
+    currentStreak: number;
+}
+
+const LevelProgressContent: React.FC<LevelProgressContentProps> = memo(({ totalXp, currentStreak }) => {
+    const { level, title, progress, currentXp, xpToNext } = getLevelInfo(totalXp);
 
     return (
         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-4 text-white shadow-lg mb-6">
@@ -19,7 +23,7 @@ const LevelProgress: React.FC = () => {
                 <div className="flex flex-col items-end">
                     <div className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded-lg text-sm font-medium">
                         <Flame size={14} className="text-orange-300 fill-orange-300" />
-                        {settings.currentStreak || 0} Kunlik Streak
+                        {currentStreak} Kunlik Streak
                     </div>
                 </div>
             </div>
@@ -36,6 +40,17 @@ const LevelProgress: React.FC = () => {
                 />
             </div>
         </div>
+    );
+});
+
+const LevelProgress: React.FC = () => {
+    const { settings } = useStudyData();
+    
+    return (
+        <LevelProgressContent 
+            totalXp={settings.totalXp || 0} 
+            currentStreak={settings.currentStreak || 0} 
+        />
     );
 };
 

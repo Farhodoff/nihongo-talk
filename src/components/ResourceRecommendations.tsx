@@ -15,10 +15,11 @@ const ResourceRecommendations: React.FC<Props> = ({ initialTopic }) => {
     const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState<'all' | 'video' | 'article' | 'book' | 'course'>('all');
 
-    // Initial load
+    // Initial load - Empty useEffect or removed if not needed. 
+    // We remove the automatic handleSearch() to save tokens and prevent rate limits.
     useEffect(() => {
-        handleSearch();
-    }, []); // Run once on mount
+        // handleSearch(); // Removed auto-fetch
+    }, []); 
 
     const handleSearch = async () => {
         if (!query.trim()) return;

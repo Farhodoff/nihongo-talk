@@ -4,6 +4,9 @@ import { callOllama, isOllamaAvailable } from "./ollama";
 
 type AIProvider = 'ollama' | 'gemini';
 
+// Simple in-memory cache to prevent duplicate requests and save tokens
+const aiCache = new Map<string, any>();
+
 const getAIProvider = async (): Promise<AIProvider> => {
     const ollamaUrl = import.meta.env.VITE_OLLAMA_URL;
     const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -27,62 +30,82 @@ const getGenAI = (userKey?: string) => {
     return new GoogleGenerativeAI(userKey);
 };
 
-const requestWithRetry = async <T>(
+export const requestWithRetry = async <T>(
     operation: () => Promise<T>,
-    retries: number = 3,
-    delay: number = 20000 // Start with 20s
+    retries: number = 2, // Reduced from 3
+    delay: number = 3000 // Reduced from 20s to 3s for better UX
 ): Promise<T> => {
     try {
         return await operation();
     } catch (error: any) {
-        if (retries > 0 && (error?.message?.includes('429') || error?.status === 429 || error?.message?.includes('quota'))) {
-            console.warn(`Rate limit hit. Retrying in ${delay / 1000}s...`);
+        // Handle rate limit (429) or quota issues
+        const isRateLimit = error?.message?.includes('429') || error?.status === 429 || error?.message?.includes('quota');
+        
+        if (retries > 0 && isRateLimit) {
+            console.warn(`AI Rate limit hit. Retrying in ${delay / 1000}s... (${retries} retries left)`);
             await new Promise(resolve => setTimeout(resolve, delay));
-            // Exponential backoff: 20s -> 60s -> 120s
-            return requestWithRetry(operation, retries - 1, delay * 3);
+            // Exponential backoff
+            return requestWithRetry(operation, retries - 1, delay * 2);
         }
         throw error;
     }
 };
 
-// ... (Flashcard function omitted for brevity as it is unchanged) ...
+/**
+ * Generates flashcards using AI. 
+ * Supports batching for large counts to prevent output truncation and token waste.
+ */
 export const generateFlashcardsWithAI = async (
     topic: string,
     count: number = 5,
     userKey?: string
 ): Promise<{ front: string; back: string }[]> => {
-    const prompt = `
-      Task: Create ${count} high-quality flashcards for study purposes.
-      Source Material or Topic: "${topic}"
+    // Check Cache first
+    const cacheKey = `flashcards-${topic}-${count}`;
+    if (aiCache.has(cacheKey)) {
+        console.log(`[AI Cache] Returning cached flashcards for: ${topic}`);
+        return aiCache.get(cacheKey);
+    }
 
-      Instructions:
-      1. If the source is a topic, generate key concepts.
-      2. If the source is text/notes, extract key facts.
-      3. "Front" should be a clear question or term.
-      4. "Back" should be a concise answer or definition.
-      
-      Output Format:
-      Return ONLY a valid JSON array of objects. No markdown formatting.
-      [{"front": "Question?", "back": "Answer"}]
+    // Batching logic: Gemini 1.5 Flash works best with smaller JSON outputs.
+    // If count > 20, we split it into multiple batches of 20 to ensure reliability.
+    if (count > 20) {
+        const batches = [];
+        let remaining = count;
+        while (remaining > 0) {
+            batches.push(Math.min(remaining, 20));
+            remaining -= 20;
+        }
+
+        console.log(`[AI Batching] Splitting ${count} cards into ${batches.length} batches (sequential)...`);
+        const allCards = [];
+        for (const batchCount of batches) {
+            const batchResult = await generateFlashcardsWithAI(topic, batchCount, userKey);
+            allCards.push(batchResult);
+            // Small optional delay between batches to stay under rate limits
+            if (batches.length > 1) await new Promise(r => setTimeout(r, 500));
+        }
+        const merged = allCards.flat();
+        aiCache.set(cacheKey, merged);
+        return merged;
+    }
+
+    const prompt = `
+      Topic: "${topic}"
+      Task: Create ${count} high-quality flashcards.
+      Format: JSON array of {"front": "question", "back": "answer"}. 
+      Constraint: No markdown, no intro.
     `;
 
     try {
         const provider = await getAIProvider();
+        let json: any[];
 
         if (provider === 'ollama') {
-            // Use Ollama
             const response = await callOllama(prompt);
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            const json = JSON.parse(cleanedText);
-
-            if (!Array.isArray(json)) throw new Error("Invalid response format");
-
-            return json.slice(0, count).map((item: any) => ({
-                front: String(item.front),
-                back: String(item.back)
-            }));
+            json = JSON.parse(cleanedText);
         } else {
-            // Use Gemini (fallback)
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -90,15 +113,20 @@ export const generateFlashcardsWithAI = async (
             const response = await result.response;
             const text = response.text();
             const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-            const json = JSON.parse(cleanedText);
-
-            if (!Array.isArray(json)) throw new Error("Invalid response format");
-
-            return json.slice(0, count).map((item: any) => ({
-                front: String(item.front),
-                back: String(item.back)
-            }));
+            json = JSON.parse(cleanedText);
         }
+
+        if (!Array.isArray(json)) throw new Error("Invalid response format");
+
+        const result = json.slice(0, count).map((item: any) => ({
+            front: String(item.front),
+            back: String(item.back)
+        }));
+
+        // Cache the result
+        aiCache.set(cacheKey, result);
+        return result;
+
     } catch (error: unknown) {
         console.error('AI Request Error:', error);
         throw error;
@@ -127,6 +155,9 @@ export const generateFullStudyPlan = async (
     hoursPerDay: number,
     userKey?: string
 ): Promise<FullStudyPlan> => {
+    const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}`;
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+
     const prompt = `
         Act as an expert academic advisor. Create a comprehensive study program for: "${topic}".
         Duration: ${daysUntilExam} days.
@@ -187,7 +218,6 @@ export const generateFullStudyPlan = async (
 
         if (!json.schedule || !Array.isArray(json.schedule)) throw new Error("Invalid Schedule Format");
 
-        // Optimize links in resources
         const resources = (json.resources || []).map((item: any) => ({
             ...item,
             link: item.link.startsWith('http') ? item.link :
@@ -195,10 +225,13 @@ export const generateFullStudyPlan = async (
                     `https://www.google.com/search?q=${encodeURIComponent(item.link)}`
         }));
 
-        return {
+        const result = {
             schedule: json.schedule,
             resources: resources
         };
+        
+        aiCache.set(cacheKey, result);
+        return result;
 
     } catch (e) {
         console.error("AI Full Plan Error:", e);
@@ -206,12 +239,10 @@ export const generateFullStudyPlan = async (
     }
 };
 
-// Keep old functions for backward compatibility if needed, but export them
-// Keep old functions for backward compatibility if needed, but export them
 export const generateStudyPlanWithAI = async (_topic: string, _days: number, _hours: number, _key?: string) => {
-    // Legacy wrapper stub
     return [];
 };
+
 // Smart Resource Interface
 export interface SmartResource {
     title: string;
@@ -224,30 +255,14 @@ export const recommendResourcesWithAI = async (
     topic: string,
     userKey?: string
 ): Promise<SmartResource[]> => {
+    const cacheKey = `resources-${topic}`;
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+
     const prompt = `
-        Act as an expert academic advisor. Find 8 high-quality, preferably FREE learning resources for the topic: "${topic}".
-        
-        CRITICAL INSTRUCTION: You MUST return exactly 8 items. Do not skip any category.
-        
-        REQUIRED COMPOSITION:
-        1.  **2 VIDEOS** (YouTube channels/videos). Mix of English & Uzbek.
-        2.  **2 ARTICLES/WEBSITES** (Docs/Blogs).
-        3.  **2 BOOKS** (MANDATORY). If no specific book exists, recommend a general textbook for the field.
-        4.  **2 COURSES** (MANDATORY). If no specific course exists, recommend a related playlist or Coursera/EdX course.
-
-        LANGUAGE:
-        - Prioritize UZBEK resources where possible (minimum 3-4 items).
-        - Use ENGLISH for the rest (Global standard).
-
-        Return ONLY a valid JSON array of objects:
-        [
-          {
-            "title": "Resource Title",
-            "type": "video" | "article" | "book" | "course",
-            "description": "Short description in Uzbek (mention 'Bepul' if free).",
-            "link": "Search query or URL"
-          }
-        ]
+        Topic: "${topic}"
+        Task: Recommend 8 learning resources (2 Videos, 2 Articles, 2 Books, 2 Courses).
+        Language: Mix of Uzbek and English.
+        Output: JSON array of {"title": "str", "type": "video|article|book|course", "description": "UZB", "link": "URL/Query"}.
     `;
 
     try {
@@ -268,13 +283,15 @@ export const recommendResourcesWithAI = async (
 
         if (!Array.isArray(json)) throw new Error("Invalid Format");
 
-        // Optimize links for search if they aren't URLs
-        return json.map((item: any) => ({
+        const result = json.map((item: any) => ({
             ...item,
             link: item.link.startsWith('http') ? item.link :
                 item.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(item.link)}` :
                     `https://www.google.com/search?q=${encodeURIComponent(item.link)}`
         }));
+        
+        aiCache.set(cacheKey, result);
+        return result;
     } catch (e) {
         console.error("Smart Resource Error:", e);
         return [];
@@ -285,15 +302,14 @@ export const generateStudyInsight = async (
     stats: { subject: string; hours: number; mood: number; pendingTasks: number; masteryScore: number }[],
     userKey?: string
 ): Promise<{ subject: string; advice: string }[]> => {
+    const cacheKey = `insight-${JSON.stringify(stats)}`;
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+
     const prompt = `
-        Analyze these study stats and identify 1-2 weakest subjects.
-        Prioritize subjects with LOW MASTERY SCORE (< 50%) or LOW MOOD.
         Stats: ${JSON.stringify(stats)}
-        
-        Return a JSON array with "subject" and "advice" (in Uzbek language).
-        Give specific, encouraging advice to improve mastery and performance.
-        Example: [{"subject": "Math", "advice": "Matematikadan o'zlashtirish darajangiz past (30%)..."}]
-        Limit to top 2 suggestions.
+        Task: Identify 1-2 weakest subjects.
+        Output: JSON array of {"subject": "str", "advice": "UZB"}.
+        Limit: Top 2 suggestions.
     `;
 
     try {
@@ -313,6 +329,7 @@ export const generateStudyInsight = async (
         const json = JSON.parse(cleanedText);
 
         if (!Array.isArray(json)) return [];
+        aiCache.set(cacheKey, json);
         return json;
     } catch (e) {
         console.error("AI Insight Error", e);

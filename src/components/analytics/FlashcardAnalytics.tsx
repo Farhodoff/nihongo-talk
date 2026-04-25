@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { Bar, CartesianGrid, Cell, Legend, Pie, PieChart, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 import { Flashcard } from '../../types';
@@ -7,7 +7,7 @@ interface FlashcardAnalyticsProps {
     flashcards: Flashcard[];
 }
 
-const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = ({ flashcards }) => {
+const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = memo(({ flashcards }) => {
     // Daily Flashcard Reviews (Last 7 days)
     const dailyReviewsData = useMemo(() => {
         const days = ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'];
@@ -117,6 +117,6 @@ const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = ({ flashcards }) =
             </div>
         </div>
     );
-};
+});
 
 export default FlashcardAnalytics;

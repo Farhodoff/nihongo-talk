@@ -46,12 +46,12 @@ const SubjectsPage: React.FC = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-end mb-8">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
                 <div>
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Fanlar</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">Kurslar va materiallarni boshqaring</p>
                 </div>
-                <Button onClick={() => { setIsAdding(!isAdding); setEditingSubject(null); }}>
+                <Button onClick={() => { setIsAdding(!isAdding); setEditingSubject(null); }} className="w-full md:w-auto">
                     <Plus size={20} className="mr-2" /> Fan Qo'shish
                 </Button>
             </div>

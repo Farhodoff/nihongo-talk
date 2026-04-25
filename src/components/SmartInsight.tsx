@@ -1,17 +1,23 @@
 import { Brain, Lightbulb, Loader2, Sparkles } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { generateStudyInsights } from '../utils/aiAnalytics';
 import { Button } from './ui/Button';
+import { StudySession, Subject } from '../types';
 
-const SmartInsight: React.FC = () => {
-    const { sessions, subjects, settings } = useStudyData();
+interface SmartInsightContentProps {
+    sessions: StudySession[];
+    subjects: Subject[];
+    googleApiKey?: string;
+}
+
+const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions, subjects, googleApiKey }) => {
     const [insight, setInsight] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleAnalyze = async () => {
-        if (!settings.googleApiKey) {
+    const handleAnalyze = useCallback(async () => {
+        if (!googleApiKey) {
             alert("Iltimos, avval Sozlamalar sahifasida Google API kalitini kiriting.");
             return;
         }
@@ -23,7 +29,7 @@ const SmartInsight: React.FC = () => {
 
         setLoading(true);
         try {
-            const result = await generateStudyInsights(sessions, subjects, settings.googleApiKey);
+            const result = await generateStudyInsights(sessions, subjects, googleApiKey);
             setInsight(result);
         } catch (error: unknown) {
             console.error('AI Insight Error:', error);
@@ -31,7 +37,7 @@ const SmartInsight: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [sessions, subjects, googleApiKey]);
 
     return (
         <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-[2.5rem] p-8 text-white shadow-2xl mb-8 relative overflow-hidden border border-white/10">
@@ -92,6 +98,18 @@ const SmartInsight: React.FC = () => {
                 )}
             </div>
         </div>
+    );
+});
+
+const SmartInsight: React.FC = () => {
+    const { sessions, subjects, settings } = useStudyData();
+    
+    return (
+        <SmartInsightContent 
+            sessions={sessions} 
+            subjects={subjects} 
+            googleApiKey={settings.googleApiKey} 
+        />
     );
 };
 

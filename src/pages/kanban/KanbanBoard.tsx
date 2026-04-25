@@ -28,9 +28,9 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks, onStatusChange }) => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full overflow-x-auto pb-4">
+            <div className="flex gap-6 h-full overflow-x-auto pb-4 custom-scrollbar">
                 {columns.map(column => (
-                    <div key={column.id} className="flex flex-col bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 min-w-[280px]">
+                    <div key={column.id} className="flex flex-col bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 min-w-[300px] max-w-[300px] md:flex-1 md:max-w-none">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-700 dark:text-gray-200">{column.title}</h3>
                             <span className="bg-gray-200 dark:bg-gray-700 text-xs px-2 py-1 rounded-full text-gray-600 dark:text-gray-400 font-medium">

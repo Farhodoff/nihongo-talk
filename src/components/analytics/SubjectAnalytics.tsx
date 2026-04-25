@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { Bar, CartesianGrid, Cell, Legend, Pie, PieChart, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Smile, TrendingUp } from 'lucide-react';
 import { Subject, StudySession, Flashcard } from '../../types';
@@ -10,7 +10,7 @@ interface SubjectAnalyticsProps {
     flashcards: Flashcard[];
 }
 
-const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = ({ subjects, sessions, flashcards }) => {
+const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sessions, flashcards }) => {
     // Subject Mood Data
     const subjectMoodData = useMemo(() => {
         const data: { name: string; mood: number; color: string }[] = [];
@@ -137,6 +137,6 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = ({ subjects, sessions,
             </div>
         </div>
     );
-};
+});
 
 export default SubjectAnalytics;

@@ -417,6 +417,21 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
+        const tempId = `temp-${Date.now()}`;
+        const optimisticSubject: Subject = {
+            id: tempId,
+            name: subjectData.name || '',
+            color: subjectData.color || '#6366f1',
+            schedule: subjectData.schedule || [],
+            teacherName: subjectData.teacherName,
+            roomLocation: subjectData.roomLocation,
+            description: subjectData.description,
+            icon: subjectData.icon
+        } as any;
+
+        // Optimistic update
+        setSubjects([...subjects, optimisticSubject]);
+
         const dbSubject = {
             user_id: user.id,
             name: subjectData.name,
@@ -428,20 +443,29 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             icon: subjectData.icon
         };
 
-        const { data } = await supabase.from('subjects').insert(dbSubject).select().single();
-        if (data) {
-            const newSubject = {
-                id: data.id,
-                name: data.name,
-                color: data.color,
-                schedule: data.schedule,
-                teacherName: data.teacher_name,
-                roomLocation: data.room_location,
-                description: data.description,
-                icon: data.icon
-            } as any;
-            setSubjects([...subjects, newSubject]);
-            return newSubject;
+        try {
+            const { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
+            if (error) throw error;
+
+            if (data) {
+                const newSubject = {
+                    id: data.id,
+                    name: data.name,
+                    color: data.color,
+                    schedule: data.schedule,
+                    teacherName: data.teacher_name,
+                    roomLocation: data.room_location,
+                    description: data.description,
+                    icon: data.icon
+                } as any;
+                // Replace temp with real
+                setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
+                return newSubject;
+            }
+        } catch (error) {
+            console.error("Failed to add subject:", error);
+            // Revert on failure
+            setSubjects(prev => prev.filter(s => s.id !== tempId));
         }
         return null;
     };

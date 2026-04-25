@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { Bar, CartesianGrid, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { StudySession } from '../../types';
 
@@ -6,7 +6,7 @@ interface ActivityAnalyticsProps {
     sessions: StudySession[];
 }
 
-const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = ({ sessions }) => {
+const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) => {
     // 1. Weekly Activity Data
     const weeklyData = useMemo(() => {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -79,6 +79,6 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = ({ sessions }) => {
             </div>
         </div>
     );
-};
+});
 
 export default ActivityAnalytics;
