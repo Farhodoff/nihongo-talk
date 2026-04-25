@@ -41,7 +41,6 @@ const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDur
     // but we can adjust CSS to hide items on very small heights)
     const DISPLAY_LIMIT = 2; // Reduced for better fit
     const visibleTasks = tasks.slice(0, DISPLAY_LIMIT);
-    const remainingTasksCount = tasks.length - DISPLAY_LIMIT;
 
     return (
         <div

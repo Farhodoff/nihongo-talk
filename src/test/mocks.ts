@@ -10,7 +10,7 @@ const createMockChain = (resolvedValue: any = { data: [], error: null }) => {
       if (typeof target[prop] === 'function') {
         return target[prop];
       }
-      return (...args: any[]) => new Proxy(target, handler);
+      return (..._args: any[]) => new Proxy(target, handler);
     }
   };
   
