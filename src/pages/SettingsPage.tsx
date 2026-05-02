@@ -4,6 +4,7 @@ import PreferencesSection from '../components/settings/PreferencesSection';
 import DataManagementSection from '../components/settings/DataManagementSection';
 import AccountSection from '../components/settings/AccountSection';
 import TelegramSection from '../components/settings/TelegramSection';
+import GoogleCalendarSection from '../components/settings/GoogleCalendarSection';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
@@ -51,6 +52,9 @@ const SettingsPage: React.FC = () => {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                     <TelegramSection />
                 </div>
+
+                {/* Google Calendar Integration */}
+                <GoogleCalendarSection />
 
                 <DataManagementSection onClearData={handleClearData} />
 

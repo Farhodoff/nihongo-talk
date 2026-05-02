@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { Task } from '../types';
 import { dbOps } from '../utils/db';
+import { GoogleCalendarService } from './GoogleCalendarService';
 
 export const TaskService = {
     async fetchTasks(userId: string): Promise<Task[]> {
@@ -20,7 +21,8 @@ export const TaskService = {
                 goalId: t.goal_id,
                 dueDate: t.due_date,
                 deadline: t.due_date,
-                createdAt: t.created_at
+                createdAt: t.created_at,
+                googleEventId: t.google_event_id
             })) as Task[];
 
             // Lokal bazani yangilash
@@ -36,7 +38,7 @@ export const TaskService = {
 
     async addTask(userId: string, taskData: Partial<Task>): Promise<Task | null> {
         const tempId = taskData.id || `temp-${Date.now()}`;
-        const dbTask = {
+        const dbTask: any = {
             user_id: userId,
             title: taskData.title,
             status: taskData.status,
@@ -47,8 +49,17 @@ export const TaskService = {
             subject_id: taskData.subjectId
         };
 
-        // 1. Lokal bazaga yozish
-        const localTask = { ...taskData, id: tempId, userId, createdAt: new Date().toISOString() } as Task;
+        // 1. Google Calendar Integration
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.provider_token && (taskData.dueDate || taskData.deadline)) {
+            const googleEventId = await GoogleCalendarService.createEvent(session.provider_token, taskData);
+            if (googleEventId) {
+                dbTask.google_event_id = googleEventId;
+            }
+        }
+
+        // 2. Lokal bazaga yozish
+        const localTask = { ...taskData, id: tempId, userId, createdAt: new Date().toISOString(), googleEventId: dbTask.google_event_id } as Task;
         await dbOps.put('tasks', localTask);
 
         try {
@@ -66,7 +77,8 @@ export const TaskService = {
                 goalId: data.goal_id,
                 dueDate: data.due_date,
                 deadline: data.due_date,
-                createdAt: data.created_at
+                createdAt: data.created_at,
+                googleEventId: data.google_event_id
             } as any;
 
             // Lokal bazani yangi ID bilan yangilash
@@ -86,7 +98,14 @@ export const TaskService = {
         const localTasks = await dbOps.getAll('tasks') as Task[];
         const task = localTasks.find(t => t.id === id);
         if (task) {
-            await dbOps.put('tasks', { ...task, ...updates });
+            const updatedTask = { ...task, ...updates };
+            await dbOps.put('tasks', updatedTask);
+
+            // Google Calendar Sync
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.provider_token && task.googleEventId) {
+                await GoogleCalendarService.updateEvent(session.provider_token, task.googleEventId, updates);
+            }
         }
 
         try {
@@ -114,7 +133,15 @@ export const TaskService = {
 
     async deleteTask(id: string): Promise<void> {
         // 1. Lokal o'chirish
+        const localTasks = await dbOps.getAll('tasks') as Task[];
+        const task = localTasks.find(t => t.id === id);
         await dbOps.delete('tasks', id);
+
+        // Google Calendar Sync
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.provider_token && task?.googleEventId) {
+            await GoogleCalendarService.deleteEvent(session.provider_token, task.googleEventId);
+        }
 
         try {
             const { error } = await supabase.from('tasks').delete().eq('id', id);
