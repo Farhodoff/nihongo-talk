@@ -10,7 +10,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "vite-plugin-pwa/client"
     ],
     /* Bundler mode */
     "moduleResolution": "bundler",
