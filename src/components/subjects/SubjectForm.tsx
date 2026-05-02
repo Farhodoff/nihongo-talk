@@ -8,8 +8,6 @@ interface SubjectFormProps {
     onSubmit: (data: {
         name: string;
         description?: string;
-        teacherName: string;
-        roomLocation: string;
         color: string;
         icon: string;
         schedule: string[];
@@ -20,8 +18,6 @@ interface SubjectFormProps {
 const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialData }) => {
     const [name, setName] = useState(initialData?.name || '');
     const [description, setDescription] = useState(initialData?.description || '');
-    const [teacher, setTeacher] = useState(initialData?.teacherName || '');
-    const [room, setRoom] = useState(initialData?.roomLocation || '');
     const [color, setColor] = useState(initialData?.color || '#8b5cf6');
     const [selectedIcon, setSelectedIcon] = useState(initialData?.icon || 'book');
 
@@ -33,8 +29,6 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
             name,
             description: description.trim() || undefined,
             icon: selectedIcon,
-            teacherName: teacher,
-            roomLocation: room,
             color,
             schedule: initialData?.schedule || [],
         });

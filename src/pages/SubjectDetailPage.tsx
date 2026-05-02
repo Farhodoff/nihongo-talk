@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, Clock, MapPin, Sparkles, User } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Sparkles } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResourceRecommendations from '../components/ResourceRecommendations';
