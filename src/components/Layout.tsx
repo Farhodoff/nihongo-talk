@@ -8,8 +8,19 @@ const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
     const location = useLocation();
-    const { focusState } = useStudyData();
-    const navigate = useNavigate();
+    const { focusState, user } = useStudyData();
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+    useEffect(() => {
+        const handleOnline = () => setIsOnline(true);
+        const handleOffline = () => setIsOnline(false);
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
+    }, []);
 
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
@@ -96,6 +107,12 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto p-4 md:p-8 relative w-full">
+                {!isOnline && (
+                    <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl flex items-center gap-3 text-amber-700 dark:text-amber-400 animate-in fade-in slide-in-from-top-2">
+                        <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                        <p className="text-sm font-medium">Oflayn rejim. O'zgarishlar internet tiklanganda sinxronizatsiya qilinadi.</p>
+                    </div>
+                )}
                 <Outlet />
             </main>
             {/* Global Modals */}
