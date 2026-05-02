@@ -133,6 +133,54 @@ export const generateFlashcardsWithAI = async (
     }
 };
 
+/**
+ * Generates flashcards based on a specific study note (markdown content).
+ */
+export const generateFlashcardsFromNote = async (
+    noteContent: string,
+    count: number = 5,
+    userKey?: string
+): Promise<{ front: string; back: string }[]> => {
+    const prompt = `
+      Note Content: "${noteContent.substring(0, 3000)}" // Limit content length
+      Task: Create ${count} educational flashcards based EXACTLY on the information in the note above.
+      Language: Use the same language as the note content (Uzbek or English).
+      Format: JSON array of {"front": "question", "back": "answer"}. 
+      Constraint: No markdown, no intro, no extro.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let json: any[];
+
+        if (provider === 'ollama') {
+            const response = await callOllama(prompt);
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+            json = JSON.parse(cleanedText);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const response = await result.response;
+            const text = response.text();
+            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            json = JSON.parse(cleanedText);
+        }
+
+        if (!Array.isArray(json)) throw new Error("Invalid response format");
+
+        return json.slice(0, count).map((item: any) => ({
+            front: String(item.front),
+            back: String(item.back)
+        }));
+
+    } catch (error: unknown) {
+        console.error('AI Flashcards from Note Error:', error);
+        throw error;
+    }
+};
+
 // Combined Plan + Resources Interface
 export interface FullStudyPlan {
     schedule: {
