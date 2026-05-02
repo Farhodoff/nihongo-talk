@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Trash2, User, Pencil } from 'lucide-react';
+import { Trash2, Pencil } from 'lucide-react';
 import { Subject } from '../../types';
 import { getIconComponent } from './constants';
 
@@ -63,22 +63,6 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete, 
                             {subject.description}
                         </p>
                     )}
-
-                    {/* Teacher & Room Info - Compact */}
-                    <div className="space-y-1 mb-3">
-                        {subject.teacherName && (
-                            <div className="flex items-center text-xs text-white/70 truncate">
-                                <User size={12} className="mr-1.5 flex-shrink-0" />
-                                <span className="truncate">{subject.teacherName}</span>
-                            </div>
-                        )}
-                        {subject.roomLocation && (
-                            <div className="flex items-center text-xs text-white/70 truncate">
-                                <MapPin size={12} className="mr-1.5 flex-shrink-0" />
-                                <span className="truncate">{subject.roomLocation}</span>
-                            </div>
-                        )}
-                    </div>
 
                     {/* Progress Bar - Thinner */}
                     <div className="space-y-1.5">
