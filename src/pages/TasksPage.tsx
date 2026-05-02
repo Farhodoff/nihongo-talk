@@ -148,9 +148,18 @@ const TasksPage: React.FC = () => {
                                     </button>
 
                                     <div className="flex-1 min-w-0">
-                                        <p className={`font-medium text-gray-900 dark:text-white truncate ${task.completed ? 'line-through text-gray-500' : ''}`}>
-                                            {task.title}
-                                        </p>
+                                        <div className="flex items-center gap-2">
+                                            <p className={`font-medium text-gray-900 dark:text-white truncate ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                                                {task.title}
+                                            </p>
+                                            {task.googleEventId && (
+                                                <div className="flex-shrink-0 text-blue-500" title="Google Calendar bilan sinxronizatsiya qilingan">
+                                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14h-5v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z" />
+                                                    </svg>
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className="flex items-center gap-2 mt-1">
                                             {task.link && (
                                                 <a href={task.link} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
