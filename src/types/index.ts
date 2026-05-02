@@ -27,6 +27,7 @@ export interface Task {
     startTime?: string;
     endTime?: string;
     createdAt: string;
+    googleEventId?: string;
 }
 
 export interface Subject {
@@ -60,6 +61,7 @@ export interface Note {
     attachments: { name: string; type: 'image' | 'pdf'; url: string }[];
     createdAt: string;
     updatedAt: string;
+    googleEventId?: string;
 }
 
 export interface StudyNote {
@@ -70,6 +72,7 @@ export interface StudyNote {
     content: string; // Markdown
     createdAt: string;
     updatedAt: string;
+    googleEventId?: string;
 }
 
 export interface Flashcard {
@@ -127,6 +130,7 @@ export interface Event {
     repetitionDays?: number[]; // For weekly: which days (0=Sunday, 6=Saturday)
     createdAt: string;
     updatedAt: string;
+    googleEventId?: string;
 }
 
 export const EVENT_TYPE_COLORS = {
