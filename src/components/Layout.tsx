@@ -53,9 +53,7 @@ const Layout: React.FC = () => {
             <aside
                 className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-64'} w-64 bg-white dark:bg-[#1f2937] shadow-lg transition-all duration-300 ease-in-out z-30 flex flex-col`}
             >
-                <div className={`p-6 border-b border-gray-100 dark:border-gray-700 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
-                    {!isCollapsed && <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">StudyPlanner</h1>}
-
+                <div className={`p-6 border-b border-gray-100 dark:border-gray-700 flex items-center ${isCollapsed ? 'justify-center' : 'justify-end'}`}>
                     <button
                         onClick={() => setIsCollapsed(!isCollapsed)}
                         className="hidden md:block p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400"
