@@ -92,10 +92,6 @@ const Layout: React.FC = () => {
                         </NavLink>
                     ))}
                 </nav>
-
-                <div className={`p-4 border-t border-gray-100 dark:border-gray-700 text-center text-xs text-gray-400 ${isCollapsed ? 'hidden' : 'block'}`}>
-                    v1.0.0
-                </div>
             </aside>
 
             {/* Main Content */}

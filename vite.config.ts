@@ -11,10 +11,10 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.png', 'apple-touch-icon.png', 'favicon.svg'],
             manifest: {
-                name: 'AI Study Planner',
+                name: 'Study Planner',
                 short_name: 'StudyPlanner',
                 description: 'Intelligent companion for academic success',
-                theme_color: '#3b82f6',
+                theme_color: '#111827',
                 icons: [
                     {
                         src: 'favicon.png',
