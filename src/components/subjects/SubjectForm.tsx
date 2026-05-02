@@ -108,30 +108,6 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">O'qituvchi (Ixtiyoriy)</label>
-                        <input
-                            type="text"
-                            value={teacher}
-                            onChange={(e) => setTeacher(e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
-                            placeholder="masalan, Janob Smith"
-                        />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Xona (Ixtiyoriy)</label>
-                        <input
-                            type="text"
-                            value={room}
-                            onChange={(e) => setRoom(e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
-                            placeholder="masalan, 101-B"
-                        />
-                    </div>
-                </div>
-
                 <div className="flex justify-end gap-3 mt-4">
                     <button
                         type="button"

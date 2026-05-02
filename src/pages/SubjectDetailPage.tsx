@@ -46,12 +46,6 @@ const SubjectDetailPage: React.FC = () => {
                 <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: subject.color }} />
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{subject.name}</h1>
                 <div className="flex flex-wrap gap-6 text-gray-600 dark:text-gray-400">
-                    {subject.teacherName && (
-                        <span className="flex items-center"><User size={18} className="mr-2 text-indigo-500" /> {subject.teacherName}</span>
-                    )}
-                    {subject.roomLocation && (
-                        <span className="flex items-center"><MapPin size={18} className="mr-2 text-indigo-500" /> {subject.roomLocation}</span>
-                    )}
                     {subject.schedule && subject.schedule.length > 0 && (
                         <span className="flex items-center"><Calendar size={18} className="mr-2 text-indigo-500" /> {subject.schedule.join(', ')}</span>
                     )}
