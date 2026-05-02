@@ -1,4 +1,4 @@
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Sparkles } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,11 +6,12 @@ import FontSelector from '../components/FontSelector';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
+import { generateFlashcardsFromNote } from '../utils/ai';
 
 const NoteEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { notes, subjects, addNote, updateNote } = useStudyData();
+    const { notes, subjects, addNote, updateNote, addFlashcard, settings } = useStudyData();
     const { font } = useFontPreference();
 
     const isNew = !id || id === 'new';
@@ -19,6 +20,7 @@ const NoteEditorPage: React.FC = () => {
     const [content, setContent] = useState('');
     const [subjectId, setSubjectId] = useState('');
     const [mode, setMode] = useState<'write' | 'preview'>('write');
+    const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
         if (!isNew) {
@@ -48,6 +50,37 @@ const NoteEditorPage: React.FC = () => {
             updateNote(id!, noteData);
         }
         navigate('/notes');
+    };
+
+    const handleGenerateFlashcards = async () => {
+        if (!content.trim() || content.length < 50) {
+            return alert('Fleshkartalar yaratish uchun kamida 50 ta belgi bo\'lgan matn kerak.');
+        }
+        if (!subjectId) {
+            return alert('Iltimos, avval fanni tanlang, kartalar shu fanga biriktiriladi.');
+        }
+
+        setIsGenerating(true);
+        try {
+            const cards = await generateFlashcardsFromNote(content, 5, settings.googleApiKey);
+            
+            let count = 0;
+            for (const card of cards) {
+                await addFlashcard({
+                    subjectId,
+                    front: card.front,
+                    back: card.back,
+                });
+                count++;
+            }
+            
+            alert(`${count} ta fleshkarta muvaffaqiyatli yaratildi va fanga biriktirildi!`);
+        } catch (error) {
+            console.error('Flashcard generation error:', error);
+            alert('Fleshkartalar yaratishda xatolik yuz berdi. API kalitini tekshiring.');
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     return (
@@ -86,8 +119,17 @@ const NoteEditorPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Right: Font Selector + Save Button */}
+                {/* Right: AI + Font Selector + Save Button */}
                 <div className="flex items-center gap-2">
+                    <Button
+                        onClick={handleGenerateFlashcards}
+                        disabled={isGenerating || !content.trim()}
+                        variant="secondary"
+                        className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800"
+                    >
+                        <Sparkles size={18} className={isGenerating ? 'animate-pulse' : ''} />
+                        {isGenerating ? 'Yaratilmoqda...' : 'Fleshkartalar (AI)'}
+                    </Button>
                     <FontSelector />
                     <Button
                         onClick={handleSave}
