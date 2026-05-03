@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Session } from '@supabase/supabase-js';
 import ErrorBoundary from './components/ErrorBoundary';
 import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
@@ -37,7 +38,7 @@ const PageLoader = () => (
 );
 
 const App: React.FC = () => {
-    const [session, setSession] = useState<any>(null);
+    const [session, setSession] = useState<Session | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

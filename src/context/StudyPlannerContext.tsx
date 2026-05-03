@@ -10,7 +10,7 @@ import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
-import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent } from '../types/supabase-types';
+import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile } from '../types/supabase-types';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -150,7 +150,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [events, setEvents] = useState<Event[]>([]);
 
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     // App Settings (Non-gamification)
     const [appSettings, setAppSettings] = useState<{
@@ -304,17 +304,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
             // Profile & Settings
             if (profileRes.data) {
+                const profile = profileRes.data as DatabaseProfile;
                 setAppSettings({
-                    theme: profileRes.data.theme || 'light',
-                    notificationsEnabled: profileRes.data.notifications_enabled ?? true,
-                    googleApiKey: profileRes.data.google_api_key,
+                    theme: profile.theme || 'light',
+                    notificationsEnabled: profile.notifications_enabled ?? true,
+                    googleApiKey: profile.google_api_key,
                 });
 
                 setGamificationState({
-                    totalXp: profileRes.data.total_xp || 0,
-                    level: profileRes.data.level || 1,
-                    currentStreak: profileRes.data.current_streak || 0,
-                    lastActivityDate: profileRes.data.last_activity_date,
+                    totalXp: profile.total_xp || 0,
+                    level: profile.level || 1,
+                    currentStreak: profile.current_streak || 0,
+                    lastActivityDate: profile.last_activity_date || null,
                 });
             }
 

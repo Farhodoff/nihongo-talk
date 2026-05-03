@@ -137,3 +137,17 @@ export interface DatabaseEvent {
     created_at: string;
     updated_at: string;
 }
+
+export interface DatabaseProfile {
+    id: string;
+    full_name?: string;
+    avatar_url?: string;
+    theme?: 'light' | 'dark';
+    notifications_enabled?: boolean;
+    total_xp?: number;
+    level?: number;
+    current_streak?: number;
+    last_activity_date?: string;
+    google_api_key?: string;
+    updated_at?: string;
+}
