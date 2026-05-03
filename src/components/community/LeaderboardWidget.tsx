@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Trophy } from 'lucide-react';
+import { Trophy, Medal, Star, RefreshCw } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { Button } from '../ui/Button';
 import Skeleton from '../ui/Skeleton';
@@ -23,44 +23,74 @@ const LeaderboardWidget: React.FC = () => {
 
     const fetchLeaderboard = async () => {
         setLoading(true);
-        const { data: { user } } = await supabase.auth.getUser();
-        const { data } = await supabase
-            .from('profiles')
-            .select('id, full_name, level, total_xp, avatar_url')
-            .order('total_xp', { ascending: false })
-            .limit(50);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            const { data } = await supabase
+                .from('profiles')
+                .select('id, full_name, level, total_xp, avatar_url')
+                .order('total_xp', { ascending: false })
+                .limit(50);
 
-        let users = [];
-        if (data && data.length > 0) {
-            users = data.map((u: any) => ({ ...u, isMe: user?.id === u.id }));
+            let users = [];
+            if (data && data.length > 0) {
+                users = data.map((u: any) => ({ ...u, isMe: user?.id === u.id }));
+            }
+
+            setLeaderboard(users);
+        } catch (err) {
+            console.error('Leaderboard error:', err);
+        } finally {
+            setLoading(false);
         }
+    };
 
-        setLeaderboard(users);
-        setLoading(false);
+    const getRankIcon = (index: number) => {
+        switch (index) {
+            case 0: return <Trophy className="text-yellow-500" size={24} />;
+            case 1: return <Medal className="text-gray-400" size={24} />;
+            case 2: return <Medal className="text-amber-600" size={24} />;
+            default: return <span className="text-gray-400 font-bold text-lg">{index + 1}</span>;
+        }
     };
 
     return (
-        <div className="bg-white dark:bg-[#1f2937] rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden max-w-2xl">
-            <div className="p-6 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-yellow-400 to-orange-500 text-white flex justify-between items-center">
-                <div>
-                    <h3 className="text-xl font-bold flex items-center gap-2"><Trophy /> Global Reyting</h3>
-                    <p className="opacity-90 text-sm">Bu haftaning eng yaxshi talabalari</p>
+        <div className="bg-white dark:bg-gray-800 rounded-[2rem] shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden max-w-2xl w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Header */}
+            <div className="p-8 bg-gradient-to-br from-indigo-600 to-purple-700 text-white relative overflow-hidden">
+                <div className="relative z-10 flex justify-between items-center">
+                    <div>
+                        <div className="flex items-center gap-2 mb-1">
+                            <Star className="text-yellow-300 fill-yellow-300" size={20} />
+                            <h3 className="text-2xl font-bold tracking-tight">Global Reyting</h3>
+                        </div>
+                        <p className="text-indigo-100 text-sm font-medium">Bu haftaning eng faol bilimdonlari</p>
+                    </div>
+                    <button 
+                        onClick={fetchLeaderboard} 
+                        className="p-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition-colors backdrop-blur-md border border-white/10 group"
+                        disabled={loading}
+                    >
+                        <RefreshCw size={20} className={loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'} />
+                    </button>
                 </div>
-                <Button variant="secondary" onClick={fetchLeaderboard} className="bg-white/20 text-white hover:bg-white/30 border-none h-8 text-xs">Yangilash</Button>
+                {/* Decorative circles */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
             </div>
-            <div>
+
+            <div className="divide-y divide-gray-50 dark:divide-gray-700/50">
                 {loading ? (
-                    <div className="space-y-4 p-4">
+                    <div className="space-y-6 p-8">
                         {[1, 2, 3, 4, 5].map((i) => (
-                            <div key={i} className="flex items-center">
-                                <Skeleton width={24} height={24} className="mr-4" />
-                                <Skeleton circle width={48} height={48} className="mr-4" />
-                                <div className="flex-1 space-y-2">
+                            <div key={i} className="flex items-center gap-4">
+                                <Skeleton width={32} height={32} className="rounded-lg" />
+                                <Skeleton circle width={56} height={56} />
+                                <div className="flex-1 space-y-3">
                                     <div className="flex justify-between">
-                                        <Skeleton width="40%" height={20} />
-                                        <Skeleton width="20%" height={16} />
+                                        <Skeleton width="50%" height={24} />
+                                        <Skeleton width="20%" height={20} />
                                     </div>
-                                    <Skeleton width="100%" height={8} />
+                                    <Skeleton width="100%" height={8} className="rounded-full" />
                                 </div>
                             </div>
                         ))}
@@ -69,32 +99,55 @@ const LeaderboardWidget: React.FC = () => {
                     leaderboard.map((user, index) => (
                         <div
                             key={user.id}
-                            className={`flex items-center p-4 border-b border-gray-50 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${user.isMe ? 'bg-indigo-50 dark:bg-indigo-900/20' : ''}`}
+                            className={`group flex items-center p-5 md:p-6 transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700/30 ${user.isMe ? 'bg-indigo-50/50 dark:bg-indigo-500/5 border-l-4 border-l-indigo-500' : ''}`}
                         >
-                            <div className="w-8 text-center font-bold text-gray-400 text-lg mr-4">
-                                {index + 1}
+                            <div className="w-12 flex justify-center items-center shrink-0">
+                                {getRankIcon(index)}
                             </div>
-                            <img
-                                src={user.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.full_name}`}
-                                alt="Avatar"
-                                className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 mr-4 border border-gray-200"
-                            />
-                            <div className="flex-1">
-                                <div className="flex justify-between items-center mb-1">
-                                    <h4 className={`font-bold ${user.isMe ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-900 dark:text-white'}`}>
-                                        {user.full_name || 'Noma\'lum'} {user.isMe && '(Siz)'}
+                            
+                            <div className="relative shrink-0 mx-4">
+                                <img
+                                    src={user.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.full_name}`}
+                                    alt="Avatar"
+                                    className={`w-14 h-14 rounded-2xl bg-gray-100 dark:bg-gray-700 object-cover border-2 shadow-sm ${index === 0 ? 'border-yellow-400' : 'border-white dark:border-gray-600'}`}
+                                />
+                                {index === 0 && (
+                                    <div className="absolute -top-2 -right-2 bg-yellow-400 text-white rounded-full p-1 shadow-lg">
+                                        <Star size={12} fill="currentColor" />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+                                <div className="flex justify-between items-center mb-1.5 gap-2">
+                                    <h4 className={`font-bold truncate text-lg ${user.isMe ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-900 dark:text-white'}`}>
+                                        {user.full_name || 'Talaba'} {user.isMe && <span className="text-xs font-medium px-2 py-0.5 bg-indigo-100 dark:bg-indigo-500/20 rounded-full ml-1 uppercase tracking-wider">Siz</span>}
                                     </h4>
-                                    <span className="text-sm font-medium text-gray-500">Daraja {user.level}</span>
+                                    <span className="text-xs font-bold text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg shrink-0">Lvl {user.level}</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
-                                    <div className="bg-indigo-500 h-full rounded-full" style={{ width: `${(user.total_xp / 20000) * 100}%` }}></div>
+                                <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 overflow-hidden mb-1.5">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-1000 ${index === 0 ? 'bg-gradient-to-r from-yellow-400 to-orange-500' : 'bg-indigo-500'}`}
+                                        style={{ width: `${Math.min((user.total_xp / 10000) * 100, 100)}%` }}
+                                    ></div>
                                 </div>
-                                <div className="text-xs text-gray-400 mt-1">{user.total_xp.toLocaleString()} XP</div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xs font-bold text-indigo-600/80 dark:text-indigo-400/80">{user.total_xp.toLocaleString()} XP</span>
+                                    {index < 3 && <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Master</span>}
+                                </div>
                             </div>
                         </div>
                     ))
                 )}
-                {!loading && leaderboard.length === 0 && <div className="p-8 text-center text-gray-400">Foydalanuvchilar topilmadi. Birinchi bo'ling!</div>}
+                {!loading && leaderboard.length === 0 && (
+                    <div className="p-16 text-center">
+                        <div className="w-20 h-20 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
+                            <RefreshCw size={40} />
+                        </div>
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">Ma'lumotlar topilmadi</h3>
+                        <p className="text-gray-500 text-sm">Reytingni ko'rish uchun biroz kuting yoki yangilang.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
