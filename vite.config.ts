@@ -11,13 +11,28 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.png', 'apple-touch-icon.png', 'favicon.svg'],
             manifest: {
-                name: 'Study Planner',
+                name: 'Study Planner AI',
                 short_name: 'StudyPlanner',
-                description: 'Intelligent companion for academic success',
-                theme_color: '#111827',
-                background_color: '#111827',
+                description: 'Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
+                theme_color: '#6366f1',
+                background_color: '#f8fafc',
                 display: 'standalone',
                 orientation: 'portrait',
+                categories: ['education', 'productivity'],
+                shortcuts: [
+                    {
+                        name: 'Bugungi Reja',
+                        short_name: 'Reja',
+                        url: '/dashboard',
+                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                    },
+                    {
+                        name: 'Fokus',
+                        short_name: 'Fokus',
+                        url: '/focus',
+                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                    }
+                ],
                 icons: [
                     {
                         src: 'favicon.png',
