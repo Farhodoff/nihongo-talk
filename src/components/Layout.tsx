@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X, Sparkles } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -44,11 +44,16 @@ const Layout: React.FC = () => {
     }
 
     return (
-        <div className="h-screen flex flex-col md:flex-row bg-[#f3f4f6] dark:bg-[#111827] text-gray-900 dark:text-gray-100 transition-colors duration-200 overflow-hidden">
+        <div className="h-screen flex flex-col md:flex-row bg-[#f8fafc] dark:bg-[#0f172a] text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden font-sans">
             {/* Mobile Header */}
-            <header className="md:hidden bg-white dark:bg-[#1f2937] p-4 flex justify-between items-center shadow-sm z-30 relative">
-                <h1 className="text-xl font-bold">{getPageTitle()}</h1>
-                <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+            <header className="md:hidden bg-white/80 dark:bg-[#1e293b]/80 backdrop-blur-md p-4 flex justify-between items-center shadow-sm z-30 border-b border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-2">
+                    <Sparkles className="text-indigo-600 dark:text-indigo-400" size={24} />
+                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                        {getPageTitle()}
+                    </h1>
+                </div>
+                <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                     {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </header>
@@ -56,25 +61,36 @@ const Layout: React.FC = () => {
             {/* Mobile Sidebar Overlay */}
             {isSidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/60 z-20 md:hidden backdrop-blur-sm transition-opacity"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-64'} w-64 bg-white dark:bg-[#1f2937] shadow-lg transition-all duration-300 ease-in-out z-30 flex flex-col`}
+                className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-72'} w-72 bg-white dark:bg-[#1e293b] shadow-xl md:shadow-none border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out z-30 flex flex-col`}
             >
-                <div className={`p-6 border-b border-gray-100 dark:border-gray-700 flex items-center ${isCollapsed ? 'justify-center' : 'justify-end'}`}>
+                {/* Logo Area */}
+                <div className={`h-20 p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-gray-50 dark:border-gray-800/50`}>
+                    {!isCollapsed && (
+                        <div className="flex items-center gap-3 animate-in fade-in zoom-in duration-300">
+                            <div className="p-2 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl">
+                                <Sparkles className="text-indigo-600 dark:text-indigo-400" size={24} />
+                            </div>
+                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 tracking-tight">
+                                Planner
+                            </span>
+                        </div>
+                    )}
                     <button
                         onClick={() => setIsCollapsed(!isCollapsed)}
-                        className="hidden md:block p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400"
+                        className="hidden md:flex p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                     >
-                        {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+                        {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
                     </button>
                 </div>
 
-                <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+                <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto scrollbar-hide">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.path}
@@ -83,7 +99,6 @@ const Layout: React.FC = () => {
                                 if (focusState.isActive) {
                                     e.preventDefault();
                                     if (window.confirm("Diqqat! Fokus rejimi faol. Agar chiqib ketsangiz, taymer to'xtaydi. Davom etasizmi?")) {
-                                        // If confirmed, navigate manually
                                         setSidebarOpen(false);
                                         navigate(item.path);
                                     }
@@ -92,29 +107,35 @@ const Layout: React.FC = () => {
                                 }
                             }}
                             className={({ isActive }) =>
-                                `flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-4 py-3 rounded-xl transition-all ${isActive
-                                    ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 font-medium'
-                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${isActive
+                                    ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm'
+                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-gray-200'
                                 }`
                             }
                             title={isCollapsed ? item.name : ''}
                         >
-                            <item.icon size={20} />
-                            {!isCollapsed && <span>{item.name}</span>}
+                            <item.icon 
+                                size={22} 
+                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
+                                strokeWidth={2}
+                            />
+                            {!isCollapsed && <span className="tracking-wide">{item.name}</span>}
                         </NavLink>
                     ))}
                 </nav>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto p-4 md:p-8 relative w-full">
+            <main className="flex-1 overflow-y-auto relative w-full bg-[#f8fafc] dark:bg-[#0f172a]">
                 {!isOnline && (
-                    <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl flex items-center gap-3 text-amber-700 dark:text-amber-400 animate-in fade-in slide-in-from-top-2">
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 bg-amber-50 dark:bg-amber-900/40 border border-amber-200 dark:border-amber-800 rounded-full shadow-sm flex items-center gap-2 text-amber-700 dark:text-amber-400 animate-in fade-in slide-in-from-top-4">
                         <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                        <p className="text-sm font-medium">Oflayn rejim. O'zgarishlar internet tiklanganda sinxronizatsiya qilinadi.</p>
+                        <p className="text-xs font-medium">Oflayn rejim</p>
                     </div>
                 )}
-                <Outlet />
+                <div className="h-full">
+                    <Outlet />
+                </div>
             </main>
             {/* Global Modals */}
             <SessionCompleteModal />
