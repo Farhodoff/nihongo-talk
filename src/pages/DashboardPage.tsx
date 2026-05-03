@@ -1,41 +1,127 @@
-import { CheckCircle, Loader2 } from 'lucide-react';
-import React from 'react';
+import { CheckCircle, Loader2, ListTodo, Trophy, ArrowRight, Clock } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import CountdownWidget from '../components/CountdownWidget';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 const DashboardPage: React.FC = () => {
-    // Hook orqali barcha kerakli ma'lumot va funksiyalarni olamiz
     const { tasks, loading, updateTaskStatus } = useStudyData();
 
-    // Faqat bugungi va hali bajarilmagan vazifalarni filtrlaymiz
+    // Faqat bugungi vazifalarni ajratib olish (soddalashtirilgan, real logikada bugungi sanaga tekshiriladi)
     const pendingTasks = tasks.filter(t => t.status !== 'done');
+    const completedTasksCount = tasks.filter(t => t.status === 'done').length;
+    const totalTasksCount = tasks.length;
+    
+    const progressPercentage = totalTasksCount > 0 
+        ? Math.round((completedTasksCount / totalTasksCount) * 100) 
+        : 0;
+
+    const greeting = useMemo(() => {
+        const hour = new Date().getHours();
+        if (hour < 12) return "Xayrli tong";
+        if (hour < 18) return "Xayrli kun";
+        return "Xayrli kech";
+    }, []);
 
     if (loading) {
-        return <div className="flex justify-center p-10"><Loader2 className="animate-spin" /></div>;
+        return (
+            <div className="flex flex-col items-center justify-center h-64 space-y-4">
+                <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+                <p className="text-gray-500 dark:text-gray-400 font-medium">Ma'lumotlar yuklanmoqda...</p>
+            </div>
+        );
     }
 
     return (
-        <div className="p-4 md:p-6 max-w-5xl mx-auto">
+        <div className="p-4 md:p-6 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Header / Greeting */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+                        {greeting}, O'quvchi! 👋
+                    </h1>
+                    <p className="text-gray-500 dark:text-gray-400 mt-1">
+                        Bugun nimani o'rganamiz? O'z oldingizga qo'ygan maqsadlarga bir qadam yaqinlashing.
+                    </p>
+                </div>
+                
+                {/* Mini Stats Card */}
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4">
+                    <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400">
+                        <Trophy size={24} />
+                    </div>
+                    <div>
+                        <div className="flex justify-between items-end mb-1">
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Kunlik progress</span>
+                            <span className="text-sm font-bold text-gray-900 dark:text-white ml-4">{progressPercentage}%</span>
+                        </div>
+                        <div className="w-32 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div 
+                                className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-1000 ease-out"
+                                style={{ width: `${progressPercentage}%` }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <CountdownWidget />
 
-            <h1 className="text-2xl font-bold mb-6 mt-6 text-gray-900 dark:text-white">Bugungi Reja</h1>
-
+            {/* Tasks Section */}
             <div className="space-y-4">
-                {pendingTasks.length > 0 ? (
-                    pendingTasks.map(task => (
-                        <div key={task.id} className="p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-sm flex justify-between items-center border border-gray-100 dark:border-gray-700 transition-colors">
-                            <span className="text-gray-900 dark:text-white font-medium">{task.title}</span>
-                            <button
-                                onClick={() => updateTaskStatus(task.id, 'done')}
-                                className="text-gray-300 hover:text-green-500 transition-colors"
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <ListTodo className="text-indigo-500" size={24} />
+                        Bugungi Reja
+                    </h2>
+                    <Link to="/tasks" className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium flex items-center gap-1">
+                        Barchasi <ArrowRight size={16} />
+                    </Link>
+                </div>
+
+                <div className="grid gap-3">
+                    {pendingTasks.length > 0 ? (
+                        pendingTasks.slice(0, 5).map(task => (
+                            <div 
+                                key={task.id} 
+                                className="group p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 hover:border-indigo-100 dark:hover:border-indigo-900/50 flex justify-between items-center transition-all duration-200 transform hover:-translate-y-0.5"
                             >
-                                <CheckCircle size={24} />
-                            </button>
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={() => updateTaskStatus(task.id, 'done')}
+                                        className="text-gray-300 dark:text-gray-600 hover:text-green-500 dark:hover:text-green-400 transition-colors"
+                                        title="Bajarildi deb belgilash"
+                                    >
+                                        <CheckCircle size={26} />
+                                    </button>
+                                    <div className="flex flex-col">
+                                        <span className="text-gray-900 dark:text-white font-medium group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                            {task.title}
+                                        </span>
+                                        {task.subjectId && (
+                                            <span className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                                                <Clock size={12} /> {task.deadline ? new Date(task.deadline).toLocaleDateString() : 'Muddat belgilanmagan'}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-12 px-4 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50 dark:bg-green-900/20 text-green-500 mb-4">
+                                <Trophy size={32} />
+                            </div>
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Barcha vazifalar bajarildi! 🎉</h3>
+                            <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-6">
+                                Bugungi barcha rejalarni muvaffaqiyatli yakunladingiz. Dam olishingiz yoki yangi maqsadlar qo'yishingiz mumkin.
+                            </p>
+                            <Link to="/tasks" className="inline-flex items-center justify-center px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-200 dark:shadow-none">
+                                Yangi vazifa qo'shish
+                            </Link>
                         </div>
-                    ))
-                ) : (
-                    <p className="text-gray-500">Barcha vazifalar bajarildi! 🎉</p>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );
