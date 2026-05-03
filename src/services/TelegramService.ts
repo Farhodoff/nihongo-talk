@@ -192,12 +192,20 @@ class TelegramService {
     }
 
     /**
-     * Send a notification to user via Telegram (future)
+     * Send a notification to user via Telegram Edge Function
      */
     async sendNotification(userId: string, message: string): Promise<boolean> {
-        // This will be implemented later when we add notification Edge Function
-        console.log('Sending notification to user:', userId, message);
-        return true;
+        try {
+            const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
+                body: { userId, message },
+            });
+
+            if (error) throw error;
+            return data?.success || false;
+        } catch (error) {
+            console.error('Error sending Telegram notification:', error);
+            return false;
+        }
     }
 }
 
