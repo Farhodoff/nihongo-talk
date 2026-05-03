@@ -354,10 +354,16 @@ export const generateStudyInsight = async (
     if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
 
     const prompt = `
-        Stats: ${JSON.stringify(stats)}
-        Task: Identify 1-2 weakest subjects.
-        Output: JSON array of {"subject": "str", "advice": "UZB"}.
-        Limit: Top 2 suggestions.
+        Foydalanuvchi o'quv statistikasi: ${JSON.stringify(stats)}
+        Vazifa: Eng ko'p e'tibor talab qiladigan 1-2 ta fanni aniqlang va aniq, motivatsiya beruvchi maslahat bering.
+        
+        Maslahat berishda quyidagilarga e'tibor bering:
+        - Agar masteryScore < 50 bo'lsa: Ko'proq flashcard yaratishni va SRS orqali takrorlashni maslahat bering.
+        - Agar pendingTasks > 3 bo'lsa: Vazifalarni kichik qismlarga bo'lishni va Pomodoro taymeridan foydalanishni taklif qiling.
+        - Agar soatlar kam bo'lsa: Kuniga kamida 30 daqiqa ajratish muhimligini ayting.
+        
+        Javob Formati: Faqat JSON array ko'rinishida bo'lsin: [{"subject": "Fan nomi", "advice": "O'zbek tilida aniq maslahat"}].
+        Cheklov: Maksimal 2 ta taklif. Kirish so'zlari yoki qo'shimcha matn qo'shmang.
     `;
 
     try {
