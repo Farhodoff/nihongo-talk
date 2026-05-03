@@ -173,8 +173,8 @@ const CommunityChat: React.FC = () => {
         return groups.reverse().map((item, index) => {
             if (item.type === 'date') {
                 return (
-                    <div key={`date-${index}`} className="flex justify-center my-6">
-                        <span className="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">
+                    <div key={`date-${index}`} className="flex justify-center my-8">
+                        <span className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-500 dark:text-gray-400 text-[10px] uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-700 shadow-sm">
                             {item.content}
                         </span>
                     </div>
@@ -184,53 +184,55 @@ const CommunityChat: React.FC = () => {
             return (
                 <div 
                     key={item.id} 
-                    className={`flex gap-3 ${item.isOwn ? 'flex-row-reverse' : 'flex-row'} ${item.isSameUser ? 'mt-1' : 'mt-4'}`}
+                    className={`flex gap-3 ${item.isOwn ? 'flex-row-reverse' : 'flex-row'} ${item.isSameUser ? 'mt-1' : 'mt-6'} animate-in fade-in slide-in-from-bottom-2 duration-300`}
                 >
                     {!item.isOwn && (
-                        <div className="w-9 flex-shrink-0">
+                        <div className="w-10 flex-shrink-0">
                             {!item.isSameUser && (
                                 <img
                                     src={item.profiles?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${item.profiles?.full_name || 'User'}`}
-                                    className="w-9 h-9 rounded-full bg-gray-200 object-cover border-2 border-white dark:border-gray-800 shadow-sm"
+                                    className="w-10 h-10 rounded-2xl bg-gray-100 object-cover border-2 border-white dark:border-gray-800 shadow-md transform hover:scale-110 transition-transform cursor-pointer"
                                     alt=""
                                 />
                             )}
                         </div>
                     )}
                     
-                    <div className={`max-w-[75%] flex flex-col ${item.isOwn ? 'items-end' : 'items-start'}`}>
+                    <div className={`max-w-[80%] flex flex-col ${item.isOwn ? 'items-end' : 'items-start'}`}>
                         {!item.isOwn && !item.isSameUser && (
-                            <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 mb-1 ml-1">
+                            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1.5 ml-1">
                                 {item.profiles?.full_name || 'Foydalanuvchi'}
                             </span>
                         )}
                         
                         <div className="group relative flex items-center gap-2">
                             {item.isOwn && (
-                                <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-gray-400 hover:text-gray-600">
+                                <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                                     <MoreHorizontal size={14} />
                                 </button>
                             )}
                             
                             <div className={`
-                                px-4 py-2.5 shadow-sm text-sm transition-all
+                                px-5 py-3 shadow-sm text-[15px] leading-relaxed transition-all
                                 ${item.isOwn 
-                                    ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-none' 
-                                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-700 rounded-2xl rounded-tl-none'}
-                                ${item.isSameUser ? (item.isOwn ? 'rounded-tr-2xl' : 'rounded-tl-2xl') : ''}
+                                    ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-[1.25rem] rounded-tr-none shadow-indigo-200 dark:shadow-none' 
+                                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-700 rounded-[1.25rem] rounded-tl-none'}
+                                ${item.isSameUser ? (item.isOwn ? 'rounded-tr-[1.25rem]' : 'rounded-tl-[1.25rem]') : ''}
+                                hover:shadow-md
                             `}>
                                 {item.content}
                             </div>
 
                             {!item.isOwn && (
-                                <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-gray-400 hover:text-gray-600">
-                                    <Smile size={14} />
+                                <button className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 text-gray-400 hover:text-indigo-500">
+                                    <Smile size={16} />
                                 </button>
                             )}
                         </div>
                         
                         {!item.isSameUser && (
-                            <span className="text-[10px] text-gray-400 mt-1 px-1">
+                            <span className="text-[10px] font-medium text-gray-400 mt-1.5 px-2 flex items-center gap-1">
+                                <Clock size={10} />
                                 {new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>
                         )}
@@ -241,48 +243,52 @@ const CommunityChat: React.FC = () => {
     };
 
     return (
-        <div className="bg-[#f9fafb] dark:bg-[#0f172a] rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden max-w-2xl h-[700px] flex flex-col mx-auto relative group">
+        <div className="bg-[#f8fafc] dark:bg-[#0f172a] rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden max-w-2xl h-[750px] flex flex-col mx-auto relative group">
             {/* Header */}
-            <div className="p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 z-10">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl z-20">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
-                            <Send size={20} className="rotate-[-10deg]" />
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-500/20 rotate-3">
+                            <Send size={24} className="-rotate-12" />
                         </div>
                         <div>
-                            <h3 className="font-bold text-gray-900 dark:text-white">Umumiy Chat</h3>
-                            <div className="flex items-center gap-1.5">
-                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                <span className="text-[11px] text-gray-500 font-medium">Faol Hamjamiyat</span>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">Umumiy Chat</h3>
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1">
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                    <span className="text-xs text-green-600 dark:text-green-400 font-bold uppercase tracking-wider">Online</span>
+                                </div>
+                                <span className="w-1 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></span>
+                                <span className="text-xs text-gray-500 font-medium">Faol Hamjamiyat</span>
                             </div>
                         </div>
                     </div>
-                    <div className="flex -space-x-2">
-                        {[1, 2, 3].map(i => (
-                            <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-gray-200 dark:bg-gray-700 overflow-hidden shadow-sm">
-                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="" />
+                    <div className="flex -space-x-3 hover:-space-x-1 transition-all duration-300">
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="w-10 h-10 rounded-2xl border-4 border-white dark:border-gray-900 bg-gray-200 dark:bg-gray-700 overflow-hidden shadow-sm transition-transform hover:z-10 hover:scale-110">
+                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 20}`} alt="" />
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            {/* Messages Area */}
+            {/* Messages Area with subtle background */}
             <div 
                 ref={scrollRef}
                 onScroll={handleScroll}
-                className="flex-1 overflow-y-auto px-6 py-4 flex flex-col-reverse custom-scrollbar relative"
+                className="flex-1 overflow-y-auto px-6 py-4 flex flex-col-reverse custom-scrollbar relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px]"
             >
                 {/* Typing Indicator Overlay */}
                 {typingUsers.length > 0 && (
-                    <div className="absolute bottom-2 left-6 z-10 animate-in fade-in slide-in-from-bottom-2">
-                        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 flex items-center gap-2 shadow-sm">
-                            <div className="flex gap-1">
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce"></span>
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    <div className="absolute bottom-4 left-6 z-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-gray-100 dark:border-gray-700 flex items-center gap-3 shadow-lg shadow-black/5">
+                            <div className="flex gap-1.5">
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s]"></span>
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.2s]"></span>
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.4s]"></span>
                             </div>
-                            <span className="text-[10px] font-medium text-gray-600 dark:text-gray-400">
+                            <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
                                 {typingUsers.length === 1 ? `${typingUsers[0]} yozmoqda...` : `${typingUsers.length} kishi yozmoqda...`}
                             </span>
                         </div>
@@ -290,21 +296,21 @@ const CommunityChat: React.FC = () => {
                 )}
 
                 {isLoading ? (
-                    <div className="h-full flex flex-col items-center justify-center space-y-3">
-                        <div className="relative">
-                            <div className="w-12 h-12 border-4 border-indigo-100 dark:border-indigo-900/30 rounded-full"></div>
-                            <div className="w-12 h-12 border-4 border-t-indigo-600 rounded-full animate-spin absolute top-0 left-0"></div>
+                    <div className="h-full flex flex-col items-center justify-center space-y-4">
+                        <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-3xl shadow-xl flex items-center justify-center">
+                            <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
                         </div>
-                        <p className="text-sm font-medium text-gray-500">Xabarlar kelmoqda...</p>
+                        <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest animate-pulse">Xabarlar kelmoqda</p>
                     </div>
                 ) : chatError ? (
-                    <div className="text-center p-8 bg-red-50 dark:bg-red-900/10 rounded-3xl m-4 border border-red-100 dark:border-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium">
-                        {chatError}
+                    <div className="text-center p-8 bg-red-50 dark:bg-red-900/10 rounded-[2rem] m-6 border border-red-100 dark:border-red-900/20 text-red-600 dark:text-red-400">
+                        <h4 className="font-bold mb-1">Xatolik yuz berdi</h4>
+                        <p className="text-sm opacity-80">{chatError}</p>
                     </div>
                 ) : (
-                    <>
+                    <div className="space-y-1">
                         {renderMessages()}
-                    </>
+                    </div>
                 )}
             </div>
 
@@ -312,16 +318,16 @@ const CommunityChat: React.FC = () => {
             {showScrollButton && (
                 <button 
                     onClick={scrollToBottom}
-                    className="absolute bottom-24 right-6 bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 p-2.5 rounded-full shadow-xl border border-gray-200 dark:border-gray-700 hover:scale-110 transition-all z-20 animate-in fade-in zoom-in"
+                    className="absolute bottom-32 right-8 bg-indigo-600 text-white p-3 rounded-2xl shadow-2xl shadow-indigo-600/30 hover:scale-110 active:scale-95 transition-all z-30 animate-in fade-in zoom-in"
                 >
-                    <ChevronDown size={20} />
+                    <ChevronDown size={24} />
                 </button>
             )}
 
             {/* Input Area */}
-            <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
-                <form onSubmit={handleSendMessage} className="relative flex items-end gap-2">
-                    <div className="flex-1 relative">
+            <div className="p-6 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+                <form onSubmit={handleSendMessage} className="relative flex items-end gap-3">
+                    <div className="flex-1 relative group">
                         <textarea
                             value={newMessage}
                             onChange={(e) => {
@@ -334,25 +340,24 @@ const CommunityChat: React.FC = () => {
                                     handleSendMessage(e);
                                 }
                             }}
-                            placeholder="Hamjamiyatga nimadir deng..."
+                            placeholder="Xabar yozing..."
                             disabled={isSending || !!chatError}
-                            className="w-full pl-5 pr-12 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all disabled:opacity-50 resize-none max-h-32 min-h-[52px] text-sm"
+                            className="w-full pl-6 pr-14 py-4 rounded-[1.5rem] border-2 border-gray-50 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 focus:bg-white dark:focus:bg-gray-800 transition-all disabled:opacity-50 resize-none max-h-40 min-h-[60px] text-[15px] shadow-inner"
                             rows={1}
                         />
                         <button 
                             type="button"
-                            className="absolute right-3 bottom-3 text-gray-400 hover:text-indigo-500 transition-colors"
+                            className="absolute right-4 bottom-4 text-gray-400 hover:text-indigo-500 transition-colors p-1"
                         >
-                            <Smile size={22} />
+                            <Smile size={24} />
                         </button>
                     </div>
-                <button 
-                    type="submit" 
-                    disabled={!newMessage.trim() || isSending || !!chatError}
-                    aria-label="Xabarni yuborish"
-                    className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white p-3.5 rounded-2xl transition-all shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center justify-center min-w-[52px] h-[52px]"
-                >
-                        {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send size={20} />}
+                    <button 
+                        type="submit" 
+                        disabled={!newMessage.trim() || isSending || !!chatError}
+                        className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white w-[60px] h-[60px] rounded-[1.5rem] transition-all shadow-xl shadow-indigo-600/20 active:scale-90 flex items-center justify-center shrink-0"
+                    >
+                        {isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send size={24} />}
                     </button>
                 </form>
             </div>
