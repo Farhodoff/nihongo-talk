@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Send, Loader2, ChevronDown, Smile, MoreHorizontal } from 'lucide-react';
+import { Send, Loader2, ChevronDown, Smile, MoreHorizontal, Clock } from 'lucide-react';
 import { format, isToday, isYesterday } from 'date-fns';
 
 const CommunityChat: React.FC = () => {

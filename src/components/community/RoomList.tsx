@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight, Loader2, Plus, Video, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Button } from '../ui/Button';
 
 interface StudyRoom {
     id: string;
