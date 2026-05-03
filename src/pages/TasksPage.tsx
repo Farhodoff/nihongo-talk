@@ -139,10 +139,10 @@ const TasksPage: React.FC = () => {
                         const subject = getSubjectInfo(task.subjectId);
                         return (
                             <div key={task.id} className={`group bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row md:items-center gap-4 transition-all ${task.completed ? 'opacity-50' : ''}`}>
-                                <div className="flex items-center gap-4 flex-1">
+                                <div className="flex items-center gap-4 flex-1 min-w-0">
                                     <button
                                         onClick={() => handleToggleTask(task.id)}
-                                        className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300 dark:border-gray-600 hover:border-indigo-600'}`}
+                                        className={`w-6 h-6 shrink-0 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300 dark:border-gray-600 hover:border-indigo-600'}`}
                                     >
                                         {task.completed && <div className="w-2.5 h-2.5 bg-white rounded-sm" />}
                                     </button>
