@@ -108,7 +108,7 @@ const FocusPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[80vh] px-4 relative">
+        <div className="flex flex-col items-center justify-center min-h-[80vh] p-4 md:p-8 max-w-7xl mx-auto relative">
             <audio ref={ringtoneRef} src="/lofi-music.mp3" />
 
             <MoodCheckOverlay

@@ -28,7 +28,7 @@ const CommunityPage: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="mb-8 flex justify-between items-end">
                 <div>
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Hamjamiyat</h2>

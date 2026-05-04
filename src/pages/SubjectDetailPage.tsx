@@ -32,7 +32,7 @@ const SubjectDetailPage: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-8">
                 <button onClick={() => navigate('/subjects')} className="flex items-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
                     <ArrowLeft size={20} className="mr-2" /> Orqaga

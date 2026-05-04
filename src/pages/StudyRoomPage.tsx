@@ -33,8 +33,8 @@ const StudyRoomPage: React.FC = () => {
     if (!userProfile) return <div className="h-screen bg-gray-900 flex items-center justify-center text-white">Yuklanmoqda...</div>;
 
     return (
-        <div className="h-screen flex flex-col bg-gray-900">
-            <header className="flex justify-between items-center p-4 bg-[#1f2937] text-white shadow-md z-10">
+        <div className="min-h-screen flex flex-col bg-gray-900 p-4 md:p-8 max-w-7xl mx-auto">
+            <header className="flex justify-between items-center p-4 bg-[#1f2937] text-white shadow-md z-10 rounded-t-2xl">
                 <div className="flex items-center gap-4">
                     <button onClick={() => navigate('/community')} className="hover:bg-gray-700 p-2 rounded-full transition-colors">
                         <ArrowLeft size={24} />
