@@ -164,7 +164,7 @@ const CalendarPage: React.FC = () => {
     };
 
     return (
-        <div className="h-[calc(100vh-100px)] flex flex-col p-4 md:p-6 max-w-7xl mx-auto w-full">
+        <div className="h-[calc(100vh-100px)] flex flex-col p-4 md:p-8 max-w-7xl mx-auto w-full">
             {/* Toolbar */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 dark:text-white">

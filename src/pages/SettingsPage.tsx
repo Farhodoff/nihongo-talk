@@ -35,7 +35,7 @@ const SettingsPage: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Sozlamalar</h2>
                 <p className="text-gray-500 dark:text-gray-400 mt-1">Tajribangizni moslashtiring</p>
