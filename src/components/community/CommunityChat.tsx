@@ -355,6 +355,7 @@ const CommunityChat: React.FC = () => {
                     <button 
                         type="submit" 
                         disabled={!newMessage.trim() || isSending || !!chatError}
+                        aria-label="Xabarni yuborish"
                         className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white w-[60px] h-[60px] rounded-[1.5rem] transition-all shadow-xl shadow-indigo-600/20 active:scale-90 flex items-center justify-center shrink-0"
                     >
                         {isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send size={24} />}
