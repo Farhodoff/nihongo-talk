@@ -68,11 +68,11 @@ describe('CommunityChat Component (Final Fix)', () => {
         render(<CommunityChat />);
 
         // Inputni to'ldirish
-        const input = await screen.findByPlaceholderText(/Hamjamiyatga nimadir deng.../i);
+        const input = await screen.findByPlaceholderText(/Xabar yozing.../i);
         fireEvent.change(input, { target: { value: 'Yangi xabar yuborish' } });
 
         // Submit tugmasini bosish
-        const sendButton = screen.getByLabelText("Xabarni yuborish");
+        const sendButton = screen.getByRole('button', { name: /Xabarni yuborish/i });
         fireEvent.click(sendButton);
 
         await waitFor(() => {

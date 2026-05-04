@@ -4,11 +4,13 @@ export const GoogleCalendarService = {
     /**
      * Google API orqali kalendarga yangi tadbir qo'shish
      */
-    async createEvent(accessToken: string, task: Partial<Task> | Partial<Event>): Promise<string | null> {
+    async createEvent(accessToken: string, item: Partial<Task> | Partial<Event>): Promise<string | null> {
         try {
-            const title = 'title' in task ? task.title : (task as any).name;
-            const description = (task as any).description || 'Study Planner orqali yaratilgan vazifa';
-            const date = 'dueDate' in task ? task.dueDate : (task as any).date;
+            const title = item.title || (item as any).name || 'Sarlavhasiz';
+            const description = (item as any).description || 'Study Planner orqali yaratilgan';
+            
+            // Task uchun dueDate, Event uchun eventDate ishlatiladi
+            const date = (item as any).dueDate || (item as any).eventDate || (item as any).date;
 
             if (!date) return null;
 
@@ -51,8 +53,8 @@ export const GoogleCalendarService = {
      */
     async updateEvent(accessToken: string, eventId: string, updates: Partial<Task> | Partial<Event>): Promise<boolean> {
         try {
-            const title = 'title' in updates ? updates.title : (updates as any).name;
-            const date = 'dueDate' in updates ? updates.dueDate : (updates as any).date;
+            const title = updates.title || (updates as any).name;
+            const date = (updates as any).dueDate || (updates as any).eventDate || (updates as any).date;
 
             const event: any = {};
             if (title) event.summary = title;

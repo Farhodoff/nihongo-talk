@@ -10,6 +10,7 @@ import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
+import { GoogleCalendarService } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile } from '../types/supabase-types';
 
 interface Settings {
@@ -285,7 +286,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (eventsRes.data) {
-                setEvents(eventsRes.data.map((e: DatabaseEvent) => ({
+                setEvents(eventsRes.data.map((e: DatabaseEvent | any) => ({
                     id: e.id,
                     userId: e.user_id,
                     title: e.title,
@@ -297,6 +298,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     repetitionType: e.repetition_type || 'none',
                     repetitionEndDate: e.repetition_end_date,
                     repetitionDays: e.repetition_days,
+                    googleEventId: e.google_event_id,
                     createdAt: e.created_at,
                     updatedAt: e.updated_at
                 })));
@@ -663,11 +665,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== EVENT OPERATSIYALARI =====
     const addEvent = async (eventData: Partial<Event>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return null;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return null;
 
-        const dbEvent = {
-            user_id: user.id,
+        const dbEvent: any = {
+            user_id: session.user.id,
             title: eventData.title,
             description: eventData.description,
             event_type: eventData.eventType,
@@ -678,6 +680,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             repetition_days: eventData.repetitionDays,
             is_notified: false
         };
+
+        // Google Calendar Sync
+        if (session.provider_token && eventData.eventDate) {
+            const googleEventId = await GoogleCalendarService.createEvent(session.provider_token, eventData);
+            if (googleEventId) {
+                dbEvent.google_event_id = googleEventId;
+            }
+        }
 
         const { data, error } = await supabase.from('events').insert(dbEvent).select().single();
 
@@ -699,6 +709,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 repetitionType: data.repetition_type || 'none',
                 repetitionEndDate: data.repetition_end_date,
                 repetitionDays: data.repetition_days,
+                googleEventId: data.google_event_id,
                 createdAt: data.created_at,
                 updatedAt: data.updated_at
             };
@@ -709,21 +720,40 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateEvent = async (id: string, updates: Partial<Event>) => {
-        // Construct dbUpdates with explicit mapping to avoid 'any'
-        const dbUpdates: import('../types/supabase-types').DatabaseEventUpdate = {};
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        // Find current event to get googleEventId
+        const currentEvent = events.find(e => e.id === id);
+        if (currentEvent?.googleEventId && session?.provider_token) {
+            await GoogleCalendarService.updateEvent(session.provider_token, currentEvent.googleEventId, updates);
+        }
 
+        // Construct dbUpdates with explicit mapping to avoid 'any'
+        const dbUpdates: any = {};
+
+        if (updates.title) dbUpdates.title = updates.title;
+        if (updates.description) dbUpdates.description = updates.description;
         if (updates.eventType) dbUpdates.event_type = updates.eventType;
         if (updates.eventDate) dbUpdates.event_date = updates.eventDate;
         if (updates.notifyBeforeMinutes !== undefined) dbUpdates.notify_before_minutes = updates.notifyBeforeMinutes;
         if (updates.isNotified !== undefined) dbUpdates.is_notified = updates.isNotified;
-
-        // No need to delete keys if we build a fresh object
+        if (updates.repetitionType) dbUpdates.repetition_type = updates.repetitionType;
+        if (updates.repetitionEndDate) dbUpdates.repetition_end_date = updates.repetitionEndDate;
+        if (updates.repetitionDays) dbUpdates.repetition_days = updates.repetitionDays;
 
         await supabase.from('events').update(dbUpdates).eq('id', id);
         setEvents(events.map(e => e.id === id ? { ...e, ...updates } : e));
     };
 
     const deleteEvent = async (id: string) => {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        // Find current event to get googleEventId
+        const currentEvent = events.find(e => e.id === id);
+        if (currentEvent?.googleEventId && session?.provider_token) {
+            await GoogleCalendarService.deleteEvent(session.provider_token, currentEvent.googleEventId);
+        }
+
         setEvents(events.filter(e => e.id !== id));
         await supabase.from('events').delete().eq('id', id);
     };
