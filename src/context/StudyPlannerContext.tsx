@@ -33,6 +33,7 @@ interface StudyPlannerContextType {
     sessions: StudySession[];
     whiteboards: WhiteboardMetadata[];
     events: Event[];
+    googleEvents: any[];
     settings: Settings;
     loading: boolean;
     user: User | null;
@@ -80,6 +81,7 @@ interface StudyPlannerContextType {
     addEvent: (event: Partial<Event>) => Promise<Event | null>;
     updateEvent: (id: string, updates: Partial<Event>) => Promise<void>;
     deleteEvent: (id: string) => Promise<void>;
+    syncGoogleEvents: () => Promise<void>;
 
     // Session operatsiyalari
     addSession: (session: Partial<StudySession>) => Promise<void>;
@@ -149,9 +151,27 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [sessions, setSessions] = useState<StudySession[]>([]);
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
+    const [googleEvents, setGoogleEvents] = useState<any[]>([]);
 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
+
+    // Google Calendar tadbirlarini sinxronizatsiya qilish
+    const syncGoogleEvents = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.provider_token) {
+            try {
+                const now = new Date();
+                const timeMin = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString();
+                const timeMax = new Date(now.getFullYear(), now.getMonth() + 2, 1).toISOString();
+                
+                const fetchedEvents = await GoogleCalendarService.listEvents(session.provider_token, timeMin, timeMax);
+                setGoogleEvents(fetchedEvents);
+            } catch (error) {
+                console.error("Google Calendar sync error:", error);
+            }
+        }
+    };
 
     // App Settings (Non-gamification)
     const [appSettings, setAppSettings] = useState<{
@@ -195,6 +215,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 setLoading(false);
                 return;
             }
+
+            // Google Calendar sinxronizatsiyasi
+            syncGoogleEvents();
 
             // --- TASKS via Service ---
             try {
@@ -770,6 +793,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             flashcards, addFlashcard, updateFlashcard, deleteFlashcard, reviewFlashcard, importFlashcards,
             whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
             events, addEvent, updateEvent, deleteEvent,
+            googleEvents, syncGoogleEvents,
             refreshData: fetchData,
             settings, updateSettings, getRank,
             // Exposed Focus State
