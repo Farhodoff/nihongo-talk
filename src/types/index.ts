@@ -113,7 +113,7 @@ export interface WhiteboardMetadata {
     updatedAt: string;
 }
 
-export type EventType = 'jdu' | 'career' | 'jlpt' | 'personal';
+export type EventType = 'jdu' | 'career' | 'jlpt' | 'personal' | 'google';
 export type RepetitionType = 'none' | 'daily' | 'weekly' | 'monthly';
 
 export interface Event {
@@ -137,14 +137,16 @@ export const EVENT_TYPE_COLORS = {
     jdu: '#3b82f6',      // Blue
     career: '#f59e0b',   // Amber
     jlpt: '#10b981',     // Green
-    personal: '#6366f1'  // Indigo
+    personal: '#6366f1', // Indigo
+    google: '#ea4335'    // Google Red
 };
 
 export const EVENT_TYPE_LABELS = {
     jdu: '🎓 JDU (Akademik)',
     career: '💼 Karyera',
     jlpt: '🇯🇵 JLPT',
-    personal: '🏠 Shaxsiy'
+    personal: '🏠 Shaxsiy',
+    google: '🔍 Google'
 };
 
 export const REPETITION_LABELS = {
