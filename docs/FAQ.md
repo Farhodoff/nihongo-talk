@@ -568,10 +568,12 @@ Optimal intervallarda flashcardni qayta ko'rib o'tish:
 - ⚪ Menimizda - 30 kun ichida
 
 ### Google Calendar bilan qo'shish mumkin-mi?
-**Ha!** Endi siz quyidagilarni qila olasiz:
+**Ha!** Endi siz quyidagilarni qila orasiz:
 - 📲 Vazifalarni Google Calendar ga eksport qilish
 - 📲 Google Calendar tadbirlarini ilova ichida ko'rish
 - 🔄 Avtomatik va qo'lda sinxronizatsiya qilish
+
+*Eslatma: Agar ulanishda xatolik yuz bersa, [GOOGLE_AUTH_SETUP.md](./GOOGLE_AUTH_SETUP.md) qo'llanmasini ko'rib chiqing.*
 
 ### Oflayn ishlaysimmi?
 Qisme qo'llanilavchi:
