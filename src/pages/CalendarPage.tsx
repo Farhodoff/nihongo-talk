@@ -18,7 +18,7 @@ import AddEventModal from '../components/AddEventModal';
 import DayDetailsModal from '../components/calendar/DayDetailsModal';
 
 const CalendarPage: React.FC = () => {
-    const { tasks, updateTask, sessions, events } = useStudyData();
+    const { tasks, updateTask, sessions, events, googleEvents } = useStudyData();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [activeId, setActiveId] = useState<string | null>(null);
     const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -83,7 +83,7 @@ const CalendarPage: React.FC = () => {
         const dateStr = moment(date).format('YYYY-MM-DD');
         const dateMoment = moment(date);
 
-        return events.filter(event => {
+        const localEvents = events.filter(event => {
             const eventStart = moment(event.eventDate);
             const eventEnd = event.repetitionEndDate ? moment(event.repetitionEndDate) : null;
 
@@ -113,6 +113,22 @@ const CalendarPage: React.FC = () => {
                     return moment(event.eventDate).format('YYYY-MM-DD') === dateStr;
             }
         });
+
+        // Google Calendar tadbirlarini qo'shish
+        const externalEvents = googleEvents
+            .filter(ge => {
+                const start = ge.start?.dateTime || ge.start?.date;
+                return moment(start).format('YYYY-MM-DD') === dateStr;
+            })
+            .map(ge => ({
+                id: ge.id,
+                title: ge.summary,
+                eventDate: ge.start?.dateTime || ge.start?.date,
+                eventType: 'google',
+                description: ge.description || 'Google Calendar tadbiri'
+            })) as any[];
+
+        return [...localEvents, ...externalEvents];
     };
 
     // Handlers
