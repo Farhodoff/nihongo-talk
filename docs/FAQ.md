@@ -305,10 +305,10 @@ Spaced Repetition is a technique where you review flashcards at **optimal interv
 This **maximizes retention** with minimum effort.
 
 ### Can I integrate with Google Calendar?
-**Coming soon!** We're adding:
+**Yes!** Now you can:
 - 📲 Export tasks to Google Calendar
-- 📲 Import Google Calendar deadlines
-- 🔄 Two-way sync
+- 📲 View Google Calendar events in-app
+- 🔄 Automatic and manual sync
 
 ### Can I collaborate with friends?
 Currently, **Study Rooms** (Jitsi) allow:
@@ -400,13 +400,8 @@ We'd love to hear from you!
 ### What's the roadmap?
 **Q2 2026:**
 - 📱 Native mobile apps (iOS/Android)
-- 🔄 Google Calendar sync
 - 🤝 Collaborative features
-
-**Q3 2026:**
-- 🌍 Offline mode
 - 📊 Advanced analytics
-- 🎬 Video tutorials
 
 See [ROADMAP.md](./ROADMAP.md) for full details.
 
@@ -573,10 +568,10 @@ Optimal intervallarda flashcardni qayta ko'rib o'tish:
 - ⚪ Menimizda - 30 kun ichida
 
 ### Google Calendar bilan qo'shish mumkin-mi?
-Tez orada:
-- 📲 Google Calendar ga eksport
-- 📲 Deadline import qilish
-- 🔄 Ikki tomonlama sinxronlash
+**Ha!** Endi siz quyidagilarni qila olasiz:
+- 📲 Vazifalarni Google Calendar ga eksport qilish
+- 📲 Google Calendar tadbirlarini ilova ichida ko'rish
+- 🔄 Avtomatik va qo'lda sinxronizatsiya qilish
 
 ### Oflayn ishlaysimmi?
 Qisme qo'llanilavchi:
