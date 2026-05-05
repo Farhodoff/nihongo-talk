@@ -97,5 +97,28 @@ export const GoogleCalendarService = {
             console.error('Google Calendar Delete Error:', error);
             return false;
         }
+    },
+
+    /**
+     * Google Calendar'dan tadbirlarni olish
+     */
+    async listEvents(accessToken: string, timeMin: string, timeMax: string): Promise<any[]> {
+        try {
+            const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) throw new Error('Google API response error');
+            
+            const data = await response.json();
+            return data.items || [];
+        } catch (error) {
+            console.error('Google Calendar List Error:', error);
+            return [];
+        }
     }
 };
