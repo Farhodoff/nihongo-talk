@@ -35,24 +35,10 @@ const GoogleCalendarSection: React.FC = () => {
 
     const handleConnect = async () => {
         setIsConnecting(true);
-        try {
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                    scopes: 'https://www.googleapis.com/auth/calendar.events'
-                }
-            });
-            if (error) throw error;
-        } catch (error) {
-            console.error('Google Calendar Connection Error:', error);
-            alert('Google bilan bog\'lanishda xatolik yuz berdi.');
-        } finally {
+        setTimeout(() => {
+            alert('Bu xizmat hozircha jarayonda. Tez orada ishga tushadi!');
             setIsConnecting(false);
-        }
+        }, 1500);
     };
 
     return (
@@ -110,7 +96,7 @@ const GoogleCalendarSection: React.FC = () => {
                             className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 shadow-sm"
                         >
                             <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
-                            {isConnecting ? 'Bog\'lanmoqda...' : 'Google bilan bog\'lash'}
+                            {isConnecting ? 'Jarayonda...' : 'Google bilan bog\'lash'}
                         </Button>
                     </div>
                 )}
