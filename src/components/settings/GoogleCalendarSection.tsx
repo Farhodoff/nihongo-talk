@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, ExternalLink, RefreshCw } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { supabase } from '../../lib/supabase';
+import { useStudyData } from '../../context/StudyPlannerContext';
 
 const GoogleCalendarSection: React.FC = () => {
+    const { syncGoogleEvents } = useStudyData();
     const [isConnected, setIsConnected] = useState(false);
     const [isConnecting, setIsConnecting] = useState(false);
+    const [isSyncing, setIsSyncing] = useState(false);
 
     useEffect(() => {
         // Tekshirish: Foydalanuvchi allaqachon Google bilan bog'langanmi?
-        // Bu odatda session provider_token bor-yo'qligiga qarab aniqlanadi
         checkConnection();
     }, []);
 
@@ -17,6 +19,17 @@ const GoogleCalendarSection: React.FC = () => {
         const { data: { session } } = await supabase.auth.getSession();
         if (session?.provider_token) {
             setIsConnected(true);
+        }
+    };
+
+    const handleSync = async () => {
+        setIsSyncing(true);
+        try {
+            await syncGoogleEvents();
+        } catch (error) {
+            console.error('Manual sync error:', error);
+        } finally {
+            setIsSyncing(false);
         }
     };
 
@@ -66,9 +79,16 @@ const GoogleCalendarSection: React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
                             <span className="flex items-center gap-2">
-                                <RefreshCw size={16} className="text-blue-500" />
+                                <RefreshCw size={16} className={`text-blue-500 ${isSyncing ? 'animate-spin' : ''}`} />
                                 Avtomatik sinxronizatsiya faol
                             </span>
+                            <button 
+                                onClick={handleSync}
+                                disabled={isSyncing}
+                                className="text-blue-600 hover:text-blue-700 font-medium"
+                            >
+                                {isSyncing ? 'Yangilanmoqda...' : 'Sinxronizatsiya'}
+                            </button>
                         </div>
                         <Button
                             variant="secondary"
