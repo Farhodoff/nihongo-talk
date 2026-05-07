@@ -13,7 +13,26 @@ const CommunityChat: React.FC = () => {
     const [typingUsers, setTypingUsers] = useState<string[]>([]);
     const [showScrollButton, setShowScrollButton] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     const typingTimeoutRef = useRef<any>(null);
+
+    const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
+        messagesEndRef.current?.scrollIntoView({ behavior });
+    };
+
+    useEffect(() => {
+        if (!isLoading && messages.length > 0) {
+            scrollToBottom('auto');
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        // Only scroll if user is already near bottom or it's their own message
+        const lastMessage = messages[messages.length - 1];
+        if (lastMessage?.user_id === currentUser?.id) {
+            scrollToBottom('smooth');
+        }
+    }, [messages]);
 
     useEffect(() => {
         const setupChat = async () => {
@@ -52,7 +71,7 @@ const CommunityChat: React.FC = () => {
                             ...payload.new,
                             profiles: profile
                         };
-                        setMessages(prev => [newMsg, ...prev]);
+                        setMessages(prev => [...prev, newMsg]);
                     }
                 )
                 .subscribe();
@@ -79,7 +98,7 @@ const CommunityChat: React.FC = () => {
                     avatar_url
                 )
             `)
-            .order('created_at', { ascending: false })
+            .order('created_at', { ascending: true })
             .limit(100);
 
         if (error) {
@@ -92,13 +111,12 @@ const CommunityChat: React.FC = () => {
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const target = e.currentTarget;
-        setShowScrollButton(target.scrollTop < -200);
+        const isNearBottom = target.scrollHeight - target.scrollTop - target.clientHeight < 100;
+        setShowScrollButton(!isNearBottom);
     };
 
-    const scrollToBottom = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = 0;
-        }
+    const handleJumpToBottom = () => {
+        scrollToBottom('smooth');
     };
 
     const handleTyping = () => {
@@ -136,7 +154,7 @@ const CommunityChat: React.FC = () => {
 
         if (!error) {
             setNewMessage('');
-            scrollToBottom();
+            // Scroll will be handled by useEffect on messages update
         }
         setIsSending(false);
     };
@@ -150,11 +168,10 @@ const CommunityChat: React.FC = () => {
 
     const renderMessages = () => {
         const groups: any[] = [];
-        const reversedMessages = [...messages].reverse();
 
-        reversedMessages.forEach((msg, i) => {
+        messages.forEach((msg, i) => {
             const msgDate = formatMessageDate(msg.created_at);
-            const prevMsg = i > 0 ? reversedMessages[i - 1] : null;
+            const prevMsg = i > 0 ? messages[i - 1] : null;
             const isNewDay = !prevMsg || formatMessageDate(prevMsg.created_at) !== msgDate;
             const isSameUser = prevMsg && prevMsg.user_id === msg.user_id && !isNewDay;
 
@@ -170,7 +187,7 @@ const CommunityChat: React.FC = () => {
             });
         });
 
-        return groups.reverse().map((item, index) => {
+        return groups.map((item, index) => {
             if (item.type === 'date') {
                 return (
                     <div key={`date-${index}`} className="flex justify-center my-8">
@@ -277,24 +294,8 @@ const CommunityChat: React.FC = () => {
             <div 
                 ref={scrollRef}
                 onScroll={handleScroll}
-                className="flex-1 overflow-y-auto px-6 py-4 flex flex-col-reverse custom-scrollbar relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px]"
+                className="flex-1 overflow-y-auto px-6 py-4 flex flex-col custom-scrollbar relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px]"
             >
-                {/* Typing Indicator Overlay */}
-                {typingUsers.length > 0 && (
-                    <div className="absolute bottom-4 left-6 z-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-gray-100 dark:border-gray-700 flex items-center gap-3 shadow-lg shadow-black/5">
-                            <div className="flex gap-1.5">
-                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s]"></span>
-                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.2s]"></span>
-                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.4s]"></span>
-                            </div>
-                            <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
-                                {typingUsers.length === 1 ? `${typingUsers[0]} yozmoqda...` : `${typingUsers.length} kishi yozmoqda...`}
-                            </span>
-                        </div>
-                    </div>
-                )}
-
                 {isLoading ? (
                     <div className="h-full flex flex-col items-center justify-center space-y-4">
                         <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-3xl shadow-xl flex items-center justify-center">
@@ -310,6 +311,23 @@ const CommunityChat: React.FC = () => {
                 ) : (
                     <div className="space-y-1">
                         {renderMessages()}
+                        <div ref={messagesEndRef} />
+                    </div>
+                )}
+
+                {/* Typing Indicator Overlay */}
+                {typingUsers.length > 0 && (
+                    <div className="sticky bottom-0 left-0 z-20 animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
+                        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-gray-100 dark:border-gray-700 inline-flex items-center gap-3 shadow-lg shadow-black/5">
+                            <div className="flex gap-1.5">
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s]"></span>
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.2s]"></span>
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.4s]"></span>
+                            </div>
+                            <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                                {typingUsers.length === 1 ? `${typingUsers[0]} yozmoqda...` : `${typingUsers.length} kishi yozmoqda...`}
+                            </span>
+                        </div>
                     </div>
                 )}
             </div>
@@ -317,7 +335,7 @@ const CommunityChat: React.FC = () => {
             {/* Jump to Bottom Button */}
             {showScrollButton && (
                 <button 
-                    onClick={scrollToBottom}
+                    onClick={handleJumpToBottom}
                     className="absolute bottom-32 right-8 bg-indigo-600 text-white p-3 rounded-2xl shadow-2xl shadow-indigo-600/30 hover:scale-110 active:scale-95 transition-all z-30 animate-in fade-in zoom-in"
                 >
                     <ChevronDown size={24} />
