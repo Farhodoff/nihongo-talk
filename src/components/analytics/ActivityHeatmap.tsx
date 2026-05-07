@@ -107,13 +107,13 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
             <div className="overflow-x-auto pb-4 scrollbar-hide">
                 <div className="inline-block min-w-full">
                     {/* Month Labels */}
-                    <div className="flex h-4 mb-1 ml-8 text-[10px] text-gray-500 dark:text-gray-400">
+                    <div className="relative h-5 ml-[32px] text-[10px] text-gray-500 dark:text-gray-400">
                         {monthLabels.map((m, i) => (
                             <div 
                                 key={i} 
+                                className="absolute"
                                 style={{ 
-                                    position: 'absolute', 
-                                    left: `${m.index * 13 + 32}px` 
+                                    left: `${m.index * 13}px` 
                                 }}
                             >
                                 {m.label}
@@ -121,12 +121,12 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                         ))}
                     </div>
 
-                    <div className="flex gap-2 relative mt-4">
+                    <div className="flex gap-2 relative">
                         {/* Day Labels */}
-                        <div className="flex flex-col justify-between py-[2px] text-[9px] text-gray-400 dark:text-gray-500 w-6 h-[88px] text-left">
-                            <span className="h-[10px]">Mon</span>
-                            <span className="h-[10px]">Wed</span>
-                            <span className="h-[10px]">Fri</span>
+                        <div className="flex flex-col text-[9px] text-gray-400 dark:text-gray-500 w-6 h-[88px] text-left pt-[13px]">
+                            <span className="h-[10px] leading-[10px] mb-[16px]">Mon</span>
+                            <span className="h-[10px] leading-[10px] mb-[16px]">Wed</span>
+                            <span className="h-[10px] leading-[10px]">Fri</span>
                         </div>
 
                         {/* Grid */}
@@ -137,7 +137,7 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                                         <div
                                             key={dayIdx}
                                             title={day ? `${format(day.date, 'MMM d, yyyy')}: ${day.minutes} daqiqa` : ''}
-                                            className={`w-[10px] h-[10px] rounded-[2px] transition-all duration-200 hover:ring-1 hover:ring-indigo-500 dark:hover:ring-white/40 ${day ? getColor(day.level) : 'bg-transparent'}`}
+                                            className={`w-[10px] h-[10px] rounded-[1.5px] transition-all duration-200 hover:ring-1 hover:ring-indigo-500 dark:hover:ring-white/40 ${day ? getColor(day.level) : 'bg-transparent'}`}
                                         />
                                     ))}
                                 </div>
