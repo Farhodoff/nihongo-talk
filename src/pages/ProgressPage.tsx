@@ -2,6 +2,7 @@ import React from 'react';
 import SmartInsight from '../components/SmartInsight';
 import StudyStatsCards from '../components/analytics/StudyStatsCards';
 import ActivityAnalytics from '../components/analytics/ActivityAnalytics';
+import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
 import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -57,7 +58,10 @@ const ProgressPage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <ActivityAnalytics sessions={sessions} />
+                <>
+                    <ActivityAnalytics sessions={sessions} />
+                    <ActivityHeatmap sessions={sessions} />
+                </>
             )}
 
             {loading ? (
