@@ -28,3 +28,6 @@ window.matchMedia = window.matchMedia || function () {
         removeListener: function () { }
     };
 };
+
+// Mock scrollIntoView (not implemented in jsdom)
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
