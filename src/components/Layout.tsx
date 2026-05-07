@@ -44,6 +44,11 @@ const Layout: React.FC = () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
+    const getPageTitle = () => {
+        const current = navItems.find(item => item.path === location.pathname);
+        return current ? current.name : 'Study Planner';
+    }
+
     return (
         <div className="h-screen flex flex-col md:flex-row bg-[#f8fafc] dark:bg-[#0f172a] text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden font-sans">
             {/* Mini Timer Overlay (Visible when active and NOT on focus page) */}
