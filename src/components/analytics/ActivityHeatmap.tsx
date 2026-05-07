@@ -61,12 +61,12 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
 
     const getColor = (level: number) => {
         switch (level) {
-            case 0: return 'bg-[#ebedf0] dark:bg-[#161b22]'; // GitHub empty cell
-            case 1: return 'bg-[#9be9a8] dark:bg-[#0e4429]'; // GitHub Level 1
-            case 2: return 'bg-[#40c463] dark:bg-[#006d32]'; // GitHub Level 2
-            case 3: return 'bg-[#30a14e] dark:bg-[#26a641]'; // GitHub Level 3
-            case 4: return 'bg-[#216e39] dark:bg-[#39d353]'; // GitHub Level 4
-            default: return 'bg-[#ebedf0] dark:bg-[#161b22]';
+            case 0: return 'bg-[#161b22] border border-white/5'; 
+            case 1: return 'bg-[#0e4429] shadow-[0_0_8px_rgba(14,68,41,0.4)]'; 
+            case 2: return 'bg-[#006d32] shadow-[0_0_10px_rgba(0,109,50,0.5)]'; 
+            case 3: return 'bg-[#26a641] shadow-[0_0_12px_rgba(38,166,65,0.6)]'; 
+            case 4: return 'bg-[#39d353] shadow-[0_0_15px_rgba(57,211,83,0.8)]'; 
+            default: return 'bg-[#161b22]';
         }
     };
 
@@ -88,32 +88,32 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
     }, [weeks]);
 
     return (
-        <div className="bg-white dark:bg-[#0d1117] p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 mb-8 overflow-hidden font-sans">
-            <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">O'quv Faolligi</h3>
-                <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
-                    <span>Kam</span>
-                    <div className="flex gap-[3px]">
-                        <div className="w-[10px] h-[10px] rounded-[2px] bg-[#ebedf0] dark:bg-[#161b22]"></div>
-                        <div className="w-[10px] h-[10px] rounded-[2px] bg-[#9be9a8] dark:bg-[#0e4429]"></div>
-                        <div className="w-[10px] h-[10px] rounded-[2px] bg-[#40c463] dark:bg-[#006d32]"></div>
-                        <div className="w-[10px] h-[10px] rounded-[2px] bg-[#30a14e] dark:bg-[#26a641]"></div>
-                        <div className="w-[10px] h-[10px] rounded-[2px] bg-[#216e39] dark:bg-[#39d353]"></div>
+        <div className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans">
+            <div className="flex items-center justify-between mb-10">
+                <h3 className="text-2xl font-bold text-white tracking-tight">O'quv Faolligi</h3>
+                <div className="flex items-center gap-3 text-xs text-gray-400">
+                    <span className="opacity-60">Kam</span>
+                    <div className="flex gap-[4px]">
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#161b22] border border-white/10"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#0e4429]"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#006d32]"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#26a641]"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#39d353] shadow-[0_0_10px_rgba(57,211,83,0.5)]"></div>
                     </div>
-                    <span>Ko'p</span>
+                    <span className="opacity-60">Ko'p</span>
                 </div>
             </div>
 
-            <div className="overflow-x-auto pb-4 scrollbar-hide">
+            <div className="overflow-x-auto pb-6 scrollbar-hide">
                 <div className="inline-block min-w-full">
                     {/* Month Labels */}
-                    <div className="relative h-5 ml-[32px] text-[10px] text-gray-500 dark:text-gray-400">
+                    <div className="relative h-6 ml-[40px] text-[11px] text-gray-500 font-medium">
                         {monthLabels.map((m, i) => (
                             <div 
                                 key={i} 
                                 className="absolute"
                                 style={{ 
-                                    left: `${m.index * 13}px` 
+                                    left: `${m.index * 15}px` 
                                 }}
                             >
                                 {m.label}
@@ -121,23 +121,23 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                         ))}
                     </div>
 
-                    <div className="flex gap-2 relative">
+                    <div className="flex gap-4 relative">
                         {/* Day Labels */}
-                        <div className="flex flex-col text-[9px] text-gray-400 dark:text-gray-500 w-6 h-[88px] text-left pt-[13px]">
-                            <span className="h-[10px] leading-[10px] mb-[16px]">Mon</span>
-                            <span className="h-[10px] leading-[10px] mb-[16px]">Wed</span>
-                            <span className="h-[10px] leading-[10px]">Fri</span>
+                        <div className="flex flex-col text-[10px] text-gray-500 font-medium w-8 h-[100px] justify-between py-1">
+                            <span className="leading-none">Mon</span>
+                            <span className="leading-none">Wed</span>
+                            <span className="leading-none">Fri</span>
                         </div>
 
                         {/* Grid */}
-                        <div className="flex gap-[3px]">
+                        <div className="flex gap-[4px]">
                             {weeks.map((week, weekIdx) => (
-                                <div key={weekIdx} className="flex flex-col gap-[3px]">
+                                <div key={weekIdx} className="flex flex-col gap-[4px]">
                                     {week.map((day, dayIdx) => (
                                         <div
                                             key={dayIdx}
                                             title={day ? `${format(day.date, 'MMM d, yyyy')}: ${day.minutes} daqiqa` : ''}
-                                            className={`w-[10px] h-[10px] rounded-[1.5px] transition-all duration-200 hover:ring-1 hover:ring-indigo-500 dark:hover:ring-white/40 ${day ? getColor(day.level) : 'bg-transparent'}`}
+                                            className={`w-[11px] h-[11px] rounded-[3px] transition-all duration-300 hover:scale-125 cursor-pointer hover:z-10 ${day ? getColor(day.level) : 'bg-transparent'}`}
                                         />
                                     ))}
                                 </div>
@@ -147,11 +147,11 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                 </div>
             </div>
             
-            <div className="flex justify-between items-center mt-4">
-                <p className="text-[11px] text-gray-400 dark:text-gray-500">
+            <div className="flex justify-between items-center mt-6 pt-6 border-t border-white/5">
+                <button className="text-[12px] text-gray-500 hover:text-indigo-400 transition-colors">
                     Learn how we count contributions
-                </p>
-                <p className="text-[11px] text-gray-400 dark:text-gray-500 italic">
+                </button>
+                <p className="text-[12px] text-gray-500 italic font-light">
                     * Oxirgi 1 yillik ma'lumotlar
                 </p>
             </div>
