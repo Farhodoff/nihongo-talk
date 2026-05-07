@@ -28,6 +28,23 @@ const GlobalAudioPlayer = () => {
         }
     }, [focusState.bgSound, focusState.isActive, focusState.isMuted]);
 
+    useEffect(() => {
+        if (focusState.isSessionCompleted && !focusState.isMuted) {
+            const ringtone = new Audio('/lofi-music.mp3');
+            ringtone.play().catch(() => { });
+            
+            // Auto stop ringtone after 5 seconds to avoid annoyance
+            const timer = setTimeout(() => {
+                ringtone.pause();
+            }, 5000);
+            
+            return () => {
+                clearTimeout(timer);
+                ringtone.pause();
+            };
+        }
+    }, [focusState.isSessionCompleted, focusState.isMuted]);
+
     return <audio ref={audioRef} loop />;
 };
 

@@ -38,13 +38,48 @@ const Layout: React.FC = () => {
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
     ];
 
-    const getPageTitle = () => {
-        const current = navItems.find(item => item.path === location.pathname);
-        return current ? current.name : 'Study Planner';
-    }
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
 
     return (
         <div className="h-screen flex flex-col md:flex-row bg-[#f8fafc] dark:bg-[#0f172a] text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden font-sans">
+            {/* Mini Timer Overlay (Visible when active and NOT on focus page) */}
+            {focusState.isActive && location.pathname !== '/focus' && (
+                <div 
+                    onClick={() => navigate('/focus')}
+                    className="fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-3 border border-indigo-100 dark:border-indigo-900/50 flex items-center gap-3 cursor-pointer hover:scale-105 transition-all group animate-in slide-in-from-bottom-4"
+                >
+                    <div className="relative">
+                        <div className="w-10 h-10 rounded-full border-2 border-indigo-100 dark:border-indigo-900/30 flex items-center justify-center">
+                            <Clock size={18} className="text-indigo-600 dark:text-indigo-400 animate-pulse" />
+                        </div>
+                        <svg className="absolute inset-0 w-10 h-10 -rotate-90" viewBox="0 0 100 100">
+                            <circle 
+                                cx="50" cy="50" r="45" 
+                                fill="none" stroke="currentColor" strokeWidth="8" 
+                                strokeDasharray="283" 
+                                strokeDashoffset={283 - (283 * ((focusState.mode === 'focus' ? 25*60 : focusState.mode === 'short_break' ? 5*60 : 15*60) - focusState.timeLeft) / (focusState.mode === 'focus' ? 25*60 : focusState.mode === 'short_break' ? 5*60 : 15*60))}
+                                className="text-indigo-600 dark:text-indigo-400 transition-all duration-1000"
+                            />
+                        </svg>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest leading-none mb-1">
+                            {focusState.mode === 'focus' ? 'Fokus' : 'Tanaffus'}
+                        </span>
+                        <span className="text-lg font-mono font-bold text-gray-900 dark:text-white leading-none tabular-nums">
+                            {formatTime(focusState.timeLeft)}
+                        </span>
+                    </div>
+                    <div className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ChevronRight size={16} className="text-gray-400" />
+                    </div>
+                </div>
+            )}
+
             {/* Mobile Header */}
             <header className="md:hidden bg-white/80 dark:bg-[#1e293b]/80 backdrop-blur-md p-4 flex justify-between items-center shadow-sm z-30 border-b border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-2">
@@ -95,17 +130,7 @@ const Layout: React.FC = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
-                            onClick={(e) => {
-                                if (focusState.isActive) {
-                                    e.preventDefault();
-                                    if (window.confirm("Diqqat! Fokus rejimi faol. Agar chiqib ketsangiz, taymer to'xtaydi. Davom etasizmi?")) {
-                                        setSidebarOpen(false);
-                                        navigate(item.path);
-                                    }
-                                } else {
-                                    setSidebarOpen(false);
-                                }
-                            }}
+                            onClick={() => setSidebarOpen(false)}
                             className={({ isActive }) =>
                                 `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${isActive
                                     ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm'
