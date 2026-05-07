@@ -66,9 +66,6 @@ const FocusPage: React.FC = () => {
     };
 
     const handleTimerEnd = () => {
-        // Play ringtone when timer completes
-        playRingtone();
-
         // Notification handled globally in Context
         if (focusState.mode === 'focus') {
             // Avoid double trigger if possible, or check if we already showed popup
