@@ -87,10 +87,23 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
         return labels;
     }, [weeks]);
 
+    // Yil oralig'ini hisoblash
+    const yearRange = useMemo(() => {
+        const startYear = startDate.getFullYear();
+        const endYear = today.getFullYear();
+        if (startYear === endYear) {
+            return `${startYear}`;
+        }
+        return `${format(startDate, 'MMM yyyy')} - ${format(today, 'MMM yyyy')}`;
+    }, [startDate, today]);
+
     return (
         <div className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans">
             <div className="flex items-center justify-between mb-10">
-                <h3 className="text-2xl font-bold text-white tracking-tight">O'quv Faolligi</h3>
+                <div>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">O'quv Faolligi</h3>
+                    <p className="text-xs text-gray-500 mt-1">{yearRange}</p>
+                </div>
                 <div className="flex items-center gap-3 text-xs text-gray-400">
                     <span className="opacity-60">0 daq</span>
                     <div className="flex gap-[4px]">
