@@ -29,7 +29,7 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                 date,
                 dateStr,
                 minutes,
-                level: minutes === 0 ? 0 : minutes < 3 ? 1 : minutes < 30 ? 2 : minutes < 60 ? 3 : 4
+                level: minutes === 0 ? 0 : minutes < 30 ? 1 : minutes < 60 ? 2 : minutes < 120 ? 3 : 4
             };
         });
     }, [sessions, startDate, endDate]);
@@ -100,13 +100,13 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                     <p className="text-xs text-gray-500 mt-1">{yearRange}</p>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span className="opacity-60">0 daq</span>
+                    <span className="opacity-60">Kam</span>
                     <div className="flex gap-[4px]">
                         <div className="w-[12px] h-[12px] rounded-[3px] bg-[#161b22] border border-white/10" title="0 daqiqa"></div>
-                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#0e4429]" title="<3 daqiqa"></div>
-                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#006d32]" title="<30 daqiqa"></div>
-                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#26a641]" title="<60 daqiqa"></div>
-                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#39d353] shadow-[0_0_10px_rgba(57,211,83,0.5)]" title="≥60 daqiqa"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#0e4429]" title="<30 daqiqa"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#006d32]" title="<60 daqiqa"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#26a641]" title="<120 daqiqa"></div>
+                        <div className="w-[12px] h-[12px] rounded-[3px] bg-[#39d353] shadow-[0_0_10px_rgba(57,211,83,0.5)]" title="≥120 daqiqa"></div>
                     </div>
                     <span className="opacity-60">Ko'p</span>
                 </div>
