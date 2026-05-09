@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { StudySession } from '../../types';
-import { format, subDays, eachDayOfInterval, startOfDay } from 'date-fns';
+import { format, eachDayOfInterval, startOfDay, startOfYear, endOfYear, isBefore } from 'date-fns';
 
 interface ActivityHeatmapProps {
     sessions: StudySession[];
@@ -8,10 +8,13 @@ interface ActivityHeatmapProps {
 
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
     const today = startOfDay(new Date());
-    const startDate = subDays(today, 364); // Last 365 days
+    // 2026 yil to'liq
+    const year2026 = new Date(2026, 0, 1); // January 1, 2026
+    const startDate = startOfYear(year2026);
+    const endDate = isBefore(today, endOfYear(year2026)) ? today : endOfYear(year2026);
 
     const days = useMemo(() => {
-        const interval = eachDayOfInterval({ start: startDate, end: today });
+        const interval = eachDayOfInterval({ start: startDate, end: endDate });
         
         // Group sessions by date
         const sessionMap = new Map<string, number>();
@@ -30,7 +33,7 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                 level: minutes === 0 ? 0 : minutes < 3 ? 1 : minutes < 30 ? 2 : minutes < 60 ? 3 : 4
             };
         });
-    }, [sessions, startDate, today]);
+    }, [sessions, startDate, endDate]);
 
     // Group days into weeks for the grid
     const weeks = useMemo(() => {
@@ -87,15 +90,8 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
         return labels;
     }, [weeks]);
 
-    // Yil oralig'ini hisoblash
-    const yearRange = useMemo(() => {
-        const startYear = startDate.getFullYear();
-        const endYear = today.getFullYear();
-        if (startYear === endYear) {
-            return `${startYear}`;
-        }
-        return `${format(startDate, 'MMM yyyy')} - ${format(today, 'MMM yyyy')}`;
-    }, [startDate, today]);
+    // Yil ko'rsatkichi
+    const yearRange = '2026';
 
     return (
         <div className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans">
