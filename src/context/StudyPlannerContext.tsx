@@ -596,7 +596,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (!user) return;
 
         const { data } = await supabase.from('study_sessions').insert({ ...sessionData, user_id: user.id }).select().single();
-        if (data) setSessions([...sessions, data]);
+        if (data) {
+            const mappedSession: StudySession = {
+                ...data,
+                subjectId: data.subject_id,
+                startTime: data.start_time,
+                moodBefore: data.mood_before,
+                moodAfter: data.mood_after
+            };
+            setSessions([...sessions, mappedSession]);
+        }
     };
 
     // ===== UPDATE SETTINGS (Combined) =====
