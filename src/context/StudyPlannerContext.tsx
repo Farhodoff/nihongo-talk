@@ -623,22 +623,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (data) {
             const mappedSession: StudySession = {
                 id: data.id,
-                userId: data.user_id,
                 subjectId: data.subject_id,
-                taskId: data.task_id,
                 startTime: data.start_time,
-                endTime: data.end_time,
                 duration: data.duration,
-                plannedDuration: data.planned_duration,
-                type: data.type,
-                moodBefore: data.mood_before,
-                moodAfter: data.mood_after,
-                productivityRating: data.productivity_rating,
+                type: data.type as 'focus' | 'break',
                 completed: data.completed,
-                interrupted: data.interrupted,
-                notes: data.notes,
-                createdAt: data.created_at,
-                updatedAt: data.updated_at
+                moodBefore: data.mood_before,
+                moodAfter: data.mood_after
             };
             console.log('[DEBUG] Xaritalangan session:', mappedSession);
             setSessions([...sessions, mappedSession]);
