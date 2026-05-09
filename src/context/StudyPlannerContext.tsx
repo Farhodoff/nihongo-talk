@@ -592,10 +592,19 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== SESSION OPERATSIYALARI =====
     const addSession = async (sessionData: Partial<StudySession>) => {
+        console.log('[DEBUG] addSession boshlandi:', sessionData);
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+        if (!user) {
+            console.log('[DEBUG] Foydalanuvchi topilmadi');
+            return;
+        }
 
-        const { data } = await supabase.from('study_sessions').insert({ ...sessionData, user_id: user.id }).select().single();
+        const { data, error } = await supabase.from('study_sessions').insert({ ...sessionData, user_id: user.id }).select().single();
+        if (error) {
+            console.error('[DEBUG] Supabase xato:', error);
+            return;
+        }
+        console.log('[DEBUG] Supabase dan keldi:', data);
         if (data) {
             const mappedSession: StudySession = {
                 ...data,
@@ -604,7 +613,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 moodBefore: data.mood_before,
                 moodAfter: data.mood_after
             };
+            console.log('[DEBUG] Xaritalangan session:', mappedSession);
             setSessions([...sessions, mappedSession]);
+            console.log('[DEBUG] Sessiya state ga qo\'shildi');
         }
     };
 
