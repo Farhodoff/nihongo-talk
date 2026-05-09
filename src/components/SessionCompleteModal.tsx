@@ -20,8 +20,8 @@ export const SessionCompleteModal: React.FC = () => {
     const handleSave = () => {
         addSession({
             subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date(Date.now() - 25 * 60 * 1000).toISOString(), // 25 daqiqa oldin boshlangan
-            duration: 25,
+            startTime: new Date(Date.now() - 4 * 60 * 1000).toISOString(), // 4 daqiqa oldin boshlangan
+            duration: 4,
             type: 'focus',
             completed: true,
             moodAfter: selectedMood || 3 // Default to Okay
@@ -47,7 +47,7 @@ export const SessionCompleteModal: React.FC = () => {
                         Tabriklaymiz!
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400">
-                        25 daqiqalik fokus sessiyasi yakunlandi. Hozir o'zingizni qanday his qilyapsiz?
+                        4 daqiqalik fokus sessiyasi yakunlandi. Hozir o'zingizni qanday his qilyapsiz?
                     </p>
                 </div>
 

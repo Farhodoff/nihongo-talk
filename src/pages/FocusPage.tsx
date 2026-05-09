@@ -20,7 +20,7 @@ const FocusPage: React.FC = () => {
     const ringtoneRef = useRef<HTMLAudioElement | null>(null);
 
     // Calculated Progress
-    const initialTime = focusState.mode === 'focus' ? 25 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
+    const initialTime = focusState.mode === 'focus' ? 4 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
     const progress = ((initialTime - focusState.timeLeft) / initialTime) * 100;
 
     // Watch for timer completion via focusState to trigger mood check
@@ -89,8 +89,8 @@ const FocusPage: React.FC = () => {
 
         addSession({
             subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date(Date.now() - 25 * 60 * 1000).toISOString(), // 25 daqiqa oldin boshlangan
-            duration: 25,
+            startTime: new Date(Date.now() - 4 * 60 * 1000).toISOString(), // 4 daqiqa oldin boshlangan
+            duration: 4,
             type: 'focus',
             completed: true,
             moodBefore: moodBefore || undefined,
