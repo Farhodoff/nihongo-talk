@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { StudySession } from '../../types';
-import { format, eachDayOfInterval, startOfDay, startOfYear, endOfYear, isBefore } from 'date-fns';
+import { format, eachDayOfInterval, startOfDay, startOfYear } from 'date-fns';
 
 interface ActivityHeatmapProps {
     sessions: StudySession[];
@@ -8,10 +8,10 @@ interface ActivityHeatmapProps {
 
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
     const today = startOfDay(new Date());
-    // 2026 yil to'liq
+    // 2026 yil: January dan bugungi kungacha
     const year2026 = new Date(2026, 0, 1); // January 1, 2026
     const startDate = startOfYear(year2026);
-    const endDate = isBefore(today, endOfYear(year2026)) ? today : endOfYear(year2026);
+    const endDate = today; // Bugungi kun (May 2026) gacha
 
     const days = useMemo(() => {
         const interval = eachDayOfInterval({ start: startDate, end: endDate });
