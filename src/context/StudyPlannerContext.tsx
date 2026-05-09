@@ -622,11 +622,23 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         console.log('[DEBUG] Supabase dan keldi:', data);
         if (data) {
             const mappedSession: StudySession = {
-                ...data,
+                id: data.id,
+                userId: data.user_id,
                 subjectId: data.subject_id,
+                taskId: data.task_id,
                 startTime: data.start_time,
+                endTime: data.end_time,
+                duration: data.duration,
+                plannedDuration: data.planned_duration,
+                type: data.type,
                 moodBefore: data.mood_before,
-                moodAfter: data.mood_after
+                moodAfter: data.mood_after,
+                productivityRating: data.productivity_rating,
+                completed: data.completed,
+                interrupted: data.interrupted,
+                notes: data.notes,
+                createdAt: data.created_at,
+                updatedAt: data.updated_at
             };
             console.log('[DEBUG] Xaritalangan session:', mappedSession);
             setSessions([...sessions, mappedSession]);
