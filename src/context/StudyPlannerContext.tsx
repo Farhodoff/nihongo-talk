@@ -599,7 +599,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return;
         }
 
-        const { data, error } = await supabase.from('study_sessions').insert({ ...sessionData, user_id: user.id }).select().single();
+        // Supabase snake_case kutadi
+        const supabaseData = {
+            ...sessionData,
+            user_id: user.id,
+            mood_before: sessionData.moodBefore,
+            mood_after: sessionData.moodAfter,
+            subject_id: sessionData.subjectId,
+            start_time: sessionData.startTime
+        };
+        // camelCase maydonlarini olib tashlaymiz
+        delete (supabaseData as any).moodBefore;
+        delete (supabaseData as any).moodAfter;
+        delete (supabaseData as any).subjectId;
+        delete (supabaseData as any).startTime;
+
+        const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
         if (error) {
             console.error('[DEBUG] Supabase xato:', error);
             return;
