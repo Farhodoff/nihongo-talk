@@ -20,7 +20,7 @@ export const SessionCompleteModal: React.FC = () => {
     const handleSave = () => {
         addSession({
             subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date().toISOString(), // Should ideally be (Date.now() - duration), but simplified
+            startTime: new Date(Date.now() - 25 * 60 * 1000).toISOString(), // 25 daqiqa oldin boshlangan
             duration: 25,
             type: 'focus',
             completed: true,
