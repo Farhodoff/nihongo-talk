@@ -37,7 +37,7 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
         }
         // Default state
         return {
-            timeLeft: 4 * 60,
+            timeLeft: 1 * 60,
             isActive: false,
             mode: 'focus',
             selectedSubjectId: null,
@@ -83,11 +83,11 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
     const startTimer = () => setFocusState(prev => ({ ...prev, isActive: true, isSessionCompleted: false }));
     const pauseTimer = () => setFocusState(prev => ({ ...prev, isActive: false }));
     const resetTimer = () => {
-        const initial = focusState.mode === 'focus' ? 4 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
+        const initial = focusState.mode === 'focus' ? 1 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
         setFocusState(prev => ({ ...prev, isActive: false, isSessionCompleted: false, timeLeft: initial }));
     };
     const switchMode = (mode: 'focus' | 'short_break' | 'long_break') => {
-        const initial = mode === 'focus' ? 4 * 60 : mode === 'short_break' ? 5 * 60 : 15 * 60;
+        const initial = mode === 'focus' ? 1 * 60 : mode === 'short_break' ? 5 * 60 : 15 * 60;
         setFocusState(prev => ({ ...prev, mode, isActive: false, isSessionCompleted: false, timeLeft: initial }));
     };
 
