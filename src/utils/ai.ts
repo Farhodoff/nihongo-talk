@@ -92,9 +92,11 @@ export const generateFlashcardsWithAI = async (
 
     const prompt = `
       Topic: "${topic}"
-      Task: Create ${count} high-quality flashcards.
-      Format: JSON array of {"front": "question", "back": "answer"}. 
-      Constraint: No markdown, no intro.
+      Task: Create ${count} high-quality, educational flashcards about this topic.
+      Language: Detect the language of the topic and use it for the flashcards (e.g., if topic is in Uzbek, flashcards should be in Uzbek).
+      Output Format: A VALID JSON array of objects. Each object must have "front" and "back" keys.
+      Example: [{"front": "What is 2+2?", "back": "4"}]
+      Constraint: ONLY return the JSON array. Do not include any markdown formatting, preamble, or explanation.
     `;
 
     try {
@@ -107,12 +109,27 @@ export const generateFlashcardsWithAI = async (
             json = JSON.parse(cleanedText);
         } else {
             const genAI = getGenAI(userKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-1.5-flash",
+                generationConfig: {
+                    temperature: 0.7,
+                    topP: 0.95,
+                    topK: 40,
+                    maxOutputTokens: 8192,
+                    responseMimeType: "application/json",
+                }
+            });
 
             const result = await requestWithRetry(() => model.generateContent(prompt));
             const response = await result.response;
             const text = response.text();
-            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            
+            // Even with responseMimeType, let's be safe
+            let cleanedText = text.trim();
+            if (cleanedText.startsWith('```')) {
+                cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
+            }
+            
             json = JSON.parse(cleanedText);
         }
 
@@ -142,11 +159,11 @@ export const generateFlashcardsFromNote = async (
     userKey?: string
 ): Promise<{ front: string; back: string }[]> => {
     const prompt = `
-      Note Content: "${noteContent.substring(0, 3000)}" // Limit content length
+      Note Content: "${noteContent.substring(0, 4000)}"
       Task: Create ${count} educational flashcards based EXACTLY on the information in the note above.
       Language: Use the same language as the note content (Uzbek or English).
-      Format: JSON array of {"front": "question", "back": "answer"}. 
-      Constraint: No markdown, no intro, no extro.
+      Output Format: A VALID JSON array of objects with "front" and "back" keys.
+      Constraint: ONLY return the JSON array. No preamble or markdown.
     `;
 
     try {
@@ -159,12 +176,22 @@ export const generateFlashcardsFromNote = async (
             json = JSON.parse(cleanedText);
         } else {
             const genAI = getGenAI(userKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-1.5-flash",
+                generationConfig: {
+                    temperature: 0.7,
+                    responseMimeType: "application/json",
+                }
+            });
 
             const result = await requestWithRetry(() => model.generateContent(prompt));
             const response = await result.response;
             const text = response.text();
-            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            
+            let cleanedText = text.trim();
+            if (cleanedText.startsWith('```')) {
+                cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
+            }
             json = JSON.parse(cleanedText);
         }
 
