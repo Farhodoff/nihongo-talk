@@ -101,7 +101,7 @@ export const generateFlashcardsWithAI = async (
     } else {
         // GEMINI → WITH RETRY LOGIC ✓
         const genAI = getGenAI(userKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
         
         // requestWithRetry() wrapping
         const result = await requestWithRetry(() => 
@@ -116,7 +116,7 @@ export const generateFlashcardsWithAI = async (
 
 ## ⚡ OPTIMIZATIONS APPLIED
 
-### **1. Model Selection: gemini-1.5-flash (not gemini-pro)**
+### **1. Model Selection: gemini-3-flash-preview (not gemini-pro)**
 
 **Nega?**
 
@@ -126,7 +126,7 @@ gemini-pro:
   - Response time: 2-3 sec
   - Cost: $0.0025 / 1K tokens
   
-gemini-1.5-flash (TANLANDI):
+gemini-3-flash-preview (TANLANDI):
   - Rate limit: 60 reqs/min (same)
   - Response time: 1-1.5 sec (40% tez!)
   - Cost: $0.075 / 1M tokens (100x ARZON!)
@@ -136,7 +136,7 @@ gemini-1.5-flash (TANLANDI):
 **Kod:**
 ```typescript
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash"  // ← OPTIMIZED
+    model: "gemini-3-flash-preview"  // ← OPTIMIZED
 });
 ```
 

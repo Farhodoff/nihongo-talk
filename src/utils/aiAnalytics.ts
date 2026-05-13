@@ -86,7 +86,7 @@ export const generateStudyInsights = async (sessions: StudySession[], subjects: 
         } else {
             // Standardized using SDK and requestWithRetry
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
             
             const result = await requestWithRetry(() => model.generateContent(prompt));
             const response = await result.response;

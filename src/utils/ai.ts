@@ -110,7 +110,7 @@ export const generateFlashcardsWithAI = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
+                model: "gemini-3-flash-preview",
                 generationConfig: {
                     temperature: 0.7,
                     topP: 0.95,
@@ -177,7 +177,7 @@ export const generateFlashcardsFromNote = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
+                model: "gemini-3-flash-preview",
                 generationConfig: {
                     temperature: 0.7,
                     responseMimeType: "application/json",
@@ -283,7 +283,10 @@ export const generateFullStudyPlan = async (
             text = await callOllama(prompt);
         } else {
             const genAI = getGenAI(userKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-3-flash-preview",
+                generationConfig: { responseMimeType: "application/json" }
+            });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
         }
@@ -348,7 +351,10 @@ export const recommendResourcesWithAI = async (
             text = await callOllama(prompt);
         } else {
             const genAI = getGenAI(userKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-3-flash-preview",
+                generationConfig: { responseMimeType: "application/json" }
+            });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
         }
@@ -401,7 +407,10 @@ export const generateStudyInsight = async (
             text = await callOllama(prompt);
         } else {
             const genAI = getGenAI(userKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-3-flash-preview",
+                generationConfig: { responseMimeType: "application/json" }
+            });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
         }
