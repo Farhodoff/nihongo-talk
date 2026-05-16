@@ -82,9 +82,11 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
         // Sort previewTasks by dayOffset to ensure they are added in order
         const sortedTasks = [...previewTasks].sort((a, b) => a.dayOffset - b.dayOffset);
 
-        sortedTasks.forEach(item => {
+        sortedTasks.forEach((item, index) => {
             const date = new Date();
             date.setDate(date.getDate() + item.dayOffset);
+            // Har bir vazifaga ketma-ketlikni saqlash uchun kichik vaqt farqi (sekund) qo'shamiz
+            date.setSeconds(date.getSeconds() + index);
             const isoDate = date.toISOString();
 
             addTask({
