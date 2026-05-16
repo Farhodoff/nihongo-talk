@@ -13,11 +13,19 @@ const DashboardPage: React.FC = () => {
     const todayTasks = tasks.filter(t => {
         const taskDate = (t.dueDate || t.deadline || '').split('T')[0];
         return taskDate === todayStr;
+    }).sort((a, b) => {
+        const timeA = new Date(a.dueDate || a.deadline || 0).getTime();
+        const timeB = new Date(b.dueDate || b.deadline || 0).getTime();
+        return timeA - timeB;
     });
 
     const overdueTasks = tasks.filter(t => {
         const taskDate = (t.dueDate || t.deadline || '').split('T')[0];
         return taskDate < todayStr && t.status !== 'done';
+    }).sort((a, b) => {
+        const timeA = new Date(a.dueDate || a.deadline || 0).getTime();
+        const timeB = new Date(b.dueDate || b.deadline || 0).getTime();
+        return timeA - timeB;
     });
 
     const todayPendingTasks = todayTasks.filter(t => t.status !== 'done');
