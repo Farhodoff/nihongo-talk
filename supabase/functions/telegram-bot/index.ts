@@ -206,7 +206,11 @@ async function handleDone(message: any) {
         let responseText = "✅ <b>Oxirgi bajarilgan vazifalar:</b>\n\n";
         tasks.forEach((task: any, index: number) => {
             const date = new Date(task.updated_at).toLocaleDateString('uz-UZ', {
-                day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Tashkent'
             });
             responseText += `${index + 1}. ${escapeHTML(task.title)} <i>(${date})</i>\n`;
         });
@@ -237,7 +241,14 @@ async function handleToday(message: any) {
             return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
         }
 
-        const today = new Date().toISOString().split('T')[0];
+        // Get today's date string YYYY-MM-DD in Asia/Tashkent timezone (GMT+5)
+        const dateFormatter = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Asia/Tashkent',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+        const today = dateFormatter.format(new Date());
 
         const { data: tasks, error: tasksError } = await supabase
             .from('tasks')
