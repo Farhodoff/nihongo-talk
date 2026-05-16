@@ -79,9 +79,13 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
         }
 
         // 2. Save Tasks (Linked to Goal if created)
-        previewTasks.forEach(item => {
+        // Sort previewTasks by dayOffset to ensure they are added in order
+        const sortedTasks = [...previewTasks].sort((a, b) => a.dayOffset - b.dayOffset);
+
+        sortedTasks.forEach(item => {
             const date = new Date();
             date.setDate(date.getDate() + item.dayOffset);
+            const isoDate = date.toISOString();
 
             addTask({
                 title: item.description ? `${item.title}: ${item.description}` : item.title,
@@ -89,7 +93,8 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                 status: 'todo',
                 subjectId: subjectId,
                 goalId: goalId, // Now properly linked!
-                dueDate: date.toISOString(), // Use dueDate as per schema
+                dueDate: isoDate, // Use dueDate as per schema
+                deadline: isoDate, // Also set deadline for UI compatibility
                 completed: false
             });
         });

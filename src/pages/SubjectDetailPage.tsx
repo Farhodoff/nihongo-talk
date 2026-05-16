@@ -20,7 +20,13 @@ const SubjectDetailPage: React.FC = () => {
     const subject = subjects.find(s => s.id === id);
     if (!subject) return <div>Fan topilmadi</div>;
 
-    const subjectTasks = tasks.filter(t => t.subjectId === id);
+    const subjectTasks = tasks
+        .filter(t => t.subjectId === id)
+        .sort((a, b) => {
+            const dateA = new Date(a.deadline || a.dueDate || 0).getTime();
+            const dateB = new Date(b.deadline || b.dueDate || 0).getTime();
+            return dateA - dateB;
+        });
     const subjectCards = flashcards.filter(c => c.subjectId === id);
     const masteryScore = calculateMasteryScore(subjectCards);
 
@@ -100,9 +106,9 @@ const SubjectDetailPage: React.FC = () => {
                             />
                             <div className="flex-1">
                                 <span className={`font-medium text-gray-900 dark:text-white ${task.completed ? 'line-through' : ''}`}>{task.title}</span>
-                                {task.deadline && (
+                                {(task.deadline || task.dueDate) && (
                                     <div className="flex items-center text-xs text-gray-500 mt-1">
-                                        <Clock size={12} className="mr-1" /> {new Date(task.deadline).toLocaleDateString()}
+                                        <Clock size={12} className="mr-1" /> {new Date(task.deadline || task.dueDate || '').toLocaleDateString()}
                                     </div>
                                 )}
                             </div>

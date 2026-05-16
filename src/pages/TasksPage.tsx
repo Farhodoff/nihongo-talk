@@ -163,7 +163,13 @@ const TasksPage: React.FC = () => {
                                         </span>
                                     </h3>
                                     <div className="space-y-3">
-                                        {groupTasks.map(task => {
+                                        {groupTasks
+                                            .sort((a, b) => {
+                                                const dateA = new Date(a.dueDate || a.deadline || 0).getTime();
+                                                const dateB = new Date(b.dueDate || b.deadline || 0).getTime();
+                                                return dateA - dateB;
+                                            })
+                                            .map(task => {
                                             const subject = getSubjectInfo(task.subjectId);
                                             return (
                                                 <div key={task.id} className={`group bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row md:items-center gap-4 transition-all ${task.completed ? 'opacity-60' : ''}`}>
