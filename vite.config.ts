@@ -18,6 +18,8 @@ export default defineConfig({
                 background_color: '#f8fafc',
                 display: 'standalone',
                 orientation: 'portrait',
+                scope: '/',
+                start_url: '/',
                 categories: ['education', 'productivity'],
                 shortcuts: [
                     {
@@ -27,9 +29,21 @@ export default defineConfig({
                         icons: [{ src: 'favicon.png', sizes: '192x192' }]
                     },
                     {
-                        name: 'Fokus',
+                        name: 'Fokus Mode',
                         short_name: 'Fokus',
                         url: '/focus',
+                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                    },
+                    {
+                        name: 'Vazifa Qo\'shish',
+                        short_name: 'Vazifa',
+                        url: '/tasks',
+                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                    },
+                    {
+                        name: 'Analitika',
+                        short_name: 'Statistika',
+                        url: '/progress',
                         icons: [{ src: 'favicon.png', sizes: '192x192' }]
                     }
                 ],
