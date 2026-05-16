@@ -6,9 +6,30 @@
     font-family: 'Outfit', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+/* Mobile Native Feel */
+html, body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
+}
+
 body {
     background-color: #f3f4f6;
     color: #1f2937;
+    /* Safe Area for iOS */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+button, a {
+    -webkit-touch-callout: none;
 }
 
 @layer utilities {
