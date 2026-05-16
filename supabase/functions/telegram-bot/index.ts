@@ -1,5 +1,10 @@
+// @ts-ignore: Deno URL imports are valid in Supabase Edge Functions
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-ignore
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
+
+// @ts-ignore: Declare Deno for standard TS compiler to stop complaining
+declare const Deno: any;
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
