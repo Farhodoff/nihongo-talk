@@ -18,6 +18,15 @@ console.log('Bot initializing...', {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// HTML escaping helper to prevent Telegram API parsing crashes
+function escapeHTML(str: string): string {
+    if (!str) return '';
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
 // Keyboard layout for commands
 const defaultKeyboard = {
     keyboard: [
@@ -35,7 +44,7 @@ async function sendMessage(chatId: number, text: string, replyMarkup: any = defa
     const body: any = {
         chat_id: chatId,
         text,
-        parse_mode: 'Markdown'
+        parse_mode: 'HTML'
     };
     if (replyMarkup) {
         body.reply_markup = replyMarkup;
@@ -73,8 +82,8 @@ async function handleStart(message: any) {
             // Already linked - show status
             return sendMessage(chatId, `✅ Akkauntingiz allaqachon bog'langan!
 
-👤 Ism: ${existingLink.telegram_first_name}
-📱 Username: @${existingLink.telegram_username || 'yo\'q'}
+👤 Ism: ${escapeHTML(existingLink.telegram_first_name || '')}
+📱 Username: @${escapeHTML(existingLink.telegram_username || 'yo\'q')}
 
 🔔 Xabarnomalar: ${existingLink.notifications_enabled ? 'Yoniq' : 'O\'chiq'}
 
@@ -194,12 +203,12 @@ async function handleDone(message: any) {
         }
 
         // 3. Format the tasks
-        let responseText = "✅ **Oxirgi bajarilgan vazifalar:**\n\n";
+        let responseText = "✅ <b>Oxirgi bajarilgan vazifalar:</b>\n\n";
         tasks.forEach((task: any, index: number) => {
             const date = new Date(task.updated_at).toLocaleDateString('uz-UZ', {
                 day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
             });
-            responseText += `${index + 1}. ${task.title} _(${date})_\n`;
+            responseText += `${index + 1}. ${escapeHTML(task.title)} <i>(${date})</i>\n`;
         });
 
         return sendMessage(chatId, responseText);
@@ -247,11 +256,11 @@ async function handleToday(message: any) {
             return sendMessage(chatId, "🥳 Bugungi barcha vazifalar bajarilgan yoki hali reja tuzilmagan!");
         }
 
-        let text = "📅 **Bugungi rejalar (Bajarilmagan):**\n\n";
+        let text = "📅 <b>Bugungi rejalar (Bajarilmagan):</b>\n\n";
         tasks.forEach((task: any, index: number) => {
             const priorityEmoji = task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
-            const dateStr = task.due_date ? " _(Bugun)_" : " _(Sanasiz)_";
-            text += `${index + 1}. ${priorityEmoji} ${task.title}${dateStr}\n`;
+            const dateStr = task.due_date ? " <i>(Bugun)</i>" : " <i>(Sanasiz)</i>";
+            text += `${index + 1}. ${priorityEmoji} ${escapeHTML(task.title)}${dateStr}\n`;
         });
         text += "\nBajarish uchun saytga kiring yoki bajarib bo'lgach botni yangilang! 💪";
         return sendMessage(chatId, text);
@@ -291,10 +300,10 @@ async function handleStats(message: any) {
             return sendMessage(chatId, "❌ Profil ma'lumotlarini yuklashda xatolik yuz berdi.");
         }
 
-        const text = `📊 **Mening statistikam:**\n\n` +
-                     `⭐ **Daraja (Level):** ${profile.level}\n` +
-                     `✨ **Umumiy XP:** ${profile.total_xp}\n` +
-                     `🔥 **Kunlik faollik (Streak):** ${profile.current_streak} kun\n\n` +
+        const text = `📊 <b>Mening statistikam:</b>\n\n` +
+                     `⭐ <b>Daraja (Level):</b> ${profile.level}\n` +
+                     `✨ <b>Umumiy XP:</b> ${profile.total_xp}\n` +
+                     `🔥 <b>Kunlik faollik (Streak):</b> ${profile.current_streak} kun\n\n` +
                      `O'qishda davom eting! 🚀`;
         return sendMessage(chatId, text);
 
@@ -338,10 +347,10 @@ async function handleGoals(message: any) {
             return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. Sayt orqali o'z maqsadingizni belgilang!");
         }
 
-        let text = "🎯 **Mening maqsadlarim (Oxirgi 5 ta):**\n\n";
+        let text = "🎯 <b>Mening maqsadlarim (Oxirgi 5 ta):</b>\n\n";
         goals.forEach((goal: any, index: number) => {
             const status = goal.completed ? '✅' : '⏳';
-            text += `${index + 1}. ${status} **${goal.title}** - \`${goal.progress}%\` bajarildi\n`;
+            text += `${index + 1}. ${status} <b>${escapeHTML(goal.title)}</b> - <code>${goal.progress}%</code> bajarildi\n`;
         });
         return sendMessage(chatId, text);
 
@@ -384,7 +393,7 @@ async function handleAddTask(message: any, taskTitle: string) {
             return sendMessage(chatId, "❌ Yangi vazifa qo'shishda xatolik yuz berdi.");
         }
 
-        return sendMessage(chatId, `✅ **Yangi vazifa muvaffaqiyatli qo'shildi:**\n\n📌 "${taskTitle}"`);
+        return sendMessage(chatId, `✅ <b>Yangi vazifa muvaffaqiyatli qo'shildi:</b>\n\n📌 "${escapeHTML(taskTitle)}"`);
 
     } catch (err) {
         console.error('handleAddTask exception:', err);
@@ -420,13 +429,13 @@ serve(async (req: Request) => {
                 await handleStart(message);
             } else if (text.startsWith('/time') || text === '⏰ Vaqtni sozlash') {
                 if (text === '⏰ Vaqtni sozlash') {
-                    await sendMessage(message.chat.id, "⏰ Eslatmalar vaqtini sozlash uchun iltimos `/time HH:MM` formatida yozib yuboring.\n\nMasalan: `/time 08:00` (har kuni ertalab 8 da eslatma olish uchun) yoki `/time 20:30` (kechqurun 20:30 da olish uchun).");
+                    await sendMessage(message.chat.id, "⏰ Eslatmalar vaqtini sozlash uchun iltimos <code>/time HH:MM</code> formatida yozib yuboring.\n\nMasalan: <code>/time 08:00</code> (har kuni ertalab 8 da eslatma olish uchun) yoki <code>/time 20:30</code> (kechqurun 20:30 da olish uchun).");
                 } else {
                     const time = text.split(' ')[1]?.trim();
                     const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
 
                     if (!time || !timeRegex.test(time)) {
-                        await sendMessage(message.chat.id, "❌ Noto'g'ri format! \n\nIltimos, vaqtni `HH:MM` formatida kiriting.\nMasalan: `/time 07:00` yoki `/time 21:30`");
+                        await sendMessage(message.chat.id, "❌ Noto'g'ri format! \n\nIltimos, vaqtni <code>HH:MM</code> formatida kiriting.\nMasalan: <code>/time 07:00</code> yoki <code>/time 21:30</code>");
                         return new Response('OK', { status: 200 });
                     }
 
@@ -440,7 +449,7 @@ serve(async (req: Request) => {
                         console.error('Update time error:', error);
                         await sendMessage(message.chat.id, "❌ Xatolik yuz berdi. Qaytadan urinib ko'ring.");
                     } else {
-                        await sendMessage(message.chat.id, `✅ Xabarnoma vaqti o'zgartirildi: *${time}* ga.\n\nEndi har kuni shu vaqtda xabar olasiz.`);
+                        await sendMessage(message.chat.id, `✅ Xabarnoma vaqti o'zgartirildi: <b>${time}</b> ga.\n\nEndi har kuni shu vaqtda xabar olasiz.`);
                     }
                 }
             } else if (text.startsWith('/help') || text === 'ℹ️ Yordam') {
@@ -455,7 +464,7 @@ serve(async (req: Request) => {
                 await handleGoals(message);
             } else if (text.startsWith('/add') || text === '➕ Yangi vazifa') {
                 if (text === '➕ Yangi vazifa') {
-                    await sendMessage(message.chat.id, "➕ Yangi vazifa qo'shish uchun quyidagi formatda yuboring:\n\n`/add Vazifa nomi`\n\nMasalan: `/add Matematikadan masalalar yechish`\n\nBot buni avtomatik saytga qo'shadi! 📝");
+                    await sendMessage(message.chat.id, "➕ Yangi vazifa qo'shish uchun quyidagi formatda yuboring:\n\n<code>/add Vazifa nomi</code>\n\nMasalan: <code>/add Matematikadan masalalar yechish</code>\n\nBot buni avtomatik saytga qo'shadi! 📝");
                 } else {
                     const taskTitle = text.replace('/add', '').trim();
                     if (!taskTitle) {
