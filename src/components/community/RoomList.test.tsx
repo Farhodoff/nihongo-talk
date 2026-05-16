@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import RoomList from './RoomList';
 import { BrowserRouter } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
@@ -27,7 +27,11 @@ vi.mock('../../lib/supabase', () => ({
 }));
 
 const renderWithRouter = (ui: React.ReactElement) => {
-    return render(<BrowserRouter>{ui}</BrowserRouter>);
+    return render(
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            {ui}
+        </BrowserRouter>
+    );
 };
 
 describe('RoomList Component', () => {
@@ -36,7 +40,9 @@ describe('RoomList Component', () => {
     });
 
     it('Xonalar ro\'yxatini to\'g\'ri ko\'rsatishi kerak', async () => {
-        renderWithRouter(<RoomList />);
+        await act(async () => {
+            renderWithRouter(<RoomList />);
+        });
         
         // Standart xonalar (library, lofi, group-a) borligini tekshirish
         expect(screen.getByText('Jimjit Kutubxona 📚')).toBeInTheDocument();
@@ -45,16 +51,22 @@ describe('RoomList Component', () => {
     });
 
     it('Yangi xona yaratish modalini ochish va yopish', async () => {
-        renderWithRouter(<RoomList />);
+        await act(async () => {
+            renderWithRouter(<RoomList />);
+        });
         
         const createBtn = screen.getByText('Xona Yaratish');
-        fireEvent.click(createBtn);
+        await act(async () => {
+            fireEvent.click(createBtn);
+        });
         
         expect(screen.getByText('Yangi Xona Yaratish')).toBeInTheDocument();
         
         // Click bekor qilish tugmasi orqali yopish
         const cancelBtn = screen.getByText('Bekor qilish');
-        fireEvent.click(cancelBtn);
+        await act(async () => {
+            fireEvent.click(cancelBtn);
+        });
         
         await waitFor(() => {
             expect(screen.queryByText('Yangi Xona Yaratish')).not.toBeInTheDocument();
@@ -62,18 +74,26 @@ describe('RoomList Component', () => {
     });
 
     it('Yangi xona yaratish funksiyasini tekshirish', async () => {
-        renderWithRouter(<RoomList />);
+        await act(async () => {
+            renderWithRouter(<RoomList />);
+        });
         
-        fireEvent.click(screen.getByText('Xona Yaratish'));
+        await act(async () => {
+            fireEvent.click(screen.getByText('Xona Yaratish'));
+        });
         
         const nameInput = screen.getByPlaceholderText('Masalan: IELTS Tayyorlov Guruhi');
         const descInput = screen.getByPlaceholderText('Xona maqsadi va qoidalari haqida...');
         
-        fireEvent.change(nameInput, { target: { value: 'Test Room' } });
-        fireEvent.change(descInput, { target: { value: 'Test Description' } });
+        await act(async () => {
+            fireEvent.change(nameInput, { target: { value: 'Test Room' } });
+            fireEvent.change(descInput, { target: { value: 'Test Description' } });
+        });
         
         const submitBtn = screen.getByText('Yaratish');
-        fireEvent.click(submitBtn);
+        await act(async () => {
+            fireEvent.click(submitBtn);
+        });
         
         await waitFor(() => {
             expect(supabase.from).toHaveBeenCalledWith('study_rooms');

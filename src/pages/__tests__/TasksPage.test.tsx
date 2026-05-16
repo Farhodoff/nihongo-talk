@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '../../utils/test-utils';
+import { render, screen, act } from '../../utils/test-utils';
 import TasksPage from '../TasksPage';
 
 // Mock Supabase at module level
@@ -22,14 +22,18 @@ vi.mock('../../lib/supabase', () => ({
 
 describe('TasksPage', () => {
     it('should render without crashing', async () => {
-        render(<TasksPage />);
+        await act(async () => {
+            render(<TasksPage />);
+        });
 
         // Just verify the page renders
         expect(document.body).toBeTruthy();
     });
 
     it('should have tasks heading', async () => {
-        render(<TasksPage />);
+        await act(async () => {
+            render(<TasksPage />);
+        });
 
         // Check for page title/heading
         const heading = screen.queryByText(/Kunlik Vazifalar/i);
