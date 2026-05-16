@@ -21,8 +21,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 // Keyboard layout for commands
 const defaultKeyboard = {
     keyboard: [
-        [{ text: '📋 Bajarilgan vazifalar' }],
-        [{ text: '⏰ Vaqtni sozlash' }, { text: 'ℹ️ Yordam' }]
+        [{ text: '📅 Bugungi reja' }, { text: '📋 Bajarilganlar' }],
+        [{ text: '📊 Mening statistikam' }, { text: '🎯 Maqsadlarim' }],
+        [{ text: '➕ Yangi vazifa' }, { text: 'ℹ️ Yordam' }]
     ],
     resize_keyboard: true,
     one_time_keyboard: false
@@ -139,7 +140,17 @@ Yordam: /help`);
 // Handle /help command
 async function handleHelp(message: any) {
     const chatId = message.chat.id;
-    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/time HH:MM - Vaqtni sozlash (masalan /time 08:00)\n/done yoki /qilingan - Bajarilgan vazifalarni ko'rish\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
+    return sendMessage(chatId, `Buyruqlar:
+
+/start - Boshlash
+/time HH:MM - Vaqtni sozlash (masalan /time 08:00)
+/done yoki /qilingan - Bajarilgan vazifalarni ko'rish
+/today - Bugungi rejalarni ko'rish
+/stats - Mening statistikam (daraja, XP, streak)
+/goals - Maqsadlarni ko'rish
+/add Vazifa nomi - Yangi vazifa qo'shish
+
+Menyudan tugmalar yordamida ham tezkor foydalana olasiz!`);
 }
 
 // Handle /done command
@@ -199,6 +210,188 @@ async function handleDone(message: any) {
     }
 }
 
+// Handle /today command
+async function handleToday(message: any) {
+    const chatId = message.chat.id;
+    const telegramId = message.from?.id;
+
+    if (!telegramId) return;
+
+    try {
+        const { data: userLink, error: linkError } = await supabase
+            .from('telegram_users')
+            .select('user_id')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (linkError || !userLink) {
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+        }
+
+        const today = new Date().toISOString().split('T')[0];
+
+        const { data: tasks, error: tasksError } = await supabase
+            .from('tasks')
+            .select('title, due_date, priority')
+            .eq('user_id', userLink.user_id)
+            .eq('completed', false)
+            .or(`due_date.eq.${today},due_date.is.null`)
+            .limit(10);
+
+        if (tasksError) {
+            console.error('Error fetching today tasks:', tasksError);
+            return sendMessage(chatId, "❌ Bugungi rejalarni yuklashda xatolik yuz berdi.");
+        }
+
+        if (!tasks || tasks.length === 0) {
+            return sendMessage(chatId, "🥳 Bugungi barcha vazifalar bajarilgan yoki hali reja tuzilmagan!");
+        }
+
+        let text = "📅 **Bugungi rejalar (Bajarilmagan):**\n\n";
+        tasks.forEach((task: any, index: number) => {
+            const priorityEmoji = task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
+            const dateStr = task.due_date ? " _(Bugun)_" : " _(Sanasiz)_";
+            text += `${index + 1}. ${priorityEmoji} ${task.title}${dateStr}\n`;
+        });
+        text += "\nBajarish uchun saytga kiring yoki bajarib bo'lgach botni yangilang! 💪";
+        return sendMessage(chatId, text);
+
+    } catch (err) {
+        console.error('handleToday exception:', err);
+        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+    }
+}
+
+// Handle /stats command
+async function handleStats(message: any) {
+    const chatId = message.chat.id;
+    const telegramId = message.from?.id;
+
+    if (!telegramId) return;
+
+    try {
+        const { data: userLink, error: linkError } = await supabase
+            .from('telegram_users')
+            .select('user_id')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (linkError || !userLink) {
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+        }
+
+        const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('total_xp, level, current_streak')
+            .eq('id', userLink.user_id)
+            .single();
+
+        if (profileError || !profile) {
+            console.error('Error fetching profile:', profileError);
+            return sendMessage(chatId, "❌ Profil ma'lumotlarini yuklashda xatolik yuz berdi.");
+        }
+
+        const text = `📊 **Mening statistikam:**\n\n` +
+                     `⭐ **Daraja (Level):** ${profile.level}\n` +
+                     `✨ **Umumiy XP:** ${profile.total_xp}\n` +
+                     `🔥 **Kunlik faollik (Streak):** ${profile.current_streak} kun\n\n` +
+                     `O'qishda davom eting! 🚀`;
+        return sendMessage(chatId, text);
+
+    } catch (err) {
+        console.error('handleStats exception:', err);
+        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+    }
+}
+
+// Handle /goals command
+async function handleGoals(message: any) {
+    const chatId = message.chat.id;
+    const telegramId = message.from?.id;
+
+    if (!telegramId) return;
+
+    try {
+        const { data: userLink, error: linkError } = await supabase
+            .from('telegram_users')
+            .select('user_id')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (linkError || !userLink) {
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+        }
+
+        const { data: goals, error: goalsError } = await supabase
+            .from('goals')
+            .select('title, progress, completed')
+            .eq('user_id', userLink.user_id)
+            .order('created_at', { ascending: false })
+            .limit(5);
+
+        if (goalsError) {
+            console.error('Error fetching goals:', goalsError);
+            return sendMessage(chatId, "❌ Maqsadlarni yuklashda xatolik yuz berdi.");
+        }
+
+        if (!goals || goals.length === 0) {
+            return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. Sayt orqali o'z maqsadingizni belgilang!");
+        }
+
+        let text = "🎯 **Mening maqsadlarim (Oxirgi 5 ta):**\n\n";
+        goals.forEach((goal: any, index: number) => {
+            const status = goal.completed ? '✅' : '⏳';
+            text += `${index + 1}. ${status} **${goal.title}** - \`${goal.progress}%\` bajarildi\n`;
+        });
+        return sendMessage(chatId, text);
+
+    } catch (err) {
+        console.error('handleGoals exception:', err);
+        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+    }
+}
+
+// Handle /add command
+async function handleAddTask(message: any, taskTitle: string) {
+    const chatId = message.chat.id;
+    const telegramId = message.from?.id;
+
+    if (!telegramId || !taskTitle) return;
+
+    try {
+        const { data: userLink, error: linkError } = await supabase
+            .from('telegram_users')
+            .select('user_id')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (linkError || !userLink) {
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+        }
+
+        const { error: insertError } = await supabase
+            .from('tasks')
+            .insert({
+                user_id: userLink.user_id,
+                title: taskTitle,
+                completed: false,
+                status: 'todo',
+                priority: 'medium'
+            });
+
+        if (insertError) {
+            console.error('Insert task error:', insertError);
+            return sendMessage(chatId, "❌ Yangi vazifa qo'shishda xatolik yuz berdi.");
+        }
+
+        return sendMessage(chatId, `✅ **Yangi vazifa muvaffaqiyatli qo'shildi:**\n\n📌 "${taskTitle}"`);
+
+    } catch (err) {
+        console.error('handleAddTask exception:', err);
+        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+    }
+}
+
 // Main webhook handler
 serve(async (req: Request) => {
     try {
@@ -252,8 +445,25 @@ serve(async (req: Request) => {
                 }
             } else if (text.startsWith('/help') || text === 'ℹ️ Yordam') {
                 await handleHelp(message);
-            } else if (text.startsWith('/done') || text.startsWith('/qilingan') || text === '📋 Bajarilgan vazifalar') {
+            } else if (text.startsWith('/done') || text.startsWith('/qilingan') || text === '📋 Bajarilgan vazifalar' || text === '📋 Bajarilganlar') {
                 await handleDone(message);
+            } else if (text.startsWith('/today') || text === '📅 Bugungi reja') {
+                await handleToday(message);
+            } else if (text.startsWith('/stats') || text === '📊 Mening statistikam') {
+                await handleStats(message);
+            } else if (text.startsWith('/goals') || text === '🎯 Maqsadlarim') {
+                await handleGoals(message);
+            } else if (text.startsWith('/add') || text === '➕ Yangi vazifa') {
+                if (text === '➕ Yangi vazifa') {
+                    await sendMessage(message.chat.id, "➕ Yangi vazifa qo'shish uchun quyidagi formatda yuboring:\n\n`/add Vazifa nomi`\n\nMasalan: `/add Matematikadan masalalar yechish`\n\nBot buni avtomatik saytga qo'shadi! 📝");
+                } else {
+                    const taskTitle = text.replace('/add', '').trim();
+                    if (!taskTitle) {
+                        await sendMessage(message.chat.id, "❌ Vazifa nomi bo'sh bo'lmasligi kerak!");
+                    } else {
+                        await handleAddTask(message, taskTitle);
+                    }
+                }
             } else {
                 await sendMessage(message.chat.id, "Tushunmadim. Quyidagi menyu tugmalaridan foydalanishingiz mumkin:");
             }
