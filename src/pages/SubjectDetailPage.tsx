@@ -25,6 +25,9 @@ const SubjectDetailPage: React.FC = () => {
         .sort((a, b) => {
             const dateA = new Date(a.deadline || a.dueDate || 0).getTime();
             const dateB = new Date(b.deadline || b.dueDate || 0).getTime();
+            if (dateA === dateB) {
+                return new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime();
+            }
             return dateA - dateB;
         });
     const subjectCards = flashcards.filter(c => c.subjectId === id);
