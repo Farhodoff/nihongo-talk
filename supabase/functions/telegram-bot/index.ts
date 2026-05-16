@@ -161,7 +161,7 @@ async function handleDone(message: any) {
 
         // 3. Format the tasks
         let responseText = "✅ **Oxirgi bajarilgan vazifalar:**\n\n";
-        tasks.forEach((task, index) => {
+        tasks.forEach((task: any, index: number) => {
             const date = new Date(task.updated_at).toLocaleDateString('uz-UZ', {
                 day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
             });
@@ -177,7 +177,7 @@ async function handleDone(message: any) {
 }
 
 // Main webhook handler
-serve(async (req) => {
+serve(async (req: Request) => {
     try {
         const url = new URL(req.url);
 
