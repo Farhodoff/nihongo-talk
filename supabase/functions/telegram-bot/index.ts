@@ -92,7 +92,7 @@ async function handleStart(message: any) {
 • Deadline eslatmalari (24h & 1h oldin)
 • Kunlik xulosalar (9:00 va 20:00)
 
-⚙️ Sozlamalar: veb saytda Settings → Telegram
+⚙️ Sozlamalar: <a href="https://study-planner.uz/settings">study-planner.uz/settings</a> sahifasida
 
 Yordam: /help`);
         }
@@ -112,7 +112,7 @@ Yordam: /help`);
 
         if (error || !linkCode) {
             console.log('Invalid code:', error);
-            return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, veb saytdan yangi kod oling.");
+            return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasidan yangi kod oling.");
         }
 
         // Create link
@@ -142,7 +142,14 @@ Yordam: /help`);
         return sendMessage(chatId, "Muvaffaqiyatli ulandi!\n\nAkkauntingiz Telegram bilan bog'landi.\nEndi vazifalar va maqsadlar haqida xabarnomalar olasiz.");
     } else {
         // Welcome message - not linked yet
-        return sendMessage(chatId, "Salom! Study Planner botiga xush kelibsiz!\n\nAkkauntingizni bog'lash uchun:\n1. Veb saytga kiring\n2. Settings → Telegram ga o'ting\n3. Kod oling va /start KOD yuboring\n\nYordam: /help");
+        return sendMessage(chatId, `Salom! Study Planner botiga xush kelibsiz!
+
+Akkauntingizni bog'lash uchun:
+1. <a href="https://study-planner.uz">study-planner.uz</a> saytiga kiring.
+2. <b>Settings → Telegram</b> sahifasiga o'ting.
+3. Kod oling va <code>/start KOD</code> ko'rinishida yuboring.
+
+Yordam: /help`);
     }
 }
 
@@ -178,7 +185,7 @@ async function handleDone(message: any) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const userId = userLink.user_id;
@@ -255,7 +262,8 @@ async function handleToday(message: any) {
             .select('title, due_date, priority')
             .eq('user_id', userLink.user_id)
             .eq('completed', false)
-            .or(`due_date.eq.${today},due_date.is.null`)
+            .or(`due_date.lte.${today},due_date.is.null`)
+            .order('due_date', { ascending: true, nullsFirst: false })
             .limit(10);
 
         if (tasksError) {
@@ -270,10 +278,10 @@ async function handleToday(message: any) {
         let text = "📅 <b>Bugungi rejalar (Bajarilmagan):</b>\n\n";
         tasks.forEach((task: any, index: number) => {
             const priorityEmoji = task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
-            const dateStr = task.due_date ? " <i>(Bugun)</i>" : " <i>(Sanasiz)</i>";
+            const dateStr = task.due_date ? (task.due_date === today ? " <i>(Bugun)</i>" : " <i>(Muddati o'tgan)</i>") : " <i>(Sanasiz)</i>";
             text += `${index + 1}. ${priorityEmoji} ${escapeHTML(task.title)}${dateStr}\n`;
         });
-        text += "\nBajarish uchun saytga kiring yoki bajarib bo'lgach botni yangilang! 💪";
+        text += '\nBajarish va boshqarish uchun <a href="https://study-planner.uz/tasks">study-planner.uz/tasks</a> sahifasiga kiring yoki bajarib bo\'lgach botni yangilang! 💪';
         return sendMessage(chatId, text);
 
     } catch (err) {
@@ -297,7 +305,7 @@ async function handleStats(message: any) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { data: profile, error: profileError } = await supabase
@@ -315,7 +323,7 @@ async function handleStats(message: any) {
                      `⭐ <b>Daraja (Level):</b> ${profile.level}\n` +
                      `✨ <b>Umumiy XP:</b> ${profile.total_xp}\n` +
                      `🔥 <b>Kunlik faollik (Streak):</b> ${profile.current_streak} kun\n\n` +
-                     `O'qishda davom eting! 🚀`;
+                     `Batafsil ko'rish: <a href="https://study-planner.uz">study-planner.uz</a> 🚀`;
         return sendMessage(chatId, text);
 
     } catch (err) {
@@ -339,7 +347,7 @@ async function handleGoals(message: any) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { data: goals, error: goalsError } = await supabase
@@ -355,7 +363,7 @@ async function handleGoals(message: any) {
         }
 
         if (!goals || goals.length === 0) {
-            return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. Sayt orqali o'z maqsadingizni belgilang!");
+            return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. <a href=\"https://study-planner.uz/goals\">study-planner.uz/goals</a> sahifasi orqali o'z maqsadingizni belgilang!");
         }
 
         let text = "🎯 <b>Mening maqsadlarim (Oxirgi 5 ta):</b>\n\n";
@@ -386,7 +394,7 @@ async function handleAddTask(message: any, taskTitle: string) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { error: insertError } = await supabase
