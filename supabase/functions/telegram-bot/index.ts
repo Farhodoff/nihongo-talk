@@ -116,7 +116,64 @@ Yordam: /help`);
 // Handle /help command
 async function handleHelp(message: any) {
     const chatId = message.chat.id;
-    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/time HH:MM - Vaqtni sozlash (masalan /time 08:00)\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
+    return sendMessage(chatId, "Buyruqlar:\n\n/start - Boshlash\n/time HH:MM - Vaqtni sozlash (masalan /time 08:00)\n/done yoki /qilingan - Bajarilgan vazifalarni ko'rish\n/help - Yordam\n\nBoshqa buyruqlar tez orada!");
+}
+
+// Handle /done command
+async function handleDone(message: any) {
+    const chatId = message.chat.id;
+    const telegramId = message.from?.id;
+
+    if (!telegramId) return;
+
+    try {
+        // 1. Get user_id from telegram_users
+        const { data: userLink, error: linkError } = await supabase
+            .from('telegram_users')
+            .select('user_id')
+            .eq('telegram_id', telegramId)
+            .single();
+
+        if (linkError || !userLink) {
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+        }
+
+        const userId = userLink.user_id;
+
+        // 2. Fetch completed tasks for this user
+        // We will fetch tasks where status is 'done' or completed is true, ordered by latest
+        const { data: tasks, error: tasksError } = await supabase
+            .from('tasks')
+            .select('title, updated_at, status, completed')
+            .eq('user_id', userId)
+            .or('status.eq.done,completed.eq.true')
+            .order('updated_at', { ascending: false })
+            .limit(10);
+
+        if (tasksError) {
+            console.error('Error fetching tasks:', tasksError);
+            return sendMessage(chatId, "❌ Vazifalarni yuklashda xatolik yuz berdi.");
+        }
+
+        if (!tasks || tasks.length === 0) {
+            return sendMessage(chatId, "📭 Hali bajarilgan vazifalar yo'q. Harakatni davom ettiring! 💪");
+        }
+
+        // 3. Format the tasks
+        let responseText = "✅ **Oxirgi bajarilgan vazifalar:**\n\n";
+        tasks.forEach((task, index) => {
+            const date = new Date(task.updated_at).toLocaleDateString('uz-UZ', {
+                day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+            });
+            responseText += `${index + 1}. ${task.title} _(${date})_\n`;
+        });
+
+        return sendMessage(chatId, responseText);
+
+    } catch (err) {
+        console.error('handleDone exception:', err);
+        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+    }
 }
 
 // Main webhook handler
@@ -169,6 +226,8 @@ serve(async (req) => {
 
             } else if (text.startsWith('/help')) {
                 await handleHelp(message);
+            } else if (text.startsWith('/done') || text.startsWith('/qilingan')) {
+                await handleDone(message);
             } else {
                 await sendMessage(message.chat.id, "Tushunmadim. /help dan foydalaning.");
             }
