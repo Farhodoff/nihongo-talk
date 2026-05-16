@@ -18,13 +18,31 @@ console.log('Bot initializing...', {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Send message to Telegram
-async function sendMessage(chatId: number, text: string) {
+// Keyboard layout for commands
+const defaultKeyboard = {
+    keyboard: [
+        [{ text: '📋 Bajarilgan vazifalar' }],
+        [{ text: '⏰ Vaqtni sozlash' }, { text: 'ℹ️ Yordam' }]
+    ],
+    resize_keyboard: true,
+    one_time_keyboard: false
+};
+
+// Send message to Telegram with optional keyboard markup
+async function sendMessage(chatId: number, text: string, replyMarkup: any = defaultKeyboard) {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    const body: any = {
+        chat_id: chatId,
+        text,
+        parse_mode: 'Markdown'
+    };
+    if (replyMarkup) {
+        body.reply_markup = replyMarkup;
+    }
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text }),
+        body: JSON.stringify(body),
     });
     return response.json();
 }
@@ -207,34 +225,37 @@ serve(async (req: Request) => {
 
             if (text.startsWith('/start')) {
                 await handleStart(message);
-            } else if (text.startsWith('/time')) {
-                const time = text.split(' ')[1]?.trim();
-                const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
-
-                if (!time || !timeRegex.test(time)) {
-                    await sendMessage(message.chat.id, "❌ Noto'g'ri format! \n\nIltimos, vaqtni `HH:MM` formatida kiriting.\nMasalan: `/time 07:00` yoki `/time 21:30`");
-                    return new Response('OK', { status: 200 });
-                }
-
-                // Update user time
-                const { error } = await supabase
-                    .from('telegram_users')
-                    .update({ notification_time: time })
-                    .eq('telegram_id', message.from.id);
-
-                if (error) {
-                    console.error('Update time error:', error);
-                    await sendMessage(message.chat.id, "❌ Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+            } else if (text.startsWith('/time') || text === '⏰ Vaqtni sozlash') {
+                if (text === '⏰ Vaqtni sozlash') {
+                    await sendMessage(message.chat.id, "⏰ Eslatmalar vaqtini sozlash uchun iltimos `/time HH:MM` formatida yozib yuboring.\n\nMasalan: `/time 08:00` (har kuni ertalab 8 da eslatma olish uchun) yoki `/time 20:30` (kechqurun 20:30 da olish uchun).");
                 } else {
-                    await sendMessage(message.chat.id, `✅ Xabarnoma vaqti o'zgartirildi: *${time}* ga.\n\nEndi har kuni shu vaqtda xabar olasiz.`);
-                }
+                    const time = text.split(' ')[1]?.trim();
+                    const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
 
-            } else if (text.startsWith('/help')) {
+                    if (!time || !timeRegex.test(time)) {
+                        await sendMessage(message.chat.id, "❌ Noto'g'ri format! \n\nIltimos, vaqtni `HH:MM` formatida kiriting.\nMasalan: `/time 07:00` yoki `/time 21:30`");
+                        return new Response('OK', { status: 200 });
+                    }
+
+                    // Update user time
+                    const { error } = await supabase
+                        .from('telegram_users')
+                        .update({ notification_time: time })
+                        .eq('telegram_id', message.from.id);
+
+                    if (error) {
+                        console.error('Update time error:', error);
+                        await sendMessage(message.chat.id, "❌ Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+                    } else {
+                        await sendMessage(message.chat.id, `✅ Xabarnoma vaqti o'zgartirildi: *${time}* ga.\n\nEndi har kuni shu vaqtda xabar olasiz.`);
+                    }
+                }
+            } else if (text.startsWith('/help') || text === 'ℹ️ Yordam') {
                 await handleHelp(message);
-            } else if (text.startsWith('/done') || text.startsWith('/qilingan')) {
+            } else if (text.startsWith('/done') || text.startsWith('/qilingan') || text === '📋 Bajarilgan vazifalar') {
                 await handleDone(message);
             } else {
-                await sendMessage(message.chat.id, "Tushunmadim. /help dan foydalaning.");
+                await sendMessage(message.chat.id, "Tushunmadim. Quyidagi menyu tugmalaridan foydalanishingiz mumkin:");
             }
 
             return new Response('OK', { status: 200 });
