@@ -69,6 +69,10 @@ const CalendarPage: React.FC = () => {
             const targetDate = task.dueDate || task.deadline || task.startTime;
             if (!targetDate) return false;
             return moment(targetDate).format('YYYY-MM-DD') === dateStr;
+        }).sort((a, b) => {
+            const timeA = new Date(a.dueDate || a.deadline || a.startTime || 0).getTime();
+            const timeB = new Date(b.dueDate || b.deadline || b.startTime || 0).getTime();
+            return timeA - timeB;
         });
     };
 
