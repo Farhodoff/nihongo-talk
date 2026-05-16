@@ -37,6 +37,9 @@ const PageLoader = () => (
     </div>
 );
 
+import ReloadPrompt from './components/pwa/ReloadPrompt';
+import InstallPrompt from './components/pwa/InstallPrompt';
+
 const App: React.FC = () => {
     const [session, setSession] = useState<Session | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +69,7 @@ const App: React.FC = () => {
                         <Route path="*" element={<AuthPage />} />
                     </Routes>
                 </Suspense>
+                <ReloadPrompt />
             </BrowserRouter>
         );
     }
@@ -74,7 +78,7 @@ const App: React.FC = () => {
         <ErrorBoundary>
             <StudyPlannerProvider>
                 <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-                    <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden">
+                    <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
                         <Suspense fallback={<PageLoader />}>
                             <Routes>
                                 <Route path="/" element={<Layout />}>
@@ -100,6 +104,10 @@ const App: React.FC = () => {
                             </Routes>
                         </Suspense>
                         <GlobalAudioPlayer />
+                        
+                        {/* PWA Prompts */}
+                        <ReloadPrompt />
+                        <InstallPrompt />
                     </div>
                 </BrowserRouter>
             </StudyPlannerProvider>
