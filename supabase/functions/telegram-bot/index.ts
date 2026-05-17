@@ -57,6 +57,43 @@ async function sendMessage(chatId: number, text: string, replyMarkup: any = defa
     return response.json();
 }
 
+// Answer callback query to dismiss loading state in Telegram client
+async function answerCallbackQuery(callbackQueryId: string, text?: string) {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/answerCallbackQuery`;
+    const body: any = {
+        callback_query_id: callbackQueryId
+    };
+    if (text) {
+        body.text = text;
+    }
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    });
+    return response.json();
+}
+
+// Edit message text in-place
+async function editMessageText(chatId: number, messageId: number, text: string, replyMarkup: any = null) {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`;
+    const body: any = {
+        chat_id: chatId,
+        message_id: messageId,
+        text,
+        parse_mode: 'HTML'
+    };
+    if (replyMarkup) {
+        body.reply_markup = replyMarkup;
+    }
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    });
+    return response.json();
+}
+
 // Handle /start command
 async function handleStart(message: any) {
     const chatId = message.chat.id;
@@ -230,8 +267,8 @@ async function handleDone(message: any) {
     }
 }
 
-// Handle /today command
-async function handleToday(message: any) {
+// Handle /today command or refresh callback
+async function handleToday(message: any, editMessageId: number | null = null) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -245,7 +282,11 @@ async function handleToday(message: any) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).");
+            const failText = "❌ Akkauntingiz topilmadi. Iltimos, oldin veb sayt orqali bog'lang (/start KOD).";
+            if (editMessageId) {
+                return editMessageText(chatId, editMessageId, failText);
+            }
+            return sendMessage(chatId, failText);
         }
 
         // Get today's date string YYYY-MM-DD in Asia/Tashkent timezone (GMT+5)
@@ -259,7 +300,7 @@ async function handleToday(message: any) {
 
         const { data: tasks, error: tasksError } = await supabase
             .from('tasks')
-            .select('title, due_date, priority')
+            .select('id, title, due_date, priority')
             .eq('user_id', userLink.user_id)
             .eq('completed', false)
             .or(`due_date.lte.${today},due_date.is.null`)
@@ -268,11 +309,24 @@ async function handleToday(message: any) {
 
         if (tasksError) {
             console.error('Error fetching today tasks:', tasksError);
-            return sendMessage(chatId, "❌ Bugungi rejalarni yuklashda xatolik yuz berdi.");
+            const failText = "❌ Bugungi rejalarni yuklashda xatolik yuz berdi.";
+            if (editMessageId) {
+                return editMessageText(chatId, editMessageId, failText);
+            }
+            return sendMessage(chatId, failText);
         }
 
         if (!tasks || tasks.length === 0) {
-            return sendMessage(chatId, "🥳 Bugungi barcha vazifalar bajarilgan yoki hali reja tuzilmagan!");
+            const emptyText = "🎉 Bugungi barcha vazifalar bajarilgan yoki hali reja tuzilmagan!";
+            const emptyKeyboard = {
+                inline_keyboard: [
+                    [{ text: '🔄 Yangilash', callback_data: 'refresh_today' }]
+                ]
+            };
+            if (editMessageId) {
+                return editMessageText(chatId, editMessageId, emptyText, emptyKeyboard);
+            }
+            return sendMessage(chatId, emptyText, emptyKeyboard);
         }
 
         let text = "📅 <b>Bugungi rejalar (Bajarilmagan):</b>\n\n";
@@ -281,12 +335,36 @@ async function handleToday(message: any) {
             const dateStr = task.due_date ? (task.due_date === today ? " <i>(Bugun)</i>" : " <i>(Muddati o'tgan)</i>") : " <i>(Sanasiz)</i>";
             text += `${index + 1}. ${priorityEmoji} ${escapeHTML(task.title)}${dateStr}\n`;
         });
-        text += '\nBajarish va boshqarish uchun <a href="https://study-planner.uz/tasks">study-planner.uz/tasks</a> sahifasiga kiring yoki bajarib bo\'lgach botni yangilang! 💪';
-        return sendMessage(chatId, text);
+        text += '\n✍️ <i>Vazifani bajarish uchun quyidagi raqamlardan birini bosing!</i>\n';
+        text += 'Batafsil boshqarish: <a href="https://study-planner.uz/tasks">study-planner.uz/tasks</a>';
+
+        // Build inline keyboard
+        const inlineKeyboard = {
+            inline_keyboard: [
+                // First row of task numbers
+                tasks.map((task: any, index: number) => ({
+                    text: `${index + 1}️⃣`,
+                    callback_data: `complete:${task.id}`
+                })),
+                // Second row with a refresh button
+                [
+                    { text: '🔄 Yangilash', callback_data: 'refresh_today' }
+                ]
+            ]
+        };
+
+        if (editMessageId) {
+            return editMessageText(chatId, editMessageId, text, inlineKeyboard);
+        }
+        return sendMessage(chatId, text, inlineKeyboard);
 
     } catch (err) {
         console.error('handleToday exception:', err);
-        return sendMessage(chatId, "❌ Tizimda xatolik yuz berdi.");
+        const failText = "❌ Tizimda xatolik yuz berdi.";
+        if (editMessageId) {
+            return editMessageText(chatId, editMessageId, failText);
+        }
+        return sendMessage(chatId, failText);
     }
 }
 
@@ -420,6 +498,48 @@ async function handleAddTask(message: any, taskTitle: string) {
     }
 }
 
+// Handle Telegram inline callback query
+async function handleCallbackQuery(callbackQuery: any) {
+    const callbackQueryId = callbackQuery.id;
+    const data = callbackQuery.data;
+    const message = callbackQuery.message;
+    const chatId = message.chat.id;
+    const messageId = message.message_id;
+
+    if (!data) return;
+
+    try {
+        if (data.startsWith('complete:')) {
+            const taskId = data.split(':')[1];
+            
+            // Mark task as completed in Supabase
+            const { error: updateError } = await supabase
+                .from('tasks')
+                .update({ completed: true, status: 'completed' })
+                .eq('id', taskId);
+
+            if (updateError) {
+                console.error('Update task error in callback:', updateError);
+                await answerCallbackQuery(callbackQueryId, "❌ Vazifani bajarishda xatolik yuz berdi.");
+                return;
+            }
+
+            // Successfully completed
+            await answerCallbackQuery(callbackQueryId, "✅ Vazifa bajarildi! (+50 XP) 🎉");
+            
+            // Refresh/update the message list
+            await handleToday(message, messageId);
+
+        } else if (data === 'refresh_today') {
+            await answerCallbackQuery(callbackQueryId, "🔄 Bugungi rejalar yangilandi!");
+            await handleToday(message, messageId);
+        }
+    } catch (err) {
+        console.error('Callback query exception:', err);
+        await answerCallbackQuery(callbackQueryId, "❌ Xatolik yuz berdi.");
+    }
+}
+
 // Main webhook handler
 serve(async (req: Request) => {
     try {
@@ -436,6 +556,13 @@ serve(async (req: Request) => {
         if (req.method === 'POST') {
             const update = await req.json();
             console.log('Update received:', JSON.stringify(update));
+
+            // Handle callback queries (inline buttons)
+            const callbackQuery = update.callback_query;
+            if (callbackQuery) {
+                await handleCallbackQuery(callbackQuery);
+                return new Response('OK', { status: 200 });
+            }
 
             const message = update.message;
             if (!message) {
