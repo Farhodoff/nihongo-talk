@@ -17,6 +17,15 @@ interface Task {
     status: string;
 }
 
+// Helper to escape HTML characters
+function escapeHTML(str: string): string {
+    if (!str) return '';
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
 // Helper to send message
 async function sendMessage(chatId: number, text: string) {
     try {
@@ -27,7 +36,7 @@ async function sendMessage(chatId: number, text: string) {
             body: JSON.stringify({
                 chat_id: chatId,
                 text,
-                parse_mode: 'Markdown'
+                parse_mode: 'HTML'
             }),
         });
         const data = await response.json();
@@ -113,25 +122,20 @@ serve(async (req: Request) => {
             // --- MORNING NOTIFICATION (09:00) ---
             if (currentTime === '09:00') {
                 if (pendingTasks.length === 0) {
-                    message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
-
-Bugungi kun uchun rejalashtirilgan vazifalar yo'q.
-Yangi vazifa qo'shish uchun saytga kiring! 🚀
-
-_Unumli kun tilayman!_ ✨`;
+                    message = `🌅 <b>Xayrli tong, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                        `Bugungi kun uchun rejalashtirilgan vazifalar yo'q.\n` +
+                        `Yangi vazifa qo'shish uchun saytga kiring! 🚀\n\n` +
+                        `<i>Unumli kun tilayman!</i> ✨`;
                 } else {
                     const taskList = pendingTasks.map((t: any) => {
                         const icon = t.priority === 'urgent' ? '🔴' : t.priority === 'high' ? '🟠' : '🔵';
-                        return `${icon} *${t.title}*`;
+                        return `${icon} <b>${escapeHTML(t.title)}</b>`;
                     }).join('\n');
 
-                    message = `🌅 *Xayrli tong, ${user.telegram_first_name || 'Foydalanuvchi'}!*
-
-Bugungi rejalaringiz (${pendingTasks.length} ta):
-
-${taskList}
-
-_Unumli kun tilayman!_ ✨`;
+                    message = `🌅 <b>Xayrli tong, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                        `Bugungi rejalaringiz (${pendingTasks.length} ta):\n\n` +
+                        `${taskList}\n\n` +
+                        `<i>Unumli kun tilayman!</i> ✨`;
                 }
             }
 
@@ -140,25 +144,20 @@ _Unumli kun tilayman!_ ✨`;
                 const totalToday = pendingTasks.length + completedTasks.length;
 
                 if (totalToday === 0) {
-                    message = `🌙 *Xayrli kech, ${user.telegram_first_name || 'Foydalanuvchi'}!*
-
-Bugun hech qanday vazifa belgilanmagan edi.
-Ertangi kunni rejalashtirishni unutmang! 📅
-
-_Tinch osuda tun tilayman!_ 😴`;
+                    message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                        `Bugun hech qanday vazifa belgilanmagan edi.\n` +
+                        `Ertangi kunni rejalashtirishni unutmang! 📅\n\n` +
+                        `<i>Tinch osuda tun tilayman!</i> 😴`;
                 } else {
                     const progress = totalToday > 0 ? Math.round((completedTasks.length / totalToday) * 100) : 0;
 
-                    message = `🌙 *Xayrli kech, ${user.telegram_first_name || 'Foydalanuvchi'}!*
-
-📊 *Bugungi hisobot:*
-✅ Bajarildi: ${completedTasks.length} ta
-⏳ Qoldi: ${pendingTasks.length} ta
-📈 Samardorlik: ${progress}%
-
-${pendingTasks.length > 0 ? `_Ertaga qolgan vazifalarni bajarishni unutmang!_ 💪` : `_Barchasini uddaladingiz! Barakalla!_ 🎉`}
-
-_Tinch osuda tun tilayman!_ 😴`;
+                    message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                        `📊 <b>Bugungi hisobot:</b>\n` +
+                        `✅ Bajarildi: <b>${completedTasks.length}</b> ta\n` +
+                        `⏳ Qoldi: <b>${pendingTasks.length}</b> ta\n` +
+                        `📈 Samardorlik: <b>${progress}%</b>\n\n` +
+                        `${pendingTasks.length > 0 ? `<i>Ertaga qolgan vazifalarni bajarishni unutmang!</i> 💪` : `<i>Barchasini uddaladingiz! Barakalla!</i> 🎉`}\n\n` +
+                        `<i>Tinch osuda tun tilayman!</i> 😴`;
                 }
             }
 
