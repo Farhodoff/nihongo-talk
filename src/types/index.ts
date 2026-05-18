@@ -28,6 +28,7 @@ export interface Task {
     endTime?: string;
     createdAt: string;
     googleEventId?: string;
+    deletedAt?: string;
 }
 
 export interface Subject {
@@ -85,6 +86,7 @@ export interface Flashcard {
     interval: number; // days
     easeFactor: number;
     repetitions: number;
+    deletedAt?: string;
 }
 
 export interface UserSettings {

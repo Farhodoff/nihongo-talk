@@ -37,12 +37,25 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         }
     };
 
-    const deleteFlashcard = async (id: string) => {
+    const deleteFlashcard = async (id: string, permanent = false) => {
         setFlashcards(prev => prev.filter(c => c.id !== id));
         try {
-            await FlashcardService.deleteFlashcard(id);
+            await FlashcardService.deleteFlashcard(id, permanent);
         } catch (error) {
             console.error("Failed to delete flashcard:", error);
+        }
+    };
+
+    const restoreFlashcard = async (id: string) => {
+        try {
+            await FlashcardService.restoreFlashcard(id);
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const updatedCards = await FlashcardService.fetchFlashcards(user.id);
+                setFlashcards(updatedCards);
+            }
+        } catch (error) {
+            console.error("Failed to restore flashcard:", error);
         }
     };
 
@@ -114,6 +127,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         addFlashcard,
         updateFlashcard,
         deleteFlashcard,
+        restoreFlashcard,
         reviewFlashcard,
         importFlashcards
     };

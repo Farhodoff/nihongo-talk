@@ -10,6 +10,7 @@ export const TaskService = {
                 .from('tasks')
                 .select('*')
                 .eq('user_id', userId)
+                .is('deleted_at', null)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
@@ -131,24 +132,57 @@ export const TaskService = {
         await this.updateTask(id, { status: status as any, completed });
     },
 
-    async deleteTask(id: string): Promise<void> {
+    async deleteTask(id: string, permanent = false): Promise<void> {
         // 1. Lokal o'chirish
         const localTasks = await dbOps.getAll('tasks') as Task[];
         const task = localTasks.find(t => t.id === id);
-        await dbOps.delete('tasks', id);
 
-        // Google Calendar Sync
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.provider_token && task?.googleEventId) {
-            await GoogleCalendarService.deleteEvent(session.provider_token, task.googleEventId);
+        if (permanent) {
+            await dbOps.delete('tasks', id);
+
+            // Google Calendar Sync
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.provider_token && task?.googleEventId) {
+                await GoogleCalendarService.deleteEvent(session.provider_token, task.googleEventId);
+            }
+
+            try {
+                const { error } = await supabase.from('tasks').delete().eq('id', id);
+                if (error) throw error;
+            } catch (error) {
+                console.error('Delete task error, queued for sync:', error);
+                await dbOps.addToQueue('DELETE', 'tasks', { id });
+            }
+        } else {
+            // Soft delete
+            if (task) {
+                const updatedTask = { ...task, deletedAt: new Date().toISOString() };
+                await dbOps.put('tasks', updatedTask);
+            }
+
+            try {
+                const { error } = await supabase.from('tasks').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+                if (error) throw error;
+            } catch (error) {
+                console.error('Soft delete task error, queued for sync:', error);
+            }
+        }
+    },
+
+    async restoreTask(id: string): Promise<void> {
+        const localTasks = await dbOps.getAll('tasks') as Task[];
+        const task = localTasks.find(t => t.id === id);
+        if (task) {
+            const updatedTask = { ...task };
+            delete updatedTask.deletedAt;
+            await dbOps.put('tasks', updatedTask);
         }
 
         try {
-            const { error } = await supabase.from('tasks').delete().eq('id', id);
+            const { error } = await supabase.from('tasks').update({ deleted_at: null }).eq('id', id);
             if (error) throw error;
         } catch (error) {
-            console.error('Delete task error, queued for sync:', error);
-            await dbOps.addToQueue('DELETE', 'tasks', { id });
+            console.error('Restore task error:', error);
         }
     }
 };
