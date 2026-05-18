@@ -3,8 +3,25 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 // @ts-expect-error: Deno imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
-// @ts-expect-error: Declare Deno
 declare const Deno: { env: { get(key: string): string | undefined } };
+
+interface TelegramMessage {
+    chat: { id: number };
+    text?: string;
+    message_id?: number;
+    from: {
+        id: number;
+        username?: string;
+        first_name?: string;
+        last_name?: string;
+    };
+}
+
+interface TelegramCallbackQuery {
+    id: string;
+    data?: string;
+    message: TelegramMessage;
+}
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
