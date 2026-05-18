@@ -1,7 +1,6 @@
-
-// @ts-ignore
+// @ts-expect-error: Deno imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
-// @ts-ignore
+// @ts-expect-error: Deno imports
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
@@ -10,12 +9,7 @@ const SUPABASE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-interface Task {
-    title: string;
-    due_date: string;
-    priority: string;
-    status: string;
-}
+
 
 // Helper to escape HTML characters
 function escapeHTML(str: string): string {
@@ -114,8 +108,8 @@ serve(async (req: Request) => {
                 continue;
             }
 
-            const pendingTasks = tasks?.filter((t: any) => t.status !== 'done') || [];
-            const completedTasks = tasks?.filter((t: any) => t.status === 'done' && t.due_date?.startsWith(todayDate)) || [];
+            const pendingTasks = tasks?.filter((t: { status: string }) => t.status !== 'done') || [];
+            const completedTasks = tasks?.filter((t: { status: string; due_date?: string }) => t.status === 'done' && t.due_date?.startsWith(todayDate)) || [];
 
             let message = '';
 
@@ -127,7 +121,7 @@ serve(async (req: Request) => {
                         `Yangi vazifa qo'shish uchun saytga kiring! 🚀\n\n` +
                         `<i>Unumli kun tilayman!</i> ✨`;
                 } else {
-                    const taskList = pendingTasks.map((t: any) => {
+                    const taskList = pendingTasks.map((t: { priority: string; title: string }) => {
                         const icon = t.priority === 'urgent' ? '🔴' : t.priority === 'high' ? '🟠' : '🔵';
                         return `${icon} <b>${escapeHTML(t.title)}</b>`;
                     }).join('\n');
@@ -176,8 +170,9 @@ serve(async (req: Request) => {
             status: 200
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Unexpected error:', error);
-        return new Response(JSON.stringify({ error: error.message || String(error) }), { status: 500 });
+        const err = error as { message?: string };
+        return new Response(JSON.stringify({ error: err.message || String(error) }), { status: 500 });
     }
 });

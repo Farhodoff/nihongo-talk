@@ -1,10 +1,10 @@
-// @ts-ignore: Deno URL imports are valid in Supabase Edge Functions
+// @ts-expect-error: Deno imports
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-// @ts-ignore
+// @ts-expect-error: Deno imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
-// @ts-ignore: Declare Deno for standard TS compiler to stop complaining
-declare const Deno: any;
+// @ts-expect-error: Declare Deno
+declare const Deno: { env: { get(key: string): string | undefined } };
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
@@ -39,9 +39,9 @@ const defaultKeyboard = {
 };
 
 // Send message to Telegram with optional keyboard markup
-async function sendMessage(chatId: number, text: string, replyMarkup: any = defaultKeyboard) {
+async function sendMessage(chatId: number, text: string, replyMarkup: Record<string, unknown> | null = defaultKeyboard) {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    const body: any = {
+    const body: Record<string, unknown> = {
         chat_id: chatId,
         text,
         parse_mode: 'HTML'
@@ -60,7 +60,7 @@ async function sendMessage(chatId: number, text: string, replyMarkup: any = defa
 // Answer callback query to dismiss loading state in Telegram client
 async function answerCallbackQuery(callbackQueryId: string, text?: string) {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/answerCallbackQuery`;
-    const body: any = {
+    const body: Record<string, unknown> = {
         callback_query_id: callbackQueryId
     };
     if (text) {
@@ -75,9 +75,9 @@ async function answerCallbackQuery(callbackQueryId: string, text?: string) {
 }
 
 // Edit message text in-place
-async function editMessageText(chatId: number, messageId: number, text: string, replyMarkup: any = null) {
+async function editMessageText(chatId: number, messageId: number, text: string, replyMarkup: Record<string, unknown> | null = null) {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/editMessageText`;
-    const body: any = {
+    const body: Record<string, unknown> = {
         chat_id: chatId,
         message_id: messageId,
         text,
@@ -95,7 +95,7 @@ async function editMessageText(chatId: number, messageId: number, text: string, 
 }
 
 // Handle /start command
-async function handleStart(message: any) {
+async function handleStart(message: TelegramMessage) {
     const chatId = message.chat.id;
     const text = message.text || '';
     const args = text.split(' ')[1]?.trim(); // Get code after /start
@@ -191,7 +191,7 @@ Yordam: /help`);
 }
 
 // Handle /help command
-async function handleHelp(message: any) {
+async function handleHelp(message: TelegramMessage) {
     const chatId = message.chat.id;
     return sendMessage(chatId, `Buyruqlar:
 
@@ -207,7 +207,7 @@ Menyudan tugmalar yordamida ham tezkor foydalana olasiz!`);
 }
 
 // Handle /done command
-async function handleDone(message: any) {
+async function handleDone(message: TelegramMessage) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -248,7 +248,7 @@ async function handleDone(message: any) {
 
         // 3. Format the tasks
         let responseText = "✅ <b>Oxirgi bajarilgan vazifalar:</b>\n\n";
-        tasks.forEach((task: any, index: number) => {
+        tasks.forEach((task: { title: string; updated_at: string }, index: number) => {
             const date = new Date(task.updated_at).toLocaleDateString('uz-UZ', {
                 day: '2-digit',
                 month: '2-digit',
@@ -268,7 +268,7 @@ async function handleDone(message: any) {
 }
 
 // Handle /today command or refresh callback
-async function handleToday(message: any, editMessageId: number | null = null) {
+async function handleToday(message: TelegramMessage, editMessageId: number | null = null) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -330,7 +330,7 @@ async function handleToday(message: any, editMessageId: number | null = null) {
         }
 
         let text = "📅 <b>Bugungi rejalar (Bajarilmagan):</b>\n\n";
-        tasks.forEach((task: any, index: number) => {
+        tasks.forEach((task: { priority: string; title: string; due_date?: string }, index: number) => {
             const priorityEmoji = task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
             const dateStr = task.due_date ? (task.due_date === today ? " <i>(Bugun)</i>" : " <i>(Muddati o'tgan)</i>") : " <i>(Sanasiz)</i>";
             text += `${index + 1}. ${priorityEmoji} ${escapeHTML(task.title)}${dateStr}\n`;
@@ -342,7 +342,7 @@ async function handleToday(message: any, editMessageId: number | null = null) {
         const inlineKeyboard = {
             inline_keyboard: [
                 // First row of task numbers
-                tasks.map((task: any, index: number) => ({
+                tasks.map((task: { id: string }, index: number) => ({
                     text: `${index + 1}️⃣`,
                     callback_data: `complete:${task.id}`
                 })),
@@ -364,12 +364,12 @@ async function handleToday(message: any, editMessageId: number | null = null) {
         if (editMessageId) {
             return editMessageText(chatId, editMessageId, failText);
         }
-        return sendMessage(chatId, failText);
+        return sendMessage(failText => sendMessage(chatId, failText));
     }
 }
 
 // Handle /stats command
-async function handleStats(message: any) {
+async function handleStats(message: TelegramMessage) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -411,7 +411,7 @@ async function handleStats(message: any) {
 }
 
 // Handle /goals command
-async function handleGoals(message: any) {
+async function handleGoals(message: TelegramMessage) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -445,7 +445,7 @@ async function handleGoals(message: any) {
         }
 
         let text = "🎯 <b>Mening maqsadlarim (Oxirgi 5 ta):</b>\n\n";
-        goals.forEach((goal: any, index: number) => {
+        goals.forEach((goal: { title: string; progress: number; completed: boolean }, index: number) => {
             const status = goal.completed ? '✅' : '⏳';
             text += `${index + 1}. ${status} <b>${escapeHTML(goal.title)}</b> - <code>${goal.progress}%</code> bajarildi\n`;
         });
@@ -458,7 +458,7 @@ async function handleGoals(message: any) {
 }
 
 // Handle /add command
-async function handleAddTask(message: any, taskTitle: string) {
+async function handleAddTask(message: TelegramMessage, taskTitle: string) {
     const chatId = message.chat.id;
     const telegramId = message.from?.id;
 
@@ -499,12 +499,11 @@ async function handleAddTask(message: any, taskTitle: string) {
 }
 
 // Handle Telegram inline callback query
-async function handleCallbackQuery(callbackQuery: any) {
+async function handleCallbackQuery(callbackQuery: TelegramCallbackQuery) {
     const callbackQueryId = callbackQuery.id;
     const data = callbackQuery.data;
     const message = callbackQuery.message;
-    const chatId = message.chat.id;
-    const messageId = message.message_id;
+    const messageId = message.message_id || 0;
 
     if (!data) return;
 
