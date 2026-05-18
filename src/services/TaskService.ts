@@ -6,12 +6,22 @@ import { GoogleCalendarService } from './GoogleCalendarService';
 export const TaskService = {
     async fetchTasks(userId: string): Promise<Task[]> {
         try {
-            const { data, error } = await supabase
+            let { data, error } = await supabase
                 .from('tasks')
                 .select('*')
                 .eq('user_id', userId)
                 .is('deleted_at', null)
                 .order('created_at', { ascending: false });
+
+            if (error && (error.code === '42703' || error.message?.includes('deleted_at'))) {
+                const retry = await supabase
+                    .from('tasks')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false });
+                data = retry.data;
+                error = retry.error;
+            }
 
             if (error) throw error;
             if (!data) return [];
