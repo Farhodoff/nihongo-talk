@@ -1,4 +1,4 @@
-// @ts-ignore: Deno env uchun
+// @ts-expect-error: Deno env setup
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.7"
 
@@ -65,8 +65,9 @@ serve(async (req: Request) => {
       status: 200,
     })
 
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
+  } catch (error: unknown) {
+    const err = error as { message?: string };
+    return new Response(JSON.stringify({ error: err.message || String(error) }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 400,
     })
