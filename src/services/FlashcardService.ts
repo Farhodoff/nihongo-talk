@@ -3,11 +3,20 @@ import { Flashcard } from '../types';
 
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
-        const { data, error } = await supabase
+        let { data, error } = await supabase
             .from('flashcards')
             .select('*')
             .eq('user_id', userId)
             .is('deleted_at', null);
+
+        if (error && (error.code === '42703' || error.message?.includes('deleted_at'))) {
+            const retry = await supabase
+                .from('flashcards')
+                .select('*')
+                .eq('user_id', userId);
+            data = retry.data;
+            error = retry.error;
+        }
 
         if (error) throw error;
         if (!data) return [];
