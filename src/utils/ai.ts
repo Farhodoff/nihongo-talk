@@ -5,7 +5,7 @@ import { callOllama, isOllamaAvailable } from "./ollama";
 type AIProvider = 'ollama' | 'gemini';
 
 // Simple in-memory cache to prevent duplicate requests and save tokens
-const aiCache = new Map<string, any>();
+const aiCache = new Map<string, unknown>();
 
 const getAIProvider = async (): Promise<AIProvider> => {
     const ollamaUrl = import.meta.env.VITE_OLLAMA_URL;
@@ -37,9 +37,10 @@ export const requestWithRetry = async <T>(
 ): Promise<T> => {
     try {
         return await operation();
-    } catch (error: any) {
+    } catch (error: unknown) {
         // Handle rate limit (429) or quota issues
-        const isRateLimit = error?.message?.includes('429') || error?.status === 429 || error?.message?.includes('quota');
+        const err = error as { message?: string; status?: number };
+        const isRateLimit = err?.message?.includes('429') || err?.status === 429 || err?.message?.includes('quota');
         
         if (retries > 0 && isRateLimit) {
             console.warn(`AI Rate limit hit. Retrying in ${delay / 1000}s... (${retries} retries left)`);
@@ -64,7 +65,7 @@ export const generateFlashcardsWithAI = async (
     const cacheKey = `flashcards-${topic}-${count}`;
     if (aiCache.has(cacheKey)) {
         console.log(`[AI Cache] Returning cached flashcards for: ${topic}`);
-        return aiCache.get(cacheKey);
+        return aiCache.get(cacheKey) as { front: string; back: string }[];
     }
 
     // Batching logic: Gemini 1.5 Flash works best with smaller JSON outputs.
@@ -101,7 +102,7 @@ export const generateFlashcardsWithAI = async (
 
     try {
         const provider = await getAIProvider();
-        let json: any[];
+        let json: unknown[];
 
         if (provider === 'ollama') {
             const response = await callOllama(prompt);
@@ -135,10 +136,13 @@ export const generateFlashcardsWithAI = async (
 
         if (!Array.isArray(json)) throw new Error("Invalid response format");
 
-        const result = json.slice(0, count).map((item: any) => ({
-            front: String(item.front),
-            back: String(item.back)
-        }));
+        const result = json.slice(0, count).map((item: unknown) => {
+            const card = item as { front?: string; back?: string };
+            return {
+                front: String(card.front || ''),
+                back: String(card.back || '')
+            };
+        });
 
         // Cache the result
         aiCache.set(cacheKey, result);
@@ -168,7 +172,7 @@ export const generateFlashcardsFromNote = async (
 
     try {
         const provider = await getAIProvider();
-        let json: any[];
+        let json: unknown[];
 
         if (provider === 'ollama') {
             const response = await callOllama(prompt);
@@ -197,10 +201,13 @@ export const generateFlashcardsFromNote = async (
 
         if (!Array.isArray(json)) throw new Error("Invalid response format");
 
-        return json.slice(0, count).map((item: any) => ({
-            front: String(item.front),
-            back: String(item.back)
-        }));
+        return json.slice(0, count).map((item: unknown) => {
+            const card = item as { front?: string; back?: string };
+            return {
+                front: String(card.front || ''),
+                back: String(card.back || '')
+            };
+        });
 
     } catch (error: unknown) {
         console.error('AI Flashcards from Note Error:', error);
@@ -231,7 +238,7 @@ export const generateFullStudyPlan = async (
     userKey?: string
 ): Promise<FullStudyPlan> => {
     const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as FullStudyPlan;
 
     const prompt = `
         Act as an expert academic advisor. Create a comprehensive study program for: "${topic}".
@@ -296,12 +303,15 @@ export const generateFullStudyPlan = async (
 
         if (!json.schedule || !Array.isArray(json.schedule)) throw new Error("Invalid Schedule Format");
 
-        const resources = (json.resources || []).map((item: any) => ({
-            ...item,
-            link: item.link.startsWith('http') ? item.link :
-                item.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(item.link)}` :
-                    `https://www.google.com/search?q=${encodeURIComponent(item.link)}`
-        }));
+        const resources = (json.resources || []).map((item: unknown) => {
+            const resource = item as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string };
+            return {
+                ...resource,
+                link: resource.link.startsWith('http') ? resource.link :
+                    resource.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(resource.link)}` :
+                        `https://www.google.com/search?q=${encodeURIComponent(resource.link)}`
+            };
+        });
 
         const result = {
             schedule: json.schedule,
@@ -317,7 +327,7 @@ export const generateFullStudyPlan = async (
     }
 };
 
-export const generateStudyPlanWithAI = async (_topic: string, _days: number, _hours: number, _key?: string) => {
+export const generateStudyPlanWithAI = async (): Promise<unknown[]> => {
     return [];
 };
 
@@ -334,7 +344,7 @@ export const recommendResourcesWithAI = async (
     userKey?: string
 ): Promise<SmartResource[]> => {
     const cacheKey = `resources-${topic}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as SmartResource[];
 
     const prompt = `
         Topic: "${topic}"
@@ -364,12 +374,15 @@ export const recommendResourcesWithAI = async (
 
         if (!Array.isArray(json)) throw new Error("Invalid Format");
 
-        const result = json.map((item: any) => ({
-            ...item,
-            link: item.link.startsWith('http') ? item.link :
-                item.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(item.link)}` :
-                    `https://www.google.com/search?q=${encodeURIComponent(item.link)}`
-        }));
+        const result = json.map((item: unknown) => {
+            const resource = item as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string };
+            return {
+                ...resource,
+                link: resource.link.startsWith('http') ? resource.link :
+                    resource.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(resource.link)}` :
+                        `https://www.google.com/search?q=${encodeURIComponent(resource.link)}`
+            };
+        });
         
         aiCache.set(cacheKey, result);
         return result;
@@ -384,7 +397,7 @@ export const generateStudyInsight = async (
     userKey?: string
 ): Promise<{ subject: string; advice: string }[]> => {
     const cacheKey = `insight-${JSON.stringify(stats)}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey);
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as { subject: string; advice: string }[];
 
     const prompt = `
         Foydalanuvchi o'quv statistikasi: ${JSON.stringify(stats)}
