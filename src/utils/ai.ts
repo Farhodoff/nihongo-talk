@@ -111,7 +111,7 @@ export const generateFlashcardsWithAI = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-3-flash-preview",
+                model: "gemini-1.5-flash",
                 generationConfig: {
                     temperature: 0.7,
                     topP: 0.95,
@@ -181,7 +181,7 @@ export const generateFlashcardsFromNote = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-3-flash-preview",
+                model: "gemini-1.5-flash",
                 generationConfig: {
                     temperature: 0.7,
                     responseMimeType: "application/json",
@@ -291,7 +291,7 @@ export const generateFullStudyPlan = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-3-flash-preview",
+                model: "gemini-1.5-flash",
                 generationConfig: { responseMimeType: "application/json" }
             });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -362,7 +362,7 @@ export const recommendResourcesWithAI = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-3-flash-preview",
+                model: "gemini-1.5-flash",
                 generationConfig: { responseMimeType: "application/json" }
             });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -421,7 +421,7 @@ export const generateStudyInsight = async (
         } else {
             const genAI = getGenAI(userKey);
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-3-flash-preview",
+                model: "gemini-1.5-flash",
                 generationConfig: { responseMimeType: "application/json" }
             });
             const result = await requestWithRetry(() => model.generateContent(prompt));
