@@ -541,6 +541,7 @@ async function handleCallbackQuery(callbackQuery: TelegramCallbackQuery) {
     const callbackQueryId = callbackQuery.id;
     const data = callbackQuery.data;
     const message = callbackQuery.message;
+    if (!message) return;
     const messageId = message.message_id || 0;
 
     if (!data) return;
