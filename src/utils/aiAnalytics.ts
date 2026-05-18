@@ -1,4 +1,4 @@
-import { StudySession } from '../types';
+import { StudySession, Subject } from '../types';
 import { callOllama, isOllamaAvailable } from './ollama';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { requestWithRetry } from "./ai";
@@ -17,7 +17,7 @@ const getAIProvider = async (): Promise<AIProvider> => {
     throw new Error("AI provider not configured.");
 };
 
-export const generateStudyInsights = async (sessions: StudySession[], subjects: any[], apiKey: string) => {
+export const generateStudyInsights = async (sessions: StudySession[], subjects: Subject[], apiKey: string) => {
     // Time of Day Analysis
     const morningSessions = sessions.filter(s => {
         const hour = new Date(s.startTime).getHours();
