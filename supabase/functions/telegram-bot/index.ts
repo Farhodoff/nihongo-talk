@@ -6,21 +6,42 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 declare const Deno: { env: { get(key: string): string | undefined } };
 
 interface TelegramMessage {
-    chat: { id: number };
-    text?: string;
-    message_id?: number;
-    from: {
+    message_id: number;
+    from?: {
         id: number;
+        is_bot: boolean;
+        first_name: string;
+        last_name?: string;
+        username?: string;
+        language_code?: string;
+    };
+    chat: {
+        id: number;
+        type: string;
+        title?: string;
         username?: string;
         first_name?: string;
         last_name?: string;
     };
+    date: number;
+    text?: string;
+    entities?: any[];
 }
 
 interface TelegramCallbackQuery {
     id: string;
+    from: {
+        id: number;
+        is_bot: boolean;
+        first_name: string;
+        last_name?: string;
+        username?: string;
+    };
+    message?: TelegramMessage;
+    inline_message_id?: string;
+    chat_instance?: string;
     data?: string;
-    message: TelegramMessage;
+    game_short_name?: string;
 }
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
