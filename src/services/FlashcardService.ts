@@ -6,7 +6,8 @@ export const FlashcardService = {
         const { data, error } = await supabase
             .from('flashcards')
             .select('*')
-            .eq('user_id', userId);
+            .eq('user_id', userId)
+            .is('deleted_at', null);
 
         if (error) throw error;
         if (!data) return [];
@@ -66,8 +67,18 @@ export const FlashcardService = {
         if (error) throw error;
     },
 
-    async deleteFlashcard(id: string): Promise<void> {
-        const { error } = await supabase.from('flashcards').delete().eq('id', id);
+    async deleteFlashcard(id: string, permanent = false): Promise<void> {
+        if (permanent) {
+            const { error } = await supabase.from('flashcards').delete().eq('id', id);
+            if (error) throw error;
+        } else {
+            const { error } = await supabase.from('flashcards').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+            if (error) throw error;
+        }
+    },
+
+    async restoreFlashcard(id: string): Promise<void> {
+        const { error } = await supabase.from('flashcards').update({ deleted_at: null }).eq('id', id);
         if (error) throw error;
     },
 

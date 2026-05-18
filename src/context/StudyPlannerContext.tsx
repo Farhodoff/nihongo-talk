@@ -41,14 +41,16 @@ interface StudyPlannerContextType {
     // Task operatsiyalari
     addTask: (task: Partial<Task>) => Promise<void>;
     updateTask: (id: string, updates: Partial<Task>) => Promise<void>;
-    deleteTask: (id: string) => Promise<void>;
+    deleteTask: (id: string, permanent?: boolean) => Promise<void>;
+    restoreTask: (id: string) => Promise<void>;
     toggleTask: (id: string) => Promise<void>;
     updateTaskStatus: (id: string, status: string) => Promise<void>;
 
     // Flashcard operatsiyalari
     addFlashcard: (card: Partial<Flashcard>) => Promise<Flashcard | null>;
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
-    deleteFlashcard: (id: string) => Promise<void>;
+    deleteFlashcard: (id: string, permanent?: boolean) => Promise<void>;
+    restoreFlashcard: (id: string) => Promise<void>;
     reviewFlashcard: (id: string, rating: number) => Promise<void>;
     importFlashcards: (subjectId: string, cards: { front: string; back: string; example?: string }[]) => Promise<boolean>;
 
@@ -131,7 +133,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateTask,
         toggleTask,
         updateTaskStatus,
-        deleteTask
+        deleteTask,
+        restoreTask
     } = useTasks(awardXP);
 
     const {
@@ -140,6 +143,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         addFlashcard,
         updateFlashcard,
         deleteFlashcard,
+        restoreFlashcard,
         reviewFlashcard,
         importFlashcards
     } = useFlashcards(awardXP);
@@ -823,12 +827,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         <StudyPlannerContext.Provider value={{
             goals, tasks, subjects, sessions,
             addGoal, updateGoal, deleteGoal,
-            addTask, toggleTask, deleteTask, updateTask, updateTaskStatus,
+            addTask, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
             addSubject, updateSubject, deleteSubject,
             addSession, awardXP,
             notes, addNote, updateNote, deleteNote,
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
-            flashcards, addFlashcard, updateFlashcard, deleteFlashcard, reviewFlashcard, importFlashcards,
+            flashcards, addFlashcard, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
             whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
             events, addEvent, updateEvent, deleteEvent,
             googleEvents, syncGoogleEvents,

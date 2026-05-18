@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X, Sparkles } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X, Sparkles, Trash2 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -35,6 +35,7 @@ const Layout: React.FC = () => {
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
+        { name: 'Savatcha', path: '/trash', icon: Trash2 },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
     ];
 

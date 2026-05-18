@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { Task } from '../types';
+import { Task, TaskStatus } from '../types';
 import { TaskService } from '../services/TaskService';
 
 export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) => {
@@ -76,7 +76,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         const completed = status === 'done' || status === 'completed';
 
         // Optimistic update
-        setTasks(prev => prev.map(t => t.id === id ? { ...t, status: status as any, completed } : t));
+        setTasks(prev => prev.map(t => t.id === id ? { ...t, status: status as TaskStatus, completed } : t));
 
         try {
             await TaskService.updateTaskStatus(id, status, completed);
@@ -88,12 +88,25 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         }
     };
 
-    const deleteTask = async (id: string) => {
+    const deleteTask = async (id: string, permanent = false) => {
         setTasks(prev => prev.filter(t => t.id !== id));
         try {
-            await TaskService.deleteTask(id);
+            await TaskService.deleteTask(id, permanent);
         } catch (error) {
             console.error("Failed to delete task:", error);
+        }
+    };
+
+    const restoreTask = async (id: string) => {
+        try {
+            await TaskService.restoreTask(id);
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const updatedTasks = await TaskService.fetchTasks(user.id);
+                setTasks(updatedTasks);
+            }
+        } catch (error) {
+            console.error("Failed to restore task:", error);
         }
     };
 
@@ -108,6 +121,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         updateTask,
         toggleTask,
         updateTaskStatus,
-        deleteTask
+        deleteTask,
+        restoreTask
     };
 };
