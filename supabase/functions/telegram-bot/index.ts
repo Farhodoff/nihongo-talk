@@ -364,7 +364,7 @@ async function handleToday(message: TelegramMessage, editMessageId: number | nul
         if (editMessageId) {
             return editMessageText(chatId, editMessageId, failText);
         }
-        return sendMessage(failText => sendMessage(chatId, failText));
+        return sendMessage(chatId, failText);
     }
 }
 

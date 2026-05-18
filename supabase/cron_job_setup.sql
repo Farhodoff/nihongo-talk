@@ -12,10 +12,10 @@ EXCEPTION
         NULL; -- Agar job topilmasa, shunchaki o'tkazib yuboradi
 END $$;
 
--- 3. Yangi jadval tuzish (Har kuni ertalab 09:00 da)
+-- 3. Yangi jadval tuzish (Har kuni ertalab 09:00 va kechqurun 21:00 da)
 SELECT cron.schedule(
     'daily-notifications-job',
-    '0 9 * * *',
+    '0 9,21 * * *',
     $$
     select
         net.http_post(
