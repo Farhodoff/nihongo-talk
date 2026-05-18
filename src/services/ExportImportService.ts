@@ -22,8 +22,31 @@ class ExportImportService {
         return str;
     }
 
-    // Helper: RFC 4180 Compliant CSV Parser
+    // Helper: RFC 4180 Compliant CSV Parser with Auto-Delimiter and BOM strip
     private parseCsv(text: string): string[][] {
+        // Strip UTF-8 BOM if present
+        if (text.startsWith('\uFEFF')) {
+            text = text.substring(1);
+        }
+
+        // Auto-detect delimiter (comma or semicolon)
+        let delimiter = ',';
+        const firstLine = text.split(/\r?\n/)[0] || '';
+        let commaCount = 0;
+        let semicolonCount = 0;
+        let inQuotesTest = false;
+        for (let i = 0; i < firstLine.length; i++) {
+            const char = firstLine[i];
+            if (char === '"') inQuotesTest = !inQuotesTest;
+            if (!inQuotesTest) {
+                if (char === ',') commaCount++;
+                if (char === ';') semicolonCount++;
+            }
+        }
+        if (semicolonCount > commaCount) {
+            delimiter = ';';
+        }
+
         const lines: string[][] = [];
         let row: string[] = [];
         let current = '';
@@ -47,7 +70,7 @@ class ExportImportService {
             } else {
                 if (char === '"') {
                     inQuotes = true;
-                } else if (char === ',') {
+                } else if (char === delimiter) {
                     row.push(current);
                     current = '';
                 } else if (char === '\r' || char === '\n') {
@@ -138,7 +161,7 @@ class ExportImportService {
                             ...s,
                             user_id: userId,
                         }));
-                        await supabase.from('subjects').insert(subjectsToInsert);
+                        await supabase.from('subjects').upsert(subjectsToInsert);
                     }
 
                     // 2. Import Tasks
@@ -147,7 +170,7 @@ class ExportImportService {
                             ...t,
                             user_id: userId,
                         }));
-                        await supabase.from('tasks').insert(tasksToInsert);
+                        await supabase.from('tasks').upsert(tasksToInsert);
                     }
 
                     // 3. Import Flashcards
@@ -156,7 +179,7 @@ class ExportImportService {
                             ...f,
                             user_id: userId,
                         }));
-                        await supabase.from('flashcards').insert(flashcardsToInsert);
+                        await supabase.from('flashcards').upsert(flashcardsToInsert);
                     }
 
                     // 4. Import Goals
@@ -165,7 +188,7 @@ class ExportImportService {
                             ...g,
                             user_id: userId,
                         }));
-                        await supabase.from('goals').insert(goalsToInsert);
+                        await supabase.from('goals').upsert(goalsToInsert);
                     }
 
                     // 5. Import Notes
@@ -174,7 +197,7 @@ class ExportImportService {
                             ...n,
                             user_id: userId,
                         }));
-                        await supabase.from('notes').insert(notesToInsert);
+                        await supabase.from('notes').upsert(notesToInsert);
                     }
 
                     resolve(true);
@@ -262,7 +285,7 @@ class ExportImportService {
                         });
 
                     if (tasksToInsert.length > 0) {
-                        const { error } = await supabase.from('tasks').insert(tasksToInsert);
+                        const { error } = await supabase.from('tasks').upsert(tasksToInsert);
                         if (error) throw error;
                     }
 
@@ -346,7 +369,7 @@ class ExportImportService {
                                 front,
                                 back,
                                 example,
-                                next_review: nextReview,
+                                next_review_date: nextReview,
                                 interval,
                                 ease_factor: easeFactor,
                                 repetitions,
@@ -354,7 +377,7 @@ class ExportImportService {
                         });
 
                     if (cardsToInsert.length > 0) {
-                        const { error } = await supabase.from('flashcards').insert(cardsToInsert);
+                        const { error } = await supabase.from('flashcards').upsert(cardsToInsert);
                         if (error) throw error;
                     }
 
