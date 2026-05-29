@@ -164,7 +164,9 @@ const StudyRoomPage: React.FC = () => {
                 console.log(`Cleaning peer connection for ${peerId}`);
                 try {
                     pc.close();
-                } catch (e) {}
+                } catch (e) {
+                    // Ignore connection close errors
+                }
                 delete pcsRef.current[peerId];
             }
             setRemoteStreams(prev => {
@@ -292,7 +294,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_update' }, ({ payload }) => {
-                const data = payload as { senderId: string; snapshot: any };
+                const data = payload as { senderId: string; snapshot: Parameters<typeof loadSnapshot>[1] };
                 if (data.senderId !== clientIdRef.current && editorRef.current) {
                     isApplyingIncomingSnapshot.current = true;
                     try {
@@ -307,7 +309,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_response' }, ({ payload }) => {
-                const data = payload as { targetId: string; snapshot: any };
+                const data = payload as { targetId: string; snapshot: Parameters<typeof loadSnapshot>[1] };
                 if (data.targetId === clientIdRef.current && editorRef.current) {
                     isApplyingIncomingSnapshot.current = true;
                     try {
@@ -390,9 +392,10 @@ const StudyRoomPage: React.FC = () => {
             }
         });
 
+        const currentPcs = pcsRef.current;
         return () => {
             supabase.removeChannel(channel);
-            Object.keys(pcsRef.current).forEach(peerId => {
+            Object.keys(currentPcs).forEach(peerId => {
                 cleanupPeerConnection(peerId);
             });
         };
