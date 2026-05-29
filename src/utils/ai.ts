@@ -512,3 +512,109 @@ export const generateExamWithAI = async (
         throw e;
     }
 };
+
+export const expandNoteWithAI = async (
+    content: string,
+    subjectName: string,
+    userKey?: string
+): Promise<string> => {
+    const prompt = `
+      Fan: "${subjectName}"
+      Konspekt matni: "${content.substring(0, 4000)}"
+      
+      Vazifa: Ushbu konspekt matnini o'rganilayotgan fan doirasida kengaytiring va batafsilroq ma'lumotlar bilan boyiting. 
+      Qo'shimcha ilmiy faktlar, tushunchalar va aniq misollar qo'shing.
+      Format: Markdown formatidan foydalaning.
+      Til: O'zbek tili.
+      Cheklov: Faqat yangilangan, kengaytirilgan konspekt matnini qaytaring, boshqa hech qanday izoh, sarlavha yoki kirish so'zlarini yozmang.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let text: string;
+
+        if (provider === 'ollama') {
+            text = await callOllama(prompt);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            text = (await result.response).text();
+        }
+
+        return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
+    } catch (e) {
+        console.error("AI Expand Note Error", e);
+        throw e;
+    }
+};
+
+export const summarizeNoteWithAI = async (
+    content: string,
+    subjectName: string,
+    userKey?: string
+): Promise<string> => {
+    const prompt = `
+      Fan: "${subjectName}"
+      Konspekt matni: "${content.substring(0, 4000)}"
+      
+      Vazifa: Ushbu konspekt matnini qisqacha xulosalang (summary yarating). Muhim tushunchalar va asosiy fikrlarni saqlab qoling.
+      Format: Markdown formatidan foydalaning (qisqa bandlar/punktlar shaklida bo'lsin).
+      Til: O'zbek tili.
+      Cheklov: Faqat tayyor xulosani qaytaring, boshqa hech qanday qo'shimcha kirish yoki tushuntirish yozmang.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let text: string;
+
+        if (provider === 'ollama') {
+            text = await callOllama(prompt);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            text = (await result.response).text();
+        }
+
+        return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
+    } catch (e) {
+        console.error("AI Summarize Note Error", e);
+        throw e;
+    }
+};
+
+export const fixNoteSpellingWithAI = async (
+    content: string,
+    subjectName: string,
+    userKey?: string
+): Promise<string> => {
+    const prompt = `
+      Fan: "${subjectName}"
+      Konspekt matni: "${content.substring(0, 4000)}"
+      
+      Vazifa: Ushbu konspekt matnidagi barcha grammatik, imlo va tinish belgilari xatolarini tuzatib chiqing. Matn mazmuni va uslubini o'zgartirmang, faqat to'g'ri yozilishini ta'minlang.
+      Format: Markdown formatida bo'lsin.
+      Til: O'zbek tili.
+      Cheklov: Faqat tuzatilgan tayyor matnni qaytaring, boshqa hech qanday izoh yozmang.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let text: string;
+
+        if (provider === 'ollama') {
+            text = await callOllama(prompt);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            text = (await result.response).text();
+        }
+
+        return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
+    } catch (e) {
+        console.error("AI Fix Spelling Error", e);
+        throw e;
+    }
+};

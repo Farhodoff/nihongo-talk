@@ -12,6 +12,7 @@ import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
+import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -359,6 +360,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         fetchData();
     }, [fetchData]);
 
+    useEffect(() => {
+        const handleOnline = () => {
+            console.log('[Offline Sync] App is online, starting sync...');
+            syncOfflineQueue(supabase).then(() => {
+                fetchData();
+            });
+        };
+        window.addEventListener('online', handleOnline);
+        if (navigator.onLine) {
+            syncOfflineQueue(supabase).then(() => {
+                fetchData();
+            });
+        }
+        return () => window.removeEventListener('online', handleOnline);
+    }, [fetchData]);
+
     // Apply theme
     useEffect(() => {
         if (appSettings.theme === 'dark') {
@@ -406,18 +423,40 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
-        const { data } = await supabase.from('goals').insert({ ...goalData, user_id: user.id }).select().single();
-        if (data) setGoals([...goals, data]);
+        const goalId = goalData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const fullGoalData = { ...goalData, id: goalId, user_id: user.id };
+
+        if (!navigator.onLine) {
+            queueMutation('goals', 'insert', fullGoalData);
+            const optimisticGoal = { ...fullGoalData, progress: goalData.progress || 0, completed: goalData.completed || false } as Goal;
+            setGoals(prev => [...prev, optimisticGoal]);
+            return optimisticGoal;
+        }
+
+        const { data } = await supabase.from('goals').insert(fullGoalData).select().single();
+        if (data) setGoals(prev => [...prev, data]);
         return data;
     };
 
     const updateGoal = async (id: string, updates: Partial<Goal>) => {
+        setGoals(prev => prev.map(g => g.id === id ? { ...g, ...updates } : g));
+
+        if (!navigator.onLine) {
+            queueMutation('goals', 'update', updates, id);
+            return;
+        }
+
         await supabase.from('goals').update(updates).eq('id', id);
-        setGoals(goals.map(g => g.id === id ? { ...g, ...updates } : g));
     };
 
     const deleteGoal = async (id: string) => {
-        setGoals(goals.filter(g => g.id !== id));
+        setGoals(prev => prev.filter(g => g.id !== id));
+
+        if (!navigator.onLine) {
+            queueMutation('goals', 'delete', null, id);
+            return;
+        }
+
         await supabase.from('goals').delete().eq('id', id);
     };
 
@@ -432,7 +471,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
-        const tempId = `temp-${Date.now()}`;
+        const tempId = subjectData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
         const optimisticSubject: Subject = {
             id: tempId,
             name: subjectData.name || '',
@@ -445,9 +484,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         };
 
         // Optimistic update
-        setSubjects([...subjects, optimisticSubject]);
+        setSubjects(prev => [...prev, optimisticSubject]);
 
         const dbSubject = {
+            id: tempId,
             user_id: user.id,
             name: subjectData.name,
             color: subjectData.color,
@@ -457,6 +497,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             schedule: subjectData.schedule || [],
             icon: subjectData.icon
         };
+
+        if (!navigator.onLine) {
+            queueMutation('subjects', 'insert', dbSubject);
+            return optimisticSubject;
+        }
 
         try {
             const { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
@@ -473,21 +518,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     description: data.description,
                     icon: data.icon
                 };
-                // Replace temp with real
                 setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
                 return newSubject;
             }
         } catch (error) {
             console.error("Failed to add subject:", error);
-            // Revert on failure
             setSubjects(prev => prev.filter(s => s.id !== tempId));
         }
         return null;
     };
 
     const deleteSubject = async (id: string) => {
+        setSubjects(prev => prev.filter(s => s.id !== id));
+
+        if (!navigator.onLine) {
+            queueMutation('subjects', 'delete', null, id);
+            return;
+        }
+
         await supabase.from('subjects').delete().eq('id', id);
-        setSubjects(subjects.filter(s => s.id !== id));
     };
 
     const updateSubject = async (id: string, updates: Partial<Subject>) => {
@@ -500,11 +549,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (updates.icon) dbUpdates.icon = updates.icon;
         if (updates.schedule) dbUpdates.schedule = updates.schedule;
 
-        const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
+        setSubjects(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
 
-        if (!error) {
-            setSubjects(subjects.map(s => s.id === id ? { ...s, ...updates } : s));
-        } else {
+        if (!navigator.onLine) {
+            queueMutation('subjects', 'update', dbUpdates, id);
+            return;
+        }
+
+        const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
+        if (error) {
             console.error("Error updating subject:", error);
         }
     };
@@ -514,7 +567,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
+        const noteId = noteData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
         const dbNote = {
+            id: noteId,
             user_id: user.id,
             subject_id: noteData.subjectId,
             title: noteData.title,
@@ -522,9 +577,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             attachments: noteData.attachments
         };
 
+        const newNote: Note = {
+            id: noteId,
+            subjectId: noteData.subjectId || '',
+            title: noteData.title || '',
+            content: noteData.content || '',
+            attachments: noteData.attachments || [],
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        setNotes(prev => [...prev, newNote]);
+
+        if (!navigator.onLine) {
+            queueMutation('notes', 'insert', dbNote);
+            return newNote;
+        }
+
         const { data } = await supabase.from('notes').insert(dbNote).select().single();
         if (data) {
-            const newNote: Note = {
+            const returnedNote: Note = {
                 id: data.id,
                 subjectId: data.subject_id,
                 title: data.title,
@@ -533,8 +605,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 createdAt: data.created_at,
                 updatedAt: data.updated_at
             };
-            setNotes([...notes, newNote]);
-            return newNote;
+            setNotes(prev => prev.map(n => n.id === noteId ? returnedNote : n));
+            return returnedNote;
         }
         return null;
     };
@@ -545,28 +617,62 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             dbUpdates.subject_id = updates.subjectId;
             delete dbUpdates.subjectId;
         }
+
+        setNotes(prev => prev.map(n => n.id === id ? { ...n, ...updates } : n));
+
+        if (!navigator.onLine) {
+            queueMutation('notes', 'update', dbUpdates, id);
+            return;
+        }
+
         await supabase.from('notes').update(dbUpdates).eq('id', id);
-        setNotes(notes.map(n => n.id === id ? { ...n, ...updates } : n));
     };
 
     const deleteNote = async (id: string) => {
+        setNotes(prev => prev.filter(n => n.id !== id));
+
+        if (!navigator.onLine) {
+            queueMutation('notes', 'delete', null, id);
+            return;
+        }
+
         await supabase.from('notes').delete().eq('id', id);
-        setNotes(notes.filter(n => n.id !== id));
     };
 
     // ===== STUDY NOTES (KONSPEKTLAR) OPERATSIYALARI =====
     const addStudyNote = async (noteData: Partial<StudyNote>) => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
+
+        const noteId = noteData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
         const dbNote = {
+            id: noteId,
             user_id: user.id,
             subject_id: noteData.subjectId,
             title: noteData.title,
             content: noteData.content,
         };
+
+        const newNote: StudyNote = {
+            id: noteId,
+            subjectId: noteData.subjectId || '',
+            userId: user.id,
+            title: noteData.title || '',
+            content: noteData.content || '',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        setStudyNotes(prev => [...prev, newNote]);
+
+        if (!navigator.onLine) {
+            queueMutation('study_notes', 'insert', dbNote);
+            return;
+        }
+
         const { data } = await supabase.from('study_notes').insert(dbNote).select().single();
         if (data) {
-            const newNote: StudyNote = {
+            const returnedNote: StudyNote = {
                 id: data.id,
                 subjectId: data.subject_id,
                 userId: data.user_id,
@@ -575,7 +681,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 createdAt: data.created_at,
                 updatedAt: data.updated_at
             };
-            setStudyNotes([...studyNotes, newNote]);
+            setStudyNotes(prev => prev.map(n => n.id === noteId ? returnedNote : n));
         }
     };
 
@@ -585,16 +691,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
         if (updates.title) dbUpdates.title = updates.title;
         if (updates.content) dbUpdates.content = updates.content;
-
-        // Add updated_at
         dbUpdates.updated_at = new Date().toISOString();
 
+        setStudyNotes(prev => prev.map(n => n.id === id ? { ...n, ...updates } : n));
+
+        if (!navigator.onLine) {
+            queueMutation('study_notes', 'update', dbUpdates, id);
+            return;
+        }
+
         await supabase.from('study_notes').update(dbUpdates).eq('id', id);
-        setStudyNotes(studyNotes.map(n => n.id === id ? { ...n, ...updates } : n));
     };
 
     const deleteStudyNote = async (id: string) => {
-        setStudyNotes(studyNotes.filter(n => n.id !== id));
+        setStudyNotes(prev => prev.filter(n => n.id !== id));
+
+        if (!navigator.onLine) {
+            queueMutation('study_notes', 'delete', null, id);
+            return;
+        }
+
         await supabase.from('study_notes').delete().eq('id', id);
     };
 
@@ -607,26 +723,44 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return;
         }
 
-        // Supabase snake_case kutadi
-        const supabaseData: Omit<DatabaseSession, 'id'> = {
+        const sessionId = sessionData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const supabaseData: DatabaseSession = {
+            id: sessionId,
             user_id: user.id,
             duration: sessionData.duration || 0,
             type: sessionData.type || 'focus',
             completed: !!sessionData.completed,
-            mood_before: sessionData.moodBefore,
-            mood_after: sessionData.moodAfter,
-            subject_id: sessionData.subjectId,
+            mood_before: sessionData.moodBefore === null ? undefined : sessionData.moodBefore,
+            mood_after: sessionData.moodAfter === null ? undefined : sessionData.moodAfter,
+            subject_id: sessionData.subjectId || undefined,
             start_time: sessionData.startTime || new Date().toISOString()
         };
+
+        const mappedSession: StudySession = {
+            id: sessionId,
+            subjectId: sessionData.subjectId,
+            startTime: supabaseData.start_time,
+            duration: supabaseData.duration,
+            type: supabaseData.type as 'focus' | 'break',
+            completed: supabaseData.completed,
+            moodBefore: supabaseData.mood_before,
+            moodAfter: supabaseData.mood_after
+        };
+
+        setSessions(prev => [...prev, mappedSession]);
+
+        if (!navigator.onLine) {
+            queueMutation('study_sessions', 'insert', supabaseData);
+            return;
+        }
 
         const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
         if (error) {
             console.error('[DEBUG] Supabase xato:', error);
             return;
         }
-        console.log('[DEBUG] Supabase dan keldi:', data);
         if (data) {
-            const mappedSession: StudySession = {
+            const returnedSession: StudySession = {
                 id: data.id,
                 subjectId: data.subject_id,
                 startTime: data.start_time,
@@ -636,9 +770,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 moodBefore: data.mood_before,
                 moodAfter: data.mood_after
             };
-            console.log('[DEBUG] Xaritalangan session:', mappedSession);
-            setSessions([...sessions, mappedSession]);
-            console.log('[DEBUG] Sessiya state ga qo\'shildi');
+            setSessions(prev => prev.map(s => s.id === sessionId ? returnedSession : s));
         }
     };
 

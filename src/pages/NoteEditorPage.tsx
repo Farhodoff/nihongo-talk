@@ -6,7 +6,7 @@ import FontSelector from '../components/FontSelector';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
-import { generateFlashcardsFromNote } from '../utils/ai';
+import { generateFlashcardsFromNote, expandNoteWithAI, summarizeNoteWithAI, fixNoteSpellingWithAI } from '../utils/ai';
 
 const NoteEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -21,6 +21,8 @@ const NoteEditorPage: React.FC = () => {
     const [subjectId, setSubjectId] = useState('');
     const [mode, setMode] = useState<'write' | 'preview'>('write');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isAiLoading, setIsAiLoading] = useState(false);
+    const [isAiMenuOpen, setIsAiMenuOpen] = useState(false);
 
     useEffect(() => {
         if (!isNew) {
@@ -83,6 +85,35 @@ const NoteEditorPage: React.FC = () => {
         }
     };
 
+    const handleAIAction = async (action: 'expand' | 'summarize' | 'fix') => {
+        if (!content.trim()) return alert('AI ishlov berishi uchun konspekt matni yozilgan bo\'lishi kerak!');
+        if (!subjectId) return alert('Iltimos, avval fanni tanlang!');
+
+        const selectedSubject = subjects.find(s => s.id === subjectId);
+        const subjectName = selectedSubject ? selectedSubject.name : '';
+
+        setIsAiLoading(true);
+        try {
+            let result = '';
+            if (action === 'expand') {
+                result = await expandNoteWithAI(content, subjectName, settings.googleApiKey);
+            } else if (action === 'summarize') {
+                result = await summarizeNoteWithAI(content, subjectName, settings.googleApiKey);
+            } else if (action === 'fix') {
+                result = await fixNoteSpellingWithAI(content, subjectName, settings.googleApiKey);
+            }
+
+            if (result) {
+                setContent(result);
+            }
+        } catch (error) {
+            console.error(`AI ${action} failed:`, error);
+            alert('AI amalni bajarishda xatolik yuz berdi. Sozlamalarda API kalitini tekshiring.');
+        } finally {
+            setIsAiLoading(false);
+        }
+    };
+
     return (
         <div className="flex flex-col h-screen bg-gray-50 dark:bg-dark-bg">
             {/* Header Toolbar */}
@@ -121,15 +152,65 @@ const NoteEditorPage: React.FC = () => {
 
                 {/* Right: AI + Font Selector + Save Button */}
                 <div className="flex items-center gap-2">
-                    <Button
-                        onClick={handleGenerateFlashcards}
-                        disabled={isGenerating || !content.trim()}
-                        variant="secondary"
-                        className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800"
-                    >
-                        <Sparkles size={18} className={isGenerating ? 'animate-pulse' : ''} />
-                        {isGenerating ? 'Yaratilmoqda...' : 'Fleshkartalar (AI)'}
-                    </Button>
+                    {/* AI Tools Dropdown */}
+                    <div className="relative">
+                        <Button
+                            onClick={() => setIsAiMenuOpen(!isAiMenuOpen)}
+                            disabled={isGenerating || isAiLoading}
+                            variant="secondary"
+                            className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800"
+                        >
+                            <Sparkles size={18} className={isGenerating || isAiLoading ? 'animate-pulse' : ''} />
+                            {isAiLoading ? 'Ishlov berilmoqda...' : 'AI Yordamchi'}
+                        </Button>
+                        {isAiMenuOpen && (
+                            <>
+                                <div className="fixed inset-0 z-40" onClick={() => setIsAiMenuOpen(false)} />
+                                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-805 rounded-2xl shadow-xl border border-gray-150 dark:border-gray-700 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <button
+                                        onClick={() => {
+                                            setIsAiMenuOpen(false);
+                                            handleGenerateFlashcards();
+                                        }}
+                                        disabled={!content.trim()}
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                    >
+                                        ✨ Fleshkartalar Yaratish
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsAiMenuOpen(false);
+                                            handleAIAction('expand');
+                                        }}
+                                        disabled={!content.trim()}
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                    >
+                                        🚀 Matnni Kengaytirish
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsAiMenuOpen(false);
+                                            handleAIAction('summarize');
+                                        }}
+                                        disabled={!content.trim()}
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                    >
+                                        📝 Qisqacha Xulosa (Summary)
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsAiMenuOpen(false);
+                                            handleAIAction('fix');
+                                        }}
+                                        disabled={!content.trim()}
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                    >
+                                        ✍️ Imloni Tuzatish
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
                     <FontSelector />
                     <Button
                         onClick={handleSave}
