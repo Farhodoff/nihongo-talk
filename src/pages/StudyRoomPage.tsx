@@ -1,4 +1,4 @@
-import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video } from 'lucide-react';
+import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video, Monitor, MonitorOff } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
@@ -30,9 +30,12 @@ const StudyRoomPage: React.FC = () => {
     const [peersInfo, setPeersInfo] = useState<Record<string, string>>({});
     const [audioEnabled, setAudioEnabled] = useState(true);
     const [videoEnabled, setVideoEnabled] = useState(true);
+    const [joinedCall, setJoinedCall] = useState(false);
+    const [isScreenSharing, setIsScreenSharing] = useState(false);
  
     const pcsRef = useRef<Record<string, RTCPeerConnection>>({});
     const localStreamRef = useRef<MediaStream | null>(null);
+    const screenStreamRef = useRef<MediaStream | null>(null);
     const userProfileRef = useRef<UserProfile | null>(null);
  
     // Sync userProfileRef to use inside event listeners/callbacks
@@ -96,6 +99,9 @@ const StudyRoomPage: React.FC = () => {
         return () => {
             if (localStreamRef.current) {
                 localStreamRef.current.getTracks().forEach(t => t.stop());
+            }
+            if (screenStreamRef.current) {
+                screenStreamRef.current.getTracks().forEach(t => t.stop());
             }
         };
     }, [userProfile]);
@@ -222,6 +228,14 @@ const StudyRoomPage: React.FC = () => {
                 });
                 setPeersInfo(newPeersInfo);
 
+                // If not joined the video call, do not establish WebRTC connections
+                if (!joinedCall) {
+                    Object.keys(pcsRef.current).forEach(peerId => {
+                        cleanupPeerConnection(peerId);
+                    });
+                    return;
+                }
+ 
                 Object.keys(pcsRef.current).forEach(peerId => {
                     if (!peerIds.includes(peerId)) {
                         cleanupPeerConnection(peerId);
@@ -324,6 +338,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_offer' }, async ({ payload }) => {
+                if (!joinedCall) return;
                 const data = payload as { senderId: string; targetId: string; offer: RTCSessionDescriptionInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     console.log(`Received WebRTC offer from ${data.senderId}`);
@@ -348,6 +363,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_answer' }, async ({ payload }) => {
+                if (!joinedCall) return;
                 const data = payload as { senderId: string; targetId: string; answer: RTCSessionDescriptionInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     console.log(`Received WebRTC answer from ${data.senderId}`);
@@ -362,6 +378,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_ice_candidate' }, async ({ payload }) => {
+                if (!joinedCall) return;
                 const data = payload as { senderId: string; targetId: string; candidate: RTCIceCandidateInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     const pc = pcsRef.current[data.senderId];
@@ -399,7 +416,7 @@ const StudyRoomPage: React.FC = () => {
                 cleanupPeerConnection(peerId);
             });
         };
-    }, [userProfile, roomId, timeLeft, isRunning, pomodoroMode]);
+    }, [userProfile, roomId, timeLeft, isRunning, pomodoroMode, joinedCall]);
 
     // Local Pomodoro Ticking
     useEffect(() => {
@@ -438,12 +455,78 @@ const StudyRoomPage: React.FC = () => {
     };
 
     const toggleVideo = () => {
-        if (localStream) {
+        if (isScreenSharing && screenStreamRef.current) {
+            const screenTrack = screenStreamRef.current.getVideoTracks()[0];
+            if (screenTrack) {
+                screenTrack.enabled = !screenTrack.enabled;
+                setVideoEnabled(screenTrack.enabled);
+            }
+        } else if (localStream) {
             const videoTrack = localStream.getVideoTracks()[0];
             if (videoTrack) {
                 videoTrack.enabled = !videoTrack.enabled;
                 setVideoEnabled(videoTrack.enabled);
             }
+        }
+    };
+ 
+    // Screen Sharing Controllers
+    const startScreenShare = async () => {
+        try {
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            screenStreamRef.current = screenStream;
+            setIsScreenSharing(true);
+ 
+            const screenTrack = screenStream.getVideoTracks()[0];
+ 
+            // Replace track in all peer connections
+            Object.values(pcsRef.current).forEach(pc => {
+                const senders = pc.getSenders();
+                const videoSender = senders.find(sender => sender.track?.kind === 'video');
+                if (videoSender) {
+                    videoSender.replaceTrack(screenTrack);
+                }
+            });
+ 
+            // Create a new stream combining camera audio and screen video for local preview
+            const localAudioTrack = localStreamRef.current?.getAudioTracks()[0];
+            const combinedStream = new MediaStream();
+            if (localAudioTrack) {
+                combinedStream.addTrack(localAudioTrack);
+            }
+            combinedStream.addTrack(screenTrack);
+            setLocalStream(combinedStream);
+ 
+            screenTrack.onended = () => {
+                stopScreenShare();
+            };
+        } catch (e) {
+            console.error('Failed to share screen:', e);
+        }
+    };
+ 
+    const stopScreenShare = () => {
+        if (screenStreamRef.current) {
+            screenStreamRef.current.getTracks().forEach(track => track.stop());
+            screenStreamRef.current = null;
+        }
+        setIsScreenSharing(false);
+ 
+        // Restore camera video track
+        const cameraVideoTrack = localStreamRef.current?.getVideoTracks()[0];
+        
+        // Replace track in all peer connections back to camera
+        Object.values(pcsRef.current).forEach(pc => {
+            const senders = pc.getSenders();
+            const videoSender = senders.find(sender => sender.track?.kind === 'video');
+            if (videoSender && cameraVideoTrack) {
+                videoSender.replaceTrack(cameraVideoTrack);
+            }
+        });
+ 
+        // Restore local stream preview to original camera stream
+        if (localStreamRef.current) {
+            setLocalStream(localStreamRef.current);
         }
     };
 
@@ -591,52 +674,95 @@ const StudyRoomPage: React.FC = () => {
             <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-[500px]">
                 {/* Left Side: Custom WebRTC Video Grid */}
                 <div className={`flex-1 bg-[#0f172a] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl relative flex flex-col p-4 space-y-4 ${mobileView === 'video' ? 'block' : 'hidden md:block'}`}>
-                    {/* Videos Grid */}
-                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr min-h-0 overflow-y-auto p-1">
-                        {/* Local Video */}
-                        <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
-                            {videoEnabled && localStream ? (
-                                <video
-                                    ref={(ref) => { if (ref) ref.srcObject = localStream; }}
-                                    autoPlay
-                                    playsInline
-                                    muted
-                                    className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
-                                />
-                            ) : (
-                                <div className="flex flex-col items-center justify-center text-slate-500">
-                                    <div className="p-4 bg-slate-800 rounded-full mb-2">
-                                        <VideoOff size={32} />
-                                    </div>
-                                    <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
-                                </div>
-                            )}
-                            <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
-                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                                Men ({userProfile.name})
-                            </div>
-                        </div>
-
-                        {/* Remote Videos */}
-                        {Object.entries(remoteStreams).map(([peerId, stream]) => {
-                            const peerName = peersInfo[peerId] || 'Talaba';
-                            return (
-                                <div key={peerId} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                    
+                    {!joinedCall ? (
+                        /* Pre-join / Preview Screen */
+                        <div className="flex-1 flex flex-col items-center justify-center relative p-4">
+                            {/* Preview Video Box */}
+                            <div className="w-full max-w-md aspect-video bg-slate-900 rounded-2xl overflow-hidden border border-slate-850 relative flex items-center justify-center shadow-2xl">
+                                {videoEnabled && localStream ? (
                                     <video
-                                        ref={(ref) => { if (ref) ref.srcObject = stream; }}
+                                        ref={(ref) => { if (ref) ref.srcObject = localStream; }}
                                         autoPlay
                                         playsInline
-                                        className="w-full h-full object-cover rounded-2xl"
+                                        muted
+                                        className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
                                     />
-                                    <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
-                                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                                        {peerName}
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center text-slate-500">
+                                        <div className="p-4 bg-slate-850 rounded-full mb-2">
+                                            <VideoOff size={32} />
+                                        </div>
+                                        <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
                                     </div>
+                                )}
+                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                    <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse" />
+                                    Kamera ko'rinishi (Preview)
                                 </div>
-                            );
-                        })}
-                    </div>
-
+                            </div>
+ 
+                            {/* Join Action Details */}
+                            <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6 mt-6 text-center space-y-4 shadow-xl">
+                                <h3 className="text-lg font-bold text-white tracking-tight">Dars Xonasi Tayyor</h3>
+                                <p className="text-sm text-slate-400">Guruhdoshlaringiz bilan real-vaqt rejimida video muloqot va hamkorlikni boshlash uchun qo'shiling.</p>
+                                
+                                <button
+                                    onClick={() => setJoinedCall(true)}
+                                    className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 active:scale-[0.98] transition-all"
+                                >
+                                    <Video size={18} /> Darsni boshlash
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        /* Videos Grid (Active Call) */
+                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr min-h-0 overflow-y-auto p-1">
+                            {/* Local Video */}
+                            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                                {videoEnabled && localStream ? (
+                                    <video
+                                        ref={(ref) => { if (ref) ref.srcObject = localStream; }}
+                                        autoPlay
+                                        playsInline
+                                        muted
+                                        className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
+                                    />
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center text-slate-500">
+                                        <div className="p-4 bg-slate-800 rounded-full mb-2">
+                                            <VideoOff size={32} />
+                                        </div>
+                                        <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
+                                    </div>
+                                )}
+                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                    <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                    Men ({userProfile.name}) {isScreenSharing && "(Ekran ulashilmoqda)"}
+                                </div>
+                            </div>
+ 
+                            {/* Remote Videos */}
+                            {Object.entries(remoteStreams).map(([peerId, stream]) => {
+                                const peerName = peersInfo[peerId] || 'Talaba';
+                                return (
+                                    <div key={peerId} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                                        <video
+                                            ref={(ref) => { if (ref) ref.srcObject = stream; }}
+                                            autoPlay
+                                            playsInline
+                                            className="w-full h-full object-cover rounded-2xl"
+                                        />
+                                        <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                                            {peerName}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+ 
                     {/* Media Controls Toolbar */}
                     <div className="flex justify-center items-center gap-4 py-2 border-t border-slate-800/60">
                         <button
@@ -661,6 +787,33 @@ const StudyRoomPage: React.FC = () => {
                         >
                             {videoEnabled ? <Video size={20} /> : <VideoOff size={20} />}
                         </button>
+ 
+                        {joinedCall && (
+                            <>
+                                <button
+                                    onClick={isScreenSharing ? stopScreenShare : startScreenShare}
+                                    className={`p-3.5 rounded-xl border transition-all active:scale-95 flex items-center justify-center ${
+                                        isScreenSharing 
+                                            ? 'bg-green-500/10 hover:bg-green-500/20 border-green-500/30 text-green-400' 
+                                            : 'bg-slate-850 hover:bg-slate-800 border-slate-750 text-slate-200'
+                                    }`}
+                                    title={isScreenSharing ? 'Ekranni ulashishni to\'xtatish' : 'Ekranni ulashish'}
+                                >
+                                    {isScreenSharing ? <MonitorOff size={20} /> : <Monitor size={20} />}
+                                </button>
+ 
+                                <Button
+                                    variant="secondary"
+                                    onClick={() => {
+                                        stopScreenShare();
+                                        setJoinedCall(false);
+                                    }}
+                                    className="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border-none rounded-xl py-3 px-4 font-bold text-xs"
+                                >
+                                    Tark etish
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </div>
 
