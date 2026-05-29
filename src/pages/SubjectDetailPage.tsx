@@ -47,6 +47,12 @@ const SubjectDetailPage: React.FC = () => {
                     <ArrowLeft size={20} className="mr-2" /> Orqaga
                 </button>
                 <div className="flex gap-2">
+                    <Button 
+                        onClick={() => navigate(`/ai-exam/${subject.id}`)} 
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2"
+                    >
+                        <Sparkles size={16} /> AI Imtihon
+                    </Button>
                     <Button variant="secondary" onClick={handleDelete} className="text-red-500 hover:bg-red-50">O'chirish</Button>
                 </div>
             </div>

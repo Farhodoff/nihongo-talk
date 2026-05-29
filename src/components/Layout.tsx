@@ -33,6 +33,7 @@ const Layout: React.FC = () => {
         { name: 'Stikerlar', path: '/notes', icon: FileText },
         { name: 'Konspektlar', path: '/study-notes', icon: BookOpen },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
+        { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
         { name: 'Savatcha', path: '/trash', icon: Trash2 },

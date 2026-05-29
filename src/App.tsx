@@ -9,6 +9,7 @@ import { supabase } from './lib/supabase';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const AIExamPage = lazy(() => import('./pages/AIExamPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
@@ -94,6 +95,8 @@ const App: React.FC = () => {
                                     <Route path="notes" element={<NotesPage />} />
                                     <Route path="notes/:id" element={<NoteEditorPage />} />
                                     <Route path="study-notes" element={<StudyNotesPage />} />
+                                    <Route path="ai-exam" element={<AIExamPage />} />
+                                    <Route path="ai-exam/:id" element={<AIExamPage />} />
                                     <Route path="flashcards" element={<DecksPage />} />
                                     <Route path="flashcards/new" element={<FlashcardForm />} />
                                     <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />

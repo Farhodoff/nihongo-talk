@@ -439,3 +439,76 @@ export const generateStudyInsight = async (
         return [];
     }
 };
+
+export interface ExamQuestion {
+    id: number;
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    explanation: string;
+}
+
+export const generateExamWithAI = async (
+    subjectName: string,
+    notesContent: string,
+    questionCount: number = 5,
+    userKey?: string
+): Promise<ExamQuestion[]> => {
+    const prompt = `
+      Fan nomi: "${subjectName}"
+      Fanga oid Konspektlar va Flashcardlar: "${notesContent.substring(0, 4000)}"
+      
+      Vazifa: Yuqoridagi ma'lumotlar va fan nomi asosida aynan ${questionCount} ta multiple choice (savol va 4 ta variantli) test savollarini yarating. 
+      Savollar fanga va konspektlarga mos bo'lsin. Agar konspekt bo'sh bo'lsa, fanga oid umumiy bilimlar bo'yicha savol bering.
+      Til: O'zbek tili.
+      
+      Javob Formati: Faqat quyidagi strukturali VALID JSON array bo'lsin, boshqa hech qanday matn (preamble, markdown belgilari va h.k.) qo'shmang:
+      [
+        {
+          "id": 1,
+          "question": "Savol matni",
+          "options": ["Variant A", "Variant B", "Variant C", "Variant D"],
+          "correctAnswer": 0,
+          "explanation": "Bu javobning to'g'riligi sababi va boshqa variantlar noto'g'riligi izohi (O'zbek tilida)"
+        }
+      ]
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let text: string;
+
+        if (provider === 'ollama') {
+            text = await callOllama(prompt);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-1.5-flash",
+                generationConfig: { 
+                    temperature: 0.7,
+                    responseMimeType: "application/json" 
+                }
+            });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            text = (await result.response).text();
+        }
+
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
+
+        if (!Array.isArray(json)) throw new Error("Format xato");
+        return json.map((item: unknown) => {
+            const temp = item as { id?: number; question?: string; options?: string[]; correctAnswer?: number; explanation?: string };
+            return {
+                id: Number(temp.id || 0),
+                question: String(temp.question || ''),
+                options: Array.isArray(temp.options) ? temp.options.map(String) : [],
+                correctAnswer: Number(temp.correctAnswer ?? 0),
+                explanation: String(temp.explanation || '')
+            };
+        });
+    } catch (e) {
+        console.error("AI Exam Generation Error", e);
+        throw e;
+    }
+};
