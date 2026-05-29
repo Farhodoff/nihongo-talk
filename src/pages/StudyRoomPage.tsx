@@ -1,5 +1,4 @@
-import { JitsiMeeting } from '@jitsi/react-sdk';
-import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2 } from 'lucide-react';
+import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
@@ -24,6 +23,22 @@ const StudyRoomPage: React.FC = () => {
     // UI State
     const [activeTab, setActiveTab] = useState<'pomodoro' | 'whiteboard'>('pomodoro');
     const [mobileView, setMobileView] = useState<'video' | 'collab'>('video');
+
+    // WebRTC & Media States
+    const [localStream, setLocalStream] = useState<MediaStream | null>(null);
+    const [remoteStreams, setRemoteStreams] = useState<Record<string, MediaStream>>({});
+    const [peersInfo, setPeersInfo] = useState<Record<string, string>>({});
+    const [audioEnabled, setAudioEnabled] = useState(true);
+    const [videoEnabled, setVideoEnabled] = useState(true);
+ 
+    const pcsRef = useRef<Record<string, RTCPeerConnection>>({});
+    const localStreamRef = useRef<MediaStream | null>(null);
+    const userProfileRef = useRef<UserProfile | null>(null);
+ 
+    // Sync userProfileRef to use inside event listeners/callbacks
+    useEffect(() => {
+        userProfileRef.current = userProfile;
+    }, [userProfile]);
 
     // Realtime channel
     const channelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
@@ -61,9 +76,123 @@ const StudyRoomPage: React.FC = () => {
         fetchUser();
     }, []);
 
+    // Fetch local camera & microphone stream
+    useEffect(() => {
+        const getMedia = async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: 640, height: 480, frameRate: { ideal: 15 } },
+                    audio: true
+                });
+                setLocalStream(stream);
+                localStreamRef.current = stream;
+            } catch (e) {
+                console.error('Failed to get media devices:', e);
+            }
+        };
+        if (userProfile) {
+            getMedia();
+        }
+        return () => {
+            if (localStreamRef.current) {
+                localStreamRef.current.getTracks().forEach(t => t.stop());
+            }
+        };
+    }, [userProfile]);
+
     // Set up Realtime Sync
     useEffect(() => {
         if (!userProfile || !roomId) return;
+
+        const createPeerConnection = (peerId: string) => {
+            if (pcsRef.current[peerId]) return pcsRef.current[peerId];
+
+            console.log(`Creating RTCPeerConnection for peer ${peerId}`);
+            const pc = new RTCPeerConnection({
+                iceServers: [
+                    { urls: 'stun:stun.l.google.com:19302' },
+                    { urls: 'stun:stun1.l.google.com:19302' }
+                ]
+            });
+
+            // Add local tracks
+            if (localStreamRef.current) {
+                localStreamRef.current.getTracks().forEach(track => {
+                    pc.addTrack(track, localStreamRef.current!);
+                });
+            }
+
+            // ICE candidate handler
+            pc.onicecandidate = (event) => {
+                if (event.candidate && channelRef.current) {
+                    channelRef.current.send({
+                        type: 'broadcast',
+                        event: 'webrtc_ice_candidate',
+                        payload: {
+                            senderId: userProfile.id,
+                            targetId: peerId,
+                            candidate: event.candidate
+                        }
+                    });
+                }
+            };
+
+            // Remote stream track handler
+            pc.ontrack = (event) => {
+                console.log(`Received track from ${peerId}:`, event.streams[0]);
+                setRemoteStreams(prev => ({
+                    ...prev,
+                    [peerId]: event.streams[0]
+                }));
+            };
+
+            // State change logger
+            pc.onconnectionstatechange = () => {
+                console.log(`Connection state with ${peerId}: ${pc.connectionState}`);
+                if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed' || pc.connectionState === 'closed') {
+                    cleanupPeerConnection(peerId);
+                }
+            };
+
+            pcsRef.current[peerId] = pc;
+            return pc;
+        };
+
+        const cleanupPeerConnection = (peerId: string) => {
+            const pc = pcsRef.current[peerId];
+            if (pc) {
+                console.log(`Cleaning peer connection for ${peerId}`);
+                try {
+                    pc.close();
+                } catch (e) {}
+                delete pcsRef.current[peerId];
+            }
+            setRemoteStreams(prev => {
+                const copy = { ...prev };
+                delete copy[peerId];
+                return copy;
+            });
+        };
+
+        const initiateCall = async (peerId: string) => {
+            const pc = createPeerConnection(peerId);
+            try {
+                const offer = await pc.createOffer();
+                await pc.setLocalDescription(offer);
+                
+                channelRef.current?.send({
+                    type: 'broadcast',
+                    event: 'webrtc_offer',
+                    payload: {
+                        senderId: userProfile.id,
+                        targetId: peerId,
+                        offer
+                    }
+                });
+            } catch (e) {
+                console.error(`Error creating offer for ${peerId}:`, e);
+            }
+        };
 
         const channel = supabase.channel(`study-room-${roomId}`, {
             config: {
@@ -79,6 +208,32 @@ const StudyRoomPage: React.FC = () => {
             .on('presence', { event: 'sync' }, () => {
                 const state = channel.presenceState();
                 setConnectedPeers(Object.keys(state).length);
+
+                const peerIds = Object.keys(state).filter(id => id !== userProfile.id);
+
+                const newPeersInfo: Record<string, string> = {};
+                Object.entries(state).forEach(([id, presences]) => {
+                    if (id !== userProfile.id) {
+                        const pres = presences[0] as { name?: string };
+                        newPeersInfo[id] = pres?.name || 'Talaba';
+                    }
+                });
+                setPeersInfo(newPeersInfo);
+
+                Object.keys(pcsRef.current).forEach(peerId => {
+                    if (!peerIds.includes(peerId)) {
+                        cleanupPeerConnection(peerId);
+                    }
+                });
+
+                peerIds.forEach(peerId => {
+                    if (!pcsRef.current[peerId]) {
+                        createPeerConnection(peerId);
+                        if (userProfile.id < peerId) {
+                            initiateCall(peerId);
+                        }
+                    }
+                });
             })
             .on('presence', { event: 'join' }, ({ newPresences }) => {
                 console.log('Joined peers:', newPresences);
@@ -90,16 +245,16 @@ const StudyRoomPage: React.FC = () => {
         // Broadcast Message Handlers
         channel
             .on('broadcast', { event: 'pomodoro_state_update' }, ({ payload }) => {
-                if (payload.senderId !== clientIdRef.current) {
-                    setTimeLeft(payload.timeLeft);
-                    setIsRunning(payload.isRunning);
-                    setPomodoroMode(payload.mode);
+                const data = payload as { senderId: string; timeLeft: number; isRunning: boolean; mode: 'focus' | 'short_break' | 'long_break' };
+                if (data.senderId !== clientIdRef.current) {
+                    setTimeLeft(data.timeLeft);
+                    setIsRunning(data.isRunning);
+                    setPomodoroMode(data.mode);
                 }
             })
             .on('broadcast', { event: 'request_state' }, ({ payload }) => {
-                // Older clients answer state requests
-                if (payload.requesterId !== clientIdRef.current) {
-                    // Send Pomodoro state
+                const data = payload as { requesterId: string };
+                if (data.requesterId !== clientIdRef.current) {
                     channel.send({
                         type: 'broadcast',
                         event: 'pomodoro_state_response',
@@ -107,11 +262,10 @@ const StudyRoomPage: React.FC = () => {
                             timeLeft,
                             isRunning,
                             mode: pomodoroMode,
-                            targetId: payload.requesterId
+                            targetId: data.requesterId
                         }
                     });
 
-                    // Send Whiteboard state if active
                     if (editorRef.current) {
                         try {
                             const snapshot = getSnapshot(editorRef.current.store);
@@ -120,7 +274,7 @@ const StudyRoomPage: React.FC = () => {
                                 event: 'whiteboard_state_response',
                                 payload: {
                                     snapshot,
-                                    targetId: payload.requesterId
+                                    targetId: data.requesterId
                                 }
                             });
                         } catch (e) {
@@ -130,17 +284,19 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'pomodoro_state_response' }, ({ payload }) => {
-                if (payload.targetId === clientIdRef.current) {
-                    setTimeLeft(payload.timeLeft);
-                    setIsRunning(payload.isRunning);
-                    setPomodoroMode(payload.mode);
+                const data = payload as { targetId: string; timeLeft: number; isRunning: boolean; mode: 'focus' | 'short_break' | 'long_break' };
+                if (data.targetId === clientIdRef.current) {
+                    setTimeLeft(data.timeLeft);
+                    setIsRunning(data.isRunning);
+                    setPomodoroMode(data.mode);
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_update' }, ({ payload }) => {
-                if (payload.senderId !== clientIdRef.current && editorRef.current) {
+                const data = payload as { senderId: string; snapshot: any };
+                if (data.senderId !== clientIdRef.current && editorRef.current) {
                     isApplyingIncomingSnapshot.current = true;
                     try {
-                        loadSnapshot(editorRef.current.store, payload.snapshot);
+                        loadSnapshot(editorRef.current.store, data.snapshot);
                     } catch (e) {
                         console.error('Error loading whiteboard broadcast:', e);
                     } finally {
@@ -151,10 +307,11 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_response' }, ({ payload }) => {
-                if (payload.targetId === clientIdRef.current && editorRef.current) {
+                const data = payload as { targetId: string; snapshot: any };
+                if (data.targetId === clientIdRef.current && editorRef.current) {
                     isApplyingIncomingSnapshot.current = true;
                     try {
-                        loadSnapshot(editorRef.current.store, payload.snapshot);
+                        loadSnapshot(editorRef.current.store, data.snapshot);
                     } catch (e) {
                         console.error('Error loading whiteboard state response:', e);
                     } finally {
@@ -163,19 +320,68 @@ const StudyRoomPage: React.FC = () => {
                         }, 100);
                     }
                 }
+            })
+            .on('broadcast', { event: 'webrtc_offer' }, async ({ payload }) => {
+                const data = payload as { senderId: string; targetId: string; offer: RTCSessionDescriptionInit };
+                if (data.targetId === userProfileRef.current?.id) {
+                    console.log(`Received WebRTC offer from ${data.senderId}`);
+                    const pc = createPeerConnection(data.senderId);
+                    try {
+                        await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
+                        const answer = await pc.createAnswer();
+                        await pc.setLocalDescription(answer);
+                        
+                        channelRef.current?.send({
+                            type: 'broadcast',
+                            event: 'webrtc_answer',
+                            payload: {
+                                senderId: userProfileRef.current?.id,
+                                targetId: data.senderId,
+                                answer
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Failed to handle offer:', e);
+                    }
+                }
+            })
+            .on('broadcast', { event: 'webrtc_answer' }, async ({ payload }) => {
+                const data = payload as { senderId: string; targetId: string; answer: RTCSessionDescriptionInit };
+                if (data.targetId === userProfileRef.current?.id) {
+                    console.log(`Received WebRTC answer from ${data.senderId}`);
+                    const pc = pcsRef.current[data.senderId];
+                    if (pc) {
+                        try {
+                            await pc.setRemoteDescription(new RTCSessionDescription(data.answer));
+                        } catch (e) {
+                            console.error('Failed to handle answer:', e);
+                        }
+                    }
+                }
+            })
+            .on('broadcast', { event: 'webrtc_ice_candidate' }, async ({ payload }) => {
+                const data = payload as { senderId: string; targetId: string; candidate: RTCIceCandidateInit };
+                if (data.targetId === userProfileRef.current?.id) {
+                    const pc = pcsRef.current[data.senderId];
+                    if (pc) {
+                        try {
+                            await pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+                        } catch (e) {
+                            console.error('Failed to add ICE candidate:', e);
+                        }
+                    }
+                }
             });
 
         // Subscribe to channel
         channel.subscribe(async (status) => {
             if (status === 'SUBSCRIBED') {
-                // Register presence
                 await channel.track({
                     user_id: userProfile.id,
                     name: userProfile.name,
                     joined_at: new Date().toISOString()
                 });
 
-                // Request initial state from other users in the room
                 channel.send({
                     type: 'broadcast',
                     event: 'request_state',
@@ -186,6 +392,9 @@ const StudyRoomPage: React.FC = () => {
 
         return () => {
             supabase.removeChannel(channel);
+            Object.keys(pcsRef.current).forEach(peerId => {
+                cleanupPeerConnection(peerId);
+            });
         };
     }, [userProfile, roomId, timeLeft, isRunning, pomodoroMode]);
 
@@ -214,8 +423,26 @@ const StudyRoomPage: React.FC = () => {
         };
     }, [isRunning]);
 
-    // Handle Jitsi Conference Details
-    const jitsiRoomName = `StudyPlannerApp_Public_${roomId}`;
+    // Media Controllers
+    const toggleAudio = () => {
+        if (localStream) {
+            const audioTrack = localStream.getAudioTracks()[0];
+            if (audioTrack) {
+                audioTrack.enabled = !audioTrack.enabled;
+                setAudioEnabled(audioTrack.enabled);
+            }
+        }
+    };
+
+    const toggleVideo = () => {
+        if (localStream) {
+            const videoTrack = localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = !videoTrack.enabled;
+                setVideoEnabled(videoTrack.enabled);
+            }
+        }
+    };
 
     if (!userProfile) {
         return (
@@ -359,33 +586,79 @@ const StudyRoomPage: React.FC = () => {
 
             {/* Split Screen Layout */}
             <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-[500px]">
-                {/* Left Side: Jitsi Conference */}
-                <div className={`flex-1 bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl relative ${mobileView === 'video' ? 'block' : 'hidden md:block'}`}>
-                    <JitsiMeeting
-                        domain="meet.jit.si"
-                        roomName={jitsiRoomName}
-                        configOverwrite={{
-                            startWithAudioMuted: true,
-                            disableThirdPartyRequests: true,
-                            prejoinPageEnabled: false
-                        }}
-                        interfaceConfigOverwrite={{
-                            TOOLBAR_BUTTONS: [
-                                'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-                                'fodeviceselection', 'hangup', 'profile', 'chat', 'settings', 'raisehand',
-                                'videoquality', 'filmstrip', 'tileview', 'videobackgroundblur', 'help'
-                            ],
-                        }}
-                        userInfo={{
-                            displayName: userProfile.name,
-                            email: userProfile.email
-                        }}
-                        onApiReady={() => {}}
-                        getIFrameRef={(iframeRef) => { 
-                            iframeRef.style.height = '100%'; 
-                            iframeRef.style.width = '100%'; 
-                        }}
-                    />
+                {/* Left Side: Custom WebRTC Video Grid */}
+                <div className={`flex-1 bg-[#0f172a] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl relative flex flex-col p-4 space-y-4 ${mobileView === 'video' ? 'block' : 'hidden md:block'}`}>
+                    {/* Videos Grid */}
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr min-h-0 overflow-y-auto p-1">
+                        {/* Local Video */}
+                        <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                            {videoEnabled && localStream ? (
+                                <video
+                                    ref={(ref) => { if (ref) ref.srcObject = localStream; }}
+                                    autoPlay
+                                    playsInline
+                                    muted
+                                    className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
+                                />
+                            ) : (
+                                <div className="flex flex-col items-center justify-center text-slate-500">
+                                    <div className="p-4 bg-slate-800 rounded-full mb-2">
+                                        <VideoOff size={32} />
+                                    </div>
+                                    <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
+                                </div>
+                            )}
+                            <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                Men ({userProfile.name})
+                            </div>
+                        </div>
+
+                        {/* Remote Videos */}
+                        {Object.entries(remoteStreams).map(([peerId, stream]) => {
+                            const peerName = peersInfo[peerId] || 'Talaba';
+                            return (
+                                <div key={peerId} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                                    <video
+                                        ref={(ref) => { if (ref) ref.srcObject = stream; }}
+                                        autoPlay
+                                        playsInline
+                                        className="w-full h-full object-cover rounded-2xl"
+                                    />
+                                    <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                                        {peerName}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Media Controls Toolbar */}
+                    <div className="flex justify-center items-center gap-4 py-2 border-t border-slate-800/60">
+                        <button
+                            onClick={toggleAudio}
+                            className={`p-3.5 rounded-xl border transition-all active:scale-95 flex items-center justify-center ${
+                                audioEnabled 
+                                    ? 'bg-slate-850 hover:bg-slate-800 border-slate-750 text-slate-200' 
+                                    : 'bg-red-500/10 hover:bg-red-500/20 border-red-500/30 text-red-400'
+                            }`}
+                            title={audioEnabled ? 'Mikrofonni o\'chirish' : 'Mikrofonni yoqish'}
+                        >
+                            {audioEnabled ? <Mic size={20} /> : <MicOff size={20} />}
+                        </button>
+                        <button
+                            onClick={toggleVideo}
+                            className={`p-3.5 rounded-xl border transition-all active:scale-95 flex items-center justify-center ${
+                                videoEnabled 
+                                    ? 'bg-slate-850 hover:bg-slate-800 border-slate-750 text-slate-200' 
+                                    : 'bg-red-500/10 hover:bg-red-500/20 border-red-500/30 text-red-400'
+                            }`}
+                            title={videoEnabled ? 'Kamerani o\'chirish' : 'Kamerani yoqish'}
+                        >
+                            {videoEnabled ? <Video size={20} /> : <VideoOff size={20} />}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Right Side: Collaboration Panel (Pomodoro / Whiteboard) */}
