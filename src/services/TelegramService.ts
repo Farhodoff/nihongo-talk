@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 
-interface TelegramUser {
+export interface TelegramUser {
     id: string;
     user_id: string;
     telegram_id: number;

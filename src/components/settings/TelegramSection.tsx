@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Loader2, CheckCircle2, XCircle, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/Button';
-import telegramService from '../../services/TelegramService';
+import telegramService, { TelegramUser } from '../../services/TelegramService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 
 const TelegramSection: React.FC = () => {
     const { user } = useStudyData();
     const [linkCode, setLinkCode] = useState<string | null>(null);
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
-    const [linkedAccount, setLinkedAccount] = useState<any>(null);
+    const [linkedAccount, setLinkedAccount] = useState<TelegramUser | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
     // Load linked account on mount
     useEffect(() => {
+        const loadLinkedAccount = async () => {
+            if (!user) return;
+            const account = await telegramService.getLinkedAccount(user.id);
+            setLinkedAccount(account);
+            if (account) {
+                setNotificationsEnabled(account.notifications_enabled);
+            }
+        };
+
         if (user) {
             loadLinkedAccount();
         }
     }, [user]);
-
-    const loadLinkedAccount = async () => {
-        if (!user) return;
-        const account = await telegramService.getLinkedAccount(user.id);
-        setLinkedAccount(account);
-        if (account) {
-            setNotificationsEnabled(account.notifications_enabled);
-        }
-    };
-
     const handleGenerateCode = async () => {
         if (!user) return;
 
@@ -43,8 +42,8 @@ const TelegramSection: React.FC = () => {
             } else {
                 setError('Kod yaratishda xatolik yuz berdi');
             }
-        } catch (err: any) {
-            setError(err.message || 'Xatolik yuz berdi');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Xatolik yuz berdi');
         } finally {
             setLoading(false);
         }

@@ -60,7 +60,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                             subjectId: subjectId,
                             front: card.front,
                             back: card.back,
-                        } as any)
+                        })
                     )
                 );
 

@@ -25,7 +25,7 @@ interface TelegramMessage {
     };
     date: number;
     text?: string;
-    entities?: any[];
+    entities?: unknown[];
 }
 
 interface TelegramCallbackQuery {

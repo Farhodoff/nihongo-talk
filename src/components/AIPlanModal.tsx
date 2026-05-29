@@ -62,7 +62,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
     const handleConfirm = async () => {
         const effectiveTopic = topic || subjects.find(s => s.id === selectedSubject)?.name || 'Study Plan';
         let goalId: string | undefined = undefined;
-        let subjectId = selectedSubject || undefined;
+        const subjectId = selectedSubject || undefined;
 
         // 1. Create Goal if requested
         if (createGoal) {

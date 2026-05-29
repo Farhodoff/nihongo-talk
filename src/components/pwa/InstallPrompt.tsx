@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Download, X, Smartphone, ArrowUpCircle } from 'lucide-react';
 
+interface BeforeInstallPromptEvent extends Event {
+    readonly platforms: string[];
+    readonly userChoice: Promise<{
+        outcome: 'accepted' | 'dismissed';
+        platform: string;
+    }>;
+    prompt(): Promise<void>;
+}
+
 const InstallPrompt: React.FC = () => {
-    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [showPrompt, setShowPrompt] = useState(false);
     const [isIOS, setIsIOS] = useState(false);
 
     useEffect(() => {
         // iOS detection
-        const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+        const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window);
         setIsIOS(isIOSDevice);
 
         // Standard PWA install prompt
-        const handler = (e: any) => {
-            e.preventDefault();
-            setDeferredPrompt(e);
+        const handler = (e: Event) => {
+            const installEvent = e as BeforeInstallPromptEvent;
+            installEvent.preventDefault();
+            setDeferredPrompt(installEvent);
             
             // Faqat bir marta ko'rsatish (yoki har 24 soatda)
             const lastShown = localStorage.getItem('pwa-prompt-last-shown');
@@ -27,11 +37,11 @@ const InstallPrompt: React.FC = () => {
         window.addEventListener('beforeinstallprompt', handler);
 
         // iOS uchun "Add to Home Screen" ko'rsatmasi
-        if (isIOSDevice && !(window.navigator as any).standalone) {
+        if (isIOSDevice && !('standalone' in window.navigator && (window.navigator as unknown as { standalone: boolean }).standalone)) {
              const lastShown = localStorage.getItem('pwa-prompt-last-shown');
              const now = Date.now();
              if (!lastShown || now - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
-                setShowPrompt(true);
+                 setShowPrompt(true);
              }
         }
 

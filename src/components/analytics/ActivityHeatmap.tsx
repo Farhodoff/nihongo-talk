@@ -34,10 +34,17 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
         });
     }, [sessions, startDate, endDate]);
 
+    interface HeatmapDay {
+        date: Date;
+        dateStr: string;
+        minutes: number;
+        level: number;
+    }
+
     // Group days into weeks for the grid
     const weeks = useMemo(() => {
-        const result: any[][] = [];
-        let currentWeek: any[] = [];
+        const result: (HeatmapDay | null)[][] = [];
+        let currentWeek: (HeatmapDay | null)[] = [];
         
         // Offset to align days of week
         const startDayOfWeek = startDate.getDay();

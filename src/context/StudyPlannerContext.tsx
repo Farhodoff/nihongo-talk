@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
@@ -10,8 +10,8 @@ import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
-import { GoogleCalendarService } from '../services/GoogleCalendarService';
-import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile } from '../types/supabase-types';
+import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
+import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -33,7 +33,7 @@ interface StudyPlannerContextType {
     sessions: StudySession[];
     whiteboards: WhiteboardMetadata[];
     events: Event[];
-    googleEvents: any[];
+    googleEvents: GoogleCalendarEvent[];
     settings: Settings;
     loading: boolean;
     user: User | null;
@@ -155,13 +155,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [sessions, setSessions] = useState<StudySession[]>([]);
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
-    const [googleEvents, setGoogleEvents] = useState<any[]>([]);
+    const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
 
     // Google Calendar tadbirlarini sinxronizatsiya qilish
-    const syncGoogleEvents = async () => {
+    const syncGoogleEvents = useCallback(async () => {
         const { data: { session } } = await supabase.auth.getSession();
         if (session?.provider_token) {
             try {
@@ -175,7 +175,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.error("Google Calendar sync error:", error);
             }
         }
-    };
+    }, []);
 
     // App Settings (Non-gamification)
     const [appSettings, setAppSettings] = useState<{
@@ -210,7 +210,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     } = useFocusTimer(appSettings.notificationsEnabled);
 
     // Ma'lumotlarni yuklash
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         setLoading(true);
         try {
             const { data: { user: currentUser } } = await supabase.auth.getUser();
@@ -313,7 +313,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (eventsRes.data) {
-                setEvents(eventsRes.data.map((e: DatabaseEvent | any) => ({
+                setEvents(eventsRes.data.map((e: DatabaseEvent) => ({
                     id: e.id,
                     userId: e.user_id,
                     title: e.title,
@@ -353,11 +353,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         } finally {
             setLoading(false);
         }
-    };
+    }, [syncGoogleEvents, setFlashcards, setTasks, setGoals, setWhiteboards, setEvents, setAppSettings, setGamificationState]);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     // Apply theme
     useEffect(() => {
@@ -369,22 +369,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         localStorage.setItem('study_planner_theme', appSettings.theme);
     }, [appSettings.theme]);
 
-    // Notification Logic for Sessions (Keeping it here as it taps into sessions state which is staying here for now)
-    // Eventually move sessions to useSessions hook
-    useEffect(() => {
-        if (appSettings.notificationsEnabled && events.length > 0) {
-            notificationManager.requestPermission().then(granted => {
-                if (granted) {
-                    notificationManager.startMonitoring(events, (eventId) => {
-                        updateEvent(eventId, { isNotified: true });
-                    });
-                }
-            });
-        }
-        return () => {
-            notificationManager.stopMonitoring();
-        };
-    }, [events, appSettings.notificationsEnabled]);
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -457,7 +442,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             roomLocation: subjectData.roomLocation,
             description: subjectData.description,
             icon: subjectData.icon
-        } as any;
+        };
 
         // Optimistic update
         setSubjects([...subjects, optimisticSubject]);
@@ -478,7 +463,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             if (error) throw error;
 
             if (data) {
-                const newSubject = {
+                const newSubject: Subject = {
                     id: data.id,
                     name: data.name,
                     color: data.color,
@@ -487,7 +472,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     roomLocation: data.room_location,
                     description: data.description,
                     icon: data.icon
-                } as any;
+                };
                 // Replace temp with real
                 setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
                 return newSubject;
@@ -506,7 +491,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateSubject = async (id: string, updates: Partial<Subject>) => {
-        const dbUpdates: any = {};
+        const dbUpdates: Partial<DatabaseSubject> = {};
         if (updates.name) dbUpdates.name = updates.name;
         if (updates.color) dbUpdates.color = updates.color;
         if (updates.teacherName !== undefined) dbUpdates.teacher_name = updates.teacherName;
@@ -539,7 +524,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         const { data } = await supabase.from('notes').insert(dbNote).select().single();
         if (data) {
-            const newNote = { ...data, subjectId: data.subject_id, createdAt: data.created_at, updatedAt: data.updated_at } as any;
+            const newNote: Note = {
+                id: data.id,
+                subjectId: data.subject_id,
+                title: data.title,
+                content: data.content,
+                attachments: data.attachments || [],
+                createdAt: data.created_at,
+                updatedAt: data.updated_at
+            };
             setNotes([...notes, newNote]);
             return newNote;
         }
@@ -572,7 +565,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             content: noteData.content,
         };
         const { data } = await supabase.from('study_notes').insert(dbNote).select().single();
-        if (data) setStudyNotes([...studyNotes, { ...data, userId: data.user_id, subjectId: data.subject_id, createdAt: data.created_at, updatedAt: data.updated_at } as any]);
+        if (data) {
+            const newNote: StudyNote = {
+                id: data.id,
+                subjectId: data.subject_id,
+                userId: data.user_id,
+                title: data.title,
+                content: data.content,
+                createdAt: data.created_at,
+                updatedAt: data.updated_at
+            };
+            setStudyNotes([...studyNotes, newNote]);
+        }
     };
 
     const updateStudyNote = async (id: string, updates: Partial<StudyNote>) => {
@@ -604,19 +608,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
 
         // Supabase snake_case kutadi
-        const supabaseData = {
-            ...sessionData,
+        const supabaseData: Omit<DatabaseSession, 'id'> = {
             user_id: user.id,
+            duration: sessionData.duration || 0,
+            type: sessionData.type || 'focus',
+            completed: !!sessionData.completed,
             mood_before: sessionData.moodBefore,
             mood_after: sessionData.moodAfter,
             subject_id: sessionData.subjectId,
-            start_time: sessionData.startTime
+            start_time: sessionData.startTime || new Date().toISOString()
         };
-        // camelCase maydonlarini olib tashlaymiz
-        delete (supabaseData as any).moodBefore;
-        delete (supabaseData as any).moodAfter;
-        delete (supabaseData as any).subjectId;
-        delete (supabaseData as any).startTime;
 
         const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
         if (error) {
@@ -733,14 +734,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { session } } = await supabase.auth.getSession();
         if (!session?.user) return null;
 
-        const dbEvent: any = {
+        const dbEvent: Omit<DatabaseEvent, 'id' | 'created_at' | 'updated_at'> & { google_event_id?: string } = {
             user_id: session.user.id,
-            title: eventData.title,
+            title: eventData.title || '',
             description: eventData.description,
-            event_type: eventData.eventType,
-            event_date: eventData.eventDate,
+            event_type: (eventData.eventType === 'google' ? 'personal' : (eventData.eventType || 'personal')) as 'jdu' | 'career' | 'jlpt' | 'personal',
+            event_date: eventData.eventDate || '',
             notify_before_minutes: eventData.notifyBeforeMinutes || 60,
-            repetition_type: eventData.repetitionType || 'none',
+            repetition_type: (eventData.repetitionType || 'none') as 'none' | 'daily' | 'weekly' | 'monthly',
             repetition_end_date: eventData.repetitionEndDate,
             repetition_days: eventData.repetitionDays,
             is_notified: false
@@ -784,7 +785,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return null;
     };
 
-    const updateEvent = async (id: string, updates: Partial<Event>) => {
+    const updateEvent = useCallback(async (id: string, updates: Partial<Event>) => {
         const { data: { session } } = await supabase.auth.getSession();
         
         // Find current event to get googleEventId
@@ -794,7 +795,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
 
         // Construct dbUpdates with explicit mapping to avoid 'any'
-        const dbUpdates: any = {};
+        const dbUpdates: DatabaseEventUpdate = {};
 
         if (updates.title) dbUpdates.title = updates.title;
         if (updates.description) dbUpdates.description = updates.description;
@@ -807,8 +808,23 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (updates.repetitionDays) dbUpdates.repetition_days = updates.repetitionDays;
 
         await supabase.from('events').update(dbUpdates).eq('id', id);
-        setEvents(events.map(e => e.id === id ? { ...e, ...updates } : e));
-    };
+        setEvents(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e));
+    }, [events]);
+
+    useEffect(() => {
+        if (appSettings.notificationsEnabled && events.length > 0) {
+            notificationManager.requestPermission().then(granted => {
+                if (granted) {
+                    notificationManager.startMonitoring(events, (eventId) => {
+                        updateEvent(eventId, { isNotified: true });
+                    });
+                }
+            });
+        }
+        return () => {
+            notificationManager.stopMonitoring();
+        };
+    }, [events, appSettings.notificationsEnabled, updateEvent]);
 
     const deleteEvent = async (id: string) => {
         const { data: { session } } = await supabase.auth.getSession();
@@ -847,6 +863,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useStudyData = () => {
     const context = useContext(StudyPlannerContext);
     if (!context) throw new Error("useStudyData must be used within StudyPlannerProvider");

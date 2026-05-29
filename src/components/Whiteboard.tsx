@@ -1,4 +1,4 @@
-import { Tldraw, getSnapshot, loadSnapshot } from 'tldraw';
+import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
 import 'tldraw/tldraw.css';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -54,10 +54,10 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
             setLoading(false);
         };
         loadWhiteboard();
-    }, [whiteboardId, user]);
+    }, [whiteboardId, user, persistenceKey]);
 
     // Save Data Handler
-    const handleMount = useCallback((editor: any) => {
+    const handleMount = useCallback((editor: Editor) => {
         // Load initial data
         if (storeData) {
             try {

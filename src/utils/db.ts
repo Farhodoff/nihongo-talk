@@ -30,11 +30,11 @@ export const dbOps = {
         const db = await initDB();
         return db.getAll(storeName);
     },
-    async put(storeName: string, data: any) {
+    async put(storeName: string, data: unknown) {
         const db = await initDB();
         return db.put(storeName, data);
     },
-    async putAll(storeName: string, dataArray: any[]) {
+    async putAll(storeName: string, dataArray: unknown[]) {
         const db = await initDB();
         const tx = db.transaction(storeName, 'readwrite');
         await Promise.all([
@@ -50,7 +50,7 @@ export const dbOps = {
         const db = await initDB();
         return db.clear(storeName);
     },
-    async addToQueue(action: string, storeName: string, data: any) {
+    async addToQueue(action: string, storeName: string, data: unknown) {
         const db = await initDB();
         return db.add('sync_queue', {
             action, // 'CREATE', 'UPDATE', 'DELETE'

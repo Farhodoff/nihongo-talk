@@ -6,7 +6,7 @@
 // Web compatible Platform mock
 const Platform = {
   OS: 'web',
-  select: (objs: any) => objs.web || objs.default,
+  select: <T>(objs: Record<string, T>): T => objs.web || objs.default,
 };
 
 

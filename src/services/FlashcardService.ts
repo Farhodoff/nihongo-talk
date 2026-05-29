@@ -48,14 +48,18 @@ export const FlashcardService = {
             .single();
 
         if (error) throw error;
-        if (!data) return null;
-
+        const returnedCard = data as import('../types/supabase-types').DatabaseFlashcard;
         return {
-            ...data,
-            subjectId: data.subject_id,
-            nextReviewDate: data.next_review_date,
-            easeFactor: data.ease_factor
-        } as any;
+            id: returnedCard.id,
+            subjectId: returnedCard.subject_id,
+            front: returnedCard.front,
+            back: returnedCard.back,
+            nextReviewDate: returnedCard.next_review_date,
+            easeFactor: returnedCard.ease_factor,
+            interval: returnedCard.interval,
+            repetitions: returnedCard.repetitions,
+            deletedAt: returnedCard.deleted_at || undefined
+        };
     },
 
     async updateFlashcard(id: string, updates: Partial<Flashcard>): Promise<void> {

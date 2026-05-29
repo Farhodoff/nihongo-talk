@@ -83,16 +83,16 @@ const ResourceRecommendations: React.FC<Props> = ({ initialTopic }) => {
 
             {/* Filters */}
             <div className="flex flex-wrap gap-2">
-                {[
+                {([
                     { id: 'all', label: 'Barchasi', icon: null },
                     { id: 'video', label: 'Videolar', icon: <Video size={16} /> },
                     { id: 'article', label: 'Maqolalar', icon: <FileText size={16} /> },
                     { id: 'book', label: 'Kitoblar', icon: <BookOpen size={16} /> },
                     { id: 'course', label: 'Kurslar', icon: <GraduationCap size={16} /> },
-                ].map((item) => (
+                ] as const).map((item) => (
                     <button
                         key={item.id}
-                        onClick={() => setFilter(item.id as any)}
+                        onClick={() => setFilter(item.id)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === item.id
                                 ? 'bg-blue-600 text-white shadow-md transform scale-105'
                                 : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'

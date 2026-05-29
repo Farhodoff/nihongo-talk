@@ -1,16 +1,15 @@
 import { vi } from 'vitest';
 
-// Har qanday metodni zanjirsimon chaqirish imkonini beruvchi proxy mock
-const createMockChain = (resolvedValue: any = { data: [], error: null }) => {
-  const handler: ProxyHandler<any> = {
+const createMockChain = (resolvedValue: { data: unknown; error: unknown } = { data: [], error: null }) => {
+  const handler: ProxyHandler<Record<string, unknown>> = {
     get(target, prop) {
       if (prop === 'then') {
-        return (resolve: any) => Promise.resolve(resolvedValue).then(resolve);
+        return (resolve: (value: unknown) => void) => Promise.resolve(resolvedValue).then(resolve);
       }
-      if (typeof target[prop] === 'function') {
-        return target[prop];
+      if (typeof target[prop as string] === 'function') {
+        return target[prop as string];
       }
-      return (..._args: any[]) => new Proxy(target, handler);
+      return () => new Proxy(target, handler);
     }
   };
   

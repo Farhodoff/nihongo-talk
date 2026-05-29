@@ -1,16 +1,31 @@
 import { Task, Event } from '../types';
 
+export interface GoogleCalendarEvent {
+    id: string;
+    summary?: string;
+    description?: string;
+    start?: {
+        dateTime?: string;
+        date?: string;
+    };
+    end?: {
+        dateTime?: string;
+        date?: string;
+    };
+}
+
 export const GoogleCalendarService = {
     /**
      * Google API orqali kalendarga yangi tadbir qo'shish
      */
     async createEvent(accessToken: string, item: Partial<Task> | Partial<Event>): Promise<string | null> {
         try {
-            const title = item.title || (item as any).name || 'Sarlavhasiz';
-            const description = (item as any).description || 'Study Planner orqali yaratilgan';
+            const record = item as Record<string, unknown>;
+            const title = item.title || String(record.name || '') || 'Sarlavhasiz';
+            const description = String(record.description || '') || 'Study Planner orqali yaratilgan';
             
             // Task uchun dueDate, Event uchun eventDate ishlatiladi
-            const date = (item as any).dueDate || (item as any).eventDate || (item as any).date;
+            const date = String(record.dueDate || record.eventDate || record.date || '');
 
             if (!date) return null;
 
@@ -39,7 +54,7 @@ export const GoogleCalendarService = {
             const data = await response.json();
             if (data.id) {
                 console.log('Google Calendar tadbiri yaratildi:', data.id);
-                return data.id;
+                return data.id as string;
             }
             return null;
         } catch (error) {
@@ -53,12 +68,13 @@ export const GoogleCalendarService = {
      */
     async updateEvent(accessToken: string, eventId: string, updates: Partial<Task> | Partial<Event>): Promise<boolean> {
         try {
-            const title = updates.title || (updates as any).name;
-            const date = (updates as any).dueDate || (updates as any).eventDate || (updates as any).date;
+            const record = updates as Record<string, unknown>;
+            const title = updates.title || String(record.name || '');
+            const date = String(record.dueDate || record.eventDate || record.date || '');
 
-            const event: any = {};
+            const event: { summary?: string; description?: string; start?: { dateTime: string; timeZone: string }; end?: { dateTime: string; timeZone: string } } = {};
             if (title) event.summary = title;
-            if ((updates as any).description) event.description = (updates as any).description;
+            if (record.description) event.description = String(record.description);
             if (date) {
                 event.start = { 'dateTime': new Date(date).toISOString(), 'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone };
                 event.end = { 'dateTime': new Date(new Date(date).getTime() + 3600000).toISOString(), 'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone };
@@ -102,7 +118,7 @@ export const GoogleCalendarService = {
     /**
      * Google Calendar'dan tadbirlarni olish
      */
-    async listEvents(accessToken: string, timeMin: string, timeMax: string): Promise<any[]> {
+    async listEvents(accessToken: string, timeMin: string, timeMax: string): Promise<GoogleCalendarEvent[]> {
         try {
             const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`, {
                 method: 'GET',
@@ -115,7 +131,7 @@ export const GoogleCalendarService = {
             if (!response.ok) throw new Error('Google API response error');
             
             const data = await response.json();
-            return data.items || [];
+            return (data.items || []) as GoogleCalendarEvent[];
         } catch (error) {
             console.error('Google Calendar List Error:', error);
             return [];

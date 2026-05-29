@@ -2,19 +2,31 @@ import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import { Send, Loader2, ChevronDown, Smile, MoreHorizontal, Clock } from 'lucide-react';
 import { format, isToday, isYesterday } from 'date-fns';
+import { User } from '@supabase/supabase-js';
+
+interface ChatMessage {
+    id: string;
+    content: string;
+    created_at: string;
+    user_id: string;
+    profiles?: {
+        full_name: string | null;
+        avatar_url: string | null;
+    } | null;
+}
 
 const CommunityChat: React.FC = () => {
-    const [messages, setMessages] = useState<any[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [chatError, setChatError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSending, setIsSending] = useState(false);
-    const [currentUser, setCurrentUser] = useState<any>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [typingUsers, setTypingUsers] = useState<string[]>([]);
     const [showScrollButton, setShowScrollButton] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const typingTimeoutRef = useRef<any>(null);
+    const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
         messagesEndRef.current?.scrollIntoView({ behavior });
@@ -24,7 +36,7 @@ const CommunityChat: React.FC = () => {
         if (!isLoading && messages.length > 0) {
             scrollToBottom('auto');
         }
-    }, [isLoading]);
+    }, [isLoading, messages.length]);
 
     useEffect(() => {
         // Only scroll if user is already near bottom or it's their own message
@@ -32,7 +44,7 @@ const CommunityChat: React.FC = () => {
         if (lastMessage?.user_id === currentUser?.id) {
             scrollToBottom('smooth');
         }
-    }, [messages]);
+    }, [messages, currentUser?.id]);
 
     useEffect(() => {
         const setupChat = async () => {
@@ -67,8 +79,11 @@ const CommunityChat: React.FC = () => {
                             .eq('id', payload.new.user_id)
                             .single();
 
-                        const newMsg = {
-                            ...payload.new,
+                        const newMsg: ChatMessage = {
+                            id: payload.new.id,
+                            content: payload.new.content,
+                            created_at: payload.new.created_at,
+                            user_id: payload.new.user_id,
                             profiles: profile
                         };
                         setMessages(prev => [...prev, newMsg]);
@@ -105,7 +120,30 @@ const CommunityChat: React.FC = () => {
             console.error("Fetch error:", error);
             setChatError("Chat xizmati vaqtincha mavjud emas.");
         } else {
-            setMessages(data || []);
+            interface DBMessage {
+                id: string;
+                content: string;
+                created_at: string;
+                user_id: string;
+                profiles: {
+                    full_name: string | null;
+                    avatar_url: string | null;
+                } | {
+                    full_name: string | null;
+                    avatar_url: string | null;
+                }[] | null;
+            }
+
+            const mapped: ChatMessage[] = (data as unknown as DBMessage[] || []).map((msg) => ({
+                id: msg.id,
+                content: msg.content,
+                created_at: msg.created_at,
+                user_id: msg.user_id,
+                profiles: Array.isArray(msg.profiles) 
+                    ? msg.profiles[0] 
+                    : msg.profiles || null
+            }));
+            setMessages(mapped);
         }
     };
 
@@ -167,13 +205,17 @@ const CommunityChat: React.FC = () => {
     };
 
     const renderMessages = () => {
-        const groups: any[] = [];
+        type GroupItem = 
+            | { type: 'date'; content: string }
+            | (ChatMessage & { type: 'message'; isSameUser: boolean; isOwn: boolean });
+
+        const groups: GroupItem[] = [];
 
         messages.forEach((msg, i) => {
             const msgDate = formatMessageDate(msg.created_at);
             const prevMsg = i > 0 ? messages[i - 1] : null;
             const isNewDay = !prevMsg || formatMessageDate(prevMsg.created_at) !== msgDate;
-            const isSameUser = prevMsg && prevMsg.user_id === msg.user_id && !isNewDay;
+            const isSameUser = !!(prevMsg && prevMsg.user_id === msg.user_id && !isNewDay);
 
             if (isNewDay) {
                 groups.push({ type: 'date', content: msgDate });

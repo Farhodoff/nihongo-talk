@@ -4,11 +4,12 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import SubjectCard from '../components/subjects/SubjectCard';
 import SubjectForm from '../components/subjects/SubjectForm';
+import { Subject } from '../types';
 
 const SubjectsPage: React.FC = () => {
     const { subjects, addSubject, updateSubject, deleteSubject, tasks, flashcards } = useStudyData();
     const [isAdding, setIsAdding] = useState(false);
-    const [editingSubject, setEditingSubject] = useState<any>(null);
+    const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
 
     // Calculate progress for a subject
     const getSubjectProgress = (subjectId: string): number => {
@@ -24,7 +25,7 @@ const SubjectsPage: React.FC = () => {
         return total > 0 ? Math.round((completed / total) * 100) : 0;
     };
 
-    const handleSubjectSubmit = (data: any) => {
+    const handleSubjectSubmit = (data: Partial<Subject>) => {
         if (editingSubject) {
             updateSubject(editingSubject.id, data);
         } else {
@@ -34,7 +35,7 @@ const SubjectsPage: React.FC = () => {
         setEditingSubject(null);
     };
 
-    const handleEditClick = (subject: any) => {
+    const handleEditClick = (subject: Subject) => {
         setEditingSubject(subject);
         setIsAdding(true);
     };
@@ -61,7 +62,7 @@ const SubjectsPage: React.FC = () => {
                 <SubjectForm
                     onClose={handleCloseForm}
                     onSubmit={handleSubjectSubmit}
-                    initialData={editingSubject}
+                    initialData={editingSubject || undefined}
                 />
             )}
 

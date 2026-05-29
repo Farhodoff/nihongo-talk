@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
-import { Task } from '../types';
+import { Task, TaskStatus, Priority } from '../types';
+import { DatabaseTask, DatabaseTaskUpdate } from '../types/supabase-types';
 import { dbOps } from '../utils/db';
 import { GoogleCalendarService } from './GoogleCalendarService';
 
@@ -26,14 +27,19 @@ export const TaskService = {
             if (error) throw error;
             if (!data) return [];
 
-            const tasks = (data as any[]).map(t => ({
-                ...t,
+            const tasks = (data as DatabaseTask[]).map(t => ({
+                id: t.id,
+                title: t.title,
+                completed: t.completed,
+                status: t.status as TaskStatus,
+                priority: t.priority as Priority,
                 subjectId: t.subject_id,
                 goalId: t.goal_id,
                 dueDate: t.due_date,
                 deadline: t.due_date,
                 createdAt: t.created_at,
-                googleEventId: t.google_event_id
+                googleEventId: t.google_event_id,
+                deletedAt: t.deleted_at || undefined
             })) as Task[];
 
             // Lokal bazani yangilash
@@ -49,12 +55,12 @@ export const TaskService = {
 
     async addTask(userId: string, taskData: Partial<Task>): Promise<Task | null> {
         const tempId = taskData.id || `temp-${Date.now()}`;
-        const dbTask: any = {
+        const dbTask: Omit<DatabaseTask, 'id' | 'created_at'> & { id?: string } = {
             user_id: userId,
-            title: taskData.title,
-            status: taskData.status,
-            priority: taskData.priority,
-            completed: taskData.completed,
+            title: taskData.title || '',
+            status: taskData.status || 'todo',
+            priority: taskData.priority || 'medium',
+            completed: !!taskData.completed,
             due_date: taskData.deadline || taskData.dueDate,
             goal_id: taskData.goalId,
             subject_id: taskData.subjectId
@@ -82,15 +88,21 @@ export const TaskService = {
 
             if (error) throw error;
             
-            const newTask = {
-                ...data,
-                subjectId: data.subject_id,
-                goalId: data.goal_id,
-                dueDate: data.due_date,
-                deadline: data.due_date,
-                createdAt: data.created_at,
-                googleEventId: data.google_event_id
-            } as any;
+            const returnedData = data as DatabaseTask;
+            const newTask: Task = {
+                id: returnedData.id,
+                title: returnedData.title,
+                completed: returnedData.completed,
+                status: returnedData.status as TaskStatus,
+                priority: returnedData.priority as Priority,
+                goalId: returnedData.goal_id,
+                subjectId: returnedData.subject_id,
+                dueDate: returnedData.due_date,
+                deadline: returnedData.due_date,
+                createdAt: returnedData.created_at,
+                googleEventId: returnedData.google_event_id,
+                deletedAt: returnedData.deleted_at || undefined
+            };
 
             // Lokal bazani yangi ID bilan yangilash
             await dbOps.delete('tasks', tempId);
@@ -120,7 +132,7 @@ export const TaskService = {
         }
 
         try {
-            const dbUpdates: any = {};
+            const dbUpdates: DatabaseTaskUpdate = {};
             if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
             if (updates.goalId) dbUpdates.goal_id = updates.goalId;
             if (updates.dueDate) dbUpdates.due_date = updates.dueDate;
@@ -139,7 +151,7 @@ export const TaskService = {
     },
 
     async updateTaskStatus(id: string, status: string, completed: boolean): Promise<void> {
-        await this.updateTask(id, { status: status as any, completed });
+        await this.updateTask(id, { status: status as TaskStatus, completed });
     },
 
     async deleteTask(id: string, permanent = false): Promise<void> {

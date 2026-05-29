@@ -1,16 +1,16 @@
 import confetti from 'canvas-confetti';
 import { Crown, Star, X } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 const LevelUpModal: React.FC = () => {
     const { settings, getRank } = useStudyData();
-    const [prevLevel, setPrevLevel] = useState(settings.level);
+    const prevLevelRef = useRef(settings.level);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // Check if level increased
-        if (settings.level > prevLevel) {
+        if (settings.level > prevLevelRef.current) {
             // Trigger Confetti
             const duration = 3 * 1000;
             const animationEnd = Date.now() + duration;
@@ -18,7 +18,7 @@ const LevelUpModal: React.FC = () => {
 
             const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
 
-            const interval: any = setInterval(function () {
+            const interval = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
 
                 if (timeLeft <= 0) {
@@ -37,7 +37,7 @@ const LevelUpModal: React.FC = () => {
         }
 
         // Update prevLevel tracker
-        setPrevLevel(settings.level);
+        prevLevelRef.current = settings.level;
     }, [settings.level]);
 
     if (!showModal) return null;

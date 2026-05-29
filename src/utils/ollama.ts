@@ -51,7 +51,8 @@ export const callOllama = async (
         const data: OllamaResponse = await response.json();
         return data.response;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const err = error as Error;
         if (retries > 0) {
             console.warn(`Ollama request failed, retrying... (${retries} attempts left)`);
             await new Promise(resolve => setTimeout(resolve, 2000));
@@ -59,7 +60,7 @@ export const callOllama = async (
         }
 
         console.error('Ollama API Error:', error);
-        throw new Error(`Ollama bilan bog'lanib bo'lmadi: ${error.message}`);
+        throw new Error(`Ollama bilan bog'lanib bo'lmadi: ${err.message}`);
     }
 };
 
@@ -86,7 +87,8 @@ export const getOllamaModels = async (): Promise<string[]> => {
         if (!response.ok) return [];
 
         const data = await response.json();
-        return data.models?.map((m: any) => m.name) || [];
+        const models = data.models as { name: string }[] | undefined;
+        return models?.map(m => m.name) || [];
     } catch {
         return [];
     }

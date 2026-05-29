@@ -1,6 +1,6 @@
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
-import { Navigate, ToolbarProps } from 'react-big-calendar';
+import { Navigate, ToolbarProps, View } from 'react-big-calendar';
 
 const CustomToolbar: React.FC<ToolbarProps> = ({ label, onNavigate, onView, view }) => {
     return (
@@ -39,7 +39,7 @@ const CustomToolbar: React.FC<ToolbarProps> = ({ label, onNavigate, onView, view
                 {['oy', 'hafta', 'kun'].map((viewName) => (
                     <button
                         key={viewName}
-                        onClick={() => onView((viewName === 'oy' ? 'month' : viewName === 'hafta' ? 'week' : 'day') as any)}
+                        onClick={() => onView((viewName === 'oy' ? 'month' : viewName === 'hafta' ? 'week' : 'day') as View)}
                         className={`px-4 py-1.5 rounded-lg text-sm font-medium capitalize transition-all ${view === (viewName === 'oy' ? 'month' : viewName === 'hafta' ? 'week' : 'day')
                             ? 'bg-white dark:bg-gray-700 text-indigo-600 dark:text-white shadow-sm'
                             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'

@@ -16,6 +16,7 @@ import CalendarDay from '../components/calendar/CalendarDay';
 import DraggableTask from '../components/calendar/DraggableTask';
 import AddEventModal from '../components/AddEventModal';
 import DayDetailsModal from '../components/calendar/DayDetailsModal';
+import { Event } from '../types';
 
 const CalendarPage: React.FC = () => {
     const { tasks, updateTask, sessions, events, googleEvents } = useStudyData();
@@ -53,7 +54,7 @@ const CalendarPage: React.FC = () => {
 
         // Re-do concise loop
         const _days = [];
-        let _day = startDate.clone();
+        const _day = startDate.clone();
         // Since we want inclusive end, and endOf('week') is usually Saturday night
         while (_day.isSameOrBefore(endDate, 'day')) {
             _days.push(_day.toDate());
@@ -98,12 +99,13 @@ const CalendarPage: React.FC = () => {
                     if (eventEnd && dateMoment.isAfter(eventEnd, 'day')) return false;
                     return true;
 
-                case 'weekly':
+                case 'weekly': {
                     // Show only on selected weekdays
                     if (dateMoment.isBefore(eventStart, 'day')) return false;
                     if (eventEnd && dateMoment.isAfter(eventEnd, 'day')) return false;
                     const dayOfWeek = date.getDay();
                     return event.repetitionDays?.includes(dayOfWeek) || false;
+                }
 
                 case 'monthly':
                     // Show on same day-of-month
@@ -118,19 +120,25 @@ const CalendarPage: React.FC = () => {
             }
         });
 
-        // Google Calendar tadbirlarini qo'shish
-        const externalEvents = googleEvents
+        const externalEvents: Event[] = googleEvents
             .filter(ge => {
                 const start = ge.start?.dateTime || ge.start?.date;
                 return moment(start).format('YYYY-MM-DD') === dateStr;
             })
             .map(ge => ({
-                id: ge.id,
-                title: ge.summary,
-                eventDate: ge.start?.dateTime || ge.start?.date,
+                id: ge.id || '',
+                userId: '',
+                title: ge.summary || 'Sarlavhasiz',
+                description: ge.description || 'Google Calendar tadbiri',
                 eventType: 'google',
-                description: ge.description || 'Google Calendar tadbiri'
-            })) as any[];
+                eventDate: ge.start?.dateTime || ge.start?.date || '',
+                notifyBeforeMinutes: 0,
+                isNotified: true,
+                repetitionType: 'none',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                googleEventId: ge.id
+            }));
 
         return [...localEvents, ...externalEvents];
     };

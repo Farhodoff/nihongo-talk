@@ -1,8 +1,14 @@
 export interface DatabaseEventUpdate {
+    title?: string;
+    description?: string;
     event_type?: string;
     event_date?: string;
     notify_before_minutes?: number;
     is_notified?: boolean;
+    repetition_type?: string;
+    repetition_end_date?: string | null;
+    repetition_days?: number[] | null;
+    google_event_id?: string | null;
     user_id?: string;
     created_at?: string;
     updated_at?: string;
@@ -52,6 +58,8 @@ export interface DatabaseTask {
     estimated_minutes?: number;
     created_at: string;
     updated_at?: string;
+    google_event_id?: string;
+    deleted_at?: string | null;
 }
 
 export interface DatabaseFlashcard {
@@ -66,6 +74,7 @@ export interface DatabaseFlashcard {
     repetitions: number;
     created_at: string;
     updated_at?: string;
+    deleted_at?: string | null;
 }
 
 export interface DatabaseSubject {
@@ -134,6 +143,7 @@ export interface DatabaseEvent {
     repetition_type: 'none' | 'daily' | 'weekly' | 'monthly';
     repetition_end_date?: string;
     repetition_days?: number[];
+    google_event_id?: string;
     created_at: string;
     updated_at: string;
 }

@@ -30,9 +30,16 @@ const LeaderboardWidget: React.FC = () => {
                 .order('total_xp', { ascending: false })
                 .limit(50);
 
-            let users = [];
+            let users: CommunityUser[] = [];
             if (data && data.length > 0) {
-                users = data.map((u: any) => ({ ...u, isMe: user?.id === u.id }));
+                users = data.map(u => ({
+                    id: u.id,
+                    full_name: u.full_name || '',
+                    level: u.level || 1,
+                    total_xp: u.total_xp || 0,
+                    avatar_url: u.avatar_url || '',
+                    isMe: user?.id === u.id
+                }));
             }
 
             setLeaderboard(users);

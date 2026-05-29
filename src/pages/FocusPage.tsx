@@ -1,5 +1,5 @@
 import { CheckCircle2 } from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
@@ -23,13 +23,22 @@ const FocusPage: React.FC = () => {
     const initialTime = focusState.mode === 'focus' ? 25 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
     const progress = ((initialTime - focusState.timeLeft) / initialTime) * 100;
 
+    const handleTimerEnd = useCallback(() => {
+        // Notification handled globally in Context
+        if (focusState.mode === 'focus') {
+            // Avoid double trigger if possible, or check if we already showed popup
+            if (!showMoodCheck) setShowMoodCheck('after');
+        } else {
+            resetTimer();
+        }
+    }, [focusState.mode, showMoodCheck, resetTimer]);
+
     // Watch for timer completion via focusState to trigger mood check
     useEffect(() => {
         if (focusState.timeLeft === 0 && !focusState.isActive) {
             handleTimerEnd();
         }
-    }, [focusState.timeLeft, focusState.isActive]);
-
+    }, [focusState.timeLeft, focusState.isActive, handleTimerEnd]);
 
     const handleStartClick = () => {
         if (focusState.isActive) {
@@ -62,16 +71,6 @@ const FocusPage: React.FC = () => {
             ringtoneRef.current.currentTime = 0;
             // Silent fail if browser blocks autoplay
             ringtoneRef.current.play().catch(() => { });
-        }
-    };
-
-    const handleTimerEnd = () => {
-        // Notification handled globally in Context
-        if (focusState.mode === 'focus') {
-            // Avoid double trigger if possible, or check if we already showed popup
-            if (!showMoodCheck) setShowMoodCheck('after');
-        } else {
-            resetTimer();
         }
     };
 

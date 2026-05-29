@@ -1,11 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import exportImportService from '../ExportImportService';
 
+interface TestableExportImportService {
+    parseCsv(text: string): string[][];
+    escapeCsv(text: string): string;
+}
+
+const service = exportImportService as unknown as TestableExportImportService;
+
 describe('ExportImportService', () => {
     describe('CSV Parser (RFC 4180 compliant)', () => {
         it('should parse standard CSV with simple values', () => {
             const csv = '"apple","olma","I like apples"\n"banana","banan","Yellow fruit"';
-            const parsed = (exportImportService as any).parseCsv(csv);
+            const parsed = service.parseCsv(csv);
             
             expect(parsed).toHaveLength(2);
             expect(parsed[0][0]).toBe('apple');
@@ -19,7 +26,7 @@ describe('ExportImportService', () => {
 
         it('should parse CSV containing commas and quotes inside fields', () => {
             const csv = '"Hello, world","Salom, dunyo","This is a ""cool"" test"\n"simple","oddiy","no quotes"';
-            const parsed = (exportImportService as any).parseCsv(csv);
+            const parsed = service.parseCsv(csv);
             
             expect(parsed).toHaveLength(2);
             expect(parsed[0][0]).toBe('Hello, world');
@@ -34,7 +41,7 @@ describe('ExportImportService', () => {
 
     describe('escapeCsv helper', () => {
         it('should escape quotes and commas correctly', () => {
-            const escape = (exportImportService as any).escapeCsv;
+            const escape = service.escapeCsv;
             expect(escape('hello')).toBe('hello');
             expect(escape('hello, world')).toBe('"hello, world"');
             expect(escape('hello "world"')).toBe('"hello ""world"""');
