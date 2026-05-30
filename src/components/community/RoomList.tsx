@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Loader2, Plus, Video, X } from 'lucide-react';
+import { ArrowRight, Loader2, Plus, Video, X, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 
@@ -21,6 +21,7 @@ const ROOMS = [
 
 const RoomList: React.FC = () => {
     const navigate = useNavigate();
+    const [currentUserId, setCurrentUserId] = useState<string | null>(null);
     const [customRooms, setCustomRooms] = useState<StudyRoom[]>([]);
     const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
     const [newRoomName, setNewRoomName] = useState('');
@@ -28,6 +29,13 @@ const RoomList: React.FC = () => {
     const [createRoomLoading, setCreateRoomLoading] = useState(false);
 
     useEffect(() => {
+        const fetchUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                setCurrentUserId(user.id);
+            }
+        };
+        fetchUser();
         fetchCustomRooms();
         const roomsChannel = supabase.channel('custom-rooms')
             .on(
@@ -89,6 +97,23 @@ const RoomList: React.FC = () => {
             fetchCustomRooms();
         }
         setCreateRoomLoading(false);
+    };
+ 
+    const handleDeleteRoom = async (id: string) => {
+        const confirmDelete = window.confirm("Haqiqatan ham bu xonani o'chirmoqchimisiz?");
+        if (!confirmDelete) return;
+ 
+        const { error } = await supabase
+            .from('study_rooms')
+            .update({ is_active: false })
+            .eq('id', id);
+ 
+        if (error) {
+            console.error('Error deleting room:', error);
+            alert("Xonani o'chirishda xatolik yuz berdi");
+        } else {
+            fetchCustomRooms();
+        }
     };
 
     return (
@@ -204,7 +229,18 @@ const RoomList: React.FC = () => {
                             <div className="w-14 h-14 bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
                                 <Video size={32} />
                             </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full">Maxsus</span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-bold uppercase tracking-widest bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full">Maxsus</span>
+                                {currentUserId === room.creator_id && (
+                                    <button
+                                        onClick={() => handleDeleteRoom(room.id)}
+                                        className="p-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-lg transition-colors"
+                                        title="Xonani o'chirish"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                )}
+                            </div>
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight truncate">{room.name}</h3>
                         <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed mb-8 h-12 overflow-hidden">{room.description}</p>

@@ -13,7 +13,10 @@ vi.mock('../../lib/supabase', () => ({
                     order: vi.fn(() => Promise.resolve({ data: [], error: null }))
                 }))
             })),
-            insert: vi.fn(() => Promise.resolve({ error: null }))
+            insert: vi.fn(() => Promise.resolve({ error: null })),
+            update: vi.fn(() => ({
+                eq: vi.fn(() => Promise.resolve({ error: null }))
+            }))
         })),
         channel: vi.fn(() => ({
             on: vi.fn().mockReturnThis(),
