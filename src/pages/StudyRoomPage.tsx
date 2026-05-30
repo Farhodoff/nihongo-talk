@@ -12,6 +12,8 @@ interface UserProfile {
     email: string;
 }
 
+// StudyRoomPage component handles custom WebRTC peer-to-peer audio/video streaming,
+// screen sharing, and the Pomodoro/Whiteboard collaboration synchronization.
 const StudyRoomPage: React.FC = () => {
     const { roomId } = useParams<{ roomId: string }>();
     const navigate = useNavigate();
