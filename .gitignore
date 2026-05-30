@@ -63,4 +63,6 @@ test-report-screenshot.png
 test_reports/
 .npm-local-cache/
 .agents/
+skills-lock.json
+
 
