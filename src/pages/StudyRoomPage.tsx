@@ -475,7 +475,12 @@ const StudyRoomPage: React.FC = () => {
     // Screen Sharing Controllers
     const startScreenShare = async () => {
         try {
-            const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    displaySurface: "monitor"
+                },
+                selfBrowserSurface: "exclude"
+            } as unknown as DisplayMediaStreamOptions);
             screenStreamRef.current = screenStream;
             setIsScreenSharing(true);
  
