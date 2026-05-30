@@ -56,3 +56,10 @@ logs/
 # testing
 coverage/
 
+
+# Custom workspace files
+key.txt
+test-report-screenshot.png
+test_reports/
+.npm-local-cache/
+
