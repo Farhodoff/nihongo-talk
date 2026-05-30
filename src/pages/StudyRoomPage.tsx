@@ -1,4 +1,4 @@
-import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video, Monitor, MonitorOff } from 'lucide-react';
+import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Maximize2, Minimize2 } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
@@ -25,6 +25,7 @@ const StudyRoomPage: React.FC = () => {
     // UI State
     const [activeTab, setActiveTab] = useState<'pomodoro' | 'whiteboard'>('pomodoro');
     const [mobileView, setMobileView] = useState<'video' | 'collab'>('video');
+    const [showCollabPanel, setShowCollabPanel] = useState(true);
 
     // WebRTC & Media States
     const [localStream, setLocalStream] = useState<MediaStream | null>(null);
@@ -655,6 +656,16 @@ const StudyRoomPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
+                    {/* Desktop Fullscreen/Panel Toggle Button */}
+                    <button
+                        onClick={() => setShowCollabPanel(!showCollabPanel)}
+                        className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition-all active:scale-95 shadow-sm"
+                        title={showCollabPanel ? "Hamkorlik panelini yashirish" : "Hamkorlik panelini ko'rsatish"}
+                    >
+                        {showCollabPanel ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
+                        <span>{showCollabPanel ? "Katta ekran" : "Hamkorlik paneli"}</span>
+                    </button>
+
                     {/* Mobile Switch View Button */}
                     <div className="flex md:hidden bg-slate-800 p-1 rounded-xl border border-slate-750">
                         <button
@@ -733,7 +744,7 @@ const StudyRoomPage: React.FC = () => {
                                         autoPlay
                                         playsInline
                                         muted
-                                        className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
+                                        className={`w-full h-full rounded-2xl ${isScreenSharing ? 'object-contain bg-slate-950' : 'object-cover transform -scale-x-100'}`}
                                     />
                                 ) : (
                                     <div className="flex flex-col items-center justify-center text-slate-500">
@@ -825,7 +836,9 @@ const StudyRoomPage: React.FC = () => {
                 </div>
 
                 {/* Right Side: Collaboration Panel (Pomodoro / Whiteboard) */}
-                <div className={`w-full md:w-[420px] lg:w-[460px] bg-[#1e293b] border border-slate-700/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden ${mobileView === 'collab' ? 'block' : 'hidden md:flex'}`}>
+                <div className={`w-full md:w-[420px] lg:w-[460px] bg-[#1e293b] border border-slate-700/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden ${
+                    !showCollabPanel ? 'hidden' : (mobileView === 'collab' ? 'block' : 'hidden md:flex')
+                }`}>
                     {/* Right Panel Tabs */}
                     <div className="flex bg-slate-900/60 p-2 border-b border-slate-800">
                         <button
