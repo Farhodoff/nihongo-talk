@@ -5,6 +5,7 @@ import StudyRoomPage from '../StudyRoomPage';
 
 // Mock react-router-dom useParams and useNavigate
 vi.mock('react-router-dom', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const actual = await vi.importActual<any>('react-router-dom');
     return {
         ...actual,
@@ -82,6 +83,7 @@ describe('StudyRoomPage Custom WebRTC', () => {
             addIceCandidate: vi.fn(),
             close: vi.fn(),
             getSenders: vi.fn(() => [{ track: { kind: 'video' }, replaceTrack: vi.fn() }]),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         })) as any;
     });
 
