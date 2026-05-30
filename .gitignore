@@ -62,4 +62,5 @@ key.txt
 test-report-screenshot.png
 test_reports/
 .npm-local-cache/
+.agents/
 
