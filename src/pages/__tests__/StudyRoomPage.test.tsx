@@ -48,9 +48,9 @@ vi.mock('tldraw', () => ({
 }));
 
 // Mock Audio
-global.Audio = vi.fn().mockImplementation(() => ({
+window.Audio = vi.fn().mockImplementation(() => ({
     play: vi.fn(),
-}));
+})) as any;
 
 describe('StudyRoomPage Custom WebRTC', () => {
     beforeEach(() => {
@@ -74,7 +74,7 @@ describe('StudyRoomPage Custom WebRTC', () => {
         });
 
         // Mock RTCPeerConnection
-        global.RTCPeerConnection = vi.fn().mockImplementation(() => ({
+        (window as any).RTCPeerConnection = vi.fn().mockImplementation(() => ({
             addTrack: vi.fn(),
             createOffer: vi.fn().mockResolvedValue({ sdp: 'offer', type: 'offer' }),
             createAnswer: vi.fn().mockResolvedValue({ sdp: 'answer', type: 'answer' }),
