@@ -697,37 +697,37 @@ const StudyRoomPage: React.FC = () => {
                         /* Pre-join / Preview Screen */
                         <div className="flex-1 flex flex-col items-center justify-center relative p-4">
                             {/* Preview Video Box */}
-                            <div className="w-full max-w-md aspect-video bg-slate-900 rounded-2xl overflow-hidden border border-slate-850 relative flex items-center justify-center shadow-2xl">
+                            <div className="w-full max-w-md aspect-video bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-slate-700 relative flex items-center justify-center shadow-2xl transition-all duration-305 animate-in fade-in zoom-in-95 duration-500">
                                 {videoEnabled && localStream ? (
                                     <video
                                         ref={(ref) => { if (ref) ref.srcObject = localStream; }}
                                         autoPlay
                                         playsInline
                                         muted
-                                        className="w-full h-full object-cover rounded-2xl transform -scale-x-100"
+                                        className="w-full h-full object-cover rounded-2xl transform -scale-x-100 transition-transform duration-500"
                                     />
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center text-slate-500">
+                                    <div className="flex flex-col items-center justify-center text-slate-505 transition-all duration-300">
                                         <div className="p-4 bg-slate-850 rounded-full mb-2">
                                             <VideoOff size={32} />
                                         </div>
-                                        <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
+                                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Kamera o'chiq</span>
                                     </div>
                                 )}
-                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10 shadow-lg">
                                     <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse" />
                                     Kamera ko'rinishi (Preview)
                                 </div>
                             </div>
  
                             {/* Join Action Details */}
-                            <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6 mt-6 text-center space-y-4 shadow-xl">
+                            <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6 mt-6 text-center space-y-4 shadow-xl transition-all duration-300 hover:border-slate-850">
                                 <h3 className="text-lg font-bold text-white tracking-tight">Dars Xonasi Tayyor</h3>
                                 <p className="text-sm text-slate-400">Guruhdoshlaringiz bilan real-vaqt rejimida video muloqot va hamkorlikni boshlash uchun qo'shiling.</p>
                                 
                                 <button
                                     onClick={() => setJoinedCall(true)}
-                                    className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 active:scale-[0.98] transition-all"
+                                    className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 active:scale-[0.98] transition-all duration-200"
                                 >
                                     <Video size={18} /> Darsni boshlash
                                 </button>
@@ -737,24 +737,24 @@ const StudyRoomPage: React.FC = () => {
                         /* Videos Grid (Active Call) */
                         <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr min-h-0 overflow-y-auto p-1">
                             {/* Local Video */}
-                            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                            <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800/80 hover:border-slate-700/80 relative flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-slate-950/50 hover:shadow-xl animate-in fade-in zoom-in-95 duration-550">
                                 {videoEnabled && localStream ? (
                                     <video
                                         ref={(ref) => { if (ref) ref.srcObject = localStream; }}
                                         autoPlay
                                         playsInline
                                         muted
-                                        className={`w-full h-full rounded-2xl ${isScreenSharing ? 'object-contain bg-slate-950' : 'object-cover transform -scale-x-100'}`}
+                                        className={`w-full h-full rounded-2xl transition-all duration-500 ${isScreenSharing ? 'object-contain bg-slate-950' : 'object-cover transform -scale-x-100'}`}
                                     />
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center text-slate-500">
-                                        <div className="p-4 bg-slate-800 rounded-full mb-2">
+                                    <div className="flex flex-col items-center justify-center text-slate-500 animate-in fade-in duration-300">
+                                        <div className="p-4 bg-slate-800/60 rounded-full mb-2">
                                             <VideoOff size={32} />
                                         </div>
                                         <span className="text-xs font-bold uppercase tracking-wider">Kamera o'chiq</span>
                                     </div>
                                 )}
-                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
+                                <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10 shadow-md">
                                     <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
                                     Men ({userProfile.name}) {isScreenSharing && "(Ekran ulashilmoqda)"}
                                 </div>
@@ -764,15 +764,15 @@ const StudyRoomPage: React.FC = () => {
                             {Object.entries(remoteStreams).map(([peerId, stream]) => {
                                 const peerName = peersInfo[peerId] || 'Talaba';
                                 return (
-                                    <div key={peerId} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                                    <div key={peerId} className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800/80 hover:border-slate-700/80 relative flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-slate-950/50 hover:shadow-xl animate-in fade-in zoom-in-95 duration-550">
                                         <video
                                             ref={(ref) => { if (ref) ref.srcObject = stream; }}
                                             autoPlay
                                             playsInline
-                                            className="w-full h-full object-cover rounded-2xl"
+                                            className="w-full h-full object-cover rounded-2xl transition-all duration-500"
                                         />
-                                        <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10">
-                                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                                        <div className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-semibold rounded-lg text-white flex items-center gap-1.5 border border-white/10 shadow-md">
+                                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                                             {peerName}
                                         </div>
                                     </div>

@@ -17,13 +17,18 @@ const formatTime = (seconds: number) => {
 
 const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodBefore, isActive }) => {
     const colorClass = mode === 'focus' ? 'text-indigo-500' : 'text-emerald-500';
-    const glowClass = mode === 'focus' ? 'shadow-indigo-500/20' : 'shadow-emerald-500/20';
-    const bgGlow = mode === 'focus' ? 'bg-indigo-500/5' : 'bg-emerald-500/5';
+    const glowClass = mode === 'focus' ? 'shadow-indigo-500/25 dark:shadow-indigo-500/10' : 'shadow-emerald-500/25 dark:shadow-emerald-500/10';
+    const bgGlow = mode === 'focus' ? 'bg-indigo-500/[0.03] dark:bg-indigo-500/[0.01]' : 'bg-emerald-500/[0.03] dark:bg-emerald-500/[0.01]';
+    const borderGlowColor = mode === 'focus' ? 'border-indigo-500/20 dark:border-indigo-500/10' : 'border-emerald-500/20 dark:border-emerald-500/10';
+    const dashedGlowColor = mode === 'focus' ? 'border-indigo-500/15 dark:border-indigo-500/5' : 'border-emerald-500/15 dark:border-emerald-500/5';
 
     return (
         <div className={`relative w-80 h-80 mb-10 flex items-center justify-center rounded-full transition-all duration-700 ${isActive ? 'scale-105' : 'scale-100'} ${bgGlow}`}>
             {/* Outer Glow Ring */}
-            <div className={`absolute inset-0 rounded-full border border-white/5 dark:border-white/10 ${isActive ? 'animate-pulse' : ''} shadow-[0_0_50px_-12px_rgba(0,0,0,0.3)] ${glowClass}`}></div>
+            <div className={`absolute inset-0 rounded-full border ${borderGlowColor} ${isActive ? 'animate-pulse' : ''} shadow-[0_0_60px_-15px_rgba(0,0,0,0.35)] ${glowClass}`}></div>
+            
+            {/* Premium Rotating Dashed Outer Ring */}
+            <div className={`absolute -inset-3 rounded-full border border-dashed transition-all duration-1000 ${isActive ? `${dashedGlowColor} animate-spin [animation-duration:120s]` : 'border-transparent'}`} />
             
             <svg className="absolute inset-0 w-full h-full -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
                 {/* Background Circle */}
@@ -34,7 +39,7 @@ const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodB
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="4" 
-                    className="text-gray-100 dark:text-gray-800/50" 
+                    className="text-gray-100 dark:text-gray-800/40" 
                 />
                 {/* Progress Circle */}
                 <circle 
@@ -47,8 +52,8 @@ const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodB
                     strokeDasharray="289" 
                     strokeDashoffset={289 - (289 * progress) / 100} 
                     strokeLinecap="round" 
-                    className={`transition-all duration-1000 ease-linear ${colorClass}`}
-                    style={{ filter: isActive ? 'drop-shadow(0 0 6px currentColor)' : 'none' }}
+                    className={`transition-[stroke-dashoffset] duration-1000 ease-linear ${colorClass}`}
+                    style={{ filter: isActive ? 'drop-shadow(0 0 8px currentColor)' : 'none' }}
                 />
             </svg>
 
@@ -66,8 +71,6 @@ const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodB
                     </div>
                 )}
             </div>
-            
-            {/* Animated particles or subtle dots around the ring could be added here for extra polish */}
         </div>
     );
 };
