@@ -48,9 +48,9 @@ vi.mock('tldraw', () => ({
 }));
 
 // Mock Audio
-window.Audio = vi.fn().mockImplementation(() => ({
-    play: vi.fn(),
-})) as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+window.Audio = vi.fn().mockImplementation(() => ({ play: vi.fn() })) as any;
+
 
 describe('StudyRoomPage Custom WebRTC', () => {
     beforeEach(() => {
@@ -74,6 +74,7 @@ describe('StudyRoomPage Custom WebRTC', () => {
         });
 
         // Mock RTCPeerConnection
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).RTCPeerConnection = vi.fn().mockImplementation(() => ({
             addTrack: vi.fn(),
             createOffer: vi.fn().mockResolvedValue({ sdp: 'offer', type: 'offer' }),

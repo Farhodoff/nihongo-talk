@@ -64,5 +64,7 @@ test_reports/
 .npm-local-cache/
 .agents/
 skills-lock.json
+planner.pptx
+
 
 
