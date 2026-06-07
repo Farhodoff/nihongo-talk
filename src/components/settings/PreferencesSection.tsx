@@ -1,4 +1,4 @@
-import { Bell, Moon, Sun } from 'lucide-react';
+import { Bell, Moon, Sun, HelpCircle } from 'lucide-react';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -49,6 +49,27 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                     className={`w-12 h-6 rounded-full transition-colors relative ${settings.notificationsEnabled ? 'bg-indigo-500' : 'bg-gray-300'}`}
                 >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${settings.notificationsEnabled ? 'left-7' : 'left-1'}`} />
+                </button>
+            </div>
+
+            <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-t border-gray-100 dark:border-gray-700">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-lg">
+                        <HelpCircle size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="font-medium text-gray-900 dark:text-white">Tizim bo'yicha yo'riqnoma</span>
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500">Tizimdan qanday foydalanishni qayta o'rganish</span>
+                    </div>
+                </div>
+                <button
+                    onClick={() => {
+                        localStorage.removeItem('onboarding_completed');
+                        window.dispatchEvent(new Event('restart-onboarding-tour'));
+                    }}
+                    className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all active:scale-95 shadow-sm shadow-indigo-600/10"
+                >
+                    Boshlash
                 </button>
             </div>
         </div>

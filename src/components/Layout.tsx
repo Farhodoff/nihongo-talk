@@ -95,7 +95,11 @@ const Layout: React.FC = () => {
                         {getPageTitle()}
                     </h1>
                 </div>
-                <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <button 
+                    onClick={() => setSidebarOpen(!isSidebarOpen)} 
+                    data-tour="mobile-menu-toggle"
+                    className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
                     {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </header>
@@ -138,6 +142,7 @@ const Layout: React.FC = () => {
                             key={item.path}
                             to={item.path}
                             onClick={() => setSidebarOpen(false)}
+                            data-tour={`nav-${item.path.replace('/', '')}`}
                             className={({ isActive }) =>
                                 `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${isActive
                                     ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm'

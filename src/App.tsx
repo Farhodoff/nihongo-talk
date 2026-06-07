@@ -6,6 +6,7 @@ import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
 import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { supabase } from './lib/supabase';
+import { OnboardingTour } from './components/OnboardingTour';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
@@ -109,6 +110,7 @@ const App: React.FC = () => {
                             </Routes>
                         </Suspense>
                         <GlobalAudioPlayer />
+                        <OnboardingTour />
                         
                         {/* PWA Prompts */}
                         <ReloadPrompt />
