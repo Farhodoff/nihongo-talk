@@ -112,23 +112,33 @@ export default defineConfig({
         outDir: 'build', // Vercel uchun output papkasini 'build' ga o'zgartirish
         rollupOptions: {
             output: {
-                manualChunks: {
-                    // Vendor chunk - React va asosiy kutubxonalar
-                    vendor: ['react', 'react-dom', 'react-router-dom'],
-                    // AI chunk - AI funksiyalari
-                    ai: ['@google/generative-ai'],
-                    // Charts chunk - Grafik kutubxonalari (alohida)
-                    charts: ['recharts'],
-                    // Calendar chunk - Kalendar kutubxonasi (alohida va katta)
-                    calendar: ['react-big-calendar', 'moment'],
-                    // Icons chunk - Ikonkalar (alohida)
-                    icons: ['lucide-react'],
-                    // DnD chunk - Drag and Drop
-                    dnd: ['@hello-pangea/dnd'],
-                    // Markdown chunk
-                    markdown: ['react-markdown'],
-                    // Supabase chunk
-                    supabase: ['@supabase/supabase-js'],
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router-dom/')) {
+                            return 'vendor';
+                        }
+                        if (id.includes('@google/generative-ai')) {
+                            return 'ai';
+                        }
+                        if (id.includes('recharts')) {
+                            return 'charts';
+                        }
+                        if (id.includes('react-big-calendar') || id.includes('moment')) {
+                            return 'calendar';
+                        }
+                        if (id.includes('lucide-react')) {
+                            return 'icons';
+                        }
+                        if (id.includes('@hello-pangea/dnd')) {
+                            return 'dnd';
+                        }
+                        if (id.includes('react-markdown')) {
+                            return 'markdown';
+                        }
+                        if (id.includes('@supabase/supabase-js')) {
+                            return 'supabase';
+                        }
+                    }
                 },
             },
         },
