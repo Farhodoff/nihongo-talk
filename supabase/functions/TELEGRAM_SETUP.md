@@ -81,7 +81,7 @@ Telegram appda botingizni oching va `/start` yuboring!
 Men sizning o'quv rejalaringizni boshqarishga yordam beraman.
 
 Ishlatish uchun akkauntingizni bog'lash kerak:
-1. Veb saytga kiring: study-planner.uz
+1. Veb saytga kiring: task-planner-tau.vercel.app
 2. Settings → Telegram Bo'limiga o'ting
 3. "Telegram ni bog'lash" tugmasini bosing
 

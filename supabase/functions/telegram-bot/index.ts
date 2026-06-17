@@ -167,7 +167,7 @@ async function handleStart(message: TelegramMessage) {
 • Deadline eslatmalari (24h & 1h oldin)
 • Kunlik xulosalar (9:00 va 20:00)
 
-⚙️ Sozlamalar: <a href="https://study-planner.uz/settings">study-planner.uz/settings</a> sahifasida
+⚙️ Sozlamalar: <a href="https://task-planner-tau.vercel.app/settings">task-planner-tau.vercel.app/settings</a> sahifasida
 
 Yordam: /help`);
         }
@@ -187,7 +187,7 @@ Yordam: /help`);
 
         if (error || !linkCode) {
             console.log('Invalid code:', error);
-            return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasidan yangi kod oling.");
+            return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasidan yangi kod oling.");
         }
 
         // Create link
@@ -220,7 +220,7 @@ Yordam: /help`);
         return sendMessage(chatId, `Salom! Study Planner botiga xush kelibsiz!
 
 Akkauntingizni bog'lash uchun:
-1. <a href="https://study-planner.uz">study-planner.uz</a> saytiga kiring.
+1. <a href="https://task-planner-tau.vercel.app">task-planner-tau.vercel.app</a> saytiga kiring.
 2. <b>Settings → Telegram</b> sahifasiga o'ting.
 3. Kod oling va <code>/start KOD</code> ko'rinishida yuboring.
 
@@ -260,7 +260,7 @@ async function handleDone(message: TelegramMessage) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const userId = userLink.user_id;
@@ -374,7 +374,7 @@ async function handleToday(message: TelegramMessage, editMessageId: number | nul
             text += `${index + 1}. ${priorityEmoji} ${escapeHTML(task.title)}${dateStr}\n`;
         });
         text += '\n✍️ <i>Vazifani bajarish uchun quyidagi raqamlardan birini bosing!</i>\n';
-        text += 'Batafsil boshqarish: <a href="https://study-planner.uz/tasks">study-planner.uz/tasks</a>';
+        text += 'Batafsil boshqarish: <a href="https://task-planner-tau.vercel.app/tasks">task-planner-tau.vercel.app/tasks</a>';
 
         // Build inline keyboard
         const inlineKeyboard = {
@@ -421,7 +421,7 @@ async function handleStats(message: TelegramMessage) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { data: profile, error: profileError } = await supabase
@@ -439,7 +439,7 @@ async function handleStats(message: TelegramMessage) {
                      `⭐ <b>Daraja (Level):</b> ${profile.level}\n` +
                      `✨ <b>Umumiy XP:</b> ${profile.total_xp}\n` +
                      `🔥 <b>Kunlik faollik (Streak):</b> ${profile.current_streak} kun\n\n` +
-                     `Batafsil ko'rish: <a href="https://study-planner.uz">study-planner.uz</a> 🚀`;
+                     `Batafsil ko'rish: <a href="https://task-planner-tau.vercel.app">task-planner-tau.vercel.app</a> 🚀`;
         return sendMessage(chatId, text);
 
     } catch (err) {
@@ -463,7 +463,7 @@ async function handleGoals(message: TelegramMessage) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { data: goals, error: goalsError } = await supabase
@@ -479,7 +479,7 @@ async function handleGoals(message: TelegramMessage) {
         }
 
         if (!goals || goals.length === 0) {
-            return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. <a href=\"https://study-planner.uz/goals\">study-planner.uz/goals</a> sahifasi orqali o'z maqsadingizni belgilang!");
+            return sendMessage(chatId, "🎯 Hali maqsadlar qo'yilmagan. <a href=\"https://task-planner-tau.vercel.app/goals\">task-planner-tau.vercel.app/goals</a> sahifasi orqali o'z maqsadingizni belgilang!");
         }
 
         let text = "🎯 <b>Mening maqsadlarim (Oxirgi 5 ta):</b>\n\n";
@@ -510,7 +510,7 @@ async function handleAddTask(message: TelegramMessage, taskTitle: string) {
             .single();
 
         if (linkError || !userLink) {
-            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://study-planner.uz/settings\">study-planner.uz/settings</a> sahifasi orqali bog'lang (/start KOD).");
+            return sendMessage(chatId, "❌ Akkauntingiz topilmadi. Iltimos, oldin <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasi orqali bog'lang (/start KOD).");
         }
 
         const { error: insertError } = await supabase
