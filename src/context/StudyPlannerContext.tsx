@@ -13,6 +13,7 @@ import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
 import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
+import { dbOps } from '../utils/db';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -241,112 +242,144 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             // Parallel yuklash for other entities
-            const [subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
-                supabase.from('subjects').select('*').eq('user_id', currentUser.id),
-                supabase.from('goals').select('*').eq('user_id', currentUser.id),
-                supabase.from('notes').select('*').eq('user_id', currentUser.id),
-                supabase.from('study_sessions').select('*').eq('user_id', currentUser.id),
-                supabase.from('study_notes').select('*').eq('user_id', currentUser.id),
-                supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
-                supabase.from('events').select('*').eq('user_id', currentUser.id),
-                supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
-            ]);
+            try {
+                const [subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
+                    supabase.from('subjects').select('*').eq('user_id', currentUser.id),
+                    supabase.from('goals').select('*').eq('user_id', currentUser.id),
+                    supabase.from('notes').select('*').eq('user_id', currentUser.id),
+                    supabase.from('study_sessions').select('*').eq('user_id', currentUser.id),
+                    supabase.from('study_notes').select('*').eq('user_id', currentUser.id),
+                    supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
+                    supabase.from('events').select('*').eq('user_id', currentUser.id),
+                    supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
+                ]);
 
+                if (subjectsRes.data) {
+                    const mappedSubjects = subjectsRes.data.map((s: DatabaseSubject) => ({
+                        id: s.id,
+                        name: s.name,
+                        color: s.color,
+                        schedule: s.schedule,
+                        teacherName: s.teacher_name,
+                        roomLocation: s.room_location,
+                        description: s.description,
+                        icon: s.icon
+                    }));
+                    setSubjects(mappedSubjects);
+                    await dbOps.clear('subjects');
+                    await dbOps.putAll('subjects', mappedSubjects);
+                }
 
+                if (sessionsRes.data) {
+                    const mappedSessions = sessionsRes.data.map((s: DatabaseSession) => ({
+                        ...s,
+                        subjectId: s.subject_id,
+                        startTime: s.start_time,
+                        moodBefore: s.mood_before,
+                        moodAfter: s.mood_after
+                    }));
+                    setSessions(mappedSessions);
+                    await dbOps.clear('sessions');
+                    await dbOps.putAll('sessions', mappedSessions);
+                }
 
-            // ... (Other setters remain the same: subjects, goals, notes, etc.)
-            if (subjectsRes.data) {
-                setSubjects(subjectsRes.data.map((s: DatabaseSubject) => ({
-                    id: s.id,
-                    name: s.name,
-                    color: s.color,
-                    schedule: s.schedule,
-                    teacherName: s.teacher_name,
-                    roomLocation: s.room_location,
-                    description: s.description,
-                    icon: s.icon
-                })));
-            }
+                if (notesRes.data) {
+                    const mappedNotes = notesRes.data.map((n: DatabaseNote) => ({
+                        ...n,
+                        subjectId: n.subject_id,
+                        createdAt: n.created_at,
+                        updatedAt: n.updated_at
+                    }));
+                    setNotes(mappedNotes);
+                    await dbOps.clear('notes');
+                    await dbOps.putAll('notes', mappedNotes);
+                }
 
-            if (sessionsRes.data) {
-                setSessions(sessionsRes.data.map((s: DatabaseSession) => ({
-                    ...s,
-                    subjectId: s.subject_id,
-                    startTime: s.start_time,
-                    moodBefore: s.mood_before,
-                    moodAfter: s.mood_after
-                })));
-            }
+                if (studyNotesRes.data) {
+                    const mappedStudyNotes = studyNotesRes.data.map((n: DatabaseStudyNote) => ({
+                        ...n,
+                        userId: n.user_id,
+                        subjectId: n.subject_id,
+                        createdAt: n.created_at,
+                        updatedAt: n.updated_at
+                    }));
+                    setStudyNotes(mappedStudyNotes);
+                    await dbOps.clear('study_notes');
+                    await dbOps.putAll('study_notes', mappedStudyNotes);
+                }
 
-            if (notesRes.data) {
-                setNotes(notesRes.data.map((n: DatabaseNote) => ({
-                    ...n,
-                    subjectId: n.subject_id,
-                    createdAt: n.created_at,
-                    updatedAt: n.updated_at
-                })));
-            }
+                if (goalsRes.data) {
+                    setGoals(goalsRes.data);
+                    await dbOps.clear('goals');
+                    await dbOps.putAll('goals', goalsRes.data);
+                }
 
-            if (studyNotesRes.data) {
-                setStudyNotes(studyNotesRes.data.map((n: DatabaseStudyNote) => ({
-                    ...n,
-                    userId: n.user_id,
-                    subjectId: n.subject_id,
-                    createdAt: n.created_at,
-                    updatedAt: n.updated_at
-                })));
-            }
+                if (whiteboardsRes.data) {
+                    setWhiteboards(whiteboardsRes.data.map((w: DatabaseWhiteboard) => ({
+                        id: w.id,
+                        subjectId: w.subject_id,
+                        userId: w.user_id,
+                        title: w.title || 'Adsiz Doska',
+                        updatedAt: w.updated_at
+                    })));
+                }
 
+                if (eventsRes.data) {
+                    const mappedEvents = eventsRes.data.map((e: DatabaseEvent) => ({
+                        id: e.id,
+                        userId: e.user_id,
+                        title: e.title,
+                        description: e.description,
+                        eventType: e.event_type,
+                        eventDate: e.event_date,
+                        notifyBeforeMinutes: e.notify_before_minutes,
+                        isNotified: e.is_notified,
+                        repetitionType: e.repetition_type || 'none',
+                        repetitionEndDate: e.repetition_end_date,
+                        repetitionDays: e.repetition_days,
+                        googleEventId: e.google_event_id,
+                        createdAt: e.created_at,
+                        updatedAt: e.updated_at
+                    }));
+                    setEvents(mappedEvents);
+                    await dbOps.clear('events');
+                    await dbOps.putAll('events', mappedEvents);
+                }
 
+                // Profile & Settings
+                if (profileRes.data) {
+                    const profile = profileRes.data as DatabaseProfile;
+                    setAppSettings({
+                        theme: profile.theme || 'light',
+                        notificationsEnabled: profile.notifications_enabled ?? true,
+                        googleApiKey: profile.google_api_key,
+                    });
 
-            if (goalsRes.data) {
-                setGoals(goalsRes.data);
-            }
-
-            if (whiteboardsRes.data) {
-                setWhiteboards(whiteboardsRes.data.map((w: DatabaseWhiteboard) => ({
-                    id: w.id,
-                    subjectId: w.subject_id,
-                    userId: w.user_id,
-                    title: w.title || 'Adsiz Doska',
-                    updatedAt: w.updated_at
-                })));
-            }
-
-            if (eventsRes.data) {
-                setEvents(eventsRes.data.map((e: DatabaseEvent) => ({
-                    id: e.id,
-                    userId: e.user_id,
-                    title: e.title,
-                    description: e.description,
-                    eventType: e.event_type,
-                    eventDate: e.event_date,
-                    notifyBeforeMinutes: e.notify_before_minutes,
-                    isNotified: e.is_notified,
-                    repetitionType: e.repetition_type || 'none',
-                    repetitionEndDate: e.repetition_end_date,
-                    repetitionDays: e.repetition_days,
-                    googleEventId: e.google_event_id,
-                    createdAt: e.created_at,
-                    updatedAt: e.updated_at
-                })));
-            }
-
-            // Profile & Settings
-            if (profileRes.data) {
-                const profile = profileRes.data as DatabaseProfile;
-                setAppSettings({
-                    theme: profile.theme || 'light',
-                    notificationsEnabled: profile.notifications_enabled ?? true,
-                    googleApiKey: profile.google_api_key,
-                });
-
-                setGamificationState({
-                    totalXp: profile.total_xp || 0,
-                    level: profile.level || 1,
-                    currentStreak: profile.current_streak || 0,
-                    lastActivityDate: profile.last_activity_date || null,
-                });
+                    setGamificationState({
+                        totalXp: profile.total_xp || 0,
+                        level: profile.level || 1,
+                        currentStreak: profile.current_streak || 0,
+                        lastActivityDate: profile.last_activity_date || null,
+                    });
+                }
+            } catch (innerError) {
+                console.error("Tarmoq xatosi, oflayn ma'lumotlar yuklanmoqda...", innerError);
+                // Oflayn fallback
+                const [localSubjects, localNotes, localStudyNotes, localGoals, localSessions, localEvents] = await Promise.all([
+                    dbOps.getAll('subjects'),
+                    dbOps.getAll('notes'),
+                    dbOps.getAll('study_notes'),
+                    dbOps.getAll('goals'),
+                    dbOps.getAll('sessions'),
+                    dbOps.getAll('events')
+                ]);
+                
+                setSubjects((localSubjects || []) as Subject[]);
+                setNotes((localNotes || []) as Note[]);
+                setStudyNotes((localStudyNotes || []) as StudyNote[]);
+                setGoals((localGoals || []) as Goal[]);
+                setSessions((localSessions || []) as StudySession[]);
+                setEvents((localEvents || []) as Event[]);
             }
 
         } catch (error) {

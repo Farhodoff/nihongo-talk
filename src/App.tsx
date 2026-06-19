@@ -42,6 +42,7 @@ const PageLoader = () => (
 
 import ReloadPrompt from './components/pwa/ReloadPrompt';
 import InstallPrompt from './components/pwa/InstallPrompt';
+import OfflineIndicator from './components/OfflineIndicator';
 
 const App: React.FC = () => {
     const [session, setSession] = useState<Session | null>(null);
@@ -115,6 +116,8 @@ const App: React.FC = () => {
                         {/* PWA Prompts */}
                         <ReloadPrompt />
                         <InstallPrompt />
+                        
+                        <OfflineIndicator />
                     </div>
                 </BrowserRouter>
             </StudyPlannerProvider>
