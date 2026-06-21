@@ -11,6 +11,7 @@ import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
 import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
+import { dbOps } from '../utils/db';
 
 
 interface Settings {
