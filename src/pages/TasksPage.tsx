@@ -64,19 +64,19 @@ const TasksPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Kunlik Vazifalar</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Kunlik faoliyatingizni boshqaring</p>
+                    <h2 className="text-3xl font-bold text-foreground">Kunlik Vazifalar</h2>
+                    <p className="text-muted-foreground mt-1">Kunlik faoliyatingizni boshqaring</p>
                 </div>
-                <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl w-fit">
+                <div className="flex bg-muted/50 p-1 rounded-xl w-fit border border-border/50">
                     <button
                         onClick={() => setViewMode('list')}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'list' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'list' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         Ro'yxat
                     </button>
                     <button
                         onClick={() => setViewMode('board')}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         Doska
                     </button>
@@ -84,7 +84,7 @@ const TasksPage: React.FC = () => {
             </div>
 
             {viewMode === 'list' && (
-                <div className="bg-white dark:bg-[#1f2937] p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
+                <div className="glass-card p-5 md:p-6 rounded-2xl mb-8">
                     <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-12 gap-4">
                         {/* Row 1 */}
                         <input
@@ -92,13 +92,13 @@ const TasksPage: React.FC = () => {
                             value={newTaskTitle}
                             onChange={(e) => setNewTaskTitle(e.target.value)}
                             placeholder="Yangi vazifa qo'shish..."
-                            className="md:col-span-9 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="md:col-span-9 px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         />
                         <input
                             type="date"
                             value={newTaskDate}
                             onChange={(e) => setNewTaskDate(e.target.value)}
-                            className="md:col-span-3 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"
+                            className="md:col-span-3 px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary appearance-none backdrop-blur-sm"
                         />
 
                         {/* Row 2 */}
@@ -107,16 +107,16 @@ const TasksPage: React.FC = () => {
                             value={newTaskLink}
                             onChange={(e) => setNewTaskLink(e.target.value)}
                             placeholder="Havola (ixtiyoriy)..."
-                            className="md:col-span-6 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="md:col-span-6 px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         />
                         <select
                             value={selectedGoal}
                             onChange={(e) => setSelectedGoal(e.target.value)}
-                            className="md:col-span-6 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="md:col-span-6 px-4 py-3 rounded-xl border border-border bg-background/50 text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         >
-                            <option value="" className="bg-white dark:bg-[#1f2937]">Maqsadga bog'lash</option>
+                            <option value="" className="bg-background">Maqsadga bog'lash</option>
                             {goals.map(g => (
-                                <option key={g.id} value={g.id} className="bg-white dark:bg-[#1f2937]">{g.title}</option>
+                                <option key={g.id} value={g.id} className="bg-background">{g.title}</option>
                             ))}
                         </select>
 
@@ -124,15 +124,15 @@ const TasksPage: React.FC = () => {
                         <select
                             value={selectedSubject}
                             onChange={(e) => setSelectedSubject(e.target.value)}
-                            className="md:col-span-6 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="md:col-span-6 px-4 py-3 rounded-xl border border-border bg-background/50 text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         >
-                            <option value="" className="bg-white dark:bg-[#1f2937]">Fanga bog'lash</option>
+                            <option value="" className="bg-background">Fanga bog'lash</option>
                             {subjects.map(s => (
-                                <option key={s.id} value={s.id} className="bg-white dark:bg-[#1f2937]">{s.name}</option>
+                                <option key={s.id} value={s.id} className="bg-background">{s.name}</option>
                             ))}
                         </select>
                         <div className="md:col-span-6 flex items-center justify-start">
-                            <Button type="submit" className="w-full md:w-auto px-10 py-3 rounded-xl bg-[#6366f1] hover:bg-[#4f46e5] text-white font-medium shadow-sm transition-colors">
+                            <Button type="submit" className="w-full md:w-auto px-10 py-6 rounded-xl text-primary-foreground font-medium shadow-sm transition-colors text-md">
                                 Qo'shish
                             </Button>
                         </div>
@@ -172,18 +172,18 @@ const TasksPage: React.FC = () => {
                                             .map(task => {
                                             const subject = getSubjectInfo(task.subjectId);
                                             return (
-                                                <div key={task.id} className={`group bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row md:items-center gap-4 transition-all ${task.completed ? 'opacity-60' : ''}`}>
+                                                <div key={task.id} className={`group glass-card p-4 rounded-xl flex flex-col md:flex-row md:items-center gap-4 transition-all hover:border-primary/50 transform hover:-translate-y-0.5 ${task.completed ? 'opacity-60' : ''}`}>
                                                     <div className="flex items-center gap-4 flex-1 min-w-0">
                                                         <button
                                                             onClick={() => handleToggleTask(task.id)}
-                                                            className={`w-6 h-6 shrink-0 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-indigo-600 border-indigo-600' : 'border-gray-300 dark:border-gray-600 hover:border-indigo-600'}`}
+                                                            className={`w-6 h-6 shrink-0 rounded-lg border-2 flex items-center justify-center transition-colors ${task.completed ? 'bg-primary border-primary' : 'border-muted-foreground/30 hover:border-primary'}`}
                                                         >
-                                                            {task.completed && <div className="w-2.5 h-2.5 bg-white rounded-sm" />}
+                                                            {task.completed && <div className="w-2.5 h-2.5 bg-primary-foreground rounded-sm" />}
                                                         </button>
 
                                                         <div className="flex-1 min-w-0">
                                                             <div className="flex items-center gap-2">
-                                                                <p className={`font-medium text-gray-900 dark:text-white truncate ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                                                                <p className={`font-medium text-foreground truncate ${task.completed ? 'line-through text-muted-foreground' : ''}`}>
                                                                     {task.title}
                                                                 </p>
                                                                 {task.googleEventId && (
@@ -195,26 +195,26 @@ const TasksPage: React.FC = () => {
                                                                 )}
                                                             </div>
                                                             <div className="flex flex-wrap items-center gap-2 mt-1">
-                                                                <span className="text-[10px] text-gray-400 flex items-center gap-1">
+                                                                <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                                     </svg>
                                                                     {(task.dueDate || task.deadline || '').split('T')[0]}
                                                                 </span>
                                                                 {task.link && (
-                                                                    <a href={task.link} target="_blank" rel="noopener noreferrer" className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
+                                                                    <a href={task.link} target="_blank" rel="noopener noreferrer" className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 font-medium hover:underline flex items-center gap-1">
                                                                         🔗 Havola
                                                                     </a>
                                                                 )}
                                                                 {task.goalId && (
-                                                                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium">
+                                                                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
                                                                         🎯 {getGoalTitle(task.goalId)}
                                                                     </span>
                                                                 )}
                                                                 {subject && (
                                                                     <span
-                                                                        className="text-[10px] px-2 py-0.5 rounded-full font-medium"
-                                                                        style={{ backgroundColor: subject.color + '20', color: subject.color }}
+                                                                        className="text-[10px] px-2 py-0.5 rounded-full font-medium border"
+                                                                        style={{ backgroundColor: subject.color + '15', color: subject.color, borderColor: subject.color + '30' }}
                                                                     >
                                                                         {subject.name}
                                                                     </span>
@@ -225,7 +225,7 @@ const TasksPage: React.FC = () => {
 
                                                     <button
                                                         onClick={() => deleteTask(task.id)}
-                                                        className="opacity-0 group-hover:opacity-100 p-2 text-gray-400 hover:text-red-500 transition-all self-end md:self-auto"
+                                                        className="opacity-0 group-hover:opacity-100 p-2 text-muted-foreground hover:text-destructive transition-all self-end md:self-auto"
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -241,14 +241,14 @@ const TasksPage: React.FC = () => {
 
                         if (tasks.length === 0) {
                             return (
-                                <div className="text-center py-20 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
-                                    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div className="text-center py-20 glass-card rounded-3xl border-dashed">
+                                    <div className="w-16 h-16 bg-muted/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Vazifalar yo'q</h3>
-                                    <p className="text-gray-500 dark:text-gray-400 mt-1">Yangi vazifa qo'shish orqali boshlang!</p>
+                                    <h3 className="text-lg font-medium text-foreground">Vazifalar yo'q</h3>
+                                    <p className="text-muted-foreground mt-1">Yangi vazifa qo'shish orqali boshlang!</p>
                                 </div>
                             );
                         }

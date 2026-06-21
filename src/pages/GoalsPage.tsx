@@ -33,8 +33,8 @@ const GoalsPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Maqsadlar</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Akademik maqsadlaringizni qo'ying va kuzatib boring</p>
+                    <h2 className="text-3xl font-bold text-foreground">Maqsadlar</h2>
+                    <p className="text-muted-foreground mt-1">Akademik maqsadlaringizni qo'ying va kuzatib boring</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="secondary" onClick={() => setAIModalOpen(true)} className="text-indigo-600 bg-indigo-50 border-indigo-100">
@@ -48,18 +48,18 @@ const GoalsPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {goals.map(goal => (
-                    <div key={goal.id} className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
+                    <div key={goal.id} className="glass-card p-6 rounded-2xl transition-all hover:-translate-y-1 hover:shadow-lg group">
                         <div className="flex justify-between items-start mb-4">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 rounded-lg" style={{ backgroundColor: (goal.color || '#6366f1') + '20', color: goal.color || '#6366f1' }}>
                                     <Target size={24} />
                                 </div>
-                                <h3 className="font-bold text-lg text-gray-900 dark:text-white">{goal.title}</h3>
+                                <h3 className="font-bold text-lg text-foreground">{goal.title}</h3>
                             </div>
                             <Button
                                 variant="secondary"
                                 onClick={() => deleteGoal(goal.id)}
-                                className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 px-3 py-1 text-sm h-8"
+                                className="text-destructive hover:bg-destructive/10 px-3 py-1 text-sm h-8 opacity-0 group-hover:opacity-100 transition-opacity"
                             >
                                 O'chirish
                             </Button>
@@ -67,8 +67,8 @@ const GoalsPage: React.FC = () => {
 
                         <div className="mb-4">
                             <div className="flex justify-between text-sm mb-2">
-                                <span className="text-gray-500">Jarayon</span>
-                                <span className="font-medium text-gray-900 dark:text-white">{Math.round(goal.progress)}%</span>
+                                <span className="text-muted-foreground">Jarayon</span>
+                                <span className="font-medium text-foreground">{Math.round(goal.progress)}%</span>
                             </div>
                             <ProgressBar progress={goal.progress} color={goal.color || '#6366f1'} />
                             <input
@@ -76,12 +76,12 @@ const GoalsPage: React.FC = () => {
                                 min="0" max="100"
                                 value={goal.progress}
                                 onChange={(e) => updateGoal(goal.id, { progress: Number(e.target.value) })}
-                                className="w-full mt-2 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                className="w-full mt-2 h-1 bg-muted rounded-lg appearance-none cursor-pointer"
                             />
-                            <p className="text-xs text-center text-gray-400 mt-1">Suring va o'z progressingizni belgilang</p>
+                            <p className="text-xs text-center text-muted-foreground mt-1">Suring va o'z progressingizni belgilang</p>
                         </div>
 
-                        <div className="flex items-center justify-between text-gray-500 dark:text-gray-400 text-sm mt-4">
+                        <div className="flex items-center justify-between text-muted-foreground text-sm mt-4">
                             <div className="flex items-center">
                                 <Calendar size={14} className="mr-2" />
                                 {new Date(goal.createdAt || Date.now()).toLocaleDateString()}
@@ -95,12 +95,12 @@ const GoalsPage: React.FC = () => {
             </div>
 
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl w-full max-w-md">
-                        <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Yangi Maqsad</h3>
+                <div className="fixed inset-0 bg-background/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+                    <div className="glass-card border-none ring-1 ring-border shadow-2xl p-6 rounded-2xl w-full max-w-md backdrop-blur-xl">
+                        <h3 className="text-xl font-bold mb-4 text-foreground">Yangi Maqsad</h3>
                         <form onSubmit={handleAdd} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="block text-sm font-medium text-foreground mb-2">
                                     Maqsad Nomi *
                                 </label>
                                 <input
@@ -108,20 +108,20 @@ const GoalsPage: React.FC = () => {
                                     value={newTitle}
                                     onChange={(e) => setNewTitle(e.target.value)}
                                     placeholder="Nimalarga erishmoqchisiz?"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary backdrop-blur-sm"
                                     autoFocus
                                     required
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="block text-sm font-medium text-foreground mb-2">
                                     Tugash Vaqti *
                                 </label>
                                 <input
                                     type="datetime-local"
                                     value={newDeadline}
                                     onChange={(e) => setNewDeadline(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary backdrop-blur-sm"
                                     required
                                 />
                             </div>

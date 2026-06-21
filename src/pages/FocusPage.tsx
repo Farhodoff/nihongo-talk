@@ -118,14 +118,14 @@ const FocusPage: React.FC = () => {
 
             {/* Task Selector (New) */}
             <div className="w-full max-w-sm mb-6">
-                <label className="block text-xs font-bold text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-widest text-center">
+                <label className="block text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest text-center">
                     Hozir nima ustida ishlayapsiz?
                 </label>
                 <div className="relative">
                     <select
                         value={focusState.selectedTaskId || ''}
                         onChange={(e) => setFocusTask(e.target.value || null)}
-                        className="w-full pl-4 pr-10 py-3 bg-white dark:bg-gray-800 border-none rounded-2xl shadow-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all"
+                        className="w-full pl-4 pr-10 py-3 bg-background border border-border rounded-2xl shadow-sm text-foreground outline-none focus:ring-2 focus:ring-primary appearance-none transition-all glass-card"
                         disabled={focusState.isActive}
                     >
                         <option value="">Shunchaki fokuslanish...</option>
@@ -133,15 +133,15 @@ const FocusPage: React.FC = () => {
                             <option key={task.id} value={task.id}>{task.title}</option>
                         ))}
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
                         <CheckCircle2 size={16} />
                     </div>
                 </div>
             </div>
 
             <div className="mb-4 text-center">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Fokus Mod</h2>
-                <p className="text-gray-500 dark:text-gray-400">Har bir sessiyada unumli bo'ling.</p>
+                <h2 className="text-3xl font-bold text-foreground mb-2">Fokus Mod</h2>
+                <p className="text-muted-foreground">Har bir sessiyada unumli bo'ling.</p>
             </div>
 
             <SoundMixer
@@ -154,10 +154,10 @@ const FocusPage: React.FC = () => {
             />
 
             {/* Mode Switcher */}
-            <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-2xl mb-8">
-                <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}>Fokus</button>
-                <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}>Qisqa</button>
-                <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-white' : 'text-gray-500'}`}>Uzun</button>
+            <div className="flex bg-muted/50 p-1 rounded-2xl mb-8 border border-border/50">
+                <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Fokus</button>
+                <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Qisqa</button>
+                <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Uzun</button>
             </div>
 
             {/* Subject Selector */}
@@ -166,7 +166,7 @@ const FocusPage: React.FC = () => {
                     <select
                         value={focusState.selectedSubjectId || ''}
                         onChange={(e) => setFocusSubject(e.target.value)}
-                        className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-center appearance-none"
+                        className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none text-center appearance-none backdrop-blur-sm"
                     >
                         <option value="">Umumiy O'qish</option>
                         {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}

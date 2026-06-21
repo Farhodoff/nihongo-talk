@@ -30,10 +30,10 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks, onStatusChange }) => {
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="flex gap-6 h-full overflow-x-auto pb-4 custom-scrollbar">
                 {columns.map(column => (
-                    <div key={column.id} className="flex flex-col bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 min-w-[300px] max-w-[300px] md:flex-1 md:max-w-none">
+                    <div key={column.id} className="flex flex-col bg-muted/30 rounded-2xl p-4 min-w-[300px] max-w-[300px] md:flex-1 md:max-w-none border border-border/50">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-semibold text-gray-700 dark:text-gray-200">{column.title}</h3>
-                            <span className="bg-gray-200 dark:bg-gray-700 text-xs px-2 py-1 rounded-full text-gray-600 dark:text-gray-400 font-medium">
+                            <h3 className="font-semibold text-foreground">{column.title}</h3>
+                            <span className="bg-muted text-xs px-2 py-1 rounded-full text-muted-foreground font-medium">
                                 {tasks.filter(t => (t.status || (t.completed ? 'done' : 'todo')) === column.id).length}
                             </span>
                         </div>
@@ -54,23 +54,23 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks, onStatusChange }) => {
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
-                                                        className={`bg-white dark:bg-[#1f2937] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 group hover:shadow-md transition-shadow ${snapshot.isDragging ? 'rotate-2 shadow-lg' : ''}`}
+                                                        className={`glass-card p-4 rounded-xl group transition-all hover:border-primary/50 transform hover:-translate-y-0.5 ${snapshot.isDragging ? 'rotate-2 shadow-lg ring-2 ring-primary border-transparent' : ''}`}
                                                         style={{ ...provided.draggableProps.style }}
                                                     >
                                                         <div className="flex justify-between items-start mb-2">
-                                                            <span className={`text-xs px-2 py-1 rounded-md font-medium ${task.priority === 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                                                                    task.priority === 'medium' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                                                                        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                                                            <span className={`text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-wider ${task.priority === 'high' ? 'bg-destructive/10 text-destructive' :
+                                                                    task.priority === 'medium' ? 'bg-orange-500/10 text-orange-500' :
+                                                                        'bg-blue-500/10 text-blue-500'
                                                                 }`}>
-                                                                {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+                                                                {task.priority}
                                                             </span>
-                                                            <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                                                            <button className="text-muted-foreground hover:text-foreground transition-colors">
                                                                 <MoreHorizontal size={16} />
                                                             </button>
                                                         </div>
-                                                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{task.title}</h4>
+                                                        <h4 className="font-semibold text-foreground mb-1">{task.title}</h4>
                                                         {task.deadline && (
-                                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                            <p className="text-xs text-muted-foreground font-medium">
                                                                 Due: {new Date(task.deadline).toLocaleDateString()}
                                                             </p>
                                                         )}

@@ -16,11 +16,11 @@ const formatTime = (seconds: number) => {
 };
 
 const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodBefore, isActive }) => {
-    const colorClass = mode === 'focus' ? 'text-indigo-500' : 'text-emerald-500';
-    const glowClass = mode === 'focus' ? 'shadow-indigo-500/25 dark:shadow-indigo-500/10' : 'shadow-emerald-500/25 dark:shadow-emerald-500/10';
-    const bgGlow = mode === 'focus' ? 'bg-indigo-500/[0.03] dark:bg-indigo-500/[0.01]' : 'bg-emerald-500/[0.03] dark:bg-emerald-500/[0.01]';
-    const borderGlowColor = mode === 'focus' ? 'border-indigo-500/20 dark:border-indigo-500/10' : 'border-emerald-500/20 dark:border-emerald-500/10';
-    const dashedGlowColor = mode === 'focus' ? 'border-indigo-500/15 dark:border-indigo-500/5' : 'border-emerald-500/15 dark:border-emerald-500/5';
+    const colorClass = mode === 'focus' ? 'text-primary' : 'text-emerald-500';
+    const glowClass = mode === 'focus' ? 'shadow-primary/25 dark:shadow-primary/10' : 'shadow-emerald-500/25 dark:shadow-emerald-500/10';
+    const bgGlow = mode === 'focus' ? 'bg-primary/[0.03] dark:bg-primary/[0.01]' : 'bg-emerald-500/[0.03] dark:bg-emerald-500/[0.01]';
+    const borderGlowColor = mode === 'focus' ? 'border-primary/20 dark:border-primary/10' : 'border-emerald-500/20 dark:border-emerald-500/10';
+    const dashedGlowColor = mode === 'focus' ? 'border-primary/15 dark:border-primary/5' : 'border-emerald-500/15 dark:border-emerald-500/5';
 
     return (
         <div className={`relative w-80 h-80 mb-10 flex items-center justify-center rounded-full transition-all duration-700 ${isActive ? 'scale-105' : 'scale-100'} ${bgGlow}`}>
@@ -39,7 +39,7 @@ const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodB
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="4" 
-                    className="text-gray-100 dark:text-gray-800/40" 
+                    className="text-muted" 
                 />
                 {/* Progress Circle */}
                 <circle 
@@ -58,16 +58,16 @@ const FocusTimer: React.FC<FocusTimerProps> = ({ timeLeft, progress, mode, moodB
             </svg>
 
             <div className="relative z-10 text-center flex flex-col items-center">
-                <span className="text-xs font-bold tracking-[0.3em] uppercase mb-1 text-gray-400 dark:text-gray-500">
+                <span className="text-xs font-bold tracking-[0.3em] uppercase mb-1 text-muted-foreground">
                     {mode === 'focus' ? 'Fokus' : 'Tanaffus'}
                 </span>
-                <div className={`text-7xl font-bold text-gray-900 dark:text-white font-mono tracking-tight tabular-nums transition-transform duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}>
+                <div className={`text-7xl font-bold text-foreground font-mono tracking-tight tabular-nums transition-transform duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}>
                     {formatTime(timeLeft)}
                 </div>
                 {mode === 'focus' && moodBefore && isActive && (
-                    <div className="absolute -bottom-8 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-sm border border-gray-100 dark:border-gray-700 animate-bounce flex items-center gap-2">
+                    <div className="absolute -bottom-8 bg-background px-3 py-1 rounded-full shadow-sm border border-border animate-bounce flex items-center gap-2">
                         <span className="text-lg">{MOODS.find(m => m.value === moodBefore)?.emoji}</span>
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Faol</span>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">Faol</span>
                     </div>
                 )}
             </div>
