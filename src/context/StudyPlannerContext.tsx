@@ -200,9 +200,31 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
             setUser(currentUser);
 
+            // --- FAST PATH: Load local cached data first to unblock UI ---
+            try {
+                const [localTasks, localCards, localSubjects, localGoals, localSessions] = await Promise.all([
+                    dbOps.getAll('tasks'),
+                    dbOps.getAll('flashcards'),
+                    dbOps.getAll('subjects'),
+                    dbOps.getAll('goals'),
+                    dbOps.getAll('sessions')
+                ]);
+                if (localTasks && localTasks.length > 0) setTasks(localTasks as Task[]);
+                if (localCards && localCards.length > 0) setFlashcards(localCards as Flashcard[]);
+                if (localSubjects && localSubjects.length > 0) setSubjects(localSubjects as Subject[]);
+                if (localGoals && localGoals.length > 0) setGoals(localGoals as Goal[]);
+                if (localSessions && localSessions.length > 0) setSessions(localSessions as StudySession[]);
+                
+                // Unblock UI immediately with local data
+                setLoading(false);
+            } catch (localErr) {
+                console.warn("Failed to load local data quickly:", localErr);
+            }
+
             // Google Calendar sinxronizatsiyasi
             syncGoogleEvents();
 
+            // --- BACKGROUND SYNC: Fetch fresh data from Supabase ---
             // --- TASKS via Service ---
             try {
                 const fetchedTasks = await TaskService.fetchTasks(currentUser.id);

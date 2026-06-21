@@ -4,8 +4,11 @@ import { encrypt, decrypt, getEncryptionKey } from './storage';
 const DB_NAME = 'study_planner_db';
 const DB_VERSION = 1;
 
+let dbInstance: IDBPDatabase | null = null;
+
 export const initDB = async (): Promise<IDBPDatabase> => {
-    return openDB(DB_NAME, DB_VERSION, {
+    if (dbInstance) return dbInstance;
+    dbInstance = await openDB(DB_NAME, DB_VERSION, {
         upgrade(db) {
             // Ma'lumotlar uchun store'lar
             if (!db.objectStoreNames.contains('tasks')) db.createObjectStore('tasks', { keyPath: 'id' });
@@ -24,6 +27,7 @@ export const initDB = async (): Promise<IDBPDatabase> => {
             }
         },
     });
+    return dbInstance;
 };
 
 const encryptData = async (data: unknown) => {
