@@ -49,8 +49,8 @@ const SubjectsPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Fanlar</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Kurslar va materiallarni boshqaring</p>
+                    <h2 className="text-3xl font-bold text-foreground">Fanlar</h2>
+                    <p className="text-muted-foreground mt-1">Kurslar va materiallarni boshqaring</p>
                 </div>
                 <Button onClick={() => { setIsAdding(!isAdding); setEditingSubject(null); }} className="w-full md:w-auto">
                     <Plus size={20} className="mr-2" /> Fan Qo'shish
@@ -79,12 +79,12 @@ const SubjectsPage: React.FC = () => {
                 ))}
 
                 {subjects.length === 0 && !isAdding && (
-                    <div className="col-span-full flex flex-col items-center justify-center p-12 text-center bg-white dark:bg-[#1f2937] rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/20 rounded-full flex items-center justify-center mb-6 text-indigo-500">
+                    <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
+                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
                             <BookOpen size={40} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Hali fanlar yaratilmagan</h3>
-                        <p className="text-gray-500 dark:text-gray-400 max-w-sm mb-8">
+                        <h3 className="text-xl font-bold text-foreground mb-2">Hali fanlar yaratilmagan</h3>
+                        <p className="text-muted-foreground max-w-sm mb-8">
                             O'qish rejangizni tuzishni boshlash uchun birinchi faningizni qo'shing.
                         </p>
                         <Button onClick={() => setIsAdding(true)} className="px-8">

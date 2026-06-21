@@ -35,26 +35,26 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
     };
 
     return (
-        <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8 animate-in slide-in-from-top-4 duration-300">
-            <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
+        <div className="glass-card p-6 rounded-2xl mb-8 animate-in slide-in-from-top-4 duration-300">
+            <h3 className="text-lg font-bold mb-4 text-foreground">
                 {initialData ? 'Fanni Tahrirlash' : 'Yangi Fan'}
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Fan Nomi</label>
+                        <label className="text-sm font-medium text-foreground">Fan Nomi</label>
                         <input
                             type="text"
                             required
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                            className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none backdrop-blur-sm"
                             placeholder="masalan, Backend Development"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Rang</label>
+                        <label className="text-sm font-medium text-foreground">Rang</label>
                         <div className="flex gap-2">
                             {['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899'].map(c => (
                                 <button
@@ -70,20 +70,20 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Tavsif</label>
+                    <label className="text-sm font-medium text-foreground">Tavsif</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         maxLength={100}
                         rows={2}
-                        className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                        className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none resize-none backdrop-blur-sm"
                         placeholder="Fan haqida qisqacha ma'lumot..."
                     />
-                    <div className="text-xs text-gray-400 text-right">{description.length}/100</div>
+                    <div className="text-xs text-muted-foreground text-right">{description.length}/100</div>
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-200">Belgi (Ikonka)</label>
+                    <label className="text-sm font-medium text-foreground">Belgi (Ikonka)</label>
                     <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
                         {SUBJECT_ICONS.map(({ id, Icon, label }) => (
                             <button
@@ -91,12 +91,12 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
                                 type="button"
                                 onClick={() => setSelectedIcon(id)}
                                 className={`p-2 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-1 ${selectedIcon === id
-                                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                                    : 'border-gray-200 dark:border-gray-600 hover:border-indigo-300'
+                                    ? 'border-primary bg-primary/10'
+                                    : 'border-border hover:border-primary/50'
                                     }`}
                                 title={label}
                             >
-                                <Icon size={20} className={selectedIcon === id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'} />
+                                <Icon size={20} className={selectedIcon === id ? 'text-primary' : 'text-muted-foreground'} />
                             </button>
                         ))}
                     </div>
@@ -106,7 +106,7 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ onClose, onSubmit, initialDat
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                        className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
                     >
                         Bekor qilish
                     </button>

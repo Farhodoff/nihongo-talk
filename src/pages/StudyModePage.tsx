@@ -73,8 +73,8 @@ const StudyModePage: React.FC = () => {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
                 <CheckCircle2 className="text-green-500 mb-4" size={48} />
-                <h2 className="text-2xl font-bold mb-2">Sessiya yakunlandi!</h2>
-                {totalXpEarned > 0 && <p className="text-indigo-600 font-bold mb-6">+{totalXpEarned} XP to'pladingiz</p>}
+                <h2 className="text-2xl font-bold mb-2 text-foreground">Sessiya yakunlandi!</h2>
+                {totalXpEarned > 0 && <p className="text-primary font-bold mb-6">+{totalXpEarned} XP to'pladingiz</p>}
                 <Button onClick={() => navigate('/flashcards')}>Orqaga qaytish</Button>
             </div>
         );
@@ -83,8 +83,8 @@ const StudyModePage: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             <div className="flex items-center justify-between mb-8">
-                <button onClick={() => navigate('/flashcards')}><ArrowLeft /></button>
-                <span className="text-sm font-bold text-indigo-600">{currentCardIndex + 1} / {queue.length}</span>
+                <button onClick={() => navigate('/flashcards')} className="text-muted-foreground hover:text-foreground transition-colors"><ArrowLeft /></button>
+                <span className="text-sm font-bold text-primary">{currentCardIndex + 1} / {queue.length}</span>
             </div>
 
 
@@ -94,19 +94,19 @@ const StudyModePage: React.FC = () => {
                     className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}
                 >
                     {/* Front Side */}
-                    <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-white to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center p-12 border-2 border-indigo-100 dark:border-gray-700">
+                    <div className="absolute inset-0 backface-hidden glass-card border border-border bg-background/50 backdrop-blur-xl rounded-3xl shadow-2xl flex items-center justify-center p-12">
                         <div className="text-center">
-                            <p className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{currentCard?.front}</p>
-                            <p className="text-sm text-gray-400 mt-8">Kartani bosib javobni ko'ring</p>
+                            <p className="text-4xl font-bold text-foreground mb-4">{currentCard?.front}</p>
+                            <p className="text-sm text-muted-foreground mt-8">Kartani bosib javobni ko'ring</p>
                         </div>
                     </div>
 
                     {/* Back Side */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-3xl shadow-2xl flex items-center justify-center p-12">
-                        <div className="text-center text-white">
+                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-primary to-primary/80 rounded-3xl shadow-2xl flex items-center justify-center p-12">
+                        <div className="text-center text-primary-foreground">
                             <p className="text-3xl font-bold mb-4">{currentCard?.back}</p>
                             {currentCard?.front && (
-                                <div className="mt-6 pt-6 border-t border-white/20">
+                                <div className="mt-6 pt-6 border-t border-primary-foreground/20">
                                     <p className="text-sm opacity-80 italic">Ma'lumot: {currentCard.front}</p>
                                 </div>
                             )}
@@ -121,12 +121,12 @@ const StudyModePage: React.FC = () => {
                 ) : (
                     <div className="grid grid-cols-4 gap-2">
                         {[
-                            { l: 'Bilmayman (❌)', v: Rating.AGAIN, c: 'bg-red-50 text-red-600' },
-                            { l: 'Qiyin (😐)', v: Rating.HARD, c: 'bg-orange-50 text-orange-600' },
-                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, c: 'bg-blue-50 text-blue-600' },
-                            { l: 'Juda oson (😄)', v: Rating.EASY, c: 'bg-green-50 text-green-600' }
+                            { l: 'Bilmayman (❌)', v: Rating.AGAIN, c: 'bg-destructive/10 text-destructive border-destructive/20' },
+                            { l: 'Qiyin (😐)', v: Rating.HARD, c: 'bg-orange-500/10 text-orange-500 border-orange-500/20' },
+                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, c: 'bg-blue-500/10 text-blue-500 border-blue-500/20' },
+                            { l: 'Juda oson (😄)', v: Rating.EASY, c: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' }
                         ].map(b => (
-                            <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs hover:opacity-80`}>
+                            <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs border hover:-translate-y-1 transition-all duration-200`}>
                                 {b.l}
                                 <br />
                                 <span className="text-[10px] opacity-70 font-normal">

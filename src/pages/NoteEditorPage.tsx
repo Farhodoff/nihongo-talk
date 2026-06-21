@@ -115,25 +115,25 @@ const NoteEditorPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-gray-50 dark:bg-dark-bg">
+        <div className="flex flex-col h-screen bg-background text-foreground">
             {/* Header Toolbar */}
-            <div className="flex items-center justify-between px-6 py-3 bg-white dark:bg-dark-card border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between px-6 py-3 glass-card border-b border-border z-10 relative">
                 {/* Left: Back button + Tabs */}
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => navigate('/notes')}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                        className="p-2 hover:bg-muted rounded-lg transition-colors"
                     >
-                        <ArrowLeft size={20} className="text-gray-500 dark:text-gray-400" />
+                        <ArrowLeft size={20} className="text-muted-foreground" />
                     </button>
 
                     {/* Tabs */}
-                    <div className="flex p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <div className="flex p-1 bg-muted rounded-lg">
                         <button
                             onClick={() => setMode('write')}
                             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${mode === 'write'
-                                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                                ? 'bg-background text-foreground shadow-sm'
+                                : 'text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             ✏️ Yozish
@@ -141,8 +141,8 @@ const NoteEditorPage: React.FC = () => {
                         <button
                             onClick={() => setMode('preview')}
                             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${mode === 'preview'
-                                ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm'
-                                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                                ? 'bg-background text-primary shadow-sm'
+                                : 'text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             👁️ Ko'rish
@@ -158,7 +158,7 @@ const NoteEditorPage: React.FC = () => {
                             onClick={() => setIsAiMenuOpen(!isAiMenuOpen)}
                             disabled={isGenerating || isAiLoading}
                             variant="secondary"
-                            className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800"
+                            className="flex items-center gap-2 text-primary border-primary/20"
                         >
                             <Sparkles size={18} className={isGenerating || isAiLoading ? 'animate-pulse' : ''} />
                             {isAiLoading ? 'Ishlov berilmoqda...' : 'AI Yordamchi'}
@@ -166,14 +166,14 @@ const NoteEditorPage: React.FC = () => {
                         {isAiMenuOpen && (
                             <>
                                 <div className="fixed inset-0 z-40" onClick={() => setIsAiMenuOpen(false)} />
-                                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-805 rounded-2xl shadow-xl border border-gray-150 dark:border-gray-700 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="absolute right-0 mt-2 w-56 glass-card border border-border py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                                     <button
                                         onClick={() => {
                                             setIsAiMenuOpen(false);
                                             handleGenerateFlashcards();
                                         }}
                                         disabled={!content.trim()}
-                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-muted text-foreground font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
                                     >
                                         ✨ Fleshkartalar Yaratish
                                     </button>
@@ -183,7 +183,7 @@ const NoteEditorPage: React.FC = () => {
                                             handleAIAction('expand');
                                         }}
                                         disabled={!content.trim()}
-                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-muted text-foreground font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
                                     >
                                         🚀 Matnni Kengaytirish
                                     </button>
@@ -193,7 +193,7 @@ const NoteEditorPage: React.FC = () => {
                                             handleAIAction('summarize');
                                         }}
                                         disabled={!content.trim()}
-                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-muted text-foreground font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
                                     >
                                         📝 Qisqacha Xulosa (Summary)
                                     </button>
@@ -203,7 +203,7 @@ const NoteEditorPage: React.FC = () => {
                                             handleAIAction('fix');
                                         }}
                                         disabled={!content.trim()}
-                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-200 font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-muted text-foreground font-semibold flex items-center gap-2 transition-colors disabled:opacity-50"
                                     >
                                         ✍️ Imloni Tuzatish
                                     </button>
@@ -223,19 +223,19 @@ const NoteEditorPage: React.FC = () => {
             </div>
 
             {/* Meta Info (Title + Subject) */}
-            <div className="px-6 py-4 bg-white dark:bg-dark-card border-b border-gray-100 dark:border-gray-700">
+            <div className="px-6 py-4 glass-card border-b border-border z-0">
                 <div className="max-w-4xl mx-auto flex gap-4">
                     <input
                         type="text"
                         placeholder="Qayd Sarlavhasi..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="flex-1 text-xl font-bold bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400"
+                        className="flex-1 text-xl font-bold bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
                     />
                     <select
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
-                        className="px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 outline-none text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                        className="px-4 py-2 rounded-lg bg-background border border-border outline-none text-sm text-foreground focus:ring-2 focus:ring-primary backdrop-blur-sm"
                     >
                         <option value="">Fanni Tanlang</option>
                         {subjects.map(s => (
@@ -246,7 +246,7 @@ const NoteEditorPage: React.FC = () => {
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-auto bg-white dark:bg-dark-card">
+            <div className="flex-1 overflow-auto bg-transparent relative z-0">
                 <div className={`max-w-4xl mx-auto px-6 py-8 h-full ${font === 'sans' ? 'font-sans' : font === 'serif' ? 'font-serif' : 'font-mono'
                     }`}>
                     {mode === 'write' ? (
@@ -254,7 +254,7 @@ const NoteEditorPage: React.FC = () => {
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="w-full h-full resize-none outline-none text-gray-800 dark:text-gray-200 text-base leading-relaxed bg-transparent placeholder-gray-400"
+                            className="w-full h-full resize-none outline-none text-foreground text-base leading-relaxed bg-transparent placeholder:text-muted-foreground"
                             placeholder="Konspekt yozishni boshlang... (Markdown qo'llab-quvvatlanadi)"
                             spellCheck="false"
                         />
@@ -268,9 +268,9 @@ const NoteEditorPage: React.FC = () => {
             </div>
 
             {/* Footer Hint */}
-            <div className="px-6 py-2 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
+            <div className="px-6 py-2 glass-card border-t border-border z-10">
                 <div className="max-w-4xl mx-auto">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                         💡 Markdown formatidan foydalaning: **bold**, *italic*, # Sarlavha, - Ro'yxat
                     </span>
                 </div>

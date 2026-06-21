@@ -31,19 +31,19 @@ const FlashcardForm: React.FC = () => {
     return (
         <div className="max-w-xl mx-auto">
             <div className="flex items-center gap-4 mb-8">
-                <button onClick={() => navigate('/flashcards')} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
-                    <ArrowLeft size={20} className="text-gray-500" />
+                <button onClick={() => navigate('/flashcards')} className="p-2 hover:bg-muted rounded-lg transition-colors">
+                    <ArrowLeft size={20} className="text-muted-foreground" />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Yangi Fleshkarta</h2>
+                <h2 className="text-2xl font-bold text-foreground">Yangi Fleshkarta</h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-white dark:bg-[#1f2937] p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-6">
+            <form onSubmit={handleSubmit} className="glass-card p-8 rounded-2xl border-border space-y-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fan</label>
+                    <label className="block text-sm font-medium text-foreground mb-2">Fan</label>
                     <select
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#374151] dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         required
                     >
                         <option value="">Fanni Tanlang</option>
@@ -54,22 +54,22 @@ const FlashcardForm: React.FC = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Old tomoni (Savol)</label>
+                    <label className="block text-sm font-medium text-foreground mb-2">Old tomoni (Savol)</label>
                     <textarea
                         value={front}
                         onChange={(e) => setFront(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#374151] dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 h-32 resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none backdrop-blur-sm placeholder:text-muted-foreground"
                         placeholder="masalan, O'zbekiston poytaxti qayer?"
                         required
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Orqa tomoni (Javob)</label>
+                    <label className="block text-sm font-medium text-foreground mb-2">Orqa tomoni (Javob)</label>
                     <textarea
                         value={back}
                         onChange={(e) => setBack(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#374151] dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 h-32 resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none backdrop-blur-sm placeholder:text-muted-foreground"
                         placeholder="masalan, Toshkent"
                         required
                     />

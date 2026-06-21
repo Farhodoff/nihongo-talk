@@ -24,21 +24,21 @@ const DecksPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Fleshkartalar</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">To'plamlarni takrorlang.</p>
+                    <h2 className="text-3xl font-bold text-foreground">Fleshkartalar</h2>
+                    <p className="text-muted-foreground mt-1">To'plamlarni takrorlang.</p>
                 </div>
                 <div className="flex gap-2">
                     <Button
                         variant="secondary"
                         onClick={() => setImportModalOpen(true)}
-                        className="text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700"
+                        className="text-muted-foreground border-border hover:bg-muted"
                     >
                         <Upload size={20} className="mr-2" /> JSON Yuklash
                     </Button>
                     <Button
                         variant="secondary"
                         onClick={() => setAiSubjectId('global')}
-                        className="text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800"
+                        className="text-primary border-primary/20 hover:bg-primary/10"
                     >
                         <Sparkles size={20} className="mr-2" /> AI Yaratish
                     </Button>
@@ -67,12 +67,12 @@ const DecksPage: React.FC = () => {
                 })}
 
                 {subjects.length === 0 && (
-                    <div className="col-span-full flex flex-col items-center justify-center p-12 text-center bg-white dark:bg-[#1f2937] rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/20 rounded-full flex items-center justify-center mb-6 text-indigo-500">
+                    <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
+                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
                             <Book size={40} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Fleshkartalar to'plami yo'q</h3>
-                        <p className="text-gray-500 dark:text-gray-400 max-w-sm mb-8">
+                        <h3 className="text-xl font-bold text-foreground mb-2">Fleshkartalar to'plami yo'q</h3>
+                        <p className="text-muted-foreground max-w-sm mb-8">
                             Fleshkarta yaratish uchun avval fan qo'shishingiz kerak.
                         </p>
                         <Link to="/subjects">
