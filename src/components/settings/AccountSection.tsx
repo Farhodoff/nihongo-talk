@@ -18,8 +18,15 @@ const AccountSection: React.FC<AccountSectionProps> = ({ apiKey: initialApiKey, 
 
     const handleLogout = async () => {
         if (confirm('Tizimdan chiqishni xohlaysizmi?')) {
-            await supabase.auth.signOut();
-            // App.tsx listener will handle redirection
+            try {
+                await supabase.auth.signOut();
+            } catch (e) {
+                console.error("Sign out error", e);
+            } finally {
+                // Ensure local state is wiped even if server sign out fails
+                localStorage.clear();
+                window.location.href = '/';
+            }
         }
     };
 

@@ -190,12 +190,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            const { data: { user: currentUser } } = await supabase.auth.getUser();
-            setUser(currentUser);
-            if (!currentUser) {
+            const { data: { user: currentUser }, error: authError } = await supabase.auth.getUser();
+            if (authError || !currentUser) {
+                console.error("Auth error or no user, signing out:", authError);
+                await supabase.auth.signOut();
+                setUser(null);
                 setLoading(false);
                 return;
             }
+            setUser(currentUser);
 
             // Google Calendar sinxronizatsiyasi
             syncGoogleEvents();
