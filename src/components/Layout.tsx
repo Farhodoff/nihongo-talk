@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X, Sparkles } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
-import { useStudyData } from '../context/StudyPlannerContext';
+import { useFocusTimerContext } from '../context/FocusTimerContext';
 
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
     const location = useLocation();
     const navigate = useNavigate();
-    const { focusState } = useStudyData();
+    const { focusState } = useFocusTimerContext();
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {

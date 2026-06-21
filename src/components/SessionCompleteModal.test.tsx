@@ -7,8 +7,12 @@ import { SessionCompleteModal } from './SessionCompleteModal';
 vi.mock('../context/StudyPlannerContext', () => ({
     useStudyData: vi.fn()
 }));
+vi.mock('../context/FocusTimerContext', () => ({
+    useFocusTimerContext: vi.fn()
+}));
 
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useFocusTimerContext } from '../context/FocusTimerContext';
 
 describe('SessionCompleteModal Component', () => {
     const mockAddSession = vi.fn();
@@ -21,13 +25,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should not render when session is not completed', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: false,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -37,13 +43,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should not render when mode is not focus', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'short_break',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -53,13 +61,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should render when session is completed and mode is focus', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -69,13 +79,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should display congratulations message', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -85,13 +97,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should render all mood options', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -105,13 +119,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should allow selecting a mood', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -125,13 +141,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should have save button disabled when no mood selected', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -142,13 +160,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should enable save button when mood is selected', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -162,13 +182,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should call addSession, awardXP, and resetTimer when save is clicked', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: 'subject-123'
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -197,13 +219,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should call resetTimer when skip is clicked', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 
@@ -218,13 +242,15 @@ describe('SessionCompleteModal Component', () => {
 
     it('should use default mood (3) when saving without selection', () => {
         vi.mocked(useStudyData).mockReturnValue({
+            addSession: mockAddSession,
+            awardXP: mockAwardXP,
+        } as any);
+        vi.mocked(useFocusTimerContext).mockReturnValue({
             focusState: {
                 isSessionCompleted: true,
                 mode: 'focus',
                 selectedSubjectId: null
             },
-            addSession: mockAddSession,
-            awardXP: mockAwardXP,
             resetTimer: mockResetTimer
         } as any);
 

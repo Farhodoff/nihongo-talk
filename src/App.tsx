@@ -5,6 +5,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
 import { StudyPlannerProvider } from './context/StudyPlannerContext';
+import { FocusTimerProvider } from './context/FocusTimerContext';
 import { supabase } from './lib/supabase';
 import { OnboardingTour } from './components/OnboardingTour';
 
@@ -80,44 +81,46 @@ const App: React.FC = () => {
     return (
         <ErrorBoundary>
             <StudyPlannerProvider>
-                <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-                    <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
-                        <Suspense fallback={<PageLoader />}>
-                            <Routes>
-                                <Route path="/" element={<Layout />}>
-                                    <Route index element={<Navigate to="/dashboard" replace />} />
-                                    <Route path="dashboard" element={<DashboardPage />} />
-                                    <Route path="calendar" element={<CalendarPage />} />
-                                    <Route path="subjects" element={<SubjectsPage />} />
-                                    <Route path="subjects/:id" element={<SubjectDetailPage />} />
-                                    <Route path="goals" element={<GoalsPage />} />
-                                    <Route path="tasks" element={<TasksPage />} />
-                                    <Route path="focus" element={<FocusPage />} />
-                                    <Route path="notes" element={<NotesPage />} />
-                                    <Route path="notes/:id" element={<NoteEditorPage />} />
-                                    <Route path="study-notes" element={<StudyNotesPage />} />
-                                    <Route path="ai-exam" element={<AIExamPage />} />
-                                    <Route path="ai-exam/:id" element={<AIExamPage />} />
-                                    <Route path="flashcards" element={<DecksPage />} />
-                                    <Route path="flashcards/new" element={<FlashcardForm />} />
-                                    <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
-                                    <Route path="progress" element={<ProgressPage />} />
-                                    <Route path="community" element={<CommunityPage />} />
-                                    <Route path="room/:roomId" element={<StudyRoomPage />} />
-                                    <Route path="settings" element={<SettingsPage />} />
-                                </Route>
-                            </Routes>
-                        </Suspense>
-                        <GlobalAudioPlayer />
-                        <OnboardingTour />
-                        
-                        {/* PWA Prompts */}
-                        <ReloadPrompt />
-                        <InstallPrompt />
-                        
-                        <OfflineIndicator />
-                    </div>
-                </BrowserRouter>
+                <FocusTimerProvider>
+                    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                        <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
+                            <Suspense fallback={<PageLoader />}>
+                                <Routes>
+                                    <Route path="/" element={<Layout />}>
+                                        <Route index element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="dashboard" element={<DashboardPage />} />
+                                        <Route path="calendar" element={<CalendarPage />} />
+                                        <Route path="subjects" element={<SubjectsPage />} />
+                                        <Route path="subjects/:id" element={<SubjectDetailPage />} />
+                                        <Route path="goals" element={<GoalsPage />} />
+                                        <Route path="tasks" element={<TasksPage />} />
+                                        <Route path="focus" element={<FocusPage />} />
+                                        <Route path="notes" element={<NotesPage />} />
+                                        <Route path="notes/:id" element={<NoteEditorPage />} />
+                                        <Route path="study-notes" element={<StudyNotesPage />} />
+                                        <Route path="ai-exam" element={<AIExamPage />} />
+                                        <Route path="ai-exam/:id" element={<AIExamPage />} />
+                                        <Route path="flashcards" element={<DecksPage />} />
+                                        <Route path="flashcards/new" element={<FlashcardForm />} />
+                                        <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
+                                        <Route path="progress" element={<ProgressPage />} />
+                                        <Route path="community" element={<CommunityPage />} />
+                                        <Route path="room/:roomId" element={<StudyRoomPage />} />
+                                        <Route path="settings" element={<SettingsPage />} />
+                                    </Route>
+                                </Routes>
+                            </Suspense>
+                            <GlobalAudioPlayer />
+                            <OnboardingTour />
+                            
+                            {/* PWA Prompts */}
+                            <ReloadPrompt />
+                            <InstallPrompt />
+                            
+                            <OfflineIndicator />
+                        </div>
+                    </BrowserRouter>
+                </FocusTimerProvider>
             </StudyPlannerProvider>
         </ErrorBoundary>
     );

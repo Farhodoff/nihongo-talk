@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react';
 import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { Button } from './ui/Button';
 
 const MOODS = [
@@ -12,7 +13,8 @@ const MOODS = [
 ];
 
 export const SessionCompleteModal: React.FC = () => {
-    const { focusState, addSession, awardXP, resetTimer } = useStudyData();
+    const { addSession, awardXP } = useStudyData();
+    const { focusState, resetTimer } = useFocusTimerContext();
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
 
     if (!focusState.isSessionCompleted || focusState.mode !== 'focus') return null;

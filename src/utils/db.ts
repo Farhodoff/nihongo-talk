@@ -55,12 +55,14 @@ export const dbOps = {
             return item;
         }));
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async put(storeName: string, data: any) {
         const db = await initDB();
         const id = data.id;
         const payload = await encryptData(data);
         return db.put(storeName, { id, payload, _encrypted: true });
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async putAll(storeName: string, dataArray: any[]) {
         const db = await initDB();
         const tx = db.transaction(storeName, 'readwrite');
@@ -82,6 +84,7 @@ export const dbOps = {
         const db = await initDB();
         return db.clear(storeName);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async addToQueue(action: string, storeName: string, data: any) {
         const db = await initDB();
         const payload = await encryptData(data);

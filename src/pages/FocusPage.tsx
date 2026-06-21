@@ -1,13 +1,15 @@
 import { CheckCircle2 } from 'lucide-react';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useFocusTimerContext } from '../context/FocusTimerContext';
 import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
 import SoundMixer from '../components/focus/SoundMixer';
 
 const FocusPage: React.FC = () => {
-    const { subjects, addSession, awardXP, focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted, tasks, updateTaskStatus } = useStudyData();
+    const { subjects, addSession, awardXP, tasks, updateTaskStatus } = useStudyData();
+    const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);

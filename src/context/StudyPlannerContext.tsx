@@ -2,9 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
-import { FocusState, FocusMode } from '../types/focus';
 import notificationManager from '../services/NotificationManager';
-import { useFocusTimer } from '../hooks/useFocusTimer';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
@@ -98,16 +96,6 @@ interface StudyPlannerContextType {
     awardXP: (amount: number) => Promise<void>;
     getRank: (level: number) => string;
 
-    // Focus Timer
-    focusState: FocusState;
-    startTimer: () => void;
-    pauseTimer: () => void;
-    resetTimer: () => void;
-    switchMode: (mode: FocusMode) => void;
-    setFocusSubject: (id: string) => void;
-    setFocusTask: (id: string | null) => void;
-    setBgSound: (sound: string) => void;
-    setMuted: (muted: boolean) => void;
 }
 
 
@@ -197,19 +185,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ...appSettings,
         ...gameState
     };
-
-    // Focus Timer Hook
-    const {
-        focusState,
-        startTimer,
-        pauseTimer,
-        resetTimer,
-        switchMode,
-        setFocusSubject,
-        setFocusTask,
-        setBgSound,
-        setMuted
-    } = useFocusTimer(appSettings.notificationsEnabled);
 
     // Ma'lumotlarni yuklash
     const fetchData = useCallback(async () => {
@@ -994,8 +969,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             googleEvents, syncGoogleEvents,
             refreshData: fetchData,
             settings, updateSettings, getRank,
-            // Exposed Focus State
-            focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted,
             loading, user
         }}>
             {children}

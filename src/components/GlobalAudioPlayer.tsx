@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useStudyData } from '../context/StudyPlannerContext';
+import { useFocusTimerContext } from '../context/FocusTimerContext';
 
 const SOUNDS = [
     { id: 'none', label: 'Silent', url: '' },
@@ -10,7 +10,7 @@ const SOUNDS = [
 ];
 
 const GlobalAudioPlayer = () => {
-    const { focusState } = useStudyData();
+    const { focusState } = useFocusTimerContext();
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
