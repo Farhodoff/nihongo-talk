@@ -74,6 +74,7 @@ const App: React.FC = () => {
                     </Routes>
                 </Suspense>
                 <ReloadPrompt />
+                <InstallPrompt />
             </BrowserRouter>
         );
     }

@@ -30,7 +30,7 @@ const createMockChain = (resolvedValue: { data: unknown; error: unknown } = { da
 
 export const supabaseMock = {
   auth: {
-    getSession: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
+    getSession: vi.fn(), signOut: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
     getUser: vi.fn().mockResolvedValue({ data: { user: { id: 'test-user', user_metadata: { full_name: 'Test User' } } }, error: null }),
     onAuthStateChange: vi.fn(() => ({ data: { subscription: { unsubscribe: vi.fn() } } })),
   },
