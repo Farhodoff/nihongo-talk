@@ -153,7 +153,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                                 <Upload size={14} /> Import
                             </Button>
                             <Button
-                                variant="primary"
+                                variant="default"
                                 onClick={handleExportJSON}
                                 disabled={isImporting || isExporting}
                                 className="px-3 py-1.5 text-xs flex items-center gap-1"
@@ -193,7 +193,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                                 <Upload size={14} /> Import
                             </Button>
                             <Button
-                                variant="primary"
+                                variant="default"
                                 onClick={handleExportTasksCSV}
                                 disabled={isImporting || isExporting}
                                 className="px-3 py-1.5 text-xs flex items-center gap-1"
@@ -240,7 +240,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                                 <Upload size={14} /> Import
                             </Button>
                             <Button
-                                variant="primary"
+                                variant="default"
                                 onClick={handleExportFlashcardsCSV}
                                 disabled={isImporting || isExporting}
                                 className="px-3 py-1.5 text-xs flex items-center gap-1"
@@ -262,7 +262,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                             <span className="text-xs text-gray-500 dark:text-gray-400">Barcha ma'lumotlarni butunlay o'chirib yuborish</span>
                         </div>
                     </div>
-                    <Button variant="danger" onClick={() => setShowClearModal(true)} className="px-3 py-1.5 text-xs">
+                    <Button variant="destructive" onClick={() => setShowClearModal(true)} className="px-3 py-1.5 text-xs">
                         Tozalash
                     </Button>
                 </div>
@@ -293,7 +293,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                             <Button variant="secondary" onClick={() => setShowClearModal(false)} className="flex-1">
                                 Bekor qilish
                             </Button>
-                            <Button variant="danger" onClick={handleClear} className="flex-1">
+                            <Button variant="destructive" onClick={handleClear} className="flex-1">
                                 O'chirish
                             </Button>
                         </div>
@@ -335,7 +335,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                                 Bekor qilish
                             </Button>
                             <Button
-                                variant="primary"
+                                variant="default"
                                 onClick={() => csvFlashcardsInputRef.current?.click()}
                                 className="flex-1"
                             >

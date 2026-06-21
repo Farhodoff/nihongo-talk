@@ -15,10 +15,8 @@ describe('Button Component', () => {
         expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
-    it('shows loader when isLoading is true', () => {
-        render(<Button isLoading>Submit</Button>);
-        // Loader logic might need specific selector if not accessible text, 
-        // but let's check if button is disabled at least
+    it('can be disabled', () => {
+        render(<Button disabled>Submit</Button>);
         expect(screen.getByRole('button')).toBeDisabled();
     });
 });
