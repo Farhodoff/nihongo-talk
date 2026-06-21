@@ -13,7 +13,7 @@ import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
 import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
-import { dbOps } from '../utils/db';
+
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -266,8 +266,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         icon: s.icon
                     }));
                     setSubjects(mappedSubjects);
-                    await dbOps.clear('subjects');
-                    await dbOps.putAll('subjects', mappedSubjects);
+
                 }
 
                 if (sessionsRes.data) {
@@ -279,8 +278,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         moodAfter: s.mood_after
                     }));
                     setSessions(mappedSessions);
-                    await dbOps.clear('sessions');
-                    await dbOps.putAll('sessions', mappedSessions);
+
                 }
 
                 if (notesRes.data) {
@@ -291,8 +289,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: n.updated_at
                     }));
                     setNotes(mappedNotes);
-                    await dbOps.clear('notes');
-                    await dbOps.putAll('notes', mappedNotes);
+
                 }
 
                 if (studyNotesRes.data) {
@@ -304,14 +301,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: n.updated_at
                     }));
                     setStudyNotes(mappedStudyNotes);
-                    await dbOps.clear('study_notes');
-                    await dbOps.putAll('study_notes', mappedStudyNotes);
+
                 }
 
                 if (goalsRes.data) {
                     setGoals(goalsRes.data);
-                    await dbOps.clear('goals');
-                    await dbOps.putAll('goals', goalsRes.data);
+
                 }
 
                 if (whiteboardsRes.data) {
@@ -342,8 +337,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: e.updated_at
                     }));
                     setEvents(mappedEvents);
-                    await dbOps.clear('events');
-                    await dbOps.putAll('events', mappedEvents);
+
                 }
 
                 // Profile & Settings
@@ -363,23 +357,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     });
                 }
             } catch (innerError) {
-                console.error("Tarmoq xatosi, oflayn ma'lumotlar yuklanmoqda...", innerError);
-                // Oflayn fallback
-                const [localSubjects, localNotes, localStudyNotes, localGoals, localSessions, localEvents] = await Promise.all([
-                    dbOps.getAll('subjects'),
-                    dbOps.getAll('notes'),
-                    dbOps.getAll('study_notes'),
-                    dbOps.getAll('goals'),
-                    dbOps.getAll('sessions'),
-                    dbOps.getAll('events')
-                ]);
-                
-                setSubjects((localSubjects || []) as Subject[]);
-                setNotes((localNotes || []) as Note[]);
-                setStudyNotes((localStudyNotes || []) as StudyNote[]);
-                setGoals((localGoals || []) as Goal[]);
-                setSessions((localSessions || []) as StudySession[]);
-                setEvents((localEvents || []) as Event[]);
+                console.error("Tarmoq xatosi", innerError);
             }
 
         } catch (error) {
