@@ -105,27 +105,27 @@ const DashboardPage: React.FC = () => {
             {/* Header / Greeting */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+                    <h1 className="text-3xl font-bold text-foreground tracking-tight">
                         {greeting}, O'quvchi! 👋
                     </h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-muted-foreground mt-1">
                         Bugun nimani o'rganamiz? O'z oldingizga qo'ygan maqsadlarga bir qadam yaqinlashing.
                     </p>
                 </div>
                 
                 {/* Mini Stats Card */}
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4">
-                    <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl text-indigo-600 dark:text-indigo-400">
+                <div className="glass-card p-4 rounded-2xl flex items-center gap-4">
+                    <div className="p-3 bg-primary/10 rounded-xl text-primary">
                         <Trophy size={24} />
                     </div>
                     <div>
                         <div className="flex justify-between items-end mb-1">
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Kunlik progress</span>
-                            <span className="text-sm font-bold text-gray-900 dark:text-white ml-4">{progressPercentage}%</span>
+                            <span className="text-sm font-medium text-muted-foreground">Kunlik progress</span>
+                            <span className="text-sm font-bold text-foreground ml-4">{progressPercentage}%</span>
                         </div>
-                        <div className="w-32 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div className="w-32 h-2 bg-secondary rounded-full overflow-hidden">
                             <div 
-                                className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-1000 ease-out"
+                                className="h-full bg-primary rounded-full transition-all duration-1000 ease-out"
                                 style={{ width: `${progressPercentage}%` }}
                             />
                         </div>
@@ -142,11 +142,11 @@ const DashboardPage: React.FC = () => {
                     {/* Today's Tasks Section */}
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                                <ListTodo className="text-indigo-500" size={24} />
+                            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                                <ListTodo className="text-primary" size={24} />
                                 Bugungi Reja
                             </h2>
-                            <Link to="/tasks" className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium flex items-center gap-1">
+                            <Link to="/tasks" className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1">
                                 Barchasi <ArrowRight size={16} />
                             </Link>
                         </div>
@@ -156,22 +156,22 @@ const DashboardPage: React.FC = () => {
                                 todayPendingTasks.map(task => (
                                     <div 
                                         key={task.id} 
-                                        className="group p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 hover:border-indigo-100 dark:hover:border-indigo-900/50 flex justify-between items-center transition-all duration-200 transform hover:-translate-y-0.5"
+                                        className="group p-4 glass-card rounded-2xl hover:border-primary/50 flex justify-between items-center transition-all duration-200 transform hover:-translate-y-0.5"
                                     >
                                         <div className="flex items-center gap-4">
                                             <button
                                                 onClick={() => updateTaskStatus(task.id, 'done')}
-                                                className="text-gray-300 dark:text-gray-600 hover:text-green-500 dark:hover:text-green-400 transition-colors"
+                                                className="text-muted-foreground/50 hover:text-green-500 transition-colors"
                                                 title="Bajarildi deb belgilash"
                                             >
                                                 <CheckCircle size={26} />
                                             </button>
                                             <div className="flex flex-col">
-                                                <span className="text-gray-900 dark:text-white font-medium group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                                <span className="text-foreground font-medium group-hover:text-primary transition-colors">
                                                     {task.title}
                                                 </span>
                                                 {task.subjectId && (
-                                                    <span className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                                                    <span className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                                                         <Clock size={12} /> Bugun
                                                     </span>
                                                 )}
@@ -180,15 +180,15 @@ const DashboardPage: React.FC = () => {
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center py-12 px-4 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50 dark:bg-green-900/20 text-green-500 mb-4">
+                                <div className="text-center py-12 px-4 glass-card rounded-2xl border-dashed border-border">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/10 text-green-500 mb-4">
                                         <Trophy size={32} />
                                     </div>
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Bugungi vazifalar yo'q! 🎉</h3>
-                                    <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-6">
+                                    <h3 className="text-lg font-medium text-foreground mb-2">Bugungi vazifalar yo'q! 🎉</h3>
+                                    <p className="text-muted-foreground max-w-sm mx-auto mb-6">
                                         Bugun uchun rejalashtirilgan vazifalar mavjud emas yoki hammasi bajarilgan.
                                     </p>
-                                    <Link to="/tasks" className="inline-flex items-center justify-center px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-200 dark:shadow-none">
+                                    <Link to="/tasks" className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
                                         Yangi vazifa qo'shish
                                     </Link>
                                 </div>
@@ -239,32 +239,32 @@ const DashboardPage: React.FC = () => {
 
                 {/* Right column: AI Insights Panel */}
                 <div className="space-y-6">
-                    <div className="bg-white dark:bg-gray-800 rounded-[2rem] border border-gray-150 dark:border-gray-700 p-6 shadow-sm flex flex-col space-y-4">
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                            <Sparkles size={22} className="text-indigo-500 animate-pulse" />
+                    <div className="glass-card rounded-[2rem] p-6 flex flex-col space-y-4">
+                        <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                            <Sparkles size={22} className="text-primary animate-pulse" />
                             AI Aqlli Panel
                         </h2>
                         
                         {isAiInsightsLoading ? (
                             <div className="flex flex-col items-center justify-center py-12 space-y-3">
-                                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
-                                <p className="text-xs text-gray-500 dark:text-gray-400">AI maslahatlar tayyorlanmoqda...</p>
+                                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                                <p className="text-xs text-muted-foreground">AI maslahatlar tayyorlanmoqda...</p>
                             </div>
                         ) : aiInsights.length > 0 ? (
                             <div className="space-y-4">
                                 {aiInsights.map((insight, idx) => (
-                                    <div key={idx} className="p-4 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100/50 dark:border-indigo-900/30 rounded-2xl space-y-1">
-                                        <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+                                    <div key={idx} className="p-4 bg-primary/5 border border-primary/20 rounded-2xl space-y-1">
+                                        <span className="text-xs font-bold text-primary uppercase tracking-wide">
                                             📘 {insight.subject}
                                         </span>
-                                        <p className="text-sm text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
+                                        <p className="text-sm text-foreground/80 font-medium leading-relaxed">
                                             {insight.advice}
                                         </p>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center py-12 text-gray-400 text-sm">
+                            <div className="text-center py-12 text-muted-foreground text-sm">
                                 Shaxsiy maslahatlar olish uchun fanlar ostida dars sessiyalari va flashcardlarni yakunlang. 📈
                             </div>
                         )}

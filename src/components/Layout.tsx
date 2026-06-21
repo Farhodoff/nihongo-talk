@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, X, Sparkles } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Button } from './ui/Button';
 
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
@@ -50,17 +53,44 @@ const Layout: React.FC = () => {
         return current ? current.name : 'Study Planner';
     }
 
+    const NavLinks = ({ onClick }: { onClick?: () => void }) => (
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
+            {navItems.map((item) => (
+                <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={onClick}
+                    data-tour={`nav-${item.path.replace('/', '')}`}
+                    className={({ isActive }) =>
+                        `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${isActive
+                            ? 'bg-primary/10 text-primary font-medium shadow-sm'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`
+                    }
+                    title={isCollapsed ? item.name : ''}
+                >
+                    <item.icon 
+                        size={22} 
+                        className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
+                        strokeWidth={2}
+                    />
+                    {!isCollapsed && <span className="tracking-wide">{item.name}</span>}
+                </NavLink>
+            ))}
+        </nav>
+    );
+
     return (
-        <div className="h-screen flex flex-col md:flex-row bg-[#f8fafc] dark:bg-[#0f172a] text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden font-sans">
-            {/* Mini Timer Overlay (Visible when active and NOT on focus page) */}
+        <div className="h-screen flex flex-col md:flex-row bg-background text-foreground transition-colors duration-300 overflow-hidden font-sans">
+            {/* Mini Timer Overlay */}
             {focusState.isActive && location.pathname !== '/focus' && (
                 <div 
                     onClick={() => navigate('/focus')}
-                    className="fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-3 border border-indigo-100 dark:border-indigo-900/50 flex items-center gap-3 cursor-pointer hover:scale-105 transition-all group animate-in slide-in-from-bottom-4"
+                    className="fixed bottom-6 right-6 z-50 glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:scale-105 transition-all group animate-in slide-in-from-bottom-4"
                 >
                     <div className="relative">
-                        <div className="w-10 h-10 rounded-full border-2 border-indigo-100 dark:border-indigo-900/30 flex items-center justify-center">
-                            <Clock size={18} className="text-indigo-600 dark:text-indigo-400 animate-pulse" />
+                        <div className="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                            <Clock size={18} className="text-primary animate-pulse" />
                         </div>
                         <svg className="absolute inset-0 w-10 h-10 -rotate-90" viewBox="0 0 100 100">
                             <circle 
@@ -68,109 +98,101 @@ const Layout: React.FC = () => {
                                 fill="none" stroke="currentColor" strokeWidth="8" 
                                 strokeDasharray="283" 
                                 strokeDashoffset={283 - (283 * ((focusState.mode === 'focus' ? 25*60 : focusState.mode === 'short_break' ? 5*60 : 15*60) - focusState.timeLeft) / (focusState.mode === 'focus' ? 25*60 : focusState.mode === 'short_break' ? 5*60 : 15*60))}
-                                className="text-indigo-600 dark:text-indigo-400 transition-all duration-1000"
+                                className="text-primary transition-all duration-1000"
                             />
                         </svg>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest leading-none mb-1">
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none mb-1">
                             {focusState.mode === 'focus' ? 'Fokus' : 'Tanaffus'}
                         </span>
-                        <span className="text-lg font-mono font-bold text-gray-900 dark:text-white leading-none tabular-nums">
+                        <span className="text-lg font-mono font-bold text-foreground leading-none tabular-nums">
                             {formatTime(focusState.timeLeft)}
                         </span>
                     </div>
                     <div className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ChevronRight size={16} className="text-gray-400" />
+                        <ChevronRight size={16} className="text-muted-foreground" />
                     </div>
                 </div>
             )}
 
             {/* Mobile Header */}
-            <header className="md:hidden bg-white/80 dark:bg-[#1e293b]/80 backdrop-blur-md p-4 flex justify-between items-center shadow-sm z-30 border-b border-gray-100 dark:border-gray-800">
+            <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b">
                 <div className="flex items-center gap-2">
-                    <Sparkles className="text-indigo-600 dark:text-indigo-400" size={24} />
-                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                    <Sparkles className="text-primary" size={24} />
+                    <h1 className="text-xl font-bold text-gradient">
                         {getPageTitle()}
                     </h1>
                 </div>
-                <button 
-                    onClick={() => setSidebarOpen(!isSidebarOpen)} 
-                    data-tour="mobile-menu-toggle"
-                    className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                    {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon" className="md:hidden">
+                            <Menu className="h-6 w-6" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="p-0 w-72 flex flex-col">
+                        <div className="h-20 p-6 flex items-center gap-3 border-b border-border">
+                            <div className="p-2 bg-primary/10 rounded-xl">
+                                <Sparkles className="text-primary" size={24} />
+                            </div>
+                            <span className="text-xl font-bold text-gradient tracking-tight">
+                                Planner
+                            </span>
+                        </div>
+                        <NavLinks onClick={() => setSidebarOpen(false)} />
+                    </SheetContent>
+                </Sheet>
             </header>
 
-            {/* Mobile Sidebar Overlay */}
-            {isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/60 z-20 md:hidden backdrop-blur-sm transition-opacity"
-                    onClick={() => setSidebarOpen(false)}
-                />
-            )}
-
-            {/* Sidebar */}
+            {/* Desktop Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-72'} w-72 bg-white dark:bg-[#1e293b] shadow-xl md:shadow-none border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out z-30 flex flex-col`}
+                className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-20 p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-gray-50 dark:border-gray-800/50`}>
+                <div className={`h-20 p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border`}>
                     {!isCollapsed && (
                         <div className="flex items-center gap-3 animate-in fade-in zoom-in duration-300">
-                            <div className="p-2 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl">
-                                <Sparkles className="text-indigo-600 dark:text-indigo-400" size={24} />
+                            <div className="p-2 bg-primary/10 rounded-xl">
+                                <Sparkles className="text-primary" size={24} />
                             </div>
-                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 tracking-tight">
+                            <span className="text-xl font-bold text-gradient tracking-tight">
                                 Planner
                             </span>
                         </div>
                     )}
-                    <button
+                    <Button
+                        variant="ghost"
+                        size="icon"
                         onClick={() => setIsCollapsed(!isCollapsed)}
-                        className="hidden md:flex p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        className="hidden md:flex text-muted-foreground"
                     >
                         {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-                    </button>
+                    </Button>
                 </div>
-
-                <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto scrollbar-hide">
-                    {navItems.map((item) => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            onClick={() => setSidebarOpen(false)}
-                            data-tour={`nav-${item.path.replace('/', '')}`}
-                            className={({ isActive }) =>
-                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${isActive
-                                    ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm'
-                                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-gray-200'
-                                }`
-                            }
-                            title={isCollapsed ? item.name : ''}
-                        >
-                            <item.icon 
-                                size={22} 
-                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
-                                strokeWidth={2}
-                            />
-                            {!isCollapsed && <span className="tracking-wide">{item.name}</span>}
-                        </NavLink>
-                    ))}
-                </nav>
+                <NavLinks />
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto relative w-full bg-[#f8fafc] dark:bg-[#0f172a]">
+            <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
                 {!isOnline && (
-                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 bg-amber-50 dark:bg-amber-900/40 border border-amber-200 dark:border-amber-800 rounded-full shadow-sm flex items-center gap-2 text-amber-700 dark:text-amber-400 animate-in fade-in slide-in-from-top-4">
-                        <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 bg-destructive/10 border border-destructive/20 rounded-full shadow-sm flex items-center gap-2 text-destructive animate-in fade-in slide-in-from-top-4">
+                        <div className="w-2 h-2 rounded-full bg-destructive animate-pulse" />
                         <p className="text-xs font-medium">Oflayn rejim</p>
                     </div>
                 )}
-                <div className="h-full">
-                    <Outlet />
+                <div className="flex-1 overflow-y-auto w-full relative">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={location.pathname}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="h-full w-full"
+                        >
+                            <Outlet />
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </main>
             {/* Global Modals */}
