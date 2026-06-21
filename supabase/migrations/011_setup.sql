@@ -16,15 +16,19 @@ CREATE TABLE IF NOT EXISTS study_rooms (
 ALTER TABLE study_rooms ENABLE ROW LEVEL SECURITY;
 
 -- Policies
+DROP POLICY IF EXISTS "Anyone can view active rooms" ON study_rooms;
 CREATE POLICY "Anyone can view active rooms" ON study_rooms
   FOR SELECT USING (is_active = true);
 
+DROP POLICY IF EXISTS "Authenticated users can create rooms" ON study_rooms;
 CREATE POLICY "Authenticated users can create rooms" ON study_rooms
   FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
+DROP POLICY IF EXISTS "Creators can update their rooms" ON study_rooms;
 CREATE POLICY "Creators can update their rooms" ON study_rooms
   FOR UPDATE USING (auth.uid() = creator_id);
 
+DROP POLICY IF EXISTS "Creators can delete their rooms" ON study_rooms;
 CREATE POLICY "Creators can delete their rooms" ON study_rooms
   FOR DELETE USING (auth.uid() = creator_id);
 

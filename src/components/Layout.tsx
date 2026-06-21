@@ -36,7 +36,6 @@ const Layout: React.FC = () => {
         { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
-        { name: 'Savatcha', path: '/trash', icon: Trash2 },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
     ];
 

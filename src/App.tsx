@@ -23,7 +23,6 @@ const StudyNotesPage = lazy(() => import('./pages/StudyNotesPage'));
 const NotesPage = lazy(() => import('./pages/NotesPage'));
 const ProgressPage = lazy(() => import('./pages/ProgressPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
-const TrashPage = lazy(() => import('./pages/TrashPage'));
 const StudyModePage = lazy(() => import('./pages/StudyModePage'));
 const StudyRoomPage = lazy(() => import('./pages/StudyRoomPage'));
 const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'));
@@ -106,7 +105,6 @@ const App: React.FC = () => {
                                     <Route path="community" element={<CommunityPage />} />
                                     <Route path="room/:roomId" element={<StudyRoomPage />} />
                                     <Route path="settings" element={<SettingsPage />} />
-                                    <Route path="trash" element={<TrashPage />} />
                                 </Route>
                             </Routes>
                         </Suspense>

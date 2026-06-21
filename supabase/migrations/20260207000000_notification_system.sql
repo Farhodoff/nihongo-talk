@@ -51,32 +51,33 @@ CREATE INDEX IF NOT EXISTS idx_telegram_users_notifications_enabled
 -- 4. Enable Row Level Security (RLS)
 -- ============================================
 
+-- RLS (Row Level Security) Policies
 ALTER TABLE public.notification_settings ENABLE ROW LEVEL SECURITY;
 
--- Policy: Users can view their own settings
+-- Users can view their own settings
+DROP POLICY IF EXISTS "Users can view own notification settings" ON public.notification_settings;
 CREATE POLICY "Users can view own notification settings"
-    ON public.notification_settings
-    FOR SELECT
-    USING (auth.uid() = user_id);
+  ON public.notification_settings FOR SELECT
+  USING (auth.uid() = user_id);
 
--- Policy: Users can insert their own settings
+-- Users can insert their own settings
+DROP POLICY IF EXISTS "Users can insert own notification settings" ON public.notification_settings;
 CREATE POLICY "Users can insert own notification settings"
-    ON public.notification_settings
-    FOR INSERT
-    WITH CHECK (auth.uid() = user_id);
+  ON public.notification_settings FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
 
--- Policy: Users can update their own settings
+-- Users can update their own settings
+DROP POLICY IF EXISTS "Users can update own notification settings" ON public.notification_settings;
 CREATE POLICY "Users can update own notification settings"
-    ON public.notification_settings
-    FOR UPDATE
-    USING (auth.uid() = user_id)
-    WITH CHECK (auth.uid() = user_id);
+  ON public.notification_settings FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
--- Policy: Users can delete their own settings
+-- Users can delete their own settings (optional)
+DROP POLICY IF EXISTS "Users can delete own notification settings" ON public.notification_settings;
 CREATE POLICY "Users can delete own notification settings"
-    ON public.notification_settings
-    FOR DELETE
-    USING (auth.uid() = user_id);
+  ON public.notification_settings FOR DELETE
+  USING (auth.uid() = user_id);
 
 -- ============================================
 -- 5. Create trigger for updated_at
@@ -92,6 +93,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Trigger on notification_settings
+DROP TRIGGER IF EXISTS update_notification_settings_timestamp ON public.notification_settings;
 CREATE TRIGGER update_notification_settings_timestamp
     BEFORE UPDATE ON public.notification_settings
     FOR EACH ROW

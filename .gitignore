@@ -66,5 +66,5 @@ test_reports/
 skills-lock.json
 planner.pptx
 
-
-
+.venv/
+*.pptx

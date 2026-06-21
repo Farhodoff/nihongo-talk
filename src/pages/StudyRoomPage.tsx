@@ -60,6 +60,17 @@ const StudyRoomPage: React.FC = () => {
     const isApplyingIncomingSnapshot = useRef(false);
     const whiteboardSyncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    // Refs for closure access in channel event listeners without triggering re-renders
+    const pomodoroStateRef = useRef({ timeLeft, isRunning, mode: pomodoroMode });
+    useEffect(() => {
+        pomodoroStateRef.current = { timeLeft, isRunning, mode: pomodoroMode };
+    }, [timeLeft, isRunning, pomodoroMode]);
+
+    const joinedCallRef = useRef(joinedCall);
+    useEffect(() => {
+        joinedCallRef.current = joinedCall;
+    }, [joinedCall]);
+
     // Fetch user profile on mount
     useEffect(() => {
         const fetchUser = async () => {
@@ -112,6 +123,9 @@ const StudyRoomPage: React.FC = () => {
     // Set up Realtime Sync
     useEffect(() => {
         if (!userProfile || !roomId) return;
+
+        let channel: ReturnType<typeof supabase.channel> | null = null;
+        let isComponentMounted = true;
 
         const createPeerConnection = (peerId: string) => {
             if (pcsRef.current[peerId]) return pcsRef.current[peerId];
@@ -205,19 +219,30 @@ const StudyRoomPage: React.FC = () => {
             }
         };
 
-        const channel = supabase.channel(`study-room-${roomId}`, {
-            config: {
-                presence: {
-                    key: userProfile.id,
+        const setupChannel = async () => {
+            const { data: room } = await supabase.from('study_rooms').select('created_at, creator_id').eq('id', roomId).single();
+            
+            let channelName = `study-room-${roomId}`;
+            if (room) {
+                const secret = btoa(`${room.created_at}-${room.creator_id}`).substring(0, 16).replace(/=/g, '');
+                channelName = `study-room-${roomId}-${secret}`;
+            }
+
+            if (!isComponentMounted) return;
+
+            channel = supabase.channel(channelName, {
+                config: {
+                    presence: {
+                        key: userProfile.id,
+                    },
                 },
-            },
-        });
-        channelRef.current = channel;
+            });
+            channelRef.current = channel;
 
         // Presence & Peer Tracking
-        channel
-            .on('presence', { event: 'sync' }, () => {
-                const state = channel.presenceState();
+        const bindChannelEvents = (ch: ReturnType<typeof supabase.channel>) => {
+            ch.on('presence', { event: 'sync' }, () => {
+                const state = ch.presenceState();
                 setConnectedPeers(Object.keys(state).length);
 
                 const peerIds = Object.keys(state).filter(id => id !== userProfile.id);
@@ -232,7 +257,7 @@ const StudyRoomPage: React.FC = () => {
                 setPeersInfo(newPeersInfo);
 
                 // If not joined the video call, do not establish WebRTC connections
-                if (!joinedCall) {
+                if (!joinedCallRef.current) {
                     Object.keys(pcsRef.current).forEach(peerId => {
                         cleanupPeerConnection(peerId);
                     });
@@ -262,8 +287,7 @@ const StudyRoomPage: React.FC = () => {
             });
 
         // Broadcast Message Handlers
-        channel
-            .on('broadcast', { event: 'pomodoro_state_update' }, ({ payload }) => {
+        ch.on('broadcast', { event: 'pomodoro_state_update' }, ({ payload }) => {
                 const data = payload as { senderId: string; timeLeft: number; isRunning: boolean; mode: 'focus' | 'short_break' | 'long_break' };
                 if (data.senderId !== clientIdRef.current) {
                     setTimeLeft(data.timeLeft);
@@ -274,13 +298,13 @@ const StudyRoomPage: React.FC = () => {
             .on('broadcast', { event: 'request_state' }, ({ payload }) => {
                 const data = payload as { requesterId: string };
                 if (data.requesterId !== clientIdRef.current) {
-                    channel.send({
+                    ch.send({
                         type: 'broadcast',
                         event: 'pomodoro_state_response',
                         payload: {
-                            timeLeft,
-                            isRunning,
-                            mode: pomodoroMode,
+                            timeLeft: pomodoroStateRef.current.timeLeft,
+                            isRunning: pomodoroStateRef.current.isRunning,
+                            mode: pomodoroStateRef.current.mode,
                             targetId: data.requesterId
                         }
                     });
@@ -288,7 +312,7 @@ const StudyRoomPage: React.FC = () => {
                     if (editorRef.current) {
                         try {
                             const snapshot = getSnapshot(editorRef.current.store);
-                            channel.send({
+                            ch.send({
                                 type: 'broadcast',
                                 event: 'whiteboard_state_response',
                                 payload: {
@@ -341,7 +365,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_offer' }, async ({ payload }) => {
-                if (!joinedCall) return;
+                if (!joinedCallRef.current) return;
                 const data = payload as { senderId: string; targetId: string; offer: RTCSessionDescriptionInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     console.log(`Received WebRTC offer from ${data.senderId}`);
@@ -351,7 +375,7 @@ const StudyRoomPage: React.FC = () => {
                         const answer = await pc.createAnswer();
                         await pc.setLocalDescription(answer);
                         
-                        channelRef.current?.send({
+                        ch.send({
                             type: 'broadcast',
                             event: 'webrtc_answer',
                             payload: {
@@ -366,7 +390,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_answer' }, async ({ payload }) => {
-                if (!joinedCall) return;
+                if (!joinedCallRef.current) return;
                 const data = payload as { senderId: string; targetId: string; answer: RTCSessionDescriptionInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     console.log(`Received WebRTC answer from ${data.senderId}`);
@@ -381,7 +405,7 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'webrtc_ice_candidate' }, async ({ payload }) => {
-                if (!joinedCall) return;
+                if (!joinedCallRef.current) return;
                 const data = payload as { senderId: string; targetId: string; candidate: RTCIceCandidateInit };
                 if (data.targetId === userProfileRef.current?.id) {
                     const pc = pcsRef.current[data.senderId];
@@ -395,31 +419,40 @@ const StudyRoomPage: React.FC = () => {
                 }
             });
 
-        // Subscribe to channel
-        channel.subscribe(async (status) => {
-            if (status === 'SUBSCRIBED') {
-                await channel.track({
-                    user_id: userProfile.id,
-                    name: userProfile.name,
-                    joined_at: new Date().toISOString()
-                });
+            // Subscribe to channel
+            ch.subscribe(async (status) => {
+                if (status === 'SUBSCRIBED') {
+                    await ch.track({
+                        user_id: userProfile.id,
+                        name: userProfile.name,
+                        joined_at: new Date().toISOString()
+                    });
 
-                channel.send({
-                    type: 'broadcast',
-                    event: 'request_state',
-                    payload: { requesterId: clientIdRef.current }
-                });
-            }
-        });
+                    ch.send({
+                        type: 'broadcast',
+                        event: 'request_state',
+                        payload: { requesterId: clientIdRef.current }
+                    });
+                }
+            });
+        };
+
+        bindChannelEvents(channel);
+    };
+
+        setupChannel().catch(e => console.error("Error setting up channel:", e));
 
         const currentPcs = pcsRef.current;
         return () => {
-            supabase.removeChannel(channel);
+            isComponentMounted = false;
+            if (channel) {
+                supabase.removeChannel(channel);
+            }
             Object.keys(currentPcs).forEach(peerId => {
                 cleanupPeerConnection(peerId);
             });
         };
-    }, [userProfile, roomId, timeLeft, isRunning, pomodoroMode, joinedCall]);
+    }, [userProfile, roomId]); // Removed timeLeft, isRunning, pomodoroMode, joinedCall to prevent continuous channel recreation
 
     // Local Pomodoro Ticking
     useEffect(() => {

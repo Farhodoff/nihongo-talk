@@ -1,4 +1,5 @@
 import { openDB, IDBPDatabase } from 'idb';
+import { encrypt, decrypt, getEncryptionKey } from './storage';
 
 const DB_NAME = 'study_planner_db';
 const DB_VERSION = 1;
@@ -25,20 +26,51 @@ export const initDB = async (): Promise<IDBPDatabase> => {
     });
 };
 
+const encryptData = async (data: unknown) => {
+    const key = await getEncryptionKey();
+    const str = JSON.stringify(data);
+    return encrypt(str, key);
+};
+
+const decryptData = async (encryptedStr: string) => {
+    const key = await getEncryptionKey();
+    const str = decrypt(encryptedStr, key);
+    if (!str) return null;
+    try {
+        return JSON.parse(str);
+    } catch {
+        return null;
+    }
+};
+
 export const dbOps = {
     async getAll(storeName: string) {
         const db = await initDB();
-        return db.getAll(storeName);
+        const raw = await db.getAll(storeName);
+        return Promise.all(raw.map(async item => {
+            if (item && typeof item === 'object' && item._encrypted) {
+                const dec = await decryptData(item.payload);
+                return dec ? dec : item;
+            }
+            return item;
+        }));
     },
-    async put(storeName: string, data: unknown) {
+    async put(storeName: string, data: any) {
         const db = await initDB();
-        return db.put(storeName, data);
+        const id = data.id;
+        const payload = await encryptData(data);
+        return db.put(storeName, { id, payload, _encrypted: true });
     },
-    async putAll(storeName: string, dataArray: unknown[]) {
+    async putAll(storeName: string, dataArray: any[]) {
         const db = await initDB();
         const tx = db.transaction(storeName, 'readwrite');
+        
+        const encryptedItems = await Promise.all(dataArray.map(async data => {
+            return { id: data.id, payload: await encryptData(data), _encrypted: true };
+        }));
+
         await Promise.all([
-            ...dataArray.map(item => tx.store.put(item)),
+            ...encryptedItems.map(item => tx.store.put(item)),
             tx.done
         ]);
     },
@@ -50,18 +82,27 @@ export const dbOps = {
         const db = await initDB();
         return db.clear(storeName);
     },
-    async addToQueue(action: string, storeName: string, data: unknown) {
+    async addToQueue(action: string, storeName: string, data: any) {
         const db = await initDB();
+        const payload = await encryptData(data);
         return db.add('sync_queue', {
-            action, // 'CREATE', 'UPDATE', 'DELETE'
+            action, 
             storeName,
-            data,
+            payload,
+            _encrypted: true,
             timestamp: Date.now()
         });
     },
     async getQueue() {
         const db = await initDB();
-        return db.getAll('sync_queue');
+        const raw = await db.getAll('sync_queue');
+        return Promise.all(raw.map(async item => {
+            if (item && typeof item === 'object' && item._encrypted) {
+                const decData = await decryptData(item.payload);
+                return { ...item, data: decData };
+            }
+            return item;
+        }));
     },
     async removeFromQueue(id: number) {
         const db = await initDB();

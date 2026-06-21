@@ -592,14 +592,17 @@ serve(async (req: Request) => {
 
         // Webhook
         if (req.method === 'POST') {
-            // Webhook secret validation (if configured in environment)
+            // Webhook secret validation (Strict requirement)
             const webhookSecret = Deno.env.get('TELEGRAM_WEBHOOK_SECRET');
-            if (webhookSecret) {
-                const receivedToken = req.headers.get('x-telegram-bot-api-secret-token');
-                if (receivedToken !== webhookSecret) {
-                    console.warn('Unauthorized webhook request blocked. Secret token mismatch.');
-                    return new Response('Unauthorized', { status: 403 });
-                }
+            if (!webhookSecret) {
+                console.error('CRITICAL: TELEGRAM_WEBHOOK_SECRET is not configured in environment!');
+                return new Response('Server Configuration Error', { status: 500 });
+            }
+            
+            const receivedToken = req.headers.get('x-telegram-bot-api-secret-token');
+            if (receivedToken !== webhookSecret) {
+                console.warn('Unauthorized webhook request blocked. Secret token mismatch.');
+                return new Response('Unauthorized', { status: 403 });
             }
 
             const update = await req.json();

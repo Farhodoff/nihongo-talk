@@ -263,6 +263,7 @@ CREATE TRIGGER sessions_updated_at_trigger
 -- ============================================
 
 -- Bugungi vazifalar
+DROP VIEW IF EXISTS today_tasks CASCADE;
 CREATE OR REPLACE VIEW today_tasks AS
 SELECT 
   t.*,
@@ -275,6 +276,7 @@ WHERE t.due_date = CURRENT_DATE
   AND t.user_id = auth.uid();
 
 -- Oxirgi 7 kunlik sessiyalar
+DROP VIEW IF EXISTS recent_sessions CASCADE;
 CREATE OR REPLACE VIEW recent_sessions AS
 SELECT 
   ss.*,

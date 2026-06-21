@@ -41,15 +41,19 @@ CREATE TABLE IF NOT EXISTS tasks (
 ALTER TABLE tasks ENABLE ROW LEVEL SECURITY;
 
 -- Policies: Foydalanuvchi faqat o'z vazifalarini ko'radi va boshqaradi
+DROP POLICY IF EXISTS "Users can view own tasks" ON tasks;
 CREATE POLICY "Users can view own tasks" ON tasks
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own tasks" ON tasks;
 CREATE POLICY "Users can insert own tasks" ON tasks
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update own tasks" ON tasks;
 CREATE POLICY "Users can update own tasks" ON tasks
   FOR UPDATE USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can delete own tasks" ON tasks;
 CREATE POLICY "Users can delete own tasks" ON tasks
   FOR DELETE USING (auth.uid() = user_id);
 
@@ -108,15 +112,19 @@ CREATE TABLE IF NOT EXISTS study_sessions (
 ALTER TABLE study_sessions ENABLE ROW LEVEL SECURITY;
 
 -- Policies: Foydalanuvchi faqat o'z sessiyalarini ko'radi va boshqaradi
+DROP POLICY IF EXISTS "Users can view own sessions" ON study_sessions;
 CREATE POLICY "Users can view own sessions" ON study_sessions
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own sessions" ON study_sessions;
 CREATE POLICY "Users can insert own sessions" ON study_sessions
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update own sessions" ON study_sessions;
 CREATE POLICY "Users can update own sessions" ON study_sessions
   FOR UPDATE USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can delete own sessions" ON study_sessions;
 CREATE POLICY "Users can delete own sessions" ON study_sessions
   FOR DELETE USING (auth.uid() = user_id);
 

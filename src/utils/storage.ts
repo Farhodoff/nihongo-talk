@@ -11,7 +11,7 @@ export const STORAGE_KEYS = {
 };
 
 // Helper to get encryption key (uses current user ID or a fallback key)
-const getEncryptionKey = async (): Promise<string> => {
+export const getEncryptionKey = async (): Promise<string> => {
     try {
         const { data: { user } } = await supabase.auth.getUser();
         return user?.id || 'study-planner-fallback-key';
@@ -21,7 +21,7 @@ const getEncryptionKey = async (): Promise<string> => {
 };
 
 // Simple XOR encryption/decryption + Base64
-const encrypt = (txt: string, key: string): string => {
+export const encrypt = (txt: string, key: string): string => {
     let result = '';
     for (let i = 0; i < txt.length; i++) {
         const charCode = txt.charCodeAt(i) ^ key.charCodeAt(i % key.length);
@@ -30,7 +30,7 @@ const encrypt = (txt: string, key: string): string => {
     return btoa(unescape(encodeURIComponent(result)));
 };
 
-const decrypt = (str: string, key: string): string => {
+export const decrypt = (str: string, key: string): string => {
     try {
         const decoded = decodeURIComponent(escape(atob(str)));
         let result = '';

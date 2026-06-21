@@ -4,6 +4,8 @@ ADD COLUMN IF NOT EXISTS notification_time TEXT NOT NULL DEFAULT '09:00';
 
 -- Add check constraint to ensure valid time format (HH:MM)
 ALTER TABLE public.telegram_users 
+DROP CONSTRAINT IF EXISTS telegram_users_notification_time_check;
+ALTER TABLE public.telegram_users
 ADD CONSTRAINT telegram_users_notification_time_check 
 CHECK (notification_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$');
 
