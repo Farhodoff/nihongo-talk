@@ -1,7 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { Task, TaskStatus, Priority } from '../types';
 import { DatabaseTask, DatabaseTaskUpdate } from '../types/supabase-types';
-import { dbOps } from '../utils/db';
 import { GoogleCalendarService } from './GoogleCalendarService';
 
 export const TaskService = {
@@ -42,19 +41,17 @@ export const TaskService = {
                 deletedAt: t.deleted_at || undefined
             })) as Task[];
 
-            // Lokal bazani yangilash
-            await dbOps.clear('tasks');
-            await dbOps.putAll('tasks', tasks);
+            
 
             return tasks;
         } catch (error) {
-            console.error('Fetch tasks error, falling back to local:', error);
-            return await dbOps.getAll('tasks') as Task[];
+            console.error('Fetch tasks error:', error);
+            throw error;
         }
     },
 
     async addTask(userId: string, taskData: Partial<Task>): Promise<Task | null> {
-        const tempId = taskData.id || `temp-${Date.now()}`;
+        
         const dbTask: Omit<DatabaseTask, 'id' | 'created_at'> & { id?: string } = {
             user_id: userId,
             title: taskData.title || '',
@@ -75,9 +72,7 @@ export const TaskService = {
             }
         }
 
-        // 2. Lokal bazaga yozish
-        const localTask = { ...taskData, id: tempId, userId, createdAt: new Date().toISOString(), googleEventId: dbTask.google_event_id } as Task;
-        await dbOps.put('tasks', localTask);
+        
 
         try {
             const { data, error } = await supabase
@@ -104,25 +99,19 @@ export const TaskService = {
                 deletedAt: returnedData.deleted_at || undefined
             };
 
-            // Lokal bazani yangi ID bilan yangilash
-            await dbOps.delete('tasks', tempId);
-            await dbOps.put('tasks', newTask);
+            
 
             return newTask;
         } catch (error) {
-            console.error('Add task error, queued for sync:', error);
-            await dbOps.addToQueue('CREATE', 'tasks', dbTask);
-            return localTask;
+            console.error('Add task error:', error);
+            throw error;
         }
     },
 
     async updateTask(id: string, updates: Partial<Task>): Promise<void> {
-        // 1. Lokal yangilash
-        const localTasks = await dbOps.getAll('tasks') as Task[];
-        const task = localTasks.find(t => t.id === id);
-        if (task) {
-            const updatedTask = { ...task, ...updates };
-            await dbOps.put('tasks', updatedTask);
+        const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).single();
+        if (taskData) {
+            const task = { googleEventId: taskData.google_event_id };
 
             // Google Calendar Sync
             const { data: { session } } = await supabase.auth.getSession();
@@ -145,8 +134,8 @@ export const TaskService = {
             const { error } = await supabase.from('tasks').update(dbUpdates).eq('id', id);
             if (error) throw error;
         } catch (error) {
-            console.error('Update task error, queued for sync:', error);
-            await dbOps.addToQueue('UPDATE', 'tasks', { id, updates });
+            console.error('Update task error:', error);
+            throw error;
         }
     },
 
@@ -155,12 +144,11 @@ export const TaskService = {
     },
 
     async deleteTask(id: string, permanent = false): Promise<void> {
-        // 1. Lokal o'chirish
-        const localTasks = await dbOps.getAll('tasks') as Task[];
-        const task = localTasks.find(t => t.id === id);
+        const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).single();
+        const task = taskData ? { googleEventId: taskData.google_event_id } : null;
 
         if (permanent) {
-            await dbOps.delete('tasks', id);
+            
 
             // Google Calendar Sync
             const { data: { session } } = await supabase.auth.getSession();
@@ -172,39 +160,31 @@ export const TaskService = {
                 const { error } = await supabase.from('tasks').delete().eq('id', id);
                 if (error) throw error;
             } catch (error) {
-                console.error('Delete task error, queued for sync:', error);
-                await dbOps.addToQueue('DELETE', 'tasks', { id });
+                console.error('Delete task error:', error);
+                throw error;
             }
         } else {
-            // Soft delete
-            if (task) {
-                const updatedTask = { ...task, deletedAt: new Date().toISOString() };
-                await dbOps.put('tasks', updatedTask);
-            }
+            
 
             try {
                 const { error } = await supabase.from('tasks').update({ deleted_at: new Date().toISOString() }).eq('id', id);
                 if (error) throw error;
             } catch (error) {
-                console.error('Soft delete task error, queued for sync:', error);
+                console.error('Soft delete task error:', error);
+                throw error;
             }
         }
     },
 
     async restoreTask(id: string): Promise<void> {
-        const localTasks = await dbOps.getAll('tasks') as Task[];
-        const task = localTasks.find(t => t.id === id);
-        if (task) {
-            const updatedTask = { ...task };
-            delete updatedTask.deletedAt;
-            await dbOps.put('tasks', updatedTask);
-        }
+        
 
         try {
             const { error } = await supabase.from('tasks').update({ deleted_at: null }).eq('id', id);
             if (error) throw error;
         } catch (error) {
             console.error('Restore task error:', error);
+            throw error;
         }
     }
 };

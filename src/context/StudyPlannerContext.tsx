@@ -10,8 +10,6 @@ import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
-import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
-import { dbOps } from '../utils/db';
 import { generateUUID } from '../utils/uuid';
 
 
@@ -202,26 +200,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
             setUser(currentUser);
 
-            // --- FAST PATH: Load local cached data first to unblock UI ---
-            try {
-                const [localTasks, localCards, localSubjects, localGoals, localSessions] = await Promise.all([
-                    dbOps.getAll('tasks'),
-                    dbOps.getAll('flashcards'),
-                    dbOps.getAll('subjects'),
-                    dbOps.getAll('goals'),
-                    dbOps.getAll('sessions')
-                ]);
-                if (localTasks && localTasks.length > 0) setTasks(localTasks as Task[]);
-                if (localCards && localCards.length > 0) setFlashcards(localCards as Flashcard[]);
-                if (localSubjects && localSubjects.length > 0) setSubjects(localSubjects as Subject[]);
-                if (localGoals && localGoals.length > 0) setGoals(localGoals as Goal[]);
-                if (localSessions && localSessions.length > 0) setSessions(localSessions as StudySession[]);
-                
-                // Unblock UI immediately with local data
-                setLoading(false);
-            } catch (localErr) {
-                console.warn("Failed to load local data quickly:", localErr);
-            }
+            
 
             // Google Calendar sinxronizatsiyasi
             syncGoogleEvents();
@@ -373,21 +352,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         fetchData();
     }, [fetchData]);
 
-    useEffect(() => {
-        const handleOnline = () => {
-            console.log('[Offline Sync] App is online, starting sync...');
-            syncOfflineQueue(supabase).then(() => {
-                fetchData();
-            });
-        };
-        window.addEventListener('online', handleOnline);
-        if (navigator.onLine) {
-            syncOfflineQueue(supabase).then(() => {
-                fetchData();
-            });
-        }
-        return () => window.removeEventListener('online', handleOnline);
-    }, [fetchData]);
+    
 
     // Apply theme
     useEffect(() => {
@@ -439,12 +404,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const goalId = goalData.id || (generateUUID());
         const fullGoalData = { ...goalData, id: goalId, user_id: user.id };
 
-        if (!navigator.onLine) {
-            queueMutation('goals', 'insert', fullGoalData);
-            const optimisticGoal = { ...fullGoalData, progress: goalData.progress || 0, completed: goalData.completed || false } as Goal;
-            setGoals(prev => [...prev, optimisticGoal]);
-            return optimisticGoal;
-        }
+        
 
         const { data } = await supabase.from('goals').insert(fullGoalData).select().single();
         if (data) setGoals(prev => [...prev, data]);
@@ -454,10 +414,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const updateGoal = async (id: string, updates: Partial<Goal>) => {
         setGoals(prev => prev.map(g => g.id === id ? { ...g, ...updates } : g));
 
-        if (!navigator.onLine) {
-            queueMutation('goals', 'update', updates, id);
-            return;
-        }
+        
 
         await supabase.from('goals').update(updates).eq('id', id);
     };
@@ -465,10 +422,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const deleteGoal = async (id: string) => {
         setGoals(prev => prev.filter(g => g.id !== id));
 
-        if (!navigator.onLine) {
-            queueMutation('goals', 'delete', null, id);
-            return;
-        }
+        
 
         await supabase.from('goals').delete().eq('id', id);
     };
@@ -498,7 +452,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Optimistic update
         setSubjects(prev => [...prev, optimisticSubject]);
-        dbOps.put('subjects', optimisticSubject).catch(console.error);
+        
 
         const dbSubject = {
             id: tempId,
@@ -512,10 +466,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             icon: subjectData.icon
         };
 
-        if (!navigator.onLine) {
-            queueMutation('subjects', 'insert', dbSubject);
-            return optimisticSubject;
-        }
+        
 
         try {
             const { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
@@ -533,8 +484,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     icon: data.icon
                 };
                 setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
-                dbOps.delete('subjects', tempId).catch(console.error);
-                dbOps.put('subjects', newSubject).catch(console.error);
+                
                 return newSubject;
             }
         } catch (error) {
@@ -547,10 +497,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const deleteSubject = async (id: string) => {
         setSubjects(prev => prev.filter(s => s.id !== id));
 
-        if (!navigator.onLine) {
-            queueMutation('subjects', 'delete', null, id);
-            return;
-        }
+        
 
         await supabase.from('subjects').delete().eq('id', id);
     };
@@ -567,10 +514,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setSubjects(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
 
-        if (!navigator.onLine) {
-            queueMutation('subjects', 'update', dbUpdates, id);
-            return;
-        }
+        
 
         const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
         if (error) {
@@ -605,10 +549,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setNotes(prev => [...prev, newNote]);
 
-        if (!navigator.onLine) {
-            queueMutation('notes', 'insert', dbNote);
-            return newNote;
-        }
+        
 
         const { data } = await supabase.from('notes').insert(dbNote).select().single();
         if (data) {
@@ -636,10 +577,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setNotes(prev => prev.map(n => n.id === id ? { ...n, ...updates } : n));
 
-        if (!navigator.onLine) {
-            queueMutation('notes', 'update', dbUpdates, id);
-            return;
-        }
+        
 
         await supabase.from('notes').update(dbUpdates).eq('id', id);
     };
@@ -647,10 +585,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const deleteNote = async (id: string) => {
         setNotes(prev => prev.filter(n => n.id !== id));
 
-        if (!navigator.onLine) {
-            queueMutation('notes', 'delete', null, id);
-            return;
-        }
+        
 
         await supabase.from('notes').delete().eq('id', id);
     };
@@ -681,10 +616,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setStudyNotes(prev => [...prev, newNote]);
 
-        if (!navigator.onLine) {
-            queueMutation('study_notes', 'insert', dbNote);
-            return;
-        }
+        
 
         const { data } = await supabase.from('study_notes').insert(dbNote).select().single();
         if (data) {
@@ -711,10 +643,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setStudyNotes(prev => prev.map(n => n.id === id ? { ...n, ...updates } : n));
 
-        if (!navigator.onLine) {
-            queueMutation('study_notes', 'update', dbUpdates, id);
-            return;
-        }
+        
 
         await supabase.from('study_notes').update(dbUpdates).eq('id', id);
     };
@@ -722,10 +651,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const deleteStudyNote = async (id: string) => {
         setStudyNotes(prev => prev.filter(n => n.id !== id));
 
-        if (!navigator.onLine) {
-            queueMutation('study_notes', 'delete', null, id);
-            return;
-        }
+        
 
         await supabase.from('study_notes').delete().eq('id', id);
     };
@@ -765,10 +691,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         setSessions(prev => [...prev, mappedSession]);
 
-        if (!navigator.onLine) {
-            queueMutation('study_sessions', 'insert', supabaseData);
-            return;
-        }
+        
 
         const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
         if (error) {

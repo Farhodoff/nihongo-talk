@@ -1,8 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
-import { dbOps } from '../utils/db';
 import { generateUUID } from '../utils/uuid';
-import { queueMutation } from '../utils/offlineSync';
 
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
@@ -32,15 +30,12 @@ export const FlashcardService = {
                 easeFactor: c.ease_factor
             })) as Flashcard[];
 
-            // Cache locally
-            await dbOps.clear('flashcards');
-            await dbOps.putAll('flashcards', cards);
+            
 
             return cards;
         } catch (error) {
-            console.error('Fetch flashcards error, falling back to local:', error);
-            const localCards = await dbOps.getAll('flashcards') as Flashcard[];
-            return localCards.filter(c => !c.deletedAt);
+            console.error('Fetch flashcards error:', error);
+            throw error;
         }
     },
 
@@ -58,23 +53,8 @@ export const FlashcardService = {
             repetitions: 0
         };
 
-        const localCard: Flashcard = {
-            id: tempId,
-            subjectId: dbCard.subject_id || '',
-            front: dbCard.front || '',
-            back: dbCard.back || '',
-            nextReviewDate: dbCard.next_review_date,
-            easeFactor: dbCard.ease_factor,
-            interval: dbCard.interval,
-            repetitions: dbCard.repetitions,
-        };
-
-        await dbOps.put('flashcards', localCard);
-
-        if (!navigator.onLine) {
-            queueMutation('flashcards', 'insert', dbCard);
-            return localCard;
-        }
+        
+        
 
         try {
             const { data, error } = await supabase
@@ -98,24 +78,17 @@ export const FlashcardService = {
                 deletedAt: returnedCard.deleted_at || undefined
             };
 
-            await dbOps.delete('flashcards', tempId);
-            await dbOps.put('flashcards', finalCard);
+            
 
             return finalCard;
         } catch (error) {
-            console.error('Add flashcard error, queued for sync:', error);
-            queueMutation('flashcards', 'insert', dbCard);
-            return localCard;
+            console.error('Add flashcard error:', error);
+            throw error;
         }
     },
 
     async updateFlashcard(id: string, updates: Partial<Flashcard>): Promise<void> {
-        const localCards = await dbOps.getAll('flashcards') as Flashcard[];
-        const card = localCards.find(c => c.id === id);
-        if (card) {
-            const updatedCard = { ...card, ...updates };
-            await dbOps.put('flashcards', updatedCard);
-        }
+        
 
         const dbUpdates: import('../types/supabase-types').DatabaseFlashcardUpdate = {};
 
@@ -127,76 +100,48 @@ export const FlashcardService = {
         if (updates.repetitions !== undefined) dbUpdates.repetitions = updates.repetitions;
         if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
 
-        if (!navigator.onLine) {
-            queueMutation('flashcards', 'update', dbUpdates, id);
-            return;
-        }
+        
 
         try {
             const { error } = await supabase.from('flashcards').update(dbUpdates).eq('id', id);
             if (error) throw error;
         } catch (error) {
-            console.error('Update flashcard error, queued for sync:', error);
-            queueMutation('flashcards', 'update', dbUpdates, id);
+            console.error('Update flashcard error:', error);
+            throw error;
         }
     },
 
     async deleteFlashcard(id: string, permanent = false): Promise<void> {
-        const localCards = await dbOps.getAll('flashcards') as Flashcard[];
-        const card = localCards.find(c => c.id === id);
-        
         if (permanent) {
-            await dbOps.delete('flashcards', id);
-            if (!navigator.onLine) {
-                queueMutation('flashcards', 'delete', null, id);
-                return;
-            }
             try {
                 const { error } = await supabase.from('flashcards').delete().eq('id', id);
                 if (error) throw error;
             } catch (error) {
-                console.error('Delete flashcard error, queued for sync:', error);
-                queueMutation('flashcards', 'delete', null, id);
+                console.error('Delete flashcard error:', error);
+                throw error;
             }
         } else {
-            if (card) {
-                const updatedCard = { ...card, deletedAt: new Date().toISOString() };
-                await dbOps.put('flashcards', updatedCard);
-            }
-            if (!navigator.onLine) {
-                queueMutation('flashcards', 'update', { deleted_at: new Date().toISOString() }, id);
-                return;
-            }
             try {
                 const { error } = await supabase.from('flashcards').update({ deleted_at: new Date().toISOString() }).eq('id', id);
                 if (error) throw error;
             } catch (error) {
-                console.error('Soft delete flashcard error, queued for sync:', error);
-                queueMutation('flashcards', 'update', { deleted_at: new Date().toISOString() }, id);
+                console.error('Soft delete flashcard error:', error);
+                throw error;
             }
         }
     },
 
     async restoreFlashcard(id: string): Promise<void> {
-        const localCards = await dbOps.getAll('flashcards') as Flashcard[];
-        const card = localCards.find(c => c.id === id);
-        if (card) {
-            const updatedCard = { ...card };
-            delete updatedCard.deletedAt;
-            await dbOps.put('flashcards', updatedCard);
-        }
+        
 
-        if (!navigator.onLine) {
-            queueMutation('flashcards', 'update', { deleted_at: null }, id);
-            return;
-        }
+        
 
         try {
             const { error } = await supabase.from('flashcards').update({ deleted_at: null }).eq('id', id);
             if (error) throw error;
         } catch (error) {
-            console.error('Restore flashcard error, queued for sync:', error);
-            queueMutation('flashcards', 'update', { deleted_at: null }, id);
+            console.error('Restore flashcard error:', error);
+            throw error;
         }
     },
 
@@ -214,25 +159,9 @@ export const FlashcardService = {
                 repetitions: 0
             }));
 
-            // Local cache
-            const localCards: Flashcard[] = dbCards.map(c => ({
-                id: c.id,
-                subjectId: c.subject_id,
-                front: c.front,
-                back: c.back,
-                nextReviewDate: c.next_review_date,
-                easeFactor: c.ease_factor,
-                interval: c.interval,
-                repetitions: c.repetitions,
-            }));
-            await dbOps.putAll('flashcards', localCards);
+            
 
-            if (!navigator.onLine) {
-                for (const dbCard of dbCards) {
-                    queueMutation('flashcards', 'insert', dbCard);
-                }
-                return true;
-            }
+            
 
             const { error } = await supabase.from('flashcards').insert(dbCards);
             if (error) throw error;
