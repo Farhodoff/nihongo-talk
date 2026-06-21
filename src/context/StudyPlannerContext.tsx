@@ -826,25 +826,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme || updates.notificationsEnabled !== undefined || updates.googleApiKey) {
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined) {
             setAppSettings(prev => ({
                 ...prev,
-                theme: updates.theme || prev.theme,
-                notificationsEnabled: updates.notificationsEnabled ?? prev.notificationsEnabled,
-                googleApiKey: updates.googleApiKey || prev.googleApiKey
+                theme: updates.theme !== undefined ? updates.theme : prev.theme,
+                notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
+                googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey
             }));
         }
 
-        // Persist to DB
-        const { error } = await supabase.from('profiles').upsert({
-            id: user.id,
-            theme: updates.theme || appSettings.theme,
-            notifications_enabled: updates.notificationsEnabled ?? appSettings.notificationsEnabled,
-            google_api_key: updates.googleApiKey || appSettings.googleApiKey,
+        // Persist to DB using UPDATE to avoid setting other fields to null
+        const { error } = await supabase.from('profiles').update({
+            theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
+            notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
+            google_api_key: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
             updated_at: new Date().toISOString()
-            // We should also include XP fields here if we want to be safe, but they are handled by useGamification's db calls usually.
-            // But since this is a generic updateSettings... better include them if present in updates.
-        });
+        }).eq('id', user.id);
 
         if (error) {
             console.error('Error updating settings:', error);
