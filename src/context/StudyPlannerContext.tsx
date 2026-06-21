@@ -12,6 +12,7 @@ import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCa
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
 import { queueMutation, syncOfflineQueue } from '../utils/offlineSync';
 import { dbOps } from '../utils/db';
+import { generateUUID } from '../utils/uuid';
 
 
 interface Settings {
@@ -435,7 +436,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
-        const goalId = goalData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const goalId = goalData.id || (generateUUID());
         const fullGoalData = { ...goalData, id: goalId, user_id: user.id };
 
         if (!navigator.onLine) {
@@ -483,7 +484,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
-        const tempId = subjectData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const tempId = subjectData.id || (generateUUID());
         const optimisticSubject: Subject = {
             id: tempId,
             name: subjectData.name || '',
@@ -497,6 +498,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Optimistic update
         setSubjects(prev => [...prev, optimisticSubject]);
+        dbOps.put('subjects', optimisticSubject).catch(console.error);
 
         const dbSubject = {
             id: tempId,
@@ -531,6 +533,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     icon: data.icon
                 };
                 setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
+                dbOps.delete('subjects', tempId).catch(console.error);
+                dbOps.put('subjects', newSubject).catch(console.error);
                 return newSubject;
             }
         } catch (error) {
@@ -579,7 +583,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return null;
 
-        const noteId = noteData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const noteId = noteData.id || (generateUUID());
         const dbNote = {
             id: noteId,
             user_id: user.id,
@@ -656,7 +660,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
 
-        const noteId = noteData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const noteId = noteData.id || (generateUUID());
         const dbNote = {
             id: noteId,
             user_id: user.id,
@@ -735,7 +739,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return;
         }
 
-        const sessionId = sessionData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const sessionId = sessionData.id || (generateUUID());
         const supabaseData: DatabaseSession = {
             id: sessionId,
             user_id: user.id,

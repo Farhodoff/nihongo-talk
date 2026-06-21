@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { dbOps } from '../utils/db';
+import { generateUUID } from '../utils/uuid';
 import { queueMutation } from '../utils/offlineSync';
 
 export const FlashcardService = {
@@ -44,7 +45,7 @@ export const FlashcardService = {
     },
 
     async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {
-        const tempId = cardData.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+        const tempId = cardData.id || (generateUUID());
         const dbCard = {
             id: tempId,
             user_id: userId,
@@ -202,7 +203,7 @@ export const FlashcardService = {
     async importFlashcards(userId: string, subjectId: string, cards: { front: string; back: string; example?: string }[]): Promise<boolean> {
         try {
             const dbCards = cards.map(c => ({
-                id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+                id: generateUUID(),
                 user_id: userId,
                 subject_id: subjectId,
                 front: c.front,
