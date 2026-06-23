@@ -19,6 +19,7 @@ const AuthPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     // Forgot password modal state
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
 
     const handleAuth = async (e: React.FormEvent) => {
