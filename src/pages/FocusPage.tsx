@@ -6,6 +6,28 @@ import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
 import SoundMixer from '../components/focus/SoundMixer';
+import { LocalTour, LocalTourStep } from '../components/LocalTour';
+
+const FOCUS_TOUR_STEPS: LocalTourStep[] = [
+    {
+        title: "Vazifa tanlash 📝",
+        content: "Ayni paytda bajarmonchi bo'lgan vazifangizni tanlang. Taymer tugagach, tizim ushbu vazifani tugatishni taklif qiladi.",
+        target: "[data-tour=\"focus-task-selector\"]",
+        placement: "bottom"
+    },
+    {
+        title: "Lo-Fi va Tabiat Ovozlari 🌧️",
+        content: "Darsga qattiqroq fokuslanish uchun sokin yomg'ir, olov yoki Lo-Fi musiqasini qoshing va ovozini o'zingizga moslang.",
+        target: "[data-tour=\"focus-sound-mixer\"]",
+        placement: "bottom"
+    },
+    {
+        title: "Taymer Sozlamalari ⏱️",
+        content: "Bu yerdan Pomodoro, Qisqa yoki Uzun tanaffus vaqtlarini tanlashingiz mumkin.",
+        target: "[data-tour=\"focus-mode-switcher\"]",
+        placement: "top"
+    }
+];
 
 const FocusPage: React.FC = () => {
     const { subjects, addSession, awardXP, tasks, updateTaskStatus } = useStudyData();
@@ -117,7 +139,7 @@ const FocusPage: React.FC = () => {
             />
 
             {/* Task Selector (New) */}
-            <div className="w-full max-w-sm mb-6">
+            <div className="w-full max-w-sm mb-6" data-tour="focus-task-selector">
                 <label className="block text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest text-center">
                     Hozir nima ustida ishlayapsiz?
                 </label>
@@ -144,17 +166,19 @@ const FocusPage: React.FC = () => {
                 <p className="text-muted-foreground">Har bir sessiyada unumli bo'ling.</p>
             </div>
 
-            <SoundMixer
-                selectedSound={focusState.bgSound}
-                isMuted={focusState.isMuted}
-                isDisabled={focusState.isActive}
-                onSoundChange={setBgSound}
-                onMuteToggle={() => setMuted(!focusState.isMuted)}
-                onTestSound={playRingtone}
-            />
+            <div data-tour="focus-sound-mixer">
+                <SoundMixer
+                    selectedSound={focusState.bgSound}
+                    isMuted={focusState.isMuted}
+                    isDisabled={focusState.isActive}
+                    onSoundChange={setBgSound}
+                    onMuteToggle={() => setMuted(!focusState.isMuted)}
+                    onTestSound={playRingtone}
+                />
+            </div>
 
             {/* Mode Switcher */}
-            <div className="flex bg-muted/50 p-1 rounded-2xl mb-8 border border-border/50">
+            <div className="flex bg-muted/50 p-1 rounded-2xl mb-8 border border-border/50" data-tour="focus-mode-switcher">
                 <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Fokus</button>
                 <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Qisqa</button>
                 <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Uzun</button>
@@ -187,6 +211,8 @@ const FocusPage: React.FC = () => {
                 onToggle={handleStartClick}
                 onReset={resetTimer}
             />
+            
+            <LocalTour steps={FOCUS_TOUR_STEPS} tourKey="focus_page_tour_completed" />
         </div>
     );
 };

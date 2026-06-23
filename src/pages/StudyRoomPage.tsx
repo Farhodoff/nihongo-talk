@@ -5,6 +5,28 @@ import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
 import 'tldraw/tldraw.css';
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
+import { LocalTour, LocalTourStep } from '../components/LocalTour';
+
+const ROOM_TOUR_STEPS: LocalTourStep[] = [
+    {
+        title: "Kamera va Mikrofon 🎤",
+        content: "Dars xonasiga kirganingizdan so'ng, kamera va mikrofonni shu yerdan yoqib/o'chirishingiz mumkin.",
+        target: "[data-tour=\"room-media-controls\"]",
+        placement: "top"
+    },
+    {
+        title: "Ekranni ulashish 💻",
+        content: "Agar do'stlaringizga o'z ekraningizni ko'rsatmoqchi bo'lsangiz, shu tugmani bosing.",
+        target: "[data-tour=\"room-screen-share\"]",
+        placement: "top"
+    },
+    {
+        title: "Birgalikda chizish 🖍️",
+        content: "Bu yerdan Oq Doska (Whiteboard) bo'limiga o'tib, hamma birgalikda yozishi va chizishi mumkin bo'lgan taxtani ochasiz.",
+        target: "[data-tour=\"room-whiteboard-tab\"]",
+        placement: "bottom"
+    }
+];
 
 interface UserProfile {
     id: string;
@@ -815,7 +837,7 @@ const StudyRoomPage: React.FC = () => {
                     )}
  
                     {/* Media Controls Toolbar */}
-                    <div className="flex justify-center items-center gap-4 py-2 border-t border-slate-800/60">
+                    <div className="flex justify-center items-center gap-4 py-2 border-t border-slate-800/60" data-tour="room-media-controls">
                         <button
                             onClick={toggleAudio}
                             className={`p-3.5 rounded-xl border transition-all active:scale-95 flex items-center justify-center ${
@@ -849,6 +871,7 @@ const StudyRoomPage: React.FC = () => {
                                             : 'bg-slate-850 hover:bg-slate-800 border-slate-750 text-slate-200'
                                     }`}
                                     title={isScreenSharing ? 'Ekranni ulashishni to\'xtatish' : 'Ekranni ulashish'}
+                                    data-tour="room-screen-share"
                                 >
                                     {isScreenSharing ? <MonitorOff size={20} /> : <Monitor size={20} />}
                                 </button>
@@ -891,6 +914,7 @@ const StudyRoomPage: React.FC = () => {
                                     ? 'bg-indigo-600 text-white shadow-md' 
                                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
                             }`}
+                            data-tour="room-whiteboard-tab"
                         >
                             <PenTool size={16} /> Whiteboard
                         </button>
@@ -1010,6 +1034,8 @@ const StudyRoomPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            
+            <LocalTour steps={ROOM_TOUR_STEPS} tourKey="study_room_tour_completed" />
         </div>
     );
 };
