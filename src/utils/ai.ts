@@ -618,3 +618,55 @@ export const fixNoteSpellingWithAI = async (
         throw e;
     }
 };
+
+/**
+ * Generates Mermaid.js Mind Map code based on user notes.
+ */
+export const generateMindMapWithAI = async (
+    content: string,
+    userKey?: string
+): Promise<string> => {
+    const prompt = `
+      Siz expert darajasidagi Mind Map (Aqliy xarita) yaratuvchisiz.
+      Foydalanuvchining quyidagi konspekt matnidan vizual ko'rinishda go'zal va tushunarli Mermaid.js mindmap yoki graph kodini yarating.
+      
+      Konspekt matni: "${content.substring(0, 4000)}"
+      
+      Qoidalar:
+      1. Matndagi eng asosiy mavzuni markazga, undan tarmoqlanadigan qismlarni mantiqiy tarzda ajrating.
+      2. Format sifatida "mindmap" yoki "graph TD" dan foydalanishingiz mumkin. "mindmap" formati ustunroq.
+      3. Mermaid kodini hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid va \`\`\` belgilarisiz).
+      4. O'zbek tilidan foydalaning.
+      
+      Misol (graph TD uchun):
+      graph TD;
+      A[Markaziy Mavzu] --> B[Qism 1];
+      A --> C[Qism 2];
+      
+      Misol (mindmap uchun):
+      mindmap
+        root((Markaziy Mavzu))
+          Qism 1
+            Kichik qism 1.1
+          Qism 2
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let text: string;
+
+        if (provider === 'ollama') {
+            text = await callOllama(prompt);
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            text = (await result.response).text();
+        }
+
+        return text.replace(/```mermaid/g, "").replace(/```markdown/g, "").replace(/```/g, "").trim();
+    } catch (e) {
+        console.error("AI Mind Map Error", e);
+        throw e;
+    }
+};
