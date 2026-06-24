@@ -30,6 +30,40 @@ const getGenAI = (userKey?: string) => {
     return new GoogleGenerativeAI(userKey);
 };
 
+/**
+ * Texnik AI xato xabarlarini foydalanuvchiga tushunarli O'zbek tilidagi xabarlarga aylantiradi.
+ */
+export const parseAIError = (error: unknown): string => {
+    const err = error as { message?: string; status?: number };
+    const msg = err?.message || '';
+
+    // Quota / Rate limit tugagan
+    if (msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') || msg.includes('RESOURCE_EXHAUSTED')) {
+        if (msg.includes('FreeTier') || msg.includes('free_tier')) {
+            return '⏳ Bepul AI limit bugunlik tugagan. Ertaga qayta urinib ko\'ring yoki Google AI Studio\'da pullik rejaga o\'ting (aistudio.google.com → Settings → Billing).';
+        }
+        return '⏳ AI so\'rovlar limiti vaqtincha tugadi. Iltimos, bir necha daqiqadan keyin qayta urinib ko\'ring.';
+    }
+
+    // API kalit noto'g'ri
+    if (msg.includes('API key not valid') || msg.includes('API_KEY_INVALID')) {
+        return '🔑 API kalit noto\'g\'ri yoki yaroqsiz. Iltimos, Sozlamalar bo\'limida kalitingizni tekshiring va yangi kalit kiriting.';
+    }
+
+    // Model topilmadi
+    if (msg.includes('not found') && msg.includes('model')) {
+        return '⚠️ AI model topilmadi. Ilova yangilanishi kerak bo\'lishi mumkin. Sahifani yangilab ko\'ring.';
+    }
+
+    // Internet / tarmoq xatoligi
+    if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('net::')) {
+        return '🌐 Internet aloqasi yo\'q yoki server javob bermayapti. Internet ulanishingizni tekshiring.';
+    }
+
+    // Umumiy xatolik
+    return `❌ AI xatoligi yuz berdi: ${msg.substring(0, 150)}`;
+};
+
 export const requestWithRetry = async <T>(
     operation: () => Promise<T>,
     retries: number = 2, // Reduced from 3
@@ -48,7 +82,9 @@ export const requestWithRetry = async <T>(
             // Exponential backoff
             return requestWithRetry(operation, retries - 1, delay * 2);
         }
-        throw error;
+
+        // Barcha retrylar tugagandan keyin tushunarli xato berish
+        throw new Error(parseAIError(error));
     }
 };
 
@@ -150,7 +186,7 @@ export const generateFlashcardsWithAI = async (
 
     } catch (error: unknown) {
         console.error('AI Request Error:', error);
-        throw error;
+        throw new Error(parseAIError(error));
     }
 };
 
@@ -211,7 +247,7 @@ export const generateFlashcardsFromNote = async (
 
     } catch (error: unknown) {
         console.error('AI Flashcards from Note Error:', error);
-        throw error;
+        throw new Error(parseAIError(error));
     }
 };
 
@@ -323,7 +359,7 @@ export const generateFullStudyPlan = async (
 
     } catch (e) {
         console.error("AI Full Plan Error:", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
 
@@ -509,7 +545,7 @@ export const generateExamWithAI = async (
         });
     } catch (e) {
         console.error("AI Exam Generation Error", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
 
@@ -545,7 +581,7 @@ export const expandNoteWithAI = async (
         return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
     } catch (e) {
         console.error("AI Expand Note Error", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
 
@@ -580,7 +616,7 @@ export const summarizeNoteWithAI = async (
         return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
     } catch (e) {
         console.error("AI Summarize Note Error", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
 
@@ -615,7 +651,7 @@ export const fixNoteSpellingWithAI = async (
         return text.replace(/```markdown/g, "").replace(/```/g, "").trim();
     } catch (e) {
         console.error("AI Fix Spelling Error", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
 
@@ -667,6 +703,6 @@ export const generateMindMapWithAI = async (
         return text.replace(/```mermaid/g, "").replace(/```markdown/g, "").replace(/```/g, "").trim();
     } catch (e) {
         console.error("AI Mind Map Error", e);
-        throw e;
+        throw new Error(parseAIError(e));
     }
 };
