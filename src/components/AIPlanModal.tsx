@@ -142,7 +142,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
                                 >
                                     <option value="">-- Boshqa Mavzu --</option>
-                                    {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                    {subjects.filter(s => !s.isArchived).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                                 </select>
                             </div>
 

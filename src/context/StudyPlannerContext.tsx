@@ -244,7 +244,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         teacherName: s.teacher_name,
                         roomLocation: s.room_location,
                         description: s.description,
-                        icon: s.icon
+                        icon: s.icon,
+                        isArchived: s.is_archived
                     }));
                     setSubjects(mappedSubjects);
 
@@ -447,7 +448,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             teacherName: subjectData.teacherName,
             roomLocation: subjectData.roomLocation,
             description: subjectData.description,
-            icon: subjectData.icon
+            icon: subjectData.icon,
+            isArchived: subjectData.isArchived || false
         };
 
         // Optimistic update
@@ -463,7 +465,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             room_location: subjectData.roomLocation,
             description: subjectData.description,
             schedule: subjectData.schedule || [],
-            icon: subjectData.icon
+            icon: subjectData.icon,
+            is_archived: subjectData.isArchived || false
         };
 
         
@@ -481,7 +484,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     teacherName: data.teacher_name,
                     roomLocation: data.room_location,
                     description: data.description,
-                    icon: data.icon
+                    icon: data.icon,
+                    isArchived: data.is_archived
                 };
                 setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
                 
@@ -511,6 +515,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (updates.description !== undefined) dbUpdates.description = updates.description;
         if (updates.icon) dbUpdates.icon = updates.icon;
         if (updates.schedule) dbUpdates.schedule = updates.schedule;
+        if (updates.isArchived !== undefined) dbUpdates.is_archived = updates.isArchived;
 
         setSubjects(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
 

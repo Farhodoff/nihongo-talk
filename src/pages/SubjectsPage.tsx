@@ -11,14 +11,26 @@ const SubjectsPage: React.FC = () => {
     const [isAdding, setIsAdding] = useState(false);
     const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [activeTab, setActiveTab] = useState<'active' | 'archived'>('active');
 
     const filteredSubjects = useMemo(() => {
-        if (!searchQuery.trim()) return subjects;
-        return subjects.filter(subject => 
+        let result = subjects;
+        
+        // Filter by active tab
+        if (activeTab === 'active') {
+            result = result.filter(s => !s.isArchived);
+        } else {
+            result = result.filter(s => s.isArchived);
+        }
+
+        // Filter by search query
+        if (!searchQuery.trim()) return result;
+        
+        return result.filter(subject => 
             subject.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
             (subject.description && subject.description.toLowerCase().includes(searchQuery.toLowerCase()))
         );
-    }, [subjects, searchQuery]);
+    }, [subjects, searchQuery, activeTab]);
 
     // Calculate progress for a subject
     const getSubjectProgress = (subjectId: string): number => {
@@ -54,6 +66,10 @@ const SubjectsPage: React.FC = () => {
         setEditingSubject(null);
     };
 
+    const handleToggleArchive = (id: string, isArchived: boolean) => {
+        updateSubject(id, { isArchived });
+    };
+
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6">
@@ -78,6 +94,22 @@ const SubjectsPage: React.FC = () => {
                 </div>
             </div>
 
+            {/* Tabs */}
+            <div className="flex space-x-1 bg-secondary/50 p-1 rounded-xl w-fit mb-6">
+                <button
+                    onClick={() => setActiveTab('active')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'active' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
+                >
+                    Faol Fanlar
+                </button>
+                <button
+                    onClick={() => setActiveTab('archived')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'archived' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
+                >
+                    Arxivlangan
+                </button>
+            </div>
+
             {/* Add/Edit Subject Form */}
             {isAdding && (
                 <SubjectForm
@@ -96,16 +128,17 @@ const SubjectsPage: React.FC = () => {
                         progress={getSubjectProgress(subject.id)}
                         onDelete={deleteSubject}
                         onEdit={handleEditClick}
+                        onToggleArchive={handleToggleArchive}
                     />
                 ))}
 
                 {subjects.length > 0 && filteredSubjects.length === 0 && !isAdding && (
                     <div className="col-span-full py-12 text-center text-muted-foreground">
-                        Siz izlagan fan topilmadi.
+                        {activeTab === 'archived' && !searchQuery.trim() ? "Arxivlangan fanlar yo'q." : "Siz izlagan fan topilmadi."}
                     </div>
                 )}
 
-                {subjects.length === 0 && !isAdding && (
+                {subjects.filter(s => !s.isArchived).length === 0 && activeTab === 'active' && !isAdding && (
                     <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
                         <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
                             <BookOpen size={40} />

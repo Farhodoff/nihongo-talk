@@ -87,6 +87,7 @@ export interface DatabaseSubject {
     room_location?: string;
     description?: string;
     icon?: string;
+    is_archived?: boolean;
 }
 
 export interface DatabaseSession {

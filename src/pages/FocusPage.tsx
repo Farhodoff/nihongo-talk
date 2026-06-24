@@ -193,7 +193,7 @@ const FocusPage: React.FC = () => {
                         className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none text-center appearance-none backdrop-blur-sm"
                     >
                         <option value="">Umumiy O'qish</option>
-                        {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                        {subjects.filter(s => !s.isArchived).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                     </select>
                 </div>
             )}

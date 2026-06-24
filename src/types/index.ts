@@ -41,6 +41,7 @@ export interface Subject {
     teacherName?: string;
     roomLocation?: string;
     icon?: string;
+    isArchived?: boolean;
 }
 
 export interface StudySession {

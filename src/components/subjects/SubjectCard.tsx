@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2, Pencil } from 'lucide-react';
+import { Trash2, Pencil, Archive, ArchiveRestore } from 'lucide-react';
 import { Subject } from '../../types';
 import { getIconComponent } from './constants';
 
@@ -9,9 +9,10 @@ interface SubjectCardProps {
     progress: number;
     onDelete: (id: string) => void;
     onEdit: (subject: Subject) => void;
+    onToggleArchive: (id: string, isArchived: boolean) => void;
 }
 
-const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete, onEdit }) => {
+const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete, onEdit, onToggleArchive }) => {
     const IconComponent = getIconComponent(subject.icon);
 
     return (
@@ -46,6 +47,16 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, progress, onDelete, 
                         title="O'chirish"
                     >
                         <Trash2 size={16} />
+                    </button>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onToggleArchive(subject.id, !subject.isArchived);
+                        }}
+                        className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10"
+                        title={subject.isArchived ? "Arxivdan chiqarish" : "Arxivlash"}
+                    >
+                        {subject.isArchived ? <ArchiveRestore size={16} /> : <Archive size={16} />}
                     </button>
                 </div>
 

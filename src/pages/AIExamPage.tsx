@@ -143,7 +143,7 @@ const AIExamPage: React.FC = () => {
                                 className="w-full px-5 py-4 rounded-2xl border-2 border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-semibold"
                             >
                                 <option value="">-- Fanni tanlang --</option>
-                                {subjects.map(s => (
+                                {subjects.filter(s => !s.isArchived).map(s => (
                                     <option key={s.id} value={s.id}>{s.name}</option>
                                 ))}
                             </select>

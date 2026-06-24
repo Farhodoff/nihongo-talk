@@ -127,7 +127,7 @@ const TasksPage: React.FC = () => {
                             className="md:col-span-6 px-4 py-3 rounded-xl border border-border bg-background/50 text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
                         >
                             <option value="" className="bg-background">Fanga bog'lash</option>
-                            {subjects.map(s => (
+                            {subjects.filter(s => !s.isArchived).map(s => (
                                 <option key={s.id} value={s.id} className="bg-background">{s.name}</option>
                             ))}
                         </select>

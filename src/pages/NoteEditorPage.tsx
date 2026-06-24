@@ -238,7 +238,7 @@ const NoteEditorPage: React.FC = () => {
                         className="px-4 py-2 rounded-lg bg-background border border-border outline-none text-sm text-foreground focus:ring-2 focus:ring-primary backdrop-blur-sm"
                     >
                         <option value="">Fanni Tanlang</option>
-                        {subjects.map(s => (
+                        {subjects.filter(s => !s.isArchived).map(s => (
                             <option key={s.id} value={s.id}>{s.name}</option>
                         ))}
                     </select>

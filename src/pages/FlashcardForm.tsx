@@ -47,7 +47,7 @@ const FlashcardForm: React.FC = () => {
                         required
                     >
                         <option value="">Fanni Tanlang</option>
-                        {subjects.map(s => (
+                        {subjects.filter(s => !s.isArchived).map(s => (
                             <option key={s.id} value={s.id}>{s.name}</option>
                         ))}
                     </select>
