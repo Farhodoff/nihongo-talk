@@ -79,8 +79,6 @@ const StudyRoomPage: React.FC = () => {
 
     // Whiteboard Ref & States
     const editorRef = useRef<Editor | null>(null);
-    const isApplyingIncomingSnapshot = useRef(false);
-    const whiteboardSyncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Refs for closure access in channel event listeners without triggering re-renders
     const pomodoroStateRef = useRef({ timeLeft, isRunning, mode: pomodoroMode });
@@ -357,32 +355,39 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_update' }, ({ payload }) => {
-                const data = payload as { senderId: string; snapshot: Parameters<typeof loadSnapshot>[1] };
+                const data = payload as { senderId: string; changes: any };
                 if (data.senderId !== clientIdRef.current && editorRef.current) {
-                    isApplyingIncomingSnapshot.current = true;
                     try {
-                        loadSnapshot(editorRef.current.store, data.snapshot);
+                        editorRef.current.store.mergeRemoteChanges(() => {
+                            const { added, updated, removed } = data.changes;
+                            if (added) {
+                                editorRef.current!.store.put(Object.values(added));
+                            }
+                            if (updated) {
+                                const toPut = [];
+                                for (const val of Object.values(updated) as any[]) {
+                                    if (Array.isArray(val) && val.length === 2) {
+                                        toPut.push(val[1]);
+                                    }
+                                }
+                                editorRef.current!.store.put(toPut);
+                            }
+                            if (removed) {
+                                editorRef.current!.store.remove(Object.keys(removed) as any);
+                            }
+                        });
                     } catch (e) {
-                        console.error('Error loading whiteboard broadcast:', e);
-                    } finally {
-                        setTimeout(() => {
-                            isApplyingIncomingSnapshot.current = false;
-                        }, 100);
+                        console.error('Error loading whiteboard changes:', e);
                     }
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_response' }, ({ payload }) => {
                 const data = payload as { targetId: string; snapshot: Parameters<typeof loadSnapshot>[1] };
                 if (data.targetId === clientIdRef.current && editorRef.current) {
-                    isApplyingIncomingSnapshot.current = true;
                     try {
                         loadSnapshot(editorRef.current.store, data.snapshot);
                     } catch (e) {
                         console.error('Error loading whiteboard state response:', e);
-                    } finally {
-                        setTimeout(() => {
-                            isApplyingIncomingSnapshot.current = false;
-                        }, 100);
                     }
                 }
             })
@@ -647,25 +652,19 @@ const StudyRoomPage: React.FC = () => {
     const handleWhiteboardMount = (editor: Editor) => {
         editorRef.current = editor;
 
-        const cleanup = editor.store.listen(() => {
-            if (isApplyingIncomingSnapshot.current) return;
+        const cleanup = editor.store.listen((entry) => {
+            if (entry.source !== 'user') return;
 
-            if (whiteboardSyncTimeoutRef.current) clearTimeout(whiteboardSyncTimeoutRef.current);
-            whiteboardSyncTimeoutRef.current = setTimeout(() => {
-                if (!editorRef.current || isApplyingIncomingSnapshot.current) return;
-
-                try {
-                    const snapshot = getSnapshot(editorRef.current.store);
-                    channelRef.current?.send({
-                        type: 'broadcast',
-                        event: 'whiteboard_state_update',
-                        payload: { snapshot, senderId: clientIdRef.current }
-                    });
-                } catch (e) {
-                    console.error('Error broadcasting whiteboard snapshot:', e);
-                }
-            }, 1000);
-        });
+            try {
+                channelRef.current?.send({
+                    type: 'broadcast',
+                    event: 'whiteboard_state_update',
+                    payload: { changes: entry.changes, senderId: clientIdRef.current }
+                });
+            } catch (e) {
+                console.error('Error broadcasting whiteboard changes:', e);
+            }
+        }, { source: 'user', scope: 'document' });
 
         // Request state again after whiteboard is mounted to get current drawings
         channelRef.current?.send({
