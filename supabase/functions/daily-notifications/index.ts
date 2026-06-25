@@ -135,23 +135,66 @@ serve(async (req: Request) => {
 
             // --- EVENING NOTIFICATION (21:00) ---
             else if (currentTime === '21:00') {
-                const totalToday = pendingTasks.length + completedTasks.length;
+                const isSunday = now.getDay() === 0;
 
-                if (totalToday === 0) {
-                    message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
-                        `Bugun hech qanday vazifa belgilanmagan edi.\n` +
-                        `Ertangi kunni rejalashtirishni unutmang! 📅\n\n` +
-                        `<i>Tinch osuda tun tilayman!</i> 😴`;
+                if (isSunday) {
+                    // WEEKLY REPORT
+                    const weekAgoDate = new Date(now);
+                    weekAgoDate.setDate(weekAgoDate.getDate() - 7);
+                    const weekAgoStr = dateFormatter.format(weekAgoDate);
+
+                    // Fetch weekly tasks
+                    const { data: weeklyTasks } = await supabase
+                        .from('tasks')
+                        .select('status')
+                        .eq('user_id', user.user_id)
+                        .eq('status', 'done')
+                        .gte('due_date', weekAgoStr + 'T00:00:00')
+                        .lte('due_date', todayDate + 'T23:59:59');
+
+                    // Fetch weekly study sessions
+                    const { data: weeklySessions } = await supabase
+                        .from('study_sessions')
+                        .select('duration')
+                        .eq('user_id', user.user_id)
+                        .eq('completed', true)
+                        .eq('type', 'focus')
+                        .gte('start_time', weekAgoStr + 'T00:00:00')
+                        .lte('start_time', todayDate + 'T23:59:59');
+
+                    const totalWeeklyTasks = weeklyTasks?.length || 0;
+                    const totalDurationMinutes = weeklySessions?.reduce((acc: number, s: { duration: number }) => acc + (s.duration || 0), 0) || 0;
+                    const hours = Math.floor(totalDurationMinutes / 60);
+                    const minutes = totalDurationMinutes % 60;
+                    const durationStr = hours > 0 ? `${hours} soat ${minutes} daqiqa` : `${minutes} daqiqa`;
+
+                    message = `📊 <b>Haftalik Hisobotingiz tayyor, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                        `O'tgan 7 kun ichida siz:\n` +
+                        `✅ <b>${totalWeeklyTasks}</b> ta vazifani yakunladingiz.\n` +
+                        `⏱ <b>${durationStr}</b> diqqat (fokus) qildingiz.\n\n` +
+                        `Kelgusi haftada ham shu ruhda davom eting! 💪\n` +
+                        `<i>Yaxshi dam oling!</i> 🌙`;
+
                 } else {
-                    const progress = totalToday > 0 ? Math.round((completedTasks.length / totalToday) * 100) : 0;
+                    // REGULAR DAILY REPORT
+                    const totalToday = pendingTasks.length + completedTasks.length;
 
-                    message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
-                        `📊 <b>Bugungi hisobot:</b>\n` +
-                        `✅ Bajarildi: <b>${completedTasks.length}</b> ta\n` +
-                        `⏳ Qoldi: <b>${pendingTasks.length}</b> ta\n` +
-                        `📈 Samardorlik: <b>${progress}%</b>\n\n` +
-                        `${pendingTasks.length > 0 ? `<i>Ertaga qolgan vazifalarni bajarishni unutmang!</i> 💪` : `<i>Barchasini uddaladingiz! Barakalla!</i> 🎉`}\n\n` +
-                        `<i>Tinch osuda tun tilayman!</i> 😴`;
+                    if (totalToday === 0) {
+                        message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                            `Bugun hech qanday vazifa belgilanmagan edi.\n` +
+                            `Ertangi kunni rejalashtirishni unutmang! 📅\n\n` +
+                            `<i>Tinch osuda tun tilayman!</i> 😴`;
+                    } else {
+                        const progress = totalToday > 0 ? Math.round((completedTasks.length / totalToday) * 100) : 0;
+
+                        message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                            `📊 <b>Bugungi hisobot:</b>\n` +
+                            `✅ Bajarildi: <b>${completedTasks.length}</b> ta\n` +
+                            `⏳ Qoldi: <b>${pendingTasks.length}</b> ta\n` +
+                            `📈 Samardorlik: <b>${progress}%</b>\n\n` +
+                            `${pendingTasks.length > 0 ? `<i>Ertaga qolgan vazifalarni bajarishni unutmang!</i> 💪` : `<i>Barchasini uddaladingiz! Barakalla!</i> 🎉`}\n\n` +
+                            `<i>Tinch osuda tun tilayman!</i> 😴`;
+                    }
                 }
             }
 
