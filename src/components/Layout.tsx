@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit, MessageSquare } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
@@ -37,6 +37,7 @@ const Layout: React.FC = () => {
         { name: 'Konspektlar', path: '/study-notes', icon: BookOpen },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
+        { name: 'AI Chatbot', path: '/ai-chat', icon: MessageSquare },
         { name: 'Aqliy Xarita', path: '/mindmap', icon: BrainCircuit },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },

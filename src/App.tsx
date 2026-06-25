@@ -11,6 +11,7 @@ import { OnboardingTour } from './components/OnboardingTour';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const AIChatPage = lazy(() => import('./pages/AIChatPage'));
 const AIExamPage = lazy(() => import('./pages/AIExamPage'));
 const AIMindMapPage = lazy(() => import('./pages/AIMindMapPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
@@ -102,6 +103,7 @@ const App: React.FC = () => {
                                         <Route path="study-notes" element={<StudyNotesPage />} />
                                         <Route path="ai-exam" element={<AIExamPage />} />
                                         <Route path="ai-exam/:id" element={<AIExamPage />} />
+                                        <Route path="ai-chat" element={<AIChatPage />} />
                                         <Route path="mindmap" element={<AIMindMapPage />} />
                                         <Route path="flashcards" element={<DecksPage />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />

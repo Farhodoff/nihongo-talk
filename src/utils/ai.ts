@@ -706,3 +706,68 @@ export const generateMindMapWithAI = async (
         throw new Error(parseAIError(e));
     }
 };
+
+export interface ChatMessage {
+    role: 'user' | 'model';
+    text: string;
+}
+
+/**
+ * Handles multi-turn chat with the AI, passing context about a specific subject.
+ */
+export const chatWithAI = async (
+    message: string,
+    history: ChatMessage[],
+    contextContent: string,
+    subjectName: string,
+    userKey?: string
+): Promise<string> => {
+    // Construct system instructions
+    let systemPrompt = `Siz Study Planner ilovasidagi talabalarga yordam beruvchi do'stona va aqlli o'quv yordamchisisiz (AI Tutor).
+Sizning asosiy vazifangiz talabalarga o'z darslarini yaxshiroq o'zlashtirishga yordam berishdir.
+Javoblaringiz o'zbek tilida, tushunarli va Markdown formatida (chiroyli qilib) bo'lishi kerak.
+
+Mavzu/Fan nomi: "${subjectName || 'Umumiy'}"
+
+Talabaning ushbu fanga oid konspekt va ma'lumotlari:
+"""
+${contextContent ? contextContent.substring(0, 10000) : "Foydalanuvchi hali bu fan uchun konspekt kiritmagan."}
+"""
+
+Qoidalar:
+1. Eng avvalo foydalanuvchining yuqoridagi konspektlaridan kelib chiqib javob bering.
+2. Agar foydalanuvchi savoli konspektda bo'lmasa, o'zingizning umumiy bilimlaringizdan foydalanib to'g'ri tushuntiring.
+3. Chat tarixini yodda tuting va suhbatga mos javob bering.
+`;
+
+    try {
+        const provider = await getAIProvider();
+
+        if (provider === 'ollama') {
+            // Ollama support for chat is basic, we will prepend history manually
+            const conversation = history.map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+            const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
+            const text = await callOllama(prompt);
+            return text.trim();
+        } else {
+            const genAI = getGenAI(userKey);
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-2.0-flash",
+                systemInstruction: systemPrompt 
+            });
+
+            const chat = model.startChat({
+                history: history.map(msg => ({
+                    role: msg.role === 'model' ? 'model' : 'user',
+                    parts: [{ text: msg.text }],
+                })),
+            });
+
+            const result = await requestWithRetry(() => chat.sendMessage(message));
+            return (await result.response).text().trim();
+        }
+    } catch (e) {
+        console.error("AI Chat Error", e);
+        throw new Error(parseAIError(e));
+    }
+};
