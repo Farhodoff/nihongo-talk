@@ -34,7 +34,7 @@ export const callDeepSeek = async (
     messages.push({ role: "user", content: prompt });
 
     const response = await client.chat.completions.create({
-        model: "deepseek-chat",
+        model: "deepseek-v4-flash",
         messages: messages,
         response_format: isJson ? { type: "json_object" } : { type: "text" }
     });
