@@ -5,8 +5,47 @@ import { callDeepSeek } from "./deepseek";
 
 export type AIProvider = 'ollama' | 'gemini' | 'deepseek';
 
-// Simple in-memory cache to prevent duplicate requests and save tokens
-const aiCache = new Map<string, unknown>();
+// Persistent cache to prevent duplicate requests across page reloads
+const CACHE_PREFIX = 'study_planner_ai_cache_';
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+const aiCache = {
+    has: (key: string): boolean => {
+        const itemStr = localStorage.getItem(CACHE_PREFIX + key);
+        if (!itemStr) return false;
+        try {
+            const item = JSON.parse(itemStr);
+            if (Date.now() > item.expiry) {
+                localStorage.removeItem(CACHE_PREFIX + key);
+                return false;
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    },
+    get: (key: string): unknown | undefined => {
+        const itemStr = localStorage.getItem(CACHE_PREFIX + key);
+        if (!itemStr) return undefined;
+        try {
+            const item = JSON.parse(itemStr);
+            return item.value;
+        } catch {
+            return undefined;
+        }
+    },
+    set: (key: string, value: unknown): void => {
+        const item = {
+            value,
+            expiry: Date.now() + CACHE_TTL_MS
+        };
+        try {
+            localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(item));
+        } catch (e) {
+            console.warn('Failed to save to AI cache, possibly quota exceeded', e);
+        }
+    }
+};
 
 export const getAIConfig = () => {
     const savedStr = localStorage.getItem('study_planner_ai_settings');
@@ -719,28 +758,15 @@ export const generateMindMapWithAI = async (
     userKey?: string
 ): Promise<string> => {
     const prompt = `
-      Siz expert darajasidagi Mind Map (Aqliy xarita) yaratuvchisiz.
-      Foydalanuvchining quyidagi konspekt matnidan vizual ko'rinishda go'zal va tushunarli Mermaid.js mindmap yoki graph kodini yarating.
+      Siz expert darajasidagi Mind Map yaratuvchisiz.
+      Foydalanuvchining konspektidan vizual ko'rinishda tushunarli Mermaid.js "mindmap" yoki "graph TD" kodini yarating.
       
       Konspekt matni: "${content.substring(0, 4000)}"
       
       Qoidalar:
-      1. Matndagi eng asosiy mavzuni markazga, undan tarmoqlanadigan qismlarni mantiqiy tarzda ajrating.
-      2. Format sifatida "mindmap" yoki "graph TD" dan foydalanishingiz mumkin. "mindmap" formati ustunroq.
-      3. Mermaid kodini hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid va \`\`\` belgilarisiz).
-      4. O'zbek tilidan foydalaning.
-      
-      Misol (graph TD uchun):
-      graph TD;
-      A[Markaziy Mavzu] --> B[Qism 1];
-      A --> C[Qism 2];
-      
-      Misol (mindmap uchun):
-      mindmap
-        root((Markaziy Mavzu))
-          Qism 1
-            Kichik qism 1.1
-          Qism 2
+      1. Eng asosiy mavzuni markazga qo'ying va tarmoqlang.
+      2. Hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid belgilarisiz).
+      3. O'zbek tilidan foydalaning.
     `;
 
     try {
@@ -803,15 +829,15 @@ Qoidalar:
     try {
         const provider = await getAIProvider();
 
-        if (provider === 'ollama') {
+            if (provider === 'ollama') {
             // Ollama support for chat is basic, we will prepend history manually
-            const conversation = history.map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+            const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
             const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
             const text = await callOllama(prompt);
             return text.trim();
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            const conversation = history.map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+            const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
             const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
             const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false, config.deepseekModel, config.deepseekThinkingMode);
             return text.trim();
@@ -824,7 +850,7 @@ Qoidalar:
             });
 
             const chat = model.startChat({
-                history: history.map(msg => ({
+                history: history.slice(-5).map(msg => ({
                     role: msg.role === 'model' ? 'model' : 'user',
                     parts: [{ text: msg.text }],
                 })),

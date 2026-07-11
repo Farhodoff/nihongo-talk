@@ -132,7 +132,7 @@ const MockInterviewPage: React.FC = () => {
             
             // Build conversation history for context
             let prompt = "これまでの会話履歴:\n";
-            updatedMessages.slice(-5).forEach(m => {
+            updatedMessages.slice(-3).forEach(m => {
                 prompt += `${m.role === 'user' ? '候補者' : '面接官'}: ${m.content}\n`;
             });
             prompt += "\n上記の文脈を踏まえ、面接官として候補者の最後の発言に対するフィードバックと、次の質問を行ってください。";

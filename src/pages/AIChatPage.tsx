@@ -43,12 +43,14 @@ const AIChatPage: React.FC = () => {
                 const subjectNotes = notes
                     .filter(n => n.subjectId === selectedSubjectId)
                     .map(n => `Sarlavha: ${n.title}\nMatn: ${n.content}`)
-                    .join('\n\n');
+                    .join('\n\n')
+                    .substring(0, 2000); // Limit to 2000 chars
 
                 const subjectCards = flashcards
                     .filter(f => f.subjectId === selectedSubjectId)
                     .map(f => `S: ${f.front} J: ${f.back}`)
-                    .join('\n');
+                    .join('\n')
+                    .substring(0, 1000); // Limit to 1000 chars
 
                 contextContent = `Konspektlar:\n${subjectNotes}\n\nFlashcardlar:\n${subjectCards}`;
             }
