@@ -571,6 +571,49 @@ async function handleCallbackQuery(callbackQuery: TelegramCallbackQuery) {
         } else if (data === 'refresh_today') {
             await answerCallbackQuery(callbackQueryId, "🔄 Bugungi rejalar yangilandi!");
             await handleToday(message, messageId);
+        } else if (data.startsWith('excuse_')) {
+            const parts = data.split('_');
+            const excuseType = parts[1];
+            const date = parts[2];
+
+            // Get user_id from telegram_id
+            const { data: userLink } = await supabase
+                .from('telegram_users')
+                .select('user_id')
+                .eq('telegram_id', callbackQuery.from.id)
+                .single();
+
+            if (!userLink) {
+                await answerCallbackQuery(callbackQueryId, "❌ Foydalanuvchi topilmadi.");
+                return;
+            }
+
+            let reasonText = "";
+            if (excuseType === 'tired') reasonText = "Charchadim";
+            else if (excuseType === 'notime') reasonText = "Vaqtim bo'lmadi";
+            else if (excuseType === 'distracted') reasonText = "Rejadan chiqib ketdim";
+            else if (excuseType === 'other') reasonText = "Boshqa sabab";
+
+            if (excuseType !== 'other') {
+                // Insert directly
+                await supabase.from('missed_study_logs').insert({
+                    user_id: userLink.user_id,
+                    missed_date: date,
+                    reason: reasonText
+                });
+
+                await editMessageText(message.chat.id, messageId, `✅ <b>Sababingiz qabul qilindi:</b> ${reasonText}\n\nIltimos, bu holat takrorlanmasligiga harakat qiling. Siz bunga qodirsiz! 💪`, null);
+                await answerCallbackQuery(callbackQueryId, "Sabab saqlandi!");
+            } else {
+                // For 'other', ask user to type
+                await supabase.from('missed_study_logs').insert({
+                    user_id: userLink.user_id,
+                    missed_date: date,
+                    reason: "Boshqa sabab (ko'rsatilmagan)"
+                });
+                await editMessageText(message.chat.id, messageId, `✅ Sababingiz qabul qilindi. Ertaga harakatni davom ettiring!`, null);
+                await answerCallbackQuery(callbackQueryId, "Boshqa sabab tanlandi");
+            }
         }
     } catch (err) {
         console.error('Callback query exception:', err);

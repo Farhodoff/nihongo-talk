@@ -21,17 +21,21 @@ function escapeHTML(str: string): string {
 }
 
 // Helper to send message
-async function sendMessage(chatId: number, text: string) {
+async function sendMessage(chatId: number, text: string, reply_markup?: any) {
     try {
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const body: any = {
+            chat_id: chatId,
+            text,
+            parse_mode: 'HTML'
+        };
+        if (reply_markup) {
+            body.reply_markup = reply_markup;
+        }
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text,
-                parse_mode: 'HTML'
-            }),
+            body: JSON.stringify(body),
         });
         const data = await response.json();
         if (!data.ok) {
@@ -131,6 +135,10 @@ serve(async (req: Request) => {
                         `${taskList}\n\n` +
                         `<i>Unumli kun tilayman!</i> ✨`;
                 }
+                if (message) {
+                    await sendMessage(user.chat_id, message);
+                    sentCount++;
+                }
             }
 
             // --- EVENING NOTIFICATION (21:00) ---
@@ -174,16 +182,45 @@ serve(async (req: Request) => {
                         `⏱ <b>${durationStr}</b> diqqat (fokus) qildingiz.\n\n` +
                         `Kelgusi haftada ham shu ruhda davom eting! 💪\n` +
                         `<i>Yaxshi dam oling!</i> 🌙`;
+                    await sendMessage(user.chat_id, message);
+                    sentCount++;
 
                 } else {
-                    // REGULAR DAILY REPORT
+                    // REGULAR DAILY REPORT + ACCOUNTABILITY
+                    const { data: todaySessions } = await supabase
+                        .from('study_sessions')
+                        .select('duration')
+                        .eq('user_id', user.user_id)
+                        .eq('completed', true)
+                        .gte('start_time', todayDate + 'T00:00:00')
+                        .lte('start_time', todayDate + 'T23:59:59');
+
+                    const todayDuration = todaySessions?.reduce((acc: number, s: { duration: number }) => acc + (s.duration || 0), 0) || 0;
                     const totalToday = pendingTasks.length + completedTasks.length;
 
-                    if (totalToday === 0) {
+                    if (completedTasks.length === 0 && todayDuration === 0) {
+                        // User did NOTHING today
+                        message = `⚠️ <b>Sizni sog'indik, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
+                                  `Bugun hech qanday vazifa yopilmadi va taymer ham ishlatilmadi.\n` +
+                                  `Dangasalik qildikmi yoki jiddiy sabab bormi? Iltimos, pastdan tanlang:\n`;
+
+                        const replyMarkup = {
+                            inline_keyboard: [
+                                [{ text: "😴 Charchadim", callback_data: `excuse_tired_${todayDate}` }],
+                                [{ text: "⏳ Vaqtim bo'lmadi", callback_data: `excuse_notime_${todayDate}` }],
+                                [{ text: "📉 Chalg'ib ketdim", callback_data: `excuse_distracted_${todayDate}` }],
+                                [{ text: "✍️ Boshqa sabab", callback_data: `excuse_other_${todayDate}` }]
+                            ]
+                        };
+                        await sendMessage(user.chat_id, message, replyMarkup);
+                        sentCount++;
+                    } else if (totalToday === 0 && todayDuration === 0) {
                         message = `🌙 <b>Xayrli kech, ${escapeHTML(user.telegram_first_name || 'Foydalanuvchi')}!</b>\n\n` +
-                            `Bugun hech qanday vazifa belgilanmagan edi.\n` +
+                            `Bugun hech qanday vazifa belgilanmagan edi va dars qilinmadi.\n` +
                             `Ertangi kunni rejalashtirishni unutmang! 📅\n\n` +
                             `<i>Tinch osuda tun tilayman!</i> 😴`;
+                        await sendMessage(user.chat_id, message);
+                        sentCount++;
                     } else {
                         const progress = totalToday > 0 ? Math.round((completedTasks.length / totalToday) * 100) : 0;
 
@@ -191,18 +228,18 @@ serve(async (req: Request) => {
                             `📊 <b>Bugungi hisobot:</b>\n` +
                             `✅ Bajarildi: <b>${completedTasks.length}</b> ta\n` +
                             `⏳ Qoldi: <b>${pendingTasks.length}</b> ta\n` +
+                            `⏱ Fokus vaqti: <b>${todayDuration} daqiqa</b>\n` +
                             `📈 Samardorlik: <b>${progress}%</b>\n\n` +
                             `${pendingTasks.length > 0 ? `<i>Ertaga qolgan vazifalarni bajarishni unutmang!</i> 💪` : `<i>Barchasini uddaladingiz! Barakalla!</i> 🎉`}\n\n` +
                             `<i>Tinch osuda tun tilayman!</i> 😴`;
+                        await sendMessage(user.chat_id, message);
+                        sentCount++;
                     }
                 }
             }
 
-            if (message) {
-                await sendMessage(user.chat_id, message);
-                sentCount++;
-                await new Promise(resolve => setTimeout(resolve, 100)); // Rate limiting
-            }
+            // Since we moved sendMessage inside the blocks to handle inline keyboards conditionally:
+            await new Promise(resolve => setTimeout(resolve, 100)); // Rate limiting
         }
 
         return new Response(JSON.stringify({
