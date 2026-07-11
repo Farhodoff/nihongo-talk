@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import SubjectNotes from '../components/SubjectNotes';
-import Whiteboard from '../components/Whiteboard';
+import { Suspense, lazy } from 'react';
+const Whiteboard = lazy(() => import('../components/Whiteboard'));
 import WhiteboardList from '../components/WhiteboardList';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
@@ -146,11 +147,13 @@ const SubjectDetailPage: React.FC = () => {
                         <div className="space-y-4">
                             <button
                                 onClick={() => setSelectedWhiteboardId(null)}
-                                className="text-sm px-3 py-1.5 bg-muted rounded-lg hover:bg-muted/80 text-muted-foreground transition-colors"
+                                className="mb-4 text-blue-500 hover:text-blue-700 font-medium flex items-center gap-2"
                             >
-                                ← Orqaga
+                                ← Ortga qaytish
                             </button>
-                            <Whiteboard whiteboardId={selectedWhiteboardId} />
+                            <Suspense fallback={<div className="h-full flex items-center justify-center p-8 bg-gray-50 rounded-xl"><div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div></div>}>
+                                <Whiteboard whiteboardId={selectedWhiteboardId} />
+                            </Suspense>
                         </div>
                     ) : (
                         <WhiteboardList
