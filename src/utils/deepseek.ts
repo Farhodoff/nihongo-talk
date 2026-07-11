@@ -19,7 +19,9 @@ export const callDeepSeek = async (
     prompt: string,
     apiKey: string,
     systemPrompt?: string,
-    isJson: boolean = false
+    isJson: boolean = false,
+    modelName: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash',
+    thinkingEnabled: boolean = false
 ): Promise<string> => {
     if (!apiKey) {
         throw new Error("DeepSeek API Kaliti kiritilmagan. Sozlamalardan kalitni kiriting.");
@@ -33,11 +35,18 @@ export const callDeepSeek = async (
     }
     messages.push({ role: "user", content: prompt });
 
-    const response = await client.chat.completions.create({
-        model: "deepseek-v4-flash",
+    const payload: any = {
+        model: modelName,
         messages: messages,
         response_format: isJson ? { type: "json_object" } : { type: "text" }
-    });
+    };
+
+    if (thinkingEnabled) {
+        payload.thinking = { type: "enabled" };
+        payload.reasoning_effort = "high";
+    }
+
+    const response = await client.chat.completions.create(payload);
 
     return response.choices[0].message.content || '';
 };

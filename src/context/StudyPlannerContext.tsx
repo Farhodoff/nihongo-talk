@@ -23,6 +23,8 @@ interface Settings {
     googleApiKey?: string;
     aiModel?: 'gemini' | 'deepseek' | 'ollama';
     deepseekApiKey?: string;
+    deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+    deepseekThinkingMode?: boolean;
     ollamaUrl?: string;
     ollamaModel?: string;
     dailyStudyGoalMinutes: number;

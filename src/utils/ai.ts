@@ -14,17 +14,24 @@ export const getAIConfig = () => {
     let deepseekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
     let geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
+    let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
+    let deepseekThinkingMode = false;
+
     if (savedStr) {
         try {
             const saved = JSON.parse(savedStr);
             if (saved.aiModel) aiModel = saved.aiModel;
             if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
+            if (saved.deepseekModel) deepseekModel = saved.deepseekModel;
+            if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
         } catch(e) {}
     }
     return {
         provider: aiModel as AIProvider,
         geminiKey,
-        deepseekKey
+        deepseekKey,
+        deepseekModel,
+        deepseekThinkingMode
     };
 };
 
@@ -156,7 +163,7 @@ export const generateFlashcardsWithAI = async (
             json = JSON.parse(cleanedText);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
             json = JSON.parse(response);
         } else {
             const config = getAIConfig();
@@ -231,7 +238,7 @@ export const generateFlashcardsFromNote = async (
             json = JSON.parse(cleanedText);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
             json = JSON.parse(response);
         } else {
             const config = getAIConfig();
@@ -346,7 +353,7 @@ export const generateFullStudyPlan = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -421,7 +428,7 @@ export const recommendResourcesWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -484,7 +491,7 @@ export const generateStudyInsight = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -550,7 +557,7 @@ export const generateExamWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -609,7 +616,7 @@ export const expandNoteWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -648,7 +655,7 @@ export const summarizeNoteWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -687,7 +694,7 @@ export const fixNoteSpellingWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -743,7 +750,7 @@ export const generateMindMapWithAI = async (
             text = await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
@@ -805,7 +812,7 @@ Qoidalar:
             const config = getAIConfig();
             const conversation = history.map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
             const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
-            const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false);
+            const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false, config.deepseekModel, config.deepseekThinkingMode);
             return text.trim();
         } else {
             const config = getAIConfig();

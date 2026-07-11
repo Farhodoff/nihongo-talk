@@ -8,6 +8,8 @@ const AIProviderSection: React.FC = () => {
     const [aiModel, setAiModel] = useState<AIProvider>((settings.aiModel as AIProvider) || 'gemini');
     const [googleKey, setGoogleKey] = useState(settings.googleApiKey || '');
     const [deepseekKey, setDeepseekKey] = useState(settings.deepseekApiKey || '');
+    const [deepseekModel, setDeepseekModel] = useState<'deepseek-v4-flash' | 'deepseek-v4-pro'>(settings.deepseekModel || 'deepseek-v4-flash');
+    const [deepseekThinkingMode, setDeepseekThinkingMode] = useState(settings.deepseekThinkingMode || false);
     const [ollamaUrl, setOllamaUrl] = useState(settings.ollamaUrl || 'http://localhost:11434');
     const [ollamaModel, setOllamaModel] = useState(settings.ollamaModel || 'llama3.2');
 
@@ -16,6 +18,8 @@ const AIProviderSection: React.FC = () => {
             aiModel: aiModel as any,
             googleApiKey: googleKey,
             deepseekApiKey: deepseekKey,
+            deepseekModel: deepseekModel,
+            deepseekThinkingMode: deepseekThinkingMode,
             ollamaUrl: ollamaUrl,
             ollamaModel: ollamaModel,
         });
@@ -77,6 +81,33 @@ const AIProviderSection: React.FC = () => {
                         <p className="text-xs text-gray-400">
                             <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noreferrer" className="text-indigo-500 hover:underline">Kalit olish.</a>
                         </p>
+                        
+                        <div className="pt-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                DeepSeek Modeli
+                            </label>
+                            <select
+                                value={deepseekModel}
+                                onChange={(e) => setDeepseekModel(e.target.value as 'deepseek-v4-flash' | 'deepseek-v4-pro')}
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                                <option value="deepseek-v4-flash">DeepSeek-V4-Flash (Arzon va tez, kundalik uchun)</option>
+                                <option value="deepseek-v4-pro">DeepSeek-V4-Pro (Qimmatroq va juda aqlli)</option>
+                            </select>
+                        </div>
+                        
+                        <div className="pt-2 flex items-center space-x-3">
+                            <input
+                                type="checkbox"
+                                id="thinking-mode"
+                                checked={deepseekThinkingMode}
+                                onChange={(e) => setDeepseekThinkingMode(e.target.checked)}
+                                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label htmlFor="thinking-mode" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Thinking Mode'ni yoqish (AI avval chuqur o'ylaydi)
+                            </label>
+                        </div>
                     </div>
                 )}
 

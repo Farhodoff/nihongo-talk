@@ -45,7 +45,7 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
     const startConversation = async () => {
         setIsLoading(true);
         try {
-            const reply = await callDeepSeek("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", settings.deepseekApiKey || '', systemPrompt, false);
+            const reply = await callDeepSeek("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", settings.deepseekApiKey || '', systemPrompt, false, settings.deepseekModel || 'deepseek-v4-flash', settings.deepseekThinkingMode || false);
             setMessages([{ id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (e: any) {
             setMessages([{ id: Date.now().toString(), role: 'model', text: "Nimadir xato ketdi. Lekin baribir dars qilishing kerak!" }]);
@@ -65,7 +65,7 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
             const conversation = messages.map(m => `${m.role === 'user' ? 'Talaba' : 'Ustoz'}: ${m.text}`).join('\n');
             const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${input}\nUstoz:`;
             
-            const reply = await callDeepSeek(prompt, settings.deepseekApiKey || '', systemPrompt, false);
+            const reply = await callDeepSeek(prompt, settings.deepseekApiKey || '', systemPrompt, false, settings.deepseekModel || 'deepseek-v4-flash', settings.deepseekThinkingMode || false);
             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (error: any) {
              console.error("AI Ustoz error:", error);
