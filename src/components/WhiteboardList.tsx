@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { Plus, Trash2, Edit2, Layout, Calendar } from 'lucide-react';
-import moment from 'moment';
+import { formatDistanceToNow } from 'date-fns';
+import { uz } from 'date-fns/locale';
 
 interface WhiteboardListProps {
     subjectId: string;
@@ -106,7 +107,7 @@ const WhiteboardList: React.FC<WhiteboardListProps> = ({ subjectId, onSelect }) 
                                     )}
                                     <div className="flex items-center gap-2 mt-2 text-sm text-gray-400">
                                         <Calendar size={14} />
-                                        <span>{moment(wb.updatedAt).fromNow()}</span>
+                                        <span>{formatDistanceToNow(new Date(wb.updatedAt), { addSuffix: true, locale: uz })}</span>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity" onClick={e => e.stopPropagation()}>

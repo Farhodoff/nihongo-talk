@@ -182,6 +182,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         googleApiKey?: string;
         aiModel?: 'gemini' | 'deepseek' | 'ollama';
         deepseekApiKey?: string;
+        deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+        deepseekThinkingMode?: boolean;
         ollamaUrl?: string;
         ollamaModel?: string;
         dailyStudyGoalMinutes: number;
@@ -197,6 +199,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             googleApiKey: savedAiSettings.googleApiKey,
             aiModel: savedAiSettings.aiModel || 'gemini',
             deepseekApiKey: savedAiSettings.deepseekApiKey || '',
+            deepseekModel: savedAiSettings.deepseekModel || 'deepseek-v4-flash',
+            deepseekThinkingMode: savedAiSettings.deepseekThinkingMode || false,
             ollamaUrl: savedAiSettings.ollamaUrl || '',
             ollamaModel: savedAiSettings.ollamaModel || '',
             dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal) : 240,
@@ -407,7 +411,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     if (!sessionStorage.getItem(key)) {
                         new Notification("Dars vaqti yaqinlashmoqda!", {
                             body: `Dars 15 daqiqa ichida boshlanadi.`,
-                            icon: '/vite.svg'
+                            icon: '/favicon.svg'
                         });
                         sessionStorage.setItem(key, 'true');
                     }
@@ -761,7 +765,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined) {
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined) {
             setAppSettings(prev => {
                 const newState = {
                     ...prev,
@@ -770,6 +774,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
                     aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
                     deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
+                    deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : prev.deepseekModel,
+                    deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : prev.deepseekThinkingMode,
                     ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
                     ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
                     dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
@@ -779,6 +785,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 localStorage.setItem('study_planner_ai_settings', JSON.stringify({
                     aiModel: newState.aiModel,
                     deepseekApiKey: newState.deepseekApiKey,
+                    deepseekModel: newState.deepseekModel,
+                    deepseekThinkingMode: newState.deepseekThinkingMode,
                     ollamaUrl: newState.ollamaUrl,
                     ollamaModel: newState.ollamaModel
                 }));
@@ -837,7 +845,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const deleteWhiteboard = async (id: string) => {
-        setWhiteboards(whiteboards.filter(w => w.id !== id));
+        setWhiteboards(prev => prev.filter(w => w.id !== id));
         await supabase.from('whiteboards').delete().eq('id', id);
     };
 
@@ -952,7 +960,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             await GoogleCalendarService.deleteEvent(session.provider_token, currentEvent.googleEventId);
         }
 
-        setEvents(events.filter(e => e.id !== id));
+        setEvents(prev => prev.filter(e => e.id !== id));
         await supabase.from('events').delete().eq('id', id);
     };
 

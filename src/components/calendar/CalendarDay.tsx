@@ -2,7 +2,7 @@ import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { Task, Event, EVENT_TYPE_COLORS } from '../../types';
 import DraggableTask from './DraggableTask';
-import moment from 'moment';
+import { format } from 'date-fns';
 
 interface CalendarDayProps {
     date: Date;
@@ -16,7 +16,7 @@ interface CalendarDayProps {
 
 const CalendarDay: React.FC<CalendarDayProps> = ({ date, tasks, events, studyDuration, isCurrentMonth, isToday, onShowMore }) => {
     // Unique ID for droppable: simple date string YYYY-MM-DD
-    const dateId = moment(date).format('YYYY-MM-DD');
+    const dateId = format(date, 'yyyy-MM-dd');
 
     const { setNodeRef, isOver } = useDroppable({
         id: dateId,

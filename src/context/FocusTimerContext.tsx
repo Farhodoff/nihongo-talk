@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { useFocusTimer, FocusState } from '../hooks/useFocusTimer';
+import { useFocusTimer } from '../hooks/useFocusTimer';
+import { FocusState } from '../types/focus';
 import { useStudyData } from './StudyPlannerContext';
 import { FocusMode } from '../types/focus';
 

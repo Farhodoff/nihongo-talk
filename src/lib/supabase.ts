@@ -5,9 +5,10 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
     console.error('Supabase credentials topilmadi. VITE_SUPABASE_URL va VITE_SUPABASE_ANON_KEY muhit o\'zgaruvchilarini tekshiring.');
+    throw new Error('Missing Supabase credentials');
 }
 
 export const supabase = createClient(
-    supabaseUrl || '',
-    supabaseAnonKey || ''
+    supabaseUrl,
+    supabaseAnonKey
 );

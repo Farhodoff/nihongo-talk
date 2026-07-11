@@ -251,7 +251,7 @@ const CommunityChat: React.FC = () => {
                                 <img
                                     src={item.profiles?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${item.profiles?.full_name || 'User'}`}
                                     className="w-10 h-10 rounded-2xl bg-gray-100 object-cover border-2 border-white dark:border-gray-800 shadow-md transform hover:scale-110 transition-transform cursor-pointer"
-                                    alt=""
+                                    alt="Avatar" aria-label="Foydalanuvchi avatari"
                                 />
                             )}
                         </div>
@@ -325,7 +325,7 @@ const CommunityChat: React.FC = () => {
                     <div className="flex -space-x-3 hover:-space-x-1 transition-all duration-300">
                         {[1, 2, 3, 4].map(i => (
                             <div key={i} className="w-10 h-10 rounded-2xl border-4 border-white dark:border-gray-900 bg-gray-200 dark:bg-gray-700 overflow-hidden shadow-sm transition-transform hover:z-10 hover:scale-110">
-                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 20}`} alt="" />
+                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 20}`} alt="Avatar" aria-label="Foydalanuvchi avatari" />
                             </div>
                         ))}
                     </div>

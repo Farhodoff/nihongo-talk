@@ -25,7 +25,9 @@ export const getOllamaConfig = () => {
             const saved = JSON.parse(savedStr);
             if (saved.ollamaUrl) ollamaUrl = saved.ollamaUrl;
             if (saved.ollamaModel) ollamaModel = saved.ollamaModel;
-        } catch(e) {}
+        } catch (e) {
+            console.error("Failed to fetch ollama models", e);
+        }
     }
     return { ollamaUrl, ollamaModel };
 };

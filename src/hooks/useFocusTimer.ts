@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export interface FocusState {
-    timeLeft: number;
-    isActive: boolean;
-    mode: 'focus' | 'short_break' | 'long_break';
-    selectedSubjectId: string | null;
-    selectedTaskId: string | null;
-    lastUpdated?: number;
-    isSessionCompleted: boolean;
-    bgSound: string;
-    isMuted: boolean;
-}
+import { FocusState } from '../types/focus';
 
 export const useFocusTimer = (notificationsEnabled: boolean) => {
     const [focusState, setFocusState] = useState<FocusState>(() => {
@@ -63,7 +53,7 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
             if (notificationsEnabled && Notification.permission === 'granted') {
                 new Notification("Vaqt tugadi!", {
                     body: focusState.mode === 'focus' ? "Ajoyib! Tanaffus vaqti." : "Tanaffus tugadi. Diqqatni jamlaymizmi?",
-                    icon: '/vite.svg'
+                    icon: '/favicon.svg'
                 });
             }
         }

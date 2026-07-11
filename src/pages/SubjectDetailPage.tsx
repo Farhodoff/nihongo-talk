@@ -1,7 +1,7 @@
 import { ArrowLeft, Calendar, Clock, Sparkles } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ResourceRecommendations from '../components/ResourceRecommendations';
+// import ResourceRecommendations from '../components/ResourceRecommendations';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import SubjectNotes from '../components/SubjectNotes';
@@ -129,7 +129,8 @@ const SubjectDetailPage: React.FC = () => {
 
             {activeTab === 'resources' && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <ResourceRecommendations initialTopic={subject.name} />
+                    {/* <ResourceRecommendations initialTopic={subject.name} /> */}
+                    <div className="text-muted-foreground p-4 text-center">Manbalar funksiyasi hozircha mavjud emas</div>
                 </div>
             )}
 

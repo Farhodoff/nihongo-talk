@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Calendar, Clock, Bell, Repeat } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { EventType, RepetitionType, EVENT_TYPE_COLORS, EVENT_TYPE_LABELS, REPETITION_LABELS, WEEKDAY_LABELS } from '../types';
-import moment from 'moment';
+import { format } from 'date-fns';
 
 interface AddEventModalProps {
     isOpen: boolean;
@@ -17,7 +17,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
     const [description, setDescription] = useState('');
     const [eventType, setEventType] = useState<EventType>('personal');
     const [eventDate, setEventDate] = useState(
-        defaultDate ? moment(defaultDate).format('YYYY-MM-DDTHH:mm') : moment().format('YYYY-MM-DDTHH:mm')
+        defaultDate ? format(defaultDate, "yyyy-MM-dd'T'HH:mm") : format(new Date(), "yyyy-MM-dd'T'HH:mm")
     );
     const [notifyBefore, setNotifyBefore] = useState(60);
     const [repetitionType, setRepetitionType] = useState<RepetitionType>('none');
@@ -43,10 +43,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
                 title: title.trim(),
                 description: description.trim() || undefined,
                 eventType,
-                eventDate: moment(eventDate).toISOString(),
+                eventDate: new Date(eventDate).toISOString(),
                 notifyBeforeMinutes: notifyBefore,
                 repetitionType,
-                repetitionEndDate: repetitionEndDate ? moment(repetitionEndDate).toISOString() : undefined,
+                repetitionEndDate: repetitionEndDate ? new Date(repetitionEndDate).toISOString() : undefined,
                 repetitionDays: repetitionType === 'weekly' ? selectedDays : undefined
             });
 
@@ -54,7 +54,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
             setTitle('');
             setDescription('');
             setEventType('personal');
-            setEventDate(moment().format('YYYY-MM-DDTHH:mm'));
+            setEventDate(format(new Date(), "yyyy-MM-dd'T'HH:mm"));
             setNotifyBefore(60);
             setRepetitionType('none');
             setRepetitionEndDate('');
@@ -193,7 +193,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, defaultD
                                 type="date"
                                 value={repetitionEndDate}
                                 onChange={(e) => setRepetitionEndDate(e.target.value)}
-                                min={moment(eventDate).format('YYYY-MM-DD')}
+                                min={format(new Date(eventDate), 'yyyy-MM-dd')}
                                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
                         </div>

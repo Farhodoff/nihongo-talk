@@ -112,9 +112,10 @@ const LeaderboardWidget: React.FC = () => {
                             </div>
                             
                             <div className="relative shrink-0 mx-4">
-                                <img
+                                <img 
                                     src={user.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.full_name}`}
                                     alt="Avatar"
+                                    aria-label="Avatar"
                                     className={`w-14 h-14 rounded-2xl bg-gray-100 dark:bg-gray-700 object-cover border-2 shadow-sm ${index === 0 ? 'border-yellow-400' : 'border-white dark:border-gray-600'}`}
                                 />
                                 {index === 0 && (

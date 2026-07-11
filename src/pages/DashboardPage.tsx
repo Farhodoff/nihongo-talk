@@ -89,7 +89,9 @@ const DashboardPage: React.FC = () => {
         };
 
         loadInsights();
-    }, [subjectsStats, settings.googleApiKey, loading]);
+        // Use stringified JSON to prevent infinite loop or excessive API calls
+        // when object references change but data remains the same
+    }, [JSON.stringify(subjectsStats), settings.googleApiKey, loading]);
 
     if (loading) {
         return (

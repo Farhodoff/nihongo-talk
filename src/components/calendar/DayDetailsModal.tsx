@@ -2,7 +2,8 @@ import React from 'react';
 import { X, Calendar } from 'lucide-react';
 import { Task, Event, EVENT_TYPE_COLORS } from '../../types';
 import DraggableTask from './DraggableTask';
-import moment from 'moment';
+import { format } from 'date-fns';
+import { uz } from 'date-fns/locale';
 
 interface DayDetailsModalProps {
     isOpen: boolean;
@@ -23,7 +24,7 @@ const DayDetailsModal: React.FC<DayDetailsModalProps> = ({
 }) => {
     if (!isOpen || !date) return null;
 
-    const formattedDate = moment(date).format('D MMMM YYYY, dddd');
+    const formattedDate = format(date, 'd MMMM yyyy, eeee', { locale: uz });
     const studyHours = Math.floor(studyDuration / 60);
     const studyMinutes = studyDuration % 60;
 
@@ -110,7 +111,7 @@ const DayDetailsModal: React.FC<DayDetailsModalProps> = ({
                                                     </p>
                                                 )}
                                                 <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                                                    <span>🕐 {moment(event.eventDate).format('HH:mm')}</span>
+                                                    <span>🕐 {format(new Date(event.eventDate), 'HH:mm')}</span>
                                                     {event.repetitionType !== 'none' && (
                                                         <span className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-600">
                                                             Takrorlanuvchi

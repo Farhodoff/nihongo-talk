@@ -1,9 +1,12 @@
-import { ArrowLeft, VideoOff, Play, Pause, RotateCcw, Clock, Users, PenTool, Sparkles, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Maximize2, Minimize2 } from 'lucide-react';
+import { ArrowLeft, VideoOff, Clock, Users, PenTool, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Maximize2, Minimize2 } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Tldraw, getSnapshot, loadSnapshot, Editor } from 'tldraw';
+import type { Editor } from 'tldraw';
 import 'tldraw/tldraw.css';
+
+const TldrawLazy = React.lazy(() => import('tldraw').then(module => ({ default: module.Tldraw })));
 import { Button } from '../components/ui/Button';
+import { RoomPomodoro } from '../components/study-room/RoomPomodoro';
 import { supabase } from '../lib/supabase';
 import { LocalTour, LocalTourStep } from '../components/LocalTour';
 
@@ -331,14 +334,16 @@ const StudyRoomPage: React.FC = () => {
 
                     if (editorRef.current) {
                         try {
-                            const snapshot = getSnapshot(editorRef.current.store);
-                            ch.send({
-                                type: 'broadcast',
-                                event: 'whiteboard_state_response',
-                                payload: {
-                                    snapshot,
-                                    targetId: data.requesterId
-                                }
+                            import('tldraw').then(({ getSnapshot }) => {
+                                const snapshot = getSnapshot(editorRef.current!.store);
+                                ch.send({
+                                    type: 'broadcast',
+                                    event: 'whiteboard_state_response',
+                                    payload: {
+                                        snapshot,
+                                        targetId: data.requesterId
+                                    }
+                                });
                             });
                         } catch (e) {
                             console.error('Error generating whiteboard state response:', e);
@@ -382,10 +387,12 @@ const StudyRoomPage: React.FC = () => {
                 }
             })
             .on('broadcast', { event: 'whiteboard_state_response' }, ({ payload }) => {
-                const data = payload as { targetId: string; snapshot: Parameters<typeof loadSnapshot>[1] };
+                const data = payload as { targetId: string; snapshot: any };
                 if (data.targetId === clientIdRef.current && editorRef.current) {
                     try {
-                        loadSnapshot(editorRef.current.store, data.snapshot);
+                        import('tldraw').then(({ loadSnapshot }) => {
+                            loadSnapshot(editorRef.current!.store, data.snapshot);
+                        });
                     } catch (e) {
                         console.error('Error loading whiteboard state response:', e);
                     }
@@ -683,12 +690,6 @@ const StudyRoomPage: React.FC = () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
-    // SVG Circular Progress Calculations
-    const radius = 85;
-    const circumference = 2 * Math.PI * radius;
-    const maxTime = pomodoroMode === 'focus' ? 25 * 60 : pomodoroMode === 'short_break' ? 5 * 60 : 15 * 60;
-    const strokeDashoffset = circumference - ((maxTime - timeLeft) / maxTime) * circumference;
-
     return (
         <div className="min-h-screen bg-[#0f172a] text-gray-100 flex flex-col font-sans p-4 md:p-6">
             {/* Header */}
@@ -923,111 +924,25 @@ const StudyRoomPage: React.FC = () => {
                     <div className="flex-1 flex flex-col p-6 min-h-0 overflow-y-auto">
                         {activeTab === 'pomodoro' ? (
                             /* POMODORO CONTENT */
-                            <div className="flex-1 flex flex-col items-center justify-center py-6 space-y-8 animate-in fade-in duration-300">
-                                {/* Mode selection */}
-                                <div className="flex bg-slate-900/80 p-1 rounded-2xl border border-slate-800 w-full max-w-sm">
-                                    <button
-                                        onClick={() => handleModeChange('focus', 25)}
-                                        className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${pomodoroMode === 'focus' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-300'}`}
-                                    >
-                                        Fokus (25)
-                                    </button>
-                                    <button
-                                        onClick={() => handleModeChange('short_break', 5)}
-                                        className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${pomodoroMode === 'short_break' ? 'bg-green-600 text-white' : 'text-slate-400 hover:text-slate-300'}`}
-                                    >
-                                        Tanaffus (5)
-                                    </button>
-                                    <button
-                                        onClick={() => handleModeChange('long_break', 15)}
-                                        className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${pomodoroMode === 'long_break' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-slate-300'}`}
-                                    >
-                                        Uzoq (15)
-                                    </button>
-                                </div>
-
-                                {/* Circular Timer Display */}
-                                <div className="relative w-56 h-56 flex items-center justify-center">
-                                    <svg className="w-full h-full transform -rotate-90">
-                                        {/* Background Circle */}
-                                        <circle
-                                            cx="112"
-                                            cy="112"
-                                            r={radius}
-                                            className="stroke-slate-800 fill-none"
-                                            strokeWidth="8"
-                                        />
-                                        {/* Progress Circle */}
-                                        <circle
-                                            cx="112"
-                                            cy="112"
-                                            r={radius}
-                                            className={`fill-none transition-all duration-1000 ${
-                                                pomodoroMode === 'focus' 
-                                                    ? 'stroke-indigo-500' 
-                                                    : pomodoroMode === 'short_break' 
-                                                        ? 'stroke-green-500' 
-                                                        : 'stroke-cyan-500'
-                                            }`}
-                                            strokeWidth="8"
-                                            strokeDasharray={circumference}
-                                            strokeDashoffset={strokeDashoffset}
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                    
-                                    {/* Text display */}
-                                    <div className="absolute flex flex-col items-center justify-center">
-                                        <span className="text-4xl font-black font-mono tracking-tight text-white">
-                                            {formatTime(timeLeft)}
-                                        </span>
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1 flex items-center gap-1">
-                                            <Sparkles size={10} className="text-indigo-400" />
-                                            {pomodoroMode === 'focus' ? 'Fokus rejim' : 'Tanaffus'}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Controls */}
-                                <div className="flex items-center gap-6">
-                                    <button
-                                        onClick={() => handleReset(pomodoroMode === 'focus' ? 25 * 60 : pomodoroMode === 'short_break' ? 5 * 60 : 15 * 60)}
-                                        className="p-4 bg-slate-850 hover:bg-slate-800 hover:text-white text-slate-400 rounded-2xl border border-slate-700/60 transition-all active:scale-90"
-                                        title="Qayta boshlash"
-                                    >
-                                        <RotateCcw size={22} />
-                                    </button>
-                                    
-                                    {isRunning ? (
-                                        <button
-                                            onClick={handlePause}
-                                            className="p-6 bg-red-600 hover:bg-red-700 text-white rounded-[2rem] shadow-lg shadow-red-650/20 transition-all active:scale-95 flex items-center justify-center"
-                                        >
-                                            <Pause size={30} fill="currentColor" />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            onClick={handleStart}
-                                            className={`p-6 text-white rounded-[2rem] shadow-lg transition-all active:scale-95 flex items-center justify-center ${
-                                                pomodoroMode === 'focus' 
-                                                    ? 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/20' 
-                                                    : 'bg-green-600 hover:bg-green-700 shadow-green-600/20'
-                                            }`}
-                                        >
-                                            <Play size={30} fill="currentColor" className="ml-1" />
-                                        </button>
-                                    )}
-
-                                    <div className="w-14" /> {/* Spacer to align reset button */}
-                                </div>
-                            </div>
+                            <RoomPomodoro
+                                pomodoroMode={pomodoroMode}
+                                timeLeft={timeLeft}
+                                isRunning={isRunning}
+                                handleModeChange={handleModeChange}
+                                handleStart={handleStart}
+                                handlePause={handlePause}
+                                handleReset={handleReset}
+                                formatTime={formatTime}
+                            />
                         ) : (
                             /* WHITEBOARD CONTENT */
                             <div className="flex-1 flex flex-col h-full min-h-[300px] border border-slate-800 rounded-2xl overflow-hidden bg-white touch-none animate-in fade-in duration-300 relative">
-                                <Tldraw
-                                    onMount={handleWhiteboardMount}
-                                    licenseKey="tldraw-2026-04-19/WyJGVDdNS09TcCIsWyIqIl0sMTYsIjIwMjYtMDQtMTkiXQ.BW86tQhO9nXNyQ6IIZJl3oracKtUetYw7risI1lZbitBjGYo0BbmD/dQqi/IbESV8TetvGWCXXtUmaPV1itm6A"
-                                />
+                                <React.Suspense fallback={<div className="flex items-center justify-center h-full text-slate-500">Oq doska yuklanmoqda...</div>}>
+                                    <TldrawLazy
+                                        onMount={handleWhiteboardMount}
+                                        licenseKey="tldraw-2026-04-19/WyJGVDdNS09TcCIsWyIqIl0sMTYsIjIwMjYtMDQtMTkiXQ.BW86tQhO9nXNyQ6IIZJl3oracKtUetYw7risI1lZbitBjGYo0BbmD/dQqi/IbESV8TetvGWCXXtUmaPV1itm6A"
+                                    />
+                                </React.Suspense>
                             </div>
                         )}
                     </div>

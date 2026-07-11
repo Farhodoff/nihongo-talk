@@ -2,22 +2,22 @@ import React, { useMemo } from 'react';
 import { Calendar, Clock } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { EVENT_TYPE_LABELS, EVENT_TYPE_COLORS, Event } from '../types';
-import moment from 'moment';
+import { format, differenceInDays, differenceInHours, addDays, isAfter, isBefore } from 'date-fns';
 
 const CountdownWidget: React.FC = () => {
     const { events } = useStudyData();
 
     // Get upcoming events (next 30 days)
     const upcomingEvents = useMemo(() => {
-        const now = moment();
-        const thirtyDaysLater = moment().add(30, 'days');
+        const now = new Date();
+        const thirtyDaysLater = addDays(now, 30);
 
         return events
             .filter(event => {
-                const eventDate = moment(event.eventDate);
-                return eventDate.isAfter(now) && eventDate.isBefore(thirtyDaysLater);
+                const eventDate = new Date(event.eventDate);
+                return isAfter(eventDate, now) && isBefore(eventDate, thirtyDaysLater);
             })
-            .sort((a, b) => moment(a.eventDate).diff(moment(b.eventDate)))
+            .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
             .slice(0, 3); // Show top 3
     }, [events]);
 
@@ -34,8 +34,10 @@ const CountdownWidget: React.FC = () => {
 
             <div className="space-y-3">
                 {upcomingEvents.map((event: Event) => {
-                    const daysLeft = moment(event.eventDate).diff(moment(), 'days');
-                    const hoursLeft = moment(event.eventDate).diff(moment(), 'hours') % 24;
+                    const now = new Date();
+                    const eventDate = new Date(event.eventDate);
+                    const daysLeft = differenceInDays(eventDate, now);
+                    const hoursLeft = differenceInHours(eventDate, now) % 24;
 
                     return (
                         <div
@@ -57,7 +59,7 @@ const CountdownWidget: React.FC = () => {
                                         </p>
                                         <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
                                             <Clock size={12} />
-                                            {moment(event.eventDate).format('MMM D, HH:mm')}
+                                            {format(new Date(event.eventDate), 'MMM d, HH:mm')}
                                         </p>
                                     </div>
                                 </div>

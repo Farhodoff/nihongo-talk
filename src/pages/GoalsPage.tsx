@@ -1,6 +1,6 @@
 import { Calendar, Plus, Sparkles, Target } from 'lucide-react';
 import React, { useState } from 'react';
-import moment from 'moment';
+import { format, addWeeks } from 'date-fns';
 import AIPlanModal from '../components/AIPlanModal';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
@@ -11,7 +11,7 @@ const GoalsPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAIModalOpen, setAIModalOpen] = useState(false);
     const [newTitle, setNewTitle] = useState('');
-    const [newDeadline, setNewDeadline] = useState(moment().add(1, 'week').format('YYYY-MM-DDTHH:mm'));
+    const [newDeadline, setNewDeadline] = useState(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,12 +20,12 @@ const GoalsPage: React.FC = () => {
         addGoal({
             title: newTitle,
             description: '',
-            deadline: moment(newDeadline).toISOString(),
+            deadline: new Date(newDeadline).toISOString(),
             priority: 'medium',
             progress: 0
         });
         setNewTitle('');
-        setNewDeadline(moment().add(1, 'week').format('YYYY-MM-DDTHH:mm'));
+        setNewDeadline(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
         setModalOpen(false);
     };
 
@@ -87,7 +87,7 @@ const GoalsPage: React.FC = () => {
                                 {new Date(goal.createdAt || Date.now()).toLocaleDateString()}
                             </div>
                             <div className="text-xs font-medium">
-                                Tugash: {moment(goal.deadline).format('DD.MM.YYYY HH:mm')}
+                                Tugash: {format(new Date(goal.deadline), 'dd.MM.yyyy HH:mm')}
                             </div>
                         </div>
                     </div>

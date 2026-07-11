@@ -94,7 +94,7 @@ const FocusPage: React.FC = () => {
         if (ringtoneRef.current) {
             ringtoneRef.current.currentTime = 0;
             // Silent fail if browser blocks autoplay
-            ringtoneRef.current.play().catch(() => { });
+            ringtoneRef.current.play().catch(e => console.error("Ringtone play blocked", e));
         }
     };
 
@@ -129,7 +129,7 @@ const FocusPage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[80vh] p-4 md:p-8 max-w-7xl mx-auto relative">
-            <audio ref={ringtoneRef} src="/lofi-music.mp3" />
+            <audio ref={ringtoneRef} src="https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3" />
 
             <MoodCheckOverlay
                 isVisible={!!showMoodCheck}
