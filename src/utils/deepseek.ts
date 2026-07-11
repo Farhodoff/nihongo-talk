@@ -17,25 +17,19 @@ const getDeepSeekClient = (apiKey: string) => {
 
 export const callDeepSeek = async (
     prompt: string,
-    apiKey: string,
+    apiKey: string | undefined | null,
     systemPrompt?: string,
     isJson: boolean = false,
     modelName: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash',
     thinkingEnabled: boolean = false
 ): Promise<string> => {
-    if (!apiKey) {
-        throw new Error("DeepSeek API Kaliti kiritilmagan. Sozlamalardan kalitni kiriting.");
-    }
-    
-    const client = getDeepSeekClient(apiKey);
-    
     const messages: any[] = [];
     if (systemPrompt) {
         messages.push({ role: "system", content: systemPrompt });
     }
     messages.push({ role: "user", content: prompt });
 
-    const payload: any = {
+    const payload: Record<string, unknown> = {
         model: modelName,
         messages: messages,
         response_format: isJson ? { type: "json_object" } : { type: "text" }
@@ -46,7 +40,29 @@ export const callDeepSeek = async (
         payload.reasoning_effort = "high";
     }
 
-    const response = await client.chat.completions.create(payload);
+    if (!apiKey) {
+        // If no user-provided key, try to use the backend proxy
+        const response = await fetch('/api/deepseek', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Backend proxy error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices?.[0]?.message?.content || '';
+    }
+    
+    // Fallback to direct call using OpenAI SDK if user provided their own key
+    const client = getDeepSeekClient(apiKey);
+
+
+
+
+    const response = await client.chat.completions.create(payload as any);
 
     return response.choices[0].message.content || '';
 };

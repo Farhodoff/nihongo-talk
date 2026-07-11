@@ -40,6 +40,7 @@ const Layout: React.FC = () => {
         { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
         { name: 'AI Chatbot', path: '/ai-chat', icon: MessageSquare },
         { name: 'Aqliy Xarita', path: '/mindmap', icon: BrainCircuit },
+        { name: '🇯🇵 IT Interview', path: '/interview', icon: Users },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },

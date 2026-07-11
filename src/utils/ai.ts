@@ -24,7 +24,9 @@ export const getAIConfig = () => {
             if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
             if (saved.deepseekModel) deepseekModel = saved.deepseekModel;
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
-        } catch(e) {}
+        } catch (e) {
+            console.error("Failed to parse ai settings from localStorage", e);
+        }
     }
     return {
         provider: aiModel as AIProvider,
@@ -394,9 +396,8 @@ export const generateFullStudyPlan = async (
     }
 };
 
-export const generateStudyPlanWithAI = async (): Promise<unknown[]> => {
-    return [];
-};
+
+
 
 // Smart Resource Interface
 export interface SmartResource {

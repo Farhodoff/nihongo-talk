@@ -30,6 +30,7 @@ const StudyModePage = lazy(() => import('./pages/StudyModePage'));
 const StudyRoomPage = lazy(() => import('./pages/StudyRoomPage'));
 const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'));
 const SubjectsPage = lazy(() => import('./pages/SubjectsPage'));
+const MockInterviewPage = lazy(() => import('./pages/MockInterviewPage'));
 const TasksPage = lazy(() => import('./pages/TasksPage'));
 
 // Loading component
@@ -65,7 +66,7 @@ const App: React.FC = () => {
         return () => subscription.unsubscribe();
     }, []);
 
-    if (isLoading) return <div className="h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-500">Loading...</div>;
+    if (isLoading) return <div className="h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-500">Yuklanmoqda...</div>;
 
     if (!session) {
         return (
@@ -111,6 +112,7 @@ const App: React.FC = () => {
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
+                                        <Route path="interview" element={<MockInterviewPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                     </Route>
                                 </Routes>
