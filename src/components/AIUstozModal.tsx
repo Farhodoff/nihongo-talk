@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send, Play, AlertTriangle } from 'lucide-react';
 import { Button } from './ui/Button';
-import { chatWithAI } from '../utils/ai';
+import { callDeepSeek } from '../utils/deepseek';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +45,7 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
     const startConversation = async () => {
         setIsLoading(true);
         try {
-            const reply = await chatWithAI("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", [], systemPrompt, settings.googleApiKey || '');
+            const reply = await callDeepSeek("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", settings.deepseekApiKey || '', systemPrompt, false);
             setMessages([{ id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (e: any) {
             setMessages([{ id: Date.now().toString(), role: 'model', text: "Nimadir xato ketdi. Lekin baribir dars qilishing kerak!" }]);
@@ -62,11 +62,14 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
         setIsLoading(true);
 
         try {
-            const apiHistory = messages.map(m => ({ role: m.role, text: m.text }));
-            const reply = await chatWithAI(input, apiHistory, systemPrompt, settings.googleApiKey || '');
+            const conversation = messages.map(m => `${m.role === 'user' ? 'Talaba' : 'Ustoz'}: ${m.text}`).join('\n');
+            const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${input}\nUstoz:`;
+            
+            const reply = await callDeepSeek(prompt, settings.deepseekApiKey || '', systemPrompt, false);
             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (error: any) {
-             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Bahonalarni yig'ishtirib darsni boshla! (Xatolik yuz berdi)" }]);
+             console.error("AI Ustoz error:", error);
+             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Bahonalarni yig'ishtirib darsni boshla! (Yoki Sozlamalardan DeepSeek API kalitini kiriting)" }]);
         } finally {
             setIsLoading(false);
         }
