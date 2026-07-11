@@ -1,26 +1,36 @@
 /// <reference types="vite/client" />
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { callOllama, isOllamaAvailable } from "./ollama";
+import { callOllama } from "./ollama";
+import { callDeepSeek } from "./deepseek";
 
-type AIProvider = 'ollama' | 'gemini';
+export type AIProvider = 'ollama' | 'gemini' | 'deepseek';
 
 // Simple in-memory cache to prevent duplicate requests and save tokens
 const aiCache = new Map<string, unknown>();
 
-const getAIProvider = async (): Promise<AIProvider> => {
-    const ollamaUrl = import.meta.env.VITE_OLLAMA_URL;
-    const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
+export const getAIConfig = () => {
+    const savedStr = localStorage.getItem('study_planner_ai_settings');
+    let aiModel = 'gemini';
+    let deepseekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
+    let geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-    // Prefer Ollama if configured and available
-    if (ollamaUrl) {
-        const available = await isOllamaAvailable();
-        if (available) return 'ollama';
+    if (savedStr) {
+        try {
+            const saved = JSON.parse(savedStr);
+            if (saved.aiModel) aiModel = saved.aiModel;
+            if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
+        } catch(e) {}
     }
+    return {
+        provider: aiModel as AIProvider,
+        geminiKey,
+        deepseekKey
+    };
+};
 
-    // Fallback to Gemini
-    if (geminiKey) return 'gemini';
-
-    throw new Error("AI provider not configured. Please set up Ollama or Gemini API key in Settings.");
+const getAIProvider = async (): Promise<AIProvider> => {
+    const config = getAIConfig();
+    return config.provider || 'gemini';
 };
 
 const getGenAI = (userKey?: string) => {
@@ -144,8 +154,13 @@ export const generateFlashcardsWithAI = async (
             const response = await callOllama(prompt);
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             json = JSON.parse(cleanedText);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            json = JSON.parse(response);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: {
@@ -214,8 +229,13 @@ export const generateFlashcardsFromNote = async (
             const response = await callOllama(prompt);
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             json = JSON.parse(cleanedText);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
+            json = JSON.parse(response);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: {
@@ -324,8 +344,12 @@ export const generateFullStudyPlan = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: { responseMimeType: "application/json" }
@@ -395,8 +419,12 @@ export const recommendResourcesWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: { responseMimeType: "application/json" }
@@ -454,8 +482,12 @@ export const generateStudyInsight = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: { responseMimeType: "application/json" }
@@ -516,8 +548,12 @@ export const generateExamWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 generationConfig: { 
@@ -571,8 +607,12 @@ export const expandNoteWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
@@ -606,8 +646,12 @@ export const summarizeNoteWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
@@ -641,8 +685,12 @@ export const fixNoteSpellingWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
@@ -693,8 +741,12 @@ export const generateMindMapWithAI = async (
 
         if (provider === 'ollama') {
             text = await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false);
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
             text = (await result.response).text();
@@ -749,8 +801,15 @@ Qoidalar:
             const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
             const text = await callOllama(prompt);
             return text.trim();
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            const conversation = history.map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+            const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
+            const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false);
+            return text.trim();
         } else {
-            const genAI = getGenAI(userKey);
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-2.0-flash",
                 systemInstruction: systemPrompt 

@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { chatWithAI, ChatMessage } from '../utils/ai';
-import { Bot, Send, User, Sparkles, Loader2 } from 'lucide-react';
+import { Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip } from 'lucide-react';
 
 import ReactMarkdown from 'react-markdown';
 import { Subject } from '../types';
 
 const AIChatPage: React.FC = () => {
-    const { subjects, notes, flashcards, settings } = useStudyData();
+    const { subjects, notes, flashcards, settings, addStudyNote } = useStudyData();
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'model',
@@ -75,6 +75,45 @@ const AIChatPage: React.FC = () => {
         }
     };
 
+    const handleCopy = (text: string) => {
+        navigator.clipboard.writeText(text);
+        // Simple visual feedback could be added here
+    };
+
+    const handleSaveNote = async (text: string) => {
+        if (!selectedSubjectId) {
+            alert("Konspektni saqlash uchun avval chap tomondan fanni tanlang!");
+            return;
+        }
+        const title = prompt("Konspekt uchun qisqacha sarlavha kiriting:", "AI Javobi");
+        if (!title) return;
+        
+        await addStudyNote({
+            title,
+            content: text,
+            subjectId: selectedSubjectId
+        });
+        alert('Konspekt muvaffaqiyatli saqlandi! ✅');
+    };
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const text = event.target?.result as string;
+            setInputValue(prev => prev + `\n\n[Fayl: ${file.name}]\n` + text.substring(0, 3000) + `\n`);
+        };
+        reader.readAsText(file);
+        
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
+
     return (
         <div className="h-full flex flex-col md:flex-row bg-background">
             {/* Sidebar (Subject Selection) */}
@@ -106,9 +145,9 @@ const AIChatPage: React.FC = () => {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 flex flex-col relative h-[calc(100vh-64px)] md:h-full">
+            <div className="flex-1 flex flex-col relative min-h-0">
                 {/* Messages List */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20 md:pb-4">
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
                     {messages.map((msg, idx) => (
                         <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                             <div className={`flex gap-3 max-w-[85%] md:max-w-[70%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -119,8 +158,18 @@ const AIChatPage: React.FC = () => {
                                     {msg.role === 'user' ? (
                                         <p className="whitespace-pre-wrap text-sm">{msg.text}</p>
                                     ) : (
-                                        <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-pre:bg-background/50 prose-pre:border prose-pre:border-border">
-                                            <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                        <div className="group relative">
+                                            <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-pre:bg-background/50 prose-pre:border prose-pre:border-border">
+                                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                            </div>
+                                            <div className="absolute top-0 right-0 -mt-2 -mr-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <button onClick={() => handleCopy(msg.text)} className="p-1.5 bg-background border border-border rounded-md text-muted-foreground hover:text-foreground hover:bg-muted shadow-sm" title="Nusxa olish">
+                                                    <Copy size={14} />
+                                                </button>
+                                                <button onClick={() => handleSaveNote(msg.text)} className="p-1.5 bg-background border border-border rounded-md text-muted-foreground hover:text-foreground hover:bg-muted shadow-sm" title="Konspekt sifatida saqlash">
+                                                    <Save size={14} />
+                                                </button>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
@@ -146,6 +195,20 @@ const AIChatPage: React.FC = () => {
                 {/* Input Area */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-card/80 backdrop-blur-md border-t border-border">
                     <div className="flex items-center gap-2 relative">
+                        <input 
+                            type="file" 
+                            accept=".txt,.md,.csv" 
+                            className="hidden" 
+                            ref={fileInputRef}
+                            onChange={handleFileUpload}
+                        />
+                        <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="p-3 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors shrink-0"
+                            title="Fayl (matn) biriktirish"
+                        >
+                            <Paperclip size={20} />
+                        </button>
                         <input
                             type="text"
                             value={inputValue}
@@ -153,14 +216,14 @@ const AIChatPage: React.FC = () => {
                             onKeyDown={handleKeyDown}
                             placeholder="Savolingizni yozing..."
                             disabled={isLoading}
-                            className="flex-1 p-3 pr-12 bg-background border border-border rounded-xl text-foreground text-sm outline-none focus:border-primary disabled:opacity-50 transition-colors"
+                            className="flex-1 p-3 bg-background border border-border rounded-xl text-foreground text-sm outline-none focus:border-primary disabled:opacity-50 transition-colors"
                         />
                         <button
                             onClick={handleSendMessage}
                             disabled={!inputValue.trim() || isLoading}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary text-primary-foreground rounded-lg disabled:opacity-50 hover:bg-primary/90 transition-colors"
+                            className="p-3 bg-primary text-primary-foreground rounded-xl disabled:opacity-50 hover:bg-primary/90 transition-colors shrink-0"
                         >
-                            <Send size={16} />
+                            <Send size={20} />
                         </button>
                     </div>
                 </div>

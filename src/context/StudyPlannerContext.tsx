@@ -21,6 +21,11 @@ interface Settings {
     currentStreak: number;
     lastActivityDate: string | null;
     googleApiKey?: string;
+    aiModel?: 'gemini' | 'deepseek' | 'ollama';
+    deepseekApiKey?: string;
+    ollamaUrl?: string;
+    ollamaModel?: string;
+    dailyStudyGoalMinutes: number;
 }
 
 interface StudyPlannerContextType {
@@ -104,6 +109,7 @@ const StudyPlannerContext = createContext<StudyPlannerContextType | undefined>(u
 // ===== PROVIDER =====
 export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // 1. Core Hooks
+
     const {
         gameState,
         setGamificationState,
@@ -172,11 +178,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         theme: 'light' | 'dark';
         notificationsEnabled: boolean;
         googleApiKey?: string;
+        aiModel?: 'gemini' | 'deepseek' | 'ollama';
+        deepseekApiKey?: string;
+        ollamaUrl?: string;
+        ollamaModel?: string;
+        dailyStudyGoalMinutes: number;
     }>(() => {
         const savedTheme = localStorage.getItem('study_planner_theme');
+        const savedAiSettingsStr = localStorage.getItem('study_planner_ai_settings');
+        const savedAiSettings = savedAiSettingsStr ? JSON.parse(savedAiSettingsStr) : {};
+        const savedGoal = localStorage.getItem('study_planner_daily_goal');
+        
         return {
             theme: (savedTheme as 'light' | 'dark') || 'light',
             notificationsEnabled: true,
+            googleApiKey: savedAiSettings.googleApiKey,
+            aiModel: savedAiSettings.aiModel || 'gemini',
+            deepseekApiKey: savedAiSettings.deepseekApiKey || '',
+            ollamaUrl: savedAiSettings.ollamaUrl || '',
+            ollamaModel: savedAiSettings.ollamaModel || '',
+            dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal) : 240,
         };
     });
 
@@ -325,11 +346,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 // Profile & Settings
                 if (profileRes.data) {
                     const profile = profileRes.data as DatabaseProfile;
-                    setAppSettings({
+                    setAppSettings(prev => ({
+                        ...prev,
                         theme: profile.theme || 'light',
                         notificationsEnabled: profile.notifications_enabled ?? true,
                         googleApiKey: profile.google_api_key,
-                    });
+                    }));
 
                     setGamificationState({
                         totalXp: profile.total_xp || 0,
@@ -737,13 +759,33 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined) {
-            setAppSettings(prev => ({
-                ...prev,
-                theme: updates.theme !== undefined ? updates.theme : prev.theme,
-                notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
-                googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey
-            }));
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined) {
+            setAppSettings(prev => {
+                const newState = {
+                    ...prev,
+                    theme: updates.theme !== undefined ? updates.theme : prev.theme,
+                    notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
+                    googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
+                    aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
+                    deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
+                    ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
+                    ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
+                    dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
+                };
+                
+                // Save AI settings to localStorage
+                localStorage.setItem('study_planner_ai_settings', JSON.stringify({
+                    aiModel: newState.aiModel,
+                    deepseekApiKey: newState.deepseekApiKey,
+                    ollamaUrl: newState.ollamaUrl,
+                    ollamaModel: newState.ollamaModel
+                }));
+
+                // Save Goal to localStorage
+                localStorage.setItem('study_planner_daily_goal', newState.dailyStudyGoalMinutes.toString());
+                
+                return newState;
+            });
         }
 
         // Persist to DB using UPDATE to avoid setting other fields to null

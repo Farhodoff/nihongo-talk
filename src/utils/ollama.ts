@@ -16,21 +16,34 @@ interface OllamaResponse {
     done: boolean;
 }
 
-const OLLAMA_URL = import.meta.env.VITE_OLLAMA_URL || 'http://localhost:11434';
-const OLLAMA_MODEL = import.meta.env.VITE_OLLAMA_MODEL || 'llama3.2';
+export const getOllamaConfig = () => {
+    const savedStr = localStorage.getItem('study_planner_ai_settings');
+    let ollamaUrl = import.meta.env.VITE_OLLAMA_URL || 'http://localhost:11434';
+    let ollamaModel = import.meta.env.VITE_OLLAMA_MODEL || 'llama3.2';
+    if (savedStr) {
+        try {
+            const saved = JSON.parse(savedStr);
+            if (saved.ollamaUrl) ollamaUrl = saved.ollamaUrl;
+            if (saved.ollamaModel) ollamaModel = saved.ollamaModel;
+        } catch(e) {}
+    }
+    return { ollamaUrl, ollamaModel };
+};
 
 /**
  * Call Ollama API with retry logic
  */
 export const callOllama = async (
     prompt: string,
-    model: string = OLLAMA_MODEL,
+    model?: string,
     retries: number = 3
 ): Promise<string> => {
-    const url = `${OLLAMA_URL}/api/generate`;
+    const config = getOllamaConfig();
+    const finalModel = model || config.ollamaModel;
+    const url = `${config.ollamaUrl}/api/generate`;
 
     const requestBody: OllamaRequest = {
-        model,
+        model: finalModel,
         prompt,
         stream: false
     };
@@ -69,7 +82,8 @@ export const callOllama = async (
  */
 export const isOllamaAvailable = async (): Promise<boolean> => {
     try {
-        const response = await fetch(`${OLLAMA_URL}/api/tags`, {
+        const config = getOllamaConfig();
+        const response = await fetch(`${config.ollamaUrl}/api/tags`, {
             method: 'GET',
         });
         return response.ok;
@@ -83,7 +97,8 @@ export const isOllamaAvailable = async (): Promise<boolean> => {
  */
 export const getOllamaModels = async (): Promise<string[]> => {
     try {
-        const response = await fetch(`${OLLAMA_URL}/api/tags`);
+        const config = getOllamaConfig();
+        const response = await fetch(`${config.ollamaUrl}/api/tags`);
         if (!response.ok) return [];
 
         const data = await response.json();

@@ -5,6 +5,8 @@ import DataManagementSection from '../components/settings/DataManagementSection'
 import AccountSection from '../components/settings/AccountSection';
 import TelegramSection from '../components/settings/TelegramSection';
 import GoogleCalendarSection from '../components/settings/GoogleCalendarSection';
+import AIProviderSection from '../components/settings/AIProviderSection';
+import DailyGoalSection from '../components/settings/DailyGoalSection';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
@@ -30,10 +32,6 @@ const SettingsPage: React.FC = () => {
         await refreshData();
     };
 
-    const handleSaveApiKey = async (key: string) => {
-        await updateSettings({ googleApiKey: key });
-    };
-
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="mb-8">
@@ -48,6 +46,12 @@ const SettingsPage: React.FC = () => {
                     onToggleNotifications={toggleNotifications}
                 />
 
+                {/* AI Models */}
+                <AIProviderSection />
+
+                {/* Daily Goal Section */}
+                <DailyGoalSection />
+
                 {/* Telegram Integration Section */}
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                     <TelegramSection />
@@ -58,10 +62,7 @@ const SettingsPage: React.FC = () => {
 
                 <DataManagementSection onClearData={handleClearData} />
 
-                <AccountSection
-                    apiKey={settings.googleApiKey || ''}
-                    onSaveApiKey={handleSaveApiKey}
-                />
+                <AccountSection />
             </div>
         </div>
     );

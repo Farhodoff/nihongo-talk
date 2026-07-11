@@ -150,7 +150,7 @@ const AIMindMapPage: React.FC = () => {
 
                 {/* Canvas Area (Right) */}
                 <div className="lg:col-span-8 flex flex-col gap-4">
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl flex-1 flex flex-col min-h-[500px]">
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 shadow-xl flex-1 flex flex-col min-h-[400px] md:min-h-[500px]">
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-xl font-bold text-white flex items-center gap-2">
                                 2. Natija
@@ -195,6 +195,8 @@ const AIMindMapPage: React.FC = () => {
                                     minScale={0.1}
                                     maxScale={4}
                                     centerOnInit
+                                    wheel={{ step: 0.1 }}
+                                    pinch={{ step: 5 }}
                                 >
                                     {({ zoomIn, zoomOut, resetTransform }) => (
                                         <React.Fragment>

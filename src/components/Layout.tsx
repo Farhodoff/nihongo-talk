@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit, MessageSquare } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
+import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
@@ -84,6 +85,8 @@ const Layout: React.FC = () => {
 
     return (
         <div className="h-screen flex flex-col md:flex-row bg-background text-foreground transition-colors duration-300 overflow-hidden font-sans">
+            <AIAccountabilityManager />
+            
             {/* Mini Timer Overlay */}
             {focusState.isActive && location.pathname !== '/focus' && (
                 <div 
