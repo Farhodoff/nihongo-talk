@@ -9,7 +9,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.png', 'apple-touch-icon.png', 'favicon.svg'],
+            includeAssets: ['favicon.svg'],
             manifest: {
                 name: 'Study Planner AI',
                 short_name: 'StudyPlanner',
@@ -26,44 +26,44 @@ export default defineConfig({
                         name: 'Bugungi Reja',
                         short_name: 'Reja',
                         url: '/dashboard',
-                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                        icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
                         name: 'Fokus Mode',
                         short_name: 'Fokus',
                         url: '/focus',
-                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                        icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
                         name: 'Vazifa Qo\'shish',
                         short_name: 'Vazifa',
                         url: '/tasks',
-                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                        icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
                         name: 'Analitika',
                         short_name: 'Statistika',
                         url: '/progress',
-                        icons: [{ src: 'favicon.png', sizes: '192x192' }]
+                        icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     }
                 ],
                 icons: [
                     {
-                        src: 'favicon.png',
+                        src: 'favicon.svg',
                         sizes: '192x192',
-                        type: 'image/png',
+                        type: 'image/svg+xml',
                         purpose: 'any'
                     },
                     {
-                        src: 'favicon.png',
+                        src: 'favicon.svg',
                         sizes: '512x512',
-                        type: 'image/png',
+                        type: 'image/svg+xml',
                         purpose: 'any'
                     },
                     {
-                        src: 'favicon.png',
+                        src: 'favicon.svg',
                         sizes: '512x512',
-                        type: 'image/png',
+                        type: 'image/svg+xml',
                         purpose: 'maskable'
                     }
                 ]
@@ -130,9 +130,6 @@ export default defineConfig({
                         if (id.includes('lucide-react')) {
                             return 'icons';
                         }
-                        if (id.includes('@hello-pangea/dnd')) {
-                            return 'dnd';
-                        }
                         if (id.includes('react-markdown')) {
                             return 'markdown';
                         }
@@ -175,7 +172,6 @@ export default defineConfig({
             'react-router-dom',
             '@supabase/supabase-js',
         ],
-        exclude: ['@jitsi/react-sdk'], // Jitsi ni exclude qilamiz chunki katta
     },
     test: {
         globals: true,

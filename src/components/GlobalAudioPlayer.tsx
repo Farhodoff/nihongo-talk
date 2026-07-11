@@ -3,7 +3,7 @@ import { useFocusTimerContext } from '../context/FocusTimerContext';
 
 const SOUNDS = [
     { id: 'none', label: 'Silent', url: '' },
-    { id: 'lofi', label: 'Lofi Music', url: '/lofi-music.mp3' },
+    { id: 'lofi', label: 'Lofi Music', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3' },
     { id: 'rain', label: 'Heavy Rain', url: 'https://actions.google.com/sounds/v1/weather/rain_heavy.ogg' },
     { id: 'forest', label: 'Forest', url: 'https://actions.google.com/sounds/v1/ambiences/forest_morning.ogg' },
     { id: 'cafe', label: 'Cafe', url: 'https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg' },
@@ -22,7 +22,7 @@ const GlobalAudioPlayer = () => {
                 audioRef.current.src = soundUrl;
             }
             // Silent fail if browser blocks autoplay
-            audioRef.current.play().catch(() => { });
+            audioRef.current.play().catch(e => console.error("Audio play blocked", e));
         } else {
             audioRef.current.pause();
         }
@@ -30,8 +30,8 @@ const GlobalAudioPlayer = () => {
 
     useEffect(() => {
         if (focusState.isSessionCompleted && !focusState.isMuted) {
-            const ringtone = new Audio('/lofi-music.mp3');
-            ringtone.play().catch(() => { });
+            const ringtone = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3');
+            ringtone.play().catch(e => console.error("Ringtone play blocked", e));
             
             // Auto stop ringtone after 5 seconds to avoid annoyance
             const timer = setTimeout(() => {
