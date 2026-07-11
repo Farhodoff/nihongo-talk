@@ -8,12 +8,15 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 
+import { useStudyData } from '../context/StudyPlannerContext';
+
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
+    const { user } = useStudyData();
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {
@@ -40,7 +43,7 @@ const Layout: React.FC = () => {
         { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
         { name: 'AI Chatbot', path: '/ai-chat', icon: MessageSquare },
         { name: 'Aqliy Xarita', path: '/mindmap', icon: BrainCircuit },
-        { name: '🇯🇵 IT Interview', path: '/interview', icon: Users },
+        ...(user?.email === 'fsoyilov@gmail.com' ? [{ name: '🇯🇵 IT Interview', path: '/interview', icon: Users }] : []),
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },

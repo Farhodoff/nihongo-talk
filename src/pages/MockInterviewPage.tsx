@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { callDeepSeek } from '../utils/deepseek';
 import { getAIConfig } from '../utils/ai';
 import { getJapaneseRecruiterPrompt } from '../utils/interviewPrompts';
 import { Mic, MicOff, Send, MessageSquare, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 interface Message {
     id: string;
@@ -15,6 +17,9 @@ interface Message {
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 const MockInterviewPage: React.FC = () => {
+    const { user } = useStudyData();
+    const navigate = useNavigate();
+
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
@@ -22,6 +27,13 @@ const MockInterviewPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const recognitionRef = useRef<any>(null);
+
+    // Guard route
+    useEffect(() => {
+        if (user && user.email !== 'fsoyilov@gmail.com') {
+            navigate('/dashboard', { replace: true });
+        }
+    }, [user, navigate]);
 
     // Initialize the conversation
     useEffect(() => {
