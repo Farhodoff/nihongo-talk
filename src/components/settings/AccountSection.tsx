@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/Button';
-import PasswordChangeSection from './PasswordChangeSection';
+// import PasswordChangeSection from './PasswordChangeSection';
 import { supabase } from '../../lib/supabase';
 
 interface AccountSectionProps {
@@ -28,7 +28,7 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
             </div>
 
             {/* Password Change */}
-            <PasswordChangeSection />
+            {/* <PasswordChangeSection /> */}
 
             <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                 <Button

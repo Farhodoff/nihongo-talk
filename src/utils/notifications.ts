@@ -20,7 +20,7 @@ export const sendNotification = (title: string, body?: string) => {
     if (Notification.permission === 'granted') {
         new Notification(title, {
             body,
-            icon: '/vite.svg', // using default vite logo as icon
+            icon: '/favicon.svg',
         });
     }
 };

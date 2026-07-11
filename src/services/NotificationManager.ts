@@ -1,5 +1,5 @@
 import { Event } from '../types';
-import moment from 'moment';
+import { subMinutes, isBefore, isEqual, isAfter, format } from 'date-fns';
 
 export class NotificationManager {
     private static instance: NotificationManager;
@@ -35,8 +35,8 @@ export class NotificationManager {
     sendNotification(title: string, options?: NotificationOptions) {
         if (Notification.permission === 'granted') {
             new Notification(title, {
-                icon: '/vite.svg',
-                badge: '/vite.svg',
+                icon: '/favicon.svg',
+                badge: '/favicon.svg',
                 ...options
             });
         }
@@ -57,18 +57,18 @@ export class NotificationManager {
     }
 
     private checkEvents(events: Event[], updateEventCallback: (id: string) => void) {
-        const now = moment();
+        const now = new Date();
 
         events.forEach(event => {
             if (event.isNotified) return;
 
-            const eventTime = moment(event.eventDate);
-            const notifyTime = eventTime.clone().subtract(event.notifyBeforeMinutes, 'minutes');
+            const eventTime = new Date(event.eventDate);
+            const notifyTime = subMinutes(eventTime, event.notifyBeforeMinutes);
 
-            // Check if we should notify
-            if (now.isSameOrAfter(notifyTime) && now.isBefore(eventTime)) {
+            // Check if we should notify (now is same or after notifyTime AND now is before eventTime)
+            if ((isEqual(now, notifyTime) || isAfter(now, notifyTime)) && isBefore(now, eventTime)) {
                 this.sendNotification(event.title, {
-                    body: `${event.description || ''}\n${eventTime.format('HH:mm')} da boshlanadi`,
+                    body: `${event.description || ''}\n${format(eventTime, 'HH:mm')} da boshlanadi`,
                     tag: event.id,
                     requireInteraction: event.notifyBeforeMinutes >= 60
                 });

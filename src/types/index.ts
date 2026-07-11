@@ -90,15 +90,8 @@ export interface Flashcard {
     deletedAt?: string;
 }
 
-export interface UserSettings {
-    theme: 'light' | 'dark' | 'system';
-    notificationsEnabled: boolean;
-    // Gamification
-    totalXp: number;
-    level: number;
-    currentStreak: number;
-    lastActivityDate: string | null; // "YYYY-MM-DD"
-}
+
+
 
 export const PRIORITY_COLORS = {
     high: '#ef4444',

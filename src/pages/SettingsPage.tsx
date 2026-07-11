@@ -1,3 +1,4 @@
+import React from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
