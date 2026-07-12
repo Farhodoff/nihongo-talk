@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { isAIKeyConfigured, AIProvider } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { KeyRound, Sparkles, ExternalLink, Eye, EyeOff, CheckCircle2, ArrowRight } from 'lucide-react';
+import { useSubscription } from '../hooks/useSubscription';
+import { KeyRound, Sparkles, ExternalLink, Eye, EyeOff, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from './ui/Button';
 
 interface AIKeyGuardProps {
@@ -10,10 +11,12 @@ interface AIKeyGuardProps {
 
 /**
  * Wrapper component that blocks access to AI-powered pages
- * until the user has configured their own API key (BYOK model).
+ * until the user has configured their own API key (BYOK model) or has PRO.
  */
 const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     const { settings, updateSettings } = useStudyData();
+    const { subscription, loading: subLoading } = useSubscription();
+    
     const [provider, setProvider] = useState<AIProvider>(
         (settings.aiModel as AIProvider) || 'gemini'
     );
@@ -23,9 +26,21 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
 
-    // Check if key is already configured
-    if (isAIKeyConfigured()) {
+    // Agar o'zida allaqachon key bo'lsa yoki admin subscription yuklangan bo'lsa
+    const hasAdminPro = subscription?.tier === 'pro' || (subscription?.ai_credits ?? 0) > 0;
+    
+    if (isAIKeyConfigured() || hasAdminPro) {
         return <>{children}</>;
+    }
+
+    // Obuna tekshirilayotgan bo'lsa, biroz kutamiz
+    if (subLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-4">
+                <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+                <p className="text-gray-500 font-medium">Obuna ma'lumotlari tekshirilmoqda...</p>
+            </div>
+        );
     }
 
     const handleSave = async () => {
