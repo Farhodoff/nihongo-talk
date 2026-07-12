@@ -3,6 +3,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
 import { Shield, Users, Key, Loader2, Save, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface UserSubscription {
     id: string;
@@ -15,36 +16,12 @@ interface UserSubscription {
 
 const AdminDashboardPage: React.FC = () => {
     const { user } = useStudyData();
+    const navigate = useNavigate();
     const [subscriptions, setSubscriptions] = useState<UserSubscription[]>([]);
     const [loading, setLoading] = useState(true);
     const [apiKey, setApiKey] = useState('');
     const [savingKey, setSavingKey] = useState(false);
     const [keySaved, setKeySaved] = useState(false);
-
-    useEffect(() => {
-        // Faqat admin bo'lsa ma'lumotlarni tortamiz
-        if (user?.email === 'fsoyilov@gmail.com') {
-            fetchAdminData();
-        } else {
-            setLoading(false);
-        }
-    }, [user]);
-
-    // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
-    if (user?.email !== 'fsoyilov@gmail.com') {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
-                <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500 mb-4 opacity-80">404</h1>
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Sahifa topilmadi</h2>
-                <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
-                    Kechirasiz, siz qidirayotgan sahifa mavjud emas yoki o'chirilgan bo'lishi mumkin.
-                </p>
-                <Button onClick={() => window.location.href = '/'} className="gap-2">
-                    Bosh sahifaga qaytish
-                </Button>
-            </div>
-        );
-    }
 
     const fetchAdminData = async () => {
         setLoading(true);
@@ -74,6 +51,40 @@ const AdminDashboardPage: React.FC = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        // Faqat admin bo'lsa ma'lumotlarni tortamiz
+        if (user?.email === 'fsoyilov@gmail.com') {
+            fetchAdminData();
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
+
+    // O'chib-yonish (miltillash) ni oldini olish uchun
+    if (loading && !user) {
+        return (
+            <div className="flex items-center justify-center h-[70vh]">
+                <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+            </div>
+        );
+    }
+
+    // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
+    if (user?.email !== 'fsoyilov@gmail.com') {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
+                <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500 mb-4 opacity-80">404</h1>
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Sahifa topilmadi</h2>
+                <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
+                    Kechirasiz, siz qidirayotgan sahifa mavjud emas yoki o'chirilgan bo'lishi mumkin.
+                </p>
+                <Button onClick={() => navigate('/')} className="gap-2">
+                    Bosh sahifaga qaytish
+                </Button>
+            </div>
+        );
+    }
 
     const handleSaveApiKey = async () => {
         setSavingKey(true);
@@ -193,19 +204,19 @@ const AdminDashboardPage: React.FC = () => {
                 </div>
                 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
-                                <th className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Email</th>
-                                <th className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tarif (Status)</th>
-                                <th className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">AI Kreditlar</th>
-                                <th className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Harakatlar</th>
+                    <table className="w-full text-left">
+                        <thead className="bg-gray-50 dark:bg-slate-900/50 border-b border-gray-100 dark:border-slate-800">
+                            <tr>
+                                <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Pochta (Email)</th>
+                                <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Tarif (Status)</th>
+                                <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">AI Kreditlar</th>
+                                <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Harakatlar</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                        <tbody className="divide-y divide-gray-100 dark:divide-slate-800/50">
                             {subscriptions.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4} className="py-8 text-center text-slate-500">
+                                    <td colSpan={4} className="py-8 text-center text-slate-500 dark:text-slate-400">
                                         Hech qanday foydalanuvchi topilmadi. SQL triggerlarni tekshiring.
                                     </td>
                                 </tr>
@@ -244,9 +255,9 @@ const AdminDashboardPage: React.FC = () => {
                                             <select
                                                 value={sub.tier}
                                                 onChange={(e) => setUserTier(sub.id, e.target.value as any)}
-                                                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm outline-none"
+                                                className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm outline-none text-slate-900 dark:text-white"
                                             >
-                                                <option value="free">Free</option>
+                                                <option value="free">Bepul (Free)</option>
                                                 <option value="pro">Pro</option>
                                                 <option value="premium">Premium</option>
                                             </select>

@@ -10,9 +10,11 @@ import AIProviderSection from '../components/settings/AIProviderSection';
 import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { User, Sparkles, Sliders, Database, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData, user } = useStudyData();
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('profile');
 
     const tabs = [
@@ -131,7 +133,7 @@ const SettingsPage: React.FC = () => {
                                 Foydalanuvchilar, tariflar va ilova sozlamalarini boshqarish paneli.
                             </p>
                             <button 
-                                onClick={() => window.location.href = '/admin'}
+                                onClick={() => navigate('/admin')}
                                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-medium transition-colors"
                             >
                                 Admin Paneliga O'tish
