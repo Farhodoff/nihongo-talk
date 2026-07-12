@@ -7,12 +7,9 @@ const PricingPage: React.FC = () => {
     const [loadingTier, setLoadingTier] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleSubscribe = async (tier: string) => {
-        setLoadingTier(tier);
-        // Simulate network request
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        alert(`Tez orada ishga tushadi! Siz ${tier.toUpperCase()} tarifini tanladingiz. To'lov tizimi (Click/Payme) ulanmoqda...`);
-        setLoadingTier(null);
+    const handleSubscribe = (tier: string) => {
+        const text = encodeURIComponent('Assalom aleykum. Men obuna xarid qilmoqchiman');
+        window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
     };
 
     return (
