@@ -30,15 +30,18 @@ const AdminDashboardPage: React.FC = () => {
         }
     }, [user]);
 
-    // Xavfsizlik: Faqat Admin kira oladi
+    // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
     if (user?.email !== 'fsoyilov@gmail.com') {
         return (
-            <div className="flex flex-col items-center justify-center h-[70vh] px-4 text-center animate-in fade-in">
-                <Shield className="w-16 h-16 text-red-500 mb-4 opacity-50" />
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Kirish Taqiqlangan</h1>
-                <p className="text-slate-500 max-w-md">
-                    Bu sahifa faqat adminlar uchun. Sizda ushbu sahifani ko'rish huquqi yo'q.
+            <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
+                <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500 mb-4 opacity-80">404</h1>
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Sahifa topilmadi</h2>
+                <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
+                    Kechirasiz, siz qidirayotgan sahifa mavjud emas yoki o'chirilgan bo'lishi mumkin.
                 </p>
+                <Button onClick={() => window.location.href = '/'} className="gap-2">
+                    Bosh sahifaga qaytish
+                </Button>
             </div>
         );
     }
