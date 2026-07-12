@@ -11,9 +11,7 @@ import { OnboardingTour } from './components/OnboardingTour';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
-const AIChatPage = lazy(() => import('./pages/AIChatPage'));
-const AIExamPage = lazy(() => import('./pages/AIExamPage'));
-const AIMindMapPage = lazy(() => import('./pages/AIMindMapPage'));
+const AIAssistantPage = lazy(() => import('./pages/AIAssistantPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
@@ -30,7 +28,6 @@ const StudyModePage = lazy(() => import('./pages/StudyModePage'));
 const StudyRoomPage = lazy(() => import('./pages/StudyRoomPage'));
 const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'));
 const SubjectsPage = lazy(() => import('./pages/SubjectsPage'));
-const MockInterviewPage = lazy(() => import('./pages/MockInterviewPage'));
 const TasksPage = lazy(() => import('./pages/TasksPage'));
 const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
 
@@ -103,17 +100,13 @@ const App: React.FC = () => {
                                         <Route path="notes" element={<NotesPage />} />
                                         <Route path="notes/:id" element={<NoteEditorPage />} />
                                         <Route path="study-notes" element={<StudyNotesPage />} />
-                                        <Route path="ai-exam" element={<AIExamPage />} />
-                                        <Route path="ai-exam/:id" element={<AIExamPage />} />
-                                        <Route path="ai-chat" element={<AIChatPage />} />
-                                        <Route path="mindmap" element={<AIMindMapPage />} />
+                                        <Route path="ai" element={<AIAssistantPage />} />
                                         <Route path="flashcards" element={<DecksPage />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
-                                        <Route path="interview" element={<MockInterviewPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />
                                     </Route>

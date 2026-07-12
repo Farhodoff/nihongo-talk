@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -8,7 +8,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 
-import { useStudyData } from '../context/StudyPlannerContext';
 
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
@@ -16,19 +15,6 @@ const Layout: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
-    const { user } = useStudyData();
-    const [isOnline, setIsOnline] = useState(navigator.onLine);
-
-    useEffect(() => {
-        const handleOnline = () => setIsOnline(true);
-        const handleOffline = () => setIsOnline(false);
-        window.addEventListener('online', handleOnline);
-        window.addEventListener('offline', handleOffline);
-        return () => {
-            window.removeEventListener('online', handleOnline);
-            window.removeEventListener('offline', handleOffline);
-        };
-    }, []);
 
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
@@ -38,12 +24,9 @@ const Layout: React.FC = () => {
         { name: 'Kalendar', path: '/calendar', icon: Calendar },
         { name: 'Fokus', path: '/focus', icon: Clock },
         { name: 'Stikerlar', path: '/notes', icon: FileText },
-        { name: 'Konspektlar', path: '/study-notes', icon: BookOpen },
+        { name: 'Konspektlar', path: '/study-notes', icon: NotebookText },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
-        { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
-        { name: 'AI Chatbot', path: '/ai-chat', icon: MessageSquare },
-        { name: 'Aqliy Xarita', path: '/mindmap', icon: BrainCircuit },
-        ...(user?.email === 'fsoyilov@gmail.com' ? [{ name: '🇯🇵 IT Interview', path: '/interview', icon: Users }] : []),
+        { name: 'AI Yordamchi', path: '/ai', icon: Sparkles },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
@@ -183,12 +166,6 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
-                {!isOnline && (
-                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 bg-destructive/10 border border-destructive/20 rounded-full shadow-sm flex items-center gap-2 text-destructive animate-in fade-in slide-in-from-top-4">
-                        <div className="w-2 h-2 rounded-full bg-destructive animate-pulse" />
-                        <p className="text-xs font-medium">Oflayn rejim</p>
-                    </div>
-                )}
                 <div className="flex-1 overflow-y-auto w-full relative">
                     <AnimatePresence mode="wait">
                         <motion.div
