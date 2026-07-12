@@ -29,26 +29,26 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     // Agar o'zida allaqachon key bo'lsa yoki admin subscription yuklangan bo'lsa
     const isPro = subscription?.tier === 'pro' || subscription?.tier === 'premium';
     
-    // Trial muddatini hisoblash
-    const trialDays = 7;
-    const isTrialValid = subscription?.trial_start_date ? 
-        (new Date().getTime() - new Date(subscription.trial_start_date).getTime()) / (1000 * 3600 * 24) <= trialDays
-        : true; // Agar hali trial start belgilanmagan bo'lsa, vaqtinchalik ishlasin
-    
-    const hasAdminPro = isPro || (isTrialValid && (subscription?.ai_credits ?? 0) > 0);
-    
-    if (isAIKeyConfigured() || hasAdminPro) {
-        return <>{children}</>;
-    }
-
     // Obuna tekshirilayotgan bo'lsa, biroz kutamiz
     if (subLoading) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-4">
                 <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
-                <p className="text-gray-500 font-medium">Obuna ma'lumotlari tekshirilmoqda...</p>
+                <p className="text-gray-500 font-medium">Ma'lumotlar tekshirilmoqda...</p>
             </div>
         );
+    }
+
+    // Trial muddatini hisoblash
+    const trialDays = 7;
+    const isTrialValid = subscription?.trial_start_date ? 
+        (new Date().getTime() - new Date(subscription.trial_start_date).getTime()) / (1000 * 3600 * 24) <= trialDays
+        : false;
+    
+    const hasAdminPro = isPro || (isTrialValid && (subscription?.ai_credits ?? 0) > 0);
+    
+    if (isAIKeyConfigured() || hasAdminPro) {
+        return <>{children}</>;
     }
 
     const handleSave = async () => {
@@ -72,34 +72,34 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
         <div className="flex items-center justify-center min-h-[70vh] px-4 animate-in fade-in duration-500">
             <div className="w-full max-w-lg">
                 {/* Card */}
-                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6 relative overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6 relative overflow-hidden">
                     {/* Glow */}
-                    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-indigo-500 rounded-full blur-[100px] opacity-20" />
-                    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-fuchsia-500 rounded-full blur-[100px] opacity-15" />
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-indigo-500 rounded-full blur-[100px] opacity-10 dark:opacity-20" />
+                    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-fuchsia-500 rounded-full blur-[100px] opacity-10 dark:opacity-15" />
 
                     {/* Icon + Title */}
                     <div className="relative z-10 text-center space-y-3">
-                        <div className="mx-auto w-16 h-16 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center">
-                            <KeyRound size={32} className="text-indigo-400" />
+                        <div className="mx-auto w-16 h-16 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 dark:border-indigo-500/30 flex items-center justify-center">
+                            <KeyRound size={32} className="text-indigo-500 dark:text-indigo-400" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-center gap-2">
                             {subscription?.ai_credits === 0 ? (
-                                <>AI Limitingiz Tugadi <Sparkles size={20} className="text-fuchsia-400" /></>
+                                <>AI Limitingiz Tugadi <Sparkles size={20} className="text-fuchsia-500 dark:text-fuchsia-400" /></>
                             ) : (
-                                <>Sinov Muddati Tugadi <Sparkles size={20} className="text-fuchsia-400" /></>
+                                <>Tarifni Yangilang <Sparkles size={20} className="text-fuchsia-500 dark:text-fuchsia-400" /></>
                             )}
                         </h2>
                         <div className="bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl p-4 mb-4">
-                            <p className="text-sm text-fuchsia-200">
+                            <p className="text-sm text-fuchsia-800 dark:text-fuchsia-200">
                                 {subscription?.ai_credits === 0 ? (
                                     "Bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@fsoyilov) ga murojaat qiling va PRO tarifni oling."
                                 ) : (
-                                    "Sizning 7 kunlik bepul sinov muddatingiz (Trial) o'z nihoyasiga yetdi! Dasturdan foydalanishda davom etish uchun PRO tarifga o'ting."
+                                    "Dasturning AI xususiyatlaridan foydalanish uchun PRO tarifga o'ting yoki o'zingizning shaxsiy API kalitingizni kiriting."
                                 )}
                             </p>
                         </div>
-                        <p className="text-sm text-slate-400 leading-relaxed max-w-sm mx-auto">
-                            Yoki o'zingizning shaxsiy Google/DeepSeek API kalitingizni (BYOK) kiritsangiz bo'ladi.
+                        <p className="text-sm text-gray-600 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">
+                            O'zingizning shaxsiy Google/DeepSeek API kalitingizni (BYOK) kiritsangiz ham bo'ladi.
                         </p>
                         <p className="text-sm">
                             <a href="/pricing" className="text-fuchsia-400 font-medium hover:text-fuchsia-300 underline underline-offset-2 flex items-center justify-center gap-1 transition-colors">
@@ -111,25 +111,25 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                     {/* Provider Select */}
                     <div className="relative z-10 space-y-4">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                            <label className="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                                 AI Modelni Tanlang
                             </label>
                             <select
                                 value={provider}
                                 onChange={(e) => setProvider(e.target.value as AIProvider)}
-                                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                                className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                             >
                                 <option value="gemini">Google Gemini (Bepul, Tez)</option>
                                 <option value="deepseek">DeepSeek (Arzon, Sifatli)</option>
-                                <option value="ollama">Ollama (Local, Kalitsiz)</option>
+                                <option value="ollama">Ollama (Mahalliy, Kalitsiz)</option>
                             </select>
                         </div>
 
                         {/* Gemini Key Input */}
                         {provider === 'gemini' && (
                             <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                                    Google Gemini API Key
+                                <label className="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+                                    Google Gemini API Kaliti
                                 </label>
                                 <div className="relative">
                                     <input
@@ -137,12 +137,12 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                                         value={geminiKey}
                                         onChange={(e) => setGeminiKey(e.target.value)}
                                         placeholder="AIza..."
-                                        className="w-full px-4 py-3 pr-12 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder:text-slate-600"
+                                        className="w-full px-4 py-3 pr-12 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder:text-gray-400 dark:placeholder:text-slate-600"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowKey(!showKey)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
                                     >
                                         {showKey ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
@@ -169,8 +169,8 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                         {/* DeepSeek Key Input */}
                         {provider === 'deepseek' && (
                             <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                                    DeepSeek API Key
+                                <label className="block text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+                                    DeepSeek API Kaliti
                                 </label>
                                 <div className="relative">
                                     <input
@@ -178,12 +178,12 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                                         value={deepseekKey}
                                         onChange={(e) => setDeepseekKey(e.target.value)}
                                         placeholder="sk-..."
-                                        className="w-full px-4 py-3 pr-12 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder:text-slate-600"
+                                        className="w-full px-4 py-3 pr-12 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder:text-gray-400 dark:placeholder:text-slate-600"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowKey(!showKey)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
                                     >
                                         {showKey ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
@@ -248,24 +248,5 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     );
 };
 
-/**
- * Inline banner for pages that partially use AI (Dashboard, NoteEditor).
- * Shows a small reminder instead of blocking the entire page.
- */
-export const AIKeyInlineBanner: React.FC = () => {
-    if (isAIKeyConfigured()) return null;
-    
-    return (
-        <div className="flex items-center gap-3 px-4 py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-sm">
-            <KeyRound size={16} className="shrink-0" />
-            <p>
-                AI funksiyalar uchun API kalit kerak.{' '}
-                <a href="/settings" className="underline underline-offset-2 font-semibold hover:text-amber-300 transition-colors">
-                    Sozlamalar → AI bo'limida kiriting
-                </a>
-            </p>
-        </div>
-    );
-};
 
 export default AIKeyGuard;

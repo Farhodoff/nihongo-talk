@@ -55,6 +55,7 @@ export const useSubscription = () => {
                     localStorage.setItem('study_planner_subscription', JSON.stringify({
                         tier: subData.tier,
                         ai_credits: subData.ai_credits,
+                        trial_start_date: subData.trial_start_date,
                         adminApiKey: appSettings.gemini_api_key
                     }));
                 }
@@ -77,7 +78,15 @@ export const useSubscription = () => {
                 filter: `id=eq.${user.id}`
             }, (payload) => {
                 setSubscription(prev => {
-                    if (!prev) return prev;
+                    const newSub = payload.new as any;
+                    if (!prev) {
+                        return {
+                            tier: newSub.tier || 'free',
+                            ai_credits: newSub.ai_credits || 0,
+                            last_reset_date: newSub.last_reset_date || new Date().toISOString(),
+                            trial_start_date: newSub.trial_start_date
+                        };
+                    }
                     const updated = {
                         ...prev,
                         tier: payload.new.tier,
@@ -132,7 +141,7 @@ export const useSubscription = () => {
         adminApiKey,
         loading,
         decrementCredit,
-        isPro: subscription?.tier === 'pro',
+        isPro: subscription?.tier === 'pro' || subscription?.tier === 'premium',
         hasCredits: (subscription?.ai_credits || 0) > 0
     };
 };

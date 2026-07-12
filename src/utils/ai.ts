@@ -93,7 +93,14 @@ export const isAIKeyConfigured = (): boolean => {
     if (subStr) {
         try {
             const sub = JSON.parse(subStr);
-            if (sub.adminApiKey && (sub.tier === 'pro' || sub.ai_credits > 0)) {
+            const isPro = sub.tier === 'pro' || sub.tier === 'premium';
+            
+            const trialDays = 7;
+            const isTrialValid = sub.trial_start_date ? 
+                (new Date().getTime() - new Date(sub.trial_start_date).getTime()) / (1000 * 3600 * 24) <= trialDays
+                : false; // Agar trial start date yo'q bo'lsa trial invalid deb hisoblaymiz (faqat Pro/Premium yoki haqiqiy trial ishlaydi)
+                
+            if (sub.adminApiKey && (isPro || (isTrialValid && sub.ai_credits > 0))) {
                 return true;
             }
         } catch (e) {
