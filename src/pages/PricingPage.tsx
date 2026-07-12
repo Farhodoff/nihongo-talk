@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { CheckCircle2, Star, Zap, Shield, Loader2 } from 'lucide-react';
+import React from 'react';
+import { CheckCircle2, Star, Zap, Shield } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 
 const PricingPage: React.FC = () => {
-    const [loadingTier, setLoadingTier] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleSubscribe = (tier: string) => {
+    const handleSubscribe = () => {
         const text = encodeURIComponent('Assalom aleykum. Men obuna xarid qilmoqchiman');
         window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
     };
@@ -94,11 +93,10 @@ const PricingPage: React.FC = () => {
                     </ul>
 
                     <Button 
-                        onClick={() => handleSubscribe('pro')}
-                        disabled={loadingTier === 'pro'}
+                        onClick={() => handleSubscribe()}
                         className="w-full py-6 rounded-xl bg-white text-indigo-600 hover:bg-slate-50 font-bold border-none"
                     >
-                        {loadingTier === 'pro' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sotib Olish ($5)'}
+                        Sotib Olish ($5)
                     </Button>
                 </div>
 
@@ -134,11 +132,10 @@ const PricingPage: React.FC = () => {
 
                     <Button 
                         variant="outline"
-                        onClick={() => handleSubscribe('premium')}
-                        disabled={loadingTier === 'premium'}
+                        onClick={() => handleSubscribe()}
                         className="w-full py-6 rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-800"
                     >
-                        {loadingTier === 'premium' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Sotib Olish ($12)'}
+                        Sotib Olish ($12)
                     </Button>
                 </div>
             </div>
