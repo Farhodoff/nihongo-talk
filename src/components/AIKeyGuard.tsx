@@ -27,7 +27,15 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     const [saved, setSaved] = useState(false);
 
     // Agar o'zida allaqachon key bo'lsa yoki admin subscription yuklangan bo'lsa
-    const hasAdminPro = subscription?.tier === 'pro' || (subscription?.ai_credits ?? 0) > 0;
+    const isPro = subscription?.tier === 'pro';
+    
+    // Trial muddatini hisoblash
+    const trialDays = 7;
+    const isTrialValid = subscription?.trial_start_date ? 
+        (new Date().getTime() - new Date(subscription.trial_start_date).getTime()) / (1000 * 3600 * 24) <= trialDays
+        : true; // Agar hali trial start belgilanmagan bo'lsa, vaqtinchalik ishlasin
+    
+    const hasAdminPro = isPro || (isTrialValid && (subscription?.ai_credits ?? 0) > 0);
     
     if (isAIKeyConfigured() || hasAdminPro) {
         return <>{children}</>;
@@ -75,11 +83,19 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                             <KeyRound size={32} className="text-indigo-400" />
                         </div>
                         <h2 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
-                            AI Limitingiz Tugadi <Sparkles size={20} className="text-fuchsia-400" />
+                            {subscription?.ai_credits === 0 ? (
+                                <>AI Limitingiz Tugadi <Sparkles size={20} className="text-fuchsia-400" /></>
+                            ) : (
+                                <>Sinov Muddati Tugadi <Sparkles size={20} className="text-fuchsia-400" /></>
+                            )}
                         </h2>
                         <div className="bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl p-4 mb-4">
                             <p className="text-sm text-fuchsia-200">
-                                Kunlik bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@fsoyilov) ga murojaat qiling va PRO tarifni oling.
+                                {subscription?.ai_credits === 0 ? (
+                                    "Bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@fsoyilov) ga murojaat qiling va PRO tarifni oling."
+                                ) : (
+                                    "Sizning 7 kunlik bepul sinov muddatingiz (Trial) o'z nihoyasiga yetdi! Dasturdan foydalanishda davom etish uchun PRO tarifga o'ting."
+                                )}
                             </p>
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed max-w-sm mx-auto">

@@ -56,7 +56,7 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                                 </span>
                             ) : (
                                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                    BEPUL
+                                    BEPUL SINOV (TRIAL)
                                 </span>
                             )}
                         </div>
@@ -70,6 +70,25 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                                 </span>
                             </div>
                         </div>
+
+                        {subscription.tier !== 'pro' && (
+                            <div className="pt-2 mt-2 border-t border-gray-200 dark:border-gray-700">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Sinov muddati holati</span>
+                                    {(() => {
+                                        if (!subscription.trial_start_date) return <span className="text-sm font-medium text-gray-900 dark:text-white">Aniqlanmadi</span>;
+                                        const daysPassed = (new Date().getTime() - new Date(subscription.trial_start_date).getTime()) / (1000 * 3600 * 24);
+                                        const daysLeft = Math.max(0, 7 - Math.floor(daysPassed));
+                                        
+                                        if (daysLeft > 0) {
+                                            return <span className="text-sm font-bold text-green-600 dark:text-green-400">{daysLeft} kun qoldi</span>;
+                                        } else {
+                                            return <span className="text-sm font-bold text-red-600 dark:text-red-400">Tugagan</span>;
+                                        }
+                                    })()}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

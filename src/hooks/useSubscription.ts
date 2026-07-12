@@ -6,6 +6,7 @@ export interface UserSubscription {
     tier: 'free' | 'pro';
     ai_credits: number;
     last_reset_date: string;
+    trial_start_date?: string;
 }
 
 export const useSubscription = () => {
@@ -33,7 +34,8 @@ export const useSubscription = () => {
                     setSubscription({
                         tier: subData.tier,
                         ai_credits: subData.ai_credits,
-                        last_reset_date: subData.last_reset_date
+                        last_reset_date: subData.last_reset_date,
+                        trial_start_date: subData.trial_start_date
                     });
                 }
 
@@ -80,7 +82,8 @@ export const useSubscription = () => {
                         ...prev,
                         tier: payload.new.tier,
                         ai_credits: payload.new.ai_credits,
-                        last_reset_date: payload.new.last_reset_date
+                        last_reset_date: payload.new.last_reset_date,
+                        trial_start_date: payload.new.trial_start_date
                     };
                     
                     // LocalStorage ni ham yangilash
