@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit, MessageSquare } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, BrainCircuit, MessageSquare, Zap, Shield } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -43,9 +43,11 @@ const Layout: React.FC = () => {
         { name: 'AI Imtihon', path: '/ai-exam', icon: Sparkles },
         { name: 'AI Chatbot', path: '/ai-chat', icon: MessageSquare },
         { name: 'Aqliy Xarita', path: '/mindmap', icon: BrainCircuit },
+        ...(user?.email === 'fsoyilov@gmail.com' ? [{ name: '👑 Admin', path: '/admin', icon: Shield }] : []),
         ...(user?.email === 'fsoyilov@gmail.com' ? [{ name: '🇯🇵 IT Interview', path: '/interview', icon: Users }] : []),
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
+        { name: 'Tariflar', path: '/pricing', icon: Zap },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
     ];
 

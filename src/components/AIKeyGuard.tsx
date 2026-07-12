@@ -60,10 +60,20 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                             <KeyRound size={32} className="text-indigo-400" />
                         </div>
                         <h2 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
-                            AI Kalitini Kiriting <Sparkles size={20} className="text-yellow-400" />
+                            AI Limitingiz Tugadi <Sparkles size={20} className="text-fuchsia-400" />
                         </h2>
+                        <div className="bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl p-4 mb-4">
+                            <p className="text-sm text-fuchsia-200">
+                                Kunlik bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@fsoyilov) ga murojaat qiling va PRO tarifni oling.
+                            </p>
+                        </div>
                         <p className="text-sm text-slate-400 leading-relaxed max-w-sm mx-auto">
-                            AI funksiyalardan foydalanish uchun o'zingizning <strong className="text-slate-300">bepul</strong> API kalitingizni kiriting. Kalitingiz faqat shu brauzerda saqlanadi.
+                            Yoki o'zingizning shaxsiy Google/DeepSeek API kalitingizni (BYOK) kiritsangiz bo'ladi.
+                        </p>
+                        <p className="text-sm">
+                            <a href="/pricing" className="text-fuchsia-400 font-medium hover:text-fuchsia-300 underline underline-offset-2 flex items-center justify-center gap-1 transition-colors">
+                                Tayyor Pro tariflarini ko'rish <ArrowRight size={14} />
+                            </a>
                         </p>
                     </div>
 

@@ -82,10 +82,26 @@ export const getAIConfig = () => {
  * Returns true if ready to use AI, false if key is missing.
  */
 export const isAIKeyConfigured = (): boolean => {
+    // 1. O'z kaliti bormi? (BYOK)
     const config = getAIConfig();
-    if (config.provider === 'ollama') return true; // Ollama doesn't need an API key
-    if (config.provider === 'deepseek') return !!config.deepseekKey;
-    return !!config.geminiKey; // gemini default
+    if (config.provider === 'ollama') return true; 
+    if (config.provider === 'deepseek' && config.deepseekKey) return true;
+    if (config.provider === 'gemini' && config.geminiKey) return true;
+
+    // 2. Admin obunasi bormi? (Pro yoki Kreditlar)
+    const subStr = localStorage.getItem('study_planner_subscription');
+    if (subStr) {
+        try {
+            const sub = JSON.parse(subStr);
+            if (sub.adminApiKey && (sub.tier === 'pro' || sub.ai_credits > 0)) {
+                return true;
+            }
+        } catch (e) {
+            console.error("Failed to parse subscription", e);
+        }
+    }
+
+    return false;
 };
 
 
@@ -95,10 +111,33 @@ const getAIProvider = async (): Promise<AIProvider> => {
 };
 
 const getGenAI = (userKey?: string) => {
-    if (!userKey) {
-        throw new Error("AI Kaliti yo'q. Iltimos, Sozlamalar bo'limida Google API kalitingizni kiriting.");
+    let keyToUse = userKey;
+    
+    // Fallback 1: LocalStorage config
+    if (!keyToUse) {
+        const config = getAIConfig();
+        keyToUse = config.geminiKey;
     }
-    return new GoogleGenerativeAI(userKey);
+    
+    // Fallback 2: Admin subscription key
+    if (!keyToUse) {
+        const subStr = localStorage.getItem('study_planner_subscription');
+        if (subStr) {
+            try {
+                const sub = JSON.parse(subStr);
+                if (sub.adminApiKey && (sub.tier === 'pro' || sub.ai_credits > 0)) {
+                    keyToUse = sub.adminApiKey;
+                }
+            } catch (e) {
+                console.error("Failed to parse subscription", e);
+            }
+        }
+    }
+
+    if (!keyToUse) {
+        throw new Error("AI Kaliti yo'q. Iltimos, Sozlamalar bo'limida API kalitingizni kiriting yoki PRO tarifni oling.");
+    }
+    return new GoogleGenerativeAI(keyToUse);
 };
 
 /**
@@ -135,13 +174,39 @@ export const parseAIError = (error: unknown): string => {
     return `❌ AI xatoligi yuz berdi: ${msg.substring(0, 150)}`;
 };
 
+import { supabase } from '../lib/supabase';
+
+const decrementCredit = async () => {
+    try {
+        const subStr = localStorage.getItem('study_planner_subscription');
+        if (!subStr) return;
+        
+        const sub = JSON.parse(subStr);
+        // Faqat admin kalitidan foydalanyotgan va "free" tarifidagilar uchun kredit ayiriladi
+        if (sub.tier === 'free' && sub.ai_credits > 0) {
+            const newCredits = sub.ai_credits - 1;
+            sub.ai_credits = newCredits;
+            localStorage.setItem('study_planner_subscription', JSON.stringify(sub));
+            
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.user) {
+                await supabase.from('user_subscriptions').update({ ai_credits: newCredits }).eq('id', data.session.user.id);
+            }
+        }
+    } catch(e) {
+        console.error("Kredit ayirishda xatolik:", e);
+    }
+};
+
 export const requestWithRetry = async <T>(
     operation: () => Promise<T>,
     retries: number = 2, // Reduced from 3
     delay: number = 3000 // Reduced from 20s to 3s for better UX
 ): Promise<T> => {
     try {
-        return await operation();
+        const result = await operation();
+        await decrementCredit(); // Muvaffaqiyatli bo'lsa kreditni ayirish
+        return result;
     } catch (error: unknown) {
         // Handle rate limit (429) or quota issues
         const err = error as { message?: string; status?: number };
