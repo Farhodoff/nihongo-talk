@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckCircle2, Star, Zap, Shield } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
+import { useSubscription } from '../hooks/useSubscription';
 
 const PricingPage: React.FC = () => {
     const navigate = useNavigate();
+    const { subscription } = useSubscription();
+
+    useEffect(() => {
+        if (subscription?.tier === 'pro' || subscription?.tier === 'premium') {
+            navigate('/settings', { replace: true });
+        }
+    }, [subscription, navigate]);
 
     const handleSubscribe = () => {
         const text = encodeURIComponent('Assalom aleykum. Men obuna xarid qilmoqchiman');
