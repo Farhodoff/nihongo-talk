@@ -50,7 +50,11 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                     <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700 space-y-3">
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Joriy Tarif</span>
-                            {subscription.tier === 'pro' ? (
+                            {subscription.tier === 'premium' ? (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-sm">
+                                    <Star size={12} className="fill-white" /> PREMIUM
+                                </span>
+                            ) : subscription.tier === 'pro' ? (
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-white shadow-sm">
                                     <Star size={12} className="fill-white" /> PRO TARIF
                                 </span>
@@ -64,14 +68,14 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">AI Kreditlar</span>
                             <div className="flex items-center gap-2">
-                                <Zap size={16} className={subscription.tier === 'pro' ? "text-fuchsia-500" : "text-yellow-500"} />
+                                <Zap size={16} className={(subscription.tier === 'pro' || subscription.tier === 'premium') ? "text-fuchsia-500" : "text-yellow-500"} />
                                 <span className="font-bold text-gray-900 dark:text-white">
-                                    {subscription.tier === 'pro' ? 'Cheksiz' : `${subscription.ai_credits} ta`}
+                                    {(subscription.tier === 'pro' || subscription.tier === 'premium') ? 'Cheksiz' : `${subscription.ai_credits} ta`}
                                 </span>
                             </div>
                         </div>
 
-                        {subscription.tier !== 'pro' && (
+                        {subscription.tier === 'free' && (
                             <div className="pt-2 mt-2 border-t border-gray-200 dark:border-gray-700">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Sinov muddati holati</span>

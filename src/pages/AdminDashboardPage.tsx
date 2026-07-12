@@ -7,7 +7,7 @@ import { Button } from '../components/ui/Button';
 interface UserSubscription {
     id: string;
     email: string;
-    tier: 'free' | 'pro';
+    tier: 'free' | 'pro' | 'premium';
     ai_credits: number;
     last_reset_date: string;
     created_at: string;
@@ -90,8 +90,7 @@ const AdminDashboardPage: React.FC = () => {
         }
     };
 
-    const toggleUserTier = async (userId: string, currentTier: string) => {
-        const newTier = currentTier === 'free' ? 'pro' : 'free';
+    const setUserTier = async (userId: string, newTier: 'free' | 'pro' | 'premium') => {
         try {
             const { error } = await supabase
                 .from('user_subscriptions')
@@ -214,7 +213,9 @@ const AdminDashboardPage: React.FC = () => {
                                     </td>
                                     <td className="py-4 px-6">
                                         <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${
-                                            sub.tier === 'pro' 
+                                            sub.tier === 'premium'
+                                                ? 'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                                : sub.tier === 'pro' 
                                                 ? 'bg-fuchsia-500/10 text-fuchsia-500 border-fuchsia-500/20' 
                                                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'
                                         }`}>
@@ -236,14 +237,17 @@ const AdminDashboardPage: React.FC = () => {
                                         </div>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <Button 
-                                            variant={sub.tier === 'pro' ? 'outline' : 'default'}
-                                            size="sm"
-                                            onClick={() => toggleUserTier(sub.id, sub.tier)}
-                                            className={sub.tier === 'pro' ? 'text-slate-500' : 'bg-fuchsia-600 hover:bg-fuchsia-700 text-white'}
-                                        >
-                                            {sub.tier === 'pro' ? "PRO ni bekor qilish" : "PRO berish"}
-                                        </Button>
+                                        <div className="flex items-center gap-2">
+                                            <select
+                                                value={sub.tier}
+                                                onChange={(e) => setUserTier(sub.id, e.target.value as any)}
+                                                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm outline-none"
+                                            >
+                                                <option value="free">Free</option>
+                                                <option value="pro">Pro</option>
+                                                <option value="premium">Premium</option>
+                                            </select>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

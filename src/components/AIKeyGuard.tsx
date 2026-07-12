@@ -27,7 +27,7 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     const [saved, setSaved] = useState(false);
 
     // Agar o'zida allaqachon key bo'lsa yoki admin subscription yuklangan bo'lsa
-    const isPro = subscription?.tier === 'pro';
+    const isPro = subscription?.tier === 'pro' || subscription?.tier === 'premium';
     
     // Trial muddatini hisoblash
     const trialDays = 7;

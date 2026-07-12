@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 export interface UserSubscription {
-    tier: 'free' | 'pro';
+    tier: 'free' | 'pro' | 'premium';
     ai_credits: number;
     last_reset_date: string;
     trial_start_date?: string;
