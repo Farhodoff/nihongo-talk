@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
@@ -8,11 +8,19 @@ import TelegramSection from '../components/settings/TelegramSection';
 import GoogleCalendarSection from '../components/settings/GoogleCalendarSection';
 import AIProviderSection from '../components/settings/AIProviderSection';
 import DailyGoalSection from '../components/settings/DailyGoalSection';
-
 import SubscriptionSection from '../components/settings/SubscriptionSection';
+import { User, Sparkles, Sliders, Database } from 'lucide-react';
+
+const TABS = [
+    { id: 'profile', label: 'Profil', icon: User },
+    { id: 'ai', label: 'AI & Integratsiya', icon: Sparkles },
+    { id: 'preferences', label: 'Moslashtirish', icon: Sliders },
+    { id: 'data', label: "Ma'lumotlar", icon: Database },
+];
 
 const SettingsPage: React.FC = () => {
-    const { settings, updateSettings, refreshData } = useStudyData();
+    const { settings, updateSettings, refreshData, user } = useStudyData();
+    const [activeTab, setActiveTab] = useState('profile');
 
     const toggleTheme = () => {
         updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
@@ -36,39 +44,77 @@ const SettingsPage: React.FC = () => {
     };
 
     return (
-        <div className="p-4 md:p-8 max-w-7xl mx-auto">
-            <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Sozlamalar</h2>
-                <p className="text-gray-500 dark:text-gray-400 mt-1">Profil, obuna va moslashtirishlar</p>
+        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen">
+            {/* Header / Profile Header */}
+            <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                        {user?.email?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Sozlamalar</h2>
+                        <p className="text-gray-500 dark:text-gray-400 mt-1">{user?.email}</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="space-y-6 max-w-3xl">
-                {/* Obuna va Tariflar */}
-                <SubscriptionSection />
+            {/* Desktop Tabs / Mobile Scrollable Tabs */}
+            <div className="flex overflow-x-auto scrollbar-hide space-x-1 border-b border-gray-200 dark:border-gray-700 mb-8 pb-1">
+                {TABS.map(tab => {
+                    const isActive = activeTab === tab.id;
+                    const Icon = tab.icon;
+                    return (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap border-b-2 rounded-t-lg ${
+                                isActive 
+                                    ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/20' 
+                                    : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            }`}
+                        >
+                            <Icon size={18} className={isActive ? 'text-indigo-500' : ''} />
+                            {tab.label}
+                        </button>
+                    );
+                })}
+            </div>
 
-                <PreferencesSection
-                    settings={settings}
-                    onToggleTheme={toggleTheme}
-                    onToggleNotifications={toggleNotifications}
-                />
+            {/* Tab Content */}
+            <div className="space-y-6 animate-in fade-in duration-300">
+                {activeTab === 'profile' && (
+                    <div className="space-y-6">
+                        <SubscriptionSection />
+                        <AccountSection />
+                    </div>
+                )}
 
-                {/* AI Models */}
-                <AIProviderSection />
+                {activeTab === 'ai' && (
+                    <div className="space-y-6">
+                        <AIProviderSection />
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                            <TelegramSection />
+                        </div>
+                        <GoogleCalendarSection />
+                    </div>
+                )}
 
-                {/* Daily Goal Section */}
-                <DailyGoalSection />
+                {activeTab === 'preferences' && (
+                    <div className="space-y-6">
+                        <PreferencesSection
+                            settings={settings}
+                            onToggleTheme={toggleTheme}
+                            onToggleNotifications={toggleNotifications}
+                        />
+                        <DailyGoalSection />
+                    </div>
+                )}
 
-                {/* Telegram Integration Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                    <TelegramSection />
-                </div>
-
-                {/* Google Calendar Integration */}
-                <GoogleCalendarSection />
-
-                <DataManagementSection onClearData={handleClearData} />
-
-                <AccountSection />
+                {activeTab === 'data' && (
+                    <div className="space-y-6">
+                        <DataManagementSection onClearData={handleClearData} />
+                    </div>
+                )}
             </div>
         </div>
     );
