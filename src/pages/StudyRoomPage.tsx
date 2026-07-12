@@ -2,9 +2,7 @@ import { ArrowLeft, VideoOff, Clock, Users, PenTool, Loader2, Mic, MicOff, Video
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Editor } from 'tldraw';
-import 'tldraw/tldraw.css';
-
-const TldrawLazy = React.lazy(() => import('tldraw').then(module => ({ default: module.Tldraw })));
+const RoomWhiteboard = React.lazy(() => import('../components/study-room/RoomWhiteboard'));
 import { Button } from '../components/ui/Button';
 import { RoomPomodoro } from '../components/study-room/RoomPomodoro';
 import { supabase } from '../lib/supabase';
@@ -659,7 +657,7 @@ const StudyRoomPage: React.FC = () => {
     const handleWhiteboardMount = (editor: Editor) => {
         editorRef.current = editor;
 
-        const cleanup = editor.store.listen((entry) => {
+        const cleanup = editor.store.listen((entry: any) => {
             if (entry.source !== 'user') return;
 
             try {
@@ -938,9 +936,8 @@ const StudyRoomPage: React.FC = () => {
                             /* WHITEBOARD CONTENT */
                             <div className="flex-1 flex flex-col h-full min-h-[300px] border border-slate-800 rounded-2xl overflow-hidden bg-white touch-none animate-in fade-in duration-300 relative">
                                 <React.Suspense fallback={<div className="flex items-center justify-center h-full text-slate-500">Oq doska yuklanmoqda...</div>}>
-                                    <TldrawLazy
+                                    <RoomWhiteboard
                                         onMount={handleWhiteboardMount}
-                                        licenseKey="tldraw-2026-04-19/WyJGVDdNS09TcCIsWyIqIl0sMTYsIjIwMjYtMDQtMTkiXQ.BW86tQhO9nXNyQ6IIZJl3oracKtUetYw7risI1lZbitBjGYo0BbmD/dQqi/IbESV8TetvGWCXXtUmaPV1itm6A"
                                     />
                                 </React.Suspense>
                             </div>
