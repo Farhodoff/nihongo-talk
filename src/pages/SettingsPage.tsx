@@ -9,6 +9,8 @@ import GoogleCalendarSection from '../components/settings/GoogleCalendarSection'
 import AIProviderSection from '../components/settings/AIProviderSection';
 import DailyGoalSection from '../components/settings/DailyGoalSection';
 
+import SubscriptionSection from '../components/settings/SubscriptionSection';
+
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData } = useStudyData();
 
@@ -37,10 +39,13 @@ const SettingsPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Sozlamalar</h2>
-                <p className="text-gray-500 dark:text-gray-400 mt-1">Tajribangizni moslashtiring</p>
+                <p className="text-gray-500 dark:text-gray-400 mt-1">Profil, obuna va moslashtirishlar</p>
             </div>
 
-            <div className="space-y-6 max-w-2xl">
+            <div className="space-y-6 max-w-3xl">
+                {/* Obuna va Tariflar */}
+                <SubscriptionSection />
+
                 <PreferencesSection
                     settings={settings}
                     onToggleTheme={toggleTheme}

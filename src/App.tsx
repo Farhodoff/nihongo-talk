@@ -32,7 +32,6 @@ const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'));
 const SubjectsPage = lazy(() => import('./pages/SubjectsPage'));
 const MockInterviewPage = lazy(() => import('./pages/MockInterviewPage'));
 const TasksPage = lazy(() => import('./pages/TasksPage'));
-const PricingPage = lazy(() => import('./pages/PricingPage'));
 const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
 
 // Loading component
@@ -116,7 +115,6 @@ const App: React.FC = () => {
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="interview" element={<MockInterviewPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
-                                        <Route path="pricing" element={<PricingPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />
                                     </Route>
                                 </Routes>
