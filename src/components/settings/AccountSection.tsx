@@ -3,10 +3,16 @@ import { Button } from '../ui/Button';
 // import PasswordChangeSection from './PasswordChangeSection';
 import { supabase } from '../../lib/supabase';
 
-interface AccountSectionProps {
-}
+import { useStudyData } from '../../context/StudyPlannerContext';
+import { useSubscription } from '../../hooks/useSubscription';
+import { Mail, Zap, Star } from 'lucide-react';
+
+interface AccountSectionProps {}
 
 const AccountSection: React.FC<AccountSectionProps> = () => {
+    const { user } = useStudyData();
+    const { subscription } = useSubscription();
+
     const handleLogout = async () => {
         if (confirm('Tizimdan chiqishni xohlaysizmi?')) {
             try {
@@ -27,8 +33,46 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                 HISOB SOZLAMALARI
             </div>
 
-            {/* Password Change */}
-            {/* <PasswordChangeSection /> */}
+            <div className="p-6 space-y-6">
+                {user && (
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                            <Mail size={24} />
+                        </div>
+                        <div>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Pochta manzili</p>
+                            <p className="font-medium text-gray-900 dark:text-white">{user.email}</p>
+                        </div>
+                    </div>
+                )}
+
+                {subscription && (
+                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700 space-y-3">
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Joriy Tarif</span>
+                            {subscription.tier === 'pro' ? (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-white shadow-sm">
+                                    <Star size={12} className="fill-white" /> PRO TARIF
+                                </span>
+                            ) : (
+                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                    BEPUL
+                                </span>
+                            )}
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">AI Kreditlar</span>
+                            <div className="flex items-center gap-2">
+                                <Zap size={16} className={subscription.tier === 'pro' ? "text-fuchsia-500" : "text-yellow-500"} />
+                                <span className="font-bold text-gray-900 dark:text-white">
+                                    {subscription.tier === 'pro' ? 'Cheksiz' : `${subscription.ai_credits} ta`}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
 
             <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                 <Button
