@@ -172,11 +172,19 @@ const DashboardPage: React.FC = () => {
                                                 <span className="text-foreground font-medium group-hover:text-primary transition-colors">
                                                     {task.title}
                                                 </span>
-                                                {task.subjectId && (
-                                                    <span className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
                                                         <Clock size={12} /> Bugun
                                                     </span>
-                                                )}
+                                                    {task.subjectId && subjects.find(s => s.id === task.subjectId) && (
+                                                        <span 
+                                                            className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm"
+                                                            style={{ backgroundColor: subjects.find(s => s.id === task.subjectId)?.color || '#6366f1' }}
+                                                        >
+                                                            {subjects.find(s => s.id === task.subjectId)?.name}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -227,9 +235,19 @@ const DashboardPage: React.FC = () => {
                                                 <span className="text-gray-900 dark:text-white font-medium">
                                                     {task.title}
                                                 </span>
-                                                <span className="text-xs text-red-500 font-medium flex items-center gap-1 mt-1">
-                                                    <Clock size={12} /> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Muddat o\'tib ketgan'}
-                                                </span>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className="text-xs text-red-500 font-medium flex items-center gap-1">
+                                                        <Clock size={12} /> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Muddat o\'tib ketgan'}
+                                                    </span>
+                                                    {task.subjectId && subjects.find(s => s.id === task.subjectId) && (
+                                                        <span 
+                                                            className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm opacity-90"
+                                                            style={{ backgroundColor: subjects.find(s => s.id === task.subjectId)?.color || '#6366f1' }}
+                                                        >
+                                                            {subjects.find(s => s.id === task.subjectId)?.name}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
