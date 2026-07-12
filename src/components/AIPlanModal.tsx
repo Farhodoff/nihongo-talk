@@ -20,6 +20,8 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
     const [resources, setResources] = useState<SmartResource[]>([]);
     const [createGoal, setCreateGoal] = useState(true);
     const [activeTab, setActiveTab] = useState<'plan' | 'resources'>('plan');
+    const [level, setLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
+    const [learningStyle, setLearningStyle] = useState<'visual' | 'reading' | 'practical'>('visual');
 
     if (!isOpen) return null;
 
@@ -45,7 +47,14 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
         setIsLoading(true);
         try {
             // Optimized: Single API call for both Plan and Resources
-            const fullPlan = await generateFullStudyPlan(effectiveTopic, days, hoursPerDay, settings.googleApiKey);
+            const fullPlan = await generateFullStudyPlan(
+                effectiveTopic, 
+                days, 
+                hoursPerDay, 
+                level,
+                learningStyle,
+                settings.googleApiKey
+            );
 
             setPreviewTasks(fullPlan.schedule || []);
             setResources(fullPlan.resources || []);
@@ -174,15 +183,42 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
                                 />
                             </div>
 
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kunlik O'qish (Soat)</label>
+                                    <input
+                                        type="number"
+                                        value={hoursPerDay}
+                                        onChange={e => setHoursPerDay(Number(e.target.value))}
+                                        min={1} max={12}
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sizning Darajangiz</label>
+                                    <select
+                                        value={level}
+                                        onChange={e => setLevel(e.target.value as any)}
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+                                    >
+                                        <option value="beginner">Boshlang'ich</option>
+                                        <option value="intermediate">O'rta</option>
+                                        <option value="advanced">Kuchli</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kunlik O'qish Soati</label>
-                                <input
-                                    type="number"
-                                    value={hoursPerDay}
-                                    onChange={e => setHoursPerDay(Number(e.target.value))}
-                                    min={1} max={12}
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Asosiy O'rganish Uslubi</label>
+                                <select
+                                    value={learningStyle}
+                                    onChange={e => setLearningStyle(e.target.value as any)}
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
-                                />
+                                >
+                                    <option value="visual">Ko'proq Videolar ko'rish</option>
+                                    <option value="practical">Ko'proq Amaliyot/Kod yozish</option>
+                                    <option value="reading">Ko'proq Maqola/Kitob o'qish</option>
+                                </select>
                             </div>
 
                             <Button onClick={handleGenerate} disabled={isLoading || (!topic && !selectedSubject)} className="w-full py-4 mt-4 bg-indigo-600 hover:bg-indigo-700">

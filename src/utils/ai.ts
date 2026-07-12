@@ -417,48 +417,64 @@ export const generateFullStudyPlan = async (
     topic: string,
     daysUntilExam: number,
     hoursPerDay: number,
+    level: 'beginner' | 'intermediate' | 'advanced' = 'beginner',
+    learningStyle: 'visual' | 'reading' | 'practical' = 'visual',
     userKey?: string
 ): Promise<FullStudyPlan> => {
-    const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}`;
+    const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}-${level}-${learningStyle}`;
     if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as FullStudyPlan;
 
+    const levelDescriptions = {
+        beginner: "This user is completely new to the topic. Explain fundamentals simply and clearly without jargon.",
+        intermediate: "This user knows the basics. Skip introductions and focus on core concepts and deeper understanding.",
+        advanced: "This user is experienced. Focus entirely on advanced topics, edge cases, best practices, and complex problems."
+    };
+
+    const styleDescriptions = {
+        visual: "Focus heavily on recommending YouTube video tutorials, visual diagrams, and interactive content.",
+        reading: "Focus heavily on recommending official documentation, books, and detailed articles/blogs.",
+        practical: "Focus heavily on coding exercises, hands-on projects, platforms like LeetCode/HackerRank, and practical labs."
+    };
+
     const prompt = `
-        Act as an expert academic advisor. Create a comprehensive study program for: "${topic}".
-        Duration: ${daysUntilExam} days.
-        Intensity: ${hoursPerDay} hours/day.
+        Sen professional Akademik Mentor va O'quv Rejalashtiruvchi uztozsan.
+        Mavzu: "${topic}".
+        Muddati: ${daysUntilExam} kun.
+        Kunlik vaqt: ${hoursPerDay} soat.
+        Foydalanuvchi darajasi: ${level} (${levelDescriptions[level]}).
+        O'rganish uslubi: ${learningStyle} (${styleDescriptions[learningStyle]}).
 
-        TASK 1: DAILY SCHEDULE
-        Break down the subject into a logical curriculum.
-        - Group by concepts.
-        - For EACH DAY (0 to ${daysUntilExam - 1}), provide a specific task.
-        - Allow 1 Rest Day/Review Day per week if duration > 6 days.
+        VAZIFA 1: KUNLIK JADVAL (Kuniga bittadan vazifa)
+        Mavzuni foydalanuvchi darajasiga qarab to'g'ri taqsimla.
+        - Har bir kun uchun bitta vazifa (0 dan ${daysUntilExam - 1} gacha).
+        - Har bir vazifaning "description" qismida: "Nima uchun bu muhim?" va "Qanday qilib amaliyot qilish kerak?" degan savollarga qisqacha o'zbek tilida javob yoz. (Masalan: "Bu tushuncha Reactda holatni boshqarish uchun muhim. Buni amaliyotda Todo app qilib sinab ko'ring.")
+        - Agar muddat 6 kundan ko'p bo'lsa, har haftada 1 kunni "Takrorlash (Review)" yoki "Amaliyot" uchun ajrat.
 
-        TASK 2: SMART RESOURCES (Exactly 6 items)
-        Recommend high-quality learning materials:
-        - 2 VIDEOS (YouTube channels/videos, English & Uzbek mix).
-        - 2 ARTICLES/WEBSITES (Docs/Blogs).
-        - 2 BOOKS or COURSES.
-        - For descriptions, use Uzbek language.
-        - For links, if no direct URL, use a specific search query.
+        VAZIFA 2: ENG ZO'R RESURSLAR (Aynan 6 ta taqdim et)
+        Foydalanuvchining o'rganish uslubiga (${learningStyle}) eng mos keladigan eng sifatli 6 ta resursni tanla.
+        - Ta'riflar (description) albatta o'zbek tilida bo'lishi shart!
+        - "link" (havola) qismiga ishlamaydigan fake url bermang! Agar aniq urlni bilmasangiz, qidiruv tizimi urlidan foydalaning. Masalan:
+          - Video uchun: "https://www.youtube.com/results?search_query=..."
+          - Kitob/Maqola uchun: "https://www.google.com/search?q=..."
 
         OUTPUT FORMAT:
-        Return A SINGLE VALID JSON OBJECT with two keys: "schedule" and "resources".
+        Faqat va faqat YAGONA VALID JSON obyekt qaytar. Hech qanday markdown, izoh yoki text qo'shma. JSON struktura quyidagicha bo'lishi shart:
         
         {
           "schedule": [
             { 
-              "title": "Topic Name", 
-              "dayOffset": 0, // 0 = Today
-              "duration": 60, // minutes
-              "description": "Instruction..." 
+              "title": "Vazifa nomi", 
+              "dayOffset": 0, // 0 = Bugun
+              "duration": ${hoursPerDay * 60}, // minutlarda
+              "description": "Nima uchun muhim va qanday amaliyot qilish bo'yicha ko'rsatma..." 
             }
           ],
           "resources": [
             {
-              "title": "Resource Title",
+              "title": "Resurs nomi (Masalan: 'Traversy Media - React Crash Course')",
               "type": "video" | "article" | "book" | "course",
-              "description": "Short description in Uzbek.",
-              "link": "https://... or search query"
+              "description": "Nima uchun bu resurs yaxshi ekanligi haqida qisqacha o'zbekcha ta'rif.",
+              "link": "https://www.youtube.com/results?search_query=react+crash+course"
             }
           ]
         }

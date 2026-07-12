@@ -21,6 +21,15 @@ const AdminDashboardPage: React.FC = () => {
     const [savingKey, setSavingKey] = useState(false);
     const [keySaved, setKeySaved] = useState(false);
 
+    useEffect(() => {
+        // Faqat admin bo'lsa ma'lumotlarni tortamiz
+        if (user?.email === 'fsoyilov@gmail.com') {
+            fetchAdminData();
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
+
     // Xavfsizlik: Faqat Admin kira oladi
     if (user?.email !== 'fsoyilov@gmail.com') {
         return (
@@ -33,10 +42,6 @@ const AdminDashboardPage: React.FC = () => {
             </div>
         );
     }
-
-    useEffect(() => {
-        fetchAdminData();
-    }, []);
 
     const fetchAdminData = async () => {
         setLoading(true);
