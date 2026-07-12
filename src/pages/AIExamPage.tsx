@@ -4,6 +4,7 @@ import { ArrowLeft, Sparkles, Loader2, Award, CheckCircle2, XCircle, ChevronRigh
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { generateExamWithAI, ExamQuestion } from '../utils/ai';
+import AIKeyGuard from '../components/AIKeyGuard';
 
 const AIExamPage: React.FC = () => {
     const { id: routeSubjectId } = useParams<{ id?: string }>();
@@ -343,4 +344,10 @@ const AIExamPage: React.FC = () => {
     );
 };
 
-export default AIExamPage;
+const AIExamPageWithGuard: React.FC = () => (
+    <AIKeyGuard>
+        <AIExamPage />
+    </AIKeyGuard>
+);
+
+export default AIExamPageWithGuard;

@@ -50,8 +50,8 @@ const aiCache = {
 export const getAIConfig = () => {
     const savedStr = localStorage.getItem('study_planner_ai_settings');
     let aiModel = 'gemini';
-    let deepseekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
-    let geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    let deepseekKey = '';
+    let geminiKey = '';
 
     let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
     let deepseekThinkingMode = false;
@@ -61,6 +61,7 @@ export const getAIConfig = () => {
             const saved = JSON.parse(savedStr);
             if (saved.aiModel) aiModel = saved.aiModel;
             if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
+            if (saved.googleApiKey) geminiKey = saved.googleApiKey;
             if (saved.deepseekModel) deepseekModel = saved.deepseekModel;
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
         } catch (e) {
@@ -75,6 +76,18 @@ export const getAIConfig = () => {
         deepseekThinkingMode
     };
 };
+
+/**
+ * Checks if the user has configured a valid AI API key for their selected provider.
+ * Returns true if ready to use AI, false if key is missing.
+ */
+export const isAIKeyConfigured = (): boolean => {
+    const config = getAIConfig();
+    if (config.provider === 'ollama') return true; // Ollama doesn't need an API key
+    if (config.provider === 'deepseek') return !!config.deepseekKey;
+    return !!config.geminiKey; // gemini default
+};
+
 
 const getAIProvider = async (): Promise<AIProvider> => {
     const config = getAIConfig();

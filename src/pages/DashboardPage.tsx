@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CountdownWidget from '../components/CountdownWidget';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
-import { generateStudyInsight } from '../utils/ai';
+import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Sparkles } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
@@ -74,7 +74,7 @@ const DashboardPage: React.FC = () => {
     }, [subjects, sessions, tasks, flashcards]);
 
     useEffect(() => {
-        if (subjectsStats.length === 0 || loading) return;
+        if (subjectsStats.length === 0 || loading || !isAIKeyConfigured()) return;
 
         const loadInsights = async () => {
             setIsAiInsightsLoading(true);

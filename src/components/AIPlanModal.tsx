@@ -2,7 +2,7 @@ import { BookOpen, Loader2, Sparkles, Youtube } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateFullStudyPlan, SmartResource, FullStudyPlan } from '../utils/ai';
+import { generateFullStudyPlan, SmartResource, FullStudyPlan, isAIKeyConfigured } from '../utils/ai';
 
 interface AIPlanModalProps {
     isOpen: boolean;
@@ -24,6 +24,10 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const handleGenerate = async () => {
+        if (!isAIKeyConfigured()) {
+            alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+            return;
+        }
         if (!topic && !selectedSubject) return;
 
         const effectiveTopic = topic || subjects.find(s => s.id === selectedSubject)?.name || '';

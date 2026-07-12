@@ -6,7 +6,7 @@ import FontSelector from '../components/FontSelector';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
-import { generateFlashcardsFromNote, expandNoteWithAI, summarizeNoteWithAI, fixNoteSpellingWithAI } from '../utils/ai';
+import { generateFlashcardsFromNote, expandNoteWithAI, summarizeNoteWithAI, fixNoteSpellingWithAI, isAIKeyConfigured } from '../utils/ai';
 
 const NoteEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -55,6 +55,9 @@ const NoteEditorPage: React.FC = () => {
     };
 
     const handleGenerateFlashcards = async () => {
+        if (!isAIKeyConfigured()) {
+            return alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+        }
         if (!content.trim() || content.length < 50) {
             return alert('Fleshkartalar yaratish uchun kamida 50 ta belgi bo\'lgan matn kerak.');
         }
@@ -86,6 +89,7 @@ const NoteEditorPage: React.FC = () => {
     };
 
     const handleAIAction = async (action: 'expand' | 'summarize' | 'fix') => {
+        if (!isAIKeyConfigured()) return alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
         if (!content.trim()) return alert('AI ishlov berishi uchun konspekt matni yozilgan bo\'lishi kerak!');
         if (!subjectId) return alert('Iltimos, avval fanni tanlang!');
 

@@ -5,6 +5,7 @@ import mermaid from 'mermaid';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { BrainCircuit, Sparkles, Download, Copy, Loader2, ZoomIn, ZoomOut, Maximize, AlertCircle, Send, ChevronUp, ChevronDown, Fullscreen, Minimize2 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import AIKeyGuard from '../components/AIKeyGuard';
 
 // Initialize mermaid
 mermaid.initialize({
@@ -306,4 +307,10 @@ const AIMindMapPage: React.FC = () => {
     );
 };
 
-export default AIMindMapPage;
+const AIMindMapPageWithGuard: React.FC = () => (
+    <AIKeyGuard>
+        <AIMindMapPage />
+    </AIKeyGuard>
+);
+
+export default AIMindMapPageWithGuard;

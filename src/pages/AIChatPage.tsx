@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { chatWithAI, ChatMessage } from '../utils/ai';
 import { Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip } from 'lucide-react';
-
+import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';
 import { Subject } from '../types';
 
@@ -234,4 +234,10 @@ const AIChatPage: React.FC = () => {
     );
 };
 
-export default AIChatPage;
+const AIChatPageWithGuard: React.FC = () => (
+    <AIKeyGuard>
+        <AIChatPage />
+    </AIKeyGuard>
+);
+
+export default AIChatPageWithGuard;

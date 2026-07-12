@@ -2,7 +2,7 @@ import { Bot, Loader2, Save, Sparkles, X } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateFlashcardsWithAI } from '../utils/ai';
+import { generateFlashcardsWithAI, isAIKeyConfigured } from '../utils/ai';
 
 interface AIGeneratorModalProps {
     isOpen: boolean;
@@ -23,6 +23,10 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
     if (!isOpen) return null;
 
     const handleGenerate = async () => {
+        if (!isAIKeyConfigured()) {
+            alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+            return;
+        }
         if (!topic.trim()) return;
         if (!subjectId) {
             alert("Iltimos, avval fanni tanlang!");

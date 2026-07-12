@@ -4,6 +4,7 @@ import { callDeepSeek } from '../utils/deepseek';
 import { getAIConfig } from '../utils/ai';
 import { getJapaneseRecruiterPrompt } from '../utils/interviewPrompts';
 import { Mic, MicOff, Send, MessageSquare, AlertCircle } from 'lucide-react';
+import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
 
@@ -284,4 +285,10 @@ const MockInterviewPage: React.FC = () => {
     );
 };
 
-export default MockInterviewPage;
+const MockInterviewPageWithGuard: React.FC = () => (
+    <AIKeyGuard>
+        <MockInterviewPage />
+    </AIKeyGuard>
+);
+
+export default MockInterviewPageWithGuard;

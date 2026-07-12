@@ -2,7 +2,7 @@ import { Brain, Lightbulb, Loader2, Sparkles } from 'lucide-react';
 import React, { useState, memo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateStudyInsight } from '../utils/ai';
+import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Button } from './ui/Button';
 import { StudySession, Subject } from '../types';
 
@@ -17,8 +17,8 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
     const [loading, setLoading] = useState(false);
 
     const handleAnalyze = useCallback(async () => {
-        if (!googleApiKey) {
-            alert("Iltimos, avval Sozlamalar sahifasida Google API kalitini kiriting.");
+        if (!isAIKeyConfigured()) {
+            alert("Iltimos, avval Sozlamalar sahifasida AI API kalitini kiriting.");
             return;
         }
 
