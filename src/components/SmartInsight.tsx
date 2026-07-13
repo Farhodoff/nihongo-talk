@@ -3,6 +3,7 @@ import React, { useState, memo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
+import MermaidViewer from './MermaidViewer';
 import { Button } from './ui/Button';
 import { StudySession, Subject } from '../types';
 
@@ -95,7 +96,23 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                                 <Lightbulb size={32} />
                             </div>
                             <div className="prose prose-invert prose-lg max-w-none">
-                                <ReactMarkdown>{insight}</ReactMarkdown>
+                                <ReactMarkdown
+                                    components={{
+                                        code({ node, inline, className, children, ...props }: any) {
+                                            const match = /language-(\w+)/.exec(className || '');
+                                            if (!inline && match && match[1] === 'mermaid') {
+                                                return <MermaidViewer chart={String(children).replace(/\n$/, '')} />;
+                                            }
+                                            return (
+                                                <code className={className} {...props}>
+                                                    {children}
+                                                </code>
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {insight}
+                                </ReactMarkdown>
                             </div>
                         </div>
                         <div className="mt-6 flex justify-end">
