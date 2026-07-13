@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';
+import MermaidViewer from '../components/MermaidViewer';
 import { Subject } from '../types';
 import { Button } from '../components/ui/Button';
 import mermaid from 'mermaid';
@@ -460,7 +461,21 @@ const AIAssistantPage: React.FC = () => {
                                             </div>
                                             <div className={`flex flex-col gap-1 max-w-[85%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                                                 <div className={`px-4 py-3 rounded-2xl shadow-sm text-[15px] leading-relaxed ${msg.role === 'user' ? 'bg-primary text-primary-foreground rounded-tr-sm' : 'bg-card border border-border text-foreground rounded-tl-sm'}`}>
-                                                    {msg.role === 'user' ? <p className="whitespace-pre-wrap">{msg.text}</p> : <div className="prose prose-sm dark:prose-invert max-w-none break-words"><ReactMarkdown>{msg.text}</ReactMarkdown></div>}
+                                                    {msg.role === 'user' ? <p className="whitespace-pre-wrap">{msg.text}</p> : <div className="prose prose-sm dark:prose-invert max-w-none break-words"><ReactMarkdown
+                                                        components={{
+                                                            code({ node, inline, className, children, ...props }: any) {
+                                                                const match = /language-(\w+)/.exec(className || '');
+                                                                if (!inline && match && match[1] === 'mermaid') {
+                                                                    return <MermaidViewer chart={String(children).replace(/\n$/, '')} />;
+                                                                }
+                                                                return (
+                                                                    <code className={className} {...props}>
+                                                                        {children}
+                                                                    </code>
+                                                                );
+                                                            }
+                                                        }}
+                                                    >{msg.text}</ReactMarkdown></div>}
                                                 </div>
                                                 {msg.role === 'model' && (
                                                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

@@ -1,6 +1,7 @@
 import { ArrowLeft, Save, Sparkles } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
+import MermaidViewer from '../components/MermaidViewer';
 import { useNavigate, useParams } from 'react-router-dom';
 import FontSelector from '../components/FontSelector';
 import { Button } from '../components/ui/Button';
@@ -265,7 +266,23 @@ const NoteEditorPage: React.FC = () => {
                     ) : (
                         /* PREVIEW MODE */
                         <div className="prose prose-lg prose-slate dark:prose-invert max-w-none">
-                            <Markdown>{content || '*Mazmun yozilmagan*'}</Markdown>
+                            <Markdown
+                                components={{
+                                    code({ node, inline, className, children, ...props }: any) {
+                                        const match = /language-(\w+)/.exec(className || '');
+                                        if (!inline && match && match[1] === 'mermaid') {
+                                            return <MermaidViewer chart={String(children).replace(/\n$/, '')} />;
+                                        }
+                                        return (
+                                            <code className={className} {...props}>
+                                                {children}
+                                            </code>
+                                        );
+                                    }
+                                }}
+                            >
+                                {content || '*Mazmun yozilmagan*'}
+                            </Markdown>
                         </div>
                     )}
                 </div>

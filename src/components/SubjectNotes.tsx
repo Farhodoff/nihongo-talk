@@ -4,6 +4,7 @@ import Markdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
 import { StudyNote } from '../types';
+import MermaidViewer from './MermaidViewer';
 import FontSelector from './FontSelector';
 import { Button } from './ui/Button';
 
@@ -130,7 +131,23 @@ const SubjectNotes: React.FC<SubjectNotesProps> = ({ subjectId }) => {
                         /* PREVIEW MODE */
                         <div className="w-full h-full overflow-y-auto p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
                             <div className="prose prose-slate dark:prose-invert max-w-none">
-                                <Markdown>{content || '*Natija shu yerda ko\'rinadi*'}</Markdown>
+                                <Markdown
+                                    components={{
+                                        code({ node, inline, className, children, ...props }: any) {
+                                            const match = /language-(\w+)/.exec(className || '');
+                                            if (!inline && match && match[1] === 'mermaid') {
+                                                return <MermaidViewer chart={String(children).replace(/\n$/, '')} />;
+                                            }
+                                            return (
+                                                <code className={className} {...props}>
+                                                    {children}
+                                                </code>
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {content || '*Natija shu yerda ko\'rinadi*'}
+                                </Markdown>
                             </div>
                         </div>
                     )}
