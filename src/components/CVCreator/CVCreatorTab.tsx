@@ -46,7 +46,7 @@ export const CVCreatorTab: React.FC = () => {
         documentTitle: cvData ? `${cvData.personalInfo.fullName}_Resume` : 'Resume'
     });
 
-    const handleGenerateCV = async (rawInput: any, language: 'en' | 'ja') => {
+    const handleGenerateCV = async (rawInput: Record<string, string>, language: 'en' | 'ja') => {
         if (!hasCredits && !adminApiKey) {
             setError("AI kreditlaringiz tugagan. Iltimos, obunangizni yangilang.");
             return;
@@ -104,7 +104,7 @@ ${rawInput.rawEducation}
             });
             setAdvice(parsedData.advice || null);
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
             setError("CV yaratishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.");
         } finally {

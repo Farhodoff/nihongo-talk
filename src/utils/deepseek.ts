@@ -23,7 +23,7 @@ export const callDeepSeek = async (
     modelName: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash',
     thinkingEnabled: boolean = false
 ): Promise<string> => {
-    const messages: any[] = [];
+    const messages: { role: string; content: string }[] = [];
     if (systemPrompt) {
         messages.push({ role: "system", content: systemPrompt });
     }
@@ -62,6 +62,7 @@ export const callDeepSeek = async (
 
 
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await client.chat.completions.create(payload as any);
 
     return response.choices[0].message.content || '';
