@@ -859,15 +859,25 @@ export const generateMindMapWithAI = async (
     userKey?: string
 ): Promise<string> => {
     const prompt = `
-      Siz expert darajasidagi Mind Map yaratuvchisiz.
-      Foydalanuvchining konspektidan vizual ko'rinishda tushunarli Mermaid.js "mindmap" yoki "graph TD" kodini yarating.
+      Siz expert darajasidagi Mind Map yaratuvchi AIsiz.
+      Foydalanuvchi sizga mavzu, yo'riqnoma yoki matn beradi.
+      Sizning vazifangiz shu mavzuni chuqur tahlil qilib, kerakli barcha ma'lumotlarni (konseptlar, texnologiyalar, misollar) o'zingizning bilimingizdan qo'shgan holda, batafsil va keng qamrovli Mermaid.js "mindmap" kodini yaratishdir.
       
-      Konspekt matni: "${content.substring(0, 4000)}"
+      Foydalanuvchi so'rovi: "${content.substring(0, 4000)}"
       
       Qoidalar:
-      1. Eng asosiy mavzuni markazga qo'ying va tarmoqlang.
-      2. Hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid belgilarisiz).
-      3. O'zbek tilidan foydalaning.
+      1. Agar foydalanuvchi shunchaki mavzu (masalan, "JavaScript") yoki qandaydir yo'riqnoma bersa, siz uning ichini o'zingizning bilimingiz asosida aniq va to'g'ri ma'lumotlar bilan to'ldiring. Aslo quruq sarlavhalarning o'zini qaytarmang!
+      2. Agar foydalanuvchi xarita qanday shoxlarga bo'linishi kerakligini aytgan bo'lsa, o'sha shoxlarni yarating va har bir shoxning ichini tegishli muhim mavzular (terminlar, texnologiyalar, tushunchalar) bilan kengaytiring.
+      3. Hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid yoki \`\`\`markdown belgilarisiz, to'g'ridan to'g'ri "mindmap" so'zidan boshlang).
+      4. O'zbek tilidan foydalaning.
+      5. Mermaid.js ning "mindmap" formatidan foydalaning. Misol:
+mindmap
+  root((Mavzu nomi))
+    Tarmoq 1
+      Ost-tarmoq 1
+      Ost-tarmoq 2
+    Tarmoq 2
+      Ost-tarmoq 3
     `;
 
     try {

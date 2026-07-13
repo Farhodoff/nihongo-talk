@@ -49,7 +49,12 @@ export const callDeepSeek = async (
         });
 
         if (!response.ok) {
-            throw new Error(`Backend proxy error: ${response.status}`);
+            let errorMsg = `Backend proxy error: ${response.status}`;
+            try {
+                const errorText = await response.text();
+                errorMsg += ` - ${errorText}`;
+            } catch (e) {}
+            throw new Error(errorMsg);
         }
 
         const data = await response.json();
