@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Loader2, Wand2, Plus, Trash2 } from 'lucide-react';
+import { Loader2, Wand2, Plus, Trash2, Sparkles, X } from 'lucide-react';
+
+const AI_SUGGESTIONS = [
+    "Communication", "Teamwork", "Problem-solving", "Adaptability",
+    "Project Management", "Client Relations", "Process Improvement",
+    "React", "Node.js", "TypeScript", "Tailwind CSS", "Data Analysis",
+    "Time Management", "Leadership", "Git/GitHub"
+];
 
 interface CVFormProps {
     onSubmit: (data: Record<string, string>, language: 'en' | 'ja') => void;
@@ -24,6 +31,32 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
         { id: Date.now().toString(), title: '', company: '', period: '', description: '' }
     ]);
 
+    const [skills, setSkills] = useState<string[]>([]);
+    const [skillInput, setSkillInput] = useState('');
+
+    const handleAddSkill = () => {
+        const s = skillInput.trim();
+        if (s && !skills.includes(s)) {
+            setSkills(prev => [...prev, s]);
+        }
+        setSkillInput('');
+    };
+
+    const handleKeyDownSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAddSkill();
+        }
+    };
+
+    const toggleSuggestion = (suggestion: string) => {
+        if (skills.includes(suggestion)) {
+            setSkills(prev => prev.filter(s => s !== suggestion));
+        } else {
+            setSkills(prev => [...prev, suggestion]);
+        }
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -35,7 +68,7 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
             return `Ish ${index + 1}:\nKompaniya: ${job.company}\nLavozim: ${job.title}\nVaqti: ${job.period}\nNima ishlar qilgan: ${job.description}`;
         }).join('\n\n');
         
-        onSubmit({ ...formData, rawExperience: combinedExperience }, language);
+        onSubmit({ ...formData, rawExperience: combinedExperience, rawSkills: skills.join(', ') }, language);
     };
 
     const isFormValid = formData.fullName && jobs[0]?.company;
@@ -184,6 +217,68 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
                         className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-y" 
                         placeholder="Masalan: 2018-2022 TATU ni Dasturiy Injiniring yo'nalishida tugatganman." 
                     />
+                </div>
+
+                {/* Skills */}
+                <div>
+                    <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">Qobiliyatlar (Skills)</h4>
+                    <p className="text-xs text-slate-500 mb-3">6 dan 8 tagacha asosiy skillaringizni kiriting. AI tavsiyalaridan ham foydalanishingiz mumkin.</p>
+                    
+                    <div className="flex gap-2 mb-3">
+                        <input 
+                            type="text" 
+                            value={skillInput}
+                            onChange={(e) => setSkillInput(e.target.value)}
+                            onKeyDown={handleKeyDownSkill}
+                            className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                            placeholder="e.g. Data Analysis"
+                        />
+                        <button 
+                            type="button" 
+                            onClick={handleAddSkill}
+                            className="px-4 py-2 bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 font-medium rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors flex items-center gap-1"
+                        >
+                            <Plus className="w-4 h-4" /> Add
+                        </button>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {skills.map(skill => (
+                            <span key={skill} className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 rounded-full text-sm font-medium">
+                                {skill}
+                                <button type="button" onClick={() => toggleSuggestion(skill)} className="hover:text-indigo-900 dark:hover:text-indigo-100">
+                                    <X className="w-3 h-3" />
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+                            <Sparkles className="w-4 h-4" />
+                            <span>AI Suggestions</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {AI_SUGGESTIONS.map(suggestion => {
+                                const isSelected = skills.includes(suggestion);
+                                return (
+                                    <button
+                                        key={suggestion}
+                                        type="button"
+                                        onClick={() => toggleSuggestion(suggestion)}
+                                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                                            isSelected 
+                                                ? 'bg-indigo-600 text-white shadow-sm' 
+                                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600 hover:border-indigo-300 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400'
+                                        }`}
+                                    >
+                                        <Plus className={`w-3.5 h-3.5 ${isSelected ? 'rotate-45' : ''} transition-transform`} />
+                                        {suggestion}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
 
                 {/* Certificates */}

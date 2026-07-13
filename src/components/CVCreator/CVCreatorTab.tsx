@@ -67,8 +67,11 @@ Location: ${rawInput.location}
 LinkedIn: ${rawInput.linkedin}
 GitHub: ${rawInput.github}
 
-Raw Experience & Skills provided by user:
+Raw Experience provided by user:
 ${rawInput.rawExperience}
+
+Raw Skills provided by user:
+${rawInput.rawSkills}
 
 Raw Education provided by user:
 ${rawInput.rawEducation}
