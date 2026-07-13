@@ -139,8 +139,13 @@ export const useSubscription = () => {
         }
     };
 
+    // Super Admin uchun obunani doim "premium" qilib ko'rsatish
+    const effectiveSubscription = user?.email === 'fsoyilov@gmail.com' 
+        ? { ...(subscription || {} as UserSubscription), tier: 'premium' as const, ai_credits: 9999 }
+        : subscription;
+
     return {
-        subscription,
+        subscription: effectiveSubscription,
         adminApiKey,
         loading,
         decrementCredit,
