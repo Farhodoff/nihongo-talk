@@ -107,7 +107,7 @@ const AdminDashboardPage: React.FC = () => {
 
     const setUserTier = async (userId: string, newTier: 'free' | 'pro' | 'premium') => {
         try {
-            let validUntil = null;
+            let validUntil: string | undefined = undefined;
             if (newTier !== 'free') {
                 const date = new Date();
                 date.setMonth(date.getMonth() + 1);
@@ -116,7 +116,7 @@ const AdminDashboardPage: React.FC = () => {
 
             const { error } = await supabase
                 .from('user_subscriptions')
-                .update({ tier: newTier, valid_until: validUntil })
+                .update({ tier: newTier, valid_until: validUntil || null })
                 .eq('id', userId);
 
             if (error) throw error;
