@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, Plus, Trash2 } from 'lucide-react';
 
 interface CVFormProps {
     onSubmit: (data: Record<string, string>, language: 'en' | 'ja') => void;
@@ -20,6 +20,10 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
         certificates: '',
     });
 
+    const [jobs, setJobs] = useState([
+        { id: Date.now().toString(), title: '', company: '', period: '', description: '' }
+    ]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -27,10 +31,14 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(formData, language);
+        const combinedExperience = jobs.map((job, index) => {
+            return `Ish ${index + 1}:\nKompaniya: ${job.company}\nLavozim: ${job.title}\nVaqti: ${job.period}\nNima ishlar qilgan: ${job.description}`;
+        }).join('\n\n');
+        
+        onSubmit({ ...formData, rawExperience: combinedExperience }, language);
     };
 
-    const isFormValid = formData.fullName && formData.rawExperience;
+    const isFormValid = formData.fullName && jobs[0]?.company;
 
     return (
         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
@@ -94,17 +102,75 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
 
                 {/* Experience & Skills */}
                 <div>
-                    <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">Ish Tajribasi va Skillar *</h4>
-                    <p className="text-xs text-slate-500 mb-3">Erkin tilda ishlagan joylaringiz, qaysi texnologiyalardan foydalanganingiz va nimalar qilganingizni yozing.</p>
-                    <textarea 
-                        required
-                        name="rawExperience" 
-                        value={formData.rawExperience} 
-                        onChange={handleChange} 
-                        rows={6}
-                        className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-y" 
-                        placeholder="Masalan: 2021-yildan beri Epam kompaniyasida Frontend dasturchi bo'lib ishlayman. React va Node.js ni yaxshi bilaman. Asosan payment tizimlarini qildik..." 
-                    />
+                    <div className="flex items-center justify-between mb-2">
+                        <h4 className="text-base font-semibold text-slate-900 dark:text-white">Ish Tajribasi *</h4>
+                        <button
+                            type="button"
+                            onClick={() => setJobs(prev => [...prev, { id: Date.now().toString(), title: '', company: '', period: '', description: '' }])}
+                            className="flex items-center gap-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+                        >
+                            <Plus className="w-4 h-4" />
+                            Yana ish qo'shish
+                        </button>
+                    </div>
+                    
+                    <div className="space-y-4">
+                        {jobs.map((job) => (
+                            <div key={job.id} className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 relative">
+                                {jobs.length > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setJobs(prev => prev.filter(j => j.id !== job.id))}
+                                        className="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                )}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Lavozim (Role)</label>
+                                        <input 
+                                            type="text" 
+                                            value={job.title} 
+                                            onChange={(e) => setJobs(prev => prev.map(j => j.id === job.id ? { ...j, title: e.target.value } : j))}
+                                            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none" 
+                                            placeholder="Masalan: Frontend dasturchi" 
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Kompaniya</label>
+                                        <input 
+                                            type="text" 
+                                            value={job.company} 
+                                            onChange={(e) => setJobs(prev => prev.map(j => j.id === job.id ? { ...j, company: e.target.value } : j))}
+                                            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none" 
+                                            placeholder="Masalan: Epam Systems" 
+                                        />
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Vaqti (Period)</label>
+                                    <input 
+                                        type="text" 
+                                        value={job.period} 
+                                        onChange={(e) => setJobs(prev => prev.map(j => j.id === job.id ? { ...j, period: e.target.value } : j))}
+                                        className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none" 
+                                        placeholder="Masalan: 2021 May - Hozirgacha" 
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nima ishlar qilingan? Skillar?</label>
+                                    <textarea 
+                                        value={job.description} 
+                                        onChange={(e) => setJobs(prev => prev.map(j => j.id === job.id ? { ...j, description: e.target.value } : j))}
+                                        rows={3}
+                                        className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-y" 
+                                        placeholder="Masalan: React va Node.js ni ishlatib payment tizimini qildim..." 
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Education */}
