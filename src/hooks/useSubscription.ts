@@ -119,6 +119,9 @@ export const useSubscription = () => {
     const decrementCredit = async () => {
         if (!user || !subscription || subscription.ai_credits <= 0) return;
         
+        // Admin uchun cheklov yo'q
+        if (user.email === 'fsoyilov@gmail.com') return;
+        
         try {
             const newCredits = subscription.ai_credits - 1;
             
@@ -141,7 +144,8 @@ export const useSubscription = () => {
         adminApiKey,
         loading,
         decrementCredit,
-        isPro: subscription?.tier === 'pro' || subscription?.tier === 'premium',
-        hasCredits: (subscription?.ai_credits || 0) > 0
+        isPro: user?.email === 'fsoyilov@gmail.com' || subscription?.tier === 'pro' || subscription?.tier === 'premium',
+        hasCredits: user?.email === 'fsoyilov@gmail.com' || (subscription?.ai_credits || 0) > 0,
+        isAdmin: user?.email === 'fsoyilov@gmail.com'
     };
 };
