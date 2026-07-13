@@ -197,7 +197,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             theme: (savedTheme as 'light' | 'dark') || 'light',
             notificationsEnabled: true,
             googleApiKey: savedAiSettings.googleApiKey,
-            aiModel: savedAiSettings.aiModel || 'gemini',
+            aiModel: savedAiSettings.aiModel || 'deepseek',
             deepseekApiKey: savedAiSettings.deepseekApiKey || '',
             deepseekModel: savedAiSettings.deepseekModel || 'deepseek-v4-flash',
             deepseekThinkingMode: savedAiSettings.deepseekThinkingMode || false,

@@ -49,7 +49,7 @@ const aiCache = {
 
 export const getAIConfig = () => {
     const savedStr = localStorage.getItem('study_planner_ai_settings');
-    let aiModel = 'gemini';
+    let aiModel = 'deepseek';
     let deepseekKey = '';
     let geminiKey = '';
 
