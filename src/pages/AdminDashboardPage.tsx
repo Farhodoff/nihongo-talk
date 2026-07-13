@@ -12,6 +12,7 @@ interface UserSubscription {
     ai_credits: number;
     last_reset_date: string;
     created_at: string;
+    valid_until?: string;
 }
 
 const AdminDashboardPage: React.FC = () => {
@@ -106,16 +107,23 @@ const AdminDashboardPage: React.FC = () => {
 
     const setUserTier = async (userId: string, newTier: 'free' | 'pro' | 'premium') => {
         try {
+            let validUntil = null;
+            if (newTier !== 'free') {
+                const date = new Date();
+                date.setMonth(date.getMonth() + 1);
+                validUntil = date.toISOString();
+            }
+
             const { error } = await supabase
                 .from('user_subscriptions')
-                .update({ tier: newTier })
+                .update({ tier: newTier, valid_until: validUntil })
                 .eq('id', userId);
 
             if (error) throw error;
             
             // Mahalliy holatni yangilash
             setSubscriptions(subs => 
-                subs.map(s => s.id === userId ? { ...s, tier: newTier } : s)
+                subs.map(s => s.id === userId ? { ...s, tier: newTier, valid_until: validUntil } : s)
             );
         } catch (error) {
             console.error('Error updating user tier:', error);
@@ -209,6 +217,7 @@ const AdminDashboardPage: React.FC = () => {
                             <tr>
                                 <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Pochta (Email)</th>
                                 <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Tarif (Status)</th>
+                                <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Tugash muddati</th>
                                 <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">AI Kreditlar</th>
                                 <th className="p-4 font-semibold text-gray-600 dark:text-slate-300">Harakatlar</th>
                             </tr>
@@ -235,6 +244,20 @@ const AdminDashboardPage: React.FC = () => {
                                         }`}>
                                             {sub.tier.toUpperCase()}
                                         </span>
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {sub.tier !== 'free' ? (
+                                            <div className="flex flex-col">
+                                                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                                                    {sub.valid_until ? new Date(sub.valid_until).toLocaleDateString('uz-UZ') : 'Noma\'lum'}
+                                                </span>
+                                                <span className="text-xs text-indigo-500 font-semibold">
+                                                    (1 oylik)
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <span className="text-sm text-slate-400">Muddatsiz</span>
+                                        )}
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-2">
