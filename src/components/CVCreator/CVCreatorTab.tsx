@@ -29,6 +29,7 @@ export interface CVData {
         period: string;
     }[];
     skills: string[];
+    certificates?: string[];
     advice?: string;
 }
 
@@ -100,7 +101,8 @@ ${rawInput.rawEducation}
                 summary: parsedData.summary || "",
                 experience: parsedData.experience || [],
                 education: parsedData.education || [],
-                skills: parsedData.skills || []
+                skills: parsedData.skills || [],
+                certificates: parsedData.certificates || []
             });
             setAdvice(parsedData.advice || null);
 

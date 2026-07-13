@@ -112,6 +112,20 @@ export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(({ data }, r
                     </div>
                 </div>
             )}
+
+            {/* Certificates */}
+            {data.certificates && data.certificates.length > 0 && (
+                <div className="mt-6">
+                    <h2 className="text-lg font-bold text-slate-800 uppercase tracking-wider mb-3 border-b border-slate-300 pb-1">Certificates & Awards</h2>
+                    <ul className="list-disc list-outside ml-5 space-y-1">
+                        {data.certificates.map((cert, index) => (
+                            <li key={index} className="text-sm text-slate-700 leading-relaxed">
+                                {cert}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 });

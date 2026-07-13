@@ -17,6 +17,7 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
         github: '',
         rawExperience: '',
         rawEducation: '',
+        certificates: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -116,6 +117,19 @@ export const CVForm: React.FC<CVFormProps> = ({ onSubmit, isGenerating }) => {
                         rows={3}
                         className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-y" 
                         placeholder="Masalan: 2018-2022 TATU ni Dasturiy Injiniring yo'nalishida tugatganman." 
+                    />
+                </div>
+
+                {/* Certificates */}
+                <div>
+                    <h4 className="text-base font-semibold text-slate-900 dark:text-white mb-2">Sertifikatlar va Yutuqlar</h4>
+                    <textarea 
+                        name="certificates" 
+                        value={formData.certificates} 
+                        onChange={handleChange} 
+                        rows={2}
+                        className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-y" 
+                        placeholder="Masalan: IELTS 7.0, AWS Certified Developer Associate, JLPT N3" 
                     />
                 </div>
 

@@ -30,6 +30,7 @@ INSTRUCTIONS:
     }
   ],
   "skills": ["React", "Node.js", "AWS"],
+  "certificates": ["AWS Certified Developer", "IELTS 7.0"],
   "advice": "Friendly advice on what else the user should add or clarify in their CV to make it stronger."
 }
 
