@@ -965,3 +965,29 @@ Qoidalar:
         throw new Error(parseAIError(e));
     }
 };
+
+export const generateAIResponse = async (
+    messages: { role: 'system' | 'user'; content: string }[],
+    userKey?: string | null
+): Promise<string> => {
+    try {
+        const config = getAIConfig();
+        const apiKey = userKey || config.geminiKey;
+        if (!apiKey) throw new Error("API kalit mavjud emas.");
+        
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        
+        let prompt = "";
+        messages.forEach(m => {
+            prompt += `[${m.role.toUpperCase()}]: ${m.content}\n`;
+        });
+
+        const result = await model.generateContent(prompt);
+        await decrementCredit();
+        return result.response.text();
+    } catch (error) {
+        console.error("AI Error:", error);
+        throw new Error(parseAIError(error));
+    }
+};

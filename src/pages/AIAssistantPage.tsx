@@ -6,7 +6,7 @@ import { getJapaneseRecruiterPrompt } from '../utils/interviewPrompts';
 import { 
     Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip, GraduationCap, 
     MessageSquare, Award, CheckCircle2, XCircle, ChevronRight, HelpCircle, 
-    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, Fullscreen, Minimize2, Mic, MicOff, Briefcase
+    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, Fullscreen, Minimize2, Mic, MicOff, Briefcase, FileText
 } from 'lucide-react';
 import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';
@@ -14,6 +14,7 @@ import { Subject } from '../types';
 import { Button } from '../components/ui/Button';
 import mermaid from 'mermaid';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { CVCreatorTab } from '../components/CVCreator/CVCreatorTab';
 
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
@@ -24,7 +25,7 @@ mermaid.initialize({
     mindmap: { padding: 15 }
 });
 
-type ActiveTab = 'chat' | 'exam' | 'mindmap' | 'interview';
+type ActiveTab = 'chat' | 'exam' | 'mindmap' | 'interview' | 'cv';
 
 interface InterviewMessage {
     id: string;
@@ -435,6 +436,14 @@ const AIAssistantPage: React.FC = () => {
                                 <Briefcase size={16} /> IT Interview (🇯🇵)
                             </button>
                         )}
+                        <button
+                            onClick={() => setActiveTab('cv')}
+                            className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
+                                activeTab === 'cv' ? 'bg-orange-500 text-white shadow-sm' : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                            }`}
+                        >
+                            <FileText size={16} /> Rezyume
+                        </button>
                     </div>
 
                     {/* CONTENT AREA */}
@@ -678,6 +687,11 @@ const AIAssistantPage: React.FC = () => {
                                     <div className="text-center mt-2"><p className="text-xs text-gray-400">Maslahat: Mikrofonni bosib yapon tilida gapiring. AI xatolaringizni to'g'rilab beradi.</p></div>
                                 </div>
                             </div>
+                        )}
+                        
+                        {/* 5. CV CREATOR TAB */}
+                        {activeTab === 'cv' && (
+                            <CVCreatorTab />
                         )}
                         
                     </div>
