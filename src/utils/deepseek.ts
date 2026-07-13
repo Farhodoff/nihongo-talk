@@ -62,7 +62,7 @@ export const callDeepSeek = async (
 
 
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const response = await client.chat.completions.create(payload as any);
 
     return response.choices[0].message.content || '';

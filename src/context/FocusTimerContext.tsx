@@ -32,7 +32,7 @@ export const FocusTimerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+ 
 export const useFocusTimerContext = () => {
     const context = useContext(FocusTimerContext);
     if (!context) throw new Error("useFocusTimerContext must be used within FocusTimerProvider");

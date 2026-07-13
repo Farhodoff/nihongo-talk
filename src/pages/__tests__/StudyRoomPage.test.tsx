@@ -5,7 +5,7 @@ import StudyRoomPage from '../StudyRoomPage';
 
 // Mock react-router-dom useParams and useNavigate
 vi.mock('react-router-dom', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const actual = await vi.importActual<any>('react-router-dom');
     return {
         ...actual,
@@ -48,7 +48,7 @@ vi.mock('tldraw', () => ({
 }));
 
 // Mock Audio
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 window.Audio = vi.fn().mockImplementation(() => ({ play: vi.fn() })) as any;
 
 
@@ -74,7 +74,7 @@ describe('StudyRoomPage Custom WebRTC', () => {
         });
 
         // Mock RTCPeerConnection
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (window as any).RTCPeerConnection = vi.fn().mockImplementation(() => ({
             addTrack: vi.fn(),
             createOffer: vi.fn().mockResolvedValue({ sdp: 'offer', type: 'offer' }),
@@ -84,7 +84,7 @@ describe('StudyRoomPage Custom WebRTC', () => {
             addIceCandidate: vi.fn(),
             close: vi.fn(),
             getSenders: vi.fn(() => [{ track: { kind: 'video' }, replaceTrack: vi.fn() }]),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         })) as any;
     });
 

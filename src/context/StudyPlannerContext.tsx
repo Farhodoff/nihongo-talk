@@ -986,7 +986,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+ 
 export const useStudyData = () => {
     const context = useContext(StudyPlannerContext);
     if (!context) throw new Error("useStudyData must be used within StudyPlannerProvider");
