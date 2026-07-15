@@ -109,6 +109,7 @@ export interface DatabaseNote {
     title: string;
     content: string;
     attachments: { name: string; type: 'image' | 'pdf'; url: string }[];
+    is_pinned: boolean;
     created_at: string;
     updated_at: string;
 }

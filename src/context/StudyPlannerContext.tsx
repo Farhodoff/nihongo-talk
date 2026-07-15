@@ -294,6 +294,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     const mappedNotes = notesRes.data.map((n: DatabaseNote) => ({
                         ...n,
                         subjectId: n.subject_id,
+                        isPinned: n.is_pinned || false,
                         createdAt: n.created_at,
                         updatedAt: n.updated_at
                     }));
@@ -567,7 +568,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             subject_id: noteData.subjectId,
             title: noteData.title,
             content: noteData.content,
-            attachments: noteData.attachments
+            attachments: noteData.attachments,
+            is_pinned: noteData.isPinned || false
         };
 
         const newNote: Note = {
@@ -576,6 +578,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             title: noteData.title || '',
             content: noteData.content || '',
             attachments: noteData.attachments || [],
+            isPinned: noteData.isPinned || false,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         };
@@ -592,6 +595,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 title: data.title,
                 content: data.content,
                 attachments: data.attachments || [],
+                isPinned: data.is_pinned || false,
                 createdAt: data.created_at,
                 updatedAt: data.updated_at
             };
@@ -606,6 +610,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (updates.subjectId) {
             dbUpdates.subject_id = updates.subjectId;
             delete dbUpdates.subjectId;
+        }
+        if (updates.isPinned !== undefined) {
+            dbUpdates.is_pinned = updates.isPinned;
+            delete dbUpdates.isPinned;
         }
 
         setNotes(prev => prev.map(n => n.id === id ? { ...n, ...updates } : n));

@@ -1,18 +1,24 @@
-import { Edit, FileText, Plus, Search, Trash2 } from 'lucide-react';
+import { Edit, FileText, Plus, Search, Trash2, Pin, PinOff } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 const NotesPage: React.FC = () => {
-    const { notes, subjects, deleteNote } = useStudyData();
+    const { notes, subjects, deleteNote, updateNote } = useStudyData();
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
 
-    const filteredNotes = notes.filter(note =>
-        note.title.toLowerCase().includes(search.toLowerCase()) ||
-        note.content.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredNotes = notes
+        .filter(note =>
+            note.title.toLowerCase().includes(search.toLowerCase()) ||
+            note.content.toLowerCase().includes(search.toLowerCase())
+        )
+        .sort((a, b) => {
+            if (a.isPinned && !b.isPinned) return -1;
+            if (!a.isPinned && b.isPinned) return 1;
+            return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+        });
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -45,8 +51,14 @@ const NotesPage: React.FC = () => {
                 {filteredNotes.length > 0 ? filteredNotes.map(note => {
                     const subject = subjects.find(s => s.id === note.subjectId);
                     return (
-                        <div key={note.id} className="glass-card p-6 rounded-2xl transition-all hover:-translate-y-1 hover:shadow-lg group relative">
+                        <div key={note.id} className={`glass-card p-6 rounded-2xl transition-all hover:-translate-y-1 hover:shadow-lg group relative ${note.isPinned ? 'ring-2 ring-primary/30 bg-primary/5' : ''}`}>
                             <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); updateNote(note.id, { isPinned: !note.isPinned }); }}
+                                    className={`p-1.5 rounded-lg transition-colors ${note.isPinned ? 'text-primary bg-primary/10' : 'text-muted-foreground hover:text-primary hover:bg-primary/10'}`}
+                                >
+                                    {note.isPinned ? <PinOff size={16} /> : <Pin size={16} />}
+                                </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); navigate(`/notes/${note.id}`); }}
                                     className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
@@ -60,6 +72,12 @@ const NotesPage: React.FC = () => {
                                     <Trash2 size={16} />
                                 </button>
                             </div>
+
+                            {note.isPinned && (
+                                <div className="absolute top-4 right-4 md:hidden text-primary">
+                                    <Pin size={16} />
+                                </div>
+                            )}
 
                             {subject && (
                                 <span className="inline-block px-2 py-1 rounded text-xs font-medium mb-3" style={{ backgroundColor: subject.color + '20', color: subject.color }}>

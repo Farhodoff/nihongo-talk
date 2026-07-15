@@ -61,6 +61,7 @@ export interface Note {
     title: string;
     content: string; // Markdown
     attachments: { name: string; type: 'image' | 'pdf'; url: string }[];
+    isPinned: boolean;
     createdAt: string;
     updatedAt: string;
     googleEventId?: string;
