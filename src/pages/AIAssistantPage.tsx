@@ -173,6 +173,27 @@ const AIAssistantPage: React.FC = () => {
             setScore(correctCount);
             setXpEarned(points);
             awardXP(points);
+            
+            // Save to exam history
+            try {
+                const subject = subjects.find(s => s.id === selectedSubjectId);
+                const subjectName = subject ? subject.name : 'Umumiy';
+                const newResult = {
+                    id: Date.now().toString(),
+                    subjectName,
+                    score: correctCount,
+                    totalQuestions: questions.length,
+                    xpEarned: points,
+                    timestamp: Date.now()
+                };
+                const existing = localStorage.getItem('study_planner_exam_history');
+                const history = existing ? JSON.parse(existing) : [];
+                history.unshift(newResult);
+                localStorage.setItem('study_planner_exam_history', JSON.stringify(history));
+            } catch (e) {
+                console.error("Failed to save exam history", e);
+            }
+            
             setExamState('results');
         }
     };

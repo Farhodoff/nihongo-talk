@@ -5,6 +5,7 @@ import ActivityAnalytics from '../components/analytics/ActivityAnalytics';
 import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
 import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
+import ExamHistoryAnalytics from '../components/analytics/ExamHistoryAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
 import Skeleton from '../components/ui/Skeleton';
 import ShareCardModal from '../components/ShareCardModal';
@@ -70,6 +71,7 @@ const ProgressPage: React.FC = () => {
             ) : (
                 <>
                     <ActivityAnalytics sessions={sessions} />
+                    <ExamHistoryAnalytics />
                     <ActivityHeatmap sessions={sessions} />
                 </>
             )}
