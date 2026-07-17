@@ -43,14 +43,35 @@ const AIAssistantPage: React.FC = () => {
     // ==========================================
     // 1. CHAT TAB LOGIC
     // ==========================================
-    const [messages, setMessages] = useState<ChatMessage[]>([{
+    const CHAT_STORAGE_KEY = 'study_planner_ai_chat_history';
+    const INTERVIEW_STORAGE_KEY = 'study_planner_interview_history';
+
+    const defaultWelcome: ChatMessage = {
         role: 'model',
         text: "Salom! Men sizning AI yordamchingizman. Qaysi fan bo'yicha savollaringiz bor yoki qanday yordam bera olaman?"
-    }]);
+    };
+
+    const [messages, setMessages] = useState<ChatMessage[]>(() => {
+        try {
+            const saved = localStorage.getItem(CHAT_STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            }
+        } catch {}
+        return [defaultWelcome];
+    });
     const [inputValue, setInputValue] = useState('');
     const [isChatLoading, setIsChatLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Persist chat messages to localStorage
+    useEffect(() => {
+        try {
+            localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
+        } catch {}
+    }, [messages]);
 
     useEffect(() => {
         if (activeTab === 'chat') {
@@ -226,7 +247,25 @@ const AIAssistantPage: React.FC = () => {
     // ==========================================
     // 4. IT INTERVIEW LOGIC
     // ==========================================
-    const [interviewMsgs, setInterviewMsgs] = useState<InterviewMessage[]>([]);
+    const [interviewMsgs, setInterviewMsgs] = useState<InterviewMessage[]>(() => {
+        try {
+            const saved = localStorage.getItem(INTERVIEW_STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            }
+        } catch {}
+        return [];
+    });
+
+    // Persist interview messages to localStorage
+    useEffect(() => {
+        try {
+            if (interviewMsgs.length > 0) {
+                localStorage.setItem(INTERVIEW_STORAGE_KEY, JSON.stringify(interviewMsgs));
+            }
+        } catch {}
+    }, [interviewMsgs]);
     const [interviewInput, setInterviewInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [isInterviewLoading, setIsInterviewLoading] = useState(false);
