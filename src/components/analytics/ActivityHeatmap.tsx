@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback, useRef } from 'react';
 import { StudySession } from '../../types';
 import { format, eachDayOfInterval, startOfYear, endOfYear } from 'date-fns';
 
@@ -6,11 +6,59 @@ interface ActivityHeatmapProps {
     sessions: StudySession[];
 }
 
+interface HeatmapDay {
+    date: Date;
+    dateStr: string;
+    minutes: number;
+    level: number;
+}
+
+interface TooltipState {
+    visible: boolean;
+    x: number;
+    y: number;
+    day: HeatmapDay | null;
+}
+
+const WEEKDAY_NAMES_UZ: Record<number, string> = {
+    0: 'Yakshanba',
+    1: 'Dushanba',
+    2: 'Seshanba',
+    3: 'Chorshanba',
+    4: 'Payshanba',
+    5: 'Juma',
+    6: 'Shanba',
+};
+
+const MONTH_NAMES_UZ: Record<number, string> = {
+    0: 'Yanvar',
+    1: 'Fevral',
+    2: 'Mart',
+    3: 'Aprel',
+    4: 'May',
+    5: 'Iyun',
+    6: 'Iyul',
+    7: 'Avgust',
+    8: 'Sentabr',
+    9: 'Oktabr',
+    10: 'Noyabr',
+    11: 'Dekabr',
+};
+
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
     // 2026 yil to'liq: January - December
     const year2026 = new Date(2026, 0, 1); // January 1, 2026
     const startDate = startOfYear(year2026);
     const endDate = endOfYear(year2026); // December 31, 2026
+
+    const [tooltip, setTooltip] = useState<TooltipState>({
+        visible: false,
+        x: 0,
+        y: 0,
+        day: null,
+    });
+    const tooltipRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const days = useMemo(() => {
         const interval = eachDayOfInterval({ start: startDate, end: endDate });
@@ -33,13 +81,6 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
             };
         });
     }, [sessions, startDate, endDate]);
-
-    interface HeatmapDay {
-        date: Date;
-        dateStr: string;
-        minutes: number;
-        level: number;
-    }
 
     // Group days into weeks for the grid
     const weeks = useMemo(() => {
@@ -96,11 +137,46 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
         return labels;
     }, [weeks]);
 
+    // Tooltip handlers
+    const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>, day: HeatmapDay) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const containerRect = containerRef.current?.getBoundingClientRect();
+        
+        if (containerRect) {
+            setTooltip({
+                visible: true,
+                x: rect.left - containerRect.left + rect.width / 2,
+                y: rect.top - containerRect.top,
+                day,
+            });
+        }
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        setTooltip(prev => ({ ...prev, visible: false }));
+    }, []);
+
+    // Format tooltip text
+    const formatTooltipText = (day: HeatmapDay): { activity: string; date: string } => {
+        const dayOfWeek = WEEKDAY_NAMES_UZ[day.date.getDay()];
+        const monthName = MONTH_NAMES_UZ[day.date.getMonth()];
+        const dayNum = day.date.getDate();
+        const year = day.date.getFullYear();
+
+        const activity = day.minutes > 0
+            ? `${day.minutes} daqiqa o'qish`
+            : `Faollik yo'q`;
+
+        const date = `${dayOfWeek}, ${monthName} ${dayNum}, ${year}`;
+
+        return { activity, date };
+    };
+
     // Yil ko'rsatkichi
     const yearRange = '2026';
 
     return (
-        <div className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans">
+        <div ref={containerRef} className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans relative">
             <div className="flex items-center justify-between mb-10">
                 <div>
                     <h3 className="text-2xl font-bold text-white tracking-tight">O'quv Faolligi</h3>
@@ -151,7 +227,8 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                                     {week.map((day, dayIdx) => (
                                         <div
                                             key={dayIdx}
-                                            title={day ? `${format(day.date, 'MMM d, yyyy')}: ${day.minutes} daqiqa` : ''}
+                                            onMouseEnter={day ? (e) => handleMouseEnter(e, day) : undefined}
+                                            onMouseLeave={day ? handleMouseLeave : undefined}
                                             className={`w-[11px] h-[11px] rounded-[3px] transition-all duration-300 hover:scale-125 cursor-pointer hover:z-10 ${day ? getColor(day.level) : 'bg-transparent'}`}
                                         />
                                     ))}
@@ -161,6 +238,42 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                     </div>
                 </div>
             </div>
+
+            {/* GitHub-style Tooltip */}
+            {tooltip.visible && tooltip.day && (() => {
+                const { activity, date } = formatTooltipText(tooltip.day);
+                return (
+                    <div
+                        ref={tooltipRef}
+                        className="absolute z-50 pointer-events-none"
+                        style={{
+                            left: `${tooltip.x}px`,
+                            top: `${tooltip.y - 8}px`,
+                            transform: 'translate(-50%, -100%)',
+                        }}
+                    >
+                        <div className="bg-[#1b1f23] border border-[#3d444d] rounded-lg px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.4)] whitespace-nowrap">
+                            <p className="text-[12px] font-semibold text-white leading-tight">
+                                {activity}
+                            </p>
+                            <p className="text-[11px] text-gray-400 leading-tight mt-0.5">
+                                {date}
+                            </p>
+                        </div>
+                        {/* Tooltip Arrow */}
+                        <div className="flex justify-center">
+                            <div 
+                                className="w-0 h-0"
+                                style={{
+                                    borderLeft: '6px solid transparent',
+                                    borderRight: '6px solid transparent',
+                                    borderTop: '6px solid #3d444d',
+                                }}
+                            />
+                        </div>
+                    </div>
+                );
+            })()}
             
             <div className="flex justify-between items-center mt-6 pt-6 border-t border-white/5">
                 <button className="text-[12px] text-gray-500 hover:text-indigo-400 transition-colors">
