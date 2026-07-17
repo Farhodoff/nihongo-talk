@@ -109,32 +109,15 @@ const Layout: React.FC = () => {
             )}
 
             {/* Mobile Header */}
-            <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b">
+            <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b relative">
                 <div className="flex items-center gap-2">
                     <Sparkles className="text-primary" size={24} />
                     <h1 className="text-xl font-bold text-gradient">
                         {getPageTitle()}
                     </h1>
                 </div>
-                <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
-                    <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon" className="md:hidden">
-                            <Menu className="h-6 w-6" />
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="p-0 w-72 flex flex-col">
-                        <div className="h-20 p-6 flex items-center gap-3 border-b border-border">
-                            <div className="p-2 bg-primary/10 rounded-xl">
-                                <Sparkles className="text-primary" size={24} />
-                            </div>
-                            <span className="text-xl font-bold text-gradient tracking-tight">
-                                Planner
-                            </span>
-                        </div>
-                        <NavLinks onClick={() => setSidebarOpen(false)} />
-                    </SheetContent>
-                </Sheet>
             </header>
+
 
             {/* Desktop Sidebar */}
             <aside
@@ -166,7 +149,7 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
-                <div className="flex-1 overflow-y-auto w-full relative">
+                <div className="flex-1 overflow-y-auto w-full relative pb-24 md:pb-0">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={location.pathname}
@@ -181,6 +164,50 @@ const Layout: React.FC = () => {
                     </AnimatePresence>
                 </div>
             </main>
+
+            {/* Mobile Bottom Navigation */}
+            <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/80 backdrop-blur-md">
+                {[
+                    { name: 'Dashboard', path: '/dashboard', icon: Home },
+                    { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
+                    { name: 'Fokus', path: '/focus', icon: Clock },
+                    { name: 'Kalendar', path: '/calendar', icon: Calendar },
+                ].map(item => (
+                    <NavLink
+                        key={item.path}
+                        to={item.path}
+                        className={({ isActive }) => `flex flex-col items-center justify-center w-16 p-1.5 rounded-xl transition-all duration-200 ${isActive ? 'text-primary bg-primary/10 scale-105' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        {({ isActive }) => (
+                            <>
+                                <item.icon size={22} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
+                                <span className="text-[10px] font-medium leading-none">{item.name}</span>
+                            </>
+                        )}
+                    </NavLink>
+                ))}
+                
+                <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
+                    <SheetTrigger asChild>
+                        <button className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
+                            <Menu size={22} className="mb-1" />
+                            <span className="text-[10px] font-medium leading-none">Boshqa</span>
+                        </button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="p-0 w-72 flex flex-col">
+                        <div className="h-20 p-6 flex items-center gap-3 border-b border-border">
+                            <div className="p-2 bg-primary/10 rounded-xl">
+                                <Sparkles className="text-primary" size={24} />
+                            </div>
+                            <span className="text-xl font-bold text-gradient tracking-tight">
+                                Planner
+                            </span>
+                        </div>
+                        <NavLinks onClick={() => setSidebarOpen(false)} />
+                    </SheetContent>
+                </Sheet>
+            </nav>
+
             {/* Global Modals */}
             <SessionCompleteModal />
         </div>

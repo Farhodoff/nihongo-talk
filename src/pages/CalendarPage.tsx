@@ -228,7 +228,7 @@ const CalendarPage: React.FC = () => {
                 onDragEnd={handleDragEnd}
             >
                 <div className="flex-1 overflow-auto rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700 custom-scrollbar">
-                    <div className="min-w-[600px] md:min-w-full h-full grid grid-cols-7 grid-rows-5 gap-px">
+                    <div className="min-w-full h-full grid grid-cols-7 grid-rows-5 gap-px">
                         {calendarDays.map((date, idx) => (
                             <CalendarDay
                                 key={idx}

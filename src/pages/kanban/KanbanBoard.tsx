@@ -31,11 +31,11 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks, onStatusChange }) => {
     };
 
     return (
-        <div className="flex gap-6 h-full overflow-x-auto pb-4 custom-scrollbar">
+        <div className="flex gap-4 md:gap-6 h-full overflow-x-auto pb-4 custom-scrollbar snap-x snap-mandatory">
             {columns.map(column => (
                 <div 
                     key={column.id} 
-                    className="flex flex-col bg-muted/30 rounded-2xl p-4 min-w-[300px] max-w-[300px] md:flex-1 md:max-w-none border border-border/50"
+                    className="flex flex-col bg-muted/30 rounded-2xl p-4 min-w-[85vw] max-w-[85vw] md:min-w-[300px] md:max-w-[300px] md:flex-1 border border-border/50 snap-center md:snap-align-none"
                     onDrop={(e) => handleDrop(e, column.id)}
                     onDragOver={handleDragOver}
                 >
