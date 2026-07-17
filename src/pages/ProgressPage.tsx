@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SmartInsight from '../components/SmartInsight';
 import StudyStatsCards from '../components/analytics/StudyStatsCards';
 import ActivityAnalytics from '../components/analytics/ActivityAnalytics';
@@ -7,12 +7,15 @@ import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
 import Skeleton from '../components/ui/Skeleton';
+import ShareCardModal from '../components/ShareCardModal';
+import { Share2 } from 'lucide-react';
 
 const ProgressPage: React.FC = () => {
     const { sessions, subjects, tasks, settings, flashcards, loading } = useStudyData();
 
     const totalHours = (sessions.reduce((acc, s) => acc + s.duration, 0) / 60).toFixed(1);
     const completedTasks = tasks.filter(t => t.completed).length;
+    const [isShareOpen, setIsShareOpen] = useState(false);
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto pb-8">
@@ -21,6 +24,13 @@ const ProgressPage: React.FC = () => {
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Analitika</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">Jarayon va tahlillarni kuzatib boring.</p>
                 </div>
+                <button
+                    onClick={() => setIsShareOpen(true)}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-xl font-medium hover:opacity-90 transition-all shadow-sm"
+                >
+                    <Share2 size={18} />
+                    <span className="hidden sm:inline">Ulashish</span>
+                </button>
             </div>
 
             <SmartInsight />
@@ -84,6 +94,7 @@ const ProgressPage: React.FC = () => {
                     <FlashcardAnalytics flashcards={flashcards} />
                 </>
             )}
+            <ShareCardModal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)} />
         </div>
     );
 };
