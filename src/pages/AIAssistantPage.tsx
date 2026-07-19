@@ -7,7 +7,7 @@ import { getJapaneseRecruiterPrompt } from '../utils/interviewPrompts';
 import { 
     Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip, GraduationCap, 
     MessageSquare, Award, CheckCircle2, XCircle, ChevronRight, HelpCircle, 
-    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, Fullscreen, Minimize2, Mic, MicOff, Briefcase, FileText
+    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, Fullscreen, Minimize2, Mic, MicOff, Briefcase, FileText, Volume2, VolumeX, RefreshCw
 } from 'lucide-react';
 import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';
@@ -291,6 +291,18 @@ const AIAssistantPage: React.FC = () => {
     }, [interviewMsgs]);
     const [interviewInput, setInterviewInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
+    const [speechLang, setSpeechLang] = useState('ja-JP');
+    const [isTTSActive, setIsTTSActive] = useState(true);
+    
+    const speakJapanese = (text: string) => {
+        if (!isTTSActive || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    };
+
     const [isInterviewLoading, setIsInterviewLoading] = useState(false);
     const [interviewError, setInterviewError] = useState<string | null>(null);
     const interviewEndRef = useRef<HTMLDivElement>(null);
@@ -318,7 +330,7 @@ const AIAssistantPage: React.FC = () => {
             const recognition = new SpeechRecognition();
             recognition.continuous = true;
             recognition.interimResults = true;
-            recognition.lang = 'ja-JP';
+            recognition.lang = speechLang;
 
             recognition.onresult = (event: any) => {
                 let finalTranscript = '';
@@ -336,7 +348,15 @@ const AIAssistantPage: React.FC = () => {
             recognition.onend = () => setIsRecording(false);
             recognitionRef.current = recognition;
         }
-    }, []);
+
+        return () => {
+            if (recognitionRef.current) {
+                try {
+                    recognitionRef.current.stop();
+                } catch (e) {}
+            }
+        };
+    }, [speechLang]);
 
     const toggleRecording = () => {
         if (isRecording) {
@@ -377,6 +397,7 @@ const AIAssistantPage: React.FC = () => {
 
             const aiResponseText = await callDeepSeek(prompt, config.deepseekKey, systemPrompt, false, 'deepseek-v4-flash', false);
             setInterviewMsgs(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: aiResponseText, timestamp: Date.now() }]);
+            speakJapanese(aiResponseText);
         } catch (err: any) {
             setInterviewError("AI bilan ulanishda xatolik yuz berdi.");
         } finally {
@@ -739,7 +760,53 @@ const AIAssistantPage: React.FC = () => {
                                         <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400"><Briefcase className="w-5 h-5" /></div>
                                         <div><h2 className="font-semibold text-gray-900 dark:text-white">IT Nihongo - Mock Interview</h2><p className="text-xs text-muted-foreground">AI Recruiter bilan yapon tilida suhbat</p></div>
                                     </div>
-                                    <div className="flex items-center gap-2"><span className="flex h-3 w-3"><span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span><span className="text-xs text-muted-foreground font-medium">Recruiter Online</span></div>
+                                    <div className="flex items-center gap-3">
+                                        <button 
+                                            onClick={() => {
+                                                const newTTS = !isTTSActive;
+                                                setIsTTSActive(newTTS);
+                                                if (!newTTS) window.speechSynthesis?.cancel();
+                                            }} 
+                                            className={`p-1.5 rounded-lg flex items-center justify-center transition-colors ${isTTSActive ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
+                                            title="Ovozli o'qish (TTS)"
+                                        >
+                                            {isTTSActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                                        </button>
+                                        <button 
+                                            onClick={() => {
+                                                if (confirm("Suhbatni boshidan boshlashni xohlaysizmi?")) {
+                                                    setInterviewMsgs([{
+                                                        id: Date.now().toString(),
+                                                        role: 'assistant',
+                                                        content: '本日は面接にお越しいただきありがとうございます。まずは自己紹介をお願いします。',
+                                                        timestamp: Date.now()
+                                                    }]);
+                                                    localStorage.removeItem(INTERVIEW_STORAGE_KEY);
+                                                    window.speechSynthesis?.cancel();
+                                                }
+                                            }}
+                                            className="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-lg transition-colors flex items-center justify-center"
+                                            title="Suhbatni tozalash"
+                                        >
+                                            <RefreshCw className="w-4 h-4" />
+                                        </button>
+                                        <div className="w-px h-5 bg-gray-200 dark:bg-gray-700 mx-1"></div>
+                                        <select 
+                                            value={speechLang} 
+                                            onChange={e => setSpeechLang(e.target.value)} 
+                                            className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-none rounded-lg px-2 py-1 outline-none cursor-pointer focus:ring-1 focus:ring-indigo-500 transition-colors"
+                                            title="Mikrofon tili"
+                                        >
+                                            <option value="ja-JP">🇯🇵 Yapon tili</option>
+                                            <option value="uz-UZ">🇺🇿 O'zbek tili</option>
+                                            <option value="en-US">🇺🇸 Ingliz tili</option>
+                                            <option value="ru-RU">🇷🇺 Rus tili</option>
+                                        </select>
+                                        <div className="flex items-center gap-2">
+                                            <span className="flex h-3 w-3"><span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span>
+                                            <span className="text-xs text-muted-foreground font-medium hidden sm:inline-block">Recruiter Online</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-gray-50 dark:bg-gray-900/50">
                                     {interviewMsgs.map(msg => (
