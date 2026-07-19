@@ -25,7 +25,7 @@ const SettingsPage: React.FC = () => {
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz
-    if (user?.email === 'fsoyilov@gmail.com') {
+    if (user?.email === 'fsoyilovv@gmail.com') {
         tabs.push({ id: 'admin', label: 'Admin Panel', icon: Shield });
     }
 
@@ -123,7 +123,7 @@ const SettingsPage: React.FC = () => {
                     </div>
                 )}
 
-                {activeTab === 'admin' && user?.email === 'fsoyilov@gmail.com' && (
+                {activeTab === 'admin' && user?.email === 'fsoyilovv@gmail.com' && (
                     <div className="space-y-6">
                         {/* Biz to'g'ridan-to'g'ri AdminDashboardPage ni ko'rsatishimiz yoki unga o'tish tugmasini qo'yishimiz mumkin */}
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 text-center">

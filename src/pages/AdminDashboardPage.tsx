@@ -55,7 +55,7 @@ const AdminDashboardPage: React.FC = () => {
 
     useEffect(() => {
         // Faqat admin bo'lsa ma'lumotlarni tortamiz
-        if (user?.email === 'fsoyilov@gmail.com') {
+        if (user?.email === 'fsoyilovv@gmail.com') {
             fetchAdminData();
         } else {
             setLoading(false);
@@ -72,7 +72,7 @@ const AdminDashboardPage: React.FC = () => {
     }
 
     // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
-    if (user?.email !== 'fsoyilov@gmail.com') {
+    if (user?.email !== 'fsoyilovv@gmail.com') {
         return (
             <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
                 <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500 mb-4 opacity-80">404</h1>

@@ -510,7 +510,7 @@ const AIAssistantPage: React.FC = () => {
                         >
                             <BrainCircuit size={16} /> Aqliy Xarita
                         </button>
-                        {user?.email === 'fsoyilov@gmail.com' && (
+                        {user?.email === 'fsoyilovv@gmail.com' && (
                             <button
                                 onClick={() => setActiveTab('interview')}
                                 className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${

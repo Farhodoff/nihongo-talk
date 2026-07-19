@@ -92,7 +92,7 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
                         <div className="bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl p-4 mb-4">
                             <p className="text-sm text-fuchsia-800 dark:text-fuchsia-200">
                                 {subscription?.ai_credits === 0 ? (
-                                    "Bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@fsoyilov) ga murojaat qiling va PRO tarifni oling."
+                                    "Bepul AI limitingiz tugadi! Cheksiz foydalanish uchun Admin (@farhodoff) ga murojaat qiling va PRO tarifni oling."
                                 ) : (
                                     "Dasturning AI xususiyatlaridan foydalanish uchun PRO tarifga o'ting yoki o'zingizning shaxsiy API kalitingizni kiriting."
                                 )}

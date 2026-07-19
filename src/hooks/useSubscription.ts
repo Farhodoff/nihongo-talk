@@ -120,7 +120,7 @@ export const useSubscription = () => {
         if (!user || !subscription || subscription.ai_credits <= 0) return;
         
         // Admin uchun cheklov yo'q
-        if (user.email === 'fsoyilov@gmail.com') return;
+        if (user.email === 'fsoyilovv@gmail.com') return;
         
         try {
             const newCredits = subscription.ai_credits - 1;
@@ -140,7 +140,7 @@ export const useSubscription = () => {
     };
 
     // Super Admin uchun obunani doim "premium" qilib ko'rsatish
-    const effectiveSubscription = user?.email === 'fsoyilov@gmail.com' 
+    const effectiveSubscription = user?.email === 'fsoyilovv@gmail.com' 
         ? { ...(subscription || {} as UserSubscription), tier: 'premium' as const, ai_credits: 9999 }
         : subscription;
 
@@ -149,8 +149,8 @@ export const useSubscription = () => {
         adminApiKey,
         loading,
         decrementCredit,
-        isPro: user?.email === 'fsoyilov@gmail.com' || subscription?.tier === 'pro' || subscription?.tier === 'premium',
-        hasCredits: user?.email === 'fsoyilov@gmail.com' || (subscription?.ai_credits || 0) > 0,
-        isAdmin: user?.email === 'fsoyilov@gmail.com'
+        isPro: user?.email === 'fsoyilovv@gmail.com' || subscription?.tier === 'pro' || subscription?.tier === 'premium',
+        hasCredits: user?.email === 'fsoyilovv@gmail.com' || (subscription?.ai_credits || 0) > 0,
+        isAdmin: user?.email === 'fsoyilovv@gmail.com'
     };
 };
