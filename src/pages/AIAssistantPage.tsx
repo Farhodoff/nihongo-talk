@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { chatWithAI, generateExamWithAI, generateMindMapWithAI, ChatMessage, ExamQuestion, getAIConfig } from '../utils/ai';
 import { callDeepSeek } from '../utils/deepseek';
@@ -36,9 +37,10 @@ interface InterviewMessage {
 }
 
 const AIAssistantPage: React.FC = () => {
-    const { subjects, notes, flashcards, settings, addStudyNote, awardXP, user } = useStudyData();
-    const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
-    const [activeTab, setActiveTab] = useState<ActiveTab>('chat');
+    const location = useLocation();
+    const { subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP, user } = useStudyData();
+    const [selectedSubjectId, setSelectedSubjectId] = useState<string>(location.state?.subjectId || '');
+    const [activeTab, setActiveTab] = useState<ActiveTab>(location.state?.tab || 'chat');
 
     // ==========================================
     // 1. CHAT TAB LOGIC
@@ -95,7 +97,7 @@ const AIAssistantPage: React.FC = () => {
             if (selectedSubjectId) {
                 const subject = subjects.find(s => s.id === selectedSubjectId);
                 if (subject) subjectName = subject.name;
-                const subjectNotes = notes.filter(n => n.subjectId === selectedSubjectId).map(n => `Sarlavha: ${n.title}\nMatn: ${n.content}`).join('\n\n').substring(0, 2000);
+                const subjectNotes = [...notes, ...studyNotes].filter(n => n.subjectId === selectedSubjectId).map(n => `Sarlavha: ${n.title}\nMatn: ${n.content}`).join('\n\n').substring(0, 2000);
                 const subjectCards = flashcards.filter(f => f.subjectId === selectedSubjectId).map(f => `S: ${f.front} J: ${f.back}`).join('\n').substring(0, 1000);
                 contextContent = `Konspektlar:\n${subjectNotes}\n\nFlashcardlar:\n${subjectCards}`;
             }
@@ -145,9 +147,9 @@ const AIAssistantPage: React.FC = () => {
 
         setIsExamLoading(true);
         try {
-            const subjectNotes = notes.filter(n => n.subjectId === selectedSubjectId).map(n => `Sarlavha: ${n.title}\nMatn: ${n.content}`).join('\n\n');
+            const subjectNotesContent = [...notes, ...studyNotes].filter(n => n.subjectId === selectedSubjectId).map(n => `Sarlavha: ${n.title}\nMatn: ${n.content}`).join('\n\n');
             const subjectCards = flashcards.filter(f => f.subjectId === selectedSubjectId).map(f => `Savol: ${f.front} - Javob: ${f.back}`).join('\n');
-            const referenceContent = `Konspektlar:\n${subjectNotes}\n\nFlashcardlar:\n${subjectCards}`;
+            const referenceContent = `Konspektlar:\n${subjectNotesContent}\n\nFlashcardlar:\n${subjectCards}`;
 
             const generatedQuestions = await generateExamWithAI(selectedSubject.name, referenceContent, questionCount, settings.googleApiKey);
             if (generatedQuestions.length === 0) throw new Error("Savollar yaratib bo'lmadi");

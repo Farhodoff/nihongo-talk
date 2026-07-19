@@ -49,7 +49,7 @@ const SubjectDetailPage: React.FC = () => {
                 </button>
                 <div className="flex gap-2">
                     <Button 
-                        onClick={() => navigate(`/ai-exam/${subject.id}`)} 
+                        onClick={() => navigate('/ai', { state: { tab: 'exam', subjectId: subject.id } })} 
                         className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2"
                     >
                         <Sparkles size={16} /> AI Imtihon

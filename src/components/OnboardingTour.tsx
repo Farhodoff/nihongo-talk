@@ -50,7 +50,7 @@ const TOUR_STEPS: TourStep[] = [
         content: "Konspektlaringiz va fanlaringiz asosida sun'iy intellekt yordamida avtomatik test savollarini yaratib, o'z bilimingizni sinab ko'ring.",
         target: "[data-tour=\"nav-ai-exam\"]",
         placement: "right",
-        path: "/ai-exam"
+        path: "/ai"
     },
     {
         title: "Guruhdoshlar va Hamkorlik 📹",
