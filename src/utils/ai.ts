@@ -55,6 +55,8 @@ export const getAIConfig = () => {
 
     let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
     let deepseekThinkingMode = false;
+    let openAIApiKey = '';
+    let coachVoice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer' = 'alloy';
 
     if (savedStr) {
         try {
@@ -64,6 +66,8 @@ export const getAIConfig = () => {
             if (saved.googleApiKey) geminiKey = saved.googleApiKey;
             if (saved.deepseekModel) deepseekModel = saved.deepseekModel;
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
+            if (saved.openAIApiKey) openAIApiKey = saved.openAIApiKey;
+            if (saved.coachVoice) coachVoice = saved.coachVoice;
         } catch (e) {
             console.error("Failed to parse ai settings from localStorage", e);
         }
@@ -73,7 +77,9 @@ export const getAIConfig = () => {
         geminiKey,
         deepseekKey,
         deepseekModel,
-        deepseekThinkingMode
+        deepseekThinkingMode,
+        openAIApiKey,
+        coachVoice
     };
 };
 
@@ -1145,6 +1151,40 @@ export const converseWithCoach = async (
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
         throw new Error(parseAIError(error));
+    }
+};
+
+/**
+ * Fetches TTS audio blob from OpenAI's audio/speech endpoint
+ */
+export const fetchOpenAITTS = async (
+    text: string, 
+    voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer', 
+    apiKey: string
+): Promise<Blob> => {
+    try {
+        const response = await fetch('https://api.openai.com/v1/audio/speech', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'tts-1',
+                input: text,
+                voice: voice
+            })
+        });
+
+        if (!response.ok) {
+            const errText = await response.text();
+            throw new Error(`OpenAI TTS Error: ${response.status} - ${errText}`);
+        }
+
+        return await response.blob();
+    } catch (error: unknown) {
+        console.error('OpenAI TTS API Error:', error);
+        throw error;
     }
 };
 

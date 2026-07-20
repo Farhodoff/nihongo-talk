@@ -28,6 +28,8 @@ interface Settings {
     ollamaUrl?: string;
     ollamaModel?: string;
     dailyStudyGoalMinutes: number;
+    openAIApiKey?: string;
+    coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
 }
 
 interface StudyPlannerContextType {
@@ -187,6 +189,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ollamaUrl?: string;
         ollamaModel?: string;
         dailyStudyGoalMinutes: number;
+        openAIApiKey?: string;
+        coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
     }>(() => {
         const savedTheme = localStorage.getItem('study_planner_theme');
         const savedAiSettingsStr = localStorage.getItem('study_planner_ai_settings');
@@ -199,11 +203,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             googleApiKey: savedAiSettings.googleApiKey,
             aiModel: savedAiSettings.aiModel || 'deepseek',
             deepseekApiKey: savedAiSettings.deepseekApiKey || '',
-            deepseekModel: savedAiSettings.deepseekModel || 'deepseek-v4-flash',
-            deepseekThinkingMode: savedAiSettings.deepseekThinkingMode || false,
-            ollamaUrl: savedAiSettings.ollamaUrl || '',
-            ollamaModel: savedAiSettings.ollamaModel || '',
-            dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal) : 240,
+            deepseekModel: savedAiSettings.deepseekModel as 'deepseek-v4-flash' | 'deepseek-v4-pro',
+            deepseekThinkingMode: savedAiSettings.deepseekThinkingMode,
+            ollamaUrl: savedAiSettings.ollamaUrl,
+            ollamaModel: savedAiSettings.ollamaModel,
+            dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal, 10) : 240,
+            openAIApiKey: savedAiSettings.openAIApiKey,
+            coachVoice: savedAiSettings.coachVoice || 'alloy',
         };
     });
 
@@ -773,7 +779,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined) {
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined) {
             setAppSettings(prev => {
                 const newState = {
                     ...prev,
@@ -787,6 +793,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
                     ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
                     dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
+                    openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : prev.openAIApiKey,
+                    coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
                 };
                 
                 // Save AI settings to localStorage
@@ -796,7 +804,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     deepseekModel: newState.deepseekModel,
                     deepseekThinkingMode: newState.deepseekThinkingMode,
                     ollamaUrl: newState.ollamaUrl,
-                    ollamaModel: newState.ollamaModel
+                    ollamaModel: newState.ollamaModel,
+                    openAIApiKey: newState.openAIApiKey,
+                    coachVoice: newState.coachVoice
                 }));
 
                 // Save Goal to localStorage

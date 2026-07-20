@@ -14,6 +14,10 @@ const AIProviderSection: React.FC = () => {
     const [ollamaModel, setOllamaModel] = useState(settings.ollamaModel || 'llama3.2');
     const [availableOllamaModels, setAvailableOllamaModels] = useState<string[]>([]);
     const [isFetchingModels, setIsFetchingModels] = useState(false);
+    
+    // Voice Coach Settings
+    const [openAIApiKey, setOpenAIApiKey] = useState(settings.openAIApiKey || '');
+    const [coachVoice, setCoachVoice] = useState<'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer'>(settings.coachVoice || 'alloy');
 
     useEffect(() => {
         if (aiModel === 'ollama' && ollamaUrl) {
@@ -46,6 +50,8 @@ const AIProviderSection: React.FC = () => {
             deepseekThinkingMode: deepseekThinkingMode,
             ollamaUrl: ollamaUrl,
             ollamaModel: ollamaModel,
+            openAIApiKey: openAIApiKey,
+            coachVoice: coachVoice as any,
         });
         alert('AI sozlamalari saqlandi! ✅');
     };
@@ -182,6 +188,49 @@ const AIProviderSection: React.FC = () => {
                         </div>
                     </div>
                 )}
+                
+                {/* Voice Coach Settings */}
+                <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                        🎙 Ovozli Murabbiy (Speaking Coach) Sozlamalari
+                    </h3>
+                    
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                OpenAI API Key (Haqiqiy inson ovozi uchun)
+                            </label>
+                            <input
+                                type="password"
+                                value={openAIApiKey}
+                                onChange={(e) => setOpenAIApiKey(e.target.value)}
+                                placeholder="sk-proj-..."
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            />
+                            <p className="text-xs text-gray-400 mt-1">
+                                Agar buni kiritmasangiz, brauzerning oflayn (robotdek) ovozidan foydalaniladi.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Murabbiy Ovozi
+                            </label>
+                            <select
+                                value={coachVoice}
+                                onChange={(e) => setCoachVoice(e.target.value as any)}
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                                <option value="alloy">Alloy (O'rta, neytral)</option>
+                                <option value="echo">Echo (Erkak, xotirjam)</option>
+                                <option value="fable">Fable (Erkak, inglizcha aksent)</option>
+                                <option value="onyx">Onyx (Erkak, yo'g'on ovoz)</option>
+                                <option value="nova">Nova (Ayol, g'ayratli)</option>
+                                <option value="shimmer">Shimmer (Ayol, yumshoq)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 
                 <div className="pt-2">
                     <Button onClick={handleSave} className="w-full">

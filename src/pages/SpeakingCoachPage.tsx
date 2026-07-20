@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, PhoneOff, PhoneCall, Volume2, MessageSquare, Activity, Globe } from 'lucide-react';
-import { converseWithCoach } from '../utils/ai';
+import { converseWithCoach, getAIConfig, fetchOpenAITTS } from '../utils/ai';
 
 declare global {
     interface Window {
@@ -108,10 +108,51 @@ const SpeakingCoachPage: React.FC = () => {
         processSpeech();
     }, [isListening, isLiveSession, isSpeaking, isThinking, language]);
 
-    const speakText = (text: string) => {
+    const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+
+    const speakText = async (text: string) => {
         setIsSpeaking(true);
         synthRef.current.cancel(); // Stop any previous speech
+        if (audioPlayerRef.current) {
+            audioPlayerRef.current.pause();
+            audioPlayerRef.current = null;
+        }
+
+        const config = getAIConfig();
         
+        if (config.openAIApiKey) {
+            try {
+                const blob = await fetchOpenAITTS(text, config.coachVoice || 'alloy', config.openAIApiKey);
+                const url = URL.createObjectURL(blob);
+                const audio = new Audio(url);
+                audioPlayerRef.current = audio;
+                
+                audio.onended = () => {
+                    setIsSpeaking(false);
+                    URL.revokeObjectURL(url);
+                    resumeListening();
+                };
+                
+                audio.onerror = (e) => {
+                    console.error("OpenAI audio playback error", e);
+                    setIsSpeaking(false);
+                    URL.revokeObjectURL(url);
+                    resumeListening();
+                };
+                
+                audio.play().catch(e => {
+                    console.error("Audio play failed:", e);
+                    setIsSpeaking(false);
+                    resumeListening();
+                });
+                return; // Return early, don't use synthesis
+            } catch (error) {
+                console.error("Failed to fetch OpenAI TTS, falling back to synthesis", error);
+                // Fallback to synthesis below if this fails
+            }
+        }
+        
+        // Fallback: Browser native text-to-speech
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = language === 'ja' ? 'ja-JP' : 'en-US';
         
