@@ -1173,19 +1173,22 @@ export const converseWithCoach = async (
             return await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim()) || undefined;
-            try {
-                return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (deepseekErr: any) {
-                console.warn("DeepSeek error in coach, falling back to Gemini 2.0 Flash:", deepseekErr);
-                const geminiKey = (config.coachApiKey && config.coachApiKey.trim())
-                    || (userKey && userKey.trim())
-                    || (config.geminiKey && config.geminiKey.trim())
-                    || undefined;
-                const genAI = getGenAI(geminiKey);
-                const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-                const result = await requestWithRetry(() => model.generateContent(prompt));
-                return result.response.text();
+            if (keyToUse) {
+                try {
+                    return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                } catch (deepseekErr: any) {
+                    console.warn("DeepSeek error in coach, falling back to Gemini 2.0 Flash:", deepseekErr);
+                }
             }
+            // If no DeepSeek key is provided or DeepSeek call failed, fallback directly to Gemini
+            const geminiKey = (config.coachApiKey && config.coachApiKey.trim())
+                || (userKey && userKey.trim())
+                || (config.geminiKey && config.geminiKey.trim())
+                || undefined;
+            const genAI = getGenAI(geminiKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            return result.response.text();
         } else {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
                 ? config.coachApiKey.trim()
