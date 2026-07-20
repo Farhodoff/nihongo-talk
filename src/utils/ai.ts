@@ -1187,10 +1187,24 @@ export const converseWithCoach = async (
                         ? config.geminiKey.trim()
                         : undefined;
             const genAI = getGenAI(keyToUse);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-            const result = await requestWithRetry(() => model.generateContent(prompt));
-            return result.response.text();
+            try {
+                const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+                const result = await requestWithRetry(() => model.generateContent(prompt), 1, 1000);
+                return result.response.text();
+            } catch (firstErr: any) {
+                console.warn("gemini-2.0-flash rate limit in coach, falling back to gemini-1.5-flash:", firstErr);
+                try {
+                    const fallbackModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    const fallbackResult = await requestWithRetry(() => fallbackModel.generateContent(prompt), 1, 1000);
+                    return fallbackResult.response.text();
+                } catch (secondErr: any) {
+                    console.warn("gemini-1.5-flash rate limit in coach, falling back to gemini-2.0-flash-lite:", secondErr);
+                    const liteModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+                    const liteResult = await requestWithRetry(() => liteModel.generateContent(prompt), 1, 1000);
+                    return liteResult.response.text();
+                }
+            }
         }
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
