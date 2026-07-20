@@ -10,11 +10,11 @@ const ReloadPrompt: React.FC = () => {
     } = useRegisterSW({
         onRegistered(r) {
             if (r) {
-                // Sahifaga kirganda va har 1 soatda yangi versiya borligini avtomatik tekshirish
+                // Sahifaga kirganda va har 15 soniyada yangi versiya borligini avtomatik tekshirish
                 r.update();
                 setInterval(() => {
                     r.update();
-                }, 60 * 60 * 1000);
+                }, 15 * 1000);
             }
         },
         onRegisterError(error) {
