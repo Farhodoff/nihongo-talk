@@ -22,43 +22,83 @@ interface ChatMessage {
 
 export type CoachPersona = 'roast' | 'gentle' | 'ielts' | 'interview';
 
-const PERSONAS: Record<CoachPersona, { name: string; icon: any; color: string; desc: string; badge: string }> = {
-    roast: {
-        name: 'Strict Roast Coach',
-        icon: Flame,
-        color: 'from-orange-500 to-rose-600',
-        desc: 'Kamchiliklaringizni shafqatsiz va hazil aralash roast qiladi',
-        badge: '🌶️ Shiddatli & Roast'
+const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: string; icon: any; color: string; desc: string; badge: string }>> = {
+    en: {
+        roast: {
+            name: 'Strict Roast Coach',
+            icon: Flame,
+            color: 'from-orange-500 to-rose-600',
+            desc: 'Kamchiliklaringizni shafqatsiz va hazil aralash roast qiladi',
+            badge: '🌶️ Shiddatli & Roast'
+        },
+        gentle: {
+            name: 'Sabrli Tutor',
+            icon: Sparkles,
+            color: 'from-emerald-400 to-teal-600',
+            desc: 'Yumshoq va xushmuomala tarzda xatolaringizni tushuntiradi',
+            badge: '🌿 Muloyim & Sabrli'
+        },
+        ielts: {
+            name: 'IELTS Examiner',
+            icon: GraduationCap,
+            color: 'from-blue-500 to-indigo-600',
+            desc: 'IELTS Speaking standarti bo\'yicha savol-javob qiladi',
+            badge: '🎓 IELTS Imtihonchi'
+        },
+        interview: {
+            name: 'Tech Interviewer',
+            icon: Briefcase,
+            color: 'from-purple-500 to-violet-700',
+            desc: 'Ishga kirish suhbatlariga ingliz tilida tayyorlaydi',
+            badge: '💼 HR & Intervyuer'
+        }
     },
-    gentle: {
-        name: 'Sabrli Tutor',
-        icon: Sparkles,
-        color: 'from-emerald-400 to-teal-600',
-        desc: 'Yumshoq va xushmuomala tarzda xatolaringizni tushuntiradi',
-        badge: '🌿 Muloyim & Sabrli'
-    },
-    ielts: {
-        name: 'IELTS Examiner',
-        icon: GraduationCap,
-        color: 'from-blue-500 to-indigo-600',
-        desc: 'IELTS Speaking standarti bo\'yicha savol-javob qiladi',
-        badge: '🎓 IELTS Imtihonchi'
-    },
-    interview: {
-        name: 'Tech Interviewer',
-        icon: Briefcase,
-        color: 'from-purple-500 to-violet-700',
-        desc: 'Ishga kirish suhbatlariga ingliz tilida tayyorlaydi',
-        badge: '💼 HR & Intervyuer'
+    ja: {
+        roast: {
+            name: '鬼先生 (Oni Sensei)',
+            icon: Flame,
+            color: 'from-red-600 to-rose-700',
+            desc: 'Yapon tili va Keigo xatolarini shiddat bilan roast qiladi',
+            badge: '👹 鬼先生 & Roast'
+        },
+        gentle: {
+            name: '日本語の先生',
+            icon: Sparkles,
+            color: 'from-emerald-400 to-teal-600',
+            desc: 'です・ます bilan xushmuomala yapon tilini o\'rgatadi',
+            badge: '🌸 優しい日本語'
+        },
+        ielts: {
+            name: 'JLPT N3-N1 Coach',
+            icon: GraduationCap,
+            color: 'from-blue-500 to-indigo-600',
+            desc: 'JLPT va yuqori darajadagi yaponcha iboralarni o\'rgatadi',
+            badge: '📚 JLPT & 会話'
+        },
+        interview: {
+            name: 'IT 面接官 (Recruiter)',
+            icon: Briefcase,
+            color: 'from-purple-500 to-violet-700',
+            desc: 'Yapon IT kompaniyalari suhbati va Keigo (敬語) bo\'yicha intervyuer',
+            badge: '🏢 日本IT面接官'
+        }
     }
 };
 
-const PROMPT_SUGGESTIONS = [
-    { title: "O'zingni tanishtir", text: "Hello! Can you introduce yourself and tell me how you can help my English?" },
-    { title: "Roast rejimini yoq", text: "I'm ready for your toughest roast. Test my English speaking right now!" },
-    { title: "IELTS Part 2 amaliyoti", text: "Let's do IELTS Speaking Part 2. Give me a cue card topic to talk about." },
-    { title: "Intervyu savol-javob", text: "Act as a tech recruiter and ask me top 3 interview questions." }
-];
+const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string }[]> = {
+    en: [
+        { title: "O'zingni tanishtir", text: "Hello! Can you introduce yourself and tell me how you can help my English?" },
+        { title: "Roast rejimini yoq", text: "I'm ready for your toughest roast. Test my English speaking right now!" },
+        { title: "IELTS Part 2 amaliyoti", text: "Let's do IELTS Speaking Part 2. Give me a cue card topic to talk about." },
+        { title: "Intervyu savol-javob", text: "Act as a tech recruiter and ask me top 3 interview questions." }
+    ],
+    ja: [
+        { title: "自己紹介 (Jikoshoukai)", text: "はじめまして。自己紹介の練習をしたいです。" },
+        { title: "IT面接 (IT Mock Interview)", text: "日本のIT企業の面接練習をお願いします。自己紹介からスタートしてください。" },
+        { title: "敬語チェック (Keigo Check)", text: "私の敬語の使い方をチェックしてアドバイスをください。" },
+        { title: "日常会話 (Daily Japanese)", text: "日本語で楽しい日常会話をしましょう！" }
+    ]
+};
 
 const SpeakingCoachPage: React.FC = () => {
     const [language, setLanguage] = useState<'en' | 'ja'>('en');
@@ -308,6 +348,8 @@ const SpeakingCoachPage: React.FC = () => {
         setTimeout(() => setCopiedIndex(null), 2000);
     };
 
+    const PERSONAS = PERSONAS_BY_LANG[language];
+    const PROMPT_SUGGESTIONS = PROMPT_SUGGESTIONS_BY_LANG[language];
     const ActivePersonaIcon = PERSONAS[persona].icon;
 
     return (
