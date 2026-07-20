@@ -38,7 +38,7 @@ interface InterviewMessage {
 
 const AIAssistantPage: React.FC = () => {
     const location = useLocation();
-    const { subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP, user } = useStudyData();
+    const { subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP } = useStudyData();
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>(location.state?.subjectId || '');
     const [activeTab, setActiveTab] = useState<ActiveTab>(location.state?.tab || 'chat');
 
@@ -510,16 +510,14 @@ const AIAssistantPage: React.FC = () => {
                         >
                             <BrainCircuit size={16} /> Aqliy Xarita
                         </button>
-                        {user?.email === 'fsoyilovv@gmail.com' && (
-                            <button
-                                onClick={() => setActiveTab('interview')}
-                                className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
-                                    activeTab === 'interview' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                                }`}
-                            >
-                                <Briefcase size={16} /> IT Interview (🇯🇵)
-                            </button>
-                        )}
+                        <button
+                            onClick={() => setActiveTab('interview')}
+                            className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
+                                activeTab === 'interview' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                            }`}
+                        >
+                            <Briefcase size={16} /> IT Interview (🇯🇵)
+                        </button>
                         <button
                             onClick={() => setActiveTab('cv')}
                             className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${

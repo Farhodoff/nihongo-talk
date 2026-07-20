@@ -57,6 +57,8 @@ export const getAIConfig = () => {
     let deepseekThinkingMode = false;
     let openAIApiKey = '';
     let coachVoice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer' = 'alloy';
+    let coachAiModel: AIProvider | undefined;
+    let coachApiKey: string | undefined;
 
     if (savedStr) {
         try {
@@ -68,6 +70,8 @@ export const getAIConfig = () => {
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
             if (saved.openAIApiKey) openAIApiKey = saved.openAIApiKey;
             if (saved.coachVoice) coachVoice = saved.coachVoice;
+            if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
+            if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
         } catch (e) {
             console.error("Failed to parse ai settings from localStorage", e);
         }
@@ -79,7 +83,9 @@ export const getAIConfig = () => {
         deepseekModel,
         deepseekThinkingMode,
         openAIApiKey,
-        coachVoice
+        coachVoice,
+        coachAiModel,
+        coachApiKey
     };
 };
 
@@ -1132,16 +1138,17 @@ export const converseWithCoach = async (
     `;
 
     try {
-        const provider = await getAIProvider();
+        const config = getAIConfig();
+        const provider = config.coachAiModel || await getAIProvider();
         
         if (provider === 'ollama') {
             return await callOllama(prompt);
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            return await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            const keyToUse = config.coachApiKey || config.deepseekKey || '';
+            return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
-            const config = getAIConfig();
-            const genAI = getGenAI(userKey || config.geminiKey);
+            const keyToUse = config.coachApiKey || userKey || config.geminiKey;
+            const genAI = getGenAI(keyToUse);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
             const result = await requestWithRetry(() => model.generateContent(prompt));

@@ -18,6 +18,8 @@ const AIProviderSection: React.FC = () => {
     // Voice Coach Settings
     const [openAIApiKey, setOpenAIApiKey] = useState(settings.openAIApiKey || '');
     const [coachVoice, setCoachVoice] = useState<'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer'>(settings.coachVoice || 'alloy');
+    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
+    const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
 
     useEffect(() => {
         if (aiModel === 'ollama' && ollamaUrl) {
@@ -52,6 +54,8 @@ const AIProviderSection: React.FC = () => {
             ollamaModel: ollamaModel,
             openAIApiKey: openAIApiKey,
             coachVoice: coachVoice as any,
+            coachAiModel: coachAiModel,
+            coachApiKey: coachApiKey,
         });
         alert('AI sozlamalari saqlandi! ✅');
     };
@@ -196,6 +200,34 @@ const AIProviderSection: React.FC = () => {
                     </h3>
                     
                     <div className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Coach uchun alohida matn/fikr yuritish modeli (AI Model)
+                            </label>
+                            <select
+                                value={coachAiModel}
+                                onChange={(e) => setCoachAiModel(e.target.value as AIProvider)}
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3"
+                            >
+                                <option value="gemini">Google Gemini (Tavsiya etiladi)</option>
+                                <option value="deepseek">DeepSeek</option>
+                                <option value="ollama">Ollama (Local)</option>
+                            </select>
+                            
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Ushbu model uchun API Key (Faqat Coach uchun ishlaydi)
+                            </label>
+                            <input
+                                type="password"
+                                value={coachApiKey}
+                                onChange={(e) => setCoachApiKey(e.target.value)}
+                                placeholder="Alohida token (Agar bo'sh qoldirsangiz, asosiy model tokeni ishlatiladi)"
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            />
+                        </div>
+                        
+                        <hr className="border-gray-200 dark:border-gray-700" />
+                        
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 OpenAI API Key (Haqiqiy inson ovozi uchun)

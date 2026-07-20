@@ -30,6 +30,8 @@ interface Settings {
     dailyStudyGoalMinutes: number;
     openAIApiKey?: string;
     coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+    coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
+    coachApiKey?: string;
 }
 
 interface StudyPlannerContextType {
@@ -191,6 +193,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         dailyStudyGoalMinutes: number;
         openAIApiKey?: string;
         coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+        coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
+        coachApiKey?: string;
     }>(() => {
         const savedTheme = localStorage.getItem('study_planner_theme');
         const savedAiSettingsStr = localStorage.getItem('study_planner_ai_settings');
@@ -210,6 +214,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal, 10) : 240,
             openAIApiKey: savedAiSettings.openAIApiKey,
             coachVoice: savedAiSettings.coachVoice || 'alloy',
+            coachAiModel: savedAiSettings.coachAiModel || 'gemini',
+            coachApiKey: savedAiSettings.coachApiKey || '',
         };
     });
 
@@ -779,7 +785,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined) {
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined || updates.coachAiModel !== undefined || updates.coachApiKey !== undefined) {
             setAppSettings(prev => {
                 const newState = {
                     ...prev,
@@ -795,6 +801,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
                     openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : prev.openAIApiKey,
                     coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
+                    coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
+                    coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
                 };
                 
                 // Save AI settings to localStorage
