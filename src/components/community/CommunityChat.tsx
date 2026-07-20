@@ -27,6 +27,7 @@ const CommunityChat: React.FC = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const typingChannelRef = useRef<any>(null);
 
     const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
         messagesEndRef.current?.scrollIntoView({ behavior });
@@ -47,6 +48,9 @@ const CommunityChat: React.FC = () => {
     }, [messages, currentUser?.id]);
 
     useEffect(() => {
+        let chatChannel: any = null;
+        let typingChannel: any = null;
+
         const setupChat = async () => {
             const { data: { user } } = await supabase.auth.getUser();
             setCurrentUser(user);
@@ -54,7 +58,7 @@ const CommunityChat: React.FC = () => {
             setIsLoading(false);
 
             // Subscribe to typing indicators via broadcast
-            const typingChannel = supabase.channel('typing-indicator')
+            typingChannel = supabase.channel('typing-indicator')
                 .on('broadcast', { event: 'typing' }, ({ payload }) => {
                     if (payload.user_id !== user?.id) {
                         setTypingUsers(prev => {
@@ -68,7 +72,9 @@ const CommunityChat: React.FC = () => {
                 })
                 .subscribe();
 
-            const chatChannel = supabase.channel('global-chat')
+            typingChannelRef.current = typingChannel;
+
+            chatChannel = supabase.channel('global-chat')
                 .on(
                     'postgres_changes',
                     { event: 'INSERT', schema: 'public', table: 'messages' },
@@ -90,14 +96,15 @@ const CommunityChat: React.FC = () => {
                     }
                 )
                 .subscribe();
-
-            return () => {
-                supabase.removeChannel(chatChannel);
-                supabase.removeChannel(typingChannel);
-            };
         };
 
         setupChat();
+
+        return () => {
+            if (chatChannel) supabase.removeChannel(chatChannel);
+            if (typingChannel) supabase.removeChannel(typingChannel);
+            typingChannelRef.current = null;
+        };
     }, []);
 
     const fetchMessages = async () => {
@@ -158,26 +165,34 @@ const CommunityChat: React.FC = () => {
     };
 
     const handleTyping = () => {
-        if (!currentUser) return;
+        if (!currentUser || !typingChannelRef.current) return;
 
-        supabase.channel('typing-indicator').send({
-            type: 'broadcast',
-            event: 'typing',
-            payload: { 
-                user_id: currentUser.id, 
-                full_name: currentUser.user_metadata?.full_name || 'Talaba',
-                isTyping: true 
-            }
-        });
+        try {
+            typingChannelRef.current.send({
+                type: 'broadcast',
+                event: 'typing',
+                payload: { 
+                    user_id: currentUser.id, 
+                    full_name: currentUser.user_metadata?.full_name || 'Talaba',
+                    isTyping: true 
+                }
+            });
+        } catch (e) {
+            // Ignore channel send errors
+        }
 
         if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
         typingTimeoutRef.current = setTimeout(() => {
-            supabase.channel('typing-indicator').send({
-                type: 'broadcast',
-                event: 'typing',
-                payload: { isTyping: false }
-            });
+            try {
+                typingChannelRef.current?.send({
+                    type: 'broadcast',
+                    event: 'typing',
+                    payload: { isTyping: false }
+                });
+            } catch (e) {
+                // Ignore channel send errors
+            }
         }, 2000);
     };
 
