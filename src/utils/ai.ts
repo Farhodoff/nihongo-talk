@@ -1132,7 +1132,7 @@ export const converseWithCoach = async (
             return await callOllama(prompt);
         } else if (provider === 'deepseek') {
             const config = getAIConfig();
-            return await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            return await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
