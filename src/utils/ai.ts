@@ -238,7 +238,8 @@ export const requestWithRetry = async <T>(
 export const generateFlashcardsWithAI = async (
     topic: string,
     count: number = 5,
-    userKey?: string
+    userKey?: string,
+    previousQuestions: string[] = []
 ): Promise<{ front: string; back: string }[]> => {
     // Check Cache first
     const cacheKey = `flashcards-${topic}-${count}`;
@@ -258,14 +259,25 @@ export const generateFlashcardsWithAI = async (
         }
 
         console.log(`[AI Batching] Splitting ${count} cards into ${batches.length} batches (sequential)...`);
-        const allCards = [];
+        const allCards: { front: string; back: string }[] = [];
+        const generatedQuestions: string[] = [];
         for (const batchCount of batches) {
-            const batchResult = await generateFlashcardsWithAI(topic, batchCount, userKey);
-            allCards.push(batchResult);
+            const batchResult = await generateFlashcardsWithAI(topic, batchCount, userKey, generatedQuestions);
+            allCards.push(...batchResult);
+            generatedQuestions.push(...batchResult.map(c => c.front));
             // Small optional delay between batches to stay under rate limits
             if (batches.length > 1) await new Promise(r => setTimeout(r, 500));
         }
-        const merged = allCards.flat();
+        
+        // Final deduplication in JS just in case AI ignores the prompt constraint
+        const uniqueCardsMap = new Map();
+        for (const card of allCards) {
+            if (card && card.front && !uniqueCardsMap.has(card.front.toLowerCase())) {
+                uniqueCardsMap.set(card.front.toLowerCase(), card);
+            }
+        }
+        const merged = Array.from(uniqueCardsMap.values());
+        
         aiCache.set(cacheKey, merged);
         return merged;
     }
@@ -275,8 +287,10 @@ export const generateFlashcardsWithAI = async (
       Task: Create ${count} high-quality, educational flashcards about this topic.
       Language: Detect the language of the topic and use it for the flashcards (e.g., if topic is in Uzbek, flashcards should be in Uzbek).
       Output Format: A VALID JSON array of objects. Each object must have "front" and "back" keys.
+      ${previousQuestions.length > 0 ? `CRITICAL CONSTRAINT: Do NOT generate flashcards with these questions (they are already generated):\n${previousQuestions.map(q => `- ${q}`).join('\n')}\n` : ''}
       Example: [{"front": "What is 2+2?", "back": "4"}]
       Constraint: ONLY return the JSON array. Do not include any markdown formatting, preamble, or explanation.
+      Constraint 2: ALL flashcards must be completely unique and cover different aspects of the topic.
     `;
 
     try {
