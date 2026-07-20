@@ -123,6 +123,21 @@ const SpeakingCoachPage: React.FC = () => {
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const synthRef = useRef<SpeechSynthesis>(window.speechSynthesis);
     const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+    const transcriptBufferRef = useRef('');
+    const isProcessingRef = useRef(false);
+    const isLiveSessionRef = useRef(false);
+    const chatHistoryRef = useRef<ChatMessage[]>([]);
+    const languageRef = useRef(language);
+    const personaRef = useRef(persona);
+
+    useEffect(() => {
+        chatHistoryRef.current = chatHistory;
+    }, [chatHistory]);
+
+    useEffect(() => {
+        languageRef.current = language;
+        personaRef.current = persona;
+    }, [language, persona]);
 
     // Live session timer
     useEffect(() => {
@@ -164,20 +179,33 @@ const SpeakingCoachPage: React.FC = () => {
                     interimTranscript += event.results[i][0].transcript;
                 }
                 setCurrentTranscript(interimTranscript);
+                transcriptBufferRef.current = interimTranscript;
             };
 
             recognitionRef.current.onerror = (event: any) => {
-                if (event.error !== 'no-speech') {
-                    console.error('Speech recognition error', event.error);
+                if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+                    setError('Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.');
+                } else if (event.error !== 'no-speech') {
+                    console.error('Speech recognition error:', event.error);
                 }
                 setIsListening(false);
             };
 
             recognitionRef.current.onend = () => {
                 setIsListening(false);
+                if (isLiveSessionRef.current && transcriptBufferRef.current.trim() && !isProcessingRef.current) {
+                    const spokenText = transcriptBufferRef.current.trim();
+                    transcriptBufferRef.current = '';
+                    setCurrentTranscript('');
+                    handleSendUserText(spokenText);
+                } else if (isLiveSessionRef.current && !isProcessingRef.current) {
+                    setTimeout(() => {
+                        resumeListening();
+                    }, 300);
+                }
             };
         } else {
-            setError('Sizning brauzeringiz ovoz yozishni qo\'llab-quvvatlamaydi. Iltimos, Chrome brauzeridan foydalaning.');
+            setError('Sizning brauzeringiz ovoz yozishni qo\'llab-quvvatlamaydi. Iltimos Chrome yoki Edge brauzeridan foydalaning.');
         }
 
         return () => {
@@ -192,40 +220,36 @@ const SpeakingCoachPage: React.FC = () => {
         }
     }, [chatHistory, currentTranscript, isThinking]);
 
-    // Speech process queue
-    useEffect(() => {
-        const processSpeech = async () => {
-            if (isLiveSession && !isListening && currentTranscript.trim() && !isSpeaking && !isThinking && !isMuted) {
-                const userText = currentTranscript.trim();
-                setCurrentTranscript('');
-                
-                const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const updatedHistory: ChatMessage[] = [...chatHistory, { role: 'user', content: userText, timestamp: timeStr }];
-                setChatHistory(updatedHistory);
-                
-                if (recognitionRef.current) recognitionRef.current.stop();
-                
-                setIsThinking(true);
-                try {
-                    const aiResponse = await converseWithCoach(userText, chatHistory, language, persona);
-                    
-                    const resTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    setChatHistory(prev => [...prev, { role: 'assistant', content: aiResponse, timestamp: resTimeStr }]);
-                    setIsThinking(false);
-                    
-                    speakText(aiResponse);
-                } catch (err: any) {
-                    setError(err.message || "Tahlil qilishda xatolik yuz berdi.");
-                    setIsThinking(false);
-                    resumeListening();
-                }
-            } else if (isLiveSession && !isListening && !isSpeaking && !isThinking && !currentTranscript.trim() && !isMuted) {
-                resumeListening();
-            }
-        };
+    const handleSendUserText = async (text: string) => {
+        if (!text.trim() || isThinking || isSpeaking) return;
         
-        processSpeech();
-    }, [isListening, isLiveSession, isSpeaking, isThinking, isMuted, language]);
+        isProcessingRef.current = true;
+        setIsThinking(true);
+        setError(null);
+        setCurrentTranscript('');
+
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const updatedHistory: ChatMessage[] = [...chatHistoryRef.current, { role: 'user', content: text, timestamp: timeStr }];
+        setChatHistory(updatedHistory);
+        chatHistoryRef.current = updatedHistory;
+
+        try {
+            const aiResponse = await converseWithCoach(text, updatedHistory, languageRef.current, personaRef.current);
+            
+            const resTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const finalHistory: ChatMessage[] = [...updatedHistory, { role: 'assistant', content: aiResponse, timestamp: resTimeStr }];
+            setChatHistory(finalHistory);
+            chatHistoryRef.current = finalHistory;
+
+            setIsThinking(false);
+            speakText(aiResponse);
+        } catch (err: any) {
+            setError(err.message || 'Tahlil qilishda xatolik yuz berdi.');
+            setIsThinking(false);
+            isProcessingRef.current = false;
+            resumeListening();
+        }
+    };
 
     const speakText = async (text: string) => {
         setIsSpeaking(true);
@@ -234,6 +258,12 @@ const SpeakingCoachPage: React.FC = () => {
             audioPlayerRef.current.pause();
             audioPlayerRef.current = null;
         }
+
+        const onSpeechFinish = () => {
+            setIsSpeaking(false);
+            isProcessingRef.current = false;
+            resumeListening();
+        };
 
         const config = getAIConfig();
         
@@ -245,20 +275,17 @@ const SpeakingCoachPage: React.FC = () => {
                 audioPlayerRef.current = audio;
                 
                 audio.onended = () => {
-                    setIsSpeaking(false);
                     URL.revokeObjectURL(url);
-                    resumeListening();
+                    onSpeechFinish();
                 };
                 
                 audio.onerror = () => {
-                    setIsSpeaking(false);
                     URL.revokeObjectURL(url);
-                    resumeListening();
+                    onSpeechFinish();
                 };
                 
                 audio.play().catch(() => {
-                    setIsSpeaking(false);
-                    resumeListening();
+                    onSpeechFinish();
                 });
                 return;
             } catch (error) {
@@ -267,10 +294,10 @@ const SpeakingCoachPage: React.FC = () => {
         }
         
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = language === 'ja' ? 'ja-JP' : 'en-US';
+        utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
         
         const voices = synthRef.current.getVoices();
-        if (language === 'ja') {
+        if (languageRef.current === 'ja') {
             const jpVoice = voices.find(v => v.lang.includes('ja') && (v.name.includes('Google') || v.name.includes('Kyoko')));
             if (jpVoice) utterance.voice = jpVoice;
         } else {
@@ -279,26 +306,24 @@ const SpeakingCoachPage: React.FC = () => {
         }
         
         utterance.onend = () => {
-            setIsSpeaking(false);
-            resumeListening();
+            onSpeechFinish();
         };
         
         utterance.onerror = () => {
-            setIsSpeaking(false);
-            resumeListening();
+            onSpeechFinish();
         };
 
         synthRef.current.speak(utterance);
     };
 
     const resumeListening = () => {
-        if (isLiveSession && recognitionRef.current && !isSpeaking && !isThinking && !isMuted) {
+        if (isLiveSessionRef.current && recognitionRef.current && !isSpeaking && !isThinking && !isMuted) {
             try {
-                recognitionRef.current.lang = language === 'ja' ? 'ja-JP' : 'en-US';
+                recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
                 setIsListening(true);
             } catch (e) {
-                // Already started
+                // Already running
             }
         }
     };
@@ -312,26 +337,54 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
+    const getInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona) => {
+        if (lang === 'ja') {
+            switch (p) {
+                case 'roast': return 'こんにちは！鬼先生です。遠慮せずに日本語で話してください！';
+                case 'gentle': return 'こんにちは！日本語の先生です。いつでもお話ししてくださいね。';
+                case 'ielts': return 'こんにちは！JLPTスピーキングの練習を始めましょう！';
+                case 'interview': return 'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。';
+            }
+        } else {
+            switch (p) {
+                case 'roast': return "Hey there! Strict Roast Coach here. Speak up and let's hear your English!";
+                case 'gentle': return "Hello! I'm your tutor. Feel free to start talking whenever you're ready!";
+                case 'ielts': return "Good day! Welcome to your IELTS Speaking test practice. Shall we begin?";
+                case 'interview': return "Hello! Welcome to your Tech Mock Interview. Tell me a bit about yourself when you're ready.";
+            }
+        }
+    };
+
     const startSession = () => {
         setIsLiveSession(true);
+        isLiveSessionRef.current = true;
         setCurrentTranscript('');
         setError(null);
-        try {
-            recognitionRef.current.lang = language === 'ja' ? 'ja-JP' : 'en-US';
-            recognitionRef.current.start();
-            setIsListening(true);
-        } catch (e) {
-            console.error(e);
-        }
+
+        const greeting = getInitialGreeting(language, persona);
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const initHistory: ChatMessage[] = [{ role: 'assistant', content: greeting, timestamp: timeStr }];
+        
+        setChatHistory(initHistory);
+        chatHistoryRef.current = initHistory;
+
+        speakText(greeting);
     };
 
     const endSession = () => {
         setIsLiveSession(false);
+        isLiveSessionRef.current = false;
+        isProcessingRef.current = false;
         setIsListening(false);
         setIsSpeaking(false);
         setIsThinking(false);
         setCurrentTranscript('');
-        if (recognitionRef.current) recognitionRef.current.stop();
+        transcriptBufferRef.current = '';
+        if (recognitionRef.current) {
+            try {
+                recognitionRef.current.stop();
+            } catch (e) {}
+        }
         synthRef.current.cancel();
     };
 
@@ -339,7 +392,9 @@ const SpeakingCoachPage: React.FC = () => {
         if (!isLiveSession) {
             startSession();
         }
-        setCurrentTranscript(text);
+        setTimeout(() => {
+            handleSendUserText(text);
+        }, 500);
     };
 
     const copyToClipboard = (text: string, index: number) => {
