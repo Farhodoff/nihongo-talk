@@ -439,10 +439,10 @@ const SpeakingCoachPage: React.FC = () => {
             )}
 
             {/* Main Interactive Stage & Chat */}
-            <div className="flex-1 bg-white/50 dark:bg-gray-900/50 backdrop-blur-2xl rounded-3xl shadow-xl border border-gray-200/60 dark:border-gray-800/60 p-4 md:p-6 mb-4 flex flex-col justify-between overflow-hidden relative">
+            <div className="flex-1 min-h-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-2xl rounded-3xl shadow-xl border border-gray-200/60 dark:border-gray-800/60 p-3 md:p-5 mb-3 flex flex-col justify-between overflow-hidden relative">
                 
                 {/* Active Session Status Bar */}
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-200/40 dark:border-gray-800/40 text-xs font-medium text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-200/40 dark:border-gray-800/40 text-xs font-medium text-gray-500 dark:text-gray-400 flex-shrink-0">
                     <div className="flex items-center gap-2">
                         <span className={`w-2.5 h-2.5 rounded-full ${isLiveSession ? 'bg-emerald-500 animate-ping' : 'bg-gray-400'}`} />
                         <span className="font-semibold text-gray-700 dark:text-gray-300">
@@ -467,15 +467,15 @@ const SpeakingCoachPage: React.FC = () => {
 
                 {/* Empty State / Welcome AI Visualizer */}
                 {chatHistory.length === 0 && !isLiveSession && (
-                    <div className="flex-1 flex flex-col items-center justify-center text-center p-4 animate-in fade-in duration-500">
+                    <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center p-2 overflow-y-auto scrollbar-hide animate-in fade-in duration-500">
                         {/* 3D Pulsating Visual Orb */}
-                        <div className="relative mb-6 group cursor-pointer" onClick={startSession}>
-                            <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-tr ${PERSONAS[persona].color} p-1 shadow-[0_0_50px_rgba(99,102,241,0.3)] transition-transform duration-700 group-hover:scale-105 flex items-center justify-center relative`}>
+                        <div className="relative mb-3 md:mb-4 group cursor-pointer flex-shrink-0" onClick={startSession}>
+                            <div className={`w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr ${PERSONAS[persona].color} p-1 shadow-[0_0_40px_rgba(99,102,241,0.3)] transition-transform duration-700 group-hover:scale-105 flex items-center justify-center relative`}>
                                 <div className="w-full h-full bg-gray-900 rounded-full flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-md">
                                     {/* Orbiting particles */}
                                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent animate-spin-slow" />
-                                    <ActivePersonaIcon size={48} className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] animate-pulse" />
-                                    <span className="mt-2 text-[11px] font-extrabold tracking-widest text-indigo-300 uppercase">
+                                    <ActivePersonaIcon size={36} className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] animate-pulse" />
+                                    <span className="mt-1 text-[10px] font-extrabold tracking-widest text-indigo-300 uppercase">
                                         Tap to Start
                                     </span>
                                 </div>
@@ -484,11 +484,11 @@ const SpeakingCoachPage: React.FC = () => {
                             <div className="absolute inset-0 rounded-full border-2 border-indigo-500/30 animate-ping pointer-events-none" />
                         </div>
 
-                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-1">
                             {PERSONAS[persona].name} bilan gaplashishga tayyormisiz?
                         </h3>
-                        <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 max-w-md mb-6 leading-relaxed">
-                            {PERSONAS[persona].desc}. Qo'ng'iroq tugmasini bosing va ingliz tilida erkin gapirishni boshlang!
+                        <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md mb-3 md:mb-4 leading-relaxed">
+                            {PERSONAS[persona].desc}. Qo'ng'iroq tugmasini bosing va erkin gapirishni boshlang!
                         </p>
 
                         {/* Quick Prompts */}
@@ -497,7 +497,7 @@ const SpeakingCoachPage: React.FC = () => {
                                 <button
                                     key={idx}
                                     onClick={() => handlePromptClick(item.text)}
-                                    className="p-3 bg-white/60 dark:bg-gray-800/60 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-gray-200/60 dark:border-gray-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 rounded-2xl transition-all text-xs group flex items-start justify-between shadow-sm"
+                                    className="p-2.5 bg-white/60 dark:bg-gray-800/60 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-gray-200/60 dark:border-gray-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 rounded-2xl transition-all text-xs group flex items-start justify-between shadow-sm"
                                 >
                                     <div>
                                         <div className="font-bold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 mb-0.5">
