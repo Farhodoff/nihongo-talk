@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { isAdminEmail } from '../utils/admin';
 
 export interface UserSubscription {
     tier: 'free' | 'pro' | 'premium';
@@ -120,7 +121,7 @@ export const useSubscription = () => {
         if (!user || !subscription || subscription.ai_credits <= 0) return;
         
         // Admin uchun cheklov yo'q
-        if (user.email === 'fsoyilovv@gmail.com') return;
+        if (isAdminEmail(user.email)) return;
         
         try {
             const newCredits = subscription.ai_credits - 1;
@@ -139,8 +140,10 @@ export const useSubscription = () => {
         }
     };
 
+    const isUserAdmin = isAdminEmail(user?.email);
+
     // Super Admin uchun obunani doim "premium" qilib ko'rsatish
-    const effectiveSubscription = user?.email === 'fsoyilovv@gmail.com' 
+    const effectiveSubscription = isUserAdmin 
         ? { ...(subscription || {} as UserSubscription), tier: 'premium' as const, ai_credits: 9999 }
         : subscription;
 
@@ -149,8 +152,8 @@ export const useSubscription = () => {
         adminApiKey,
         loading,
         decrementCredit,
-        isPro: user?.email === 'fsoyilovv@gmail.com' || subscription?.tier === 'pro' || subscription?.tier === 'premium',
-        hasCredits: user?.email === 'fsoyilovv@gmail.com' || (subscription?.ai_credits || 0) > 0,
-        isAdmin: user?.email === 'fsoyilovv@gmail.com'
+        isPro: isUserAdmin || subscription?.tier === 'pro' || subscription?.tier === 'premium',
+        hasCredits: isUserAdmin || (subscription?.ai_credits || 0) > 0,
+        isAdmin: isUserAdmin
     };
 };

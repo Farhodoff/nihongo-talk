@@ -11,6 +11,7 @@ import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { User, Sparkles, Sliders, Database, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { isAdminEmail } from '../utils/admin';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData, user } = useStudyData();
@@ -25,7 +26,7 @@ const SettingsPage: React.FC = () => {
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz
-    if (user?.email === 'fsoyilovv@gmail.com') {
+    if (isAdminEmail(user?.email)) {
         tabs.push({ id: 'admin', label: 'Admin Panel', icon: Shield });
     }
 
@@ -123,7 +124,7 @@ const SettingsPage: React.FC = () => {
                     </div>
                 )}
 
-                {activeTab === 'admin' && user?.email === 'fsoyilovv@gmail.com' && (
+                {activeTab === 'admin' && isAdminEmail(user?.email) && (
                     <div className="space-y-6">
                         {/* Biz to'g'ridan-to'g'ri AdminDashboardPage ni ko'rsatishimiz yoki unga o'tish tugmasini qo'yishimiz mumkin */}
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 text-center">

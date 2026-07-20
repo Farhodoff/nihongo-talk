@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import { Shield, Users, Key, Loader2, Save, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
+import { isAdminEmail } from '../utils/admin';
 
 interface UserSubscription {
     id: string;
@@ -55,7 +56,7 @@ const AdminDashboardPage: React.FC = () => {
 
     useEffect(() => {
         // Faqat admin bo'lsa ma'lumotlarni tortamiz
-        if (user?.email === 'fsoyilovv@gmail.com') {
+        if (isAdminEmail(user?.email)) {
             fetchAdminData();
         } else {
             setLoading(false);
@@ -72,7 +73,7 @@ const AdminDashboardPage: React.FC = () => {
     }
 
     // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
-    if (user?.email !== 'fsoyilovv@gmail.com') {
+    if (!isAdminEmail(user?.email)) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
                 <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500 mb-4 opacity-80">404</h1>
