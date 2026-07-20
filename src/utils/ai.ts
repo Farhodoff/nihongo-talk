@@ -152,7 +152,7 @@ const getGenAI = (userKey?: string) => {
         if (subStr) {
             try {
                 const sub = JSON.parse(subStr);
-                if (sub.adminApiKey && (sub.tier === 'pro' || sub.ai_credits > 0)) {
+                if (sub.adminApiKey) {
                     keyToUse = sub.adminApiKey;
                 }
             } catch (e) {

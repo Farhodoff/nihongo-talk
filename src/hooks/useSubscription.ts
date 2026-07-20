@@ -52,12 +52,17 @@ export const useSubscription = () => {
                 }
 
                 // AI kalitlarni va obunani localStorage ga saqlash (ai.ts tezkor o'qishi uchun)
-                if (subData && appSettings) {
+                if (appSettings?.gemini_api_key || subData) {
+                    const existingStr = localStorage.getItem('study_planner_subscription');
+                    let existing = {};
+                    try { existing = existingStr ? JSON.parse(existingStr) : {}; } catch(e){}
+                    
                     localStorage.setItem('study_planner_subscription', JSON.stringify({
-                        tier: subData.tier,
-                        ai_credits: subData.ai_credits,
-                        trial_start_date: subData.trial_start_date,
-                        adminApiKey: appSettings.gemini_api_key
+                        ...existing,
+                        tier: subData?.tier || 'free',
+                        ai_credits: subData?.ai_credits ?? 20,
+                        trial_start_date: subData?.trial_start_date,
+                        ...(appSettings?.gemini_api_key ? { adminApiKey: appSettings.gemini_api_key } : {})
                     }));
                 }
             } catch (err) {
