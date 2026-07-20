@@ -49,7 +49,7 @@ const aiCache = {
 
 export const getAIConfig = () => {
     const savedStr = localStorage.getItem('study_planner_ai_settings');
-    let aiModel = 'deepseek';
+    let aiModel: AIProvider = 'gemini';
     let deepseekKey = '';
     let geminiKey = '';
 
@@ -72,6 +72,14 @@ export const getAIConfig = () => {
             if (saved.coachVoice) coachVoice = saved.coachVoice;
             if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
             if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
+
+            // DeepSeek tanlangan bo'lsa-yu lekin shaxsiy DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
+            if (aiModel === 'deepseek' && !deepseekKey.trim()) {
+                aiModel = 'gemini';
+            }
+            if (coachAiModel === 'deepseek' && !coachApiKey?.trim() && !deepseekKey.trim()) {
+                coachAiModel = 'gemini';
+            }
         } catch (e) {
             console.error("Failed to parse ai settings from localStorage", e);
         }
@@ -84,7 +92,7 @@ export const getAIConfig = () => {
         deepseekThinkingMode,
         openAIApiKey,
         coachVoice,
-        coachAiModel,
+        coachAiModel: coachAiModel || 'gemini',
         coachApiKey
     };
 };
