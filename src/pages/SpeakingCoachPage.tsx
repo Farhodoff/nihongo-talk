@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, PhoneOff, PhoneCall, Volume2, MessageSquare, Activity } from 'lucide-react';
+import { Mic, PhoneOff, PhoneCall, Volume2, MessageSquare, Activity, Globe } from 'lucide-react';
 import { converseWithCoach } from '../utils/ai';
 
 declare global {
@@ -15,6 +15,7 @@ interface ChatMessage {
 }
 
 const SpeakingCoachPage: React.FC = () => {
+    const [language, setLanguage] = useState<'en' | 'ja'>('en');
     const [isLiveSession, setIsLiveSession] = useState(false);
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -33,7 +34,7 @@ const SpeakingCoachPage: React.FC = () => {
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.continuous = false; // Stop when they pause
             recognitionRef.current.interimResults = true;
-            recognitionRef.current.lang = 'en-US';
+            // The language is set dynamically in startSession/resumeListening
 
             recognitionRef.current.onresult = (event: any) => {
                 let interimTranscript = '';
@@ -85,7 +86,7 @@ const SpeakingCoachPage: React.FC = () => {
                 
                 setIsThinking(true);
                 try {
-                    const aiResponse = await converseWithCoach(userText, chatHistory);
+                    const aiResponse = await converseWithCoach(userText, chatHistory, language);
                     
                     setChatHistory(prev => [...prev, { role: 'assistant', content: aiResponse }]);
                     setIsThinking(false);
@@ -105,19 +106,25 @@ const SpeakingCoachPage: React.FC = () => {
         };
         
         processSpeech();
-    }, [isListening, isLiveSession, isSpeaking, isThinking]);
+    }, [isListening, isLiveSession, isSpeaking, isThinking, language]);
 
     const speakText = (text: string) => {
         setIsSpeaking(true);
         synthRef.current.cancel(); // Stop any previous speech
         
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
+        utterance.lang = language === 'ja' ? 'ja-JP' : 'en-US';
         
-        // Find a good English voice if possible
+        // Find a native voice for the selected language
         const voices = synthRef.current.getVoices();
-        const engVoice = voices.find(v => v.lang.startsWith('en-') && v.name.includes('Google'));
-        if (engVoice) utterance.voice = engVoice;
+        
+        if (language === 'ja') {
+            const jpVoice = voices.find(v => v.lang.includes('ja') && (v.name.includes('Google') || v.name.includes('Kyoko')));
+            if (jpVoice) utterance.voice = jpVoice;
+        } else {
+            const engVoice = voices.find(v => v.lang.startsWith('en-') && v.name.includes('Google'));
+            if (engVoice) utterance.voice = engVoice;
+        }
         
         utterance.onend = () => {
             setIsSpeaking(false);
@@ -137,6 +144,7 @@ const SpeakingCoachPage: React.FC = () => {
     const resumeListening = () => {
         if (isLiveSession && recognitionRef.current && !isSpeaking && !isThinking) {
             try {
+                recognitionRef.current.lang = language === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
                 setIsListening(true);
             } catch (e) {
@@ -161,6 +169,7 @@ const SpeakingCoachPage: React.FC = () => {
         setCurrentTranscript('');
         setError(null);
         try {
+            recognitionRef.current.lang = language === 'ja' ? 'ja-JP' : 'en-US';
             recognitionRef.current.start();
             setIsListening(true);
         } catch (e) {
@@ -178,14 +187,37 @@ const SpeakingCoachPage: React.FC = () => {
         synthRef.current.cancel();
     };
 
+    // Load voices proactively
+    useEffect(() => {
+        window.speechSynthesis.getVoices();
+    }, []);
+
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto h-full flex flex-col overflow-hidden w-full">
-            <div className="mb-4 flex-shrink-0">
-                <h2 className="text-3xl font-bold text-foreground flex items-center gap-2">
-                    <Mic className="text-primary" size={32} />
-                    Live Speaking Coach
-                </h2>
-                <p className="text-muted-foreground mt-1">Ovozli rejimda AI bilan jonli suhbat quring. U sizni roast qiladi va o'rgatadi!</p>
+            <div className="mb-4 flex-shrink-0 flex items-center justify-between">
+                <div>
+                    <h2 className="text-3xl font-bold text-foreground flex items-center gap-2">
+                        <Mic className="text-primary" size={32} />
+                        Live Speaking Coach
+                    </h2>
+                    <p className="text-muted-foreground mt-1">
+                        Ovozli rejimda AI bilan jonli suhbat quring. U sizni roast qiladi va o'rgatadi!
+                    </p>
+                </div>
+                
+                {/* Language Selector */}
+                <div className="flex items-center gap-2 bg-white dark:bg-gray-800 p-1.5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <Globe size={18} className="text-muted-foreground ml-2" />
+                    <select 
+                        disabled={isLiveSession}
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value as 'en' | 'ja')}
+                        className="bg-transparent border-none text-sm font-medium text-foreground outline-none cursor-pointer p-2 disabled:opacity-50"
+                    >
+                        <option value="en">🇬🇧 English</option>
+                        <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                    </select>
+                </div>
             </div>
 
             {error && (

@@ -1094,15 +1094,27 @@ export const analyzeSpeech = async (
 export const converseWithCoach = async (
     message: string,
     history: { role: 'user' | 'assistant', content: string }[],
+    language: 'en' | 'ja' = 'en',
     userKey?: string
 ): Promise<string> => {
     const historyText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
+    
+    const langPrompt = language === 'ja' 
+        ? `Act as an expert Japanese language Speaking Coach (Sensei) but with a FUN & ROASTY personality. 
+           You are having a LIVE VOICE conversation with a student.
+           Your goal is to help them improve their Japanese fluency, grammar, and pronunciation.
+           When they make mistakes, point them out directly but playfully (roast them a little bit), then encourage them (boost them).
+           If they do well, hype them up. 
+           MUST respond completely in Japanese (日本語).`
+        : `Act as an expert English language Speaking Coach (IELTS style) but with a FUN & ROASTY personality. 
+           You are having a LIVE VOICE conversation with a student.
+           Your goal is to help them improve their English fluency, grammar, and pronunciation.
+           When they make mistakes, point them out directly but playfully (roast them a little bit), then encourage them (boost them).
+           If they do well, hype them up.
+           MUST respond completely in English.`;
+
     const prompt = `
-      Act as an expert English language Speaking Coach (IELTS style) but with a FUN & ROASTY personality. 
-      You are having a LIVE VOICE conversation with a student.
-      Your goal is to help them improve their English fluency, grammar, and pronunciation.
-      When they make mistakes, point them out directly but playfully (roast them a little bit), then encourage them (boost them).
-      If they do well, hype them up.
+      ${langPrompt}
       
       Conversation History:
       ${historyText}
