@@ -19,6 +19,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         console.log('[addFlashcard] Card saved to DB:', newCard);
         if (newCard) {
             setFlashcards(prev => {
+                if (prev.some(c => c.id === newCard.id)) return prev;
                 const updated = [...prev, newCard];
                 console.log('[addFlashcard] Updated local state, total cards:', updated.length);
                 return updated;
