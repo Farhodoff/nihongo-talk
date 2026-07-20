@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { Button } from '../ui/Button';
 import { AIProvider } from '../../utils/ai';
@@ -12,6 +12,30 @@ const AIProviderSection: React.FC = () => {
     const [deepseekThinkingMode, setDeepseekThinkingMode] = useState(settings.deepseekThinkingMode || false);
     const [ollamaUrl, setOllamaUrl] = useState(settings.ollamaUrl || 'http://localhost:11434');
     const [ollamaModel, setOllamaModel] = useState(settings.ollamaModel || 'llama3.2');
+    const [availableOllamaModels, setAvailableOllamaModels] = useState<string[]>([]);
+    const [isFetchingModels, setIsFetchingModels] = useState(false);
+
+    useEffect(() => {
+        if (aiModel === 'ollama' && ollamaUrl) {
+            setIsFetchingModels(true);
+            fetch(`${ollamaUrl}/api/tags`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.models) {
+                        const models = data.models.map((m: any) => m.name);
+                        setAvailableOllamaModels(models);
+                        if (models.length > 0 && !models.includes(ollamaModel)) {
+                            setOllamaModel(models[0]);
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error("Failed to fetch ollama models", err);
+                    setAvailableOllamaModels([]);
+                })
+                .finally(() => setIsFetchingModels(false));
+        }
+    }, [aiModel, ollamaUrl]);
 
     const handleSave = async () => {
         await updateSettings({
@@ -126,16 +150,35 @@ const AIProviderSection: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Ollama Model Nomi
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 flex items-center justify-between">
+                                <span>Ollama Model Nomi</span>
+                                {isFetchingModels && <span className="text-xs text-indigo-500 animate-pulse">Yuklanmoqda...</span>}
                             </label>
-                            <input
-                                type="text"
-                                value={ollamaModel}
-                                onChange={(e) => setOllamaModel(e.target.value)}
-                                placeholder="Masalan: llama3.2, mistral, gemma2..."
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
+                            
+                            {availableOllamaModels.length > 0 ? (
+                                <select
+                                    value={ollamaModel}
+                                    onChange={(e) => setOllamaModel(e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    {availableOllamaModels.map(m => (
+                                        <option key={m} value={m}>{m}</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <div>
+                                    <input
+                                        type="text"
+                                        value={ollamaModel}
+                                        onChange={(e) => setOllamaModel(e.target.value)}
+                                        placeholder="Masalan: llama3.2, mistral, gemma2..."
+                                        className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    />
+                                    <p className="text-xs text-amber-500 mt-2">
+                                        Modellar ro'yxatini yuklab bo'lmadi. Ollama ishlayotganiga (yoki OLLAMA_ORIGINS="*" sozlanganiga) ishonch hosil qiling.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
