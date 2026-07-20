@@ -1015,3 +1015,79 @@ export const generateAIResponse = async (
         throw new Error(parseAIError(error));
     }
 };
+
+export interface SpeechAnalysisResult {
+    grammar_corrections: string[];
+    better_vocabulary: { original: string; suggested: string }[];
+    fluency_score: number;
+    overall_feedback: string;
+}
+
+export const analyzeSpeech = async (
+    transcript: string,
+    topic: string = 'General Conversation',
+    userKey?: string
+): Promise<SpeechAnalysisResult> => {
+    const prompt = `
+      Act as an expert English language Speaking Coach (like an IELTS examiner).
+      The user was asked to talk about: "${topic}".
+      Here is the exact transcript of what they said:
+      "${transcript}"
+      
+      Task: Analyze the transcript and provide feedback.
+      Output Format: A VALID JSON object with the following keys exactly:
+      - "grammar_corrections": An array of strings, pointing out grammar mistakes and how to fix them.
+      - "better_vocabulary": An array of objects with "original" and "suggested" keys to improve their word choice.
+      - "fluency_score": A number out of 9.0 (IELTS band scale) estimating their fluency based on the text coherence.
+      - "overall_feedback": A short, encouraging paragraph summarizing their performance and areas to improve.
+
+      Constraint: ONLY return the JSON object. Do not include any markdown formatting, preamble, or explanation.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        let json: unknown;
+
+        if (provider === 'ollama') {
+            const response = await callOllama(prompt);
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+            json = JSON.parse(cleanedText);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            json = JSON.parse(response);
+        } else {
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-2.0-flash",
+                generationConfig: {
+                    temperature: 0.7,
+                    responseMimeType: "application/json",
+                }
+            });
+
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const response = await result.response;
+            const text = response.text();
+            
+            let cleanedText = text.trim();
+            if (cleanedText.startsWith('\`\`\`')) {
+                cleanedText = cleanedText.replace(/\`\`\`json/g, "").replace(/\`\`\`/g, "").trim();
+            }
+            json = JSON.parse(cleanedText);
+        }
+
+        const data = json as any;
+        return {
+            grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
+            better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
+            fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 5.0,
+            overall_feedback: data.overall_feedback || 'Good effort, keep practicing!',
+        };
+    } catch (error: unknown) {
+        console.error('AI Speech Analysis Error:', error);
+        throw new Error(parseAIError(error));
+    }
+};
+

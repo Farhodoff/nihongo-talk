@@ -30,6 +30,7 @@ const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'));
 const SubjectsPage = lazy(() => import('./pages/SubjectsPage'));
 const TasksPage = lazy(() => import('./pages/TasksPage'));
 const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
+const SpeakingCoachPage = lazy(() => import('./pages/SpeakingCoachPage'));
 
 // Loading component
 const PageLoader = () => (
@@ -91,6 +92,7 @@ const App: React.FC = () => {
                                     <Route path="/" element={<Layout />}>
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
+                                        <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />
