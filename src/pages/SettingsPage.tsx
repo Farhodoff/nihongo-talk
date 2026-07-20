@@ -10,12 +10,12 @@ import AIProviderSection from '../components/settings/AIProviderSection';
 import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { User, Sparkles, Sliders, Database, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { isAdminEmail } from '../utils/admin';
+
+import AdminDashboardPage from './AdminDashboardPage';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, refreshData, user } = useStudyData();
-    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('profile');
 
     const tabs = [
@@ -125,21 +125,8 @@ const SettingsPage: React.FC = () => {
                 )}
 
                 {activeTab === 'admin' && isAdminEmail(user?.email) && (
-                    <div className="space-y-6">
-                        {/* Biz to'g'ridan-to'g'ri AdminDashboardPage ni ko'rsatishimiz yoki unga o'tish tugmasini qo'yishimiz mumkin */}
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 text-center">
-                            <Shield className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Admin Boshqaruv Paneli</h3>
-                            <p className="text-gray-500 dark:text-gray-400 mb-6">
-                                Foydalanuvchilar, tariflar va ilova sozlamalarini boshqarish paneli.
-                            </p>
-                            <button 
-                                onClick={() => navigate('/admin')}
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-medium transition-colors"
-                            >
-                                Admin Paneliga O'tish
-                            </button>
-                        </div>
+                    <div className="space-y-6 pt-2">
+                        <AdminDashboardPage />
                     </div>
                 )}
             </div>
