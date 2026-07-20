@@ -221,8 +221,18 @@ const SpeakingCoachPage: React.FC = () => {
     }, [chatHistory, currentTranscript, isThinking]);
 
     const handleSendUserText = async (text: string) => {
-        if (!text.trim() || isThinking || isSpeaking) return;
+        if (!text.trim() || isThinking) return;
         
+        // Interrupt previous speech if still playing
+        if (isSpeaking) {
+            synthRef.current.cancel();
+            if (audioPlayerRef.current) {
+                audioPlayerRef.current.pause();
+                audioPlayerRef.current = null;
+            }
+            setIsSpeaking(false);
+        }
+
         isProcessingRef.current = true;
         setIsThinking(true);
         setError(null);
@@ -234,7 +244,15 @@ const SpeakingCoachPage: React.FC = () => {
         chatHistoryRef.current = updatedHistory;
 
         try {
-            const aiResponse = await converseWithCoach(text, updatedHistory, languageRef.current, personaRef.current);
+            // 12-second safety timeout to prevent stuck O'YLAMOQDA state
+            const timeoutPromise = new Promise<string>((_, reject) => {
+                setTimeout(() => reject(new Error("AI javob berish vaqti tugadi. Qayta urinib ko'ring.")), 12000);
+            });
+
+            const aiResponse = await Promise.race([
+                converseWithCoach(text, updatedHistory, languageRef.current, personaRef.current),
+                timeoutPromise
+            ]);
             
             const resTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const finalHistory: ChatMessage[] = [...updatedHistory, { role: 'assistant', content: aiResponse, timestamp: resTimeStr }];
@@ -244,6 +262,7 @@ const SpeakingCoachPage: React.FC = () => {
             setIsThinking(false);
             speakText(aiResponse);
         } catch (err: any) {
+            console.error("Coach response error:", err);
             setError(err.message || 'Tahlil qilishda xatolik yuz berdi.');
             setIsThinking(false);
             isProcessingRef.current = false;

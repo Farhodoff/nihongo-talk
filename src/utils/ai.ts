@@ -1165,7 +1165,13 @@ export const converseWithCoach = async (
             const keyToUse = config.coachApiKey || config.deepseekKey || '';
             return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
         } else {
-            const keyToUse = config.coachApiKey || userKey || config.geminiKey;
+            const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
+                ? config.coachApiKey.trim()
+                : (userKey && userKey.trim())
+                    ? userKey.trim()
+                    : (config.geminiKey && config.geminiKey.trim())
+                        ? config.geminiKey.trim()
+                        : undefined;
             const genAI = getGenAI(keyToUse);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
