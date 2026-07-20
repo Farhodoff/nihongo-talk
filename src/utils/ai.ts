@@ -1107,26 +1107,40 @@ export const converseWithCoach = async (
     message: string,
     history: { role: 'user' | 'assistant', content: string }[],
     language: 'en' | 'ja' = 'en',
+    persona: string = 'roast',
     userKey?: string
 ): Promise<string> => {
     const historyText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
     
-    const langPrompt = language === 'ja' 
-        ? `Act as an extremely STRICT, HARSH, but HUMOROUS Japanese language Speaking Coach (Demon Sensei). 
-           You are having a LIVE VOICE conversation with a student.
-           Your goal is to help them improve their Japanese fluency, grammar, and pronunciation.
-           If they make a mistake, you MUST roast them harshly and make fun of it (be sarcastic and humorous), but then strictly tell them how to fix it and give them a tough-love boost.
-           Don't just be sweet. Be brutally honest. If they do well, act surprised and hype them up.
-           MUST respond completely in Japanese (日本語).`
-        : `Act as an extremely STRICT, HARSH, but HUMOROUS English language Speaking Coach (Gordon Ramsay style). 
-           You are having a LIVE VOICE conversation with a student.
-           Your goal is to help them improve their English fluency, grammar, and pronunciation.
-           If they make a mistake, you MUST roast them harshly and make fun of it (be sarcastic and humorous), but then strictly tell them how to fix it and give them a tough-love boost.
-           Don't just be sweet. Be brutally honest. If they do well, act surprised and hype them up.
-           MUST respond completely in English.`;
+    let personaPrompt = '';
+
+    if (language === 'ja') {
+        if (persona === 'interview') {
+            personaPrompt = `Act as a professional Japanese IT Recruiter & Hiring Manager conducting a formal job interview in Japanese (敬語).
+               Evaluate Keigo usage, logical PREP structure (Point, Reason, Example, Point), and tech skills. Ask single follow-up questions and provide gentle Japanese business feedback.`;
+        } else if (persona === 'gentle') {
+            personaPrompt = `Act as a warm, patient Japanese language tutor (日本語の先生). Speak in polite Japanese (です・ます), encourage the student, gently correct grammar or vocabulary, and ask simple conversational questions.`;
+        } else {
+            personaPrompt = `Act as an extremely STRICT, HARSH, but HUMOROUS Japanese language Speaking Coach (Demon Sensei / 鬼先生). 
+               If the student makes a grammar, vocabulary, or Keigo mistake, roast them with sarcastic humor, then give the strict correction. Respond in Japanese.`;
+        }
+    } else {
+        if (persona === 'gentle') {
+            personaPrompt = `Act as a warm, patient, and encouraging English ESL Tutor. Your goal is to build student confidence. Congratulate them on effort, gently point out minor grammar/vocabulary improvements with clear Band 9 alternatives, and ask friendly open-ended follow-up questions.`;
+        } else if (persona === 'ielts') {
+            personaPrompt = `Act as a senior, world-class IELTS Speaking Examiner with 20+ years of experience. Evaluate response based on Fluency, Lexical Resource, Grammatical Range & Accuracy, and Pronunciation. Point out Band 6 habits (basic vocabulary, simple sentences) and give Band 8+ academic phrasing suggestions while keeping up authentic IELTS exam questions.`;
+        } else if (persona === 'interview') {
+            personaPrompt = `Act as a Senior Tech Recruiter & HR Manager conducting a professional software engineer mock interview. Evaluate logical answers using the PREP method (Point, Reason, Example, Point). Challenge the candidate on technical projects, problem-solving, and communication skills. Provide professional corporate feedback.`;
+        } else {
+            // Default: 'roast'
+            personaPrompt = `Act as an extremely STRICT, HARSH, but HUMOROUS English Speaking Coach (Gordon Ramsay style).
+               Your goal is to prepare them for native Band 9 fluency by brutally calling out lazy vocabulary (e.g. 'very good', 'big'), grammatical flaws, and fillers. Roast them with sharp sarcasm, then give the high-level native correction.`;
+        }
+    }
 
     const prompt = `
-      ${langPrompt}
+      ${personaPrompt}
+      Language: ${language === 'ja' ? 'Japanese (日本語)' : 'English'}
       
       Conversation History:
       ${historyText}
@@ -1134,7 +1148,7 @@ export const converseWithCoach = async (
       Student's current message:
       "${message}"
       
-      Constraint: Keep your response SHORT, conversational, and natural to be read aloud by Text-to-Speech (maximum 3-4 sentences). Do NOT use any markdown formatting, asterisks, emojis, or structural text like "Coach:". Respond ONLY with the raw text of what you want to say to the student next.
+      Constraint: Keep your response SHORT, conversational, and natural to be read aloud by Text-to-Speech (maximum 3-4 sentences). Do NOT use any markdown formatting, asterisks, emojis, or structural text like "Coach:". Respond ONLY with the raw spoken text to the student.
     `;
 
     try {

@@ -167,7 +167,7 @@ const SpeakingCoachPage: React.FC = () => {
                 
                 setIsThinking(true);
                 try {
-                    const aiResponse = await converseWithCoach(userText, chatHistory, language);
+                    const aiResponse = await converseWithCoach(userText, chatHistory, language, persona);
                     
                     const resTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     setChatHistory(prev => [...prev, { role: 'assistant', content: aiResponse, timestamp: resTimeStr }]);
