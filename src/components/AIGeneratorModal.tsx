@@ -11,7 +11,7 @@ interface AIGeneratorModalProps {
 }
 
 const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, subjectId: propSubjectId }) => {
-    const { addFlashcard, settings, subjects } = useStudyData();
+    const { importFlashcards, settings, subjects } = useStudyData();
     const [topic, setTopic] = useState('');
     const [subjectId, setSubjectId] = useState(propSubjectId || '');
     const [count, setCount] = useState(5);
@@ -49,35 +49,14 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
 
         setIsSaving(true);
         try {
-            const BATCH_SIZE = 10; // Save 10 cards at a time
-            const totalCards = generatedCards.length;
-            let savedCount = 0;
-
-            // Save in batches to avoid connection limit
-            for (let i = 0; i < totalCards; i += BATCH_SIZE) {
-                const batch = generatedCards.slice(i, i + BATCH_SIZE);
-
-                // Save current batch
-                await Promise.all(
-                    batch.map(card =>
-                        addFlashcard({
-                            subjectId: subjectId,
-                            front: card.front,
-                            back: card.back,
-                        })
-                    )
-                );
-
-                savedCount += batch.length;
-                console.log(`[Batch Save] Saved ${savedCount}/${totalCards} cards`);
-
-                // Small delay between batches to avoid rate limiting
-                if (i + BATCH_SIZE < totalCards) {
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                }
+            // Use bulk import to avoid rate limiting and connection issues
+            const success = await importFlashcards(subjectId, generatedCards);
+            
+            if (!success) {
+                throw new Error("Failed to bulk save flashcards");
             }
 
-            console.log(`[Batch Save] All ${totalCards} cards saved successfully!`);
+            console.log(`[Batch Save] All ${generatedCards.length} cards saved successfully!`);
 
             // Only close after all saves are done
             onClose();
