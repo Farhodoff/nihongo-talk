@@ -9,7 +9,13 @@ const ReloadPrompt: React.FC = () => {
         updateServiceWorker,
     } = useRegisterSW({
         onRegistered(r) {
-            console.log('SW Registered: ' + r);
+            if (r) {
+                // Sahifaga kirganda va har 1 soatda yangi versiya borligini avtomatik tekshirish
+                r.update();
+                setInterval(() => {
+                    r.update();
+                }, 60 * 60 * 1000);
+            }
         },
         onRegisterError(error) {
             console.log('SW registration error', error);
