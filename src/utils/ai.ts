@@ -1091,3 +1091,49 @@ export const analyzeSpeech = async (
     }
 };
 
+export const converseWithCoach = async (
+    message: string,
+    history: { role: 'user' | 'assistant', content: string }[],
+    userKey?: string
+): Promise<string> => {
+    const historyText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
+    const prompt = `
+      Act as an expert English language Speaking Coach (IELTS style) but with a FUN & ROASTY personality. 
+      You are having a LIVE VOICE conversation with a student.
+      Your goal is to help them improve their English fluency, grammar, and pronunciation.
+      When they make mistakes, point them out directly but playfully (roast them a little bit), then encourage them (boost them).
+      If they do well, hype them up.
+      
+      Conversation History:
+      ${historyText}
+
+      Student's current message:
+      "${message}"
+      
+      Constraint: Keep your response SHORT, conversational, and natural to be read aloud by Text-to-Speech (maximum 3-4 sentences). Do NOT use any markdown formatting, asterisks, emojis, or structural text like "Coach:". Respond ONLY with the raw text of what you want to say to the student next.
+    `;
+
+    try {
+        const provider = await getAIProvider();
+        
+        if (provider === 'ollama') {
+            return await callOllama(prompt);
+        } else if (provider === 'deepseek') {
+            const config = getAIConfig();
+            return await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+        } else {
+            const config = getAIConfig();
+            const genAI = getGenAI(userKey || config.geminiKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const response = await result.response;
+            return response.text();
+        }
+    } catch (error: unknown) {
+        console.error('AI Coach Conversation Error:', error);
+        throw new Error(parseAIError(error));
+    }
+};
+
+
