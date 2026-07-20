@@ -248,14 +248,14 @@ export const generateFlashcardsWithAI = async (
         return aiCache.get(cacheKey) as { front: string; back: string }[];
     }
 
-    // Batching logic: Gemini 1.5 Flash works best with smaller JSON outputs.
-    // If count > 20, we split it into multiple batches of 20 to ensure reliability.
-    if (count > 20) {
+    // Batching logic: Gemini 1.5/2.0 and Deepseek can handle large outputs (up to 8k tokens).
+    // But to be safe against smaller Ollama models, we split into batches of 50.
+    if (count > 50) {
         const batches = [];
         let remaining = count;
         while (remaining > 0) {
-            batches.push(Math.min(remaining, 20));
-            remaining -= 20;
+            batches.push(Math.min(remaining, 50));
+            remaining -= 50;
         }
 
         console.log(`[AI Batching] Splitting ${count} cards into ${batches.length} batches (sequential)...`);
