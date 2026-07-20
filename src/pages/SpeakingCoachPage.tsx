@@ -270,19 +270,48 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
+    const currentObjectUrlRef = useRef<string | null>(null);
+    const ttsSafetyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     const speakText = async (text: string) => {
         setIsSpeaking(true);
         synthRef.current.cancel();
+
+        if (currentObjectUrlRef.current) {
+            URL.revokeObjectURL(currentObjectUrlRef.current);
+            currentObjectUrlRef.current = null;
+        }
+
         if (audioPlayerRef.current) {
             audioPlayerRef.current.pause();
+            audioPlayerRef.current.onended = null;
+            audioPlayerRef.current.onerror = null;
             audioPlayerRef.current = null;
         }
 
+        if (ttsSafetyTimeoutRef.current) {
+            clearTimeout(ttsSafetyTimeoutRef.current);
+            ttsSafetyTimeoutRef.current = null;
+        }
+
         const onSpeechFinish = () => {
+            if (ttsSafetyTimeoutRef.current) {
+                clearTimeout(ttsSafetyTimeoutRef.current);
+                ttsSafetyTimeoutRef.current = null;
+            }
+            if (currentObjectUrlRef.current) {
+                URL.revokeObjectURL(currentObjectUrlRef.current);
+                currentObjectUrlRef.current = null;
+            }
             setIsSpeaking(false);
             isProcessingRef.current = false;
             resumeListening();
         };
+
+        // 15-second safety timer in case Web Speech Synthesis drops onend event
+        ttsSafetyTimeoutRef.current = setTimeout(() => {
+            onSpeechFinish();
+        }, 15000);
 
         const config = getAIConfig();
         
@@ -290,16 +319,16 @@ const SpeakingCoachPage: React.FC = () => {
             try {
                 const blob = await fetchOpenAITTS(text, config.coachVoice || 'alloy', config.openAIApiKey);
                 const url = URL.createObjectURL(blob);
+                currentObjectUrlRef.current = url;
+
                 const audio = new Audio(url);
                 audioPlayerRef.current = audio;
                 
                 audio.onended = () => {
-                    URL.revokeObjectURL(url);
                     onSpeechFinish();
                 };
                 
                 audio.onerror = () => {
-                    URL.revokeObjectURL(url);
                     onSpeechFinish();
                 };
                 
@@ -342,7 +371,8 @@ const SpeakingCoachPage: React.FC = () => {
                 recognitionRef.current.start();
                 setIsListening(true);
             } catch (e) {
-                // Already running
+                // If recognition was already active or in starting state
+                setIsListening(true);
             }
         }
     };

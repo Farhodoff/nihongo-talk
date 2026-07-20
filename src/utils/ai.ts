@@ -1014,18 +1014,15 @@ export const generateAIResponse = async (
     try {
         const config = getAIConfig();
         const apiKey = userKey || config.geminiKey;
-        if (!apiKey) throw new Error("API kalit mavjud emas.");
-        
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const genAI = getGenAI(apiKey || undefined);
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         
         let prompt = "";
         messages.forEach(m => {
             prompt += `[${m.role.toUpperCase()}]: ${m.content}\n`;
         });
 
-        const result = await model.generateContent(prompt);
-        await decrementCredit();
+        const result = await requestWithRetry(() => model.generateContent(prompt));
         return result.response.text();
     } catch (error) {
         console.error("AI Error:", error);
@@ -1179,8 +1176,7 @@ export const converseWithCoach = async (
                 const genAI = getGenAI(geminiKey);
                 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
                 const result = await requestWithRetry(() => model.generateContent(prompt));
-                const response = await result.response;
-                return response.text();
+                return result.response.text();
             }
         } else {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
@@ -1194,8 +1190,7 @@ export const converseWithCoach = async (
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
             const result = await requestWithRetry(() => model.generateContent(prompt));
-            const response = await result.response;
-            return response.text();
+            return result.response.text();
         }
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);

@@ -143,8 +143,13 @@ export const useSubscription = () => {
     const isUserAdmin = isAdminEmail(user?.email);
 
     // Super Admin uchun obunani doim "premium" qilib ko'rsatish
-    const effectiveSubscription = isUserAdmin 
-        ? { ...(subscription || {} as UserSubscription), tier: 'premium' as const, ai_credits: 9999 }
+    const effectiveSubscription: UserSubscription | null = isUserAdmin 
+        ? {
+            tier: 'premium' as const,
+            ai_credits: 9999,
+            last_reset_date: subscription?.last_reset_date || new Date().toISOString(),
+            trial_start_date: subscription?.trial_start_date || new Date().toISOString()
+          }
         : subscription;
 
     return {
