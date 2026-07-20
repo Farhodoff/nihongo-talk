@@ -174,6 +174,11 @@ export const parseAIError = (error: unknown): string => {
         return '⏳ AI so\'rovlar limiti vaqtincha tugadi. Iltimos, bir necha daqiqadan keyin qayta urinib ko\'ring.';
     }
 
+    // Backend proxy error / missing API key
+    if (msg.includes('missing API key') || msg.includes('Backend proxy error')) {
+        return '🔑 AI API kaliti kiritilmagan. Sozlamalardan o\'zingizning API kalitingizni kiriting yoki AI provayderni Gemini ga o\'tkazing.';
+    }
+
     // API kalit noto'g'ri
     if (msg.includes('API key not valid') || msg.includes('API_KEY_INVALID')) {
         return '🔑 API kalit noto\'g\'ri yoki yaroqsiz. Iltimos, Sozlamalar bo\'limida kalitingizni tekshiring va yangi kalit kiriting.';
@@ -1157,13 +1162,26 @@ export const converseWithCoach = async (
 
     try {
         const config = getAIConfig();
-        const provider = config.coachAiModel || await getAIProvider();
+        const provider = config.coachAiModel || 'gemini';
         
         if (provider === 'ollama') {
             return await callOllama(prompt);
         } else if (provider === 'deepseek') {
-            const keyToUse = config.coachApiKey || config.deepseekKey || '';
-            return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            const keyToUse = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim()) || undefined;
+            try {
+                return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (deepseekErr: any) {
+                console.warn("DeepSeek error in coach, falling back to Gemini 2.0 Flash:", deepseekErr);
+                const geminiKey = (config.coachApiKey && config.coachApiKey.trim())
+                    || (userKey && userKey.trim())
+                    || (config.geminiKey && config.geminiKey.trim())
+                    || undefined;
+                const genAI = getGenAI(geminiKey);
+                const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+                const result = await requestWithRetry(() => model.generateContent(prompt));
+                const response = await result.response;
+                return response.text();
+            }
         } else {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
                 ? config.coachApiKey.trim()
