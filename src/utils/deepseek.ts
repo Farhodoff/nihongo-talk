@@ -51,6 +51,7 @@ export const callDeepSeek = async (
         validApiKey = null;
     }
 
+    // Try env variable fallback
     if (!validApiKey) {
         try {
             if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEEPSEEK_API_KEY) {
@@ -59,52 +60,45 @@ export const callDeepSeek = async (
         } catch (e) {}
     }
 
-    if (!validApiKey) {
-        // If no user-provided key, try to use the backend proxy
-        const response = await fetch('/api/deepseek', {
+    // === STRATEGY 1: Vercel serverless proxy (works in both dev and production) ===
+    // Always try the /api/deepseek proxy first — it uses the server-side DEEPSEEK_API_KEY
+    // and avoids CORS issues entirely. This is the primary path in production.
+    try {
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (validApiKey) {
+            headers['Authorization'] = `Bearer ${validApiKey}`;
+        }
+        
+        const proxyRes = await fetch('/api/deepseek', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify(payload)
         });
 
-        if (!response.ok) {
-            let errorMsg = `Backend proxy error: ${response.status}`;
-            try {
-                const errorText = await response.text();
-                errorMsg += ` - ${errorText}`;
-            } catch (e) {}
-            throw new Error(errorMsg);
+        if (proxyRes.ok) {
+            const data = await proxyRes.json();
+            const text = data.choices?.[0]?.message?.content || '';
+            if (text) return text;
         }
-
-        const data = await response.json();
-        return data.choices?.[0]?.message?.content || '';
+        // If proxy returned an error but we have a key, fall through to direct call
+        if (!validApiKey) {
+            const errorText = await proxyRes.text().catch(() => '');
+            throw new Error(`AI server xatosi (${proxyRes.status}): ${errorText || 'Noma\'lum xato'}`);
+        }
+    } catch (e: any) {
+        // If no valid key and proxy failed, throw
+        if (!validApiKey) {
+            throw e;
+        }
+        console.warn('[DeepSeek] Server proxy failed, trying direct call:', e.message);
     }
 
-    // In browser environment, try Vite dev proxy first to bypass CORS issues
-    if (typeof window !== 'undefined') {
-        try {
-            const proxyRes = await fetch('/api/deepseek/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${validApiKey}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (proxyRes.ok) {
-                const data = await proxyRes.json();
-                const text = data.choices?.[0]?.message?.content || '';
-                if (text) return text;
-            }
-        } catch (e) {
-            console.warn('[DeepSeek Proxy] Proxy request failed, falling back to direct SDK call:', e);
-        }
+    // === STRATEGY 2: Direct OpenAI SDK call (works if CORS is allowed / dev mode) ===
+    if (validApiKey) {
+        const client = getDeepSeekClient(validApiKey);
+        const response = await client.chat.completions.create(payload as any);
+        return response.choices[0].message.content || '';
     }
-    
-    // Fallback to direct call using OpenAI SDK
-    const client = getDeepSeekClient(validApiKey);
-    const response = await client.chat.completions.create(payload as any);
 
-    return response.choices[0].message.content || '';
+    throw new Error("🔑 DeepSeek API kaliti topilmadi. Sozlamalar bo'limida API kalitingizni kiriting.");
 };

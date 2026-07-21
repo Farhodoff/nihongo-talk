@@ -7,9 +7,17 @@ export default async function handler(req: Request) {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  // Server-side key takes priority, then fall back to client-provided key
+  const serverKey = process.env.DEEPSEEK_API_KEY;
+  const clientAuth = req.headers.get('Authorization');
+  const clientKey = clientAuth?.startsWith('Bearer ') ? clientAuth.substring(7) : null;
+  
+  const apiKey = serverKey || clientKey;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'Server configuration error: missing API key' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'DeepSeek API kaliti sozlanmagan. Vercel Environment Variables dan DEEPSEEK_API_KEY ni qo\'shing.' }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   try {
