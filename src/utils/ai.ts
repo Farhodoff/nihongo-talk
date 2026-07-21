@@ -72,18 +72,41 @@ export const getAIConfig = () => {
             if (saved.coachVoice) coachVoice = saved.coachVoice;
             if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
             if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
-
-            // DeepSeek tanlangan bo'lsa-yu lekin shaxsiy DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
-            if (aiModel === 'deepseek' && !deepseekKey.trim()) {
-                aiModel = 'gemini';
-            }
-            if (coachAiModel === 'deepseek' && !coachApiKey?.trim() && !deepseekKey.trim()) {
-                coachAiModel = 'gemini';
-            }
         } catch (e) {
             console.error("Failed to parse ai settings from localStorage", e);
         }
     }
+
+    // Environment variable fallbacks — .env.local dan o'qiladi agar localStorage da yo'q bo'lsa
+    try {
+        if (typeof import.meta !== 'undefined' && import.meta.env) {
+            const envDeepSeek = import.meta.env.VITE_DEEPSEEK_API_KEY;
+            const envGemini = import.meta.env.VITE_GEMINI_API_KEY;
+            
+            if (!deepseekKey && envDeepSeek && typeof envDeepSeek === 'string' && envDeepSeek.startsWith('sk-')) {
+                deepseekKey = envDeepSeek;
+            }
+            if (!geminiKey && envGemini && typeof envGemini === 'string' && envGemini.startsWith('AIza')) {
+                geminiKey = envGemini;
+            }
+        }
+    } catch (e) {
+        // ignore env inspection errors
+    }
+
+    // DeepSeek tanlangan bo'lsa-yu lekin shaxsiy DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
+    if (aiModel === 'deepseek' && !deepseekKey.trim()) {
+        aiModel = 'gemini';
+    }
+    if (coachAiModel === 'deepseek' && !coachApiKey?.trim() && !deepseekKey.trim()) {
+        coachAiModel = 'gemini';
+    }
+
+    // Agar hech qanday kalit bo'lmasa lekin DeepSeek kalit mavjud bo'lsa — DeepSeek ni default qilamiz
+    if (aiModel === 'gemini' && !geminiKey.trim() && deepseekKey.trim()) {
+        aiModel = 'deepseek';
+    }
+
     return {
         provider: aiModel as AIProvider,
         geminiKey,
@@ -92,7 +115,7 @@ export const getAIConfig = () => {
         deepseekThinkingMode,
         openAIApiKey,
         coachVoice,
-        coachAiModel: coachAiModel || 'gemini',
+        coachAiModel: coachAiModel || aiModel as AIProvider,
         coachApiKey
     };
 };
@@ -227,6 +250,25 @@ export const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: Goo
     lastUsedKey = selectedKey;
     const instance = new GoogleGenerativeAI(selectedKey);
     return Object.assign(instance, { instance, key: selectedKey });
+};
+
+/**
+ * Speech Recognition Safeguard Validator
+ * Enforces minimum audio duration (>= 1200ms) and transcript length / word count
+ * (spokenText.length >= 5 || words.length >= 2) before triggering AI calls.
+ */
+export const validateSpeechInput = (spokenText: string, durationMs: number): boolean => {
+    const trimmed = spokenText.trim();
+    if (!trimmed) return false;
+    const words = trimmed.split(/\s+/).filter(Boolean);
+    const MIN_DURATION_MS = 1200;
+    const MIN_CHAR_LENGTH = 5;
+    const MIN_WORD_COUNT = 2;
+
+    const isValidDuration = durationMs >= MIN_DURATION_MS;
+    const isValidTranscript = trimmed.length >= MIN_CHAR_LENGTH || words.length >= MIN_WORD_COUNT;
+
+    return isValidDuration && isValidTranscript;
 };
 
 /**
@@ -428,19 +470,21 @@ export const generateFlashcardsWithAI = async (
         }
 
         if (!json) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: {
-                    temperature: 0.7,
-                    topP: 0.95,
-                    topK: 40,
-                    maxOutputTokens: 8192,
-                    responseMimeType: "application/json",
-                }
-            });
-
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: {
+                        temperature: 0.7,
+                        topP: 0.95,
+                        topK: 40,
+                        maxOutputTokens: 8192,
+                        responseMimeType: "application/json",
+                    }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             const response = await result.response;
             const text = response.text();
             
@@ -513,16 +557,18 @@ export const generateFlashcardsFromNote = async (
 
         if (!json) {
             const config = getAIConfig();
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: {
-                    temperature: 0.7,
-                    responseMimeType: "application/json",
-                }
-            });
-
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: {
+                        temperature: 0.7,
+                        responseMimeType: "application/json",
+                    }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             const response = await result.response;
             const text = response.text();
             
@@ -655,12 +701,15 @@ export const generateFullStudyPlan = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: { responseMimeType: "application/json" }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -741,12 +790,15 @@ export const recommendResourcesWithAI = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: { responseMimeType: "application/json" }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -816,12 +868,15 @@ export const generateStudyInsight = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: { responseMimeType: "application/json" }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -894,15 +949,18 @@ export const generateExamWithAI = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: { 
-                    temperature: 0.7,
-                    responseMimeType: "application/json" 
-                }
-            });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: { 
+                        temperature: 0.7,
+                        responseMimeType: "application/json" 
+                    }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -965,9 +1023,12 @@ export const expandNoteWithAI = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -1016,9 +1077,12 @@ export const summarizeNoteWithAI = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -1067,9 +1131,12 @@ export const fixNoteSpellingWithAI = async (
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -1132,9 +1199,12 @@ mindmap
         }
 
         if (!text) {
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey);
+                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey);
             text = (await result.response).text();
         }
 
@@ -1205,20 +1275,23 @@ Qoidalar:
             }
         }
 
-        const genAI = getGenAI(userKey || config.geminiKey);
-        const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash",
-            systemInstruction: systemPrompt 
-        });
+        const apiKey = userKey || config.geminiKey;
+        const result = await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey);
+            const model = ai.getGenerativeModel({ 
+                model: "gemini-1.5-flash",
+                systemInstruction: systemPrompt 
+            });
 
-        const chat = model.startChat({
-            history: history.slice(-5).map(msg => ({
-                role: msg.role === 'model' ? 'model' : 'user',
-                parts: [{ text: msg.text }],
-            })),
-        });
+            const chat = model.startChat({
+                history: history.slice(-5).map(msg => ({
+                    role: msg.role === 'model' ? 'model' : 'user',
+                    parts: [{ text: msg.text }],
+                })),
+            });
 
-        const result = await requestWithRetry(() => chat.sendMessage(message));
+            return chat.sendMessage(message);
+        }, 2, 1000, apiKey);
         return (await result.response).text().trim();
     } catch (e) {
         console.error("AI Chat Error", e);
@@ -1233,15 +1306,16 @@ export const generateAIResponse = async (
     try {
         const config = getAIConfig();
         const apiKey = userKey || config.geminiKey;
-        const genAI = getGenAI(apiKey || undefined);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        
         let prompt = "";
         messages.forEach(m => {
             prompt += `[${m.role.toUpperCase()}]: ${m.content}\n`;
         });
 
-        const result = await requestWithRetry(() => model.generateContent(prompt));
+        const result = await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey || undefined);
+            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+            return model.generateContent(prompt);
+        }, 2, 1000, apiKey || undefined);
         return result.response.text();
     } catch (error) {
         console.error("AI Error:", error);
@@ -1301,16 +1375,18 @@ export const analyzeSpeech = async (
 
         if (!json) {
             const config = getAIConfig();
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                generationConfig: {
-                    temperature: 0.7,
-                    responseMimeType: "application/json",
-                }
-            });
-
-            const result = await requestWithRetry(() => model.generateContent(prompt));
+            const apiKey = userKey || config.geminiKey;
+            const result = await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey || undefined);
+                const model = ai.getGenerativeModel({ 
+                    model: "gemini-1.5-flash",
+                    generationConfig: {
+                        temperature: 0.7,
+                        responseMimeType: "application/json",
+                    }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey || undefined);
             const response = await result.response;
             const text = response.text();
             
@@ -1398,49 +1474,93 @@ export const converseWithCoach = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || 'gemini';
+        let provider = config.coachAiModel || config.provider || 'gemini';
         
+        // Determine available keys
+        const deepseekKeyAvailable = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-'))
+            || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-'));
+        const geminiKeyAvailable = (userKey && userKey.trim() && !userKey.startsWith('sk-'))
+            || (config.geminiKey && config.geminiKey.trim() && config.geminiKey.startsWith('AIza'))
+            || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') && config.coachApiKey.startsWith('AIza'));
+        
+        // Auto-detect best provider if selected one has no key
+        if (provider === 'gemini' && !geminiKeyAvailable && deepseekKeyAvailable) {
+            provider = 'deepseek';
+            console.info('[AI Auto-Switch] Gemini key topilmadi, DeepSeek ga o\'tilmoqda (kalit mavjud)');
+        } else if (provider === 'deepseek' && !deepseekKeyAvailable && geminiKeyAvailable) {
+            provider = 'gemini';
+            console.info('[AI Auto-Switch] DeepSeek key topilmadi, Gemini ga o\'tilmoqda (kalit mavjud)');
+        }
+        
+        // --- TRY PRIMARY PROVIDER ---
         if (provider === 'ollama') {
             try {
                 return await callOllama(prompt);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in converseWithCoach, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in converseWithCoach:", err);
+                // Fallback below
             }
-        } else if (provider === 'deepseek') {
-            const keyToUse = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim()) || undefined;
+        }
+        
+        if (provider === 'deepseek') {
+            const keyToUse = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
+                || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-') ? config.deepseekKey.trim() : undefined);
             if (keyToUse) {
                 try {
                     return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
                 } catch (deepseekErr: any) {
-                    console.warn("[AI Fallback] DeepSeek error in coach, falling back to Gemini 1.5 Flash:", deepseekErr);
+                    console.warn("[AI Fallback] DeepSeek error in coach, trying Gemini:", deepseekErr);
                 }
-            } else {
-                console.warn("[AI Fallback] DeepSeek key missing in coach, falling back to Gemini 1.5 Flash");
             }
         }
 
-        // Gemini with multi-model fallback chain and automatic key rotation
+        // --- TRY GEMINI ---
         const geminiKeyToUse = (userKey && userKey.trim() && !userKey.startsWith('sk-') ? userKey.trim() : undefined)
             || (config.geminiKey && config.geminiKey.trim() && !config.geminiKey.startsWith('sk-') ? config.geminiKey.trim() : undefined)
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
-        const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
-        let lastError: any = null;
+        if (geminiKeyToUse) {
+            const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
+            let lastGeminiError: any = null;
 
-        for (const modelName of models) {
-            try {
-                const result = await requestWithRetry((genAI) => {
-                    const ai = genAI || getGenAI(geminiKeyToUse);
-                    const model = ai.getGenerativeModel({ model: modelName });
-                    return model.generateContent(prompt);
-                }, 2, 1000, geminiKeyToUse);
-                return result.response.text();
-            } catch (err: any) {
-                lastError = err;
-                console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
+            for (const modelName of models) {
+                try {
+                    const result = await requestWithRetry((genAI) => {
+                        const ai = genAI || getGenAI(geminiKeyToUse);
+                        const model = ai.getGenerativeModel({ model: modelName });
+                        return model.generateContent(prompt);
+                    }, 2, 1000, geminiKeyToUse);
+                    return result.response.text();
+                } catch (err: any) {
+                    lastGeminiError = err;
+                    console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
+                }
             }
+            
+            // Gemini ham fail bo'ldi — agar DeepSeek kalit mavjud bo'lsa, OXIRGI FALLBACK
+            if (provider !== 'deepseek' && deepseekKeyAvailable) {
+                const dsKey = (config.deepseekKey && config.deepseekKey.trim()) || (config.coachApiKey && config.coachApiKey.trim()) || '';
+                if (dsKey) {
+                    try {
+                        console.info('[AI Last-Resort Fallback] Gemini ham xato berdi, DeepSeek ga o\'tilmoqda');
+                        return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                    } catch (e) {
+                        console.error('[AI Last-Resort] DeepSeek fallback ham xato berdi:', e);
+                    }
+                }
+            }
+            
+            if (lastGeminiError) throw lastGeminiError;
         }
-        throw lastError;
+
+        // --- AGAR HECH QANDAY KALIT BO'LMASA ---
+        // Oxirgi imkoniyat: DeepSeek kalit bilan sinab ko'rish (env dan kelgan bo'lishi mumkin)
+        if (deepseekKeyAvailable) {
+            const dsKey = (config.deepseekKey && config.deepseekKey.trim()) || (config.coachApiKey && config.coachApiKey.trim()) || '';
+            return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+        }
+
+        throw new Error("🔑 AI API kaliti topilmadi. Sozlamalar bo'limida Gemini yoki DeepSeek API kalitingizni kiriting.");
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
         // If error is already parsed by requestWithRetry, re-throw as is
