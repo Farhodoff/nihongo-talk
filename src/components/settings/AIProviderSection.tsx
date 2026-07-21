@@ -125,11 +125,11 @@ const AIProviderSection: React.FC = () => {
                             </label>
                             <select
                                 value={deepseekModel}
-                                onChange={(e) => setDeepseekModel(e.target.value as 'deepseek-v4-flash' | 'deepseek-v4-pro')}
+                                onChange={(e) => setDeepseekModel(e.target.value as any)}
                                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             >
-                                <option value="deepseek-v4-flash">DeepSeek-V4-Flash (Arzon va tez, kundalik uchun)</option>
-                                <option value="deepseek-v4-pro">DeepSeek-V4-Pro (Qimmatroq va juda aqlli)</option>
+                                <option value="deepseek-chat">DeepSeek-V3 (Chat - Tez va arzon)</option>
+                                <option value="deepseek-reasoner">DeepSeek-R1 (Reasoner - Chuqur mulohazali)</option>
                             </select>
                         </div>
                         

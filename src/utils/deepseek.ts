@@ -20,9 +20,14 @@ export const callDeepSeek = async (
     apiKey: string | undefined | null,
     systemPrompt?: string,
     isJson: boolean = false,
-    modelName: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash',
+    modelName: string = 'deepseek-chat',
     thinkingEnabled: boolean = false
 ): Promise<string> => {
+    let actualModel = 'deepseek-chat';
+    if (modelName === 'deepseek-reasoner' || modelName.includes('pro') || thinkingEnabled) {
+        actualModel = 'deepseek-reasoner';
+    }
+
     const messages: { role: string; content: string }[] = [];
     if (systemPrompt) {
         messages.push({ role: "system", content: systemPrompt });
@@ -30,7 +35,7 @@ export const callDeepSeek = async (
     messages.push({ role: "user", content: prompt });
 
     const payload: Record<string, unknown> = {
-        model: modelName,
+        model: actualModel,
         messages: messages,
         response_format: isJson ? { type: "json_object" } : { type: "text" }
     };

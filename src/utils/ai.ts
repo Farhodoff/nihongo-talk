@@ -218,9 +218,9 @@ export const parseAIError = (error: unknown): string => {
         return '🔑 API kalit noto\'g\'ri yoki yaroqsiz. Iltimos, Sozlamalar bo\'limida kalitingizni tekshiring va yangi kalit kiriting.';
     }
 
-    // Model topilmadi
-    if (msg.includes('not found') && msg.includes('model')) {
-        return '⚠️ AI model topilmadi. Ilova yangilanishi kerak bo\'lishi mumkin. Sahifani yangilab ko\'ring.';
+    // Model topilmadi / invalid model
+    if (msg.includes('not found') || msg.includes('404')) {
+        return '⚠️ AI model yoki API provayderda ulanish xatoligi yuz berdi. Iltimos Sozlamalar bo\'limidan AI modelni Gemini ga o\'tkazib saqlang.';
     }
 
     // Internet / tarmoq xatoligi
