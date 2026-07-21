@@ -298,7 +298,7 @@ export const parseAIError = (error: unknown): string => {
 
     // Model topilmadi / invalid model
     if (msg.includes('not found') || msg.includes('404')) {
-        return '⚠️ AI model yoki API provayderda ulanish xatoligi yuz berdi. Iltimos Sozlamalar bo\'limidan AI modelni Gemini ga o\'tkazib saqlang.';
+        return '⚠️ AI model topilmadi (404 xatosi). API kalitingiz yaroqsiz bo\'lishi mumkin yoki tanlangan AI modeli endi mavjud emas. Sozlamalardan to\'g\'rilang.';
     }
 
     // Internet / tarmoq xatoligi
@@ -378,7 +378,7 @@ export const requestWithRetry = async <T>(
             });
 
             if (validKeys.length === 0) {
-                throw new Error("RATE_LIMIT: Barcha Gemini kalitlari limitga tushdi (15 RPM).");
+                throw new Error("RATE_LIMIT: ⏳ Bepul AI so'rovlar limiti vaqtincha to'ldi (Google Gemini limit 15 so'rov/daq). Iltimos, 1 daqiqa kuting.");
             }
 
             if (retries > 0) {

@@ -370,7 +370,11 @@ const SpeakingCoachPage: React.FC = () => {
             speakText(aiResponse);
         } catch (err: any) {
             console.error("Coach response error:", err);
-            setError(err.message || 'Tahlil qilishda xatolik yuz berdi.');
+            let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';
+            if (errorMessage.startsWith('RATE_LIMIT: ')) {
+                errorMessage = errorMessage.substring('RATE_LIMIT: '.length);
+            }
+            setError(errorMessage);
             setIsThinking(false);
             isProcessingRef.current = false;
             resumeListening();

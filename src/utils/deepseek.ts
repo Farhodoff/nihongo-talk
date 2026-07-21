@@ -6,7 +6,7 @@ let currentKey: string = '';
 const getDeepSeekClient = (apiKey: string) => {
     if (!openaiInstance || currentKey !== apiKey) {
         openaiInstance = new OpenAI({
-            baseURL: 'https://api.deepseek.com',
+            baseURL: 'https://api.deepseek.com/v1',
             apiKey: apiKey,
             dangerouslyAllowBrowser: true 
         });
