@@ -161,9 +161,14 @@ export default defineConfig({
     // Development server optimizatsiyasi
     server: {
         port: 5173,
-        // Caching strategiyasi
+        proxy: {
+            '/api/deepseek': {
+                target: 'https://api.deepseek.com',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api\/deepseek/, '')
+            }
+        },
         fs: {
-            // Allow serving files from one level up to the project root
             allow: ['..'],
         },
     },

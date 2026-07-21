@@ -76,17 +76,30 @@ export const callDeepSeek = async (
             throw new Error(errorMsg);
         }
 
-        const data = await response.json();
-        return data.choices?.[0]?.message?.content || '';
+    // In browser environment, try Vite dev proxy first to bypass CORS issues
+    if (typeof window !== 'undefined') {
+        try {
+            const proxyRes = await fetch('/api/deepseek/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${validApiKey}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (proxyRes.ok) {
+                const data = await proxyRes.json();
+                const text = data.choices?.[0]?.message?.content || '';
+                if (text) return text;
+            }
+        } catch (e) {
+            console.warn('[DeepSeek Proxy] Proxy request failed, falling back to direct SDK call:', e);
+        }
     }
     
-    // Fallback to direct call using OpenAI SDK if user provided their own key
+    // Fallback to direct call using OpenAI SDK
     const client = getDeepSeekClient(validApiKey);
-
-
-
-
-     
     const response = await client.chat.completions.create(payload as any);
 
     return response.choices[0].message.content || '';

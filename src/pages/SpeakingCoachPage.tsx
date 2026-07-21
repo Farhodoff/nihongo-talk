@@ -374,6 +374,12 @@ const SpeakingCoachPage: React.FC = () => {
             if (errorMessage.startsWith('RATE_LIMIT: ')) {
                 errorMessage = errorMessage.substring('RATE_LIMIT: '.length);
             }
+            synthRef.current?.cancel();
+            if (audioPlayerRef.current) {
+                audioPlayerRef.current.pause();
+                audioPlayerRef.current = null;
+            }
+            setIsSpeaking(false);
             setError(errorMessage);
             setIsThinking(false);
             isProcessingRef.current = false;
