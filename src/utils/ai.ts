@@ -263,7 +263,7 @@ export const requestWithRetry = async <T>(
 ): Promise<T> => {
     try {
         const result = await operation();
-        await decrementCredit(); // Muvaffaqiyatli bo'lsa kreditni ayirish
+        decrementCredit().catch(e => console.error("Kredit ayirishda xatolik:", e)); // Non-blocking
         return result;
     } catch (error: unknown) {
         // Handle rate limit (429) or quota issues

@@ -5,11 +5,15 @@ import { Button } from '../ui/Button';
 const DailyGoalSection: React.FC = () => {
     const { settings, updateSettings } = useStudyData();
     const [goalHours, setGoalHours] = useState(Math.floor((settings.dailyStudyGoalMinutes || 240) / 60));
+    const [isSaved, setIsSaved] = useState(false);
 
     const handleSave = async () => {
-        const minutes = goalHours * 60;
+        const clampedHours = Math.max(1, Math.min(24, goalHours || 4));
+        setGoalHours(clampedHours);
+        const minutes = clampedHours * 60;
         await updateSettings({ dailyStudyGoalMinutes: minutes });
-        alert('Kunlik maqsad saqlandi! ✅');
+        setIsSaved(true);
+        setTimeout(() => setIsSaved(false), 2500);
     };
 
     return (
@@ -37,8 +41,8 @@ const DailyGoalSection: React.FC = () => {
                 </div>
                 
                 <div className="pt-2">
-                    <Button onClick={handleSave} className="w-full">
-                        O'zgarishlarni Saqlash
+                    <Button onClick={handleSave} className={`w-full transition-all ${isSaved ? 'bg-emerald-600 hover:bg-emerald-700' : ''}`}>
+                        {isSaved ? "✅ Maqsad Saqlandi!" : "O'zgarishlarni Saqlash"}
                     </Button>
                 </div>
             </div>

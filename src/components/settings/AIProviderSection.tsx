@@ -43,6 +43,8 @@ const AIProviderSection: React.FC = () => {
         }
     }, [aiModel, ollamaUrl]);
 
+    const [isSaved, setIsSaved] = useState(false);
+
     const handleSave = async () => {
         await updateSettings({
             aiModel: aiModel as any,
@@ -57,7 +59,8 @@ const AIProviderSection: React.FC = () => {
             coachAiModel: coachAiModel,
             coachApiKey: coachApiKey,
         });
-        alert('AI sozlamalari saqlandi! ✅');
+        setIsSaved(true);
+        setTimeout(() => setIsSaved(false), 2500);
     };
 
     return (
@@ -265,8 +268,8 @@ const AIProviderSection: React.FC = () => {
                 </div>
                 
                 <div className="pt-2">
-                    <Button onClick={handleSave} className="w-full">
-                        O'zgarishlarni Saqlash
+                    <Button onClick={handleSave} className={`w-full transition-all ${isSaved ? 'bg-emerald-600 hover:bg-emerald-700' : ''}`}>
+                        {isSaved ? '✅ AI Sozlamalari Saqlandi!' : "O'zgarishlarni Saqlash"}
                     </Button>
                 </div>
             </div>

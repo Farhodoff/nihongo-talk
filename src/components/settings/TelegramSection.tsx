@@ -77,7 +77,7 @@ const TelegramSection: React.FC = () => {
         return `${minutes} daqiqa`;
     };
 
-    const botUsername = 'study_plannerr_bot';
+    const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'study_plannerr_bot';
 
     return (
         <div className="space-y-6">

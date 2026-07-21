@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
     Settings as SettingsIcon, X, Sparkles, Flame, GraduationCap, Briefcase, 
-    RotateCcw, Copy, Check, Zap, Play, ShieldAlert, Cpu, HeartPulse, Compass, Coffee
+    Zap, Play, Cpu, Compass, Coffee, ShieldAlert, Check, Copy, HeartPulse, RotateCcw
 } from 'lucide-react';
 import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -267,6 +267,8 @@ const SpeakingCoachPage: React.FC = () => {
         if (isSpeaking) {
             synthRef.current?.cancel();
             if (audioPlayerRef.current) {
+                audioPlayerRef.current.onended = null;
+                audioPlayerRef.current.onerror = null;
                 audioPlayerRef.current.pause();
                 audioPlayerRef.current = null;
             }

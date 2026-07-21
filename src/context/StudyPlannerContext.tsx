@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
@@ -263,7 +263,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
             // Parallel yuklash for other entities
             try {
-                const [subjectsRes, goalsRes, notesRes, sessionsRes, studyNotesRes, whiteboardsRes, eventsRes, profileRes] = await Promise.all([
+                const [subjectsSettled, goalsSettled, notesSettled, sessionsSettled, studyNotesSettled, whiteboardsSettled, eventsSettled, profileSettled] = await Promise.allSettled([
                     supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                     supabase.from('goals').select('*').eq('user_id', currentUser.id),
                     supabase.from('notes').select('*').eq('user_id', currentUser.id),
@@ -274,7 +274,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
                 ]);
 
-                if (subjectsRes.data) {
+                const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
+                const goalsRes = goalsSettled.status === 'fulfilled' ? goalsSettled.value : null;
+                const notesRes = notesSettled.status === 'fulfilled' ? notesSettled.value : null;
+                const sessionsRes = sessionsSettled.status === 'fulfilled' ? sessionsSettled.value : null;
+                const studyNotesRes = studyNotesSettled.status === 'fulfilled' ? studyNotesSettled.value : null;
+                const whiteboardsRes = whiteboardsSettled.status === 'fulfilled' ? whiteboardsSettled.value : null;
+                const eventsRes = eventsSettled.status === 'fulfilled' ? eventsSettled.value : null;
+                const profileRes = profileSettled.status === 'fulfilled' ? profileSettled.value : null;
+
+                if (subjectsRes?.data) {
                     const mappedSubjects = subjectsRes.data.map((s: DatabaseSubject) => ({
                         id: s.id,
                         name: s.name,
@@ -287,10 +296,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         isArchived: s.is_archived
                     }));
                     setSubjects(mappedSubjects);
-
                 }
 
-                if (sessionsRes.data) {
+                if (sessionsRes?.data) {
                     const mappedSessions = sessionsRes.data.map((s: DatabaseSession) => ({
                         ...s,
                         subjectId: s.subject_id,
@@ -299,10 +307,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         moodAfter: s.mood_after
                     }));
                     setSessions(mappedSessions);
-
                 }
 
-                if (notesRes.data) {
+                if (notesRes?.data) {
                     const mappedNotes = notesRes.data.map((n: DatabaseNote) => ({
                         ...n,
                         subjectId: n.subject_id,
@@ -311,10 +318,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: n.updated_at
                     }));
                     setNotes(mappedNotes);
-
                 }
 
-                if (studyNotesRes.data) {
+                if (studyNotesRes?.data) {
                     const mappedStudyNotes = studyNotesRes.data.map((n: DatabaseStudyNote) => ({
                         ...n,
                         userId: n.user_id,
@@ -323,15 +329,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: n.updated_at
                     }));
                     setStudyNotes(mappedStudyNotes);
-
                 }
 
-                if (goalsRes.data) {
+                if (goalsRes?.data) {
                     setGoals(goalsRes.data);
-
                 }
 
-                if (whiteboardsRes.data) {
+                if (whiteboardsRes?.data) {
                     setWhiteboards(whiteboardsRes.data.map((w: DatabaseWhiteboard) => ({
                         id: w.id,
                         subjectId: w.subject_id,
@@ -341,7 +345,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     })));
                 }
 
-                if (eventsRes.data) {
+                if (eventsRes?.data) {
                     const mappedEvents = eventsRes.data.map((e: DatabaseEvent) => ({
                         id: e.id,
                         userId: e.user_id,
@@ -359,11 +363,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: e.updated_at
                     }));
                     setEvents(mappedEvents);
-
                 }
 
                 // Profile & Settings
-                if (profileRes.data) {
+                if (profileRes?.data) {
                     const profile = profileRes.data as DatabaseProfile;
                     setAppSettings(prev => ({
                         ...prev,
@@ -963,12 +966,17 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setEvents(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e));
     }, [events]);
 
+    const updateEventRef = useRef(updateEvent);
+    useEffect(() => {
+        updateEventRef.current = updateEvent;
+    }, [updateEvent]);
+
     useEffect(() => {
         if (appSettings.notificationsEnabled && events.length > 0) {
             notificationManager.requestPermission().then(granted => {
                 if (granted) {
                     notificationManager.startMonitoring(events, (eventId) => {
-                        updateEvent(eventId, { isNotified: true });
+                        updateEventRef.current(eventId, { isNotified: true });
                     });
                 }
             });
@@ -976,7 +984,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return () => {
             notificationManager.stopMonitoring();
         };
-    }, [events, appSettings.notificationsEnabled, updateEvent]);
+    }, [events, appSettings.notificationsEnabled]);
 
     const deleteEvent = async (id: string) => {
         const { data: { session } } = await supabase.auth.getSession();
