@@ -1219,9 +1219,9 @@ export const converseWithCoach = async (
         }
 
         // Gemini with multi-model fallback chain
-        const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
-            || (userKey && userKey.trim())
+        const geminiKeyToUse = (userKey && userKey.trim())
             || (config.geminiKey && config.geminiKey.trim())
+            || (config.coachAiModel === 'gemini' && config.coachApiKey && config.coachApiKey.trim() ? config.coachApiKey.trim() : undefined)
             || undefined;
         
         const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
@@ -1229,7 +1229,7 @@ export const converseWithCoach = async (
 
         for (const modelName of models) {
             try {
-                const { instance: genAI } = getGenAI(keyToUse);
+                const { instance: genAI } = getGenAI(geminiKeyToUse);
                 const model = genAI.getGenerativeModel({ model: modelName });
                 const result = await requestWithRetry(() => model.generateContent(prompt), 1, 1000);
                 return result.response.text();
@@ -1348,7 +1348,7 @@ export const analyzeSpeakingSession = async (
 
     try {
         const config = getAIConfig();
-        const apiKey = config.geminiKey || config.coachApiKey;
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' ? config.coachApiKey : undefined);
         const { instance: genAI } = getGenAI(apiKey || undefined);
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
@@ -1419,7 +1419,7 @@ export const generateAITimetable = async (
 
     try {
         const config = getAIConfig();
-        const apiKey = config.geminiKey || config.coachApiKey;
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' ? config.coachApiKey : undefined);
         const { instance: genAI } = getGenAI(apiKey || undefined);
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
