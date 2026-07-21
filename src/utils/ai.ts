@@ -49,7 +49,7 @@ const aiCache = {
 
 export const getAIConfig = () => {
     const savedStr = localStorage.getItem('study_planner_ai_settings');
-    let aiModel: AIProvider = 'gemini';
+    let aiModel: AIProvider = 'deepseek';
     let deepseekKey = '';
     let geminiKey = '';
 
@@ -77,7 +77,7 @@ export const getAIConfig = () => {
         }
     }
 
-    // Environment variable fallbacks — .env.local dan o'qiladi agar localStorage da yo'q bo'lsa
+    // Environment variable fallbacks — .env.local dan o'qiladi agar localStorage da yo'q bo me
     try {
         if (typeof import.meta !== 'undefined' && import.meta.env) {
             const envDeepSeek = import.meta.env.VITE_DEEPSEEK_API_KEY;
@@ -94,7 +94,7 @@ export const getAIConfig = () => {
         // ignore env inspection errors
     }
 
-    // DeepSeek tanlangan bo'lsa-yu lekin shaxsiy DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
+    // DeepSeek tanlangan bo'lsa-yu lekin DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
     if (aiModel === 'deepseek' && !deepseekKey.trim()) {
         aiModel = 'gemini';
     }
@@ -102,8 +102,8 @@ export const getAIConfig = () => {
         coachAiModel = 'gemini';
     }
 
-    // Agar hech qanday kalit bo'lmasa lekin DeepSeek kalit mavjud bo'lsa — DeepSeek ni default qilamiz
-    if (aiModel === 'gemini' && !geminiKey.trim() && deepseekKey.trim()) {
+    // Agar foydalanuvchi sozlamalarda modelni ko'rsatmagan bo'lsa va DeepSeek kaliti bo'lsa — DeepSeek asosiy qilinadi
+    if (!savedStr && deepseekKey.trim()) {
         aiModel = 'deepseek';
     }
 
