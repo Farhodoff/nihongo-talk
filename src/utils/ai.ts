@@ -370,11 +370,27 @@ export const requestWithRetry = async <T>(
                 markKeyRateLimited(keyToDisable);
             }
 
+            // Agar barcha kalitlar rate-limitga tushgan bo'lsa, retry qilib o'tirishdan foyda yo'q
+            const keys = getGeminiAPIKeys(userKey);
+            const validKeys = keys.filter(k => {
+                const disabledUntil = disabledKeysMap.get(k);
+                return !disabledUntil || Date.now() >= disabledUntil;
+            });
+
+            if (validKeys.length === 0) {
+                throw new Error("RATE_LIMIT: Barcha Gemini kalitlari limitga tushdi (15 RPM).");
+            }
+
             if (retries > 0) {
-                console.warn(`AI Rate limit hit (429/RESOURCE_EXHAUSTED/15 RPM). Blacklisting key for 45s and retrying in ${delay / 1000}s... (${retries} retries left)`);
+                console.warn(`AI Rate limit hit. Retrying with a different key... (${retries} retries left)`);
                 await new Promise(resolve => setTimeout(resolve, delay));
                 return requestWithRetry(operation, retries - 1, delay, userKey);
             }
+        }
+
+        // Agar bu maxsus RATE_LIMIT xatosi bo'lsa, uni asl holida qaytaramiz (fallback uchun)
+        if (msg.includes('rate_limit:')) {
+            throw error;
         }
 
         // Barcha retrylar tugagandan keyin tushunarli xato berish
@@ -1534,6 +1550,10 @@ export const converseWithCoach = async (
                 } catch (err: any) {
                     lastGeminiError = err;
                     console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
+                    // Agar barcha kalitlar limitga tushgan bo'lsa, keyingi modelni (masalan gemini-1.5-pro) sinashdan foyda yo'q.
+                    if (err.message && err.message.includes('RATE_LIMIT:')) {
+                        break;
+                    }
                 }
             }
             
