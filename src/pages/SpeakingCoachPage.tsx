@@ -159,6 +159,7 @@ const SpeakingCoachPage: React.FC = () => {
     const synthRef = useRef<SpeechSynthesis | null>(null);
     const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
     const transcriptBufferRef = useRef('');
+    const speechStartTimeRef = useRef<number>(0);
     const isProcessingRef = useRef(false);
     const isLiveSessionRef = useRef(false);
     const chatHistoryRef = useRef<ChatMessage[]>([]);
@@ -213,7 +214,27 @@ const SpeakingCoachPage: React.FC = () => {
             recognitionRef.current.continuous = false;
             recognitionRef.current.interimResults = true;
 
+            recognitionRef.current.onstart = () => {
+                speechStartTimeRef.current = Date.now();
+                setIsListening(true);
+            };
+
+            recognitionRef.current.onspeechstart = () => {
+                if (!speechStartTimeRef.current) {
+                    speechStartTimeRef.current = Date.now();
+                }
+            };
+
+            recognitionRef.current.onsoundstart = () => {
+                if (!speechStartTimeRef.current) {
+                    speechStartTimeRef.current = Date.now();
+                }
+            };
+
             recognitionRef.current.onresult = (event: any) => {
+                if (!speechStartTimeRef.current) {
+                    speechStartTimeRef.current = Date.now();
+                }
                 let interimTranscript = '';
                 for (let i = 0; i < event.results.length; i++) {
                     interimTranscript += event.results[i][0].transcript;
@@ -234,16 +255,37 @@ const SpeakingCoachPage: React.FC = () => {
             recognitionRef.current.onend = () => {
                 setIsListening(false);
                 const spokenText = transcriptBufferRef.current.trim();
-                if (isLiveSessionRef.current && spokenText.length >= 2 && !isProcessingRef.current) {
-                    transcriptBufferRef.current = '';
-                    setCurrentTranscript('');
-                    handleSendUserText(spokenText);
-                } else if (isLiveSessionRef.current && !isProcessingRef.current) {
-                    transcriptBufferRef.current = '';
-                    setCurrentTranscript('');
-                    setTimeout(() => {
-                        resumeListening();
-                    }, 300);
+                const duration = speechStartTimeRef.current > 0 ? Date.now() - speechStartTimeRef.current : 0;
+                speechStartTimeRef.current = 0;
+
+                const words = spokenText.split(/\s+/).filter(Boolean);
+                const MIN_DURATION_MS = 1200;
+                const MIN_CHAR_LENGTH = 5;
+                const MIN_WORD_COUNT = 2;
+
+                const isValidDuration = duration >= MIN_DURATION_MS;
+                const isValidTranscript = spokenText.length >= MIN_CHAR_LENGTH || words.length >= MIN_WORD_COUNT;
+
+                if (isLiveSessionRef.current && !isProcessingRef.current) {
+                    if (spokenText.length > 0 && isValidDuration && isValidTranscript) {
+                        transcriptBufferRef.current = '';
+                        setCurrentTranscript('');
+                        handleSendUserText(spokenText);
+                    } else {
+                        if (spokenText.length > 0) {
+                            console.debug('[Speech Safeguard] Discarding short speech input / noise:', {
+                                spokenText,
+                                durationMs: duration,
+                                charLength: spokenText.length,
+                                wordCount: words.length
+                            });
+                        }
+                        transcriptBufferRef.current = '';
+                        setCurrentTranscript('');
+                        setTimeout(() => {
+                            resumeListening();
+                        }, 300);
+                    }
                 }
             };
         } else {

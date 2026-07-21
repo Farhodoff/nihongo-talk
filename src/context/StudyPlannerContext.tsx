@@ -23,7 +23,7 @@ interface Settings {
     googleApiKey?: string;
     aiModel?: 'gemini' | 'deepseek' | 'ollama';
     deepseekApiKey?: string;
-    deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+    deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
     deepseekThinkingMode?: boolean;
     ollamaUrl?: string;
     ollamaModel?: string;
@@ -186,7 +186,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         googleApiKey?: string;
         aiModel?: 'gemini' | 'deepseek' | 'ollama';
         deepseekApiKey?: string;
-        deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+        deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
         deepseekThinkingMode?: boolean;
         ollamaUrl?: string;
         ollamaModel?: string;
@@ -207,7 +207,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             googleApiKey: savedAiSettings.googleApiKey,
             aiModel: savedAiSettings.aiModel || 'deepseek',
             deepseekApiKey: savedAiSettings.deepseekApiKey || '',
-            deepseekModel: savedAiSettings.deepseekModel as 'deepseek-v4-flash' | 'deepseek-v4-pro',
+            deepseekModel: (savedAiSettings.deepseekModel as 'deepseek-chat' | 'deepseek-reasoner') || 'deepseek-chat',
             deepseekThinkingMode: savedAiSettings.deepseekThinkingMode,
             ollamaUrl: savedAiSettings.ollamaUrl,
             ollamaModel: savedAiSettings.ollamaModel,

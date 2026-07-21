@@ -53,7 +53,7 @@ export const getAIConfig = () => {
     let deepseekKey = '';
     let geminiKey = '';
 
-    let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
+    let deepseekModel: 'deepseek-chat' | 'deepseek-reasoner' = 'deepseek-chat';
     let deepseekThinkingMode = false;
     let openAIApiKey = '';
     let coachVoice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer' = 'alloy';
@@ -139,42 +139,77 @@ const getAIProvider = async (): Promise<AIProvider> => {
 
 let keyRotationIndex = 0;
 const disabledKeysMap = new Map<string, number>();
+let lastUsedKey = '';
 
 export const getGeminiAPIKeys = (userKey?: string): string[] => {
-    let keyString = userKey;
-    
-    if (!keyString) {
-        const config = getAIConfig();
-        keyString = config.geminiKey;
-    }
+    const candidateStrings: string[] = [];
 
-    if (!keyString) {
-        const subStr = localStorage.getItem('study_planner_subscription');
+    if (userKey && typeof userKey === 'string' && userKey.trim() && !userKey.trim().startsWith('sk-')) {
+        candidateStrings.push(userKey);
+    } else {
+        const config = getAIConfig();
+        if (config.geminiKey && typeof config.geminiKey === 'string' && !config.geminiKey.trim().startsWith('sk-')) {
+            candidateStrings.push(config.geminiKey);
+        }
+
+        const subStr = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_subscription') : null;
         if (subStr) {
             try {
                 const sub = JSON.parse(subStr);
-                if (sub.adminApiKey) {
-                    keyString = sub.adminApiKey;
+                if (sub.adminApiKey && typeof sub.adminApiKey === 'string' && !sub.adminApiKey.trim().startsWith('sk-')) {
+                    candidateStrings.push(sub.adminApiKey);
                 }
             } catch (e) {
                 console.error("Failed to parse subscription", e);
             }
         }
+
+        try {
+            if (typeof import.meta !== 'undefined' && import.meta.env) {
+                const envViteKey = import.meta.env.VITE_GEMINI_API_KEY;
+                const envGeminiKey = import.meta.env.GEMINI_API_KEY;
+                if (envViteKey && typeof envViteKey === 'string' && !envViteKey.trim().startsWith('sk-')) {
+                    candidateStrings.push(envViteKey);
+                }
+                if (envGeminiKey && typeof envGeminiKey === 'string' && !envGeminiKey.trim().startsWith('sk-')) {
+                    candidateStrings.push(envGeminiKey);
+                }
+            }
+        } catch (e) {
+            // ignore env inspection errors
+        }
     }
 
-    if (!keyString || !keyString.trim()) {
+    if (candidateStrings.length === 0) {
         throw new Error("AI Kaliti yo'q. Iltimos, Sozlamalar bo'limida API kalitingizni kiriting yoki PRO tarifni oling.");
     }
 
-    return keyString.split(/[\s,\n]+/).map(k => k.trim()).filter(k => k.length > 10);
+    const rawKeys = candidateStrings.flatMap(str => str.split(/[\s,;\n]+/));
+    const cleanedKeys = rawKeys
+        .map(k => k.trim())
+        .filter(k => k.length > 10 && !k.startsWith('sk-'));
+
+    const uniqueKeys: string[] = [];
+    for (const key of cleanedKeys) {
+        if (!uniqueKeys.includes(key)) {
+            uniqueKeys.push(key);
+        }
+    }
+
+    if (uniqueKeys.length === 0) {
+        throw new Error("Yaroqli Gemini API Kaliti topilmadi.");
+    }
+
+    return uniqueKeys;
 };
 
 export const markKeyRateLimited = (key: string) => {
+    if (!key) return;
     console.warn(`Marking Gemini API Key on 45s cooldown due to rate limit: ${key.substring(0, 8)}...`);
     disabledKeysMap.set(key, Date.now() + 45000);
 };
 
-const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string } => {
+export const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string } => {
     const keys = getGeminiAPIKeys(userKey);
     const now = Date.now();
 
@@ -189,6 +224,7 @@ const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGene
     const pool = validKeys.length > 0 ? validKeys : keys;
     keyRotationIndex = (keyRotationIndex + 1) % pool.length;
     const selectedKey = pool[keyRotationIndex];
+    lastUsedKey = selectedKey;
     const instance = new GoogleGenerativeAI(selectedKey);
     return Object.assign(instance, { instance, key: selectedKey });
 };
@@ -198,23 +234,23 @@ const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGene
  */
 export const parseAIError = (error: unknown): string => {
     const err = error as { message?: string; status?: number };
-    const msg = err?.message || '';
+    const msg = (err?.message || '').toLowerCase();
 
     // Quota / Rate limit tugagan
-    if (msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') || msg.includes('RESOURCE_EXHAUSTED')) {
-        if (msg.includes('FreeTier') || msg.includes('free_tier')) {
+    if (msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') || msg.includes('resource_exhausted') || msg.includes('15 rpm')) {
+        if (msg.includes('freetier') || msg.includes('free_tier')) {
             return '⏳ Bepul AI limit bugunlik tugagan. Ertaga qayta urinib ko\'ring yoki Google AI Studio\'da pullik rejaga o\'ting (aistudio.google.com → Settings → Billing).';
         }
         return "⏳ Bepul AI so'rovlar limiti vaqtincha to'ldi (Google Gemini limit 15 so'rov/daq). 1 daqiqa kuting yoki Sozlamalar bo'limida o'zingizning bepul API kalitingizni kiriting (aistudio.google.com).";
     }
 
     // Backend proxy error / missing API key
-    if (msg.includes('missing API key') || msg.includes('Backend proxy error')) {
+    if (msg.includes('missing api key') || msg.includes('backend proxy error')) {
         return '🔑 AI API kaliti kiritilmagan. Sozlamalardan o\'zingizning API kalitingizni kiriting yoki AI provayderni Gemini ga o\'tkazing.';
     }
 
     // API kalit noto'g'ri
-    if (msg.includes('API key not valid') || msg.includes('API_KEY_INVALID')) {
+    if (msg.includes('api key not valid') || msg.includes('api_key_invalid')) {
         return '🔑 API kalit noto\'g\'ri yoki yaroqsiz. Iltimos, Sozlamalar bo\'limida kalitingizni tekshiring va yangi kalit kiriting.';
     }
 
@@ -224,7 +260,7 @@ export const parseAIError = (error: unknown): string => {
     }
 
     // Internet / tarmoq xatoligi
-    if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('net::')) {
+    if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('net::')) {
         return '🌐 Internet aloqasi yo\'q yoki server javob bermayapti. Internet ulanishingizni tekshiring.';
     }
 
@@ -257,24 +293,46 @@ const decrementCredit = async () => {
 };
 
 export const requestWithRetry = async <T>(
-    operation: () => Promise<T>,
-    retries: number = 2, // Reduced from 3
-    delay: number = 3000 // Reduced from 20s to 3s for better UX
+    operation: (genAI?: GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string }) => Promise<T>,
+    retries: number = 2,
+    delay: number = 1000,
+    userKey?: string
 ): Promise<T> => {
+    let currentGenAI: (GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string }) | undefined;
     try {
-        const result = await operation();
+        currentGenAI = getGenAI(userKey);
+    } catch (e) {
+        // Safe fallback if non-Gemini provider or key missing
+    }
+
+    try {
+        const result = await operation(currentGenAI);
         decrementCredit().catch(e => console.error("Kredit ayirishda xatolik:", e)); // Non-blocking
         return result;
     } catch (error: unknown) {
-        // Handle rate limit (429) or quota issues
+        // Handle rate limit (429) or quota / 15 RPM / RESOURCE_EXHAUSTED issues
         const err = error as { message?: string; status?: number };
-        const isRateLimit = err?.message?.includes('429') || err?.status === 429 || err?.message?.includes('quota');
-        
-        if (retries > 0 && isRateLimit) {
-            console.warn(`AI Rate limit hit. Retrying in ${delay / 1000}s... (${retries} retries left)`);
-            await new Promise(resolve => setTimeout(resolve, delay));
-            // Exponential backoff
-            return requestWithRetry(operation, retries - 1, delay * 2);
+        const msg = (err?.message || JSON.stringify(error) || '').toLowerCase();
+        const status = err?.status;
+        const isRateLimit = status === 429 || 
+                            msg.includes('429') || 
+                            msg.includes('resource_exhausted') || 
+                            msg.includes('quota') || 
+                            msg.includes('rate limit') || 
+                            msg.includes('15 rpm') ||
+                            msg.includes('too many requests');
+
+        if (isRateLimit) {
+            const keyToDisable = currentGenAI?.key || lastUsedKey;
+            if (keyToDisable) {
+                markKeyRateLimited(keyToDisable);
+            }
+
+            if (retries > 0) {
+                console.warn(`AI Rate limit hit (429/RESOURCE_EXHAUSTED/15 RPM). Blacklisting key for 45s and retrying in ${delay / 1000}s... (${retries} retries left)`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+                return requestWithRetry(operation, retries - 1, delay, userKey);
+            }
         }
 
         // Barcha retrylar tugagandan keyin tushunarli xato berish
@@ -345,19 +403,31 @@ export const generateFlashcardsWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let json: unknown[];
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let json: unknown[] | null = null;
 
         if (provider === 'ollama') {
-            const response = await callOllama(prompt);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
+            try {
+                const response = await callOllama(prompt);
+                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+                json = JSON.parse(cleanedText);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateFlashcardsWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            json = JSON.parse(response);
-        } else {
-            const config = getAIConfig();
+            try {
+                const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+                json = JSON.parse(response);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateFlashcardsWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!json) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-1.5-flash",
@@ -380,7 +450,7 @@ export const generateFlashcardsWithAI = async (
                 cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
             }
             
-            json = JSON.parse(cleanedText);
+            json = JSON.parse(cleanedText) as unknown[];
         }
 
         if (!Array.isArray(json)) throw new Error("Invalid response format");
@@ -421,17 +491,27 @@ export const generateFlashcardsFromNote = async (
 
     try {
         const provider = await getAIProvider();
-        let json: unknown[];
+        let json: unknown[] | null = null;
 
         if (provider === 'ollama') {
-            const response = await callOllama(prompt);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
+            try {
+                const response = await callOllama(prompt);
+                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+                json = JSON.parse(cleanedText);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateFlashcardsFromNote, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            json = JSON.parse(response);
-        } else {
+            try {
+                const config = getAIConfig();
+                const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+                json = JSON.parse(response);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateFlashcardsFromNote, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!json) {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
@@ -553,16 +633,28 @@ export const generateFullStudyPlan = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateFullStudyPlan, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateFullStudyPlan, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-1.5-flash",
@@ -627,16 +719,28 @@ export const recommendResourcesWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in recommendResourcesWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in recommendResourcesWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-1.5-flash",
@@ -690,16 +794,28 @@ export const generateStudyInsight = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateStudyInsight, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateStudyInsight, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-1.5-flash",
@@ -756,16 +872,28 @@ export const generateExamWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateExamWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateExamWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
                 model: "gemini-1.5-flash",
@@ -815,16 +943,28 @@ export const expandNoteWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in expandNoteWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in expandNoteWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -854,16 +994,28 @@ export const summarizeNoteWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in summarizeNoteWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in summarizeNoteWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -893,16 +1045,28 @@ export const fixNoteSpellingWithAI = async (
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in fixNoteSpellingWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in fixNoteSpellingWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -946,16 +1110,28 @@ mindmap
     `;
 
     try {
-        const provider = await getAIProvider();
-        let text: string;
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
+        let text: string | null = null;
 
         if (provider === 'ollama') {
-            text = await callOllama(prompt);
+            try {
+                text = await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateMindMapWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        } else {
-            const config = getAIConfig();
+            try {
+                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateMindMapWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!text) {
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await requestWithRetry(() => model.generateContent(prompt));
@@ -1003,38 +1179,47 @@ Qoidalar:
 `;
 
     try {
-        const provider = await getAIProvider();
-
-            if (provider === 'ollama') {
-            // Ollama support for chat is basic, we will prepend history manually
-            const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
-            const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
-            const text = await callOllama(prompt);
-            return text.trim();
-        } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
-            const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
-            const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false, config.deepseekModel, config.deepseekThinkingMode);
-            return text.trim();
-        } else {
-            const config = getAIConfig();
-            const genAI = getGenAI(userKey || config.geminiKey);
-            const model = genAI.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
-                systemInstruction: systemPrompt 
-            });
-
-            const chat = model.startChat({
-                history: history.slice(-5).map(msg => ({
-                    role: msg.role === 'model' ? 'model' : 'user',
-                    parts: [{ text: msg.text }],
-                })),
-            });
-
-            const result = await requestWithRetry(() => chat.sendMessage(message));
-            return (await result.response).text().trim();
+        const config = getAIConfig();
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
         }
+
+        if (provider === 'ollama') {
+            try {
+                const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+                const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
+                const text = await callOllama(prompt);
+                return text.trim();
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in chatWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        } else if (provider === 'deepseek') {
+            try {
+                const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+                const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
+                const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false, config.deepseekModel, config.deepseekThinkingMode);
+                return text.trim();
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in chatWithAI, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        const genAI = getGenAI(userKey || config.geminiKey);
+        const model = genAI.getGenerativeModel({ 
+            model: "gemini-1.5-flash",
+            systemInstruction: systemPrompt 
+        });
+
+        const chat = model.startChat({
+            history: history.slice(-5).map(msg => ({
+                role: msg.role === 'model' ? 'model' : 'user',
+                parts: [{ text: msg.text }],
+            })),
+        });
+
+        const result = await requestWithRetry(() => chat.sendMessage(message));
+        return (await result.response).text().trim();
     } catch (e) {
         console.error("AI Chat Error", e);
         throw new Error(parseAIError(e));
@@ -1094,17 +1279,27 @@ export const analyzeSpeech = async (
 
     try {
         const provider = await getAIProvider();
-        let json: unknown;
+        let json: unknown = null;
 
         if (provider === 'ollama') {
-            const response = await callOllama(prompt);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
+            try {
+                const response = await callOllama(prompt);
+                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+                json = JSON.parse(cleanedText);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in analyzeSpeech, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
-            const config = getAIConfig();
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            json = JSON.parse(response);
-        } else {
+            try {
+                const config = getAIConfig();
+                const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+                json = JSON.parse(response);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in analyzeSpeech, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!json) {
             const config = getAIConfig();
             const genAI = getGenAI(userKey || config.geminiKey);
             const model = genAI.getGenerativeModel({ 
@@ -1120,8 +1315,8 @@ export const analyzeSpeech = async (
             const text = response.text();
             
             let cleanedText = text.trim();
-            if (cleanedText.startsWith('\`\`\`')) {
-                cleanedText = cleanedText.replace(/\`\`\`json/g, "").replace(/\`\`\`/g, "").trim();
+            if (cleanedText.startsWith('```')) {
+                cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
             }
             json = JSON.parse(cleanedText);
         }
@@ -1203,35 +1398,42 @@ export const converseWithCoach = async (
 
     try {
         const config = getAIConfig();
-        const provider = config.coachAiModel || 'gemini';
+        let provider = config.coachAiModel || 'gemini';
         
         if (provider === 'ollama') {
-            return await callOllama(prompt);
+            try {
+                return await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in converseWithCoach, falling back to Gemini 1.5 Flash:", err);
+            }
         } else if (provider === 'deepseek') {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim()) || undefined;
             if (keyToUse) {
                 try {
                     return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
                 } catch (deepseekErr: any) {
-                    console.warn("DeepSeek error in coach, falling back to Gemini:", deepseekErr);
+                    console.warn("[AI Fallback] DeepSeek error in coach, falling back to Gemini 1.5 Flash:", deepseekErr);
                 }
+            } else {
+                console.warn("[AI Fallback] DeepSeek key missing in coach, falling back to Gemini 1.5 Flash");
             }
         }
 
-        // Gemini with multi-model fallback chain
-        const geminiKeyToUse = (userKey && userKey.trim())
-            || (config.geminiKey && config.geminiKey.trim())
-            || (config.coachAiModel === 'gemini' && config.coachApiKey && config.coachApiKey.trim() ? config.coachApiKey.trim() : undefined)
-            || undefined;
+        // Gemini with multi-model fallback chain and automatic key rotation
+        const geminiKeyToUse = (userKey && userKey.trim() && !userKey.startsWith('sk-') ? userKey.trim() : undefined)
+            || (config.geminiKey && config.geminiKey.trim() && !config.geminiKey.startsWith('sk-') ? config.geminiKey.trim() : undefined)
+            || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
         const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
         let lastError: any = null;
 
         for (const modelName of models) {
             try {
-                const { instance: genAI } = getGenAI(geminiKeyToUse);
-                const model = genAI.getGenerativeModel({ model: modelName });
-                const result = await requestWithRetry(() => model.generateContent(prompt), 1, 1000);
+                const result = await requestWithRetry((genAI) => {
+                    const ai = genAI || getGenAI(geminiKeyToUse);
+                    const model = ai.getGenerativeModel({ model: modelName });
+                    return model.generateContent(prompt);
+                }, 2, 1000, geminiKeyToUse);
                 return result.response.text();
             } catch (err: any) {
                 lastError = err;
@@ -1348,17 +1550,45 @@ export const analyzeSpeakingSession = async (
 
     try {
         const config = getAIConfig();
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' ? config.coachApiKey : undefined);
-        const { instance: genAI } = getGenAI(apiKey || undefined);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
-            generationConfig: { responseMimeType: "application/json" }
-        });
+        let provider = config.coachAiModel || config.provider || 'gemini';
+        let deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
+        if (provider === 'deepseek' && !deepseekKey) {
+            provider = 'gemini';
+        }
 
-        const result = (await requestWithRetry(() => model.generateContent(prompt))) as any;
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        const data = JSON.parse(cleanedText);
+        let data: any = null;
+
+        if (provider === 'ollama') {
+            try {
+                const response = await callOllama(prompt);
+                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+                data = JSON.parse(cleanedText);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in analyzeSpeakingSession, falling back to Gemini 1.5 Flash:", err);
+            }
+        } else if (provider === 'deepseek') {
+            try {
+                const response = await callDeepSeek(prompt, deepseekKey, undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+                data = JSON.parse(response);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in analyzeSpeakingSession, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!data) {
+            const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+            const result = (await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey || undefined);
+                const model = ai.getGenerativeModel({
+                    model: "gemini-1.5-flash",
+                    generationConfig: { responseMimeType: "application/json" }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey || undefined)) as any;
+            const text = (await result.response).text().trim();
+            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            data = JSON.parse(cleanedText);
+        }
 
         return {
             fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 7.0,
@@ -1419,17 +1649,44 @@ export const generateAITimetable = async (
 
     try {
         const config = getAIConfig();
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' ? config.coachApiKey : undefined);
-        const { instance: genAI } = getGenAI(apiKey || undefined);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
-            generationConfig: { responseMimeType: "application/json" }
-        });
+        let provider = config.provider;
+        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
+            provider = 'gemini';
+        }
 
-        const result = (await requestWithRetry(() => model.generateContent(prompt))) as any;
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        const items = JSON.parse(cleanedText);
+        let items: any = null;
+
+        if (provider === 'ollama') {
+            try {
+                const response = await callOllama(prompt);
+                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+                items = JSON.parse(cleanedText);
+            } catch (err) {
+                console.warn("[AI Fallback] Ollama failed in generateAITimetable, falling back to Gemini 1.5 Flash:", err);
+            }
+        } else if (provider === 'deepseek') {
+            try {
+                const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+                items = JSON.parse(response);
+            } catch (err) {
+                console.warn("[AI Fallback] DeepSeek failed in generateAITimetable, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+
+        if (!items) {
+            const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+            const result = (await requestWithRetry((genAI) => {
+                const ai = genAI || getGenAI(apiKey || undefined);
+                const model = ai.getGenerativeModel({
+                    model: "gemini-1.5-flash",
+                    generationConfig: { responseMimeType: "application/json" }
+                });
+                return model.generateContent(prompt);
+            }, 2, 1000, apiKey || undefined)) as any;
+            const text = (await result.response).text().trim();
+            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            items = JSON.parse(cleanedText);
+        }
 
         if (Array.isArray(items)) {
             return items.map(item => ({

@@ -45,7 +45,13 @@ export const callDeepSeek = async (
         payload.reasoning_effort = "high";
     }
 
-    if (!apiKey) {
+    // Enforce strict key isolation: reject non-DeepSeek keys (e.g. Gemini AIza... or OpenAI sk-proj-...)
+    let validApiKey = apiKey;
+    if (validApiKey && (validApiKey.startsWith('AIza') || validApiKey.startsWith('sk-proj-'))) {
+        validApiKey = null;
+    }
+
+    if (!validApiKey) {
         // If no user-provided key, try to use the backend proxy
         const response = await fetch('/api/deepseek', {
             method: 'POST',
@@ -67,7 +73,7 @@ export const callDeepSeek = async (
     }
     
     // Fallback to direct call using OpenAI SDK if user provided their own key
-    const client = getDeepSeekClient(apiKey);
+    const client = getDeepSeekClient(validApiKey);
 
 
 

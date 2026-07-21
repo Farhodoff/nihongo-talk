@@ -8,7 +8,7 @@ const AIProviderSection: React.FC = () => {
     const [aiModel, setAiModel] = useState<AIProvider>((settings.aiModel as AIProvider) || 'gemini');
     const [googleKey, setGoogleKey] = useState(settings.googleApiKey || '');
     const [deepseekKey, setDeepseekKey] = useState(settings.deepseekApiKey || '');
-    const [deepseekModel, setDeepseekModel] = useState<'deepseek-v4-flash' | 'deepseek-v4-pro'>(settings.deepseekModel || 'deepseek-v4-flash');
+    const [deepseekModel, setDeepseekModel] = useState<'deepseek-chat' | 'deepseek-reasoner'>(settings.deepseekModel || 'deepseek-chat');
     const [deepseekThinkingMode, setDeepseekThinkingMode] = useState(settings.deepseekThinkingMode || false);
     const [ollamaUrl, setOllamaUrl] = useState(settings.ollamaUrl || 'http://localhost:11434');
     const [ollamaModel, setOllamaModel] = useState(settings.ollamaModel || 'llama3.2');

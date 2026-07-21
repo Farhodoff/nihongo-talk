@@ -395,7 +395,7 @@ const AIAssistantPage: React.FC = () => {
             updatedMsgs.slice(-3).forEach(m => { prompt += `${m.role === 'user' ? '候補者' : '面接官'}: ${m.content}\n`; });
             prompt += "\n上記の文脈を踏まえ、面接官として候補者の最後の発言に対するフィードバックと、次の質問を行ってください。";
 
-            const aiResponseText = await callDeepSeek(prompt, config.deepseekKey, systemPrompt, false, 'deepseek-v4-flash', false);
+            const aiResponseText = await callDeepSeek(prompt, config.deepseekKey, systemPrompt, false, config.deepseekModel || 'deepseek-chat', false);
             setInterviewMsgs(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: aiResponseText, timestamp: Date.now() }]);
             speakJapanese(aiResponseText);
         } catch (err: any) {
