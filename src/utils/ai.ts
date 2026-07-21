@@ -205,7 +205,7 @@ export const parseAIError = (error: unknown): string => {
         if (msg.includes('FreeTier') || msg.includes('free_tier')) {
             return '⏳ Bepul AI limit bugunlik tugagan. Ertaga qayta urinib ko\'ring yoki Google AI Studio\'da pullik rejaga o\'ting (aistudio.google.com → Settings → Billing).';
         }
-        return '⏳ AI so\'rovlar limiti vaqtincha tugadi. Iltimos, bir necha daqiqadan keyin qayta urinib ko\'ring.';
+        return "⏳ Bepul AI so'rovlar limiti vaqtincha to'ldi (Google Gemini limit 15 so'rov/daq). 1 daqiqa kuting yoki Sozlamalar bo'limida o'zingizning bepul API kalitingizni kiriting (aistudio.google.com).";
     }
 
     // Backend proxy error / missing API key
@@ -1146,7 +1146,9 @@ export const converseWithCoach = async (
     persona: string = 'roast',
     userKey?: string
 ): Promise<string> => {
-    const historyText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
+    // Only send last 6 messages to keep token footprint small & prevent quota exhaustion
+    const recentHistory = history.slice(-6);
+    const historyText = recentHistory.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
     
     let personaPrompt = '';
 
@@ -1196,7 +1198,7 @@ export const converseWithCoach = async (
       Student's current message:
       "${message}"
       
-      Constraint: Keep your response SHORT, conversational, and natural to be read aloud by Text-to-Speech (maximum 3-4 sentences). Do NOT use any markdown formatting, asterisks, emojis, or structural text like "Coach:". Respond ONLY with the raw spoken text to the student.
+      Constraint: Keep your response SHORT, conversational, and natural to be read aloud by Text-to-Speech (maximum 2-3 sentences). Do NOT use any markdown formatting, asterisks, emojis, or structural text like "Coach:". Respond ONLY with the raw spoken text to the student.
     `;
 
     try {
@@ -1211,46 +1213,32 @@ export const converseWithCoach = async (
                 try {
                     return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
                 } catch (deepseekErr: any) {
-                    console.warn("DeepSeek error in coach, falling back to Gemini 2.0 Flash:", deepseekErr);
-                }
-            }
-            // If no DeepSeek key is provided or DeepSeek call failed, fallback directly to Gemini
-            const geminiKey = (config.coachApiKey && config.coachApiKey.trim())
-                || (userKey && userKey.trim())
-                || (config.geminiKey && config.geminiKey.trim())
-                || undefined;
-            const genAI = getGenAI(geminiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-            const result = await requestWithRetry(() => model.generateContent(prompt));
-            return result.response.text();
-        } else {
-            const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
-                ? config.coachApiKey.trim()
-                : (userKey && userKey.trim())
-                    ? userKey.trim()
-                    : (config.geminiKey && config.geminiKey.trim())
-                        ? config.geminiKey.trim()
-                        : undefined;
-            const genAI = getGenAI(keyToUse);
-
-            try {
-                const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-                const result = await requestWithRetry(() => model.generateContent(prompt), 1, 1000);
-                return result.response.text();
-            } catch (firstErr: any) {
-                console.warn("gemini-2.0-flash rate limit in coach, falling back to gemini-1.5-flash:", firstErr);
-                try {
-                    const fallbackModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                    const fallbackResult = await requestWithRetry(() => fallbackModel.generateContent(prompt), 1, 1000);
-                    return fallbackResult.response.text();
-                } catch (secondErr: any) {
-                    console.warn("gemini-1.5-flash rate limit in coach, falling back to gemini-2.0-flash-lite:", secondErr);
-                    const liteModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
-                    const liteResult = await requestWithRetry(() => liteModel.generateContent(prompt), 1, 1000);
-                    return liteResult.response.text();
+                    console.warn("DeepSeek error in coach, falling back to Gemini:", deepseekErr);
                 }
             }
         }
+
+        // Gemini with multi-model fallback chain
+        const keyToUse = (config.coachApiKey && config.coachApiKey.trim())
+            || (userKey && userKey.trim())
+            || (config.geminiKey && config.geminiKey.trim())
+            || undefined;
+        
+        const models = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash"];
+        let lastError: any = null;
+
+        for (const modelName of models) {
+            try {
+                const { instance: genAI } = getGenAI(keyToUse);
+                const model = genAI.getGenerativeModel({ model: modelName });
+                const result = await requestWithRetry(() => model.generateContent(prompt), 1, 1000);
+                return result.response.text();
+            } catch (err: any) {
+                lastError = err;
+                console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
+            }
+        }
+        throw lastError;
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
         // If error is already parsed by requestWithRetry, re-throw as is

@@ -233,12 +233,14 @@ const SpeakingCoachPage: React.FC = () => {
 
             recognitionRef.current.onend = () => {
                 setIsListening(false);
-                if (isLiveSessionRef.current && transcriptBufferRef.current.trim() && !isProcessingRef.current) {
-                    const spokenText = transcriptBufferRef.current.trim();
+                const spokenText = transcriptBufferRef.current.trim();
+                if (isLiveSessionRef.current && spokenText.length >= 2 && !isProcessingRef.current) {
                     transcriptBufferRef.current = '';
                     setCurrentTranscript('');
                     handleSendUserText(spokenText);
                 } else if (isLiveSessionRef.current && !isProcessingRef.current) {
+                    transcriptBufferRef.current = '';
+                    setCurrentTranscript('');
                     setTimeout(() => {
                         resumeListening();
                     }, 300);
