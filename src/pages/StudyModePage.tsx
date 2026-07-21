@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { Flashcard } from '../types';
 import { supabase } from '../lib/supabase';
+import { calculateSM2 } from '../utils/spacedRepetition';
 
 enum Rating {
     AGAIN = 1,
@@ -45,14 +46,25 @@ const StudyModePage: React.FC = () => {
         setIsProcessing(true);
 
         try {
+            const sm2 = calculateSM2(
+                currentCard.interval || 0,
+                currentCard.easeFactor || 2.5,
+                currentCard.repetitions || 0,
+                grade as any
+            );
+            console.log("SM-2 Next Review Date:", sm2.nextReviewDate);
+
             await reviewFlashcard(currentCard.id, grade);
 
-            // Edge Function orqali XP hisoblash
-            const { data } = await supabase.functions.invoke('update-xp', {
-                body: { card_id: currentCard.id, rating: grade }
-            });
-
-            if (data?.earnedXP) setTotalXpEarned(prev => prev + data.earnedXP);
+            // Edge Function orqali XP hisoblash (optional fallback)
+            try {
+                const { data } = await supabase.functions.invoke('update-xp', {
+                    body: { card_id: currentCard.id, rating: grade }
+                });
+                if (data?.earnedXP) setTotalXpEarned(prev => prev + data.earnedXP);
+            } catch (e) {
+                // XP edge function fallback
+            }
 
             if (currentCardIndex < queue.length - 1) {
                 setIsFlipped(false);
@@ -61,7 +73,7 @@ const StudyModePage: React.FC = () => {
                 setIsFinished(true);
             }
         } catch (err) {
-            console.error(err);
+            console.error("Flashcard review error:", err);
         } finally {
             setIsProcessing(false);
         }

@@ -11,12 +11,13 @@ import {
 } from '@dnd-kit/core';
 import { format, startOfMonth, endOfMonth, isSameMonth, isSameDay, subMonths, addMonths, setHours, setMinutes, isBefore, isAfter, getDate, startOfWeek, endOfWeek, eachDayOfInterval, startOfDay } from 'date-fns';
 import { uz } from 'date-fns/locale';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Plus, Sparkles } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import CalendarDay from '../components/calendar/CalendarDay';
 import DraggableTask from '../components/calendar/DraggableTask';
 import AddEventModal from '../components/AddEventModal';
 import DayDetailsModal from '../components/calendar/DayDetailsModal';
+import AITimetableGeneratorModal from '../components/timetable/AITimetableGeneratorModal';
 import { Event } from '../types';
 
 const CalendarPage: React.FC = () => {
@@ -24,6 +25,7 @@ const CalendarPage: React.FC = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [activeId, setActiveId] = useState<string | null>(null);
     const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+    const [isAITimetableOpen, setIsAITimetableOpen] = useState(false);
 
     // Day details modal state
     const [selectedDayData, setSelectedDayData] = useState<{
@@ -197,10 +199,18 @@ const CalendarPage: React.FC = () => {
                         <ChevronLeft className="mx-auto" />
                     </button>
                     <button
-                        onClick={() => setCurrentDate(new Date())}
-                        className="flex-[2] sm:flex-none px-4 py-2 text-sm font-medium bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400"
+                        onClick={() => setIsAITimetableOpen(true)}
+                        className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center gap-1.5"
                     >
-                        Bugun
+                        <Sparkles size={16} />
+                        AI Timetable
+                    </button>
+                    <button
+                        onClick={() => setIsEventModalOpen(true)}
+                        className="px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 shadow flex items-center gap-1.5"
+                    >
+                        <Plus size={16} />
+                        Tadbir
                     </button>
                     <button
                         onClick={() => setCurrentDate(addMonths(currentDate, 1))}
@@ -272,6 +282,11 @@ const CalendarPage: React.FC = () => {
                 tasks={selectedDayData?.tasks || []}
                 events={selectedDayData?.events || []}
                 studyDuration={selectedDayData?.studyDuration || 0}
+            />
+
+            <AITimetableGeneratorModal
+                isOpen={isAITimetableOpen}
+                onClose={() => setIsAITimetableOpen(false)}
             />
         </div>
     );

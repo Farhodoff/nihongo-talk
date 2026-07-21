@@ -1393,4 +1393,70 @@ export const analyzeSpeakingSession = async (
     }
 };
 
+export interface AITimetableScheduleItem {
+    title: string;
+    description: string;
+    date: string; // YYYY-MM-DD
+    startTime: string; // HH:mm
+    durationMinutes: number;
+    eventType: 'study' | 'exam' | 'reminder';
+}
+
+export const generateAITimetable = async (
+    goalDescription: string,
+    dailyHours: number,
+    daysCount: number = 7
+): Promise<AITimetableScheduleItem[]> => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const prompt = `
+      You are an expert AI Study Planner & Academic Mentor.
+      The user wants an automated study timetable for the goal: "${goalDescription}".
+      Daily study limit: ${dailyHours} hours per day.
+      Generate a realistic, structured study schedule starting from today (${todayStr}) for the next ${daysCount} days.
+
+      Return JSON array of objects with the exact schema:
+      [
+        {
+          "title": "Subject/Topic Title in Uzbek (e.g. IELTS Reading Mock Test 1)",
+          "description": "Specific action plan in Uzbek",
+          "date": "YYYY-MM-DD",
+          "startTime": "HH:mm (e.g. 09:00, 14:00, 18:00)",
+          "durationMinutes": 60,
+          "eventType": "study"
+        }
+      ]
+
+      Constraint: Return ONLY valid JSON array without any markdown formatting or commentary.
+    `;
+
+    try {
+        const config = getAIConfig();
+        const apiKey = config.geminiKey || config.coachApiKey;
+        const { instance: genAI } = getGenAI(apiKey || undefined);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash",
+            generationConfig: { responseMimeType: "application/json" }
+        });
+
+        const result = (await requestWithRetry(() => model.generateContent(prompt))) as any;
+        const text = (await result.response).text().trim();
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const items = JSON.parse(cleanedText);
+
+        if (Array.isArray(items)) {
+            return items.map(item => ({
+                title: item.title || 'Dars Mashg\'uloti',
+                description: item.description || 'AI tomonidan rejalashtirilgan mashg\'ulot',
+                date: item.date || todayStr,
+                startTime: item.startTime || '10:00',
+                durationMinutes: typeof item.durationMinutes === 'number' ? item.durationMinutes : 60,
+                eventType: item.eventType || 'study'
+            }));
+        }
+        return [];
+    } catch (err) {
+        console.error("AI Timetable Error:", err);
+        return [];
+    }
+};
 

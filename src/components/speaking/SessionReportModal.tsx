@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Award, AlertCircle, CheckCircle, Sparkles, BookOpen } from 'lucide-react';
+import { X, Award, AlertCircle, CheckCircle, Sparkles, BookOpen, Download } from 'lucide-react';
 import { SessionAnalysisReport } from '../../utils/ai';
 
 interface SessionReportModalProps {
@@ -175,7 +175,90 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/80 flex items-center justify-end gap-3">
+                <div className="p-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/80 flex items-center justify-between gap-3">
+                    {report && (
+                        <button
+                            onClick={() => {
+                                const printWindow = window.open('', '_blank');
+                                if (!printWindow) return;
+                                const reportHtml = `
+                                    <!DOCTYPE html>
+                                    <html>
+                                    <head>
+                                        <title>Speaking Coach Tahlil Hisoboti - ${personaTitle}</title>
+                                        <style>
+                                            body { font-family: system-ui, -apple-system, sans-serif; padding: 40px; color: #111827; background: #fff; }
+                                            h1 { color: #4f46e5; font-size: 24px; margin-bottom: 4px; }
+                                            .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 24px; }
+                                            .score-card { background: #4f46e5; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 24px; }
+                                            .score { font-size: 36px; font-weight: bold; }
+                                            .section-title { font-size: 18px; font-weight: bold; margin-top: 24px; margin-bottom: 12px; color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+                                            .box { background: #f9fafb; border: 1px solid #e5e7eb; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
+                                            .green { color: #059669; font-weight: bold; }
+                                            .red { color: #dc2626; text-decoration: line-through; }
+                                            .item-list { padding-left: 20px; }
+                                            .item-list li { margin-bottom: 6px; }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <h1>🎙 Speaking Coach — Suhbat Tahlil Hisoboti</h1>
+                                        <div class="subtitle">Ssenariy: <strong>${personaTitle}</strong> | Sana: ${new Date().toLocaleDateString('uz-UZ')}</div>
+
+                                        <div class="score-card">
+                                            <div>Fluency / Band Bali</div>
+                                            <div class="score">${report.fluency_score.toFixed(1)} / 9.0</div>
+                                            <div style="font-size: 12px; opacity: 0.9;">Erkin so'zlashuv bahosi</div>
+                                        </div>
+
+                                        <div class="section-title">💡 Umumiy Xulosa</div>
+                                        <div class="box">${report.overall_feedback}</div>
+
+                                        <div class="section-title">✅ Kuchli Jihatlar</div>
+                                        <ul class="item-list">
+                                            ${report.strengths.map(s => `<li>${s}</li>`).join('')}
+                                        </ul>
+
+                                        <div class="section-title">🎯 Rivojlantirish Kerak Bo'lgan Jihatlar</div>
+                                        <ul class="item-list">
+                                            ${report.areas_to_improve.map(a => `<li>${a}</li>`).join('')}
+                                        </ul>
+
+                                        ${report.grammar_corrections.length > 0 ? `
+                                            <div class="section-title">📚 Grammatik Xatolar & Tuzatishlar</div>
+                                            ${report.grammar_corrections.map(g => `
+                                                <div class="box">
+                                                    <div><span class="red">❌ ${g.original}</span> ➔ <span class="green">✅ ${g.corrected}</span></div>
+                                                    <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">💡 ${g.explanation}</div>
+                                                </div>
+                                            `).join('')}
+                                        ` : ''}
+
+                                        ${report.better_vocabulary.length > 0 ? `
+                                            <div class="section-title">✨ Band 8+ Lug'at Tavsiyalari</div>
+                                            ${report.better_vocabulary.map(v => `
+                                                <div class="box">
+                                                    <div>Oddiy: ${v.original} ➔ <strong style="color: #7c3aed;">✨ ${v.suggested}</strong></div>
+                                                    <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${v.context}</div>
+                                                </div>
+                                            `).join('')}
+                                        ` : ''}
+                                    </body>
+                                    </html>
+                                `;
+                                printWindow.document.write(reportHtml);
+                                printWindow.document.close();
+                                printWindow.focus();
+                                setTimeout(() => {
+                                    printWindow.print();
+                                }, 500);
+                            }}
+                            className="px-4 py-2.5 rounded-xl font-semibold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors flex items-center gap-2 text-sm"
+                        >
+                            <Download size={18} />
+                            PDF / Chop Etish
+                        </button>
+                    )}
+
                     <button
                         onClick={onClose}
                         className="px-5 py-2.5 rounded-xl font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow-md"

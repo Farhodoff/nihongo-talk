@@ -1,0 +1,18 @@
+{
+  "short_name": "StudyPlanner",
+  "name": "Study Planner — Shaxsiy AI O'quv Yordamchisi",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512 192x192 64x64 32x32 24x24 16x16"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Sun'iy intellektga asoslangan shaxsiy o'quv rejalashtiruvchisi va ovozli murabbiy",
+  "categories": ["education", "productivity", "utilities"]
+}
