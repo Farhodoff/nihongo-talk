@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
     Settings as SettingsIcon, X, Sparkles, Flame, GraduationCap, Briefcase, 
-    RotateCcw, Copy, Check, Zap, Play, ShieldAlert, Cpu, HeartPulse
+    RotateCcw, Copy, Check, Zap, Play, ShieldAlert, Cpu, HeartPulse, Compass, Coffee
 } from 'lucide-react';
-import { converseWithCoach, getAIConfig, fetchOpenAITTS, AIProvider } from '../utils/ai';
+import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
+import AudioVisualizer from '../components/speaking/AudioVisualizer';
+import SessionReportModal from '../components/speaking/SessionReportModal';
 
 declare global {
     interface Window {
@@ -20,7 +22,7 @@ interface ChatMessage {
     timestamp?: string;
 }
 
-export type CoachPersona = 'roast' | 'gentle' | 'ielts' | 'interview';
+export type CoachPersona = 'roast' | 'gentle' | 'ielts' | 'interview' | 'travel' | 'casual';
 
 const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: string; icon: any; color: string; desc: string; badge: string }>> = {
     en: {
@@ -51,6 +53,20 @@ const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: string;
             color: 'from-purple-500 to-violet-700',
             desc: 'Ishga kirish suhbatlariga ingliz tilida tayyorlaydi',
             badge: '💼 HR & Intervyuer'
+        },
+        travel: {
+            name: 'Travel & Airport',
+            icon: Compass,
+            color: 'from-cyan-500 to-blue-600',
+            desc: 'Aeroport, mehmonxona va restoranlarda muloqot mashqi',
+            badge: '✈️ Sayohat & Aeroport'
+        },
+        casual: {
+            name: 'Daily Casual Friend',
+            icon: Coffee,
+            color: 'from-pink-500 to-rose-500',
+            desc: "Do'stona va norasmiy suhbatlashish iboralari",
+            badge: '☕ Kunlik Suhbat'
         }
     },
     ja: {
@@ -81,6 +97,20 @@ const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: string;
             color: 'from-purple-500 to-violet-700',
             desc: 'Yapon IT kompaniyalari suhbati va Keigo (敬語) bo\'yicha intervyuer',
             badge: '🏢 日本IT面接官'
+        },
+        travel: {
+            name: '旅行・空港会話',
+            icon: Compass,
+            color: 'from-cyan-500 to-blue-600',
+            desc: '入国審査、ホテル、飲食店での実践会話',
+            badge: '✈️ 旅行・観光'
+        },
+        casual: {
+            name: 'タメ口友達 (Casual)',
+            icon: Coffee,
+            color: 'from-pink-500 to-rose-500',
+            desc: '日常会話、スラング、友達同士のタメ口練習',
+            badge: '☕ 日常会話'
         }
     }
 };
@@ -113,6 +143,11 @@ const SpeakingCoachPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [sessionSeconds, setSessionSeconds] = useState(0);
+
+    // Session Analysis Report Modal state
+    const [isReportOpen, setIsReportOpen] = useState(false);
+    const [isReportLoading, setIsReportLoading] = useState(false);
+    const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
 
     const { settings, updateSettings } = useStudyData();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -386,13 +421,15 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
-    const getInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona) => {
+    const getInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona): string => {
         if (lang === 'ja') {
             switch (p) {
                 case 'roast': return 'こんにちは！鬼先生です。遠慮せずに日本語で話してください！';
                 case 'gentle': return 'こんにちは！日本語の先生です。いつでもお話ししてくださいね。';
                 case 'ielts': return 'こんにちは！JLPTスピーキングの練習を始めましょう！';
                 case 'interview': return 'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。';
+                case 'travel': return 'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？';
+                case 'casual': return 'やあ！元気？今日は何について話そうか！';
             }
         } else {
             switch (p) {
@@ -400,6 +437,8 @@ const SpeakingCoachPage: React.FC = () => {
                 case 'gentle': return "Hello! I'm your tutor. Feel free to start talking whenever you're ready!";
                 case 'ielts': return "Good day! Welcome to your IELTS Speaking test practice. Shall we begin?";
                 case 'interview': return "Hello! Welcome to your Tech Mock Interview. Tell me a bit about yourself when you're ready.";
+                case 'travel': return "Hello! Welcome to the airport information & concierge desk. How can I help your journey today?";
+                case 'casual': return "Hey friend! Great to see you. What's on your mind today?";
             }
         }
     };
@@ -420,7 +459,8 @@ const SpeakingCoachPage: React.FC = () => {
         speakText(greeting);
     };
 
-    const endSession = () => {
+    const endSession = async () => {
+        const historyToAnalyze = [...chatHistoryRef.current];
         setIsLiveSession(false);
         isLiveSessionRef.current = false;
         isProcessingRef.current = false;
@@ -435,6 +475,21 @@ const SpeakingCoachPage: React.FC = () => {
             } catch (e) {}
         }
         synthRef.current.cancel();
+
+        // Trigger AI analysis report if user sent any messages
+        const userSpoke = historyToAnalyze.some(h => h.role === 'user');
+        if (userSpoke) {
+            setIsReportOpen(true);
+            setIsReportLoading(true);
+            try {
+                const report = await analyzeSpeakingSession(historyToAnalyze, languageRef.current, personaRef.current);
+                setReportData(report);
+            } catch (err) {
+                console.error("Report generation error:", err);
+            } finally {
+                setIsReportLoading(false);
+            }
+        }
     };
 
     const handlePromptClick = (text: string) => {
@@ -703,32 +758,39 @@ const SpeakingCoachPage: React.FC = () => {
             <div className="flex-shrink-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl p-3 md:p-4 rounded-3xl shadow-2xl border border-gray-200/80 dark:border-gray-800/80 flex items-center justify-between gap-4 z-20">
                 
                 {/* Audio Waves / Status Pill */}
-                <div className="flex items-center gap-3 px-4 py-2 bg-gray-100/70 dark:bg-gray-800/70 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+                <div className="flex-1 flex items-center justify-between gap-3 px-4 py-2 bg-gray-100/70 dark:bg-gray-800/70 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 min-w-0">
                     {isLiveSession ? (
-                        isSpeaking ? (
-                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-xs">
-                                <Volume2 size={18} className="animate-pulse" />
-                                <span className="hidden sm:inline">AI GAPIRMOQDA</span>
-                                {/* Mini Sound Equalizer */}
-                                <div className="flex items-end gap-0.5 h-3 ml-1">
-                                    <span className="w-0.5 bg-blue-500 animate-pulse h-full" />
-                                    <span className="w-0.5 bg-blue-500 animate-pulse h-2/3" style={{ animationDelay: '100ms' }} />
-                                    <span className="w-0.5 bg-blue-500 animate-pulse h-full" style={{ animationDelay: '200ms' }} />
-                                </div>
+                        <div className="w-full flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 text-xs font-bold shrink-0">
+                                {isSpeaking ? (
+                                    <span className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
+                                        <Volume2 size={18} className="animate-pulse" />
+                                        <span className="hidden md:inline">AI GAPIRMOQDA</span>
+                                    </span>
+                                ) : isThinking ? (
+                                    <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400">
+                                        <Activity size={18} className="animate-spin" />
+                                        <span className="hidden md:inline">O'YLAMOQDA</span>
+                                    </span>
+                                ) : isListening ? (
+                                    <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                                        <Mic size={18} className="animate-pulse" />
+                                        <span className="hidden md:inline">GAPIRING</span>
+                                    </span>
+                                ) : (
+                                    <span className="text-gray-400">TAYYOR</span>
+                                )}
                             </div>
-                        ) : isThinking ? (
-                            <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 font-bold text-xs">
-                                <Activity size={18} className="animate-spin" />
-                                <span className="hidden sm:inline">O'YLAMOQDA</span>
+
+                            {/* Audio Visualizer Waveform */}
+                            <div className="flex-1 max-w-xs mx-2">
+                                <AudioVisualizer 
+                                    isActive={isSpeaking || isListening || isThinking}
+                                    mode={isSpeaking ? 'speaking' : isThinking ? 'thinking' : isListening ? 'listening' : 'idle'}
+                                    barCount={14}
+                                />
                             </div>
-                        ) : isListening ? (
-                            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
-                                <Mic size={18} className="animate-pulse" />
-                                <span className="hidden sm:inline">GAPIRISHINGIZNI KUTMOQDA</span>
-                            </div>
-                        ) : (
-                            <span className="text-xs font-bold text-gray-400">TAYYOR...</span>
-                        )
+                        </div>
                     ) : (
                         <div className="flex items-center gap-2 text-gray-500 font-bold text-xs">
                             <HeartPulse size={16} />
@@ -854,6 +916,15 @@ const SpeakingCoachPage: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            {/* Session Analysis Report Modal */}
+            <SessionReportModal 
+                isOpen={isReportOpen}
+                onClose={() => setIsReportOpen(false)}
+                report={reportData}
+                isLoading={isReportLoading}
+                personaTitle={PERSONAS[persona].name}
+            />
         </div>
     );
 };

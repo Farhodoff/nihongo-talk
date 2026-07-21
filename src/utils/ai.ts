@@ -137,23 +137,24 @@ const getAIProvider = async (): Promise<AIProvider> => {
     return config.provider || 'gemini';
 };
 
-const getGenAI = (userKey?: string) => {
-    let keyToUse = userKey;
+let keyRotationIndex = 0;
+const disabledKeysMap = new Map<string, number>();
+
+export const getGeminiAPIKeys = (userKey?: string): string[] => {
+    let keyString = userKey;
     
-    // Fallback 1: LocalStorage config
-    if (!keyToUse) {
+    if (!keyString) {
         const config = getAIConfig();
-        keyToUse = config.geminiKey;
+        keyString = config.geminiKey;
     }
-    
-    // Fallback 2: Admin subscription key
-    if (!keyToUse) {
+
+    if (!keyString) {
         const subStr = localStorage.getItem('study_planner_subscription');
         if (subStr) {
             try {
                 const sub = JSON.parse(subStr);
                 if (sub.adminApiKey) {
-                    keyToUse = sub.adminApiKey;
+                    keyString = sub.adminApiKey;
                 }
             } catch (e) {
                 console.error("Failed to parse subscription", e);
@@ -161,10 +162,35 @@ const getGenAI = (userKey?: string) => {
         }
     }
 
-    if (!keyToUse) {
+    if (!keyString || !keyString.trim()) {
         throw new Error("AI Kaliti yo'q. Iltimos, Sozlamalar bo'limida API kalitingizni kiriting yoki PRO tarifni oling.");
     }
-    return new GoogleGenerativeAI(keyToUse);
+
+    return keyString.split(/[\s,\n]+/).map(k => k.trim()).filter(k => k.length > 10);
+};
+
+export const markKeyRateLimited = (key: string) => {
+    console.warn(`Marking Gemini API Key on 45s cooldown due to rate limit: ${key.substring(0, 8)}...`);
+    disabledKeysMap.set(key, Date.now() + 45000);
+};
+
+const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string } => {
+    const keys = getGeminiAPIKeys(userKey);
+    const now = Date.now();
+
+    const validKeys = keys.filter(k => {
+        const disabledUntil = disabledKeysMap.get(k);
+        if (disabledUntil && now < disabledUntil) {
+            return false;
+        }
+        return true;
+    });
+
+    const pool = validKeys.length > 0 ? validKeys : keys;
+    keyRotationIndex = (keyRotationIndex + 1) % pool.length;
+    const selectedKey = pool[keyRotationIndex];
+    const instance = new GoogleGenerativeAI(selectedKey);
+    return Object.assign(instance, { instance, key: selectedKey });
 };
 
 /**
@@ -1133,6 +1159,10 @@ export const converseWithCoach = async (
             personaPrompt = `Act as a Japanese Language & JLPT Master Coach (JLPT・上級日本語講師). Focus on JLPT N3-N1 advanced vocabulary, natural Japanese phrasing, complex sentence structures, and correct kanji readings. Ask stimulating questions and suggest natural native expressions.`;
         } else if (persona === 'gentle') {
             personaPrompt = `Act as a warm, gentle, and patient Japanese language tutor (優しくて丁寧な日本語の先生). Speak in polite Japanese (です・ます調). Encourage the student, praise their effort, gently fix grammar or word choice, and keep the conversation friendly.`;
+        } else if (persona === 'travel') {
+            personaPrompt = `Act as a helpful Japanese Airport Customs Officer & Hotel Concierge (空港入国審査官・ホテルコンシェルジュ). Roleplay common Japanese travel situations: flight check-in, ordering food at an Izakaya, asking for directions, or booking hotel rooms. Use authentic travel expressions.`;
+        } else if (persona === 'casual') {
+            personaPrompt = `Act as a friendly Japanese peer & conversation partner (タメ口・日常会話の友達). Talk casually using natural casual Japanese (タメ口, ~じゃん, ~だよ), slang, and informal expressions about hobbies, food, anime, and daily life.`;
         } else {
             // Default: 'roast' -> Oni Sensei
             personaPrompt = `Act as an extremely STRICT, HARSH, but SARCASTIC Japanese Speaking Coach (鬼先生 / Demon Sensei). 
@@ -1145,6 +1175,10 @@ export const converseWithCoach = async (
             personaPrompt = `Act as a senior, world-class IELTS Speaking Examiner with 20+ years of experience. Evaluate response based on Fluency, Lexical Resource, Grammatical Range & Accuracy, and Pronunciation. Point out Band 6 habits (basic vocabulary, simple sentences) and give Band 8+ academic phrasing suggestions while keeping up authentic IELTS exam questions.`;
         } else if (persona === 'interview') {
             personaPrompt = `Act as a Senior Tech Recruiter & HR Manager conducting a professional software engineer mock interview. Evaluate logical answers using the PREP method (Point, Reason, Example, Point). Challenge the candidate on technical projects, problem-solving, and communication skills. Provide professional corporate feedback.`;
+        } else if (persona === 'travel') {
+            personaPrompt = `Act as an Airport Customs Officer, Hotel Manager, and Local Tour Guide. Roleplay authentic travel situations (ordering at restaurants, hotel check-in, taxi directions, buying tickets, resolving travel issues). Keep dialogue fast-paced and natural.`;
+        } else if (persona === 'casual') {
+            personaPrompt = `Act as a fun, energetic native English friend hanging out. Chat casually about hobbies, movies, food, tech, and daily life using natural idioms, slang, phrasal verbs, and friendly banter.`;
         } else {
             // Default: 'roast'
             personaPrompt = `Act as an extremely STRICT, HARSH, but HUMOROUS English Speaking Coach (Gordon Ramsay style).
@@ -1254,6 +1288,104 @@ export const fetchOpenAITTS = async (
     } catch (error: unknown) {
         console.error('OpenAI TTS API Error:', error);
         throw error;
+    }
+};
+
+export interface SessionAnalysisReport {
+    fluency_score: number;
+    grammar_corrections: { original: string; corrected: string; explanation: string }[];
+    better_vocabulary: { original: string; suggested: string; context: string }[];
+    overall_feedback: string;
+    strengths: string[];
+    areas_to_improve: string[];
+}
+
+export const analyzeSpeakingSession = async (
+    history: { role: 'user' | 'assistant'; content: string }[],
+    language: 'en' | 'ja' = 'en',
+    persona: string = 'roast'
+): Promise<SessionAnalysisReport> => {
+    const userMessages = history.filter(h => h.role === 'user').map(h => h.content);
+    if (userMessages.length === 0) {
+        return {
+            fluency_score: 0,
+            grammar_corrections: [],
+            better_vocabulary: [],
+            overall_feedback: "Suhbatda hali hech qanday gap aytilmadi.",
+            strengths: ["Suhbatni boshlashga urindingiz!"],
+            areas_to_improve: ["Ovozli suhbatni sinab ko'rish uchun ko'proq gapiring."]
+        };
+    }
+
+    const conversationText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
+
+    const prompt = `
+      Act as an expert ${language === 'ja' ? 'Japanese (日本語)' : 'English'} Language Examiner & Speaking Analyst.
+      The student just completed a speaking session in the scenario/persona: "${persona}".
+      
+      Full Transcript:
+      ${conversationText}
+
+      Task: Analyze ALL student responses and provide a JSON feedback report.
+      Language of explanation: Uzbek (O'zbek tilida tushuntiring).
+      
+      Output Format (Strictly valid JSON):
+      {
+        "fluency_score": 8.0,
+        "grammar_corrections": [
+          {
+            "original": "Student's flawed sentence",
+            "corrected": "Corrected native sentence",
+            "explanation": "Short explanation in Uzbek of why it was wrong"
+          }
+        ],
+        "better_vocabulary": [
+          {
+            "original": "basic word like 'good'",
+            "suggested": "Band 8/native word like 'exceptional'",
+            "context": "Context or example sentence in Uzbek"
+          }
+        ],
+        "overall_feedback": "Paragraph in Uzbek summarizing performance with constructive tips.",
+        "strengths": ["Strong point 1 in Uzbek", "Strong point 2"],
+        "areas_to_improve": ["Improvement tip 1 in Uzbek", "Improvement tip 2"]
+      }
+
+      Constraint: Return ONLY valid JSON without any markdown formatting or extra text.
+    `;
+
+    try {
+        const config = getAIConfig();
+        const apiKey = config.geminiKey || config.coachApiKey;
+        const { instance: genAI } = getGenAI(apiKey || undefined);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash",
+            generationConfig: { responseMimeType: "application/json" }
+        });
+
+        const result = (await requestWithRetry(() => model.generateContent(prompt))) as any;
+        const text = (await result.response).text().trim();
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const data = JSON.parse(cleanedText);
+
+        return {
+            fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 7.0,
+            grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
+            better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
+            overall_feedback: data.overall_feedback || "Yaxshi harakat qildingiz, mashq qilishni davom eting!",
+            strengths: Array.isArray(data.strengths) ? data.strengths : ["Faol ishtirok etdingiz"],
+            areas_to_improve: Array.isArray(data.areas_to_improve) ? data.areas_to_improve : ["Grammatikani oshirish"]
+        };
+    } catch (err) {
+        console.error("Session Analysis Error:", err);
+        return {
+            fluency_score: 6.5,
+            grammar_corrections: [],
+            better_vocabulary: [],
+            overall_feedback: "Suhbat yakunlandi. Keyingi gal yanada ko'proq mashq qiling!",
+            strengths: ["Suhbatni yakunladingiz"],
+            areas_to_improve: ["Ko'proq suhbatlashish"]
+        };
     }
 };
 
