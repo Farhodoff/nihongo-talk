@@ -1253,6 +1253,10 @@ export const converseWithCoach = async (
         }
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
+        // If error is already parsed by requestWithRetry, re-throw as is
+        if (error instanceof Error && (error.message.startsWith('⏳') || error.message.startsWith('🔑') || error.message.startsWith('⚠️') || error.message.startsWith('🌐') || error.message.startsWith('❌'))) {
+            throw error;
+        }
         throw new Error(parseAIError(error));
     }
 };

@@ -711,10 +711,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== SESSION OPERATSIYALARI =====
     const addSession = async (sessionData: Partial<StudySession>) => {
-        console.log('[DEBUG] addSession boshlandi:', sessionData);
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
-            console.log('[DEBUG] Foydalanuvchi topilmadi');
             return;
         }
 
@@ -748,7 +746,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
         if (error) {
-            console.error('[DEBUG] Supabase xato:', error);
+            console.error('Supabase session error:', error);
             return;
         }
         if (data) {
@@ -807,6 +805,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 
                 // Save AI settings to localStorage
                 localStorage.setItem('study_planner_ai_settings', JSON.stringify({
+                    googleApiKey: newState.googleApiKey,
                     aiModel: newState.aiModel,
                     deepseekApiKey: newState.deepseekApiKey,
                     deepseekModel: newState.deepseekModel,
@@ -814,7 +813,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     ollamaUrl: newState.ollamaUrl,
                     ollamaModel: newState.ollamaModel,
                     openAIApiKey: newState.openAIApiKey,
-                    coachVoice: newState.coachVoice
+                    coachVoice: newState.coachVoice,
+                    coachAiModel: newState.coachAiModel,
+                    coachApiKey: newState.coachApiKey
                 }));
 
                 // Save Goal to localStorage

@@ -34,16 +34,9 @@ const AIAccountabilityManager: React.FC = () => {
             }
         }, 5 * 60 * 1000); 
 
-        // 2. Demo / Sinov uchun: Dasturga kirgandan 1 daqiqa o'tib Focus rejimida bo'lmasa, darhol eslatma chiqadi.
-        const demoTimer = setTimeout(() => {
-             if (location.pathname !== '/focus' && !isModalOpen) {
-                 setIsModalOpen(true);
-             }
-        }, 60000);
 
         return () => {
             clearInterval(interval);
-            clearTimeout(demoTimer);
         };
     }, [location.pathname, settings.dailyStudyGoalMinutes, sessions, isModalOpen]);
 

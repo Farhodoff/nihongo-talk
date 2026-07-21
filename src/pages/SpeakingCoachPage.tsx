@@ -156,7 +156,7 @@ const SpeakingCoachPage: React.FC = () => {
 
     const recognitionRef = useRef<any>(null);
     const chatContainerRef = useRef<HTMLDivElement>(null);
-    const synthRef = useRef<SpeechSynthesis>(window.speechSynthesis);
+    const synthRef = useRef<SpeechSynthesis | null>(null);
     const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
     const transcriptBufferRef = useRef('');
     const isProcessingRef = useRef(false);
@@ -202,6 +202,11 @@ const SpeakingCoachPage: React.FC = () => {
     };
 
     useEffect(() => {
+        // Initialize speech synthesis safely (not during SSR)
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            synthRef.current = window.speechSynthesis;
+        }
+
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             recognitionRef.current = new SpeechRecognition();
@@ -260,7 +265,7 @@ const SpeakingCoachPage: React.FC = () => {
         
         // Interrupt previous speech if still playing
         if (isSpeaking) {
-            synthRef.current.cancel();
+            synthRef.current?.cancel();
             if (audioPlayerRef.current) {
                 audioPlayerRef.current.pause();
                 audioPlayerRef.current = null;
@@ -310,7 +315,7 @@ const SpeakingCoachPage: React.FC = () => {
 
     const speakText = async (text: string) => {
         setIsSpeaking(true);
-        synthRef.current.cancel();
+        synthRef.current?.cancel();
 
         if (currentObjectUrlRef.current) {
             URL.revokeObjectURL(currentObjectUrlRef.current);
@@ -379,7 +384,7 @@ const SpeakingCoachPage: React.FC = () => {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
         
-        const voices = synthRef.current.getVoices();
+        const voices = synthRef.current?.getVoices() || [];
         if (languageRef.current === 'ja') {
             const jpVoice = voices.find(v => v.lang.includes('ja') && (v.name.includes('Google') || v.name.includes('Kyoko')));
             if (jpVoice) utterance.voice = jpVoice;
@@ -396,7 +401,7 @@ const SpeakingCoachPage: React.FC = () => {
             onSpeechFinish();
         };
 
-        synthRef.current.speak(utterance);
+        synthRef.current?.speak(utterance);
     };
 
     const resumeListening = () => {
@@ -474,7 +479,7 @@ const SpeakingCoachPage: React.FC = () => {
                 recognitionRef.current.stop();
             } catch (e) {}
         }
-        synthRef.current.cancel();
+        synthRef.current?.cancel();
 
         // Trigger AI analysis report if user sent any messages
         const userSpoke = historyToAnalyze.some(h => h.role === 'user');
