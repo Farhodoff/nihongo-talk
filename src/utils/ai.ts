@@ -102,8 +102,11 @@ export const getAIConfig = () => {
         coachAiModel = 'gemini';
     }
 
-    // Agar foydalanuvchi sozlamalarda modelni ko'rsatmagan bo'lsa va DeepSeek kaliti bo'lsa — DeepSeek asosiy qilinadi
-    if (!savedStr && deepseekKey.trim()) {
+    // Agar DeepSeek kaliti bo'lsa — sukut bo'yicha ham AI yordamchi, ham Speaking Coach uchun DeepSeek asosiy qilinadi
+    if (deepseekKey.trim()) {
+        if (!savedStr || !coachAiModel) {
+            coachAiModel = 'deepseek';
+        }
         aiModel = 'deepseek';
     }
 
@@ -1536,7 +1539,7 @@ export const converseWithCoach = async (
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
         if (geminiKeyToUse) {
-            const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
+            const models = ["gemini-1.5-flash"];
             let lastGeminiError: any = null;
 
             for (const modelName of models) {

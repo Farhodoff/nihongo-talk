@@ -52,6 +52,14 @@ export const callDeepSeek = async (
     }
 
     if (!validApiKey) {
+        try {
+            if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEEPSEEK_API_KEY) {
+                validApiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
+            }
+        } catch (e) {}
+    }
+
+    if (!validApiKey) {
         // If no user-provided key, try to use the backend proxy
         const response = await fetch('/api/deepseek', {
             method: 'POST',
