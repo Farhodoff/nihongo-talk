@@ -351,9 +351,9 @@ const SpeakingCoachPage: React.FC = () => {
         chatHistoryRef.current = updatedHistory;
 
         try {
-            // 12-second safety timeout to prevent stuck O'YLAMOQDA state
+            // 45-second safety timeout to prevent stuck O'YLAMOQDA state while allowing LLM response time
             const timeoutPromise = new Promise<string>((_, reject) => {
-                setTimeout(() => reject(new Error("AI javob berish vaqti tugadi. Qayta urinib ko'ring.")), 12000);
+                setTimeout(() => reject(new Error("AI javob berish vaqti tugadi. Qayta urinib ko'ring.")), 45000);
             });
 
             const aiResponse = await Promise.race([

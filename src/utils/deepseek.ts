@@ -36,9 +36,12 @@ export const callDeepSeek = async (
 
     const payload: Record<string, unknown> = {
         model: actualModel,
-        messages: messages,
-        response_format: isJson ? { type: "json_object" } : { type: "text" }
+        messages: messages
     };
+
+    if (isJson) {
+        payload.response_format = { type: "json_object" };
+    }
 
     if (thinkingEnabled) {
         payload.thinking = { type: "enabled" };
