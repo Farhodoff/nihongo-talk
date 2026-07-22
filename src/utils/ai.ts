@@ -232,6 +232,10 @@ export const markKeyRateLimited = (key: string) => {
     disabledKeysMap.set(key, Date.now() + 45000);
 };
 
+export const clearDisabledKeysMap = () => {
+    disabledKeysMap.clear();
+};
+
 export const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string } => {
     const keys = getGeminiAPIKeys(userKey);
     const now = Date.now();
@@ -1487,10 +1491,10 @@ export const converseWithCoach = async (
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
                 || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-') ? config.deepseekKey.trim() : undefined);
             try {
-                return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                const dsResult = await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                if (dsResult) return dsResult;
             } catch (deepseekErr: any) {
-                console.warn("[AI Fallback] DeepSeek error in coach:", deepseekErr);
-                throw deepseekErr;
+                console.warn("[AI Fallback] DeepSeek error in coach, attempting fallback:", deepseekErr);
             }
         }
 
@@ -1500,7 +1504,7 @@ export const converseWithCoach = async (
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
         if (geminiKeyToUse) {
-            const models = ["gemini-1.5-flash"];
+            const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
             let lastGeminiError: any = null;
 
             for (const modelName of models) {

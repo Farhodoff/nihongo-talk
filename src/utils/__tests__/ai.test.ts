@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateFlashcardsFromNote, analyzeSpeech, getGeminiAPIKeys, markKeyRateLimited, getGenAI, requestWithRetry, validateSpeechInput, converseWithCoach, analyzeSpeakingSession, generateAITimetable } from '../ai';
+import { generateFlashcardsFromNote, analyzeSpeech, getGeminiAPIKeys, markKeyRateLimited, clearDisabledKeysMap, getGenAI, requestWithRetry, validateSpeechInput, converseWithCoach, analyzeSpeakingSession, generateAITimetable } from '../ai';
 import * as ollamaModule from '../ollama';
 import * as deepseekModule from '../deepseek';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -33,6 +33,7 @@ describe('AI Silent Fallback Behavior', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         localStorage.clear();
+        clearDisabledKeysMap();
     });
 
     it('falls back to Gemini 1.5 Flash if callOllama throws in generateFlashcardsFromNote', async () => {
@@ -96,6 +97,7 @@ describe('Gemini Key Rotation & Multi-Key Format Safeguards', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         localStorage.clear();
+        clearDisabledKeysMap();
         vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
             this.apiKey = key;
             this.getGenerativeModel = vi.fn().mockReturnValue({
@@ -158,6 +160,11 @@ describe('Gemini Key Rotation & Multi-Key Format Safeguards', () => {
 });
 
 describe('Realtime Speech Recognition Safeguards', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+        localStorage.clear();
+        clearDisabledKeysMap();
+    });
     it('rejects audio duration shorter than 1200ms', () => {
         expect(validateSpeechInput('Hello world', 1000)).toBe(false);
         expect(validateSpeechInput('Hello world', 1199)).toBe(false);
