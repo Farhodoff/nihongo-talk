@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { chatWithAI, generateExamWithAI, generateMindMapWithAI, ChatMessage, ExamQuestion, getAIConfig } from '../utils/ai';
 import { callDeepSeek } from '../utils/deepseek';
-import { getJapaneseRecruiterPrompt } from '../utils/interviewPrompts';
+import { getJapaneseRecruiterPrompt, InterviewMode } from '../utils/interviewPrompts';
 import { 
     Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip, GraduationCap, 
     MessageSquare, Award, CheckCircle2, XCircle, ChevronRight, HelpCircle, 
@@ -293,6 +293,7 @@ const AIAssistantPage: React.FC = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [speechLang, setSpeechLang] = useState('ja-JP');
     const [isTTSActive, setIsTTSActive] = useState(true);
+    const [interviewMode, setInterviewMode] = useState<InterviewMode>('hr');
     
     const speakJapanese = (text: string) => {
         if (!isTTSActive || !window.speechSynthesis) return;
@@ -390,7 +391,7 @@ const AIAssistantPage: React.FC = () => {
 
         try {
             const config = getAIConfig();
-            const systemPrompt = getJapaneseRecruiterPrompt();
+            const systemPrompt = getJapaneseRecruiterPrompt('', interviewMode);
             let prompt = "これまでの会話履歴:\n";
             updatedMsgs.slice(-3).forEach(m => { prompt += `${m.role === 'user' ? '候補者' : '面接官'}: ${m.content}\n`; });
             prompt += "\n上記の文脈を踏まえ、面接官として候補者の最後の発言に対するフィードバックと、次の質問を行ってください。";
@@ -756,7 +757,7 @@ const AIAssistantPage: React.FC = () => {
                                 <div className="flex-none p-4 border-b border-border flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-400"><Briefcase className="w-5 h-5" /></div>
-                                        <div><h2 className="font-semibold text-gray-900 dark:text-white">IT Nihongo - Mock Interview</h2><p className="text-xs text-muted-foreground">AI Recruiter bilan yapon tilida suhbat</p></div>
+                                        <div><h2 className="font-semibold text-gray-900 dark:text-white">IT Nihongo - {interviewMode === 'hr' ? 'HR面接' : 'Mock Interview'}</h2><p className="text-xs text-muted-foreground">{interviewMode === 'hr' ? 'HR recruiter bilan yapon tilida suhbat' : 'AI Recruiter bilan texnik suhbat'}</p></div>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <button 
@@ -789,6 +790,24 @@ const AIAssistantPage: React.FC = () => {
                                             <RefreshCw className="w-4 h-4" />
                                         </button>
                                         <div className="w-px h-5 bg-gray-200 dark:bg-gray-700 mx-1"></div>
+                                        <select 
+                                            value={interviewMode} 
+                                            onChange={e => {
+                                                const newMode = e.target.value as InterviewMode;
+                                                setInterviewMode(newMode);
+                                                const greeting = newMode === 'hr' 
+                                                    ? '本日は面接にお越しいただきありがとうございます。早速ですが、まずは簡単に自己紹介をお願いいたします。' 
+                                                    : '本日は面接にお越しいただきありがとうございます。まずは自己紹介をお願いします。';
+                                                setInterviewMsgs([{ id: Date.now().toString(), role: 'assistant', content: greeting, timestamp: Date.now() }]);
+                                                localStorage.removeItem(INTERVIEW_STORAGE_KEY);
+                                                window.speechSynthesis?.cancel();
+                                            }} 
+                                            className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-none rounded-lg px-2 py-1 outline-none cursor-pointer focus:ring-1 focus:ring-indigo-500 transition-colors"
+                                            title="Suhbat turi"
+                                        >
+                                            <option value="hr">🧑‍💼 HR面接</option>
+                                            <option value="technical">💻 技術面接</option>
+                                        </select>
                                         <select 
                                             value={speechLang} 
                                             onChange={e => setSpeechLang(e.target.value)} 
