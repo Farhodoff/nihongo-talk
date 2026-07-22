@@ -94,19 +94,11 @@ export const getAIConfig = () => {
         // ignore env inspection errors
     }
 
-    // DeepSeek tanlangan bo'lsa-yu lekin DeepSeek API kaliti bo'lmasa, avtomatik Gemini'ga o'tkazamiz
-    if (aiModel === 'deepseek' && !deepseekKey.trim()) {
-        aiModel = 'gemini';
+    // Sukut bo'yicha DeepSeek asosiy model qilinadi
+    if (!savedStr || !coachAiModel) {
+        coachAiModel = 'deepseek';
     }
-    if (coachAiModel === 'deepseek' && !coachApiKey?.trim() && !deepseekKey.trim()) {
-        coachAiModel = 'gemini';
-    }
-
-    // Agar DeepSeek kaliti bo'lsa — sukut bo'yicha ham AI yordamchi, ham Speaking Coach uchun DeepSeek asosiy qilinadi
-    if (deepseekKey.trim()) {
-        if (!savedStr || !coachAiModel) {
-            coachAiModel = 'deepseek';
-        }
+    if (!savedStr || !aiModel) {
         aiModel = 'deepseek';
     }
 
@@ -128,10 +120,9 @@ export const getAIConfig = () => {
  * Returns true if ready to use AI, false if key is missing.
  */
 export const isAIKeyConfigured = (): boolean => {
-    // 1. O'z kaliti bormi? (BYOK)
     const config = getAIConfig();
+    if (config.provider === 'deepseek') return true; // DeepSeek serverless backend (/api/deepseek) is always configured
     if (config.provider === 'ollama') return true; 
-    if (config.provider === 'deepseek' && config.deepseekKey) return true;
     if (config.provider === 'gemini' && config.geminiKey) return true;
 
     // 2. Admin obunasi bormi? (Pro yoki Kreditlar)
@@ -1524,12 +1515,11 @@ export const converseWithCoach = async (
         if (provider === 'deepseek') {
             const keyToUse = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
                 || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-') ? config.deepseekKey.trim() : undefined);
-            if (keyToUse) {
-                try {
-                    return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-                } catch (deepseekErr: any) {
-                    console.warn("[AI Fallback] DeepSeek error in coach, trying Gemini:", deepseekErr);
-                }
+            try {
+                return await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (deepseekErr: any) {
+                console.warn("[AI Fallback] DeepSeek error in coach:", deepseekErr);
+                throw deepseekErr;
             }
         }
 
@@ -1560,17 +1550,13 @@ export const converseWithCoach = async (
                 }
             }
             
-            // Gemini ham fail bo'ldi — agar DeepSeek kalit mavjud bo'lsa, OXIRGI FALLBACK
-            if (provider !== 'deepseek' && deepseekKeyAvailable) {
-                const dsKey = (config.deepseekKey && config.deepseekKey.trim()) || (config.coachApiKey && config.coachApiKey.trim()) || '';
-                if (dsKey) {
-                    try {
-                        console.info('[AI Last-Resort Fallback] Gemini ham xato berdi, DeepSeek ga o\'tilmoqda');
-                        return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-                    } catch (e) {
-                        console.error('[AI Last-Resort] DeepSeek fallback ham xato berdi:', e);
-                    }
-                }
+            // Gemini ham fail bo'ldi — DeepSeek ga harakat qilib ko'ramiz
+            try {
+                console.info('[AI Last-Resort Fallback] Gemini ham xato berdi, DeepSeek ga o\'tilmoqda');
+                const dsKey = config.deepseekKey || config.coachApiKey || undefined;
+                return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            } catch (e) {
+                console.error('[AI Last-Resort] DeepSeek fallback ham xato berdi:', e);
             }
             
             if (lastGeminiError) throw lastGeminiError;
