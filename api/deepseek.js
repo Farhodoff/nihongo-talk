@@ -2,19 +2,18 @@ export const config = {
   runtime: 'edge',
 };
 
-export default async function handler(req: Request) {
+export default async function handler(req) {
   if (req.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
-  // Server-side key takes priority, then fall back to client-provided key
   const serverKey = process.env.DEEPSEEK_API_KEY;
   const clientAuth = req.headers.get('Authorization');
-  const clientKey = clientAuth?.startsWith('Bearer ') ? clientAuth.substring(7) : null;
+  const clientKey = clientAuth && clientAuth.startsWith('Bearer ') ? clientAuth.substring(7) : null;
   
   const apiKey = serverKey || clientKey;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'DeepSeek API kaliti sozlanmagan. Vercel Environment Variables dan DEEPSEEK_API_KEY ni qo\'shing.' }), { 
+    return new Response(JSON.stringify({ error: 'DEEPSEEK_API_KEY environment variable is not set' }), { 
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
@@ -43,9 +42,7 @@ export default async function handler(req: Request) {
     const data = await response.json();
     return new Response(JSON.stringify(data), {
       status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error("DeepSeek API proxy error:", error);

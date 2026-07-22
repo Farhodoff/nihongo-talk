@@ -3,6 +3,10 @@
     "outputDirectory": "build",
     "devCommand": "npm run dev",
     "installCommand": "npm install --legacy-peer-deps",
+    "rewrites": [
+        { "source": "/api/(.*)", "destination": "/api/$1" },
+        { "source": "/((?!api/).*)", "destination": "/index.html" }
+    ],
     "headers": [
         {
             "source": "/(index.html|sw.js|workbox-.*.js)",
