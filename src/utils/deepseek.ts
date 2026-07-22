@@ -51,13 +51,18 @@ export const callDeepSeek = async (
         validApiKey = null;
     }
 
-    // Try env variable fallback
+    // Try env variable or hardcoded default fallback
     if (!validApiKey) {
         try {
             if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEEPSEEK_API_KEY) {
                 validApiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
             }
         } catch (e) {}
+        if (!validApiKey) {
+            try {
+                validApiKey = atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
+            } catch (e) {}
+        }
     }
 
     // === STRATEGY 1: Vercel serverless proxy (works in both dev and production) ===

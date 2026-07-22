@@ -94,6 +94,12 @@ export const getAIConfig = () => {
         // ignore env inspection errors
     }
 
+    if (!deepseekKey) {
+        try {
+            deepseekKey = atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
+        } catch (e) {}
+    }
+
     // Sukut bo'yicha DeepSeek asosiy model qilinadi
     if (!savedStr || !coachAiModel) {
         coachAiModel = 'deepseek';
