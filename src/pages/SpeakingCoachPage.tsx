@@ -460,14 +460,37 @@ const SpeakingCoachPage: React.FC = () => {
         
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
         
-        const voices = synthRef.current?.getVoices() || [];
-        if (languageRef.current === 'ja') {
-            const jpVoice = voices.find(v => v.lang.includes('ja') && (v.name.includes('Google') || v.name.includes('Kyoko')));
-            if (jpVoice) utterance.voice = jpVoice;
-        } else {
-            const engVoice = voices.find(v => v.lang.startsWith('en-') && (v.name.includes('Natural') || v.name.includes('Google')));
-            if (engVoice) utterance.voice = engVoice;
+        const voices = synthRef.current?.getVoices() || window.speechSynthesis?.getVoices() || [];
+        const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
+        const matchingVoices = voices.filter(v => 
+            v.lang.toLowerCase().startsWith(langPrefix) || 
+            v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)
+        );
+
+        if (matchingVoices.length > 0) {
+            const naturalVoice = matchingVoices.find(v => 
+                v.name.toLowerCase().includes('natural') || 
+                v.name.toLowerCase().includes('online') || 
+                v.name.toLowerCase().includes('neural')
+            ) || matchingVoices.find(v => 
+                v.name.toLowerCase().includes('enhanced') || 
+                v.name.toLowerCase().includes('premium') || 
+                v.name.toLowerCase().includes('siri')
+            ) || matchingVoices.find(v => 
+                v.name.toLowerCase().includes('google') || 
+                v.name.toLowerCase().includes('samantha') || 
+                v.name.toLowerCase().includes('kyoko') || 
+                v.name.toLowerCase().includes('aria') || 
+                v.name.toLowerCase().includes('guy') || 
+                v.name.toLowerCase().includes('jenny')
+            ) || matchingVoices[0];
+
+            if (naturalVoice) {
+                utterance.voice = naturalVoice;
+            }
         }
         
         utterance.onend = () => {

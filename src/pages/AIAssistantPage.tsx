@@ -300,7 +300,24 @@ const AIAssistantPage: React.FC = () => {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ja-JP';
-        utterance.rate = 0.9;
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const jpVoices = voices.filter(v => v.lang.toLowerCase().includes('ja'));
+        if (jpVoices.length > 0) {
+            const naturalVoice = jpVoices.find(v => 
+                v.name.toLowerCase().includes('natural') || 
+                v.name.toLowerCase().includes('online') || 
+                v.name.toLowerCase().includes('enhanced') || 
+                v.name.toLowerCase().includes('premium') || 
+                v.name.toLowerCase().includes('kyoko') || 
+                v.name.toLowerCase().includes('nanami') || 
+                v.name.toLowerCase().includes('google')
+            ) || jpVoices[0];
+            if (naturalVoice) utterance.voice = naturalVoice;
+        }
+
         window.speechSynthesis.speak(utterance);
     };
 
