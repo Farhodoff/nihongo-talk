@@ -458,50 +458,94 @@ const SpeakingCoachPage: React.FC = () => {
             }
         }
         
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
-        utterance.rate = 0.95;
-        utterance.pitch = 1.0;
-        
-        const voices = synthRef.current?.getVoices() || window.speechSynthesis?.getVoices() || [];
-        const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
-        const matchingVoices = voices.filter(v => 
-            v.lang.toLowerCase().startsWith(langPrefix) || 
-            v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)
-        );
+        // Try Google Free High-Quality Neural Audio Stream first (No API Key required, fluent human voice)
+        try {
+            const cleanText = text.replace(/[*_#`~]/g, '').trim();
+            const targetLang = languageRef.current === 'ja' ? 'ja' : 'en';
+            const sentences = cleanText.match(/[^.!?。！？]+[.!?。！？]+/g) || [cleanText];
+            const chunks: string[] = [];
+            let currentChunk = '';
 
-        if (matchingVoices.length > 0) {
-            const naturalVoice = matchingVoices.find(v => 
-                v.name.toLowerCase().includes('natural') || 
-                v.name.toLowerCase().includes('online') || 
-                v.name.toLowerCase().includes('neural')
-            ) || matchingVoices.find(v => 
-                v.name.toLowerCase().includes('enhanced') || 
-                v.name.toLowerCase().includes('premium') || 
-                v.name.toLowerCase().includes('siri')
-            ) || matchingVoices.find(v => 
-                v.name.toLowerCase().includes('google') || 
-                v.name.toLowerCase().includes('samantha') || 
-                v.name.toLowerCase().includes('kyoko') || 
-                v.name.toLowerCase().includes('aria') || 
-                v.name.toLowerCase().includes('guy') || 
-                v.name.toLowerCase().includes('jenny')
-            ) || matchingVoices[0];
-
-            if (naturalVoice) {
-                utterance.voice = naturalVoice;
+            for (const sentence of sentences) {
+                if ((currentChunk + ' ' + sentence).length <= 180) {
+                    currentChunk = (currentChunk + ' ' + sentence).trim();
+                } else {
+                    if (currentChunk) chunks.push(currentChunk);
+                    currentChunk = sentence.substring(0, 180).trim();
+                }
             }
-        }
-        
-        utterance.onend = () => {
-            onSpeechFinish();
-        };
-        
-        utterance.onerror = () => {
-            onSpeechFinish();
-        };
+            if (currentChunk) chunks.push(currentChunk);
 
-        synthRef.current?.speak(utterance);
+            if (chunks.length > 0) {
+                let chunkIdx = 0;
+                const playNextChunk = () => {
+                    if (chunkIdx >= chunks.length) {
+                        onSpeechFinish();
+                        return;
+                    }
+                    const chunk = chunks[chunkIdx++];
+                    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(chunk)}&tl=${targetLang}&client=tw-ob`;
+                    const audio = new Audio(gUrl);
+                    audioPlayerRef.current = audio;
+                    audio.onended = () => playNextChunk();
+                    audio.onerror = () => fallbackWebSpeech();
+                    audio.play().catch(() => fallbackWebSpeech());
+                };
+                playNextChunk();
+                return;
+            }
+        } catch (gErr) {
+            console.warn("Google free TTS audio failed, falling back to Web Speech", gErr);
+        }
+
+        fallbackWebSpeech();
+
+        function fallbackWebSpeech() {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+            
+            const voices = synthRef.current?.getVoices() || window.speechSynthesis?.getVoices() || [];
+            const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
+            const matchingVoices = voices.filter(v => 
+                v.lang.toLowerCase().startsWith(langPrefix) || 
+                v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)
+            );
+
+            if (matchingVoices.length > 0) {
+                const naturalVoice = matchingVoices.find(v => 
+                    v.name.toLowerCase().includes('natural') || 
+                    v.name.toLowerCase().includes('online') || 
+                    v.name.toLowerCase().includes('neural')
+                ) || matchingVoices.find(v => 
+                    v.name.toLowerCase().includes('enhanced') || 
+                    v.name.toLowerCase().includes('premium') || 
+                    v.name.toLowerCase().includes('siri')
+                ) || matchingVoices.find(v => 
+                    v.name.toLowerCase().includes('google') || 
+                    v.name.toLowerCase().includes('samantha') || 
+                    v.name.toLowerCase().includes('kyoko') || 
+                    v.name.toLowerCase().includes('aria') || 
+                    v.name.toLowerCase().includes('guy') || 
+                    v.name.toLowerCase().includes('jenny')
+                ) || matchingVoices[0];
+
+                if (naturalVoice) {
+                    utterance.voice = naturalVoice;
+                }
+            }
+            
+            utterance.onend = () => {
+                onSpeechFinish();
+            };
+            
+            utterance.onerror = () => {
+                onSpeechFinish();
+            };
+
+            synthRef.current?.speak(utterance);
+        }
     };
 
     const resumeListening = () => {
