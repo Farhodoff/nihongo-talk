@@ -329,7 +329,7 @@ const AIAssistantPage: React.FC = () => {
                 const playNextChunk = () => {
                     if (chunkIdx >= chunks.length) return;
                     const chunk = chunks[chunkIdx++];
-                    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(chunk)}&tl=ja&client=tw-ob`;
+                    const gUrl = `/api/tts?text=${encodeURIComponent(chunk)}&lang=ja`;
                     const audio = new Audio(gUrl);
                     currentAudioRef.current = audio;
                     audio.onended = () => playNextChunk();

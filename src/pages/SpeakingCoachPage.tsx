@@ -484,7 +484,7 @@ const SpeakingCoachPage: React.FC = () => {
                         return;
                     }
                     const chunk = chunks[chunkIdx++];
-                    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(chunk)}&tl=${targetLang}&client=tw-ob`;
+                    const gUrl = `/api/tts?text=${encodeURIComponent(chunk)}&lang=${targetLang}`;
                     const audio = new Audio(gUrl);
                     audioPlayerRef.current = audio;
                     audio.onended = () => playNextChunk();
@@ -508,9 +508,16 @@ const SpeakingCoachPage: React.FC = () => {
             
             const voices = synthRef.current?.getVoices() || window.speechSynthesis?.getVoices() || [];
             const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
+            
+            // Exclude robotic/novelty voices (Fred, Albert, Ralph, Zarvox, etc.)
+            const isRobotic = (name: string) => {
+                const l = name.toLowerCase();
+                return ['fred', 'albert', 'ralph', 'zarvox', 'bad news', 'bells', 'cellos', 'junior', 'organ', 'trinoids', 'whisper', 'wons', 'bruce', 'boing', 'bubbles', 'hysterical'].some(r => l.includes(r));
+            };
+
             const matchingVoices = voices.filter(v => 
-                v.lang.toLowerCase().startsWith(langPrefix) || 
-                v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)
+                (v.lang.toLowerCase().startsWith(langPrefix) || v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)) &&
+                !isRobotic(v.name)
             );
 
             if (matchingVoices.length > 0) {
@@ -525,9 +532,10 @@ const SpeakingCoachPage: React.FC = () => {
                 ) || matchingVoices.find(v => 
                     v.name.toLowerCase().includes('google') || 
                     v.name.toLowerCase().includes('samantha') || 
+                    v.name.toLowerCase().includes('victoria') || 
+                    v.name.toLowerCase().includes('karen') || 
                     v.name.toLowerCase().includes('kyoko') || 
                     v.name.toLowerCase().includes('aria') || 
-                    v.name.toLowerCase().includes('guy') || 
                     v.name.toLowerCase().includes('jenny')
                 ) || matchingVoices[0];
 
