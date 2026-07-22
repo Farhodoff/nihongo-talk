@@ -457,9 +457,7 @@ export const generateFlashcardsWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let json: unknown[] | null = null;
 
         if (provider === 'ollama') {
@@ -691,9 +689,7 @@ export const generateFullStudyPlan = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -780,9 +776,7 @@ export const recommendResourcesWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -858,9 +852,6 @@ export const generateStudyInsight = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -939,9 +930,7 @@ export const generateExamWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -1013,9 +1002,7 @@ export const expandNoteWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -1067,9 +1054,7 @@ export const summarizeNoteWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -1121,9 +1106,7 @@ export const fixNoteSpellingWithAI = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -1189,9 +1172,7 @@ mindmap
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
         let text: string | null = null;
 
         if (provider === 'ollama') {
@@ -1261,9 +1242,7 @@ Qoidalar:
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
 
         if (provider === 'ollama') {
             try {
@@ -1484,23 +1463,9 @@ export const converseWithCoach = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || config.provider || 'gemini';
+        let provider = config.coachAiModel || config.provider || 'deepseek';
         
-        // Determine available keys
-        const deepseekKeyAvailable = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-'))
-            || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-'));
-        const geminiKeyAvailable = (userKey && userKey.trim() && !userKey.startsWith('sk-'))
-            || (config.geminiKey && config.geminiKey.trim() && config.geminiKey.startsWith('AIza'))
-            || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') && config.coachApiKey.startsWith('AIza'));
-        
-        // Auto-detect best provider if selected one has no key
-        if (provider === 'gemini' && !geminiKeyAvailable && deepseekKeyAvailable) {
-            provider = 'deepseek';
-            console.info('[AI Auto-Switch] Gemini key topilmadi, DeepSeek ga o\'tilmoqda (kalit mavjud)');
-        } else if (provider === 'deepseek' && !deepseekKeyAvailable && geminiKeyAvailable) {
-            provider = 'gemini';
-            console.info('[AI Auto-Switch] DeepSeek key topilmadi, Gemini ga o\'tilmoqda (kalit mavjud)');
-        }
+
         
         // --- TRY PRIMARY PROVIDER ---
         if (provider === 'ollama') {
@@ -1562,12 +1527,8 @@ export const converseWithCoach = async (
             if (lastGeminiError) throw lastGeminiError;
         }
 
-        // --- AGAR HECH QANDAY KALIT BO'LMASA ---
-        // Oxirgi imkoniyat: DeepSeek kalit bilan sinab ko'rish (env dan kelgan bo'lishi mumkin)
-        if (deepseekKeyAvailable) {
-            const dsKey = (config.deepseekKey && config.deepseekKey.trim()) || (config.coachApiKey && config.coachApiKey.trim()) || '';
-            return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        }
+        // Oxirgi imkoniyat: DeepSeek backend proksi orqali sinab ko'rish
+        return await callDeepSeek(prompt, config.coachApiKey || config.deepseekKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
 
         throw new Error("🔑 AI API kaliti topilmadi. Sozlamalar bo'limida Gemini yoki DeepSeek API kalitingizni kiriting.");
     } catch (error: unknown) {
@@ -1681,9 +1642,7 @@ export const analyzeSpeakingSession = async (
         const config = getAIConfig();
         let provider = config.coachAiModel || config.provider || 'gemini';
         let deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
-        if (provider === 'deepseek' && !deepseekKey) {
-            provider = 'gemini';
-        }
+
 
         let data: any = null;
 
@@ -1779,9 +1738,7 @@ export const generateAITimetable = async (
     try {
         const config = getAIConfig();
         let provider = config.provider;
-        if (provider === 'deepseek' && !config.deepseekKey?.trim()) {
-            provider = 'gemini';
-        }
+
 
         let items: any = null;
 
