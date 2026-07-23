@@ -1908,8 +1908,34 @@ export const generateIeltsStudyPlan = async (
       }
     `;
 
+    const config = getAIConfig();
+
+    // 1. Try DeepSeek first if configured or available
+    if (config.provider === 'deepseek' || config.deepseekKey) {
+        try {
+            const response = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+            const parsed = JSON.parse(cleanedText);
+            return {
+                headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+                summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
+                dailyPlan: parsed.dailyPlan || [],
+                recommendedTips: parsed.recommendedTips || []
+            };
+        } catch (dsErr) {
+            console.warn("DeepSeek study plan failed, trying Gemini fallback...", dsErr);
+        }
+    }
+
+    // 2. Try Gemini
     try {
-        const config = getAIConfig();
         const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
@@ -1930,10 +1956,74 @@ export const generateIeltsStudyPlan = async (
             dailyPlan: parsed.dailyPlan || [],
             recommendedTips: parsed.recommendedTips || []
         };
-    } catch (err) {
-        console.error("IELTS Study Plan Error:", err);
-        throw new Error("AI dars rejasini tuzishda xatolik yuz berdi.");
+    } catch (geminiErr) {
+        console.warn("Gemini study plan failed, trying backend proxy...", geminiErr);
     }
+
+    // 3. Fallback: Call backend proxy /api/ai
+    try {
+        const res = await fetch('/api/ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt, jsonMode: true })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            const rawText = data.text || data.reply || '';
+            const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
+            const parsed = JSON.parse(cleanedText);
+            return {
+                headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+                summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
+                dailyPlan: parsed.dailyPlan || [],
+                recommendedTips: parsed.recommendedTips || []
+            };
+        }
+    } catch (proxyErr) {
+        console.warn("Backend proxy study plan failed, using fallback roadmap...", proxyErr);
+    }
+
+    // 4. Default fallback plan if all network AI calls fail
+    return {
+        headline: isZeroLevel ? `🌱 0 Level -> Band ${targetBand} 3-Bosqichli Yo'l Xaritasi` : `${durationDays} Kunlik Band ${targetBand} IELTS Rejasi`,
+        summary: isZeroLevel 
+            ? "Noldan boshlab IELTS 7.0+ darajasiga erishish uchun 3 bosqichli poydevoriy dars rejasi."
+            : `Hozirgi Band ${currentBand} darajangizdan Band ${targetBand} ga yetish uchun intensiv kunlik reja.`,
+        dailyPlan: [
+            {
+                day: 1,
+                title: isZeroLevel ? "Foundation: Boshlang'ich Grammatika & Top 50 So'z" : "Writing Task 2 Structure & Intro",
+                focusSkill: isZeroLevel ? "Vocabulary" : "Writing",
+                tasks: isZeroLevel 
+                    ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
+                    : ["Task 2 uchun 3 ta essay outline tuzish", "20 ta Academic Collocation o'rganish"],
+                pomodoroTargetMinutes: 90
+            },
+            {
+                day: 2,
+                title: isZeroLevel ? "Foundation: Eshitib Tushunish va Talaffuz" : "Speaking Part 1 & Part 2 Cue Cards",
+                focusSkill: isZeroLevel ? "Listening" : "Speaking",
+                tasks: isZeroLevel 
+                    ? ["Sodda inglizcha dialogni tinglab tushunish", "A1 so'zlar bo'yicha flashcard mashqi", "AI Coach bilan 10 min suhbat"]
+                    : ["5 ta Part 1 savoliga javob berish", "1 ta Part 2 Cue Card bo'yicha gapirish"],
+                pomodoroTargetMinutes: 60
+            },
+            {
+                day: 3,
+                title: isZeroLevel ? "Pre-IELTS: Gap Paraphrase Qilish Mashqlari" : "Reading Skimming & Scanning Technique",
+                focusSkill: isZeroLevel ? "Writing" : "Reading",
+                tasks: isZeroLevel 
+                    ? ["Sodda gaplarni 3 xil usulda qayta yozish (Paraphrase)", "Top 30 ta sinonim o'rganish"]
+                    : ["True/False/Not Given savollariga yondashuv", "1 ta Reading matnini 20 daqiqada ishlash"],
+                pomodoroTargetMinutes: 90
+            }
+        ],
+        recommendedTips: [
+            "Kuniga kamida 45-60 daqiqa diqqat bilan shug'ullaning.",
+            "Yangi o'rgangan so'zlaringizni darhol gap ichida qo'llang.",
+            "Writing va Speaking javoblaringizni AI Coach orqali tekshirtiring."
+        ]
+    };
 };
 
 export interface IeltsEssayEvaluationReport {
