@@ -6,13 +6,14 @@ import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
 import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import ExamHistoryAnalytics from '../components/analytics/ExamHistoryAnalytics';
+import CoachAnalytics from '../components/analytics/CoachAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
 import Skeleton from '../components/ui/Skeleton';
 import ShareCardModal from '../components/ShareCardModal';
 import { Share2 } from 'lucide-react';
 
 const ProgressPage: React.FC = () => {
-    const { sessions, subjects, tasks, settings, flashcards, loading } = useStudyData();
+    const { sessions, subjects, tasks, settings, flashcards, coachSessions, loading } = useStudyData();
 
     const totalHours = (sessions.reduce((acc, s) => acc + s.duration, 0) / 60).toFixed(1);
     const completedTasks = tasks.filter(t => t.completed).length;
@@ -71,6 +72,7 @@ const ProgressPage: React.FC = () => {
             ) : (
                 <>
                     <ActivityAnalytics sessions={sessions} />
+                    <CoachAnalytics sessions={coachSessions} />
                     <ExamHistoryAnalytics />
                     <ActivityHeatmap sessions={sessions} />
                 </>

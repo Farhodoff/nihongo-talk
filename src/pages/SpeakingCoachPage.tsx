@@ -5,7 +5,7 @@ import {
     Play, Cpu, Compass, Coffee, ShieldAlert, Check, Copy, HeartPulse, RotateCcw,
     Radio, MessageCircle
 } from 'lucide-react';
-import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput } from '../utils/ai';
+import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import AudioVisualizer from '../components/speaking/AudioVisualizer';
 import SessionReportModal from '../components/speaking/SessionReportModal';
@@ -21,6 +21,10 @@ interface ChatMessage {
     role: 'user' | 'assistant';
     content: string;
     timestamp?: string;
+    translation?: string;
+    isTranslating?: boolean;
+    showTranslation?: boolean;
+    isEditing?: boolean;
 }
 
 export type CoachPersona = 'roast' | 'gentle' | 'ielts' | 'interview' | 'travel' | 'casual';
@@ -175,7 +179,7 @@ const SpeakingCoachPage: React.FC = () => {
     const [isReportLoading, setIsReportLoading] = useState(false);
     const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
 
-    const { settings, updateSettings } = useStudyData();
+    const { settings, updateSettings, addCoachSession } = useStudyData();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
@@ -239,6 +243,7 @@ const SpeakingCoachPage: React.FC = () => {
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.continuous = false;
             recognitionRef.current.interimResults = true;
+            recognitionRef.current.maxAlternatives = 3;
 
             recognitionRef.current.onstart = () => {
                 speechStartTimeRef.current = 0;
@@ -641,11 +646,41 @@ const SpeakingCoachPage: React.FC = () => {
             try {
                 const report = await analyzeSpeakingSession(historyToAnalyze, languageRef.current, personaRef.current);
                 setReportData(report);
+                
+                // Bazaga saqlash
+                await addCoachSession({
+                    personaTitle: PERSONAS[personaRef.current].name,
+                    fluencyScore: report.fluency_score || 0,
+                    vocabularyScore: Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5),
+                    grammarScore: Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5),
+                    pronunciationScore: report.fluency_score || 0,
+                    feedback: report.overall_feedback || ''
+                });
             } catch (err) {
                 console.error("Report generation error:", err);
             } finally {
                 setIsReportLoading(false);
             }
+        }
+    };
+
+    const handleTranslateMessage = async (idx: number) => {
+        const msg = chatHistory[idx];
+        if (!msg || msg.role !== 'assistant') return;
+
+        if (msg.translation) {
+            setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: !m.showTranslation } : m));
+            return;
+        }
+
+        setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, isTranslating: true } : m));
+
+        try {
+            const trans = await translateTextToUzbek(msg.content);
+            setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, translation: trans, showTranslation: true, isTranslating: false } : m));
+        } catch (err) {
+            console.error("Translation failed:", err);
+            setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, isTranslating: false } : m));
         }
     };
 
@@ -903,6 +938,35 @@ const SpeakingCoachPage: React.FC = () => {
                                         <p className="text-sm leading-relaxed font-medium whitespace-pre-wrap">
                                             {msg.content}
                                         </p>
+
+                                        {/* Uzbek Translation Box */}
+                                        {msg.role === 'assistant' && (
+                                            <div className="mt-2.5 pt-2 border-t border-gray-200/50 dark:border-gray-700/50">
+                                                {!msg.showTranslation ? (
+                                                    <button
+                                                        onClick={() => handleTranslateMessage(idx)}
+                                                        disabled={msg.isTranslating}
+                                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors bg-indigo-50 dark:bg-indigo-950/40 px-2.5 py-1 rounded-lg border border-indigo-100 dark:border-indigo-900/30"
+                                                    >
+                                                        <span>🇺🇿</span>
+                                                        <span>{msg.isTranslating ? 'Tarjima qilinmoqda...' : "O'zbekcha tarjimasi"}</span>
+                                                    </button>
+                                                ) : (
+                                                    <div className="p-3 bg-indigo-50/90 dark:bg-indigo-950/50 border border-indigo-200/60 dark:border-indigo-800/40 rounded-xl text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed font-medium animate-in fade-in">
+                                                        <div className="flex justify-between items-center mb-1 font-bold text-[11px] text-indigo-600 dark:text-indigo-400">
+                                                            <span className="flex items-center gap-1">🇺🇿 O'zbekcha tarjimasi:</span>
+                                                            <button 
+                                                                onClick={() => setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: false } : m))}
+                                                                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-[10px]"
+                                                            >
+                                                                Berkitish ✕
+                                                            </button>
+                                                        </div>
+                                                        <p className="whitespace-pre-wrap">{msg.translation}</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Action Buttons - Floating */}

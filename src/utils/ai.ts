@@ -1801,3 +1801,229 @@ export const generateAITimetable = async (
     }
 };
 
+export const translateTextToUzbek = async (text: string): Promise<string> => {
+    const prompt = `
+      Translate the following English or Japanese text into clear, natural Uzbek (O'zbek tili).
+      Return ONLY the Uzbek translation without explanations or quotation marks.
+
+      Text to translate:
+      "${text}"
+    `;
+
+    try {
+        const config = getAIConfig();
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+        const result = (await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey || undefined);
+            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+            return model.generateContent(prompt);
+        }, 2, 1000, apiKey || undefined)) as any;
+
+        const translation = (await result.response).text().trim();
+        return translation.replace(/^["']|["']$/g, '');
+    } catch (err) {
+        console.error("Translation Error:", err);
+        return "Tarjima qilishda xatolik yuz berdi.";
+    }
+};
+
+export interface IeltsStudyPlanDay {
+    day: number;
+    title: string;
+    focusSkill: 'Writing' | 'Speaking' | 'Reading' | 'Listening' | 'Vocabulary';
+    tasks: string[];
+    pomodoroTargetMinutes: number;
+}
+
+export interface IeltsStudyPlanResult {
+    headline: string;
+    summary: string;
+    dailyPlan: IeltsStudyPlanDay[];
+    recommendedTips: string[];
+}
+
+export const generateIeltsStudyPlan = async (
+    currentBand: number,
+    targetBand: number,
+    durationDays: number,
+    weakSkill: string
+): Promise<IeltsStudyPlanResult> => {
+    const prompt = `
+      Act as a Head IELTS Academic Master Coach.
+      Generate a customized ${durationDays}-day IELTS Study Roadmap for a student with:
+      - Current Estimated Score: Band ${currentBand}
+      - Target Score: Band ${targetBand}
+      - Preparation Period: ${durationDays} days
+      - Focus/Weakest Skill Area: ${weakSkill}
+
+      Requirements:
+      1. Provide a motivating headline and Uzbek summary.
+      2. Provide a 7-day representative weekly routine schedule (Day 1 to Day 7) that repeats and escalates over the ${durationDays} days.
+      3. All daily tasks, headlines, and tips MUST be in Uzbek (O'zbek tilida).
+
+      Output JSON Schema (Return ONLY valid JSON):
+      {
+        "headline": "Uzbekcha sarlavha (masalan: 30 Kunlik Band 7.5 Strategik Rejasi)",
+        "summary": "Qisqa Uzbekcha strategik tavsiya va reja mazmuni.",
+        "dailyPlan": [
+          {
+            "day": 1,
+            "title": "Kunlik diqqat markazi (masalan: Task 2 Structure & Intro)",
+            "focusSkill": "Writing",
+            "tasks": ["Task 2 uchun 3 ta mavzuga outline tuzish", "20 ta Academic Collocation o'rganish"],
+            "pomodoroTargetMinutes": 90
+          }
+        ],
+        "recommendedTips": ["Tavsiya 1", "Tavsiya 2", "Tavsiya 3"]
+      }
+    `;
+
+    try {
+        const config = getAIConfig();
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+        const result = (await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey || undefined);
+            const model = ai.getGenerativeModel({
+                model: "gemini-1.5-flash",
+                generationConfig: { responseMimeType: "application/json" }
+            });
+            return model.generateContent(prompt);
+        }, 2, 1000, apiKey || undefined)) as any;
+
+        const text = (await result.response).text().trim();
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const parsed = JSON.parse(cleanedText);
+
+        return {
+            headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+            summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
+            dailyPlan: parsed.dailyPlan || [],
+            recommendedTips: parsed.recommendedTips || []
+        };
+    } catch (err) {
+        console.error("IELTS Study Plan Error:", err);
+        throw new Error("AI dars rejasini tuzishda xatolik yuz berdi.");
+    }
+};
+
+export interface IeltsEssayEvaluationReport {
+    overallBand: number;
+    taskResponseScore: number;
+    coherenceScore: number;
+    lexicalResourceScore: number;
+    grammarScore: number;
+    taskResponseFeedback: string;
+    coherenceFeedback: string;
+    lexicalResourceFeedback: string;
+    grammarFeedback: string;
+    wordCount: number;
+    strengths: string[];
+    weaknesses: string[];
+    grammarErrors: { original: string; corrected: string; explanation: string }[];
+    advancedVocabularySuggestions: { original: string; band8Alternative: string; context: string }[];
+    modelAnswerBand8: string;
+    improvementTips: string[];
+}
+
+export const evaluateIeltsEssay = async (
+    taskType: 'task1' | 'task2',
+    promptQuestion: string,
+    essayText: string
+): Promise<IeltsEssayEvaluationReport> => {
+    const wordCount = essayText.trim().split(/\s+/).filter(Boolean).length;
+
+    const prompt = `
+      Act as an official Senior IELTS Writing Examiner (BC/IDP certified).
+      Evaluate the following IELTS Writing ${taskType === 'task1' ? 'Task 1' : 'Task 2'} essay strictly against the official 4 criteria:
+      1. Task ${taskType === 'task1' ? 'Achievement' : 'Response'} (TR)
+      2. Coherence and Cohesion (CC)
+      3. Lexical Resource (LR)
+      4. Grammatical Range and Accuracy (GRA)
+
+      PROMPT / ESSAY QUESTION:
+      "${promptQuestion}"
+
+      STUDENT'S ESSAY TEXT (Word count: ${wordCount}):
+      """
+      ${essayText}
+      """
+
+      Provide a comprehensive JSON evaluation report. All explanations, feedbacks, strengths, and tips MUST be written in Uzbek (O'zbek tilida).
+      The Band scores must be numbers (e.g. 5.5, 6.0, 6.5, 7.0, 7.5, 8.0).
+      Calculate overallBand as average of the 4 scores rounded to nearest half band.
+
+      JSON Output Schema (Return ONLY valid JSON without markdown formatting):
+      {
+        "overallBand": 6.5,
+        "taskResponseScore": 6.5,
+        "coherenceScore": 6.0,
+        "lexicalResourceScore": 7.0,
+        "grammarScore": 6.0,
+        "taskResponseFeedback": "Tushuntirish Uzbek tilida",
+        "coherenceFeedback": "Tushuntirish Uzbek tilida",
+        "lexicalResourceFeedback": "Tushuntirish Uzbek tilida",
+        "grammarFeedback": "Tushuntirish Uzbek tilida",
+        "wordCount": ${wordCount},
+        "strengths": ["Kuchli jihati 1", "Kuchli jihati 2"],
+        "weaknesses": ["Kuchsiz jihati 1", "Kuchsiz jihati 2"],
+        "grammarErrors": [
+          {
+            "original": "Xato gap yoki ibora",
+            "corrected": "To'g'ri shakli",
+            "explanation": "Nima uchun xatoligi haqida izoh (Uzbekcha)"
+          }
+        ],
+        "advancedVocabularySuggestions": [
+          {
+            "original": "Oddiy so'z (masalan 'good')",
+            "band8Alternative": "Yuqori darajadagi sinonim (masalan 'exceptional')",
+            "context": "Qanday gapda ishlatish (Uzbekcha)"
+          }
+        ],
+        "modelAnswerBand8": "Ushbu inshoning Band 8.0/9.0 darajasidagi ideal, qayta mukammal yozilgan to'liq varianti (ingliz tilida)",
+        "improvementTips": ["Tavsiya 1", "Tavsiya 2"]
+      }
+    `;
+
+    try {
+        const config = getAIConfig();
+        let reportData: any = null;
+
+        // Try Gemini or DeepSeek API
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+        const result = (await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey || undefined);
+            const model = ai.getGenerativeModel({
+                model: "gemini-1.5-flash",
+                generationConfig: { responseMimeType: "application/json" }
+            });
+            return model.generateContent(prompt);
+        }, 2, 1000, apiKey || undefined)) as any;
+
+        const text = (await result.response).text().trim();
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        reportData = JSON.parse(cleanedText);
+
+        return {
+            overallBand: reportData.overallBand || 6.0,
+            taskResponseScore: reportData.taskResponseScore || 6.0,
+            coherenceScore: reportData.coherenceScore || 6.0,
+            lexicalResourceScore: reportData.lexicalResourceScore || 6.0,
+            grammarScore: reportData.grammarScore || 6.0,
+            taskResponseFeedback: reportData.taskResponseFeedback || "Mavzuga mos yozilgan.",
+            coherenceFeedback: reportData.coherenceFeedback || "Mantiqiy bog'liqlik yaxshi.",
+            lexicalResourceFeedback: reportData.lexicalResourceFeedback || "Lug'at boyligi o'rtacha.",
+            grammarFeedback: reportData.grammarFeedback || "Grammatik konstruksiyalar ko'rsatilgan.",
+            wordCount: wordCount,
+            strengths: reportData.strengths || [],
+            weaknesses: reportData.weaknesses || [],
+            grammarErrors: reportData.grammarErrors || [],
+            advancedVocabularySuggestions: reportData.advancedVocabularySuggestions || [],
+            modelAnswerBand8: reportData.modelAnswerBand8 || "Band 8.0 namuna mavjud emas.",
+            improvementTips: reportData.improvementTips || []
+        };
+    } catch (err) {
+        console.error("IELTS Essay Evaluation Error:", err);
+        throw new Error("AI orqali inshoni baholashda xatolik yuz berdi. Qayta urinib ko'ring.");
+    }
+};

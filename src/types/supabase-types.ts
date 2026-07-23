@@ -163,3 +163,15 @@ export interface DatabaseProfile {
     google_api_key?: string;
     updated_at?: string;
 }
+
+export interface DatabaseCoachSession {
+    id: string;
+    user_id: string;
+    persona_title: string;
+    fluency_score: number;
+    vocabulary_score: number;
+    grammar_score: number;
+    pronunciation_score: number;
+    feedback: string;
+    created_at: string;
+}

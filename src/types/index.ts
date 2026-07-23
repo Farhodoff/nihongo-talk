@@ -130,6 +130,17 @@ export interface Event {
     googleEventId?: string;
 }
 
+export interface CoachSession {
+    id: string;
+    personaTitle: string;
+    fluencyScore: number;
+    vocabularyScore: number;
+    grammarScore: number;
+    pronunciationScore: number;
+    feedback: string;
+    createdAt: string;
+}
+
 export const EVENT_TYPE_COLORS = {
     jdu: '#3b82f6',      // Blue
     career: '#f59e0b',   // Amber

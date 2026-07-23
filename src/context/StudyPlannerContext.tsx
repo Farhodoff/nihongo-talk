@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
-import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event } from '../types';
+import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
 import notificationManager from '../services/NotificationManager';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
@@ -9,7 +9,7 @@ import { useFlashcards } from '../hooks/useFlashcards';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
-import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate } from '../types/supabase-types';
+import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate, DatabaseCoachSession } from '../types/supabase-types';
 import { generateUUID } from '../utils/uuid';
 
 
@@ -44,6 +44,7 @@ interface StudyPlannerContextType {
     sessions: StudySession[];
     whiteboards: WhiteboardMetadata[];
     events: Event[];
+    coachSessions: CoachSession[];
     googleEvents: GoogleCalendarEvent[];
     settings: Settings;
     loading: boolean;
@@ -98,6 +99,7 @@ interface StudyPlannerContextType {
 
     // Session operatsiyalari
     addSession: (session: Partial<StudySession>) => Promise<void>;
+    addCoachSession: (session: Partial<CoachSession>) => Promise<void>;
 
     // Data
     refreshData: () => Promise<void>;
@@ -157,6 +159,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [sessions, setSessions] = useState<StudySession[]>([]);
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
+    const [coachSessions, setCoachSessions] = useState<CoachSession[]>([]);
     const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
 
     const [loading, setLoading] = useState(true);
@@ -263,7 +266,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
             // Parallel yuklash for other entities
             try {
-                const [subjectsSettled, goalsSettled, notesSettled, sessionsSettled, studyNotesSettled, whiteboardsSettled, eventsSettled, profileSettled] = await Promise.allSettled([
+                const [subjectsSettled, goalsSettled, notesSettled, sessionsSettled, studyNotesSettled, whiteboardsSettled, eventsSettled, profileSettled, coachSessionsSettled] = await Promise.allSettled([
                     supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                     supabase.from('goals').select('*').eq('user_id', currentUser.id),
                     supabase.from('notes').select('*').eq('user_id', currentUser.id),
@@ -272,6 +275,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
                     supabase.from('events').select('*').eq('user_id', currentUser.id),
                     supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
+                    supabase.from('ai_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
 
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
@@ -282,6 +286,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const whiteboardsRes = whiteboardsSettled.status === 'fulfilled' ? whiteboardsSettled.value : null;
                 const eventsRes = eventsSettled.status === 'fulfilled' ? eventsSettled.value : null;
                 const profileRes = profileSettled.status === 'fulfilled' ? profileSettled.value : null;
+                const coachSessionsRes = coachSessionsSettled.status === 'fulfilled' ? coachSessionsSettled.value : null;
 
                 if (subjectsRes?.data) {
                     const mappedSubjects = subjectsRes.data.map((s: DatabaseSubject) => ({
@@ -363,6 +368,20 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         updatedAt: e.updated_at
                     }));
                     setEvents(mappedEvents);
+                }
+
+                if (coachSessionsRes?.data) {
+                    const mappedCoachSessions = coachSessionsRes.data.map((s: DatabaseCoachSession) => ({
+                        id: s.id,
+                        personaTitle: s.persona_title,
+                        fluencyScore: s.fluency_score,
+                        vocabularyScore: s.vocabulary_score,
+                        grammarScore: s.grammar_score,
+                        pronunciationScore: s.pronunciation_score,
+                        feedback: s.feedback,
+                        createdAt: s.created_at
+                    }));
+                    setCoachSessions(mappedCoachSessions);
                 }
 
                 // Profile & Settings
@@ -748,24 +767,60 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         
 
         const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
+
         if (error) {
-            console.error('Supabase session error:', error);
+            console.error("Session qo'shishda xato:", error);
+            alert("Dars sessiyasini saqlashda xato yuz berdi");
             return;
         }
+
         if (data) {
-            const returnedSession: StudySession = {
-                id: data.id,
+            setSessions(prev => [...prev, {
+                ...data,
                 subjectId: data.subject_id,
                 startTime: data.start_time,
-                duration: data.duration,
-                type: data.type as 'focus' | 'break',
-                completed: data.completed,
                 moodBefore: data.mood_before,
                 moodAfter: data.mood_after
-            };
-            setSessions(prev => prev.map(s => s.id === sessionId ? returnedSession : s));
+            } as StudySession]);
+            awardXP(sessionData.type === 'focus' ? 10 : 2); // XP reward
         }
     };
+
+    const addCoachSession = useCallback(async (session: Partial<CoachSession>) => {
+        if (!user) return;
+
+        const dbCoachSession = {
+            user_id: user.id,
+            persona_title: session.personaTitle || 'AI Coach',
+            fluency_score: session.fluencyScore || 0,
+            vocabulary_score: session.vocabularyScore || 0,
+            grammar_score: session.grammarScore || 0,
+            pronunciation_score: session.pronunciationScore || 0,
+            feedback: session.feedback || ''
+        };
+
+        const { data, error } = await supabase.from('ai_coach_sessions').insert(dbCoachSession).select().single();
+
+        if (error) {
+            console.error("Coach Session qo'shishda xato:", error);
+            alert("Suhbat natijasini saqlashda xato yuz berdi");
+            return;
+        }
+
+        if (data) {
+            setCoachSessions(prev => [{
+                id: data.id,
+                personaTitle: data.persona_title,
+                fluencyScore: data.fluency_score,
+                vocabularyScore: data.vocabulary_score,
+                grammarScore: data.grammar_score,
+                pronunciationScore: data.pronunciation_score,
+                feedback: data.feedback,
+                createdAt: data.created_at
+            }, ...prev]);
+            awardXP(15);
+        }
+    }, [user, awardXP]);
 
     // ===== UPDATE SETTINGS (Combined) =====
     const updateSettings = async (updates: Partial<Settings>) => {
@@ -774,9 +829,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Separate gamification updates from app settings
         if (updates.totalXp !== undefined || updates.level !== undefined) {
-            // Handled by awardXP in useGamification mostly, but if manual update:
-            // We can't easily update hook state from here unless we exposed a setter.
-            // We did expose setGamificationState.
             setGamificationState(prev => ({
                 ...prev,
                 totalXp: updates.totalXp ?? prev.totalXp,
@@ -1001,11 +1053,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     return (
         <StudyPlannerContext.Provider value={{
-            goals, tasks, subjects, sessions,
+            goals, tasks, subjects, sessions, coachSessions,
             addGoal, updateGoal, deleteGoal,
             addTask, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
             addSubject, updateSubject, deleteSubject,
-            addSession, awardXP,
+            addSession, addCoachSession, awardXP,
             notes, addNote, updateNote, deleteNote,
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
             flashcards, addFlashcard, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
