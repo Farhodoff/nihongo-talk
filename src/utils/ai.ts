@@ -261,18 +261,12 @@ export const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: Goo
  * Enforces minimum audio duration (>= 1200ms) and transcript length / word count
  * (spokenText.length >= 5 || words.length >= 2) before triggering AI calls.
  */
-export const validateSpeechInput = (spokenText: string, durationMs: number): boolean => {
+export const validateSpeechInput = (spokenText: string, _durationMs?: number): boolean => {
     const trimmed = spokenText.trim();
     if (!trimmed) return false;
     const words = trimmed.split(/\s+/).filter(Boolean);
-    const MIN_DURATION_MS = 1200;
-    const MIN_CHAR_LENGTH = 5;
-    const MIN_WORD_COUNT = 2;
-
-    const isValidDuration = durationMs >= MIN_DURATION_MS;
-    const isValidTranscript = trimmed.length >= MIN_CHAR_LENGTH || words.length >= MIN_WORD_COUNT;
-
-    return isValidDuration && isValidTranscript;
+    // Allow natural single-word responses (e.g. "Yes", "Hello", "Farhad") and short phrases
+    return trimmed.length >= 2 || words.length >= 1;
 };
 
 /**

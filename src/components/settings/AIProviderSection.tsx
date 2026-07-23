@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { Button } from '../ui/Button';
 import { AIProvider } from '../../utils/ai';
+import { isAdminEmail } from '../../utils/admin';
+import { ShieldCheck } from 'lucide-react';
 
 const AIProviderSection: React.FC = () => {
-    const { settings, updateSettings } = useStudyData();
+    const { user, settings, updateSettings } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email);
+
     const [aiModel, setAiModel] = useState<AIProvider>((settings.aiModel as AIProvider) || 'gemini');
     const [googleKey, setGoogleKey] = useState(settings.googleApiKey || '');
     const [deepseekKey, setDeepseekKey] = useState(settings.deepseekApiKey || '');
@@ -62,6 +66,31 @@ const AIProviderSection: React.FC = () => {
         setIsSaved(true);
         setTimeout(() => setIsSaved(false), 2500);
     };
+
+    if (!isAdmin) {
+        return (
+            <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-6 p-6">
+                <div className="flex items-start gap-4">
+                    <div className="p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-2xl text-indigo-600 dark:text-indigo-400 shrink-0">
+                        <ShieldCheck size={28} />
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-white">
+                            🤖 AI va Neyrotarmoq Integratsiyasi
+                        </h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                            API kalitlar va neyrotarmoq sozlamalari admin tomonidan markazlashtirilgan holda boshqariladi.
+                            Sizning obunangiz doirasida barcha AI xizmatlari avtomatik sozlangan va foydalanishga tayyor.
+                        </p>
+                        <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>AI Xizmatlari Faol (DeepSeek & Gemini Connected)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-6">

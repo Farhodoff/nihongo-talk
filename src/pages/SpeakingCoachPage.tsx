@@ -8,6 +8,7 @@ import {
 import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
+import { isAdminEmail } from '../utils/admin';
 import AudioVisualizer from '../components/speaking/AudioVisualizer';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 
@@ -185,7 +186,7 @@ const SpeakingCoachPage: React.FC = () => {
     const [showProModal, setShowProModal] = useState(false);
     const [proModalReason, setProModalReason] = useState('');
 
-    const { settings, updateSettings, addCoachSession } = useStudyData();
+    const { user, settings, updateSettings, addCoachSession } = useStudyData();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
@@ -195,6 +196,7 @@ const SpeakingCoachPage: React.FC = () => {
     const synthRef = useRef<SpeechSynthesis | null>(null);
     const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
     const transcriptBufferRef = useRef('');
+    const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const speechStartTimeRef = useRef<number>(0);
     const isProcessingRef = useRef(false);
     const isLiveSessionRef = useRef(false);
@@ -247,7 +249,7 @@ const SpeakingCoachPage: React.FC = () => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             recognitionRef.current = new SpeechRecognition();
-            recognitionRef.current.continuous = false;
+            recognitionRef.current.continuous = true;
             recognitionRef.current.interimResults = true;
             recognitionRef.current.maxAlternatives = 3;
 
@@ -278,6 +280,18 @@ const SpeakingCoachPage: React.FC = () => {
                 }
                 setCurrentTranscript(interimTranscript);
                 transcriptBufferRef.current = interimTranscript;
+
+                // Debounce turn submission: wait 1400ms after user stops speaking before ending speech turn
+                if (silenceTimerRef.current) {
+                    clearTimeout(silenceTimerRef.current);
+                }
+                silenceTimerRef.current = setTimeout(() => {
+                    if (isLiveSessionRef.current && !isProcessingRef.current && transcriptBufferRef.current.trim().length > 0) {
+                        try {
+                            recognitionRef.current?.stop();
+                        } catch (e) {}
+                    }
+                }, 1400);
             };
 
             recognitionRef.current.onerror = (event: any) => {
@@ -291,11 +305,14 @@ const SpeakingCoachPage: React.FC = () => {
 
             recognitionRef.current.onend = () => {
                 setIsListening(false);
+                if (silenceTimerRef.current) {
+                    clearTimeout(silenceTimerRef.current);
+                    silenceTimerRef.current = null;
+                }
                 const spokenText = transcriptBufferRef.current.trim();
                 const duration = speechStartTimeRef.current > 0 ? Date.now() - speechStartTimeRef.current : 0;
                 speechStartTimeRef.current = 0;
 
-                const words = spokenText.split(/\s+/).filter(Boolean);
                 const isValid = validateSpeechInput(spokenText, duration);
 
                 if (isLiveSessionRef.current && !isProcessingRef.current) {
@@ -304,14 +321,6 @@ const SpeakingCoachPage: React.FC = () => {
                         setCurrentTranscript('');
                         handleSendUserText(spokenText);
                     } else {
-                        if (spokenText.length > 0) {
-                            console.debug('[Speech Safeguard] Discarding short speech input / noise:', {
-                                spokenText,
-                                durationMs: duration,
-                                charLength: spokenText.length,
-                                wordCount: words.length
-                            });
-                        }
                         transcriptBufferRef.current = '';
                         setCurrentTranscript('');
                         setTimeout(() => {
@@ -1211,21 +1220,23 @@ const SpeakingCoachPage: React.FC = () => {
                                 </select>
                             </div>
 
-                            <div>
-                                <label className="block font-bold text-gray-700 dark:text-gray-300 mb-2 text-xs">
-                                    Coach uchun Alohida API Key (Optional)
-                                </label>
-                                <input
-                                    type="password"
-                                    value={coachApiKey}
-                                    onChange={(e) => setCoachApiKey(e.target.value)}
-                                    placeholder="AI Studio'dan olingan kalit..."
-                                    className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                                />
-                                <p className="text-[11px] text-gray-400 mt-1.5">
-                                    Bo'sh qoldirsangiz, ilovaning umumiy API kaliti ishlatiladi.
-                                </p>
-                            </div>
+                            {isAdminEmail(user?.email) && (
+                                <div>
+                                    <label className="block font-bold text-gray-700 dark:text-gray-300 mb-2 text-xs">
+                                        Coach uchun Alohida API Key (Admin Only)
+                                    </label>
+                                    <input
+                                        type="password"
+                                        value={coachApiKey}
+                                        onChange={(e) => setCoachApiKey(e.target.value)}
+                                        placeholder="AI Studio'dan olingan kalit..."
+                                        className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                    />
+                                    <p className="text-[11px] text-gray-400 mt-1.5">
+                                        Bo'sh qoldirsangiz, ilovaning umumiy API kaliti ishlatiladi.
+                                    </p>
+                                </div>
+                            )}
 
                             <button
                                 onClick={handleSaveSettings}
