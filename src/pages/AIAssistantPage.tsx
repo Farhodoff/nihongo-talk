@@ -18,6 +18,8 @@ import mermaid from 'mermaid';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { CVCreatorTab } from '../components/CVCreator/CVCreatorTab';
 
+import { isAdminEmail } from '../utils/admin';
+
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 mermaid.initialize({
@@ -38,9 +40,17 @@ interface InterviewMessage {
 
 const AIAssistantPage: React.FC = () => {
     const location = useLocation();
-    const { subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP } = useStudyData();
+    const { user, subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email);
+
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>(location.state?.subjectId || '');
     const [activeTab, setActiveTab] = useState<ActiveTab>(location.state?.tab || 'chat');
+
+    useEffect(() => {
+        if (!isAdmin && activeTab === 'interview') {
+            setActiveTab('chat');
+        }
+    }, [isAdmin, activeTab]);
 
     // ==========================================
     // 1. CHAT TAB LOGIC
@@ -576,14 +586,16 @@ const AIAssistantPage: React.FC = () => {
                         >
                             <BrainCircuit size={16} /> Aqliy Xarita
                         </button>
-                        <button
-                            onClick={() => setActiveTab('interview')}
-                            className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
-                                activeTab === 'interview' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                            }`}
-                        >
-                            <Briefcase size={16} /> IT Interview (🇯🇵)
-                        </button>
+                        {isAdmin && (
+                            <button
+                                onClick={() => setActiveTab('interview')}
+                                className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
+                                    activeTab === 'interview' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                                }`}
+                            >
+                                <Briefcase size={16} /> IT Interview (🇯🇵)
+                            </button>
+                        )}
                         <button
                             onClick={() => setActiveTab('cv')}
                             className={`flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
@@ -817,7 +829,7 @@ const AIAssistantPage: React.FC = () => {
                         )}
 
                         {/* 4. IT INTERVIEW TAB */}
-                        {activeTab === 'interview' && (
+                        {activeTab === 'interview' && isAdmin && (
                             <div className="h-full flex flex-col bg-white dark:bg-gray-900">
                                 <div className="flex-none p-4 border-b border-border flex items-center justify-between">
                                     <div className="flex items-center gap-3">
