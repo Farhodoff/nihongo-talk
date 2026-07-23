@@ -1803,8 +1803,8 @@ export const generateAITimetable = async (
 
 export const translateTextToUzbek = async (text: string): Promise<string> => {
     const prompt = `
-      Translate the following English or Japanese text into clear, natural Uzbek (O'zbek tili).
-      Return ONLY the Uzbek translation without explanations or quotation marks.
+      Translate the following text into clear, natural Uzbek (O'zbek tili).
+      Return ONLY the Uzbek translation without explanations, markdown, or quotation marks.
 
       Text to translate:
       "${text}"
@@ -1812,15 +1812,43 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
 
     try {
         const config = getAIConfig();
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
+        let provider = config.coachAiModel || config.provider || 'deepseek';
 
-        const translation = (await result.response).text().trim();
-        return translation.replace(/^["']|["']$/g, '');
+        // 1. Try DeepSeek if selected or sk- key present
+        if (provider === 'deepseek' || (config.deepseekKey && config.deepseekKey.startsWith('sk-'))) {
+            try {
+                const dsKey = config.deepseekKey || config.coachApiKey;
+                const dsResult = await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                if (dsResult) return dsResult.trim().replace(/^["']|["']$/g, '');
+            } catch (e) {
+                console.warn("[Translate Fallback] DeepSeek failed, attempting Gemini...", e);
+            }
+        }
+
+        // 2. Try Gemini
+        const geminiKeyToUse = config.geminiKey 
+            || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+
+        if (geminiKeyToUse) {
+            try {
+                const result = await requestWithRetry((genAI) => {
+                    const ai = genAI || getGenAI(geminiKeyToUse);
+                    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    return model.generateContent(prompt);
+                }, 2, 1000, geminiKeyToUse) as any;
+
+                const translation = (await result.response).text().trim();
+                if (translation) return translation.replace(/^["']|["']$/g, '');
+            } catch (err) {
+                console.warn("[Translate Fallback] Gemini failed, attempting DeepSeek...", err);
+            }
+        }
+
+        // 3. Fallback DeepSeek backend proxy / key
+        const fallbackDsResult = await callDeepSeek(prompt, config.coachApiKey || config.deepseekKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+        if (fallbackDsResult) return fallbackDsResult.trim().replace(/^["']|["']$/g, '');
+
+        throw new Error("API keys unavailable for translation");
     } catch (err) {
         console.error("Translation Error:", err);
         return "Tarjima qilishda xatolik yuz berdi.";
