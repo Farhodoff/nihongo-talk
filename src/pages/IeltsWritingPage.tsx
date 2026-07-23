@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight } from 'lucide-react';
-import { evaluateIeltsEssay, IeltsEssayEvaluationReport } from '../utils/ai';
+import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown } from 'lucide-react';
+import { evaluateIeltsEssay, IeltsEssayEvaluationReport, isAIKeyConfigured } from '../utils/ai';
+import { useSubscription } from '../hooks/useSubscription';
 
 const SAMPLE_PROMPTS = {
     task1: [
@@ -14,6 +15,9 @@ const SAMPLE_PROMPTS = {
 };
 
 const IeltsWritingPage: React.FC = () => {
+    const { subscription } = useSubscription();
+    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium' || isAIKeyConfigured();
+
     const [taskType, setTaskType] = useState<'task1' | 'task2'>('task2');
     const [promptQuestion, setPromptQuestion] = useState(SAMPLE_PROMPTS.task2[0]);
     const [essayText, setEssayText] = useState('');
@@ -387,23 +391,58 @@ const IeltsWritingPage: React.FC = () => {
 
                             {/* Tab 3: Model Answer */}
                             {activeTab === 'model' && (
-                                <div className="bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm space-y-4">
+                                <div className="bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm space-y-4 relative overflow-hidden">
                                     <div className="flex justify-between items-center">
                                         <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
                                             <Sparkles size={16} className="text-amber-500" />
                                             Band 8.0/9.0 Model Answer
+                                            {!isPaidUser && (
+                                                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                                    <Crown size={12} /> PRO Exclusive
+                                                </span>
+                                            )}
                                         </h4>
-                                        <button
-                                            onClick={handleCopyModelAnswer}
-                                            className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all"
-                                        >
-                                            {copied ? <Check size={14} /> : <Copy size={14} />}
-                                            <span>{copied ? "Nusxalandi!" : "Nusxalash"}</span>
-                                        </button>
+                                        {isPaidUser && (
+                                            <button
+                                                onClick={handleCopyModelAnswer}
+                                                className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all"
+                                            >
+                                                {copied ? <Check size={14} /> : <Copy size={14} />}
+                                                <span>{copied ? "Nusxalandi!" : "Nusxalash"}</span>
+                                            </button>
+                                        )}
                                     </div>
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-900/60 rounded-2xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap border border-gray-100 dark:border-gray-800">
-                                        {report.modelAnswerBand8}
-                                    </div>
+
+                                    {isPaidUser ? (
+                                        <div className="p-4 bg-gray-50 dark:bg-gray-900/60 rounded-2xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap border border-gray-100 dark:border-gray-800">
+                                            {report.modelAnswerBand8}
+                                        </div>
+                                    ) : (
+                                        <div className="relative">
+                                            <div className="p-6 bg-gray-50 dark:bg-gray-900/60 rounded-2xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap border border-gray-100 dark:border-gray-800 blur-sm select-none">
+                                                {report.modelAnswerBand8.substring(0, 150)}...
+                                                {"\n\n"}This high-band model answer demonstrates advanced lexical resource, cohesive devices, complex grammatical structures, and expert paragraph planning tailored specifically for your target IELTS Band score...
+                                            </div>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 to-transparent dark:from-slate-900/95 dark:via-slate-900/80 rounded-2xl flex flex-col items-center justify-center p-6 text-center space-y-3">
+                                                <div className="p-3 bg-amber-500 text-white rounded-2xl shadow-lg shadow-amber-500/30">
+                                                    <Crown size={24} />
+                                                </div>
+                                                <h5 className="text-base font-bold text-gray-900 dark:text-white">Band 8.0 Model Answer Bekindi</h5>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400 max-w-sm">
+                                                    AI yaratgan ekspert namuna inshoni to'liq o'qish va nusxalash uchun PRO yoki Premium tarifga o'ting.
+                                                </p>
+                                                <button
+                                                    onClick={() => {
+                                                        const text = encodeURIComponent('Assalom aleykum. Men IELTS Writing Band 8.0 Model Answer uchun PRO obuna olmoqchiman');
+                                                        window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
+                                                    }}
+                                                    className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-orange-500/25 hover:from-amber-600 hover:to-orange-600 transition-all"
+                                                >
+                                                    PRO Obunaga O'tish ($5 / oy)
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>

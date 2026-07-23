@@ -3,10 +3,11 @@ import {
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
     Settings as SettingsIcon, X, Sparkles, Flame, GraduationCap, Briefcase, 
     Play, Cpu, Compass, Coffee, ShieldAlert, Check, Copy, HeartPulse, RotateCcw,
-    Radio, MessageCircle
+    Radio, MessageCircle, Crown
 } from 'lucide-react';
-import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek } from '../utils/ai';
+import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useSubscription } from '../hooks/useSubscription';
 import AudioVisualizer from '../components/speaking/AudioVisualizer';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 
@@ -178,6 +179,11 @@ const SpeakingCoachPage: React.FC = () => {
     const [isReportOpen, setIsReportOpen] = useState(false);
     const [isReportLoading, setIsReportLoading] = useState(false);
     const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
+
+    const { subscription } = useSubscription();
+    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium' || isAIKeyConfigured();
+    const [showProModal, setShowProModal] = useState(false);
+    const [proModalReason, setProModalReason] = useState('');
 
     const { settings, updateSettings, addCoachSession } = useStudyData();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -668,6 +674,12 @@ const SpeakingCoachPage: React.FC = () => {
         const msg = chatHistory[idx];
         if (!msg || msg.role !== 'assistant') return;
 
+        if (!isPaidUser) {
+            setProModalReason("🇺🇿 Real-time O'zbekcha tarjima va subtitr funksiyasidan foydalanish uchun PRO yoki Premium obunaga o'ting.");
+            setShowProModal(true);
+            return;
+        }
+
         if (msg.translation) {
             setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: !m.showTranslation } : m));
             return;
@@ -776,21 +788,40 @@ const SpeakingCoachPage: React.FC = () => {
                                         const p = PERSONAS[pKey];
                                         const Icon = p.icon;
                                         const isSelected = persona === pKey;
+                                        const isLocked = !isPaidUser && pKey !== 'casual';
                                         return (
                                             <button
                                                 key={pKey}
-                                                onClick={() => { setPersona(pKey); setShowPersonaSelector(false); }}
+                                                onClick={() => {
+                                                    if (isLocked) {
+                                                        setProModalReason(`"${p.name}" rejimi va IELTS Examiner Imtihonchi personasidan foydalanish uchun PRO yoki Premium obunaga o'ting.`);
+                                                        setShowProModal(true);
+                                                        setShowPersonaSelector(false);
+                                                        return;
+                                                    }
+                                                    setPersona(pKey);
+                                                    setShowPersonaSelector(false);
+                                                }}
                                                 className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left ${
                                                     isSelected 
                                                     ? `bg-gradient-to-r ${p.color} text-white shadow-md` 
+                                                    : isLocked
+                                                    ? 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/50 opacity-80'
                                                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                                 }`}
                                             >
                                                 <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-white/20' : 'bg-gray-100 dark:bg-gray-800'}`}>
                                                     <Icon size={16} />
                                                 </div>
-                                                <div className="min-w-0">
-                                                    <div className="text-xs font-bold truncate">{p.name}</div>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="text-xs font-bold truncate flex items-center gap-1.5">
+                                                        {p.name}
+                                                        {isLocked && (
+                                                            <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                                                                <Crown size={10} /> PRO
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                     <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
                                                 </div>
                                                 {isSelected && <Check size={14} className="ml-auto shrink-0" />}
@@ -1215,6 +1246,58 @@ const SpeakingCoachPage: React.FC = () => {
                 isLoading={isReportLoading}
                 personaTitle={PERSONAS[persona].name}
             />
+
+            {/* PRO Upgrade Modal */}
+            {showProModal && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative text-center space-y-5">
+                        <button 
+                            onClick={() => setShowProModal(false)}
+                            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-full"
+                        >
+                            <X size={20} />
+                        </button>
+                        
+                        <div className="w-16 h-16 bg-gradient-to-tr from-amber-400 to-orange-500 rounded-2xl mx-auto flex items-center justify-center text-white shadow-lg shadow-orange-500/30">
+                            <Crown size={32} />
+                        </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">👑 PRO Obuna Kerak</h3>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
+                                {proModalReason || "Ushbu eksklyuziv funksiyadan foydalanish uchun PRO yoki Premium obunaga o'ting."}
+                            </p>
+                        </div>
+
+                        <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/40 rounded-2xl p-4 text-left space-y-2 text-xs text-orange-900 dark:text-orange-200 font-medium">
+                            <div className="flex items-center gap-2 font-bold text-orange-600 dark:text-orange-400">
+                                🌟 PRO Obuna Imkoniyatlari:
+                            </div>
+                            <div>• 🎓 Barcha 6 ta Speaking Personalar (IELTS Examiner, Roast Coach)</div>
+                            <div>• 🇺🇿 Real-time O'zbekcha Subtitr va Tarjima</div>
+                            <div>• ✍️ IELTS Writing Band 8.0 Model Answers</div>
+                        </div>
+
+                        <div className="flex flex-col gap-2 pt-2">
+                            <button
+                                onClick={() => {
+                                    const text = encodeURIComponent('Assalom aleykum. Men PRO obuna sotib olmoqchiman');
+                                    window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
+                                }}
+                                className="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all"
+                            >
+                                Sotib Olish ($5 / oy)
+                            </button>
+                            <button
+                                onClick={() => setShowProModal(false)}
+                                className="w-full py-2.5 text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 font-medium"
+                            >
+                                Yopish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
