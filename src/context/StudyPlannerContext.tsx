@@ -431,6 +431,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
 
     useEffect(() => {
+        if (appSettings.notificationsEnabled) {
+            notificationManager.requestPermission().then(granted => {
+                if (granted) {
+                    notificationManager.startInactivityTracker(10);
+                }
+            });
+        }
+
         const interval = setInterval(() => {
             if (!appSettings.notificationsEnabled || Notification.permission !== 'granted') return;
 

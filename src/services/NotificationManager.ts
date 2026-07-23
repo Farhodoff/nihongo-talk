@@ -79,6 +79,45 @@ export class NotificationManager {
         });
     }
 
+    startInactivityTracker(inactivityMinutes: number = 10) {
+        if (typeof window === 'undefined') return;
+
+        let lastActivityTime = Date.now();
+        const updateActivity = () => {
+            lastActivityTime = Date.now();
+        };
+
+        // Track user interactions
+        window.addEventListener('mousemove', updateActivity);
+        window.addEventListener('keydown', updateActivity);
+        window.addEventListener('click', updateActivity);
+        window.addEventListener('touchstart', updateActivity);
+
+        // Check inactivity every 2 minutes
+        window.setInterval(() => {
+            const idleTimeMinutes = (Date.now() - lastActivityTime) / (1000 * 60);
+            
+            // Check if user has been idle or hasn't started focus session
+            if (idleTimeMinutes >= inactivityMinutes) {
+                const messages = [
+                    "Hey! Dars qilmayapsan 📚 Focus taymerini yoqishni unutmang!",
+                    "Hoy o'quvchi! IELTS maqsadlaringiz sizni kutmoqda 🎯 Qani darsga!",
+                    "Vaqt o'tyapti! Bugungi rejadagi topshiriqlarni yakunlab qo'yaylik 🚀",
+                    "Ozroq diqqatni jamlab, 25 daqiqalik Pomodoro seansini boshlaymizmi? ⏱️"
+                ];
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+
+                this.sendNotification("Hey, dars qilmayapsan! 📚", {
+                    body: randomMsg,
+                    requireInteraction: true
+                });
+
+                // Reset timer so it doesn't spam every minute
+                lastActivityTime = Date.now();
+            }
+        }, 120000);
+    }
+
     stopMonitoring() {
         if (this.checkInterval) {
             clearInterval(this.checkInterval);
