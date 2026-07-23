@@ -187,6 +187,7 @@ const SpeakingCoachPage: React.FC = () => {
     const [proModalReason, setProModalReason] = useState('');
 
     const { user, settings, updateSettings, addCoachSession } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
@@ -797,11 +798,19 @@ const SpeakingCoachPage: React.FC = () => {
                                         const p = PERSONAS[pKey];
                                         const Icon = p.icon;
                                         const isSelected = persona === pKey;
-                                        const isLocked = !isPaidUser && pKey !== 'casual';
+                                        const isAdminOnly = (pKey === 'interview' && language === 'ja');
+                                        const isLocked = isAdminOnly ? !isAdmin : (!isPaidUser && pKey !== 'casual');
+                                        
                                         return (
                                             <button
                                                 key={pKey}
                                                 onClick={() => {
+                                                    if (isAdminOnly && !isAdmin) {
+                                                        setProModalReason(`🔒 Japanese IT Mock Interview (🇯🇵 IT 面接官) rejimi faqat Admin uchun eksklyuziv ravishda ochiq.`);
+                                                        setShowProModal(true);
+                                                        setShowPersonaSelector(false);
+                                                        return;
+                                                    }
                                                     if (isLocked) {
                                                         setProModalReason(`"${p.name}" rejimi va IELTS Examiner Imtihonchi personasidan foydalanish uchun PRO yoki Premium obunaga o'ting.`);
                                                         setShowProModal(true);
@@ -825,11 +834,15 @@ const SpeakingCoachPage: React.FC = () => {
                                                 <div className="min-w-0 flex-1">
                                                     <div className="text-xs font-bold truncate flex items-center gap-1.5">
                                                         {p.name}
-                                                        {isLocked && (
+                                                        {isAdminOnly && !isAdmin ? (
+                                                            <span className="bg-purple-500/20 text-purple-600 dark:text-purple-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                                                                🔒 Admin
+                                                            </span>
+                                                        ) : isLocked ? (
                                                             <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
                                                                 <Crown size={10} /> PRO
                                                             </span>
-                                                        )}
+                                                        ) : null}
                                                     </div>
                                                     <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
                                                 </div>
