@@ -721,6 +721,12 @@ const SpeakingCoachPage: React.FC = () => {
         setTimeout(() => setCopiedIndex(null), 2000);
     };
 
+    useEffect(() => {
+        if (!isAdmin && language === 'ja' && persona === 'interview') {
+            setPersona('casual');
+        }
+    }, [isAdmin, language, persona]);
+
     const PERSONAS = PERSONAS_BY_LANG[language];
     const PROMPT_SUGGESTIONS = PROMPT_SUGGESTIONS_BY_LANG[language];
     const ActivePersonaIcon = PERSONAS[persona].icon;
@@ -794,62 +800,53 @@ const SpeakingCoachPage: React.FC = () => {
                                 <div className="fixed inset-0 z-40" onClick={() => setShowPersonaSelector(false)} />
                                 <div className="absolute right-0 top-full mt-2 z-50 w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-2xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
                                     <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Persona tanlang</div>
-                                    {(Object.keys(PERSONAS) as CoachPersona[]).map(pKey => {
-                                        const p = PERSONAS[pKey];
-                                        const Icon = p.icon;
-                                        const isSelected = persona === pKey;
-                                        const isAdminOnly = (pKey === 'interview' && language === 'ja');
-                                        const isLocked = isAdminOnly ? !isAdmin : (!isPaidUser && pKey !== 'casual');
-                                        
-                                        return (
-                                            <button
-                                                key={pKey}
-                                                onClick={() => {
-                                                    if (isAdminOnly && !isAdmin) {
-                                                        setProModalReason(`🔒 Japanese IT Mock Interview (🇯🇵 IT 面接官) rejimi faqat Admin uchun eksklyuziv ravishda ochiq.`);
-                                                        setShowProModal(true);
+                                    {(Object.keys(PERSONAS) as CoachPersona[])
+                                        .filter(pKey => !(pKey === 'interview' && language === 'ja' && !isAdmin))
+                                        .map(pKey => {
+                                            const p = PERSONAS[pKey];
+                                            const Icon = p.icon;
+                                            const isSelected = persona === pKey;
+                                            const isLocked = !isPaidUser && pKey !== 'casual';
+                                            
+                                            return (
+                                                <button
+                                                    key={pKey}
+                                                    onClick={() => {
+                                                        if (isLocked) {
+                                                            setProModalReason(`"${p.name}" rejimi va IELTS Examiner Imtihonchi personasidan foydalanish uchun PRO yoki Premium obunaga o'ting.`);
+                                                            setShowProModal(true);
+                                                            setShowPersonaSelector(false);
+                                                            return;
+                                                        }
+                                                        setPersona(pKey);
                                                         setShowPersonaSelector(false);
-                                                        return;
-                                                    }
-                                                    if (isLocked) {
-                                                        setProModalReason(`"${p.name}" rejimi va IELTS Examiner Imtihonchi personasidan foydalanish uchun PRO yoki Premium obunaga o'ting.`);
-                                                        setShowProModal(true);
-                                                        setShowPersonaSelector(false);
-                                                        return;
-                                                    }
-                                                    setPersona(pKey);
-                                                    setShowPersonaSelector(false);
-                                                }}
-                                                className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left ${
-                                                    isSelected 
-                                                    ? `bg-gradient-to-r ${p.color} text-white shadow-md` 
-                                                    : isLocked
-                                                    ? 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/50 opacity-80'
-                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                                                }`}
-                                            >
-                                                <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-white/20' : 'bg-gray-100 dark:bg-gray-800'}`}>
-                                                    <Icon size={16} />
-                                                </div>
-                                                <div className="min-w-0 flex-1">
-                                                    <div className="text-xs font-bold truncate flex items-center gap-1.5">
-                                                        {p.name}
-                                                        {isAdminOnly && !isAdmin ? (
-                                                            <span className="bg-purple-500/20 text-purple-600 dark:text-purple-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                                                                🔒 Admin
-                                                            </span>
-                                                        ) : isLocked ? (
-                                                            <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                                                                <Crown size={10} /> PRO
-                                                            </span>
-                                                        ) : null}
+                                                    }}
+                                                    className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left ${
+                                                        isSelected 
+                                                        ? `bg-gradient-to-r ${p.color} text-white shadow-md` 
+                                                        : isLocked
+                                                        ? 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/50 opacity-80'
+                                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                                    }`}
+                                                >
+                                                    <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-white/20' : 'bg-gray-100 dark:bg-gray-800'}`}>
+                                                        <Icon size={16} />
                                                     </div>
-                                                    <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
-                                                </div>
-                                                {isSelected && <Check size={14} className="ml-auto shrink-0" />}
-                                            </button>
-                                        );
-                                    })}
+                                                    <div className="min-w-0 flex-1">
+                                                        <div className="text-xs font-bold truncate flex items-center gap-1.5">
+                                                            {p.name}
+                                                            {isLocked && (
+                                                                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                                                                    <Crown size={10} /> PRO
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
+                                                    </div>
+                                                    {isSelected && <Check size={14} className="ml-auto shrink-0" />}
+                                                </button>
+                                            );
+                                        })}
                                 </div>
                             </>
                         )}
