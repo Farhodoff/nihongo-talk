@@ -1,11 +1,12 @@
-import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Loader2, Volume2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { Flashcard } from '../types';
 import { supabase } from '../lib/supabase';
-import { calculateSM2 } from '../utils/spacedRepetition';
+import { calculateSM2 } from '../utils/sm2';
+import { speakText } from '../utils/audioTts';
 
 enum Rating {
     AGAIN = 1,
@@ -18,7 +19,6 @@ const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
     const navigate = useNavigate();
 
-    // To'g'ri nomlangan hook va undan olingan qiymatlar
     const { flashcards, reviewFlashcard, loading } = useStudyData();
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
@@ -27,36 +27,44 @@ const StudyModePage: React.FC = () => {
     const [isFinished, setIsFinished] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [totalXpEarned, setTotalXpEarned] = useState(0);
+    const [accent, setAccent] = useState<'en-GB' | 'en-US'>('en-US');
 
     useEffect(() => {
         if (subjectId && flashcards.length > 0) {
             const due = flashcards.filter((c: Flashcard) =>
                 c.subjectId === subjectId && new Date(c.nextReviewDate) <= new Date()
             );
-            // Agar bugungi kartalar bo'lmasa, hammasini o'qish uchun chiqarib berish (optional tweak)
-            // Hozircha faqat due kartalar
-            setQueue([...due].sort(() => Math.random() - 0.5).slice(0, 20));
+            // If no due cards, show all cards in subject for revision
+            const targetSet = due.length > 0 ? due : flashcards.filter((c: Flashcard) => c.subjectId === subjectId);
+            setQueue([...targetSet].sort(() => Math.random() - 0.5).slice(0, 20));
         }
     }, [subjectId, flashcards]);
 
     const currentCard = queue[currentCardIndex];
 
-    const handleRate = async (grade: number) => {
+    const handleSpeak = (e?: React.MouseEvent) => {
+        e?.stopPropagation();
+        if (currentCard?.front) {
+            speakText(currentCard.front, accent);
+        }
+    };
+
+    const handleRate = async (grade: Rating) => {
         if (!currentCard || isProcessing) return;
         setIsProcessing(true);
 
         try {
-            const sm2 = calculateSM2(
-                currentCard.interval || 0,
-                currentCard.easeFactor || 2.5,
-                currentCard.repetitions || 0,
-                grade as any
+            calculateSM2(
+                {
+                    interval: currentCard.interval || 1,
+                    repetitions: currentCard.repetitions || 0,
+                    easeFactor: currentCard.easeFactor || 2.5
+                },
+                grade
             );
-            console.log("SM-2 Next Review Date:", sm2.nextReviewDate);
 
             await reviewFlashcard(currentCard.id, grade);
 
-            // Edge Function orqali XP hisoblash (optional fallback)
             try {
                 const { data } = await supabase.functions.invoke('update-xp', {
                     body: { card_id: currentCard.id, rating: grade }
@@ -79,71 +87,115 @@ const StudyModePage: React.FC = () => {
         }
     };
 
-    if (loading) return <div className="flex justify-center p-20"><Loader2 className="animate-spin" /></div>;
+    if (loading) return <div className="flex justify-center p-20"><Loader2 className="animate-spin text-primary" /></div>;
 
     if (isFinished || (queue.length === 0 && !loading)) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-                <CheckCircle2 className="text-green-500 mb-4" size={48} />
-                <h2 className="text-2xl font-bold mb-2 text-foreground">Sessiya yakunlandi!</h2>
-                {totalXpEarned > 0 && <p className="text-primary font-bold mb-6">+{totalXpEarned} XP to'pladingiz</p>}
-                <Button onClick={() => navigate('/flashcards')}>Orqaga qaytish</Button>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
+                <div className="p-4 bg-emerald-500/10 rounded-full text-emerald-500 mb-4">
+                    <CheckCircle2 size={48} />
+                </div>
+                <h2 className="text-2xl font-black mb-2 text-foreground">Sessiya yakunlandi! 🎉</h2>
+                <p className="text-muted-foreground text-sm max-w-md mb-6">
+                    Barcha kartochkalar SuperMemo SM-2 algoritmi bo'yicha takrorlandi. Keyingi takrorlash sanasi avtomatik belgilandi.
+                </p>
+                {totalXpEarned > 0 && <p className="text-primary font-extrabold text-lg mb-6">+{totalXpEarned} XP to'pladingiz</p>}
+                <Button onClick={() => navigate('/flashcards')} className="px-8 py-3 font-bold rounded-xl">Orqaga Qaytish</Button>
             </div>
         );
     }
 
     return (
-        <div className="max-w-7xl mx-auto p-4 md:p-8">
-            <div className="flex items-center justify-between mb-8">
-                <button onClick={() => navigate('/flashcards')} className="text-muted-foreground hover:text-foreground transition-colors"><ArrowLeft /></button>
-                <span className="text-sm font-bold text-primary">{currentCardIndex + 1} / {queue.length}</span>
+        <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-6">
+            <div className="flex items-center justify-between">
+                <button onClick={() => navigate('/flashcards')} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
+                    <ArrowLeft size={20} />
+                </button>
+                <div className="flex items-center gap-3">
+                    {/* Accent Switcher */}
+                    <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-xl border border-border">
+                        <button
+                            onClick={() => setAccent('en-US')}
+                            className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-US' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                        >
+                            🇺🇸 US
+                        </button>
+                        <button
+                            onClick={() => setAccent('en-GB')}
+                            className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-GB' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                        >
+                            🇬🇧 UK
+                        </button>
+                    </div>
+
+                    <span className="text-xs font-black text-primary px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
+                        {currentCardIndex + 1} / {queue.length}
+                    </span>
+                </div>
             </div>
 
-
             {/* Professional 3D Flip Card */}
-            <div className="perspective-1000 h-96 mb-8">
-                <div
-                    className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}
-                >
+            <div className="perspective-1000 h-96 cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
+                <div className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                     {/* Front Side */}
-                    <div className="absolute inset-0 backface-hidden glass-card border border-border bg-background/50 backdrop-blur-xl rounded-3xl shadow-2xl flex items-center justify-center p-12">
-                        <div className="text-center">
-                            <p className="text-4xl font-bold text-foreground mb-4">{currentCard?.front}</p>
-                            <p className="text-sm text-muted-foreground mt-8">Kartani bosib javobni ko'ring</p>
+                    <div className="absolute inset-0 backface-hidden glass-card border border-border bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl flex flex-col justify-between p-8">
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleSpeak}
+                                title="Talaffuzni eshitish"
+                                className="p-3 bg-primary/10 hover:bg-primary/20 text-primary rounded-2xl transition-all shadow-sm active:scale-95"
+                            >
+                                <Volume2 size={24} />
+                            </button>
                         </div>
+                        <div className="text-center my-auto">
+                            <p className="text-4xl font-extrabold text-foreground tracking-tight">{currentCard?.front}</p>
+                        </div>
+                        <p className="text-xs text-center text-muted-foreground font-medium">Kartani bosing — Javobni ko'rish</p>
                     </div>
 
                     {/* Back Side */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-primary to-primary/80 rounded-3xl shadow-2xl flex items-center justify-center p-12">
-                        <div className="text-center text-primary-foreground">
-                            <p className="text-3xl font-bold mb-4">{currentCard?.back}</p>
-                            {currentCard?.front && (
-                                <div className="mt-6 pt-6 border-t border-primary-foreground/20">
-                                    <p className="text-sm opacity-80 italic">Ma'lumot: {currentCard.front}</p>
-                                </div>
-                            )}
+                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl shadow-xl flex flex-col justify-between p-8 text-white">
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleSpeak}
+                                className="p-3 bg-white/20 hover:bg-white/30 text-white rounded-2xl transition-all active:scale-95"
+                            >
+                                <Volume2 size={24} />
+                            </button>
                         </div>
+                        <div className="text-center my-auto space-y-3">
+                            <p className="text-3xl font-black">{currentCard?.back}</p>
+                            <div className="pt-4 border-t border-white/20">
+                                <p className="text-sm font-semibold opacity-90">{currentCard?.front}</p>
+                            </div>
+                        </div>
+                        <p className="text-xs text-center opacity-75 font-medium">SuperMemo SM-2 bo'yicha baholang</p>
                     </div>
                 </div>
             </div>
 
-            <div className="mt-8">
+            <div>
                 {!isFlipped ? (
-                    <Button className="w-full py-4" onClick={() => setIsFlipped(true)}>Javobni ko'rish</Button>
+                    <Button className="w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-primary/20" onClick={() => setIsFlipped(true)}>
+                        Javobni ko'rish
+                    </Button>
                 ) : (
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
-                            { l: 'Bilmayman (❌)', v: Rating.AGAIN, c: 'bg-destructive/10 text-destructive border-destructive/20' },
-                            { l: 'Qiyin (😐)', v: Rating.HARD, c: 'bg-orange-500/10 text-orange-500 border-orange-500/20' },
-                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, c: 'bg-blue-500/10 text-blue-500 border-blue-500/20' },
-                            { l: 'Juda oson (😄)', v: Rating.EASY, c: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' }
+                            { l: 'Qayta (❌)', v: Rating.AGAIN, sub: '1 kun', c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
+                            { l: 'Qiyin (😐)', v: Rating.HARD, sub: '+2 kun', c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
+                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: '+5 kun', c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
+                            { l: 'Oson (😄)', v: Rating.EASY, sub: '+10 kun', c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
                         ].map(b => (
-                            <button key={b.v} onClick={() => handleRate(b.v)} className={`${b.c} p-4 rounded-2xl font-bold text-xs border hover:-translate-y-1 transition-all duration-200`}>
-                                {b.l}
-                                <br />
-                                <span className="text-[10px] opacity-70 font-normal">
-                                    {b.v === 1 ? '10 daq' : b.v === 2 ? '1 kun' : b.v === 3 ? '3 kun' : '7 kun'}
-                                </span>
+                            <button
+                                key={b.v}
+                                disabled={isProcessing}
+                                onClick={() => handleRate(b.v)}
+                                className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
+                            >
+                                <div>{b.l}</div>
+                                <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>
                             </button>
                         ))}
                     </div>

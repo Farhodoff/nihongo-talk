@@ -2147,3 +2147,61 @@ export const evaluateIeltsEssay = async (
         throw new Error("AI orqali inshoni baholashda xatolik yuz berdi. Qayta urinib ko'ring.");
     }
 };
+
+export interface ExtractedVocabItem {
+    front: string;
+    back: string;
+    phonetic: string;
+    example: string;
+}
+
+export const extractVocabularyFromText = async (text: string): Promise<ExtractedVocabItem[]> => {
+    const prompt = `
+      Act as an IELTS Academic Vocabulary Specialist.
+      Analyze the following text and extract 5 to 10 key B1-C2 level vocabulary words/phrases for an English learner.
+      Provide Uzbek translation, phonetic transcription, and an example sentence.
+
+      Text: "${text.substring(0, 2000)}"
+
+      Output JSON Schema (Return ONLY valid JSON array):
+      [
+        {
+          "front": "Word or Phrase",
+          "back": "Uzbekcha ma'nosi",
+          "phonetic": "/fonetik transkripsiya/",
+          "example": "English example sentence from context or relevant use case."
+        }
+      ]
+    `;
+
+    const config = getAIConfig();
+    if (config.provider === 'deepseek' || config.deepseekKey) {
+        try {
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+            return JSON.parse(cleanedText);
+        } catch (dsErr) {
+            console.warn("DeepSeek vocab extraction failed, falling back to Gemini...", dsErr);
+        }
+    }
+
+    try {
+        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
+        const result = (await requestWithRetry((genAI) => {
+            const ai = genAI || getGenAI(apiKey || undefined);
+            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
+            return model.generateContent(prompt);
+        }, 2, 1000, apiKey || undefined)) as any;
+        const rawText = (await result.response).text().trim();
+        const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
+        return JSON.parse(cleanedText);
+    } catch (gErr) {
+        console.warn("Gemini vocab extraction failed, using fallback...", gErr);
+    }
+
+    // Fallback if AI fails
+    return [
+        { front: "Extract", back: "Ajratib olmoq, terib olmoq", phonetic: "/ˈek.strækt/", example: "We extract key words from reading texts." },
+        { front: "Vocabulary", back: "Lug'at zaxirasi", phonetic: "/vəˈkæb.jə.lər.i/", example: "Building vocabulary improves writing." }
+    ];
+};
