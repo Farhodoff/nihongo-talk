@@ -104,18 +104,18 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                                     <Target size={18} className="text-indigo-500" />
                                     Joriy (Hozirgi taxminiy) IELTS Ballingiz:
                                 </label>
-                                <div className="grid grid-cols-5 gap-2">
-                                    {[4.5, 5.0, 5.5, 6.0, 6.5].map((b) => (
+                                <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
+                                    {[0, 4.5, 5.0, 5.5, 6.0, 6.5].map((b) => (
                                         <button
                                             key={b}
                                             onClick={() => setCurrentBand(b)}
-                                            className={`py-3 rounded-2xl font-extrabold text-sm border transition-all ${
+                                            className={`py-3 px-1 rounded-2xl font-extrabold text-xs border transition-all ${
                                                 currentBand === b
                                                     ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 scale-[1.02]'
                                                     : 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-indigo-300'
                                             }`}
                                         >
-                                            {b.toFixed(1)}
+                                            {b === 0 ? "🌱 0 Level (Noldan)" : b.toFixed(1)}
                                         </button>
                                     ))}
                                 </div>

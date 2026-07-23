@@ -70,7 +70,9 @@ export const IeltsHubPage: React.FC = () => {
                         <div className="lg:col-span-4 flex items-center justify-around lg:justify-end gap-6 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
                             <div className="text-center">
                                 <span className="text-xs text-slate-400 font-medium uppercase block">Joriy Ball</span>
-                                <span className="text-3xl font-extrabold text-slate-300">{userPlanData.currentBand.toFixed(1)}</span>
+                                <span className="text-2xl font-extrabold text-slate-300">
+                                    {userPlanData.currentBand === 0 ? "🌱 0 (Noldan)" : userPlanData.currentBand.toFixed(1)}
+                                </span>
                             </div>
                             <ArrowRight size={24} className="text-indigo-400" />
                             <div className="text-center">

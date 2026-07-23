@@ -1870,13 +1870,21 @@ export const generateIeltsStudyPlan = async (
     durationDays: number,
     weakSkill: string
 ): Promise<IeltsStudyPlanResult> => {
+    const isZeroLevel = currentBand === 0;
     const prompt = `
       Act as a Head IELTS Academic Master Coach.
       Generate a customized ${durationDays}-day IELTS Study Roadmap for a student with:
-      - Current Estimated Score: Band ${currentBand}
+      - Current Estimated Score: ${isZeroLevel ? "0 Level (Absolute Beginner A0/A1 - Starting from Scratch)" : `Band ${currentBand}`}
       - Target Score: Band ${targetBand}
       - Preparation Period: ${durationDays} days
       - Focus/Weakest Skill Area: ${weakSkill}
+
+      ${isZeroLevel ? `CRITICAL SPECIAL INSTRUCTION FOR 0 LEVEL (BEGINNER):
+      The student has 0 prior IELTS experience and starts from basic English (A0/A1).
+      Structure the 7-day representative schedule with a 3-Phase progression:
+      - Phase 1 (Foundation): Basic Grammar (Present/Past Tenses, Subject-Verb-Object), Essential 500 Daily English Words.
+      - Phase 2 (Pre-IELTS): Sentence Building, Paraphrasing, Intro to Listening & Speaking basics.
+      - Phase 3 (IELTS Prep): Intro to IELTS Task 1/2 Templates and basic Practice.` : ''}
 
       Requirements:
       1. Provide a motivating headline and Uzbek summary.
