@@ -76,15 +76,19 @@ const SubscriptionSection: React.FC = () => {
                         <ul className="space-y-3 mb-6 flex-1">
                             <li className="flex items-start gap-2 text-sm text-white">
                                 <CheckCircle2 className="w-4 h-4 text-indigo-300 shrink-0 mt-0.5" />
-                                <span>Oyiga 500 ta AI so'rovlari</span>
+                                <span>🎙️ <b>IELTS Speaking Examiner</b> (Part 1, 2, 3 simulyatsiyasi)</span>
                             </li>
                             <li className="flex items-start gap-2 text-sm text-white">
                                 <CheckCircle2 className="w-4 h-4 text-indigo-300 shrink-0 mt-0.5" />
-                                <span>DeepSeek-V4 Pro modeliga kirish</span>
+                                <span>✍️ <b>IELTS Writing Evaluator</b> (4 mezon & Band 8.0 namuna)</span>
                             </li>
                             <li className="flex items-start gap-2 text-sm text-white">
                                 <CheckCircle2 className="w-4 h-4 text-indigo-300 shrink-0 mt-0.5" />
-                                <span>Tezkor javob tezligi</span>
+                                <span>🎯 <b>30 Kunlik Shaxsiy IELTS AI Study Plan</b></span>
+                            </li>
+                            <li className="flex items-start gap-2 text-sm text-white">
+                                <CheckCircle2 className="w-4 h-4 text-indigo-300 shrink-0 mt-0.5" />
+                                <span>⚡️ <b>Oyiga 500 ta AI Mashg'ulot So'rovlari</b></span>
                             </li>
                         </ul>
 
@@ -109,15 +113,19 @@ const SubscriptionSection: React.FC = () => {
                         <ul className="space-y-3 mb-6 flex-1">
                             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
                                 <CheckCircle2 className="w-4 h-4 text-fuchsia-500 shrink-0 mt-0.5" />
-                                <span>Cheksiz AI so'rovlari</span>
+                                <span>🚀 <b>Cheksiz AI Mashg'ulotlari</b> (Hech qanday cheklovsiz)</span>
                             </li>
                             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
                                 <CheckCircle2 className="w-4 h-4 text-fuchsia-500 shrink-0 mt-0.5" />
-                                <span>Gemini 1.5 Pro model</span>
+                                <span>🇺🇿 <b>Nutqni Real-time O'zbekcha Tarjima Qilish</b></span>
                             </li>
                             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
                                 <CheckCircle2 className="w-4 h-4 text-fuchsia-500 shrink-0 mt-0.5" />
-                                <span>Shaxsiy ustoz maslahatlari</span>
+                                <span>🧠 <b>Smart Academic Vocabulary & Flashcards Builder</b></span>
+                            </li>
+                            <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
+                                <CheckCircle2 className="w-4 h-4 text-fuchsia-500 shrink-0 mt-0.5" />
+                                <span>👑 <b>Gemini 1.5 Pro va DeepSeek Top Modellariga Kirish</b></span>
                             </li>
                         </ul>
 
