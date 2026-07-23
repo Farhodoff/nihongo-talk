@@ -132,9 +132,9 @@ export const IeltsHubPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Tool 2: Speaking Examiner */}
+                {/* Tool 2: Speaking Full Mock Test */}
                 <div 
-                    onClick={() => navigate('/speaking-coach')}
+                    onClick={() => navigate('/ielts/speaking-mock')}
                     className="group bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
                 >
                     <div>
@@ -142,17 +142,17 @@ export const IeltsHubPage: React.FC = () => {
                             <Mic size={24} />
                         </div>
                         <span className="text-xs font-extrabold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2.5 py-1 rounded-md">
-                            Voice AI Simulator
+                            Official 3-Part Mock Test
                         </span>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-2 mb-1 group-hover:text-rose-600 transition-colors">
-                            IELTS Speaking Examiner
+                            IELTS Speaking Full Mock
                         </h3>
                         <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                            Part 1, Part 2 (Cue Card) va Part 3 bo'yicha jonli AI examiner bilan suhbatlashing va real baho oling.
+                            Part 1, Part 2 (Cue Card + 60s prep) va Part 3 bo'yicha to'liq imtihon va rasmiy Examiner report oling.
                         </p>
                     </div>
                     <div className="pt-6 flex items-center gap-2 text-xs font-bold text-rose-600 dark:text-rose-400">
-                        <span>Suhbatni Boshlash</span>
+                        <span>Testni Boshlash</span>
                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                 </div>

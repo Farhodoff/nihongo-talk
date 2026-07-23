@@ -33,6 +33,7 @@ const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
 const SpeakingCoachPage = lazy(() => import('./pages/SpeakingCoachPage'));
 const IeltsWritingPage = lazy(() => import('./pages/IeltsWritingPage'));
 const IeltsHubPage = lazy(() => import('./pages/IeltsHubPage'));
+const IeltsSpeakingMockPage = lazy(() => import('./pages/IeltsSpeakingMockPage'));
 
 // Loading component
 const PageLoader = () => (
@@ -97,6 +98,8 @@ const App: React.FC = () => {
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="ielts-writing" element={<IeltsWritingPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
+                                        <Route path="ielts/writing" element={<IeltsWritingPage />} />
+                                        <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />
