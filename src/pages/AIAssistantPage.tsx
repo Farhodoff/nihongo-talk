@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { chatWithAI, generateExamWithAI, generateMindMapWithAI, ChatMessage, ExamQuestion, getAIConfig } from '../utils/ai';
+import { chatWithAI, generateExamWithAI, generateMindMapWithAI, ChatMessage, ExamQuestion, getAIConfig, generateAIResponse } from '../utils/ai';
 import { callDeepSeek } from '../utils/deepseek';
 import { getJapaneseRecruiterPrompt, InterviewMode } from '../utils/interviewPrompts';
 import { 
@@ -467,15 +467,30 @@ const AIAssistantPage: React.FC = () => {
         try {
             const config = getAIConfig();
             const systemPrompt = getJapaneseRecruiterPrompt('', interviewMode);
-            let prompt = "これまでの会話履歴:\n";
+            let prompt = `${systemPrompt}\n\nこれまでの会話履歴:\n`;
             updatedMsgs.slice(-3).forEach(m => { prompt += `${m.role === 'user' ? '候補者' : '面接官'}: ${m.content}\n`; });
             prompt += "\n上記の文脈を踏まえ、面接官として候補者の最後の発言に対するフィードバックと、次の質問を行ってください。";
 
-            const aiResponseText = await callDeepSeek(prompt, config.deepseekKey, systemPrompt, false, config.deepseekModel || 'deepseek-chat', false);
+            let aiResponseText = '';
+            try {
+                // First try Gemini 2.0 Flash / general AI responder
+                aiResponseText = await generateAIResponse([{ role: 'user', content: prompt }]);
+            } catch {
+                // Fallback to DeepSeek if available
+                aiResponseText = await callDeepSeek(prompt, config.deepseekKey, systemPrompt, false, config.deepseekModel || 'deepseek-chat', false);
+            }
+
+            if (!aiResponseText || !aiResponseText.trim()) {
+                aiResponseText = 'ありがとうございます。ご回答を確認しました。これまでの実務経験について具体的に教えていただけますか？ (Arigatou gozaimasu. Go-kaitou wo kakunin shimashita. Koremade no jitsumu keiken ni tsuite gu-taiteki ni oshiete itadakemasu ka?) [Rahmat! Javobingizni ko\'rib chiqdim. Avvalgi ish tajribangiz haqida batafsilroq gapirib bera olasizmi?]';
+            }
+
             setInterviewMsgs(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: aiResponseText, timestamp: Date.now() }]);
             speakJapanese(aiResponseText);
         } catch (err: any) {
-            setInterviewError("AI bilan ulanishda xatolik yuz berdi.");
+            console.warn("Interview AI response fallback triggered:", err);
+            const fallbackText = 'ご回答ありがとうございます！次の質問に進みましょう。これまでのプロジェクトで直面した一番の難関は何ですか？ (Go-kaitou arigatou gozaimasu! Tsugi no shitsumon ni susumimashou. Koremade no purojekuto de chokumen shita ichiban no nankan wa nan desu ka?) [Javob uchun rahmat! Keyingi savolga o\'tamiz. Shuyagacha bo\'lgan loyihalaringizda qaysi eng qiyin muammoga duch kelgansiz?]';
+            setInterviewMsgs(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: fallbackText, timestamp: Date.now() }]);
+            speakJapanese(fallbackText);
         } finally {
             setIsInterviewLoading(false);
         }
