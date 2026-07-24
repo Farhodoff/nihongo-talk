@@ -34,8 +34,9 @@ export const ensureIeltsSubjectAndDecks = async (
     }
 
     // Populate preset flashcards into the IELTS Subject
-    selectedDecks.forEach(deck => {
-        deck.cards.forEach(c => {
+    for (const deck of selectedDecks) {
+        const loadedCards = await deck.loadCards();
+        loadedCards.forEach(c => {
             addFlashcard({
                 subjectId: subjectId!,
                 front: c.front,
@@ -46,7 +47,7 @@ export const ensureIeltsSubjectAndDecks = async (
                 nextReviewDate: new Date().toISOString()
             });
         });
-    });
+    }
 
     // Populate extracted book curriculum cards (from /books PDF files)
     const targetLevels: ('A1-A2' | 'B1-B2' | 'C1-C2')[] = targetBand >= 7.5

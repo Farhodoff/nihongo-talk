@@ -51,7 +51,8 @@ const DecksPage: React.FC = () => {
             }
 
             if (targetSubjectId) {
-                const batchCards = preset.cards.map(c => ({
+                const loadedCards = await preset.loadCards();
+                const batchCards = loadedCards.map(c => ({
                     subjectId: targetSubjectId!,
                     front: c.front,
                     back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`,

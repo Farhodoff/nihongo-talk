@@ -39,7 +39,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ deck, onImport, 
 
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                     <BookOpen size={14} className="text-primary" />
-                    <span>{deck.cards.length} ta kartochka</span>
+                    <span>{deck.cardCount} ta kartochka</span>
                 </div>
             </div>
 

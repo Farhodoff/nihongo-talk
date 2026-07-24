@@ -1,7 +1,6 @@
 import os
 import re
 import json
-import pypdf
 
 # Advanced C1-C2 IELTS Collocations & Idioms Database
 C1_C2_ADVANCED_DATABASE = [
@@ -34,7 +33,7 @@ C1_C2_ADVANCED_DATABASE = [
     ("alleviate poverty", "Kambag'allikni yumshatmoq, kamaytirmoq", "/əˈliː.vi.eɪt ˈpɒv.ə.ti/", "Microfinance programs help alleviate rural poverty."),
     ("allocate resources", "Resurslarni taqsimlamoq", "/ˈæl.ə.keɪt rɪˈzɔːsɪz/", "The government allocated resources to healthcare."),
     ("alter perceptions", "Qarashlarni o'zgartirmoq", "/ˈɒl.tə pəˈsep.ʃənz/", "Documentaries can alter public perceptions on nature."),
-    ("ambiguous statement", "Ikki ma'noli, mavhum bayonot", "/æmˈbɪɡ.ju.əs ˈsteɪt.mənt/", "The politician gave an ambiguous statement regarding taxes."),
+    ("ambiguous statement", "Ikki ma'noli, mavhum bayonot", "/æmˈbɪɡ.ju.əs ˈsteɪ.mənt/", "The politician gave an ambiguous statement regarding taxes."),
     ("ample evidence", "Etarlicha, mo'l-ko'l dalil", "/ˈæm.pəl ˈev.ɪ.dəns/", "Scientists found ample evidence of ancient civilizations."),
     ("analytical skills", "Analitik, tahliliy ko'nikmalar", "/ˌæn.əlˈɪt.ɪ.kəl skɪlz/", "Data analysis requires sharp analytical skills."),
     ("anchor of hope", "Umid ustuni, poydevori", "/ˈæŋ.kə ɒv həʊp/", "Education remains an anchor of hope for youth."),
@@ -57,70 +56,24 @@ C1_C2_ADVANCED_DATABASE = [
     ("articulate an idea", "G'oyani aniq va ravshan ifodalash", "/ɑːˈtɪk.jə.leɪt ən aɪˈdɪə/", "Good speakers articulate ideas effortlessly."),
     ("artificial barrier", "Sun'iy g'ov, to'siq", "/ˌɑː.tɪˈfɪʃ.əl ˈbær.i.ə/", "Tariffs create artificial barriers to global trade."),
     ("artistic expression", "Badiiy ifoda", "/ɑːˈtɪs.tɪk ɪkˈspreʃ.ən/", "Sculpture is a traditional form of artistic expression."),
-    ("ascertain the facts", "Haqiqatni aniqlamoq", "/ˌæs.əˈteɪn ðə fækts/", "Judges must ascertain the facts before delivering a verdict."),
-    ("aspirational goal", "Yuqori orzu-umidli maqsad", "/ˌæs.pɪˈreɪ.ʃən.əl ɡəʊl/", "Achieving carbon neutrality is an aspirational goal."),
-    ("assert authority", "Vakolatni ko'rsatmoq, ta'kidlamoq", "/əˈsɜːt ɔːˈθɒr.ə.ti/", "The captain asserted his authority over the crew."),
-    ("assess the damage", "Zararni baholamoq", "/əˈses ðə ˈdæm.ɪdʒ/", "Engineers arrived to assess the earthquake damage."),
-    ("assign priority", "Ustuvorlik bermoq", "/əˈsaɪn praɪˈɒr.ə.ti/", "Managers assign priority to urgent customer requests."),
-    ("assimilate information", "Ma'lumotni o'zlashtirmoq", "/əˈsɪm.ɪ.leɪt ˌɪn.fəˈmeɪ.ʃən/", "Students assimilate information faster using diagrams."),
-    ("associated risks", "Bilan bog'liq xavflar", "/əˈsəʊ.si.eɪ.tɪd rɪsks/", "Every investment carries inherent associated risks."),
-    ("assume control", "Boshqaruvni o'z qo'liga olmoq", "/əˈsjuːm kənˈtrəʊl/", "The new director will assume control next month."),
-    ("astute observer", "Zukko, sinchkov kuzatuvchi", "/əˈstjuːt əbˈzɜː.və/", "Political analysts are astute observers of global trends."),
-    ("at a disadvantage", "Nomaqbul, noqulay ahvolda", "/æt ə ˌdɪs.ədˈvɑːn.tɪdʒ/", "Non-native speakers may feel at a disadvantage initially."),
-    ("at face value", "Yuzaki, ko'ringanicha qabul qilish", "/æt feɪs ˈvæl.juː/", "Do not take Internet rumors at face value."),
-    ("at risk of extinction", "Yo'qolib ketish xavfi ostida", "/æt rɪsk ɒv ɪkˈstɪŋk.ʃən/", "Rare Tigers are at risk of extinction."),
-    ("attain a target", "Marhaga yetmoq, maqsadni zabt etmoq", "/əˈteɪn ə ˈtɑː.ɡɪt/", "She worked untiringly to attain a Band 8.5 score."),
-    ("attribute success", "Muvaffaqiyatni nimagadir bog'lamoq", "/ˈæt.rɪ.bjuːt səkˈses/", "He attributes his success to continuous revision."),
-    ("audible sound", "Eshitilarli ovoz", "/ˈɔː.də.bəl saʊnd/", "A low audible sound vibrated from the speaker."),
-    ("augmented reality", "Kengaytirilgan borliq (AR)", "/ɔːɡˈmen.tɪd riˈæl.ə.ti/", "Surgeons use augmented reality during complex operations."),
-    ("authentic assessment", "Haqiqiy, amaliy baholash", "/ɔːˈθen.tɪk əˈses.mənt/", "Portfolios offer an authentic assessment of student growth."),
-    ("authoritative source", "Ishonchli, nufuzli manba", "/ɔːˈθɒr.ɪ.tə.tɪv sɔːs/", "Cite authoritative sources in academic research papers."),
-    ("autonomous learning", "Mustaqil o'rganish", "/ɔːˈtɒn.ə.məs ˈlɜː.nɪŋ/", "Self-study apps foster autonomous learning habits."),
-    ("auxiliary power", "Zahira, qo'shimcha quvvat", "/ɔːɡˈzɪl.i.ər.i paʊə/", "Hospitals use auxiliary power generators in blackouts."),
-    ("available resources", "Mavjud imkoniyatlar", "/əˈveɪ.lə.bəl rɪˈzɔːsɪz/", "Make optimal use of available library resources."),
-    ("avert a crisis", "Inqirozni oldini olmoq", "/əˈvɜːt ə ˈkraɪ.sɪs/", "Quick diplomatic action helped avert a global crisis."),
-    ("avid reader", "Qizg'in, kitobxon inson", "/ˈæv.ɪd ˈriː.də/", "She is an avid reader of scientific biographies."),
-    ("avoid confusion", "Chalkashlikning oldini olmoq", "/əˈvɔɪd kənˈfjuː.ʒən/", "Use clear headings to avoid confusion in essays."),
-    ("backed by evidence", "Dalillar bilan tasdiqlangan", "/bækt baɪ ˈev.ɪ.dəns/", "Scientific claims must be backed by empirical evidence."),
-    ("balanced perspective", "Xolis, muvozanatli qarash", "/ˈbæl.ənst pəˈspek.tɪv/", "Journalists should offer a balanced perspective on news."),
-    ("barrier to entry", "Bozorga kirish g'ovi, to'sig'i", "/ˈbær.i.ə tuː ˈen.tri/", "High capital cost is a barrier to entry in manufacturing."),
-    ("basic premise", "Asosiy faraz, poydevor g'oya", "/ˈbeɪ.sɪk ˈprem.ɪs/", "The basic premise of the theory relies on physics."),
-    ("bear fruit", "Meva bermoq, samara bermoq", "/beə fruːt/", "Long-term study efforts eventually bear fruit."),
-    ("benchmark standard", "Namlona, etalon standart", "/ˈbentʃ.mɑːk ˈstæn.dəd/", "Cambridge exams are the global benchmark standard."),
-    ("beneficial effect", "Foydali ta'sir", "/ˌben.ɪˈfɪʃ.əl ɪˈfekt/", "Regular exercise has a beneficial effect on sleep quality."),
-    ("binding agreement", "Yuridik kuchga ega majburiy kelishuv", "/ˈbaɪn.dɪŋ əˈɡriː.mənt/", "Both parties signed a legally binding agreement."),
-    ("blatant disregard", "Ochiqchasiga ko'z yumish, mensimaslik", "/ˈbleɪ.tənt ˌdɪs.rɪˈɡɑːd/", "Speeding shows blatant disregard for road safety."),
-    ("boast a feature", "G'ururlanib xususiyatini ko'rsatmoq", "/bəʊst ə ˈfiː.tʃə/", "The smartphone boasts a high-resolution camera."),
-    ("bolster confidence", "Ishonchni oshirmoq, mustahkamlamoq", "/ˈbəʊl.stə ˈkɒn.fɪ.dəns/", "Praise from mentors bolsters student confidence."),
-    ("bond of friendship", "Do'stlik rishtasi", "/bɒnd ɒv ˈfrend.ʃɪp/", "Shared experiences forge a strong bond of friendship."),
-    ("boom in tourism", "Turizmning keskin rivojlanishi", "/buːm ɪn ˈtʊə.rɪ.zəm/", "Historic cities experienced a boom in tourism."),
-    ("boundless energy", "Tugamas, cheksiz energiya", "/ˈbaʊnd.ləs ˈen.ə.dʒi/", "Young children seem to have boundless energy."),
-    ("branch of science", "Fan tarmog'i", "/brɑːntʃ ɒv ˈsaɪ.əns/", "Genetics is a fascinating branch of modern science."),
-    ("breach of contract", "Shartnoma shartlarini buzish", "/briːtʃ ɒv ˈkɒn.trækt/", "Failing to pay on time is a breach of contract."),
-    ("breadth of knowledge", "Bilimning kengligi, qamrovi", "/bredθ ɒv ˈnɒl.ɪdʒ/", "The professor possessed an incredible breadth of knowledge."),
-    ("breakthrough in medicine", "Tibbiyotdagi tub burilish", "/ˈbreɪk.θruː ɪn ˈmed.sən/", "Vaccine discovery was a historic breakthrough in medicine."),
-    ("brief overview", "Qisqacha sharh, umumlashma", "/briːf ˈəʊ.və.vjuː/", "The introduction provides a brief overview of the paper."),
-    ("bright prospect", "Porloq kelajak, istiqbol", "/braɪt ˈprɒs.pekt/", "Engineering graduates face bright job prospects."),
-    ("bring about change", "O'zgarish yasamoq, sabab bo'lmoq", "/brɪŋ əˈbaʊt tʃeɪndʒ/", "Innovation brings about positive economic change."),
-    ("broad spectrum", "Keng qamrovli doira", "/brɔːd ˈspek.trəm/", "Antibiotics fight a broad spectrum of bacteria."),
-    ("broaden horizons", "Dunyoqarashni kengaytirmoq", "/ˈbrɔː.dən həˈraɪ.zənz/", "International exchange programs broaden student horizons.")
+    ("ascertain the facts", "Haqiqatni aniqlamoq", "/ˌæs.əˈteɪn ðə fækts/", "Judges must ascertain the facts before delivering a verdict.")
 ]
 
 def update_c1_c2_deck():
-    with open("src/data/presetDecks.ts", "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # Load existing C1-C2 cards
-    match_c1 = re.search(r"id:\s*'deck_advanced_c1_c2'.*?cards:\s*(\[.*?\])\s*\},", content, re.DOTALL)
-    existing_c1 = json.loads(match_c1.group(1)) if match_c1 else []
-
-    c1_fronts = set(x['front'] for x in existing_c1)
+    json_path = "src/data/decks/c1_c2.json"
+    c1_cards = []
     
+    if os.path.exists(json_path):
+        with open(json_path, "r", encoding="utf-8") as f:
+            c1_cards = json.load(f)
+
+    existing_fronts = {c["front"].lower() for c in c1_cards}
+
     for word, back, phonetic, example in C1_C2_ADVANCED_DATABASE:
         title_word = word.capitalize()
-        if title_word not in c1_fronts:
-            c1_fronts.add(title_word)
-            existing_c1.append({
+        if title_word.lower() not in existing_fronts:
+            existing_fronts.add(title_word.lower())
+            c1_cards.append({
                 "front": title_word,
                 "back": back,
                 "phonetic": phonetic,
@@ -128,27 +81,26 @@ def update_c1_c2_deck():
                 "category": "Advanced Collocation"
             })
 
-    print(f"Total C1-C2 Deck Size: {len(existing_c1)}")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(c1_cards, f, ensure_ascii=False, indent=2)
 
-    new_c1_json = json.dumps(existing_c1, ensure_ascii=False, indent=16)
+    print(f"Total C1-C2 Deck Size: {len(c1_cards)}")
+
+    preset_path = "src/data/presetDecks.ts"
+    with open(preset_path, "r", encoding="utf-8") as f:
+        content = f.read()
 
     content = re.sub(
-        r"title:\s*'📙 C1-C2 Master IELTS Collocations[^']*'",
-        f"title: '📙 C1-C2 Master IELTS Collocations ({len(existing_c1)} Kartochka)'",
-        content
-    )
-
-    content = re.sub(
-        r"(id:\s*'deck_advanced_c1_c2'.*?cards:\s*)\[.*?\](\s*\},)",
-        rf"\g<1>{new_c1_json}\g<2>",
+        r"(id:\s*'deck_master_c1_c2'.*?cardCount:\s*)\d+",
+        f"\\g<1>{len(c1_cards)}",
         content,
         flags=re.DOTALL
     )
 
-    with open("src/data/presetDecks.ts", "w", encoding="utf-8") as f:
+    with open(preset_path, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print("Successfully updated C1-C2 deck in src/data/presetDecks.ts!")
+    print("Successfully updated C1-C2 deck in src/data/decks/c1_c2.json and presetDecks.ts!")
 
 if __name__ == "__main__":
     update_c1_c2_deck()
