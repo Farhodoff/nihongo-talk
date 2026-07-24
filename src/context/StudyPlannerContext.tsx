@@ -810,8 +810,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const { data, error } = await supabase.from('ai_coach_sessions').insert(dbCoachSession).select().single();
 
         if (error) {
-            console.error("Coach Session qo'shishda xato:", error);
-            alert("Suhbat natijasini saqlashda xato yuz berdi");
+            console.warn("Coach Session Supabase'ga saqlanmadi (lokal saqlanmoqda):", error);
+            const newLocalSession: CoachSession = {
+                id: 'cs-' + Date.now(),
+                personaTitle: dbCoachSession.persona_title,
+                fluencyScore: dbCoachSession.fluency_score,
+                vocabularyScore: dbCoachSession.vocabulary_score,
+                grammarScore: dbCoachSession.grammar_score,
+                pronunciationScore: dbCoachSession.pronunciation_score,
+                feedback: dbCoachSession.feedback,
+                createdAt: new Date().toISOString()
+            };
+            setCoachSessions(prev => [newLocalSession, ...prev]);
             return;
         }
 
