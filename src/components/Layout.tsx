@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Flag, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, Mic, PenTool, GraduationCap } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -19,9 +19,6 @@ const Layout: React.FC = () => {
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
         { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap },
-        { name: 'Speaking Coach', path: '/speaking-coach', icon: Mic },
-        { name: 'IELTS Writing', path: '/ielts-writing', icon: PenTool },
-        { name: 'Maqsadlar', path: '/goals', icon: Flag },
         { name: 'Fanlar', path: '/subjects', icon: BookOpen },
         { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
         { name: 'Kalendar', path: '/calendar', icon: Calendar },
