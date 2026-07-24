@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { generateAIResponse } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 
+export type CoachPersona = 'friendly' | 'keigo' | 'roast' | 'examiner';
+
 export const JlptSpeakingCoachPage: React.FC = () => {
     const navigate = useNavigate();
     const { awardXP } = useStudyData();
 
     const [jlptLevel, setJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
+    const [persona, setPersona] = useState<CoachPersona>('friendly');
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState('');
     const [inputText, setInputText] = useState('');
@@ -22,6 +25,19 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
     const recognitionRef = useRef<any>(null);
     const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const getPersonaInstruction = () => {
+        switch (persona) {
+            case 'roast':
+                return 'Act as a hilarious, super strict Japanese Oni-Sensei (鬼先生). Roast student\'s Japanese grammar with witty sarcasm while keeping it educational!';
+            case 'keigo':
+                return 'Act as a formal Japanese Keigo Master (敬語/尊敬語/謙譲語). Focus strictly on formal business Japanese and honorific expressions.';
+            case 'examiner':
+                return 'Act as an official JLPT Oral Test Examiner. Conduct a structured assessment of Japanese speaking ability.';
+            default:
+                return 'Act as a polite, encouraging native Japanese Kaiwa (会話) Tutor (Ken-sensei).';
+        }
+    };
 
     // Initialize Web Speech Recognition for Japanese (ja-JP)
     useEffect(() => {
@@ -97,9 +113,9 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
         try {
             const prompt = `
-            Act as a polite native Japanese Kaiwa (会話) Tutor (Ken-sensei) tailored for JLPT ${jlptLevel} learners.
-            Respond to the student in natural Japanese appropriate for JLPT ${jlptLevel} level (include Kanji with Furigana/Romaji in parentheses).
-            Keep it encouraging and polite (Desu/Masu form).
+            ${getPersonaInstruction()}
+            Target student level: JLPT ${jlptLevel}.
+            Respond in natural Japanese suitable for JLPT ${jlptLevel} (include Kanji with Furigana/Romaji in parentheses).
             Provide a short Uzbek translation at the end in brackets [].
             Student input: "${text}"
             `;
@@ -132,8 +148,8 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto flex flex-col h-[calc(100vh-5rem)]">
-            {/* Header with Level Selector */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+            {/* Header with Level Selector & Persona Selector */}
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <button
                     onClick={() => navigate('/jlpt')}
                     className="flex items-center gap-2 text-muted-foreground hover:text-foreground font-bold text-xs"
@@ -141,20 +157,43 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                     <ArrowLeft size={16} /> JLPT Hub'ga qaytish
                 </button>
 
-                {/* JLPT Level Selector */}
-                <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border/80 rounded-2xl">
-                    <span className="text-[11px] font-extrabold text-muted-foreground px-2 flex items-center gap-1">
-                        <GraduationCap size={13} className="text-rose-500" /> Daraja:
-                    </span>
+                {/* Persona Selector */}
+                <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border">
+                    <button
+                        onClick={() => setPersona('friendly')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'friendly' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        🤝 Do'stona
+                    </button>
+                    <button
+                        onClick={() => setPersona('keigo')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'keigo' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        💼 Keigo (Hurmat)
+                    </button>
+                    <button
+                        onClick={() => setPersona('roast')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'roast' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        🔥 Roast
+                    </button>
+                    <button
+                        onClick={() => setPersona('examiner')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'examiner' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        🎓 Imtihonchi
+                    </button>
+                </div>
+
+                {/* Level Selector */}
+                <div className="flex items-center gap-1.5 bg-muted/50 p-1 rounded-xl border border-border">
+                    <GraduationCap size={14} className="text-muted-foreground ml-1.5" />
+                    <span className="text-xs font-medium text-muted-foreground mr-1">Daraja:</span>
                     {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
                         <button
                             key={lvl}
                             onClick={() => setJlptLevel(lvl)}
-                            className={`px-3 py-1 font-black text-xs rounded-xl transition-all ${
-                                jlptLevel === lvl
-                                    ? 'bg-rose-600 text-white shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            }`}
+                            className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${jlptLevel === lvl ? 'bg-rose-500 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
                         >
                             {lvl}
                         </button>
