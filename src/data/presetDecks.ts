@@ -19289,7 +19289,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     },
     {
         id: 'deck_advanced_c1_c2',
-        title: '📙 C1-C2 Master IELTS Collocations (121 Kartochka)',
+        title: '📙 C1-C2 Master IELTS Collocations (99 Kartochka)',
         description: 'Band 7.0-9.0 uchun Cambridge PDF darsliklaridan ajratib olingan iboralar.',
         level: 'C1-C2',
         badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
