@@ -77,6 +77,40 @@ A comprehensive, full-stack learning management, language coaching, and producti
 
 ---
 
+## 📂 Project File Structure
+
+```
+study_planner/
+├── .github/              # Issue templates, PR workflows & CI configs
+├── api/                  # Serverless API routes (DeepSeek CORS proxy, streaming)
+├── app/                  # Application runtime entry & core wrappers
+├── books/                # Academic curriculum source PDFs (Oxford 3000, Cambridge)
+├── constants/            # Global constants, room configs, & study constants
+├── docs/                 # Security, encryption & architectural documentations
+├── hooks/                # Custom React hooks (useFocusTimer, useSubscription, useFlashcards)
+├── public/               # Static assets, PWA icons & manifest.webmanifest
+├── scripts/              # Python & Node automation scripts (PDF parsing, dynamic JSON splitting)
+├── src/                  # Main Frontend Source Code
+│   ├── components/       # UI Components (decks, speaking, jlpt, ielts, whiteboard, pwa)
+│   ├── context/          # React Context State Providers (StudyPlannerContext, FocusTimerContext)
+│   ├── data/             # Preset Decks & Curriculum (decks/starter.json, academic.json, c1_c2.json)
+│   ├── hooks/            # Dedicated UI & data fetching hooks
+│   ├── i18n/             # Multi-language translation dictionaries (Uzbek, English, Japanese)
+│   ├── pages/            # 27+ Lazy-loaded Page views (IeltsHub, JlptHub, SpeakingCoach, Decks)
+│   ├── services/         # Supabase & Export/Import Data Services
+│   ├── types/            # TypeScript Interface & Type Definitions
+│   └── utils/            # SM-2 Spaced Repetition engine, AI helpers, IELTS & JLPT Calculators
+├── supabase/             # PostgreSQL database migrations, RLS policies & SQL schema
+├── .env.example          # Environment variables template
+├── components.json       # Shadcn UI configuration
+├── tailwind.config.js    # Custom Tailwind styling & design system config
+├── tsconfig.json         # Strict TypeScript compiler options
+├── vercel.json           # Vercel deployment & rewrite rules
+└── vite.config.ts        # Vite build, PWA SW & Code-splitting configuration
+```
+
+---
+
 ## ⚙️ Architecture Optimizations
 
 ```
