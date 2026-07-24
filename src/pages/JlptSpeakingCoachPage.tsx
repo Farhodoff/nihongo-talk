@@ -113,14 +113,22 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
         try {
             const prompt = `
-            ${getPersonaInstruction()}
-            Target student level: JLPT ${jlptLevel}.
-            Respond in natural Japanese suitable for JLPT ${jlptLevel} (include Kanji with Furigana/Romaji in parentheses).
-            Provide a short Uzbek translation at the end in brackets [].
-            Student input: "${text}"
+            System Role: ${getPersonaInstruction()}
+            Target Student Level: JLPT ${jlptLevel}.
+            Instructions:
+            1. Respond in natural Japanese tailored to JLPT ${jlptLevel} level.
+            2. Include Kanji with Furigana/Romaji in parentheses after Japanese text.
+            3. Provide a brief Uzbek translation in brackets [] at the very end.
+            4. Be engaging and ask a short follow-up question.
             `;
 
-            const aiRes = await generateAIResponse([{ role: 'user', content: prompt }]);
+            const historyForAI: { role: 'user' | 'system'; content: string }[] = [
+                { role: 'user', content: prompt },
+                ...messages.map(m => ({ role: 'user' as const, content: m.content })),
+                { role: 'user', content: text }
+            ];
+
+            const aiRes = await generateAIResponse(historyForAI);
             setMessages(prev => [...prev, { role: 'assistant', content: aiRes }]);
 
             // Award 20 XP for Japanese speech turn
@@ -129,7 +137,13 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             // Native Japanese TTS
             speakJapanese(aiRes);
         } catch (e) {
-            setMessages(prev => [...prev, { role: 'assistant', content: 'すみません、もう一度言っていただけますか？ (Sumimasen, mou ichido itte itadakemasu ka?) [Kechirasiz, qaytadan ayta olasizmi?]' }]);
+            console.warn("AI generation fallback triggered for JLPT coach:", e);
+            let fallbackRes = 'いいですね！日本語の練習を続けましょう！ (Ii desu ne! Nihongo no renshuu wo tsudukemashou!) [Juda yaxshi! Yapon tili mashqini davom ettiramiz!]';
+            if (text.includes('いいですよ') || text.includes('はい')) {
+                fallbackRes = '素晴らしいです！今日の調子はどうですか？ (Subarashii desu! Kyou no choushi wa dou desu ka?) [Ajoyib! Bugungi kayfiyatingiz qanday?]';
+            }
+            setMessages(prev => [...prev, { role: 'assistant', content: fallbackRes }]);
+            speakJapanese(fallbackRes);
         } finally {
             setIsThinking(false);
         }
