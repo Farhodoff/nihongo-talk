@@ -490,7 +490,7 @@ export const generateFlashcardsWithAI = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: {
                         temperature: 0.7,
                         topP: 0.95,
@@ -577,7 +577,7 @@ export const generateFlashcardsFromNote = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: {
                         temperature: 0.7,
                         responseMimeType: "application/json",
@@ -719,7 +719,7 @@ export const generateFullStudyPlan = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { responseMimeType: "application/json" }
                 });
                 return model.generateContent(prompt);
@@ -806,7 +806,7 @@ export const recommendResourcesWithAI = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { responseMimeType: "application/json" }
                 });
                 return model.generateContent(prompt);
@@ -881,7 +881,7 @@ export const generateStudyInsight = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { responseMimeType: "application/json" }
                 });
                 return model.generateContent(prompt);
@@ -960,7 +960,7 @@ export const generateExamWithAI = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { 
                         temperature: 0.7,
                         responseMimeType: "application/json" 
@@ -1031,7 +1031,7 @@ export const expandNoteWithAI = async (
             const apiKey = userKey || config.geminiKey;
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
                 return model.generateContent(prompt);
             }, 2, 1000, apiKey);
             text = (await result.response).text();
@@ -1083,7 +1083,7 @@ export const summarizeNoteWithAI = async (
             const apiKey = userKey || config.geminiKey;
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
                 return model.generateContent(prompt);
             }, 2, 1000, apiKey);
             text = (await result.response).text();
@@ -1135,7 +1135,7 @@ export const fixNoteSpellingWithAI = async (
             const apiKey = userKey || config.geminiKey;
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
                 return model.generateContent(prompt);
             }, 2, 1000, apiKey);
             text = (await result.response).text();
@@ -1201,7 +1201,7 @@ mindmap
             const apiKey = userKey || config.geminiKey;
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
                 return model.generateContent(prompt);
             }, 2, 1000, apiKey);
             text = (await result.response).text();
@@ -1276,7 +1276,7 @@ Qoidalar:
         const result = await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey);
             const model = ai.getGenerativeModel({ 
-                model: "gemini-1.5-flash",
+                model: "gemini-2.0-flash",
                 systemInstruction: systemPrompt 
             });
 
@@ -1310,7 +1310,7 @@ export const generateAIResponse = async (
 
         const result = await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
             return model.generateContent(prompt);
         }, 2, 1000, apiKey || undefined);
         return result.response.text();
@@ -1376,7 +1376,7 @@ export const analyzeSpeech = async (
             const result = await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey || undefined);
                 const model = ai.getGenerativeModel({ 
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: {
                         temperature: 0.7,
                         responseMimeType: "application/json",
@@ -1502,7 +1502,7 @@ export const converseWithCoach = async (
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
         if (geminiKeyToUse) {
-            const models = ["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-1.5-pro"];
+            const models = ["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-2.5-flash", "gemini-1.5-pro"];
 
             for (const modelName of models) {
                 try {
@@ -1680,7 +1680,7 @@ export const analyzeSpeakingSession = async (
             const result = (await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey || undefined);
                 const model = ai.getGenerativeModel({
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { responseMimeType: "application/json" }
                 });
                 return model.generateContent(prompt);
@@ -1776,7 +1776,7 @@ export const generateAITimetable = async (
             const result = (await requestWithRetry((genAI) => {
                 const ai = genAI || getGenAI(apiKey || undefined);
                 const model = ai.getGenerativeModel({
-                    model: "gemini-1.5-flash",
+                    model: "gemini-2.0-flash",
                     generationConfig: { responseMimeType: "application/json" }
                 });
                 return model.generateContent(prompt);
@@ -1835,7 +1835,7 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
             try {
                 const result = await requestWithRetry((genAI) => {
                     const ai = genAI || getGenAI(geminiKeyToUse);
-                    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
                     return model.generateContent(prompt);
                 }, 2, 1000, geminiKeyToUse) as any;
 
@@ -1948,7 +1948,7 @@ export const generateIeltsStudyPlan = async (
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
             const model = ai.getGenerativeModel({
-                model: "gemini-1.5-flash",
+                model: "gemini-2.0-flash",
                 generationConfig: { responseMimeType: "application/json" }
             });
             return model.generateContent(prompt);
@@ -2122,7 +2122,7 @@ export const evaluateIeltsEssay = async (
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
             const model = ai.getGenerativeModel({
-                model: "gemini-1.5-flash",
+                model: "gemini-2.0-flash",
                 generationConfig: { responseMimeType: "application/json" }
             });
             return model.generateContent(prompt);
@@ -2197,7 +2197,7 @@ export const extractVocabularyFromText = async (text: string): Promise<Extracted
         const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
+            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
             return model.generateContent(prompt);
         }, 2, 1000, apiKey || undefined)) as any;
         const rawText = (await result.response).text().trim();
@@ -2305,7 +2305,7 @@ export const evaluateIeltsSpeakingFullMock = async (
         const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
+            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
             return model.generateContent(prompt);
         }, 2, 1000, apiKey || undefined)) as any;
         const text = (await result.response).text().trim();
@@ -2410,7 +2410,7 @@ export const generateAiTutorExplanation = async (
         const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
         const result = (await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { responseMimeType: "application/json" } });
+            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
             return model.generateContent(prompt);
         }, 2, 1000, apiKey || undefined)) as any;
         const text = (await result.response).text().trim();
