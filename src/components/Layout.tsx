@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, FileText, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -24,8 +24,7 @@ const Layout: React.FC = () => {
         { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
         { name: 'Kalendar', path: '/calendar', icon: Calendar },
         { name: 'Fokus', path: '/focus', icon: Clock },
-        { name: 'Stikerlar', path: '/notes', icon: FileText },
-        { name: 'Konspektlar', path: '/study-notes', icon: NotebookText },
+        { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'AI Yordamchi', path: '/ai', icon: Sparkles },
         { name: 'Jamoa', path: '/community', icon: Users },
