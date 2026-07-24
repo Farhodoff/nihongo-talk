@@ -3,11 +3,14 @@ import { Award, Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Graduatio
 import { useNavigate } from 'react-router-dom';
 import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
+import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
+import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
 import { IeltsStudyPlanResult } from '../utils/ai';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
     const [isQuizOpen, setIsQuizOpen] = useState(false);
+    const [isReflectionOpen, setIsReflectionOpen] = useState(false);
     const [userPlanData, setUserPlanData] = useState<{
         currentBand: number;
         targetBand: number;
@@ -106,6 +109,11 @@ export const IeltsHubPage: React.FC = () => {
                 </div>
             )}
 
+            {/* Daily Target Hub */}
+            <div className="mb-8">
+                <DailyTargetHub onOpenReflection={() => setIsReflectionOpen(true)} />
+            </div>
+
             {/* Real Analytics & Weakness Diagnostic Section */}
             <div className="mb-8">
                 <RealWeaknessTracker />
@@ -197,6 +205,12 @@ export const IeltsHubPage: React.FC = () => {
                     const saved = localStorage.getItem('study_planner_ielts_user_target');
                     if (saved) setUserPlanData(JSON.parse(saved));
                 }}
+            />
+
+            {/* Daily Active Recall Reflection Modal */}
+            <DailyReflectionModal
+                isOpen={isReflectionOpen}
+                onClose={() => setIsReflectionOpen(false)}
             />
         </div>
     );
