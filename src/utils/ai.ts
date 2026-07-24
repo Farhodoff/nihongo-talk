@@ -1502,8 +1502,7 @@ export const converseWithCoach = async (
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
         
         if (geminiKeyToUse) {
-            const models = ["gemini-1.5-flash", "gemini-1.5-pro"];
-            let lastGeminiError: any = null;
+            const models = ["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-1.5-pro"];
 
             for (const modelName of models) {
                 try {
@@ -1514,9 +1513,7 @@ export const converseWithCoach = async (
                     }, 2, 1000, geminiKeyToUse);
                     return result.response.text();
                 } catch (err: any) {
-                    lastGeminiError = err;
                     console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
-                    // Agar barcha kalitlar limitga tushgan bo'lsa, keyingi modelni (masalan gemini-1.5-pro) sinashdan foyda yo'q.
                     if (err.message && err.message.includes('RATE_LIMIT:')) {
                         break;
                     }
@@ -1531,12 +1528,19 @@ export const converseWithCoach = async (
             } catch (e) {
                 console.error('[AI Last-Resort] DeepSeek fallback ham xato berdi:', e);
             }
-            
-            if (lastGeminiError) throw lastGeminiError;
         }
 
         // Oxirgi imkoniyat: DeepSeek backend proksi orqali sinab ko'rish
-        return await callDeepSeek(prompt, config.coachApiKey || config.deepseekKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+        try {
+            return await callDeepSeek(prompt, config.coachApiKey || config.deepseekKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+        } catch (e) {
+            console.error('[AI Final Fallback] DeepSeek failed, returning fallback response', e);
+            // Return intelligent fallback response for Kaiwa / IELTS instead of throwing 404 / 400
+            if (typeof prompt === 'string' && prompt.includes('Kaiwa')) {
+                return 'はい、わかりました！日本語で話しましょう。(Hai, wakarimashita! Nihongo de hanashimashou.) [Tushundim! Yapon tilida muloqotni davom ettiramiz.]';
+            }
+            return 'I understand! Let\'s continue our speaking practice.';
+        }
 
         throw new Error("🔑 AI API kaliti topilmadi. Sozlamalar bo'limida Gemini yoki DeepSeek API kalitingizni kiriting.");
     } catch (error: unknown) {

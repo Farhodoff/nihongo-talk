@@ -109,15 +109,16 @@ export const TaskService = {
     },
 
     async updateTask(id: string, updates: Partial<Task>): Promise<void> {
-        const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).single();
-        if (taskData) {
-            const task = { googleEventId: taskData.google_event_id };
-
-            // Google Calendar Sync
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.provider_token && task.googleEventId) {
-                await GoogleCalendarService.updateEvent(session.provider_token, task.googleEventId, updates);
+        try {
+            const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).maybeSingle();
+            if (taskData?.google_event_id) {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.provider_token) {
+                    await GoogleCalendarService.updateEvent(session.provider_token, taskData.google_event_id, updates).catch(() => {});
+                }
             }
+        } catch {
+            // Ignore optional google_event_id query failures in offline/anonymous mode
         }
 
         try {
@@ -144,16 +145,19 @@ export const TaskService = {
     },
 
     async deleteTask(id: string, permanent = false): Promise<void> {
-        const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).single();
-        const task = taskData ? { googleEventId: taskData.google_event_id } : null;
+        let googleEventId: string | null = null;
+        try {
+            const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).maybeSingle();
+            googleEventId = taskData?.google_event_id || null;
+        } catch {
+            // Ignore optional google_event_id fetch error
+        }
 
         if (permanent) {
-            
-
             // Google Calendar Sync
             const { data: { session } } = await supabase.auth.getSession();
-            if (session?.provider_token && task?.googleEventId) {
-                await GoogleCalendarService.deleteEvent(session.provider_token, task.googleEventId);
+            if (session?.provider_token && googleEventId) {
+                await GoogleCalendarService.deleteEvent(session.provider_token, googleEventId).catch(() => {});
             }
 
             try {
