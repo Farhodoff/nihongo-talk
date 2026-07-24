@@ -162,12 +162,19 @@ const SpeakingCoachPage: React.FC = () => {
                 if (!speechStartTimeRef.current) {
                     speechStartTimeRef.current = Date.now();
                 }
+                let finalTranscript = '';
                 let interimTranscript = '';
                 for (let i = 0; i < event.results.length; i++) {
-                    interimTranscript += event.results[i][0].transcript;
+                    const transcriptChunk = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcriptChunk + ' ';
+                    } else {
+                        interimTranscript += transcriptChunk;
+                    }
                 }
-                setCurrentTranscript(interimTranscript);
-                transcriptBufferRef.current = interimTranscript;
+                const cleanText = (finalTranscript + interimTranscript).replace(/\s+/g, ' ').trim();
+                setCurrentTranscript(cleanText);
+                transcriptBufferRef.current = cleanText;
 
                 // Debounce turn submission: wait 3000ms (3s) after user stops speaking before ending speech turn
                 if (silenceTimerRef.current) {
