@@ -12,7 +12,7 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
     isOpen,
     onClose
 }) => {
-    const { addEvent } = useStudyData();
+    const { addEvent, addTask } = useStudyData();
     const [goalDescription, setGoalDescription] = useState('');
     const [dailyHours, setDailyHours] = useState(3);
     const [daysCount, setDaysCount] = useState(7);
@@ -21,6 +21,13 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
     const [isSuccess, setIsSuccess] = useState(false);
 
     if (!isOpen) return null;
+
+    const PRESET_GOALS = [
+        { label: "🎌 JLPT N2 Rejasi", text: "JLPT N2 imtihoniga tayyorgarlik: Kanji, Dokkai va Kaiwa mashqlari", hours: 3, days: 14 },
+        { label: "🎓 IELTS Band 7.5", text: "IELTS Speaking va Writing Band 7.5 tayyorgarlik rejasi", hours: 4, days: 14 },
+        { label: "💻 IT Mensetsu (Yaponcha)", text: "Yaponiyada IT rekruterlar bilan ishga kirish suhbatlariga tayyorgarlik", hours: 2, days: 7 },
+        { label: "📚 Kunlik Ingliz Tili", text: "C1 Advanced English: Lug'at va Speaking mashqlari", hours: 2, days: 7 }
+    ];
 
     const handleGenerate = async () => {
         if (!goalDescription.trim()) return;
@@ -33,6 +40,7 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
 
     const handleImportEvents = async () => {
         for (const item of scheduleItems) {
+            // Add as Calendar Event
             await addEvent({
                 title: item.title,
                 description: item.description,
@@ -40,6 +48,14 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
                 eventType: 'personal',
                 notifyBeforeMinutes: 15,
                 repetitionType: 'none'
+            });
+
+            // Also Add as Study Planner Task
+            await addTask({
+                title: item.title,
+                dueDate: item.date,
+                priority: 'medium',
+                status: 'todo'
             });
         }
         setIsSuccess(true);
@@ -62,10 +78,10 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                                AI Smart Timetable Generator
+                                AI Aqlli Dars Jadvali Generator
                             </h3>
                             <p className="text-xs text-gray-500 dark:text-gray-400">
-                                Sun'iy intellekt yordamida avtomatik o'quv jadvali tuzish
+                                Sun'iy intellekt yordamida imtihon va maqsadlaringizga mos jadval tuzish
                             </p>
                         </div>
                     </div>
@@ -79,6 +95,29 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
                 <div className="p-6 overflow-y-auto space-y-5 flex-1">
                     {scheduleItems.length === 0 ? (
                         <>
+                            {/* Preset Goals */}
+                            <div>
+                                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-2">
+                                    ⚡ Tayyor Imtihon Rejalari:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {PRESET_GOALS.map((p, idx) => (
+                                        <button
+                                            key={idx}
+                                            type="button"
+                                            onClick={() => {
+                                                setGoalDescription(p.text);
+                                                setDailyHours(p.hours);
+                                                setDaysCount(p.days);
+                                            }}
+                                            className="px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-extrabold text-xs rounded-xl border border-indigo-500/20 transition-all active:scale-95"
+                                        >
+                                            {p.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     O'quv maqsadingiz (nima uchun tayyorlanmoqchisiz?)
