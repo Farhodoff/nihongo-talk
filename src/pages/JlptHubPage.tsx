@@ -10,9 +10,10 @@ export const JlptHubPage: React.FC = () => {
     const { flashcards } = useStudyData();
 
     const [userPlanData, setUserPlanData] = useState<{
-        currentLevel: string;
-        targetLevel: string;
-        durationDays: number;
+        finalGoalTitle?: string;
+        currentLevel?: string;
+        targetLevel?: string;
+        durationDays?: number;
     } | null>(null);
 
     useEffect(() => {
@@ -33,14 +34,14 @@ export const JlptHubPage: React.FC = () => {
                 <div>
                     <div className="flex items-center gap-2 mb-2">
                         <span className="px-3 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold text-xs rounded-full flex items-center gap-1.5 border border-rose-500/20">
-                            <Sparkles size={14} /> JLPT JAPANESE MASTER 🎌
+                            <Sparkles size={14} /> JLPT & KAIWA JAPANESE MASTER 🎌
                         </span>
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black text-foreground">
-                        JLPT Yapon Tili Hub (N5 ➔ N1)
+                        Yapon Tili Master Hub (Kaiwa & JLPT)
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
-                        Kanji (漢字), Sakubun (作文) insho va Yaponiyalik AI Examiner bilan jonli muloqot
+                        Kaiwa (会話) muloqot, Mensetsu suhbat, Sakubun insho va Kanji bilimi
                     </p>
                 </div>
 
@@ -49,7 +50,7 @@ export const JlptHubPage: React.FC = () => {
                     className="px-6 py-3.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20 transition-all flex items-center gap-2"
                 >
                     <Target size={18} />
-                    <span>{userPlanData ? "Maqsadni Yangilash" : "JLPT Rejasini Tuzish 🎌"}</span>
+                    <span>{userPlanData ? "Maqsadni Yangilash" : "Shaxsiy Reja Tuzish 🎌"}</span>
                 </button>
             </div>
 
@@ -62,12 +63,14 @@ export const JlptHubPage: React.FC = () => {
                                 <Flame size={24} />
                             </div>
                             <div>
-                                <span className="text-xs text-rose-300 font-bold uppercase tracking-wider">Joriy Reja Targeti</span>
-                                <h3 className="text-xl font-black">{userPlanData.currentLevel} ➔ {userPlanData.targetLevel} Band ({userPlanData.durationDays} Kun)</h3>
+                                <span className="text-xs text-rose-300 font-bold uppercase tracking-wider">Joriy Reja Targeti ({userPlanData.durationDays || 90} Kun)</span>
+                                <h3 className="text-xl font-black">
+                                    {userPlanData.finalGoalTitle || `${userPlanData.currentLevel} ➔ ${userPlanData.targetLevel}`}
+                                </h3>
                             </div>
                         </div>
                         <span className="px-3.5 py-1.5 bg-emerald-500/20 text-emerald-400 font-extrabold text-xs rounded-full border border-emerald-500/30">
-                            🟢 JLPT Master Active
+                            🟢 Active Track
                         </span>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Target, Award, Calendar, Sparkles, ArrowRight, X } from 'lucide-react';
+import { Target, Award, Sparkles, X } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { ensureJlptSubjectAndDecks } from '../../utils/jlptAutoSubject';
 import { calculateJlptFeasibility } from '../../utils/jlptCalculator';
@@ -11,10 +11,12 @@ interface JlptOnboardingModalProps {
 }
 
 export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen, onClose, onPlanCreated }) => {
-    const [step, setStep] = useState(1);
+    const [planType, setPlanType] = useState<'special' | 'jlpt'>('special');
+    const [specialGoal, setSpecialGoal] = useState<'kaiwa' | 'mensetsu' | 'dokkai' | 'kanji' | 'custom'>('kaiwa');
+    const [customGoalText, setCustomGoalText] = useState('');
     const [currentLevel, setCurrentLevel] = useState('N5');
     const [targetLevel, setTargetLevel] = useState('N3');
-    const [durationDays, setDurationDays] = useState(120);
+    const [durationDays, setDurationDays] = useState(90);
     const [isGenerating, setIsGenerating] = useState(false);
 
     const { subjects, addSubject, addFlashcard } = useStudyData();
@@ -26,8 +28,21 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
         try {
             await ensureJlptSubjectAndDecks(currentLevel, targetLevel, subjects, addSubject, addFlashcard);
             
-            // Save user target to localStorage
+            let finalGoalTitle = "";
+            if (planType === 'special') {
+                if (specialGoal === 'kaiwa') finalGoalTitle = "🗣️ Kaiwa Erkin Muloqot & Suhbat";
+                else if (specialGoal === 'mensetsu') finalGoalTitle = "💼 Mensetsu (Yapon Kompaniyalariga Intervyu)";
+                else if (specialGoal === 'dokkai') finalGoalTitle = "📖 Dokkai Mutolaa & Matnlar";
+                else if (specialGoal === 'kanji') finalGoalTitle = "⛩️ Kanji & Lug'at Yodlash";
+                else finalGoalTitle = customGoalText || "🎯 Shaxsiy Yapon Tili Maqsadi";
+            } else {
+                finalGoalTitle = `🎓 JLPT ${currentLevel} ➔ ${targetLevel} Imtihon Sertifikati`;
+            }
+
             const planMeta = {
+                planType,
+                specialGoal,
+                finalGoalTitle,
                 currentLevel,
                 targetLevel,
                 durationDays,
@@ -64,8 +79,104 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                     <p className="text-xs text-rose-100 mt-1">N5 dan N1 gacha bo'lgan iyeroglif va muloqot rejangiz</p>
                 </div>
 
-                <div className="p-6 space-y-6">
-                    {step === 1 && (
+                <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
+                    {/* Plan Type Selector */}
+                    <div>
+                        <label className="block text-xs font-extrabold text-muted-foreground uppercase mb-2">Reja Turi (Plan Track):</label>
+                        <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-2xl">
+                            <button
+                                onClick={() => setPlanType('special')}
+                                className={`py-2.5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-1.5 ${
+                                    planType === 'special'
+                                        ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                            >
+                                <Target size={14} /> Maxsus Maqsad (Kaiwa/Mensetsu)
+                            </button>
+                            <button
+                                onClick={() => setPlanType('jlpt')}
+                                className={`py-2.5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-1.5 ${
+                                    planType === 'jlpt'
+                                        ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                            >
+                                <Award size={14} /> JLPT Imtihon (N5 ➔ N1)
+                            </button>
+                        </div>
+                    </div>
+
+                    {planType === 'special' ? (
+                        <div className="space-y-4 animate-in fade-in">
+                            <label className="block text-sm font-bold text-foreground mb-1">
+                                Yapon Tilini O'rganishdan Asosiy Maqsadingiz Nima?
+                            </label>
+                            <div className="grid grid-cols-1 gap-2.5">
+                                {[
+                                    { id: 'kaiwa', icon: '🗣️', title: "Kaiwa (会話)", desc: "Erkin yaponcha muloqot va kundalik so'zlashuv" },
+                                    { id: 'mensetsu', icon: '💼', title: "Mensetsu (面接)", desc: "Yaponiyadagi ish/universitet suhbatiga tayyorgarlik" },
+                                    { id: 'dokkai', icon: '📖', title: "Dokkai (読解)", desc: "Manga, kitob va texnik hujjatlarni o'qib tushunish" },
+                                    { id: 'kanji', icon: '⛩️', title: "Kanji & Lug'at (漢字)", desc: "Iyerogliflar va so'z boyligini kengaytirish" },
+                                    { id: 'custom', icon: '✏️', title: "Shaxsiy Maqsad", desc: "O'zingizning maxsus maqsadingizni yozasiz" }
+                                ].map((item) => (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => setSpecialGoal(item.id as any)}
+                                        className={`p-3.5 rounded-2xl border text-left transition-all flex items-center gap-3 ${
+                                            specialGoal === item.id
+                                                ? 'bg-rose-500/10 border-rose-500 text-rose-600 dark:text-rose-400 font-extrabold shadow-sm'
+                                                : 'bg-muted/30 border-border text-foreground hover:border-rose-300'
+                                        }`}
+                                    >
+                                        <span className="text-xl">{item.icon}</span>
+                                        <div>
+                                            <div className="font-extrabold text-sm">{item.title}</div>
+                                            <div className="text-xs text-muted-foreground">{item.desc}</div>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+
+                            {specialGoal === 'custom' && (
+                                <div>
+                                    <label className="block text-xs font-bold text-muted-foreground mb-1">Shaxsiy maqsadingizni yozing:</label>
+                                    <input
+                                        type="text"
+                                        value={customGoalText}
+                                        onChange={(e) => setCustomGoalText(e.target.value)}
+                                        placeholder="Masalan: Yaponiyada mehmonxona sohasida ishlash uchun..."
+                                        className="w-full p-3.5 rounded-2xl border border-input bg-background text-sm text-foreground focus:ring-2 focus:ring-rose-500 outline-none"
+                                    />
+                                </div>
+                            )}
+
+                            <div>
+                                <label className="block text-xs font-bold text-muted-foreground mb-1">Reja Muddati (Kun):</label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    {[30, 60, 90, 180].map((d) => (
+                                        <button
+                                            key={d}
+                                            onClick={() => setDurationDays(d)}
+                                            className={`py-2.5 rounded-xl font-bold text-xs border ${
+                                                durationDays === d ? 'bg-rose-600 text-white border-rose-600' : 'bg-muted/40 text-foreground border-border'
+                                            }`}
+                                        >
+                                            {d} Kun
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={handleCreatePlan}
+                                disabled={isGenerating}
+                                className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>{isGenerating ? "Reja Yaratilmoqda..." : "Maxsus Rejani Tasdiqlash 🎯"}</span>
+                            </button>
+                        </div>
+                    ) : (
                         <div className="space-y-5 animate-in fade-in">
                             <div>
                                 <label className="block text-sm font-bold text-foreground mb-3 flex items-center gap-2">
@@ -109,41 +220,6 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                                 </div>
                             </div>
 
-                            <button
-                                onClick={() => setStep(2)}
-                                className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
-                            >
-                                <span>Davom Etish</span>
-                                <ArrowRight size={18} />
-                            </button>
-                        </div>
-                    )}
-
-                    {step === 2 && (
-                        <div className="space-y-5 animate-in fade-in">
-                            <label className="block text-sm font-bold text-foreground mb-2 flex items-center gap-2">
-                                <Calendar size={18} className="text-rose-500" /> Imtihongacha Qancha Vaqt Bor?
-                            </label>
-                            <div className="grid grid-cols-3 gap-3">
-                                {[
-                                    { days: 60, title: '2 Oy (60 Kun)' },
-                                    { days: 120, title: '4 Oy (120 Kun)' },
-                                    { days: 180, title: '6 Oy (180 Kun)' }
-                                ].map((item) => (
-                                    <button
-                                        key={item.days}
-                                        onClick={() => setDurationDays(item.days)}
-                                        className={`p-4 rounded-2xl text-left border transition-all ${
-                                            durationDays === item.days
-                                                ? 'bg-rose-500/10 border-rose-500 text-rose-600 dark:text-rose-400 font-extrabold'
-                                                : 'bg-muted/40 border-border text-foreground'
-                                        }`}
-                                    >
-                                        <div className="font-extrabold text-sm">{item.title}</div>
-                                    </button>
-                                ))}
-                            </div>
-
                             {/* JLPT Feasibility Indicator */}
                             <div className={`p-4 rounded-2xl border text-xs space-y-2 ${
                                 feasibility.feasibilityStatus === 'unrealistic'
@@ -159,21 +235,13 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                                 <p className="leading-relaxed">{feasibility.description}</p>
                             </div>
 
-                            <div className="flex gap-3 pt-2">
-                                <button
-                                    onClick={() => setStep(1)}
-                                    className="px-6 py-3.5 bg-muted text-foreground font-bold rounded-2xl"
-                                >
-                                    Orqaga
-                                </button>
-                                <button
-                                    onClick={handleCreatePlan}
-                                    disabled={isGenerating}
-                                    className="flex-1 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
-                                >
-                                    <span>{isGenerating ? "JLPT Reja Yaratilmoqda..." : "JLPT Rejani Tasdiqlash 🎌"}</span>
-                                </button>
-                            </div>
+                            <button
+                                onClick={handleCreatePlan}
+                                disabled={isGenerating}
+                                className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>{isGenerating ? "Reja Yaratilmoqda..." : "JLPT Sertifikat Rejasini Yaratish 🎌"}</span>
+                            </button>
                         </div>
                     )}
                 </div>
