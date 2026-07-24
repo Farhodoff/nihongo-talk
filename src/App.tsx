@@ -34,6 +34,9 @@ const SpeakingCoachPage = lazy(() => import('./pages/SpeakingCoachPage'));
 const IeltsWritingPage = lazy(() => import('./pages/IeltsWritingPage'));
 const IeltsHubPage = lazy(() => import('./pages/IeltsHubPage'));
 const IeltsSpeakingMockPage = lazy(() => import('./pages/IeltsSpeakingMockPage'));
+const JlptHubPage = lazy(() => import('./pages/JlptHubPage'));
+const JlptSpeakingCoachPage = lazy(() => import('./pages/JlptSpeakingCoachPage'));
+const JlptWritingPage = lazy(() => import('./pages/JlptWritingPage'));
 
 // Loading component
 const PageLoader = () => (
@@ -100,6 +103,9 @@ const App: React.FC = () => {
                                         <Route path="ielts" element={<IeltsHubPage />} />
                                         <Route path="ielts/writing" element={<IeltsWritingPage />} />
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
+                                        <Route path="jlpt" element={<JlptHubPage />} />
+                                        <Route path="jlpt-speaking" element={<JlptSpeakingCoachPage />} />
+                                        <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />

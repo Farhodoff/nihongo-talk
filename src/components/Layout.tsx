@@ -19,6 +19,7 @@ const Layout: React.FC = () => {
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
         { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap },
+        { name: 'JLPT Hub 🎌', path: '/jlpt', icon: Sparkles },
         { name: 'Fanlar', path: '/subjects', icon: BookOpen },
         { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
         { name: 'Kalendar', path: '/calendar', icon: Calendar },
