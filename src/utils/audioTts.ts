@@ -2,7 +2,7 @@
  * Web Speech API Text-to-Speech Pronunciation Helper for Flashcards
  */
 
-export function speakText(text: string, accent: 'en-GB' | 'en-US' = 'en-US'): void {
+export function speakText(text: string, accent: string = 'en-US'): void {
     if (!('speechSynthesis' in window)) {
         console.warn('Speech synthesis is not supported in this browser.');
         return;

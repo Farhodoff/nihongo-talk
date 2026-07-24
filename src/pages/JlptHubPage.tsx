@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { JlptOnboardingModal } from '../components/jlpt/JlptOnboardingModal';
+import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaster';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 export const JlptHubPage: React.FC = () => {
@@ -150,6 +151,11 @@ export const JlptHubPage: React.FC = () => {
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                 </div>
+            </div>
+
+            {/* JLPT Grammar & Kanji Master Library */}
+            <div className="mt-8">
+                <JlptGrammarKanjiMaster />
             </div>
 
             {/* Onboarding Modal */}
