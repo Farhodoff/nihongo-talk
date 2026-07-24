@@ -71,6 +71,25 @@ export const RealWeaknessTracker: React.FC = () => {
                     💡 <b>Amaliy Tavsiya:</b> {metrics.actionableTip}
                 </div>
             </div>
+
+            {/* Cambridge Real Hours Countdown Progress */}
+            <div className="p-5 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl space-y-3">
+                <div className="flex items-center justify-between font-extrabold text-sm text-indigo-600 dark:text-indigo-400">
+                    <span className="flex items-center gap-2">
+                        🎓 Cambridge Standart Dars Soatlari Countdown
+                    </span>
+                    <span>{metrics.todayFocusMinutes > 0 ? (metrics.todayFocusMinutes / 60).toFixed(1) : 0} / 810 soat bajarildi</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+                    <div 
+                        className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full transition-all duration-500 rounded-full"
+                        style={{ width: `${Math.min(100, Math.max(2, ((metrics.todayFocusMinutes / 60) / 810) * 100))}%` }}
+                    />
+                </div>
+                <p className="text-[11px] text-muted-foreground">
+                    0 Leveldan Band 7.5 gacha yetish uchun ~810 soat sifatli dars talab etiladi. Taymer orqali bajargan har bir daqiqangiz real hisobga o'tib boradi.
+                </p>
+            </div>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { Target, Award, Calendar, Sparkles, ArrowRight, RefreshCw, X, ShieldChec
 import { generateIeltsStudyPlan, IeltsStudyPlanResult } from '../../utils/ai';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { ensureIeltsSubjectAndDecks } from '../../utils/ieltsAutoSubject';
+import { calculateCefrFeasibility } from '../../utils/cefrCalculator';
 
 interface IeltsOnboardingModalProps {
     isOpen: boolean;
@@ -184,6 +185,37 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                                     </button>
                                 ))}
                             </div>
+
+                            {/* Cambridge Realistic Feasibility Indicator Widget */}
+                            {(() => {
+                                const analysis = calculateCefrFeasibility(currentBand, targetBand, durationDays);
+                                return (
+                                    <div className={`p-4 rounded-2xl border text-xs space-y-2 ${
+                                        analysis.feasibilityStatus === 'unrealistic'
+                                            ? 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-300'
+                                            : analysis.feasibilityStatus === 'intensive'
+                                            ? 'bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-300'
+                                            : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
+                                    }`}>
+                                        <div className="flex items-center justify-between font-extrabold text-sm">
+                                            <span>{analysis.statusText}</span>
+                                            <span className="font-mono bg-background/80 px-2.5 py-1 rounded-full border border-border">
+                                                Kunlik: {analysis.dailyRequiredHours} soat
+                                            </span>
+                                        </div>
+                                        <p className="leading-relaxed">{analysis.description}</p>
+                                        {analysis.feasibilityStatus === 'unrealistic' && (
+                                            <button
+                                                type="button"
+                                                onClick={() => setDurationDays(analysis.recommendedDays)}
+                                                className="mt-1 w-full py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs shadow transition-all"
+                                            >
+                                                💡 Samimiy Tavsiya: Muddatni {analysis.recommendedDays} kunga o'zgartirish (kuniga 3.0 soat)
+                                            </button>
+                                        )}
+                                    </div>
+                                );
+                            })()}
 
                             <div className="flex gap-3 pt-2">
                                 <button
