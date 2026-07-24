@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
-    Settings as SettingsIcon, X, Sparkles, Flame, GraduationCap, Briefcase, 
-    Play, Cpu, Compass, Coffee, ShieldAlert, Check, Copy, HeartPulse, RotateCcw,
+    Settings as SettingsIcon, X, 
+    Play, Cpu, ShieldAlert, Check, Copy, HeartPulse, RotateCcw,
     Radio, MessageCircle, Crown
 } from 'lucide-react';
 import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
@@ -12,6 +12,7 @@ import { isAdminEmail } from '../utils/admin';
 import AudioVisualizer from '../components/speaking/AudioVisualizer';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 import { LiveAmbientSphere } from '../components/speaking/LiveAmbientSphere';
+import { PERSONAS_BY_LANG, CoachPersona } from '../components/speaking/PersonaSelector';
 
 declare global {
     interface Window {
@@ -30,122 +31,7 @@ interface ChatMessage {
     isEditing?: boolean;
 }
 
-export type CoachPersona = 'roast' | 'gentle' | 'ielts' | 'interview' | 'travel' | 'casual';
 
-const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: string; icon: any; color: string; gradientBg: string; desc: string; badge: string; emoji: string }>> = {
-    en: {
-        roast: {
-            name: 'Strict Roast Coach',
-            icon: Flame,
-            color: 'from-orange-500 to-rose-600',
-            gradientBg: 'from-orange-500/20 via-rose-500/10 to-transparent',
-            desc: 'Kamchiliklaringizni shafqatsiz va hazil aralash roast qiladi',
-            badge: '🌶️ Shiddatli & Roast',
-            emoji: '🔥'
-        },
-        gentle: {
-            name: 'Sabrli Tutor',
-            icon: Sparkles,
-            color: 'from-emerald-400 to-teal-600',
-            gradientBg: 'from-emerald-500/20 via-teal-500/10 to-transparent',
-            desc: 'Yumshoq va xushmuomala tarzda xatolaringizni tushuntiradi',
-            badge: '🌿 Muloyim & Sabrli',
-            emoji: '✨'
-        },
-        ielts: {
-            name: 'IELTS Examiner',
-            icon: GraduationCap,
-            color: 'from-blue-500 to-indigo-600',
-            gradientBg: 'from-blue-500/20 via-indigo-500/10 to-transparent',
-            desc: 'IELTS Speaking standarti bo\'yicha savol-javob qiladi',
-            badge: '🎓 IELTS Imtihonchi',
-            emoji: '🎓'
-        },
-        interview: {
-            name: 'Tech Interviewer',
-            icon: Briefcase,
-            color: 'from-purple-500 to-violet-700',
-            gradientBg: 'from-purple-500/20 via-violet-500/10 to-transparent',
-            desc: 'Ishga kirish suhbatlariga ingliz tilida tayyorlaydi',
-            badge: '💼 HR & Intervyuer',
-            emoji: '💼'
-        },
-        travel: {
-            name: 'Travel & Airport',
-            icon: Compass,
-            color: 'from-cyan-500 to-blue-600',
-            gradientBg: 'from-cyan-500/20 via-blue-500/10 to-transparent',
-            desc: 'Aeroport, mehmonxona va restoranlarda muloqot mashqi',
-            badge: '✈️ Sayohat & Aeroport',
-            emoji: '✈️'
-        },
-        casual: {
-            name: 'Daily Casual Friend',
-            icon: Coffee,
-            color: 'from-pink-500 to-rose-500',
-            gradientBg: 'from-pink-500/20 via-rose-500/10 to-transparent',
-            desc: "Do'stona va norasmiy suhbatlashish iboralari",
-            badge: '☕ Kunlik Suhbat',
-            emoji: '☕'
-        }
-    },
-    ja: {
-        roast: {
-            name: '鬼先生 (Oni Sensei)',
-            icon: Flame,
-            color: 'from-red-600 to-rose-700',
-            gradientBg: 'from-red-600/20 via-rose-500/10 to-transparent',
-            desc: 'Yapon tili va Keigo xatolarini shiddat bilan roast qiladi',
-            badge: '👹 鬼先生 & Roast',
-            emoji: '👹'
-        },
-        gentle: {
-            name: '日本語の先生',
-            icon: Sparkles,
-            color: 'from-emerald-400 to-teal-600',
-            gradientBg: 'from-emerald-500/20 via-teal-500/10 to-transparent',
-            desc: 'です・ます bilan xushmuomala yapon tilini o\'rgatadi',
-            badge: '🌸 優しい日本語',
-            emoji: '🌸'
-        },
-        ielts: {
-            name: 'JLPT N3-N1 Coach',
-            icon: GraduationCap,
-            color: 'from-blue-500 to-indigo-600',
-            gradientBg: 'from-blue-500/20 via-indigo-500/10 to-transparent',
-            desc: 'JLPT va yuqori darajadagi yaponcha iboralarni o\'rgatadi',
-            badge: '📚 JLPT & 会話',
-            emoji: '📚'
-        },
-        interview: {
-            name: 'IT 面接官 (Recruiter)',
-            icon: Briefcase,
-            color: 'from-purple-500 to-violet-700',
-            gradientBg: 'from-purple-500/20 via-violet-500/10 to-transparent',
-            desc: 'Yapon IT kompaniyalari suhbati va Keigo (敬語) bo\'yicha intervyuer',
-            badge: '🏢 日本IT面接官',
-            emoji: '🏢'
-        },
-        travel: {
-            name: '旅行・空港会話',
-            icon: Compass,
-            color: 'from-cyan-500 to-blue-600',
-            gradientBg: 'from-cyan-500/20 via-blue-500/10 to-transparent',
-            desc: '入国審査、ホテル、飲食店での実践会話',
-            badge: '✈️ 旅行・観光',
-            emoji: '✈️'
-        },
-        casual: {
-            name: 'タメ口友達 (Casual)',
-            icon: Coffee,
-            color: 'from-pink-500 to-rose-500',
-            gradientBg: 'from-pink-500/20 via-rose-500/10 to-transparent',
-            desc: '日常会話、スラング、友達同士のタメ口練習',
-            badge: '☕ 日常会話',
-            emoji: '☕'
-        }
-    }
-};
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
     en: [
