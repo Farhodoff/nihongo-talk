@@ -283,7 +283,7 @@ const SpeakingCoachPage: React.FC = () => {
                 setCurrentTranscript(interimTranscript);
                 transcriptBufferRef.current = interimTranscript;
 
-                // Debounce turn submission: wait 1400ms after user stops speaking before ending speech turn
+                // Debounce turn submission: wait 3000ms (3s) after user stops speaking before ending speech turn
                 if (silenceTimerRef.current) {
                     clearTimeout(silenceTimerRef.current);
                 }
@@ -293,7 +293,7 @@ const SpeakingCoachPage: React.FC = () => {
                             recognitionRef.current?.stop();
                         } catch (e) {}
                     }
-                }, 1400);
+                }, 3000);
             };
 
             recognitionRef.current.onerror = (event: any) => {

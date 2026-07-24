@@ -11,7 +11,7 @@ export class AudioVAD {
     private onSpeechEnd?: () => void;
     private onVolumeChange?: (volume: number) => void;
 
-    private silenceDurationMs = 1200;
+    private silenceDurationMs = 3000;
 
     constructor(options?: {
         onSpeechStart?: () => void;

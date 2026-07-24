@@ -100,7 +100,7 @@ export const IeltsSpeakingMockPage: React.FC = () => {
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {
                 try { recognition.stop(); } catch {}
-            }, 1400);
+            }, 3000);
         };
 
         recognitionRef.current = recognition;
