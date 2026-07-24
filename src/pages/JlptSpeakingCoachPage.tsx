@@ -155,15 +155,76 @@ export const JlptSpeakingCoachPage: React.FC = () => {
         }
     };
 
+    const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
     const speakJapanese = (text: string) => {
+        // Stop any currently playing audio or speech
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
-            const cleanText = text.replace(/\[.*?\]/g, '').trim(); // Remove Uzbek brackets for TTS
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.lang = 'ja-JP';
-            utterance.rate = 0.85; // Natural Japanese speaking pace
-            window.speechSynthesis.speak(utterance);
         }
+
+        // 1. Clean text: remove Romaji (in parentheses), Uzbek translations (in brackets), and markdown
+        const cleanText = text
+            .replace(/\(.*?\)/g, '')
+            .replace(/\[.*?\]/g, '')
+            .replace(/[*_#`~]/g, '')
+            .trim();
+
+        if (!cleanText) return;
+
+        // 2. Try High-Definition Natural Google TTS Audio Endpoint
+        try {
+            const encoded = encodeURIComponent(cleanText.substring(0, 200));
+            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ja&client=tw-ob`;
+            const audio = new Audio(ttsUrl);
+            currentAudioRef.current = audio;
+
+            audio.play().catch(() => {
+                // If audio playback is blocked by browser policy, fallback to Web Speech API
+                fallbackSpeechSynthesis(cleanText);
+            });
+            audio.onerror = () => {
+                fallbackSpeechSynthesis(cleanText);
+            };
+            return;
+        } catch (e) {
+            fallbackSpeechSynthesis(cleanText);
+        }
+    };
+
+    const fallbackSpeechSynthesis = (cleanText: string) => {
+        if (!('speechSynthesis' in window)) return;
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.92; // Natural human cadence
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const jpVoices = voices.filter(v => v.lang.toLowerCase().includes('ja'));
+
+        if (jpVoices.length > 0) {
+            // Find highest quality natural voice available on OS/Browser
+            const naturalVoice = jpVoices.find(v => 
+                v.name.toLowerCase().includes('kyoko') || 
+                v.name.toLowerCase().includes('otoya') || 
+                v.name.toLowerCase().includes('google') || 
+                v.name.toLowerCase().includes('natural') || 
+                v.name.toLowerCase().includes('nanami') || 
+                v.name.toLowerCase().includes('enhanced') || 
+                v.name.toLowerCase().includes('premium')
+            ) || jpVoices[0];
+
+            if (naturalVoice) {
+                utterance.voice = naturalVoice;
+            }
+        }
+
+        window.speechSynthesis.speak(utterance);
     };
 
     const handleEndSessionAndAnalyze = async () => {

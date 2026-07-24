@@ -319,7 +319,14 @@ const AIAssistantPage: React.FC = () => {
         }
 
         try {
-            const cleanText = text.replace(/[*_#`~]/g, '').trim();
+            const cleanText = text
+                .replace(/\(.*?\)/g, '')
+                .replace(/\[.*?\]/g, '')
+                .replace(/[*_#`~]/g, '')
+                .trim();
+
+            if (!cleanText) return;
+
             const sentences = cleanText.match(/[^.!?。！？]+[.!?。！？]+/g) || [cleanText];
             const chunks: string[] = [];
             let currentChunk = '';
@@ -339,38 +346,39 @@ const AIAssistantPage: React.FC = () => {
                 const playNextChunk = () => {
                     if (chunkIdx >= chunks.length) return;
                     const chunk = chunks[chunkIdx++];
-                    const gUrl = `/api/tts?text=${encodeURIComponent(chunk)}&lang=ja`;
+                    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(chunk)}&tl=ja&client=tw-ob`;
                     const audio = new Audio(gUrl);
                     currentAudioRef.current = audio;
                     audio.onended = () => playNextChunk();
-                    audio.onerror = () => fallbackWebSpeech();
-                    audio.play().catch(() => fallbackWebSpeech());
+                    audio.onerror = () => fallbackWebSpeech(cleanText);
+                    audio.play().catch(() => fallbackWebSpeech(cleanText));
                 };
                 playNextChunk();
                 return;
             }
         } catch (e) {}
 
-        fallbackWebSpeech();
+        const fallbackClean = text.replace(/\(.*?\)/g, '').replace(/\[.*?\]/g, '').trim();
+        fallbackWebSpeech(fallbackClean);
 
-        function fallbackWebSpeech() {
+        function fallbackWebSpeech(cleaned: string) {
             if (!window.speechSynthesis) return;
-            const utterance = new SpeechSynthesisUtterance(text);
+            const utterance = new SpeechSynthesisUtterance(cleaned);
             utterance.lang = 'ja-JP';
-            utterance.rate = 0.95;
+            utterance.rate = 0.92;
             utterance.pitch = 1.0;
 
             const voices = window.speechSynthesis.getVoices();
             const jpVoices = voices.filter(v => v.lang.toLowerCase().includes('ja'));
             if (jpVoices.length > 0) {
                 const naturalVoice = jpVoices.find(v => 
-                    v.name.toLowerCase().includes('natural') || 
-                    v.name.toLowerCase().includes('online') || 
-                    v.name.toLowerCase().includes('enhanced') || 
-                    v.name.toLowerCase().includes('premium') || 
                     v.name.toLowerCase().includes('kyoko') || 
+                    v.name.toLowerCase().includes('otoya') || 
+                    v.name.toLowerCase().includes('google') || 
+                    v.name.toLowerCase().includes('natural') || 
                     v.name.toLowerCase().includes('nanami') || 
-                    v.name.toLowerCase().includes('google')
+                    v.name.toLowerCase().includes('enhanced') || 
+                    v.name.toLowerCase().includes('premium')
                 ) || jpVoices[0];
                 if (naturalVoice) utterance.voice = naturalVoice;
             }
