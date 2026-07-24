@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2, Sparkles, Send, ArrowLeft, GraduationCap } from 'lucide-react';
+import { Mic, MicOff, Volume2, Sparkles, Send, ArrowLeft, GraduationCap, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { generateAIResponse } from '../utils/ai';
+import { generateAIResponse, analyzeSpeakingSession, SessionAnalysisReport } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
+import SessionReportModal from '../components/speaking/SessionReportModal';
 
 export type CoachPersona = 'friendly' | 'keigo' | 'roast' | 'examiner';
 
 export const JlptSpeakingCoachPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP } = useStudyData();
+    const { awardXP, addCoachSession } = useStudyData();
 
     const [jlptLevel, setJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [persona, setPersona] = useState<CoachPersona>('friendly');
@@ -16,6 +17,11 @@ export const JlptSpeakingCoachPage: React.FC = () => {
     const [transcript, setTranscript] = useState('');
     const [inputText, setInputText] = useState('');
     const [isThinking, setIsThinking] = useState(false);
+
+    // Analysis report modal states
+    const [isReportOpen, setIsReportOpen] = useState(false);
+    const [isReportLoading, setIsReportLoading] = useState(false);
+    const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
     const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
         {
             role: 'assistant',
@@ -160,9 +166,44 @@ export const JlptSpeakingCoachPage: React.FC = () => {
         }
     };
 
+    const handleEndSessionAndAnalyze = async () => {
+        if (isListening && recognitionRef.current) {
+            recognitionRef.current.stop();
+            setIsListening(false);
+        }
+        if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+
+        const userSpoke = messages.some(m => m.role === 'user');
+        if (!userSpoke) {
+            alert("Tahlil olish uchun kamida 1 ta yaponcha jumla gapiring.");
+            return;
+        }
+
+        setIsReportOpen(true);
+        setIsReportLoading(true);
+        try {
+            const report = await analyzeSpeakingSession(messages, 'ja', persona);
+            setReportData(report);
+
+            // Save to statistics in StudyPlannerContext
+            await addCoachSession({
+                personaTitle: `JLPT ${jlptLevel} (${persona.toUpperCase()})`,
+                fluencyScore: report.fluency_score || 0,
+                vocabularyScore: Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5),
+                grammarScore: Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5),
+                pronunciationScore: report.fluency_score || 0,
+                feedback: report.overall_feedback || ''
+            });
+        } catch (err) {
+            console.error("Report generation error:", err);
+        } finally {
+            setIsReportLoading(false);
+        }
+    };
+
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto flex flex-col h-[calc(100vh-5rem)]">
-            {/* Header with Level Selector & Persona Selector */}
+            {/* Header with Level Selector, Persona Selector & Analyze Button */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <button
                     onClick={() => navigate('/jlpt')}
@@ -170,6 +211,16 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                 >
                     <ArrowLeft size={16} /> JLPT Hub'ga qaytish
                 </button>
+
+                {/* Finish & Analyze Session Button */}
+                {messages.some(m => m.role === 'user') && (
+                    <button
+                        onClick={handleEndSessionAndAnalyze}
+                        className="px-3 py-1.5 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-rose-500/20 flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95"
+                    >
+                        <Award size={14} /> Tahlil Olish & Saqlash
+                    </button>
+                )}
 
                 {/* Persona Selector */}
                 <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border">
@@ -289,6 +340,15 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Session Analysis Report Modal */}
+            <SessionReportModal 
+                isOpen={isReportOpen}
+                onClose={() => setIsReportOpen(false)}
+                report={reportData}
+                isLoading={isReportLoading}
+                personaTitle={`JLPT ${jlptLevel} (${persona.toUpperCase()})`}
+            />
         </div>
     );
 };
