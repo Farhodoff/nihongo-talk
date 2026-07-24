@@ -20,7 +20,7 @@ export interface PresetDeck {
 export const PRESET_DECKS: PresetDeck[] = [
     {
         id: 'deck_starter_a1_a2',
-        title: '🌱 A1-A2 Starter Vocabulary (245 Kartochka)',
+        title: '🌱 A1-A2 Starter Vocabulary (560 Kartochka)',
         description: 'Ingliz tilini noldan boshlayotganlar uchun PDF darsliklardan olingan tayanch so\'zlar.',
         level: 'A1-A2',
         badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
@@ -28,1474 +28,3364 @@ export const PRESET_DECKS: PresetDeck[] = [
         isPremiumOnly: false,
         cards: [
                 {
-                                "front": "Accept",
-                                "back": "Qabul qilmoq, rozi bo'lmoq",
-                                "phonetic": "/əkˈsept/",
-                                "example": "She decided to accept the job offer in Tashkent."
+                                "front": "Welcome",
+                                "back": "Hush kelibsiz",
+                                "phonetic": "/ˈwel.kəm/",
+                                "example": "Welcome to our English learning community!"
                 },
                 {
-                                "front": "Achieve",
-                                "back": "Erishmoq, qo'lga kiritmoq",
-                                "phonetic": "/əˈtʃiːv/",
-                                "example": "She worked hard to achieve her target IELTS score."
+                                "front": "Greetings",
+                                "back": "Salomlashish, salomlar",
+                                "phonetic": "/ˈɡriː.tɪŋz/",
+                                "example": "Send my warm greetings to your family."
                 },
                 {
-                                "front": "Allow",
-                                "back": "Ruxsat bermoq, yo'l qo'ymoq",
-                                "phonetic": "/əˈlaʊ/",
-                                "example": "The library allows students to borrow five books at a time."
+                                "front": "Apologize",
+                                "back": "Kechirim so'ramoq",
+                                "phonetic": "/əˈpɒl.ə.dʒaɪz/",
+                                "example": "I apologize for being late to the lesson."
                 },
                 {
-                                "front": "Appear",
-                                "back": "Ko'rinmoq, paydo bo'lmoq",
-                                "phonetic": "/əˈpɪə/",
-                                "example": "A rainbow appeared in the sky after the rain."
+                                "front": "Pleasure",
+                                "back": "Mamnuniyat, rohat",
+                                "phonetic": "/ˈpleʒ.ə/",
+                                "example": "It is a pleasure to meet you today."
                 },
                 {
-                                "front": "Apply",
-                                "back": "Hujjat topshirmoq, qo'llamoq",
-                                "phonetic": "/əˈplaɪ/",
-                                "example": "I plan to apply for a university scholarship next month."
+                                "front": "Congratulate",
+                                "back": "Tabriqlamoq",
+                                "phonetic": "/kənˈɡrætʃ.ə.leɪt/",
+                                "example": "We congratulate you on passing your exam."
                 },
                 {
-                                "front": "Arrange",
-                                "back": "Uushtirmoq, tartibga solmoq",
-                                "phonetic": "/əˈreɪndʒ/",
-                                "example": "We need to arrange a meeting with the teacher tomorrow."
+                                "front": "Farewell",
+                                "back": "Xayrlashuv",
+                                "phonetic": "/ˌfeəˈwel/",
+                                "example": "They held a farewell party for their teacher."
                 },
                 {
-                                "front": "Arrive",
-                                "back": "Yetib kelmoq, kelmoq",
-                                "phonetic": "/əˈraɪv/",
-                                "example": "The train will arrive at the station at six o'clock."
+                                "front": "Excuse me",
+                                "back": "Kechirasiz (murojaatda)",
+                                "phonetic": "/ɪkˈskjuːz miː/",
+                                "example": "Excuse me, where is the nearest bank?"
                 },
                 {
-                                "front": "Avoid",
-                                "back": "Qochmoq, saqlanmoq",
-                                "phonetic": "/əˈvɔɪd/",
-                                "example": "You should avoid eating unhealthy fast food every day."
+                                "front": "Good luck",
+                                "back": "Omad yor bo'lsin",
+                                "phonetic": "/ɡʊd lʌk/",
+                                "example": "Good luck on your IELTS test tomorrow!"
                 },
                 {
-                                "front": "Become",
-                                "back": "Bo'lmoq, aylanmoq",
-                                "phonetic": "/bɪˈkʌm/",
-                                "example": "He worked hard and became a successful software engineer."
+                                "front": "Relative",
+                                "back": "Qarindosh, xesh-aqrobo",
+                                "phonetic": "/ˈrel.ə.tɪv/",
+                                "example": "Many relatives gathered for the family reunion."
                 },
                 {
-                                "front": "Believe",
-                                "back": "Ishoqmoq, ishonch bildirmoq",
-                                "phonetic": "/bɪˈliːv/",
-                                "example": "I believe that consistent practice is key to success."
-                },
-                {
-                                "front": "Borrow",
-                                "back": "Qarzga olmoq (vaqtinchalik)",
-                                "phonetic": "/ˈbɒr.əʊ/",
-                                "example": "Can I borrow your English dictionary for ten minutes?"
-                },
-                {
-                                "front": "Celebrate",
-                                "back": "Nishonlamoq, bayram qilmoq",
-                                "phonetic": "/ˈsel.ə.breɪt/",
-                                "example": "My family gathers to celebrate Navruz every spring."
-                },
-                {
-                                "front": "Compare",
-                                "back": "Taqqoslamoq, solishtirmoq",
-                                "phonetic": "/kəmˈpeə/",
-                                "example": "Compare your answers with a partner to find mistakes."
-                },
-                {
-                                "front": "Complain",
-                                "back": "Shikoyat qilmoq, norozi bo'lmoq",
-                                "phonetic": "/kəmˈpleɪn/",
-                                "example": "Customers complain when the internet service is slow."
-                },
-                {
-                                "front": "Confirm",
-                                "back": "Tasdiqlamoq, aniqlik kiritmoq",
-                                "phonetic": "/kənˈfɜːm/",
-                                "example": "Please call the hotel to confirm your room reservation."
-                },
-                {
-                                "front": "Continue",
-                                "back": "Davom ettirmoq, to'xtamaslik",
-                                "phonetic": "/kənˈtɪn.juː/",
-                                "example": "We will continue our lesson after a short break."
-                },
-                {
-                                "front": "Create",
-                                "back": "Yaratmoq, bino qilmoq",
-                                "phonetic": "/kriˈeɪt/",
-                                "example": "Designers create innovative solutions for modern problems."
-                },
-                {
-                                "front": "Decide",
-                                "back": "Qaror qilmoq, bir toxtamga kelmoq",
-                                "phonetic": "/dɪˈsaɪd/",
-                                "example": "I must decide which subject to study first today."
-                },
-                {
-                                "front": "Describe",
-                                "back": "Tasvirlamoq, ta'riflamoq",
-                                "phonetic": "/dɪˈskraɪb/",
-                                "example": "Can you describe your hometown in three sentences?"
-                },
-                {
-                                "front": "Destroy",
-                                "back": "Vayron qilmoq, yo'q qilmoq",
-                                "phonetic": "/dɪˈstrɔɪ/",
-                                "example": "Heavy storms can destroy old wooden buildings."
-                },
-                {
-                                "front": "Discover",
-                                "back": "Kashf etmoq, topmoq",
-                                "phonetic": "/dɪˈskʌv.ə/",
-                                "example": "Scientists discover new plant species in tropical forests."
-                },
-                {
-                                "front": "Discuss",
-                                "back": "Muhokama qilmoq, maslahatlashmoq",
-                                "phonetic": "/dɪˈskʌs/",
-                                "example": "Let's discuss the project steps during lunch."
-                },
-                {
-                                "front": "Encourage",
-                                "back": "Rag'batlantirmoq, ruhlantirmoq",
-                                "phonetic": "/ɪnˈkʌr.ɪdʒ/",
-                                "example": "Teachers encourage students to ask creative questions."
-                },
-                {
-                                "front": "Explain",
-                                "back": "Tushuntirmoq, izohlamoq",
-                                "phonetic": "/ɪkˈspleɪn/",
-                                "example": "The tutor explained the grammar rule very clearly."
-                },
-                {
-                                "front": "Improve",
-                                "back": "Rivojlantirmoq, yaxshilamoq",
-                                "phonetic": "/ɪmˈpruːv/",
-                                "example": "Daily reading will improve your English vocabulary."
-                },
-                {
-                                "front": "Include",
-                                "back": "O'z ichiga olmoq, kiritmoq",
-                                "phonetic": "/ɪnˈkluːd/",
-                                "example": "The course fee includes all textbooks and study materials."
-                },
-                {
-                                "front": "Increase",
-                                "back": "Oshirmoq, ko'paytirmoq",
-                                "phonetic": "/ɪnˈkriːs/",
-                                "example": "The company plans to increase production next year."
-                },
-                {
-                                "front": "Inform",
-                                "back": "Xabardor qilmoq, bildirmoq",
-                                "phonetic": "/ɪnˈfɔːm/",
-                                "example": "Please inform us if your address changes."
-                },
-                {
-                                "front": "Invite",
-                                "back": "Taklif qilmoq, chaqirmoq",
-                                "phonetic": "/ɪnˈvaɪt/",
-                                "example": "They invited all their relatives to the wedding."
-                },
-                {
-                                "front": "Manage",
-                                "back": "Boshqarmoq, uddalamoq",
-                                "phonetic": "/ˈmæn.ɪdʒ/",
-                                "example": "She managed to finish the assignment before midnight."
-                },
-                {
-                                "front": "Notice",
-                                "back": "Payqamoq, sezib qolmoq",
-                                "phonetic": "/ˈnəʊ.tɪs/",
-                                "example": "Did you notice any change in his behavior today?"
-                },
-                {
-                                "front": "Obtain",
-                                "back": "Qo'lga kiritmoq, olmoq",
-                                "phonetic": "/əbˈteɪn/",
-                                "example": "You need to obtain a visa before traveling abroad."
-                },
-                {
-                                "front": "Offer",
-                                "back": "Taklif etmoq, taqdim qilmoq",
-                                "phonetic": "/ˈɒf.ə/",
-                                "example": "The company offered him a well-paid manager position."
-                },
-                {
-                                "front": "Perform",
-                                "back": "Bajarmoq, ijro etmoq",
-                                "phonetic": "/pəˈfɔːm/",
-                                "example": "Students perform speaking tests in pairs."
-                },
-                {
-                                "front": "Prepare",
-                                "back": "Tayyorgarlik ko'rmoq",
-                                "phonetic": "/prɪˈpeə/",
-                                "example": "I prepare for my IELTS examination every evening."
-                },
-                {
-                                "front": "Prevent",
-                                "back": "Oldini olmoq, yo'l qo'ymaslik",
-                                "phonetic": "/prɪˈvent/",
-                                "example": "Regular checkups help prevent health complications."
-                },
-                {
-                                "front": "Protect",
-                                "back": "Himoya qilmoq, asramoq",
-                                "phonetic": "/prəˈtekt/",
-                                "example": "We must protect our environment from toxic waste."
-                },
-                {
-                                "front": "Provide",
-                                "back": "Ta'minlamoq, berish",
-                                "phonetic": "/prəˈvaɪd/",
-                                "example": "Schools provide students with modern digital tools."
-                },
-                {
-                                "front": "Receive",
-                                "back": "Qabul qilib olmoq, olmoq",
-                                "phonetic": "/rɪˈsiːv/",
-                                "example": "I received an official acceptance letter this morning."
-                },
-                {
-                                "front": "Recommend",
-                                "back": "Tavsiya qilmoq, maslahat bermoq",
-                                "phonetic": "/ˌrek.əˈmend/",
-                                "example": "Doctors recommend sleeping at least eight hours a night."
-                },
-                {
-                                "front": "Reduce",
-                                "back": "Kamaytirmoq, qisqartirmoq",
-                                "phonetic": "/rɪˈdjuːs/",
-                                "example": "Recycling helps reduce pollution in big cities."
-                },
-                {
-                                "front": "Refuse",
-                                "back": "Rad etmoq, ko'nmaslik",
-                                "phonetic": "/rɪˈfjuːz/",
-                                "example": "He refused to sign the contract without reading it."
-                },
-                {
-                                "front": "Remember",
-                                "back": "Eslamoq, yodda tutmoq",
-                                "phonetic": "/rɪˈmem.bə/",
-                                "example": "Always remember to save your work before closing the window."
-                },
-                {
-                                "front": "Remove",
-                                "back": "Olib tashlamoq, yo'qotmoq",
-                                "phonetic": "/rɪˈmuːv/",
-                                "example": "Please remove your shoes before entering the room."
-                },
-                {
-                                "front": "Repair",
-                                "back": "Tuzatmoq, ta'mirlamoq",
-                                "phonetic": "/rɪˈpeə/",
-                                "example": "The mechanic will repair the car engine by afternoon."
-                },
-                {
-                                "front": "Replace",
-                                "back": "Almashtirmoq, o'rnini bosmoq",
-                                "phonetic": "/rɪˈpleɪs/",
-                                "example": "We need to replace the battery in the remote control."
-                },
-                {
-                                "front": "Require",
-                                "back": "Talab qilmoq, ehtiyoj sezmoq",
-                                "phonetic": "/rɪˈkwaɪə/",
-                                "example": "Passing the examination requires dedication and focus."
-                },
-                {
-                                "front": "Search",
-                                "back": "Qidirmoq, izlamoq",
-                                "phonetic": "/sɜːtʃ/",
-                                "example": "I spent an hour searching for my missing keys."
-                },
-                {
-                                "front": "Suggest",
-                                "back": "Taklif bildirmoq, maslahat moq",
-                                "phonetic": "/səˈdʒest/",
-                                "example": "I suggest revising new words before going to bed."
-                },
-                {
-                                "front": "Support",
-                                "back": "Qo'llab-quvvatlamoq",
-                                "phonetic": "/səˈpɔːt/",
-                                "example": "My family always supports my educational goals."
-                },
-                {
-                                "front": "Travel",
-                                "back": "Sayohat qilmoq, yurmoq",
-                                "phonetic": "/ˈtræv.əl/",
-                                "example": "Many young people love to travel across Central Asia."
-                },
-                {
-                                "front": "Understand",
-                                "back": "Tushunmoq, uqmoq",
-                                "phonetic": "/ˌʌn.dəˈstænd/",
-                                "example": "Do you understand the main idea of this listening track?"
-                },
-                {
-                                "front": "Ability",
-                                "back": "Qobiliyat, iqtidor",
-                                "phonetic": "/əˈbɪl.ə.ti/",
-                                "example": "His ability to solve complex math problems is impressive."
-                },
-                {
-                                "front": "Accommodation",
-                                "back": "Turar joy, yashash joyi",
-                                "phonetic": "/əˌkɒm.əˈdeɪ.ʃən/",
-                                "example": "Finding affordable accommodation in London can be tricky."
-                },
-                {
-                                "front": "Activity",
-                                "back": "Faoliyat, mashg'ulot",
-                                "phonetic": "/ækˈtɪv.ə.ti/",
-                                "example": "Physical activity improves mental focus and wellbeing."
-                },
-                {
-                                "front": "Advantage",
-                                "back": "Afzallik, ustunlik",
-                                "phonetic": "/ədˈvɑːn.tɪdʒ/",
-                                "example": "Speed is the main advantage of rail transport."
-                },
-                {
-                                "front": "Advice",
-                                "back": "Maslahat, o'git",
-                                "phonetic": "/ədˈvaɪs/",
-                                "example": "My teacher gave me useful advice on writing essays."
-                },
-                {
-                                "front": "Agreement",
-                                "back": "Kelishuv, shartnoma",
-                                "phonetic": "/əˈɡriː.mənt/",
-                                "example": "Both countries signed a bilateral trade agreement."
-                },
-                {
-                                "front": "Amount",
-                                "back": "Miqdor, summa",
-                                "phonetic": "/əˈmaʊnt/",
-                                "example": "A large amount of money was raised for charity."
-                },
-                {
-                                "front": "Announcement",
-                                "back": "E'lon, bildirishnoma",
-                                "phonetic": "/əˈnaʊns.mənt/",
-                                "example": "Listen carefully to the flight announcement at the gate."
-                },
-                {
-                                "front": "Appointment",
-                                "back": "Uchrashuv vaqti (shifokor, bank)",
-                                "phonetic": "/əˈpɔɪnt.mənt/",
-                                "example": "I have a dentist appointment tomorrow morning."
-                },
-                {
-                                "front": "Arrangement",
-                                "back": "Tashkillashtirish, kelishuv",
-                                "phonetic": "/əˈreɪndʒ.mənt/",
-                                "example": "Flower arrangements decorated the dinner tables."
-                },
-                {
-                                "front": "Article",
-                                "back": "Maqola, matn",
-                                "phonetic": "/ˈɑː.tɪ.kəl/",
-                                "example": "I read an insightful article about artificial intelligence."
-                },
-                {
-                                "front": "Attention",
-                                "back": "E'tibor, diqqat",
-                                "phonetic": "/əˈten.ʃən/",
-                                "example": "Pay close attention to pronunciation details."
-                },
-                {
-                                "front": "Attitude",
-                                "back": "Munosabat, qarash",
-                                "phonetic": "/ˈæt.ɪ.tʃuːd/",
-                                "example": "A positive attitude helps overcome exam anxiety."
-                },
-                {
-                                "front": "Audience",
-                                "back": "Auditoriya, tomoshabinlar",
-                                "phonetic": "/ˈɔː.di.əns/",
-                                "example": "The speaker captivated the audience with great stories."
-                },
-                {
-                                "front": "Authority",
-                                "back": "Vakolat, hokimiyat, nufuz",
-                                "phonetic": "/ɔːˈθɒr.ə.ti/",
-                                "example": "Local authorities built a new public library."
-                },
-                {
-                                "front": "Average",
-                                "back": "O'rtacha ko'rsatkich",
-                                "phonetic": "/ˈæv.ər.ɪdʒ/",
-                                "example": "The average temperature in summer is thirty degrees."
-                },
-                {
-                                "front": "Behavior",
-                                "back": "Xulq-atvor, yurish-turish",
-                                "phonetic": "/bɪˈheɪ.vjə/",
-                                "example": "Good behavior is rewarded in elementary school."
-                },
-                {
-                                "front": "Benefit",
-                                "back": "Foyda, naf, afzallik",
-                                "phonetic": "/ˈben.ɪ.fɪt/",
-                                "example": "Exercise offers numerous health benefits."
-                },
-                {
-                                "front": "Business",
-                                "back": "Biznes, tadbirkorlik",
-                                "phonetic": "/ˈbɪz.nɪs/",
-                                "example": "She runs a successful online clothing business."
-                },
-                {
-                                "front": "Career",
-                                "back": "Karyera, kasbiy yo'l",
-                                "phonetic": "/kəˈrɪə/",
-                                "example": "He chose a career in software development."
-                },
-                {
-                                "front": "Cause",
-                                "back": "Sabab, omil",
-                                "phonetic": "/kɔːz/",
-                                "example": "Heavy rainfall was the main cause of the flooding."
-                },
-                {
-                                "front": "Celebration",
-                                "back": "Bayram, nishonlash",
-                                "phonetic": "/ˌsel.əˈbreɪ.ʃən/",
-                                "example": "The city organized a fireworks celebration on Independence Day."
-                },
-                {
-                                "front": "Challenge",
-                                "back": "Qiyinchilik, chaqiriq",
-                                "phonetic": "/ˈtʃæl.ɪndʒ/",
-                                "example": "Overcoming language barriers is a rewarding challenge."
-                },
-                {
-                                "front": "Chance",
-                                "back": "Imkoniyat, omad",
-                                "phonetic": "/tʃɑːns/",
-                                "example": "This is your chance to showcase your speaking skills."
-                },
-                {
-                                "front": "Choice",
-                                "back": "Tanlov, ihtiyor",
-                                "phonetic": "/tʃɔɪs/",
-                                "example": "Making the right career choice requires self-reflection."
-                },
-                {
-                                "front": "Community",
-                                "back": "Jamiyat, hamjamiyat",
-                                "phonetic": "/kəˈmjuː.nə.ti/",
-                                "example": "The local community built a neighborhood park."
-                },
-                {
-                                "front": "Company",
-                                "back": "Kompaniya, korxona",
-                                "phonetic": "/ˈkʌm.pə.ni/",
-                                "example": "She works for an international tech company."
-                },
-                {
-                                "front": "Condition",
-                                "back": "Sharoit, ahvol",
-                                "phonetic": "/kənˈdɪʃ.ən/",
-                                "example": "The living conditions in the village improved significantly."
-                },
-                {
-                                "front": "Confidence",
-                                "back": "Ishonch, o'ziga ishonch",
-                                "phonetic": "/ˈkɒn.fɪ.dəns/",
-                                "example": "Public speaking builds personal confidence."
-                },
-                {
-                                "front": "Consequence",
-                                "back": "Oqibat, natija",
-                                "phonetic": "/ˈkɒn.sɪ.kwəns/",
-                                "example": "Skipping classes has serious academic consequences."
-                },
-                {
-                                "front": "Decision",
-                                "back": "Qaror",
-                                "phonetic": "/dɪˈsɪʒ.ən/",
-                                "example": "Making a big life decision takes careful thought."
-                },
-                {
-                                "front": "Department",
-                                "back": "Bo'lim, kafedra",
-                                "phonetic": "/dɪˈpɑːt.mənt/",
-                                "example": "Contact the HR department for employment queries."
-                },
-                {
-                                "front": "Description",
-                                "back": "Tavsif, ta'rif",
-                                "phonetic": "/dɪˈskrɪp.ʃən/",
-                                "example": "Read the job description carefully before applying."
-                },
-                {
-                                "front": "Difference",
-                                "back": "Farq, tafovut",
-                                "phonetic": "/ˈdɪf.ər.əns/",
-                                "example": "There is a clear difference between spoken and written English."
-                },
-                {
-                                "front": "Direction",
-                                "back": "Yo'nalish, yo'l-yo'riq",
-                                "phonetic": "/daɪˈrek.ʃən/",
-                                "example": "Ask the police officer for directions to the museum."
-                },
-                {
-                                "front": "Disadvantage",
-                                "back": "Kamchilik, salbiy tomon",
-                                "phonetic": "/ˌdɪs.ədˈvɑːn.tɪdʒ/",
-                                "example": "Noise is a main disadvantage of living near airports."
-                },
-                {
-                                "front": "Discovery",
-                                "back": "Kashfiyot",
-                                "phonetic": "/dɪˈskʌv.ər.i/",
-                                "example": "The discovery of penicillin revolutionized medicine."
-                },
-                {
-                                "front": "Discussion",
-                                "back": "Muhokama, muzokara",
-                                "phonetic": "/dɪˈskʌʃ.ən/",
-                                "example": "We had a group discussion on climate policy."
-                },
-                {
-                                "front": "Distance",
-                                "back": "Masofa, olislik",
-                                "phonetic": "/ˈdɪs.təns/",
-                                "example": "The distance between Tashkent and Samarkand is 300 km."
-                },
-                {
-                                "front": "Education",
-                                "back": "Ta'lim, ma'lumot",
-                                "phonetic": "/ˌedʒ.uˈkeɪ.ʃən/",
-                                "example": "Quality education unlocks career opportunities."
-                },
-                {
-                                "front": "Effort",
-                                "back": "Harakat, urinish",
-                                "phonetic": "/ˈef.ət/",
-                                "example": "Learning a language requires continuous effort."
-                },
-                {
-                                "front": "Environment",
-                                "back": "Atrof-muhit, ekologiya",
-                                "phonetic": "/ɪnˈvaɪ.rən.mənt/",
-                                "example": "We must protect the natural environment."
-                },
-                {
-                                "front": "Equipment",
-                                "back": "Asbob-uskuna, jihozlar",
-                                "phonetic": "/ɪˈkwɪp.mənt/",
-                                "example": "The laboratory has state-of-the-art scientific equipment."
-                },
-                {
-                                "front": "Evidence",
-                                "back": "Dalil, isbot",
-                                "phonetic": "/ˈev.ɪ.dəns/",
-                                "example": "Police found clear evidence at the scene."
-                },
-                {
-                                "front": "Exercise",
-                                "back": "Mashq, jismoniy mashg'ulot",
-                                "phonetic": "/ˈek.sə.saɪz/",
-                                "example": "Daily physical exercise boosts energy levels."
-                },
-                {
-                                "front": "Experience",
-                                "back": "Tajriba, hayotiy ko'nikma",
-                                "phonetic": "/ɪkˈspɪə.ri.əns/",
-                                "example": "Hands-on work experience is valued by employers."
-                },
-                {
-                                "front": "Facility",
-                                "back": "Inshoot, qulaylik, bino",
-                                "phonetic": "/fəˈsɪl.ə.ti/",
-                                "example": "The university sport facility includes a swimming pool."
-                },
-                {
-                                "front": "Feature",
-                                "back": "Xususiyat, ajralib turuvchi belgi",
-                                "phonetic": "/ˈfiː.tʃə/",
-                                "example": "A touchscreen is a key feature of modern smartphones."
-                },
-                {
-                                "front": "Future",
-                                "back": "Kelajak, istiqbol",
-                                "phonetic": "/ˈfjuː.tʃə/",
-                                "example": "Investing in education secures a brighter future."
-                },
-                {
-                                "front": "Goal",
-                                "back": "Maqsad, niyat",
-                                "phonetic": "/ɡəʊl/",
-                                "example": "My primary goal is to score Band 7.5 in IELTS."
-                },
-                {
-                                "front": "Government",
-                                "back": "Hukumat, davlat boshqaruvi",
-                                "phonetic": "/ˈɡʌv.ən.mənt/",
-                                "example": "The government invested in renewable energy projects."
-                },
-                {
-                                "front": "Habit",
-                                "back": "Odat, ko'nikma",
-                                "phonetic": "/ˈhæb.ɪt/",
-                                "example": "Reading every night is a wonderful habit."
-                },
-                {
-                                "front": "Health",
-                                "back": "Sog'liq, salomatlik",
-                                "phonetic": "/helθ/",
-                                "example": "Good nutrition is crucial for maintain healthy health."
-                },
-                {
-                                "front": "History",
-                                "back": "Tarix",
-                                "phonetic": "/ˈhɪs.tər.i/",
-                                "example": "Ancient Uzbek cities have a rich architectural history."
-                },
-                {
-                                "front": "Hobby",
-                                "back": "Qiziqish, xobbi",
-                                "phonetic": "/ˈhɒb.i/",
-                                "example": "Photography is my favorite creative hobby."
-                },
-                {
-                                "front": "Idea",
-                                "back": "G'oya, fikr",
-                                "phonetic": "/aɪˈdɪə/",
-                                "example": "She proposed a brilliant idea during the team brainstorming."
-                },
-                {
-                                "front": "Impact",
-                                "back": "Ta'sir, kuchi",
-                                "phonetic": "/ˈɪm.pækt/",
-                                "example": "Social media has a major impact on communication."
-                },
-                {
-                                "front": "Improvement",
-                                "back": "Yaxshilanish, rivojlanish",
-                                "phonetic": "/ɪmˈpruːv.mənt/",
-                                "example": "There is a noticeable improvement in your speaking fluency."
-                },
-                {
-                                "front": "Information",
-                                "back": "Ma'lumot, axborot",
-                                "phonetic": "/ˌɪn.fəˈmeɪ.ʃən/",
-                                "example": "The brochure provides useful tourist information."
-                },
-                {
-                                "front": "Instruction",
-                                "back": "Yo'riqnoma, ko'rsatma",
-                                "phonetic": "/ɪnˈstrʌk.ʃən/",
-                                "example": "Follow the assembly instructions step by step."
-                },
-                {
-                                "front": "Intention",
-                                "back": "Niyat, maqsad",
-                                "phonetic": "/ɪnˈten.ʃən/",
-                                "example": "It was not my intention to cause inconvenience."
-                },
-                {
-                                "front": "Interest",
-                                "back": "Qiziqish, manfaat",
-                                "phonetic": "/ˈɪn.trest/",
-                                "example": "She showed a keen interest in environmental science."
-                },
-                {
-                                "front": "Journey",
-                                "back": "Sayohat, safar",
-                                "phonetic": "/ˈdʒɜː.ni/",
-                                "example": "The train journey across the mountains was scenic."
-                },
-                {
-                                "front": "Knowledge",
-                                "back": "Bilim, tushuncha",
-                                "phonetic": "/ˈnɒl.ɪdʒ/",
-                                "example": "Practical knowledge is just as important as theory."
-                },
-                {
-                                "front": "Language",
-                                "back": "Til",
-                                "phonetic": "/ˈlæŋ.ɡwɪdʒ/",
-                                "example": "English is an international language of communication."
-                },
-                {
-                                "front": "Location",
-                                "back": "Joylashuv, manzil",
-                                "phonetic": "/ləʊˈkeɪ.ʃən/",
-                                "example": "The hotel is in an ideal downtown location."
-                },
-                {
-                                "front": "Management",
-                                "back": "Boshqaruv, menejment",
-                                "phonetic": "/ˈmæn.ɪdʒ.mənt/",
-                                "example": "Effective time management reduces study stress."
-                },
-                {
-                                "front": "Material",
-                                "back": "Material, xomashyo, o'quv quroli",
-                                "phonetic": "/məˈtɪə.ri.əl/",
-                                "example": "The course materials are available on the online portal."
-                },
-                {
-                                "front": "Meaning",
-                                "back": "Ma'no, mazmun",
-                                "phonetic": "/ˈmiː.nɪŋ/",
-                                "example": "Look up the meaning of unfamiliar words in a dictionary."
-                },
-                {
-                                "front": "Opportunity",
-                                "back": "Imkoniyat",
-                                "phonetic": "/ˌɒp.əˈtʃuː.nə.ti/",
-                                "example": "Internships offer a great opportunity to gain experience."
-                },
-                {
-                                "front": "Option",
-                                "back": "Tanlov, varianti",
-                                "phonetic": "/ˈɒp.ʃən/",
-                                "example": "You have the option to take the computer-based exam."
-                },
-                {
-                                "front": "Organization",
-                                "back": "Tashkilot, tuzilma",
-                                "phonetic": "/ˌɔː.ɡən.aɪˈzeɪ.ʃən/",
-                                "example": "The charity organization distributes food to families."
-                },
-                {
-                                "front": "Permission",
-                                "back": "Ruxsat",
-                                "phonetic": "/pəˈmɪʃ.ən/",
-                                "example": "Ask for permission before leaving the classroom."
-                },
-                {
-                                "front": "Personality",
-                                "back": "Shaxsiyat, fe'l-atvor",
-                                "phonetic": "/ˌpɜː.sənˈæl.ə.ti/",
-                                "example": "Her friendly personality makes her very popular."
-                },
-                {
-                                "front": "Population",
-                                "back": "Aholi, xalq soni",
-                                "phonetic": "/ˌpɒp.jəˈleɪ.ʃən/",
-                                "example": "The population of Tashkent exceeds three million people."
-                },
-                {
-                                "front": "Possibility",
-                                "back": "Ehtimol, imkoniyat",
-                                "phonetic": "/ˌpɒs.əˈbɪl.ə.ti/",
-                                "example": "There is a strong possibility of rain this weekend."
-                },
-                {
-                                "front": "Practice",
-                                "back": "Amaliyot, mashq",
-                                "phonetic": "/ˈpræk.tɪs/",
-                                "example": "Daily speaking practice is necessary for confidence."
-                },
-                {
-                                "front": "Preference",
-                                "back": "Afzallik ko'rish, tanlov",
-                                "phonetic": "/ˈpref.ər.əns/",
-                                "example": "State your accommodation preference on the registration form."
-                },
-                {
-                                "front": "Preparation",
-                                "back": "Tayyorgarlik",
-                                "phonetic": "/ˌprep.ərˈeɪ.ʃən/",
-                                "example": "Thorough preparation guarantees better test results."
-                },
-                {
-                                "front": "Problem",
-                                "back": "Muammo, masala",
-                                "phonetic": "/ˈprɒb.ləm/",
-                                "example": "Teamwork helps us solve difficult problems faster."
-                },
-                {
-                                "front": "Process",
-                                "back": "Jarayon",
-                                "phonetic": "/ˈprəʊ.ses/",
-                                "example": "Learning a new language is a gradual process."
-                },
-                {
-                                "front": "Product",
-                                "back": "Mahsulot",
-                                "phonetic": "/ˈprɒd.ʌkt/",
-                                "example": "The company launched an innovative tech product."
-                },
-                {
-                                "front": "Progress",
-                                "back": "O'sish, ilgarilash",
-                                "phonetic": "/ˈprəʊ.ɡres/",
-                                "example": "You are making steady progress in your studies."
-                },
-                {
-                                "front": "Purpose",
-                                "back": "Maqsad, niyat",
-                                "phonetic": "/ˈpɜː.pəs/",
-                                "example": "The main purpose of this meeting is to plan the event."
-                },
-                {
-                                "front": "Quality",
-                                "back": "Sifat, daraja",
-                                "phonetic": "/ˈkwɒl.ə.ti/",
-                                "example": "High quality customer service builds brand loyalty."
-                },
-                {
-                                "front": "Reason",
-                                "back": "Sabab, vaji",
-                                "phonetic": "/ˈriː.zən/",
-                                "example": "Explain the main reason for your choice in the essay."
+                                "front": "Neighbor",
+                                "back": "Qo'shni",
+                                "phonetic": "/ˈneɪ.bə/",
+                                "example": "Our neighbor helped us carry the heavy boxes."
                 },
                 {
                                 "front": "Relationship",
                                 "back": "Munosabat, aloqa",
                                 "phonetic": "/rɪˈleɪ.ʃən.ʃɪp/",
-                                "example": "Clear communication builds strong working relationships."
+                                "example": "They maintain a strong, supportive friendship."
                 },
                 {
-                                "front": "Request",
-                                "back": "Iltimos, so'rov",
-                                "phonetic": "/rɪˈkwest/",
-                                "example": "Submit your vacation request two weeks in advance."
+                                "front": "Generation",
+                                "back": "Avlod, nasl",
+                                "phonetic": "/ˌdʒen.əˈreɪ.ʃən/",
+                                "example": "Three generations live together in that big house."
                 },
                 {
-                                "front": "Research",
-                                "back": "Tadqiqot, izlanish",
-                                "phonetic": "/rɪˈsɜːtʃ/",
-                                "example": "Scientists conduct research to find new cures."
+                                "front": "Ancestor",
+                                "back": "Ajdod, ota-bobo",
+                                "phonetic": "/ˈæn.ses.tə/",
+                                "example": "Our ancestors built historic monuments in Bukhara."
                 },
                 {
-                                "front": "Resource",
-                                "back": "Manba, resurs",
-                                "phonetic": "/rɪˈzɔːs/",
-                                "example": "The library provides excellent online resources."
+                                "front": "Sibling",
+                                "back": "Aka-uka yoki opa-singil",
+                                "phonetic": "/ˈsɪb.lɪŋ/",
+                                "example": "Do you have any brothers or sisters as siblings?"
                 },
                 {
-                                "front": "Respect",
-                                "back": "Hurmat, ehtirom",
-                                "phonetic": "/rɪˈspekt/",
-                                "example": "Treating others with respect creates a positive climate."
+                                "front": "Parent",
+                                "back": "Ota-ona",
+                                "phonetic": "/ˈpeə.rənt/",
+                                "example": "Parents play a crucial role in raising children."
                 },
                 {
-                                "front": "Responsibility",
-                                "back": "Mas'uliyat, javobgarlik",
-                                "phonetic": "/rɪˌspɒn.sɪˈbɪl.ə.ti/",
-                                "example": "Taking responsibility for your learning drives success."
+                                "front": "Marriage",
+                                "back": "Nikoh, oila qurish",
+                                "phonetic": "/ˈmær.ɪdʒ/",
+                                "example": "They celebrated twenty years of happy marriage."
                 },
                 {
-                                "front": "Result",
-                                "back": "Natija",
-                                "phonetic": "/rɪˈzʌlt/",
-                                "example": "The exam results will be announced next Monday."
+                                "front": "Midnight",
+                                "back": "Yarim tun",
+                                "phonetic": "/ˈmɪd.naɪt/",
+                                "example": "The fireworks start exactly at midnight."
                 },
                 {
-                                "front": "Safety",
-                                "back": "Xavfsizlik",
-                                "phonetic": "/ˈseɪf.ti/",
-                                "example": "Seatbelts are essential for car safety."
+                                "front": "Noon",
+                                "back": "Peshin vaqti (soat 12:00)",
+                                "phonetic": "/nuːn/",
+                                "example": "We usually have lunch at noon."
                 },
                 {
                                 "front": "Schedule",
-                                "back": "Jadval, dars rejasi",
+                                "back": "Kun tartibi, dars jadvali",
                                 "phonetic": "/ˈʃed.juːl/",
-                                "example": "Check your daily study schedule on the dashboard."
+                                "example": "Check your study schedule every morning."
                 },
                 {
-                                "front": "Science",
-                                "back": "Fan, ilm-fan",
-                                "phonetic": "/ˈsaɪ.əns/",
-                                "example": "Medical science has advanced dramatically over the decades."
+                                "front": "Century",
+                                "back": "Asr, yuz yillik",
+                                "phonetic": "/ˈsen.tʃər.i/",
+                                "example": "The monument was built in the fifteenth century."
                 },
                 {
-                                "front": "Skill",
-                                "back": "Ko'nikma, mahorat",
-                                "phonetic": "/skɪl/",
-                                "example": "Writing and speaking are key language skills."
+                                "front": "Decade",
+                                "back": "O'n yillik",
+                                "phonetic": "/ˈdek.eɪd/",
+                                "example": "Technology has advanced greatly over the past decade."
                 },
                 {
-                                "front": "Society",
-                                "back": "Jamiyat",
-                                "phonetic": "/səˈsaɪ.ə.ti/",
-                                "example": "Education plays a vital role in modern society."
+                                "front": "Fortnight",
+                                "back": "Ikki hafta (14 kun)",
+                                "phonetic": "/ˈfɔːt.naɪt/",
+                                "example": "We are going on holiday for a fortnight."
                 },
                 {
-                                "front": "Solution",
-                                "back": "Yechim",
-                                "phonetic": "/səˈluː.ʃən/",
-                                "example": "We found a simple solution to the technical problem."
+                                "front": "Annual",
+                                "back": "Yillik, har yili bo'ladigan",
+                                "phonetic": "/ˈæn.ju.əl/",
+                                "example": "The school holds an annual sports competition."
                 },
                 {
-                                "front": "Source",
-                                "back": "Manba, kelib chiqishi",
-                                "phonetic": "/sɔːs/",
-                                "example": "Clean water is a vital natural resource and source of health."
+                                "front": "Temporary",
+                                "back": "Vaqtinchalik",
+                                "phonetic": "/ˈtem.pər.ər.i/",
+                                "example": "This is just a temporary solution to the issue."
                 },
                 {
-                                "front": "Strategy",
-                                "back": "Strategiya, harakat rejasi",
-                                "phonetic": "/ˈstræt.ə.dʒi/",
-                                "example": "A good study strategy helps you manage test time."
+                                "front": "Quarter",
+                                "back": "Chorak, to'rtdan bir",
+                                "phonetic": "/ˈkwɔː.tə/",
+                                "example": "The class starts at a quarter past nine."
                 },
                 {
-                                "front": "Structure",
-                                "back": "Tuzilma, struktura",
-                                "phonetic": "/ˈstrʌk.tʃə/",
-                                "example": "Organize your essay with a logical paragraph structure."
+                                "front": "Double",
+                                "back": "Ikki baravar, juft",
+                                "phonetic": "/ˈdʌb.əl/",
+                                "example": "You can double your speed with regular practice."
                 },
                 {
-                                "front": "Success",
-                                "back": "Muvaffaqiyat, yutuq",
-                                "phonetic": "/səkˈses/",
-                                "example": "Hard work and consistency lead to academic success."
+                                "front": "Amount",
+                                "back": "Miqdor, summa",
+                                "phonetic": "/əˈmaʊnt/",
+                                "example": "A large amount of water is saved by recycling."
                 },
                 {
-                                "front": "Suggestion",
-                                "back": "Taklif, maslahat",
-                                "phonetic": "/səˈdʒes.tʃən/",
-                                "example": "Thank you for your valuable feedback and suggestions."
+                                "front": "Average",
+                                "back": "O'rtacha ko'rsatkich",
+                                "phonetic": "/ˈæv.ər.ɪdʒ/",
+                                "example": "The average score in the test was seventy percent."
                 },
                 {
-                                "front": "System",
-                                "back": "Tizim, sistema",
-                                "phonetic": "/ˈsɪs.təm/",
-                                "example": "Our online learning system updates grades automatically."
+                                "front": "Distance",
+                                "back": "Masofa, olislik",
+                                "phonetic": "/ˈdɪs.təns/",
+                                "example": "What is the distance between your home and school?"
                 },
                 {
-                                "front": "Task",
-                                "back": "Vazifa, topshiriq",
-                                "phonetic": "/tɑːsk/",
-                                "example": "Complete your daily homework task before six PM."
+                                "front": "Height",
+                                "back": "Balandlik, boy",
+                                "phonetic": "/haɪt/",
+                                "example": "The building reaches a height of fifty meters."
                 },
                 {
-                                "front": "Technique",
-                                "back": "Usul, texnika",
-                                "phonetic": "/tekˈniːk/",
-                                "example": "Mind mapping is an effective memory technique."
+                                "front": "Weight",
+                                "back": "Vazn, og'irlik",
+                                "phonetic": "/weɪt/",
+                                "example": "Regular exercise helps maintain a healthy weight."
                 },
                 {
-                                "front": "Technology",
-                                "back": "Texnologiya",
-                                "phonetic": "/tekˈnɒl.ə.dʒi/",
-                                "example": "Modern technology simplifies distance learning."
+                                "front": "Capacity",
+                                "back": "Sig'im, hajm",
+                                "phonetic": "/kəˈpæs.ə.ti/",
+                                "example": "The auditorium has a seating capacity of five hundred."
                 },
                 {
-                                "front": "Topic",
-                                "back": "Mavzu, bo'lim",
-                                "phonetic": "/ˈtɒp.ɪk/",
-                                "example": "Today's speaking topic is environmental conservation."
+                                "front": "Delicious",
+                                "back": "Lazzatli, shirin",
+                                "phonetic": "/dɪˈlɪʃ.əs/",
+                                "example": "Plov is a delicious Uzbek traditional dish."
                 },
                 {
-                                "front": "Understanding",
-                                "back": "Tushunish, anglash",
-                                "phonetic": "/ˌʌn.dəˈstæn.dɪŋ/",
-                                "example": "Clear explanations deepen student understanding."
+                                "front": "Ingredient",
+                                "back": "Tarkibiy masalliq",
+                                "phonetic": "/ɪnˈɡriː.di.ənt/",
+                                "example": "Fresh vegetables are key ingredients for salad."
                 },
                 {
-                                "front": "Value",
-                                "back": "Qiymat, qadr-qimmat",
-                                "phonetic": "/ˈvæl.juː/",
-                                "example": "Education is a lifelong investment of immense value."
+                                "front": "Recipe",
+                                "back": "Retsept, tayyorlash usuli",
+                                "phonetic": "/ˈres.ɪ.pi/",
+                                "example": "Follow the baking recipe step by step."
                 },
                 {
-                                "front": "Variety",
-                                "back": "Xilma-xillik, turli-tumanlik",
-                                "phonetic": "/vəˈraɪ.ə.ti/",
-                                "example": "The restaurant offers a wide variety of healthy salads."
+                                "front": "Nutrition",
+                                "back": "Oziqlanish, taomlanish",
+                                "phonetic": "/njuːˈtrɪʃ.ən/",
+                                "example": "Good nutrition gives you energy for studying."
                 },
                 {
-                                "front": "Accurate",
-                                "back": "Aniq, to'g'ri",
-                                "phonetic": "/ˈæk.jə.rət/",
-                                "example": "Ensure your answers are accurate before submitting."
+                                "front": "Beverage",
+                                "back": "Ichimlik",
+                                "phonetic": "/ˈbev.ər.ɪdʒ/",
+                                "example": "Hot tea is a popular beverage in cold weather."
                 },
                 {
-                                "front": "Active",
-                                "back": "Faol, harakatchan",
-                                "phonetic": "/ˈæk.tɪv/",
-                                "example": "Being active in class discussions improves fluency."
+                                "front": "Breakfast",
+                                "back": "Nonushta",
+                                "phonetic": "/ˈbrek.fəst/",
+                                "example": "Eating a nutritious breakfast boots morning energy."
                 },
                 {
-                                "front": "Additional",
-                                "back": "Qo'shimcha",
-                                "phonetic": "/əˈdɪʃ.ən.əl/",
-                                "example": "You can find additional practice exercises online."
+                                "front": "Dessert",
+                                "back": "Shirinlik, desert",
+                                "phonetic": "/dɪˈzɜːt/",
+                                "example": "We ordered ice cream for dessert after dinner."
                 },
                 {
-                                "front": "Adequate",
-                                "back": "Yetarli, mos",
-                                "phonetic": "/ˈæd.ə.kwət/",
-                                "example": "Make sure you get adequate sleep before the exam."
+                                "front": "Vegetarian",
+                                "back": "Sabzavotli, vegetariancha",
+                                "phonetic": "/ˌvedʒ.ɪˈteə.ri.ən/",
+                                "example": "She prefers a healthy vegetarian diet."
                 },
                 {
-                                "front": "Advanced",
-                                "back": "Ilg'or, yuqori darajadagi",
-                                "phonetic": "/ədˈvɑːnst/",
-                                "example": "She attends an advanced English writing course."
+                                "front": "Apartment",
+                                "back": "Kvartira, xonadon",
+                                "phonetic": "/əˈpɑːt.mənt/",
+                                "example": "They rented a bright apartment in the city center."
                 },
                 {
-                                "front": "Amazing",
-                                "back": "Ajoyib, hayratlanarli",
-                                "phonetic": "/əˈmeɪ.zɪŋ/",
-                                "example": "The museum displayed an amazing collection of artifacts."
+                                "front": "Furniture",
+                                "back": "Mebel, uy jihozlari",
+                                "phonetic": "/ˈfɜː.nɪ.tʃə/",
+                                "example": "The living room is furnished with modern furniture."
                 },
                 {
-                                "front": "Ancient",
-                                "back": "Qadimiy, ko'xna",
-                                "phonetic": "/ˈeɪn.ʃənt/",
-                                "example": "Samarkand is famous for its ancient historical monuments."
+                                "front": "Appliance",
+                                "back": "Maishiy texnika",
+                                "phonetic": "/əˈplaɪ.əns/",
+                                "example": "A refrigerator is an essential kitchen appliance."
                 },
                 {
-                                "front": "Anxious",
-                                "back": "Xavotirli, bezovta",
-                                "phonetic": "/ˈæŋk.ʃəs/",
-                                "example": "Feeling anxious before a big test is completely normal."
+                                "front": "Balcony",
+                                "back": "Balkon, ayvon",
+                                "phonetic": "/ˈbæl.kə.ni/",
+                                "example": "We enjoy drinking morning tea on the balcony."
                 },
                 {
-                                "front": "Appropriate",
-                                "back": "Mos, munosib",
-                                "phonetic": "/əˈprəʊ.pri.ət/",
-                                "example": "Wear appropriate formal clothing for the interview."
+                                "front": "Basement",
+                                "back": "Yerto'la, podval",
+                                "phonetic": "/ˈbeɪs.mənt/",
+                                "example": "They store old tools and bicycles in the basement."
                 },
                 {
-                                "front": "Available",
-                                "back": "Mavjud, bo'sh",
-                                "phonetic": "/əˈveɪ.lə.bəl/",
-                                "example": "Study materials are available in the university library."
+                                "front": "Blanket",
+                                "back": "Adyol, ko'rpa",
+                                "phonetic": "/ˈblæŋ.kɪt/",
+                                "example": "Put a warm blanket over the bed on cold nights."
                 },
                 {
-                                "front": "Basic",
-                                "back": "Asosiy, bazaviy",
-                                "phonetic": "/ˈbeɪ.sɪk/",
-                                "example": "Mastering basic vocabulary is the first step in learning."
+                                "front": "Curtain",
+                                "back": "Parda",
+                                "phonetic": "/ˈkɜː.tən/",
+                                "example": "Open the window curtains to let in daylight."
                 },
                 {
-                                "front": "Beneficial",
-                                "back": "Foydali, manfaatlari",
-                                "phonetic": "/ˌben.ɪˈfɪʃ.əl/",
-                                "example": "Reading daily is highly beneficial for language growth."
+                                "front": "Mirror",
+                                "back": "Ko'zgular, oyna",
+                                "phonetic": "/ˈmɪr.ə/",
+                                "example": "There is a large mirror in the hallway."
                 },
                 {
-                                "front": "Careful",
-                                "back": "Ehtiyotkor, diqqatli",
-                                "phonetic": "/ˈkeə.fəl/",
-                                "example": "Be careful when spelling complex technical terms."
+                                "front": "Destination",
+                                "back": "Manzil, boradigan joy",
+                                "phonetic": "/ˌdes.tɪˈneɪ.ʃən/",
+                                "example": "Samarkand is a popular tourist destination."
                 },
                 {
-                                "front": "Certain",
-                                "back": "Aniq, ishonchi komil",
-                                "phonetic": "/ˈsɜː.tən/",
-                                "example": "I am certain that practice leads to improvement."
+                                "front": "Passenger",
+                                "back": "Yo'lovchi",
+                                "phonetic": "/ˈpæs.ən.dʒə/",
+                                "example": "All passengers must fasten their seatbelts."
                 },
                 {
-                                "front": "Challenging",
-                                "back": "Murakkab, qiyin lekin qiziq",
-                                "phonetic": "/ˈtʃæl.ɪn.dʒɪŋ/",
-                                "example": "Solving advanced math logic is a challenging task."
+                                "front": "Vehicle",
+                                "back": "Transport vositasi",
+                                "phonetic": "/ˈvɪə.kəl/",
+                                "example": "Bicycles and electric cars are eco-friendly vehicles."
                 },
                 {
-                                "front": "Comfortable",
-                                "back": "Qulay, shinam",
-                                "phonetic": "/ˈkʌm.fə.tə.bəl/",
-                                "example": "The new study chairs are ergonomic and comfortable."
+                                "front": "Pedestrian",
+                                "back": "Piyoda",
+                                "phonetic": "/pəˈdes.tri.ən/",
+                                "example": "Pedestrians should use the crosswalk to cross the street."
                 },
                 {
-                                "front": "Common",
-                                "back": "Keng tarqalgan, odatiy",
-                                "phonetic": "/ˈkɒm.ən/",
-                                "example": "Spelling mistakes are common among beginner writers."
+                                "front": "Neighborhood",
+                                "back": "Mahalla, atrof-tevarak",
+                                "phonetic": "/ˈneɪ.bə.hʊd/",
+                                "example": "Our neighborhood is quiet, clean and friendly."
                 },
                 {
-                                "front": "Complete",
-                                "back": "To'liq, mukammal",
-                                "phonetic": "/kəmˈpliːt/",
-                                "example": "Make sure to give a complete answer to the question."
+                                "front": "Suburb",
+                                "back": "Shahar atrofi",
+                                "phonetic": "/ˈsʌb.ɜːb/",
+                                "example": "They moved to a peaceful suburb outside Tashkent."
                 },
                 {
-                                "front": "Complex",
-                                "back": "Murakkab, ko'p qirrali",
-                                "phonetic": "/ˈkɒm.pleks/",
-                                "example": "Grammar structures become more complex at B2 level."
+                                "front": "Traffic",
+                                "back": "Yo'l harakati, tirbandlik",
+                                "phonetic": "/ˈtræf.ɪk/",
+                                "example": "Heavy traffic delayed our bus during morning rush hour."
                 },
                 {
-                                "front": "Confident",
-                                "back": "O'ziga ishonchi baland",
-                                "phonetic": "/ˈkɒn.fɪ.dənt/",
-                                "example": "She felt confident during her speaking interview."
+                                "front": "Departure",
+                                "back": "Jo'nash, uchib ketish",
+                                "phonetic": "/dɪˈpɑː.tʃə/",
+                                "example": "Check the departure board for your flight time."
                 },
                 {
-                                "front": "Convenient",
-                                "back": "Qulay, mos keladigan",
-                                "phonetic": "/kənˈviː.ni.ənt/",
-                                "example": "Online learning provides a convenient study schedule."
+                                "front": "Environment",
+                                "back": "Atrof-muhit, ekologiya",
+                                "phonetic": "/ɪnˈvaɪ.rən.mənt/",
+                                "example": "Protecting the environment is our collective duty."
                 },
                 {
-                                "front": "Creative",
-                                "back": "Ijodkor, yaratuvchan",
-                                "phonetic": "/kriˈeɪ.tɪv/",
-                                "example": "Writing essays encourages creative thinking."
+                                "front": "Landscape",
+                                "back": "Manzara, tabiat ko'rinishi",
+                                "phonetic": "/ˈlænd.skeɪp/",
+                                "example": "The mountain landscape was covered in green trees."
                 },
                 {
-                                "front": "Crucial",
-                                "back": "Hayotiy muhim, hal qiluvchi",
-                                "phonetic": "/ˈkruː.ʃəl/",
-                                "example": "Time management is crucial for exam success."
+                                "front": "Atmosphere",
+                                "back": "Atmosfera, muhit",
+                                "phonetic": "/ˈæt.məs.fɪə/",
+                                "example": "The warm lighting created a cozy atmosphere."
                 },
                 {
-                                "front": "Cultural",
-                                "back": "Madaniy, madaniyatga oid",
-                                "phonetic": "/ˈkʌl.tʃər.əl/",
-                                "example": "Food is an integral part of cultural identity."
+                                "front": "Forecast",
+                                "back": "Ob-havo prognozi",
+                                "phonetic": "/ˈfɔː.kɑːst/",
+                                "example": "According to the forecast, it will rain tomorrow."
                 },
                 {
-                                "front": "Curious",
-                                "back": "Qiziquvchan, bilishga intiluvchan",
-                                "phonetic": "/ˈkjʊə.ri.əs/",
-                                "example": "Curious students learn faster by asking questions."
+                                "front": "Creature",
+                                "back": "Jonzot, tirik mavjudot",
+                                "phonetic": "/ˈkriː.tʃə/",
+                                "example": "Dolphins are intelligent ocean creatures."
                 },
                 {
-                                "front": "Current",
-                                "back": "Hozirgi, zamonaviy",
-                                "phonetic": "/ˈkʌr.ənt/",
-                                "example": "Stay updated on current global news topics."
+                                "front": "Wildlife",
+                                "back": "Yovvoyi tabiat",
+                                "phonetic": "/ˈwaɪld.laɪf/",
+                                "example": "The national park protects local wildlife species."
                 },
                 {
-                                "front": "Dangerous",
-                                "back": "Xavfli, xatarli",
-                                "phonetic": "/ˈdeɪn.dʒər.əs/",
-                                "example": "Driving without a seatbelt is extremely dangerous."
+                                "front": "Disaster",
+                                "back": "Tabiiy kutilmagan kulfat, falokat",
+                                "phonetic": "/dɪˈzɑː.stə/",
+                                "example": "Earthquakes are unpredictable natural disasters."
                 },
                 {
-                                "front": "Different",
-                                "back": "Har xil, turlicha",
-                                "phonetic": "/ˈdɪf.ər.ənt/",
-                                "example": "People have different learning preferences."
+                                "front": "Climate",
+                                "back": "Iqlim",
+                                "phonetic": "/ˈklaɪ.mət/",
+                                "example": "Central Asia has a continental climate with warm summers."
                 },
                 {
-                                "front": "Difficult",
-                                "back": "Qiyin, murakkab",
-                                "phonetic": "/ˈdɪf.ɪ.kəlt/",
-                                "example": "Pronouncing new sounds can be difficult at first."
+                                "front": "Symptom",
+                                "back": "Alomat, belgi",
+                                "phonetic": "/ˈsɪmp.təm/",
+                                "example": "A high fever is a common symptom of flu."
                 },
                 {
-                                "front": "Disappointed",
-                                "back": "Xafalangan, ko'ngli qolgan",
-                                "phonetic": "/ˌdɪs.əˈpɔɪn.tɪd/",
-                                "example": "He felt disappointed after missing the target score."
+                                "front": "Treatment",
+                                "back": "Davolash, muolaja",
+                                "phonetic": "/ˈtriːt.mənt/",
+                                "example": "The doctor prescribed effective medical treatment."
                 },
                 {
-                                "front": "Effective",
-                                "back": "Samarali, natijali",
-                                "phonetic": "/ɪˈfek.tɪv/",
-                                "example": "Flashcards are an effective tool for memory building."
+                                "front": "Prevention",
+                                "back": "Oldini olish, profilaktika",
+                                "phonetic": "/prɪˈven.ʃən/",
+                                "example": "Hand washing is key to disease prevention."
                 },
                 {
-                                "front": "Efficient",
-                                "back": "Tejamkor, unumdor",
-                                "phonetic": "/ɪˈfɪʃ.ənt/",
-                                "example": "An efficient study routine saves hours of effort."
+                                "front": "Recovery",
+                                "back": "Sog'ayish, tiklanish",
+                                "phonetic": "/rɪˈskʌv.ər.i/",
+                                "example": "We wish you a full and speedy recovery."
                 },
                 {
-                                "front": "Essential",
-                                "back": "Zarur, o'ta muhim",
-                                "phonetic": "/ɪˈsen.ʃəl/",
-                                "example": "Hydration is essential during long study sessions."
+                                "front": "Exercise",
+                                "back": "Jismoniy mashq",
+                                "phonetic": "/ˈek.sə.saɪz/",
+                                "example": "Daily physical exercise boosts your immunity."
                 },
                 {
-                                "front": "Excellent",
-                                "back": "A'lo, mukammal",
-                                "phonetic": "/ˈek.səl.ənt/",
-                                "example": "She scored an excellent result in reading."
-                },
-                {
-                                "front": "Expensive",
-                                "back": "Qimmat, qimmatbaho",
-                                "phonetic": "/ɪkˈspen.sɪv/",
-                                "example": "Studying abroad can be expensive without scholarships."
-                },
-                {
-                                "front": "Famous",
-                                "back": "Mashhur, taniqli",
-                                "phonetic": "/ˈfeɪ.məs/",
-                                "example": "Uzbekistan is famous for its hospitality and architecture."
-                },
-                {
-                                "front": "Fantastic",
-                                "back": "Ajoyib, zo'r",
-                                "phonetic": "/fænˈtæs.tɪk/",
-                                "example": "You did a fantastic job on your presentation!"
-                },
-                {
-                                "front": "Flexible",
-                                "back": "Moslashuvchan, qayshqoq",
-                                "phonetic": "/ˈflek.sə.bəl/",
-                                "example": "A flexible schedule allows working while studying."
-                },
-                {
-                                "front": "Friendly",
-                                "back": "Do'stona, samimiy",
-                                "phonetic": "/ˈfrend.li/",
-                                "example": "The tutors at the center are very warm and friendly."
-                },
-                {
-                                "front": "Generous",
-                                "back": "Saxiy, qo'li ochiq",
-                                "phonetic": "/ˈdʒen.ər.əs/",
-                                "example": "Our host was very generous and welcoming."
-                },
-                {
-                                "front": "Global",
-                                "back": "Jahon miqyosidagi, global",
-                                "phonetic": "/ˈɡləʊ.bəl/",
-                                "example": "Climate change is a urgent global issue."
-                },
-                {
-                                "front": "Grateful",
-                                "back": "Minnatdor, tasakkur aytuvchi",
-                                "phonetic": "/ˈɡreɪt.fəl/",
-                                "example": "I am grateful for the guidance of my mentors."
-                },
-                {
-                                "front": "Healthy",
-                                "back": "Sog'lom, foydali",
-                                "phonetic": "/ˈhel.θi/",
-                                "example": "Eating a healthy breakfast improves morning focus."
-                },
-                {
-                                "front": "Helpful",
-                                "back": "Foydali, yordam beruvchi",
-                                "phonetic": "/ˈhelp.fəl/",
-                                "example": "The textbook includes helpful grammar summaries."
-                },
-                {
-                                "front": "Honest",
-                                "back": "Halol, to'g'riso'z",
-                                "phonetic": "/ˈɒn.ɪst/",
-                                "example": "Honest self-assessment is key to identifying weaknesses."
-                },
-                {
-                                "front": "Huge",
-                                "back": "Juda katta, ulkan",
-                                "phonetic": "/hjuːdʒ/",
-                                "example": "Technology has made a huge difference in education."
-                },
-                {
-                                "front": "Important",
-                                "back": "Muhim, ahamiyatli",
-                                "phonetic": "/ɪmˈpɔː.tənt/",
-                                "example": "Consistency is the most important part of learning."
-                },
-                {
-                                "front": "Impossible",
-                                "back": "Imkonsiz, ilojsiz",
-                                "phonetic": "/ɪmˈpɒs.ə.bəl/",
-                                "example": "Nothing is impossible with dedication and practice."
-                },
-                {
-                                "front": "Independent",
-                                "back": "Mustaqil, erkin",
-                                "phonetic": "/ˌɪn.dɪˈpen.dənt/",
-                                "example": "Autonomous learning builds independent thinking."
-                },
-                {
-                                "front": "Intelligent",
-                                "back": "Aqlli, zukkosi",
-                                "phonetic": "/ɪnˈtel.ɪ.dʒənt/",
-                                "example": "She gave an intelligent analysis of the essay prompt."
-                },
-                {
-                                "front": "International",
-                                "back": "Xalqaro",
-                                "phonetic": "/ˌɪn.təˈnæʃ.ən.əl/",
-                                "example": "IELTS is an international English language test."
-                },
-                {
-                                "front": "Necessary",
-                                "back": "Zarur, kerakli",
-                                "phonetic": "/ˈnes.ə.ser.i/",
-                                "example": "Regular revision is necessary for vocabulary retention."
-                },
-                {
-                                "front": "Obvious",
-                                "back": "Aniq, ravshan, ko'rinib turgan",
-                                "phonetic": "/ˈɒb.vi.əs/",
-                                "example": "There is an obvious link between practice and fluency."
-                },
-                {
-                                "front": "Official",
-                                "back": "Rasmiy",
-                                "phonetic": "/əˈfɪʃ.əl/",
-                                "example": "You will receive an official certificate after completing."
-                },
-                {
-                                "front": "Ordinary",
-                                "back": "Oddiy, odatiy",
-                                "phonetic": "/ˈɔː.dən.ri/",
-                                "example": "It was just an ordinary weekday morning."
-                },
-                {
-                                "front": "Original",
-                                "back": "Asl, nusxa emas",
-                                "phonetic": "/əˈrɪdʒ.ən.əl/",
-                                "example": "Always try to express original ideas in your essays."
-                },
-                {
-                                "front": "Particular",
-                                "back": "Aynan bir, maxsus",
-                                "phonetic": "/pəˈtɪk.jə.lə/",
-                                "example": "Is there any particular topic you want to discuss?"
+                                "front": "Pharmacy",
+                                "back": "Dorixona",
+                                "phonetic": "/ˈfɑː.mə.si/",
+                                "example": "You can buy medicine at the local pharmacy."
                 },
                 {
                                 "front": "Patient",
-                                "back": "Sabrli, chidamli",
+                                "back": "Bemor, sabrli",
                                 "phonetic": "/ˈpeɪ.ʃənt/",
-                                "example": "Be patient with yourself when learning a new language."
+                                "example": "The doctor examined the patient carefully."
                 },
                 {
-                                "front": "Polite",
-                                "back": "Xushmuomala, odobli",
-                                "phonetic": "/pəˈlaɪt/",
-                                "example": "Using polite language is important in speaking tests."
+                                "front": "Diet",
+                                "back": "Parhez, ovqatlanish rejasi",
+                                "phonetic": "/ˈdaɪ.ət/",
+                                "example": "A balanced diet provides essential vitamins."
                 },
                 {
-                                "front": "Popular",
-                                "back": "Ommabop, mashhur",
-                                "phonetic": "/ˈpɒp.jə.lə/",
-                                "example": "Football is the most popular sport among students."
+                                "front": "Outfit",
+                                "back": "Kiyim-kechak jamlanmasi",
+                                "phonetic": "/ˈaʊt.fɪt/",
+                                "example": "She chose a stylish outfit for the ceremony."
                 },
                 {
-                                "front": "Positive",
-                                "back": "Ijobiy, yaxshi",
-                                "phonetic": "/ˈpɒz.ə.tɪv/",
-                                "example": "Maintain a positive mindset during exam prep."
+                                "front": "Garment",
+                                "back": "Kiyim, ust-bosh",
+                                "phonetic": "/ˈɡɑː.mənt/",
+                                "example": "Cotton is used to manufacture soft garments."
                 },
                 {
-                                "front": "Possible",
-                                "back": "Imkoni bor, ehtimolli",
-                                "phonetic": "/ˈpɒs.ə.bəl/",
-                                "example": "It is possible to master vocabulary with daily flashcards."
+                                "front": "Footwear",
+                                "back": "Poyabzal",
+                                "phonetic": "/ˈfʊt.weə/",
+                                "example": "Wear comfortable footwear for long walks."
                 },
                 {
-                                "front": "Practical",
-                                "back": "Amaliy, foydali",
-                                "phonetic": "/ˈpræk.tɪ.kəl/",
-                                "example": "Focus on learning practical words used in daily life."
+                                "front": "Accessory",
+                                "back": "Akkessuar, bezak",
+                                "phonetic": "/əkˈses.ər.i/",
+                                "example": "A leather belt is a practical fashion accessory."
                 },
                 {
-                                "front": "Precious",
-                                "back": "Qimmatbaho, qadrli",
-                                "phonetic": "/ˈpreʃ.əs/",
-                                "example": "Time is your most precious study resource."
+                                "front": "Uniform",
+                                "back": "Forma, maxsus kiyim",
+                                "phonetic": "/ˈjuː.nɪ.fɔːm/",
+                                "example": "Students wear blue school uniforms every day."
                 },
                 {
-                                "front": "Regular",
-                                "back": "Muntazam, doimiy",
-                                "phonetic": "/ˈreɡ.jə.lə/",
-                                "example": "Establish a regular study routine for best results."
+                                "front": "Wardrobe",
+                                "back": "Kiyim javoni, garderob",
+                                "phonetic": "/ˈwɔː.drəʊb/",
+                                "example": "He organized his winter coats in the wardrobe."
                 },
                 {
-                                "front": "Reliable",
-                                "back": "Ishonchli",
-                                "phonetic": "/rɪˈlaɪ.ə.bəl/",
-                                "example": "This online dictionary is a reliable reference source."
+                                "front": "Material",
+                                "back": "Mato, material",
+                                "phonetic": "/məˈtɪə.ri.əl/",
+                                "example": "Silk is a soft and luxurious textile material."
                 },
                 {
-                                "front": "Responsible",
-                                "back": "Mas'uliyatli",
-                                "phonetic": "/rɪˈspɒn.sə.bəl/",
-                                "example": "Students are responsible for tracking their own goals."
+                                "front": "Fashionable",
+                                "back": "Zamonaga mos, urfdagi",
+                                "phonetic": "/ˈfæʃ.ən.ə.bəl/",
+                                "example": "She wears fashionable glasses to school."
+                },
+                {
+                                "front": "Profession",
+                                "back": "Kasb, mutaxassislik",
+                                "phonetic": "/prəˈfeʃ.ən/",
+                                "example": "Teaching is a noble and rewarding profession."
+                },
+                {
+                                "front": "Qualification",
+                                "back": "Malaka, diplom",
+                                "phonetic": "/ˌkwɒl.ɪ.fɪˈkeɪ.ʃən/",
+                                "example": "She gained a professional writing qualification."
+                },
+                {
+                                "front": "Employment",
+                                "back": "Ish bilan ta'minlanganlik",
+                                "phonetic": "/ɪmˈplɔɪ.mənt/",
+                                "example": "The government aims to boost youth employment."
+                },
+                {
+                                "front": "Colleague",
+                                "back": "Hamkasb",
+                                "phonetic": "/ˈkɒl.iːɡ/",
+                                "example": "I collaborate closely with my office colleagues."
+                },
+                {
+                                "front": "Salary",
+                                "back": "Oylik maosh",
+                                "phonetic": "/ˈsæl.ər.i/",
+                                "example": "He receives a competitive monthly salary."
+                },
+                {
+                                "front": "Curriculum",
+                                "back": "O'quv dasturi",
+                                "phonetic": "/kəˈrɪk.jə.ləm/",
+                                "example": "The school curriculum includes computer coding."
+                },
+                {
+                                "front": "Assignment",
+                                "back": "Vazifa, topshiriq",
+                                "phonetic": "/əˈsaɪn.mənt/",
+                                "example": "Submit your writing assignment by Friday."
+                },
+                {
+                                "front": "Certificate",
+                                "back": "Sertifikat, guvohnoma",
+                                "phonetic": "/səˈtɪf.ɪ.kət/",
+                                "example": "You will receive an official completion certificate."
+                },
+                {
+                                "front": "Tournament",
+                                "back": "Musobaqa, turnir",
+                                "phonetic": "/ˈtʊə.nə.mənt/",
+                                "example": "Our football team won the regional tournament."
+                },
+                {
+                                "front": "Entertainment",
+                                "back": "Ko'ngilochar mashg'ulot",
+                                "phonetic": "/ˌen.təˈteɪn.mənt/",
+                                "example": "The festival offers music and dance entertainment."
+                },
+                {
+                                "front": "Leisure",
+                                "back": "Bo'sh vaqt, hordiq",
+                                "phonetic": "/ˈleʒ.ə/",
+                                "example": "He enjoys reading novels in his leisure time."
+                },
+                {
+                                "front": "Champion",
+                                "back": "Chempion, g'olib",
+                                "phonetic": "/ˈtʃæm.pi.ən/",
+                                "example": "She became the national chess champion at age sixteen."
+                },
+                {
+                                "front": "Spectator",
+                                "back": "Tomoshabin",
+                                "phonetic": "/spekˈteɪ.tə/",
+                                "example": "Thousands of spectators filled the stadium."
+                },
+                {
+                                "front": "Exhibition",
+                                "back": "Ko'rgazma",
+                                "phonetic": "/ˌek.sɪˈbɪʃ.ən/",
+                                "example": "We visited an art exhibition of modern paintings."
+                },
+                {
+                                "front": "Orchestra",
+                                "back": "Orkestr",
+                                "phonetic": "/ˈɔː.kɪ.strə/",
+                                "example": "The orchestra played beautiful classical music."
+                },
+                {
+                                "front": "Recreation",
+                                "back": "Hordiq chiqarish, dam olish",
+                                "phonetic": "/ˌrek.riˈeɪ.ʃən/",
+                                "example": "Parks provide spaces for public outdoor recreation."
+                },
+                {
+                                "front": "Delighted",
+                                "back": "Juda xursand, mamnun",
+                                "phonetic": "/dɪˈlaɪ.tɪd/",
+                                "example": "She was delighted to hear the good news."
+                },
+                {
+                                "front": "Embarrassed",
+                                "back": "Hijolatda qolgan, uyalgan",
+                                "phonetic": "/ɪmˈbær.əst/",
+                                "example": "He felt embarrassed when he forgot his lines."
+                },
+                {
+                                "front": "Exhausted",
+                                "back": "Haddan tashqari charchagan",
+                                "phonetic": "/ɪɡˈzɔː.stɪd/",
+                                "example": "After the long marathon, the runners were exhausted."
+                },
+                {
+                                "front": "Frightened",
+                                "back": "Qo'rqqan, cho'chigan",
+                                "phonetic": "/ˈfraɪ.tənd/",
+                                "example": "The loud thunder frightened the small puppy."
+                },
+                {
+                                "front": "Jealous",
+                                "back": "Rashkchi, hasadg'oy",
+                                "phonetic": "/ˈdʒel.əs/",
+                                "example": "Avoid being jealous of other people's achievements."
                 },
                 {
                                 "front": "Satisfied",
                                 "back": "Qoniqqan, mamnun",
                                 "phonetic": "/ˈsæt.ɪs.faɪd/",
-                                "example": "She felt satisfied with her test score."
+                                "example": "We are satisfied with the survey results."
                 },
                 {
-                                "front": "Serious",
-                                "back": "Jiddiy, muhim",
-                                "phonetic": "/ˈsɪə.ri.əs/",
-                                "example": "Atmospheric pollution is a serious environmental threat."
+                                "front": "Surprised",
+                                "back": "Hayron qolgan",
+                                "phonetic": "/səˈpraɪzd/",
+                                "example": "She was surprised by the unexpected birthday gift."
                 },
                 {
-                                "front": "Similar",
-                                "back": "O'xshash, hamrang",
-                                "phonetic": "/ˈsɪm.ɪ.lə/",
-                                "example": "Synonyms are words with similar meanings."
+                                "front": "Sympathetic",
+                                "back": "Hamdard, xayrixoh",
+                                "phonetic": "/ˌsɪm.pəˈθet.ɪk/",
+                                "example": "The teacher was sympathetic when I felt unwell."
                 },
                 {
-                                "front": "Simple",
-                                "back": "Oddiy, oson",
-                                "phonetic": "/ˈsɪm.pəl/",
-                                "example": "Keep your sentence structure clear and simple."
+                                "front": "Furthermore",
+                                "back": "Bundan tashqari, qolaversa",
+                                "phonetic": "/ˌfɜː.ðəˈmɔː/",
+                                "example": "The course is free; furthermore, books are provided."
                 },
                 {
-                                "front": "Special",
-                                "back": "Maxsus, alohida",
-                                "phonetic": "/ˈspeʃ.əl/",
-                                "example": "The school organized a special ceremony for graduates."
+                                "front": "However",
+                                "back": "Biroq, lekin",
+                                "phonetic": "/haʊˈev.ə/",
+                                "example": "The test was hard; however, everyone passed."
                 },
                 {
-                                "front": "Specific",
-                                "back": "Aniq, tayinli",
-                                "phonetic": "/spəˈsɪf.ɪk/",
-                                "example": "Give specific examples to support your essay points."
+                                "front": "Therefore",
+                                "back": "Shu sababli, demak",
+                                "phonetic": "/ˈðeə.fɔː/",
+                                "example": "She practiced daily; therefore, her score improved."
                 },
                 {
-                                "front": "Suitable",
-                                "back": "Mos, munosib",
-                                "phonetic": "/ˈsuː.tə.bəl/",
-                                "example": "Choose a study environment suitable for quiet focus."
+                                "front": "Meanwhile",
+                                "back": "Shu asnoda, bu orada",
+                                "phonetic": "/ˈmiːn.waɪl/",
+                                "example": "Boil the water; meanwhile, chop the vegetables."
                 },
                 {
-                                "front": "Traditional",
-                                "back": "An'anaviy, milliy",
-                                "phonetic": "/trəˈdɪʃ.ən.əl/",
-                                "example": "Plov is a delicious traditional Uzbek dish."
+                                "front": "Despite",
+                                "back": "Qaramasdan, qaramay",
+                                "phonetic": "/dɪˈspaɪt/",
+                                "example": "They enjoyed the walk despite the rainy weather."
                 },
                 {
-                                "front": "Typical",
-                                "back": "Xarakterli, odatiy",
-                                "phonetic": "/ˈtɪp.ɪ.kəl/",
-                                "example": "A typical study session lasts for forty-five minutes."
+                                "front": "Although",
+                                "back": "Garchi, bo'lsada",
+                                "phonetic": "/ɔːlˈðəʊ/",
+                                "example": "Although it was cold, we went for a swim."
                 },
                 {
-                                "front": "Unique",
-                                "back": "Yagona, takrorsiz",
-                                "phonetic": "/juːˈniːk/",
-                                "example": "Every student has a unique learning pace."
+                                "front": "In addition",
+                                "back": "Qo'shimcha ravishda",
+                                "phonetic": "/ɪn əˈdɪʃ.ən/",
+                                "example": "In addition to English, she speaks French fluently."
                 },
                 {
-                                "front": "Useful",
-                                "back": "Foydali, keragiga yaraydigan",
-                                "phonetic": "/ˈjuːs.fəl/",
-                                "example": "This vocabulary list is extremely useful for beginners."
+                                "front": "Otherwise",
+                                "back": "Aks holda, bo'lmasa",
+                                "phonetic": "/ˈʌð.ə.waɪz/",
+                                "example": "Hurry up; otherwise, we will miss the train."
                 },
                 {
-                                "front": "Valuable",
-                                "back": "Qimmatli, g'animat",
-                                "phonetic": "/ˈvæl.jə.bəl/",
-                                "example": "Mock tests provide valuable practice for the real exam."
+                                "front": "Accept",
+                                "back": "Qabul qilmoq, rozi bo'lmoq",
+                                "phonetic": "/əkˈsept/",
+                                "example": "She accepted the scholarship offer with joy."
                 },
                 {
-                                "front": "Various",
-                                "back": "Turli xil, har xil",
-                                "phonetic": "/ˈveə.ri.əs/",
-                                "example": "The library contains books on various academic subjects."
+                                "front": "Achieve",
+                                "back": "Erishmoq, qo'lga kiritmoq",
+                                "phonetic": "/əˈtʃiːv/",
+                                "example": "Hard work helps you achieve your dreams."
                 },
                 {
-                                "front": "Vital",
-                                "back": "Hayotiy muhim",
-                                "phonetic": "/ˈvaɪ.təl/",
-                                "example": "Water is vital for maintaining physical health."
+                                "front": "Admire",
+                                "back": "Havas qilmoq, qoyil qolmoq",
+                                "phonetic": "/ədˈmaɪə/",
+                                "example": "I admire her dedication to learning new skills."
+                },
+                {
+                                "front": "Admit",
+                                "back": "Tan olmoq",
+                                "phonetic": "/ədˈmɪt/",
+                                "example": "He admitted making a mistake on the calculation."
+                },
+                {
+                                "front": "Advise",
+                                "back": "Maslahat bermoq",
+                                "phonetic": "/ədˈvaɪz/",
+                                "example": "Tutors advise students to review daily flashcards."
+                },
+                {
+                                "front": "Afford",
+                                "back": "Qurbi yetmoq, sotib ola bilmoq",
+                                "phonetic": "/əˈfɔːd/",
+                                "example": "We can afford to buy a new study desk now."
+                },
+                {
+                                "front": "Agree",
+                                "back": "Rozi bo'lmoq, qo'shilmoq",
+                                "phonetic": "/əˈɡriː/",
+                                "example": "I agree with your suggestion about essay structure."
+                },
+                {
+                                "front": "Allow",
+                                "back": "Ruxsat bermoq",
+                                "phonetic": "/əˈlaʊ/",
+                                "example": "Libraries allow quiet study areas for students."
+                },
+                {
+                                "front": "Announce",
+                                "back": "E'lon qilmoq",
+                                "phonetic": "/əˈnaʊns/",
+                                "example": "The host announced the winner of the competition."
+                },
+                {
+                                "front": "Appear",
+                                "back": "Ko'rinmoq, paydo bo'lmoq",
+                                "phonetic": "/əˈpɪə/",
+                                "example": "New features appear on the app after updating."
+                },
+                {
+                                "front": "Apply",
+                                "back": "Hujjat topshirmoq, qo'llamoq",
+                                "phonetic": "/əˈplaɪ/",
+                                "example": "Apply online before the official deadline."
+                },
+                {
+                                "front": "Appreciate",
+                                "back": "Qadrlamoq, minnatdor bo'lmoq",
+                                "phonetic": "/əˈpriː.ʃi.eɪt/",
+                                "example": "I appreciate your help with my project."
+                },
+                {
+                                "front": "Approve",
+                                "back": "Ma'qullamoq, tasdiqlamoq",
+                                "phonetic": "/əˈpruːv/",
+                                "example": "The board approved the new building design."
+                },
+                {
+                                "front": "Arrange",
+                                "back": "Tashkillashtirmoq, tartibga solmoq",
+                                "phonetic": "/əˈreɪndʒ/",
+                                "example": "Let's arrange our notes in chronological order."
+                },
+                {
+                                "front": "Arrive",
+                                "back": "Yetib kelmoq",
+                                "phonetic": "/əˈraɪv/",
+                                "example": "The express train will arrive in ten minutes."
+                },
+                {
+                                "front": "Assist",
+                                "back": "Yordam bermoq, ko'maklashmoq",
+                                "phonetic": "/əˈsɪst/",
+                                "example": "Lab assistants help students during experiments."
+                },
+                {
+                                "front": "Assume",
+                                "back": "Taxmin qilmoq, deb o'ylamoq",
+                                "phonetic": "/əˈsjuːm/",
+                                "example": "Do not assume the test will be easy without prep."
+                },
+                {
+                                "front": "Attach",
+                                "back": "Biriktirmoq, ilova qilmoq",
+                                "phonetic": "/əˈtætʃ/",
+                                "example": "Please attach your resume to the email."
+                },
+                {
+                                "front": "Attempt",
+                                "back": "Harakat qilib ko'rmoq, urinmoq",
+                                "phonetic": "/əˈtempt/",
+                                "example": "She attempted to solve the puzzle in five minutes."
+                },
+                {
+                                "front": "Attend",
+                                "back": "Qatnashmoq, borib turmoq",
+                                "phonetic": "/əˈtend/",
+                                "example": "Students must attend all laboratory sessions."
+                },
+                {
+                                "front": "Attract",
+                                "back": "Jalb etmoq, o'ziga tortmoq",
+                                "phonetic": "/əˈtrækt/",
+                                "example": "Bright colors attract the attention of children."
+                },
+                {
+                                "front": "Avoid",
+                                "back": "Qochmoq, chetlab o'tmoq",
+                                "phonetic": "/əˈvɔɪd/",
+                                "example": "Avoid spending too much time on social media."
+                },
+                {
+                                "front": "Become",
+                                "back": "Bo'lmoq, aylanmoq",
+                                "phonetic": "/bɪˈkʌm/",
+                                "example": "Practice helps you become a fluent speaker."
+                },
+                {
+                                "front": "Beg",
+                                "back": "Yalinmoq, so'ramoq",
+                                "phonetic": "/beɡ/",
+                                "example": "The child begged for one more story before bed."
+                },
+                {
+                                "front": "Begin",
+                                "back": "Boshlamoq",
+                                "phonetic": "/bɪˈɡɪn/",
+                                "example": "Lessons begin promptly at eight thirty in the morning."
+                },
+                {
+                                "front": "Behave",
+                                "back": "O'zini tutmoq, odob saqlamoq",
+                                "phonetic": "/bɪˈheɪv/",
+                                "example": "Children are taught to behave politely at school."
+                },
+                {
+                                "front": "Believe",
+                                "back": "Ishonmoq",
+                                "phonetic": "/bɪˈliːv/",
+                                "example": "Believe in your ability to master any subject."
+                },
+                {
+                                "front": "Belong",
+                                "back": "Tegishli bo'lmoq",
+                                "phonetic": "/bɪˈlɒŋ/",
+                                "example": "These books belong to the university library."
+                },
+                {
+                                "front": "Borrow",
+                                "back": "Qarzga olmoq",
+                                "phonetic": "/ˈbɒr.əʊ/",
+                                "example": "Can I borrow your ruler for a moment?"
+                },
+                {
+                                "front": "Breathe",
+                                "back": "Nafas olmoq",
+                                "phonetic": "/briːð/",
+                                "example": "Take a deep breath to calm your exam nerves."
+                },
+                {
+                                "front": "Build",
+                                "back": "Qurmoq, bino etmoq",
+                                "phonetic": "/bɪld/",
+                                "example": "Engineers build durable bridges across rivers."
+                },
+                {
+                                "front": "Calculate",
+                                "back": "Hisoblamoq",
+                                "phonetic": "/ˈkæl.kjə.leɪt/",
+                                "example": "Use a calculator to calculate the total budget."
+                },
+                {
+                                "front": "Cancel",
+                                "back": "Bekor qilmoq",
+                                "phonetic": "/ˈkæn.səl/",
+                                "example": "They cancelled the outdoor match due to rain."
+                },
+                {
+                                "front": "Capture",
+                                "back": "Ushlamoq, tasvirga olmoq",
+                                "phonetic": "/ˈkæp.tʃə/",
+                                "example": "The photographer captured the sunset beautifully."
+                },
+                {
+                                "front": "Cause",
+                                "back": "Sabab bo'lmoq",
+                                "phonetic": "/kɔːz/",
+                                "example": "Careless driving can cause traffic accidents."
+                },
+                {
+                                "front": "Celebrate",
+                                "back": "Nishonlamoq",
+                                "phonetic": "/ˈsel.ə.breɪt/",
+                                "example": "We gather to celebrate family birthdays together."
+                },
+                {
+                                "front": "Challenge",
+                                "back": "Chaqiriq tashlamoq, sinamoq",
+                                "phonetic": "/ˈtʃæl.ɪndʒ/",
+                                "example": "New projects challenge our problem-solving skills."
+                },
+                {
+                                "front": "Change",
+                                "back": "O'zgartirmoq, o'zgarmoq",
+                                "phonetic": "/tʃeɪndʒ/",
+                                "example": "Technology changes the way we study and work."
+                },
+                {
+                                "front": "Choose",
+                                "back": "Tanlamoq",
+                                "phonetic": "/tʃuːz/",
+                                "example": "Choose the correct option from the drop-down menu."
+                },
+                {
+                                "front": "Claim",
+                                "back": "Da'vo qilmoq, ta'kidlamoq",
+                                "phonetic": "/kleɪm/",
+                                "example": "The author claims that reading boosts memory."
+                },
+                {
+                                "front": "Collect",
+                                "back": "Yig'moq, to'plamoq",
+                                "phonetic": "/kəˈlekt/",
+                                "example": "Students collect research data for their thesis."
+                },
+                {
+                                "front": "Combine",
+                                "back": "Birlashtirmoq, qo'shmoq",
+                                "phonetic": "/kəmˈbaɪn/",
+                                "example": "Combine exercise with good nutrition for health."
+                },
+                {
+                                "front": "Command",
+                                "back": "Buyurmoq, boshqarmoq",
+                                "phonetic": "/kəˈmɑːnd/",
+                                "example": "The general commanded the troops to halt."
+                },
+                {
+                                "front": "Communicate",
+                                "back": "Muloqot qilmoq",
+                                "phonetic": "/kəˈmjuː.nɪ.keɪt/",
+                                "example": "English helps people communicate across borders."
+                },
+                {
+                                "front": "Compare",
+                                "back": "Taqqoslamoq",
+                                "phonetic": "/kəmˈpeə/",
+                                "example": "Compare the advantages of both study methods."
+                },
+                {
+                                "front": "Compete",
+                                "back": "Musobaqalashmoq, bellashmoq",
+                                "phonetic": "/kəmˈpiːt/",
+                                "example": "Athletes compete for gold medals in the games."
+                },
+                {
+                                "front": "Complain",
+                                "back": "Shikoyat qilmoq",
+                                "phonetic": "/kəmˈpleɪn/",
+                                "example": "Customers complain if service is delayed."
+                },
+                {
+                                "front": "Complete",
+                                "back": "Tugatmoq, to'ldirmoq",
+                                "phonetic": "/kəmˈpliːt/",
+                                "example": "Complete the form with your personal details."
+                },
+                {
+                                "front": "Concentrate",
+                                "back": "Diqqatni jamlamoq",
+                                "phonetic": "/ˈkɒn.sən.treɪt/",
+                                "example": "Quiet environments help you concentrate on reading."
+                },
+                {
+                                "front": "Conclude",
+                                "back": "Xulosa qilmoq",
+                                "phonetic": "/kənˈkluːd/",
+                                "example": "The essay concludes with a summary of key points."
+                },
+                {
+                                "front": "Confirm",
+                                "back": "Tasdiqlamoq",
+                                "phonetic": "/kənˈfɜːm/",
+                                "example": "Confirm your email address by clicking the link."
+                },
+                {
+                                "front": "Connect",
+                                "back": "Bog'lamoq, ulamoq",
+                                "phonetic": "/kəˈnekt/",
+                                "example": "Connect to the Wi-Fi network to access notes."
+                },
+                {
+                                "front": "Consider",
+                                "back": "O'ylab ko'rmoq, hisoblamoq",
+                                "phonetic": "/kənˈsɪd.ə/",
+                                "example": "Consider all options before taking a final decision."
+                },
+                {
+                                "front": "Consist",
+                                "back": "Tashkil topmoq, iborat bo'lmoq",
+                                "phonetic": "/kənˈsɪst/",
+                                "example": "The exam consists of three main modules."
+                },
+                {
+                                "front": "Construct",
+                                "back": "Qurmoq, bino qilmoq",
+                                "phonetic": "/kənˈstrʌkt/",
+                                "example": "Workers construct high-rise modern apartments."
+                },
+                {
+                                "front": "Contain",
+                                "back": "O'z ichiga olmoq, saqlamoq",
+                                "phonetic": "/kənˈteɪn/",
+                                "example": "Fresh fruits contain essential vitamins."
+                },
+                {
+                                "front": "Continue",
+                                "back": "Davom ettirmoq",
+                                "phonetic": "/kənˈtɪn.juː/",
+                                "example": "Continue practicing until you feel comfortable."
+                },
+                {
+                                "front": "Contribute",
+                                "back": "Hissa qo'shmoq",
+                                "phonetic": "/kənˈtrɪb.juːt/",
+                                "example": "Every member contributes to group success."
+                },
+                {
+                                "front": "Control",
+                                "back": "Boshqarmoq, nazorat qilmoq",
+                                "phonetic": "/kənˈtrəʊl/",
+                                "example": "Learn to control your time during tests."
+                },
+                {
+                                "front": "Convert",
+                                "back": "O'girmoq, aylantirmoq",
+                                "phonetic": "/kənˈvɜːt/",
+                                "example": "Convert currencies using online banking apps."
+                },
+                {
+                                "front": "Convince",
+                                "back": "Ishontirmoq",
+                                "phonetic": "/kənˈvɪns/",
+                                "example": "She convinced her parents to let her travel."
+                },
+                {
+                                "front": "Create",
+                                "back": "Yaratmoq",
+                                "phonetic": "/kriˈeɪt/",
+                                "example": "Artists create inspiring paintings."
+                },
+                {
+                                "front": "Damage",
+                                "back": "Zarar yetkazmoq",
+                                "phonetic": "/ˈdæm.ɪdʒ/",
+                                "example": "Storms can damage electric power lines."
+                },
+                {
+                                "front": "Decide",
+                                "back": "Qaror qilmoq",
+                                "phonetic": "/dɪˈsaɪd/",
+                                "example": "Decide on your daily goals every morning."
+                },
+                {
+                                "front": "Declare",
+                                "back": "E'lon qilmoq, bildirmoq",
+                                "phonetic": "/dɪˈkleər/",
+                                "example": "Customs officers ask if you have goods to declare."
+                },
+                {
+                                "front": "Decorate",
+                                "back": "Bezatmoq, pardozlamoq",
+                                "phonetic": "/ˈdek.ə.reɪt/",
+                                "example": "They decorate the house for New Year celebrations."
+                },
+                {
+                                "front": "Decrease",
+                                "back": "Kamaytirmoq",
+                                "phonetic": "/dɪˈkriːs/",
+                                "example": "Noise levels decrease late in the evening."
+                },
+                {
+                                "front": "Define",
+                                "back": "Ta'riflamoq, belgilamoq",
+                                "phonetic": "/dɪˈfaɪn/",
+                                "example": "Dictionaries define the precise meaning of words."
+                },
+                {
+                                "front": "Delay",
+                                "back": "Kechiktirmoq",
+                                "phonetic": "/dɪˈleɪ/",
+                                "example": "Bad weather delayed the takeoff of our flight."
+                },
+                {
+                                "front": "Deliver",
+                                "back": "Yetkazib bermoq",
+                                "phonetic": "/dɪˈlɪv.ə/",
+                                "example": "Couriers deliver packages directly to your door."
+                },
+                {
+                                "front": "Demand",
+                                "back": "Talab qilmoq",
+                                "phonetic": "/dɪˈmɑːnd/",
+                                "example": "Modern jobs demand digital and language skills."
+                },
+                {
+                                "front": "Demonstrate",
+                                "back": "Ko'rsatib bermoq, namoyish etmoq",
+                                "phonetic": "/ˈdem.ən.streɪt/",
+                                "example": "The teacher demonstrated the chemistry experiment."
+                },
+                {
+                                "front": "Depend",
+                                "back": "Bog'liq bo'lmoq",
+                                "phonetic": "/dɪˈpend/",
+                                "example": "Exam scores depend on effort and revision."
+                },
+                {
+                                "front": "Describe",
+                                "back": "Tasvirlamoq",
+                                "phonetic": "/dɪˈskraɪb/",
+                                "example": "Describe your favorite childhood memory."
+                },
+                {
+                                "front": "Design",
+                                "back": "Loyihalashtirmoq, yaratmoq",
+                                "phonetic": "/dɪˈzaɪn/",
+                                "example": "Engineers design safe and modern buildings."
+                },
+                {
+                                "front": "Destroy",
+                                "back": "Yo'q qilmoq, vayron etmoq",
+                                "phonetic": "/dɪˈstrɔɪ/",
+                                "example": "Fires destroy large areas of forest land."
+                },
+                {
+                                "front": "Detail",
+                                "back": "Batafsil tushuntirmoq",
+                                "phonetic": "/ˈdiː.teɪl/",
+                                "example": "The manual details step-by-step instructions."
+                },
+                {
+                                "front": "Develop",
+                                "back": "Rivojlantirmoq",
+                                "phonetic": "/dɪˈvel.əp/",
+                                "example": "Students develop critical thinking in debate club."
+                },
+                {
+                                "front": "Disappear",
+                                "back": "Yo'qolmoq, g'oyib bo'lmoq",
+                                "phonetic": "/ˌdɪs.əˈpɪə/",
+                                "example": "The fog disappeared as the sun rose higher."
+                },
+                {
+                                "front": "Discover",
+                                "back": "Kashf etmoq",
+                                "phonetic": "/dɪˈskʌv.ə/",
+                                "example": "Researchers discover new medical treatments."
+                },
+                {
+                                "front": "Discuss",
+                                "back": "Muhokama qilmoq",
+                                "phonetic": "/dɪˈskʌs/",
+                                "example": "Discuss essay topics in small study groups."
+                },
+                {
+                                "front": "Display",
+                                "back": "Namoyish qilmoq, ko'rsatmoq",
+                                "phonetic": "/dɪˈspleɪ/",
+                                "example": "Screens display real-time arrival information."
+                },
+                {
+                                "front": "Distribute",
+                                "back": "Tarqatmoq",
+                                "phonetic": "/dɪˈstrɪb.juːt/",
+                                "example": "Volunteers distribute warm food to families."
+                },
+                {
+                                "front": "Divide",
+                                "back": "Bo'lmoq, ajratmoq",
+                                "phonetic": "/dɪˈvaɪd/",
+                                "example": "Divide your study time into short focused intervals."
+                },
+                {
+                                "front": "Doubt",
+                                "back": "Shubhalanmoq",
+                                "phonetic": "/daʊt/",
+                                "example": "Never doubt your capacity to learn and grow."
+                },
+                {
+                                "front": "Earn",
+                                "back": "Ishlab topmoq, qozonmoq",
+                                "phonetic": "/ɜːn/",
+                                "example": "Hard work allows you to earn respect and income."
+                },
+                {
+                                "front": "Educate",
+                                "back": "Ta'lim bermoq, tarbiyalamoq",
+                                "phonetic": "/ˈedʒ.u.keɪt/",
+                                "example": "Schools educate young minds for future roles."
+                },
+                {
+                                "front": "Embarrass",
+                                "back": "Hijolat qilmoq, uyaltirmoq",
+                                "phonetic": "/ɪmˈbær.əs/",
+                                "example": "Do not let minor mistakes embarrass you in public."
+                },
+                {
+                                "front": "Emerge",
+                                "back": "Namoyon bo'lmoq, chiqmoq",
+                                "phonetic": "/ɪˈmɜːdʒ/",
+                                "example": "New technologies emerge every single year."
+                },
+                {
+                                "front": "Encourage",
+                                "back": "Ruhlantirmoq",
+                                "phonetic": "/ɪnˈkʌr.ɪdʒ/",
+                                "example": "Parents encourage their children to read books."
+                },
+                {
+                                "front": "Enjoy",
+                                "back": "Huzurlanmoq, zavqlanmoq",
+                                "phonetic": "/ɪnˈdʒɔɪ/",
+                                "example": "I enjoy listening to podcasts while commuting."
+                },
+                {
+                                "front": "Entertain",
+                                "back": "Xushnud etmoq, ko'ngil olmoq",
+                                "phonetic": "/ˌen.təˈteɪn/",
+                                "example": "Comedians entertain the audience with funny acts."
+                },
+                {
+                                "front": "Escape",
+                                "back": "Qochib qutulmoq",
+                                "phonetic": "/ɪˈskeɪp/",
+                                "example": "Birds escape cold climates by flying south."
+                },
+                {
+                                "front": "Establish",
+                                "back": "Tashkil etmoq, asos solmoq",
+                                "phonetic": "/ɪˈstæb.lɪʃ/",
+                                "example": "The university was established in 1920."
+                },
+                {
+                                "front": "Evaluate",
+                                "back": "Baho bermoq",
+                                "phonetic": "/ɪˈvæl.ju.eɪt/",
+                                "example": "Examiners evaluate fluency and coherence."
+                },
+                {
+                                "front": "Examine",
+                                "back": "Tekshirmoq, imtihon qilmoq",
+                                "phonetic": "/ɪɡˈzæm.ɪn/",
+                                "example": "Doctors examine patients to diagnose illnesses."
+                },
+                {
+                                "front": "Exchange",
+                                "back": "Almashtirmoq, fikr almashmoq",
+                                "phonetic": "/ɪksˈtʃeɪndʒ/",
+                                "example": "Students exchange study tips before exams."
+                },
+                {
+                                "front": "Exist",
+                                "back": "Mavjud bo'lmoq, yashamoq",
+                                "phonetic": "/ɪɡˈzɪst/",
+                                "example": "Water is necessary for life to exist on Earth."
+                },
+                {
+                                "front": "Expand",
+                                "back": "Kengaytirmoq, kattalashtirmoq",
+                                "phonetic": "/ɪkˈspænd/",
+                                "example": "Reading helps expand your active vocabulary."
+                },
+                {
+                                "front": "Expect",
+                                "back": "Kutmoq, umid qilmoq",
+                                "phonetic": "/ɪkˈspekt/",
+                                "example": "We expect good news from the exam committee."
+                },
+                {
+                                "front": "Explain",
+                                "back": "Tushuntirmoq",
+                                "phonetic": "/ɪkˈspleɪn/",
+                                "example": "Tutors explain rules with clear visual examples."
+                },
+                {
+                                "front": "Explore",
+                                "back": "Tadqiq qilmoq, o'rganib chiqmoq",
+                                "phonetic": "/ɪkˈsplɔː/",
+                                "example": "Travelers love to explore historic old cities."
+                },
+                {
+                                "front": "Express",
+                                "back": "Iroda etmoq, bildirmoq",
+                                "phonetic": "/ɪkˈspres/",
+                                "example": "Art lets people express their innermost thoughts."
+                },
+                {
+                                "front": "Extend",
+                                "back": "Uzaytirmoq, cho'zmoq",
+                                "phonetic": "/ɪkˈstend/",
+                                "example": "The school decided to extend the project deadline."
+                },
+                {
+                                "front": "Fail",
+                                "back": "Muvaffaqiyatsizlikka uchramoq",
+                                "phonetic": "/feɪl/",
+                                "example": "Failure is just a stepping stone to success."
+                },
+                {
+                                "front": "Fear",
+                                "back": "Qo'rqmoq",
+                                "phonetic": "/fɪə/",
+                                "example": "Do not fear making mistakes when practicing speaking."
+                },
+                {
+                                "front": "Figure out",
+                                "back": "Tushunib yetmoq, yechim topmoq",
+                                "phonetic": "/ˈfɪɡ.ər aʊt/",
+                                "example": "I need to figure out how to solve this equation."
+                },
+                {
+                                "front": "Fill",
+                                "back": "To'ldirmoq",
+                                "phonetic": "/fɪl/",
+                                "example": "Fill the water bottle before starting your workout."
+                },
+                {
+                                "front": "Finish",
+                                "back": "Tugatmoq",
+                                "phonetic": "/ˈfɪn.ɪʃ/",
+                                "example": "Finish your assignment before going out to play."
+                },
+                {
+                                "front": "Focus",
+                                "back": "Diqqatni qaratmoq",
+                                "phonetic": "/ˈfəʊ.kəs/",
+                                "example": "Focus on your goals and avoid distractions."
+                },
+                {
+                                "front": "Follow",
+                                "back": "Egasida yurmoq, rioya qilmoq",
+                                "phonetic": "/ˈfɒl.əʊ/",
+                                "example": "Follow the instructions carefully during the test."
+                },
+                {
+                                "front": "Forgive",
+                                "back": "Kechirmoq",
+                                "phonetic": "/fəˈɡɪv/",
+                                "example": "Forgiving mistakes creates peace in relationships."
+                },
+                {
+                                "front": "Gather",
+                                "back": "To'plamoq, yig'ilmoq",
+                                "phonetic": "/ˈɡæð.ə/",
+                                "example": "Students gather in the hall for the assembly."
+                },
+                {
+                                "front": "Generate",
+                                "back": "Yaratmoq, hosil qilmoq",
+                                "phonetic": "/ˈdʒen.ə.reɪt/",
+                                "example": "Solar panels generate clean electrical energy."
+                },
+                {
+                                "front": "Govern",
+                                "back": "Boshqarmoq, idora etmoq",
+                                "phonetic": "/ˈɡʌv.ən/",
+                                "example": "The council governs local municipal services."
+                },
+                {
+                                "front": "Graduate",
+                                "back": "Bitirmoq (o'quv yurti)",
+                                "phonetic": "/ˈɡrædʒ.u.eɪt/",
+                                "example": "She will graduate from university next summer."
+                },
+                {
+                                "front": "Guarantee",
+                                "back": "Kafolatlamoq",
+                                "phonetic": "/ˌɡær.ənˈtiː/",
+                                "example": "Practice does not guarantee perfection, but builds progress."
+                },
+                {
+                                "front": "Handle",
+                                "back": "Uddalamoq, ko'tarmoq",
+                                "phonetic": "/ˈhæn.dəl/",
+                                "example": "She knows how to handle stress during exam week."
+                },
+                {
+                                "front": "Happen",
+                                "back": "Yuz bermoq, sodir bo'lmoq",
+                                "phonetic": "/ˈhæp.ən/",
+                                "example": "Accidents happen when drivers lose focus."
+                },
+                {
+                                "front": "Help",
+                                "back": "Yordam bermoq",
+                                "phonetic": "/help/",
+                                "example": "Friends help each other during difficult times."
+                },
+                {
+                                "front": "Hesitate",
+                                "back": "Ikkilanmoq, shubhalanmoq",
+                                "phonetic": "/ˈhez.ɪ.teɪt/",
+                                "example": "Do not hesitate to ask questions in class."
+                },
+                {
+                                "front": "Identify",
+                                "back": "Aniqlamoq, tanimoq",
+                                "phonetic": "/aɪˈden.tɪ.faɪ/",
+                                "example": "Identify key keywords in the reading passage."
+                },
+                {
+                                "front": "Ignore",
+                                "back": "E'tiborsiz qoldirmoq",
+                                "phonetic": "/ɪɡˈnɔː/",
+                                "example": "Ignore minor distractions while working."
+                },
+                {
+                                "front": "Illustrate",
+                                "back": "Tasvirlamoq, ko'rgazmali tushuntirmoq",
+                                "phonetic": "/ˈɪl.ə.streɪt/",
+                                "example": "Diagrams illustrate how the heart pumps blood."
+                },
+                {
+                                "front": "Imagine",
+                                "back": "Tasavvur qilmoq",
+                                "phonetic": "/ɪˈmædʒ.ɪn/",
+                                "example": "Imagine living in a historic European city."
+                },
+                {
+                                "front": "Impact",
+                                "back": "Ta'sir ko'rsatmoq",
+                                "phonetic": "/ˈɪm.pækt/",
+                                "example": "Daily study habits directly impact your final score."
+                },
+                {
+                                "front": "Implement",
+                                "back": "Joriy etmoq, amalga oshirmoq",
+                                "phonetic": "/ˈɪm.plɪ.ment/",
+                                "example": "Schools implement new interactive teaching software."
+                },
+                {
+                                "front": "Imply",
+                                "back": "Nazarda tutmoq, shama qilmoq",
+                                "phonetic": "/ɪmˈplaɪ/",
+                                "example": "Her tone implied that she was dissatisfied."
+                },
+                {
+                                "front": "Improve",
+                                "back": "Rivojlantirmoq",
+                                "phonetic": "/ɪmˈpruːv/",
+                                "example": "Reading books will improve your vocabulary."
+                },
+                {
+                                "front": "Include",
+                                "back": "O'z ichiga olmoq",
+                                "phonetic": "/ɪnˈkluːd/",
+                                "example": "The fee includes breakfast and hotel stay."
+                },
+                {
+                                "front": "Increase",
+                                "back": "Oshirmoq",
+                                "phonetic": "/ɪnˈkriːs/",
+                                "example": "The store plans to increase sales next quarter."
+                },
+                {
+                                "front": "Indicate",
+                                "back": "Ko'rsatmoq, bildirmoq",
+                                "phonetic": "/ˈɪn.dɪ.keɪt/",
+                                "example": "Red signs indicate danger or emergency exits."
+                },
+                {
+                                "front": "Inform",
+                                "back": "Xabar qilmoq",
+                                "phonetic": "/ɪnˈfɔːm/",
+                                "example": "Inform the manager if you need extra resources."
+                },
+                {
+                                "front": "Inherit",
+                                "back": "Meros qilib olmoq",
+                                "phonetic": "/ɪnˈher.ɪt/",
+                                "example": "She inherited her grandmother's vintage watch."
+                },
+                {
+                                "front": "Initiate",
+                                "back": "Boshlamoq, yo'lga qo'ymoq",
+                                "phonetic": "/ɪˈnɪʃ.i.eɪt/",
+                                "example": "The city initiated a recycling drive this spring."
+                },
+                {
+                                "front": "Injure",
+                                "back": "Jarohatlamoq",
+                                "phonetic": "/ˈɪn.dʒə/",
+                                "example": "Wear helmets to prevent injuring your head."
+                },
+                {
+                                "front": "Insist",
+                                "back": "Taqaza qilmoq, oyog'ini tirab olmoq",
+                                "phonetic": "/ɪnˈsɪst/",
+                                "example": "He insisted on paying for the coffee."
+                },
+                {
+                                "front": "Inspect",
+                                "back": "Tekshirib chiqmoq",
+                                "phonetic": "/ɪnˈspekt/",
+                                "example": "Engineers inspect safety equipment every month."
+                },
+                {
+                                "front": "Inspire",
+                                "back": "Ilhomlantirmoq",
+                                "phonetic": "/ɪnˈspaɪə/",
+                                "example": "Great teachers inspire students to achieve greatness."
+                },
+                {
+                                "front": "Install",
+                                "back": "O'rnatmoq, joylashtirmoq",
+                                "phonetic": "/ɪnˈstɔːl/",
+                                "example": "Install the latest version of the app for new features."
+                },
+                {
+                                "front": "Instruct",
+                                "back": "Ko'rsatma bermoq, o'rgatmoq",
+                                "phonetic": "/ɪnˈstrʌkt/",
+                                "example": "Flight attendants instruct passengers on safety."
+                },
+                {
+                                "front": "Insult",
+                                "back": "Haqorat qilmoq",
+                                "phonetic": "/ɪnˈsʌlt/",
+                                "example": "Never insult others during debates."
+                },
+                {
+                                "front": "Intend",
+                                "back": "Niyat qilmoq",
+                                "phonetic": "/ɪnˈtend/",
+                                "example": "I intend to complete the course by December."
+                },
+                {
+                                "front": "Interact",
+                                "back": "O'zaro muloqot qilmoq",
+                                "phonetic": "/ˌɪn.təˈrækt/",
+                                "example": "Students interact naturally in group activities."
+                },
+                {
+                                "front": "Interrupt",
+                                "back": "Xalaqit bermoq, gapini bo'lmoq",
+                                "phonetic": "/ˌɪn.təˈrʌpt/",
+                                "example": "Do not interrupt the speaker while they are talking."
+                },
+                {
+                                "front": "Introduce",
+                                "back": "Tanishtirmoq",
+                                "phonetic": "/ˌɪn.trəˈdjuːs/",
+                                "example": "Let me introduce my new classmate to you."
+                },
+                {
+                                "front": "Invent",
+                                "back": "Kashf etmoq, o'ylab topmoq",
+                                "phonetic": "/ɪnˈvent/",
+                                "example": "Edison invented the practical incandescent light bulb."
+                },
+                {
+                                "front": "Invest",
+                                "back": "Sarmoya kiritmoq",
+                                "phonetic": "/ɪnˈvest/",
+                                "example": "Investing in education yields lifelong benefits."
+                },
+                {
+                                "front": "Investigate",
+                                "back": "Tadqiq etmoq, surushtirmoq",
+                                "phonetic": "/ɪnˈves.tɪ.ɡeɪt/",
+                                "example": "Detectives investigate unsolved mystery cases."
+                },
+                {
+                                "front": "Invite",
+                                "back": "Taklif qilmoq",
+                                "phonetic": "/ɪnˈvaɪt/",
+                                "example": "We invited our friends over for dinner."
+                },
+                {
+                                "front": "Involve",
+                                "back": "Jalb etmoq, qamrab olmoq",
+                                "phonetic": "/ɪnˈvɒlv/",
+                                "example": "The project involves creative teamwork."
+                },
+                {
+                                "front": "Issue",
+                                "back": "Tarqatmoq, berib yubormoq",
+                                "phonetic": "/ˈɪʃ.uː/",
+                                "example": "The library issues digital reader cards."
+                },
+                {
+                                "front": "Join",
+                                "back": "Qo'shilmoq, a'zo bo'lmoq",
+                                "phonetic": "/dʒɔɪn/",
+                                "example": "Join our English speaking club on Telegram."
+                },
+                {
+                                "front": "Judge",
+                                "back": "Baho bermoq, hukm qilmoq",
+                                "phonetic": "/dʒʌdʒ/",
+                                "example": "Never judge a book by its cover."
+                },
+                {
+                                "front": "Justify",
+                                "back": "Oqlamoq, asoslab bermoq",
+                                "phonetic": "/ˈdʒʌs.tɪ.faɪ/",
+                                "example": "Justify your answer with evidence from the text."
+                },
+                {
+                                "front": "Keep",
+                                "back": "Saqlamoq, ushlab turmoq",
+                                "phonetic": "/kiːp/",
+                                "example": "Keep your room clean and organized."
+                },
+                {
+                                "front": "Lack",
+                                "back": "Yetishmaslik, tanqis bo'lmoq",
+                                "phonetic": "/læk/",
+                                "example": "Lack of sleep affects concentration levels."
+                },
+                {
+                                "front": "Lead",
+                                "back": "Boshlamoq, yetakchilik qilmoq",
+                                "phonetic": "/liːd/",
+                                "example": "Hard work leads to success."
+                },
+                {
+                                "front": "Learn",
+                                "back": "O'rganmoq",
+                                "phonetic": "/lɜːn/",
+                                "example": "Learn ten new words every day."
+                },
+                {
+                                "front": "Lend",
+                                "back": "Qarzga berib turmoq",
+                                "phonetic": "/lend/",
+                                "example": "Can you lend me your pencil for the exam?"
+                },
+                {
+                                "front": "Limit",
+                                "back": "Cheklamoq",
+                                "phonetic": "/ˈlɪm.ɪt/",
+                                "example": "Limit your screen time before sleep."
+                },
+                {
+                                "front": "Listen",
+                                "back": "Tinglamoq, quloq solmoq",
+                                "phonetic": "/ˈlɪs.ən/",
+                                "example": "Listen to native audio podcasts daily."
+                },
+                {
+                                "front": "Locate",
+                                "back": "Joylashtirmoq, topmoq",
+                                "phonetic": "/ləʊˈkeɪt/",
+                                "example": "Use the map to locate the university hall."
+                },
+                {
+                                "front": "Maintain",
+                                "back": "Saqlamoq, ta'minlamoq",
+                                "phonetic": "/meɪnˈteɪn/",
+                                "example": "Maintain a steady study schedule."
+                },
+                {
+                                "front": "Manage",
+                                "back": "Boshqarmoq, uddalamoq",
+                                "phonetic": "/ˈmæn.ɪdʒ/",
+                                "example": "Manage your study time efficiently."
+                },
+                {
+                                "front": "Manufacture",
+                                "back": "Ishlab chiqarmoq",
+                                "phonetic": "/ˌmæn.jəˈfæk.tʃə/",
+                                "example": "Factories manufacture electronic components."
+                },
+                {
+                                "front": "Measure",
+                                "back": "O'lchamoq",
+                                "phonetic": "/ˈmeʒ.ə/",
+                                "example": "Rulers measure length in centimeters."
+                },
+                {
+                                "front": "Mention",
+                                "back": "Eslatib o'tmoq, gapirmoq",
+                                "phonetic": "/ˈmen.ʃən/",
+                                "example": "Did he mention the exact exam time?"
+                },
+                {
+                                "front": "Mind",
+                                "back": "E'tibor bermoq, qarshi bo'lmoq",
+                                "phonetic": "/maɪnd/",
+                                "example": "Do you mind opening the window?"
+                },
+                {
+                                "front": "Motivate",
+                                "back": "Ruhlantirmoq, həvəslendirmek",
+                                "phonetic": "/ˈməʊ.tɪ.veɪt/",
+                                "example": "Good goals motivate you to work harder."
+                },
+                {
+                                "front": "Navigate",
+                                "back": "Yo'l topmoq, harakatlanmoq",
+                                "phonetic": "/ˈnæv.ɪ.ɡeɪt/",
+                                "example": "GPS apps help drivers navigate city streets."
+                },
+                {
+                                "front": "Negotiate",
+                                "back": "Muzokara olib bormoq",
+                                "phonetic": "/nəˈɡəʊ.ʃi.eɪt/",
+                                "example": "Diplomats negotiate peace treaties."
+                },
+                {
+                                "front": "Notice",
+                                "back": "Payqamoq",
+                                "phonetic": "/ˈnəʊ.tɪs/",
+                                "example": "Did you notice the new noticeboard sign?"
+                },
+                {
+                                "front": "Obey",
+                                "back": "Itoat etmoq, boysunmoq",
+                                "phonetic": "/əˈbeɪ/",
+                                "example": "Drivers must obey traffic regulations."
+                },
+                {
+                                "front": "Obtain",
+                                "back": "Qo'lga kiritmoq",
+                                "phonetic": "/əbˈteɪn/",
+                                "example": "Obtain a passport before traveling overseas."
+                },
+                {
+                                "front": "Occur",
+                                "back": "Sodir bo'lmoq",
+                                "phonetic": "/əˈkɜː/",
+                                "example": "Solar eclipses occur rarely."
+                },
+                {
+                                "front": "Offer",
+                                "back": "Taklif qilmoq",
+                                "phonetic": "/ˈɒf.ə/",
+                                "example": "The company offered him a modern job."
+                },
+                {
+                                "front": "Operate",
+                                "back": "Boshqarmoq, ishlamoq",
+                                "phonetic": "/ˈɒp.ər.eɪt/",
+                                "example": "Technicians operate heavy machinery safely."
+                },
+                {
+                                "front": "Opportunity",
+                                "back": "Imkoniyat",
+                                "phonetic": "/ˌɒp.əˈtʃuː.nə.ti/",
+                                "example": "Education creates life opportunities."
+                },
+                {
+                                "front": "Organize",
+                                "back": "Tashkillashtirmoq",
+                                "phonetic": "/ˈɔː.ɡən.aɪz/",
+                                "example": "Organize your notes into color-coded folders."
+                },
+                {
+                                "front": "Overcome",
+                                "back": "Yengib o'tmoq, oshmoq",
+                                "phonetic": "/ˌəʊ.vəˈkʌm/",
+                                "example": "Practice helps overcome speaking fear."
+                },
+                {
+                                "front": "Participate",
+                                "back": "Qatnashmoq",
+                                "phonetic": "/pɑːˈtɪs.ɪ.peɪt/",
+                                "example": "Participate in group discussions actively."
+                },
+                {
+                                "front": "Perform",
+                                "back": "Bajarmoq, ijro etmoq",
+                                "phonetic": "/pəˈfɔːm/",
+                                "example": "Musicians perform live on stage."
+                },
+                {
+                                "front": "Persuade",
+                                "back": "Kondirmoq, ko'ndirmoq",
+                                "phonetic": "/pəˈsweɪd/",
+                                "example": "She persuaded her friend to join the gym."
+                },
+                {
+                                "front": "Plan",
+                                "back": "Rejalashtirmoq",
+                                "phonetic": "/plæn/",
+                                "example": "Plan your daily study session in advance."
+                },
+                {
+                                "front": "Predict",
+                                "back": "Oldindan aytmoq, bashorat qilmoq",
+                                "phonetic": "/prɪˈdɪkt/",
+                                "example": "Meteorologists predict weekend weather."
+                },
+                {
+                                "front": "Prefer",
+                                "back": "Afzal ko'rmoq",
+                                "phonetic": "/prɪˈfɜː/",
+                                "example": "I prefer tea over coffee in the morning."
+                },
+                {
+                                "front": "Prepare",
+                                "back": "Tayyorlanmoq",
+                                "phonetic": "/prɪˈpeə/",
+                                "example": "Prepare your materials before class begins."
+                },
+                {
+                                "front": "Present",
+                                "back": "Taqdim etmoq",
+                                "phonetic": "/prɪˈzent/",
+                                "example": "Students present their slides to the class."
+                },
+                {
+                                "front": "Prevent",
+                                "back": "Oldini olmoq",
+                                "phonetic": "/prɪˈvent/",
+                                "example": "Seatbelts prevent injuries in accidents."
+                },
+                {
+                                "front": "Produce",
+                                "back": "Ishlab chiqarmoq",
+                                "phonetic": "/prəˈdjuːs/",
+                                "example": "Solar panels produce clean energy."
+                },
+                {
+                                "front": "Protect",
+                                "back": "Himoyalamoq",
+                                "phonetic": "/prəˈtekt/",
+                                "example": "Protect your skin from sun damage."
+                },
+                {
+                                "front": "Provide",
+                                "back": "Ta'minlamoq",
+                                "phonetic": "/prəˈvaɪd/",
+                                "example": "Libraries provide free digital books."
+                },
+                {
+                                "front": "Publish",
+                                "back": "Chop etmoq, nashr qilmoq",
+                                "phonetic": "/ˈpʌb.lɪʃ/",
+                                "example": "The journal published new research findings."
+                },
+                {
+                                "front": "Punish",
+                                "back": "Jazolamoq",
+                                "phonetic": "/ˈpʌn.ɪʃ/",
+                                "example": "Break the rules and you may face penalties."
+                },
+                {
+                                "front": "Pursue",
+                                "back": "Quvmoq, intilmoq",
+                                "phonetic": "/pəˈsjuː/",
+                                "example": "Pursue your academic goals with passion."
+                },
+                {
+                                "front": "React",
+                                "back": "Munosabat bildirmoq",
+                                "phonetic": "/riˈækt/",
+                                "example": "Stay calm and react sensibly to problems."
+                },
+                {
+                                "front": "Receive",
+                                "back": "Qabul qilmoq, olmoq",
+                                "phonetic": "/rɪˈsiːv/",
+                                "example": "You will receive an email confirmation."
+                },
+                {
+                                "front": "Recommend",
+                                "back": "Tavsiya etmoq",
+                                "phonetic": "/ˌrek.əˈmend/",
+                                "example": "Teachers recommend daily revision."
+                },
+                {
+                                "front": "Reduce",
+                                "back": "Qisqartirmoq",
+                                "phonetic": "/rɪˈdjuːs/",
+                                "example": "Recycling helps reduce waste."
+                },
+                {
+                                "front": "Refer",
+                                "back": "Havola qilmoq, qaramoq",
+                                "phonetic": "/rɪˈfɜː/",
+                                "example": "Refer to the textbook dictionary for meanings."
+                },
+                {
+                                "front": "Reflect",
+                                "back": "Aks ettirmoq, fikr yuritmoq",
+                                "phonetic": "/rɪˈflekt/",
+                                "example": "Mirrors reflect daylight into the corridor."
+                },
+                {
+                                "front": "Refuse",
+                                "back": "Rad etmoq",
+                                "phonetic": "/rɪˈfjuːz/",
+                                "example": "He refused to give up on his dreams."
+                },
+                {
+                                "front": "Regret",
+                                "back": "Afsuslanmoq",
+                                "phonetic": "/rɪˈɡret/",
+                                "example": "Do not regret mistakes; learn from them."
+                },
+                {
+                                "front": "Relax",
+                                "back": "Hordiq chiqarmoq, tinchlanmoq",
+                                "phonetic": "/rɪˈlæks/",
+                                "example": "Listen to soft music to relax after work."
+                },
+                {
+                                "front": "Release",
+                                "back": "Chiqarmoq, qo'yib yubormoq",
+                                "phonetic": "/rɪˈliːs/",
+                                "example": "The band released a new music album."
+                },
+                {
+                                "front": "Rely",
+                                "back": "Suyanmoq, ishonmoq",
+                                "phonetic": "/rɪˈlaɪ/",
+                                "example": "You can rely on reliable friends."
+                },
+                {
+                                "front": "Remember",
+                                "back": "Eslamoq",
+                                "phonetic": "/rɪˈmem.bə/",
+                                "example": "Remember to save your progress."
+                },
+                {
+                                "front": "Remind",
+                                "back": "Eslatmoq",
+                                "phonetic": "/rɪˈmaɪnd/",
+                                "example": "Remind me to call the tutor tomorrow."
+                },
+                {
+                                "front": "Remove",
+                                "back": "Olib tashlamoq",
+                                "phonetic": "/rɪˈmuːv/",
+                                "example": "Remove dust from the computer screen."
+                },
+                {
+                                "front": "Repair",
+                                "back": "Tuzatmoq",
+                                "phonetic": "/rɪˈpeə/",
+                                "example": "Technicians repair faulty machinery."
+                },
+                {
+                                "front": "Repeat",
+                                "back": "Takrorlamoq",
+                                "phonetic": "/rɪˈpiːt/",
+                                "example": "Repeat new words aloud to improve accent."
+                },
+                {
+                                "front": "Replace",
+                                "back": "Almashtirmoq",
+                                "phonetic": "/rɪˈpleɪs/",
+                                "example": "Replace old bulbs with energy-saving LEDs."
+                },
+                {
+                                "front": "Reply",
+                                "back": "Javob qaytarmoq",
+                                "phonetic": "/rɪˈplaɪ/",
+                                "example": "Reply to the invitation email promptly."
+                },
+                {
+                                "front": "Report",
+                                "back": "Hisobot bermoq, ma'lum qilmoq",
+                                "phonetic": "/rɪˈpɔːt/",
+                                "example": "Reporters report news from around the world."
+                },
+                {
+                                "front": "Represent",
+                                "back": "Vakillik qilmoq, namoyon etmoq",
+                                "phonetic": "/ˌrep.rɪˈzent/",
+                                "example": "Diplomats represent their countries abroad."
+                },
+                {
+                                "front": "Request",
+                                "back": "Iltimos qilmoq",
+                                "phonetic": "/rɪˈkwest/",
+                                "example": "Submit a written request for additional time."
+                },
+                {
+                                "front": "Require",
+                                "back": "Talab etmoq",
+                                "phonetic": "/rɪˈkwaɪə/",
+                                "example": "Learning requires dedication."
+                },
+                {
+                                "front": "Research",
+                                "back": "Tadqiqot o'tkazmoq",
+                                "phonetic": "/rɪˈsɜːtʃ/",
+                                "example": "Scientists research renewable fuel sources."
+                },
+                {
+                                "front": "Resist",
+                                "back": "Qarshilik ko'rsatmoq",
+                                "phonetic": "/rɪˈzɪst/",
+                                "example": "Resist the urge to check social media during study."
+                },
+                {
+                                "front": "Resolve",
+                                "back": "Hal qilmoq, yechim topmoq",
+                                "phonetic": "/rɪˈzɒlv/",
+                                "example": "Mediation helps resolve neighbor conflicts."
+                },
+                {
+                                "front": "Respect",
+                                "back": "Hurmat qilmoq",
+                                "phonetic": "/rɪˈspekt/",
+                                "example": "Respect teachers and fellow students."
+                },
+                {
+                                "front": "Respond",
+                                "back": "Javob bermoq",
+                                "phonetic": "/rɪˈspɒnd/",
+                                "example": "Respond clearly to examiner questions."
+                },
+                {
+                                "front": "Restrict",
+                                "back": "Cheklamoq",
+                                "phonetic": "/rɪˈstrɪkt/",
+                                "example": "Park rules restrict parking near gates."
+                },
+                {
+                                "front": "Result",
+                                "back": "Natijaga erishmoq",
+                                "phonetic": "/rɪˈzʌlt/",
+                                "example": "Hard work results in higher scores."
+                },
+                {
+                                "front": "Retain",
+                                "back": "Saqlab qolmoq",
+                                "phonetic": "/rɪˈteɪn/",
+                                "example": "Flashcards help retain vocabulary long term."
+                },
+                {
+                                "front": "Review",
+                                "back": "Qayta ko'rib chiqmoq, takrorlamoq",
+                                "phonetic": "/rɪˈvjuː/",
+                                "example": "Review your flashcards every evening."
+                },
+                {
+                                "front": "Revise",
+                                "back": "Takrorlamoq (imtihon oldi)",
+                                "phonetic": "/rɪˈvaɪz/",
+                                "example": "Revise key grammar points before the test."
+                },
+                {
+                                "front": "Reward",
+                                "back": "Mukofotlamoq",
+                                "phonetic": "/rɪˈwɔːd/",
+                                "example": "Hard work rewards you with great success."
+                },
+                {
+                                "front": "Satisfy",
+                                "back": "Qoniqtirmoq",
+                                "phonetic": "/ˈsæt.ɪs.faɪ/",
+                                "example": "Good service satisfies customers."
+                },
+                {
+                                "front": "Save",
+                                "back": "Saqlamoq, tejamoq",
+                                "phonetic": "/seɪv/",
+                                "example": "Save money for future university fees."
+                },
+                {
+                                "front": "Search",
+                                "back": "Qidirmoq",
+                                "phonetic": "/sɜːtʃ/",
+                                "example": "Search online for sample essay topics."
+                },
+                {
+                                "front": "Select",
+                                "back": "Tanlamoq",
+                                "phonetic": "/sɪˈlekt/",
+                                "example": "Select the best answer from options."
+                },
+                {
+                                "front": "Separate",
+                                "back": "Ajratmoq",
+                                "phonetic": "/ˈsep.ər.eɪt/",
+                                "example": "Separate recycling from household trash."
+                },
+                {
+                                "front": "Serve",
+                                "back": "Xizmat ko'rsatmoq, tortmoq",
+                                "phonetic": "/sɜːv/",
+                                "example": "Restaurants serve traditional Uzbek meals."
+                },
+                {
+                                "front": "Share",
+                                "back": "Ulashmoq, baham ko'rmoq",
+                                "phonetic": "/ʃeə/",
+                                "example": "Share your study notes with classmates."
+                },
+                {
+                                "front": "Solve",
+                                "back": "Yechmoq, hal etmoq",
+                                "phonetic": "/sɒlv/",
+                                "example": "Puzzles help train your logic to solve problems."
+                },
+                {
+                                "front": "Specify",
+                                "back": "Aniq ko'rsatmoq",
+                                "phonetic": "/ˈspes.ɪ.faɪ/",
+                                "example": "Specify your preferred test center location."
+                },
+                {
+                                "front": "Spend",
+                                "back": "Sarflamoq (vaqt, pul)",
+                                "phonetic": "/spend/",
+                                "example": "Spend thirty minutes reading every day."
+                },
+                {
+                                "front": "Statement",
+                                "back": "Bayanot, da'vo",
+                                "phonetic": "/ˈsteɪt.mənt/",
+                                "example": "Read the problem statement carefully."
+                },
+                {
+                                "front": "Suggest",
+                                "back": "Taklif etmoq",
+                                "phonetic": "/səˈdʒest/",
+                                "example": "I suggest making a weekly revision timetable."
+                },
+                {
+                                "front": "Summarize",
+                                "back": "Xulosa qilmoq",
+                                "phonetic": "/ˈsʌm.ər.aɪz/",
+                                "example": "Summarize the reading passage in three sentences."
+                },
+                {
+                                "front": "Support",
+                                "back": "Qo'llab-quvvatlamoq",
+                                "phonetic": "/səˈpɔːt/",
+                                "example": "Families support student learning."
+                },
+                {
+                                "front": "Surround",
+                                "back": "O'rab olmoq",
+                                "phonetic": "/səˈraʊnd/",
+                                "example": "Beautiful gardens surround the historic palace."
+                },
+                {
+                                "front": "Survive",
+                                "back": "Yashab qolmoq",
+                                "phonetic": "/səˈvaɪv/",
+                                "example": "Plants survive drought by storing water."
+                },
+                {
+                                "front": "Suspect",
+                                "back": "Shubhalanmoq",
+                                "phonetic": "/səˈspekt/",
+                                "example": "Detectives suspect the evidence was altered."
+                },
+                {
+                                "front": "Transform",
+                                "back": "Tubdan o'zgartirmoq",
+                                "phonetic": "/trænsˈfɔːm/",
+                                "example": "Education transforms lives and communities."
+                },
+                {
+                                "front": "Translate",
+                                "back": "Tarjima qilmoq",
+                                "phonetic": "/trænsˈleɪt/",
+                                "example": "Translate words into your native language."
+                },
+                {
+                                "front": "Understand",
+                                "back": "Tushunmoq",
+                                "phonetic": "/ˌʌn.dəˈstænd/",
+                                "example": "Do you understand the main thesis?"
+                },
+                {
+                                "front": "Value",
+                                "back": "Qadrlamoq",
+                                "phonetic": "/ˈvæl.juː/",
+                                "example": "Value your time and stay focused."
+                },
+                {
+                                "front": "Vary",
+                                "back": "O'zgarib turmoq",
+                                "phonetic": "/ˈveə.ri/",
+                                "example": "Prices vary depending on the season."
+                },
+                {
+                                "front": "View",
+                                "back": "Qaramoq, kuzatmoq",
+                                "phonetic": "/vjuː/",
+                                "example": "View sample answers on the portal."
+                },
+                {
+                                "front": "Visit",
+                                "back": "Tashrif buyurmoq",
+                                "phonetic": "/ˈvɪz.ɪt/",
+                                "example": "Visit historic museums in Samarkand."
+                },
+                {
+                                "front": "Warn",
+                                "back": "Ogohlantirmoq",
+                                "phonetic": "/wɔːn/",
+                                "example": "Signs warn drivers of slippery roads."
+                },
+                {
+                                "front": "Waste",
+                                "back": "Isrof qilmoq",
+                                "phonetic": "/weɪst/",
+                                "example": "Do not waste precious study hours on games."
+                },
+                {
+                                "front": "Wonder",
+                                "back": "Hayron bo'lmoq, ajablanmoq",
+                                "phonetic": "/ˈwʌn.də/",
+                                "example": "I wonder what the test questions will be."
+                },
+                {
+                                "front": "Worry",
+                                "back": "Tashvishlanmoq",
+                                "phonetic": "/ˈwʌr.i/",
+                                "example": "Do not worry; practice builds confidence."
+                },
+                {
+                                "front": "Animal",
+                                "back": "Hayvon, jonzot",
+                                "phonetic": "/ˈæn.ɪ.məl/",
+                                "example": "The zoo is home to many rare animals."
+                },
+                {
+                                "front": "Apple",
+                                "back": "Olma",
+                                "phonetic": "/ˈæp.əl/",
+                                "example": "I eat a fresh green apple every morning."
+                },
+                {
+                                "front": "Artist",
+                                "back": "Rassom, san'atkor",
+                                "phonetic": "/ˈɑː.tɪst/",
+                                "example": "The artist painted a beautiful mountain portrait."
+                },
+                {
+                                "front": "Backpack",
+                                "back": "Rukzak, orqa sumka",
+                                "phonetic": "/ˈbæk.pæk/",
+                                "example": "Pack your books and water bottle in your backpack."
+                },
+                {
+                                "front": "Baker",
+                                "back": "Novvoy, pishiriqchi",
+                                "phonetic": "/ˈbeɪ.kə/",
+                                "example": "The local baker bakes hot fresh bread every morning."
+                },
+                {
+                                "front": "Ball",
+                                "back": "Koptok, to'p",
+                                "phonetic": "/bɔːl/",
+                                "example": "Children love playing with a soccer ball in the park."
+                },
+                {
+                                "front": "Banker",
+                                "back": "Bank xodimi",
+                                "phonetic": "/ˈbæŋ.kə/",
+                                "example": "She consults a banker about opening a savings account."
+                },
+                {
+                                "front": "Barber",
+                                "back": "Sartosh, erkaklar sartoshi",
+                                "phonetic": "/ˈbɑː.bə/",
+                                "example": "He gets a haircut at the barber shop every month."
+                },
+                {
+                                "front": "Beach",
+                                "back": "Plyaj, dengiz bo'yi",
+                                "phonetic": "/biːtʃ/",
+                                "example": "We spent a sunny day relaxing at the sandy beach."
+                },
+                {
+                                "front": "Bear",
+                                "back": "Aiq, ayiq",
+                                "phonetic": "/beə/",
+                                "example": "Brown bears live in mountain forests."
+                },
+                {
+                                "front": "Bed",
+                                "back": "Krovat, o'rin-joy",
+                                "phonetic": "/bed/",
+                                "example": "Make your bed right after waking up in the morning."
+                },
+                {
+                                "front": "Bell",
+                                "back": "Qo'ng'iroq",
+                                "phonetic": "/bel/",
+                                "example": "The school bell rings at eight in the morning."
+                },
+                {
+                                "front": "Bird",
+                                "back": "Qush",
+                                "phonetic": "/bɜːd/",
+                                "example": "Early morning birds sing in the trees."
+                },
+                {
+                                "front": "Bookstore",
+                                "back": "Kitob do'koni",
+                                "phonetic": "/ˈbʊk.stɔː/",
+                                "example": "We bought dictionary references at the bookstore."
+                },
+                {
+                                "front": "Bottle",
+                                "back": "Idish, shisha, baklashka",
+                                "phonetic": "/ˈbɒt.əl/",
+                                "example": "Always carry a reusable water bottle to class."
+                },
+                {
+                                "front": "Bread",
+                                "back": "Non",
+                                "phonetic": "/bred/",
+                                "example": "Fresh Uzbek non bread goes great with warm tea."
+                },
+                {
+                                "front": "Bridge",
+                                "back": "Ko'prik",
+                                "phonetic": "/brɪdʒ/",
+                                "example": "Vehicles cross the wide river over the concrete bridge."
+                },
+                {
+                                "front": "Broom",
+                                "back": "Supurgi",
+                                "phonetic": "/bruːm/",
+                                "example": "Use the broom to sweep the kitchen floor."
+                },
+                {
+                                "front": "Brother",
+                                "back": "Aka, uka",
+                                "phonetic": "/ˈbrʌð.ə/",
+                                "example": "My elder brother is an electrical engineer."
+                },
+                {
+                                "front": "Brush",
+                                "back": "Cho'tka, tish cho'tkasi",
+                                "phonetic": "/brʌʃ/",
+                                "example": "Brush your teeth twice a day for good health."
+                },
+                {
+                                "front": "Building",
+                                "back": "Bino, imorat",
+                                "phonetic": "/ˈbɪl.dɪŋ/",
+                                "example": "The university library is an impressive modern building."
+                },
+                {
+                                "front": "Bus stop",
+                                "back": "Avtobus bekat",
+                                "phonetic": "/ˈbʌs stɒp/",
+                                "example": "Wait for the morning bus at the bus stop."
+                },
+                {
+                                "front": "Butter",
+                                "back": "Sariq yog'",
+                                "phonetic": "/ˈbʌt.ə/",
+                                "example": "Spread butter on toast for breakfast."
+                },
+                {
+                                "front": "Cake",
+                                "back": "Tort, pirog",
+                                "phonetic": "/keɪk/",
+                                "example": "They baked a chocolate cake for her birthday."
+                },
+                {
+                                "front": "Camera",
+                                "back": "Fotoaparat, kamera",
+                                "phonetic": "/ˈkæm.rə/",
+                                "example": "Take photos of historic places with a digital camera."
+                },
+                {
+                                "front": "Candle",
+                                "back": "Sham",
+                                "phonetic": "/ˈkæn.dəl/",
+                                "example": "Lighting candles created a peaceful mood."
+                },
+                {
+                                "front": "Capital",
+                                "back": "Poytaxt",
+                                "phonetic": "/ˈkæp.ɪ.təl/",
+                                "example": "Tashkent is the capital city of Uzbekistan."
+                },
+                {
+                                "front": "Car",
+                                "back": "Avtomobil, mashina",
+                                "phonetic": "/kɑː/",
+                                "example": "Electric cars emit zero pollution in cities."
+                },
+                {
+                                "front": "Carpet",
+                                "back": "Gilam",
+                                "phonetic": "/ˈkɑː.pɪt/",
+                                "example": "Uzbek handmade carpets have intricate patterns."
+                },
+                {
+                                "front": "Carrot",
+                                "back": "Sabzi",
+                                "phonetic": "/ˈkær.ət/",
+                                "example": "Carrots are rich in vitamins for good vision."
+                },
+                {
+                                "front": "Cat",
+                                "back": "Mushuk",
+                                "phonetic": "/kæt/",
+                                "example": "The furry cat slept peacefully near the window."
+                },
+                {
+                                "front": "Chair",
+                                "back": "Stul, o'rindiq",
+                                "phonetic": "/tʃeə/",
+                                "example": "Sit comfortably on the ergonomic study chair."
+                },
+                {
+                                "front": "Cheese",
+                                "back": "Plo'r, pishloq",
+                                "phonetic": "/tʃiːz/",
+                                "example": "Add cheese to your sandwich for lunch."
+                },
+                {
+                                "front": "Chef",
+                                "back": "Oshpaz",
+                                "phonetic": "/ʃef/",
+                                "example": "The chef prepared a special meal for hotel guests."
+                },
+                {
+                                "front": "Chicken",
+                                "back": "Tovuq go'shti",
+                                "phonetic": "/ˈtʃɪk.ɪn/",
+                                "example": "Grilled chicken salad is a nutritious dinner option."
+                },
+                {
+                                "front": "Child",
+                                "back": "Bola",
+                                "phonetic": "/tʃaɪld/",
+                                "example": "Every child deserves quality primary education."
+                },
+                {
+                                "front": "Church",
+                                "back": "Cherkov",
+                                "phonetic": "/tʃɜːtʃ/",
+                                "example": "Historic churches display majestic architecture."
+                },
+                {
+                                "front": "Cinema",
+                                "back": "Kinoteatr",
+                                "phonetic": "/ˈsɪn.ə.mɑː/",
+                                "example": "We watched an action movie at the local cinema."
+                },
+                {
+                                "front": "Circle",
+                                "back": "Doira, aylana",
+                                "phonetic": "/ˈsɜː.kəl/",
+                                "example": "Students stood in a wide circle during physical education."
+                },
+                {
+                                "front": "Clock",
+                                "back": "Soat (devor soati)",
+                                "phonetic": "/klɒk/",
+                                "example": "The wall clock showed ten minutes to nine."
+                },
+                {
+                                "front": "Coat",
+                                "back": "Palto, ustki kiyim",
+                                "phonetic": "/kəʊt/",
+                                "example": "Put on a thick coat before going out in snow."
+                },
+                {
+                                "front": "Coffee",
+                                "back": "Kofe",
+                                "phonetic": "/ˈkɒf.i/",
+                                "example": "A cup of hot coffee helps stay awake while studying."
+                },
+                {
+                                "front": "Coin",
+                                "back": "Tanga, pul",
+                                "phonetic": "/kɔɪn/",
+                                "example": "Insert a coin into the vending machine to buy water."
+                },
+                {
+                                "front": "Cold",
+                                "back": "Sovuq",
+                                "phonetic": "/kəʊld/",
+                                "example": "Drink warm herbal tea when the weather turns cold."
+                },
+                {
+                                "front": "Cook",
+                                "back": "Oshpazlik qilmoq, taom pishirmoq",
+                                "phonetic": "/kʊk/",
+                                "example": "My mother cooks delicious meals for our family."
+                },
+                {
+                                "front": "Corner",
+                                "back": "Burchak, burilish",
+                                "phonetic": "/ˈkɔː.nə/",
+                                "example": "The bakery is located right on the street corner."
+                },
+                {
+                                "front": "Country",
+                                "back": "Mamlakat, yurt",
+                                "phonetic": "/ˈkʌn.tri/",
+                                "example": "Uzbekistan is a beautiful Central Asian country."
+                },
+                {
+                                "front": "Cow",
+                                "back": "Sigir",
+                                "phonetic": "/kaʊ/",
+                                "example": "Farmers collect fresh milk from dairy cows."
+                },
+                {
+                                "front": "Cup",
+                                "back": "Piyola, finjon",
+                                "phonetic": "/kʌp/",
+                                "example": "Pour hot tea into a ceramic cup."
+                },
+                {
+                                "front": "Daughter",
+                                "back": "Qiz farzand",
+                                "phonetic": "/ˈdɔː.tə/",
+                                "example": "Their daughter studies law at the university."
+                },
+                {
+                                "front": "Desk",
+                                "back": "Yozuv stoli, parta",
+                                "phonetic": "/desk/",
+                                "example": "Keep your study desk organized and tidy."
+                },
+                {
+                                "front": "Doctor",
+                                "back": "Shifokor, doktor",
+                                "phonetic": "/ˈdɒk.tə/",
+                                "example": "The doctor examined the patient thoroughly."
+                },
+                {
+                                "front": "Dog",
+                                "back": "It",
+                                "phonetic": "/dɒɡ/",
+                                "example": "The loyal dog guarded the house at night."
+                },
+                {
+                                "front": "Door",
+                                "back": "Eshik",
+                                "phonetic": "/dɔː/",
+                                "example": "Remember to lock the front door when leaving."
+                },
+                {
+                                "front": "Dress",
+                                "back": "Ko'ylak (ayollar kiyimi)",
+                                "phonetic": "/dres/",
+                                "example": "She wore an elegant dress to the graduation evening."
+                },
+                {
+                                "front": "Driver",
+                                "back": "Haydovchi",
+                                "phonetic": "/ˈdraɪ.və/",
+                                "example": "The bus driver drove safely through rain."
+                },
+                {
+                                "front": "Ear",
+                                "back": "Quloq",
+                                "phonetic": "/ɪə/",
+                                "example": "Wear headphones to listen to English podcasts clearly."
+                },
+                {
+                                "front": "Earth",
+                                "back": "Yer shar, zamin",
+                                "phonetic": "/ɜːθ/",
+                                "example": "The Earth revolves around the Sun in space."
+                },
+                {
+                                "front": "Egg",
+                                "back": "Tuxum",
+                                "phonetic": "/eɡ/",
+                                "example": "Boiled eggs provide healthy protein for breakfast."
+                },
+                {
+                                "front": "Elephant",
+                                "back": "Fil",
+                                "phonetic": "/ˈel.ɪ.fənt/",
+                                "example": "Elephants are the largest living land animals."
+                },
+                {
+                                "front": "Engineer",
+                                "back": "Muhandis, inzhener",
+                                "phonetic": "/ˌen.dʒɪˈnɪə/",
+                                "example": "The software engineer created an innovative application."
+                },
+                {
+                                "front": "Eye",
+                                "back": "Ko'z",
+                                "phonetic": "/aɪ/",
+                                "example": "Protect your eyes when working long hours at screens."
+                },
+                {
+                                "front": "Face",
+                                "back": "Yuz, bashara",
+                                "phonetic": "/feɪs/",
+                                "example": "Wash your face with cold water to refresh yourself."
+                },
+                {
+                                "front": "Family",
+                                "back": "Oila",
+                                "phonetic": "/ˈfæm.əl.i/",
+                                "example": "Family support is a foundation for personal growth."
+                },
+                {
+                                "front": "Farm",
+                                "back": "Fermer xo'jaligi, ferma",
+                                "phonetic": "/fɑːm/",
+                                "example": "The farm produces organic fresh vegetables."
+                },
+                {
+                                "front": "Father",
+                                "back": "Ota",
+                                "phonetic": "/ˈfɑː.ðə/",
+                                "example": "My father taught me the importance of hard work."
+                },
+                {
+                                "front": "Finger",
+                                "back": "Barmoq (qo'l barmog'i)",
+                                "phonetic": "/ˈfɪŋ.ɡə/",
+                                "example": "Point with your index finger to select options."
+                },
+                {
+                                "front": "Fire",
+                                "back": "Olov, yong'in",
+                                "phonetic": "/faɪə/",
+                                "example": "Firefighters extinguished the fire quickly."
+                },
+                {
+                                "front": "Fish",
+                                "back": "Baliq",
+                                "phonetic": "/fɪʃ/",
+                                "example": "Fresh fish contains omega-3 fatty acids."
+                },
+                {
+                                "front": "Flag",
+                                "back": "Bayroq",
+                                "phonetic": "/flæɡ/",
+                                "example": "The national flag floated proudly in the breeze."
+                },
+                {
+                                "front": "Flower",
+                                "back": "Gul",
+                                "phonetic": "/ˈflaʊ.ə/",
+                                "example": "Spring flowers bloom brightly in public parks."
+                },
+                {
+                                "front": "Food",
+                                "back": "Taom, ovqat",
+                                "phonetic": "/fuːd/",
+                                "example": "Healthy food gives you stamina for learning."
+                },
+                {
+                                "front": "Foot",
+                                "back": "Oyoq (kaft qismi)",
+                                "phonetic": "/fʊt/",
+                                "example": "We walked to school on foot every morning."
+                },
+                {
+                                "front": "Forest",
+                                "back": "O'rmon",
+                                "phonetic": "/ˈfɒr.ɪst/",
+                                "example": "Dense pine forests cover the mountain slope."
+                },
+                {
+                                "front": "Fork",
+                                "back": "Sanchqi, vilka",
+                                "phonetic": "/fɔːk/",
+                                "example": "Use a fork and knife when eating dinner."
+                },
+                {
+                                "front": "Friend",
+                                "back": "Do'st, o'rtoq",
+                                "phonetic": "/frend/",
+                                "example": "True friends encourage each other's dreams."
+                },
+                {
+                                "front": "Fruit",
+                                "back": "Meva",
+                                "phonetic": "/fruːt/",
+                                "example": "Eat fresh seasonal fruit for vitamins."
+                },
+                {
+                                "front": "Garden",
+                                "back": "Bog', hovli",
+                                "phonetic": "/ˈɡɑː.dən/",
+                                "example": "They plant roses and tulips in their garden."
+                },
+                {
+                                "front": "Glass",
+                                "back": "Stakan, oyna",
+                                "phonetic": "/ɡlɑːs/",
+                                "example": "Drink a full glass of water every morning."
+                },
+                {
+                                "front": "Glasses",
+                                "back": "Ko'zoynak",
+                                "phonetic": "/ˈɡlɑːs.ɪz/",
+                                "example": "He wears reading glasses to study textbooks."
+                },
+                {
+                                "front": "Glove",
+                                "back": "Qo'lqop",
+                                "phonetic": "/ɡlʌv/",
+                                "example": "Wear warm gloves in snowy winter weather."
+                },
+                {
+                                "front": "Goat",
+                                "back": "Echki",
+                                "phonetic": "/ɡəʊt/",
+                                "example": "Mountain goats climb steep rocky cliffs effortlessly."
+                },
+                {
+                                "front": "Grass",
+                                "back": "O't, maysazor",
+                                "phonetic": "/ɡrɑːs/",
+                                "example": "Children love playing on the green park grass."
+                },
+                {
+                                "front": "Hair",
+                                "back": "Soch",
+                                "phonetic": "/heə/",
+                                "example": "She combed her long brown hair before leaving."
+                },
+                {
+                                "front": "Hand",
+                                "back": "Qo'l (kaft)",
+                                "phonetic": "/hænd/",
+                                "example": "Raise your hand if you know the correct answer."
+                },
+                {
+                                "front": "Hat",
+                                "back": "Shapka, qalpoq",
+                                "phonetic": "/hæt/",
+                                "example": "Wear a sun hat when walking outdoors in summer."
+                },
+                {
+                                "front": "Head",
+                                "back": "Bosh, kalla",
+                                "phonetic": "/hed/",
+                                "example": "Tilt your head slightly when focusing on listening."
+                },
+                {
+                                "front": "Heart",
+                                "back": "Yurak",
+                                "phonetic": "/hɑːt/",
+                                "example": "Regular cardio exercise keeps your heart healthy."
+                },
+                {
+                                "front": "Horse",
+                                "back": "Ot",
+                                "phonetic": "/hɔːs/",
+                                "example": "Riding horses is a popular traditional activity."
+                },
+                {
+                                "front": "Hospital",
+                                "back": "Kasalxona",
+                                "phonetic": "/ˈhɒs.pɪ.təl/",
+                                "example": "The modern city hospital treats emergency patients."
+                },
+                {
+                                "front": "Hotel",
+                                "back": "Mehmonxona",
+                                "phonetic": "/həʊˈtel/",
+                                "example": "Tourists booked rooms at a comfortable hotel."
+                },
+                {
+                                "front": "House",
+                                "back": "Uy, hovli",
+                                "phonetic": "/haʊs/",
+                                "example": "They built a spacious house near the river."
+                },
+                {
+                                "front": "Husband",
+                                "back": "Turmush o'rtoq, er",
+                                "phonetic": "/ˈhʌz.bənd/",
+                                "example": "Her husband works as an architectural designer."
+                },
+                {
+                                "front": "Ice",
+                                "back": "Muz",
+                                "phonetic": "/aɪs/",
+                                "example": "Put ice cubes in your lemonade to cool down."
+                },
+                {
+                                "front": "Ice cream",
+                                "back": "Muzqaymoq",
+                                "phonetic": "/ˌaɪs ˈkriːm/",
+                                "example": "Children enjoy vanilla ice cream in summer."
+                },
+                {
+                                "front": "Island",
+                                "back": "Orol",
+                                "phonetic": "/ˈaɪ.lənd/",
+                                "example": "Tropical islands are famous for palm trees and beaches."
+                },
+                {
+                                "front": "Jacket",
+                                "back": "Kurtka, nimcha",
+                                "phonetic": "/ˈdʒæk.ɪt/",
+                                "example": "Wear a leather jacket on chilly autumn days."
+                },
+                {
+                                "front": "Job",
+                                "back": "Ish, mehnat",
+                                "phonetic": "/dʒɒb/",
+                                "example": "Finding a rewarding job requires skills and practice."
+                },
+                {
+                                "front": "Juice",
+                                "back": "Sharbat, sroq",
+                                "phonetic": "/dʒuːs/",
+                                "example": "Fresh orange juice is rich in vitamin C."
+                },
+                {
+                                "front": "Key",
+                                "back": "Kalit",
+                                "phonetic": "/kiː/",
+                                "example": "Keep your house keys in a safe pocket."
+                },
+                {
+                                "front": "Kitchen",
+                                "back": "Oshxona",
+                                "phonetic": "/ˈkɪtʃ.ən/",
+                                "example": "The kitchen is equipped with a modern oven."
+                },
+                {
+                                "front": "Knife",
+                                "back": "Pichoq",
+                                "phonetic": "/naɪf/",
+                                "example": "Be careful when using a sharp knife to cut vegetables."
+                },
+                {
+                                "front": "Lake",
+                                "back": "Ko'l",
+                                "phonetic": "/leɪk/",
+                                "example": "People go boating on the serene mountain lake."
+                },
+                {
+                                "front": "Lamp",
+                                "back": "Lampa, chiroq",
+                                "phonetic": "/læmp/",
+                                "example": "Turn on the desk lamp when studying at night."
+                },
+                {
+                                "front": "Leg",
+                                "back": "Oyoq",
+                                "phonetic": "/leɡ/",
+                                "example": "Stretch your legs after sitting for forty minutes."
+                },
+                {
+                                "front": "Library",
+                                "back": "Kutubxona",
+                                "phonetic": "/ˈlaɪ.brər.i/",
+                                "example": "Students read quietly in the university library."
+                },
+                {
+                                "front": "Light",
+                                "back": "Yorug'lik, yengil",
+                                "phonetic": "/laɪt/",
+                                "example": "Natural daylight flows through the wide windows."
+                },
+                {
+                                "front": "Lion",
+                                "back": "Sher, arslon",
+                                "phonetic": "/ˈlaɪ.ən/",
+                                "example": "Lions are majestic wild cats living in African savannas."
+                },
+                {
+                                "front": "Lunch",
+                                "back": "Tushlik, tushlik taom",
+                                "phonetic": "/lʌntʃ/",
+                                "example": "We meet at the canteen for lunch at one PM."
+                },
+                {
+                                "front": "Market",
+                                "back": "Bozor",
+                                "phonetic": "/ˈmɑː.kɪt/",
+                                "example": "Chorsu Bazaar is a famous historic market in Tashkent."
+                },
+                {
+                                "front": "Meat",
+                                "back": "Go'sht",
+                                "phonetic": "/miːt/",
+                                "example": "Uzbek cuisine features grilled meat skewers called shashlik."
+                },
+                {
+                                "front": "Milk",
+                                "back": "Sut",
+                                "phonetic": "/mɪlk/",
+                                "example": "Drink a warm glass of milk before bedtime."
+                },
+                {
+                                "front": "Money",
+                                "back": "Pul",
+                                "phonetic": "/ˈmʌn.i/",
+                                "example": "Manage your monthly pocket money wisely."
+                },
+                {
+                                "front": "Monkey",
+                                "back": "Maymun",
+                                "phonetic": "/ˈmʌŋ.ki/",
+                                "example": "Monkeys swing agilely through jungle trees."
+                },
+                {
+                                "front": "Moon",
+                                "back": "Oy (tungi)",
+                                "phonetic": "/muːn/",
+                                "example": "The full moon shines brightly in the clear night sky."
+                },
+                {
+                                "front": "Mother",
+                                "back": "Ona",
+                                "phonetic": "/ˈmʌð.ə/",
+                                "example": "My mother prepares delicious home-cooked meals."
+                },
+                {
+                                "front": "Mountain",
+                                "back": "Tog'",
+                                "phonetic": "/ˈmaʊn.tɪn/",
+                                "example": "Tian Shan mountains offer breathtaking scenic views."
+                },
+                {
+                                "front": "Mouth",
+                                "back": "Og'iz",
+                                "phonetic": "/maʊθ/",
+                                "example": "Open your mouth clearly when pronouncing vowels."
+                },
+                {
+                                "front": "Museum",
+                                "back": "Muzey",
+                                "phonetic": "/mjuːˈziː.əm/",
+                                "example": "State history museums exhibit ancient Uzbek gold items."
+                },
+                {
+                                "front": "Music",
+                                "back": "Musiqa",
+                                "phonetic": "/ˈmjuː.zɪk/",
+                                "example": "Listening to classical music enhances study concentration."
+                },
+                {
+                                "front": "Neck",
+                                "back": "Bo'yin",
+                                "phonetic": "/nek/",
+                                "example": "Wear a wool scarf around your neck in winter."
+                },
+                {
+                                "front": "Needle",
+                                "back": "Igna",
+                                "phonetic": "/ˈniː.dəl/",
+                                "example": "Tailors use a fine needle and thread to sew clothes."
+                },
+                {
+                                "front": "Net",
+                                "back": "To'r, setka",
+                                "phonetic": "/net/",
+                                "example": "Fishermen throw woven nets into the river."
+                },
+                {
+                                "front": "Newspaper",
+                                "back": "Gazeta",
+                                "phonetic": "/ˈnjuːzˌpeɪ.pə/",
+                                "example": "He reads the morning newspaper during breakfast."
+                },
+                {
+                                "front": "Night",
+                                "back": "Tun, kecha",
+                                "phonetic": "/naɪt/",
+                                "example": "The stars twinkle brightly at night."
+                },
+                {
+                                "front": "Nose",
+                                "back": "Burun",
+                                "phonetic": "/nəʊz/",
+                                "example": "Breathe in deeply through your nose."
+                },
+                {
+                                "front": "Nurse",
+                                "back": "Hamshira, tibbiy hamshira",
+                                "phonetic": "/nɜːs/",
+                                "example": "The caring nurse measured the patient's temperature."
+                },
+                {
+                                "front": "Ocean",
+                                "back": "Okean",
+                                "phonetic": "/ˈəʊ.ʃən/",
+                                "example": "The Pacific Ocean covers a massive surface area."
+                },
+                {
+                                "front": "Office",
+                                "back": "Ofis, idora",
+                                "phonetic": "/ˈɒf.ɪs/",
+                                "example": "She works in a spacious modern downtown office."
+                },
+                {
+                                "front": "Oil",
+                                "back": "Yog', moy",
+                                "phonetic": "/ɔɪl/",
+                                "example": "Use olive oil for cooking healthy fresh salads."
+                },
+                {
+                                "front": "Orange",
+                                "back": "Apelsin, apelsin rang",
+                                "phonetic": "/ˈɒr.ɪndʒ/",
+                                "example": "Oranges are sweet, juicy, and rich in vitamin C."
+                },
+                {
+                                "front": "Paper",
+                                "back": "Qog'oz",
+                                "phonetic": "/ˈpeɪ.pə/",
+                                "example": "Write your daily ideas on a clean sheet of paper."
+                },
+                {
+                                "front": "Park",
+                                "back": "Xiyobon, park",
+                                "phonetic": "/pɑːk/",
+                                "example": "Families take evening walks in the green park."
+                },
+                {
+                                "front": "Pen",
+                                "back": "Ruchka",
+                                "phonetic": "/pen/",
+                                "example": "Always carry a blue ballpoint pen to exams."
+                },
+                {
+                                "front": "Pencil",
+                                "back": "Qalam",
+                                "phonetic": "/ˈpen.səl/",
+                                "example": "Use a graphite pencil to sketch design outlines."
+                },
+                {
+                                "front": "Person",
+                                "back": "Inson, kishi",
+                                "phonetic": "/ˈpɜː.sən/",
+                                "example": "Every person has unique talents and perspectives."
+                },
+                {
+                                "front": "Pet",
+                                "back": "Uy hayvoni",
+                                "phonetic": "/pet/",
+                                "example": "Cats and dogs are popular household pets."
+                },
+                {
+                                "front": "Phone",
+                                "back": "Telefon",
+                                "phonetic": "/fəʊn/",
+                                "example": "Silence your mobile phone during class lectures."
+                },
+                {
+                                "front": "Photo",
+                                "back": "Fotosurat, rasm",
+                                "phonetic": "/ˈfəʊ.təʊ/",
+                                "example": "They took a memorable group photo at graduation."
+                },
+                {
+                                "front": "Picture",
+                                "back": "Rasm, tasvir",
+                                "phonetic": "/ˈpɪk.tʃə/",
+                                "example": "Hang a landscape picture on the living room wall."
+                },
+                {
+                                "front": "Pilot",
+                                "back": "Uchuvchi, pilot",
+                                "phonetic": "/ˈpaɪ.lət/",
+                                "example": "The skilled pilot landed the aircraft safely."
+                },
+                {
+                                "front": "Plate",
+                                "back": "Tarelka, idish",
+                                "phonetic": "/pleɪt/",
+                                "example": "Serve warm plov on a large decorated ceramic plate."
+                },
+                {
+                                "front": "Police",
+                                "back": "Militsiya, politsiya",
+                                "phonetic": "/pəˈliːs/",
+                                "example": "Police officers maintain safety in the city."
+                },
+                {
+                                "front": "Rain",
+                                "back": "Yog'garachilik, yomg'ir",
+                                "phonetic": "/reɪn/",
+                                "example": "Spring rain freshens the city air."
+                },
+                {
+                                "front": "River",
+                                "back": "Daryo",
+                                "phonetic": "/ˈrɪv.ə/",
+                                "example": "The Syr Darya river flows through Central Asia."
+                },
+                {
+                                "front": "Road",
+                                "back": "Yo'l, ko'cha",
+                                "phonetic": "/rəʊd/",
+                                "example": "Drive carefully on wet asphalt roads."
+                },
+                {
+                                "front": "Roof",
+                                "back": "Tosh, tom, tami",
+                                "phonetic": "/ruːf/",
+                                "example": "Snow covered the roofs of houses in winter."
+                },
+                {
+                                "front": "Room",
+                                "back": "Xona",
+                                "phonetic": "/ruːm/",
+                                "example": "My study room is quiet and well-lit."
+                },
+                {
+                                "front": "Rose",
+                                "back": "Atirgul",
+                                "phonetic": "/rəʊz/",
+                                "example": "Red roses bloom in the flower garden."
+                },
+                {
+                                "front": "Salt",
+                                "back": "Tuz",
+                                "phonetic": "/sɒlt/",
+                                "example": "Add a pinch of salt to season the soup."
+                },
+                {
+                                "front": "Sandwich",
+                                "back": "Buterbrod, sendvich",
+                                "phonetic": "/ˈsæn.wɪdʒ/",
+                                "example": "He packed a cheese sandwich for lunch."
+                },
+                {
+                                "front": "School",
+                                "back": "Maktab",
+                                "phonetic": "/skuːl/",
+                                "example": "Children attend primary school for basic education."
+                },
+                {
+                                "front": "Sea",
+                                "back": "Dengiz",
+                                "phonetic": "/siː/",
+                                "example": "Ships sail across the Mediterranean Sea."
+                },
+                {
+                                "front": "Shoe",
+                                "back": "Poyabzal, tufli",
+                                "phonetic": "/ʃuː/",
+                                "example": "Tie your shoe laces securely before running."
+                },
+                {
+                                "front": "Shop",
+                                "back": "Do'kon",
+                                "phonetic": "/ʃɒp/",
+                                "example": "Buy fresh bread at the neighborhood bakery shop."
+                },
+                {
+                                "front": "Sister",
+                                "back": "Opa, singil",
+                                "phonetic": "/ˈsɪs.tə/",
+                                "example": "My younger sister studies medicine at university."
+                },
+                {
+                                "front": "Sky",
+                                "back": "Osmon, falak",
+                                "phonetic": "/skaɪ/",
+                                "example": "The blue sky was clear with no clouds."
+                },
+                {
+                                "front": "Snow",
+                                "back": "Qor",
+                                "phonetic": "/snəʊ/",
+                                "example": "Children build snowmen when it snows in winter."
+                },
+                {
+                                "front": "Sofa",
+                                "back": "Divan",
+                                "phonetic": "/ˈsəʊ.fə/",
+                                "example": "Relax on the soft sofa after a long day."
+                },
+                {
+                                "front": "Son",
+                                "back": "O'g'il farzand",
+                                "phonetic": "/sʌn/",
+                                "example": "Their son won the school math olympiad."
+                },
+                {
+                                "front": "Soup",
+                                "back": "Sho'rva, moshxo'rda",
+                                "phonetic": "/suːp/",
+                                "example": "Hot vegetable soup is comforting on cold days."
+                },
+                {
+                                "front": "Spoon",
+                                "back": "Qoshiq",
+                                "phonetic": "/spuːn/",
+                                "example": "Use a soup spoon to eat hot noodle soup."
+                },
+                {
+                                "front": "Star",
+                                "back": "Yulduz",
+                                "phonetic": "/stɑː/",
+                                "example": "Millions of stars illuminate the desert sky."
+                },
+                {
+                                "front": "Station",
+                                "back": "Bekat, stantsiya",
+                                "phonetic": "/ˈsteɪ.ʃən/",
+                                "example": "The train departs from Tashkent Central Station."
+                },
+                {
+                                "front": "Street",
+                                "back": "Ko'cha",
+                                "phonetic": "/striːt/",
+                                "example": "Trees line both sides of the quiet residential street."
+                },
+                {
+                                "front": "Student",
+                                "back": "Talaba, o'quvchi",
+                                "phonetic": "/ˈstjuː.dənt/",
+                                "example": "Every student strives for academic progress."
+                },
+                {
+                                "front": "Sugar",
+                                "back": "Shakar",
+                                "phonetic": "/ˈʃʊɡ.ə/",
+                                "example": "Do you take sugar in your morning black tea?"
+                },
+                {
+                                "front": "Sun",
+                                "back": "Quyosh",
+                                "phonetic": "/sʌn/",
+                                "example": "The sun rises in the east every morning."
+                },
+                {
+                                "front": "Table",
+                                "back": "Stol",
+                                "phonetic": "/ˈteɪ.bəl/",
+                                "example": "Place your study textbooks neatly on the table."
+                },
+                {
+                                "front": "Taxi",
+                                "back": "Taksi",
+                                "phonetic": "/ˈtæk.si/",
+                                "example": "Take a taxi to reach the airport quickly."
+                },
+                {
+                                "front": "Tea",
+                                "back": "Choy",
+                                "phonetic": "/tiː/",
+                                "example": "Uzbek green tea is served in traditional piala cups."
+                },
+                {
+                                "front": "Teacher",
+                                "back": "O'qituvchi, ustoz",
+                                "phonetic": "/ˈtiː.tʃə/",
+                                "example": "Our English teacher explains complex topics clearly."
+                },
+                {
+                                "front": "Telephone",
+                                "back": "Telefon",
+                                "phonetic": "/ˈtel.ɪ.fəʊn/",
+                                "example": "Answer the telephone when it rings."
+                },
+                {
+                                "front": "Time",
+                                "back": "Vaqt",
+                                "phonetic": "/taɪm/",
+                                "example": "Manage your study time effectively every day."
+                },
+                {
+                                "front": "Town",
+                                "back": "Shahar, shaharcha",
+                                "phonetic": "/taʊn/",
+                                "example": "Khiva is a historic Uzbek town with ancient walls."
+                },
+                {
+                                "front": "Tree",
+                                "back": "Daraxt",
+                                "phonetic": "/triː/",
+                                "example": "Fruit trees bloom with white flowers in spring."
+                },
+                {
+                                "front": "Trousers",
+                                "back": "Shalvar, shim",
+                                "phonetic": "/ˈtraʊ.zəz/",
+                                "example": "He wore dark trousers and a crisp white shirt."
+                },
+                {
+                                "front": "Uncle",
+                                "back": "Toga, amaki",
+                                "phonetic": "/ˈʌŋ.kəl/",
+                                "example": "My uncle lives in a quiet mountain village."
+                },
+                {
+                                "front": "University",
+                                "back": "Universitet, oliygoh",
+                                "phonetic": "/ˌjuː.nɪˈvɜː.sə.ti/",
+                                "example": "She plans to study engineering at university."
+                },
+                {
+                                "front": "Vegetable",
+                                "back": "Sabzavot",
+                                "phonetic": "/ˈvedʒ.tə.bəl/",
+                                "example": "Fresh vegetables form the basis of a healthy diet."
+                },
+                {
+                                "front": "Village",
+                                "back": "Qishloq, qishloq joy",
+                                "phonetic": "/ˈvɪl.ɪdʒ/",
+                                "example": "Fresh air and quiet surroundings characterize the village."
+                },
+                {
+                                "front": "Wall",
+                                "back": "Devor",
+                                "phonetic": "/wɔːl/",
+                                "example": "Paint the bedroom walls with light calm colors."
+                },
+                {
+                                "front": "Watch",
+                                "back": "Qo'l soati, tomosha qilmoq",
+                                "phonetic": "/wɒtʃ/",
+                                "example": "Check your wrist watch for test timing."
+                },
+                {
+                                "front": "Water",
+                                "back": "Suv",
+                                "phonetic": "/ˈwɔː.tə/",
+                                "example": "Drinking clean water is essential for your body."
+                },
+                {
+                                "front": "Weather",
+                                "back": "Ob-havo",
+                                "phonetic": "/ˈweð.ə/",
+                                "example": "Spring weather in Tashkent is warm and pleasant."
+                },
+                {
+                                "front": "Wife",
+                                "back": "Xotin, rafiqa",
+                                "phonetic": "/waɪf/",
+                                "example": "His wife is a doctor at the children's hospital."
+                },
+                {
+                                "front": "Window",
+                                "back": "Oyna, rom",
+                                "phonetic": "/ˈwɪn.dəʊ/",
+                                "example": "Open the window to let fresh air into the room."
+                },
+                {
+                                "front": "Winter",
+                                "back": "Qish fasli",
+                                "phonetic": "/ˈwɪn.tə/",
+                                "example": "Snow covers mountain peaks during winter."
+                },
+                {
+                                "front": "Woman",
+                                "back": "Ayol, xotin-qiz",
+                                "phonetic": "/ˈwʊm.ən/",
+                                "example": "The inspiring woman led an international project."
+                },
+                {
+                                "front": "Writer",
+                                "back": "Yozuvchi, adib",
+                                "phonetic": "/ˈraɪ.tə/",
+                                "example": "The famous writer published a novel about Uzbekistan."
+                },
+                {
+                                "front": "Year",
+                                "back": "Yil",
+                                "phonetic": "/jɪə/",
+                                "example": "A new academic year starts in September."
                 }
 ]
     },
