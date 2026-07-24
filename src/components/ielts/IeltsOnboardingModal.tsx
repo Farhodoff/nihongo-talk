@@ -160,28 +160,72 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
 
                     {/* Step 2: Timeframe */}
                     {step === 2 && (
-                        <div className="space-y-5 animate-in fade-in">
-                            <label className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
-                                <Calendar size={18} className="text-indigo-500" />
-                                Imtihongacha Qancha Vaqtingiz Bor?
-                            </label>
-                            <div className="grid grid-cols-3 gap-3">
+                        <div className="space-y-6 animate-in fade-in">
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                                    <Calendar size={18} className="text-indigo-500" />
+                                    Imtihongacha Qancha Vaqtingiz Bor?
+                                </label>
+                                <span className="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 font-black text-xs rounded-full">
+                                    📅 {Math.round(durationDays / 30) > 0 ? `${Math.round(durationDays / 30)} Oy` : `${durationDays} Kun`} ({durationDays} Kun)
+                                </span>
+                            </div>
+
+                            {/* Interactive Month Slider Control */}
+                            <div className="p-4 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/80 rounded-2xl space-y-4">
+                                <div className="flex items-center justify-between text-xs font-extrabold text-gray-600 dark:text-gray-300">
+                                    <span>1 Oy (30 kun)</span>
+                                    <span className="text-indigo-600 dark:text-indigo-400 font-black text-sm">
+                                        🎚️ {Math.round(durationDays / 30)} Oy Tayyorgarlik
+                                    </span>
+                                    <span>12 Oy (365 kun)</span>
+                                </div>
+
+                                <input
+                                    type="range"
+                                    min={1}
+                                    max={12}
+                                    step={1}
+                                    value={Math.min(12, Math.max(1, Math.round(durationDays / 30)))}
+                                    onChange={(e) => {
+                                        const months = parseInt(e.target.value);
+                                        setDurationDays(months * 30);
+                                    }}
+                                    className="w-full h-2.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                                />
+
+                                <div className="flex justify-between text-[10px] text-gray-400 font-bold px-1">
+                                    <span>1Oy</span>
+                                    <span>2Oy</span>
+                                    <span>3Oy</span>
+                                    <span className="text-indigo-500 font-black">4Oy ⭐</span>
+                                    <span>6Oy</span>
+                                    <span>9Oy</span>
+                                    <span>12Oy</span>
+                                </div>
+                            </div>
+
+                            {/* Fast Preset Cards */}
+                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                                 {[
-                                    { days: 30, title: '1 Oy (30 Kun)', desc: 'Intensiv sprint' },
-                                    { days: 60, title: '2 Oy (60 Kun)', desc: 'Balanslashgan dars' },
-                                    { days: 90, title: '3 Oy (90 Kun)', desc: 'Chuqur tayyorgarlik' }
+                                    { months: 1, days: 30, title: '1 Oy' },
+                                    { months: 2, days: 60, title: '2 Oy' },
+                                    { months: 3, days: 90, title: '3 Oy' },
+                                    { months: 4, days: 120, title: '4 Oy ⭐' },
+                                    { months: 6, days: 180, title: '6 Oy' },
+                                    { months: 12, days: 365, title: '1 Yil' }
                                 ].map((item) => (
                                     <button
                                         key={item.days}
                                         onClick={() => setDurationDays(item.days)}
-                                        className={`p-4 rounded-2xl text-left border transition-all ${
+                                        className={`py-3 px-2 rounded-2xl text-center border transition-all ${
                                             durationDays === item.days
-                                                ? 'bg-indigo-50 dark:bg-indigo-950/50 border-indigo-600 text-indigo-700 dark:text-indigo-300 shadow-sm'
-                                                : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300'
+                                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 scale-[1.02]'
+                                                : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-indigo-300'
                                         }`}
                                     >
-                                        <div className="font-extrabold text-sm">{item.title}</div>
-                                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.desc}</div>
+                                        <div className="font-extrabold text-xs">{item.title}</div>
+                                        <div className="text-[10px] opacity-75 mt-0.5">{item.days} kun</div>
                                     </button>
                                 ))}
                             </div>

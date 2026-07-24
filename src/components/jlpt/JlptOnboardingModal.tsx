@@ -151,18 +151,53 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                                 </div>
                             )}
 
-                            <div>
-                                <label className="block text-xs font-bold text-muted-foreground mb-1">Reja Muddati (Kun):</label>
-                                <div className="grid grid-cols-3 gap-2">
-                                    {[30, 60, 90, 180].map((d) => (
+                            {/* Month Slider & Presets */}
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <label className="block text-xs font-bold text-muted-foreground">Reja Muddati (Kun / Oy):</label>
+                                    <span className="px-2.5 py-0.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs rounded-full border border-rose-500/20">
+                                        📅 {Math.round(durationDays / 30) > 0 ? `${Math.round(durationDays / 30)} Oy` : `${durationDays} Kun`} ({durationDays} Kun)
+                                    </span>
+                                </div>
+
+                                <div className="p-3 bg-muted/40 border border-border rounded-xl space-y-2">
+                                    <input
+                                        type="range"
+                                        min={1}
+                                        max={12}
+                                        step={1}
+                                        value={Math.min(12, Math.max(1, Math.round(durationDays / 30)))}
+                                        onChange={(e) => setDurationDays(parseInt(e.target.value) * 30)}
+                                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-rose-600"
+                                    />
+                                    <div className="flex justify-between text-[10px] text-muted-foreground font-bold px-1">
+                                        <span>1Oy</span>
+                                        <span>2Oy</span>
+                                        <span>3Oy</span>
+                                        <span className="text-rose-500 font-black">4Oy ⭐</span>
+                                        <span>6Oy</span>
+                                        <span>9Oy</span>
+                                        <span>12Oy</span>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-4 gap-2">
+                                    {[
+                                        { title: '1 Oy', days: 30 },
+                                        { title: '2 Oy', days: 60 },
+                                        { title: '3 Oy', days: 90 },
+                                        { title: '4 Oy ⭐', days: 120 },
+                                        { title: '6 Oy', days: 180 },
+                                        { title: '12 Oy', days: 365 }
+                                    ].map((item) => (
                                         <button
-                                            key={d}
-                                            onClick={() => setDurationDays(d)}
-                                            className={`py-2.5 rounded-xl font-bold text-xs border ${
-                                                durationDays === d ? 'bg-rose-600 text-white border-rose-600' : 'bg-muted/40 text-foreground border-border'
+                                            key={item.days}
+                                            onClick={() => setDurationDays(item.days)}
+                                            className={`py-2 rounded-xl font-bold text-xs border ${
+                                                durationDays === item.days ? 'bg-rose-600 text-white border-rose-600' : 'bg-muted/40 text-foreground border-border'
                                             }`}
                                         >
-                                            {d} Kun
+                                            {item.title}
                                         </button>
                                     ))}
                                 </div>
