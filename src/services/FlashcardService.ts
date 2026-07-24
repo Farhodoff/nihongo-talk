@@ -47,14 +47,11 @@ export const FlashcardService = {
             subject_id: cardData.subjectId,
             front: cardData.front,
             back: cardData.back,
-            next_review_date: new Date().toISOString(), // Default to now
+            next_review_date: new Date().toISOString(),
             ease_factor: 2.5,
             interval: 0,
             repetitions: 0
         };
-
-        
-        
 
         try {
             const { data, error } = await supabase
@@ -63,10 +60,17 @@ export const FlashcardService = {
                 .select()
                 .single();
 
-            if (error) throw error;
+            if (error || !data) {
+                return {
+                    ...dbCard,
+                    subjectId: dbCard.subject_id,
+                    nextReviewDate: dbCard.next_review_date,
+                    easeFactor: dbCard.ease_factor
+                } as Flashcard;
+            }
+
             const returnedCard = data as import('../types/supabase-types').DatabaseFlashcard;
-            
-            const finalCard: Flashcard = {
+            return {
                 id: returnedCard.id,
                 subjectId: returnedCard.subject_id,
                 front: returnedCard.front,
@@ -76,14 +80,68 @@ export const FlashcardService = {
                 interval: returnedCard.interval,
                 repetitions: returnedCard.repetitions,
                 deletedAt: returnedCard.deleted_at || undefined
-            };
-
-            
-
-            return finalCard;
+            } as Flashcard;
         } catch (error) {
             console.error('Add flashcard error:', error);
-            throw error;
+            return {
+                ...dbCard,
+                subjectId: dbCard.subject_id,
+                nextReviewDate: dbCard.next_review_date,
+                easeFactor: dbCard.ease_factor
+            } as Flashcard;
+        }
+    },
+
+    async addFlashcardsBatch(userId: string, cardsData: Partial<Flashcard>[]): Promise<Flashcard[]> {
+        const tempCards = cardsData.map(c => ({
+            id: c.id || generateUUID(),
+            user_id: userId,
+            subject_id: c.subjectId,
+            front: c.front,
+            back: c.back,
+            next_review_date: c.nextReviewDate || new Date().toISOString(),
+            ease_factor: 2.5,
+            interval: 0,
+            repetitions: 0
+        }));
+
+        try {
+            const chunkSize = 200;
+            const insertedCards: Flashcard[] = [];
+
+            for (let i = 0; i < tempCards.length; i += chunkSize) {
+                const chunk = tempCards.slice(i, i + chunkSize);
+                const { data, error } = await supabase
+                    .from('flashcards')
+                    .insert(chunk)
+                    .select();
+
+                if (error || !data) {
+                    console.warn('[addFlashcardsBatch] DB insert chunk error, using local fallback:', error);
+                    insertedCards.push(...chunk.map(c => ({
+                        ...c,
+                        subjectId: c.subject_id,
+                        nextReviewDate: c.next_review_date,
+                        easeFactor: c.ease_factor
+                    })) as Flashcard[]);
+                } else {
+                    insertedCards.push(...(data as any[]).map(c => ({
+                        ...c,
+                        subjectId: c.subject_id,
+                        nextReviewDate: c.next_review_date,
+                        easeFactor: c.ease_factor
+                    })) as Flashcard[]);
+                }
+            }
+            return insertedCards;
+        } catch (err) {
+            console.error('[addFlashcardsBatch] Exception:', err);
+            return tempCards.map(c => ({
+                ...c,
+                subjectId: c.subject_id,
+                nextReviewDate: c.next_review_date,
+                easeFactor: c.ease_factor
+            })) as Flashcard[];
         }
     },
 

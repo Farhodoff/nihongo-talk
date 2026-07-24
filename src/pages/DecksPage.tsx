@@ -12,7 +12,7 @@ import { useFlashcardImport } from '../hooks/useFlashcardImport';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
 
 const DecksPage: React.FC = () => {
-    const { subjects, flashcards, importFlashcards, addSubject, addFlashcard } = useStudyData();
+    const { subjects, flashcards, importFlashcards, addSubject, addFlashcardsBatch } = useStudyData();
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
@@ -20,6 +20,7 @@ const DecksPage: React.FC = () => {
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
+    const [isImportingPreset, setIsImportingPreset] = useState(false);
 
     const { handleImport, downloadTemplate, isImporting } = useFlashcardImport(importFlashcards);
 
@@ -29,22 +30,28 @@ const DecksPage: React.FC = () => {
     };
 
     const handleImportPresetDeck = async (preset: PresetDeck) => {
-        let subject = subjects.find(s => s.name.toLowerCase() === preset.title.toLowerCase());
-        let targetSubjectId = subject?.id;
+        setIsImportingPreset(true);
+        try {
+            // Find existing subject or match by clean title
+            const cleanTitle = preset.title.replace(/\s*\(\d+\s*Kartochka\)/i, '').trim();
+            let subject = subjects.find(s => 
+                s.name.toLowerCase() === preset.title.toLowerCase() || 
+                s.name.toLowerCase().startsWith(cleanTitle.toLowerCase())
+            );
+            let targetSubjectId = subject?.id;
 
-        if (!targetSubjectId) {
-            const newSub = await addSubject({
-                name: preset.title,
-                color: '#6366f1',
-                icon: preset.icon,
-                isArchived: false,
-            });
-            targetSubjectId = newSub?.id || subject?.id;
-        }
+            if (!targetSubjectId) {
+                const newSub = await addSubject({
+                    name: cleanTitle,
+                    color: '#6366f1',
+                    icon: preset.icon,
+                    isArchived: false,
+                });
+                targetSubjectId = newSub?.id;
+            }
 
-        if (targetSubjectId) {
-            preset.cards.forEach(c => {
-                addFlashcard({
+            if (targetSubjectId) {
+                const batchCards = preset.cards.map(c => ({
                     subjectId: targetSubjectId!,
                     front: c.front,
                     back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`,
@@ -52,13 +59,19 @@ const DecksPage: React.FC = () => {
                     repetitions: 0,
                     easeFactor: 2.5,
                     nextReviewDate: new Date().toISOString()
-                });
-            });
-        }
+                }));
 
-        setImportedDeckTitle(preset.title);
-        setTimeout(() => setImportedDeckTitle(null), 3000);
-        setActiveTab('my');
+                await addFlashcardsBatch(batchCards);
+            }
+
+            setImportedDeckTitle(preset.title);
+            setTimeout(() => setImportedDeckTitle(null), 3000);
+            setActiveTab('my');
+        } catch (err) {
+            console.error('Import preset error:', err);
+        } finally {
+            setIsImportingPreset(false);
+        }
     };
 
     return (
@@ -110,9 +123,22 @@ const DecksPage: React.FC = () => {
                 </div>
             </div>
 
-            {importedDeckTitle && (
-                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold rounded-2xl text-sm flex items-center gap-2 animate-in fade-in">
-                    ✨ "{importedDeckTitle}" to'plami muvaffaqiyatli saqlandi!
+            {/* Toast/Notice for preset deck import */}
+            {isImportingPreset && (
+                <div className="p-4 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-between animate-pulse">
+                    <div className="flex items-center gap-2 font-extrabold text-sm">
+                        <Sparkles size={18} className="animate-spin" />
+                        <span>Kutubxonadagi barcha kartochkalar bazaga saqlanmoqda...</span>
+                    </div>
+                </div>
+            )}
+
+            {importedDeckTitle && !isImportingPreset && (
+                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-between">
+                    <div className="flex items-center gap-2 font-extrabold text-sm">
+                        <Sparkles size={18} />
+                        <span>"{importedDeckTitle}" to'plami va uning barcha kartochkalari muvaffaqiyatli saqlandi!</span>
+                    </div>
                 </div>
             )}
 

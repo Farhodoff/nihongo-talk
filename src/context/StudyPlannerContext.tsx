@@ -60,6 +60,7 @@ interface StudyPlannerContextType {
 
     // Flashcard operatsiyalari
     addFlashcard: (card: Partial<Flashcard>) => Promise<Flashcard | null>;
+    addFlashcardsBatch: (cards: Partial<Flashcard>[]) => Promise<Flashcard[]>;
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
     deleteFlashcard: (id: string, permanent?: boolean) => Promise<void>;
     restoreFlashcard: (id: string) => Promise<void>;
@@ -147,6 +148,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         flashcards,
         setFlashcards,
         addFlashcard,
+        addFlashcardsBatch,
         updateFlashcard,
         deleteFlashcard,
         restoreFlashcard,
@@ -1080,7 +1082,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             addSession, addCoachSession, awardXP, resetXP,
             notes, addNote, updateNote, deleteNote,
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
-            flashcards, addFlashcard, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
+            flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
             whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
             events, addEvent, updateEvent, deleteEvent,
             googleEvents, syncGoogleEvents,

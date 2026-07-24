@@ -28,6 +28,23 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         return newCard;
     };
 
+    const addFlashcardsBatch = async (cardsData: Partial<Flashcard>[]) => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            throw new Error('User not authenticated');
+        }
+
+        const newCards = await FlashcardService.addFlashcardsBatch(user.id, cardsData);
+        if (newCards.length > 0) {
+            setFlashcards(prev => {
+                const existingIds = new Set(prev.map(c => c.id));
+                const filteredNew = newCards.filter(c => !existingIds.has(c.id));
+                return [...prev, ...filteredNew];
+            });
+        }
+        return newCards;
+    };
+
     const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
         setFlashcards(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c));
         try {
@@ -126,6 +143,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         flashcards,
         setFlashcards: setFlashcardsState,
         addFlashcard,
+        addFlashcardsBatch,
         updateFlashcard,
         deleteFlashcard,
         restoreFlashcard,
