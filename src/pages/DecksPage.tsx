@@ -63,69 +63,80 @@ const DecksPage: React.FC = () => {
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Header Area */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-border/60">
                 <div>
-                    <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Fleshkartalar & Aqlli Lug'at</h2>
-                    <p className="text-muted-foreground text-sm mt-1">
-                        Anki SM-2 algoritmi, Audio TTS va tayyor IELTS to'plamlari bilan lug'at boyligingizni oshiring.
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-2">
+                        <Layers size={14} /> ANKI SM-2 ENGINE ⚡
+                    </div>
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">Fleshkartalar & Lug'at</h2>
+                    <p className="text-muted-foreground text-xs md:text-sm mt-1 max-w-2xl leading-relaxed">
+                        Anki SM-2 algoritmi, Audio TTS va tayyor to'plamlar bilan lug'at boyligingizni oshiring.
                     </p>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                    <Button
-                        variant="secondary"
-                        onClick={() => setIsExtractModalOpen(true)}
-                        className="text-indigo-600 dark:text-indigo-400 border-indigo-500/20 bg-indigo-500/10 hover:bg-indigo-500/20 font-bold"
-                    >
-                        <FileText size={18} className="mr-2" /> AI Vocab Extractor
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        onClick={() => setImportModalOpen(true)}
-                        className="text-muted-foreground border-border hover:bg-muted font-bold"
-                    >
-                        <Upload size={18} className="mr-2" /> JSON Yuklash
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        onClick={() => setAiSubjectId('global')}
-                        className="text-primary border-primary/20 hover:bg-primary/10 font-bold"
-                    >
-                        <Sparkles size={18} className="mr-2" /> AI Yaratish
-                    </Button>
+
+                <div className="flex flex-wrap items-center gap-2.5">
+                    {/* Primary Button */}
                     <Link to="/flashcards/new">
-                        <Button className="font-bold">
-                            <Plus size={18} className="mr-2" /> Qo'lda Qo'shish
+                        <Button className="font-extrabold shadow-md rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 text-xs">
+                            <Plus size={16} className="mr-1.5" /> Qo'lda Qo'shish
                         </Button>
                     </Link>
+
+                    {/* AI & Import Action Group */}
+                    <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-2xl">
+                        <button
+                            onClick={() => setAiSubjectId('global')}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-primary hover:bg-background rounded-xl transition-all"
+                            title="AI bilan kartochka yaratish"
+                        >
+                            <Sparkles size={15} /> AI Yaratish
+                        </button>
+                        <button
+                            onClick={() => setIsExtractModalOpen(true)}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:bg-background rounded-xl transition-all"
+                            title="Matndan lug'at ajratib olish"
+                        >
+                            <FileText size={15} /> Extractor
+                        </button>
+                        <button
+                            onClick={() => setImportModalOpen(true)}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-muted-foreground hover:text-foreground hover:bg-background rounded-xl transition-all"
+                            title="JSON formatida fayl yuklash"
+                        >
+                            <Upload size={15} /> Import
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {importedDeckTitle && (
-                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold rounded-2xl text-sm flex items-center gap-2">
+                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold rounded-2xl text-sm flex items-center gap-2 animate-in fade-in">
                     ✨ "{importedDeckTitle}" to'plami muvaffaqiyatli saqlandi!
                 </div>
             )}
 
-            <div className="flex items-center gap-2 border-b border-border pb-1">
+            {/* Navigation Tabs */}
+            <div className="flex items-center gap-2 p-1.5 bg-muted/40 border border-border/80 rounded-2xl w-fit">
                 <button
                     onClick={() => setActiveTab('my')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-extrabold text-sm rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
                         activeTab === 'my'
-                            ? 'bg-primary text-primary-foreground shadow-sm'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                            ? 'bg-background text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Layers size={18} /> Mening To'plamlarim ({subjects.length})
+                    <Layers size={16} className="text-indigo-500" /> Mening To'plamlarim ({subjects.length})
                 </button>
                 <button
                     onClick={() => setActiveTab('library')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-extrabold text-sm rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
                         activeTab === 'library'
-                            ? 'bg-indigo-600 text-white shadow-sm'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                            ? 'bg-background text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Library size={18} /> Standart IELTS Kutubxonasi ({PRESET_DECKS.length})
+                    <Library size={16} className="text-amber-500" /> Standart IELTS Kutubxonasi ({PRESET_DECKS.length})
                 </button>
             </div>
 
