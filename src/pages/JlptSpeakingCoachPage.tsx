@@ -32,10 +32,19 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             recognition.lang = 'ja-JP';
 
             recognition.onresult = (event: any) => {
-                let currentText = '';
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    currentText += event.results[i][0].transcript;
+                let finalTranscript = '';
+                let interimTranscript = '';
+
+                for (let i = 0; i < event.results.length; i++) {
+                    const transcriptChunk = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcriptChunk + ' ';
+                    } else {
+                        interimTranscript += transcriptChunk;
+                    }
                 }
+
+                const currentText = (finalTranscript + interimTranscript).replace(/\s+/g, ' ').trim();
                 setTranscript(currentText);
 
                 // Reset 3.0s silence timer

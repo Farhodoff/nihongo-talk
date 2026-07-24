@@ -91,11 +91,20 @@ export const IeltsSpeakingMockPage: React.FC = () => {
         recognition.onend = () => setIsListening(false);
 
         recognition.onresult = (event: any) => {
-            let transcript = '';
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                transcript += event.results[i][0].transcript;
+            let finalTranscript = '';
+            let interimTranscript = '';
+
+            for (let i = 0; i < event.results.length; i++) {
+                const transcriptChunk = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcriptChunk + ' ';
+                } else {
+                    interimTranscript += transcriptChunk;
+                }
             }
-            setCurrentAnswerText(prev => (prev + ' ' + transcript).trim());
+
+            const cleanText = (finalTranscript + interimTranscript).replace(/\s+/g, ' ').trim();
+            setCurrentAnswerText(cleanText);
 
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {
