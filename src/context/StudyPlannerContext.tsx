@@ -107,6 +107,7 @@ interface StudyPlannerContextType {
     // Settings & XP
     updateSettings: (updates: Partial<Settings>) => Promise<void>;
     awardXP: (amount: number) => Promise<void>;
+    resetXP: () => Promise<void>;
     getRank: (level: number) => string;
 
 }
@@ -122,6 +123,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         gameState,
         setGamificationState,
         awardXP,
+        resetXP,
         getRank
     } = useGamification({
         totalXp: 0,
@@ -1075,7 +1077,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             addGoal, updateGoal, deleteGoal,
             addTask, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
             addSubject, updateSubject, deleteSubject,
-            addSession, addCoachSession, awardXP,
+            addSession, addCoachSession, awardXP, resetXP,
             notes, addNote, updateNote, deleteNote,
             studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
             flashcards, addFlashcard, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,

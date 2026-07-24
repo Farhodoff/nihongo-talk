@@ -10,7 +10,7 @@ import { Mail, Zap, Star } from 'lucide-react';
 interface AccountSectionProps {}
 
 const AccountSection: React.FC<AccountSectionProps> = () => {
-    const { user } = useStudyData();
+    const { user, resetXP } = useStudyData();
     const { subscription } = useSubscription();
 
     const handleLogout = async () => {
@@ -20,10 +20,16 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
             } catch (e) {
                 console.error("Sign out error", e);
             } finally {
-                // Ensure local state is wiped even if server sign out fails
                 localStorage.clear();
                 window.location.href = '/';
             }
+        }
+    };
+
+    const handleResetXP = async () => {
+        if (confirm("XP ballaringizni va darajangizni 0 ga qaytarishni tasdiqlaysizmi?")) {
+            await resetXP();
+            alert("XP ballaringiz 0 ga va darajangiz 1-levelga o'zgartirildi!");
         }
     };
 
@@ -97,7 +103,16 @@ const AccountSection: React.FC<AccountSectionProps> = () => {
                 )}
             </div>
 
-            <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 space-y-2">
+                <Button
+                    variant="outline"
+                    onClick={handleResetXP}
+                    className="w-full border-amber-500/40 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10"
+                >
+                    <span className="flex items-center justify-center gap-2">
+                        🔄 XP Ballarni 0 ga Qaytash (Reset XP)
+                    </span>
+                </Button>
                 <Button
                     variant="destructive"
                     onClick={handleLogout}

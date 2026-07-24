@@ -57,10 +57,24 @@ export const useGamification = (initialState: GamificationState) => {
         setGameState(value);
     }, []);
 
+    const resetXP = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        setGameState(prev => ({ ...prev, totalXp: 0, level: 1 }));
+        if (user) {
+            await supabase.from('profiles').upsert({
+                id: user.id,
+                total_xp: 0,
+                level: 1,
+                updated_at: new Date().toISOString()
+            });
+        }
+    };
+
     return {
         gameState,
         setGamificationState,
         awardXP,
+        resetXP,
         getRank
     };
 };
