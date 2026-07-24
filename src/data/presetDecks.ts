@@ -20,7 +20,7 @@ export interface PresetDeck {
 export const PRESET_DECKS: PresetDeck[] = [
     {
         id: 'deck_starter_a1_a2',
-        title: '🌱 A1-A2 Starter Vocabulary (1646 Kartochka)',
+        title: '🌱 A1-A2 Starter Vocabulary',
         description: 'Ingliz tilini noldan boshlayotganlar uchun PDF darsliklardan olingan tayanch so\'zlar.',
         level: 'A1-A2',
         badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
@@ -10993,7 +10993,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     },
     {
         id: 'deck_intermediate_b1_b2',
-        title: '📈 B1-B2 Pre-IELTS Academic Vocab (1201 Kartochka)',
+        title: '📈 B1-B2 Pre-IELTS Academic Vocab',
         description: 'Band 5.5-6.5 darajasidagi talabalar uchun akademik so\'zlar va iboralar to\'plami.',
         level: 'B1-B2',
         badgeColor: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20',

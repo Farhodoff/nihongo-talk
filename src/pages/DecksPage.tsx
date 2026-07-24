@@ -171,6 +171,10 @@ const DecksPage: React.FC = () => {
                     {subjects.map(subject => {
                         const deckCards = flashcards.filter(c => c.subjectId === subject.id);
                         const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
+                        const matchingPreset = PRESET_DECKS.find(p => 
+                            p.title.toLowerCase().startsWith(subject.name.toLowerCase()) || 
+                            subject.name.toLowerCase().startsWith(p.title.toLowerCase().replace(/\s*\(\d+\s*kartochka\)/i, '').trim())
+                        );
 
                         return (
                             <DeckCard
@@ -179,6 +183,7 @@ const DecksPage: React.FC = () => {
                                 cardCount={deckCards.length}
                                 dueCount={dueCards.length}
                                 onAIGenerate={() => setAiSubjectId(subject.id)}
+                                onPopulatePreset={matchingPreset ? () => handleImportPresetDeck(matchingPreset) : undefined}
                             />
                         );
                     })}
