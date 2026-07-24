@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Award, Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, GraduationCap, Flame } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
+import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
 import { IeltsStudyPlanResult } from '../utils/ai';
 
 export const IeltsHubPage: React.FC = () => {
@@ -104,6 +105,11 @@ export const IeltsHubPage: React.FC = () => {
                     </button>
                 </div>
             )}
+
+            {/* Real Analytics & Weakness Diagnostic Section */}
+            <div className="mb-8">
+                <RealWeaknessTracker />
+            </div>
 
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

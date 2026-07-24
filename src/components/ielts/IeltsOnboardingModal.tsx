@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Target, Award, Calendar, Sparkles, ArrowRight, RefreshCw, X, ShieldCheck } from 'lucide-react';
 import { generateIeltsStudyPlan, IeltsStudyPlanResult } from '../../utils/ai';
 import { useStudyData } from '../../context/StudyPlannerContext';
+import { ensureIeltsSubjectAndDecks } from '../../utils/ieltsAutoSubject';
 
 interface IeltsOnboardingModalProps {
     isOpen: boolean;
@@ -14,7 +15,7 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
     onClose,
     onPlanCreated
 }) => {
-    const { addTask } = useStudyData();
+    const { subjects, addSubject, addFlashcard, addTask } = useStudyData();
     const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
     const [currentBand, setCurrentBand] = useState<number>(5.5);
     const [targetBand, setTargetBand] = useState<number>(7.0);
@@ -44,6 +45,9 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                 generatedPlan: plan,
                 createdAt: new Date().toISOString()
             }));
+
+            // Auto create "IELTS Academic & CEFR Master" subject and populate flashcard decks
+            await ensureIeltsSubjectAndDecks(currentBand, targetBand, subjects, addSubject, addFlashcard);
 
             // Auto add top daily tasks to user's Task manager
             if (plan.dailyPlan && plan.dailyPlan.length > 0) {
