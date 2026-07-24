@@ -45,9 +45,9 @@ const ImportModal: React.FC<ImportModalProps> = ({
                     <X size={24} />
                 </button>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">JSON orqali yuklash</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Anki / CSV / JSON Orqali Yuklash</h3>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-                    Katta hajmdagi ma'lumotlarni tezkor yuklash uchun.
+                    Anki (.apkg/.txt), CSV, TSV yoki JSON tayyor kartochkalar to'plamini yuklash.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -67,7 +67,7 @@ const ImportModal: React.FC<ImportModalProps> = ({
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">JSON Fayl</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Anki / CSV / TSV / JSON Fayl</label>
                         <div
                             className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 text-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                             onClick={() => fileInputRef.current?.click()}
@@ -76,19 +76,19 @@ const ImportModal: React.FC<ImportModalProps> = ({
                                 type="file"
                                 ref={fileInputRef}
                                 className="hidden"
-                                accept=".json"
+                                accept=".json,.csv,.tsv,.txt,.apkg"
                                 onChange={(e) => setImportFile(e.target.files?.[0] || null)}
                             />
                             <FileText className="mx-auto text-gray-400 mb-2" size={32} />
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {importFile ? importFile.name : "Faylni tanlang yoki shu yerga tashlang"}
+                            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                {importFile ? importFile.name : "Anki (.apkg/txt), CSV yoki JSON faylni tanlang"}
                             </p>
                         </div>
                     </div>
 
                     <div className="flex justify-between items-center text-sm">
-                        <button type="button" onClick={downloadTemplate} className="text-indigo-600 hover:underline flex items-center gap-1">
-                            <Download size={14} /> Namuna yuklab olish
+                        <button type="button" onClick={downloadTemplate} className="text-indigo-600 hover:underline flex items-center gap-1 font-medium">
+                            <Download size={14} /> JSON Namunasini yuklab olish
                         </button>
                     </div>
 

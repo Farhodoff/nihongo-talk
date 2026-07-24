@@ -10,25 +10,61 @@ export const useFlashcardImport = (importFlashcards: (subjectId: string, cards: 
         return new Promise<void>((resolve, reject) => {
             reader.onload = async (event) => {
                 try {
-                    const json = JSON.parse(event.target?.result as string);
-                    if (!Array.isArray(json)) throw new Error("JSON must be an array");
+                    const content = (event.target?.result as string) || '';
+                    let cards: { front: string; back: string; example?: string }[] = [];
 
-                    // Validate structure roughly
-                    if (json.length > 0 && (!json[0].front || !json[0].back)) {
-                        throw new Error("Invalid JSON structure. Needs 'front' and 'back' fields.");
+                    // 1. Try parsing JSON
+                    if (file.name.toLowerCase().endsWith('.json') || content.trim().startsWith('[')) {
+                        try {
+                            const json = JSON.parse(content);
+                            if (Array.isArray(json)) {
+                                cards = json.map((item: any) => ({
+                                    front: item.front || item.term || item.word || item.kanji || '',
+                                    back: item.back || item.definition || item.meaning || item.romaji || '',
+                                    example: item.example || item.sentence || item.notes || ''
+                                })).filter(c => c.front && c.back);
+                            }
+                        } catch (err) {
+                            console.warn("JSON parse attempt failed, trying delimited text:", err);
+                        }
                     }
 
-                    const success = await importFlashcards(subjectId, json);
+                    // 2. Try CSV / TSV / Anki Text format if JSON parsing gave no cards
+                    if (cards.length === 0) {
+                        const lines = content.split(/\r?\n/).filter(line => line.trim() && !line.startsWith('#'));
+                        for (const line of lines) {
+                            // Determine delimiter: tab, semicolon, or comma
+                            let delimiter = '\t';
+                            if (line.includes('\t')) delimiter = '\t';
+                            else if (line.includes(';')) delimiter = ';';
+                            else if (line.includes(',')) delimiter = ',';
+
+                            const parts = line.split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
+                            if (parts.length >= 2) {
+                                cards.push({
+                                    front: parts[0],
+                                    back: parts[1],
+                                    example: parts[2] || ''
+                                });
+                            }
+                        }
+                    }
+
+                    if (cards.length === 0) {
+                        throw new Error("Faylda yararoqlik kartochkalar topilmadi. Qatorda kamida 'Front' va 'Back' ustunlari bo'lishi kerak.");
+                    }
+
+                    const success = await importFlashcards(subjectId, cards);
                     if (success) {
-                        alert("Muvaffaqiyatli yuklandi!");
+                        alert(`🎉 Muvaffaqiyatli! ${cards.length} ta kartochka import qilindi.`);
                         resolve();
                     } else {
                         alert("Xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
                         reject(new Error("Import failed"));
                     }
-                } catch (error: unknown) {
+                } catch (error: any) {
                     console.error(error);
-                    alert("JSON fayl xato formatda! Iltimos, namunani tekshiring.");
+                    alert(error?.message || "Fayl xato formatda! JSON, CSV yoki Anki text fayllarini yuklang.");
                     reject(error);
                 } finally {
                     setIsImporting(false);
@@ -41,12 +77,12 @@ export const useFlashcardImport = (importFlashcards: (subjectId: string, cards: 
     const downloadTemplate = () => {
         const template = [
             {
-                "front": "Mizu",
+                "front": "Mizu (水)",
                 "back": "Suv",
                 "example": "Mizu o nomimasu (Suv ichaman)"
             },
             {
-                "front": "Hon",
+                "front": "Hon (本)",
                 "back": "Kitob",
                 "example": "Hon o yomimasu (Kitob o'qiyman)"
             }

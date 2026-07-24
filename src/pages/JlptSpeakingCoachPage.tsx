@@ -328,33 +328,68 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             </div>
 
             {/* Chat Box */}
-            <div className="flex-1 bg-card border border-border rounded-3xl p-6 overflow-y-auto space-y-4 shadow-xl">
-                {messages.map((m, i) => (
-                    <div
-                        key={i}
-                        className={`flex gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
+            <div className="flex-1 bg-card border border-border rounded-3xl p-4 md:p-6 overflow-y-auto space-y-4 shadow-xl relative">
+                {messages.map((m, i) => {
+                    const isAssistant = m.role === 'assistant';
+                    // Parse Japanese text, Romaji, and Uzbek translation if formatted
+                    const romajiMatch = m.content.match(/\((.*?)\)/);
+                    const uzbekMatch = m.content.match(/\[(.*?)\]/);
+                    
+                    const japaneseText = m.content.replace(/\(.*?\)/g, '').replace(/\[.*?\]/g, '').trim();
+                    const romajiText = romajiMatch ? romajiMatch[1] : null;
+                    const uzbekText = uzbekMatch ? uzbekMatch[1] : null;
+
+                    return (
                         <div
-                            className={`p-4 rounded-2xl max-w-[85%] text-sm leading-relaxed ${
-                                m.role === 'user'
-                                    ? 'bg-rose-600 text-white rounded-tr-none'
-                                    : 'bg-muted border border-border text-foreground rounded-tl-none'
-                            }`}
+                            key={i}
+                            className={`flex gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                            <p className="whitespace-pre-wrap">{m.content}</p>
-                            {m.role === 'assistant' && (
-                                <button
-                                    onClick={() => speakJapanese(m.content)}
-                                    className="mt-2 text-xs font-bold text-rose-500 flex items-center gap-1 hover:underline"
-                                >
-                                    <Volume2 size={14} /> Qayta eshitish 🔊
-                                </button>
-                            )}
+                            <div
+                                className={`p-4 rounded-3xl max-w-[88%] text-sm leading-relaxed shadow-sm transition-all ${
+                                    m.role === 'user'
+                                        ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-tr-none'
+                                        : 'bg-muted/80 border border-border text-foreground rounded-tl-none space-y-2.5'
+                                }`}
+                            >
+                                {isAssistant && romajiText ? (
+                                    <>
+                                        {/* Main Japanese Text */}
+                                        <div className="text-base font-extrabold tracking-wide text-foreground">
+                                            {japaneseText}
+                                        </div>
+
+                                        {/* Romaji Pronunciation */}
+                                        <div className="text-xs font-mono text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20">
+                                            🗣️ <b>Romaji:</b> {romajiText}
+                                        </div>
+
+                                        {/* Uzbek Translation */}
+                                        {uzbekText && (
+                                            <div className="text-xs text-muted-foreground bg-background/60 p-2.5 rounded-xl border border-border/60">
+                                                🇺🇿 <b>Ma'nosi:</b> {uzbekText}
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <p className="whitespace-pre-wrap">{m.content}</p>
+                                )}
+
+                                {isAssistant && (
+                                    <div className="flex items-center gap-3 pt-1 border-t border-border/40 mt-2">
+                                        <button
+                                            onClick={() => speakJapanese(m.content)}
+                                            className="text-xs font-extrabold text-rose-500 hover:text-rose-600 flex items-center gap-1.5 transition-all hover:scale-105"
+                                        >
+                                            <Volume2 size={15} /> Qayta eshitish 🔊
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
                 {isThinking && (
-                    <div className="flex items-center gap-2 text-xs font-bold text-rose-500 animate-pulse">
+                    <div className="flex items-center gap-2 text-xs font-bold text-rose-500 animate-pulse bg-rose-500/10 p-3 rounded-2xl border border-rose-500/20 w-fit">
                         <Sparkles size={16} className="animate-spin" /> Ken-sensei (JLPT {jlptLevel}) javob tayyorlamoqda...
                     </div>
                 )}
