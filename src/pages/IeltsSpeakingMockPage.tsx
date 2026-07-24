@@ -1,46 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mic, MicOff, Award, Clock, Sparkles, AlertCircle, ChevronRight, RefreshCw, Volume2 } from 'lucide-react';
+import { ArrowLeft, Mic, MicOff, Award, Clock, Sparkles, AlertCircle, ChevronRight, RefreshCw, Volume2, Dices } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { evaluateIeltsSpeakingFullMock, SpeakingMockReport } from '../utils/ai';
 import { speakText } from '../utils/audioTts';
+import { CAMBRIDGE_IELTS_TOPICS, IeltsSpeakingTopic } from '../data/ieltsSpeakingTopics';
 
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 export const IeltsSpeakingMockPage: React.FC = () => {
     const navigate = useNavigate();
 
+    // Topic Selection
+    const [selectedTopic, setSelectedTopic] = useState<IeltsSpeakingTopic>(() => {
+        const randomIndex = Math.floor(Math.random() * CAMBRIDGE_IELTS_TOPICS.length);
+        return CAMBRIDGE_IELTS_TOPICS[randomIndex];
+    });
+
     // Steps: 'intro' -> 'part1' -> 'part2_prep' -> 'part2_speech' -> 'part3' -> 'evaluating' -> 'report'
     const [step, setStep] = useState<'intro' | 'part1' | 'part2_prep' | 'part2_speech' | 'part3' | 'evaluating' | 'report'>('intro');
 
     // Part 1 Questions
-    const PART1_QUESTIONS = [
-        "Tell me about your hometown. What do you like most about it?",
-        "Do you prefer studying in the morning or in the evening? Why?",
-        "What kind of music do you enjoy listening to?",
-        "How often do you use social media in your daily life?"
-    ];
+    const PART1_QUESTIONS = selectedTopic.part1;
     const [part1Index, setPart1Index] = useState(0);
 
     // Part 2 Cue Card Topic
-    const CUE_CARD_TOPIC = {
-        title: "Describe a memorable journey you went on.",
-        bullets: [
-            "Where you went and who you went with",
-            "What happened during the journey",
-            "Why it was so memorable for you"
-        ]
-    };
+    const CUE_CARD_TOPIC = selectedTopic.part2;
     const [prepSeconds, setPrepSeconds] = useState(60);
     const [speechSeconds, setSpeechSeconds] = useState(120);
 
     // Part 3 Discussion Questions
-    const PART3_QUESTIONS = [
-        "How have transportation methods changed in your country over the past few decades?",
-        "Do you think tourism always brings positive economic impacts to a local region?",
-        "In the future, do you expect eco-friendly travel to become the dominant form of tourism?"
-    ];
+    const PART3_QUESTIONS = selectedTopic.part3;
     const [part3Index, setPart3Index] = useState(0);
+
+    const handleRandomizeTopic = () => {
+        const otherTopics = CAMBRIDGE_IELTS_TOPICS.filter(t => t.id !== selectedTopic.id);
+        const random = otherTopics[Math.floor(Math.random() * otherTopics.length)] || CAMBRIDGE_IELTS_TOPICS[0];
+        setSelectedTopic(random);
+    };
 
     // STT & Transcripts
     const [transcriptList, setTranscriptList] = useState<{ part: string; question: string; answer: string }[]>([]);
@@ -207,10 +204,29 @@ export const IeltsSpeakingMockPage: React.FC = () => {
                         </p>
                     </div>
 
+                    {/* Active Cambridge Exam Card */}
+                    <div className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/20 p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+                        <div>
+                            <span className="text-[10px] font-extrabold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">
+                                {selectedTopic.category} (Cambridge IELTS Test)
+                            </span>
+                            <h4 className="text-sm font-extrabold text-foreground mt-0.5">
+                                Cue Card: "{selectedTopic.part2.title}"
+                            </h4>
+                        </div>
+                        <button
+                            onClick={handleRandomizeTopic}
+                            className="px-3 py-2 bg-background border border-border rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
+                            title="Boshqa imtihon bileti"
+                        >
+                            <Dices size={15} className="text-indigo-500" /> Boshqa Bilet 🎲
+                        </button>
+                    </div>
+
                     <div className="grid grid-cols-3 gap-3 text-left">
                         <div className="p-3 bg-muted/40 rounded-2xl border border-border/50">
                             <span className="text-xs font-bold text-primary block">Part 1</span>
-                            <span className="text-xs text-muted-foreground">4-5 ta umumiy savollar</span>
+                            <span className="text-xs text-muted-foreground">4 ta umumiy savol</span>
                         </div>
                         <div className="p-3 bg-muted/40 rounded-2xl border border-border/50">
                             <span className="text-xs font-bold text-indigo-500 block">Part 2</span>
@@ -218,12 +234,15 @@ export const IeltsSpeakingMockPage: React.FC = () => {
                         </div>
                         <div className="p-3 bg-muted/40 rounded-2xl border border-border/50">
                             <span className="text-xs font-bold text-purple-500 block">Part 3</span>
-                            <span className="text-xs text-muted-foreground">Chuqur mantiqiy savollar</span>
+                            <span className="text-xs text-muted-foreground">3 ta mantiqiy savol</span>
                         </div>
                     </div>
 
                     <Button
-                        onClick={() => setStep('part1')}
+                        onClick={() => {
+                            setStep('part1');
+                            speakText(PART1_QUESTIONS[0], 'en-GB');
+                        }}
                         className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-base rounded-2xl shadow-lg shadow-indigo-500/20"
                     >
                         Imtihonni Boshlash <ChevronRight className="ml-2" size={20} />
