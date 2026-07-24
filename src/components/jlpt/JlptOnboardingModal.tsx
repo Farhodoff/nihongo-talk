@@ -217,18 +217,18 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                                 <label className="block text-sm font-bold text-foreground mb-3 flex items-center gap-2">
                                     <Target size={18} className="text-rose-500" /> Joriy JLPT Darajangiz:
                                 </label>
-                                <div className="grid grid-cols-5 gap-2">
-                                    {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
+                                <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
+                                    {['0', 'N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
                                         <button
                                             key={lvl}
                                             onClick={() => setCurrentLevel(lvl)}
-                                            className={`py-3 rounded-2xl font-extrabold text-sm border transition-all ${
+                                            className={`py-3 px-1 rounded-2xl font-extrabold text-xs border transition-all ${
                                                 currentLevel === lvl
                                                     ? 'bg-rose-600 text-white border-rose-600 shadow-md scale-[1.02]'
                                                     : 'bg-muted/40 text-foreground border-border hover:border-rose-300'
                                             }`}
                                         >
-                                            {lvl}
+                                            {lvl === '0' ? "🌱 0 Level (Noldan)" : lvl}
                                         </button>
                                     ))}
                                 </div>

@@ -9,6 +9,7 @@ export interface JlptHoursAnalysis {
 
 // Official JLPT Guided Learning Hours Standard
 export const JLPT_HOURS_MAP: Record<string, number> = {
+    '0': 0,   // Complete Beginner (Noldan)
     'N5': 150, // Beginner (A1)
     'N4': 300, // Upper Beginner (A2)
     'N3': 450, // Intermediate (B1)
