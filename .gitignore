@@ -69,3 +69,12 @@ planner.pptx
 .venv/
 *.pptx
 .vercel
+
+# Large PDF & RAR book files
+books/*.pdf
+books/*.rar
+books/*.zip
+books/**/*.pdf
+books/**/*.rar
+books/**/*.zip
+

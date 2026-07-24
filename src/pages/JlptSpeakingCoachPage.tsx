@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2, Sparkles, Send, ArrowLeft } from 'lucide-react';
+import { Mic, MicOff, Volume2, Sparkles, Send, ArrowLeft, GraduationCap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateAIResponse } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -8,14 +8,15 @@ export const JlptSpeakingCoachPage: React.FC = () => {
     const navigate = useNavigate();
     const { awardXP } = useStudyData();
 
+    const [jlptLevel, setJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState('');
+    const [inputText, setInputText] = useState('');
     const [isThinking, setIsThinking] = useState(false);
-    const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string; romaji?: string }[]>([
+    const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
         {
             role: 'assistant',
-            content: 'こんにちは！はじめまして。日本語の勉強はどうですか？(Konnichiwa! Hajimemashite. Nihongo no benkyou wa dou desu ka?)',
-            romaji: 'Konnichiwa! Hajimemashite. Nihongo no benkyou wa dou desu ka?'
+            content: 'こんにちは！はじめまして。日本語の勉強はどうですか？ (Konnichiwa! Hajimemashite. Nihongo no benkyou wa dou desu ka?) [Salom! Tanishganimdan xursandman. Yapon tili o\'rganish qanday ketyapti?]'
         }
     ]);
 
@@ -63,7 +64,7 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
     const toggleListening = () => {
         if (!recognitionRef.current) {
-            alert("Brauzeringizda Yaponcha ovozni aniqlash mos emas.");
+            alert("Brauzeringizda Yaponcha ovozni aniqlash (ja-JP) qo'llab-quvvatlanmaydi.");
             return;
         }
 
@@ -79,7 +80,7 @@ export const JlptSpeakingCoachPage: React.FC = () => {
     };
 
     const handleSendMessage = async (textToSend?: string) => {
-        const text = textToSend || transcript;
+        const text = textToSend || inputText || transcript;
         if (!text.trim()) return;
 
         if (isListening && recognitionRef.current) {
@@ -91,12 +92,13 @@ export const JlptSpeakingCoachPage: React.FC = () => {
         const newMessages = [...messages, { role: 'user' as const, content: text }];
         setMessages(newMessages);
         setTranscript('');
+        setInputText('');
         setIsThinking(true);
 
         try {
             const prompt = `
-            Act as a polite native Japanese Kaiwa (会話) Tutor (Ken-sensei).
-            Respond to the student in natural Japanese (using Kanji with Hiragana/Romaji in parentheses).
+            Act as a polite native Japanese Kaiwa (会話) Tutor (Ken-sensei) tailored for JLPT ${jlptLevel} learners.
+            Respond to the student in natural Japanese appropriate for JLPT ${jlptLevel} level (include Kanji with Furigana/Romaji in parentheses).
             Keep it encouraging and polite (Desu/Masu form).
             Provide a short Uzbek translation at the end in brackets [].
             Student input: "${text}"
@@ -123,23 +125,41 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             const cleanText = text.replace(/\[.*?\]/g, '').trim(); // Remove Uzbek brackets for TTS
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'ja-JP';
-            utterance.rate = 0.9; // Slightly slower for clear Japanese pronunciation
+            utterance.rate = 0.85; // Natural Japanese speaking pace
             window.speechSynthesis.speak(utterance);
         }
     };
 
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto flex flex-col h-[calc(100vh-5rem)]">
-            <div className="flex items-center justify-between mb-6">
+            {/* Header with Level Selector */}
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <button
                     onClick={() => navigate('/jlpt')}
                     className="flex items-center gap-2 text-muted-foreground hover:text-foreground font-bold text-xs"
                 >
                     <ArrowLeft size={16} /> JLPT Hub'ga qaytish
                 </button>
-                <span className="px-3 py-1 bg-rose-500/10 text-rose-500 font-extrabold text-xs rounded-full border border-rose-500/20">
-                    🎌 Nihongo Kaiwa Examiner (3.0s VAD Pause)
-                </span>
+
+                {/* JLPT Level Selector */}
+                <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border/80 rounded-2xl">
+                    <span className="text-[11px] font-extrabold text-muted-foreground px-2 flex items-center gap-1">
+                        <GraduationCap size={13} className="text-rose-500" /> Daraja:
+                    </span>
+                    {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
+                        <button
+                            key={lvl}
+                            onClick={() => setJlptLevel(lvl)}
+                            className={`px-3 py-1 font-black text-xs rounded-xl transition-all ${
+                                jlptLevel === lvl
+                                    ? 'bg-rose-600 text-white shadow-sm'
+                                    : 'text-muted-foreground hover:text-foreground'
+                            }`}
+                        >
+                            {lvl}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Chat Box */}
@@ -162,15 +182,15 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                                     onClick={() => speakJapanese(m.content)}
                                     className="mt-2 text-xs font-bold text-rose-500 flex items-center gap-1 hover:underline"
                                 >
-                                    <Volume2 size={14} /> Qayta eshitish
+                                    <Volume2 size={14} /> Qayta eshitish 🔊
                                 </button>
                             )}
                         </div>
                     </div>
                 ))}
                 {isThinking && (
-                    <div className="flex items-center gap-2 text-xs font-bold text-rose-500">
-                        <Sparkles size={16} className="animate-spin" /> Ken-sensei javob tayyorlamoqda...
+                    <div className="flex items-center gap-2 text-xs font-bold text-rose-500 animate-pulse">
+                        <Sparkles size={16} className="animate-spin" /> Ken-sensei (JLPT {jlptLevel}) javob tayyorlamoqda...
                     </div>
                 )}
             </div>
@@ -179,30 +199,40 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             <div className="pt-4 space-y-3">
                 {transcript && (
                     <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-2xl text-xs text-rose-600 dark:text-rose-300 font-medium">
-                        <b>Eshitilmoqda:</b> {transcript}
+                        <b>Ovozli javob:</b> {transcript}
                     </div>
                 )}
 
-                <div className="flex gap-3">
+                <div className="flex gap-2">
                     <button
                         onClick={toggleListening}
-                        className={`p-4 rounded-2xl text-white font-extrabold transition-all flex items-center gap-2 ${
+                        className={`px-5 py-3.5 rounded-2xl text-white font-extrabold transition-all flex items-center gap-2 ${
                             isListening
                                 ? 'bg-rose-600 animate-pulse shadow-lg shadow-rose-500/40'
                                 : 'bg-muted/80 text-foreground border border-border hover:bg-muted'
                         }`}
+                        title="Ovoz bilan gapirish"
                     >
                         {isListening ? <MicOff size={20} /> : <Mic size={20} />}
-                        <span className="text-xs">{isListening ? "Eshitilmoqda (3.0s pauza)..." : "Mikrofonni Yoqish"}</span>
+                        <span className="text-xs hidden sm:inline">{isListening ? "Eshitilmoqda..." : "Ovozli"}</span>
                     </button>
+
+                    <input
+                        type="text"
+                        value={inputText}
+                        onChange={e => setInputText(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
+                        placeholder="Yaponcha yozing (yoki mikrofonni bosing)..."
+                        className="flex-1 px-4 py-3.5 bg-muted/50 border border-border rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    />
 
                     <button
                         onClick={() => handleSendMessage()}
-                        disabled={isThinking || !transcript.trim()}
-                        className="flex-1 py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+                        disabled={isThinking || (!inputText.trim() && !transcript.trim())}
+                        className="px-6 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
                     >
                         <Send size={18} />
-                        <span>Yuborish</span>
+                        <span className="hidden sm:inline">Yuborish</span>
                     </button>
                 </div>
             </div>
