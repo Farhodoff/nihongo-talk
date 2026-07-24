@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, GraduationCap, Flame } from 'lucide-react';
+import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
@@ -30,7 +30,7 @@ export const IeltsHubPage: React.FC = () => {
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div className="mb-8">
                 <div className="flex items-center gap-3">
                     <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl text-white shadow-lg shadow-amber-500/20">
                         <GraduationCap size={28} />
@@ -44,14 +44,6 @@ export const IeltsHubPage: React.FC = () => {
                         </p>
                     </div>
                 </div>
-
-                <button
-                    onClick={() => setIsQuizOpen(true)}
-                    className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-500/20 hover:shadow-xl transition-all active:scale-95"
-                >
-                    <Sparkles size={18} />
-                    <span>{userPlanData ? "Dars Rejasini Yangilash" : "Shaxsiy IELTS Reja Yaratish"}</span>
-                </button>
             </div>
 
             {/* Target & Roadmap Banner */}
