@@ -86,12 +86,23 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
     const setBgSound = (sound: string) => setFocusState(prev => ({ ...prev, bgSound: sound }));
     const setMuted = (muted: boolean) => setFocusState(prev => ({ ...prev, isMuted: muted }));
 
+    const setCustomTime = (seconds: number) => {
+        setFocusState(prev => ({
+            ...prev,
+            mode: 'focus',
+            timeLeft: seconds,
+            isActive: false,
+            isSessionCompleted: false
+        }));
+    };
+
     return {
         focusState,
         startTimer,
         pauseTimer,
         resetTimer,
         switchMode,
+        setCustomTime,
         setFocusSubject,
         setFocusTask,
         setBgSound,

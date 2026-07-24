@@ -10,6 +10,7 @@ interface FocusTimerContextType {
     pauseTimer: () => void;
     resetTimer: () => void;
     switchMode: (mode: FocusMode) => void;
+    setCustomTime: (seconds: number) => void;
     setFocusSubject: (id: string) => void;
     setFocusTask: (id: string | null) => void;
     setBgSound: (sound: string) => void;

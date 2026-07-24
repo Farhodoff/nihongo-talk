@@ -31,11 +31,12 @@ const FOCUS_TOUR_STEPS: LocalTourStep[] = [
 
 const FocusPage: React.FC = () => {
     const { subjects, addSession, awardXP, tasks, updateTaskStatus } = useStudyData();
-    const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
+    const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setCustomTime, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);
     const [showMoodCheck, setShowMoodCheck] = useState<'before' | 'after' | null>(null);
+    const [activeDurationMins, setActiveDurationMins] = useState<number>(25);
 
     // Pending Tasks
     const pendingTasks = tasks.filter(t => t.status !== 'done');
@@ -44,13 +45,10 @@ const FocusPage: React.FC = () => {
     const ringtoneRef = useRef<HTMLAudioElement | null>(null);
 
     // Calculated Progress
-    const initialTime = focusState.mode === 'focus' ? 25 * 60 : focusState.mode === 'short_break' ? 5 * 60 : 15 * 60;
-    const progress = ((initialTime - focusState.timeLeft) / initialTime) * 100;
+    const progress = ((activeDurationMins * 60 - focusState.timeLeft) / (activeDurationMins * 60)) * 100;
 
     const handleTimerEnd = useCallback(() => {
-        // Notification handled globally in Context
         if (focusState.mode === 'focus') {
-            // Avoid double trigger if possible, or check if we already showed popup
             if (!showMoodCheck) setShowMoodCheck('after');
         } else {
             resetTimer();
@@ -77,6 +75,11 @@ const FocusPage: React.FC = () => {
         }
     };
 
+    const handleSelectDuration = (mins: number) => {
+        setActiveDurationMins(mins);
+        setCustomTime(mins * 60);
+    };
+
     const handleMoodSelect = (value: number) => {
         if (showMoodCheck === 'before') {
             setMoodBefore(value);
@@ -93,16 +96,13 @@ const FocusPage: React.FC = () => {
     const playRingtone = () => {
         if (ringtoneRef.current) {
             ringtoneRef.current.currentTime = 0;
-            // Silent fail if browser blocks autoplay
             ringtoneRef.current.play().catch(e => console.error("Ringtone play blocked", e));
         }
     };
 
     const saveSession = async (moodAfterValue: number) => {
-
         let taskCompleted = false;
 
-        // If a task was selected, ask if it's done
         if (focusState.selectedTaskId) {
             if (window.confirm("Tanlangan vazifani tugatdingizmi?")) {
                 await updateTaskStatus(focusState.selectedTaskId, 'done');
@@ -112,18 +112,17 @@ const FocusPage: React.FC = () => {
 
         addSession({
             subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date(Date.now() - 25 * 60 * 1000).toISOString(), // 25 daqiqa oldin boshlangan
-            duration: 25,
+            startTime: new Date(Date.now() - activeDurationMins * 60 * 1000).toISOString(),
+            duration: activeDurationMins,
             type: 'focus',
             completed: true,
             moodBefore: moodBefore || undefined,
             moodAfter: moodAfterValue
         });
 
-        // Base session XP
-        await awardXP(250);
+        // Dynamic XP Award: 10 XP per minute completed
+        await awardXP(activeDurationMins * 10);
 
-        // Reset selection
         if (taskCompleted) setFocusTask(null);
     };
 
@@ -177,11 +176,38 @@ const FocusPage: React.FC = () => {
                 />
             </div>
 
-            {/* Mode Switcher */}
-            <div className="flex bg-muted/50 p-1 rounded-2xl mb-8 border border-border/50" data-tour="focus-mode-switcher">
-                <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Fokus</button>
-                <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Qisqa</button>
-                <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Uzun</button>
+            {/* Mode & Deep Work Duration Switcher */}
+            <div className="flex flex-col items-center gap-3 mb-8">
+                <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50" data-tour="focus-mode-switcher">
+                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Fokus</button>
+                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Qisqa</button>
+                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Uzun</button>
+                </div>
+
+                {/* Deep Work Custom Duration Presets */}
+                {focusState.mode === 'focus' && (
+                    <div className="flex items-center gap-2 flex-wrap justify-center animate-in fade-in">
+                        {[
+                            { mins: 25, label: '⚡ 25m Standard' },
+                            { mins: 60, label: '📚 60m (1 Soat)' },
+                            { mins: 90, label: '🎓 90m (1.5 Soat)' },
+                            { mins: 120, label: '🚀 120m (2 Soat)' }
+                        ].map((p) => (
+                            <button
+                                key={p.mins}
+                                disabled={focusState.isActive}
+                                onClick={() => handleSelectDuration(p.mins)}
+                                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                                    activeDurationMins === p.mins
+                                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20'
+                                        : 'bg-background/80 text-muted-foreground border-border hover:border-indigo-500/50'
+                                }`}
+                            >
+                                {p.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* Subject Selector */}
