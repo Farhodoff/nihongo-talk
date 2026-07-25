@@ -160,6 +160,7 @@ const SpeakingCoachPage: React.FC = () => {
             };
 
             recognitionRef.current.onresult = (event: any) => {
+                if (isProcessingRef.current || isSpeaking || isThinking) return;
                 if (!speechStartTimeRef.current) {
                     speechStartTimeRef.current = Date.now();
                 }
@@ -473,7 +474,9 @@ const SpeakingCoachPage: React.FC = () => {
     };
 
     const resumeListening = () => {
-        if (isLiveSessionRef.current && recognitionRef.current && !isSpeaking && !isThinking && !isMuted) {
+        transcriptBufferRef.current = '';
+        setCurrentTranscript('');
+        if (isLiveSessionRef.current && recognitionRef.current && !isSpeaking && !isThinking && !isMuted && !isProcessingRef.current) {
             try {
                 recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
