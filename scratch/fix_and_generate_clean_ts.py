@@ -1,6 +1,5 @@
 import json, re
-from build_n1_full_shinkanzen import n1_shinkanzen_rules
-from expand_n2_grammar import n2_grammar_rules
+from expand_n1_to_80_rules import n1_complete_80_rules
 
 # Load clean N5
 with open('/tmp/n5_clean_block.txt') as f:
@@ -53,9 +52,9 @@ formatted_n2 = []
 for item in n2_parsed:
     formatted_n2.append("    " + json.dumps(item, ensure_ascii=False, indent=4).replace("\n", "\n    "))
 
-# Format N1 (42 items)
+# Format N1 (58 items)
 formatted_n1 = []
-for idx, (t, r, m, s, ja, r_ex, uz) in enumerate(n1_shinkanzen_rules):
+for idx, (t, r, m, s, ja, r_ex, uz) in enumerate(n1_complete_80_rules):
     obj = {
         "id": f"n1_shinkanzen_{idx+1}",
         "level": "N1",
@@ -149,4 +148,4 @@ export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
 with open('src/data/jlptGrammarKanji.ts', 'w') as f:
     f.write(full_ts_code)
 
-print("Generated clean, flawless jlptGrammarKanji.ts!")
+print("Generated clean, flawless jlptGrammarKanji.ts with 58 N1 rules!")

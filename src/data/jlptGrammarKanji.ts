@@ -6515,7 +6515,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             {
                 "ja": "許[ゆる]すまじき行為[こうい]",
                 "romaji": "Yurusumajiki koui",
-                "uz": "Kechirib bo'lmaydigan qilmish"
+                "uz": "Kechirib bo me'digan qilmish."
             }
         ]
     },
@@ -6605,7 +6605,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             {
                 "ja": "鑑賞[かんしょう]に耐[た]え得[う]る作品[さくひん]",
                 "romaji": "Kanshou ni tae uru sakuhin",
-                "uz": "Tomosha qilishga loyiq san'at asari"
+                "uz": "Tomosha qilishga loyiq san'at asari."
             }
         ]
     },
@@ -6629,7 +6629,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         "level": "N1",
         "title": "〜極まる・〜極まりない (kiwamaru / kiwamarinai)",
         "romaji": "kiwamaru",
-        "meaningUz": "chegarasiz / juda ham darajada",
+        "meaningUz": "chegarasiz / juda ham yuqori darajada",
         "structure": "Ot / Sifat + 極まる / 極まりない",
         "examples": [
             {
@@ -6906,6 +6906,246 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
                 "ja": "取材[しゅざい]にかこつけて、旅行[りょこう]を楽[たの]しんだ。",
                 "romaji": "Shuzai ni kakotsukete, ryokou wo tanoshimda.",
                 "uz": "Intervyuni bahona qilib sayohat qilib keldim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_43",
+        "level": "N1",
+        "title": "〜こととて (koto tote)",
+        "romaji": "koto tote",
+        "meaningUz": "... bo'lgani uchun (Samimiy uzr va tushuntirish)",
+        "structure": "Ot の / Fe'l Plain + こととて",
+        "examples": [
+            {
+                "ja": "知[し]らぬこととて、失礼[しつれい]いたしました。",
+                "romaji": "Shiranu koto tote, shitsurei itashimashita.",
+                "uz": "Bilmganim sababli odabsizlik bo'ldi, kechiring."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_44",
+        "level": "N1",
+        "title": "〜が早いか (ga hayai ka)",
+        "romaji": "ga hayai ka",
+        "meaningUz": "... qilib-qilmay darhol zudlik bilan ...",
+        "structure": "Fe'l (Lug'at/Ta) + が早いか",
+        "examples": [
+            {
+                "ja": "ベルが鳴[な]るが早[はや]いか、教室[きょうしつ]を飛び出[だ]した。",
+                "romaji": "Beru ga naru ga hayai ka, kyoushitsu wo tobidashita.",
+                "uz": "Qo'ng'iroq chalinishi bilanoq sinfdan otilib chiqdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_45",
+        "level": "N1",
+        "title": "〜や否や (ya ina ya)",
+        "romaji": "ya ina ya",
+        "meaningUz": "... qilishi bilanoq daryoda hodisa ro'y berdi",
+        "structure": "Fe'l (Lug'at) + や否や",
+        "examples": [
+            {
+                "ja": "彼[かれ]は顔[かお]を見るや否や、泣[な]き出した。",
+                "romaji": "Kare wa kao wo miru ya ina ya, nakidashita.",
+                "uz": "U yuzimni ko'rishi bilanoq yig'lab yubordi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_46",
+        "level": "N1",
+        "title": "〜なり (nari)",
+        "romaji": "nari",
+        "meaningUz": "... qilishi bilanoq kutilmagan ish qildi",
+        "structure": "Fe'l (Lug'at) + なり",
+        "examples": [
+            {
+                "ja": "彼[かれ]は部屋[へや]に入るなり、倒[たお]れ込んだ。",
+                "romaji": "Kare wa heya ni hairu nari, taorekondai.",
+                "uz": "U xonaga kirishi bilanoq yiqilib tushdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_47",
+        "level": "N1",
+        "title": "〜そばから (soba kara)",
+        "romaji": "soba kara",
+        "meaningUz": "... qilishing bilan darhol ortidan yana ...",
+        "structure": "Fe'l (Lug'at/Ta) + そばから",
+        "examples": [
+            {
+                "ja": "覚[おぼ]えるそばから、忘[わす]れてしまう。",
+                "romaji": "Oboeru soba kara, wasurete shimau.",
+                "uz": "Yodlashim bilanoq darhol esdan chiqarib qo'yaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_48",
+        "level": "N1",
+        "title": "〜てからというもの (te kara to iu mono)",
+        "romaji": "te kara to iu mono",
+        "meaningUz": "... hodisasidan beri mutlaqo o'zgardi",
+        "structure": "Fe'l (Te-form) + からというもの",
+        "examples": [
+            {
+                "ja": "日本[にほん]に来[き]てからというもの、毎日[まいにち]が刺激的[しげきてき]だ。",
+                "romaji": "Nihon ni kite kara to iu mono, mainichi ga shigekiteki da.",
+                "uz": "Yaponiyaga kelganimdan beri har bir kunim sarguzashtga to'la."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_49",
+        "level": "N1",
+        "title": "〜にあって (ni atte)",
+        "romaji": "ni atte",
+        "meaningUz": "... kabi favqulodda vaziyatda / sharoitda",
+        "structure": "Ot + にあって",
+        "examples": [
+            {
+                "ja": "逆境[ぎゃっきょう]にあっても、希望[きぼう]を捨てない。",
+                "romaji": "Gyakkyou ni atte mo, kibou wo sutenai.",
+                "uz": "Qiyin sharoitda bo'lsa ham umidni uzmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_50",
+        "level": "N1",
+        "title": "〜傍ら (katawara)",
+        "romaji": "katawara",
+        "meaningUz": "asosiy kasbidan tashqari yonidan ... ham qilmoq",
+        "structure": "Ot の / Fe'l Lug'at + 傍ら",
+        "examples": [
+            {
+                "ja": "会社員[かいしゃいん]の傍[かたわ]ら、小説[しょうせつ]を書[か]いている。",
+                "romaji": "Kaishaiin no katawara, shousetsu wo kaite iru.",
+                "uz": "Kompaniya xodimi bo'lish bilan birga romanchilik ham qiladi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_51",
+        "level": "N1",
+        "title": "〜ところを (tokoro wo)",
+        "romaji": "tokoro wo",
+        "meaningUz": "... band bo'lgan paytingizda bezovta qilganim uchun uzr",
+        "structure": "Ot の / Fe'l Plain + ところを",
+        "examples": [
+            {
+                "ja": "お忙[いそが]しいところを、お邪魔[じゃま]いたしました。",
+                "romaji": "Oisogashii tokoro wo, ojama itashimashita.",
+                "uz": "Band bo'lgan vaqtingizda bezovta qildim, kechirasiz."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_52",
+        "level": "N1",
+        "title": "〜ものを (mono wo)",
+        "romaji": "mono wo",
+        "meaningUz": "... qilganda yaxshi bo'lardi-ya (Afsuslanish)",
+        "structure": "Fe'l Plain + ものを",
+        "examples": [
+            {
+                "ja": "早[はや]く連絡[れんらく]してくれればいいものを。",
+                "romaji": "Hayaku renraku shite kurereba ii mono wo.",
+                "uz": "Vaqtliroq xabar berganingda yaxshi bo me'rdi-ya."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_53",
+        "level": "N1",
+        "title": "〜とはいえ (to wa ie)",
+        "romaji": "to wa ie",
+        "meaningUz": "... bo'lishiga qaramay / baribir",
+        "structure": "Ot / Fe'l Plain + とはいえ",
+        "examples": [
+            {
+                "ja": "春[はる]とはいえ、まだ肌寒[はだざむ]い。",
+                "romaji": "Haru to wa ie, mada hadazamui.",
+                "uz": "Bahor bo'lishiga qaramay hali ham havo salqin."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_54",
+        "level": "N1",
+        "title": "〜といえども (to iedomo)",
+        "romaji": "to iedomo",
+        "meaningUz": "hatto ... bo'lsa ham (Mutaxassis bo'lsa ham)",
+        "structure": "Ot / Fe'l Plain + といえども",
+        "examples": [
+            {
+                "ja": "プロといえども、失敗[しっぱい]することはある。",
+                "romaji": "Puro to iedomo, shippai suru koto wa aru.",
+                "uz": "Hatto professional bo'lsa ham xato qilishi mumkin."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_55",
+        "level": "N1",
+        "title": "〜と思いきや (to omoikiya)",
+        "romaji": "to omoikiya",
+        "meaningUz": "... deb o'ylasammikan desam aksincha bo'lib chiqdi",
+        "structure": "Fe'l Plain + と思いきや",
+        "examples": [
+            {
+                "ja": "合格[ごうかく]したと思[おも]いきや、不合格[ふごうかく]だった。",
+                "romaji": "Goukaku shita to omoikiya, fugoukaku datta.",
+                "uz": "O'tdim desam, yiqilgan ekanman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_56",
+        "level": "N1",
+        "title": "〜に至るまで (ni itaru made)",
+        "romaji": "ni itaru made",
+        "meaningUz": "... minutigacha / mayda-chuyasigacha qamrab olgan",
+        "structure": "Ot + に至るまで",
+        "examples": [
+            {
+                "ja": "服装[ふくそう]から髪型[かみがた]に至[いた]るまで注意[ちゅうい]された。",
+                "romaji": "Fukusou kara kamigata ni itaru made chuui sareta.",
+                "uz": "Kiyinishdan tortib soch turmagimga qadar tanbeh berishdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_57",
+        "level": "N1",
+        "title": "〜に至っては (ni itatte wa)",
+        "romaji": "ni itatte wa",
+        "meaningUz": "...-ga kelganda esa vaziyat yanada yomonroq",
+        "structure": "Ot + に至っては",
+        "examples": [
+            {
+                "ja": "今年[ことし]の不景気[ふけいき]に至っては、倒産[とうさん]が相次[あいつ]いでいる。",
+                "romaji": "Kotoshi no fukyou ni itatte wa, tousan ga aitsuide iru.",
+                "uz": "Bu yilgi inqirozga kelganda esa ketma-ket bankrotliklar sodir bo'lmoqda."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_58",
+        "level": "N1",
+        "title": "〜にかまけて (ni kamakete)",
+        "romaji": "ni kamakete",
+        "meaningUz": "...-ga berilib ketib boshqa muhim ishni unutmoq",
+        "structure": "Ot + にかまけて",
+        "examples": [
+            {
+                "ja": "仕事[しごと]にかまけて、健康[けんこう]管理[かんり]を怠[おこた]る。",
+                "romaji": "Shigoto ni kamakete, kenkou kanri wo okotaru.",
+                "uz": "Faqat ishga berilib ketib sog'liqni unutib qo'ydi."
             }
         ]
     }
