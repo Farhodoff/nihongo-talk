@@ -1492,12 +1492,26 @@ export const converseWithCoach = async (
     try {
         const config = getAIConfig();
         
-        // --- 1. TRY GEMINI WITH AUTOMATIC KEY ROTATION & MODEL FALLBACK ---
+        // --- 1. TRY DEEPSEEK FIRST IF USER HAS SK- KEY OR DEEPSEEK PROVIDER ---
+        const dsKeyToUse = (userKey && userKey.trim().startsWith('sk-') ? userKey.trim() : undefined)
+            || (config.coachApiKey && config.coachApiKey.trim().startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
+            || (config.deepseekKey && config.deepseekKey.trim().startsWith('sk-') ? config.deepseekKey.trim() : undefined);
+        
+        if (dsKeyToUse || config.coachAiModel === 'deepseek' || config.provider === 'deepseek') {
+            try {
+                const dsResult = await callDeepSeek(prompt, dsKeyToUse, undefined, false, config.deepseekModel || 'deepseek-chat', config.deepseekThinkingMode);
+                if (dsResult) return dsResult;
+            } catch (deepseekErr: any) {
+                console.warn("[AI Coach] DeepSeek call error, trying Gemini fallback:", deepseekErr?.message || deepseekErr);
+            }
+        }
+
+        // --- 2. TRY GEMINI WITH AUTOMATIC KEY ROTATION & VALID MODEL FALLBACK ---
         const geminiKeyToUse = (userKey && userKey.trim() && !userKey.startsWith('sk-') ? userKey.trim() : undefined)
             || (config.geminiKey && config.geminiKey.trim() && !config.geminiKey.startsWith('sk-') ? config.geminiKey.trim() : undefined)
-            || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
+            || (config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
 
-        const models = ["gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"];
+        const models = ["gemini-2.0-flash", "gemini-2.0-flash-lite-preview-02-05", "gemini-1.5-flash", "gemini-1.5-pro"];
 
         for (const modelName of models) {
             try {
@@ -1505,34 +1519,20 @@ export const converseWithCoach = async (
                     const ai = genAI || getGenAI(geminiKeyToUse);
                     const model = ai.getGenerativeModel({ model: modelName });
                     return model.generateContent(prompt);
-                }, 3, 800, geminiKeyToUse);
+                }, 2, 600, geminiKeyToUse);
                 const textResult = result.response.text();
                 if (textResult) return textResult;
             } catch (err: any) {
-                console.warn(`[AI Coach] Gemini model ${modelName} rate limited or failed, trying next:`, err?.message || err);
+                console.warn(`[AI Coach] Gemini model ${modelName} limited or failed, trying next:`, err?.message || err);
             }
         }
 
-        // --- 2. TRY DEEPSEEK IF VALID SK- KEY CONFIGURED ---
-        const dsKeyToUse = (config.coachApiKey && config.coachApiKey.trim().startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
-            || (config.deepseekKey && config.deepseekKey.trim().startsWith('sk-') ? config.deepseekKey.trim() : undefined);
-        
-        if (dsKeyToUse) {
+        // --- 3. RETRY DEEPSEEK AS LAST RESORT IF NOT TRIED YET ---
+        if (!dsKeyToUse) {
             try {
-                const dsResult = await callDeepSeek(prompt, dsKeyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                const dsResult = await callDeepSeek(prompt, undefined, undefined, false, config.deepseekModel, false);
                 if (dsResult) return dsResult;
-            } catch (deepseekErr: any) {
-                console.warn("[AI Coach] DeepSeek fallback error:", deepseekErr?.message || deepseekErr);
-            }
-        }
-
-        // --- 3. TRY OLLAMA IF OFFLINE LOCAL MODEL ENABLED ---
-        if (config.provider === 'ollama' || config.coachAiModel === 'ollama') {
-            try {
-                return await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Coach] Ollama failed:", err);
-            }
+            } catch (e) {}
         }
 
         // --- 4. SAFE LANGUAGE-AWARE FALLBACK RESPONSE ---

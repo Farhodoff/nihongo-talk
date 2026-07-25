@@ -43,11 +43,6 @@ export const callDeepSeek = async (
         payload.response_format = { type: "json_object" };
     }
 
-    if (thinkingEnabled) {
-        payload.thinking = { type: "enabled" };
-        payload.reasoning_effort = "high";
-    }
-
     // Enforce strict key isolation: reject non-DeepSeek keys (e.g. Gemini AIza... or OpenAI sk-proj-...)
     let validApiKey = apiKey;
     if (validApiKey && (validApiKey.startsWith('AIza') || validApiKey.startsWith('sk-proj-'))) {
