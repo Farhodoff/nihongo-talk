@@ -1,12 +1,67 @@
-import React, { useState } from 'react';
-import { BookOpen, Sparkles, Search, Volume2, CheckCircle2, GraduationCap, Flame } from 'lucide-react';
-import { JLPT_GRAMMAR_DATA, JLPT_KANJI_DATA } from '../../data/jlptGrammarKanji';
+import React, { useState, useEffect } from 'react';
+import { BookOpen, Sparkles, Search, Volume2, CheckCircle2, GraduationCap, Flame, BookmarkCheck, Plus, Check } from 'lucide-react';
+import { JLPT_GRAMMAR_DATA, JLPT_KANJI_DATA, JlptGrammarItem, JlptKanjiItem } from '../../data/jlptGrammarKanji';
 import { speakText } from '../../utils/audioTts';
+import { useStudyData } from '../../context/StudyPlannerContext';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
+    const { addFlashcardsBatch, subjects } = useStudyData();
     const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
     const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('ALL');
     const [searchQuery, setSearchQuery] = useState('');
+
+    // Learned Items State (Saved to localStorage)
+    const [learnedIds, setLearnedIds] = useState<string[]>(() => {
+        const saved = localStorage.getItem('study_planner_jlpt_mastered_items');
+        if (saved) {
+            try { return JSON.parse(saved); } catch (e) { return []; }
+        }
+        return [];
+    });
+
+    // Saved Flashcard Items State
+    const [savedCardIds, setSavedCardIds] = useState<string[]>([]);
+
+    useEffect(() => {
+        localStorage.setItem('study_planner_jlpt_mastered_items', JSON.stringify(learnedIds));
+    }, [learnedIds]);
+
+    const toggleLearned = (id: string) => {
+        setLearnedIds(prev => 
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        );
+    };
+
+    // Export item directly as Flashcard
+    const handleExportToFlashcard = async (item: JlptGrammarItem | JlptKanjiItem, isGrammar: boolean) => {
+        let subjectId = subjects[0]?.id;
+        
+        let frontText = '';
+        let backText = '';
+
+        if (isGrammar) {
+            const g = item as JlptGrammarItem;
+            frontText = `[${g.level}] ${g.title}\n${g.structure}`;
+            backText = `🇺🇿 Ma'nosi: ${g.meaningUz}\n\nMisol:\n${g.examples[0]?.ja || ''}\n(${g.examples[0]?.romaji || ''})\n${g.examples[0]?.uz || ''}`;
+        } else {
+            const k = item as JlptKanjiItem;
+            frontText = `[${k.level} Kanji] ${k.kanji}`;
+            backText = `Onyomi: ${k.onyomi}\nKunyomi: ${k.kunyomi}\n\nMa'nosi: ${k.meaningUz}\nMisol: ${k.examples[0]?.word || ''} (${k.examples[0]?.reading || ''})`;
+        }
+
+        await addFlashcardsBatch([
+            {
+                subjectId: subjectId || '',
+                front: frontText,
+                back: backText,
+                interval: 1,
+                repetitions: 0,
+                easeFactor: 2.5
+            }
+        ]);
+
+        setSavedCardIds(prev => [...prev, item.id]);
+    };
 
     // Quiz State
     const [quizIndex, setQuizIndex] = useState(0);
@@ -34,6 +89,11 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             item.kunyomi.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesLevel && matchesQuery;
     });
+
+    // Progress percentage
+    const totalItemsCount = JLPT_GRAMMAR_DATA.length + JLPT_KANJI_DATA.length;
+    const learnedCount = learnedIds.length;
+    const progressPercent = Math.round((learnedCount / totalItemsCount) * 100);
 
     // Sample Quiz Questions
     const QUIZ_QUESTIONS = [
@@ -125,6 +185,29 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                 </div>
             </div>
 
+            {/* Overall Mastery Progress Bar */}
+            <div className="bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-indigo-500/10 border border-rose-500/20 p-4 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-rose-500/20 text-rose-500 rounded-xl">
+                        <BookmarkCheck size={20} />
+                    </div>
+                    <div>
+                        <h4 className="text-xs font-extrabold text-foreground">
+                            O'zlashtirish Darajasi: <span className="text-rose-500">{learnedCount} / {totalItemsCount} ta qoidalar</span> ({progressPercent}%)
+                        </h4>
+                        <div className="w-48 bg-muted h-2 rounded-full mt-1.5 overflow-hidden">
+                            <div className="bg-rose-500 h-full transition-all duration-300" style={{ width: `${progressPercent}%` }}></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex gap-2 text-[10px] font-extrabold">
+                    <span className="px-2 py-1 bg-background border rounded-lg">N5 Mastery</span>
+                    <span className="px-2 py-1 bg-background border rounded-lg">N4 Mastery</span>
+                    <span className="px-2 py-1 bg-background border rounded-lg">N3 Mastery</span>
+                </div>
+            </div>
+
             {/* Filter Bar (for Grammar & Kanji tabs) */}
             {activeTab !== 'quiz' && (
                 <div className="flex flex-wrap items-center justify-between gap-3 bg-muted/40 p-3 rounded-2xl border border-border">
@@ -164,99 +247,142 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             {/* TAB 1: GRAMMAR LIST */}
             {activeTab === 'grammar' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {filteredGrammar.map(item => (
-                        <div key={item.id} className="bg-card border border-border/80 hover:border-rose-500/50 p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md">
-                            <div className="flex items-center justify-between">
-                                <span className="px-2.5 py-0.5 bg-rose-500/10 text-rose-500 font-black text-[11px] rounded-lg border border-rose-500/20">
-                                    JLPT {item.level}
-                                </span>
-                                <span className="text-xs font-mono text-muted-foreground">{item.structure}</span>
-                            </div>
+                    {filteredGrammar.map(item => {
+                        const isLearned = learnedIds.includes(item.id);
+                        const isSaved = savedCardIds.includes(item.id);
 
-                            <div>
-                                <h3 className="text-lg font-black text-foreground flex items-center justify-between">
-                                    <span>{item.title}</span>
-                                    <button 
-                                        onClick={() => speakText(item.title.replace(/〜/g, ''), 'ja-JP')}
-                                        className="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
-                                        title="Qoidani eshitish"
-                                    >
-                                        <Volume2 size={16} />
-                                    </button>
-                                </h3>
-                                <p className="text-xs font-extrabold text-rose-600 dark:text-rose-400 mt-1">
-                                    🇺🇿 {item.meaningUz}
-                                </p>
-                            </div>
-
-                            {/* Examples */}
-                            <div className="space-y-2 pt-2 border-t border-border/40">
-                                <span className="text-[10px] font-bold uppercase text-muted-foreground">Misollar:</span>
-                                {item.examples.map((ex, idx) => (
-                                    <div key={idx} className="bg-muted/50 p-2.5 rounded-xl text-xs space-y-1 border border-border/40">
-                                        <div className="font-extrabold text-foreground flex items-center justify-between">
-                                            <span>{ex.ja}</span>
-                                            <button 
-                                                onClick={() => speakText(ex.ja, 'ja-JP')}
-                                                className="p-1 text-muted-foreground hover:text-rose-500"
-                                            >
-                                                <Volume2 size={13} />
-                                            </button>
-                                        </div>
-                                        <div className="text-[11px] font-mono text-muted-foreground">{ex.romaji}</div>
-                                        <div className="text-[11px] text-muted-foreground/90">🇺🇿 {ex.uz}</div>
+                        return (
+                            <div key={item.id} className={`bg-card border p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md ${isLearned ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-border/80 hover:border-rose-500/50'}`}>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <span className="px-2.5 py-0.5 bg-rose-500/10 text-rose-500 font-black text-[11px] rounded-lg border border-rose-500/20">
+                                            JLPT {item.level}
+                                        </span>
+                                        <button
+                                            onClick={() => toggleLearned(item.id)}
+                                            className={`px-2 py-0.5 text-[10px] font-extrabold rounded-lg flex items-center gap-1 transition-all ${
+                                                isLearned ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            <Check size={12} /> {isLearned ? "O'rganildi" : "O'rgandim"}
+                                        </button>
                                     </div>
-                                ))}
+
+                                    <div className="flex items-center gap-1">
+                                        <button
+                                            onClick={() => handleExportToFlashcard(item, true)}
+                                            className={`px-2 py-1 text-[10px] font-extrabold rounded-lg border flex items-center gap-1 transition-all ${
+                                                isSaved ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-background border-border text-muted-foreground hover:text-indigo-500'
+                                            }`}
+                                            title="Flashcards to'plamiga saqlash"
+                                        >
+                                            <Plus size={12} /> {isSaved ? "Flashcard'ga o'tdi" : "🎴 Flashcard"}
+                                        </button>
+                                        <button 
+                                            onClick={() => speakText(item.title.replace(/〜/g, ''), 'ja-JP')}
+                                            className="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
+                                            title="Qoidani eshitish"
+                                        >
+                                            <Volume2 size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-black text-foreground">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-xs font-mono text-muted-foreground mt-0.5">Formulasi: {item.structure}</p>
+                                    <p className="text-xs font-extrabold text-rose-600 dark:text-rose-400 mt-1">
+                                        🇺🇿 {item.meaningUz}
+                                    </p>
+                                </div>
+
+                                {/* Examples */}
+                                <div className="space-y-2 pt-2 border-t border-border/40">
+                                    <span className="text-[10px] font-bold uppercase text-muted-foreground">Misollar:</span>
+                                    {item.examples.map((ex, idx) => (
+                                        <div key={idx} className="bg-muted/50 p-2.5 rounded-xl text-xs space-y-1 border border-border/40">
+                                            <div className="font-extrabold text-foreground flex items-center justify-between">
+                                                <span>{ex.ja}</span>
+                                                <button 
+                                                    onClick={() => speakText(ex.ja, 'ja-JP')}
+                                                    className="p-1 text-muted-foreground hover:text-rose-500"
+                                                >
+                                                    <Volume2 size={13} />
+                                                </button>
+                                            </div>
+                                            <div className="text-[11px] font-mono text-muted-foreground">{ex.romaji}</div>
+                                            <div className="text-[11px] text-muted-foreground/90">🇺🇿 {ex.uz}</div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             )}
 
             {/* TAB 2: KANJI LIST */}
             {activeTab === 'kanji' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {filteredKanji.map(item => (
-                        <div key={item.id} className="bg-card border border-border/80 hover:border-purple-500/50 p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md">
-                            <div className="flex items-center justify-between">
-                                <span className="px-2.5 py-0.5 bg-purple-500/10 text-purple-500 font-black text-[11px] rounded-lg border border-purple-500/20">
-                                    JLPT {item.level} • {item.strokeCount} chiziq
-                                </span>
-                                <button 
-                                    onClick={() => speakText(item.kanji, 'ja-JP')}
-                                    className="p-1 text-purple-500 hover:bg-purple-500/10 rounded-xl"
-                                >
-                                    <Volume2 size={16} />
-                                </button>
-                            </div>
+                    {filteredKanji.map(item => {
+                        const isLearned = learnedIds.includes(item.id);
+                        const isSaved = savedCardIds.includes(item.id);
 
-                            <div className="flex items-center gap-4">
-                                <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-2xl flex items-center justify-center text-3xl font-black shadow-md">
-                                    {item.kanji}
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <h4 className="text-sm font-black text-foreground truncate">{item.meaningUz}</h4>
-                                    <div className="text-[11px] text-muted-foreground mt-1">
-                                        <b>Onyomi:</b> {item.onyomi}
+                        return (
+                            <div key={item.id} className={`bg-card border p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md ${isLearned ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-border/80 hover:border-purple-500/50'}`}>
+                                <div className="flex items-center justify-between">
+                                    <span className="px-2.5 py-0.5 bg-purple-500/10 text-purple-500 font-black text-[11px] rounded-lg border border-purple-500/20">
+                                        JLPT {item.level} • {item.strokeCount} chiziq
+                                    </span>
+                                    <div className="flex items-center gap-1">
+                                        <button
+                                            onClick={() => handleExportToFlashcard(item, false)}
+                                            className={`px-2 py-1 text-[10px] font-extrabold rounded-lg border flex items-center gap-1 transition-all ${
+                                                isSaved ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-background border-border text-muted-foreground hover:text-indigo-500'
+                                            }`}
+                                            title="Flashcard'ga saqlash"
+                                        >
+                                            <Plus size={12} /> {isSaved ? "Flashcard" : "🎴 Saqlash"}
+                                        </button>
+                                        <button 
+                                            onClick={() => speakText(item.kanji, 'ja-JP')}
+                                            className="p-1 text-purple-500 hover:bg-purple-500/10 rounded-xl"
+                                        >
+                                            <Volume2 size={16} />
+                                        </button>
                                     </div>
-                                    <div className="text-[11px] text-muted-foreground">
-                                        <b>Kunyomi:</b> {item.kunyomi}
-                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Kanji Vocabulary Examples */}
-                            <div className="space-y-1.5 pt-2 border-t border-border/40 text-xs">
-                                <span className="text-[10px] font-bold uppercase text-muted-foreground">So'zlar:</span>
-                                {item.examples.map((ex, idx) => (
-                                    <div key={idx} className="flex items-center justify-between bg-muted/40 px-2.5 py-1.5 rounded-lg">
-                                        <span className="font-extrabold text-foreground">{ex.word} <span className="font-normal text-muted-foreground text-[11px]">({ex.reading})</span></span>
-                                        <span className="text-muted-foreground text-[11px]">{ex.meaning}</span>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-2xl flex items-center justify-center text-3xl font-black shadow-md shrink-0">
+                                        {item.kanji}
                                     </div>
-                                ))}
+                                    <div className="min-w-0 flex-1">
+                                        <h4 className="text-sm font-black text-foreground truncate">{item.meaningUz}</h4>
+                                        <div className="text-[11px] text-muted-foreground mt-1">
+                                            <b>Onyomi:</b> {item.onyomi}
+                                        </div>
+                                        <div className="text-[11px] text-muted-foreground">
+                                            <b>Kunyomi:</b> {item.kunyomi}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Kanji Vocabulary Examples */}
+                                <div className="space-y-1.5 pt-2 border-t border-border/40 text-xs">
+                                    <span className="text-[10px] font-bold uppercase text-muted-foreground">So'zlar:</span>
+                                    {item.examples.map((ex, idx) => (
+                                        <div key={idx} className="flex items-center justify-between bg-muted/40 px-2.5 py-1.5 rounded-lg">
+                                            <span className="font-extrabold text-foreground">{ex.word} <span className="font-normal text-muted-foreground text-[11px]">({ex.reading})</span></span>
+                                            <span className="text-muted-foreground text-[11px]">{ex.meaning}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             )}
 
