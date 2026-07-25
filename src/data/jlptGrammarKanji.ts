@@ -85,44 +85,29 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         meaningUz: 'N1-ning N2-si (Tegishlilik kelishigi)',
         structure: 'Ot1 + の + Ot2',
         examples: [
-            { ja: 'これは私の本です。', romaji: 'Kore wa watashi no hon desu.', uz: 'Bu mening kitobim.' },
-            { ja: 'IMCの社員です。', romaji: 'IMC no shain desu.', uz: 'IMC kompaniyasi xodimi.' }
+            { ja: 'これは私の本です。', romaji: 'Kore wa watashi no hon desu.', uz: 'Bu mening kitobim.' }
         ]
     },
     {
-        id: 'n5_kore_sore_are',
+        id: 'n5_te_kudasai',
         level: 'N5',
-        title: 'これ / それ / あれ (kore / sore / are)',
-        romaji: 'kore / sore / are',
-        meaningUz: 'Bu / U / Anavi (Narsa-buyum ko\'rsatish olmoshlari)',
-        structure: 'これ/それ/あれ + は + Ot + です',
+        title: '〜てください (te kudasai)',
+        romaji: 'te kudasai',
+        meaningUz: '...-ing / Iltimos, ...-bajarib bering',
+        structure: 'Fe\'l (Te-shakli) + ください',
         examples: [
-            { ja: 'これは辞書です。', romaji: 'Kore wa jisho desu.', uz: 'Bu lug\'at.' },
-            { ja: 'あれは誰のかばんですか。', romaji: 'Are wa dare no kaban desu ka.', uz: 'Anavi kimning sumkasi?' }
+            { ja: 'ここに名前を書いてください。', romaji: 'Koko ni namae wo kaite kudasai.', uz: 'Bu yerga ismingizni yozing.' }
         ]
     },
     {
-        id: 'n5_koko_soko_asoko',
+        id: 'n5_te_imasu',
         level: 'N5',
-        title: 'ここ / そこ / あそこ / どこ (koko / soko / asoko / doko)',
-        romaji: 'koko / soko / asoko / doko',
-        meaningUz: 'Bu yer / U yer / Anavi yer / Qayer (Joy ko\'rsatish olmoshlari)',
-        structure: 'Joy + は + ここ/そこ/あそこ + です',
+        title: '〜ています (te imasu)',
+        romaji: 'te imasu',
+        meaningUz: '...-yapti / hozir bajarilayotgan harakat',
+        structure: 'Fe\'l (Te-shakli) + います',
         examples: [
-            { ja: '事務所はあそこです。', romaji: 'Jimusho wa asoko desu.', uz: 'Ofis anavi yerda.' },
-            { ja: 'お手洗いはどこですか。', romaji: 'Oterai wa doko desu ka.', uz: 'Hojatxona qayerda?' }
-        ]
-    },
-    {
-        id: 'n5_time_kara_made',
-        level: 'N5',
-        title: '〜から〜まで (kara ... made)',
-        romaji: 'kara ... made',
-        meaningUz: '...-dan ...-gacha (Vaqt va masofa chegaralari)',
-        structure: 'Vaqt/Joy1 + から + Vaqt/Joy2 + まで',
-        examples: [
-            { ja: '9時から5時まで働きます。', romaji: 'Ku-ji kara go-ji made hatarakimasu.', uz: 'Soat 9 dan 5 gacha ishlayman.' },
-            { ja: '東京から大阪まで新幹線で行きます。', romaji: 'Toukyou kara Oosaka made shinkansen de ikimasu.', uz: 'Tokyodan Osakagacha Shinkansen poezdida boraman.' }
+            { ja: '今雨が降っています。', romaji: 'Ima ame ga furutte imasu.', uz: 'Hozir yomg\'ir yog\'yapti.' }
         ]
     },
 
@@ -145,7 +130,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         level: 'N4',
         title: '〜ようになる (you ni naru)',
         romaji: 'you ni naru',
-        meaningUz: '...-shni o\'rganmoq / ... bo\'lib qolmoq (Qobiliyat yoki holat o\'zgarishi)',
+        meaningUz: '...-shni o\'rganmoq / ... bo\'lib qolmoq',
         structure: 'Fe\'l (Qobiliyat/Lug\'at shakli) + ようになる',
         examples: [
             { ja: '日本語で話せるようになりました。', romaji: 'Nihongo de hanaseru you ni narimashita.', uz: 'Yapon tilida gapira oladigan bo\'ldim.' }
@@ -160,7 +145,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         level: 'N3',
         title: '〜ばかりか (bakari ka)',
         romaji: 'bakari ka',
-        meaningUz: 'nafaqat ..., balki ... ham (Kuchaytirish)',
+        meaningUz: 'nafaqat ..., balki ... ham',
         structure: 'Fe\'l/Sifat/Ot + ばかりか',
         examples: [
             { ja: '彼は英語ばかりか日本語も話せます。', romaji: 'Kare wa Eigo bakari ka Nihongo mo hanasemasu.', uz: 'U nafaqat ingliz tilida, balki yapon tilida ham gapira oladi.' }
@@ -188,138 +173,6 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             { ja: '人によって考え方が違います。', romaji: 'Hito ni yotte kangaekata ga chigaimasu.', uz: 'Odamga qarab fikrlash tarzi har xil bo\'ladi.' }
         ]
     },
-    {
-        id: 'n3_ni_nsuite',
-        level: 'N3',
-        title: '〜について (ni tsuite)',
-        romaji: 'ni tsuite',
-        meaningUz: '... haqida / ... to\'g\'risida',
-        structure: 'Ot + について / についての + Ot',
-        examples: [
-            { ja: '日本の文化について調べています。', romaji: 'Nihon no bunka ni tsuite shirabete imasu.', uz: 'Yaponiya madaniyati haqida izlanyapman.' }
-        ]
-    },
-    {
-        id: 'n3_ni_tootte',
-        level: 'N3',
-        title: '〜にとって (ni totte)',
-        romaji: 'ni totte',
-        meaningUz: '... uchun / ... nuqtai nazaridan (baholash kelishigi)',
-        structure: 'Ot + にとって',
-        examples: [
-            { ja: '私にとって家族が一番大切です。', romaji: 'Watashi ni totte kazoku ga ichiban taisetsu desu.', uz: 'Men uchun oila eng muhim narsadir.' }
-        ]
-    },
-    {
-        id: 'n3_ni_taishite',
-        level: 'N3',
-        title: '〜に対して (ni taishite)',
-        romaji: 'ni taishite',
-        meaningUz: '...-ga nisbatan / ...-ga qarama-qarshi',
-        structure: 'Ot + に対して',
-        examples: [
-            { ja: '目上の人に対して丁寧な言葉を使います。', romaji: 'Meue no hito ni taishite teinei na kotoba wo tsukaimasu.', uz: 'Kattalarga nisbatan xushmuomala so\'zlardan foydalaniladi.' }
-        ]
-    },
-    {
-        id: 'n3_wo_chuushin_ni',
-        level: 'N3',
-        title: '〜を中心に (wo chuushin ni)',
-        romaji: 'wo chuushin ni',
-        meaningUz: '...-ni markazga qo\'ygan holda / ... boshchiligida',
-        structure: 'Ot + を中心に / を中心として',
-        examples: [
-            { ja: '駅を中心に新しい街が作られています。', romaji: 'Eki wo chuushin ni atarashii machi ga tsukurarete imasu.', uz: 'Vokzalni markazga qo\'ygan holda yangi shahar barpo etilmoqda.' }
-        ]
-    },
-    {
-        id: 'n3_wo_komete',
-        level: 'N3',
-        title: '〜をこめて (wo komete)',
-        romaji: 'wo komete',
-        meaningUz: '...-ni bag\'ishlab / mehri bilan (samimiy hissiyot)',
-        structure: 'Ot (Hissiyot) + をこめて',
-        examples: [
-            { ja: '感謝の気持ちをこめて手紙を書きました。', romaji: 'Kansha no kimochi wo komete tegami wo kakimashita.', uz: 'Minnatdorlik hissini bag\'ishlab xat yozdim.' }
-        ]
-    },
-    {
-        id: 'n3_wo_toushite',
-        level: 'N3',
-        title: '〜を通して (wo toushite)',
-        romaji: 'wo toushite / wo tsuujite',
-        meaningUz: '... orqali / ... vositasida (Vositachi manba)',
-        structure: 'Ot + を通して / を通じて',
-        examples: [
-            { ja: 'インターネットを通して世界中のニュースを知る。', romaji: 'Intaanetto wo toushite sekaijuu no nyuusu wo shiru.', uz: 'Internet orqali dunyo yangiliklaridan xabardor bo\'laman.' }
-        ]
-    },
-    {
-        id: 'n3_wo_megutte',
-        level: 'N3',
-        title: '〜をめぐって (wo megutte)',
-        romaji: 'wo megutte',
-        meaningUz: '... ustida / ... borasida (Bahs va munozara)',
-        structure: 'Ot + をめぐって / をめぐる + Ot',
-        examples: [
-            { ja: '新しい法律をめぐって議論が続いている。', romaji: 'Atarashii houritsu wo megutte giron ga tsuduzite iru.', uz: 'Yangi qonun ustida bahs-munozara davom etmoqda.' }
-        ]
-    },
-    {
-        id: 'n3_wake_ga_nai',
-        level: 'N3',
-        title: '〜わけがない / 〜はずがない (wake ga nai)',
-        romaji: 'wake ga nai / hazu ga nai',
-        meaningUz: '... bo\'lishi umuman iloji yo\'q / ... emasligi aniq',
-        structure: 'Fe\'l/Sifat/Ot (Oddiy shakl) + わけがない',
-        examples: [
-            { ja: '真面目な彼が嘘をつくわけがない。', romaji: 'Majime na kare ga uso wo tsuku wake ga nai.', uz: 'Jiddiy yigitning yolg\'on gapirishiga umuman ishonib bo\'lmaydi.' }
-        ]
-    },
-    {
-        id: 'n3_wake_ni_wa_ikano',
-        level: 'N3',
-        title: '〜わけにはいかない (wake ni wa ikanai)',
-        romaji: 'wake ni wa ikanai',
-        meaningUz: '... qila olmayman (axloqiy/ijtimoiy sabab tufayli)',
-        structure: 'Fe\'l (Lug\'at shakli) + わけにはいかない',
-        examples: [
-            { ja: '大事な会議だから、休むわけにはいかない。', romaji: 'Daiji na kaigi dakara, yasumu wake ni wa ikanai.', uz: 'Muhim majlis bo\'lgani uchun qolib keta olmayman.' }
-        ]
-    },
-    {
-        id: 'n3_saichuu_ni',
-        level: 'N3',
-        title: '〜最中に (saichuu ni)',
-        romaji: 'saichuu ni',
-        meaningUz: 'aynan ... qilayotgan eng qizg\'in pallada',
-        structure: 'Fe\'l (ています) / Ot の + 最中に',
-        examples: [
-            { ja: '食事の最中に電話がかかってきた。', romaji: 'Shokuji no saichuu ni denwa ga kakatte kita.', uz: 'Aynan ovqatlanayotgan eng qizg\'in pallamda telefon bo\'lib qoldi.' }
-        ]
-    },
-    {
-        id: 'n3_uchini',
-        level: 'N3',
-        title: '〜うちに (uchi ni)',
-        romaji: 'uchi ni',
-        meaningUz: '...-gacha / ... davomida (fursatdan foydalanib bajarish)',
-        structure: 'Fe\'l/Sifat/Ot + うちに',
-        examples: [
-            { ja: '温かいうちに召し上がってください。', romaji: 'Atatakai uchi ni meshagatte kudasai.', uz: 'Issiq davrida fursatdan foydalanib yeb oling.' }
-        ]
-    },
-    {
-        id: 'n3_okage_de',
-        level: 'N3',
-        title: '〜おかげで (okage de)',
-        romaji: 'okage de',
-        meaningUz: '... sharofati bilan / ... tufayli (Ijobiy sabab)',
-        structure: 'Fe\'l/Sifat/Ot + おかげで',
-        examples: [
-            { ja: '先生のおかげで、試験に合格しました。', romaji: 'Sensei no okage de, shiken ni goukaku shimashita.', uz: 'Ustozim sharofati bilan imtihondan o\'tdim.' }
-        ]
-    },
 
     // ==========================================
     // 🎌 JLPT N2 COMPLETE GRAMMAR (Shin Kanzen Master N2)
@@ -332,7 +185,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         meaningUz: 'shubhasiz ... / aniq ... bo\'lsa kerak',
         structure: 'Fe\'l/Sifat/Ot + に違いない',
         examples: [
-            { ja: '彼が合格したに違いない。', romaji: 'Kare ga goukaku shita ni chigai nai.', uz: 'U imtihondan o\'tganiga shubha yo\'q.' }
+            { ja: '彼が努力したから合格したに違いない。', romaji: 'Kare ga doryoku shita kara goukaku shita ni chigai nai.', uz: 'U harakat qilgani uchun imtihondan o\'tganiga shubha yo\'q.' }
         ]
     },
     {
@@ -357,6 +210,17 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             { ja: '大雨にもかかわらず、多くの人が集まった。', romaji: 'Ookame ni mo kakawarazu, ooku no hito ga atsumatta.', uz: 'Kattalashgan yomg\'irga qaramay, ko\'plab odamlar yig\'ildi.' }
         ]
     },
+    {
+        id: 'n2_ni_sootte',
+        level: 'N2',
+        title: '〜に沿って (ni sootte)',
+        romaji: 'ni sootte',
+        meaningUz: '... bo\'ylab / ... reja va yo\'riqnomaga binoan',
+        structure: 'Ot + に沿って / に沿う + Ot',
+        examples: [
+            { ja: '計画に沿って着実に準備を進めましょう。', romaji: 'Keikaku ni sootte chakujitsu ni junbi wo susumemashou.', uz: 'Rejaga binoan puxta tayyorgarlikni davom ettiraylik.' }
+        ]
+    },
 
     // ==========================================
     // 🎌 JLPT N1 COMPLETE GRAMMAR (Nihongo Sou Matome N1)
@@ -366,7 +230,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         level: 'N1',
         title: '〜ざるを得ない (zaru wo eta nai)',
         romaji: 'zaru wo eta nai',
-        meaningUz: '...-shga majbur bo\'lmoq / boshqa chora yo\'q',
+        meaningUz: '...-shga majbur bo\'lmoq / boshqa chora yo\'q (Oliy darajadagi majburiyat)',
         structure: 'Fe\'l (Nai-shakli ildizi) + ざるを得ない',
         examples: [
             { ja: '台風のため、計画を変更せざるを得ない。', romaji: 'Taifu no tame, keikaku wo henkou sezaru wo etanai.', uz: 'Tayfun sababli rejani o\'zgartirishga majburmiz.' }
@@ -381,6 +245,17 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         structure: 'Fe\'l (Masu-ildizi) + ようがない',
         examples: [
             { ja: '連絡先が分からなければ、連絡しようがない。', romaji: 'Renrakusaki ga wakaranakereba, renroku shiyou ga nai.', uz: 'Bog\'lanish manzili bo\'lmasa, bog\'lanishning iloji yo\'q.' }
+        ]
+    },
+    {
+        id: 'n1_wo_kagi_ni',
+        level: 'N1',
+        title: '〜を限りに (wo kagiri ni)',
+        romaji: 'wo kagiri ni',
+        meaningUz: '...-ni oxirgi sana/chegara deb bilgan holda',
+        structure: 'Ot + を限りに',
+        examples: [
+            { ja: '今日を限りに、この店を閉店いたします。', romaji: 'Kyou wo kagiri ni, kono mise wo heiten itashimasu.', uz: 'Bugungi kunni oxirgi chegara deb bilgan holda, ushbu do\'konni yopamiz.' }
         ]
     }
 ];
@@ -413,19 +288,6 @@ export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
             { word: '月曜日', reading: 'げつようび (Getsuyoubi)', meaning: 'Dushanba' }
         ]
     },
-    {
-        id: 'kanji_n5_water',
-        level: 'N5',
-        kanji: '水',
-        onyomi: 'スイ (sui)',
-        kunyomi: 'みず (mizu)',
-        meaningUz: 'Suv (Water)',
-        strokeCount: 4,
-        examples: [
-            { word: '水着', reading: 'みずぎ (Mizugi)', meaning: 'Cho\'milish kiyimi' },
-            { word: '水曜日', reading: 'すいようび (Suiyoubi)', meaning: 'Chorshanba' }
-        ]
-    },
 
     // --- N4 KANJI ---
     {
@@ -441,19 +303,6 @@ export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
             { word: '習う', reading: 'ならう (Narau)', meaning: 'O\'rganmoq' }
         ]
     },
-    {
-        id: 'kanji_n4_study',
-        level: 'N4',
-        kanji: '強',
-        onyomi: 'キョウ (kyou), ゴウ (gou)',
-        kunyomi: 'つよ・い (tsuyo-i)',
-        meaningUz: 'Kuchli, Majburlamoq (Strong)',
-        strokeCount: 11,
-        examples: [
-            { word: '勉強', reading: 'べんきょう (Benkyou)', meaning: 'Dars qilish' },
-            { word: '強い', reading: 'つよい (Tsuyoi)', meaning: 'Kuchli' }
-        ]
-    },
 
     // --- N3 KANJI ---
     {
@@ -465,8 +314,7 @@ export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
         meaningUz: 'Tush, Orzu (Dream)',
         strokeCount: 13,
         examples: [
-            { word: '夢', reading: 'ゆめ (Yume)', meaning: 'Orzu / Tush' },
-            { word: '夢中', reading: 'むちゅう (Muchuu)', meaning: 'Berilgan / Ishqiboz' }
+            { word: '夢', reading: 'ゆめ (Yume)', meaning: 'Orzu / Tush' }
         ]
     },
 
@@ -480,8 +328,7 @@ export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
         meaningUz: 'Yashamoq, Istiqomat qilmoq (Live)',
         strokeCount: 7,
         examples: [
-            { word: '住所', reading: 'じゅうしょ (Juusho)', meaning: 'Manzil' },
-            { word: '住む', reading: 'すむ (Sumu)', meaning: 'Yashamoq' }
+            { word: '住所', reading: 'じゅうしょ (Juusho)', meaning: 'Manzil' }
         ]
     },
 
