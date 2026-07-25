@@ -41,6 +41,7 @@ const JlptWritingPage = lazy(() => import('./pages/JlptWritingPage'));
 const JlptListeningMockPage = lazy(() => import('./pages/JlptListeningMockPage').then(m => ({ default: m.JlptListeningMockPage })));
 const JlptGrammarQuizPage = lazy(() => import('./pages/JlptGrammarQuizPage').then(m => ({ default: m.JlptGrammarQuizPage })));
 const JlptMockExamPage = lazy(() => import('./pages/JlptMockExamPage').then(m => ({ default: m.JlptMockExamPage })));
+const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 
 // Loading component
 const PageLoader = () => (
@@ -129,6 +130,7 @@ const App: React.FC = () => {
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />
+                                        <Route path="cv-creator" element={<CVCreatorTab />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />

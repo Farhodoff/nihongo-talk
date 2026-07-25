@@ -8,6 +8,7 @@ import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import ExamHistoryAnalytics from '../components/analytics/ExamHistoryAnalytics';
 import { AIExamScorePredictor } from '../components/analytics/AIExamScorePredictor';
 import CoachAnalytics from '../components/analytics/CoachAnalytics';
+import JlptProgressAnalytics from '../components/analytics/JlptProgressAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
 import Skeleton from '../components/ui/Skeleton';
 import ShareCardModal from '../components/ShareCardModal';
@@ -73,6 +74,7 @@ const ProgressPage: React.FC = () => {
             ) : (
                 <>
                     <AIExamScorePredictor />
+                    <JlptProgressAnalytics />
                     <ActivityAnalytics sessions={sessions} />
                     <CoachAnalytics sessions={coachSessions} />
                     <ExamHistoryAnalytics />
