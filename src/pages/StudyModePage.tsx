@@ -5,15 +5,8 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { Flashcard } from '../types';
 import { supabase } from '../lib/supabase';
-import { calculateSM2 } from '../utils/sm2';
+import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
-
-enum Rating {
-    AGAIN = 1,
-    HARD = 2,
-    GOOD = 3,
-    EASY = 4
-}
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
@@ -49,18 +42,16 @@ const StudyModePage: React.FC = () => {
         }
     };
 
-    const handleRate = async (grade: Rating) => {
+    const handleRate = async (grade: Grade) => {
         if (!currentCard || isProcessing) return;
         setIsProcessing(true);
 
         try {
-            calculateSM2(
-                {
-                    interval: currentCard.interval || 1,
-                    repetitions: currentCard.repetitions || 0,
-                    easeFactor: currentCard.easeFactor || 2.5
-                },
-                grade
+            calculateReview(
+                grade,
+                currentCard.interval || 0,
+                currentCard.repetitions || 0,
+                currentCard.easeFactor || 2.5
             );
 
             await reviewFlashcard(currentCard.id, grade);
@@ -181,24 +172,32 @@ const StudyModePage: React.FC = () => {
                         Javobni ko'rish
                     </Button>
                 ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        {[
-                            { l: 'Qayta (❌)', v: Rating.AGAIN, sub: '1 kun', c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
-                            { l: 'Qiyin (😐)', v: Rating.HARD, sub: '+2 kun', c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
-                            { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: '+5 kun', c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
-                            { l: 'Oson (😄)', v: Rating.EASY, sub: '+10 kun', c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
-                        ].map(b => (
-                            <button
-                                key={b.v}
-                                disabled={isProcessing}
-                                onClick={() => handleRate(b.v)}
-                                className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
-                            >
-                                <div>{b.l}</div>
-                                <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>
-                            </button>
-                        ))}
-                    </div>
+                    (() => {
+                        const intervals = currentCard
+                            ? getPreviewIntervals(currentCard.interval || 0, currentCard.repetitions || 0, currentCard.easeFactor || 2.5)
+                            : { [Rating.AGAIN]: 1, [Rating.HARD]: 3, [Rating.GOOD]: 7, [Rating.EASY]: 14 };
+                        
+                        return (
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                {[
+                                    { l: 'Qayta (❌)', v: Rating.AGAIN, sub: `${intervals[Rating.AGAIN]} kun`, c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
+                                    { l: 'Qiyin (😐)', v: Rating.HARD, sub: `${intervals[Rating.HARD]} kun`, c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
+                                    { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: `${intervals[Rating.GOOD]} kun`, c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
+                                    { l: 'Oson (😄)', v: Rating.EASY, sub: `${intervals[Rating.EASY]} kun`, c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
+                                ].map(b => (
+                                    <button
+                                        key={b.v}
+                                        disabled={isProcessing}
+                                        onClick={() => handleRate(b.v)}
+                                        className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
+                                    >
+                                        <div>{b.l}</div>
+                                        <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        );
+                    })()
                 )}
             </div>
         </div>

@@ -4,16 +4,16 @@ import { calculateReview, Rating } from './srs';
 describe('SRS (Spaced Repetition System) Utils', () => {
     describe('calculateReview', () => {
         describe('New card (first review)', () => {
-            it('should set interval to 1 day for GOOD rating', () => {
+            it('should set interval to 2 days for GOOD rating', () => {
                 const result = calculateReview(Rating.GOOD, 0, 0, 2.5);
-                expect(result.interval).toBe(1);
+                expect(result.interval).toBe(2);
                 expect(result.repetitions).toBe(1);
                 expect(result.easeFactor).toBeGreaterThan(0);
             });
 
-            it('should set interval to 1 day for EASY rating', () => {
+            it('should set interval to 4 days for EASY rating', () => {
                 const result = calculateReview(Rating.EASY, 0, 0, 2.5);
-                expect(result.interval).toBe(1);
+                expect(result.interval).toBe(4);
                 expect(result.repetitions).toBe(1);
             });
 
@@ -23,10 +23,10 @@ describe('SRS (Spaced Repetition System) Utils', () => {
                 expect(result.repetitions).toBe(0);
             });
 
-            it('should reset to interval 1 for HARD rating', () => {
+            it('should set interval to 1 day for HARD rating on first review', () => {
                 const result = calculateReview(Rating.HARD, 0, 0, 2.5);
                 expect(result.interval).toBe(1);
-                expect(result.repetitions).toBe(0);
+                expect(result.repetitions).toBe(1);
             });
         });
 
@@ -37,9 +37,9 @@ describe('SRS (Spaced Repetition System) Utils', () => {
                 expect(result.repetitions).toBe(2);
             });
 
-            it('should set interval to 6 days for EASY rating', () => {
+            it('should set interval to 10 days for EASY rating', () => {
                 const result = calculateReview(Rating.EASY, 1, 1, 2.5);
-                expect(result.interval).toBe(6);
+                expect(result.interval).toBe(10);
                 expect(result.repetitions).toBe(2);
             });
 
@@ -88,10 +88,10 @@ describe('SRS (Spaced Repetition System) Utils', () => {
                 expect(result.easeFactor).toBeGreaterThanOrEqual(1.3);
             });
 
-            it('should keep ease factor same on AGAIN', () => {
+            it('should decrease ease factor on AGAIN', () => {
                 const initialEF = 2.5;
                 const result = calculateReview(Rating.AGAIN, 6, 2, initialEF);
-                expect(result.easeFactor).toBe(initialEF);
+                expect(result.easeFactor).toBeLessThan(initialEF);
             });
         });
 
@@ -151,8 +151,8 @@ describe('SRS (Spaced Repetition System) Utils', () => {
 
             it('should handle HARD (1) rating', () => {
                 const result = calculateReview(Rating.HARD, 6, 2, 2.5);
-                expect(result.interval).toBe(1);
-                expect(result.repetitions).toBe(0);
+                expect(result.interval).toBeGreaterThan(6);
+                expect(result.repetitions).toBe(3);
             });
 
             it('should handle GOOD (2) rating', () => {

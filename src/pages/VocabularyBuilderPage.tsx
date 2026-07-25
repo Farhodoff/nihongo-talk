@@ -1,0 +1,463 @@
+import React, { useState, useEffect } from 'react';
+import { Search, Sparkles, BookOpen, Volume2, Plus, Check, Bookmark, History, Trash2, ArrowRight } from 'lucide-react';
+import { generateAIResponse } from '../utils/ai/aiCore';
+import { speakText } from '../utils/audioTts';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { FuriganaText } from '../components/jlpt/FuriganaText';
+
+export interface VocabWordDetails {
+    word: string;
+    language: 'en' | 'ja';
+    phonetic?: string;
+    furigana?: string;
+    level: string; // e.g. B2, C1, C2, N3, N2, N1
+    partOfSpeech: string;
+    uzbekTranslation: string;
+    definition: string;
+    synonyms: string[];
+    collocations: string[];
+    examples: { sentence: string; translation: string }[];
+}
+
+export const VocabularyBuilderPage: React.FC = () => {
+    const { subjects, addFlashcard } = useStudyData();
+
+    const [query, setQuery] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
+    const [currentResult, setCurrentResult] = useState<VocabWordDetails | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
+    const [isAddedToFlashcards, setIsAddedToFlashcards] = useState(false);
+
+    const [activeTab, setActiveTab] = useState<'search' | 'saved' | 'history'>('search');
+    const [history, setHistory] = useState<VocabWordDetails[]>([]);
+    const [savedWords, setSavedWords] = useState<VocabWordDetails[]>([]);
+
+    const SAMPLE_WORDS = [
+        { label: 'paramount (C1)', query: 'paramount' },
+        { label: 'ubiquitous (C2)', query: 'ubiquitous' },
+        { label: 'resilient (B2)', query: 'resilient' },
+        { label: '勉強[べんきょう] (N5)', query: '勉強' },
+        { label: '維持[いじ] (N2)', query: '維持' },
+        { label: 'pragmatic (C1)', query: 'pragmatic' },
+    ];
+
+    useEffect(() => {
+        try {
+            const h = localStorage.getItem('study_planner_vocab_history');
+            if (h) setHistory(JSON.parse(h));
+
+            const s = localStorage.getItem('study_planner_vocab_saved');
+            if (s) setSavedWords(JSON.parse(s));
+        } catch (e) {
+            console.error(e);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (subjects.length > 0 && !selectedSubjectId) {
+            setSelectedSubjectId(subjects[0].id);
+        }
+    }, [subjects]);
+
+    const handleSearch = async (targetQuery?: string) => {
+        const searchTerm = (targetQuery || query).trim();
+        if (!searchTerm) return;
+
+        setIsSearching(true);
+        setErrorMsg(null);
+        setIsAddedToFlashcards(false);
+
+        const prompt = `You are a professional linguist and dictionary expert for IELTS and JLPT students.
+Analyze the following word or phrase: "${searchTerm}".
+
+Return ONLY a raw valid JSON object (no markdown, no backticks) with this structure:
+{
+  "word": "${searchTerm}",
+  "language": "en" | "ja",
+  "phonetic": "IPA pronunciation or hiragana/romaji",
+  "furigana": "Kanji[Furigana] format if Japanese, or empty string",
+  "level": "B1" | "B2" | "C1" | "C2" | "N5" | "N4" | "N3" | "N2" | "N1",
+  "partOfSpeech": "noun / verb / adjective / etc",
+  "uzbekTranslation": "To'g'ri va aniq o'zbekcha tarjimasi",
+  "definition": "Simple English/Japanese dictionary definition",
+  "synonyms": ["synonym1", "synonym2", "synonym3", "synonym4"],
+  "collocations": ["collocation 1", "collocation 2", "collocation 3"],
+  "examples": [
+    { "sentence": "Example sentence 1 in original language", "translation": "O'zbekcha tarjimasi 1" },
+    { "sentence": "Example sentence 2 in original language", "translation": "O'zbekcha tarjimasi 2" },
+    { "sentence": "Example sentence 3 in original language", "translation": "O'zbekcha tarjimasi 3" }
+  ]
+}`;
+
+        try {
+            const raw = await generateAIResponse([
+                { role: 'system', content: 'Return only valid JSON.' },
+                { role: 'user', content: prompt }
+            ]);
+            const cleaned = raw.replace(/```json/g, '').replace(/```/g, '').trim();
+            const parsed: VocabWordDetails = JSON.parse(cleaned);
+
+            setCurrentResult(parsed);
+
+            // Add to history
+            const updatedHistory = [parsed, ...history.filter(h => h.word.toLowerCase() !== parsed.word.toLowerCase())].slice(0, 30);
+            setHistory(updatedHistory);
+            localStorage.setItem('study_planner_vocab_history', JSON.stringify(updatedHistory));
+        } catch (err: any) {
+            console.error(err);
+            setErrorMsg("So'z ma'lumotlarini yuklashda xatolik. Qayta urinib ko'ring.");
+        } finally {
+            setIsSearching(false);
+        }
+    };
+
+    const toggleSaveWord = (wordObj: VocabWordDetails) => {
+        const isSaved = savedWords.some(w => w.word.toLowerCase() === wordObj.word.toLowerCase());
+        let updated: VocabWordDetails[];
+        if (isSaved) {
+            updated = savedWords.filter(w => w.word.toLowerCase() !== wordObj.word.toLowerCase());
+        } else {
+            updated = [wordObj, ...savedWords];
+        }
+        setSavedWords(updated);
+        localStorage.setItem('study_planner_vocab_saved', JSON.stringify(updated));
+    };
+
+    const handleCreateFlashcard = async () => {
+        if (!currentResult || !selectedSubjectId) return;
+
+        const front = currentResult.furigana || `${currentResult.word} (${currentResult.partOfSpeech}) [${currentResult.level}]`;
+        const back = `Tarjimasi: ${currentResult.uzbekTranslation}\nTa'rifi: ${currentResult.definition}\nCollocations: ${currentResult.collocations.join(', ')}\n\nMisol: ${currentResult.examples[0]?.sentence || ''}`;
+
+        await addFlashcard({
+            subjectId: selectedSubjectId,
+            front,
+            back
+        });
+
+        setIsAddedToFlashcards(true);
+        setTimeout(() => setIsAddedToFlashcards(false), 3000);
+    };
+
+    const isCurrentSaved = currentResult ? savedWords.some(w => w.word.toLowerCase() === currentResult.word.toLowerCase()) : false;
+
+    return (
+        <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16 space-y-8">
+            {/* Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-6">
+                <div className="flex items-center gap-3">
+                    <div className="p-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl text-white shadow-lg shadow-purple-500/20">
+                        <BookOpen size={24} />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-extrabold text-foreground">
+                            Smart Vocabulary Builder 🧠
+                        </h1>
+                        <p className="text-xs text-muted-foreground">
+                            IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Tabs */}
+                <div className="flex bg-muted p-1.5 rounded-2xl border border-border">
+                    <button
+                        onClick={() => setActiveTab('search')}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                            activeTab === 'search' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        }`}
+                    >
+                        <Search size={14} /> Qidiruv
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('saved')}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                            activeTab === 'saved' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        }`}
+                    >
+                        <Bookmark size={14} /> Saqlanganlar ({savedWords.length})
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('history')}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                            activeTab === 'history' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        }`}
+                    >
+                        <History size={14} /> Tarix
+                    </button>
+                </div>
+            </div>
+
+            {/* TAB 1: SEARCH */}
+            {activeTab === 'search' && (
+                <div className="space-y-6">
+                    {/* Search Input Bar */}
+                    <div className="bg-card border border-border p-6 rounded-3xl shadow-sm space-y-4">
+                        <div className="flex gap-3">
+                            <div className="relative flex-1">
+                                <Search className="absolute left-4 top-3.5 text-muted-foreground" size={18} />
+                                <input
+                                    type="text"
+                                    value={query}
+                                    onChange={e => setQuery(e.target.value)}
+                                    onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                                    placeholder="So'z kiritib Enter bosing (masalan: resilient, paramount, 勉強, 維持)..."
+                                    className="w-full pl-11 pr-4 py-3.5 bg-muted/40 border border-border rounded-2xl text-sm font-medium text-foreground focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                                />
+                            </div>
+                            <button
+                                onClick={() => handleSearch()}
+                                disabled={isSearching || !query.trim()}
+                                className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-2xl shadow-md transition-all disabled:opacity-50 flex items-center gap-2 shrink-0"
+                            >
+                                {isSearching ? <Sparkles size={16} className="animate-spin" /> : <Search size={16} />}
+                                <span>{isSearching ? "Tahlil qilinmoqda..." : "AI Tahlil 🚀"}</span>
+                            </button>
+                        </div>
+
+                        {/* Sample topics */}
+                        <div className="flex flex-wrap items-center gap-2 pt-1">
+                            <span className="text-[10px] font-bold text-muted-foreground">Namunalar:</span>
+                            {SAMPLE_WORDS.map((w, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => { setQuery(w.query); handleSearch(w.query); }}
+                                    className="text-[10px] px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 rounded-full font-bold hover:bg-indigo-500/20 transition-all"
+                                >
+                                    {w.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Error */}
+                    {errorMsg && (
+                        <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-bold rounded-2xl">
+                            {errorMsg}
+                        </div>
+                    )}
+
+                    {/* Search Result Card */}
+                    {currentResult && (
+                        <div className="bg-card border border-border rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+                            {/* Word Top Header */}
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-6">
+                                <div>
+                                    <div className="flex items-center gap-3">
+                                        <h2 className="text-3xl font-black text-foreground">
+                                            {currentResult.furigana ? (
+                                                <FuriganaText text={currentResult.furigana} />
+                                            ) : (
+                                                currentResult.word
+                                            )}
+                                        </h2>
+                                        <span className="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-extrabold rounded-full border border-indigo-500/20 uppercase">
+                                            {currentResult.level}
+                                        </span>
+                                        <span className="text-xs text-muted-foreground italic font-serif">
+                                            ({currentResult.partOfSpeech})
+                                        </span>
+                                    </div>
+                                    {currentResult.phonetic && (
+                                        <p className="text-xs text-muted-foreground font-mono mt-1">
+                                            {currentResult.phonetic}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={() => speakText(currentResult.word, currentResult.language === 'ja' ? 'ja-JP' : 'en-US')}
+                                        className="p-3 bg-muted hover:bg-muted/80 text-foreground rounded-2xl border border-border transition-all flex items-center gap-2 text-xs font-bold"
+                                    >
+                                        <Volume2 size={18} className="text-indigo-500" />
+                                        <span>Talaffuz</span>
+                                    </button>
+                                    <button
+                                        onClick={() => toggleSaveWord(currentResult)}
+                                        className={`p-3 rounded-2xl border transition-all flex items-center gap-2 text-xs font-bold ${
+                                            isCurrentSaved
+                                                ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                                                : 'bg-muted hover:bg-muted/80 text-foreground border-border'
+                                        }`}
+                                    >
+                                        <Bookmark size={18} className={isCurrentSaved ? 'fill-current' : ''} />
+                                        <span>{isCurrentSaved ? 'Saqlangan' : 'Saqlash'}</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Uzbek Translation & Definition */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="p-5 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl space-y-1">
+                                    <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-wider">O'zbekcha Tarjima</span>
+                                    <p className="text-xl font-black text-foreground">{currentResult.uzbekTranslation}</p>
+                                </div>
+                                <div className="p-5 bg-muted/30 border border-border rounded-2xl space-y-1">
+                                    <span className="text-[10px] text-muted-foreground font-extrabold uppercase tracking-wider">Ta'rif (Definition)</span>
+                                    <p className="text-sm font-medium text-foreground">{currentResult.definition}</p>
+                                </div>
+                            </div>
+
+                            {/* Synonyms & Collocations */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {currentResult.synonyms.length > 0 && (
+                                    <div className="space-y-2">
+                                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Sinonimlar</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {currentResult.synonyms.map((syn, i) => (
+                                                <span key={i} className="px-3 py-1 bg-muted border border-border rounded-xl text-xs font-bold text-foreground">
+                                                    {syn}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {currentResult.collocations.length > 0 && (
+                                    <div className="space-y-2">
+                                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Collocations (So'z birikmalari)</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {currentResult.collocations.map((col, i) => (
+                                                <span key={i} className="px-3 py-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 rounded-xl text-xs font-bold">
+                                                    {col}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Example Sentences */}
+                            {currentResult.examples.length > 0 && (
+                                <div className="space-y-3">
+                                    <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Kontekstual Misollar (3 ta gap)</h4>
+                                    <div className="space-y-3">
+                                        {currentResult.examples.map((ex, i) => (
+                                            <div key={i} className="p-4 bg-muted/20 border border-border rounded-2xl space-y-1">
+                                                <p className="text-xs font-bold text-foreground italic">{i + 1}. "{ex.sentence}"</p>
+                                                <p className="text-[11px] text-muted-foreground font-medium">➔ {ex.translation}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 1-Click Flashcard Creator Bar */}
+                            <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="flex items-center gap-3 w-full sm:w-auto">
+                                    <span className="text-xs font-bold text-muted-foreground whitespace-nowrap">Fan tanlang:</span>
+                                    <select
+                                        value={selectedSubjectId}
+                                        onChange={e => setSelectedSubjectId(e.target.value)}
+                                        className="px-3 py-2 bg-muted/50 border border-border rounded-xl text-xs font-bold text-foreground focus:outline-none"
+                                    >
+                                        {subjects.map(s => (
+                                            <option key={s.id} value={s.id}>{s.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <button
+                                    onClick={handleCreateFlashcard}
+                                    disabled={isAddedToFlashcards || !selectedSubjectId}
+                                    className={`w-full sm:w-auto px-6 py-3 rounded-2xl font-extrabold text-xs transition-all shadow-md flex items-center justify-center gap-2 ${
+                                        isAddedToFlashcards
+                                            ? 'bg-emerald-600 text-white'
+                                            : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                                    }`}
+                                >
+                                    {isAddedToFlashcards ? <Check size={16} /> : <Plus size={16} />}
+                                    <span>{isAddedToFlashcards ? 'Fleshkartalarga qo\'shildi! ✓' : 'Fleshkartalarga Qo\'shish 🎴'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* TAB 2: SAVED WORDS */}
+            {activeTab === 'saved' && (
+                <div className="space-y-4">
+                    {savedWords.length === 0 ? (
+                        <div className="p-12 text-center bg-card border border-dashed border-border rounded-3xl space-y-2">
+                            <Bookmark size={32} className="mx-auto text-muted-foreground" />
+                            <p className="text-sm font-bold text-foreground">Saqlangan so'zlar yo'q</p>
+                            <p className="text-xs text-muted-foreground">Qidiruv davomida so'zlarni saqlab qo'yishingiz mumkin.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {savedWords.map((item, idx) => (
+                                <div key={idx} className="bg-card border border-border p-5 rounded-3xl shadow-sm space-y-3 relative group">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <span className="text-[10px] font-extrabold text-indigo-500 uppercase">{item.level}</span>
+                                            <h3 className="text-xl font-extrabold text-foreground">
+                                                {item.furigana ? <FuriganaText text={item.furigana} /> : item.word}
+                                            </h3>
+                                        </div>
+                                        <button
+                                            onClick={() => toggleSaveWord(item)}
+                                            className="text-amber-500 hover:text-red-500 transition-colors p-1"
+                                            title="Saqlanganlardan o'chirish"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                    <p className="text-xs font-bold text-foreground">{item.uzbekTranslation}</p>
+                                    <p className="text-[11px] text-muted-foreground line-clamp-2">{item.definition}</p>
+                                    <button
+                                        onClick={() => { setCurrentResult(item); setActiveTab('search'); }}
+                                        className="text-[10px] font-bold text-indigo-500 hover:underline flex items-center gap-1 pt-1"
+                                    >
+                                        Batafsil ko'rish <ArrowRight size={12} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* TAB 3: SEARCH HISTORY */}
+            {activeTab === 'history' && (
+                <div className="space-y-4">
+                    {history.length === 0 ? (
+                        <div className="p-12 text-center bg-card border border-dashed border-border rounded-3xl space-y-2">
+                            <History size={32} className="mx-auto text-muted-foreground" />
+                            <p className="text-sm font-bold text-foreground">Qidiruv tarixi bo'sh</p>
+                        </div>
+                    ) : (
+                        <div className="bg-card border border-border rounded-3xl divide-y divide-border overflow-hidden">
+                            {history.map((item, idx) => (
+                                <div
+                                    key={idx}
+                                    onClick={() => { setCurrentResult(item); setActiveTab('search'); }}
+                                    className="p-4 hover:bg-muted/40 transition-all flex items-center justify-between cursor-pointer"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="px-2.5 py-0.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-extrabold rounded-full border border-indigo-500/20 uppercase">
+                                            {item.level}
+                                        </span>
+                                        <div>
+                                            <span className="text-sm font-bold text-foreground">
+                                                {item.furigana ? <FuriganaText text={item.furigana} /> : item.word}
+                                            </span>
+                                            <span className="text-xs text-muted-foreground ml-3">
+                                                {item.uzbekTranslation}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ArrowRight size={16} className="text-muted-foreground" />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default VocabularyBuilderPage;

@@ -1,16 +1,16 @@
 /**
- * Simple implementation of the SuperMemo-2 (SM-2) algorithm.
+ * Standard SuperMemo-2 (SM-2) algorithm for Spaced Repetition Flashcards.
  */
 
 export interface ReviewResult {
-    interval: number;
+    interval: number; // in days
     repetitions: number;
     easeFactor: number;
     nextReviewDate: string; // ISO String
 }
 
 export const Rating = {
-    AGAIN: 0, // Complete blackout
+    AGAIN: 0, // Complete blackout / reset
     HARD: 1,  // Correct response with hesitation
     GOOD: 2,  // Perfect response with hesitation
     EASY: 3,  // Perfect response
@@ -18,71 +18,70 @@ export const Rating = {
 
 export type Grade = typeof Rating[keyof typeof Rating];
 
+/**
+ * Calculates next review interval, ease factor, and review date based on SM-2.
+ */
 export function calculateReview(
     grade: Grade,
-    priorInterval: number,
-    priorRepetitions: number,
-    priorEaseFactor: number
+    priorInterval: number = 0,
+    priorRepetitions: number = 0,
+    priorEaseFactor: number = 2.5
 ): ReviewResult {
     let newInterval: number;
     let newRepetitions: number;
-    let newEaseFactor: number;
+    let newEaseFactor: number = priorEaseFactor;
 
-    if (grade >= Rating.GOOD) { // Correct (Good or Easy in simplified 0-3 scale, usually 3-5 in standard SM-2)
-        // Adjust for simplified 0-3 scale to standard 0-5 mapping logic approximation:
-        // We treat 2 (Good) as passing, anything less as failing/resetting in strict mode, 
-        // but here "Hard" (1) might just keep interval same? 
-        // Let's stick to standard logic: 
-        // if grade >= 3 (standard): success.
+    // Standard SM-2 0-5 grade mapping:
+    // AGAIN (0) -> 0 (Fail)
+    // HARD (1)  -> 3 (Pass with effort)
+    // GOOD (2)  -> 4 (Pass good)
+    // EASY (3)  -> 5 (Pass easy)
+    const standardGrade = grade === 0 ? 0 : grade === 1 ? 3 : grade === 2 ? 4 : 5;
 
-        // Mapping our 0-3 to Standard 0-5:
-        // AGAIN (0) -> 0
-        // HARD (1) -> 3
-        // GOOD (2) -> 4
-        // EASY (3) -> 5
-
-        const standardGrade = grade === 0 ? 0 : grade === 1 ? 3 : grade === 2 ? 4 : 5;
-
-        if (standardGrade >= 3) {
-            if (priorRepetitions === 0) {
-                newInterval = 1;
-            } else if (priorRepetitions === 1) {
-                newInterval = 6;
-            } else {
-                newInterval = Math.round(priorInterval * priorEaseFactor);
-            }
-            newRepetitions = priorRepetitions + 1;
-        } else {
-            newInterval = 1;
-            newRepetitions = 0;
-        }
-
-        newEaseFactor = priorEaseFactor + (0.1 - (5 - standardGrade) * (0.08 + (5 - standardGrade) * 0.02));
-        if (newEaseFactor < 1.3) newEaseFactor = 1.3;
-
-    } else {
-        // Failed (Again) or Hard (if we treat Hard as retry immediately for safety)
+    if (standardGrade < 3) {
+        // Failed (Again): reset repetitions and interval to 1 day
         newRepetitions = 0;
         newInterval = 1;
-        newEaseFactor = priorEaseFactor; // Keep ease factor same on fail
+    } else {
+        // Successful recall
+        if (priorRepetitions === 0) {
+            newInterval = grade === Rating.EASY ? 4 : grade === Rating.GOOD ? 2 : 1;
+        } else if (priorRepetitions === 1) {
+            newInterval = grade === Rating.EASY ? 10 : grade === Rating.GOOD ? 6 : 3;
+        } else {
+            const multiplier = grade === Rating.EASY ? priorEaseFactor * 1.3 : grade === Rating.HARD ? 1.2 : priorEaseFactor;
+            newInterval = Math.max(priorInterval + 1, Math.round(priorInterval * multiplier));
+        }
+        newRepetitions = priorRepetitions + 1;
     }
+
+    // Update Ease Factor (EF)
+    newEaseFactor = priorEaseFactor + (0.1 - (5 - standardGrade) * (0.08 + (5 - standardGrade) * 0.02));
+    if (newEaseFactor < 1.3) newEaseFactor = 1.3;
 
     const nextDate = new Date();
     nextDate.setDate(nextDate.getDate() + newInterval);
 
-    // For "Again" or immediate review, maybe set minutes? 
-    // Simplified: "Again" means tomorrow. Ideally it means 1 minute later. 
-    // For this web app, let's keep it daily granularity for now.
-
     return {
         interval: newInterval,
         repetitions: newRepetitions,
-        easeFactor: state_grade_adjust(newEaseFactor),
+        easeFactor: Math.round(newEaseFactor * 100) / 100,
         nextReviewDate: nextDate.toISOString()
     };
 }
 
-function state_grade_adjust(ef: number) {
-    // float precision handling
-    return Math.round(ef * 100) / 100;
+/**
+ * Pre-calculates preview intervals for all 4 ratings so the UI can display them on buttons.
+ */
+export function getPreviewIntervals(
+    priorInterval: number = 0,
+    priorRepetitions: number = 0,
+    priorEaseFactor: number = 2.5
+): Record<Grade, number> {
+    return {
+        [Rating.AGAIN]: calculateReview(Rating.AGAIN, priorInterval, priorRepetitions, priorEaseFactor).interval,
+        [Rating.HARD]: calculateReview(Rating.HARD, priorInterval, priorRepetitions, priorEaseFactor).interval,
+        [Rating.GOOD]: calculateReview(Rating.GOOD, priorInterval, priorRepetitions, priorEaseFactor).interval,
+        [Rating.EASY]: calculateReview(Rating.EASY, priorInterval, priorRepetitions, priorEaseFactor).interval,
+    };
 }

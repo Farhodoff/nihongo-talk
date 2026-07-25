@@ -28,6 +28,7 @@ const Layout: React.FC = () => {
         { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText },
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'AI Yordamchi', path: '/ai', icon: Sparkles },
+        { name: 'Aqlli Lug\'at 🧠', path: '/vocabulary', icon: BookOpen },
         { name: 'CV Yaratuvchi 📄', path: '/cv-creator', icon: FileText },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
