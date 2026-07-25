@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap, Mic, FileText } from 'lucide-react';
+import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap, Mic } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -29,7 +29,6 @@ const Layout: React.FC = () => {
         { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
         { name: 'AI Yordamchi', path: '/ai', icon: Sparkles },
         { name: 'Aqlli Lug\'at 🧠', path: '/vocabulary', icon: BookOpen },
-        { name: 'CV Yaratuvchi 📄', path: '/cv-creator', icon: FileText },
         { name: 'Jamoa', path: '/community', icon: Users },
         { name: 'Statistika', path: '/progress', icon: BarChart },
         { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
