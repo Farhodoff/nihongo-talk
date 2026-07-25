@@ -296,7 +296,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
                     supabase.from('events').select('*').eq('user_id', currentUser.id),
                     supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
-                    supabase.from('ai_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
+                    supabase.from('speaking_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
 
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
@@ -828,7 +828,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             feedback: session.feedback || ''
         };
 
-        const { data, error } = await supabase.from('ai_coach_sessions').insert(dbCoachSession).select().single();
+        const { data, error } = await supabase.from('speaking_coach_sessions').insert(dbCoachSession).select().single();
 
         if (error) {
             console.warn("Coach Session Supabase'ga saqlanmadi (lokal saqlanmoqda):", error);
