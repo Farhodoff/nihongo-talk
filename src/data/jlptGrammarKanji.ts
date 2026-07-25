@@ -535,11 +535,11 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
     {"id": "n4_pdf_102_zenzen", "level": "N4", "title": "全然 (zenzen)", "romaji": "zenzen", "meaningUz": "(not) at all", "structure": "JLPT N4 Grammatika qoidasi", "examples": [{"ja": "ちょっと待ってくれ、ぼくには、そんなことはぜんぜん理解できないよ。", "romaji": "chotto matte kure, boku ni wa, sonna koto wa zenzen rikai dekinai yo.", "uz": "Excuse me, but I’m absolutely unable to comprehend how."}]},
 
     {
-        "id": "n3_bakari_ka",
+        "id": "n3_official_1",
         "level": "N3",
         "title": "〜ばかりか (bakari ka)",
         "romaji": "bakari ka",
-        "meaningUz": "nafaqat ..., balki ... ham (kutilgandan ham ko'proq)",
+        "meaningUz": "nafaqat ..., balki ... ham (kutilgandan ko'proq)",
         "structure": "Fe'l/Sifat/Ot + ばかりか",
         "examples": [
             {
@@ -550,7 +550,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n3_ni_kanshite",
+        "id": "n3_official_2",
         "level": "N3",
         "title": "〜に関して (ni kanshite)",
         "romaji": "ni kanshite",
@@ -565,12 +565,12 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n3_ni_yotte",
+        "id": "n3_official_3",
         "level": "N3",
         "title": "〜によって (ni yotte)",
         "romaji": "ni yotte",
         "meaningUz": "... ga qarab / ... tomonidan / ... tufayli",
-        "structure": "Ot + によって",
+        "structure": "Ot + によって / による + Ot",
         "examples": [
             {
                 "ja": "人[ひと]によって考[かんが]え方[かた]が違[ちが]います。",
@@ -580,7 +580,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n3_ni_tsuite",
+        "id": "n3_official_4",
         "level": "N3",
         "title": "〜について (ni tsuite)",
         "romaji": "ni tsuite",
@@ -595,7 +595,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n3_ni_totte",
+        "id": "n3_official_5",
         "level": "N3",
         "title": "〜にとって (ni totte)",
         "romaji": "ni totte",
@@ -606,6 +606,471 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
                 "ja": "私[わたし]にとって家族[かぞく]が一番[いちばん]大切[たいせつ]です。",
                 "romaji": "Watashi ni totte kazoku ga ichiban taisetsu desu.",
                 "uz": "Men uchun oila eng muhim narsadir."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_6",
+        "level": "N3",
+        "title": "〜ために (tame ni)",
+        "romaji": "tame ni",
+        "meaningUz": "... maqsadi bilan / ... tufayli",
+        "structure": "Fe'l (Lug'at shakli) / Ot + の + ために",
+        "examples": [
+            {
+                "ja": "夢[ゆめ]を叶[かな]えるために毎日[まいにち]勉強[べんきょう]しています。",
+                "romaji": "Yume wo kanaeru tame ni mainichi benkyou shite imasu.",
+                "uz": "Orzuyimni ro'yobga chiqarish uchun har kuni dars qilyapman."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_7",
+        "level": "N3",
+        "title": "〜なら (nara)",
+        "romaji": "nara",
+        "meaningUz": "agar ... bo'lsa (Mavzuga oid shart)",
+        "structure": "Ot / Fe'l / Sifat + なら",
+        "examples": [
+            {
+                "ja": "日本[にほん]へ行[い]くなら京都[きょうと]がおすすめです。",
+                "romaji": "Nihon e iku nara Kyoto ga osusume desu.",
+                "uz": "Agar Yaponiyaga borsangiz, Kyotoga borishni tavsiya qilaman."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_8",
+        "level": "N3",
+        "title": "〜を中心にして (wo chuushin ni shite)",
+        "romaji": "wo chuushin ni shite",
+        "meaningUz": "...-ni markazga qo'yib / ... asosiy o'ringa qo'yib",
+        "structure": "Ot + を中心にして",
+        "examples": [
+            {
+                "ja": "文法[ぶんぽう]を中心[ちゅうしん]にして復習[ふくしゅう]します。",
+                "romaji": "Bunpou wo chuushin ni shite fukushuu shimasu.",
+                "uz": "Grammatikani markazga qo'ygan holda takrorlayman."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_9",
+        "level": "N3",
+        "title": "〜にかわって (ni kawatte)",
+        "romaji": "ni kawatte",
+        "meaningUz": "... o'rniga / ... o'rnini bosib",
+        "structure": "Ot + にかわって",
+        "examples": [
+            {
+                "ja": "社長[しゃちょう]にかわって副社長[ふくしゃちょう]が出席[しゅっせき]した。",
+                "romaji": "Shachou ni kawatte fukushachou ga shusseki shita.",
+                "uz": "Prezident o'rniga vitse-prezident qatnashdi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_10",
+        "level": "N3",
+        "title": "〜につれて (ni tsurete)",
+        "romaji": "ni tsurete",
+        "meaningUz": "... sari / ... borgan sari (Parallel o'zgarish)",
+        "structure": "Fe'l (Lug'at shakli) / Ot + につれて",
+        "examples": [
+            {
+                "ja": "時間[じかん]が経[た]つにつれて緊張[きんちょう]がほぐれた。",
+                "romaji": "Jikan ga tatsu ni tsurete kinchou ga hogureta.",
+                "uz": "Vaqt o'tishi sari hayajon tarqaldi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_11",
+        "level": "N3",
+        "title": "〜にしたがって (ni shitagatte)",
+        "romaji": "ni shitagatte",
+        "meaningUz": "... ga binoan / ... o'zgarishi bilan birga",
+        "structure": "Fe'l (Lug'at shakli) / Ot + にしたがって",
+        "examples": [
+            {
+                "ja": "標高[ひょうこう]が高[たか]くなるにしたがって気温[きおん]が下[さ]がる。",
+                "romaji": "Hyoukou ga takaku naru ni shitagatte kion ga sagaru.",
+                "uz": "Balandlik ortgani sari harorat tushadi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_12",
+        "level": "N3",
+        "title": "〜最中に (saichuu ni)",
+        "romaji": "saichuu ni",
+        "meaningUz": "... ayni qizg'in pallasida / ... bo'layotgan paytda",
+        "structure": "Fe'l (Te-iru) / Ot + の + 最中に",
+        "examples": [
+            {
+                "ja": "食事[しょくじ]の最中[さいちゅう]に電話[でんわ]がかかってきた。",
+                "romaji": "Shokuji no saichuu ni denwa ga kakatte kita.",
+                "uz": "Ovqatlanayotgan ayni paytimda qo'ng'iroq bo'lib qoldi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_13",
+        "level": "N3",
+        "title": "〜うちに (uchi ni)",
+        "romaji": "uchi ni",
+        "meaningUz": "... fursat borida / ... bo'layotganida sezmay",
+        "structure": "Fe'l (Lug'at/Nai) / Ot + の + うちに",
+        "examples": [
+            {
+                "ja": "若[わか]いうちにいろいろな経験[けいけん]をしなさい。",
+                "romaji": "Wakai uchi ni iroiro na keiken wo shinasai.",
+                "uz": "Yoshlik fursati borida ko'p tajriba orttir."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_14",
+        "level": "N3",
+        "title": "〜とともに (to tomo ni)",
+        "romaji": "to tomo ni",
+        "meaningUz": "... bilan birga / ... bilan bir vaqtda",
+        "structure": "Ot / Fe'l (Lug'at shakli) + とともに",
+        "examples": [
+            {
+                "ja": "春[はる]の訪[おとず]れとともに花[はな]が咲[さ]き始[はじ]めた。",
+                "romaji": "Haru no otozure to tomo ni hana ga sakihajimeta.",
+                "uz": "Bahor kelishi bilan birga gullar ochila boshladi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_15",
+        "level": "N3",
+        "title": "〜たびに (tabi ni)",
+        "romaji": "tabi ni",
+        "meaningUz": "... har safar / ... har gal",
+        "structure": "Fe'l (Lug'at shakli) / Ot + の + たびに",
+        "examples": [
+            {
+                "ja": "この写真[しゃしん]を見るたびに昔[むかし]を思[おも]い出[だ]す。",
+                "romaji": "Kono shashin wo miru tabi ni mukashi wo omoidasu.",
+                "uz": "Ushbu rasmni har safar ko'rganimda o'tgan kunlarni eslayman."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_16",
+        "level": "N3",
+        "title": "〜わけだ (wake da)",
+        "romaji": "wake da",
+        "meaningUz": "demak ... bo'lganligi mantiqiy xulosa",
+        "structure": "Fe'l / Sifat (Plain form) + わけだ",
+        "examples": [
+            {
+                "ja": "暑[あつ]いわけだ。気温[きおん]が35度[さんじゅうごど]もある。",
+                "romaji": "Atsui wake da. Kion ga sanjuugo-do mo aru.",
+                "uz": "Demak shuning uchun issiq ekan. Harorat 35 daraja."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_17",
+        "level": "N3",
+        "title": "〜わけがない (wake ga nai)",
+        "romaji": "wake ga nai",
+        "meaningUz": "bo'lishi umuman mumkin emas",
+        "structure": "Fe'l / Sifat / Ot + わけがない",
+        "examples": [
+            {
+                "ja": "彼[かれ]が嘘[うそ]をつくわけがない。",
+                "romaji": "Kare ga uso wo tsuku wake ga nai.",
+                "uz": "U yigit aldashi umuman mumkin emas."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_18",
+        "level": "N3",
+        "title": "〜わけにはいかない (wake ni wa ikanai)",
+        "romaji": "wake ni wa ikanai",
+        "meaningUz": "vijdon / axloq yo'l qo'ymaydi",
+        "structure": "Fe'l (Lug'at / Nai shakli) + わけにはいかない",
+        "examples": [
+            {
+                "ja": "明日[あした]試験[しけん]があるから遊[あそ]ぶわけにはいかない。",
+                "romaji": "Ashita shiken ga aru kara asobu wake ni wa ikanai.",
+                "uz": "Ertaga imtihonim borligi uchun o'ynab yurishga haqqim yo'q."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_19",
+        "level": "N3",
+        "title": "〜しかない (shika nai)",
+        "romaji": "shika nai",
+        "meaningUz": "... qilishdan boshqa chora yo'q",
+        "structure": "Fe'l (Lug'at shakli) + しかない",
+        "examples": [
+            {
+                "ja": "バスがないから歩[ある]いて帰[かえ]るしかない。",
+                "romaji": "Basu ga nai kara aruite kaeru shika nai.",
+                "uz": "Avtobus yo'qligi uchun piyoda qaytishdan boshqa chora yo'q."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_20",
+        "level": "N3",
+        "title": "〜からには (kara ni wa)",
+        "romaji": "kara ni wa",
+        "meaningUz": "modomiki ... ekan, albatta bajaraman",
+        "structure": "Fe'l (Plain form) + からには",
+        "examples": [
+            {
+                "ja": "約束[やくそく]したからには守[まも]るべきだ。",
+                "romaji": "Yakusoku shita kara ni wa mamoru beki da.",
+                "uz": "Modomiki va'da berdingizmi, bajarishingiz shart."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_21",
+        "level": "N3",
+        "title": "〜とおりに (toori ni)",
+        "romaji": "toori ni",
+        "meaningUz": "... aytilganidek / ... xuddi shunday",
+        "structure": "Fe'l (Lug'at/Ta) / Ot + の通りに",
+        "examples": [
+            {
+                "ja": "説明書[せつめいしょ]の通りに組[く]み立[た]てます。",
+                "romaji": "Setsumeisho no toori ni kumitate masu.",
+                "uz": "Yo'riqnomada ko'rsatilganidek yig'aman."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_22",
+        "level": "N3",
+        "title": "〜ことになっている (koto ni natte iru)",
+        "romaji": "koto ni natte iru",
+        "meaningUz": "... deb belgilangan qoida",
+        "structure": "Fe'l (Lug'at/Nai) + ことになっている",
+        "examples": [
+            {
+                "ja": "この部屋[へや]では靴[くつ]を脱[ぬ]ぐことになっている。",
+                "romaji": "Kono heya de wa kutsu wo nugu koto ni natte iru.",
+                "uz": "Bu xonada poyabzalni yechish qoida qilib belgilangan."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_23",
+        "level": "N3",
+        "title": "〜ことだ (koto da)",
+        "romaji": "koto da",
+        "meaningUz": "... qilsangiz maqsadga muvofiq (Tavsiya)",
+        "structure": "Fe'l (Lug'at/Nai) + ことだ",
+        "examples": [
+            {
+                "ja": "日本語[にほんご]が上手[じょうず]になりたければ毎日[まいにち]話[はな]すことだ。",
+                "romaji": "Nihongo ga jouzu ni naritakereba mainichi hanasu koto da.",
+                "uz": "Yapon tili yaxshilanishini istasangiz, har kuni gaplashishingiz kerak."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_24",
+        "level": "N3",
+        "title": "〜ことか (koto ka)",
+        "romaji": "koto ka",
+        "meaningUz": "qanchalar ...-a! (Hayrat va emotsiya)",
+        "structure": "Sifat / Fe'l + ことか",
+        "examples": [
+            {
+                "ja": "合格[ごうかく]の報[しら]せを聞[き]いてどんなに嬉[うれ]しかったことか。",
+                "romaji": "Goukaku no shirase wo kiite anna ni ureshikatta koto ka.",
+                "uz": "O'tganim haqidagi xabarni eshitib qanchalar xursand bo'ldim-a!"
+            }
+        ]
+    },
+    {
+        "id": "n3_official_25",
+        "level": "N3",
+        "title": "〜っけ (kke)",
+        "romaji": "kke",
+        "meaningUz": "... ediya? (Eslab qolishga urinish)",
+        "structure": "Fe'l (Ta) / Ot + っけ",
+        "examples": [
+            {
+                "ja": "彼[かれ]の名前[なまえ]は何[なに]だっけ。",
+                "romaji": "Kare no namae wa nani dakke.",
+                "uz": "Uning ismi nima ediya?"
+            }
+        ]
+    },
+    {
+        "id": "n3_official_26",
+        "level": "N3",
+        "title": "〜っぽい (ppoi)",
+        "romaji": "ppoi",
+        "meaningUz": "...-ga o'xshash / ... moyil (Sifat yasovchi)",
+        "structure": "Ot / Fe'l (Masu-ildiz) + っぽい",
+        "examples": [
+            {
+                "ja": "彼[かれ]は子供[こども]っぽいところがある。",
+                "romaji": "Kare wa kodomoppoi tokoro ga aru.",
+                "uz": "Unda bolalarcha fe'l bor."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_27",
+        "level": "N3",
+        "title": "〜がち (gachi)",
+        "romaji": "gachi",
+        "meaningUz": "... qilishga moyil / ko'pincha bo'lib turadi",
+        "structure": "Fe'l (Masu-ildiz) / Ot + がち",
+        "examples": [
+            {
+                "ja": "冬[ふゆ]は風邪[かぜ]を引[ひ]きがちだ。",
+                "romaji": "Fuyu wa kaze wo hikigachi da.",
+                "uz": "Qishda ko'pincha shamollab qolinadi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_28",
+        "level": "N3",
+        "title": "〜だらけ (darake)",
+        "romaji": "darake",
+        "meaningUz": "...-ga to'la (Yomon/salbiy narsalar)",
+        "structure": "Ot + だらけ",
+        "examples": [
+            {
+                "ja": "この部屋[へや]は物[もの]だらけだ。",
+                "romaji": "Kono heya wa mono darake da.",
+                "uz": "Bu xona chang va narsalarga to'la."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_29",
+        "level": "N3",
+        "title": "〜気味 (gimi)",
+        "romaji": "gimi",
+        "meaningUz": "ozgina ... alomati sezilyapti",
+        "structure": "Fe'l (Masu-ildiz) / Ot + 気味",
+        "examples": [
+            {
+                "ja": "最近[さいきん]太[ふと]り気味[ぎみ]だ。",
+                "romaji": "Saikin futorigimi da.",
+                "uz": "Oxirgi paytlarda ozgina semirish alomati bor."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_30",
+        "level": "N3",
+        "title": "〜たところで (ta tokoro de)",
+        "romaji": "ta tokoro de",
+        "meaningUz": "hatto ... qilgan taqdirda ham (Natijasiz)",
+        "structure": "Fe'l (Ta-form) + ところで",
+        "examples": [
+            {
+                "ja": "急[いそ]いだところで間に合[まにあ]わない。",
+                "romaji": "Isoida tokoro de maniai wanai.",
+                "uz": "Hatto shoshilgan taqdiringda ham ulgurmaysan."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_31",
+        "level": "N3",
+        "title": "〜にかけては (ni kakete wa)",
+        "romaji": "ni kakete wa",
+        "meaningUz": "... sohasiga kelganda (Eng zo'ri)",
+        "structure": "Ot + にかけては",
+        "examples": [
+            {
+                "ja": "足[あし]の速[はや]さにかけては誰[だれ]にも負[ま]けない。",
+                "romaji": "Ashi no hayasa ni kakete wa dare ni mo makenai.",
+                "uz": "Yugurish tezligi bo'yicha hech kimga yengilmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_32",
+        "level": "N3",
+        "title": "〜に反して (ni hanshite)",
+        "romaji": "ni hanshite",
+        "meaningUz": "...-ga zid ravishda / ... kutilganiga qarama-qarshi",
+        "structure": "Ot + に反して / に反する + Ot",
+        "examples": [
+            {
+                "ja": "予想[よそう]に反して試験[しけん]は難[むずか]しかった。",
+                "romaji": "Yosou ni hanshite shiken wa muzukashikatta.",
+                "uz": "Kutilganiga zid ravishda imtihon qiyin bo'ldi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_33",
+        "level": "N3",
+        "title": "〜を問わず (wo towazu)",
+        "romaji": "wo towazu",
+        "meaningUz": "...-dan qat'i nazar / ... farqlamay",
+        "structure": "Ot + を問わず",
+        "examples": [
+            {
+                "ja": "年齢[ねんれい]を問わず誰[だれ]でも参加[さんか]できる。",
+                "romaji": "Nenrei wo towazu dare demo sanka dekiru.",
+                "uz": "Yoshidan qat'i nazar har kim qatnasha oladi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_34",
+        "level": "N3",
+        "title": "〜にかかわらず (ni kakawarazu)",
+        "romaji": "ni kakawarazu",
+        "meaningUz": "... bo'lish-bo'lmasligidan qat'i nazar",
+        "structure": "Ot / Fe'l + にかかわらず",
+        "examples": [
+            {
+                "ja": "晴[は]れ雨[あめ]にかかわらず試合[しあい]は行[おこな]う。",
+                "romaji": "Hare ame ni kakawarazu shiai wa dokonau.",
+                "uz": "Havo ochiq yoki yomg'ir bo'lishidan qat'i nazar o'yin o'tkaziladi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_35",
+        "level": "N3",
+        "title": "〜にあたって (ni atatte)",
+        "romaji": "ni atatte",
+        "meaningUz": "... oldidan / ... munosabati munosabati bilan (Tantanali)",
+        "structure": "Fe'l (Lug'at) / Ot + にあたって",
+        "examples": [
+            {
+                "ja": "新[あたら]しい事業[じぎょう]を始[はじ]めるにあたって準備[じゅんび]をする。",
+                "romaji": "Atarashii jigyou wo hajimeru ni atatte junbi wo suru.",
+                "uz": "Yangi loyihani boshlash oldidan tayyorgarlik ko'riladi."
+            }
+        ]
+    },
+    {
+        "id": "n3_official_36",
+        "level": "N3",
+        "title": "〜に際して (ni saishite)",
+        "romaji": "ni saishite",
+        "meaningUz": "... paytida / ... amalga oshirilayotganda",
+        "structure": "Fe me'yoriy Ot + に際して",
+        "examples": [
+            {
+                "ja": "契約[けいやく]に際して注意[ちゅうい]事項[じこう]を確認[かくにん]する。",
+                "romaji": "Keiyaku ni saishite chuui jikou wo kakunin suru.",
+                "uz": "Shartnoma tuzish paytida ogohlantirishlarni tekshiring."
             }
         ]
     },
