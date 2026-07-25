@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Volume2, Sparkles, Send, ArrowLeft, GraduationCap, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { generateAIResponse, analyzeSpeakingSession, SessionAnalysisReport } from '../utils/ai';
+import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 
@@ -31,23 +31,8 @@ export const JlptSpeakingCoachPage: React.FC = () => {
 
     const recognitionRef = useRef<any>(null);
     const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    const getPersonaInstruction = () => {
-        switch (persona) {
-            case 'roast':
-                return 'Act as a hilarious, super strict Japanese Oni-Sensei (鬼先生). Roast student\'s Japanese grammar with witty sarcasm while keeping it educational!';
-            case 'keigo':
-                return 'Act as a formal Japanese Keigo Master (敬語/尊敬語/謙譲語). Focus strictly on formal business Japanese and honorific expressions.';
-            case 'examiner':
-                return 'Act as an official JLPT Oral Test Examiner. Conduct a structured assessment of Japanese speaking ability.';
-            case 'interview':
-                return 'Act as a Japanese IT & Job Recruiter (面接官). Ask engineering and career interview questions in polite formal Japanese.';
-            case 'casual':
-                return 'Act as a friendly Japanese peer (タメ口の友達). Chat casually using natural daily Japanese, slang, and informal expressions.';
-            default:
-                return 'Act as a polite, encouraging native Japanese Kaiwa (会話) Tutor (Ken-sensei).';
-        }
-    };
+    const isThinkingRef = useRef(isThinking);
+    isThinkingRef.current = isThinking;
 
     // Initialize Web Speech Recognition for Japanese (ja-JP)
     useEffect(() => {
@@ -77,7 +62,7 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                 // Reset 3.0s silence timer
                 if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
                 silenceTimerRef.current = setTimeout(() => {
-                    if (currentText.trim()) {
+                    if (currentText.trim() && !isThinkingRef.current) {
                         handleSendMessage(currentText);
                     }
                 }, 3000);
@@ -95,7 +80,7 @@ export const JlptSpeakingCoachPage: React.FC = () => {
         }
 
         if (isListening) {
-            recognitionRef.current.stop();
+            try { recognitionRef.current.stop(); } catch (e) {}
             setIsListening(false);
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
         } else {
@@ -106,11 +91,12 @@ export const JlptSpeakingCoachPage: React.FC = () => {
     };
 
     const handleSendMessage = async (textToSend?: string) => {
-        const text = textToSend || inputText || transcript;
-        if (!text.trim()) return;
+        if (isThinkingRef.current) return;
+        const text = (textToSend || inputText || transcript).trim();
+        if (!text) return;
 
         if (isListening && recognitionRef.current) {
-            recognitionRef.current.stop();
+            try { recognitionRef.current.stop(); } catch (e) {}
             setIsListening(false);
         }
         if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
@@ -122,23 +108,8 @@ export const JlptSpeakingCoachPage: React.FC = () => {
         setIsThinking(true);
 
         try {
-            const prompt = `
-            System Role: ${getPersonaInstruction()}
-            Target Student Level: JLPT ${jlptLevel}.
-            Instructions:
-            1. Respond in natural Japanese tailored to JLPT ${jlptLevel} level.
-            2. Include Kanji with Furigana/Romaji in parentheses after Japanese text.
-            3. Provide a brief Uzbek translation in brackets [] at the very end.
-            4. Be engaging and ask a short follow-up question.
-            `;
-
-            const historyForAI: { role: 'user' | 'system'; content: string }[] = [
-                { role: 'user', content: prompt },
-                ...messages.map(m => ({ role: 'user' as const, content: m.content })),
-                { role: 'user', content: text }
-            ];
-
-            const aiRes = await generateAIResponse(historyForAI);
+            // Send full conversation history & selected persona to multi-model AI coach
+            const aiRes = await converseWithCoach(text, messages, 'ja', persona);
             setMessages(prev => [...prev, { role: 'assistant', content: aiRes }]);
 
             // Award 20 XP for Japanese speech turn
@@ -148,10 +119,7 @@ export const JlptSpeakingCoachPage: React.FC = () => {
             speakJapanese(aiRes);
         } catch (e) {
             console.warn("AI generation fallback triggered for JLPT coach:", e);
-            let fallbackRes = 'いいですね！日本語の練習を続けましょう！ (Ii desu ne! Nihongo no renshuu wo tsudukemashou!) [Juda yaxshi! Yapon tili mashqini davom ettiramiz!]';
-            if (text.includes('いいですよ') || text.includes('はい')) {
-                fallbackRes = '素晴らしいです！今日の調子はどうですか？ (Subarashii desu! Kyou no choushi wa dou desu ka?) [Ajoyib! Bugungi kayfiyatingiz qanday?]';
-            }
+            const fallbackRes = 'すみません、接続に一時的な問題が発生しました。もう一度言っていただけますか？ (Sumimasen, setsuzoku ni ichijiteki na mondai ga hassei shimashita. Mou ichido itte itadakemasu ka?) [Kechirasiz, ulanishda vaqtinchalik xatolik bo\'ldi. Qaytadan gapirib ko\'rasizmi?]';
             setMessages(prev => [...prev, { role: 'assistant', content: fallbackRes }]);
             speakJapanese(fallbackRes);
         } finally {
