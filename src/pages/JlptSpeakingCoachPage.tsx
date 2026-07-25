@@ -5,7 +5,7 @@ import { generateAIResponse, analyzeSpeakingSession, SessionAnalysisReport } fro
 import { useStudyData } from '../context/StudyPlannerContext';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 
-export type CoachPersona = 'friendly' | 'keigo' | 'roast' | 'examiner';
+export type CoachPersona = 'friendly' | 'keigo' | 'roast' | 'examiner' | 'interview' | 'casual';
 
 export const JlptSpeakingCoachPage: React.FC = () => {
     const navigate = useNavigate();
@@ -40,6 +40,10 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                 return 'Act as a formal Japanese Keigo Master (敬語/尊敬語/謙譲語). Focus strictly on formal business Japanese and honorific expressions.';
             case 'examiner':
                 return 'Act as an official JLPT Oral Test Examiner. Conduct a structured assessment of Japanese speaking ability.';
+            case 'interview':
+                return 'Act as a Japanese IT & Job Recruiter (面接官). Ask engineering and career interview questions in polite formal Japanese.';
+            case 'casual':
+                return 'Act as a friendly Japanese peer (タメ口の友達). Chat casually using natural daily Japanese, slang, and informal expressions.';
             default:
                 return 'Act as a polite, encouraging native Japanese Kaiwa (会話) Tutor (Ken-sensei).';
         }
@@ -287,27 +291,39 @@ export const JlptSpeakingCoachPage: React.FC = () => {
                 <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border">
                     <button
                         onClick={() => setPersona('friendly')}
-                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'friendly' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'friendly' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        🤝 Do'stona
-                    </button>
-                    <button
-                        onClick={() => setPersona('keigo')}
-                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'keigo' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
-                    >
-                        💼 Keigo (Hurmat)
+                        🌸 Muloyim
                     </button>
                     <button
                         onClick={() => setPersona('roast')}
-                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'roast' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'roast' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        🔥 Roast
+                        🔥 Roast (鬼先生)
                     </button>
                     <button
                         onClick={() => setPersona('examiner')}
-                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'examiner' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'examiner' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         🎓 Imtihonchi
+                    </button>
+                    <button
+                        onClick={() => setPersona('interview')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'interview' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        💼 Intervyu
+                    </button>
+                    <button
+                        onClick={() => setPersona('keigo')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'keigo' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        📖 Keigo
+                    </button>
+                    <button
+                        onClick={() => setPersona('casual')}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all ${persona === 'casual' ? 'bg-rose-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        ☕ Casual
                     </button>
                 </div>
 

@@ -113,7 +113,32 @@ export const IeltsHubPage: React.FC = () => {
 
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Tool 1: Writing Evaluator */}
+                {/* Tool 1: AI Speaking Coach & Roast */}
+                <div 
+                    onClick={() => navigate('/speaking-coach')}
+                    className="group bg-gradient-to-br from-amber-500/10 via-rose-500/5 to-purple-500/10 dark:from-amber-950/40 dark:to-purple-950/40 p-6 rounded-3xl border border-amber-500/30 shadow-md hover:shadow-2xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Mic size={24} />
+                        </div>
+                        <span className="text-xs font-extrabold text-amber-600 dark:text-amber-400 bg-amber-500/20 px-2.5 py-1 rounded-md">
+                            1-on-1 Interactive Coach
+                        </span>
+                        <h3 className="text-lg font-black text-gray-900 dark:text-white mt-2 mb-1 group-hover:text-amber-600 transition-colors">
+                            IELTS AI Speaking Coach 🗣️
+                        </h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                            Band 5.0 - 9.0 maqsadli darajangiz bo'yicha jonli ovozli muloqot, Strict Roast va Examiner suhbatlari.
+                        </p>
+                    </div>
+                    <div className="pt-6 flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400">
+                        <span>Coach bilan Gapirish</span>
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+
+                {/* Tool 2: Writing Evaluator */}
                 <div 
                     onClick={() => navigate('/ielts-writing')}
                     className="group bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"

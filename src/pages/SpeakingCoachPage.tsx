@@ -3,7 +3,7 @@ import {
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
     Settings as SettingsIcon, X, 
     Play, Cpu, ShieldAlert, Check, Copy, HeartPulse, RotateCcw,
-    Radio, MessageCircle, Crown
+    Radio, MessageCircle, Crown, GraduationCap
 } from 'lucide-react';
 import { converseWithCoach, getAIConfig, fetchOpenAITTS, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, validateSpeechInput, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -51,6 +51,7 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 const SpeakingCoachPage: React.FC = () => {
     const [language, setLanguage] = useState<'en' | 'ja'>('en');
     const [persona, setPersona] = useState<CoachPersona>('roast');
+    const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>('7.5');
     const [isLiveSession, setIsLiveSession] = useState(false);
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -746,6 +747,24 @@ const SpeakingCoachPage: React.FC = () => {
                         )}
                     </div>
 
+                    {/* Target Band Level Selector */}
+                    {language === 'en' && (
+                        <div className="flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl px-2 py-1 rounded-xl border border-gray-200/50 dark:border-gray-700/50">
+                            <GraduationCap size={13} className="text-amber-500 mr-1.5" />
+                            <span className="text-[10px] font-bold text-gray-400 mr-1 hidden sm:inline">Band:</span>
+                            {(['6.0', '7.0', '8.0', '9.0'] as const).map(b => (
+                                <button
+                                    key={b}
+                                    disabled={isLiveSession}
+                                    onClick={() => setTargetBand(b)}
+                                    className={`px-1.5 py-0.5 text-[10px] font-extrabold rounded-md transition-all ${targetBand === b ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+                                >
+                                    {b}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
                     {/* Language */}
                     <div className="flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl px-2 py-1.5 rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-md transition-all">
                         <Globe size={14} className="text-indigo-500 mr-1" />
@@ -755,8 +774,8 @@ const SpeakingCoachPage: React.FC = () => {
                             onChange={(e) => setLanguage(e.target.value as 'en' | 'ja')}
                             className="bg-transparent border-none text-[11px] font-bold text-gray-700 dark:text-gray-200 outline-none cursor-pointer disabled:opacity-40"
                         >
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ja">🇯🇵 JP</option>
+                            <option value="en">🇬🇧 EN (IELTS)</option>
+                            <option value="ja">🇯🇵 JP (JLPT)</option>
                         </select>
                     </div>
 
