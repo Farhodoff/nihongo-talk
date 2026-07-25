@@ -38,7 +38,23 @@ export interface MockExamItem {
     createdAt: string;
 }
 
+// In-memory set of missing tables to avoid repeated 404 network errors
+const missingTables = new Set<string>();
+
+function isTableDisabled(tableName: string): boolean {
+    return missingTables.has(tableName);
+}
+
+function handleTableError(tableName: string, error: any) {
+    if (error && (error.code === 'PGRST301' || error.code === '42P01' || error.status === 404 || String(error.message).includes('404'))) {
+        missingTables.add(tableName);
+    }
+}
+
 export class HistoryService {
+    static clearMissingTablesCache() {
+        missingTables.clear();
+    }
     // === IELTS Writing History ===
     static async saveWritingAttempt(item: Omit<WritingHistoryItem, 'id' | 'createdAt'>): Promise<WritingHistoryItem> {
         const newItem: WritingHistoryItem = {
@@ -47,27 +63,27 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
-        // 1. Save to Supabase (if authenticated)
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { error } = await supabase.from('ielts_writing_history').insert({
-                    user_id: user.id,
-                    task_type: newItem.taskType,
-                    prompt: newItem.prompt,
-                    essay: newItem.essay,
-                    score: newItem.score,
-                    criteria: newItem.criteriaBreakdown,
-                    feedback: newItem.feedback,
-                    created_at: newItem.createdAt
-                });
-                if (error) console.error('[HistoryService] Supabase insert error:', error);
+        if (!isTableDisabled('ielts_writing_history')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { error } = await supabase.from('ielts_writing_history').insert({
+                        user_id: user.id,
+                        task_type: newItem.taskType,
+                        prompt: newItem.prompt,
+                        essay: newItem.essay,
+                        score: newItem.score,
+                        criteria: newItem.criteriaBreakdown,
+                        feedback: newItem.feedback,
+                        created_at: newItem.createdAt
+                    });
+                    if (error) handleTableError('ielts_writing_history', error);
+                }
+            } catch (e) {
+                handleTableError('ielts_writing_history', e);
             }
-        } catch (e) {
-            console.warn('[HistoryService] Supabase offline fallback to local:', e);
         }
 
-        // 2. Save to LocalStorage fallback
         const local = localStorage.getItem('study_planner_ielts_writing_history');
         const list: WritingHistoryItem[] = local ? JSON.parse(local) : [];
         list.unshift(newItem);
@@ -77,29 +93,34 @@ export class HistoryService {
     }
 
     static async getWritingHistory(): Promise<WritingHistoryItem[]> {
-        // Try Supabase first
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { data, error } = await supabase
-                    .from('ielts_writing_history')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false });
-                if (!error && data) {
-                    return data.map((item: any) => ({
-                        id: item.id || item.user_id,
-                        taskType: item.task_type,
-                        prompt: item.prompt,
-                        essay: item.essay,
-                        score: item.score,
-                        criteriaBreakdown: item.criteria,
-                        feedback: item.feedback,
-                        createdAt: item.created_at
-                    }));
+        if (!isTableDisabled('ielts_writing_history')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { data, error } = await supabase
+                        .from('ielts_writing_history')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false });
+                    if (!error && data) {
+                        return data.map((item: any) => ({
+                            id: item.id || item.user_id,
+                            taskType: item.task_type,
+                            prompt: item.prompt,
+                            essay: item.essay,
+                            score: item.score,
+                            criteriaBreakdown: item.criteria,
+                            feedback: item.feedback,
+                            createdAt: item.created_at
+                        }));
+                    } else if (error) {
+                        handleTableError('ielts_writing_history', error);
+                    }
                 }
+            } catch (e) {
+                handleTableError('ielts_writing_history', e);
             }
-        } catch (e) {}
+        }
 
         const local = localStorage.getItem('study_planner_ielts_writing_history');
         return local ? JSON.parse(local) : [];
@@ -113,24 +134,26 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { error } = await supabase.from('speaking_coach_sessions').insert({
-                    user_id: user.id,
-                    language: newItem.language,
-                    persona: newItem.persona,
-                    duration_seconds: newItem.durationSeconds,
-                    fluency_score: newItem.fluencyScore,
-                    pronunciation_score: newItem.pronunciationScore,
-                    transcript: newItem.transcript,
-                    feedback: newItem.feedback,
-                    created_at: newItem.createdAt
-                });
-                if (error) console.error('[HistoryService] Supabase insert error:', error);
+        if (!isTableDisabled('speaking_coach_sessions')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { error } = await supabase.from('speaking_coach_sessions').insert({
+                        user_id: user.id,
+                        language: newItem.language,
+                        persona: newItem.persona,
+                        duration_seconds: newItem.durationSeconds,
+                        fluency_score: newItem.fluencyScore,
+                        pronunciation_score: newItem.pronunciationScore,
+                        transcript: newItem.transcript,
+                        feedback: newItem.feedback,
+                        created_at: newItem.createdAt
+                    });
+                    if (error) handleTableError('speaking_coach_sessions', error);
+                }
+            } catch (e) {
+                handleTableError('speaking_coach_sessions', e);
             }
-        } catch (e) {
-            console.warn('[HistoryService] Supabase offline fallback:', e);
         }
 
         const local = localStorage.getItem('study_planner_speaking_coach_sessions');
@@ -142,29 +165,35 @@ export class HistoryService {
     }
 
     static async getSpeakingHistory(): Promise<SpeakingSessionItem[]> {
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { data, error } = await supabase
-                    .from('speaking_coach_sessions')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false });
-                if (!error && data) {
-                    return data.map((item: any) => ({
-                        id: item.id || item.user_id,
-                        language: item.language,
-                        persona: item.persona,
-                        durationSeconds: item.duration_seconds,
-                        fluencyScore: item.fluency_score,
-                        pronunciationScore: item.pronunciation_score,
-                        transcript: item.transcript,
-                        feedback: item.feedback,
-                        createdAt: item.created_at
-                    }));
+        if (!isTableDisabled('speaking_coach_sessions')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { data, error } = await supabase
+                        .from('speaking_coach_sessions')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false });
+                    if (!error && data) {
+                        return data.map((item: any) => ({
+                            id: item.id || item.user_id,
+                            language: item.language,
+                            persona: item.persona,
+                            durationSeconds: item.duration_seconds,
+                            fluencyScore: item.fluency_score,
+                            pronunciationScore: item.pronunciation_score,
+                            transcript: item.transcript,
+                            feedback: item.feedback,
+                            createdAt: item.created_at
+                        }));
+                    } else if (error) {
+                        handleTableError('speaking_coach_sessions', error);
+                    }
                 }
+            } catch (e) {
+                handleTableError('speaking_coach_sessions', e);
             }
-        } catch (e) {}
+        }
 
         const local = localStorage.getItem('study_planner_speaking_coach_sessions');
         return local ? JSON.parse(local) : [];
@@ -178,21 +207,25 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { error } = await supabase.from('mock_exams_history').insert({
-                    user_id: user.id,
-                    exam_type: newItem.examType,
-                    level: newItem.level || null,
-                    score: newItem.score,
-                    total_questions: newItem.totalQuestions,
-                    band_score: newItem.bandScore || null,
-                    created_at: newItem.createdAt
-                });
-                if (error) console.error('[HistoryService] Supabase insert error:', error);
+        if (!isTableDisabled('mock_exams_history')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { error } = await supabase.from('mock_exams_history').insert({
+                        user_id: user.id,
+                        exam_type: newItem.examType,
+                        level: newItem.level || null,
+                        score: newItem.score,
+                        total_questions: newItem.totalQuestions,
+                        band_score: newItem.bandScore || null,
+                        created_at: newItem.createdAt
+                    });
+                    if (error) handleTableError('mock_exams_history', error);
+                }
+            } catch (e) {
+                handleTableError('mock_exams_history', e);
             }
-        } catch (e) {}
+        }
 
         const local = localStorage.getItem('study_planner_mock_exams_history');
         const list: MockExamItem[] = local ? JSON.parse(local) : [];
@@ -203,27 +236,33 @@ export class HistoryService {
     }
 
     static async getMockExamsHistory(): Promise<MockExamItem[]> {
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { data, error } = await supabase
-                    .from('mock_exams_history')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false });
-                if (!error && data) {
-                    return data.map((item: any) => ({
-                        id: item.id || item.user_id,
-                        examType: item.exam_type,
-                        level: item.level,
-                        score: item.score,
-                        totalQuestions: item.total_questions,
-                        bandScore: item.band_score,
-                        createdAt: item.created_at
-                    }));
+        if (!isTableDisabled('mock_exams_history')) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { data, error } = await supabase
+                        .from('mock_exams_history')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false });
+                    if (!error && data) {
+                        return data.map((item: any) => ({
+                            id: item.id || item.user_id,
+                            examType: item.exam_type,
+                            level: item.level,
+                            score: item.score,
+                            totalQuestions: item.total_questions,
+                            bandScore: item.band_score,
+                            createdAt: item.created_at
+                        }));
+                    } else if (error) {
+                        handleTableError('mock_exams_history', error);
+                    }
                 }
+            } catch (e) {
+                handleTableError('mock_exams_history', e);
             }
-        } catch (e) {}
+        }
 
         const local = localStorage.getItem('study_planner_mock_exams_history');
         return local ? JSON.parse(local) : [];

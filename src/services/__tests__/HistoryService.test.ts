@@ -15,6 +15,7 @@ describe('HistoryService', () => {
     let originalRandomUUID: any;
 
     beforeEach(() => {
+        HistoryService.clearMissingTablesCache();
         localStorage.clear();
         vi.clearAllMocks();
         vi.restoreAllMocks();
@@ -51,7 +52,6 @@ describe('HistoryService', () => {
         });
 
         it('handles Supabase insert error gracefully when saving writing attempt', async () => {
-            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             const mockInsert = vi.fn().mockResolvedValue({ error: { message: 'Insert failed' } });
             vi.mocked(supabase.auth.getUser).mockResolvedValue({
                 data: { user: { id: 'user-123' } },
@@ -59,7 +59,7 @@ describe('HistoryService', () => {
             } as any);
             vi.mocked(supabase.from).mockReturnValue({ insert: mockInsert } as any);
 
-            await HistoryService.saveWritingAttempt({
+            const result = await HistoryService.saveWritingAttempt({
                 taskType: 'task1',
                 prompt: 'Task 1 prompt',
                 essay: 'Essay text',
@@ -68,15 +68,13 @@ describe('HistoryService', () => {
                 feedback: 'Fair'
             });
 
-            expect(consoleSpy).toHaveBeenCalledWith(
-                '[HistoryService] Supabase insert error:',
-                { message: 'Insert failed' }
-            );
+            expect(result.id).toBeDefined();
+            const local = JSON.parse(localStorage.getItem('study_planner_ielts_writing_history') || '[]');
+            expect(local).toHaveLength(1);
         });
 
-        it('handles exception during Supabase save with warn fallback', async () => {
-            const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-            vi.mocked(supabase.auth.getUser).mockRejectedValue(new Error('Network error'));
+        it('handles exception during Supabase save with local fallback', async () => {
+            vi.mocked(supabase.auth.getUser).mockRejectedValue({ status: 404, message: 'Table not found' });
 
             const result = await HistoryService.saveWritingAttempt({
                 taskType: 'task2',
@@ -87,7 +85,6 @@ describe('HistoryService', () => {
                 feedback: 'Great'
             });
 
-            expect(warnSpy).toHaveBeenCalled();
             expect(result.score).toBe(8.0);
         });
 
@@ -202,12 +199,11 @@ describe('HistoryService', () => {
         });
 
         it('handles Supabase insert error and offline exception catch for speaking session', async () => {
-            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-            const mockInsert = vi.fn().mockResolvedValue({ error: { message: 'DB Error' } });
+            const mockInsert = vi.fn().mockResolvedValue({ error: { status: 404, message: 'DB Error 404' } });
             vi.mocked(supabase.auth.getUser).mockResolvedValue({ data: { user: { id: 'user-123' } }, error: null } as any);
             vi.mocked(supabase.from).mockReturnValue({ insert: mockInsert } as any);
 
-            await HistoryService.saveSpeakingSession({
+            const result = await HistoryService.saveSpeakingSession({
                 language: 'en',
                 persona: 'Native',
                 durationSeconds: 60,
@@ -216,7 +212,7 @@ describe('HistoryService', () => {
                 transcript: 'Hello',
                 feedback: 'Good'
             });
-            expect(consoleSpy).toHaveBeenCalled();
+            expect(result.id).toBeDefined();
         });
 
         it('fetches speaking history from Supabase and falls back to localStorage on exception', async () => {
