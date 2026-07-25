@@ -121,7 +121,6 @@ const SpeakingCoachPage: React.FC = () => {
         onSpeakEnd: () => {
             setIsSpeaking(false);
             isProcessingRef.current = false;
-            resumeListening();
         },
     });
 
@@ -152,7 +151,7 @@ const SpeakingCoachPage: React.FC = () => {
     const resumeListening = () => {
         transcriptBufferRef.current = '';
         setCurrentTranscript('');
-        if (isLiveSessionRef.current && recognitionRef.current && !isSpeaking && !isThinking && !isMuted && !isProcessingRef.current) {
+        if (isLiveSessionRef.current && recognitionRef.current && !isMuted && !isProcessingRef.current) {
             try {
                 recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
@@ -161,6 +160,13 @@ const SpeakingCoachPage: React.FC = () => {
             }
         }
     };
+
+    // Auto-resume listening when speaking or thinking finishes
+    useEffect(() => {
+        if (isLiveSession && !isSpeaking && !isThinking && !isProcessingRef.current) {
+            resumeListening();
+        }
+    }, [isLiveSession, isSpeaking, isThinking]);
 
     const handleSendUserText = async (text: string) => {
         if (!text || isProcessingRef.current) return;
