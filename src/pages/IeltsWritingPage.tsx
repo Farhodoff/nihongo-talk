@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History, Clock, Timer } from 'lucide-react';
 import { evaluateIeltsEssay, IeltsEssayEvaluationReport, isAIKeyConfigured } from '../utils/ai';
 import { useSubscription } from '../hooks/useSubscription';
 import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
 
 const SAMPLE_PROMPTS = {
     task1: [
@@ -29,6 +30,13 @@ const IeltsWritingPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'scores' | 'errors' | 'model'>('scores');
     const [copied, setCopied] = useState(false);
 
+    // Timer States
+    const TIMER_DURATION = taskType === 'task1' ? 20 * 60 : 40 * 60; // 20 or 40 minutes in seconds
+    const [timerSeconds, setTimerSeconds] = useState<number | null>(null); // null = not started
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+    const [isTimerExpired, setIsTimerExpired] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
     // History States
     const [historyList, setHistoryList] = useState<WritingHistoryItem[]>([]);
 
@@ -48,6 +56,45 @@ const IeltsWritingPage: React.FC = () => {
     useEffect(() => {
         fetchHistory();
     }, []);
+
+    // Timer countdown logic
+    useEffect(() => {
+        if (!isTimerRunning || timerSeconds === null) return;
+        if (timerSeconds <= 0) {
+            setIsTimerRunning(false);
+            setIsTimerExpired(true);
+            // Auto-submit when timer runs out
+            if (essayText.trim()) {
+                handleAnalyze();
+            }
+            return;
+        }
+        timerRef.current = setInterval(() => {
+            setTimerSeconds(prev => (prev !== null ? prev - 1 : null));
+        }, 1000);
+        return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    }, [isTimerRunning, timerSeconds]);
+
+    const startTimer = () => {
+        setTimerSeconds(TIMER_DURATION);
+        setIsTimerRunning(true);
+        setIsTimerExpired(false);
+    };
+
+    const resetTimer = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        setTimerSeconds(null);
+        setIsTimerRunning(false);
+        setIsTimerExpired(false);
+    };
+
+    const formatTime = (secs: number) => {
+        const m = Math.floor(secs / 60).toString().padStart(2, '0');
+        const s = (secs % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    };
+
+    const timerProgress = timerSeconds !== null ? (timerSeconds / TIMER_DURATION) * 100 : 100;
 
     const handleAnalyze = async () => {
         if (!essayText.trim()) {
@@ -148,6 +195,56 @@ const IeltsWritingPage: React.FC = () => {
                 </div>
             </div>
 
+            {/* ⏱ Exam Timer Bar */}
+            <div className={`rounded-2xl border p-4 flex items-center gap-4 transition-all ${
+                isTimerExpired
+                    ? 'bg-red-500/10 border-red-500/30'
+                    : isTimerRunning
+                        ? 'bg-amber-500/5 border-amber-500/20'
+                        : 'bg-muted/30 border-border'
+            }`}>
+                <div className="flex items-center gap-2 shrink-0">
+                    <Timer size={18} className={isTimerExpired ? 'text-red-500' : isTimerRunning ? 'text-amber-500' : 'text-muted-foreground'} />
+                    <span className={`text-sm font-extrabold tabular-nums ${
+                        isTimerExpired ? 'text-red-600 dark:text-red-400'
+                        : isTimerRunning && timerSeconds !== null && timerSeconds < 120 ? 'text-red-500 animate-pulse'
+                        : 'text-foreground'
+                    }`}>
+                        {isTimerExpired ? 'VAQT TUGADI!' : timerSeconds !== null ? formatTime(timerSeconds) : `${taskType === 'task1' ? '20:00' : '40:00'}`}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">
+                        ({taskType === 'task1' ? '20 daqiqa' : '40 daqiqa'} limit)
+                    </span>
+                </div>
+                {/* Progress bar */}
+                <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                    <div
+                        className={`h-full rounded-full transition-all duration-1000 ${
+                            isTimerExpired ? 'bg-red-500' : timerProgress < 25 ? 'bg-red-400' : timerProgress < 50 ? 'bg-amber-400' : 'bg-emerald-500'
+                        }`}
+                        style={{ width: `${timerProgress}%` }}
+                    />
+                </div>
+                <div className="flex gap-2 shrink-0">
+                    {!isTimerRunning && !isTimerExpired && (
+                        <button
+                            onClick={startTimer}
+                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1"
+                        >
+                            <Clock size={12} /> Boshlash
+                        </button>
+                    )}
+                    {(isTimerRunning || isTimerExpired) && (
+                        <button
+                            onClick={resetTimer}
+                            className="px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground text-xs font-bold rounded-xl transition-all border border-border"
+                        >
+                            Reset
+                        </button>
+                    )}
+                </div>
+            </div>
+
             {/* Analytics & Progression Chart */}
             {chartData.length > 0 && (
                 <div className="bg-card border border-border p-5 rounded-3xl space-y-4 shadow-sm">
@@ -172,6 +269,12 @@ const IeltsWritingPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Left Column: Input Form */}
                 <div className="lg:col-span-6 space-y-6">
+                    {/* Task 1 Graph Generator */}
+                    {taskType === 'task1' && (
+                        <Task1GraphGenerator
+                            onPromptGenerated={(generatedPrompt) => setPromptQuestion(generatedPrompt)}
+                        />
+                    )}
                     {/* Prompt Selection */}
                     <div className="bg-card border border-border p-6 rounded-3xl shadow-sm">
                         <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">
@@ -214,10 +317,13 @@ const IeltsWritingPage: React.FC = () => {
                         </div>
                         <textarea
                             value={essayText}
-                            onChange={(e) => setEssayText(e.target.value)}
+                            onChange={(e) => !isTimerExpired && setEssayText(e.target.value)}
                             rows={10}
-                            placeholder="Inshoni bu yerga yozing..."
-                            className="w-full px-4 py-3 bg-muted/40 border border-border rounded-2xl text-xs text-gray-900 dark:text-white font-serif leading-relaxed focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-y"
+                            disabled={isTimerExpired}
+                            placeholder={isTimerExpired ? '⛔ Vaqt tugadi — insho yuborildi.' : 'Inshoni bu yerga yozing...'}
+                            className={`w-full px-4 py-3 bg-muted/40 border border-border rounded-2xl text-xs text-gray-900 dark:text-white font-serif leading-relaxed focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-y ${
+                                isTimerExpired ? 'opacity-60 cursor-not-allowed' : ''
+                            }`}
                         />
                         <div className="flex justify-end gap-3 mt-4">
                             <button

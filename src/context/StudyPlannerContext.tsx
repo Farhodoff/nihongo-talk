@@ -32,6 +32,8 @@ interface Settings {
     coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
     coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
     coachApiKey?: string;
+    showFurigana: boolean;
+    showRomaji: boolean;
 }
 
 interface StudyPlannerContextType {
@@ -202,6 +204,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
         coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
         coachApiKey?: string;
+        showFurigana: boolean;
+        showRomaji: boolean;
     }>(() => {
         const savedTheme = localStorage.getItem('study_planner_theme');
         const savedAiSettingsStr = localStorage.getItem('study_planner_ai_settings');
@@ -234,6 +238,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             coachVoice: savedAiSettings.coachVoice || 'alloy',
             coachAiModel: savedAiSettings.coachAiModel || 'deepseek',
             coachApiKey: savedAiSettings.coachApiKey || '',
+            showFurigana: localStorage.getItem('study_planner_show_furigana') !== 'false',
+            showRomaji: localStorage.getItem('study_planner_show_romaji') === 'true',
         };
     });
 
@@ -871,7 +877,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined || updates.coachAiModel !== undefined || updates.coachApiKey !== undefined) {
+        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined || updates.coachAiModel !== undefined || updates.coachApiKey !== undefined || updates.showFurigana !== undefined || updates.showRomaji !== undefined) {
             setAppSettings(prev => {
                 const newState = {
                     ...prev,
@@ -889,6 +895,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
                     coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
                     coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
+                    showFurigana: updates.showFurigana !== undefined ? updates.showFurigana : prev.showFurigana,
+                    showRomaji: updates.showRomaji !== undefined ? updates.showRomaji : prev.showRomaji,
                 };
                 
                 // Save AI settings to localStorage
@@ -908,6 +916,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
                 // Save Goal to localStorage
                 localStorage.setItem('study_planner_daily_goal', newState.dailyStudyGoalMinutes.toString());
+                // Save Furigana/Romaji prefs
+                localStorage.setItem('study_planner_show_furigana', String(newState.showFurigana));
+                localStorage.setItem('study_planner_show_romaji', String(newState.showRomaji));
                 
                 return newState;
             });

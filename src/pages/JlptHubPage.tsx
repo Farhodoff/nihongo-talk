@@ -9,7 +9,7 @@ import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 export const JlptHubPage: React.FC = () => {
     const navigate = useNavigate();
     const [isQuizOpen, setIsQuizOpen] = useState(false);
-    const { flashcards } = useStudyData();
+    const { flashcards, settings, updateSettings } = useStudyData();
 
     const [userPlanData, setUserPlanData] = useState<{
         finalGoalTitle?: string;
@@ -47,13 +47,39 @@ export const JlptHubPage: React.FC = () => {
                     </p>
                 </div>
 
-                <button
-                    onClick={() => setIsQuizOpen(true)}
-                    className="px-6 py-3.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20 transition-all flex items-center gap-2"
-                >
-                    <Target size={18} />
-                    <span>{userPlanData ? "Maqsadni Yangilash" : "Shaxsiy Reja Tuzish 🎌"}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                    {/* Furigana / Romaji toggle */}
+                    <button
+                        onClick={() => updateSettings({ showFurigana: !settings.showFurigana })}
+                        title={settings.showFurigana ? 'Furiganani o\'chirish' : 'Furiganani yoqish'}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 ${
+                            settings.showFurigana
+                                ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
+                                : 'bg-muted text-muted-foreground border-border hover:border-rose-500/30'
+                        }`}
+                    >
+                        あ<span className="text-[8px] leading-none align-super">ふり</span>
+                        {settings.showFurigana ? ' ON' : ' OFF'}
+                    </button>
+                    <button
+                        onClick={() => updateSettings({ showRomaji: !settings.showRomaji })}
+                        title={settings.showRomaji ? 'Romajini o\'chirish' : 'Romajini yoqish'}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border ${
+                            settings.showRomaji
+                                ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                                : 'bg-muted text-muted-foreground border-border hover:border-amber-500/30'
+                        }`}
+                    >
+                        Romaji {settings.showRomaji ? 'ON' : 'OFF'}
+                    </button>
+                    <button
+                        onClick={() => setIsQuizOpen(true)}
+                        className="px-6 py-3.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20 transition-all flex items-center gap-2"
+                    >
+                        <Target size={18} />
+                        <span>{userPlanData ? "Maqsadni Yangilash" : "Shaxsiy Reja Tuzish 🎌"}</span>
+                    </button>
+                </div>
             </div>
 
             {/* Target Roadmap Banner */}
