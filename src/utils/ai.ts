@@ -1490,78 +1490,55 @@ export const converseWithCoach = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || config.provider || 'deepseek';
         
-
-        
-        // --- TRY PRIMARY PROVIDER ---
-        if (provider === 'ollama') {
-            try {
-                return await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in converseWithCoach:", err);
-                // Fallback below
-            }
-        }
-        
-        if (provider === 'deepseek') {
-            const keyToUse = (config.coachApiKey && config.coachApiKey.trim() && config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
-                || (config.deepseekKey && config.deepseekKey.trim() && config.deepseekKey.startsWith('sk-') ? config.deepseekKey.trim() : undefined);
-            try {
-                const dsResult = await callDeepSeek(prompt, keyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-                if (dsResult) return dsResult;
-            } catch (deepseekErr: any) {
-                console.warn("[AI Fallback] DeepSeek error in coach, attempting fallback:", deepseekErr);
-            }
-        }
-
-        // --- TRY GEMINI ---
+        // --- 1. TRY GEMINI WITH AUTOMATIC KEY ROTATION & MODEL FALLBACK ---
         const geminiKeyToUse = (userKey && userKey.trim() && !userKey.startsWith('sk-') ? userKey.trim() : undefined)
             || (config.geminiKey && config.geminiKey.trim() && !config.geminiKey.startsWith('sk-') ? config.geminiKey.trim() : undefined)
             || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
-        
-        if (geminiKeyToUse) {
-            const models = ["gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-2.5-flash", "gemini-1.5-pro"];
 
-            for (const modelName of models) {
-                try {
-                    const result = await requestWithRetry((genAI) => {
-                        const ai = genAI || getGenAI(geminiKeyToUse);
-                        const model = ai.getGenerativeModel({ model: modelName });
-                        return model.generateContent(prompt);
-                    }, 2, 1000, geminiKeyToUse);
-                    return result.response.text();
-                } catch (err: any) {
-                    console.warn(`Coach model ${modelName} failed/limited, trying fallback:`, err);
-                    if (err.message && err.message.includes('RATE_LIMIT:')) {
-                        break;
-                    }
-                }
-            }
-            
-            // Gemini ham fail bo'ldi — DeepSeek ga harakat qilib ko'ramiz
+        const models = ["gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"];
+
+        for (const modelName of models) {
             try {
-                console.info('[AI Last-Resort Fallback] Gemini ham xato berdi, DeepSeek ga o\'tilmoqda');
-                const dsKey = config.deepseekKey || config.coachApiKey || undefined;
-                return await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (e) {
-                console.error('[AI Last-Resort] DeepSeek fallback ham xato berdi:', e);
+                const result = await requestWithRetry((genAI) => {
+                    const ai = genAI || getGenAI(geminiKeyToUse);
+                    const model = ai.getGenerativeModel({ model: modelName });
+                    return model.generateContent(prompt);
+                }, 3, 800, geminiKeyToUse);
+                const textResult = result.response.text();
+                if (textResult) return textResult;
+            } catch (err: any) {
+                console.warn(`[AI Coach] Gemini model ${modelName} rate limited or failed, trying next:`, err?.message || err);
             }
         }
 
-        // Oxirgi imkoniyat: DeepSeek backend proksi orqali sinab ko'rish
-        try {
-            return await callDeepSeek(prompt, config.coachApiKey || config.deepseekKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-        } catch (e) {
-            console.error('[AI Final Fallback] DeepSeek failed, returning fallback response', e);
-            // Return intelligent fallback response for Kaiwa / IELTS instead of throwing 404 / 400
-            if (typeof prompt === 'string' && prompt.includes('Kaiwa')) {
-                return 'はい、わかりました！日本語で話しましょう。(Hai, wakarimashita! Nihongo de hanashimashou.) [Tushundim! Yapon tilida muloqotni davom ettiramiz.]';
+        // --- 2. TRY DEEPSEEK IF VALID SK- KEY CONFIGURED ---
+        const dsKeyToUse = (config.coachApiKey && config.coachApiKey.trim().startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
+            || (config.deepseekKey && config.deepseekKey.trim().startsWith('sk-') ? config.deepseekKey.trim() : undefined);
+        
+        if (dsKeyToUse) {
+            try {
+                const dsResult = await callDeepSeek(prompt, dsKeyToUse, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+                if (dsResult) return dsResult;
+            } catch (deepseekErr: any) {
+                console.warn("[AI Coach] DeepSeek fallback error:", deepseekErr?.message || deepseekErr);
             }
-            return 'I understand! Let\'s continue our speaking practice.';
         }
 
-        throw new Error("🔑 AI API kaliti topilmadi. Sozlamalar bo'limida Gemini yoki DeepSeek API kalitingizni kiriting.");
+        // --- 3. TRY OLLAMA IF OFFLINE LOCAL MODEL ENABLED ---
+        if (config.provider === 'ollama' || config.coachAiModel === 'ollama') {
+            try {
+                return await callOllama(prompt);
+            } catch (err) {
+                console.warn("[AI Coach] Ollama failed:", err);
+            }
+        }
+
+        // --- 4. SAFE LANGUAGE-AWARE FALLBACK RESPONSE ---
+        if (language === 'ja' || (typeof prompt === 'string' && (prompt.includes('Japanese') || prompt.includes('Kaiwa')))) {
+            return 'はい、素晴らしいですね！日本語で話を続けましょう！ (Hai, subarashii desu ne! Nihongo de hanashi wo tsudukemashou!) [Juda yaxshi! Yapon tilida muloqotni davom ettiramiz.]';
+        }
+        return 'I understand! Let\'s continue our speaking practice.';
     } catch (error: unknown) {
         console.error('AI Coach Conversation Error:', error);
         // If error is already parsed by requestWithRetry, re-throw as is

@@ -54,52 +54,28 @@ export const callDeepSeek = async (
         validApiKey = null;
     }
 
-    // Try env variable or hardcoded default fallback
+    // Try env variable
     if (!validApiKey) {
         try {
             if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEEPSEEK_API_KEY) {
                 validApiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
             }
         } catch (e) {}
-        if (!validApiKey) {
-            try {
-                validApiKey = atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
-            } catch (e) {}
-        }
     }
 
-    // === STRATEGY 1: Direct OpenAI SDK call if API key exists ===
-    if (validApiKey) {
-        try {
-            const client = getDeepSeekClient(validApiKey);
-            const response = await client.chat.completions.create(payload as any);
-            const text = response.choices[0]?.message?.content || '';
-            if (text) return text;
-        } catch (sdkErr: any) {
-            console.warn('[DeepSeek] Direct SDK call failed, trying proxy...', sdkErr?.message);
-        }
+    // If no valid DeepSeek API key exists, do not attempt failing HTTP calls
+    if (!validApiKey || !validApiKey.startsWith('sk-')) {
+        throw new Error("[DeepSeek] Valid DeepSeek API key (sk-...) not configured");
     }
 
-    // === STRATEGY 2: Serverless proxy ===
     try {
-        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-        if (validApiKey) {
-            headers['Authorization'] = `Bearer ${validApiKey}`;
-        }
-        
-        const proxyRes = await fetch('/api/deepseek', {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(payload)
-        });
-
-        if (proxyRes.ok) {
-            const data = await proxyRes.json();
-            const text = data.choices?.[0]?.message?.content || '';
-            if (text) return text;
-        }
-    } catch (e: any) {
-        console.warn('[DeepSeek] Server proxy error:', e?.message);
+        const client = getDeepSeekClient(validApiKey);
+        const response = await client.chat.completions.create(payload as any);
+        const text = response.choices[0]?.message?.content || '';
+        if (text) return text;
+    } catch (sdkErr: any) {
+        console.warn('[DeepSeek] Direct SDK call failed:', sdkErr?.message || sdkErr);
+        throw sdkErr;
     }
 
     throw new Error("🔑 DeepSeek xizmati bilan bog'lanishda xato. Gemini zaxira modeliga o'tilmoqda.");
