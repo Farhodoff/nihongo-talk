@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { AIProvider } from '../../utils/ai';
 import { isAdminEmail } from '../../utils/admin';
 import { ShieldCheck } from 'lucide-react';
+import { toast } from '../../hooks/use-toast';
 
 const AIProviderSection: React.FC = () => {
     const { user, settings, updateSettings } = useStudyData();
@@ -65,6 +66,7 @@ const AIProviderSection: React.FC = () => {
         });
         setIsSaved(true);
         setTimeout(() => setIsSaved(false), 2500);
+        toast({ title: '✅ AI Sozlamalari Saqlandi', description: 'Barcha API kalit va model sozlamalari muvaffaqiyatli saqlandi.' });
     };
 
     if (!isAdmin) {

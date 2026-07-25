@@ -11,6 +11,7 @@ import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { User, Sparkles, Sliders, Database, Shield } from 'lucide-react';
 import { isAdminEmail } from '../utils/admin';
+import { toast } from '../hooks/use-toast';
 
 import AdminDashboardPage from './AdminDashboardPage';
 
@@ -31,7 +32,9 @@ const SettingsPage: React.FC = () => {
     }
 
     const toggleTheme = () => {
-        updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
+        const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
+        updateSettings({ theme: newTheme });
+        toast({ title: newTheme === 'dark' ? '🌙 Tungi rejim yoqildi' : '☀️ Kunduzgi rejim yoqildi', description: 'Mavzu muvaffaqiyatli o\'zgartirildi.' });
     };
 
     const toggleNotifications = async () => {
@@ -39,11 +42,13 @@ const SettingsPage: React.FC = () => {
             const granted = await requestNotificationPermission();
             if (granted) {
                 updateSettings({ notificationsEnabled: true });
+                toast({ title: '🔔 Bildirishnomalar yoqildi', description: 'Siz endi xabarnomalar olasiz.' });
             } else {
-                alert('Bildirishnoma ruxsati rad etildi. Iltimos, brauzer sozlamalarida yoqing.');
+                toast({ variant: 'destructive', title: '❌ Ruxsat rad etildi', description: 'Iltimos, brauzer sozlamalarida bildirishnomalarni yoqing.' });
             }
         } else {
             updateSettings({ notificationsEnabled: false });
+            toast({ title: '🔕 Bildirishnomalar o\'chirildi' });
         }
     };
 

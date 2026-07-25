@@ -8,6 +8,7 @@ import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
 import { supabase } from './lib/supabase';
 import { OnboardingTour } from './components/OnboardingTour';
+import { Toaster } from './components/ui/toaster';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
@@ -136,6 +137,7 @@ const App: React.FC = () => {
                             <InstallPrompt />
                             
                             <OfflineIndicator />
+                            <Toaster />
                         </div>
                     </BrowserRouter>
                 </FocusTimerProvider>
