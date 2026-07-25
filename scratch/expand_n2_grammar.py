@@ -1,0 +1,40 @@
+import re, json
+
+n2_grammar_rules = [
+    ("〜に際して・〜にあたって (ni saishite / ni atatte)", "ni saishite", "... munosabati bilan / ... amalga oshirilayotganida (Rasmiy)", "Ot / Fe'l (Lug'at) + に際して", "新[あたら]しい事業[じぎょう]を始[はじ]めるに際[さい]して、十分[じゅうぶん]な調査[ちょうさ]を行[おこな]った。", "Atarashii jigyou wo hajimeru ni saishite, juubun na chousa wo okonatta.", "Yangi loyihani boshlash munosabati bilan yetarlicha tadqiqot o'tkazdik."),
+    ("〜を契機に・〜をきっかけに (wo keiki ni / wo kikkake ni)", "wo keiki ni", "... munosabati bilan / ... turtki / bahona bo'lib", "Ot / Fe'l (Ta-form) + のをきっかけに", "日本[にほん]のアニメをきっかけに、日本語[にほんご]の勉強[べんきょう]を始[はじ]めた。", "Nihon no anime wo kikkake ni, Nihongo no benkyou wo hajimeta.", "Yapon animelari turtki bo'lib, yapon tilini o'rganishni boshladim."),
+    ("〜に先立って (ni sakidatte)", "ni sakidatte", "... oldidan / ... amalga oshirishdan avval", "Ot / Fe'l (Lug'at) + に先立って", "会議[かいぎ]に先立[さきだ]って、資料[しりょう]を配布[はいふ]した。", "Kaigi ni sakidatte, shiryou wo haifu shita.", "Majlis oldidan materiallar tarqatildi."),
+    ("〜に応じて (ni oujite)", "ni oujite", "... ga mos ravishda / ...-ga qarab", "Ot + に応じて / に応じた + Ot", "予算[よさん]に応じて、旅行[りょこう]の計画[けいかく]を立[た]てる。", "Yosan ni oujite, ryokou no keikaku wo tateru.", "Bujetga mos ravishda sayohat rejasini tuzamiz."),
+    ("〜にこたえて (ni kotaete)", "ni kotaete", "... umidlariga / talablariga javoban", "Ot + にこたえて", "市民[しみん]の要望[ようぼう]にこたえて、公園[こうえん]が作[つく]られた。", "Shimin no youbou ni kotaete, kouen ga tsukurareta.", "Aholi talablariga javoban bog' barpo etildi."),
+    ("〜に沿って (ni sotte)", "ni sotte", "... bo'ylab / ... rejasiga amallagan holda", "Ot + に沿って / に沿う + Ot", "計画[けいかく]に沿[そ]って、工事[こうじ]を進[すす]めています。", "Keikaku ni sotte, kouji wo susumete imasu.", "Rejaga amallagan holda qurilish ishlarini olib boryapmiz."),
+    ("〜に基づいて (ni motodsuite)", "ni motodsuite", "... asosida / ...-ga tayangan holda", "Ot + に基づいて", "事実[じじつ]に基づいて報告[ほうこく]する。", "Jijitsu ni motodsuite houkoku suru.", "Haqiqat asosida hisobot beraman."),
+    ("〜をこめて (wo komete)", "wo komete", "... tubidan jo bo'lgan sevgini/hissiyotni bag'ishlab", "Ot + をこめて", "感謝[かんしゃ]の情[きも]ちをこめて、プレゼントを贈[おく]る。", "Kansha no kimochi wo komete, purezento wo okuru.", "Minnatdorchilik hissini bag'ishlab sovg'a taqdim etaman."),
+    ("〜をはじめ（とする） (wo hajime)", "wo hajime", "... boshda tutgan holda", "Ot + をはじめ", "社長[しゃちょう]をはじめとする社員[しゃいん]一同[いちどう]", "Shachou wo hajime to suru shaiin ichidou", "Prezident boshchiligidagi barcha jamoa"),
+    ("〜にわたって (ni watatte)", "ni watatte", "... bo'yi / ... davomida keng qamrovda", "Ot + にわたって", "一週間[いっしゅうかん]にわたって祭[まつ]りが開[ひら]かれた。", "Isshuukan ni watatte matsuri ga hirakareta.", "Bir hafta davomida festival bo'lib o'tdi."),
+    ("〜にかけては (ni kakete wa)", "ni kakete wa", "... sohasiga kelganda (Eng zo'ri)", "Ot + にかけては", "足[あし]の速[はや]さにかけては彼[かれ]に勝[か]てる者はいない。", "Ashi no hayasa ni kakete wa kare ni kateru mono wa inai.", "Tez yugurishga kelganda unga teng keladigani yo'q."),
+    ("〜に反して (ni hanshite)", "ni hanshite", "...-ga zid ravishda / ... kutilganiga qarama-qarshi", "Ot + に反して", "予想[よそう]に反して、テストは難[むずか]しかった。", "Yosou ni hanshite, tesuto wa muzukashikatta.", "Kutilganiga zid ravishda imtihon qiyin bo'ldi."),
+    ("〜にとどまらず (ni todomarazu)", "ni todomarazu", "... bilan cheklanib qolmay, balki ...", "Ot / Fe'l (Lug'at) + にとどまらず", "国内[こくない]にとどまらず、海外[かいがい]でも人気[にんき]がある。", "Kokunai ni todomarazu, kaigai demo ninki ga aru.", "Mamlakat ichida cheklanib qolmay, xorijda ham mashhur."),
+    ("〜はおろか (wa oroka)", "wa oroka", "... u yoqda tursin, hatto ... ham", "Ot + はおろか", "漢字[かんじ]はおろか、ひらがなも読[よ]めない。", "Kanji wa oroka, hiragana mo yomenai.", "Kanji u yoqda tursin, hatto xiraganani ham o'qiy olmaydi."),
+    ("〜もさることながら (mo sarukotonagara)", "mo sarukotonagara", "...-ni aytmasa ham, ... ham juda muhim", "Ot + もさることながら", "味[あじ]もさることながら、見[み]ためも素晴[すば]らしい。", "Aji mo sarukotonagara, mitame mo subarashii.", "Mazasini aytmasa ham, ko'rinishi ham ajoyib."),
+    ("〜ぬく (nuku)", "nuku", "barcha qiyinchiliklarga chidab oxirigacha yetkazmoq", "Fe'l (Masu-ildiz) + ぬく", "困難[こんなん]を乗[の]り越[こ]えて、最後[さいご]まで戦[たたか]いぬいた。", "Konnan wo norikoete, saigo made tatakainuita.", "Qiyinchiliklarni yengib, oxirigacha kurashdim."),
+    ("〜かける (kakeru)", "kakeru", "... qilishni boshlab, hali tugatmay chala qoldirmoq", "Fe'l (Masu-ildiz) + かける", "全[ぜん]部[ぶ]食[た]べかけの本[ほん]を置[お]いておいた。", "Zenbu tabekake no hon wo oite oita.", "Chala o'qilgan kitobni qo'yib qo'ydim."),
+    ("〜切る (kiru)", "kiru", "oxirigacha to'liq yetkazmoq", "Fe'l (Masu-ildiz) + 切る", "長[なが]い距離[きょり]を走[はし]り切[き]った。", "Nagai kyori wo hashirikirtta.", "Uzun masofani oxirigacha yugurib o'tdim."),
+    ("〜得ない (enai)", "enai", "... bo'lishi mantiqan imkonsiz", "Fe'l (Masu-ildiz) + 得ない", "そのような事故[じこ]は起[お]こり得[え]ない。", "Sono you na jiko wa okorienai.", "Bunday avariya sodir bo'lishi imkonsiz."),
+    ("〜かねる (kaneru)", "kaneru", "... qilishga ojizman / rad etmoq (Xushmuomala)", "Fe'l (Masu-ildiz) + かねる", "ご案内[あんない]しかねます。", "Goannai shikanemasu.", "Sizga yo'l ko'rsata olmayman."),
+    ("〜かねない (kanenai)", "kanenai", "... kabi salbiy oqibat bo'lishi xavfi bor", "Fe'l (Masu-ildiz) + かねない", "油断[ゆだん]すると事故[じこ]につながりかねない。", "Yudan suruto jiko ni tsunagarikanenai.", "Ehtiyotsizlik qilsangiz avariyaga olib kelishi mumkin."),
+    ("〜がち (gachi)", "gachi", "... qilishga moyil / ko'pincha sodir bo'ladi", "Fe'l (Masu-ildiz) / Ot + がち", "彼[かれ]は遅刻[ちこく]しがちだ。", "Kare wa chikoku shigachi da.", "U ko'pincha kechikishga moyil."),
+    ("〜っぽい (ppoi)", "ppoi", "...-ga o'xshash / sifatli", "Fe'l (Masu-ildiz) / Ot + っぽい", "彼[かれ]は子供[こども]っぽいところがある。", "Kare wa kodomoppoi tokoro ga aru.", "Unda bolalarcha fe'l bor."),
+    ("〜だらけ (darake)", "darake", "...-ga to'la (Salbiy)", "Ot + だらけ", "この部屋[へや]はホコリだらけだ。", "Kono heya wa hokori darake da.", "Bu xona changga to'la."),
+    ("〜気味 (gimi)", "gimi", "ozgina ... alomati sezilyapti", "Fe'l (Masu-ildiz) / Ot + 気味", "最近[さいきん]、風邪[かぜ]気味[ぎみ]で体調[たいちょう]が良[よ]くない。", "Saikin, kaze gimi de taichou ga yokunai.", "Oxirgi paytlarda ozgina shamollash alomati bor."),
+    ("〜げ (ge)", "ge", "... kabi tuyulyapti / ko'rinyapti", "Sifat / Ot + げ", "彼[かれ]は寂[さび]しげな表情[ひょうじょう]をしている。", "Kare wa sabishige na hyoujou wo shite iru.", "U ma'yus ko'rinishda o'tiribdi."),
+    ("〜に相違ない (ni souinai)", "ni souinai", "hech qanday shubha yo'q (Rasmiy)", "Fe'l/Sifat/Ot + に相違ない", "犯人[はんにん]は彼[かれ]に相違[そうい]ない。", "Hannin wa kare ni souinai.", "Jinoyatchi u ekaniga shubha yo'q."),
+    ("〜に過言ではない (ni kagon de wa nai)", "ni kagon de wa nai", "... desak mubolag'a bo'lmaydi", "Ot / Fe'l (Plain) + と言っても過言ではない", "彼[かれ]は天才[てんさい]と言[い]っても過言[かごん]ではない。", "Kare wa tensai to ittemo kagon de wa nai.", "Uni daho desak mubolag'a bo'lmaydi."),
+    ("〜に過ぎない (ni suginai)", "ni suginai", "...-dan boshqa narsa emas / shunchaki ...", "Fe'l/Sifat/Ot + に過ぎない", "それは単[たん]なる噂[うわさ]に過[す]ぎない。", "Sore wa tannaru uwasa ni suginai.", "Bu shunchaki mish-mishdan boshqa narsa emas."),
+    ("〜に決まっている (ni kimatte iru)", "ni kimatte iru", "shubhasiz ... bo'ladi / aniq-ku!", "Fe'l/Sifat/Ot + に決まっている", "彼[かれ]が勝[か]つに決[き]まっている。", "Kare ga katsu ni kimatte iru.", "U g'olib bo'lishi aniq-ku!"),
+    ("〜よりほかない (yori hoka nai)", "yori hoka nai", "... qilishdan boshqa chora yo'q", "Fe'l (Lug'at) + よりほかない", "自分[じぶん]でやるよりほかはない。", "Jibun de yaru yori hoka wa nai.", "O'zim qilishimdan boshqa chora yo'q."),
+    ("〜に越したことはない (ni koshita koto wa nai)", "ni koshita koto wa nai", "... bo'lsa yana ham yaxshi / a'zosi bo'ladi", "Fe'l/Sifat/Ot + に越したことはない", "準備[じゅんび]は早[はや]いのに越[こ]したことはない。", "Junbi wa hayai no ni koshita koto wa nai.", "Tayyorgarlik vaqtliroq bo'lsa yana ham yaxshi."),
+    ("〜ざるを得ない (zaru wo etanai)", "zaru wo etanai", "...-shga majburmiz / chora yo'q", "Fe'l (Nai-ildiz) + ざるを得ない", "計画[けいかく]を変更[へんこう]せざるを得[え]ない。", "Keikaku wo henkou sezaru wo etanai.", "Rejani o'zgartirishga majburmiz."),
+    ("〜ないではいられない (nai de wa irarenai)", "nai de wa irarenai", "... qilmasdan tura olmayman", "Fe'l (Nai-form) + ではいられない / ずにはいられない", "笑[わら]わずにはいられない。", "Warawazu ni wa irarenai.", "Kulmasdan tura olmayman.")
+]
+
+print(f"Loaded {len(n2_grammar_rules)} official JLPT N2 grammar items!")
