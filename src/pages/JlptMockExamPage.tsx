@@ -1,0 +1,470 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+    ArrowLeft, Clock, Award, Volume2, BookOpen, CheckCircle2, 
+    FileText, BarChart2 
+} from 'lucide-react';
+import { Button } from '../components/ui/Button';
+import { HistoryService } from '../services/HistoryService';
+
+interface ExamQuestion {
+    id: number;
+    section: 'knowledge' | 'reading' | 'listening';
+    questionText: string;
+    passageText?: string; // only for reading
+    audioUrl?: string; // only for listening
+    script?: string; // only for listening
+    options: string[];
+    correctAnswer: number;
+    explanationUzbek: string;
+}
+
+const MOCK_EXAM_QUESTIONS: { [key: string]: ExamQuestion[] } = {
+    'N5': [
+        // Language Knowledge
+        {
+            id: 1,
+            section: 'knowledge',
+            questionText: "きょうは 水曜日（すいようび）です。あしたは（　）曜日です。",
+            options: ["火", "木", "金", "土"],
+            correctAnswer: 1,
+            explanationUzbek: "Bugun Chorshanba (水曜日). Ertaga esa Payshanba (木曜日) bo'ladi."
+        },
+        {
+            id: 2,
+            section: 'knowledge',
+            questionText: "教室（きょうしつ）の なかに つくえ（　）いすが あります。",
+            options: ["と", "が", "を", "も"],
+            correctAnswer: 0,
+            explanationUzbek: "Narsalarni sanashda 'va' ma'nosida 'と' predlogi keladi: tsukue to isu (stol va stul)."
+        },
+        // Reading
+        {
+            id: 3,
+            section: 'reading',
+            passageText: "リーさんは 毎朝（まいあさ）７時に おきます。朝ご飯を 食べてから、８時に 自転車で 学校へ 行きます。学校は ８時半に 始まります。",
+            questionText: "リーさんは 何で 学校へ 行きますか？",
+            options: ["歩いて (piyoda)", "バスで (avtobusda)", "自転車で (velosipedda)", "電車で (poezdda)"],
+            correctAnswer: 2,
+            explanationUzbek: "Matnda aniq keltirilgan: 'jitensha de gakkou e ikimasu' (velosipedda maktabga boradi)."
+        },
+        // Listening
+        {
+            id: 4,
+            section: 'listening',
+            audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+            script: "女の人が話しています。テーブルの上に何を置きますか？\n女：食事の準備をしましょう。お皿を並べて、その右側にスプーンを置いてください。",
+            questionText: "お皿の右側に何を置きますか？ (Likopchaning o'ng tomoniga nima qo'yiladi?)",
+            options: ["フォーク (vilka)", "ナイフ (pichoq)", "スプーン (qoshiq)", "はし (cho'p)"],
+            correctAnswer: 2,
+            explanationUzbek: "Ayol kishi: 'migi gawa ni supuun o oite kudasai' (o'ng tomonga qoshiqni qo'ying) deb buyuradi."
+        }
+    ]
+};
+
+export const JlptMockExamPage: React.FC = () => {
+    const navigate = useNavigate();
+    const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
+    const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
+
+    // Active Section State
+    const [activeSection, setActiveSection] = useState<'knowledge' | 'reading' | 'listening'>('knowledge');
+    const [userAnswers, setUserAnswers] = useState<{ [qId: number]: number }>({});
+
+    // Timer & Status
+    const [timeLeft, setTimeLeft] = useState(3600); // 1 hour
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+    // Audio Playback
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Questions filtering
+    const levelQuestions = MOCK_EXAM_QUESTIONS[level] || MOCK_EXAM_QUESTIONS['N5'];
+    const knowledgeQuestions = levelQuestions.filter(q => q.section === 'knowledge');
+    const readingQuestions = levelQuestions.filter(q => q.section === 'reading');
+    const listeningQuestions = levelQuestions.filter(q => q.section === 'listening');
+
+    // Timer Effect
+    useEffect(() => {
+        let timer: any;
+        if (isTimerRunning && timeLeft > 0) {
+            timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+        } else if (timeLeft === 0 && isTimerRunning) {
+            handleSubmitExam();
+        }
+        return () => clearInterval(timer);
+    }, [isTimerRunning, timeLeft]);
+
+    const formatTime = (secs: number) => {
+        const m = Math.floor(secs / 60);
+        const s = secs % 60;
+        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    };
+
+    const handleStartExam = () => {
+        setUserAnswers({});
+        setStep('exam');
+        setActiveSection('knowledge');
+        setIsTimerRunning(true);
+        setTimeLeft(3000); // 50 mins for mock exam
+    };
+
+    const handleOptionSelect = (qId: number, optionIdx: number) => {
+        setUserAnswers(prev => ({ ...prev, [qId]: optionIdx }));
+    };
+
+    // Listening Audio
+    const handlePlayAudio = (url: string) => {
+        if (isPlaying && audioRef.current) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            const audio = new Audio(url);
+            audioRef.current = audio;
+            audio.play();
+            setIsPlaying(true);
+            audio.onended = () => setIsPlaying(false);
+        }
+    };
+
+    const handleSubmitExam = async () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+        }
+        setIsPlaying(false);
+        setIsTimerRunning(false);
+        setStep('report');
+
+        // Score calculations
+        let correctCount = 0;
+        levelQuestions.forEach(q => {
+            if (userAnswers[q.id] === q.correctAnswer) {
+                correctCount++;
+            }
+        });
+
+        // Unified score out of 180 points maximum (60 pts per section)
+        // Scaled score based on actual correct questions count
+        const totalQ = levelQuestions.length;
+        const finalScorePoints = Math.round((correctCount / totalQ) * 180);
+
+        try {
+            await HistoryService.saveMockExam({
+                examType: 'jlpt',
+                level: level,
+                score: finalScorePoints,
+                totalQuestions: totalQ
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    // Score calculations for UI
+    const getSectionScorePoints = (sect: 'knowledge' | 'reading' | 'listening') => {
+        const sectQuestions = levelQuestions.filter(q => q.section === sect);
+        let correct = 0;
+        sectQuestions.forEach(q => {
+            if (userAnswers[q.id] === q.correctAnswer) {
+                correct++;
+            }
+        });
+        return sectQuestions.length > 0 ? Math.round((correct / sectQuestions.length) * 60) : 0;
+    };
+
+    const getExamTotalScore = () => {
+        return getSectionScorePoints('knowledge') + getSectionScorePoints('reading') + getSectionScorePoints('listening');
+    };
+
+    const isPass = getExamTotalScore() >= 90; // JLPT pass threshold generally 90/180
+
+    return (
+        <div className="p-4 md:p-8 max-w-5xl mx-auto pb-16 space-y-6">
+            {/* Navigation Header */}
+            <div className="flex items-center justify-between border-b border-border pb-4">
+                <button
+                    onClick={() => {
+                        if (audioRef.current) audioRef.current.pause();
+                        navigate('/jlpt');
+                    }}
+                    className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                >
+                    <ArrowLeft size={20} />
+                </button>
+                <span className="px-3 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold text-xs rounded-full border border-rose-500/20">
+                    🎌 JLPT Official Mock Simulator (模擬試験)
+                </span>
+            </div>
+
+            {/* STEP 1: INTRO */}
+            {step === 'intro' && (
+                <div className="bg-card border border-border rounded-3xl p-8 text-center space-y-6 shadow-xl max-w-2xl mx-auto">
+                    <div className="w-16 h-16 bg-rose-500/10 text-rose-600 rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                        <Award size={32} />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-black text-foreground">JLPT Full Simulation Exam</h2>
+                        <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                            Lug'at/Grammatika (言語知識), O'qish (読解) va Tinglash (聴解) bo'limlaridan iborat rasmiy imtihon simulyatori. 180 ballik reyting tizimi.
+                        </p>
+                    </div>
+
+                    {/* Level Selector */}
+                    <div className="grid grid-cols-5 gap-2">
+                        {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
+                            <button
+                                key={lvl}
+                                onClick={() => setLevel(lvl)}
+                                className={`py-3 rounded-xl border text-xs font-black transition-all ${
+                                    level === lvl
+                                        ? 'bg-rose-500 text-white border-rose-500 shadow-md shadow-rose-500/20'
+                                        : 'bg-muted/40 border-border text-muted-foreground hover:bg-muted'
+                                }`}
+                            >
+                                {lvl}
+                            </button>
+                        ))}
+                    </div>
+
+                    <Button
+                        onClick={handleStartExam}
+                        className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20"
+                    >
+                        Mock Imtihonni Boshlash 🚀
+                    </Button>
+                </div>
+            )}
+
+            {/* STEP 2: ACTIVE EXAM */}
+            {step === 'exam' && (
+                <div className="space-y-6">
+                    {/* Top Stats */}
+                    <div className="bg-card border border-border p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                        <span className="text-xs font-black text-rose-500 uppercase">
+                            JLPT {level} Full Simulation Exam
+                        </span>
+                        <div className="flex items-center gap-2 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-4 py-1.5 rounded-full font-mono font-extrabold text-sm border border-rose-500/20">
+                            <Clock size={16} />
+                            <span>{formatTime(timeLeft)}</span>
+                        </div>
+                    </div>
+
+                    {/* Section Switcher Tabs */}
+                    <div className="flex border-b border-border text-xs">
+                        <button
+                            onClick={() => setActiveSection('knowledge')}
+                            className={`flex-1 py-3 font-bold border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+                                activeSection === 'knowledge' ? 'border-rose-500 text-rose-600 dark:text-rose-400' : 'border-transparent text-muted-foreground'
+                            }`}
+                        >
+                            <FileText size={14} />
+                            言語知識 (Language Knowledge)
+                        </button>
+                        <button
+                            onClick={() => setActiveSection('reading')}
+                            className={`flex-1 py-3 font-bold border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+                                activeSection === 'reading' ? 'border-rose-500 text-rose-600 dark:text-rose-400' : 'border-transparent text-muted-foreground'
+                            }`}
+                        >
+                            <BookOpen size={14} />
+                            読解 (Reading)
+                        </button>
+                        <button
+                            onClick={() => setActiveSection('listening')}
+                            className={`flex-1 py-3 font-bold border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+                                activeSection === 'listening' ? 'border-rose-500 text-rose-600 dark:text-rose-400' : 'border-transparent text-muted-foreground'
+                            }`}
+                        >
+                            <Volume2 size={14} />
+                            聴解 (Listening)
+                        </button>
+                    </div>
+
+                    {/* Questions area according to active section */}
+                    <div className="space-y-4">
+                        {activeSection === 'knowledge' && knowledgeQuestions.map(q => (
+                            <div key={q.id} className="bg-card border border-border p-5 rounded-2xl space-y-3 shadow-sm">
+                                <h4 className="text-xs font-black text-foreground font-serif">Q{q.id}. {q.questionText}</h4>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {q.options.map((opt, idx) => {
+                                        const isSelected = userAnswers[q.id] === idx;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                onClick={() => handleOptionSelect(q.id, idx)}
+                                                className={`p-3 rounded-xl border text-center text-xs font-bold transition-all ${
+                                                    isSelected ? 'bg-rose-500/20 border-rose-500 text-rose-600 dark:text-rose-400' : 'bg-muted/30 border-border text-muted-foreground hover:bg-muted'
+                                                }`}
+                                            >
+                                                {opt}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+
+                        {activeSection === 'reading' && readingQuestions.map(q => (
+                            <div key={q.id} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-card border border-border p-6 rounded-3xl shadow-sm h-fit">
+                                    <h4 className="text-xs font-extrabold text-foreground mb-2">読解 (Reading Passage)</h4>
+                                    <p className="text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap">{q.passageText}</p>
+                                </div>
+                                <div className="bg-card border border-border p-5 rounded-2xl space-y-3 shadow-sm h-fit">
+                                    <h4 className="text-xs font-black text-foreground font-serif">Q{q.id}. {q.questionText}</h4>
+                                    <div className="space-y-2">
+                                        {q.options.map((opt, idx) => {
+                                            const isSelected = userAnswers[q.id] === idx;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => handleOptionSelect(q.id, idx)}
+                                                    className={`w-full p-3 rounded-xl border text-left text-xs font-bold transition-all flex items-center justify-between ${
+                                                        isSelected ? 'bg-rose-500/20 border-rose-500 text-rose-600 dark:text-rose-400' : 'bg-muted/30 border-border text-muted-foreground hover:bg-muted'
+                                                    }`}
+                                                >
+                                                    <span>{opt}</span>
+                                                    {isSelected && <CheckCircle2 size={15} className="text-rose-500" />}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+
+                        {activeSection === 'listening' && listeningQuestions.map(q => (
+                            <div key={q.id} className="bg-card border border-border p-5 rounded-2xl space-y-4 shadow-sm">
+                                <div className="flex items-center justify-between border-b border-border pb-3">
+                                    <h4 className="text-xs font-black text-foreground">聴解 (Listening Question)</h4>
+                                    <button
+                                        onClick={() => q.audioUrl && handlePlayAudio(q.audioUrl)}
+                                        className="px-3 py-1.5 bg-rose-500 text-white font-extrabold text-xs rounded-xl flex items-center gap-1.5 shadow"
+                                    >
+                                        <Volume2 size={15} /> {isPlaying ? "Audio to'xtatish" : "Audio eshitish"} 🎧
+                                    </button>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <h4 className="text-xs font-bold text-foreground font-serif">{q.questionText}</h4>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {q.options.map((opt, idx) => {
+                                            const isSelected = userAnswers[q.id] === idx;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => handleOptionSelect(q.id, idx)}
+                                                    className={`p-3 rounded-xl border text-center text-xs font-bold transition-all ${
+                                                        isSelected ? 'bg-rose-500/20 border-rose-500 text-rose-600 dark:text-rose-400' : 'bg-muted/30 border-border text-muted-foreground hover:bg-muted'
+                                                    }`}
+                                                >
+                                                    {opt}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Bottom Submit Actions */}
+                    <div className="pt-6">
+                        <Button
+                            onClick={handleSubmitExam}
+                            className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg"
+                        >
+                            Imtihonni Yakunlash & Natijani Baholash 🎯
+                        </Button>
+                    </div>
+                </div>
+            )}
+
+            {/* STEP 3: REPORT */}
+            {step === 'report' && (
+                <div className="bg-card border border-border rounded-3xl p-8 space-y-6 shadow-xl max-w-2xl mx-auto text-center">
+                    <div className="w-16 h-16 bg-rose-500/10 text-rose-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <Award size={32} />
+                    </div>
+
+                    <div>
+                        <span className="text-xs font-extrabold uppercase text-rose-500 tracking-wider block">
+                            JLPT {level} Mock Exam Report
+                        </span>
+                        <h2 className="text-5xl font-black text-foreground mt-1">
+                            {getExamTotalScore()} / 180 Pt.
+                        </h2>
+                        <span className={`inline-block mt-2 px-3 py-1 font-black text-xs rounded-full ${
+                            isPass ? 'bg-emerald-500/20 text-emerald-600' : 'bg-rose-500/20 text-rose-600'
+                        }`}>
+                            {isPass ? "🟢 PASS (Muvaffaqiyatli o'tdingiz)" : "🔴 FAIL (Yiqildingiz)"}
+                        </span>
+                    </div>
+
+                    {/* Breakdown Scores */}
+                    <div className="grid grid-cols-3 gap-2 text-center border-t border-border pt-4">
+                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
+                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">Til bilimi</span>
+                            <span className="text-base font-black text-foreground">{getSectionScorePoints('knowledge')} / 60</span>
+                        </div>
+                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
+                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">O'qish</span>
+                            <span className="text-base font-black text-foreground">{getSectionScorePoints('reading')} / 60</span>
+                        </div>
+                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
+                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">Tinglash</span>
+                            <span className="text-base font-black text-foreground">{getSectionScorePoints('listening')} / 60</span>
+                        </div>
+                    </div>
+
+                    {/* Explanations List */}
+                    <div className="text-left space-y-3 border-t border-border pt-4">
+                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                            <BarChart2 size={16} /> Savollar Tahlili:
+                        </h4>
+
+                        {levelQuestions.map((q, idx) => {
+                            const isCorrect = userAnswers[q.id] === q.correctAnswer;
+                            return (
+                                <div key={q.id} className={`p-4 rounded-2xl border text-xs space-y-2 ${isCorrect ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
+                                    <div className="font-bold text-foreground flex items-center justify-between">
+                                        <span>Q{idx + 1}. {q.questionText}</span>
+                                        <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${isCorrect ? 'bg-emerald-500/20 text-emerald-600' : 'bg-rose-500/20 text-rose-600'}`}>
+                                            {isCorrect ? "To'g'ri" : "Xato"}
+                                        </span>
+                                    </div>
+
+                                    {q.script && (
+                                        <p className="text-[10px] text-muted-foreground bg-muted/50 p-2 rounded-lg italic">
+                                            <b>Audio Script:</b> {q.script}
+                                        </p>
+                                    )}
+
+                                    <p className="text-[11px] text-muted-foreground">
+                                        To'g'ri javob: <span className="font-bold text-rose-500">{q.options[q.correctAnswer]}</span>
+                                    </p>
+
+                                    <div className="text-muted-foreground text-[10px] bg-muted/40 p-2 rounded-lg border border-border/50">
+                                        💡 <b>Tushuntirish:</b> {q.explanationUzbek}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <Button
+                        onClick={() => {
+                            setStep('intro');
+                        }}
+                        className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg"
+                    >
+                        Bosh sahifaga qaytish 🔄
+                    </Button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default JlptMockExamPage;

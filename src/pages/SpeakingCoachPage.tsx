@@ -16,6 +16,7 @@ import { CoachChatArea } from '../components/speaking/CoachChatArea';
 import { CoachControlBar } from '../components/speaking/CoachControlBar';
 import { CoachSettingsModal } from '../components/speaking/CoachSettingsModal';
 import { CoachProModal } from '../components/speaking/CoachProModal';
+import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
     en: [
@@ -417,16 +418,21 @@ const SpeakingCoachPage: React.FC = () => {
             {/* MAIN CONTENT AREA */}
             <div className="flex-1 min-h-0 mx-3 md:mx-5 mb-2 flex flex-col overflow-hidden relative">
                 {chatHistory.length === 0 && !isLiveSession ? (
-                    <CoachWelcomeScreen 
-                        currentPersona={currentPersona}
-                        isLiveSession={isLiveSession}
-                        isSpeaking={isSpeaking}
-                        isThinking={isThinking}
-                        isListening={isListening}
-                        promptSuggestions={PROMPT_SUGGESTIONS}
-                        onStartSession={startSession}
-                        onPromptClick={handlePromptClick}
-                    />
+                    <div className="flex-1 overflow-y-auto space-y-6 pr-1">
+                        <CoachWelcomeScreen 
+                            currentPersona={currentPersona}
+                            isLiveSession={isLiveSession}
+                            isSpeaking={isSpeaking}
+                            isThinking={isThinking}
+                            isListening={isListening}
+                            promptSuggestions={PROMPT_SUGGESTIONS}
+                            onStartSession={startSession}
+                            onPromptClick={handlePromptClick}
+                        />
+                        <div className="max-w-2xl mx-auto pb-8">
+                            <CoachProgressDashboard />
+                        </div>
+                    </div>
                 ) : (
                     <CoachChatArea 
                         chatHistory={chatHistory}

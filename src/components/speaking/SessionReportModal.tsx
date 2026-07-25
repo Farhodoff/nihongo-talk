@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Award, AlertCircle, CheckCircle, Sparkles, BookOpen, Download } from 'lucide-react';
+import { X, Award, AlertCircle, CheckCircle, Sparkles, BookOpen, Download, Volume2 } from 'lucide-react';
 import { SessionAnalysisReport } from '../../utils/ai';
 
 interface SessionReportModalProps {
@@ -59,25 +59,37 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                     ) : report ? (
                         <>
                             {/* Score & Overall Feedback Banner */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex flex-col items-center justify-center text-center shadow-lg">
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-indigo-100">
-                                        Fluency / Band Bali
+                                    <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-100">
+                                        Fluency Score
                                     </span>
-                                    <div className="text-4xl font-extrabold my-1">
-                                        {report.fluency_score.toFixed(1)} <span className="text-lg opacity-80">/ 9.0</span>
+                                    <div className="text-3xl font-extrabold my-1">
+                                        {report.fluency_score.toFixed(1)} <span className="text-xs opacity-80">/ 9.0</span>
                                     </div>
-                                    <span className="text-xs text-indigo-100/90 font-medium">
-                                        Erkin so'zlashuv bahosi
+                                    <span className="text-[10px] text-indigo-100/90 font-medium">
+                                        Erkin so'zlashuv
+                                    </span>
+                                </div>
+
+                                <div className="p-5 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 text-white flex flex-col items-center justify-center text-center shadow-lg">
+                                    <span className="text-[10px] font-semibold uppercase tracking-wider text-rose-100">
+                                        Pronunciation
+                                    </span>
+                                    <div className="text-3xl font-extrabold my-1">
+                                        {report.pronunciation_score ? report.pronunciation_score.toFixed(1) : '7.0'} <span className="text-xs opacity-80">/ 9.0</span>
+                                    </div>
+                                    <span className="text-[10px] text-rose-100/90 font-medium">
+                                        Talaffuz bali
                                     </span>
                                 </div>
 
                                 <div className="md:col-span-2 p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 flex flex-col justify-center">
-                                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
+                                    <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-1">
                                         <Sparkles size={16} className="text-indigo-500" />
                                         Umumiy Xulosa
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
                                         {report.overall_feedback}
                                     </p>
                                 </div>
@@ -113,6 +125,31 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                     </ul>
                                 </div>
                             </div>
+
+                            {/* Pronunciation Feedback & Errors */}
+                            {((report.pronunciation_errors && report.pronunciation_errors.length > 0) || report.pronunciation_feedback) && (
+                                <div className="space-y-3 bg-rose-500/5 dark:bg-rose-950/10 p-5 border border-rose-500/20 rounded-3xl">
+                                    <h4 className="text-sm font-bold text-rose-700 dark:text-rose-400 flex items-center gap-2">
+                                        <Volume2 size={18} />
+                                        Talaffuz va Intonatsiya Tahlili
+                                    </h4>
+                                    {report.pronunciation_feedback && (
+                                        <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                                            {report.pronunciation_feedback}
+                                        </p>
+                                    )}
+                                    {report.pronunciation_errors && report.pronunciation_errors.length > 0 && (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                                            {report.pronunciation_errors.map((err, idx) => (
+                                                <div key={idx} className="p-3 bg-white dark:bg-gray-900 border border-rose-500/20 rounded-xl text-xs space-y-1">
+                                                    <span className="font-serif font-black text-rose-600 dark:text-rose-400 block">"{err.word}"</span>
+                                                    <span className="text-[10px] text-muted-foreground block">💡 {err.correctionHelp}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
                             {/* Grammar Corrections */}
                             {report.grammar_corrections.length > 0 && (

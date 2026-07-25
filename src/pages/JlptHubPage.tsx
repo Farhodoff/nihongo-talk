@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame } from 'lucide-react';
+import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { JlptOnboardingModal } from '../components/jlpt/JlptOnboardingModal';
 import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaster';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 
 export const JlptHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -132,6 +133,46 @@ export const JlptHubPage: React.FC = () => {
                     </div>
                 </div>
 
+                {/* JLPT Grammar Quiz */}
+                <div
+                    onClick={() => navigate('/jlpt/grammar')}
+                    className="group bg-card p-6 rounded-3xl border border-border shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <BookOpen size={24} />
+                        </div>
+                        <h3 className="text-lg font-black text-foreground mb-1">Bunpou (文法) Grammar Quiz ⛩️</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            N5-N1 darajalari bo'yicha grammatika qoliplari va predloglarni interaktiv testlar yordamida tekshirish.
+                        </p>
+                    </div>
+                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-amber-500">
+                        <span>Testni Boshlash</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+
+                {/* JLPT Listening Mock */}
+                <div
+                    onClick={() => navigate('/jlpt/listening')}
+                    className="group bg-card p-6 rounded-3xl border border-border shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Volume2 size={24} />
+                        </div>
+                        <h3 className="text-lg font-black text-foreground mb-1">Choukai (聴解) Listening Mock 🎧</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            N5-N1 Yapon tili tinglab tushunish mock imtihonlari va skript tahlili.
+                        </p>
+                    </div>
+                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-rose-500">
+                        <span>Mashq qilish</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+
                 {/* Kanji Flashcards */}
                 <div
                     onClick={() => navigate('/flashcards')}
@@ -151,6 +192,31 @@ export const JlptHubPage: React.FC = () => {
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                 </div>
+
+                {/* JLPT Mock Exam */}
+                <div
+                    onClick={() => navigate('/jlpt/mock-exam')}
+                    className="group bg-gradient-to-br from-rose-500/10 via-amber-500/5 to-purple-500/10 p-6 rounded-3xl border border-rose-500/30 shadow-md hover:shadow-2xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Award size={24} />
+                        </div>
+                        <h3 className="text-lg font-black text-foreground mb-1">JLPT Full Mock Exam 🏆</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            Barcha bo'limlardan iborat to'liq 180 ballik rasmiy JLPT darajasidagi mock imtihoni.
+                        </p>
+                    </div>
+                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-rose-500">
+                        <span>Imtihonni Boshlash</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+            </div>
+
+            {/* Kanji Canvas Practice Section */}
+            <div className="mt-8">
+                <KanjiCanvasPractice />
             </div>
 
             {/* JLPT Grammar & Kanji Master Library */}

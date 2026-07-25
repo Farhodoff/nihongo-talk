@@ -6,6 +6,7 @@ import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
 import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
 import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
 import { IeltsStudyPlanResult } from '../utils/ai';
+import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -109,6 +110,11 @@ export const IeltsHubPage: React.FC = () => {
             {/* Real Analytics & Weakness Diagnostic Section */}
             <div className="mb-8">
                 <RealWeaknessTracker />
+            </div>
+
+            {/* AI Vocabulary Generator Section */}
+            <div className="mb-8">
+                <VocabularyGenerator />
             </div>
 
             {/* Core Tools Grid */}

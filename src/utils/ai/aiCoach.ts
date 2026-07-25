@@ -277,6 +277,9 @@ export const fetchOpenAITTS = async (
 
 export interface SessionAnalysisReport {
     fluency_score: number;
+    pronunciation_score: number;
+    pronunciation_feedback: string;
+    pronunciation_errors: { word: string; correctionHelp: string }[];
     grammar_corrections: { original: string; corrected: string; explanation: string }[];
     better_vocabulary: { original: string; suggested: string; context: string }[];
     overall_feedback: string;
@@ -293,6 +296,9 @@ export const analyzeSpeakingSession = async (
     if (userMessages.length === 0) {
         return {
             fluency_score: 0,
+            pronunciation_score: 0,
+            pronunciation_feedback: "Talaffuz tahlili uchun suhbatda gaplar aytilishi lozim.",
+            pronunciation_errors: [],
             grammar_corrections: [],
             better_vocabulary: [],
             overall_feedback: "Suhbatda hali hech qanday gap aytilmadi.",
@@ -311,11 +317,20 @@ export const analyzeSpeakingSession = async (
       ${conversationText}
 
       Task: Analyze ALL student responses and provide a JSON feedback report.
+      Identify phoneme stress, intonation patterns, grammatical flaws, and lexical alternatives.
       Language of explanation: Uzbek (O'zbek tilida tushuntiring).
       
       Output Format (Strictly valid JSON):
       {
         "fluency_score": 8.0,
+        "pronunciation_score": 7.5,
+        "pronunciation_feedback": "Intonatsiya va urg'u bo'yicha tahlil (in Uzbek)...",
+        "pronunciation_errors": [
+          {
+            "word": "incorrectly pronounced word",
+            "correctionHelp": "How to fix it or correct stress help in Uzbek"
+          }
+        ],
         "grammar_corrections": [
           {
             "original": "Student's flawed sentence",
@@ -380,6 +395,9 @@ export const analyzeSpeakingSession = async (
 
         return {
             fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 7.0,
+            pronunciation_score: typeof data.pronunciation_score === 'number' ? data.pronunciation_score : 7.0,
+            pronunciation_feedback: data.pronunciation_feedback || "Talaffuzingiz yaxshi, urg'uga biroz e'tibor bering.",
+            pronunciation_errors: Array.isArray(data.pronunciation_errors) ? data.pronunciation_errors : [],
             grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
             better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
             overall_feedback: data.overall_feedback || "Yaxshi harakat qildingiz, mashq qilishni davom eting!",
@@ -390,6 +408,9 @@ export const analyzeSpeakingSession = async (
         console.error("Session Analysis Error:", err);
         return {
             fluency_score: 6.5,
+            pronunciation_score: 6.5,
+            pronunciation_feedback: "Sessiya tugadi. Kelgusida talaffuzingiz ustida ishlashni davom eting.",
+            pronunciation_errors: [],
             grammar_corrections: [],
             better_vocabulary: [],
             overall_feedback: "Suhbat yakunlandi. Keyingi gal yanada ko'proq mashq qiling!",

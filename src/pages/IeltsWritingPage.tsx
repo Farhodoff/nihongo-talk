@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History } from 'lucide-react';
 import { evaluateIeltsEssay, IeltsEssayEvaluationReport, isAIKeyConfigured } from '../utils/ai';
 import { useSubscription } from '../hooks/useSubscription';
+import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 const SAMPLE_PROMPTS = {
     task1: [
@@ -27,9 +29,25 @@ const IeltsWritingPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'scores' | 'errors' | 'model'>('scores');
     const [copied, setCopied] = useState(false);
 
+    // History States
+    const [historyList, setHistoryList] = useState<WritingHistoryItem[]>([]);
+
     const wordCount = essayText.trim().split(/\s+/).filter(Boolean).length;
     const minWords = taskType === 'task1' ? 150 : 250;
     const isWordCountSufficient = wordCount >= minWords;
+
+    const fetchHistory = async () => {
+        try {
+            const data = await HistoryService.getWritingHistory();
+            setHistoryList(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    useEffect(() => {
+        fetchHistory();
+    }, []);
 
     const handleAnalyze = async () => {
         if (!essayText.trim()) {
@@ -41,6 +59,24 @@ const IeltsWritingPage: React.FC = () => {
         try {
             const res = await evaluateIeltsEssay(taskType, promptQuestion, essayText);
             setReport(res);
+
+            // Save Attempt to History
+            await HistoryService.saveWritingAttempt({
+                taskType: taskType,
+                prompt: promptQuestion,
+                essay: essayText,
+                score: res.overallBand,
+                criteriaBreakdown: {
+                    tr: res.taskResponseScore,
+                    cc: res.coherenceScore,
+                    lr: res.lexicalResourceScore,
+                    gra: res.grammarScore
+                },
+                feedback: res.taskResponseFeedback
+            });
+
+            // Refresh history
+            fetchHistory();
         } catch (err: any) {
             setErrorMsg(err?.message || "Xatolik yuz berdi");
         } finally {
@@ -55,23 +91,29 @@ const IeltsWritingPage: React.FC = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    // Chart Data mapping
+    const chartData = [...historyList]
+        .reverse()
+        .map(item => ({
+            date: new Date(item.createdAt).toLocaleDateString([], { month: 'short', day: 'numeric' }),
+            score: item.score
+        }));
+
     return (
-        <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16">
+        <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16 space-y-8">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-                <div>
-                    <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white shadow-md shadow-indigo-500/20">
-                            <FileText size={24} />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">
-                                IELTS Writing Evaluator ✍️
-                            </h1>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                                Task 1 va Task 2 insholaringizni AI orqali rasmiy mezonlar bo'yicha baholatib, Band 8.0 namunasini oling.
-                            </p>
-                        </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-6">
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white shadow-md shadow-indigo-500/20">
+                        <FileText size={24} />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">
+                            IELTS Writing Evaluator ✍️
+                        </h1>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Task 1 va Task 2 insholaringizni AI orqali rasmiy mezonlar bo'yicha baholatib, Band 8.0 namunasini oling.
+                        </p>
                     </div>
                 </div>
 
@@ -82,7 +124,7 @@ const IeltsWritingPage: React.FC = () => {
                             setTaskType('task1');
                             setPromptQuestion(SAMPLE_PROMPTS.task1[0]);
                         }}
-                        className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                        className={`px-5 py-2 rounded-xl text-xs font-bold transition-all ${
                             taskType === 'task1'
                                 ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
                                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900'
@@ -95,7 +137,7 @@ const IeltsWritingPage: React.FC = () => {
                             setTaskType('task2');
                             setPromptQuestion(SAMPLE_PROMPTS.task2[0]);
                         }}
-                        className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                        className={`px-5 py-2 rounded-xl text-xs font-bold transition-all ${
                             taskType === 'task2'
                                 ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
                                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900'
@@ -106,12 +148,33 @@ const IeltsWritingPage: React.FC = () => {
                 </div>
             </div>
 
+            {/* Analytics & Progression Chart */}
+            {chartData.length > 0 && (
+                <div className="bg-card border border-border p-5 rounded-3xl space-y-4 shadow-sm">
+                    <h3 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <History size={16} className="text-indigo-500" />
+                        Writing Progression Dinamikasi (Band Score Tarixi)
+                    </h3>
+                    <div className="h-44 w-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={chartData}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                                <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
+                                <YAxis domain={[4.0, 9.0]} ticks={[4.0, 5.0, 6.0, 7.0, 8.0, 9.0]} stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
+                                <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
+                                <Line type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Left Column: Input Form */}
                 <div className="lg:col-span-6 space-y-6">
                     {/* Prompt Selection */}
-                    <div className="bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                    <div className="bg-card border border-border p-6 rounded-3xl shadow-sm">
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">
                             Mavzu / Savol (Essay Prompt)
                         </label>
                         <textarea
@@ -119,15 +182,15 @@ const IeltsWritingPage: React.FC = () => {
                             onChange={(e) => setPromptQuestion(e.target.value)}
                             rows={3}
                             placeholder="Mavzuni kiritishingiz yoki quyidagi tayyor savollardan tanlashingiz mumkin..."
-                            className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-2xl text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-none"
+                            className="w-full px-4 py-3 bg-muted/40 border border-border rounded-2xl text-xs text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-none"
                         />
                         <div className="flex flex-wrap gap-2 mt-3">
-                            <span className="text-xs font-semibold text-gray-400">Namunalar:</span>
+                            <span className="text-[10px] font-semibold text-gray-400">Namunalar:</span>
                             {SAMPLE_PROMPTS[taskType].map((sample, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setPromptQuestion(sample)}
-                                    className="text-xs bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full font-medium hover:bg-indigo-100 transition-all text-left truncate max-w-xs"
+                                    className="text-[10px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full font-medium hover:bg-indigo-100 transition-all text-left truncate max-w-xs"
                                 >
                                     Mavzu {idx + 1}
                                 </button>
@@ -136,271 +199,263 @@ const IeltsWritingPage: React.FC = () => {
                     </div>
 
                     {/* Essay Text Area */}
-                    <div className="bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                    <div className="bg-card border border-border p-6 rounded-3xl shadow-sm">
                         <div className="flex justify-between items-center mb-2">
-                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
+                            <label className="block text-xs font-bold text-gray-700 dark:text-gray-300">
                                 Sizning Inshongiz (Your Essay)
                             </label>
-                            <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${
                                 isWordCountSufficient
                                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400'
                                     : 'bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400'
-                            }`}>
+                             }`}>
                                 {wordCount} so'z {isWordCountSufficient ? '✓' : `(min ${minWords})`}
                             </span>
                         </div>
-
                         <textarea
                             value={essayText}
                             onChange={(e) => setEssayText(e.target.value)}
-                            rows={12}
-                            placeholder="Inshoingizni shu yerga yozing yoki nusxalab tashlang..."
-                            className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-2xl text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all leading-relaxed"
+                            rows={10}
+                            placeholder="Inshoni bu yerga yozing..."
+                            className="w-full px-4 py-3 bg-muted/40 border border-border rounded-2xl text-xs text-gray-900 dark:text-white font-serif leading-relaxed focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-y"
                         />
-
+                        <div className="flex justify-end gap-3 mt-4">
+                            <button
+                                onClick={handleAnalyze}
+                                disabled={isAnalyzing || !essayText.trim()}
+                                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition-all disabled:opacity-50 flex items-center gap-1.5"
+                            >
+                                {isAnalyzing ? <RefreshCw className="animate-spin" size={14} /> : <Sparkles size={14} />}
+                                <span>{isAnalyzing ? "Tahlil qilinmoqda..." : "AI Baholash 🚀"}</span>
+                            </button>
+                        </div>
                         {errorMsg && (
-                            <div className="mt-3 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 text-xs rounded-xl flex items-center gap-2">
-                                <AlertCircle size={16} />
-                                {errorMsg}
-                            </div>
+                            <p className="text-xs text-rose-500 mt-2 flex items-center gap-1">
+                                <AlertCircle size={14} /> {errorMsg}
+                            </p>
                         )}
-
-                        <button
-                            onClick={handleAnalyze}
-                            disabled={isAnalyzing}
-                            className="w-full mt-4 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 hover:shadow-xl active:scale-[0.99] disabled:opacity-50"
-                        >
-                            {isAnalyzing ? (
-                                <>
-                                    <RefreshCw className="animate-spin" size={20} />
-                                    <span>AI Inshoni Tekshirmoqda...</span>
-                                </>
-                            ) : (
-                                <>
-                                    <Sparkles size={20} />
-                                    <span>Inshoni AI Bilan Baholash</span>
-                                </>
-                            )}
-                        </button>
                     </div>
+
+                    {/* Previous Attempts History List */}
+                    {historyList.length > 0 && (
+                        <div className="bg-card border border-border p-6 rounded-3xl shadow-sm space-y-4">
+                            <h3 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                                <History size={16} /> O'tgan urinishlar tarixi
+                            </h3>
+                            <div className="max-h-60 overflow-y-auto space-y-2 pr-1">
+                                {historyList.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            // Mock evaluation report display from historical data
+                                            setReport({
+                                                overallBand: item.score,
+                                                taskResponseScore: item.criteriaBreakdown.tr,
+                                                coherenceScore: item.criteriaBreakdown.cc,
+                                                lexicalResourceScore: item.criteriaBreakdown.lr,
+                                                grammarScore: item.criteriaBreakdown.gra,
+                                                taskResponseFeedback: item.feedback,
+                                                coherenceFeedback: 'Historical cohesion overview.',
+                                                lexicalResourceFeedback: 'Historical vocabulary overview.',
+                                                grammarFeedback: 'Historical grammar overview.',
+                                                wordCount: item.essay.split(' ').length,
+                                                strengths: [],
+                                                weaknesses: [],
+                                                grammarErrors: [],
+                                                advancedVocabularySuggestions: [],
+                                                modelAnswerBand8: 'Obuna yoki eski model hisoboti namunasini yuklang.',
+                                                improvementTips: []
+                                            });
+                                            setEssayText(item.essay);
+                                            setPromptQuestion(item.prompt);
+                                            setTaskType(item.taskType);
+                                        }}
+                                        className="w-full p-3 bg-muted/40 hover:bg-muted border border-border rounded-xl transition-all flex items-center justify-between text-left text-xs"
+                                    >
+                                        <div>
+                                            <span className="font-bold text-foreground capitalize block">{item.taskType}</span>
+                                            <span className="text-[10px] text-muted-foreground block mt-0.5">
+                                                {new Date(item.createdAt).toLocaleDateString()} · {item.essay.split(' ').length} so'z
+                                            </span>
+                                        </div>
+                                        <span className="font-black text-indigo-500 bg-indigo-500/10 px-2 py-1 rounded">
+                                            Band {item.score.toFixed(1)}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
-                {/* Right Column: AI Feedback Report */}
+                {/* Right Column: AI Report Display */}
                 <div className="lg:col-span-6">
-                    {!report && !isAnalyzing && (
-                        <div className="h-full bg-white dark:bg-[#1f2937] p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center justify-center text-center min-h-[400px]">
-                            <div className="p-4 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl mb-4">
-                                <Award size={40} />
+                    {report === null ? (
+                        <div className="bg-muted/30 border border-dashed border-border rounded-3xl h-full min-h-[350px] flex flex-col items-center justify-center p-6 text-center text-muted-foreground">
+                            <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center mb-3">
+                                <Award size={24} />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                Natijani Ko'rish Uchun Inshoni Yuboring
-                            </h3>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md">
-                                Chap tomondagi maydonga inshoyingizni kiriting va "AI Bilan Baholash" tugmasini bosing. AI sizga rasmiy 4 mezon bo'yicha ball va takomillashtirilgan namuna beradi.
+                            <h4 className="text-xs font-black text-foreground">AI Baholash Reporti Kutilmoqda</h4>
+                            <p className="text-[10px] max-w-xs mt-1 leading-relaxed">
+                                Inshoingizni yozib, AI Baholash tugmasini bosing va to'liq tahlilni shu yerda oling.
                             </p>
                         </div>
-                    )}
-
-                    {isAnalyzing && (
-                        <div className="h-full bg-white dark:bg-[#1f2937] p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center justify-center text-center min-h-[400px]">
-                            <div className="relative mb-6">
-                                <div className="w-20 h-20 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin"></div>
-                                <Sparkles className="absolute inset-0 m-auto text-indigo-600 animate-pulse" size={28} />
-                            </div>
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                                AI Examiner Inshoni Tahlil Qilmoqda...
-                            </h3>
-                            <p className="text-xs text-gray-400 max-w-xs">
-                                Grammatika, Lug'at boyligi (Lexical Resource) hamda Coherence mezonlari baholanmoqda.
-                            </p>
-                        </div>
-                    )}
-
-                    {report && !isAnalyzing && (
+                    ) : (
                         <div className="space-y-6">
-                            {/* Overall Band Banner */}
-                            <div className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 p-6 rounded-3xl text-white shadow-xl flex items-center justify-between">
+                            {/* Score Overview Card */}
+                            <div className="bg-card border border-border p-6 rounded-3xl shadow-sm text-center space-y-4">
                                 <div>
-                                    <span className="text-xs font-bold uppercase tracking-wider text-indigo-200">
-                                        Overall IELTS Band Score
+                                    <span className="text-[10px] font-extrabold uppercase text-indigo-500 tracking-wider block">
+                                        Estimated IELTS Writing Band
                                     </span>
-                                    <div className="text-5xl font-black mt-1 flex items-baseline gap-2">
-                                        {report.overallBand.toFixed(1)}
-                                        <span className="text-base font-normal text-indigo-200">/ 9.0</span>
-                                    </div>
-                                    <p className="text-xs text-indigo-200 mt-2">
-                                        Total words: {report.wordCount} {report.wordCount < minWords && '(Vaqt/Soni kam)'}
+                                    <h2 className="text-4xl font-black text-foreground mt-1">
+                                        Band {report.overallBand.toFixed(1)}
+                                    </h2>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        {report.taskResponseFeedback}
                                     </p>
                                 </div>
-                                <div className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 text-center min-w-[100px]">
-                                    <Award size={32} className="mx-auto text-amber-300 mb-1" />
-                                    <span className="text-xs font-semibold block">Official Rating</span>
+
+                                {/* Criteria Scores breakdown grid */}
+                                <div className="grid grid-cols-4 gap-2 pt-2 text-center">
+                                    <div className="p-2.5 bg-muted/40 border border-border rounded-xl">
+                                        <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">TA / TR</span>
+                                        <span className="text-sm font-black text-foreground">{report.taskResponseScore.toFixed(1)}</span>
+                                    </div>
+                                    <div className="p-2.5 bg-muted/40 border border-border rounded-xl">
+                                        <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">C & C</span>
+                                        <span className="text-sm font-black text-foreground">{report.coherenceScore.toFixed(1)}</span>
+                                    </div>
+                                    <div className="p-2.5 bg-muted/40 border border-border rounded-xl">
+                                        <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">LR</span>
+                                        <span className="text-sm font-black text-foreground">{report.lexicalResourceScore.toFixed(1)}</span>
+                                    </div>
+                                    <div className="p-2.5 bg-muted/40 border border-border rounded-xl">
+                                        <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">GRA</span>
+                                        <span className="text-sm font-black text-foreground">{report.grammarScore.toFixed(1)}</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Tabs Navigation */}
-                            <div className="flex bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl border border-gray-200 dark:border-gray-700">
+                            {/* Tab Selection */}
+                            <div className="flex border-b border-border text-xs">
                                 <button
                                     onClick={() => setActiveTab('scores')}
-                                    className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                                        activeTab === 'scores'
-                                            ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                                            : 'text-gray-600 dark:text-gray-400'
+                                    className={`flex-1 py-3 font-bold border-b-2 transition-all ${
+                                        activeTab === 'scores' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-muted-foreground'
                                     }`}
                                 >
-                                    📊 Mezonlar Balli
+                                    Mezonlar Tahlili
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('errors')}
-                                    className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                                        activeTab === 'errors'
-                                            ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                                            : 'text-gray-600 dark:text-gray-400'
+                                    className={`flex-1 py-3 font-bold border-b-2 transition-all ${
+                                        activeTab === 'errors' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-muted-foreground'
                                     }`}
                                 >
-                                    🔍 Xatolar & Lug'at ({report.grammarErrors.length})
+                                    Xato & Takliflar ({report.grammarErrors.length})
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('model')}
-                                    className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                                        activeTab === 'model'
-                                            ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                                            : 'text-gray-600 dark:text-gray-400'
+                                    className={`flex-1 py-3 font-bold border-b-2 transition-all ${
+                                        activeTab === 'model' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-muted-foreground'
                                     }`}
                                 >
-                                    ✨ Band 8.0 Namuna
+                                    Model Answer
                                 </button>
                             </div>
 
-                            {/* Tab 1: Scores & Criteria Breakdown */}
+                            {/* Tab 1: Criteria Details */}
                             {activeTab === 'scores' && (
                                 <div className="space-y-4">
-                                    {/* Criteria 1 */}
-                                    <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="font-bold text-sm text-gray-800 dark:text-gray-200">
-                                                1. Task {taskType === 'task1' ? 'Achievement' : 'Response'} (TR)
-                                            </span>
-                                            <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-sm">
-                                                {report.taskResponseScore.toFixed(1)}
-                                            </span>
+                                    <div className="bg-card border border-border p-5 rounded-2xl shadow-sm">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="font-bold text-xs text-foreground">1. Task Achievement / Response</span>
+                                            <span className="font-extrabold text-indigo-500 text-xs">{report.taskResponseScore.toFixed(1)}</span>
                                         </div>
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                                            {report.taskResponseFeedback}
-                                        </p>
+                                        <p className="text-[11px] text-muted-foreground leading-relaxed">{report.taskResponseFeedback}</p>
                                     </div>
 
-                                    {/* Criteria 2 */}
-                                    <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="font-bold text-sm text-gray-800 dark:text-gray-200">
-                                                2. Coherence & Cohesion (CC)
-                                            </span>
-                                            <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-sm">
-                                                {report.coherenceScore.toFixed(1)}
-                                            </span>
+                                    <div className="bg-card border border-border p-5 rounded-2xl shadow-sm">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="font-bold text-xs text-foreground">2. Coherence & Cohesion</span>
+                                            <span className="font-extrabold text-indigo-500 text-xs">{report.coherenceScore.toFixed(1)}</span>
                                         </div>
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                                            {report.coherenceFeedback}
-                                        </p>
+                                        <p className="text-[11px] text-muted-foreground leading-relaxed">{report.coherenceFeedback}</p>
                                     </div>
 
-                                    {/* Criteria 3 */}
-                                    <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="font-bold text-sm text-gray-800 dark:text-gray-200">
-                                                3. Lexical Resource (LR)
-                                            </span>
-                                            <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-sm">
-                                                {report.lexicalResourceScore.toFixed(1)}
-                                            </span>
+                                    <div className="bg-card border border-border p-5 rounded-2xl shadow-sm">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="font-bold text-xs text-foreground">3. Lexical Resource</span>
+                                            <span className="font-extrabold text-indigo-500 text-xs">{report.lexicalResourceScore.toFixed(1)}</span>
                                         </div>
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                                            {report.lexicalResourceFeedback}
-                                        </p>
+                                        <p className="text-[11px] text-muted-foreground leading-relaxed">{report.lexicalResourceFeedback}</p>
                                     </div>
 
-                                    {/* Criteria 4 */}
-                                    <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="font-bold text-sm text-gray-800 dark:text-gray-200">
-                                                4. Grammatical Range & Accuracy (GRA)
-                                            </span>
-                                            <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-sm">
-                                                {report.grammarScore.toFixed(1)}
-                                            </span>
+                                    <div className="bg-card border border-border p-5 rounded-2xl shadow-sm">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="font-bold text-xs text-foreground">4. Grammatical Range & Accuracy</span>
+                                            <span className="font-extrabold text-indigo-500 text-xs">{report.grammarScore.toFixed(1)}</span>
                                         </div>
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                                            {report.grammarFeedback}
-                                        </p>
+                                        <p className="text-[11px] text-muted-foreground leading-relaxed">{report.grammarFeedback}</p>
                                     </div>
                                 </div>
                             )}
 
-                            {/* Tab 2: Error Corrections */}
+                            {/* Tab 2: Errors & Corrections */}
                             {activeTab === 'errors' && (
                                 <div className="space-y-4">
-                                    <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                                        <AlertCircle size={16} className="text-rose-500" />
-                                        Grammatik va Lug'at Xatolari
+                                    <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                                        <AlertCircle size={16} className="text-rose-500" /> Grammatik va Lug'at Xatolari
                                     </h4>
-
                                     {report.grammarErrors.length === 0 ? (
-                                        <div className="p-6 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl border border-emerald-200 text-emerald-700 dark:text-emerald-400 text-xs text-center">
+                                        <p className="text-xs text-emerald-500 bg-emerald-500/10 p-4 border border-emerald-500/20 rounded-2xl text-center">
                                             Ajoyib! Jiddiy grammatik xatolar topilmadi.
-                                        </div>
+                                        </p>
                                     ) : (
                                         report.grammarErrors.map((err, idx) => (
-                                            <div key={idx} className="bg-white dark:bg-[#1f2937] p-4 rounded-2xl border border-gray-100 dark:border-gray-800 space-y-2">
+                                            <div key={idx} className="bg-card border border-border p-4 rounded-xl space-y-2 shadow-xs">
                                                 <div className="flex items-center gap-2 text-xs">
-                                                    <span className="bg-rose-100 dark:bg-rose-950/50 text-rose-600 px-2 py-0.5 rounded font-mono line-through">
+                                                    <span className="bg-rose-500/15 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded font-mono line-through">
                                                         {err.original}
                                                     </span>
-                                                    <ArrowRight size={14} className="text-gray-400" />
-                                                    <span className="bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold">
+                                                    <ArrowRight size={14} className="text-muted-foreground" />
+                                                    <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold">
                                                         {err.corrected}
                                                     </span>
                                                 </div>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                    💡 {err.explanation}
-                                                </p>
+                                                <p className="text-[11px] text-muted-foreground">💡 {err.explanation}</p>
                                             </div>
                                         ))
                                     )}
 
-                                    <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 pt-4 flex items-center gap-2">
-                                        <BookOpen size={16} className="text-indigo-500" />
-                                        Band 8.0+ Lug'at Takliflari
-                                    </h4>
-
-                                    {report.advancedVocabularySuggestions.map((vocab, idx) => (
-                                        <div key={idx} className="bg-indigo-50/50 dark:bg-indigo-950/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-900/30 space-y-1">
-                                            <div className="flex items-center justify-between text-xs">
-                                                <span className="text-gray-500 line-through">{vocab.original}</span>
-                                                <span className="font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/50 px-2 py-0.5 rounded">
-                                                    {vocab.band8Alternative}
-                                                </span>
-                                            </div>
-                                            <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                {vocab.context}
-                                            </p>
-                                        </div>
-                                    ))}
+                                    {report.advancedVocabularySuggestions.length > 0 && (
+                                        <>
+                                            <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider pt-4 flex items-center gap-1.5">
+                                                <BookOpen size={16} className="text-indigo-500" /> Band 8.0+ Lug'at Takliflari
+                                            </h4>
+                                            {report.advancedVocabularySuggestions.map((vocab, idx) => (
+                                                <div key={idx} className="bg-indigo-500/5 border border-indigo-500/20 p-4 rounded-xl space-y-1">
+                                                    <div className="flex items-center justify-between text-xs">
+                                                        <span className="text-muted-foreground line-through">{vocab.original}</span>
+                                                        <span className="font-bold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded">
+                                                            {vocab.band8Alternative}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{vocab.context}</p>
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
                                 </div>
                             )}
 
                             {/* Tab 3: Model Answer */}
                             {activeTab === 'model' && (
-                                <div className="bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm space-y-4 relative overflow-hidden">
+                                <div className="bg-card border border-border p-6 rounded-3xl space-y-4 shadow-sm relative overflow-hidden">
                                     <div className="flex justify-between items-center">
-                                        <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                                            <Sparkles size={16} className="text-amber-500" />
-                                            Band 8.0/9.0 Model Answer
-                                            {!isPaidUser && (
-                                                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
-                                                    <Crown size={12} /> PRO Exclusive
-                                                </span>
-                                            )}
+                                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                                            <Sparkles size={16} className="text-amber-500" /> Band 8.0/9.0 Model Answer
                                         </h4>
                                         {isPaidUser && (
                                             <button
@@ -414,32 +469,20 @@ const IeltsWritingPage: React.FC = () => {
                                     </div>
 
                                     {isPaidUser ? (
-                                        <div className="p-4 bg-gray-50 dark:bg-gray-900/60 rounded-2xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap border border-gray-100 dark:border-gray-800">
+                                        <div className="p-4 bg-muted/40 border border-border rounded-xl text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap">
                                             {report.modelAnswerBand8}
                                         </div>
                                     ) : (
                                         <div className="relative">
-                                            <div className="p-6 bg-gray-50 dark:bg-gray-900/60 rounded-2xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap border border-gray-100 dark:border-gray-800 blur-sm select-none">
-                                                {report.modelAnswerBand8.substring(0, 150)}...
-                                                {"\n\n"}This high-band model answer demonstrates advanced lexical resource, cohesive devices, complex grammatical structures, and expert paragraph planning tailored specifically for your target IELTS Band score...
+                                            <div className="p-4 bg-muted/40 border border-border rounded-xl text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap blur-xs select-none">
+                                                {report.modelAnswerBand8?.substring(0, 150)}...
                                             </div>
-                                            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/70 to-transparent dark:from-slate-900/95 dark:via-slate-900/80 rounded-2xl flex flex-col items-center justify-center p-6 text-center space-y-3">
-                                                <div className="p-3 bg-amber-500 text-white rounded-2xl shadow-lg shadow-amber-500/30">
-                                                    <Crown size={24} />
-                                                </div>
-                                                <h5 className="text-base font-bold text-gray-900 dark:text-white">Band 8.0 Model Answer Bekindi</h5>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 max-w-sm">
-                                                    AI yaratgan ekspert namuna inshoni to'liq o'qish va nusxalash uchun PRO yoki Premium tarifga o'ting.
+                                            <div className="absolute inset-0 bg-gradient-to-t from-background/95 to-transparent rounded-2xl flex flex-col items-center justify-center p-6 text-center space-y-3">
+                                                <Crown className="text-amber-500" size={24} />
+                                                <h5 className="text-xs font-bold text-foreground">Model Answer Locked</h5>
+                                                <p className="text-[10px] text-muted-foreground max-w-xs">
+                                                    AI tomonidan yozilgan model inshoni o'qish uchun PRO obunaga o'ting.
                                                 </p>
-                                                <button
-                                                    onClick={() => {
-                                                        const text = encodeURIComponent('Assalom aleykum. Men IELTS Writing Band 8.0 Model Answer uchun PRO obuna olmoqchiman');
-                                                        window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
-                                                    }}
-                                                    className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-orange-500/25 hover:from-amber-600 hover:to-orange-600 transition-all"
-                                                >
-                                                    PRO Obunaga O'tish ($5 / oy)
-                                                </button>
                                             </div>
                                         </div>
                                     )}
