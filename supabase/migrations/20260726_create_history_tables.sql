@@ -1,5 +1,5 @@
 -- Supabase SQL Migration Script for History Tables
--- Copy and run this script in your Supabase SQL Editor (https://supabase.com/dashboard)
+-- Safe & idempotent script: can be executed multiple times without errors.
 
 -- 1. Speaking Coach Sessions Table
 CREATE TABLE IF NOT EXISTS public.speaking_coach_sessions (
@@ -17,9 +17,11 @@ CREATE TABLE IF NOT EXISTS public.speaking_coach_sessions (
 
 ALTER TABLE public.speaking_coach_sessions ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own speaking sessions" ON public.speaking_coach_sessions;
 CREATE POLICY "Users can view own speaking sessions" ON public.speaking_coach_sessions
     FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own speaking sessions" ON public.speaking_coach_sessions;
 CREATE POLICY "Users can insert own speaking sessions" ON public.speaking_coach_sessions
     FOR INSERT WITH CHECK (auth.uid() = user_id);
 
@@ -41,9 +43,11 @@ CREATE TABLE IF NOT EXISTS public.ielts_writing_history (
 
 ALTER TABLE public.ielts_writing_history ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own writing history" ON public.ielts_writing_history;
 CREATE POLICY "Users can view own writing history" ON public.ielts_writing_history
     FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own writing history" ON public.ielts_writing_history;
 CREATE POLICY "Users can insert own writing history" ON public.ielts_writing_history
     FOR INSERT WITH CHECK (auth.uid() = user_id);
 
@@ -64,9 +68,11 @@ CREATE TABLE IF NOT EXISTS public.mock_exams_history (
 
 ALTER TABLE public.mock_exams_history ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own mock exams history" ON public.mock_exams_history;
 CREATE POLICY "Users can view own mock exams history" ON public.mock_exams_history
     FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own mock exams history" ON public.mock_exams_history;
 CREATE POLICY "Users can insert own mock exams history" ON public.mock_exams_history
     FOR INSERT WITH CHECK (auth.uid() = user_id);
 
