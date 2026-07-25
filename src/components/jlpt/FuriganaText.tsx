@@ -28,7 +28,7 @@ export const FuriganaText: React.FC<FuriganaTextProps> = ({
     if (!text) return null;
 
     // Pattern matches Kanji[Furigana] e.g. 日本[にほん] or 漢字[かんじ]
-    const regex = /([一-龯ヶ々A-Za-z\u3040-\u30FF]+)\[([^\]]+)\]/g;
+    const regex = /([一-龯ヶ々A-Za-z0-9]+)\[([^\]]+)\]/g;
     const parts: { type: 'text' | 'ruby'; content?: string; kanji?: string; furigana?: string }[] = [];
     let lastIndex = 0;
     let match: RegExpExecArray | null;
