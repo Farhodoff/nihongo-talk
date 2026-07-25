@@ -6280,17 +6280,347 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
     },
 
     {
-        "id": "n1_zaru_wo_eta_nai",
+        "id": "n1_official_1",
         "level": "N1",
-        "title": "〜ざるを得ない (zaru wo eta nai)",
-        "romaji": "zaru wo eta nai",
-        "meaningUz": "...-shga majbur bo'lmoq / boshqa chora yo'q",
-        "structure": "Fe'l (Nai-shakli ildizi) + ざるを得ない",
+        "title": "〜を余儀なくされる (wo yoginakusareru)",
+        "romaji": "wo yoginakusareru",
+        "meaningUz": "kutilmagan sharoit sababli majbur bo'lmoq / chora qolmaslik",
+        "structure": "Ot + を余儀なくされる",
         "examples": [
             {
-                "ja": "台風[たいふう]のため、計画[けいかく]を変更[へんこう]せざるを得[え]ない。",
-                "romaji": "Taifu no tame, keikaku wo henkou sezaru wo etanai.",
-                "uz": "Tayfun sababli rejani o'zgartirishga majburmiz."
+                "ja": "台風[たいふう]のため、計画[けいかく]の変更[へんこう]を余儀[よぎ]なくされた。",
+                "romaji": "Taifu no tame, keikaku no henkou wo yoginakusareta.",
+                "uz": "Tayfun sababli rejani o'zgartirishga majbur bo'lindi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_2",
+        "level": "N1",
+        "title": "〜てやまない (te yamanai)",
+        "romaji": "te yamanai",
+        "meaningUz": "chin dildan / samimiy tilamoq (to'xtovsiz)",
+        "structure": "Fe'l (Te-form) + やまない",
+        "examples": [
+            {
+                "ja": "皆様[みなさま]の健康[けんこう]とご多幸[たこう]を祈[いの]ってやみません。",
+                "romaji": "Minasama no kenkou to gotakou wo inotte yamamisen.",
+                "uz": "Barchangizga sihat-salomatlik va baxt-saodat tilab qolaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_3",
+        "level": "N1",
+        "title": "〜を皮切りに (wo kawakiri ni)",
+        "romaji": "wo kawakiri ni",
+        "meaningUz": "...-dan boshlab ketma-ket hodisalar yuz bermoq",
+        "structure": "Ot + を皮切りに",
+        "examples": [
+            {
+                "ja": "東京[とうきょう]公演[こうえん]を皮切[かわき]りに、全国[ぜんこく]ツアーが始[はじ]まる。",
+                "romaji": "Toukyou kouen wo kawakiri ni, zenkoku tsuaa ga hajimaru.",
+                "uz": "Tokio konsertidan boshlab, butun mamlakat bo'ylab turne boshlanadi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_4",
+        "level": "N1",
+        "title": "〜をもって (wo motte)",
+        "romaji": "wo motte",
+        "meaningUz": "... bilan / ... sana bilan rasman yakunlanadi",
+        "structure": "Ot + ををもって",
+        "examples": [
+            {
+                "ja": "本日[ほんじつ]をもって、今年[ことし]の営業[えいぎょう]を終了[しゅうりょう]いたします。",
+                "romaji": "Honjitsu wo motte, kotoshi no eigyou wo shuuryou itashimasu.",
+                "uz": "Bugungi kun bilan bu yilgi faoliyatimizni rasman yakunlaymiz."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_5",
+        "level": "N1",
+        "title": "〜ばこそ (ba koso)",
+        "romaji": "ba koso",
+        "meaningUz": "aynan o'sha sabab bo'lgani uchungina (boshqa sabab emas)",
+        "structure": "Fe'l (Ba-form) / Sifat + ばこそ",
+        "examples": [
+            {
+                "ja": "愛[あい]していればこそ、厳[きび]しく叱[しか]るのだ。",
+                "romaji": "Aishite ireba koso, kibishiku shikaru noda.",
+                "uz": "Yaxshi ko'rganim uchungina qattiq urishaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_6",
+        "level": "N1",
+        "title": "〜がてら (gatera)",
+        "romaji": "gatera",
+        "meaningUz": "... qilish bahonasida bir yo'la ... ham qilmoq",
+        "structure": "Fe'l (Masu-ildiz) / Ot + がてら",
+        "examples": [
+            {
+                "ja": "散歩[さんぽ]がてら、本屋[ほんや]に行ってくる。",
+                "romaji": "Sanpo gatera, hon'ya ni itte kuru.",
+                "uz": "Aylanish bahonasida bir yo'la kitob do'koniga borib kelaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_7",
+        "level": "N1",
+        "title": "〜かたがた (katagata)",
+        "romaji": "katagata",
+        "meaningUz": "... munosabati bilan bir vaqtda (Rasmiy)",
+        "structure": "Ot + かたがた",
+        "examples": [
+            {
+                "ja": "お礼[れい]かたがた、ご挨拶[あいさつ]に伺[うかが]いました。",
+                "romaji": "Orei katagata, goaisatsu ni伺imashita.",
+                "uz": "Minnatdorchilik bildirish munosabati bilan ko'rishgani keldim."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_8",
+        "level": "N1",
+        "title": "〜にかかわる (ni kakawaru)",
+        "romaji": "ni kakawaru",
+        "meaningUz": "shaxsiyati / hayoti / obro'siga daxldor muhim masala",
+        "structure": "Ot + にかかわる",
+        "examples": [
+            {
+                "ja": "名誉[めいよ]にかかわる問題[もんだい]だから、黙[だま]っていられない。",
+                "romaji": "Meiyo ni kakawaru mondai dakara, damatte irarenai.",
+                "uz": "Bu obro'ga daxldor masala bo'lgani uchun jim tura olmayman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_9",
+        "level": "N1",
+        "title": "〜と相まって (to aimatte)",
+        "romaji": "to aimatte",
+        "meaningUz": "... bilan birgalikda yanada kuchaymoq",
+        "structure": "Ot + と相まって",
+        "examples": [
+            {
+                "ja": "努力[どりょく]と運[うん]が相[あい]まって、成功[せいこう]を収[おさ]めた。",
+                "romaji": "Doryoku to un ga aimatte, seikou wo osameta.",
+                "uz": "Mehnat va omad birgalikda muvaffaqiyat keltirdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_10",
+        "level": "N1",
+        "title": "〜をおいて (wo oite)",
+        "romaji": "wo oite",
+        "meaningUz": "...-dan boshqa munosib nomzod umuman yo'q",
+        "structure": "Ot + をおいて（ほかにない）",
+        "examples": [
+            {
+                "ja": "この仕事[しごと]を任[まか]せられるのは、彼[かれ]をおいてほかにいない。",
+                "romaji": "Kono shigoto wo makaserareru no wa, kare wo oite hoka ni inai.",
+                "uz": "Bu ishni topshirishga undan boshqa munosib odam yo'q."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_11",
+        "level": "N1",
+        "title": "〜ならでは (naradewa)",
+        "romaji": "naradewa",
+        "meaningUz": "faqat va faqat ...-gagina xos bo'lgan ajoyib sifat",
+        "structure": "Ot + ならではの",
+        "examples": [
+            {
+                "ja": "京都[きょうと]ならではの伝統的[でんとうてき]な風景[ふうけい]",
+                "romaji": "Kyouto naradewa no dentouteki na fuukei",
+                "uz": "Faqat Kioto shahrigagina xos bo me'moriy manzara"
+            }
+        ]
+    },
+    {
+        "id": "n1_official_12",
+        "level": "N1",
+        "title": "〜なくしては (nakushite wa)",
+        "romaji": "nakushite wa",
+        "meaningUz": "... bo'lmasa iloji yo'q / amalga oshmaydi",
+        "structure": "Ot + なくしては",
+        "examples": [
+            {
+                "ja": "皆様[みなさま]の協力[きょうりょく]なくしては、成功[せいこう]し得[え]ない。",
+                "romaji": "Minasama no kyouryoku nakushite wa, seikou shienai.",
+                "uz": "Sizlarning hamkorlingizsiz muvaffaqiyatga erishib bo'lmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_13",
+        "level": "N1",
+        "title": "〜たる者 (taru mono)",
+        "romaji": "taru mono",
+        "meaningUz": "... kabi yuksak mavqega ega bo'la turib",
+        "structure": "Ot + たる者",
+        "examples": [
+            {
+                "ja": "指導者[しどうしゃ]たる者、常[つね]に誠実[せいじつ]でなければならない。",
+                "romaji": "Shidousha taru mono, tsune ni seijitsu de nakereba naranai.",
+                "uz": "Rahbar bo'lgan shaxs har doim halol bo'lishi shart."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_14",
+        "level": "N1",
+        "title": "〜ともなると (tomo naruto)",
+        "romaji": "tomo naruto",
+        "meaningUz": "... yuqori darajaga etganda shunday bo'ladi",
+        "structure": "Ot + ともなると",
+        "examples": [
+            {
+                "ja": "プロの選手[せんしゅ]ともなると、練習[れんしゅう]の質[しつ]が違[ちが]う。",
+                "romaji": "Puro no senshu tomo naruto, renshuu no shitsu ga chigau.",
+                "uz": "Professional sportchi darajasiga etganda mashq sifati boshqacha bo'ladi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_15",
+        "level": "N1",
+        "title": "〜まじき (majiki)",
+        "romaji": "majiki",
+        "meaningUz": "... qilish kasbga/axloqqa mutlaqo to'g me kelmaydi",
+        "structure": "Fe'l (Lug'at) + まじき + Ot",
+        "examples": [
+            {
+                "ja": "許[ゆる]すまじき行為[こうい]",
+                "romaji": "Yurusumajiki koui",
+                "uz": "Kechirib bo'lmaydigan qilmish"
+            }
+        ]
+    },
+    {
+        "id": "n1_official_16",
+        "level": "N1",
+        "title": "〜を限りに (wo kagiri ni)",
+        "romaji": "wo kagiri ni",
+        "meaningUz": "oxirgi marta / shu sana bilan tugaydi",
+        "structure": "Ot + を限りに",
+        "examples": [
+            {
+                "ja": "今日[きょう]を限[かぎ]りに、タバコをやめる。",
+                "romaji": "Kyou wo kagiri ni, tabako wo yameru.",
+                "uz": "Bugun oxirgi kuni bo'lib, chekishni tashlayman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_17",
+        "level": "N1",
+        "title": "〜を踏まえて (wo fumaete)",
+        "romaji": "wo fumaete",
+        "meaningUz": "... ma'lumotlar / tajribaga tayanib",
+        "structure": "Ot + を踏まえて",
+        "examples": [
+            {
+                "ja": "前回[ぜんかい]の反省[はんせい]を踏[ふ]まえて、改善[かいぜん]する。",
+                "romaji": "Zenkai no hansei wo fumaete, kaizen suru.",
+                "uz": "O'tgan safargi xatolarni hisobga olib o'nglaymiz."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_18",
+        "level": "N1",
+        "title": "〜に照らして (ni terashite)",
+        "romaji": "ni terashite",
+        "meaningUz": "qonun va axloq me'yorlariga solishtirgan holda",
+        "structure": "Ot + に照らして",
+        "examples": [
+            {
+                "ja": "法律[ほうりつ]に照[て]らして、厳[きび]しく処罰[しょばつ]する。",
+                "romaji": "Houritsu ni terashite, kibishiku shobatsu suru.",
+                "uz": "Qonunga solishtirgan holda qattiq jazolanadi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_19",
+        "level": "N1",
+        "title": "〜に則って (ni norotto)",
+        "romaji": "ni norotto",
+        "meaningUz": "qoidalarga va an'analarga qat'iy amal qilib",
+        "structure": "Ot + に則って",
+        "examples": [
+            {
+                "ja": "伝統[でんとう]に則[のっと]って、儀式[ぎしき]を行[おこな]う。",
+                "romaji": "Dentou ni norotto, gishiki wo okonau.",
+                "uz": "An'analarga qat'iy amal qilib marosim o'tkaziladi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_20",
+        "level": "N1",
+        "title": "〜をものの (wo monono)",
+        "romaji": "wo monono",
+        "meaningUz": "... bo'lsa-da / shunday bo'lishiga qaramay",
+        "structure": "Fe'l (Plain) + ものの",
+        "examples": [
+            {
+                "ja": "免許[めんきょ]は取[と]ったものの、運転[うんてん]していない。",
+                "romaji": "Menkyo wa totta monono, unten shite inai.",
+                "uz": "Guvohnoma olgan bo'lsam-da, mashina haydamayman."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_21",
+        "level": "N1",
+        "title": "〜に耐え得る (ni tae uru)",
+        "romaji": "ni tae uru",
+        "meaningUz": "...-shga loyiq / chiday oladigan",
+        "structure": "Ot / Fe'l + に耐え得る",
+        "examples": [
+            {
+                "ja": "鑑賞[かんしょう]に耐[た]え得[う]る作品[さくひん]",
+                "romaji": "Kanshou ni tae uru sakuhin",
+                "uz": "Tomosha qilishga loyiq san'at asari"
+            }
+        ]
+    },
+    {
+        "id": "n1_official_22",
+        "level": "N1",
+        "title": "〜を余儀なくさせる (wo yoginakusaseru)",
+        "romaji": "wo yoginakusaseru",
+        "meaningUz": "...-shga majbur qilmoq",
+        "structure": "Ot + を余儀なくさせる",
+        "examples": [
+            {
+                "ja": "不況[ふきょう]が企業[きぎょう]にリストラを余儀[よぎ]なくさせた。",
+                "romaji": "Fukyou ga kigyou ni risutora wo yoginakusaseta.",
+                "uz": "Inqiroz kompaniyalarni qisqartirishga majbur qildi."
+            }
+        ]
+    },
+    {
+        "id": "n1_official_23",
+        "level": "N1",
+        "title": "〜をものともせずに (wo monotomo sezu ni)",
+        "romaji": "wo monotomo sezu ni",
+        "meaningUz": "xavf-xatarga umuman pisand qilmay",
+        "structure": "Ot + をものともせずに",
+        "examples": [
+            {
+                "ja": "大雨[おおあめ]をものともせずに、作業[さぎょう]を続[つづ]けた。",
+                "romaji": "Ooame wo monotomo sezu ni, sagyou wo tsuduketa.",
+                "uz": "Katta yomg'irga pisand qilmay ishni davom ettirishdi."
             }
         ]
     },
