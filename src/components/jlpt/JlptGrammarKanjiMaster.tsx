@@ -150,7 +150,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-3">
-                            <Sparkles className="w-3.5 h-3.5" /> 600+ Qoida & 2,000+ Kanji Baza
+                            <Sparkles className="w-3.5 h-3.5" /> Rasmiy Darsliklar & Imtihonlar Bazasi
                         </div>
                         <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
                             ⛩️ JLPT Grammar & Kanji Master
@@ -168,7 +168,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         <div>
                             <div className="text-xs text-slate-400 font-medium">Baza hajmi</div>
                             <div className="text-lg font-black text-white flex items-center gap-1.5">
-                                <span>720 Qoida</span> • <span className="text-rose-400">2,247 Kanji</span>
+                                <span>{grammarSource.length} Qoida</span> • <span className="text-rose-400">{kanjiSource.length} Kanji</span>
                             </div>
                         </div>
                     </div>
