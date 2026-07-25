@@ -117,21 +117,40 @@ ${rawInput.rawEducation}
         }
     };
 
+    const [templateStyle, setTemplateStyle] = useState<'international' | 'rirekisho'>('international');
+
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-slate-900 overflow-hidden">
-            <div className="flex-none p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+        <div className="h-full flex flex-col bg-slate-50 dark:bg-slate-900">
+            {/* Header */}
+            <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg">
+                    <div className="p-2 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-lg">
                         <FileText className="w-5 h-5" />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">AI CV Creator</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">Professional rezyume yarating</p>
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-white">AI Resume & CV Creator</h2>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Professional rezyume va yaponcha Rirekisho (履歴書) yaratish</p>
                     </div>
                 </div>
                 
                 {cvData && (
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-3">
+                        {/* Style Selector */}
+                        <div className="flex bg-slate-100 dark:bg-slate-700 p-1 rounded-xl text-xs font-bold">
+                            <button
+                                onClick={() => setTemplateStyle('international')}
+                                className={`px-3 py-1.5 rounded-lg transition-all ${templateStyle === 'international' ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow' : 'text-slate-500'}`}
+                            >
+                                🇪🇺 International CV
+                            </button>
+                            <button
+                                onClick={() => setTemplateStyle('rirekisho')}
+                                className={`px-3 py-1.5 rounded-lg transition-all ${templateStyle === 'rirekisho' ? 'bg-rose-600 text-white shadow' : 'text-slate-500'}`}
+                            >
+                                🇯🇵 Rirekisho (履歴書)
+                            </button>
+                        </div>
+
                         <button 
                             onClick={() => { setCvData(null); setAdvice(null); }}
                             className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
@@ -174,7 +193,7 @@ ${rawInput.rawEducation}
                 ) : (
                     <div className="flex justify-center pb-12">
                         <div className="w-full max-w-[800px] shadow-2xl bg-white rounded-sm overflow-hidden" style={{ minHeight: '1131px' }}>
-                            <CVPreview ref={componentRef} data={cvData} />
+                            <CVPreview ref={componentRef} data={cvData} templateStyle={templateStyle} />
                         </div>
                     </div>
                 )}
