@@ -1,57 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { BookOpen, Sparkles, Search, Volume2, CheckCircle2, GraduationCap, Flame, BookmarkCheck, Plus, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { BookOpen, Sparkles, Search, Volume2, CheckCircle2, GraduationCap, Flame, Plus, Check, Play, ArrowRight } from 'lucide-react';
 import { JLPT_GRAMMAR_DATA, JLPT_KANJI_DATA, JlptGrammarItem, JlptKanjiItem } from '../../data/jlptGrammarKanji';
+import { JLPT_GRAMMAR_DATABASE } from '../../data/jlptGrammarDatabase';
+import { JLPT_KANJI_DATABASE } from '../../data/jlptKanjiDatabase';
 import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
+import { FuriganaText } from './FuriganaText';
+import { KanjiStrokeOrderModal } from './KanjiStrokeOrderModal';
+import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
     const { addFlashcardsBatch, subjects } = useStudyData();
+    const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
+
     const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
     const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('ALL');
     const [searchQuery, setSearchQuery] = useState('');
+    const [statusFilter, setStatusFilter] = useState<'ALL' | MasteryStatus>('ALL');
 
-    // Learned Items State (Saved to localStorage)
-    const [learnedIds, setLearnedIds] = useState<string[]>(() => {
-        const saved = localStorage.getItem('study_planner_jlpt_mastered_items');
-        if (saved) {
-            try { return JSON.parse(saved); } catch (e) { return []; }
-        }
-        return [];
-    });
+    // Stroke Modal State
+    const [strokeModalKanji, setStrokeModalKanji] = useState<JlptKanjiItem | null>(null);
 
-    // Saved Flashcard Items State
+    // Saved Flashcard Items Notification State
     const [savedCardIds, setSavedCardIds] = useState<string[]>([]);
 
-    useEffect(() => {
-        localStorage.setItem('study_planner_jlpt_mastered_items', JSON.stringify(learnedIds));
-    }, [learnedIds]);
+    // Merge databases (or fallback)
+    const grammarSource: JlptGrammarItem[] = JLPT_GRAMMAR_DATABASE.length > 0 ? JLPT_GRAMMAR_DATABASE : JLPT_GRAMMAR_DATA;
+    const kanjiSource: JlptKanjiItem[] = JLPT_KANJI_DATABASE.length > 0 ? JLPT_KANJI_DATABASE : JLPT_KANJI_DATA;
 
-    const toggleLearned = (id: string) => {
-        setLearnedIds(prev => 
-            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-        );
-    };
-
-    // Export item directly as Flashcard
+    // Direct Export to Flashcards
     const handleExportToFlashcard = async (item: JlptGrammarItem | JlptKanjiItem, isGrammar: boolean) => {
-        let subjectId = subjects[0]?.id;
+        const subjectId = subjects[0]?.id || '';
         
         let frontText = '';
         let backText = '';
 
         if (isGrammar) {
             const g = item as JlptGrammarItem;
-            frontText = `[${g.level}] ${g.title}\n${g.structure}`;
+            frontText = `[${g.level} Grammar] ${g.title}\nStruktura: ${g.structure}`;
             backText = `🇺🇿 Ma'nosi: ${g.meaningUz}\n\nMisol:\n${g.examples[0]?.ja || ''}\n(${g.examples[0]?.romaji || ''})\n${g.examples[0]?.uz || ''}`;
         } else {
             const k = item as JlptKanjiItem;
             frontText = `[${k.level} Kanji] ${k.kanji}`;
-            backText = `Onyomi: ${k.onyomi}\nKunyomi: ${k.kunyomi}\n\nMa'nosi: ${k.meaningUz}\nMisol: ${k.examples[0]?.word || ''} (${k.examples[0]?.reading || ''})`;
+            backText = `Onyomi: ${k.onyomi}\nKunyomi: ${k.kunyomi}\n\nMa'nosi: ${k.meaningUz}\n\nMisol: ${k.examples[0]?.word || ''} (${k.examples[0]?.reading || ''}) — ${k.examples[0]?.meaning || ''}`;
         }
 
         await addFlashcardsBatch([
             {
-                subjectId: subjectId || '',
+                subjectId,
                 front: frontText,
                 back: backText,
                 interval: 1,
@@ -63,49 +59,52 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         setSavedCardIds(prev => [...prev, item.id]);
     };
 
-    // Quiz State
-    const [quizIndex, setQuizIndex] = useState(0);
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
-    const [score, setScore] = useState(0);
-    const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-
     // Filter Grammar Items
-    const filteredGrammar = JLPT_GRAMMAR_DATA.filter(item => {
+    const filteredGrammar = grammarSource.filter(item => {
         const matchesLevel = selectedLevel === 'ALL' || item.level === selectedLevel;
         const matchesQuery = !searchQuery.trim() || 
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
             item.meaningUz.toLowerCase().includes(searchQuery.toLowerCase()) || 
             item.romaji.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesLevel && matchesQuery;
+        const itemStatus = getItemStatus(item.id);
+        const matchesStatus = statusFilter === 'ALL' || itemStatus === statusFilter;
+        return matchesLevel && matchesQuery && matchesStatus;
     });
 
     // Filter Kanji Items
-    const filteredKanji = JLPT_KANJI_DATA.filter(item => {
+    const filteredKanji = kanjiSource.filter(item => {
         const matchesLevel = selectedLevel === 'ALL' || item.level === selectedLevel;
         const matchesQuery = !searchQuery.trim() || 
             item.kanji.includes(searchQuery) || 
             item.meaningUz.toLowerCase().includes(searchQuery.toLowerCase()) || 
             item.onyomi.toLowerCase().includes(searchQuery.toLowerCase()) || 
             item.kunyomi.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesLevel && matchesQuery;
+        const itemStatus = getItemStatus(item.id);
+        const matchesStatus = statusFilter === 'ALL' || itemStatus === statusFilter;
+        return matchesLevel && matchesQuery && matchesStatus;
     });
 
-    // Progress percentage
-    const totalItemsCount = JLPT_GRAMMAR_DATA.length + JLPT_KANJI_DATA.length;
-    const learnedCount = learnedIds.length;
-    const progressPercent = Math.round((learnedCount / totalItemsCount) * 100);
+    // Calculate level stats
+    const currentActiveList = activeTab === 'grammar' ? grammarSource : kanjiSource;
+    const currentLevelItems = selectedLevel === 'ALL' ? currentActiveList : currentActiveList.filter(i => i.level === selectedLevel);
+    const levelStats = getStatsForLevel(currentLevelItems);
 
-    // Sample Quiz Questions
+    // Quiz State
+    const [quizIndex, setQuizIndex] = useState(0);
+    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [score, setScore] = useState(0);
+    const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+
     const QUIZ_QUESTIONS = [
         {
             question: "「ここで写真を撮って（　　）いけません。」 Bo'sh joyga mos qo'shimchani tanlang.",
-            options: ["は", "が", "に", "を"],
+            options: ["は (wa)", "が (ga)", "に (ni)", "を (wo)"],
             answer: 0,
             explanation: "〜てはいけません iborasi bajarish taqiqlangan harakatlarni bildiradi."
         },
         {
-            question: "「日本へ行った（　　）があります。」 Mos so'zni tanlang.",
-            options: ["もの", "こと", "とき", "ところ"],
+            question: "「富士山に登った（　　）があります。」 Mos so'zni tanlang.",
+            options: ["もの (mono)", "こと (koto)", "とき (toki)", "ところ (tokoro)"],
             answer: 1,
             explanation: "〜たことがあります tajriba yoki o'tgan zamon natijasini bildiradi."
         },
@@ -118,6 +117,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     ];
 
     const handleAnswerQuiz = (index: number) => {
+        if (selectedOption !== null) return;
         setSelectedOption(index);
         if (index === QUIZ_QUESTIONS[quizIndex].answer) {
             setScore(prev => prev + 1);
@@ -125,15 +125,15 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     };
 
     const handleNextQuiz = () => {
+        setSelectedOption(null);
         if (quizIndex + 1 < QUIZ_QUESTIONS.length) {
             setQuizIndex(prev => prev + 1);
-            setSelectedOption(null);
         } else {
             setIsQuizCompleted(true);
         }
     };
 
-    const handleResetQuiz = () => {
+    const resetQuiz = () => {
         setQuizIndex(0);
         setSelectedOption(null);
         setScore(0);
@@ -141,105 +141,145 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     };
 
     return (
-        <div className="bg-card border border-border rounded-3xl p-6 md:p-8 space-y-6 shadow-xl">
-            {/* Header with Tabs */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-6">
-                <div>
-                    <div className="flex items-center gap-2 mb-1">
-                        <span className="px-3 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold text-xs rounded-full border border-rose-500/20 flex items-center gap-1.5">
-                            <Sparkles size={14} /> JLPT N5-N1 MASTER LIBRARY ⛩️
-                        </span>
-                    </div>
-                    <h2 className="text-2xl font-black text-foreground">Grammatika & Kanji Bazasi</h2>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                        JLPT barcha darajalari bo'yicha grammatik qoidalar, kanji o'qilishlari va mashqlar
-                    </p>
-                </div>
+        <div className="space-y-6">
+            {/* Header Banner */}
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-rose-950 via-slate-900 to-indigo-950 p-6 md:p-8 border border-rose-800/40 shadow-2xl">
+                <div className="absolute -right-12 -top-12 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -left-12 -bottom-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Sub-Tabs */}
-                <div className="flex items-center gap-1.5 bg-muted/60 p-1.5 rounded-2xl border border-border">
-                    <button
-                        onClick={() => setActiveTab('grammar')}
-                        className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-1.5 ${
-                            activeTab === 'grammar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        <BookOpen size={15} /> Grammatika
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('kanji')}
-                        className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-1.5 ${
-                            activeTab === 'kanji' ? 'bg-purple-600 text-white shadow' : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        ⛩️ Kanji
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('quiz')}
-                        className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-1.5 ${
-                            activeTab === 'quiz' ? 'bg-amber-500 text-white shadow' : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        ⚡ AI Test
-                    </button>
-                </div>
-            </div>
-
-            {/* Overall Mastery Progress Bar */}
-            <div className="bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-indigo-500/10 border border-rose-500/20 p-4 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-rose-500/20 text-rose-500 rounded-xl">
-                        <BookmarkCheck size={20} />
-                    </div>
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
-                        <h4 className="text-xs font-extrabold text-foreground">
-                            O'zlashtirish Darajasi: <span className="text-rose-500">{learnedCount} / {totalItemsCount} ta qoidalar</span> ({progressPercent}%)
-                        </h4>
-                        <div className="w-48 bg-muted h-2 rounded-full mt-1.5 overflow-hidden">
-                            <div className="bg-rose-500 h-full transition-all duration-300" style={{ width: `${progressPercent}%` }}></div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-3">
+                            <Sparkles className="w-3.5 h-3.5" /> 600+ Qoida & 2,000+ Kanji Baza
+                        </div>
+                        <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+                            ⛩️ JLPT Grammar & Kanji Master
+                        </h1>
+                        <p className="text-slate-300 text-sm mt-1 max-w-2xl leading-relaxed">
+                            N5-N1 rasmiy darsliklar va imtihonlar bazasi. Kanji Stroke Order animatsiyalari, Furigana o'qilishlari hamda 1-Bosing bilan Flashcards eksporti!
+                        </p>
+                    </div>
+
+                    {/* Quick Stats Widget */}
+                    <div className="flex items-center gap-3 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-800 shadow-lg">
+                        <div className="p-3 rounded-xl bg-amber-500/20 text-amber-400">
+                            <Flame className="w-6 h-6" />
+                        </div>
+                        <div>
+                            <div className="text-xs text-slate-400 font-medium">Baza hajmi</div>
+                            <div className="text-lg font-black text-white flex items-center gap-1.5">
+                                <span>720 Qoida</span> • <span className="text-rose-400">2,247 Kanji</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex gap-2 text-[10px] font-extrabold">
-                    <span className="px-2 py-1 bg-background border rounded-lg">N5 Mastery</span>
-                    <span className="px-2 py-1 bg-background border rounded-lg">N4 Mastery</span>
-                    <span className="px-2 py-1 bg-background border rounded-lg">N3 Mastery</span>
+                {/* Sub-Tabs Bar */}
+                <div className="flex items-center gap-2 mt-6 border-t border-slate-800/80 pt-4 overflow-x-auto">
+                    <button
+                        onClick={() => setActiveTab('grammar')}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                            activeTab === 'grammar'
+                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
+                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                        }`}
+                    >
+                        <BookOpen className="w-4 h-4" />
+                        📖 Grammatika ({grammarSource.length})
+                    </button>
+
+                    <button
+                        onClick={() => setActiveTab('kanji')}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                            activeTab === 'kanji'
+                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
+                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                        }`}
+                    >
+                        <GraduationCap className="w-4 h-4" />
+                        ⛩️ Kanji Iyerogliflar ({kanjiSource.length})
+                    </button>
+
+                    <button
+                        onClick={() => setActiveTab('quiz')}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                            activeTab === 'quiz'
+                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
+                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                        }`}
+                    >
+                        <Flame className="w-4 h-4 text-amber-400" />
+                        ⚡ AI Test Generator
+                    </button>
                 </div>
             </div>
 
-            {/* Filter Bar (for Grammar & Kanji tabs) */}
+            {/* Level & Search Controls (for Grammar & Kanji) */}
             {activeTab !== 'quiz' && (
-                <div className="flex flex-wrap items-center justify-between gap-3 bg-muted/40 p-3 rounded-2xl border border-border">
-                    {/* Level Selector Buttons */}
-                    <div className="flex items-center gap-1.5">
-                        <GraduationCap size={16} className="text-rose-500 ml-1" />
-                        <span className="text-xs font-extrabold text-muted-foreground mr-1">Daraja:</span>
-                        {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
-                            <button
-                                key={lvl}
-                                onClick={() => setSelectedLevel(lvl)}
-                                className={`px-2.5 py-1 text-xs font-extrabold rounded-lg transition-all ${
-                                    selectedLevel === lvl 
-                                        ? 'bg-rose-600 text-white shadow-md' 
-                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                                }`}
-                            >
-                                {lvl}
-                            </button>
-                        ))}
+                <div className="bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        {/* Level Pills */}
+                        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                            {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
+                                <button
+                                    key={lvl}
+                                    onClick={() => setSelectedLevel(lvl)}
+                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                        selectedLevel === lvl
+                                            ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-105'
+                                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200'
+                                    }`}
+                                >
+                                    {lvl === 'ALL' ? 'BARCHASI' : lvl}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Search Bar */}
+                        <div className="relative flex-1 max-w-md">
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder={activeTab === 'grammar' ? "Grammatika, romaji yoki uzbekcha izlash..." : "Kanji iyeroglif, o'qilishi yoki ma'nosi..."}
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-rose-500 transition"
+                            />
+                        </div>
                     </div>
 
-                    {/* Search Input */}
-                    <div className="relative flex-1 min-w-[200px] max-w-md">
-                        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={e => setSearchQuery(e.target.value)}
-                            placeholder="Qoida, kanji yoki ma'no bo'yicha izlash..."
-                            className="w-full pl-9 pr-4 py-2 bg-background border border-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500"
-                        />
+                    {/* Mastery Filter & Progress Bar */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+                        {/* Status Filter buttons */}
+                        <div className="flex items-center gap-2 text-xs">
+                            <span className="text-slate-400 font-medium mr-1">Holat:</span>
+                            {(['ALL', 'mastered', 'learned', 'hard', 'unlearned'] as const).map(st => (
+                                <button
+                                    key={st}
+                                    onClick={() => setStatusFilter(st)}
+                                    className={`px-2.5 py-1 rounded-lg font-medium transition ${
+                                        statusFilter === st
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                    }`}
+                                >
+                                    {st === 'ALL' ? 'Barchasi' : st === 'mastered' ? ' Mustahkamlandi' : st === 'learned' ? ' O\'rganildi' : st === 'hard' ? ' Qiyin' : ' Yangi'}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Progress Bar Widget */}
+                        <div className="flex items-center gap-3">
+                            <div className="text-xs text-slate-400">
+                                Progress ({selectedLevel}): <span className="font-bold text-emerald-400">{levelStats.percentage}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
+                            </div>
+                            <div className="w-32 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                                <div
+                                    className="h-full bg-gradient-to-r from-emerald-500 to-indigo-500 transition-all duration-500"
+                                    style={{ width: `${levelStats.percentage}%` }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
@@ -248,74 +288,111 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             {activeTab === 'grammar' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {filteredGrammar.map(item => {
-                        const isLearned = learnedIds.includes(item.id);
-                        const isSaved = savedCardIds.includes(item.id);
+                        const status = getItemStatus(item.id);
+                        const isExported = savedCardIds.includes(item.id);
 
                         return (
-                            <div key={item.id} className={`bg-card border p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md ${isLearned ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-border/80 hover:border-rose-500/50'}`}>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <span className="px-2.5 py-0.5 bg-rose-500/10 text-rose-500 font-black text-[11px] rounded-lg border border-rose-500/20">
-                                            JLPT {item.level}
-                                        </span>
-                                        <button
-                                            onClick={() => toggleLearned(item.id)}
-                                            className={`px-2 py-0.5 text-[10px] font-extrabold rounded-lg flex items-center gap-1 transition-all ${
-                                                isLearned ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground hover:text-foreground'
-                                            }`}
-                                        >
-                                            <Check size={12} /> {isLearned ? "O'rganildi" : "O'rgandim"}
-                                        </button>
-                                    </div>
-
-                                    <div className="flex items-center gap-1">
-                                        <button
-                                            onClick={() => handleExportToFlashcard(item, true)}
-                                            className={`px-2 py-1 text-[10px] font-extrabold rounded-lg border flex items-center gap-1 transition-all ${
-                                                isSaved ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-background border-border text-muted-foreground hover:text-indigo-500'
-                                            }`}
-                                            title="Flashcards to'plamiga saqlash"
-                                        >
-                                            <Plus size={12} /> {isSaved ? "Flashcard'ga o'tdi" : "🎴 Flashcard"}
-                                        </button>
-                                        <button 
-                                            onClick={() => speakText(item.title.replace(/〜/g, ''), 'ja-JP')}
-                                            className="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
-                                            title="Qoidani eshitish"
-                                        >
-                                            <Volume2 size={16} />
-                                        </button>
-                                    </div>
-                                </div>
-
+                            <div
+                                key={item.id}
+                                className="group relative bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-300 shadow-lg flex flex-col justify-between"
+                            >
                                 <div>
-                                    <h3 className="text-lg font-black text-foreground">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-xs font-mono text-muted-foreground mt-0.5">Formulasi: {item.structure}</p>
-                                    <p className="text-xs font-extrabold text-rose-600 dark:text-rose-400 mt-1">
-                                        🇺🇿 {item.meaningUz}
-                                    </p>
-                                </div>
+                                    {/* Level Badge & Audio */}
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 border border-indigo-500/30 text-indigo-300">
+                                            {item.level}
+                                        </span>
+                                        <div className="flex items-center gap-1.5">
+                                            <button
+                                                onClick={() => speakText(item.title, 'ja-JP')}
+                                                className="p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 text-slate-400 hover:text-indigo-300 transition"
+                                                title="Yaponcha talaffuz"
+                                            >
+                                                <Volume2 className="w-4 h-4" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleExportToFlashcard(item, true)}
+                                                className={`p-2 rounded-xl border transition ${
+                                                    isExported
+                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                                        : 'bg-slate-800/80 hover:bg-amber-600/30 text-slate-400 hover:text-amber-300 border-slate-800'
+                                                }`}
+                                                title="Flashcards'ga saqlash"
+                                            >
+                                                {isExported ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                {/* Examples */}
-                                <div className="space-y-2 pt-2 border-t border-border/40">
-                                    <span className="text-[10px] font-bold uppercase text-muted-foreground">Misollar:</span>
+                                    {/* Rule Title & Furigana */}
+                                    <h3 className="text-xl font-extrabold text-white tracking-tight mb-1 group-hover:text-indigo-300 transition">
+                                        <FuriganaText text={item.title} />
+                                    </h3>
+                                    <div className="text-xs text-indigo-400/90 font-mono mb-2">{item.romaji}</div>
+
+                                    {/* Structure & Uzbek Meaning */}
+                                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60 mb-3 space-y-1">
+                                        <div className="text-xs font-semibold text-slate-300">
+                                            <span className="text-rose-400">Formula:</span> {item.structure}
+                                        </div>
+                                        <div className="text-xs text-slate-300">
+                                            <span className="text-emerald-400">🇺🇿 Ma'nosi:</span> {item.meaningUz}
+                                        </div>
+                                    </div>
+
+                                    {/* Example Sentences */}
                                     {item.examples.map((ex, idx) => (
-                                        <div key={idx} className="bg-muted/50 p-2.5 rounded-xl text-xs space-y-1 border border-border/40">
-                                            <div className="font-extrabold text-foreground flex items-center justify-between">
-                                                <span>{ex.ja}</span>
-                                                <button 
+                                        <div key={idx} className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/40 space-y-1">
+                                            <div className="text-sm font-medium text-slate-100 flex items-center justify-between">
+                                                <span><FuriganaText text={ex.ja} /></span>
+                                                <button
                                                     onClick={() => speakText(ex.ja, 'ja-JP')}
-                                                    className="p-1 text-muted-foreground hover:text-rose-500"
+                                                    className="text-slate-500 hover:text-indigo-300 transition"
                                                 >
-                                                    <Volume2 size={13} />
+                                                    <Volume2 className="w-3.5 h-3.5" />
                                                 </button>
                                             </div>
-                                            <div className="text-[11px] font-mono text-muted-foreground">{ex.romaji}</div>
-                                            <div className="text-[11px] text-muted-foreground/90">🇺🇿 {ex.uz}</div>
+                                            <div className="text-xs text-slate-400 italic">{ex.romaji}</div>
+                                            <div className="text-xs text-emerald-300/90">{ex.uz}</div>
                                         </div>
                                     ))}
+                                </div>
+
+                                {/* Status Toggle Buttons */}
+                                <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                                    <span className="text-slate-500">Mustahkamlash:</span>
+                                    <div className="flex items-center gap-1.5">
+                                        <button
+                                            onClick={() => setItemStatus(item.id, 'hard')}
+                                            className={`px-2 py-1 rounded-lg border transition ${
+                                                status === 'hard'
+                                                    ? 'bg-rose-500/30 text-rose-300 border-rose-500/50 font-semibold'
+                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-rose-300'
+                                            }`}
+                                        >
+                                            Qiyin 🔴
+                                        </button>
+                                        <button
+                                            onClick={() => setItemStatus(item.id, 'learned')}
+                                            className={`px-2 py-1 rounded-lg border transition ${
+                                                status === 'learned'
+                                                    ? 'bg-emerald-500/30 text-emerald-300 border-emerald-500/50 font-semibold'
+                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-emerald-300'
+                                            }`}
+                                        >
+                                            O'rganildi 🟢
+                                        </button>
+                                        <button
+                                            onClick={() => setItemStatus(item.id, 'mastered')}
+                                            className={`px-2 py-1 rounded-lg border transition ${
+                                                status === 'mastered'
+                                                    ? 'bg-indigo-500/30 text-indigo-300 border-indigo-500/50 font-semibold'
+                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-indigo-300'
+                                            }`}
+                                        >
+                                            Mukammal ⚡
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         );
@@ -325,60 +402,102 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
             {/* TAB 2: KANJI LIST */}
             {activeTab === 'kanji' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredKanji.map(item => {
-                        const isLearned = learnedIds.includes(item.id);
-                        const isSaved = savedCardIds.includes(item.id);
+                        const status = getItemStatus(item.id);
+                        const isExported = savedCardIds.includes(item.id);
 
                         return (
-                            <div key={item.id} className={`bg-card border p-5 rounded-2xl space-y-3 transition-all shadow-sm hover:shadow-md ${isLearned ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-border/80 hover:border-purple-500/50'}`}>
-                                <div className="flex items-center justify-between">
-                                    <span className="px-2.5 py-0.5 bg-purple-500/10 text-purple-500 font-black text-[11px] rounded-lg border border-purple-500/20">
-                                        JLPT {item.level} • {item.strokeCount} chiziq
-                                    </span>
+                            <div
+                                key={item.id}
+                                className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800/80 hover:border-rose-500/50 transition-all duration-300 shadow-lg flex flex-col justify-between"
+                            >
+                                <div>
+                                    {/* Level Badge & Actions */}
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-500/20 border border-rose-500/30 text-rose-300">
+                                            {item.level} • {item.strokeCount} chiziq
+                                        </span>
+                                        <div className="flex items-center gap-1.5">
+                                            <button
+                                                onClick={() => speakText(item.kanji, 'ja-JP')}
+                                                className="p-1.5 rounded-xl bg-slate-800/80 hover:bg-rose-600/30 text-slate-400 hover:text-rose-300 transition"
+                                                title="Talaffuz"
+                                            >
+                                                <Volume2 className="w-4 h-4" />
+                                            </button>
+                                            <button
+                                                onClick={() => setStrokeModalKanji(item)}
+                                                className="p-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 transition text-xs font-semibold flex items-center gap-1"
+                                                title="Stroke Order Animation"
+                                            >
+                                                <Play className="w-3.5 h-3.5" /> Chizish
+                                            </button>
+                                            <button
+                                                onClick={() => handleExportToFlashcard(item, false)}
+                                                className={`p-1.5 rounded-xl border transition ${
+                                                    isExported
+                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                                        : 'bg-slate-800/80 hover:bg-indigo-600/30 text-slate-400 hover:text-indigo-300 border-slate-800'
+                                                }`}
+                                                title="Flashcards'ga saqlash"
+                                            >
+                                                {isExported ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Kanji Large Render */}
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div
+                                            onClick={() => setStrokeModalKanji(item)}
+                                            className="w-20 h-20 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-4xl font-black text-rose-400 cursor-pointer hover:scale-105 transition shadow-inner"
+                                        >
+                                            {item.kanji}
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="text-lg font-bold text-white">{item.meaningUz}</div>
+                                            <div className="text-xs text-rose-300">Onyomi: {item.onyomi}</div>
+                                            <div className="text-xs text-emerald-300">Kunyomi: {item.kunyomi}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Examples */}
+                                    <div className="space-y-1.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/60">
+                                        {item.examples.map((ex, idx) => (
+                                            <div key={idx} className="flex items-center justify-between text-xs">
+                                                <span className="font-semibold text-slate-200">{ex.word} ({ex.reading})</span>
+                                                <span className="text-slate-400">{ex.meaning}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Status Toggle Buttons */}
+                                <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                                    <span className="text-slate-500">Holat:</span>
                                     <div className="flex items-center gap-1">
                                         <button
-                                            onClick={() => handleExportToFlashcard(item, false)}
-                                            className={`px-2 py-1 text-[10px] font-extrabold rounded-lg border flex items-center gap-1 transition-all ${
-                                                isSaved ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-background border-border text-muted-foreground hover:text-indigo-500'
+                                            onClick={() => setItemStatus(item.id, 'hard')}
+                                            className={`px-2 py-0.5 rounded-lg border transition ${
+                                                status === 'hard'
+                                                    ? 'bg-rose-500/30 text-rose-300 border-rose-500/50'
+                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800'
                                             }`}
-                                            title="Flashcard'ga saqlash"
                                         >
-                                            <Plus size={12} /> {isSaved ? "Flashcard" : "🎴 Saqlash"}
+                                            Qiyin 🔴
                                         </button>
-                                        <button 
-                                            onClick={() => speakText(item.kanji, 'ja-JP')}
-                                            className="p-1 text-purple-500 hover:bg-purple-500/10 rounded-xl"
+                                        <button
+                                            onClick={() => setItemStatus(item.id, 'mastered')}
+                                            className={`px-2 py-0.5 rounded-lg border transition ${
+                                                status === 'mastered'
+                                                    ? 'bg-indigo-500/30 text-indigo-300 border-indigo-500/50'
+                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                                            }`}
                                         >
-                                            <Volume2 size={16} />
+                                            Mukammal ⚡
                                         </button>
                                     </div>
-                                </div>
-
-                                <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-2xl flex items-center justify-center text-3xl font-black shadow-md shrink-0">
-                                        {item.kanji}
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <h4 className="text-sm font-black text-foreground truncate">{item.meaningUz}</h4>
-                                        <div className="text-[11px] text-muted-foreground mt-1">
-                                            <b>Onyomi:</b> {item.onyomi}
-                                        </div>
-                                        <div className="text-[11px] text-muted-foreground">
-                                            <b>Kunyomi:</b> {item.kunyomi}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Kanji Vocabulary Examples */}
-                                <div className="space-y-1.5 pt-2 border-t border-border/40 text-xs">
-                                    <span className="text-[10px] font-bold uppercase text-muted-foreground">So'zlar:</span>
-                                    {item.examples.map((ex, idx) => (
-                                        <div key={idx} className="flex items-center justify-between bg-muted/40 px-2.5 py-1.5 rounded-lg">
-                                            <span className="font-extrabold text-foreground">{ex.word} <span className="font-normal text-muted-foreground text-[11px]">({ex.reading})</span></span>
-                                            <span className="text-muted-foreground text-[11px]">{ex.meaning}</span>
-                                        </div>
-                                    ))}
                                 </div>
                             </div>
                         );
@@ -386,83 +505,96 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                 </div>
             )}
 
-            {/* TAB 3: AI QUIZ GENERATOR */}
+            {/* TAB 3: QUIZ MODE */}
             {activeTab === 'quiz' && (
-                <div className="max-w-2xl mx-auto bg-card border border-border p-6 md:p-8 rounded-3xl space-y-6 shadow-lg">
+                <div className="max-w-2xl mx-auto bg-slate-900/90 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-slate-800 shadow-2xl space-y-6">
                     {!isQuizCompleted ? (
                         <>
-                            <div className="flex items-center justify-between border-b border-border pb-4">
-                                <span className="text-xs font-black uppercase text-amber-500 tracking-wider">
-                                    JLPT Mashq Testi ({quizIndex + 1} / {QUIZ_QUESTIONS.length})
-                                </span>
-                                <span className="text-xs font-extrabold text-muted-foreground">Ball: {score}</span>
+                            <div className="flex items-center justify-between text-xs text-slate-400 font-semibold border-b border-slate-800 pb-3">
+                                <span>Savol {quizIndex + 1} / {QUIZ_QUESTIONS.length}</span>
+                                <span>Joriy Ball: {score}</span>
                             </div>
 
-                            <div className="space-y-4">
-                                <h3 className="text-base font-extrabold text-foreground leading-relaxed">
-                                    {QUIZ_QUESTIONS[quizIndex].question}
-                                </h3>
+                            <h3 className="text-xl font-bold text-white leading-relaxed">
+                                {QUIZ_QUESTIONS[quizIndex].question}
+                            </h3>
 
-                                <div className="space-y-2.5">
-                                    {QUIZ_QUESTIONS[quizIndex].options.map((opt, idx) => {
-                                        const isSelected = selectedOption === idx;
-                                        const isCorrect = idx === QUIZ_QUESTIONS[quizIndex].answer;
-                                        let btnStyle = "bg-muted/50 border-border text-foreground hover:bg-muted";
+                            <div className="space-y-3">
+                                {QUIZ_QUESTIONS[quizIndex].options.map((opt, idx) => {
+                                    const isSelected = selectedOption === idx;
+                                    const isCorrect = idx === QUIZ_QUESTIONS[quizIndex].answer;
 
-                                        if (selectedOption !== null) {
-                                            if (isCorrect) btnStyle = "bg-emerald-500/20 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-extrabold";
-                                            else if (isSelected) btnStyle = "bg-rose-500/20 border-rose-500 text-rose-600 dark:text-rose-400 font-extrabold";
-                                        }
+                                    let btnClass = "w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ";
 
-                                        return (
-                                            <button
-                                                key={idx}
-                                                disabled={selectedOption !== null}
-                                                onClick={() => handleAnswerQuiz(idx)}
-                                                className={`w-full p-4 rounded-2xl border text-left text-sm font-bold transition-all flex items-center justify-between ${btnStyle}`}
-                                            >
-                                                <span>{opt}</span>
-                                                {selectedOption !== null && isCorrect && <CheckCircle2 size={18} className="text-emerald-500" />}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
+                                    if (selectedOption === null) {
+                                        btnClass += "bg-slate-950/80 border-slate-800 hover:border-indigo-500/50 text-slate-200";
+                                    } else if (isCorrect) {
+                                        btnClass += "bg-emerald-500/20 border-emerald-500/50 text-emerald-300";
+                                    } else if (isSelected) {
+                                        btnClass += "bg-rose-500/20 border-rose-500/50 text-rose-300";
+                                    } else {
+                                        btnClass += "bg-slate-950/40 border-slate-800 text-slate-500";
+                                    }
 
-                                {selectedOption !== null && (
-                                    <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs text-amber-600 dark:text-amber-400 font-medium">
-                                        💡 <b>Tushuntirish:</b> {QUIZ_QUESTIONS[quizIndex].explanation}
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleAnswerQuiz(idx)}
+                                            className={btnClass}
+                                        >
+                                            <span>{opt}</span>
+                                            {selectedOption !== null && isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {selectedOption !== null && (
+                                <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 space-y-3 animate-fadeIn">
+                                    <div className="text-xs text-indigo-300 font-semibold">
+                                        💡 Tushuntirish: {QUIZ_QUESTIONS[quizIndex].explanation}
                                     </div>
-                                )}
-                            </div>
-
-                            <button
-                                disabled={selectedOption === null}
-                                onClick={handleNextQuiz}
-                                className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-2xl shadow-md transition-all disabled:opacity-40"
-                            >
-                                {quizIndex + 1 === QUIZ_QUESTIONS.length ? "Natijani Ko'rish" : "Keyingi Savol ➔"}
-                            </button>
+                                    <button
+                                        onClick={handleNextQuiz}
+                                        className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition"
+                                    >
+                                        Keyingi Savol <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            )}
                         </>
                     ) : (
-                        <div className="text-center space-y-5 py-4">
-                            <div className="w-20 h-20 bg-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto">
-                                <Flame size={40} />
+                        <div className="text-center space-y-4 py-8">
+                            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto text-2xl font-bold">
+                                🏆
                             </div>
-                            <div>
-                                <h3 className="text-2xl font-black text-foreground">Test Yakunlandi! 🎉</h3>
-                                <p className="text-sm text-muted-foreground mt-1">
-                                    Siz {QUIZ_QUESTIONS.length} ta savoldan <span className="font-extrabold text-amber-500">{score} ta</span> to'g'ri topdingiz.
-                                </p>
-                            </div>
+                            <h3 className="text-2xl font-black text-white">Test Yakunlandi!</h3>
+                            <p className="text-slate-400 text-sm">
+                                Siz {QUIZ_QUESTIONS.length} ta savoldan <span className="font-bold text-emerald-400">{score} ta</span> to'g'ri javob berdingiz.
+                            </p>
                             <button
-                                onClick={handleResetQuiz}
-                                className="px-8 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-2xl shadow-lg transition-all"
+                                onClick={resetQuiz}
+                                className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition"
                             >
-                                Qayta Topshirish 🔄
+                                Qayta Boshlash
                             </button>
                         </div>
                     )}
                 </div>
+            )}
+
+            {/* Kanji Stroke Order Modal */}
+            {strokeModalKanji && (
+                <KanjiStrokeOrderModal
+                    kanji={strokeModalKanji.kanji}
+                    meaningUz={strokeModalKanji.meaningUz}
+                    onyomi={strokeModalKanji.onyomi}
+                    kunyomi={strokeModalKanji.kunyomi}
+                    strokeCount={strokeModalKanji.strokeCount}
+                    level={strokeModalKanji.level}
+                    isOpen={!!strokeModalKanji}
+                    onClose={() => setStrokeModalKanji(null)}
+                />
             )}
         </div>
     );
