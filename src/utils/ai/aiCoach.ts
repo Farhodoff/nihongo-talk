@@ -173,7 +173,17 @@ export const converseWithCoach = async (
     try {
         const config = getAIConfig();
         
-        // --- 1. TRY DEEPSEEK FIRST IF USER HAS SK- KEY OR DEEPSEEK PROVIDER ---
+        // --- 1. TRY OLLAMA FIRST IF SELECTED ---
+        if (config.coachAiModel === 'ollama') {
+            try {
+                const response = await callOllama(prompt);
+                if (response) return response;
+            } catch (err: any) {
+                console.warn("[AI Fallback] Ollama failed in converseWithCoach, falling back to Gemini 1.5 Flash:", err);
+            }
+        }
+        
+        // --- 2. TRY DEEPSEEK SECOND IF USER HAS SK- KEY OR DEEPSEEK PROVIDER ---
         const dsKeyToUse = (userKey && userKey.trim().startsWith('sk-') ? userKey.trim() : undefined)
             || (config.coachApiKey && config.coachApiKey.trim().startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
             || (config.deepseekKey && config.deepseekKey.trim().startsWith('sk-') ? config.deepseekKey.trim() : undefined);
@@ -187,7 +197,7 @@ export const converseWithCoach = async (
             }
         }
 
-        // --- 2. TRY GEMINI WITH AUTOMATIC KEY ROTATION & VALID MODEL FALLBACK ---
+        // --- 3. TRY GEMINI WITH AUTOMATIC KEY ROTATION & VALID MODEL FALLBACK ---
         const geminiKeyToUse = (userKey && userKey.trim() && !userKey.startsWith('sk-') ? userKey.trim() : undefined)
             || (config.geminiKey && config.geminiKey.trim() && !config.geminiKey.startsWith('sk-') ? config.geminiKey.trim() : undefined)
             || (config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey.trim() : undefined);
@@ -208,7 +218,7 @@ export const converseWithCoach = async (
             }
         }
 
-        // --- 3. RETRY DEEPSEEK AS LAST RESORT IF NOT TRIED YET ---
+        // --- 4. RETRY DEEPSEEK AS LAST RESORT IF NOT TRIED YET ---
         if (!dsKeyToUse) {
             try {
                 const dsResult = await callDeepSeek(prompt, undefined, undefined, false, config.deepseekModel, false);
@@ -216,7 +226,7 @@ export const converseWithCoach = async (
             } catch (e) {}
         }
 
-        // --- 4. SAFE LANGUAGE-AWARE FALLBACK RESPONSE ---
+        // --- 5. SAFE LANGUAGE-AWARE FALLBACK RESPONSE ---
         if (language === 'ja' || (typeof prompt === 'string' && (prompt.includes('Japanese') || prompt.includes('Kaiwa')))) {
             return 'はい、素晴らしいですね！日本語で話を続けましょう！ (Hai, subarashii desu ne! Nihongo de hanashi wo tsudukemashou!) [Juda yaxshi! Yapon tilida muloqotni davom ettiramiz.]';
         }
