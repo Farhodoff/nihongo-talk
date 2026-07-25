@@ -149,289 +149,9 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             { ja: 'うちへ帰ります。', romaji: 'Uchi e kaerimasu.', uz: 'Uyga qaytaman.' }
         ]
     },
-    {
-        id: 'n5_means_de',
-        level: 'N5',
-        title: '〜で [Transport/Vosita] (de)',
-        romaji: 'de',
-        meaningUz: '... bilan / ... orqali (Transport va vosita kelishigi で)',
-        structure: 'Transport/Vosita + で',
-        examples: [
-            { ja: '電車で会社へ行きます。', romaji: 'Densha de kaisha e ikimasu.', uz: 'Poezd bilan kompaniyaga boraman.' },
-            { ja: '箸で食べます。', romaji: 'Hashi de tabemasu.', uz: 'Tayoqcha bilan yeyman.' }
-        ]
-    },
-    {
-        id: 'n5_with_to',
-        level: 'N5',
-        title: '〜と (to)',
-        romaji: 'to',
-        meaningUz: '... bilan (Birgalikda bajarish yuklamasi)',
-        structure: 'Shaxs + と + Fe\'l',
-        examples: [
-            { ja: '家族と日本へ来ました。', romaji: 'Kazoku to Nihon e kimashita.', uz: 'Ooilam bilan Yaponiyaga keldim.' }
-        ]
-    },
-    {
-        id: 'n5_object_wo',
-        level: 'N5',
-        title: '〜を [Fe\'l] (wo)',
-        romaji: 'wo',
-        meaningUz: '...-ni (Vositasiz to\'ldiruvchi / Tushum kelishigi を)',
-        structure: 'Ot + を + Fe\'l',
-        examples: [
-            { ja: 'パンを食べます。水をごくごく飲みます。', romaji: 'Pan wo tabemasu. Mizu wo gokugoku nomimasu.', uz: 'Non yeyman. Suv ichaman.' }
-        ]
-    },
-    {
-        id: 'n5_location_de',
-        level: 'N5',
-        title: '〜で [Harakat joyi] (de)',
-        romaji: 'de',
-        meaningUz: '...-da (Harakat yoki voqea sodir bo\'ladigan joy kelishigi で)',
-        structure: 'Joy + で + Harakat fe\'li',
-        examples: [
-            { ja: '図書館で本を読みます。', romaji: 'Toshokan de hon wo yomimasu.', uz: 'Kutubxonada kitob o\'qiyman.' }
-        ]
-    },
-    {
-        id: 'n5_issho_ni_masen_ka',
-        level: 'N5',
-        title: '〜を一緒に〜ませんか (issho ni ... masen ka)',
-        romaji: 'issho ni ... masen ka',
-        meaningUz: 'Birga ...-aylikmi? / ...-maysizmi? (Xushmuomala taklif)',
-        structure: 'Fe\'l (Masu-ildizi) + ませんか',
-        examples: [
-            { ja: '一緒にコーヒーを飲みませんか。', romaji: 'Issho ni koohii wo nomimasen ka.', uz: 'Birga kofe ichmaysizmi?' }
-        ]
-    },
-    {
-        id: 'n5_mashou',
-        level: 'N5',
-        title: '〜ましょう (mashou)',
-        romaji: 'mashou',
-        meaningUz: 'Keling, ...-aylik! / ...-aylik (Chorlov va taklifga rozi bo\'lish)',
-        structure: 'Fe\'l (Masu-ildizi) + ましょう',
-        examples: [
-            { ja: 'ちょっと休見ましょう。', romaji: 'Chotto yasumimashou.', uz: 'Biroz dam olaylik.' }
-        ]
-    },
-    {
-        id: 'n5_ni_agemasu_moraimasu',
-        level: 'N5',
-        title: '〜にあげます / もらいます (ni agemasu / moraimasu)',
-        romaji: 'ni agemasu / moraimasu',
-        meaningUz: '...-ga bermoq / ...-dan olmoq',
-        structure: 'Shaxs + に + Narsa + を + あげます/もらいます',
-        examples: [
-            { ja: '山田さんに花をあげました。', romaji: 'Yamada-san ni hana wo agemashita.', uz: 'Yamada xonimga gul berdim.' },
-            { ja: '木村さんに本をもらいました。', romaji: 'Kimura-san ni hon wo moraimashita.', uz: 'Kimura xonimdan kitob oldim.' }
-        ]
-    },
-    {
-        id: 'n5_mou_mashita',
-        level: 'N5',
-        title: 'もう〜ました (mou ... mashita)',
-        romaji: 'mou ... mashita',
-        meaningUz: 'Allaqachon ...-bajarib bo\'ldim',
-        structure: 'もう + Fe\'l (O\'tgan zamon ました)',
-        examples: [
-            { ja: 'もう昼ご飯を食べました。', romaji: 'Mou hirugohan wo tabemashita.', uz: 'Allaqachon tushlik qilib bo\'ldim.' }
-        ]
-    },
-    {
-        id: 'n5_i_na_adjectives',
-        level: 'N5',
-        title: 'い-Sifat & な-Sifat tuslanishlari (い形容詞 / な形容詞)',
-        romaji: 'i-adjectives / na-adjectives',
-        meaningUz: 'Yapon tilida sifatlarning bo\'lishli va bo\'lishsiz shakllari',
-        structure: 'い ➔ くないです | な ➔ じゃありません',
-        examples: [
-            { ja: 'この部屋は広いです。高くありません。', romaji: 'Kono heya wa hiroi desu. Takaku arimasen.', uz: 'Bu xona keng. Qimmat emas.' },
-            { ja: '富士山は有名で綺麗です。', romaji: 'Fujisan wa yuumei de kirei desu.', uz: 'Fuji tog\'i mashhur va go\'zal.' }
-        ]
-    },
-    {
-        id: 'n5_ga_daisuki_jouzu',
-        level: 'N5',
-        title: '〜が大好きです / 上手です / 下手です (ga daisuki / jouzu / heta)',
-        romaji: 'ga daisuki desu / jouzu desu / heta desu',
-        meaningUz: '...-ni juda yaxshi ko\'raman / usta-man / no\'noq-man',
-        structure: 'Ot + が + 好きです/上手です/下手です',
-        examples: [
-            { ja: '私は日本語が好きです。サッカーが上手です。', romaji: 'Watashi wa Nihongo ga suki desu. Sakkaa ga jouzu desu.', uz: 'Men yapon tilini yaxshi ko\'raman. Futbolda ustaman.' }
-        ]
-    },
-    {
-        id: 'n5_kara_reason',
-        level: 'N5',
-        title: '〜から、〜 (kara - sabab)',
-        romaji: 'kara',
-        meaningUz: '... bo\'lgani uchun / ... sababli',
-        structure: 'Gap1 (Sabab) + から、Gap2 (Natija)',
-        examples: [
-            { ja: '時間がありませんから、タクシーで行きます。', romaji: 'Jikan ga arimasen kara, takushii de ikimasu.', uz: 'Vaqt yo\'qligi uchun taksida boraman.' }
-        ]
-    },
-    {
-        id: 'n5_arimasu_imasu',
-        level: 'N5',
-        title: '〜があります / います (ga arimasu / imasu)',
-        romaji: 'ga arimasu / imasu',
-        meaningUz: '... bor (Jansiz narsalar uchun あります / Jonli maxluqlar uchun います)',
-        structure: 'Ot + が + あります / います',
-        examples: [
-            { ja: 'あそこに本があります。犬がいます。', romaji: 'Asoko ni hon ga arimasu. Inu ga imasu.', uz: 'Anavi yerda kitob bor. It bor.' }
-        ]
-    },
-    {
-        id: 'n5_yori_hou_ga',
-        level: 'N5',
-        title: '〜より〜のほうが〜です (yori ... no hou ga)',
-        romaji: 'N1 yori N2 no hou ga ... desu',
-        meaningUz: 'N1-dan ko\'ra N2 afzalroq/kattaroq (Solishtirish)',
-        structure: 'Ot1 + より + Ot2 + のほうが + Sifat + です',
-        examples: [
-            { ja: '車より電車のほうが速いです。', romaji: 'Kuruma yori densha no hou ga hayai desu.', uz: 'Mashinadan ko\'ra poezd tezroq.' }
-        ]
-    },
-    {
-        id: 'n5_no_naka_de_ichiban',
-        level: 'N5',
-        title: '〜の中で〜が一番〜です (no naka de ... ga ichiban)',
-        romaji: 'N1 no naka de N2 ga ichiban ... desu',
-        meaningUz: 'N1-ning ichida N2 eng ...-si (Orttirma daraja)',
-        structure: 'Guruh + の中で + Ot + が一番 + Sifat + です',
-        examples: [
-            { ja: '1年の中で夏が一番好きです。', romaji: 'Ichinen no naka de natsu ga ichiban suki desu.', uz: 'Bir yilning ichida yozni eng ko\'p yaxshi ko\'raman.' }
-        ]
-    },
-    {
-        id: 'n5_tai_desu',
-        level: 'N5',
-        title: '〜たいです (tai desu)',
-        romaji: 'tai desu',
-        meaningUz: '...-gim kelyapti / ...-shni xohlayman (Shaxsiy istak)',
-        structure: 'Fe\'l (Masu-ildizi) + たいです',
-        examples: [
-            { ja: '日本へ行きたいです。', romaji: 'Nihon e ikitai desu.', uz: 'Yaponiyaga borgim kelyapti.' },
-            { ja: '温かいお茶が飲みたいです。', romaji: 'Atatakai ocha ga nomitai desu.', uz: 'Issiq choy ichgim kelyapti.' }
-        ]
-    },
-    {
-        id: 'n5_ni_ikimasu_purpose',
-        level: 'N5',
-        title: '〜へ[Fe\'l]に行きます (e ... ni ikimasu)',
-        romaji: 'e ... ni ikimasu',
-        meaningUz: '...-gani boraman (Bormoqdan maqsad)',
-        structure: 'Joy + へ + Fe\'l (Masu-ildizi) + に行きます',
-        examples: [
-            { ja: 'デパートへ買い物に行きます。', romaji: 'Depaato e kaimono ni ikimasu.', uz: 'Supermarketga xarid qilgani boraman.' }
-        ]
-    },
-    {
-        id: 'n5_te_kudasai',
-        level: 'N5',
-        title: '〜てください (te kudasai)',
-        romaji: 'te kudasai',
-        meaningUz: '...-ing / Iltimos, ...-bajarib bering (Xushmuomala iltimos)',
-        structure: 'Fe\'l (Te-shakli) + ください',
-        examples: [
-            { ja: 'ここに名前を書いてください。', romaji: 'Koko ni namae wo kaite kudasai.', uz: 'Bu yerga ismingizni yozing.' }
-        ]
-    },
-    {
-        id: 'n5_te_imasu',
-        level: 'N5',
-        title: '〜ています (te imasu)',
-        romaji: 'te imasu',
-        meaningUz: '...-yapti / hozir bajarilayotgan harakat (Hozirgi davomli zamon)',
-        structure: 'Fe\'l (Te-shakli) + います',
-        examples: [
-            { ja: '今雨が降っています。', romaji: 'Ima ame ga furutte imasu.', uz: 'Hozir yomg\'ir yog\'yapti.' },
-            { ja: 'ミラーさんは今電話をかけています。', romaji: 'Miraa-san wa ima denwa wo kakete imasu.', uz: 'Mira janoblari hozir telefonda gaplashyapti.' }
-        ]
-    },
-    {
-        id: 'n5_te_mo_ii_desu',
-        level: 'N5',
-        title: '〜てもいいです (te mo ii desu)',
-        romaji: 'te mo ii desu',
-        meaningUz: '...-sa ham bo\'ladi / ruxsat beriladi',
-        structure: 'Fe\'l (Te-shakli) + もいいです',
-        examples: [
-            { ja: 'ここで写真を撮ってもいいです。', romaji: 'Koko de shashin wo totte mo ii desu.', uz: 'Bu yerda rasmga tushirsangiz bo\'ladi.' }
-        ]
-    },
-    {
-        id: 'n5_te_wa_ikemasen',
-        level: 'N5',
-        title: '〜てはいけません (te wa ikemasen)',
-        romaji: 'te wa ikemasen',
-        meaningUz: '...-sa bo\'lmaydi, taqiqlanadi (Man etilgan harakat)',
-        structure: 'Fe\'l (Te-shakli) + はいいけません',
-        examples: [
-            { ja: 'ここでタバコを吸ってはいけません。', romaji: 'Koko de tabako wo sutte wa ikemasen.', uz: 'Bu yerda tamaki chekish taqiqlanadi.' }
-        ]
-    },
-    {
-        id: 'n5_naide_kudasai',
-        level: 'N5',
-        title: '〜ないでください (naide kudasai)',
-        romaji: 'naide kudasai',
-        meaningUz: '...-mang / Iltimos, ...-bajarib o\'tmang (Inkor iltimos)',
-        structure: 'Fe\'l (Nai-shakli) + でください',
-        examples: [
-            { ja: '写真を撮らないでください。', romaji: 'Shashin wo toranaide kudasai.', uz: 'Rasmga tushurmang.' }
-        ]
-    },
-    {
-        id: 'n5_nakereba_narimosen',
-        level: 'N5',
-        title: '〜なければなりません (nakereba narimasen)',
-        romaji: 'nakereba narimasen',
-        meaningUz: '...-shim shart / bajarishim shart va zarur',
-        structure: 'Fe\'l (Nai-shakli ildizi) + ければなりません',
-        examples: [
-            { ja: '薬を飲まなければなりません。', romaji: 'Kusuri wo nomanakereba narimasen.', uz: 'Dori ichishim shart.' }
-        ]
-    },
-    {
-        id: 'n5_nakute_mo_ii_desu',
-        level: 'N5',
-        title: '〜なくてもいいです (nakute mo ii desu)',
-        romaji: 'nakute mo ii desu',
-        meaningUz: '...-shingiz shart emas / bajarmasangiz ham bo\'ladi',
-        structure: 'Fe\'l (Nai-shakli ildizi) + くてもいいです',
-        examples: [
-            { ja: '明日来なくてもいいです。', romaji: 'Ashita konakute mo ii desu.', uz: 'Ertaga kelmasangiz ham bo\'ladi.' }
-        ]
-    },
-    {
-        id: 'n5_tari_tari_shimasu',
-        level: 'N5',
-        title: '〜たり、〜たりします (tari, tari shimasu)',
-        romaji: 'tari, tari shimasu',
-        meaningUz: 'goh ...-bajaraman, goh ...-bajaraman (Harakatlar sanab o\'tish)',
-        structure: 'Fe\'l1 (Ta-form) + り、Fe\'l2 (Ta-form) + りします',
-        examples: [
-            { ja: '日曜日本を読んだり、音楽を聞いたりします。', romaji: 'Nichiyoubi hon wo yondari, ongaku wo kikitari shimasu.', uz: 'Yakshanba kuni goh kitob o\'qiyman, goh musiqa tinglayman.' }
-        ]
-    },
-    {
-        id: 'n5_ta_koto_ga_arimasu',
-        level: 'N5',
-        title: '〜たことがあります (ta koto ga arimasu)',
-        romaji: 'ta koto ga arimasu',
-        meaningUz: '...-ganman / ...-gan tajribam bor',
-        structure: 'Fe\'l (Ta-form) + ことがあります',
-        examples: [
-            { ja: '富士山に登ったことがあります。', romaji: 'Fujisan ni nobotta koto ga arimasu.', uz: 'Fuji tog\'iga ko\'tarilganman.' }
-        ]
-    },
 
     // ==========================================
-    // 🎌 JLPT N4 GRAMMAR (Shin Kanzen Master N4)
+    // 🎌 JLPT N4 COMPLETE GRAMMAR (Shin Kanzen Master N4)
     // ==========================================
     {
         id: 'n4_younini_suru',
@@ -439,20 +159,44 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         title: '〜ようにする (you ni suru)',
         romaji: 'you ni suru',
         meaningUz: '...-shga harakat qilmoq / odat qilmoq',
-        structure: 'Fe\'l (Lug\'at shakli) + ようにする',
+        structure: 'Fe\'l (Lug\'at shakli / ない-shakli) + ようにする',
         examples: [
-            { ja: '毎日野菜を食べるようにしています。', romaji: 'Mainichi yasai wo taberu you ni shite imasu.', uz: 'Har kuni sabzavot yeyishga harakat qilyapman.' }
+            { ja: '毎日甘いものを食べないようにしています。', romaji: 'Mainichi amai mono wo tabenai you ni shite imasu.', uz: 'Har kuni shirinlik yemaslikka harakat qilyapman.' },
+            { ja: '早く起きるようにしてください。', romaji: 'Hayaku okiru you ni shite kudasai.', uz: 'Barvaqt turishga harakat qiling.' }
+        ]
+    },
+    {
+        id: 'n4_younini_naru',
+        level: 'N4',
+        title: '〜ようになる (you ni naru)',
+        romaji: 'you ni naru',
+        meaningUz: '...-shni o\'rganmoq / ... bo\'lib qolmoq (Qobiliyat yoki holat o\'zgarishi)',
+        structure: 'Fe\'l (Qobiliyat/Lug\'at shakli) + ようになる',
+        examples: [
+            { ja: '日本語で話せるようになりました。', romaji: 'Nihongo de hanaseru you ni narimashita.', uz: 'Yapon tilida gapira oladigan bo\'ldim.' }
         ]
     },
     {
         id: 'n4_sou_desu_hearsay',
         level: 'N4',
-        title: '〜そうです (sou desu - eshitishimcha)',
+        title: '〜そうです (sou desu - Eshitishimcha)',
         romaji: 'sou desu',
-        meaningUz: 'eshitishimcha ..., deyishmoqda',
+        meaningUz: 'eshitishimcha ..., deyishmoqda (Xabar va mish-mish)',
         structure: 'Fe\'l/Sifat/Ot (Oddiy shakl) + そうです',
         examples: [
-            { ja: '明日は雨が降るそうです。', romaji: 'Ashita wa ame ga kuru sou desu.', uz: 'Eshitishimcha, ertaga yomg\'ir yog\'ar emish.' }
+            { ja: '天気予報によると、明日は雨が降るそうです。', romaji: 'Tenki yohou ni yoruto, ashita wa ame ga kuru sou desu.', uz: 'Ob-havo ma\'lumotiga ko\'ra, ertaga yomg\'ir yog\'ar emish.' }
+        ]
+    },
+    {
+        id: 'n4_sou_desu_conjecture',
+        level: 'N4',
+        title: '〜そうです (sou desu - Ko\'rinishidan)',
+        romaji: 'sou desu',
+        meaningUz: '...-dek ko\'rinadi / ...-ganday tuyuladi (Tashqi ko\'rinish va taxmin)',
+        structure: 'Sifat (い/な-ildizi) / Fe\'l (Masu-ildizi) + そうです',
+        examples: [
+            { ja: 'このケーキはおいしそうです。', romaji: 'Kono keeki wa oishisou desu.', uz: 'Bu tort mazali ko\'rinadi.' },
+            { ja: '今にも雨が降りそうです。', romaji: 'Ima ni mo ame ga furisou desu.', uz: 'Hozirroq yomg\'ir yog\'adigandek ko\'rinadi.' }
         ]
     },
     {
@@ -460,15 +204,230 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         level: 'N4',
         title: '〜ば (ba conditional)',
         romaji: 'ba',
-        meaningUz: 'agar ...-sa (shart fe\'li)',
-        structure: 'Fe\'l (Ba-shakli) / Sifat + ければ',
+        meaningUz: 'agar ...-sa (Shart fe\'li - Ba-shakli)',
+        structure: 'Fe\'l (Ba-shakli) / Sifat (〜ければ)',
         examples: [
-            { ja: '安ければ買います。', romaji: 'Yasukereba kaimasu.', uz: 'Arzon bo\'lsa sotib olaman.' }
+            { ja: '安ければ買います。', romaji: 'Yasukereba kaimasu.', uz: 'Arzon bo\'lsa sotib olaman.' },
+            { ja: 'ボタンを押せば、ドアが開きます。', romaji: 'Botan wo oseba, doa ga akimasu.', uz: 'Tugmani bossangiz, eshik ochiladi.' }
+        ]
+    },
+    {
+        id: 'n4_tara_form',
+        level: 'N4',
+        title: '〜たら (tara conditional)',
+        romaji: 'tara',
+        meaningUz: 'agar ...-sa / ...-gandan keyin (Gipotetik shart va ketma-ketlik)',
+        structure: 'Fe\'l (Ta-form) + ら',
+        examples: [
+            { ja: '雨が降ったら、出かけません。', romaji: 'Ame ga futtara, dekakemasen.', uz: 'Agar yomg\'ir yog\'sa, ko\'chaga chiqmayman.' },
+            { ja: '家へ帰ったら、すぐお風呂に入ります。', romaji: 'Ie e kattara, sugu ofuro ni hairimasu.', uz: 'Uyga borgach, darhol vanna qabul qilaman.' }
+        ]
+    },
+    {
+        id: 'n4_to_form',
+        level: 'N4',
+        title: '〜と (to conditional)',
+        romaji: 'to',
+        meaningUz: '...-sa, darhol ... (Tabiiy va muqarrar oqibat)',
+        structure: 'Fe\'l (Lug\'at shakli) + と',
+        examples: [
+            { ja: '春になると、桜が咲きます。', romaji: 'Haru ni naru to, sakura ga sakimasu.', uz: 'Bahor kelsa, sakura gullaydi.' }
+        ]
+    },
+    {
+        id: 'n4_nara_form',
+        level: 'N4',
+        title: '〜なら (nara conditional)',
+        romaji: 'nara',
+        meaningUz: 'agar ... bo\'lsa / ...-ga kelsak (Mavzu sharti)',
+        structure: 'Ot / Fe\'l / Sifat + なら',
+        examples: [
+            { ja: 'カメラを買うなら、あの店がいいですよ。', romaji: 'Kamera wo kau nara, ano mise ga ii desu yo.', uz: 'Kamera sotib olmoqchi bo\'lsangiz, anavi do\'kon yaxshi.' }
+        ]
+    },
+    {
+        id: 'n4_passive_fe_l',
+        level: 'N4',
+        title: '〜れる / 〜られる (Passive Form)',
+        romaji: 'reru / rareru',
+        meaningUz: '...-ga uchramoq / majhul nisbat (Boshqalar tomonidan bajarilgan harakat)',
+        structure: '1-guruh Fe\'l: あ-qator + れる | 2-guruh: られる',
+        examples: [
+            { ja: '犬に手をかまれました。', romaji: 'Inu ni te wo kamaremashita.', uz: 'Qo\'limni it tishlab oldi.' },
+            { ja: '泥棒に財布をとられました。', romaji: 'Dorobou ni saifu wo toraremashita.', uz: 'O\'g\'riga hamyonimni oldirib qo\'ydim.' }
+        ]
+    },
+    {
+        id: 'n4_causative_fe_l',
+        level: 'N4',
+        title: '〜させる / 〜させられる (Causative Form)',
+        romaji: 'saseru / saserareru',
+        meaningUz: '...-ga qildirmoq / majburan qildirilmoq (Ettirish va majburlov nisbati)',
+        structure: '1-guruh: あ-qator + せる | 2-guruh: させる',
+        examples: [
+            { ja: '母は子供に野菜を食べさせます。', romaji: 'Haha wa kodomo ni yasai wo tabesasemasu.', uz: 'Ona bolasiga sabzavot yediradi.' },
+            { ja: '昨日は嫌な仕事をさせられました。', romaji: 'Kinou wa iya na shigoto wo saseraremashita.', uz: 'Kechasi yoqimsiz ishni majburan qildirishdi.' }
+        ]
+    },
+    {
+        id: 'n4_te_ageru',
+        level: 'N4',
+        title: '〜てあげる / てやる (te ageru)',
+        romaji: 'te ageru',
+        meaningUz: '...-bajarib bermoq (boshqa kishiga yaxshilik qilish)',
+        structure: 'Fe\'l (Te-shakli) + あげる',
+        examples: [
+            { ja: '友達の荷物を持ってあげました。', romaji: 'Tomodachi no nimotsu wo motte agemashita.', uz: 'Do\'stimning yukini ko\'tarishib berdim.' }
+        ]
+    },
+    {
+        id: 'n4_te_kureru',
+        level: 'N4',
+        title: '〜てくれる / てもらう (te kureru / te morau)',
+        romaji: 'te kureru / te morau',
+        meaningUz: '...-bajarib bermoq (menga/bizga) / ...-bajarib berilishini olmoq',
+        structure: 'Fe\'l (Te-shakli) + くれる / もらう',
+        examples: [
+            { ja: '鈴木さんは私に日本語を教えてくれました。', romaji: 'Suzuki-san wa watashi ni Nihongo wo oshiete kuremashita.', uz: 'Suzuki janoblari menga yapon tilini o\'rgatib berdi.' }
+        ]
+    },
+    {
+        id: 'n4_te_shimau',
+        level: 'N4',
+        title: '〜てしまう (te shimau)',
+        romaji: 'te shimau',
+        meaningUz: 'afsuski ...-bajarib qo\'ydim / harakatni oxirigacha bitirmoq',
+        structure: 'Fe\'l (Te-shakli) + しまう',
+        examples: [
+            { ja: '宿題を忘れてしまいました。', romaji: 'Shukudai wo washurete shimaimashita.', uz: 'Afsuski, uy vazifamni esdan chiqarib qo\'ydim.' },
+            { ja: 'この本を全部読んでしまいました。', romaji: 'Kono hon wo zenbu yonde shimaimashita.', uz: 'Ushbu kitobni oxirigacha o\'qib bitirdim.' }
+        ]
+    },
+    {
+        id: 'n4_te_oku',
+        level: 'N4',
+        title: '〜ておく (te oku)',
+        romaji: 'te oku',
+        meaningUz: 'oldindan ...-bajarib qo\'ymoq (kelajak uchun tayyorgarlik)',
+        structure: 'Fe\'l (Te-shakli) + おく',
+        examples: [
+            { ja: '旅行の前にチケットを買っておきます。', romaji: 'Ryokou no mae ni chiketto wo katte okimasu.', uz: 'Sayohatdan oldin biletlarni sotib olib qo\'yaman.' }
+        ]
+    },
+    {
+        id: 'n4_te_miru',
+        level: 'N4',
+        title: '〜てみる (te miru)',
+        romaji: 'te miru',
+        meaningUz: '...-ko\'rmoq (sinab ko\'rish harakati)',
+        structure: 'Fe\'l (Te-shakli) + みる',
+        examples: [
+            { ja: '日本の着物を着てみたいです。', romaji: 'Nihon no kimono wo kite mitai desu.', uz: 'Yapon kimonosini kiyib ko\'rgim kelyapti.' }
+        ]
+    },
+    {
+        id: 'n4_koto_ni_suru',
+        level: 'N4',
+        title: '〜ことにする (koto ni suru)',
+        romaji: 'koto ni suru',
+        meaningUz: '...-shga qaror qilmoq (Shaxsiy qaror)',
+        structure: 'Fe\'l (Lug\'at/Nai-shakli) + ことにする',
+        examples: [
+            { ja: '来年日本へ留学することにしました。', romaji: 'Rainen Nihon e ryuugaku suru koto ni shimashita.', uz: 'Kelasi yili Yaponiyaga o\'qishga borishga qaror qildim.' }
+        ]
+    },
+    {
+        id: 'n4_koto_ni_naru',
+        level: 'N4',
+        title: '〜ことになる (koto ni naru)',
+        romaji: 'koto ni naru',
+        meaningUz: '...-shga qaror qilindi (Tashqi manba yoki tashkilot qarori)',
+        structure: 'Fe\'l (Lug\'at/Nai-shakli) + ことになる',
+        examples: [
+            { ja: '来月東京へ転勤することになりました。', romaji: 'Raigetsu Toukyou e tenkin suru koto ni narimashita.', uz: 'Kelasi oy Tokyoga ish yuzasidan ko\'chadigan bo\'ldim.' }
+        ]
+    },
+    {
+        id: 'n4_youtei',
+        level: 'N4',
+        title: '〜予定です (youtei desu)',
+        romaji: 'youtei desu',
+        meaningUz: '...-sh rejalashtirilgan (Reja va jadval)',
+        structure: 'Fe\'l (Lug\'at shakli) / Ot の + 予定です',
+        examples: [
+            { ja: '出張は来週の月曜日の予定です。', romaji: 'Shucchou wa raishuu no getsuyoubi no youtei desu.', uz: 'Xizmat safari kelasi haftaning dushanbasiga rejalashtirilgan.' }
+        ]
+    },
+    {
+        id: 'n4_tori_ni',
+        level: 'N4',
+        title: '〜とおりに (tori ni)',
+        romaji: 'tori ni / doori ni',
+        meaningUz: '... kabi / ...-ga ko\'ra (aynan ko\'rsatilgandek)',
+        structure: 'Fe\'l (Lug\'at/Ta-form) / Ot の + とおりに',
+        examples: [
+            { ja: '私が言うとおりに書いてください。', romaji: 'Watashi ga iu tori ni kaite kudasai.', uz: 'Men aytganimdek qilib yozing.' }
+        ]
+    },
+    {
+        id: 'n4_atode',
+        level: 'N4',
+        title: '〜あとで (ato de)',
+        romaji: 'ato de',
+        meaningUz: '...-gandan keyin (Vaqt tartibi)',
+        structure: 'Fe\'l (Ta-form) / Ot の + あとで',
+        examples: [
+            { ja: '仕事が終わったあとで、飲みに行きましょう。', romaji: 'Shigoto ga owatta ato de, nomi ni ikimashou.', uz: 'Ish tugagach, ichgani boraylik.' }
+        ]
+    },
+    {
+        id: 'n4_baai_wa',
+        level: 'N4',
+        title: '〜場合は (baai wa)',
+        romaji: 'baai wa',
+        meaningUz: '... bo\'lgan holatda / ... vujudga kelsa',
+        structure: 'Fe\'l/Sifat/Ot + 場合は',
+        examples: [
+            { ja: '火事の場合は、エレベーターを使わないでください。', romaji: 'Kaji no baai wa, erebeetaa wo tsukawanaide kudasai.', uz: 'Yong\'in bo\'lgan holatda liftga chiqmang.' }
+        ]
+    },
+    {
+        id: 'n4_nizoni',
+        level: 'N4',
+        title: '〜のに (noni - ziddiyat)',
+        romaji: 'noni',
+        meaningUz: '...-sa ham / ...-ganiga qaramay (Afsus va kutilmagan ziddiyat)',
+        structure: 'Fe\'l/Sifat/Ot + のに',
+        examples: [
+            { ja: '薬を飲んだのに、熱が下がりません。', romaji: 'Kusuri wo nonda noni, netsu ga sagarimasen.', uz: 'Dori ichganimga qaramay, isitmam tushmayapti.' }
+        ]
+    },
+    {
+        id: 'n4_tameni',
+        level: 'N4',
+        title: '〜ために (tame ni)',
+        romaji: 'tame ni',
+        meaningUz: '... uchun (Maqsad va sabab)',
+        structure: 'Fe\'l (Lug\'at shakli) / Ot の + ために',
+        examples: [
+            { ja: '家を買うために、貯金しています。', romaji: 'Ie wo kau tame ni, chokin shite imasu.', uz: 'Uy sotib olish uchun pul jamg\'aryapman.' }
+        ]
+    },
+    {
+        id: 'n4_volitional_ou',
+        level: 'N4',
+        title: '〜意向形 (Volitional Form - おう/ろう)',
+        romaji: 'ou / rou',
+        meaningUz: '...-aylik / ...-moqchiman (Og\'zaki chorlov va niyat)',
+        structure: '1-guruh: お-qator | 2-guruh: よう',
+        examples: [
+            { ja: 'ちょっと休もう。', romaji: 'Chotto yasumou.', uz: 'Biroz dam olaylik.' },
+            { ja: '手伝おうか。', romaji: 'Tetsudaou ka.', uz: 'Yordam beraymi?' }
         ]
     },
 
     // ==========================================
-    // 🎌 JLPT N3 GRAMMAR (Shin Kanzen Master N3)
+    // 🎌 JLPT N3 COMPLETE GRAMMAR (Shin Kanzen Master N3)
     // ==========================================
     {
         id: 'n3_bakari_ka',
@@ -505,7 +464,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
     },
 
     // ==========================================
-    // 🎌 JLPT N2 GRAMMAR (Shin Kanzen Master N2)
+    // 🎌 JLPT N2 COMPLETE GRAMMAR (Shin Kanzen Master N2)
     // ==========================================
     {
         id: 'n2_ni_chigai_nai',
@@ -542,7 +501,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
     },
 
     // ==========================================
-    // 🎌 JLPT N1 GRAMMAR (Nihongo Sou Matome N1)
+    // 🎌 JLPT N1 COMPLETE GRAMMAR (Nihongo Sou Matome N1)
     // ==========================================
     {
         id: 'n1_zaru_wo_eta_nai',
