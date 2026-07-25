@@ -56,8 +56,8 @@ export const CoachSettingsModal: React.FC<CoachSettingsModalProps> = ({
                             onChange={(e) => setCoachAiModel(e.target.value as AIProvider)}
                             className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                         >
-                            <option value="gemini">Google Gemini (Tavsiya etiladi)</option>
-                            <option value="deepseek">DeepSeek</option>
+                            <option value="deepseek">DeepSeek (Tavsiya etiladi)</option>
+                            <option value="gemini">Google Gemini</option>
                             <option value="ollama">Ollama (Local)</option>
                         </select>
                     </div>

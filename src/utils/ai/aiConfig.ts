@@ -52,7 +52,7 @@ export const getAIConfig = () => {
     let deepseekKey = '';
     let geminiKey = '';
 
-    let deepseekModel: 'deepseek-chat' | 'deepseek-reasoner' = 'deepseek-chat';
+    let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
     let deepseekThinkingMode = false;
     let openAIApiKey = '';
     let coachVoice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer' = 'alloy';
@@ -65,7 +65,15 @@ export const getAIConfig = () => {
             if (saved.aiModel) aiModel = saved.aiModel;
             if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
             if (saved.googleApiKey) geminiKey = saved.googleApiKey;
-            if (saved.deepseekModel) deepseekModel = saved.deepseekModel;
+            if (saved.deepseekModel) {
+                if (saved.deepseekModel === 'deepseek-chat') {
+                    deepseekModel = 'deepseek-v4-flash';
+                } else if (saved.deepseekModel === 'deepseek-reasoner') {
+                    deepseekModel = 'deepseek-v4-pro';
+                } else {
+                    deepseekModel = saved.deepseekModel;
+                }
+            }
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
             if (saved.openAIApiKey) openAIApiKey = saved.openAIApiKey;
             if (saved.coachVoice) coachVoice = saved.coachVoice;

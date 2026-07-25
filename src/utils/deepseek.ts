@@ -23,9 +23,9 @@ export const callDeepSeek = async (
     modelName: string = 'deepseek-chat',
     thinkingEnabled: boolean = false
 ): Promise<string> => {
-    let actualModel = 'deepseek-chat';
-    if (modelName === 'deepseek-reasoner' || modelName.includes('pro') || thinkingEnabled) {
-        actualModel = 'deepseek-reasoner';
+    let actualModel = 'deepseek-v4-flash';
+    if (modelName === 'deepseek-reasoner' || modelName === 'deepseek-v4-pro' || modelName.includes('pro') || modelName.includes('reasoner') || thinkingEnabled) {
+        actualModel = 'deepseek-v4-pro';
     }
 
     const messages: { role: string; content: string }[] = [];

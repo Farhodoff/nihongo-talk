@@ -145,14 +145,14 @@ export const useSpeechRecognition = ({
 
             const isValid = validateSpeechInput(spokenText, duration);
 
+            // Always clear the buffers immediately on end to avoid stale speech replays
+            transcriptBufferRef.current = '';
+            setCurrentTranscript('');
+
             if (isLiveSessionRef.current && !isProcessingRef.current) {
                 if (isValid) {
-                    transcriptBufferRef.current = '';
-                    setCurrentTranscript('');
                     onValidSpeechRef.current(spokenText);
                 } else {
-                    transcriptBufferRef.current = '';
-                    setCurrentTranscript('');
                     setTimeout(() => { onResumeListeningRef.current(); }, 300);
                 }
             }

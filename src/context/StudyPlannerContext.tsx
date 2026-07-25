@@ -23,7 +23,7 @@ interface Settings {
     googleApiKey?: string;
     aiModel?: 'gemini' | 'deepseek' | 'ollama';
     deepseekApiKey?: string;
-    deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
+    deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
     deepseekThinkingMode?: boolean;
     ollamaUrl?: string;
     ollamaModel?: string;
@@ -193,7 +193,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         googleApiKey?: string;
         aiModel?: 'gemini' | 'deepseek' | 'ollama';
         deepseekApiKey?: string;
-        deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
+        deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
         deepseekThinkingMode?: boolean;
         ollamaUrl?: string;
         ollamaModel?: string;
@@ -208,20 +208,31 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const savedAiSettings = savedAiSettingsStr ? JSON.parse(savedAiSettingsStr) : {};
         const savedGoal = localStorage.getItem('study_planner_daily_goal');
         
+        let dsModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
+        if (savedAiSettings.deepseekModel) {
+            if (savedAiSettings.deepseekModel === 'deepseek-chat') {
+                dsModel = 'deepseek-v4-flash';
+            } else if (savedAiSettings.deepseekModel === 'deepseek-reasoner') {
+                dsModel = 'deepseek-v4-pro';
+            } else {
+                dsModel = savedAiSettings.deepseekModel;
+            }
+        }
+
         return {
             theme: (savedTheme as 'light' | 'dark') || 'light',
             notificationsEnabled: true,
             googleApiKey: savedAiSettings.googleApiKey,
             aiModel: savedAiSettings.aiModel || 'deepseek',
             deepseekApiKey: savedAiSettings.deepseekApiKey || '',
-            deepseekModel: (savedAiSettings.deepseekModel as 'deepseek-chat' | 'deepseek-reasoner') || 'deepseek-chat',
+            deepseekModel: dsModel,
             deepseekThinkingMode: savedAiSettings.deepseekThinkingMode,
             ollamaUrl: savedAiSettings.ollamaUrl,
             ollamaModel: savedAiSettings.ollamaModel,
             dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal, 10) : 240,
             openAIApiKey: savedAiSettings.openAIApiKey,
             coachVoice: savedAiSettings.coachVoice || 'alloy',
-            coachAiModel: savedAiSettings.coachAiModel || 'gemini',
+            coachAiModel: savedAiSettings.coachAiModel || 'deepseek',
             coachApiKey: savedAiSettings.coachApiKey || '',
         };
     });
@@ -869,7 +880,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
                     aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
                     deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
-                    deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : prev.deepseekModel,
+                    deepseekModel: updates.deepseekModel !== undefined ? (updates.deepseekModel as any) : prev.deepseekModel,
                     deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : prev.deepseekThinkingMode,
                     ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
                     ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,

@@ -10,10 +10,10 @@ const AIProviderSection: React.FC = () => {
     const { user, settings, updateSettings } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
 
-    const [aiModel, setAiModel] = useState<AIProvider>((settings.aiModel as AIProvider) || 'gemini');
+    const [aiModel, setAiModel] = useState<AIProvider>((settings.aiModel as AIProvider) || 'deepseek');
     const [googleKey, setGoogleKey] = useState(settings.googleApiKey || '');
     const [deepseekKey, setDeepseekKey] = useState(settings.deepseekApiKey || '');
-    const [deepseekModel, setDeepseekModel] = useState<'deepseek-chat' | 'deepseek-reasoner'>(settings.deepseekModel || 'deepseek-chat');
+    const [deepseekModel, setDeepseekModel] = useState<'deepseek-v4-flash' | 'deepseek-v4-pro'>((settings.deepseekModel as any) || 'deepseek-v4-flash');
     const [deepseekThinkingMode, setDeepseekThinkingMode] = useState(settings.deepseekThinkingMode || false);
     const [ollamaUrl, setOllamaUrl] = useState(settings.ollamaUrl || 'http://localhost:11434');
     const [ollamaModel, setOllamaModel] = useState(settings.ollamaModel || 'llama3.2');
@@ -23,7 +23,7 @@ const AIProviderSection: React.FC = () => {
     // Voice Coach Settings
     const [openAIApiKey, setOpenAIApiKey] = useState(settings.openAIApiKey || '');
     const [coachVoice, setCoachVoice] = useState<'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer'>(settings.coachVoice || 'alloy');
-    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
+    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'deepseek');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
 
     useEffect(() => {
@@ -159,8 +159,8 @@ const AIProviderSection: React.FC = () => {
                                 onChange={(e) => setDeepseekModel(e.target.value as any)}
                                 className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             >
-                                <option value="deepseek-chat">DeepSeek-V3 (Chat - Tez va arzon)</option>
-                                <option value="deepseek-reasoner">DeepSeek-R1 (Reasoner - Chuqur mulohazali)</option>
+                                <option value="deepseek-v4-flash">DeepSeek-v4-flash (Tez va arzon)</option>
+                                <option value="deepseek-v4-pro">DeepSeek-v4-pro (Chuqur mulohazali / R1/V3)</option>
                             </select>
                         </div>
                         
