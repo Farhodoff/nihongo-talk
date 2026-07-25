@@ -6515,7 +6515,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             {
                 "ja": "許[ゆる]すまじき行為[こうい]",
                 "romaji": "Yurusumajiki koui",
-                "uz": "Kechirib bo me'digan qilmish."
+                "uz": "Kechirib bo'lmaydigan qilmish."
             }
         ]
     },
@@ -7055,7 +7055,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             {
                 "ja": "早[はや]く連絡[れんらく]してくれればいいものを。",
                 "romaji": "Hayaku renraku shite kurereba ii mono wo.",
-                "uz": "Vaqtliroq xabar berganingda yaxshi bo me'rdi-ya."
+                "uz": "Vaqtliroq xabar berganingda yaxshi bo'lardi-ya."
             }
         ]
     },
@@ -7146,6 +7146,291 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
                 "ja": "仕事[しごと]にかまけて、健康[けんこう]管理[かんり]を怠[おこた]る。",
                 "romaji": "Shigoto ni kamakete, kenkou kanri wo okotaru.",
                 "uz": "Faqat ishga berilib ketib sog'liqni unutib qo'ydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_59",
+        "level": "N1",
+        "title": "〜からある (kara aru)",
+        "romaji": "kara aru",
+        "meaningUz": "...-dan kam bo'lmagan ulkan og'irlik yoki miqdor",
+        "structure": "Sonlar/Birlik + からある",
+        "examples": [
+            {
+                "ja": "10キロからある荷物[にもつ]を運[はこ]んだ。",
+                "romaji": "Jukkiro kara aru nimotsu wo hakonda.",
+                "uz": "10 kg dan kam bo'lmagan og'ir yukni tashidim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_60",
+        "level": "N1",
+        "title": "〜たりとも (tari tomo)",
+        "romaji": "tari tomo",
+        "meaningUz": "hatto bir soniya/bir so'm ham bo'lsa ham ... emas",
+        "structure": "1 (Birlik) + たりとも ~ない",
+        "examples": [
+            {
+                "ja": "1秒[いちびょう]たりとも無駄[むだ]にできない。",
+                "romaji": "Ichibyou tari tomo muda ni dekinai.",
+                "uz": "Hatto 1 sekundni ham bekorga sarflab bo'lmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_61",
+        "level": "N1",
+        "title": "〜すら (sura)",
+        "romaji": "sura",
+        "meaningUz": "hatto ... ham (eng oddiy narsani bajara olmaslik)",
+        "structure": "Ot + すら",
+        "examples": [
+            {
+                "ja": "ひらがなすら読[よ]めない。",
+                "romaji": "Hiragana sura yomenai.",
+                "uz": "Hatto xiraganani ham o'qiy olmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_62",
+        "level": "N1",
+        "title": "〜だに (dani)",
+        "romaji": "dani",
+        "meaningUz": "bitta o'ylashning o'ziyoq / tushga ham kirmagan",
+        "structure": "Ot / Fe'l Lug'at + だに",
+        "examples": [
+            {
+                "ja": "想像[そうぞう]するだに恐[おそ]ろしい。",
+                "romaji": "Souzou suru dani osoroshii.",
+                "uz": "Tasavvur qilishning o'ziyoq daxshatli."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_63",
+        "level": "N1",
+        "title": "〜にして (ni shite)",
+        "romaji": "ni shite",
+        "meaningUz": "... yoshga yetibgina / ... darajaga kelibgina",
+        "structure": "Ot + にして",
+        "examples": [
+            {
+                "ja": "40歳[よんじゅっさい]にして初めて家[いえ]を買[か]った。",
+                "romaji": "Yonjussai ni shite hajimete ie wo katta.",
+                "uz": "40 yoshga etibgina birinchi marta uy sotib oldim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_64",
+        "level": "N1",
+        "title": "〜あっての (atte no)",
+        "romaji": "atte no",
+        "meaningUz": "... bo'lgani uchungina bu narsa mavjud",
+        "structure": "Ot + あっての",
+        "examples": [
+            {
+                "ja": "健康[けんこう]あっての幸[しあわ]せだ。",
+                "romaji": "Kenkou atte no shiawase da.",
+                "uz": "Sog'liq bo'lgani uchungina baxt bor."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_65",
+        "level": "N1",
+        "title": "〜かいもなく (kai mo naku)",
+        "romaji": "kai mo naku",
+        "meaningUz": "shuncha mehnat qilganiga qaramay bekor ketdi",
+        "structure": "Fe'l Ta / Ot の + かいもなく",
+        "examples": [
+            {
+                "ja": "努力[どりょく]のかいもなく、不合格[ふごうかく]だった。",
+                "romaji": "Doryoku no kai mo naku, fugoukaku datta.",
+                "uz": "Shuncha harakat qilganiga qaramay yiqildi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_66",
+        "level": "N1",
+        "title": "〜を抜きにしては (wo nuki ni shite wa)",
+        "romaji": "wo nuki ni shite wa",
+        "meaningUz": "...-ni chetga surib bo'lmaydi / ...-siz iloj yo'q",
+        "structure": "Ot + を抜きにしては",
+        "examples": [
+            {
+                "ja": "彼[かれ]の協力[きょうりょく]を抜きにしては成功[せいこう]しない。",
+                "romaji": "Kare no kyouryoku wo nuki ni shite wa seikou shinai.",
+                "uz": "Uning yordamisiz muvaffaqiyatga erishib bo'lmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_67",
+        "level": "N1",
+        "title": "〜を押して (wo oshite)",
+        "romaji": "wo oshite",
+        "meaningUz": "barcha qarshilik va kasallikka qaramay bajardi",
+        "structure": "Ot + を押して",
+        "examples": [
+            {
+                "ja": "病気[びょうき]を押して、大会[たいかい]に出場[しゅつじょう]した。",
+                "romaji": "Byouki wo oshite, taikai ni shutsujou shita.",
+                "uz": "Kasalligiga qaramay musobaqada qatnashdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_68",
+        "level": "N1",
+        "title": "〜をよそに (wo yoso ni)",
+        "romaji": "wo yoso ni",
+        "meaningUz": "boshqalarning xavotir/buyrug'iga e'tibor bermay",
+        "structure": "Ot + をよそに",
+        "examples": [
+            {
+                "ja": "親[おや]の心配[しんぱい]をよそに、遊[あそ]び回[まわ]っている。",
+                "romaji": "Oya no shinpai wo yoso ni, asobimawatte iru.",
+                "uz": "Ota-onasining xavotiriga e'tibor bermay o'ynab yuribdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_69",
+        "level": "N1",
+        "title": "〜にたえない (ni taenai)",
+        "romaji": "ni taenai",
+        "meaningUz": "hissiyotni (shukronalik/g'am) jilovlab bo'lmaydi",
+        "structure": "Ot + にたえない",
+        "examples": [
+            {
+                "ja": "感謝[かんしゃ]の念[ねん]にたえません。",
+                "romaji": "Kansha no nen ni taemasen.",
+                "uz": "Cheksiz minnatdorchilik bildiraman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_70",
+        "level": "N1",
+        "title": "〜に足る (ni taru)",
+        "romaji": "ni taru",
+        "meaningUz": "... qilishga to'liq loyiq / ishonchga loyiq",
+        "structure": "Fe'l Lug'at / Ot + に足る",
+        "examples": [
+            {
+                "ja": "信頼[しんらい]するに足る人物[じんぶつ]",
+                "romaji": "Shinrai suru ni taru jinbutsu",
+                "uz": "Ishonishga loyiq inson."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_71",
+        "level": "N1",
+        "title": "〜でなくてなんだろう (de nakute nan de arou)",
+        "romaji": "de nakute nan de arou",
+        "meaningUz": "bu ... bo me'ay nima bo me'sin! (Haqiqiy narsa)",
+        "structure": "Ot + でなくてなんだろう",
+        "examples": [
+            {
+                "ja": "これが愛[あい]でなくてなんだろう。",
+                "romaji": "Kore ga ai de nakute nan de arou.",
+                "uz": "Bu muhabbat bo'lmay nima bo'lsin!"
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_72",
+        "level": "N1",
+        "title": "〜ともあろう (tomo arou)",
+        "romaji": "tomo arou",
+        "meaningUz": "... kabi mavqedagi odam bo'la turib shunday qildimi?!",
+        "structure": "Ot + ともあろう者",
+        "examples": [
+            {
+                "ja": "大学[だいがく]教授[きょうじゅ]ともあろう者が、カンニングをした。",
+                "romaji": "Daigaku kyouju tomo arou mono ga, kanningu wo shita.",
+                "uz": "Universitet professori bo'la turib shpargalka ishlatdimi?!"
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_73",
+        "level": "N1",
+        "title": "〜羽目になる (hame ni naru)",
+        "romaji": "hame ni naru",
+        "meaningUz": "oxir-oqibat g'irt nochor ahvolga tushib qolmoq",
+        "structure": "Fe'l Lug'at + 羽目になる",
+        "examples": [
+            {
+                "ja": "終電[しゅうでん]を逃[逃]して、歩[ある]いて帰[かえ]る羽目になった。",
+                "romaji": "Shuuden wo逃shite, aruite kaeru hame ni natta.",
+                "uz": "Oxirgi poyezdni o'tkazib yuborib, pyada qaytishga majbur bo'ldim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_74",
+        "level": "N1",
+        "title": "〜始末だ (shimatsu da)",
+        "romaji": "shimatsu da",
+        "meaningUz": "oxir-oqibat shunday xunuk ahvolga kelib qoldi",
+        "structure": "Fe me Plain + 始末だ",
+        "examples": [
+            {
+                "ja": "嘘[うそ]をつき続[つづ]けて、信頼[しんらい]を失[うしな]う始末だ。",
+                "romaji": "Uso wo tsukitsudukete, shinyou wo ushinau shimatsu da.",
+                "uz": "Faqat yolg'on gapirib yurib, oxiri ishonchni yo me'tdi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_75",
+        "level": "N1",
+        "title": "〜ずくめ (zukume)",
+        "romaji": "zukume",
+        "meaningUz": "faqat yaxshi/yomon narsalarga to'la bo me'moq",
+        "structure": "Ot + ずくめ",
+        "examples": [
+            {
+                "ja": "今年[ことし]はいいことずくめの一年[いちねん]だった。",
+                "romaji": "Kotoshi wa ii koto zukume no ichinen datta.",
+                "uz": "Bu yil faqat yaxshiliklarga to me'a yil bo'ldi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_76",
+        "level": "N1",
+        "title": "〜まみれ (mamire)",
+        "romaji": "mamire",
+        "meaningUz": "ust-boshi loy, qon, changga bo'kib ketmoq",
+        "structure": "Ot + まみれ",
+        "examples": [
+            {
+                "ja": "泥[どろ]まみれになってサッカーをした。",
+                "romaji": "Doro mamire ni natte sakkaa wo shita.",
+                "uz": "Loyga bo'kib futbol o'ynadik."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_77",
+        "level": "N1",
+        "title": "〜ぐるみ (gurumi)",
+        "romaji": "gurumi",
+        "meaningUz": "butun tashkilot / oila bo'lib birgalikda",
+        "structure": "Ot + ぐるみ",
+        "examples": [
+            {
+                "ja": "町[まち]ぐるみでリサイクル運動[うんどう]に取り組[く]む。",
+                "romaji": "Machi gurumi de risaikuru undou ni torikumu.",
+                "uz": "Butun shahar bo'lib qayta ishlash harakatiga qo'shildik."
             }
         ]
     }
