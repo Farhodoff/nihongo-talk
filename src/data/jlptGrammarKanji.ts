@@ -7437,44 +7437,2867 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
 ];
 
 export const JLPT_KANJI_DATA: JlptKanjiItem[] = [
-    // --- N5 KANJI ---
     {
-        id: "kanji_n5_sun",
-        level: "N5",
-        kanji: "日",
-        onyomi: "ニチ (nichi), ジツ (jitsu)",
-        kunyomi: "ひ (hi), び (bi), か (ka)",
-        meaningUz: "Quyosh, Kun (Sun, Day)",
-        strokeCount: 4,
-        examples: [
-            { word: "日本", reading: "にほん (Nihon)", meaning: "Yaponiya" },
-            { word: "日曜日", reading: "にちようび (Nichiyoubi)", meaning: "Yakshanba" }
+        "id": "kanji_n5_sun",
+        "level": "N5",
+        "kanji": "日",
+        "onyomi": "ニチ (nichi), ジツ (jitsu)",
+        "kunyomi": "ひ (hi), び (bi), か (ka)",
+        "meaningUz": "Quyosh, Kun (Sun, Day)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "日本",
+                "reading": "にほん (Nihon)",
+                "meaning": "Yaponiya"
+            },
+            {
+                "word": "日曜日",
+                "reading": "にちようび (Nichiyoubi)",
+                "meaning": "Yakshanba"
+            }
         ]
     },
     {
-        id: "kanji_n5_moon",
-        level: "N5",
-        kanji: "月",
-        onyomi: "ゲツ (getsu), ガツ (gatsu)",
-        kunyomi: "つき (tsuki)",
-        meaningUz: "Oy, Oygoh (Moon, Month)",
-        strokeCount: 4,
-        examples: [
-            { word: "今月", reading: "こんげつ (Kongetsu)", meaning: "Bu oy" },
-            { word: "月曜日", reading: "げつようび (Getsuyoubi)", meaning: "Dushanba" }
+        "id": "kanji_n5_moon",
+        "level": "N5",
+        "kanji": "月",
+        "onyomi": "ゲツ (getsu), ガツ (gatsu)",
+        "kunyomi": "つき (tsuki)",
+        "meaningUz": "Oy, Oygoh (Moon, Month)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "今月",
+                "reading": "こんげつ (Kongetsu)",
+                "meaning": "Bu oy"
+            },
+            {
+                "word": "月曜日",
+                "reading": "げつようび (Getsuyoubi)",
+                "meaning": "Dushanba"
+            }
         ]
     },
-    // --- N4 KANJI ---
     {
-        id: "kanji_n4_learn",
-        level: "N4",
-        kanji: "習",
-        onyomi: "シュウ (shuu)",
-        kunyomi: "なら・う (nara-u)",
-        meaningUz: "O'rganmoq, Mashq qilmoq (Learn)",
-        strokeCount: 11,
-        examples: [
-            { word: "練習", reading: "れんしゅう (Renshuu)", meaning: "Mashq / Praktika" }
+        "id": "kanji_n5_tree",
+        "level": "N5",
+        "kanji": "木",
+        "onyomi": "モク (moku), ボク (boku)",
+        "kunyomi": "き (ki)",
+        "meaningUz": "Daraxt, Yog'och (Tree, Wood)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "木曜日",
+                "reading": "もくようび (Mokuyoubi)",
+                "meaning": "Payshanba"
+            },
+            {
+                "word": "大木",
+                "reading": "たいぼく (Taiboku)",
+                "meaning": "Katta daraxt"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_fire",
+        "level": "N5",
+        "kanji": "火",
+        "onyomi": "カ (ka)",
+        "kunyomi": "ひ (hi), ほ (ho)",
+        "meaningUz": "Olov, Olovli (Fire)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "火曜日",
+                "reading": "かようび (Kayoubi)",
+                "meaning": "Seshanba"
+            },
+            {
+                "word": "花火",
+                "reading": "はなび (Hanabi)",
+                "meaning": "Mushak / Mushakbozlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_water",
+        "level": "N5",
+        "kanji": "水",
+        "onyomi": "スイ (sui)",
+        "kunyomi": "みず (mizu)",
+        "meaningUz": "Suv (Water)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "水曜日",
+                "reading": "すいようび (Suiyoubi)",
+                "meaning": "Chorshanba"
+            },
+            {
+                "word": "水泳",
+                "reading": "すいえい (Suiei)",
+                "meaning": "Suzish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_gold",
+        "level": "N5",
+        "kanji": "金",
+        "onyomi": "キン (kin), コン (kon)",
+        "kunyomi": "かね (kane), かな (kana)",
+        "meaningUz": "Oltin, Pul, Juma (Gold, Money)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "お金",
+                "reading": "おかね (Okane)",
+                "meaning": "Pul"
+            },
+            {
+                "word": "金曜日",
+                "reading": "きんようび (Kinyoubi)",
+                "meaning": "Juma"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_soil",
+        "level": "N5",
+        "kanji": "土",
+        "onyomi": "ド (do), ト (to)",
+        "kunyomi": "つち (tsuchi)",
+        "meaningUz": "Tuproq, Yer, Shanba (Soil, Earth)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "土曜日",
+                "reading": "どようび (Doyoubi)",
+                "meaning": "Shanba"
+            },
+            {
+                "word": "土地",
+                "reading": "とち (Tochi)",
+                "meaning": "Yer maydoni"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_mountain",
+        "level": "N5",
+        "kanji": "山",
+        "onyomi": "サン (san), セン (sen)",
+        "kunyomi": "やま (yama)",
+        "meaningUz": "Tog' (Mountain)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "富士山",
+                "reading": "ふじさん (Fujisan)",
+                "meaning": "Fuji tog'i"
+            },
+            {
+                "word": "山登り",
+                "reading": "やまのぼり (Yamanobori)",
+                "meaning": "Tog'ga chiqish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_river",
+        "level": "N5",
+        "kanji": "川",
+        "onyomi": "セン (sen)",
+        "kunyomi": "かわ (kawa)",
+        "meaningUz": "Daryo (River)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "ナイル川",
+                "reading": "ないるがわ (Nairugawa)",
+                "meaning": "Nil daryosi"
+            },
+            {
+                "word": "川上",
+                "reading": "かわかみ (Kawakami)",
+                "meaning": "Daryo yuqorisi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_field",
+        "level": "N5",
+        "kanji": "田",
+        "onyomi": "デン (den)",
+        "kunyomi": "た (ta)",
+        "meaningUz": "Guruch dalasi (Rice Field)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "田んぼ",
+                "reading": "たんぼ (Tanbo)",
+                "meaning": "Guruch dalasi"
+            },
+            {
+                "word": "山田さん",
+                "reading": "やまださん (Yamada-san)",
+                "meaning": "Yamada janoblari"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_person",
+        "level": "N5",
+        "kanji": "人",
+        "onyomi": "ジン (jin), ニン (nin)",
+        "kunyomi": "ひと (hito)",
+        "meaningUz": "Odam, Inson (Person)",
+        "strokeCount": 2,
+        "examples": [
+            {
+                "word": "日本人",
+                "reading": "にほんじん (Nihonjin)",
+                "meaning": "Yapon yigit/qizi"
+            },
+            {
+                "word": "三人",
+                "reading": "さんにん (Sannin)",
+                "meaning": "Uch kishi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_mouth",
+        "level": "N5",
+        "kanji": "口",
+        "onyomi": "コウ (kou), ク (ku)",
+        "kunyomi": "くち (kuchi)",
+        "meaningUz": "Og'iz, Kirish joyi (Mouth, Entrance)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "入口",
+                "reading": "いりぐち (Iriguchi)",
+                "meaning": "Kirish eshigi"
+            },
+            {
+                "word": "出口",
+                "reading": "でぐち (Deguchi)",
+                "meaning": "Chiqish eshigi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_car",
+        "level": "N5",
+        "kanji": "車",
+        "onyomi": "シャ (sha)",
+        "kunyomi": "くるま (kuruma)",
+        "meaningUz": "Mashina, G'ildirak (Car, Wheel)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "電車",
+                "reading": "でんしゃ (Densha)",
+                "meaning": "Poyezd / Elektrчка"
+            },
+            {
+                "word": "自動車",
+                "reading": "じどうしゃ (Jidousha)",
+                "meaning": "Avtomobil"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_gate",
+        "level": "N5",
+        "kanji": "門",
+        "onyomi": "モン (mon)",
+        "kunyomi": "かど (kado)",
+        "meaningUz": "Darvoza (Gate)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "正門",
+                "reading": "せいもん (Seimon)",
+                "meaning": "Asosiy darvoza"
+            },
+            {
+                "word": "専門",
+                "reading": "せんもん (Senmon)",
+                "meaning": "Mutaxassislik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_female",
+        "level": "N5",
+        "kanji": "女",
+        "onyomi": "ジョ (jo), ニョ (nyo)",
+        "kunyomi": "おんな (onna), め (me)",
+        "meaningUz": "Ayol, Qiz (Female, Woman)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "女性",
+                "reading": "じょせい (Josei)",
+                "meaning": "Ayol kishi"
+            },
+            {
+                "word": "女の子",
+                "reading": "おんなのこ (Onnanoko)",
+                "meaning": "Qiz bola"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_male",
+        "level": "N5",
+        "kanji": "男",
+        "onyomi": "ダン (dan), ナン (nan)",
+        "kunyomi": "おとこ (otoko)",
+        "meaningUz": "Erkak, Yigit (Male, Man)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "男性",
+                "reading": "だんせい (Dansei)",
+                "meaning": "Erkak kishi"
+            },
+            {
+                "word": "男の子",
+                "reading": "おとこのこ (Otokonoko)",
+                "meaning": "O'g'il bola"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_child",
+        "level": "N5",
+        "kanji": "子",
+        "onyomi": "シ (shi), ス (su)",
+        "kunyomi": "こ (ko)",
+        "meaningUz": "Bola (Child)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "子供",
+                "reading": "こども (Kodomo)",
+                "meaning": "Yosh bola"
+            },
+            {
+                "word": "電子",
+                "reading": "でんし (Denshi)",
+                "meaning": "Elektron"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_learn",
+        "level": "N5",
+        "kanji": "学",
+        "onyomi": "ガク (gaku)",
+        "kunyomi": "まな・ぶ (mana-bu)",
+        "meaningUz": "O'rganmoq, Ilm (Study, Learn)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "学生",
+                "reading": "がくせい (Gakusei)",
+                "meaning": "Talaba / O'quvchi"
+            },
+            {
+                "word": "大学",
+                "reading": "だいがく (Daigaku)",
+                "meaning": "Universitet"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_school",
+        "level": "N5",
+        "kanji": "校",
+        "onyomi": "コウ (kou)",
+        "kunyomi": "-",
+        "meaningUz": "Maktab (School)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "学校",
+                "reading": "がっこう (Gakkou)",
+                "meaning": "Maktab"
+            },
+            {
+                "word": "校長",
+                "reading": "こうちょう (Kouchou)",
+                "meaning": "Maktab direktori"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_ahead",
+        "level": "N5",
+        "kanji": "先",
+        "onyomi": "セン (sen)",
+        "kunyomi": "さき (saki)",
+        "meaningUz": "Oldin, Avval (Ahead, Previous)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "先生",
+                "reading": "せんせい (Sensei)",
+                "meaning": "O'qituvchi / Ustoz"
+            },
+            {
+                "word": "先月",
+                "reading": "せんげつ (Sengetsu)",
+                "meaning": "O'tgan oy"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_life",
+        "level": "N5",
+        "kanji": "生",
+        "onyomi": "セイ (sei), ショウ (shou)",
+        "kunyomi": "い・きる (iki-ru), う・まれる (uma-reru)",
+        "meaningUz": "Hayot, Tug'ilish (Life, Birth)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "生活",
+                "reading": "せいかつ (Seikatsu)",
+                "meaning": "Turmush / Hayot"
+            },
+            {
+                "word": "誕生日",
+                "reading": "たんじょうび (Tanjoubi)",
+                "meaning": "Tug'ilgan kun"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_book",
+        "level": "N5",
+        "kanji": "本",
+        "onyomi": "ホン (hon)",
+        "kunyomi": "もと (moto)",
+        "meaningUz": "Kitob, Asos (Book, Origin)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "山本さん",
+                "reading": "やまもとさん (Yamamoto-san)",
+                "meaning": "Yamamoto janoblari"
+            },
+            {
+                "word": "本屋",
+                "reading": "ほんや (Hon'ya)",
+                "meaning": "Kitob do'koni"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_year",
+        "level": "N5",
+        "kanji": "年",
+        "onyomi": "ネン (nen)",
+        "kunyomi": "とし (toshi)",
+        "meaningUz": "Yil (Year)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "今年",
+                "reading": "ことし (Kotoshi)",
+                "meaning": "Bu yil"
+            },
+            {
+                "word": "来年",
+                "reading": "らいねん (Rainen)",
+                "meaning": "Kelasi yil"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_time",
+        "level": "N5",
+        "kanji": "時",
+        "onyomi": "ジ (ji)",
+        "kunyomi": "とき (toki)",
+        "meaningUz": "Soat, Vaqt (Time, Hour)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "時間",
+                "reading": "じかん (Jikan)",
+                "meaning": "Vaqt"
+            },
+            {
+                "word": "時計",
+                "reading": "とけい (Tokei)",
+                "meaning": "Soat (buyum)"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_minute",
+        "level": "N5",
+        "kanji": "分",
+        "onyomi": "フン (fun), ブン (bun), プン (pun)",
+        "kunyomi": "わ・かる (waka-ru)",
+        "meaningUz": "Daqiqa, Bo'lish, Tushunish (Minute, Understand)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "五分",
+                "reading": "ごふん (Gofun)",
+                "meaning": "5 daqiqa"
+            },
+            {
+                "word": "半分",
+                "reading": "はんぶん (Hanbun)",
+                "meaning": "Yarmi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_big",
+        "level": "N5",
+        "kanji": "大",
+        "onyomi": "ダイ (dai), タイ (tai)",
+        "kunyomi": "おお・きい (oo-kii)",
+        "meaningUz": "Katta (Big, Large)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "大人",
+                "reading": "おとな (Otona)",
+                "meaning": "Katta yoshli inson"
+            },
+            {
+                "word": "大切",
+                "reading": "たいせつ (Taisetsu)",
+                "meaning": "Muhim / Qadrli"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_small",
+        "level": "N5",
+        "kanji": "小",
+        "onyomi": "ショウ (shou)",
+        "kunyomi": "ちい・さい (chii-sai), こ (ko)",
+        "meaningUz": "Kichik (Small, Little)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "小学生",
+                "reading": "しょうがくせい (Shougakusei)",
+                "meaning": "Boshlang'ich sinf o'quvchisi"
+            },
+            {
+                "word": "小川",
+                "reading": "おがわ (Ogawa)",
+                "meaning": "Kichik soy"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_middle",
+        "level": "N5",
+        "kanji": "中",
+        "onyomi": "チュウ (chuu)",
+        "kunyomi": "なか (naka)",
+        "meaningUz": "Ichida, O'rta (Inside, Middle)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "一日中",
+                "reading": "いちにちじゅう (Ichinichijuu)",
+                "meaning": "Kun bo'yi"
+            },
+            {
+                "word": "中国",
+                "reading": "ちゅうごく (Chuugoku)",
+                "meaning": "Xitoy"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_up",
+        "level": "N5",
+        "kanji": "上",
+        "onyomi": "ジョウ (jou)",
+        "kunyomi": "うえ (ue), あ・がる (a-garu)",
+        "meaningUz": "Yuqori, Ustida (Up, Above)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "上手",
+                "reading": "じょうず (Jouzu)",
+                "meaning": "Mohir / Usta"
+            },
+            {
+                "word": "屋上",
+                "reading": "おくじょう (Okujou)",
+                "meaning": "Tom / Tom usti"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_down",
+        "level": "N5",
+        "kanji": "下",
+        "onyomi": "カ (ka), ゲ (ge)",
+        "kunyomi": "した (shita), さ・がる (sa-garu)",
+        "meaningUz": "Pastda, Ostida (Down, Below)",
+        "strokeCount": 3,
+        "examples": [
+            {
+                "word": "下手",
+                "reading": "へた (Heta)",
+                "meaning": "No'noq / Tajribasiz"
+            },
+            {
+                "word": "地下鉄",
+                "reading": "ちかてつ (Chikatetsu)",
+                "meaning": "Metro"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_front",
+        "level": "N5",
+        "kanji": "前",
+        "onyomi": "ゼン (zen)",
+        "kunyomi": "まえ (mae)",
+        "meaningUz": "Oldida, Avval (Front, Before)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "午前",
+                "reading": "ごぜん (Gozen)",
+                "meaning": "Tushdan oldin (AM)"
+            },
+            {
+                "word": "名前",
+                "reading": "なまえ (Namae)",
+                "meaning": "Ism"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_back",
+        "level": "N5",
+        "kanji": "後",
+        "onyomi": "ゴ (go), コウ (kou)",
+        "kunyomi": "うしろ (ushiro), あと (ato)",
+        "meaningUz": "Ketida, Ortida (Back, After)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "午後",
+                "reading": "ごご (Gogo)",
+                "meaning": "Tushdan keyin (PM)"
+            },
+            {
+                "word": "最後",
+                "reading": "さいご (Saigo)",
+                "meaning": "Oxirgi / So'nggi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_left",
+        "level": "N5",
+        "kanji": "左",
+        "onyomi": "サ (sa)",
+        "kunyomi": "ひだり (hidari)",
+        "meaningUz": "Chap taraf (Left)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "左手",
+                "reading": "ひだりて (Hidarite)",
+                "meaning": "Chap qo'l"
+            },
+            {
+                "word": "左右",
+                "reading": "さゆう (Sayuu)",
+                "meaning": "Chap va o'ng"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_right",
+        "level": "N5",
+        "kanji": "右",
+        "onyomi": "ウ (u), ユウ (yuu)",
+        "kunyomi": "みぎ (migi)",
+        "meaningUz": "O'ng taraf (Right)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "右手",
+                "reading": "みぎて (Migite)",
+                "meaning": "O'ng qo'l"
+            },
+            {
+                "word": "右側",
+                "reading": "みぎがわ (Migigawa)",
+                "meaning": "O'ng tomon"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_east",
+        "level": "N5",
+        "kanji": "東",
+        "onyomi": "トウ (tou)",
+        "kunyomi": "ひがし (higashi)",
+        "meaningUz": "Sharq (East)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "東京",
+                "reading": "とうきょう (Toukyou)",
+                "meaning": "Tokio"
+            },
+            {
+                "word": "東口",
+                "reading": "ひがしぐち (Higashiguchi)",
+                "meaning": "Sharqiy chiqish eshigi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_west",
+        "level": "N5",
+        "kanji": "西",
+        "onyomi": "セイ (sei), サイ (sai)",
+        "kunyomi": "にし (nishi)",
+        "meaningUz": "G'arb (West)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "西洋",
+                "reading": "せいよう (Seiyou)",
+                "meaning": "G'arbiy mamlakatlar"
+            },
+            {
+                "word": "関西",
+                "reading": "かんさい (Kansai)",
+                "meaning": "Kansai mintaqasi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_south",
+        "level": "N5",
+        "kanji": "南",
+        "onyomi": "ナン (nan)",
+        "kunyomi": "みなみ (minami)",
+        "meaningUz": "Janub (South)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "南米",
+                "reading": "なんべい (Nanbei)",
+                "meaning": "Janubiy Amerika"
+            },
+            {
+                "word": "南口",
+                "reading": "みなみぐち (Minamiguchi)",
+                "meaning": "Janubiy chiqish eshigi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_north",
+        "level": "N5",
+        "kanji": "北",
+        "onyomi": "ホク (hoku)",
+        "kunyomi": "きた (kita)",
+        "meaningUz": "Shimol (North)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "北海道",
+                "reading": "ほっかいどう (Hokkaidou)",
+                "meaning": "Xokkaydo adiri"
+            },
+            {
+                "word": "南北",
+                "reading": "なんぼく (Nanboku)",
+                "meaning": "Janub va shimol"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_white",
+        "level": "N5",
+        "kanji": "白",
+        "onyomi": "ハク (haku)",
+        "kunyomi": "しろ・い (shiro-i)",
+        "meaningUz": "Oq rang (White)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "面白い",
+                "reading": "おもしろい (Omoshiroi)",
+                "meaning": "Qiziqarli"
+            },
+            {
+                "word": "白鳥",
+                "reading": "はくちょう (Hakuchou)",
+                "meaning": "Oqqush"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_rain",
+        "level": "N5",
+        "kanji": "雨",
+        "onyomi": "ウ (u)",
+        "kunyomi": "あめ (ame)",
+        "meaningUz": "Yomg'ir (Rain)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "大雨",
+                "reading": "おおあめ (Ooame)",
+                "meaning": "Katta yomg'ir"
+            },
+            {
+                "word": "雨天",
+                "reading": "うてん (Uten)",
+                "meaning": "Yomg'irli ob-havo"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_heaven",
+        "level": "N5",
+        "kanji": "天",
+        "onyomi": "テン (ten)",
+        "kunyomi": "あま (ama)",
+        "meaningUz": "Osmon, Tabiati (Heaven, Sky)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "天気",
+                "reading": "てんき (Tenki)",
+                "meaning": "Ob-havo"
+            },
+            {
+                "word": "天才",
+                "reading": "てんさい (Tensai)",
+                "meaning": "Dahshatli daho"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_spirit",
+        "level": "N5",
+        "kanji": "気",
+        "onyomi": "キ (ki), ケ (ke)",
+        "kunyomi": "-",
+        "meaningUz": "Havo, Kayfiyat, Ruh (Spirit, Air)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "電気",
+                "reading": "でんき (Denki)",
+                "meaning": "Elektr"
+            },
+            {
+                "word": "気持",
+                "reading": "きもち (Kimochi)",
+                "meaning": "Hissiyot / Kayfiyat"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n5_electricity",
+        "level": "N5",
+        "kanji": "電",
+        "onyomi": "デン (den)",
+        "kunyomi": "-",
+        "meaningUz": "Elektr (Electricity)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "電話",
+                "reading": "でんわ (Denwa)",
+                "meaning": "Telefon"
+            },
+            {
+                "word": "電力",
+                "reading": "でんりょく (Denryoku)",
+                "meaning": "Elektr quvvati"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_meet",
+        "level": "N4",
+        "kanji": "会",
+        "onyomi": "カイ (kai), エ (e)",
+        "kunyomi": "あ・う (a-u)",
+        "meaningUz": "Uchrashmoq, Jamiyat (Meet, Society)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "会社",
+                "reading": "かいしゃ (Kaisha)",
+                "meaning": "Kompaniya / Firma"
+            },
+            {
+                "word": "会話",
+                "reading": "かいわ (Kaiwa)",
+                "meaning": "Muloqot / Suhbat"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_same",
+        "level": "N4",
+        "kanji": "同",
+        "onyomi": "ドウ (dou)",
+        "kunyomi": "おな・じ (ona-ji)",
+        "meaningUz": "Bir xil, Teng (Same)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "同時",
+                "reading": "どうじ (Douji)",
+                "meaning": "Bir vaqtning o'zida"
+            },
+            {
+                "word": "同僚",
+                "reading": "どうりょう (Douryou)",
+                "meaning": "Hamkasb"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_thing",
+        "level": "N4",
+        "kanji": "事",
+        "onyomi": "ジ (ji), ズ (zu)",
+        "kunyomi": "こと (koto)",
+        "meaningUz": "Ish, Hodisa (Thing, Event)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "仕事",
+                "reading": "しごと (Shigoto)",
+                "meaning": "Ish / Kasb"
+            },
+            {
+                "word": "事故",
+                "reading": "じこ (Jiko)",
+                "meaning": "Baxtsiz hodisa"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_self",
+        "level": "N4",
+        "kanji": "自",
+        "onyomi": "ジ (ji), シ (shi)",
+        "kunyomi": "みずか・ら (mizuka-ra)",
+        "meaningUz": "O'zi, Shaxsiy (Self)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "自分",
+                "reading": "じぶん (Jibun)",
+                "meaning": "O'zi / O'zim"
+            },
+            {
+                "word": "自由",
+                "reading": "じゆう (Jiyuu)",
+                "meaning": "Erkinlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_company",
+        "level": "N4",
+        "kanji": "社",
+        "onyomi": "シャ (sha)",
+        "kunyomi": "やしろ (yashiro)",
+        "meaningUz": "Kompaniya, Ibodatxona (Company, Shrine)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "社長",
+                "reading": "しゃちょう (Shachou)",
+                "meaning": "Kompaniya direktori"
+            },
+            {
+                "word": "jinja",
+                "reading": "神社 (Jinja)",
+                "meaning": "Ziyoratgoh"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_depart",
+        "level": "N4",
+        "kanji": "発",
+        "onyomi": "ハツ (hatsu), ホツ (hotsu)",
+        "kunyomi": "-",
+        "meaningUz": "Chiqish, Portlash (Depart, Emit)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "出発",
+                "reading": "しゅっぱつ (Shuppatsu)",
+                "meaning": "Jo'nab ketish"
+            },
+            {
+                "word": "発表",
+                "reading": "はっぴょう (Happyou)",
+                "meaning": "Taqdimot / E'lon"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_person_role",
+        "level": "N4",
+        "kanji": "者",
+        "onyomi": "シャ (sha)",
+        "kunyomi": "もの (mono)",
+        "meaningUz": "Shaxs, Mutaxassis (Person)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "医者",
+                "reading": "いしゃ (Isha)",
+                "meaning": "Shifokor / Shifokor"
+            },
+            {
+                "word": "学者",
+                "reading": "がくしゃ (Gakusha)",
+                "meaning": "Olim"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_ground",
+        "level": "N4",
+        "kanji": "地",
+        "onyomi": "チ (chi), ジ (ji)",
+        "kunyomi": "-",
+        "meaningUz": "Yer, Hudud (Ground, Place)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "地震",
+                "reading": "じしん (Jishin)",
+                "meaning": "Zilzila"
+            },
+            {
+                "word": "地図",
+                "reading": "ちず (Chizu)",
+                "meaning": "Xarita"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_business",
+        "level": "N4",
+        "kanji": "業",
+        "onyomi": "ギョウ (gyou), ゴウ (gou)",
+        "kunyomi": "わざ (waza)",
+        "meaningUz": "Kasb, Sanoat (Business, Industry)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "授業",
+                "reading": "じゅぎょう (Jugyou)",
+                "meaning": "Dars / Mashg'ulot"
+            },
+            {
+                "word": "産業",
+                "reading": "さんぎょう (Sangyou)",
+                "meaning": "Sanoat"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_direction",
+        "level": "N4",
+        "kanji": "方",
+        "onyomi": "ホウ (hou)",
+        "kunyomi": "かた (kata)",
+        "meaningUz": "Yo'nalish, Usul, Shaxs (Direction, Method)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "方法",
+                "reading": "ほうほう (Houhou)",
+                "meaning": "Usul / Metod"
+            },
+            {
+                "word": "書き方",
+                "reading": "かきかた (Kakikata)",
+                "meaning": "Yozish usuli"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_new",
+        "level": "N4",
+        "kanji": "新",
+        "onyomi": "シン (shin)",
+        "kunyomi": "あたら・しい (atara-shii)",
+        "meaningUz": "Yangi (New)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "新聞",
+                "reading": "しんぶん (Shinbun)",
+                "meaning": "Gazeta"
+            },
+            {
+                "word": "新幹線",
+                "reading": "しんかんせん (Shinkansen)",
+                "meaning": "Tezyurar poyezd"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_old",
+        "level": "N4",
+        "kanji": "古",
+        "onyomi": "コ (ko)",
+        "kunyomi": "ふる・い (furu-i)",
+        "meaningUz": "Eski (Old)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "中古",
+                "reading": "ちゅうこ (Chuuko)",
+                "meaning": "Ishlatilgan / Ikkinchi qo'l"
+            },
+            {
+                "word": "古代",
+                "reading": "こだい (Kodai)",
+                "meaning": "Qadimgi zamon"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_high",
+        "level": "N4",
+        "kanji": "高",
+        "onyomi": "コウ (kou)",
+        "kunyomi": "たか・い (taka-i)",
+        "meaningUz": "Baland, Qimmat (High, Expensive)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "高校",
+                "reading": "こうこう (Koukou)",
+                "meaning": "Yuqori maktab / Litsey"
+            },
+            {
+                "word": "最高",
+                "reading": "さいこう (Saikou)",
+                "meaning": "Ajoyib / Oliy daraja"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_cheap",
+        "level": "N4",
+        "kanji": "安",
+        "onyomi": "アン (an)",
+        "kunyomi": "やす・い (yasu-i)",
+        "meaningUz": "Arzon, Tinch (Cheap, Peaceful)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "安心",
+                "reading": "あんしん (Anshin)",
+                "meaning": "Xotirjamlik"
+            },
+            {
+                "word": "安全",
+                "reading": "あんぜん (Anzen)",
+                "meaning": "Xavfsizlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_many",
+        "level": "N4",
+        "kanji": "多",
+        "onyomi": "タ (ta)",
+        "kunyomi": "おお・い (oo-i)",
+        "meaningUz": "Ko'p (Many, Much)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "多数",
+                "reading": "たすう (Tasuu)",
+                "meaning": "Ko'pchilik"
+            },
+            {
+                "word": "多分",
+                "reading": "たぶん (Tabun)",
+                "meaning": "Ehtimol"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_few",
+        "level": "N4",
+        "kanji": "少",
+        "onyomi": "ショウ (shou)",
+        "kunyomi": "すく・ない (suku-nai), すこ・し (suko-shi)",
+        "meaningUz": "Oz, Kichik (Few, Little)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "少年",
+                "reading": "しょうねん (Shounen)",
+                "meaning": "O'smir yigit"
+            },
+            {
+                "word": "少女",
+                "reading": "しょうじょ (Shoujo)",
+                "meaning": "O'smir qiz"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_long",
+        "level": "N4",
+        "kanji": "長",
+        "onyomi": "チョウ (chou)",
+        "kunyomi": "なが・い (naga-i)",
+        "meaningUz": "Uzun, Boshliq (Long, Leader)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "社長",
+                "reading": "しゃちょう (Shachou)",
+                "meaning": "Direktor"
+            },
+            {
+                "word": "長男",
+                "reading": "ちょうなん (Chounan)",
+                "meaning": "Katta o'g'il"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_short",
+        "level": "N4",
+        "kanji": "短",
+        "onyomi": "タン (tan)",
+        "kunyomi": "みじか・い (mijika-i)",
+        "meaningUz": "Kalta (Short)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "短所",
+                "reading": "たんしょ (Tansho)",
+                "meaning": "Kamchilik"
+            },
+            {
+                "word": "短時間",
+                "reading": "たんじかん (Tanjikan)",
+                "meaning": "Qisqa vaqt"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_run",
+        "level": "N4",
+        "kanji": "走",
+        "onyomi": "ソウ (sou)",
+        "kunyomi": "はし・る (hashi-ru)",
+        "meaningUz": "Yugurmoq (Run)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "走者",
+                "reading": "そうしゃ (Sousha)",
+                "meaning": "Yuguruvchi"
+            },
+            {
+                "word": "爆走",
+                "reading": "ばくそう (Bakusou)",
+                "meaning": "Shiddat bilan yugurish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_wake",
+        "level": "N4",
+        "kanji": "起",
+        "onyomi": "キ (ki)",
+        "kunyomi": "お・きる (oki-ru), お・こす (o-kosu)",
+        "meaningUz": "Uyg'onmoq, Ro'y bermoq (Wake up, Cause)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "起床",
+                "reading": "きしょう (Kishou)",
+                "meaning": "O'rindan turish"
+            },
+            {
+                "word": "起業",
+                "reading": "きぎょう (Kigyou)",
+                "meaning": "Biznes boshlash"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_walk",
+        "level": "N4",
+        "kanji": "歩",
+        "onyomi": "ホ (ho), ブ (bu)",
+        "kunyomi": "ある・く (aru-ku)",
+        "meaningUz": "Piyoda yurmoq (Walk)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "散歩",
+                "reading": "さんぽ (Sanpo)",
+                "meaning": "Aylanish / Sayr"
+            },
+            {
+                "word": "歩道",
+                "reading": "ほどう (Hodou)",
+                "meaning": "Piyodalar yo'lagi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_stop",
+        "level": "N4",
+        "kanji": "止",
+        "onyomi": "シ (shi)",
+        "kunyomi": "と・まる (toma-ru), と・める (tome-ru)",
+        "meaningUz": "To'xtamoq (Stop)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "中止",
+                "reading": "ちゅうし (Chuushi)",
+                "meaning": "Bekor qilish"
+            },
+            {
+                "word": "禁止",
+                "reading": "きんし (Kinshi)",
+                "meaning": "Taqiq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_make",
+        "level": "N4",
+        "kanji": "作",
+        "onyomi": "サク (saku), サ (sa)",
+        "kunyomi": "つく・る (tsuku-ru)",
+        "meaningUz": "Yasamoq, Yaratmoq (Make, Create)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "作文",
+                "reading": "さくぶん (Sakubun)",
+                "meaning": "Insho / Yozma ish"
+            },
+            {
+                "word": "作品",
+                "reading": "さくひん (Sakuhin)",
+                "meaning": "San'at asari"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_use",
+        "level": "N4",
+        "kanji": "使",
+        "onyomi": "シ (shi)",
+        "kunyomi": "つか・う (tsuka-u)",
+        "meaningUz": "Ishlatmoq, Elchi (Use)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "大使館",
+                "reading": "たいしかん (Taishikan)",
+                "meaning": "Elchixona"
+            },
+            {
+                "word": "使用",
+                "reading": "しよう (Shiyou)",
+                "meaning": "Foydalanish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_borrow",
+        "level": "N4",
+        "kanji": "借",
+        "onyomi": "シャク (shaku)",
+        "kunyomi": "か・りる (kari-ru)",
+        "meaningUz": "Qarz olmoq (Borrow)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "借金",
+                "reading": "しゃっきん (Shakkin)",
+                "meaning": "Qarz pul"
+            },
+            {
+                "word": "借用",
+                "reading": "しゃくよう (Shakuyou)",
+                "meaning": "Qarzga olish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_lend",
+        "level": "N4",
+        "kanji": "貸",
+        "onyomi": "タイ (tai)",
+        "kunyomi": "か・す (ka-su)",
+        "meaningUz": "Qarz bermoq (Lend)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "賃貸",
+                "reading": "ちんたい (Chintai)",
+                "meaning": "Ijaraga berish"
+            },
+            {
+                "word": "貸出",
+                "reading": "かしだし (Kashidashi)",
+                "meaning": "Kutubxona kitob beringi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_return",
+        "level": "N4",
+        "kanji": "帰",
+        "onyomi": "キ (ki)",
+        "kunyomi": "かえ・る (kae-ru)",
+        "meaningUz": "Qaytmoq (Return home)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "帰国",
+                "reading": "きこく (Kikoku)",
+                "meaning": "Vataniga qaytish"
+            },
+            {
+                "word": "帰宅",
+                "reading": "きたく (Kitaku)",
+                "meaning": "Uyga qaytish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_send",
+        "level": "N4",
+        "kanji": "送",
+        "onyomi": "ソウ (sou)",
+        "kunyomi": "おく・る (oku-ru)",
+        "meaningUz": "Yubormoq, Kuzatmoq (Send)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "送信",
+                "reading": "そうしん (Soushin)",
+                "meaning": "Xabar yuborish"
+            },
+            {
+                "word": "送金",
+                "reading": "そうきん (Soukin)",
+                "meaning": "Pul o'tkazmasi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_cut",
+        "level": "N4",
+        "kanji": "切",
+        "onyomi": "セツ (setsu), サイ (sai)",
+        "kunyomi": "き・る (ki-ru)",
+        "meaningUz": "Kesmoq, Qattiq (Cut)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "親切",
+                "reading": "しんせつ (Shinsetsu)",
+                "meaning": "G'amxo'r / Mehribon"
+            },
+            {
+                "word": "切符",
+                "reading": "きっぷ (Kippu)",
+                "meaning": "Chipta"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n4_learn",
+        "level": "N4",
+        "kanji": "習",
+        "onyomi": "シュウ (shuu)",
+        "kunyomi": "なら・う (nara-u)",
+        "meaningUz": "O'rganmoq, Mashq qilmoq (Learn)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "練習",
+                "reading": "れんしゅう (Renshuu)",
+                "meaning": "Mashq / Praktika"
+            },
+            {
+                "word": "学習",
+                "reading": "がくしゅう (Gakushuu)",
+                "meaning": "Ta'lim / O'rganish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_economy",
+        "level": "N3",
+        "kanji": "経",
+        "onyomi": "ケイ (kei), キョウ (kyou)",
+        "kunyomi": "へ・る (he-ru)",
+        "meaningUz": "O'tmoq, Iqtisodiyot (Pass, Economy)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "経済",
+                "reading": "けいざい (Keizai)",
+                "meaning": "Iqtisodiyot"
+            },
+            {
+                "word": "経験",
+                "reading": "けいけん (Keiken)",
+                "meaning": "Tajriba"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_finance",
+        "level": "N3",
+        "kanji": "済",
+        "onyomi": "サイ (sai), ザイ (zai)",
+        "kunyomi": "す・む (su-mu)",
+        "meaningUz": "Tugamoq, Hal qilmoq (Finish, Settle)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "済む",
+                "reading": "すむ (Sumu)",
+                "meaning": "Tugallanmoq"
+            },
+            {
+                "word": "返済",
+                "reading": "へんさい (Hensai)",
+                "meaning": "Qarzni qaytarish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_think",
+        "level": "N3",
+        "kanji": "考",
+        "onyomi": "コウ (kou)",
+        "kunyomi": "かんが・える (kanga-eru)",
+        "meaningUz": "O'ylamoq, Fikr (Think, Consider)",
+        "strokeCount": 6,
+        "examples": [
+            {
+                "word": "思考",
+                "reading": "しこう (Shikou)",
+                "meaning": "Tafakkur / Fikrlash"
+            },
+            {
+                "word": "参考",
+                "reading": "さんこう (Sankou)",
+                "meaning": "Ma'lumot / Ma'lumotnoma"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_theory",
+        "level": "N3",
+        "kanji": "論",
+        "onyomi": "ロン (ron)",
+        "kunyomi": "-",
+        "meaningUz": "Bahs, Tezis, Nazariya (Theory, Logic)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "論文",
+                "reading": "ろんぶん (Ronbun)",
+                "meaning": "Ilmiy maqola"
+            },
+            {
+                "word": "討論",
+                "reading": "とうろん (Touron)",
+                "meaning": "Debat / Muhokama"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_discuss",
+        "level": "N3",
+        "kanji": "議",
+        "onyomi": "ギ (gi)",
+        "kunyomi": "-",
+        "meaningUz": "Muhokama, Majlis (Discuss)",
+        "strokeCount": 20,
+        "examples": [
+            {
+                "word": "会議",
+                "reading": "かいぎ (Kaigi)",
+                "meaning": "Majlis / Konferensiya"
+            },
+            {
+                "word": "議員",
+                "reading": "ぎいん (Giin)",
+                "meaning": "Deputat / Parlament a'zosi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_select",
+        "level": "N3",
+        "kanji": "選",
+        "onyomi": "セン (sen)",
+        "kunyomi": "えら・ぶ (era-bu)",
+        "meaningUz": "Tanlamoq, Saylamoq (Select, Choose)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "選挙",
+                "reading": "せんきょ (Senkyo)",
+                "meaning": "Saylov"
+            },
+            {
+                "word": "選手",
+                "reading": "せんしゅ (Senshu)",
+                "meaning": "Sportchi / O'yinchi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_raise",
+        "level": "N3",
+        "kanji": "挙",
+        "onyomi": "キョ (kyo)",
+        "kunyomi": "あ・げる (a-geru)",
+        "meaningUz": "Ko'tarmoq, Saylov (Raise, Cite)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "挙動",
+                "reading": "きょどう (Kyodou)",
+                "meaning": "Xulq-atvor"
+            },
+            {
+                "word": "一挙に",
+                "reading": "いっきに (Ikki ni)",
+                "meaning": "Bir urinishda"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_propose",
+        "level": "N3",
+        "kanji": "提",
+        "onyomi": "テイ (tei)",
+        "kunyomi": "さ・げる (sa-geru)",
+        "meaningUz": "Taklif qilmoq, Ko'tarib yurmoq (Propose)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "提案",
+                "reading": "ていあん (Teian)",
+                "meaning": "Taklif / Reja"
+            },
+            {
+                "word": "提供",
+                "reading": "ていきょう (Teikyou)",
+                "meaning": "Taqdim etish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_plan",
+        "level": "N3",
+        "kanji": "案",
+        "onyomi": "アン (an)",
+        "kunyomi": "-",
+        "meaningUz": "Reja, G'oya (Plan, Idea)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "案内",
+                "reading": "あんない (Annai)",
+                "meaning": "Yo'l ko'rsatish / Ekskursiya"
+            },
+            {
+                "word": "考案",
+                "reading": "こうあん (Kouan)",
+                "meaning": "G'oya o'ylab topish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_relation",
+        "level": "N3",
+        "kanji": "関",
+        "onyomi": "カン (kan)",
+        "kunyomi": "せき (seki)",
+        "meaningUz": "Aloqa, Bojxona (Relation, Gate)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "関係",
+                "reading": "かんけい (Kankei)",
+                "meaning": "Aloqa / Munosabat"
+            },
+            {
+                "word": "関税",
+                "reading": "かんぜい (Kanzei)",
+                "meaning": "Bojxona boji"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_duty",
+        "level": "N3",
+        "kanji": "係",
+        "onyomi": "ケイ (kei)",
+        "kunyomi": "かか・る (kaka-ru)",
+        "meaningUz": "Mas'ul shaxs, Aloqador (Duty, Person in charge)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "係員",
+                "reading": "かかりいん (Kakariin)",
+                "meaning": "Mas'ul xodim"
+            },
+            {
+                "word": "連係",
+                "reading": "れんけい (Renkei)",
+                "meaning": "O'zaro hamkorlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_tax",
+        "level": "N3",
+        "kanji": "税",
+        "onyomi": "ゼイ (zei)",
+        "kunyomi": "-",
+        "meaningUz": "Soliq (Tax)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "税金",
+                "reading": "ぜいきん (Zeikin)",
+                "meaning": "Soliq"
+            },
+            {
+                "word": "消費税",
+                "reading": "しょうひぜい (Shouhizei)",
+                "meaning": "QQS solig'i"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_right",
+        "level": "N3",
+        "kanji": "権",
+        "onyomi": "ケン (ken), ゴン (gon)",
+        "kunyomi": "-",
+        "meaningUz": "Huquq, Vakolat (Right, Power)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "人権",
+                "reading": "じんけん (Jinken)",
+                "meaning": "Inson huquqlari"
+            },
+            {
+                "word": "権利",
+                "reading": "けんり (Kenri)",
+                "meaning": "Huquq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_profit",
+        "level": "N3",
+        "kanji": "利",
+        "onyomi": "リ (ri)",
+        "kunyomi": "き・く (ki-ku)",
+        "meaningUz": "Foyda, Foiz (Profit, Advantage)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "利用",
+                "reading": "りよう (Riyou)",
+                "meaning": "Foydalanish"
+            },
+            {
+                "word": "金利",
+                "reading": "きんり (Kinri)",
+                "meaning": "Bank foizi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_justice",
+        "level": "N3",
+        "kanji": "義",
+        "onyomi": "ギ (gi)",
+        "kunyomi": "-",
+        "meaningUz": "Burch, Ma'no (Justice, Meaning)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "義務",
+                "reading": "ぎむ (Gimu)",
+                "meaning": "Burch / Majburiyat"
+            },
+            {
+                "word": "定義",
+                "reading": "ていぎ (Teigi)",
+                "meaning": "Ta'rif / Definitsiya"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_work",
+        "level": "N3",
+        "kanji": "務",
+        "onyomi": "ム (mu)",
+        "kunyomi": "つと・める (tsuto-meru)",
+        "meaningUz": "Bajarmoq, Vazifa (Duty, Work)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "公務員",
+                "reading": "こうむいん (Koumuin)",
+                "meaning": "Davlat xizmatchisi"
+            },
+            {
+                "word": "事務所",
+                "reading": "じむしょ (Jimusho)",
+                "meaning": "Ofis / Idora"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_total",
+        "level": "N3",
+        "kanji": "総",
+        "onyomi": "ソウ (sou)",
+        "kunyomi": "-",
+        "meaningUz": "Umumiy, Barcha (Total, General)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "総理大臣",
+                "reading": "そうりだいじん (Souridaijin)",
+                "meaning": "Bosh vazir"
+            },
+            {
+                "word": "総合",
+                "reading": "そうごう (Sougou)",
+                "meaning": "Umumiy qamrov"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_territory",
+        "level": "N3",
+        "kanji": "領",
+        "onyomi": "リョウ (ryou)",
+        "kunyomi": "-",
+        "meaningUz": "Hudud, Boshqarmoq (Territory, Lead)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "大統領",
+                "reading": "だいとうりょう (Daitouryou)",
+                "meaning": "Prezident"
+            },
+            {
+                "word": "領収書",
+                "reading": "りょうしゅうしょ (Ryoushuusho)",
+                "meaning": "Kvitansiya / Chek"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_government",
+        "level": "N3",
+        "kanji": "府",
+        "onyomi": "フ (fu)",
+        "kunyomi": "-",
+        "meaningUz": "Prefektura, Hukumat (Government)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "政府",
+                "reading": "せいふ (Seifu)",
+                "meaning": "Hukumat"
+            },
+            {
+                "word": "京都府",
+                "reading": "きょうとふ (Kyoutofu)",
+                "meaning": "Kioto prefekturasi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_prefecture",
+        "level": "N3",
+        "kanji": "県",
+        "onyomi": "ケン (ken)",
+        "kunyomi": "-",
+        "meaningUz": "Viloyat, Prefektura (Prefecture)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "県庁",
+                "reading": "けんちょう (Kenchou)",
+                "meaning": "Viloyat hokimiyati"
+            },
+            {
+                "word": "青森県",
+                "reading": "あおもりけん (Aomoriken)",
+                "meaning": "Aomori prefekturasi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_city",
+        "level": "N3",
+        "kanji": "市",
+        "onyomi": "シ (shi)",
+        "kunyomi": "いち (ichi)",
+        "meaningUz": "Shahar, Bozor (City, Market)",
+        "strokeCount": 5,
+        "examples": [
+            {
+                "word": "市長",
+                "reading": "しちょう (Shichou)",
+                "meaning": "Hokim / Mayor"
+            },
+            {
+                "word": "市民",
+                "reading": "しみん (Shimin)",
+                "meaning": "Shahar fuqarosi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_ward",
+        "level": "N3",
+        "kanji": "区",
+        "onyomi": "ク (ku)",
+        "kunyomi": "-",
+        "meaningUz": "Tuman, Hudud (Ward, District)",
+        "strokeCount": 4,
+        "examples": [
+            {
+                "word": "区役所",
+                "reading": "くやくしょ (Kuyakusho)",
+                "meaning": "Tuman hokimiyati"
+            },
+            {
+                "word": "区分",
+                "reading": "くぶん (Kubun)",
+                "meaning": "Tasniflash"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_village",
+        "level": "N3",
+        "kanji": "村",
+        "onyomi": "ソン (son)",
+        "kunyomi": "むら (mura)",
+        "meaningUz": "Qishloq (Village)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "村長",
+                "reading": "そんちょう (Sonchou)",
+                "meaning": "Qishloq oqsoqoli"
+            },
+            {
+                "word": "農村",
+                "reading": "のうそん (Nouson)",
+                "meaning": "Qishloq xo'jalik mintaqasi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_check",
+        "level": "N3",
+        "kanji": "査",
+        "onyomi": "サ (sa)",
+        "kunyomi": "-",
+        "meaningUz": "Tekshiruv, Tergov (Check, Investigate)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "調査",
+                "reading": "ちょうさ (Chousa)",
+                "meaning": "Tadqiqot / So'rovnoma"
+            },
+            {
+                "word": "検査",
+                "reading": "けんさ (Kensa)",
+                "meaning": "Tibbiy / Texnik tekshiruv"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n3_politics",
+        "level": "N3",
+        "kanji": "政",
+        "onyomi": "セイ (sei), ショウ (shou)",
+        "kunyomi": "まつりごと (matsurigoto)",
+        "meaningUz": "Siyosat (Politics)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "政治",
+                "reading": "せいじ (Seiji)",
+                "meaning": "Siyosat"
+            },
+            {
+                "word": "政党",
+                "reading": "せいとう (Seitou)",
+                "meaning": "Siyosiy partiya"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_outline",
+        "level": "N2",
+        "kanji": "概",
+        "onyomi": "ガイ (gai)",
+        "kunyomi": "-",
+        "meaningUz": "Umumiylik, Konsept (Outline, General)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "概要",
+                "reading": "がいよう (Gaiyou)",
+                "meaning": "Qisqacha konspekt / Sharh"
+            },
+            {
+                "word": "概念",
+                "reading": "がいねん (Gainen)",
+                "meaning": "Tushuncha / Konsepsiya"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_abridge",
+        "level": "N2",
+        "kanji": "略",
+        "onyomi": "リャク (ryaku)",
+        "kunyomi": "-",
+        "meaningUz": "Qisqacha, Reja (Abridge, Strategy)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "省略",
+                "reading": "しょうりゃク (Shouryaku)",
+                "meaning": "Qisqartirish / Tushirib qoldirish"
+            },
+            {
+                "word": "戦略",
+                "reading": "せんりゃく (Senryaku)",
+                "meaning": "Strategiya"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_obstacle",
+        "level": "N2",
+        "kanji": "障",
+        "onyomi": "ショウ (shou)",
+        "kunyomi": "さわ・わる (sawa-waru)",
+        "meaningUz": "To'siq, G'ov (Obstacle, Harm)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "障害",
+                "reading": "しょうがい (Shougai)",
+                "meaning": "Nogironlik / To'siq"
+            },
+            {
+                "word": "保障",
+                "reading": "ほしょう (Hoshou)",
+                "meaning": "Kafolat"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_harm",
+        "level": "N2",
+        "kanji": "害",
+        "onyomi": "ガイ (gai)",
+        "kunyomi": "-",
+        "meaningUz": "Ziyon, Zarar (Harm, Damage)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "被害",
+                "reading": "ひがい (Higai)",
+                "meaning": "Zarar / Talafot"
+            },
+            {
+                "word": "公害",
+                "reading": "こうがい (Kougai)",
+                "meaning": "Atrof-muhit ifloslanishi"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_expand",
+        "level": "N2",
+        "kanji": "拡",
+        "onyomi": "カク (kaku)",
+        "kunyomi": "ひろ・げる (hiro-geru)",
+        "meaningUz": "Kengaytirmoq (Expand, Enlarge)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "拡大",
+                "reading": "かくだい (Kakudai)",
+                "meaning": "Kengaytirish / Masshtablashtirish"
+            },
+            {
+                "word": "拡張",
+                "reading": "かくちょう (Kakuchou)",
+                "meaning": "Kengaytma / Rivojlantirish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_shrink",
+        "level": "N2",
+        "kanji": "縮",
+        "onyomi": "シュク (shuku)",
+        "kunyomi": "ちぢ・む (chiji-mu)",
+        "meaningUz": "Qisqartirmoq (Shrink, Reduce)",
+        "strokeCount": 17,
+        "examples": [
+            {
+                "word": "縮小",
+                "reading": "しゅくしょう (Shukushou)",
+                "meaning": "Qisqartirish"
+            },
+            {
+                "word": "圧縮",
+                "reading": "あっしゅく (Asshuku)",
+                "meaning": "Siqish / Arxivlash"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_suppress",
+        "level": "N2",
+        "kanji": "抑",
+        "onyomi": "ヨク (yoku)",
+        "kunyomi": "おさ・える (osa-eru)",
+        "meaningUz": "Bosmoq, Tiymoq (Suppress, Control)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "抑制",
+                "reading": "よくせい (Yokusei)",
+                "meaning": "Jilovlash / Boshqarish"
+            },
+            {
+                "word": "抑圧",
+                "reading": "よくあつ (Yokuatsu)",
+                "meaning": "Tazyiq / Zulm"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_urge",
+        "level": "N2",
+        "kanji": "促",
+        "onyomi": "ソク (soku)",
+        "kunyomi": "うなが・す (unaga-su)",
+        "meaningUz": "Undamoq, Tezlatmoq (Urge, Stimulate)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "促進",
+                "reading": "そくしん (Sokushin)",
+                "meaning": "Rivojlantirishni tezlatish"
+            },
+            {
+                "word": "促す",
+                "reading": "うながす (Unagasu)",
+                "meaning": "Chaqirmoq / Undamoq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_advise",
+        "level": "N2",
+        "kanji": "勧",
+        "onyomi": "カン (kan)",
+        "kunyomi": "すす・める (susu-meru)",
+        "meaningUz": "Taklif qilmoq, Maslahat (Advise, Encourage)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "勧誘",
+                "reading": "かんゆう (Kanyuu)",
+                "meaning": "Taklif qilish / Da'vat"
+            },
+            {
+                "word": "勧告",
+                "reading": "かんこく (Kankoku)",
+                "meaning": "Tavsiya / Ogohlantirish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_fear",
+        "level": "N2",
+        "kanji": "恐",
+        "onyomi": "キョウ (kyou)",
+        "kunyomi": "おそ・ろしい (oso-roshii)",
+        "meaningUz": "Qo'rqinch, Xavf (Fear, Dread)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "恐縮",
+                "reading": "きょうしゅく (Kyoushuku)",
+                "meaning": "Uzr so'rash / Minnatdorchilik"
+            },
+            {
+                "word": "恐竜",
+                "reading": "きょうりゅう (Kyouryuu)",
+                "meaning": "Dinozavr"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_prudent",
+        "level": "N2",
+        "kanji": "慎",
+        "onyomi": "シン (shin)",
+        "kunyomi": "つつし・む (tsutsushi-mu)",
+        "meaningUz": "Ehtiyotkorlik (Prudent, Discreet)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "慎重",
+                "reading": "しんちょう (Shinchou)",
+                "meaning": "Ehtiyotkor / Bosiq"
+            },
+            {
+                "word": "不慎",
+                "reading": "ふしん (Fushin)",
+                "meaning": "Ehtiyotsizlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_loosen",
+        "level": "N2",
+        "kanji": "緩",
+        "onyomi": "カン (kan)",
+        "kunyomi": "ゆる・む (yuru-mu)",
+        "meaningUz": "Bo'shashmoq, Yumshatmoq (Loosen, Relax)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "緩和",
+                "reading": "かんわ (Kanwa)",
+                "meaning": "Yumshatish / Yengillashtirish"
+            },
+            {
+                "word": "緩慢",
+                "reading": "かんまん (Kanman)",
+                "meaning": "Sekinlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_intense",
+        "level": "N2",
+        "kanji": "激",
+        "onyomi": "ゲキ (geki)",
+        "kunyomi": "はげ・しい (hage-shii)",
+        "meaningUz": "Shiddatli, Qattiq (Intense, Violent)",
+        "strokeCount": 16,
+        "examples": [
+            {
+                "word": "感激",
+                "reading": "かんげき (Kangeki)",
+                "meaning": "Tolqinlanish"
+            },
+            {
+                "word": "激増",
+                "reading": "げきぞう (Gekizou)",
+                "meaning": "Keskin ko'payish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_fall",
+        "level": "N2",
+        "kanji": "陥",
+        "onyomi": "カン (kan)",
+        "kunyomi": "おち・いる (ochi-iru)",
+        "meaningUz": "Tuzoqqa tushmoq (Fall into, Cave in)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "陥没",
+                "reading": "かんぼつ (Kanbotsu)",
+                "meaning": "O'pirilish / Cho'kish"
+            },
+            {
+                "word": "欠陥",
+                "reading": "けっかん (Kekkan)",
+                "meaning": "Kamchilik / Nuqson"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_melt",
+        "level": "N2",
+        "kanji": "融",
+        "onyomi": "ユウ (yuu)",
+        "kunyomi": "-",
+        "meaningUz": "Erish, Moliya (Melt, Finance)",
+        "strokeCount": 16,
+        "examples": [
+            {
+                "word": "金融",
+                "reading": "きんゆう (Kinyuu)",
+                "meaning": "Moliya / Bank tizimi"
+            },
+            {
+                "word": "融通",
+                "reading": "ゆうずう (Yuuzuu)",
+                "meaning": "Moslashuvchanlik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_exchange",
+        "level": "N2",
+        "kanji": "換",
+        "onyomi": "カン (kan)",
+        "kunyomi": "か・える (ka-eru)",
+        "meaningUz": "Almashtirmoq (Exchange, Swap)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "交換",
+                "reading": "こうかん (Koukan)",
+                "meaning": "Almashtirish / Ayirboshlash"
+            },
+            {
+                "word": "変換",
+                "reading": "へんかん (Henkan)",
+                "meaning": "O'zgartirish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_replace",
+        "level": "N2",
+        "kanji": "替",
+        "onyomi": "タイ (tai)",
+        "kunyomi": "か・える (ka-eru)",
+        "meaningUz": "Qaytadan almashtirmoq (Replace)",
+        "strokeCount": 12,
+        "examples": [
+            {
+                "word": "両替",
+                "reading": "りょうがえ (Ryougae)",
+                "meaning": "Valyuta ayirboshlash"
+            },
+            {
+                "word": "着替え",
+                "reading": "きがえ (Kigae)",
+                "meaning": "Kiyim almashtirish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_discard",
+        "level": "N2",
+        "kanji": "棄",
+        "onyomi": "キ (ki)",
+        "kunyomi": "す・てる (su-teru)",
+        "meaningUz": "Tashlab yubormoq (Discard, Abandon)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "破棄",
+                "reading": "はき (Haki)",
+                "meaning": "Shartnomani bekor qilish"
+            },
+            {
+                "word": "棄権",
+                "reading": "きけん (Kiken)",
+                "meaning": "Ovoz berishdan voz kechish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_evade",
+        "level": "N2",
+        "kanji": "避",
+        "onyomi": "ヒ (hi)",
+        "kunyomi": "さ・ける (sake-ru)",
+        "meaningUz": "Qochmoq, Chetlanmoq (Evade, Avoid)",
+        "strokeCount": 16,
+        "examples": [
+            {
+                "word": "避難",
+                "reading": "ひなん (Hinan)",
+                "meaning": "Evakuatsiya qilish"
+            },
+            {
+                "word": "回避",
+                "reading": "かいひ (Kaihi)",
+                "meaning": "Chetlab o'tish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n2_thwart",
+        "level": "N2",
+        "kanji": "阻",
+        "onyomi": "ソ (so)",
+        "kunyomi": "はば・む (haba-mu)",
+        "meaningUz": "To'smoq (Thwart, Block)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "阻止",
+                "reading": "そし (Soshi)",
+                "meaning": "To'sqinlik qilish"
+            },
+            {
+                "word": "阻害",
+                "reading": "そがい (Sogai)",
+                "meaning": "Rivojlanishga g'ov bo'lish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_anonymous",
+        "level": "N1",
+        "kanji": "匿",
+        "onyomi": "トク (toku)",
+        "kunyomi": "かく・す (kaku-su)",
+        "meaningUz": "Yashirin, Anonim (Anonymous, Hide)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "匿名",
+                "reading": "とくめい (Tokumei)",
+                "meaning": "Anonim / Maxfiy ism"
+            },
+            {
+                "word": "隠匿",
+                "reading": "いんとく (Intoku)",
+                "meaning": "Yashirish / Bekitish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_vast",
+        "level": "N1",
+        "kanji": "茫",
+        "onyomi": "ボウ (bou)",
+        "kunyomi": "-",
+        "meaningUz": "Cheksiz, Xira (Vast, Dim)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "茫然",
+                "reading": "ぼうぜん (Bouzen)",
+                "meaning": "Lol qolmoq / Hayratda turish"
+            },
+            {
+                "word": "茫々",
+                "reading": "ぼうぼう (Boubou)",
+                "meaning": "Cheksiz yaxta"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_desert",
+        "level": "N1",
+        "kanji": "漠",
+        "onyomi": "バク (baku)",
+        "kunyomi": "-",
+        "meaningUz": "Sahro, Noaniq (Desert, Vague)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "砂漠",
+                "reading": "さばく (Sabaku)",
+                "meaning": "Sahro / Cho'l"
+            },
+            {
+                "word": "漠然",
+                "reading": "ばくぜん (Bakuzen)",
+                "meaning": "Noaniq / G'ira-shira"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_evil",
+        "level": "N1",
+        "kanji": "弊",
+        "onyomi": "ヘイ (hei)",
+        "kunyomi": "-",
+        "meaningUz": "Yomon odat, Kompaniyamiz (Evil, Our company)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "弊害",
+                "reading": "へいがい (Heigai)",
+                "meaning": "Zararli oqibat"
+            },
+            {
+                "word": "弊社",
+                "reading": "へいしゃ (Heisha)",
+                "meaning": "Bizning kompaniyamiz (Kamtarona)"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_warp",
+        "level": "N1",
+        "kanji": "歪",
+        "onyomi": "ワイ (wai)",
+        "kunyomi": "ひず・む (hizu-mu), ゆが・む (yuga-mu)",
+        "meaningUz": "Qiyshaymoq, Burmoq (Warp, Distort)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "歪曲",
+                "reading": "わいきょく (Waikyoku)",
+                "meaning": "Haqiqatni buzip ko'rsatish"
+            },
+            {
+                "word": "歪み",
+                "reading": "ひずみ (Hizumi)",
+                "meaning": "Deformatsiya"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_ridicule",
+        "level": "N1",
+        "kanji": "嘲",
+        "onyomi": "チョウ (chou)",
+        "kunyomi": "あざけ・る (azake-ru)",
+        "meaningUz": "Masxara qilmoq (Ridicule, Mock)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "嘲笑",
+                "reading": "ちょうしょう (Choushou)",
+                "meaning": "Ustidan kulish"
+            },
+            {
+                "word": "嘲る",
+                "reading": "あざける (Azakeru)",
+                "meaning": "Mazax qilmoq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_play_with",
+        "level": "N1",
+        "kanji": "弄",
+        "onyomi": "ロウ (rou)",
+        "kunyomi": "もてあそ・ぶ (moteaso-bu)",
+        "meaningUz": "O'ynashmoq, Ustidan kulmoq (Play with, Manipulate)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "翻弄",
+                "reading": "ほんろう (Honrou)",
+                "meaning": "O'yinchoq qilish"
+            },
+            {
+                "word": "弄ぶ",
+                "reading": "もてあそぶ (Moteasobu)",
+                "meaning": "Hissiyotlar bilan o'ynashmoq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_scorn",
+        "level": "N1",
+        "kanji": "蔑",
+        "onyomi": "ベツ (betsu)",
+        "kunyomi": "さげす・む (sagesu-mu)",
+        "meaningUz": "Mensimaslik (Scorn, Despise)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "蔑視",
+                "reading": "べっし (Besshi)",
+                "meaning": "Patsga urib qarash"
+            },
+            {
+                "word": "軽蔑",
+                "reading": "けいべつ (Keibetsu)",
+                "meaning": "Nafrat / Mensimaslik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_haughty",
+        "level": "N1",
+        "kanji": "傲",
+        "onyomi": "ゴウ (gou)",
+        "kunyomi": "おご・る (ogo-ru)",
+        "meaningUz": "Kibrli, Mansabparast (Haughty, Proud)",
+        "strokeCount": 13,
+        "examples": [
+            {
+                "word": "傲慢",
+                "reading": "ごうまん (Gouman)",
+                "meaning": "Kibrli / Takabbur"
+            },
+            {
+                "word": "傲慢無礼",
+                "reading": "ごうまんぶれい (Goumanburei)",
+                "meaning": "O'ta odabsiz va kibrli"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_arrogant",
+        "level": "N1",
+        "kanji": "慢",
+        "onyomi": "マン (man)",
+        "kunyomi": "-",
+        "meaningUz": "Manmanlik, Sekin (Arrogant, Chronic)",
+        "strokeCount": 14,
+        "examples": [
+            {
+                "word": "自慢",
+                "reading": "じまん (Jiman)",
+                "meaning": "Maqtanchoqlik"
+            },
+            {
+                "word": "慢性",
+                "reading": "まんせい (Mansei)",
+                "meaning": "Surunkali kasallik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_hesitate1",
+        "level": "N1",
+        "kanji": "躊",
+        "onyomi": "チュウ (chuu)",
+        "kunyomi": "tamera-u",
+        "meaningUz": "Ikkilanish (Hesitate)",
+        "strokeCount": 21,
+        "examples": [
+            {
+                "word": "躊躇",
+                "reading": "ちゅうちょ (Chuucho)",
+                "meaning": "Ikkilanish / Ikkilanib turish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_hesitate2",
+        "level": "N1",
+        "kanji": "躇",
+        "onyomi": "チョ (cho)",
+        "kunyomi": "tamera-u",
+        "meaningUz": "Ikkilanish (Hesitate)",
+        "strokeCount": 19,
+        "examples": [
+            {
+                "word": "躊躇う",
+                "reading": "ためらう (Tamerau)",
+                "meaning": "Ikkilanmoq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_obscure",
+        "level": "N1",
+        "kanji": "曖",
+        "onyomi": "アイ (ai)",
+        "kunyomi": "-",
+        "meaningUz": "Noaniq, Xira (Obscure, Vague)",
+        "strokeCount": 17,
+        "examples": [
+            {
+                "word": "曖昧",
+                "reading": "あいまい (Aimai)",
+                "meaning": "Noaniq / Ikkitaraflama"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_dark",
+        "level": "N1",
+        "kanji": "昧",
+        "onyomi": "マイ (mai), バイ (bai)",
+        "kunyomi": "くら・い (kura-i)",
+        "meaningUz": "Xira, Qorong'u (Dark, Foolish)",
+        "strokeCount": 9,
+        "examples": [
+            {
+                "word": "三昧",
+                "reading": "ざんまい (Zanmai)",
+                "meaning": "Haddan tashqari berilish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_willful",
+        "level": "N1",
+        "kanji": "恣",
+        "onyomi": "シ (shi)",
+        "kunyomi": "ほしいまま (hoshiimama)",
+        "meaningUz": "O'z bilganicha, Erkin (Willful, Arbitrary)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "恣意",
+                "reading": "しい (Shii)",
+                "meaning": "Subyektivlik / O'zboshimchalik"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_harsh",
+        "level": "N1",
+        "kanji": "苛",
+        "onyomi": "カ (ka)",
+        "kunyomi": "いら・だつ (ira-datsu)",
+        "meaningUz": "Qattiq, Asabiy (Harsh, Severe)",
+        "strokeCount": 8,
+        "examples": [
+            {
+                "word": "苛酷",
+                "reading": "かこく (Kakoku)",
+                "meaning": "O'ta shafqatsiz sharoit"
+            },
+            {
+                "word": "苛立ち",
+                "reading": "いらだち (Iradachi)",
+                "meaning": "Jahli chiqish"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_taboo",
+        "level": "N1",
+        "kanji": "忌",
+        "onyomi": "キ (ki)",
+        "kunyomi": "い・む (i-mu)",
+        "meaningUz": "Nafratlanmoq, Tabu (Taboo, Avoid)",
+        "strokeCount": 7,
+        "examples": [
+            {
+                "word": "忌避",
+                "reading": "きひ (Kihi)",
+                "meaning": "Rad etish / Qochish"
+            },
+            {
+                "word": "禁忌",
+                "reading": "きんき (Kinki)",
+                "meaning": "Tibbiy man etilgan holat"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_dread",
+        "level": "N1",
+        "kanji": "憚",
+        "onyomi": "タン (tan)",
+        "kunyomi": "はばか・る (habaka-ru)",
+        "meaningUz": "Cho'chimoq, Tortinmoq (Dread, Hesitate)",
+        "strokeCount": 15,
+        "examples": [
+            {
+                "word": "憚る",
+                "reading": "はばかる (Habakaru)",
+                "meaning": "Tortinmoq / Cho'chimoq"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_fabricate",
+        "level": "N1",
+        "kanji": "捏",
+        "onyomi": "ネツ (netsu)",
+        "kunyomi": "ね・る (ne-ru)",
+        "meaningUz": "Soxtalashtirmoq (Fabricate, Knead)",
+        "strokeCount": 10,
+        "examples": [
+            {
+                "word": "捏造",
+                "reading": "ねつぞう (Netsuzou)",
+                "meaning": "Soxtalashtirish / Uydirma"
+            }
+        ]
+    },
+    {
+        "id": "kanji_n1_slash",
+        "level": "N1",
+        "kanji": "斬",
+        "onyomi": "ザン (zan), サン (san)",
+        "kunyomi": "き・る (ki-ru)",
+        "meaningUz": "Qilich bilan kesmoq (Slash)",
+        "strokeCount": 11,
+        "examples": [
+            {
+                "word": "斬新",
+                "reading": "ざんしん (Zanshin)",
+                "meaning": "O'ta noodatiy va yangicha"
+            },
+            {
+                "word": "斬首",
+                "reading": "ざんしゅ (Zanshu)",
+                "meaning": "Boshni chopish"
+            }
         ]
     }
 ];
