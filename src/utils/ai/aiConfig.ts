@@ -156,7 +156,7 @@ export const isAIKeyConfigured = (): boolean => {
 
 export const getAIProvider = async (): Promise<AIProvider> => {
     const config = getAIConfig();
-    return config.provider || 'gemini';
+    return config.provider || 'deepseek';
 };
 
 let keyRotationIndex = 0;

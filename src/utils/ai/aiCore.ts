@@ -90,12 +90,26 @@ export const generateAIResponse = async (
 ): Promise<string> => {
     try {
         const config = getAIConfig();
-        const apiKey = userKey || config.geminiKey;
         let prompt = "";
+        let systemPrompt = "";
         messages.forEach(m => {
-            prompt += `[${m.role.toUpperCase()}]: ${m.content}\n`;
+            if (m.role === 'system') {
+                systemPrompt += m.content + "\n";
+            } else {
+                prompt += `[${m.role.toUpperCase()}]: ${m.content}\n`;
+            }
         });
 
+        // 1. Try DeepSeek first
+        try {
+            const response = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt || undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+            if (response) return response;
+        } catch (dsErr) {
+            console.warn("[generateAIResponse] DeepSeek call error, trying Gemini fallback:", dsErr);
+        }
+
+        // 2. Gemini fallback
+        const apiKey = userKey || config.geminiKey;
         const result = await requestWithRetry((genAI) => {
             const ai = genAI || getGenAI(apiKey || undefined);
             const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });

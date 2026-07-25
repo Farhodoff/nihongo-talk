@@ -330,7 +330,7 @@ export const analyzeSpeakingSession = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || config.provider || 'gemini';
+        let provider = config.coachAiModel || config.provider || 'deepseek';
         let deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
 
 
