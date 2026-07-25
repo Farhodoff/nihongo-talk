@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { 
     Mic, MicOff, PhoneOff, PhoneCall, Volume2, Activity, Globe, 
     Settings as SettingsIcon, X, 
@@ -49,7 +50,22 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 };
 
 const SpeakingCoachPage: React.FC = () => {
-    const [language, setLanguage] = useState<'en' | 'ja'>('en');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const initialLang = searchParams.get('lang') === 'ja' ? 'ja' : 'en';
+    const [language, setLanguage] = useState<'en' | 'ja'>(initialLang);
+
+    useEffect(() => {
+        const langParam = searchParams.get('lang');
+        if (langParam === 'ja' || langParam === 'en') {
+            setLanguage(langParam);
+        }
+    }, [searchParams]);
+
+    const handleLanguageChange = (newLang: 'en' | 'ja') => {
+        if (isLiveSession) return;
+        setLanguage(newLang);
+        setSearchParams({ lang: newLang });
+    };
     const [persona, setPersona] = useState<CoachPersona>('roast');
     const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>('7.5');
     const [isLiveSession, setIsLiveSession] = useState(false);
@@ -682,6 +698,31 @@ const SpeakingCoachPage: React.FC = () => {
 
                 {/* Right: Controls */}
                 <div className="flex items-center gap-1.5 shrink-0">
+                    {/* Language Switcher Pill */}
+                    <div className="flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl p-1 rounded-xl border border-gray-200/50 dark:border-gray-700/50">
+                        <button
+                            onClick={() => handleLanguageChange('en')}
+                            disabled={isLiveSession}
+                            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                                language === 'en'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
+                                : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
+                            }`}
+                        >
+                            🇬🇧 EN
+                        </button>
+                        <button
+                            onClick={() => handleLanguageChange('ja')}
+                            disabled={isLiveSession}
+                            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                                language === 'ja'
+                                ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm'
+                                : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
+                            }`}
+                        >
+                            🇯🇵 JA
+                        </button>
+                    </div>
                     {/* Persona Toggle Dropdown */}
                     <div className="relative">
                         <button 
