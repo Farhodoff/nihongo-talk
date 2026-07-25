@@ -431,7 +431,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
 
     // ==========================================,
 
-        {
+    {
         "id": "n4_pdf_1_amarinai",
         "level": "N4",
         "title": "あまり～ない (amari~nai)",
@@ -6280,7 +6280,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
     },
 
     {
-        "id": "n1_official_1",
+        "id": "n1_shinkanzen_1",
         "level": "N1",
         "title": "〜を余儀なくされる (wo yoginakusareru)",
         "romaji": "wo yoginakusareru",
@@ -6295,7 +6295,22 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_2",
+        "id": "n1_shinkanzen_2",
+        "level": "N1",
+        "title": "〜を余儀なくさせる (wo yoginakusaseru)",
+        "romaji": "wo yoginakusaseru",
+        "meaningUz": "sharoit shaxsni majbur qilmoq",
+        "structure": "Ot + を余儀なくさせる",
+        "examples": [
+            {
+                "ja": "不況[ふきょう]が企業[きぎょう]にリストラを余儀[よぎ]なくさせた。",
+                "romaji": "Fukyou ga kigyou ni risutora wo yoginakusaseta.",
+                "uz": "Inqiroz kompaniyalarni qisqartirishga majbur qildi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_3",
         "level": "N1",
         "title": "〜てやまない (te yamanai)",
         "romaji": "te yamanai",
@@ -6310,7 +6325,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_3",
+        "id": "n1_shinkanzen_4",
         "level": "N1",
         "title": "〜を皮切りに (wo kawakiri ni)",
         "romaji": "wo kawakiri ni",
@@ -6325,7 +6340,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_4",
+        "id": "n1_shinkanzen_5",
         "level": "N1",
         "title": "〜をもって (wo motte)",
         "romaji": "wo motte",
@@ -6340,7 +6355,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_5",
+        "id": "n1_shinkanzen_6",
         "level": "N1",
         "title": "〜ばこそ (ba koso)",
         "romaji": "ba koso",
@@ -6355,7 +6370,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_6",
+        "id": "n1_shinkanzen_7",
         "level": "N1",
         "title": "〜がてら (gatera)",
         "romaji": "gatera",
@@ -6370,7 +6385,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_7",
+        "id": "n1_shinkanzen_8",
         "level": "N1",
         "title": "〜かたがた (katagata)",
         "romaji": "katagata",
@@ -6385,7 +6400,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_8",
+        "id": "n1_shinkanzen_9",
         "level": "N1",
         "title": "〜にかかわる (ni kakawaru)",
         "romaji": "ni kakawaru",
@@ -6400,7 +6415,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_9",
+        "id": "n1_shinkanzen_10",
         "level": "N1",
         "title": "〜と相まって (to aimatte)",
         "romaji": "to aimatte",
@@ -6415,7 +6430,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_10",
+        "id": "n1_shinkanzen_11",
         "level": "N1",
         "title": "〜をおいて (wo oite)",
         "romaji": "wo oite",
@@ -6430,7 +6445,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_11",
+        "id": "n1_shinkanzen_12",
         "level": "N1",
         "title": "〜ならでは (naradewa)",
         "romaji": "naradewa",
@@ -6440,12 +6455,12 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
             {
                 "ja": "京都[きょうと]ならではの伝統的[でんとうてき]な風景[ふうけい]",
                 "romaji": "Kyouto naradewa no dentouteki na fuukei",
-                "uz": "Faqat Kioto shahrigagina xos bo me'moriy manzara"
+                "uz": "Faqat Kioto shahrigagina xos bo'lgan an'anaviy manzara."
             }
         ]
     },
     {
-        "id": "n1_official_12",
+        "id": "n1_shinkanzen_13",
         "level": "N1",
         "title": "〜なくしては (nakushite wa)",
         "romaji": "nakushite wa",
@@ -6460,7 +6475,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_13",
+        "id": "n1_shinkanzen_14",
         "level": "N1",
         "title": "〜たる者 (taru mono)",
         "romaji": "taru mono",
@@ -6475,7 +6490,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_14",
+        "id": "n1_shinkanzen_15",
         "level": "N1",
         "title": "〜ともなると (tomo naruto)",
         "romaji": "tomo naruto",
@@ -6490,11 +6505,11 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_15",
+        "id": "n1_shinkanzen_16",
         "level": "N1",
         "title": "〜まじき (majiki)",
         "romaji": "majiki",
-        "meaningUz": "... qilish kasbga/axloqqa mutlaqo to'g me kelmaydi",
+        "meaningUz": "... qilish kasbga/axloqqa mutlaqo to'g'ri kelmaydi",
         "structure": "Fe'l (Lug'at) + まじき + Ot",
         "examples": [
             {
@@ -6505,7 +6520,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_16",
+        "id": "n1_shinkanzen_17",
         "level": "N1",
         "title": "〜を限りに (wo kagiri ni)",
         "romaji": "wo kagiri ni",
@@ -6520,7 +6535,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_17",
+        "id": "n1_shinkanzen_18",
         "level": "N1",
         "title": "〜を踏まえて (wo fumaete)",
         "romaji": "wo fumaete",
@@ -6535,7 +6550,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_18",
+        "id": "n1_shinkanzen_19",
         "level": "N1",
         "title": "〜に照らして (ni terashite)",
         "romaji": "ni terashite",
@@ -6550,7 +6565,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_19",
+        "id": "n1_shinkanzen_20",
         "level": "N1",
         "title": "〜に則って (ni norotto)",
         "romaji": "ni norotto",
@@ -6565,7 +6580,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_20",
+        "id": "n1_shinkanzen_21",
         "level": "N1",
         "title": "〜をものの (wo monono)",
         "romaji": "wo monono",
@@ -6580,7 +6595,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_21",
+        "id": "n1_shinkanzen_22",
         "level": "N1",
         "title": "〜に耐え得る (ni tae uru)",
         "romaji": "ni tae uru",
@@ -6595,22 +6610,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_official_22",
-        "level": "N1",
-        "title": "〜を余儀なくさせる (wo yoginakusaseru)",
-        "romaji": "wo yoginakusaseru",
-        "meaningUz": "...-shga majbur qilmoq",
-        "structure": "Ot + を余儀なくさせる",
-        "examples": [
-            {
-                "ja": "不況[ふきょう]が企業[きぎょう]にリストラを余儀[よぎ]なくさせた。",
-                "romaji": "Fukyou ga kigyou ni risutora wo yoginakusaseta.",
-                "uz": "Inqiroz kompaniyalarni qisqartirishga majbur qildi."
-            }
-        ]
-    },
-    {
-        "id": "n1_official_23",
+        "id": "n1_shinkanzen_23",
         "level": "N1",
         "title": "〜をものともせずに (wo monotomo sezu ni)",
         "romaji": "wo monotomo sezu ni",
@@ -6625,17 +6625,287 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         ]
     },
     {
-        "id": "n1_you_ga_nai",
+        "id": "n1_shinkanzen_24",
         "level": "N1",
-        "title": "〜ようがない (you ga nai)",
-        "romaji": "you ga nai",
-        "meaningUz": "...-shning umuman iloji yo'q",
-        "structure": "Fe'l (Masu-ildizi) + ようがない",
+        "title": "〜極まる・〜極まりない (kiwamaru / kiwamarinai)",
+        "romaji": "kiwamaru",
+        "meaningUz": "chegarasiz / juda ham darajada",
+        "structure": "Ot / Sifat + 極まる / 極まりない",
         "examples": [
             {
-                "ja": "連絡先[れんらくさき]が分[わ]からなければ、連絡[れんらく]しようがない。",
-                "romaji": "Renrakusaki ga wakaranakereba, renroku shiyou ga nai.",
-                "uz": "Bog'lanish manzili bo'lmasa, bog'lanishning iloji yo'q."
+                "ja": "無礼[ぶれい]極[きわ]まりない態度[たいど]",
+                "romaji": "Burei kiwamarinai taido",
+                "uz": "Juda ham odabsiz munosabat."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_25",
+        "level": "N1",
+        "title": "〜ずにはおかない (zu ni wa okanai)",
+        "romaji": "zu ni wa okanai",
+        "meaningUz": "albatta shunday bo'ladi / shunday qilmasdan qo'ymaydi",
+        "structure": "Fe'l (Nai-ildiz) + ずにはおかない",
+        "examples": [
+            {
+                "ja": "彼[かれ]の演技[えんぎ]は観客[かんきゃく]を感動[かんどう]させずにはおかない。",
+                "romaji": "Kare no engi wa kankaku wo kandou sasezu ni wa okanai.",
+                "uz": "Uning mahorati tomoshabinlarni albatta hayratda qoldiradi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_26",
+        "level": "N1",
+        "title": "〜んがため（に） (n ga tame ni)",
+        "romaji": "n ga tame ni",
+        "meaningUz": "biror oliy maqsad yo'lida (juda harakat qilmoq)",
+        "structure": "Fe'l (Nai-ildiz) + んがため",
+        "examples": [
+            {
+                "ja": "夢[ゆめ]を叶[かな]えんがために、日々[ひび]努力[どりょく]する。",
+                "romaji": "Yume wo kanaen ga tame ni, hibi doryoku suru.",
+                "uz": "Orzusiga erishish yo'lida har kuni astoydil harakat qiladi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_27",
+        "level": "N1",
+        "title": "〜べからず (bekarazu)",
+        "romaji": "bekarazu",
+        "meaningUz": "mutlaqo man etiladi (Rasmiy e'lonlar)",
+        "structure": "Fe'l (Lug'at) + べからず",
+        "examples": [
+            {
+                "ja": "芝生[しばふ]に入[はい]るべからず。",
+                "romaji": "Shibafu ni hairu bekarazu.",
+                "uz": "Maysazorga kirish mutlaqo man etiladi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_28",
+        "level": "N1",
+        "title": "〜まい (mai)",
+        "romaji": "mai",
+        "meaningUz": "umuman qilmaslikka ahd qilmoq / bo'lmasa kerak",
+        "structure": "Fe'l (Lug'at) + まい",
+        "examples": [
+            {
+                "ja": "二度[にど]とあのような過[あや]まちを繰り返[くりかえ]すまい。",
+                "romaji": "Nido to ano you na ayamachi wo kurikaesumai.",
+                "uz": "Bunday xatoni ikkinchi bor takrorlamaslikka ahd qildim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_29",
+        "level": "N1",
+        "title": "〜つ〜つ (tsu tsu)",
+        "romaji": "tsu tsu",
+        "meaningUz": "navbatma-navbat sodir bo'lmoq",
+        "structure": "Fe'l (Masu-ildiz) + つ + Fe'l + つ",
+        "examples": [
+            {
+                "ja": "持ちつ持たれつ",
+                "romaji": "Mochitsu motaretsu",
+                "uz": "Bir-biriga yordam berib yashash."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_30",
+        "level": "N1",
+        "title": "〜であれ (de are)",
+        "romaji": "de are",
+        "meaningUz": "kim/nima bo'lishidan qat'i nazar",
+        "structure": "Ot + であれ",
+        "examples": [
+            {
+                "ja": "理由[りゆう]が何[なに]であれ、暴力[ぼうりょく]は許[ゆる]されない。",
+                "romaji": "Riyuu ga nani de are, bouryoku wa yurusarenai.",
+                "uz": "Sababi nima bo'lishidan qat'i nazar, zo'ravonlikka yo'l qo'yilmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_31",
+        "level": "N1",
+        "title": "〜とあれば (to areba)",
+        "romaji": "to areba",
+        "meaningUz": "agar shunday muhim sharoit bo'lsa albatta qilaman",
+        "structure": "Ot / Fe'l + とあれば",
+        "examples": [
+            {
+                "ja": "子供[こども]のためとあれば、どんな苦労[くろう]も耐[た]えられる。",
+                "romaji": "Kodomo no tame to areba, donna kurou mo taerareru.",
+                "uz": "Farzandim uchun bo'lsa barcha mashaqqatlarga chidayman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_32",
+        "level": "N1",
+        "title": "〜たら最後 (tara saigo)",
+        "romaji": "tara saigo",
+        "meaningUz": "bir bor shunday bo'lsa tamom, ortga yo'l yo'q",
+        "structure": "Fe'l (Ta-form) + ら最後",
+        "examples": [
+            {
+                "ja": "信用[しんよう]を失[うしな]ったら最後、取り戻[もど]せない。",
+                "romaji": "Shinyou wo ushinattara saigo, torimodosenai.",
+                "uz": "Ishonchni boy bersangiz tamom, uni qaytarib bo'lmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_33",
+        "level": "N1",
+        "title": "〜ないではすまない (nai de wa sumanai)",
+        "romaji": "nai de wa sumanai",
+        "meaningUz": "majburiyat bo'lgani uchun qilmasdan iloj yo'q",
+        "structure": "Fe'l (Nai-form) + ではすまない",
+        "examples": [
+            {
+                "ja": "他人物[たにんぶつ]を壊[こわ]したのだから、弁償[べんしょう]しないではすまない。",
+                "romaji": "Taninbutsu wo kowashita nodakara, benshou shinai de wa sumanai.",
+                "uz": "Boshqaning narsasini sindirdingizmi, to'lab bermasdan iloj yo'q."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_34",
+        "level": "N1",
+        "title": "〜てはかなわない (te wa kanawanai)",
+        "romaji": "te wa kanawanai",
+        "meaningUz": "bunday vaziyatga chidab bo'lmaydi",
+        "structure": "Fe'l (Te-form) + はかなわない",
+        "examples": [
+            {
+                "ja": "毎日[まいにち]残業[ざんぎょう]ばかりではかなわない。",
+                "romaji": "Mainichi zangyou bakari de wa kanawanai.",
+                "uz": "Har kuni faqat ortiqcha ishda qolishga chidab bo'lmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_35",
+        "level": "N1",
+        "title": "〜を控えて (wo hikaete)",
+        "romaji": "wo hikaete",
+        "meaningUz": "... arafasida bo'lmoq / yaqinlashib kelayotganida",
+        "structure": "Ot + を控えて",
+        "examples": [
+            {
+                "ja": "試験[しけん]を控[ひか]えて、学生[がくせい]たちは猛勉強[もうべんきょう]している。",
+                "romaji": "Shiken wo hikaete, gakuseitachi wa moubenkyou shite iru.",
+                "uz": "Imtihon arafasida talabalar astoydil tayyorgarlik ko'rishmoqda."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_36",
+        "level": "N1",
+        "title": "〜の極み (no kiwami)",
+        "romaji": "no kiwami",
+        "meaningUz": "oliy darajasi / cho'qqisi",
+        "structure": "Ot + の極み",
+        "examples": [
+            {
+                "ja": "痛恨[つうこん]の極[きわ]みだ。",
+                "romaji": "Tsuukon no kiwami da.",
+                "uz": "Juda katta afsusdaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_37",
+        "level": "N1",
+        "title": "〜を兼ねて (wo kanete)",
+        "romaji": "wo kanete",
+        "meaningUz": "bir vaqtda ikkita maqsadni ko'zlab",
+        "structure": "Ot + を兼ねて",
+        "examples": [
+            {
+                "ja": "出張[しゅっちょう]を兼[かね]て、観光[かんこう]する。",
+                "romaji": "Shutchou wo kanete, kankou suru.",
+                "uz": "Xizmat safariga bir vaqtda sayohatni ham qo'shaman."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_38",
+        "level": "N1",
+        "title": "〜に忍びない (ni shinobinai)",
+        "romaji": "ni shinobinai",
+        "meaningUz": "qarab turishga yurak oshmaydi / rahm keladi",
+        "structure": "Fe'l (Lug'at) + に忍びない",
+        "examples": [
+            {
+                "ja": "捨[す]てられた子犬[こいぬ]を見[み]るに忍[しの]びない。",
+                "romaji": "Suterareta koinu wo miru ni shinobinai.",
+                "uz": "Tashlab ketilgan kuchukchani ko'rib ko'z qiymaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_39",
+        "level": "N1",
+        "title": "〜を禁じ得ない (wo kinjienai)",
+        "romaji": "wo kinjienai",
+        "meaningUz": "hissiyotni (ko'zyosh/kulgi) tiyib bo'lmaydi",
+        "structure": "Ot + を禁じ得ない",
+        "examples": [
+            {
+                "ja": "その話[はなし]を聞[き]いて、涙[なみだ]を禁[きん]じ得[え]なかった。",
+                "romaji": "Sono hanashi wo kiite, namida wo kinjienakatta.",
+                "uz": "U voqeani eshitib ko'zyoshlarimni tiya olmadim."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_40",
+        "level": "N1",
+        "title": "〜いかんにかかわらず (ikan ni kakawarazu)",
+        "romaji": "ikan ni kakawarazu",
+        "meaningUz": "natijasi yoki sababi qanday bo'lishidan qat'i nazar",
+        "structure": "Ot + のいかんにかかわらず",
+        "examples": [
+            {
+                "ja": "理由[りゆう]のいかんにかかわらず、遅刻[ちこく]は認めない。",
+                "romaji": "Riyuu no ikan ni kakawarazu, chikoku wa mitomenai.",
+                "uz": "Sababi qanday bo'lishidan qat'i nazar kechikishga yo'l qo'yilmaydi."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_41",
+        "level": "N1",
+        "title": "〜を問わず (wo towazu)",
+        "romaji": "wo towazu",
+        "meaningUz": "yosh, jins yoki millat farqisiz",
+        "structure": "Ot + を問わず",
+        "examples": [
+            {
+                "ja": "年齢[ねんれい]性別[せいべつ]を問[と]わず、誰[だれ]でも参加[さんか]できる。",
+                "romaji": "Nenrei seibetsu wo towazu, dare demo sanka dekiru.",
+                "uz": "Yoshi va jinsidan qat'i nazar barcha qatnashishi mumkin."
+            }
+        ]
+    },
+    {
+        "id": "n1_shinkanzen_42",
+        "level": "N1",
+        "title": "〜にかこつけて (ni kakotsukete)",
+        "romaji": "ni kakotsukete",
+        "meaningUz": "...-ni bahona qilib aslida boshqa narsa qilmoq",
+        "structure": "Ot + にかこつけて",
+        "examples": [
+            {
+                "ja": "取材[しゅざい]にかこつけて、旅行[りょこう]を楽[たの]しんだ。",
+                "romaji": "Shuzai ni kakotsukete, ryokou wo tanoshimda.",
+                "uz": "Intervyuni bahona qilib sayohat qilib keldim."
             }
         ]
     }
