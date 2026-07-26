@@ -262,7 +262,9 @@ export const converseWithCoach = async (
             try {
                 const dsResult = await callDeepSeek(prompt, undefined, undefined, false, config.deepseekModel, false);
                 if (dsResult) return dsResult;
-            } catch (e) {}
+            } catch (e) {
+                console.debug('Fallback DeepSeek failed:', e);
+            }
         }
 
         // --- 5. SAFE LANGUAGE-AWARE FALLBACK RESPONSE ---
@@ -393,8 +395,8 @@ export const analyzeSpeakingSession = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || config.provider || 'deepseek';
-        let deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
+        const provider = config.coachAiModel || config.provider || 'deepseek';
+        const deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
 
         let data: any = null;
 
@@ -468,7 +470,7 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
 
     try {
         const config = getAIConfig();
-        let provider = config.coachAiModel || config.provider || 'deepseek';
+        const provider = config.coachAiModel || config.provider || 'deepseek';
 
         if (provider === 'deepseek' || (config.deepseekKey && config.deepseekKey.startsWith('sk-'))) {
             try {

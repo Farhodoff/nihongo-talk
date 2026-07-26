@@ -33,16 +33,22 @@ export const useTTS = ({
 
     const stopSpeaking = useCallback(() => {
         if (synthRef.current) {
-            try { synthRef.current.cancel(); } catch (e) {}
+            try { synthRef.current.cancel(); } catch (e) {
+                console.debug('Synth cancel failed:', e);
+            }
         }
         if (audioPlayerRef.current) {
             audioPlayerRef.current.onended = null;
             audioPlayerRef.current.onerror = null;
-            try { audioPlayerRef.current.pause(); } catch (e) {}
+            try { audioPlayerRef.current.pause(); } catch (e) {
+                console.debug('Audio pause failed:', e);
+            }
             audioPlayerRef.current = null;
         }
         if (currentObjectUrlRef.current) {
-            try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {}
+            try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {
+                console.debug('Revoke object URL failed:', e);
+            }
             currentObjectUrlRef.current = null;
         }
         if (ttsSafetyTimeoutRef.current) {
@@ -61,7 +67,9 @@ export const useTTS = ({
                 ttsSafetyTimeoutRef.current = null;
             }
             if (currentObjectUrlRef.current) {
-                try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {}
+                try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {
+                    console.debug('Revoke object URL in speech finish failed:', e);
+                }
                 currentObjectUrlRef.current = null;
             }
             onSpeakEnd();

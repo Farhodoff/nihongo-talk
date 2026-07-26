@@ -90,7 +90,9 @@ export const useSpeechRecognition = ({
             try {
                 recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
-            } catch (e) {}
+            } catch (e) {
+                console.debug('Recognition start failed:', e);
+            }
         }
     }, [isLiveSessionRef, isProcessingRef]);
 
@@ -152,7 +154,9 @@ export const useSpeechRecognition = ({
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {
                 if (isLiveSessionRef.current && !isProcessingRef.current && transcriptBufferRef.current.trim().length > 0) {
-                    try { recognition.stop(); } catch (e) {}
+                    try { recognition.stop(); } catch (e) {
+                        console.debug('Recognition stop failed:', e);
+                    }
                 }
             }, 3000);
         };
@@ -193,7 +197,9 @@ export const useSpeechRecognition = ({
 
         return () => {
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-            try { recognition.stop(); } catch (e) {}
+            try { recognition.stop(); } catch (e) {
+                console.debug('Cleanup recognition stop failed:', e);
+            }
         };
     }, []);
 

@@ -1,0 +1,274 @@
+openapi: 3.0.3
+info:
+  title: AI Study Planner API Reference
+  description: Complete API reference mapping Supabase database tables, AI generation edge functions, and AI coach speech endpoints.
+  version: 1.0.0
+servers:
+  - url: https://qmuimxnknxwarvnkpnlo.supabase.co/rest/v1
+    description: Supabase PostgREST Gateway
+  - url: https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1
+    description: Supabase Edge Functions
+paths:
+  /user_subscriptions:
+    get:
+      summary: Retrieve subscription tier and AI credits
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Subscription details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSubscription'
+    patch:
+      summary: Update subscription tier or reset credits
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSubscriptionUpdate'
+      responses:
+        '200':
+          description: Subscription updated successfully
+
+  /user_notifications:
+    get:
+      summary: Fetch unread notifications for a user
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: is_read
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserNotification'
+    post:
+      summary: Dispatch an in-app notification to a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserNotificationInsert'
+      responses:
+        '201':
+          description: Notification dispatched successfully
+
+  /tasks:
+    get:
+      summary: Get user tasks
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+  /study_sessions:
+    get:
+      summary: Get user study session logs
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of study sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudySession'
+
+  /generate-plan:
+    post:
+      summary: Generate AI Study Plan (Edge Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - subject
+                - duration_weeks
+                - learning_level
+                - hours_per_day
+                - learning_style
+                - user_id
+              properties:
+                subject:
+                  type: string
+                duration_weeks:
+                  type: integer
+                learning_level:
+                  type: string
+                  enum: [beginner, intermediate, advanced]
+                hours_per_day:
+                  type: number
+                learning_style:
+                  type: string
+                  enum: [hands-on, theoretical, visual]
+                user_id:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: AI plan generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schedule:
+                    type: array
+                    items:
+                      type: object
+                  tips:
+                    type: string
+                  total_hours:
+                    type: number
+
+components:
+  schemas:
+    UserSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        tier:
+          type: string
+          enum: [free, pro, premium]
+        ai_credits:
+          type: integer
+        last_reset_date:
+          type: string
+          format: date-time
+        trial_start_date:
+          type: string
+          format: date-time
+
+    UserSubscriptionUpdate:
+      type: object
+      properties:
+        tier:
+          type: string
+          enum: [free, pro, premium]
+        ai_credits:
+          type: integer
+
+    UserNotification:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+          enum: [welcome, admin, promo, system]
+        is_read:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    UserNotificationInsert:
+      type: object
+      required:
+        - user_id
+        - title
+        - message
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+          enum: [welcome, admin, promo, system]
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        status:
+          type: string
+          enum: [todo, in_progress, done, archived]
+        priority:
+          type: string
+          enum: [low, medium, high, urgent]
+        completed:
+          type: boolean
+        due_date:
+          type: string
+          format: date
+
+    StudySession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        duration:
+          type: integer
+        type:
+          type: string
+          enum: [focus, pomodoro, review, practice, break]
+        completed:
+          type: boolean

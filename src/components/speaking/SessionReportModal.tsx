@@ -24,7 +24,9 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
             const utterance = new SpeechSynthesisUtterance(word);
             utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
-        } catch (e) {}
+        } catch (e) {
+            console.debug('Speech play error:', e);
+        }
     };
 
     if (!isOpen) return null;

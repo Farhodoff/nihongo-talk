@@ -1,0 +1,33 @@
+name: Study Planner CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test_and_lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Check TypeScript Compilation
+      run: npm run typecheck
+
+    - name: Run Eslint Check
+      run: npm run lint
+
+    - name: Execute Vitest Unit Tests
+      run: npx vitest run

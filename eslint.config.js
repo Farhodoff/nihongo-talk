@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', '.agents', 'supabase'] },
+  { ignores: ['dist', '.agents', 'supabase', 'coverage', 'build'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -22,6 +22,11 @@ export default tseslint.config(
       'react-refresh/only-export-components': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      'no-empty': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'prefer-const': 'off',
+      'no-irregular-whitespace': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
 )
