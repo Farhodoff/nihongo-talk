@@ -24,8 +24,28 @@ export const InAppNotificationModal: React.FC = () => {
         };
 
         fetchNotifs();
-        const interval = setInterval(fetchNotifs, 30000); // Check every 30s
-        return () => clearInterval(interval);
+
+        // 3. Listen to instant custom event in current window
+        const handleCustomEvent = () => {
+            fetchNotifs();
+        };
+
+        // 4. Listen to cross-tab storage changes
+        const handleStorageEvent = (e: StorageEvent) => {
+            if (e.key === 'study_planner_local_notifications') {
+                fetchNotifs();
+            }
+        };
+
+        window.addEventListener('study_planner_new_notification', handleCustomEvent);
+        window.addEventListener('storage', handleStorageEvent);
+        const interval = setInterval(fetchNotifs, 3000); // Check every 3 seconds for fast feedback
+
+        return () => {
+            window.removeEventListener('study_planner_new_notification', handleCustomEvent);
+            window.removeEventListener('storage', handleStorageEvent);
+            clearInterval(interval);
+        };
     }, [user]);
 
     if (!activeNotif) return null;
@@ -39,12 +59,13 @@ export const InAppNotificationModal: React.FC = () => {
             setCurrentNotifIndex(prev => prev + 1);
         } else {
             setUnreadNotifs([]);
+            setCurrentNotifIndex(0);
         }
     };
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-slate-900 border border-slate-800 text-white rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative space-y-6">
+            <div className="bg-slate-900 border border-slate-800 text-white rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative space-y-6 animate-in zoom-in-95 duration-200">
                 <button
                     onClick={handleDismiss}
                     className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors"
@@ -55,11 +76,11 @@ export const InAppNotificationModal: React.FC = () => {
                 {/* Icon & Title */}
                 <div className="flex items-center gap-3">
                     <div className="p-3 bg-rose-500/20 text-rose-400 rounded-2xl border border-rose-500/30">
-                        {activeNotif.type === 'welcome' ? <Sparkles className="w-6 h-6 animate-pulse" /> : <Bell className="w-6 h-6" />}
+                        {activeNotif.type === 'welcome' ? <Sparkles className="w-6 h-6 animate-pulse" /> : <Bell className="w-6 h-6 animate-bounce" />}
                     </div>
                     <div>
                         <span className="text-[10px] font-extrabold uppercase tracking-widest text-rose-400">
-                            {activeNotif.type === 'welcome' ? 'Yangi Bildirishnoma' : 'Admin Xabari'}
+                            {activeNotif.type === 'welcome' ? 'Yangi Bildirishnoma' : activeNotif.type === 'promo' ? '🎁 Maxsus Aksiyalar' : '💬 Admin Bildirishnomasi'}
                         </span>
                         <h2 className="text-xl font-bold text-white leading-tight">
                             {activeNotif.title}

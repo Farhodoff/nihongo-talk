@@ -28,7 +28,6 @@ export class UserNotificationService {
             `O'quv samaradorligingizni oshirish uchun IELTS & JLPT Hub, AI Speaking Coach hamda Kunlik dars rejalashtirgichini sinab ko'ring. Savollaringiz bo'lsa, AI Yordamchi har doim xizmatda! 🚀`;
 
         try {
-            // Send in-app notification
             await this.sendNotification({
                 user_id: userId,
                 title,
@@ -36,7 +35,6 @@ export class UserNotificationService {
                 type: 'welcome'
             });
 
-            // Trigger browser native notification if permitted
             NotificationManager.sendNotification(title, {
                 body: "Platformadan unumli foydalanishingiz uchun qo'llanma tayyor!",
                 tag: 'welcome_notice'
@@ -57,6 +55,17 @@ export class UserNotificationService {
         message: string;
         type?: 'welcome' | 'admin' | 'promo' | 'system';
     }): Promise<boolean> {
+        if (!data.user_id) return false;
+
+        // 1. Always save to local storage (supports instant cross-tab / offline delivery)
+        this.saveLocalNotification(data);
+
+        // 2. Dispatch window custom event for instant UI update in current tab
+        try {
+            window.dispatchEvent(new CustomEvent('study_planner_new_notification', { detail: data }));
+        } catch (e) {}
+
+        // 3. Try inserting into Supabase cloud table
         try {
             const { error } = await supabase
                 .from('user_notifications')
@@ -69,21 +78,22 @@ export class UserNotificationService {
                 });
 
             if (error) {
-                console.warn('Supabase notification insert warning, caching locally:', error.message);
-                this.saveLocalNotification(data);
+                console.warn('Supabase notification insert info (using local fallback):', error.message);
             }
-            return true;
         } catch (e) {
-            this.saveLocalNotification(data);
-            return true;
+            console.warn('Supabase notification insert exception (using local fallback):', e);
         }
+
+        return true;
     }
 
     /**
-     * Fetches unread notifications for a user
+     * Fetches unread notifications for a user (Combines Supabase & Local storage)
      */
     static async getUnreadNotifications(userId: string): Promise<UserNotificationItem[]> {
         if (!userId) return [];
+
+        let remoteNotifs: UserNotificationItem[] = [];
 
         try {
             const { data, error } = await supabase
@@ -93,32 +103,55 @@ export class UserNotificationService {
                 .eq('is_read', false)
                 .order('created_at', { ascending: false });
 
-            if (!error && data && data.length > 0) {
-                return data;
+            if (!error && data) {
+                remoteNotifs = data;
             }
         } catch (e) {}
 
-        // Fallback to local storage notifications
-        const local = this.getLocalNotifications(userId).filter(n => !n.is_read);
-        return local;
+        // Get local storage unread notifications for this user
+        const localNotifs = this.getLocalNotifications(userId).filter(n => !n.is_read);
+
+        // Merge and deduplicate by title + message or ID
+        const combined = [...remoteNotifs];
+        for (const loc of localNotifs) {
+            const exists = combined.some(r => r.id === loc.id || (r.title === loc.title && r.message === loc.message));
+            if (!exists) {
+                combined.push(loc);
+            }
+        }
+
+        return combined.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
 
     /**
      * Marks a notification as read
      */
     static async markAsRead(notificationId: string, userId: string): Promise<void> {
-        try {
-            await supabase
-                .from('user_notifications')
-                .update({ is_read: true })
-                .eq('id', notificationId);
-        } catch (e) {}
+        if (!notificationId || !userId) return;
 
-        // Update local storage state
-        const local = this.getLocalNotifications(userId).map(n => 
-            n.id === notificationId ? { ...n, is_read: true } : n
-        );
-        localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(local));
+        // Mark in Supabase if not a local-only ID
+        if (!notificationId.startsWith('local_notif_')) {
+            try {
+                await supabase
+                    .from('user_notifications')
+                    .update({ is_read: true })
+                    .eq('id', notificationId);
+            } catch (e) {}
+        }
+
+        // Mark in LocalStorage
+        try {
+            const raw = localStorage.getItem(LOCAL_NOTIFS_KEY);
+            if (raw) {
+                const list: UserNotificationItem[] = JSON.parse(raw);
+                const updated = list.map(n => 
+                    (n.id === notificationId || (n.user_id === userId && !n.is_read))
+                        ? { ...n, is_read: true }
+                        : n
+                );
+                localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(updated));
+            }
+        } catch (e) {}
     }
 
     private static getLocalNotifications(userId: string): UserNotificationItem[] {
@@ -134,7 +167,9 @@ export class UserNotificationService {
 
     private static saveLocalNotification(data: { user_id: string; title: string; message: string; type?: any }): void {
         try {
-            const list = this.getLocalNotifications(data.user_id);
+            const raw = localStorage.getItem(LOCAL_NOTIFS_KEY);
+            const list: UserNotificationItem[] = raw ? JSON.parse(raw) : [];
+
             const newItem: UserNotificationItem = {
                 id: `local_notif_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
                 user_id: data.user_id,
@@ -144,8 +179,11 @@ export class UserNotificationService {
                 is_read: false,
                 created_at: new Date().toISOString()
             };
+
             list.unshift(newItem);
-            localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(list));
-        } catch {}
+            // Keep at most 50 recent local notifications
+            const trimmed = list.slice(0, 50);
+            localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(trimmed));
+        } catch (e) {}
     }
 }
