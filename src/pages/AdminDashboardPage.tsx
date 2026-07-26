@@ -106,12 +106,12 @@ const AdminDashboardPage: React.FC = () => {
         }
     };
 
-    const setUserTier = async (userId: string, newTier: 'free' | 'pro' | 'premium') => {
+    const setUserTier = async (userId: string, newTier: string, monthsDuration: number = 1) => {
         try {
             let validUntil: string | undefined = undefined;
             if (newTier !== 'free') {
                 const date = new Date();
-                date.setMonth(date.getMonth() + 1);
+                date.setMonth(date.getMonth() + monthsDuration);
                 validUntil = date.toISOString();
             }
 
@@ -124,7 +124,7 @@ const AdminDashboardPage: React.FC = () => {
             
             // Mahalliy holatni yangilash
             setSubscriptions(subs => 
-                subs.map(s => s.id === userId ? { ...s, tier: newTier, valid_until: validUntil } : s)
+                subs.map(s => s.id === userId ? { ...s, tier: newTier as any, valid_until: validUntil } : s)
             );
         } catch (error) {
             console.error('Error updating user tier:', error);
@@ -275,16 +275,38 @@ const AdminDashboardPage: React.FC = () => {
                                         </div>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <div className="flex items-center gap-2">
-                                            <select
-                                                value={sub.tier}
-                                                onChange={(e) => setUserTier(sub.id, e.target.value as any)}
-                                                className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm outline-none text-slate-900 dark:text-white"
+                                        <div className="flex flex-col gap-1.5">
+                                            <div className="flex items-center gap-2">
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    onClick={() => setUserTier(sub.id, 'pro', 1)}
+                                                    className="text-xs py-1 px-2.5 h-auto text-indigo-500 border-indigo-500/30 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 font-semibold"
+                                                >
+                                                    +1 Oy (Pro)
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    onClick={() => setUserTier(sub.id, 'premium', 1)}
+                                                    className="text-xs py-1 px-2.5 h-auto text-fuchsia-500 border-fuchsia-500/30 hover:bg-fuchsia-50 dark:hover:bg-fuchsia-950/40 font-semibold"
+                                                >
+                                                    +1 Oy (Prem)
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    onClick={() => setUserTier(sub.id, 'premium', 6)}
+                                                    className="text-xs py-1 px-2.5 h-auto bg-gradient-to-r from-rose-500 to-amber-600 text-white font-bold border-none shadow-sm hover:scale-105 transition-transform"
+                                                >
+                                                    👑 +6 Oy (VIP $50)
+                                                </Button>
+                                            </div>
+                                            <button
+                                                onClick={() => setUserTier(sub.id, 'free', 0)}
+                                                className="text-[11px] text-slate-400 hover:text-rose-500 text-left transition-colors font-medium"
                                             >
-                                                <option value="free">Bepul (Free)</option>
-                                                <option value="pro">Pro</option>
-                                                <option value="premium">Premium</option>
-                                            </select>
+                                                Statusni Bepul (Free) ga qaytarish
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
