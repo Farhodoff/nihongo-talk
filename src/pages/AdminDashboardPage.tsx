@@ -4,12 +4,15 @@ import { supabase } from '../lib/supabase';
 import {
     Shield, Users, Key, Loader2, Save, CheckCircle2,
     MessageSquare, Send, X, Gift, Crown,
-    Zap, Star, RefreshCw, MoreVertical, UserX, Home
+    Zap, Star, RefreshCw, MoreVertical, UserX, Home, Activity, TrendingUp
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { isAdminEmail } from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
+import {
+    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts';
 
 interface UserSubscription {
     id: string;
@@ -146,6 +149,9 @@ const AdminDashboardPage: React.FC = () => {
     const [savingKey, setSavingKey] = useState(false);
     const [keySaved, setKeySaved] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [dailyStats, setDailyStats] = useState<any[]>([]);
+    const [statsError, setStatsError] = useState<boolean>(false);
+    const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
 
     // Message modal
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
@@ -173,6 +179,19 @@ const AdminDashboardPage: React.FC = () => {
                 .eq('id', 1)
                 .single();
             if (appSettings) setApiKey(appSettings.gemini_api_key || '');
+
+            const { data: stats, error: statsErr } = await supabase
+                .from('admin_daily_stats')
+                .select('*')
+                .order('activity_date', { ascending: true })
+                .limit(30);
+            if (statsErr) {
+                console.warn('Failed to fetch admin_daily_stats:', statsErr);
+                setStatsError(true);
+            } else {
+                setDailyStats(stats || []);
+                setStatsError(false);
+            }
         } catch (err) {
             console.error(err);
         }
@@ -325,6 +344,128 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                 ))}
             </div>
+
+            {/* ── Daily Activity Chart ── */}
+            {statsError ? (
+                <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 rounded-2xl p-5 space-y-4 shadow-sm animate-in fade-in">
+                    <div className="flex gap-3">
+                        <span className="text-xl">⚠️</span>
+                        <div>
+                            <h3 className="font-bold text-amber-800 dark:text-amber-400">Kunlik Faollik Tahlili Faol Emas</h3>
+                            <p className="text-xs text-amber-600 dark:text-amber-500 mt-0.5">
+                                Tizimda foydalanuvchilarning kunlik faolligi va dars vaqtlarini ko'rish uchun <code>admin_daily_stats</code> ko'rinishi (View) yaratilishi lozim.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="bg-slate-900 dark:bg-slate-950 rounded-xl p-4 text-xs font-mono text-slate-300 overflow-x-auto select-all max-h-48 border border-slate-800">
+                        {`CREATE OR REPLACE VIEW public.admin_daily_stats WITH (security_invoker = false) AS
+SELECT 
+  (ss.start_time::date) as activity_date,
+  count(distinct ss.user_id) as active_users,
+  sum(ss.duration) as total_duration_minutes,
+  count(ss.id) as total_sessions
+FROM public.study_sessions ss
+GROUP BY (ss.start_time::date)
+ORDER BY activity_date DESC;
+
+GRANT SELECT ON public.admin_daily_stats TO authenticated;`}
+                    </div>
+                    <p className="text-[11px] text-slate-400">
+                        Ushbu SQL kodni nusxalab, Supabase SQL Editor'da ishga tushiring va sahifani yangilang.
+                    </p>
+                </div>
+            ) : (
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                            <Activity className="w-4 h-4 text-indigo-500" />
+                            <div>
+                                <h2 className="font-bold text-slate-800 dark:text-white text-base">Foydalanuvchilar Faolligi & Dars Vaqti</h2>
+                                <p className="text-[11px] text-slate-400">Oxirgi 30 kunlik Daily Active Users (DAU) va jami o'qilgan vaqt statistikasi</p>
+                            </div>
+                        </div>
+                        
+                        {/* Tab Toggle */}
+                        <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-xl self-start sm:self-auto border border-slate-200/30">
+                            <button
+                                onClick={() => setChartMode('dau')}
+                                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${chartMode === 'dau' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
+                            >
+                                <Users className="w-3.5 h-3.5 inline mr-1" />
+                                Active Users (DAU)
+                            </button>
+                            <button
+                                onClick={() => setChartMode('duration')}
+                                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${chartMode === 'duration' ? 'bg-white dark:bg-slate-700 shadow text-indigo-600 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
+                            >
+                                <TrendingUp className="w-3.5 h-3.5 inline mr-1" />
+                                Study Time (Min)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="h-64 w-full">
+                        {dailyStats.length === 0 ? (
+                            <div className="h-full flex flex-col items-center justify-center text-slate-400 text-sm">
+                                <Activity className="w-8 h-8 opacity-20 mb-2 animate-pulse" />
+                                Kunlik faoliyat bo'yicha ma'lumotlar mavjud emas.
+                            </div>
+                        ) : (
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={dailyStats} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                    <defs>
+                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor={chartMode === 'dau' ? '#6366f1' : '#a855f7'} stopOpacity={0.2}/>
+                                            <stop offset="95%" stopColor={chartMode === 'dau' ? '#6366f1' : '#a855f7'} stopOpacity={0.0}/>
+                                        </linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148, 163, 184, 0.15)" />
+                                    <XAxis 
+                                        dataKey="activity_date" 
+                                        tickLine={false} 
+                                        axisLine={false}
+                                        tickFormatter={(val) => {
+                                            if (!val) return '';
+                                            const d = new Date(val);
+                                            return d.toLocaleDateString('uz-UZ', { day: '2-digit', month: 'short' });
+                                        }}
+                                        tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 500 }}
+                                    />
+                                    <YAxis 
+                                        tickLine={false} 
+                                        axisLine={false}
+                                        tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 500 }}
+                                    />
+                                    <Tooltip 
+                                        contentStyle={{
+                                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                                            borderRadius: '16px',
+                                            padding: '10px 14px',
+                                            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)'
+                                        }}
+                                        labelStyle={{ color: '#94a3b8', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}
+                                        itemStyle={{ fontSize: '12px', fontWeight: 700 }}
+                                        labelFormatter={(label) => {
+                                            if (!label) return '';
+                                            return new Date(label).toLocaleDateString('uz-UZ', { day: '2-digit', month: 'long', year: 'numeric' });
+                                        }}
+                                    />
+                                    <Area 
+                                        type="monotone" 
+                                        dataKey={chartMode === 'dau' ? 'active_users' : 'total_duration_minutes'} 
+                                        name={chartMode === 'dau' ? 'Faol foydalanuvchilar' : 'Dars vaqti (Daqiqa)'}
+                                        stroke={chartMode === 'dau' ? '#6366f1' : '#a855f7'} 
+                                        strokeWidth={2.5}
+                                        fillOpacity={1} 
+                                        fill="url(#colorValue)" 
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* ── API Key ── */}
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
