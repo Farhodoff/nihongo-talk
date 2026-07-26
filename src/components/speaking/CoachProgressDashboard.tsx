@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { HistoryService, SpeakingSessionItem } from '../../services/HistoryService';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { History, Mic, Clock, MessageSquare } from 'lucide-react';
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { History, Mic, Clock, MessageSquare, Zap, BarChart2 } from 'lucide-react';
 
 export const CoachProgressDashboard: React.FC = () => {
     const [history, setHistory] = useState<SpeakingSessionItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState<'score' | 'duration'>('score');
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -27,7 +28,8 @@ export const CoachProgressDashboard: React.FC = () => {
         .map(item => ({
             date: new Date(item.createdAt).toLocaleDateString([], { month: 'short', day: 'numeric' }),
             Fluency: item.fluencyScore,
-            Pronunciation: item.pronunciationScore || 7.0
+            Pronunciation: item.pronunciationScore || 7.0,
+            DurationMins: Math.max(1, Math.round(item.durationSeconds / 60))
         }));
 
     // Calculate overall stats
@@ -42,15 +44,53 @@ export const CoachProgressDashboard: React.FC = () => {
     const totalDuration = history.reduce((acc, curr) => acc + curr.durationSeconds, 0);
     const totalMins = Math.round(totalDuration / 60);
 
+    // AI Consistency Score (0 - 100%)
+    const consistencyScore = history.length === 0 
+        ? 0 
+        : Math.min(100, Math.round((history.length * 15) + (totalMins * 1.5)));
+
+    const getConsistencyBadge = (score: number) => {
+        if (score >= 80) return { label: '🔥 Master Consistency', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' };
+        if (score >= 50) return { label: '⚡ Yaxshi Sur\'at', color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' };
+        return { label: '🌱 Boshlang\'ich Mashq', color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' };
+    };
+
+    const consistencyBadge = getConsistencyBadge(consistencyScore);
+
     return (
         <div className="bg-card border border-border rounded-3xl p-6 shadow-sm space-y-6">
-            <div className="flex items-center gap-2 border-b border-border pb-3">
-                <div className="p-2 bg-indigo-500/10 text-indigo-600 rounded-xl">
-                    <Mic size={20} />
+            <div className="flex items-center justify-between border-b border-border pb-3">
+                <div className="flex items-center gap-2">
+                    <div className="p-2 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                        <Mic size={20} />
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-extrabold text-foreground">Speaking Coach & AI Analytics</h3>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">Sizning ovozli muloqot va talaffuz o'sish ko'rsatkichlaringiz.</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 className="text-sm font-extrabold text-foreground">Speaking Coach Analytics</h3>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">Sizning ovozli muloqot mashg'ulotlaringiz tahlili va o'sish grafigi.</p>
+
+                <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-xl text-xs font-bold">
+                    <button
+                        onClick={() => setActiveTab('score')}
+                        className={`px-3 py-1 rounded-lg transition-all ${
+                            activeTab === 'score' 
+                            ? 'bg-card text-foreground shadow-sm' 
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        Ballar
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('duration')}
+                        className={`px-3 py-1 rounded-lg transition-all ${
+                            activeTab === 'duration' 
+                            ? 'bg-card text-foreground shadow-sm' 
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        Vaqt (Daqiqalar)
+                    </button>
                 </div>
             </div>
 
@@ -66,7 +106,7 @@ export const CoachProgressDashboard: React.FC = () => {
             ) : (
                 <div className="space-y-6">
                     {/* Stats Cards Row */}
-                    <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
                         <div className="p-3 bg-indigo-500/5 border border-indigo-500/15 rounded-2xl">
                             <span className="text-[9px] text-muted-foreground font-bold uppercase block">Avg Fluency</span>
                             <span className="text-base font-black text-indigo-500">{averageFluency}</span>
@@ -82,24 +122,60 @@ export const CoachProgressDashboard: React.FC = () => {
                                 {totalMins} daqiqa
                             </span>
                         </div>
+                        <div className="p-3 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl flex flex-col justify-center items-center">
+                            <span className="text-[9px] text-muted-foreground font-bold uppercase block flex items-center gap-1">
+                                <Zap size={12} className="text-emerald-500" /> AI Consistency
+                            </span>
+                            <span className="text-base font-black text-emerald-500">{consistencyScore}%</span>
+                        </div>
+                    </div>
+
+                    {/* AI Consistency Bar */}
+                    <div className="bg-muted/40 border border-border p-4 rounded-2xl space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold">
+                            <span className="flex items-center gap-1.5 text-foreground">
+                                <Zap size={14} className="text-emerald-500 animate-pulse" />
+                                AI Consistency Index (Barqarorlik ko'rsatkichi)
+                            </span>
+                            <span className={`text-[10px] px-2.5 py-0.5 rounded-full border ${consistencyBadge.color}`}>
+                                {consistencyBadge.label}
+                            </span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden">
+                            <div 
+                                className="bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 h-2.5 rounded-full transition-all duration-500"
+                                style={{ width: `${consistencyScore}%` }}
+                            />
+                        </div>
                     </div>
 
                     {/* Progression Chart */}
                     <div className="space-y-2">
                         <h4 className="text-[10px] font-extrabold uppercase text-muted-foreground tracking-wider flex items-center gap-1">
-                            <History size={14} /> O'sish Dinamikasi
+                            {activeTab === 'score' ? <History size={14} /> : <BarChart2 size={14} />}
+                            {activeTab === 'score' ? "O'sish Dinamikasi (Fluency & Pronunciation)" : "Kunlik O'qish Daqiqalari (Study Duration)"}
                         </h4>
-                        <div className="h-44 w-full">
+                        <div className="h-48 w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={chartData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                                    <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                    <YAxis domain={[4.0, 9.0]} ticks={[4.0, 5.5, 7.0, 8.5, 9.0]} stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                    <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
-                                    <Legend wrapperStyle={{ fontSize: 9 }} />
-                                    <Line type="monotone" dataKey="Fluency" stroke="#6366f1" strokeWidth={2.5} dot={{ r: 3 }} />
-                                    <Line type="monotone" dataKey="Pronunciation" stroke="#f43f5e" strokeWidth={2.5} dot={{ r: 3 }} />
-                                </LineChart>
+                                {activeTab === 'score' ? (
+                                    <LineChart data={chartData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                                        <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
+                                        <YAxis domain={[4.0, 9.0]} ticks={[4.0, 5.5, 7.0, 8.5, 9.0]} stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
+                                        <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
+                                        <Legend wrapperStyle={{ fontSize: 9 }} />
+                                        <Line type="monotone" dataKey="Fluency" stroke="#6366f1" strokeWidth={2.5} dot={{ r: 3 }} />
+                                        <Line type="monotone" dataKey="Pronunciation" stroke="#f43f5e" strokeWidth={2.5} dot={{ r: 3 }} />
+                                    </LineChart>
+                                ) : (
+                                    <BarChart data={chartData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                                        <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
+                                        <YAxis stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
+                                        <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
+                                        <Bar dataKey="DurationMins" fill="#6366f1" radius={[4, 4, 0, 0]} name="Daqiqalar" />
+                                    </BarChart>
+                                )}
                             </ResponsiveContainer>
                         </div>
                     </div>

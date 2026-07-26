@@ -17,6 +17,16 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
     isLoading,
     personaTitle
 }) => {
+    const playWordAudio = (word: string) => {
+        if (typeof window === 'undefined' || !window.speechSynthesis) return;
+        try {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -141,8 +151,18 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                     {report.pronunciation_errors && report.pronunciation_errors.length > 0 && (
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
                                             {report.pronunciation_errors.map((err, idx) => (
-                                                <div key={idx} className="p-3 bg-white dark:bg-gray-900 border border-rose-500/20 rounded-xl text-xs space-y-1">
-                                                    <span className="font-serif font-black text-rose-600 dark:text-rose-400 block">"{err.word}"</span>
+                                                <div key={idx} className="p-3 bg-white dark:bg-gray-900 border border-rose-500/20 rounded-xl text-xs space-y-1 relative group">
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="font-serif font-black text-rose-600 dark:text-rose-400">"{err.word}"</span>
+                                                        <button
+                                                            onClick={() => playWordAudio(err.word)}
+                                                            className="p-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition-colors flex items-center gap-1 text-[10px] font-bold"
+                                                            title="To'g'ri talaffuzni eshitish"
+                                                        >
+                                                            <Volume2 size={12} />
+                                                            <span>Eshitish</span>
+                                                        </button>
+                                                    </div>
                                                     <span className="text-[10px] text-muted-foreground block">💡 {err.correctionHelp}</span>
                                                 </div>
                                             ))}
@@ -161,14 +181,24 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                     <div className="space-y-3">
                                         {report.grammar_corrections.map((item, idx) => (
                                             <div key={idx} className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 space-y-2">
-                                                <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm">
-                                                    <span className="text-red-500 dark:text-red-400 line-through bg-red-500/10 px-2 py-0.5 rounded-md font-mono">
-                                                        ❌ {item.original}
-                                                    </span>
-                                                    <span className="text-gray-400 hidden sm:inline">➔</span>
-                                                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md font-mono">
-                                                        ✅ {item.corrected}
-                                                    </span>
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+                                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                                        <span className="text-red-500 dark:text-red-400 line-through bg-red-500/10 px-2 py-0.5 rounded-md font-mono">
+                                                            ❌ {item.original}
+                                                        </span>
+                                                        <span className="text-gray-400 hidden sm:inline">➔</span>
+                                                        <span className="text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md font-mono">
+                                                            ✅ {item.corrected}
+                                                        </span>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => playWordAudio(item.corrected)}
+                                                        className="self-start sm:self-auto p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 transition-colors flex items-center gap-1 text-[11px] font-bold shrink-0"
+                                                        title="To'g'ri gapni eshitish"
+                                                    >
+                                                        <Volume2 size={13} />
+                                                        <span>Audioni tinglash</span>
+                                                    </button>
                                                 </div>
                                                 <p className="text-xs text-gray-500 dark:text-gray-400 italic">
                                                     💡 {item.explanation}
@@ -188,9 +218,19 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {report.better_vocabulary.map((vocab, idx) => (
-                                            <div key={idx} className="p-4 rounded-2xl bg-purple-500/5 border border-purple-500/15 space-y-1">
-                                                <div className="text-xs text-gray-500 dark:text-gray-400">
-                                                    Oddiy ibora: <span className="font-semibold text-gray-700 dark:text-gray-300">{vocab.original}</span>
+                                            <div key={idx} className="p-4 rounded-2xl bg-purple-500/5 border border-purple-500/15 space-y-2">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                        Oddiy: <span className="font-semibold text-gray-700 dark:text-gray-300">{vocab.original}</span>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => playWordAudio(vocab.suggested)}
+                                                        className="p-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 transition-colors flex items-center gap-1 text-[10px] font-bold"
+                                                        title="Band 8+ iborani eshitish"
+                                                    >
+                                                        <Volume2 size={12} />
+                                                        <span>Eshitish</span>
+                                                    </button>
                                                 </div>
                                                 <div className="text-sm font-bold text-purple-600 dark:text-purple-400">
                                                     ✨ {vocab.suggested}
