@@ -4,6 +4,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -15,6 +16,7 @@ const Layout: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
+    const { language, setLanguage } = useLanguage();
 
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: Home },
@@ -137,14 +139,23 @@ const Layout: React.FC = () => {
                             </span>
                         </div>
                     )}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setIsCollapsed(!isCollapsed)}
-                        className="hidden md:flex text-muted-foreground"
-                    >
-                        {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-                    </Button>
+                    <div className="flex items-center gap-1">
+                        <button
+                            onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
+                            className="px-2 py-1 bg-muted hover:bg-muted/80 text-foreground font-bold text-xs rounded-lg border border-border transition-all"
+                            title="Tilni o'zgartirish / Change language"
+                        >
+                            {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
+                        </button>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setIsCollapsed(!isCollapsed)}
+                            className="hidden md:flex text-muted-foreground"
+                        >
+                            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+                        </Button>
+                    </div>
                 </div>
                 <NavLinks />
             </aside>

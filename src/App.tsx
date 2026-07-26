@@ -6,6 +6,7 @@ import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
 import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { supabase } from './lib/supabase';
 import { OnboardingTour } from './components/OnboardingTour';
 import { Toaster } from './components/ui/toaster';
@@ -41,6 +42,7 @@ const JlptWritingPage = lazy(() => import('./pages/JlptWritingPage'));
 const JlptListeningMockPage = lazy(() => import('./pages/JlptListeningMockPage').then(m => ({ default: m.JlptListeningMockPage })));
 const JlptGrammarQuizPage = lazy(() => import('./pages/JlptGrammarQuizPage').then(m => ({ default: m.JlptGrammarQuizPage })));
 const JlptMockExamPage = lazy(() => import('./pages/JlptMockExamPage').then(m => ({ default: m.JlptMockExamPage })));
+const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => ({ default: m.JlptReadingPage })));
 const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
 
@@ -95,9 +97,10 @@ const App: React.FC = () => {
 
     return (
         <ErrorBoundary>
-            <StudyPlannerProvider>
-                <FocusTimerProvider>
-                    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <LanguageProvider>
+                <StudyPlannerProvider>
+                    <FocusTimerProvider>
+                        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                         <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
                             <Suspense fallback={<PageLoader />}>
                                 <Routes>
@@ -115,6 +118,7 @@ const App: React.FC = () => {
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="jlpt/listening" element={<JlptListeningMockPage />} />
                                         <Route path="jlpt/grammar" element={<JlptGrammarQuizPage />} />
+                                        <Route path="jlpt/reading" element={<JlptReadingPage />} />
                                         <Route path="jlpt/mock-exam" element={<JlptMockExamPage />} />
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
@@ -152,7 +156,8 @@ const App: React.FC = () => {
                     </BrowserRouter>
                 </FocusTimerProvider>
             </StudyPlannerProvider>
-        </ErrorBoundary>
+        </LanguageProvider>
+    </ErrorBoundary>
     );
 };
 

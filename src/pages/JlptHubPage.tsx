@@ -179,6 +179,26 @@ export const JlptHubPage: React.FC = () => {
                     </div>
                 </div>
 
+                {/* JLPT Reading (Dokkai) */}
+                <div
+                    onClick={() => navigate('/jlpt/reading')}
+                    className="group bg-card p-6 rounded-3xl border border-border shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <BookOpen size={24} />
+                        </div>
+                        <h3 className="text-lg font-black text-foreground mb-1">Dokkai (読解) Reading Master 📖</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            N5-N1 darajasidagi taymerli yaponcha o'qish matnlari va savollarga javob berish mashqi.
+                        </p>
+                    </div>
+                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-emerald-500">
+                        <span>O'qishni Boshlash</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+
                 {/* JLPT Listening Mock */}
                 <div
                     onClick={() => navigate('/jlpt/listening')}

@@ -69,6 +69,7 @@ export default defineConfig({
                 ]
             },
             workbox: {
+                maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
                 skipWaiting: true,
                 clientsClaim: true,
                 cleanupOutdatedCaches: true,
@@ -127,6 +128,18 @@ export default defineConfig({
                         if (id.includes('recharts')) {
                             return 'charts';
                         }
+                        if (id.includes('katex')) {
+                            return 'katex';
+                        }
+                        if (id.includes('mermaid')) {
+                            return 'mermaid';
+                        }
+                        if (id.includes('cytoscape')) {
+                            return 'cytoscape';
+                        }
+                        if (id.includes('tldraw')) {
+                            return 'tldraw';
+                        }
                         if (id.includes('react-big-calendar') || id.includes('moment')) {
                             return 'calendar';
                         }
@@ -136,7 +149,7 @@ export default defineConfig({
                         if (id.includes('react-markdown')) {
                             return 'markdown';
                         }
-                        if (id.includes('@supabase/supabase-js')) {
+                        if (id.includes('@supabase')) {
                             return 'supabase';
                         }
                     }
