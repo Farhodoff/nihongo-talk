@@ -265,7 +265,7 @@ const Layout: React.FC = () => {
                     {/* Premium Upgrade Button */}
                     {!isCollapsed ? (
                         <button
-                            onClick={() => navigate('/settings')}
+                            onClick={() => navigate('/pricing')}
                             className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-sm rounded-2xl shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
                         >
                             <Crown size={18} className="animate-bounce" />
@@ -273,7 +273,7 @@ const Layout: React.FC = () => {
                         </button>
                     ) : (
                         <button
-                            onClick={() => navigate('/settings')}
+                            onClick={() => navigate('/pricing')}
                             title="Obunani Yangilash (Get Premium)"
                             className="w-full py-3 flex justify-center bg-gradient-to-r from-rose-500 to-indigo-600 text-white rounded-xl shadow-lg hover:scale-110 transition-transform"
                         >
@@ -344,7 +344,7 @@ const Layout: React.FC = () => {
                             <button
                                 onClick={() => {
                                     setSidebarOpen(false);
-                                    navigate('/settings');
+                                    navigate('/pricing');
                                 }}
                                 className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 to-indigo-600 text-white font-bold text-sm rounded-xl shadow flex items-center justify-center gap-2"
                             >

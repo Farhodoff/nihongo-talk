@@ -45,6 +45,7 @@ const JlptMockExamPage = lazy(() => import('./pages/JlptMockExamPage').then(m =>
 const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => ({ default: m.JlptReadingPage })));
 const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
+const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
 
 // Loading component
 const PageLoader = () => (
@@ -137,6 +138,7 @@ const App: React.FC = () => {
                                         <Route path="community" element={<CommunityPage />} />
                                         <Route path="cv-creator" element={<CVCreatorTab />} />
                                         <Route path="vocabulary" element={<VocabularyBuilderPage />} />
+                                        <Route path="pricing" element={<PricingPage />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />
