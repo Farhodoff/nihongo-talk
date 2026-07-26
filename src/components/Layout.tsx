@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
-    BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, 
+    BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown 
+    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -15,6 +15,7 @@ import { Button } from './ui/Button';
 
 interface NavGroup {
     category: string;
+    icon?: React.ComponentType<any>;
     items: {
         name: string;
         path: string;
@@ -31,9 +32,24 @@ const Layout: React.FC = () => {
     const { focusState } = useFocusTimerContext();
     const { language, setLanguage } = useLanguage();
 
+    // Accordion / Collapsible Group State
+    const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>(() => {
+        const saved = localStorage.getItem('study_planner_collapsed_groups');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const toggleGroup = (category: string) => {
+        setCollapsedGroups(prev => {
+            const next = { ...prev, [category]: !prev[category] };
+            localStorage.setItem('study_planner_collapsed_groups', JSON.stringify(next));
+            return next;
+        });
+    };
+
     const navGroups: NavGroup[] = [
         {
             category: 'ASOSIY',
+            icon: Home,
             items: [
                 { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
                 { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
@@ -43,6 +59,7 @@ const Layout: React.FC = () => {
         },
         {
             category: "O'QUV QUROLLARI",
+            icon: FolderOpen,
             items: [
                 { name: 'Fanlar & Reja 📚', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
                 { name: 'Vazifalar 📋', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
@@ -55,6 +72,7 @@ const Layout: React.FC = () => {
         },
         {
             category: 'TAHLIL & JAMOA',
+            icon: BarChart,
             items: [
                 { name: 'Statistika 📊', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
                 { name: 'Jamoa 👥', path: '/community', icon: Users, tourId: 'nav-community' },
@@ -78,38 +96,67 @@ const Layout: React.FC = () => {
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-5">
-            {navGroups.map((group, idx) => (
-                <div key={idx} className="space-y-1">
-                    {!isCollapsed && (
-                        <div className="px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
-                            {group.category}
-                        </div>
-                    )}
-                    {group.items.map((item) => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            onClick={onClick}
-                            data-tour={item.tourId}
-                            className={({ isActive }) =>
-                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
-                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                                }`
-                            }
-                            title={isCollapsed ? item.name : ''}
-                        >
-                            <item.icon 
-                                size={20} 
-                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
-                                strokeWidth={2}
-                            />
-                            {!isCollapsed && <span className="truncate">{item.name}</span>}
-                        </NavLink>
-                    ))}
-                </div>
-            ))}
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-4">
+            {navGroups.map((group) => {
+                const isGroupCollapsed = !!collapsedGroups[group.category];
+                const GroupIcon = group.icon || Folder;
+
+                return (
+                    <div key={group.category} className="space-y-1">
+                        {!isCollapsed ? (
+                            <button
+                                onClick={() => toggleGroup(group.category)}
+                                className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 hover:text-slate-200 transition-colors rounded-lg hover:bg-slate-800/40 select-none group"
+                            >
+                                <span className="flex items-center gap-1.5">
+                                    <GroupIcon size={13} className="text-primary/70" />
+                                    {group.category}
+                                </span>
+                                <div className="text-slate-500 group-hover:text-slate-300 transition-transform">
+                                    {isGroupCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
+                                </div>
+                            </button>
+                        ) : (
+                            <div className="h-px bg-border/50 my-2" />
+                        )}
+
+                        <AnimatePresence initial={false}>
+                            {(!isGroupCollapsed || isCollapsed) && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="space-y-1 overflow-hidden"
+                                >
+                                    {group.items.map((item) => (
+                                        <NavLink
+                                            key={item.path}
+                                            to={item.path}
+                                            onClick={onClick}
+                                            data-tour={item.tourId}
+                                            className={({ isActive }) =>
+                                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
+                                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                                }`
+                                            }
+                                            title={isCollapsed ? item.name : ''}
+                                        >
+                                            <item.icon 
+                                                size={19} 
+                                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
+                                                strokeWidth={2}
+                                            />
+                                            {!isCollapsed && <span className="truncate">{item.name}</span>}
+                                        </NavLink>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                );
+            })}
         </div>
     );
 
@@ -196,12 +243,11 @@ const Layout: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Navigation Links */}
+                {/* Navigation Links (Accordion Folders) */}
                 <NavLinks />
 
-                {/* Bottom Section: Profile & Obunani Yangilash (Get Premium) */}
+                {/* Bottom Section: Settings & Get Premium (Xuddi 2-rasmdagidek) */}
                 <div className="p-3 border-t border-border space-y-2 bg-card">
-                    {/* Settings / Profile link */}
                     <NavLink
                         to="/settings"
                         className={({ isActive }) =>
@@ -210,13 +256,13 @@ const Layout: React.FC = () => {
                                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                             }`
                         }
-                        title={isCollapsed ? 'Profil va Sozlamalar' : ''}
+                        title={isCollapsed ? 'Sozlamalar & Profil' : ''}
                     >
-                        <SettingsIcon size={20} />
+                        <SettingsIcon size={19} />
                         {!isCollapsed && <span>Sozlamalar & Profil</span>}
                     </NavLink>
 
-                    {/* Premium Upgrade Button (Xuddi 2-rasmdagidek yorqin tugma) */}
+                    {/* Premium Upgrade Button */}
                     {!isCollapsed ? (
                         <button
                             onClick={() => navigate('/settings')}
