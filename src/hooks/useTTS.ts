@@ -32,15 +32,17 @@ export const useTTS = ({
     languageRef.current = language;
 
     const stopSpeaking = useCallback(() => {
-        synthRef.current?.cancel();
+        if (synthRef.current) {
+            try { synthRef.current.cancel(); } catch (e) {}
+        }
         if (audioPlayerRef.current) {
             audioPlayerRef.current.onended = null;
             audioPlayerRef.current.onerror = null;
-            audioPlayerRef.current.pause();
+            try { audioPlayerRef.current.pause(); } catch (e) {}
             audioPlayerRef.current = null;
         }
         if (currentObjectUrlRef.current) {
-            URL.revokeObjectURL(currentObjectUrlRef.current);
+            try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {}
             currentObjectUrlRef.current = null;
         }
         if (ttsSafetyTimeoutRef.current) {
@@ -51,22 +53,7 @@ export const useTTS = ({
 
     const speakText = useCallback(async (text: string) => {
         onSpeakStart();
-        synthRef.current?.cancel();
-
-        if (currentObjectUrlRef.current) {
-            URL.revokeObjectURL(currentObjectUrlRef.current);
-            currentObjectUrlRef.current = null;
-        }
-        if (audioPlayerRef.current) {
-            audioPlayerRef.current.pause();
-            audioPlayerRef.current.onended = null;
-            audioPlayerRef.current.onerror = null;
-            audioPlayerRef.current = null;
-        }
-        if (ttsSafetyTimeoutRef.current) {
-            clearTimeout(ttsSafetyTimeoutRef.current);
-            ttsSafetyTimeoutRef.current = null;
-        }
+        stopSpeaking();
 
         const onSpeechFinish = () => {
             if (ttsSafetyTimeoutRef.current) {
@@ -74,18 +61,18 @@ export const useTTS = ({
                 ttsSafetyTimeoutRef.current = null;
             }
             if (currentObjectUrlRef.current) {
-                URL.revokeObjectURL(currentObjectUrlRef.current);
+                try { URL.revokeObjectURL(currentObjectUrlRef.current); } catch (e) {}
                 currentObjectUrlRef.current = null;
             }
             onSpeakEnd();
         };
 
-        // 15-second safety timer in case Web Speech Synthesis drops onend event
-        ttsSafetyTimeoutRef.current = setTimeout(() => { onSpeechFinish(); }, 15000);
+        // 10-second safety timeout in case Web Speech or Audio drops end event
+        ttsSafetyTimeoutRef.current = setTimeout(() => { onSpeechFinish(); }, 10000);
 
         const config = getAIConfig();
 
-        // 1. OpenAI TTS (if key configured)
+        // 1. OpenAI TTS (if API key configured)
         if (config.openAIApiKey) {
             try {
                 const blob = await fetchOpenAITTS(text, config.coachVoice || 'alloy', config.openAIApiKey);
@@ -93,47 +80,31 @@ export const useTTS = ({
                 currentObjectUrlRef.current = url;
                 const audio = new Audio(url);
                 audioPlayerRef.current = audio;
-                audio.onended = () => { onSpeechFinish(); };
-                audio.onerror = () => { onSpeechFinish(); };
-                audio.play().catch(() => { onSpeechFinish(); });
+                audio.onended = () => onSpeechFinish();
+                audio.onerror = () => onSpeechFinish();
+                audio.play().catch(() => onSpeechFinish());
                 return;
             } catch (error) {
-                console.error('OpenAI TTS error fallback to browser voice', error);
+                console.warn('OpenAI TTS fallback to Web Speech', error);
             }
         }
 
-        // 2. Google Free Neural Audio Stream
+        // 2. Google Translate Free Audio Stream
         try {
             const cleanText = text.replace(/[*_#`~]/g, '').trim();
             const targetLang = languageRef.current === 'ja' ? 'ja' : 'en';
-            const sentences = cleanText.match(/[^.!?。！？]+[.!?。！？]+/g) || [cleanText];
-            const chunks: string[] = [];
-            let currentChunk = '';
-            for (const sentence of sentences) {
-                if ((currentChunk + ' ' + sentence).length <= 180) {
-                    currentChunk = (currentChunk + ' ' + sentence).trim();
-                } else {
-                    if (currentChunk) chunks.push(currentChunk);
-                    currentChunk = sentence.substring(0, 180).trim();
-                }
+            const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(cleanText.substring(0, 200))}&tl=${targetLang}`;
+            
+            const audio = new Audio(gUrl);
+            audioPlayerRef.current = audio;
+            audio.onended = () => onSpeechFinish();
+            audio.onerror = () => fallbackWebSpeech();
+            
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => fallbackWebSpeech());
             }
-            if (currentChunk) chunks.push(currentChunk);
-
-            if (chunks.length > 0) {
-                let chunkIdx = 0;
-                const playNextChunk = () => {
-                    if (chunkIdx >= chunks.length) { onSpeechFinish(); return; }
-                    const chunk = chunks[chunkIdx++];
-                    const gUrl = `/api/tts?text=${encodeURIComponent(chunk)}&lang=${targetLang}`;
-                    const audio = new Audio(gUrl);
-                    audioPlayerRef.current = audio;
-                    audio.onended = () => playNextChunk();
-                    audio.onerror = () => fallbackWebSpeech();
-                    audio.play().catch(() => fallbackWebSpeech());
-                };
-                playNextChunk();
-                return;
-            }
+            return;
         } catch (gErr) {
             console.warn('Google free TTS failed, falling back to Web Speech', gErr);
         }
@@ -142,46 +113,45 @@ export const useTTS = ({
         fallbackWebSpeech();
 
         function fallbackWebSpeech() {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
-            utterance.rate = 0.95;
-            utterance.pitch = 1.0;
-
-            const synth = synthRef.current || window.speechSynthesis;
-            const voices = synth?.getVoices() || [];
-            const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
-
-            const isRobotic = (name: string) => {
-                const l = name.toLowerCase();
-                return ['fred', 'albert', 'ralph', 'zarvox', 'bad news', 'bells', 'cellos', 'junior', 'organ', 'trinoids', 'whisper', 'wons', 'bruce', 'boing', 'bubbles', 'hysterical'].some(r => l.includes(r));
-            };
-
-            const matchingVoices = voices.filter(v =>
-                (v.lang.toLowerCase().startsWith(langPrefix) || v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)) &&
-                !isRobotic(v.name)
-            );
-
-            if (matchingVoices.length > 0) {
-                const naturalVoice = matchingVoices.find(v =>
-                    v.name.toLowerCase().includes('natural') ||
-                    v.name.toLowerCase().includes('online') ||
-                    v.name.toLowerCase().includes('neural')
-                ) || matchingVoices.find(v =>
-                    v.name.toLowerCase().includes('enhanced') ||
-                    v.name.toLowerCase().includes('premium') ||
-                    v.name.toLowerCase().includes('siri')
-                ) || matchingVoices.find(v =>
-                    ['google', 'samantha', 'victoria', 'karen', 'kyoko', 'aria', 'jenny'].some(n => v.name.toLowerCase().includes(n))
-                ) || matchingVoices[0];
-
-                if (naturalVoice) utterance.voice = naturalVoice;
+            const synth = synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
+            if (!synth) {
+                onSpeechFinish();
+                return;
             }
 
-            utterance.onend = () => { onSpeechFinish(); };
-            utterance.onerror = () => { onSpeechFinish(); };
-            synth?.speak(utterance);
+            try {
+                synth.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+                utterance.rate = 0.95;
+                utterance.pitch = 1.0;
+
+                const voices = synth.getVoices() || [];
+                const langPrefix = languageRef.current === 'ja' ? 'ja' : 'en';
+
+                const matchingVoices = voices.filter(v =>
+                    v.lang.toLowerCase().startsWith(langPrefix) || v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix)
+                );
+
+                if (matchingVoices.length > 0) {
+                    const naturalVoice = matchingVoices.find(v =>
+                        v.name.toLowerCase().includes('natural') ||
+                        v.name.toLowerCase().includes('neural') ||
+                        v.name.toLowerCase().includes('google')
+                    ) || matchingVoices[0];
+
+                    if (naturalVoice) utterance.voice = naturalVoice;
+                }
+
+                utterance.onend = () => onSpeechFinish();
+                utterance.onerror = () => onSpeechFinish();
+
+                synth.speak(utterance);
+            } catch (e) {
+                onSpeechFinish();
+            }
         }
-    }, [onSpeakStart, onSpeakEnd]);
+    }, [onSpeakStart, onSpeakEnd, stopSpeaking]);
 
     return { speakText, stopSpeaking, audioPlayerRef, synthRef };
 };

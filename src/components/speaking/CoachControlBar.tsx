@@ -14,6 +14,7 @@ interface CoachControlBarProps {
     toggleSession: () => void;
     onClearHistory: () => void;
     formatTimer: (sec: number) => string;
+    onForceStartListening?: () => void;
 }
 
 export const CoachControlBar: React.FC<CoachControlBarProps> = ({
@@ -28,12 +29,13 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
     toggleSession,
     onClearHistory,
     formatTimer,
+    onForceStartListening,
 }) => {
     const getStatusInfo = () => {
         if (isSpeaking) return { label: 'AI Gapirmoqda', color: 'text-blue-400', pulseColor: 'bg-blue-500' };
         if (isThinking) return { label: "O'ylamoqda...", color: 'text-purple-400', pulseColor: 'bg-purple-500' };
         if (isListening) return { label: 'Eshitmoqda', color: 'text-emerald-400', pulseColor: 'bg-emerald-500' };
-        return { label: 'Tayyor', color: 'text-gray-400', pulseColor: 'bg-gray-500' };
+        return { label: 'Tayyor (Gapirish uchun mikrofonga bosing)', color: 'text-amber-400', pulseColor: 'bg-amber-500' };
     };
     const status = getStatusInfo();
 
@@ -45,8 +47,14 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                 {isLiveSession && (
                     <div className="mb-2.5 px-2">
                         <div className="flex items-center justify-between mb-1.5">
-                            <div className="flex items-center gap-2">
-                                <span className={`w-2 h-2 rounded-full ${status.pulseColor} animate-pulse`} />
+                            <div
+                                onClick={() => {
+                                    if (onForceStartListening) onForceStartListening();
+                                }}
+                                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                                title="Gapirish uchun bosish"
+                            >
+                                <span className={`w-2.5 h-2.5 rounded-full ${status.pulseColor} animate-pulse`} />
                                 <span className={`text-[11px] font-bold uppercase tracking-wider ${status.color}`}>
                                     {status.label}
                                 </span>
@@ -70,12 +78,12 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         {!isLiveSession ? (
                             <div className="flex items-center gap-2 text-gray-400 text-xs font-medium truncate">
-                                <HeartPulse size={14} className="shrink-0" />
+                                <HeartPulse size={14} className="shrink-0 text-emerald-500 animate-pulse" />
                                 <span className="truncate">Suhbat boshlash uchun qo'ng'iroq qiling</span>
                             </div>
                         ) : (
                             <div className="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-                                <MessageCircle size={14} className="shrink-0" />
+                                <MessageCircle size={14} className="shrink-0 text-indigo-400" />
                                 <span>{chatHistoryLength} ta xabar</span>
                             </div>
                         )}
@@ -94,18 +102,30 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                             </button>
                         )}
 
-                        {/* Mute Mic Toggle */}
+                        {/* Mute Mic Toggle / Force Start */}
                         {isLiveSession && (
                             <button
-                                onClick={() => setIsMuted(!isMuted)}
-                                className={`p-2.5 rounded-xl transition-all ${
+                                onClick={() => {
+                                    if (isMuted) {
+                                        setIsMuted(false);
+                                    }
+                                    if (onForceStartListening) {
+                                        onForceStartListening();
+                                    }
+                                }}
+                                className={`p-2.5 rounded-xl transition-all flex items-center gap-1.5 ${
                                     isMuted 
                                     ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/25' 
-                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                    : isListening
+                                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                                    : 'bg-indigo-600 text-white shadow-md hover:bg-indigo-500 animate-bounce'
                                 }`}
-                                title={isMuted ? "Mikrofonni yoqish" : "Mikrofonni o'chirish"}
+                                title={isMuted ? "Mikrofonni yoqish" : "Gapirish (Mikrofonni faollashtirish)"}
                             >
-                                {isMuted ? <MicOff size={16} /> : <Mic size={16} />}
+                                {isMuted ? <MicOff size={16} /> : <Mic size={16} className={isListening ? "animate-pulse text-emerald-400" : ""} />}
+                                {!isListening && !isMuted && !isSpeaking && !isThinking && (
+                                    <span className="text-[11px] font-bold">GAPIRISH</span>
+                                )}
                             </button>
                         )}
 
@@ -142,3 +162,5 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
         </div>
     );
 };
+
+export default CoachControlBar;

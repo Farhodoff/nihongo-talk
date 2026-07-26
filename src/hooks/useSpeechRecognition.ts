@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { validateSpeechInput } from '../utils/ai';
 
 interface UseSpeechRecognitionOptions {
@@ -22,6 +22,7 @@ export interface UseSpeechRecognitionReturn {
     error: string | null;
     setError: React.Dispatch<React.SetStateAction<string | null>>;
     isSupported: boolean;
+    startListening: () => void;
 }
 
 export const useSpeechRecognition = ({
@@ -62,6 +63,37 @@ export const useSpeechRecognition = ({
     useEffect(() => { onValidSpeechRef.current = onValidSpeech; }, [onValidSpeech]);
     useEffect(() => { onResumeListeningRef.current = onResumeListening; }, [onResumeListening]);
 
+    const startListening = useCallback(() => {
+        if (!isLiveSessionRef.current || isMutedRef.current) return;
+
+        // Reset processing flags to unblock microphone
+        isProcessingRef.current = false;
+        transcriptBufferRef.current = '';
+        setCurrentTranscript('');
+        setError(null);
+
+        // Ensure browser mic permission is requested
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+                if (recognitionRef.current && isLiveSessionRef.current) {
+                    try {
+                        recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+                        recognitionRef.current.start();
+                    } catch (e) {
+                        // Recognition might already be running
+                    }
+                }
+            }).catch(() => {
+                setError('Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.');
+            });
+        } else if (recognitionRef.current) {
+            try {
+                recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+                recognitionRef.current.start();
+            } catch (e) {}
+        }
+    }, [isLiveSessionRef, isProcessingRef]);
+
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
@@ -82,6 +114,7 @@ export const useSpeechRecognition = ({
         recognition.onstart = () => {
             speechStartTimeRef.current = 0;
             setIsListening(true);
+            setError(null);
         };
 
         recognition.onspeechstart = () => {
@@ -128,7 +161,7 @@ export const useSpeechRecognition = ({
             if (event.error === 'not-allowed' || event.error === 'permission-denied') {
                 setError('Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.');
             } else if (event.error !== 'no-speech') {
-                console.error('Speech recognition error:', event.error);
+                console.warn('Speech recognition status:', event.error);
             }
             setIsListening(false);
         };
@@ -149,7 +182,7 @@ export const useSpeechRecognition = ({
             transcriptBufferRef.current = '';
             setCurrentTranscript('');
 
-            if (isLiveSessionRef.current && !isProcessingRef.current) {
+            if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
                 if (isValid) {
                     onValidSpeechRef.current(spokenText);
                 } else {
@@ -174,5 +207,6 @@ export const useSpeechRecognition = ({
         error,
         setError,
         isSupported,
+        startListening,
     };
 };

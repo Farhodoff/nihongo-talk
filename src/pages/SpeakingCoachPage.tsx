@@ -134,6 +134,7 @@ const SpeakingCoachPage: React.FC = () => {
         transcriptBufferRef,
         error,
         setError,
+        startListening,
     } = useSpeechRecognition({
         language,
         isLiveSessionRef,
@@ -150,16 +151,7 @@ const SpeakingCoachPage: React.FC = () => {
     });
 
     const resumeListening = () => {
-        transcriptBufferRef.current = '';
-        setCurrentTranscript('');
-        if (isLiveSessionRef.current && recognitionRef.current && !isMuted && !isProcessingRef.current) {
-            try {
-                recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
-                recognitionRef.current.start();
-            } catch (e) {
-                // If recognition was already active or in starting state
-            }
-        }
+        startListening();
     };
 
     // Auto-resume listening when speaking or thinking finishes
@@ -464,6 +456,7 @@ const SpeakingCoachPage: React.FC = () => {
                 toggleSession={toggleSession}
                 onClearHistory={() => setChatHistory([])}
                 formatTimer={formatTimer}
+                onForceStartListening={startListening}
             />
 
             {/* SETTINGS MODAL */}
