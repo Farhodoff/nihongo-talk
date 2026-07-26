@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
-import { Shield, Users, Key, Loader2, Save, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Shield, Users, Key, Loader2, Save, CheckCircle2, MessageSquare, Send, X } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { isAdminEmail } from '../utils/admin';
+import { UserNotificationService } from '../services/UserNotificationService';
 
 interface UserSubscription {
     id: string;
@@ -24,6 +25,12 @@ const AdminDashboardPage: React.FC = () => {
     const [apiKey, setApiKey] = useState('');
     const [savingKey, setSavingKey] = useState(false);
     const [keySaved, setKeySaved] = useState(false);
+
+    // Message Modal State
+    const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
+    const [msgTitle, setMsgTitle] = useState('🎁 Maxsus Xabar');
+    const [msgContent, setMsgContent] = useState('Xush kelibsiz! Sizga 3 kunlik bepul Pro tarif taqdim etildi. Platformamizdan unumli foydalaning! 🚀');
+    const [sendingMsg, setSendingMsg] = useState(false);
 
     const fetchAdminData = async () => {
         setLoading(true);
@@ -55,7 +62,6 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     useEffect(() => {
-        // Faqat admin bo'lsa ma'lumotlarni tortamiz
         if (isAdminEmail(user?.email)) {
             fetchAdminData();
         } else {
@@ -63,7 +69,6 @@ const AdminDashboardPage: React.FC = () => {
         }
     }, [user]);
 
-    // O'chib-yonish (miltillash) ni oldini olish uchun
     if (loading && !user) {
         return (
             <div className="flex items-center justify-center h-[70vh]">
@@ -72,7 +77,6 @@ const AdminDashboardPage: React.FC = () => {
         );
     }
 
-    // Xavfsizlik: Faqat Admin kira oladi. Boshqalar uchun 404 ko'rsatamiz
     if (!isAdminEmail(user?.email)) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center animate-in fade-in duration-500">
@@ -100,7 +104,7 @@ const AdminDashboardPage: React.FC = () => {
             setTimeout(() => setKeySaved(false), 2000);
         } catch (error) {
             console.error('Error saving API key:', error);
-            alert("Kalitni saqlashda xatolik yuz berdi. DB qoidalarini tekshiring.");
+            alert("Kalitni saqlashda xatolik yuz berdi.");
         } finally {
             setSavingKey(false);
         }
@@ -122,7 +126,6 @@ const AdminDashboardPage: React.FC = () => {
 
             if (error) throw error;
             
-            // Mahalliy holatni yangilash
             setSubscriptions(subs => 
                 subs.map(s => s.id === userId ? { ...s, tier: newTier as any, valid_until: validUntil } : s)
             );
@@ -142,12 +145,30 @@ const AdminDashboardPage: React.FC = () => {
 
             if (error) throw error;
             
-            // Mahalliy holatni yangilash
             setSubscriptions(subs => 
                 subs.map(s => s.id === userId ? { ...s, ai_credits: newCredits } : s)
             );
         } catch (error) {
             console.error('Error adding credits:', error);
+        }
+    };
+
+    const handleSendInAppMessage = async () => {
+        if (!messageModalUser || !msgTitle.trim() || !msgContent.trim()) return;
+        setSendingMsg(true);
+        try {
+            await UserNotificationService.sendNotification({
+                user_id: messageModalUser.id,
+                title: msgTitle,
+                message: msgContent,
+                type: 'admin'
+            });
+            alert(`Xabar ${messageModalUser.email} ga muvaffaqiyatli yuborildi! 🚀`);
+            setMessageModalUser(null);
+        } catch (e) {
+            alert("Xabar yuborishda xatolik yuz berdi.");
+        } finally {
+            setSendingMsg(false);
         }
     };
 
@@ -167,7 +188,7 @@ const AdminDashboardPage: React.FC = () => {
                 </div>
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Admin Boshqaruv Paneli</h1>
-                    <p className="text-slate-500">Tizim va foydalanuvchilar obunasini boshqarish</p>
+                    <p className="text-slate-500">Tizim va foydalanuvchilar obunasini hamda bildirishnomalarni boshqarish</p>
                 </div>
             </div>
 
@@ -178,7 +199,7 @@ const AdminDashboardPage: React.FC = () => {
                     <h2 className="text-xl font-bold text-slate-900 dark:text-white">Umumiy AI Kaliti</h2>
                 </div>
                 <p className="text-sm text-slate-500 mb-4">
-                    Ushbu kalit "Pro" tarifidagi foydalanuvchilar va kunlik limitidan foydalanayotgan "Free" foydalanuvchilar uchun ishlatiladi.
+                    Ushbu kalit Pro va Premium foydalanuvchilar uchun ishlatiladi.
                 </p>
                 
                 <div className="flex gap-4">
@@ -193,10 +214,6 @@ const AdminDashboardPage: React.FC = () => {
                         {savingKey ? <Loader2 className="w-4 h-4 animate-spin" /> : keySaved ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
                         {keySaved ? "Saqlandi!" : "Saqlash"}
                     </Button>
-                </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-500/10 p-3 rounded-lg border border-amber-200 dark:border-amber-500/20">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
-                    <span>Eslatma: Bu kalit ma'lumotlar bazasida saqlanadi. RLS orqali faqat ro'yxatdan o'tganlarga beriladi.</span>
                 </div>
             </div>
 
@@ -226,8 +243,8 @@ const AdminDashboardPage: React.FC = () => {
                         <tbody className="divide-y divide-gray-100 dark:divide-slate-800/50">
                             {subscriptions.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4} className="py-8 text-center text-slate-500 dark:text-slate-400">
-                                        Hech qanday foydalanuvchi topilmadi. SQL triggerlarni tekshiring.
+                                    <td colSpan={5} className="py-8 text-center text-slate-500 dark:text-slate-400">
+                                        Hech qanday foydalanuvchi topilmadi.
                                     </td>
                                 </tr>
                             ) : subscriptions.map((sub) => (
@@ -252,9 +269,6 @@ const AdminDashboardPage: React.FC = () => {
                                                 <span className="text-sm font-medium text-slate-900 dark:text-white">
                                                     {sub.valid_until ? new Date(sub.valid_until).toLocaleDateString('uz-UZ') : 'Noma\'lum'}
                                                 </span>
-                                                <span className="text-xs text-indigo-500 font-semibold">
-                                                    (1 oylik)
-                                                </span>
                                             </div>
                                         ) : (
                                             <span className="text-sm text-slate-400">Muddatsiz</span>
@@ -267,7 +281,7 @@ const AdminDashboardPage: React.FC = () => {
                                             </span>
                                             <button 
                                                 onClick={() => addCredits(sub.id, sub.ai_credits)}
-                                                className="text-xs text-indigo-500 hover:text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 px-2 py-1 rounded-md transition-colors"
+                                                className="text-xs text-indigo-500 hover:text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 px-2 py-1 rounded-md transition-colors font-bold"
                                                 title="Yana 3 ta qo'shish"
                                             >
                                                 +3
@@ -275,7 +289,7 @@ const AdminDashboardPage: React.FC = () => {
                                         </div>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <div className="flex flex-col gap-1.5">
+                                        <div className="flex flex-col gap-2">
                                             <div className="flex items-center gap-2">
                                                 <Button
                                                     size="sm"
@@ -301,12 +315,22 @@ const AdminDashboardPage: React.FC = () => {
                                                     👑 +6 Oy (VIP $50)
                                                 </Button>
                                             </div>
-                                            <button
-                                                onClick={() => setUserTier(sub.id, 'free', 0)}
-                                                className="text-[11px] text-slate-400 hover:text-rose-500 text-left transition-colors font-medium"
-                                            >
-                                                Statusni Bepul (Free) ga qaytarish
-                                            </button>
+
+                                            <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+                                                <button
+                                                    onClick={() => setMessageModalUser({ id: sub.id, email: sub.email })}
+                                                    className="text-xs font-bold text-rose-500 hover:text-rose-400 flex items-center gap-1 bg-rose-500/10 hover:bg-rose-500/20 px-2.5 py-1 rounded-md transition-colors"
+                                                >
+                                                    <MessageSquare size={13} />
+                                                    <span>💬 Xabar Yuborish</span>
+                                                </button>
+                                                <button
+                                                    onClick={() => setUserTier(sub.id, 'free', 0)}
+                                                    className="text-[11px] text-slate-400 hover:text-rose-500 transition-colors font-medium"
+                                                >
+                                                    Free ga qaytarish
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -315,6 +339,97 @@ const AdminDashboardPage: React.FC = () => {
                     </table>
                 </div>
             </div>
+
+            {/* Admin Message Dispatch Modal */}
+            {messageModalUser && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+                    <div className="bg-slate-900 border border-slate-800 text-white rounded-3xl p-6 max-w-lg w-full shadow-2xl relative space-y-5">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div className="flex items-center gap-2">
+                                <MessageSquare className="w-5 h-5 text-rose-500" />
+                                <h3 className="text-lg font-bold text-white">Foydalanuvchiga Xabar Yuborish</h3>
+                            </div>
+                            <button
+                                onClick={() => setMessageModalUser(null)}
+                                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        <div className="text-xs text-rose-400 font-semibold bg-rose-500/10 p-3 rounded-xl border border-rose-500/20">
+                            Qabul qiluvchi: <b>{messageModalUser.email}</b>
+                        </div>
+
+                        <div className="space-y-3">
+                            <div>
+                                <label className="text-xs font-bold text-slate-400 block mb-1">Xabar Sarlavhasi</label>
+                                <input
+                                    type="text"
+                                    value={msgTitle}
+                                    onChange={(e) => setMsgTitle(e.target.value)}
+                                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:ring-2 focus:ring-rose-500 outline-none"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-slate-400 block mb-1">Xabar Matni</label>
+                                <textarea
+                                    rows={4}
+                                    value={msgContent}
+                                    onChange={(e) => setMsgContent(e.target.value)}
+                                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:ring-2 focus:ring-rose-500 outline-none"
+                                />
+                            </div>
+
+                            {/* Preset Buttons */}
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Tayyor Shablonlar:</label>
+                                <div className="flex flex-wrap gap-1.5">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setMsgTitle('🎁 Maxsus Taklif!');
+                                            setMsgContent('Xush kelibsiz! Sizga 3 kunlik bepul Pro tarif taqdim etildi. IELTS & JLPT AI qurollarini bepul sinab ko\'ring! 🚀');
+                                        }}
+                                        className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700"
+                                    >
+                                        🎁 3 Kun Bepul Pro
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setMsgTitle('⚡ Obuna Bildirishnomasi');
+                                            setMsgContent('Sizning VIP obunangiz faollashtirildi! Cheksiz AI imkoniyatlaridan bahramand bo\'ling.');
+                                        }}
+                                        className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700"
+                                    >
+                                        ⚡ VIP Obuna Aktivlashdi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-end gap-3 pt-2">
+                            <Button
+                                variant="outline"
+                                onClick={() => setMessageModalUser(null)}
+                                className="border-slate-800 text-slate-400 hover:bg-slate-800"
+                            >
+                                Bekor Qilish
+                            </Button>
+                            <Button
+                                onClick={handleSendInAppMessage}
+                                disabled={sendingMsg}
+                                className="bg-rose-600 hover:bg-rose-500 text-white font-bold gap-2 px-6"
+                            >
+                                {sendingMsg ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                                <span>{sendingMsg ? 'Yuborilmoqda...' : 'Yuborish 🚀'}</span>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
