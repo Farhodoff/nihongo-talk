@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
-import { Shield, Users, Key, Loader2, Save, CheckCircle2, MessageSquare, Send, X } from 'lucide-react';
+import { Shield, Users, Key, Loader2, Save, CheckCircle2, MessageSquare, Send, X, Gift } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { isAdminEmail } from '../utils/admin';
@@ -29,7 +29,7 @@ const AdminDashboardPage: React.FC = () => {
     // Message Modal State
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
     const [msgTitle, setMsgTitle] = useState('🎁 Maxsus Xabar');
-    const [msgContent, setMsgContent] = useState('Xush kelibsiz! Sizga 3 kunlik bepul Pro tarif taqdim etildi. Platformamizdan unumli foydalaning! 🚀');
+    const [msgContent, setMsgContent] = useState('Xush kelibsiz! Sizga 3 kunlik bepul Premium tarif taqdim etildi. Platformamizdan unumli foydalaning! 🚀');
     const [sendingMsg, setSendingMsg] = useState(false);
 
     const fetchAdminData = async () => {
@@ -135,6 +135,41 @@ const AdminDashboardPage: React.FC = () => {
         }
     };
 
+    const setUserTierDays = async (userId: string, newTier: string, daysDuration: number = 3) => {
+        try {
+            let validUntil: string | undefined = undefined;
+            if (newTier !== 'free') {
+                const date = new Date();
+                date.setDate(date.getDate() + daysDuration);
+                validUntil = date.toISOString();
+            }
+
+            const { error } = await supabase
+                .from('user_subscriptions')
+                .update({ tier: newTier, valid_until: validUntil || null })
+                .eq('id', userId);
+
+            if (error) throw error;
+            
+            setSubscriptions(subs => 
+                subs.map(s => s.id === userId ? { ...s, tier: newTier as any, valid_until: validUntil } : s)
+            );
+
+            // Send notification to user
+            await UserNotificationService.sendNotification({
+                user_id: userId,
+                title: '🎁 3 Kunlik Bepul Premium Trial!',
+                message: 'Sizga 3 kunlik bepul Premium tarif taqdim etildi! IELTS & JLPT Real-exam Mocks, AI Speaking Coach va barcha cheksiz imkoniyatlarni sinab ko\'ring! 🚀',
+                type: 'promo'
+            });
+
+            alert("3 kunlik Premium trial berildi va xabar yuborildi! 🚀");
+        } catch (error) {
+            console.error('Error updating user tier days:', error);
+            alert("Statusni o'zgartirishda xatolik yuz berdi.");
+        }
+    };
+
     const addCredits = async (userId: string, currentCredits: number) => {
         const newCredits = currentCredits + 3;
         try {
@@ -188,7 +223,7 @@ const AdminDashboardPage: React.FC = () => {
                 </div>
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Admin Boshqaruv Paneli</h1>
-                    <p className="text-slate-500">Tizim va foydalanuvchilar obunasini hamda bildirishnomalarni boshqarish</p>
+                    <p className="text-slate-500">Tizim va foydalanuvchilar obunasini hamda 3 kunlik Premium sinovlarni boshqarish</p>
                 </div>
             </div>
 
@@ -290,7 +325,16 @@ const AdminDashboardPage: React.FC = () => {
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex flex-col gap-2">
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    onClick={() => setUserTierDays(sub.id, 'premium', 3)}
+                                                    className="text-xs py-1 px-2.5 h-auto text-amber-600 border-amber-500/40 hover:bg-amber-50 dark:hover:bg-amber-950/40 font-extrabold flex items-center gap-1"
+                                                >
+                                                    <Gift size={12} />
+                                                    🎁 +3 Kun (Premium Trial)
+                                                </Button>
                                                 <Button
                                                     size="sm"
                                                     variant="outline"
@@ -389,12 +433,12 @@ const AdminDashboardPage: React.FC = () => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            setMsgTitle('🎁 Maxsus Taklif!');
-                                            setMsgContent('Xush kelibsiz! Sizga 3 kunlik bepul Pro tarif taqdim etildi. IELTS & JLPT AI qurollarini bepul sinab ko\'ring! 🚀');
+                                            setMsgTitle('🎁 3 Kunlik Bepul Premium Trial!');
+                                            setMsgContent('Xush kelibsiz! Sizga 3 kunlik bepul Premium tarif taqdim etildi. IELTS & JLPT Real-exam Mocks, AI Speaking Coach va barcha cheksiz imkoniyatlarni bepul sinab ko\'ring! 🚀');
                                         }}
                                         className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700"
                                     >
-                                        🎁 3 Kun Bepul Pro
+                                        🎁 3 Kun Bepul Premium
                                     </button>
                                     <button
                                         type="button"
