@@ -134,7 +134,7 @@ const SubscriptionSection: React.FC = () => {
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                                    <span>👑 Gemini 1.5 Pro & DeepSeek V3</span>
+                                    <span>👑 Cheksiz Pro AI Qurollar va Analitika</span>
                                 </li>
                             </ul>
                         </div>

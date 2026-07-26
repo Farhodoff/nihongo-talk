@@ -28,7 +28,7 @@ export const PricingPage: React.FC = () => {
             effectiveMonthly: '$5.00/month',
             termDescription: 'PER MONTH',
             summaryText: "IELTS va JLPT tayyorgarligi uchun 1 oylik standart Pro tarif.",
-            aiLimitsText: 'Oyiga 500 ta AI so\'rovlar (Gemini & DeepSeek)',
+            aiLimitsText: 'Oyiga 500 ta AI so\'rovlar',
             idealFor: 'Til imtihoniga tayyorlanayotgan va kunlik AI tekshiruv kerak bo\'lgan o\'quvchilar uchun.',
             features: [
                 '🎙️ IELTS Speaking Examiner (Part 1, 2, 3 simulyatsiyasi)',
@@ -47,13 +47,13 @@ export const PricingPage: React.FC = () => {
             effectiveMonthly: '$12.00/month',
             termDescription: 'PER MONTH',
             summaryText: "1 oylik cheksiz AI va real-time tarjima bilan to'liq Premium tarif.",
-            aiLimitsText: 'Cheksiz AI so\'rovlar (Gemini 1.5 Pro & DeepSeek V3)',
+            aiLimitsText: 'Cheksiz AI so\'rovlar va barcha imtihon simulyatsiyalari',
             idealFor: 'Jadal sur\'atda tayyorlanayotgan va cheklovlarsiz mashq qiluvchilar uchun.',
             features: [
                 '🚀 Cheksiz AI Mashg\'ulotlari (Hech qanday cheklovsiz)',
                 '🇺🇿 Nutqni Real-time O\'zbekcha Tarjima Qilish',
                 '🧠 Smart Academic Vocabulary & Flashcards Builder',
-                '👑 Gemini 1.5 Pro va DeepSeek Top Modellariga Kirish',
+                '👑 Cheksiz Pro AI Qurollar va Analitika',
                 '🎓 Barcha IELTS & JLPT Real-exam Mocks'
             ]
         },
@@ -74,7 +74,7 @@ export const PricingPage: React.FC = () => {
                 '🎓 All Cambridge + real-exam IELTS & JLPT mocks',
                 '✍️ AI Writing rubric feedback & graph generator',
                 '🗣️ Speaking partner + cue cards & Real-time voice evaluator',
-                '⚡ Cheksiz AI credits & Top DeepSeek/Gemini Pro modellar',
+                '⚡ Cheksiz AI credits va barcha Premium imkoniyatlar',
                 '🤖 Shaxsiy AI accountability coach & Telegram bot integratsiyasi',
                 '👑 24/7 VIP Qo\'llab-quvvatlash va yangi funksiyalarga birinchi kirish'
             ]
