@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, NotebookText, GraduationCap, Mic } from 'lucide-react';
+import { 
+    BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, 
+    Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
+    NotebookText, GraduationCap, Mic, Crown 
+} from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
@@ -9,6 +13,15 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 
+interface NavGroup {
+    category: string;
+    items: {
+        name: string;
+        path: string;
+        icon: React.ComponentType<any>;
+        tourId: string;
+    }[];
+}
 
 const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
@@ -18,22 +31,35 @@ const Layout: React.FC = () => {
     const { focusState } = useFocusTimerContext();
     const { language, setLanguage } = useLanguage();
 
-    const navItems = [
-        { name: 'Dashboard', path: '/dashboard', icon: Home },
-        { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap },
-        { name: 'AI Coach 🗣️', path: '/speaking-coach', icon: Mic },
-        { name: 'JLPT Hub 🎌', path: '/jlpt', icon: Sparkles },
-        { name: 'Fanlar', path: '/subjects', icon: BookOpen },
-        { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
-        { name: 'Kalendar', path: '/calendar', icon: Calendar },
-        { name: 'Fokus', path: '/focus', icon: Clock },
-        { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText },
-        { name: 'Fleshkartalar', path: '/flashcards', icon: Copy },
-        { name: 'AI Yordamchi', path: '/ai', icon: Sparkles },
-        { name: 'Aqlli Lug\'at 🧠', path: '/vocabulary', icon: BookOpen },
-        { name: 'Jamoa', path: '/community', icon: Users },
-        { name: 'Statistika', path: '/progress', icon: BarChart },
-        { name: 'Sozlamalar', path: '/settings', icon: SettingsIcon },
+    const navGroups: NavGroup[] = [
+        {
+            category: 'ASOSIY',
+            items: [
+                { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
+                { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                { name: 'JLPT Hub 🎌', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: 'AI Coach 🗣️', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+            ]
+        },
+        {
+            category: "O'QUV QUROLLARI",
+            items: [
+                { name: 'Fanlar & Reja 📚', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
+                { name: 'Vazifalar 📋', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                { name: 'Fokus Timer ⏱️', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Qaydlar & Konspektlar 📝', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
+                { name: 'Fleshkartalar 🎴', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: "Aqlli Lug'at 🧠", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
+                { name: 'AI Yordamchi 🤖', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
+            ]
+        },
+        {
+            category: 'TAHLIL & JAMOA',
+            items: [
+                { name: 'Statistika 📊', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Jamoa 👥', path: '/community', icon: Users, tourId: 'nav-community' },
+            ]
+        }
     ];
 
     const formatTime = (seconds: number) => {
@@ -43,35 +69,48 @@ const Layout: React.FC = () => {
     };
 
     const getPageTitle = () => {
-        const current = navItems.find(item => item.path === location.pathname);
-        return current ? current.name : 'Study Planner';
-    }
+        for (const group of navGroups) {
+            const found = group.items.find(item => item.path === location.pathname);
+            if (found) return found.name;
+        }
+        if (location.pathname === '/settings') return 'Sozlamalar';
+        return 'Study Planner';
+    };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
-            {navItems.map((item) => (
-                <NavLink
-                    key={item.path}
-                    to={item.path}
-                    onClick={onClick}
-                    data-tour={`nav-${item.path.replace('/', '')}`}
-                    className={({ isActive }) =>
-                        `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${isActive
-                            ? 'bg-primary/10 text-primary font-medium shadow-sm'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`
-                    }
-                    title={isCollapsed ? item.name : ''}
-                >
-                    <item.icon 
-                        size={22} 
-                        className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
-                        strokeWidth={2}
-                    />
-                    {!isCollapsed && <span className="tracking-wide">{item.name}</span>}
-                </NavLink>
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-5">
+            {navGroups.map((group, idx) => (
+                <div key={idx} className="space-y-1">
+                    {!isCollapsed && (
+                        <div className="px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
+                            {group.category}
+                        </div>
+                    )}
+                    {group.items.map((item) => (
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            onClick={onClick}
+                            data-tour={item.tourId}
+                            className={({ isActive }) =>
+                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
+                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                }`
+                            }
+                            title={isCollapsed ? item.name : ''}
+                        >
+                            <item.icon 
+                                size={20} 
+                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
+                                strokeWidth={2}
+                            />
+                            {!isCollapsed && <span className="truncate">{item.name}</span>}
+                        </NavLink>
+                    ))}
+                </div>
             ))}
-        </nav>
+        </div>
     );
 
     return (
@@ -122,20 +161,19 @@ const Layout: React.FC = () => {
                 </div>
             </header>
 
-
             {/* Desktop Sidebar */}
             <aside
                 className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-20 p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border`}>
+                <div className={`h-16 p-4 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border`}>
                     {!isCollapsed && (
-                        <div className="flex items-center gap-3 animate-in fade-in zoom-in duration-300">
+                        <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-300">
                             <div className="p-2 bg-primary/10 rounded-xl">
-                                <Sparkles className="text-primary" size={24} />
+                                <Sparkles className="text-primary" size={20} />
                             </div>
-                            <span className="text-xl font-bold text-gradient tracking-tight">
-                                Planner
+                            <span className="text-lg font-black text-gradient tracking-tight">
+                                PLANNER
                             </span>
                         </div>
                     )}
@@ -157,7 +195,46 @@ const Layout: React.FC = () => {
                         </Button>
                     </div>
                 </div>
+
+                {/* Navigation Links */}
                 <NavLinks />
+
+                {/* Bottom Section: Profile & Obunani Yangilash (Get Premium) */}
+                <div className="p-3 border-t border-border space-y-2 bg-card">
+                    {/* Settings / Profile link */}
+                    <NavLink
+                        to="/settings"
+                        className={({ isActive }) =>
+                            `flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                                ? 'bg-primary/10 text-primary font-bold shadow-sm'
+                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                            }`
+                        }
+                        title={isCollapsed ? 'Profil va Sozlamalar' : ''}
+                    >
+                        <SettingsIcon size={20} />
+                        {!isCollapsed && <span>Sozlamalar & Profil</span>}
+                    </NavLink>
+
+                    {/* Premium Upgrade Button (Xuddi 2-rasmdagidek yorqin tugma) */}
+                    {!isCollapsed ? (
+                        <button
+                            onClick={() => navigate('/settings')}
+                            className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-sm rounded-2xl shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
+                        >
+                            <Crown size={18} className="animate-bounce" />
+                            <span>Obunani Yangilash 🚀</span>
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => navigate('/settings')}
+                            title="Obunani Yangilash (Get Premium)"
+                            className="w-full py-3 flex justify-center bg-gradient-to-r from-rose-500 to-indigo-600 text-white rounded-xl shadow-lg hover:scale-110 transition-transform"
+                        >
+                            <Crown size={20} />
+                        </button>
+                    )}
+                </div>
             </aside>
 
             {/* Main Content */}
@@ -208,15 +285,27 @@ const Layout: React.FC = () => {
                         </button>
                     </SheetTrigger>
                     <SheetContent side="left" className="p-0 w-72 flex flex-col">
-                        <div className="h-20 p-6 flex items-center gap-3 border-b border-border">
+                        <div className="h-16 p-4 flex items-center gap-3 border-b border-border">
                             <div className="p-2 bg-primary/10 rounded-xl">
-                                <Sparkles className="text-primary" size={24} />
+                                <Sparkles className="text-primary" size={20} />
                             </div>
-                            <span className="text-xl font-bold text-gradient tracking-tight">
-                                Planner
+                            <span className="text-lg font-black text-gradient tracking-tight">
+                                PLANNER
                             </span>
                         </div>
                         <NavLinks onClick={() => setSidebarOpen(false)} />
+                        <div className="p-4 border-t border-border">
+                            <button
+                                onClick={() => {
+                                    setSidebarOpen(false);
+                                    navigate('/settings');
+                                }}
+                                className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 to-indigo-600 text-white font-bold text-sm rounded-xl shadow flex items-center justify-center gap-2"
+                            >
+                                <Crown size={18} />
+                                <span>Obunani Yangilash 🚀</span>
+                            </button>
+                        </div>
                     </SheetContent>
                 </Sheet>
             </nav>
