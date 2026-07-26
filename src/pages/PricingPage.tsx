@@ -21,68 +21,68 @@ export interface PlanOption {
 export const PricingPage: React.FC = () => {
     const plans: PlanOption[] = [
         {
-            id: 'basic',
-            title: 'Study Planner Basic',
-            priceUsd: 12.99,
-            priceUzs: "150,000 so'm / oy",
-            effectiveMonthly: '$12.99/month',
+            id: 'pro_monthly',
+            title: 'Study Planner Pro (1 Oy)',
+            priceUsd: 5,
+            priceUzs: "60,000 so'm / oy",
+            effectiveMonthly: '$5.00/month',
             termDescription: 'PER MONTH',
-            summaryText: "Kunlik o'quv plan va asosiy AI qurollaridan foydalanish uchun hamyonbop tarif.",
-            aiLimitsText: 'Oyiga 100 ta AI so\'rovlar (Gemini Flash model)',
-            idealFor: 'Boshlang\'ich darajadagi o\'quvchilar va kunlik dars rejasini tutuvchilar uchun.',
+            summaryText: "IELTS va JLPT tayyorgarligi uchun 1 oylik standart Pro tarif.",
+            aiLimitsText: 'Oyiga 500 ta AI so\'rovlar (Gemini & DeepSeek)',
+            idealFor: 'Til imtihoniga tayyorlanayotgan va kunlik AI tekshiruv kerak bo\'lgan o\'quvchilar uchun.',
             features: [
-                'Barcha kunlik task va o\'quv plan rejalashtirgich',
-                'Cheklangan AI lug\'at va fleshkartalar',
-                'Asosiy statistika va taymer',
-                'Pomodoro fokus taymeri'
+                '🎙️ IELTS Speaking Examiner (Part 1, 2, 3 simulyatsiyasi)',
+                '✍️ IELTS Writing Evaluator (4 mezon & Band Score)',
+                '🎯 30 Kunlik Shaxsiy IELTS AI Study Plan',
+                '🎌 JLPT N5-N1 Grammar, Kanji & Listening Mocks',
+                '🎴 SM-2 Spaced Repetition flashcards'
             ]
         },
         {
-            id: 'pro',
-            title: 'Study Planner Pro',
-            badge: 'Save 25%',
-            priceUsd: 29.99,
-            priceUzs: "350,000 so'm / 3 oy",
-            effectiveMonthly: '$10.00/month effective',
-            termDescription: 'PER 3 MONTHS',
-            summaryText: "IELTS va JLPT topshiruvchilar uchun mo'ljallangan to'liq imtihon simulyatsiyasi.",
-            aiLimitsText: 'Oyiga 500 ta AI so\'rovlar (Gemini 1.5 Pro & DeepSeek V3)',
-            idealFor: 'IELTS Band 6.5 - 8.0 yoki JLPT N3-N2 darajalariga tayyorlanayotganlar uchun.',
+            id: 'premium_monthly',
+            title: 'Study Planner Premium (1 Oy)',
+            badge: 'Popular',
+            priceUsd: 12,
+            priceUzs: "150,000 so'm / oy",
+            effectiveMonthly: '$12.00/month',
+            termDescription: 'PER MONTH',
+            summaryText: "1 oylik cheksiz AI va real-time tarjima bilan to'liq Premium tarif.",
+            aiLimitsText: 'Cheksiz AI so\'rovlar (Gemini 1.5 Pro & DeepSeek V3)',
+            idealFor: 'Jadal sur\'atda tayyorlanayotgan va cheklovlarsiz mashq qiluvchilar uchun.',
             features: [
-                'All Cambridge + real-exam IELTS & JLPT mocks',
-                'AI Writing rubric feedback (4 mezon) & graph generator',
-                'Speaking partner + cue cards (Part 1, 2, 3)',
-                'Full progress tracking + analytics',
-                'SM-2 Spaced Repetition flashcards',
-                'Furigana va Romaji avto-tarjimon'
+                '🚀 Cheksiz AI Mashg\'ulotlari (Hech qanday cheklovsiz)',
+                '🇺🇿 Nutqni Real-time O\'zbekcha Tarjima Qilish',
+                '🧠 Smart Academic Vocabulary & Flashcards Builder',
+                '👑 Gemini 1.5 Pro va DeepSeek Top Modellariga Kirish',
+                '🎓 Barcha IELTS & JLPT Real-exam Mocks'
             ]
         },
         {
-            id: 'ultra',
-            title: 'Study Planner Ultra',
-            badge: 'Save 40%',
+            id: 'ultra_6months',
+            title: 'Study Planner Ultra VIP (6 Oy)',
+            badge: 'Save 30%',
             bestValue: true,
-            priceUsd: 46.99,
-            priceUzs: "490,000 so'm / 6 oy",
-            effectiveMonthly: '$7.83/month effective',
+            priceUsd: 50,
+            priceUzs: "600,000 so'm / 6 oy",
+            effectiveMonthly: '$8.33/month effective',
             termDescription: 'PER 6 MONTHS',
-            summaryText: "Cheksiz AI imkoniyatlari, shaxsiy AI Accountability Coach va eng yuqori darajadagi imtiyozlar.",
-            aiLimitsText: 'CHEKSIZ AI so\'rovlar (Gemini Pro, DeepSeek V3 & Ultra Voice Coach)',
-            idealFor: 'Maksimal natijaga intiluvchi, cheksiz mashq va shaxsiy AI nazoratini xohlovchilar uchun.',
+            summaryText: "6 oylik VIP Ultra tarif — eng maqbul va uzoq muddatli bilim kafolati.",
+            aiLimitsText: 'CHEKSIZ AI so\'rovlar + Shaxsiy AI Accountability Coach',
+            idealFor: 'Uzoq muddatli maqsad qo\'ygan, eng yuqori natijaga erishmoqchi bo\'lgan talabalar uchun.',
             features: [
-                'All Cambridge + real-exam IELTS & JLPT mocks',
-                'AI Writing rubric feedback & graph generator',
-                'Speaking partner + cue cards & Real-time voice evaluator',
-                'Full progress tracking + analytics & Unlimited flashcards',
-                'Cheksiz AI credits & Top DeepSeek/Gemini Pro modellar',
-                'Shaxsiy AI accountability coach & Telegram bot integratsiyasi',
-                '24/7 VIP Qo\'llab-quvvatlash va barcha yangi funksiyalarga birinchi bo\'lib kirish'
+                '⭐ 6 Oylik to\'liq VIP kirish (Oylik $8.33 ga tushadi - 30% tejamkor)',
+                '🎓 All Cambridge + real-exam IELTS & JLPT mocks',
+                '✍️ AI Writing rubric feedback & graph generator',
+                '🗣️ Speaking partner + cue cards & Real-time voice evaluator',
+                '⚡ Cheksiz AI credits & Top DeepSeek/Gemini Pro modellar',
+                '🤖 Shaxsiy AI accountability coach & Telegram bot integratsiyasi',
+                '👑 24/7 VIP Qo\'llab-quvvatlash va yangi funksiyalarga birinchi kirish'
             ]
         }
     ];
 
-    const [selectedPlanId, setSelectedPlanId] = useState<string>('ultra');
-    const [expandedPlanId, setExpandedPlanId] = useState<string>('ultra');
+    const [selectedPlanId, setSelectedPlanId] = useState<string>('ultra_6months');
+    const [expandedPlanId, setExpandedPlanId] = useState<string>('ultra_6months');
 
     const selectedPlan = plans.find(p => p.id === selectedPlanId) || plans[2];
 
@@ -97,7 +97,7 @@ export const PricingPage: React.FC = () => {
     };
 
     const handleCheckout = () => {
-        const text = encodeURIComponent(`Assalomu alaykum! Men Study Planner ${selectedPlan.title} (${selectedPlan.effectiveMonthly}) obunasini rasmiylashtirmoqchiman.`);
+        const text = encodeURIComponent(`Assalomu alaykum! Men Study Planner ${selectedPlan.title} ($${selectedPlan.priceUsd} / ${selectedPlan.priceUzs}) obunasini rasmiylashtirmoqchiman.`);
         window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
     };
 
@@ -113,7 +113,7 @@ export const PricingPage: React.FC = () => {
                         Keep your Study plan unlocked
                     </h1>
                     <p className="text-rose-400/90 text-sm md:text-base font-medium">
-                        Har bir tarif bo'yicha batafsil ma'lumot olish uchun kartochkani bosing.
+                        $5 (1 Oy), $12 (1 Oy) va $50 (6 Oy VIP) tariflarimizdan o'zingizga mosini tanlang.
                     </p>
 
                     {/* Skill Badges */}
@@ -252,7 +252,7 @@ export const PricingPage: React.FC = () => {
                 <div className="bg-rose-950/20 border border-rose-900/40 rounded-2xl p-6 space-y-4">
                     <h3 className="text-sm font-bold text-rose-300 flex items-center justify-between">
                         <span>{selectedPlan.title} gets you:</span>
-                        <span className="text-xs font-semibold text-slate-400">{selectedPlan.priceUzs}</span>
+                        <span className="text-xs font-semibold text-slate-400">${selectedPlan.priceUsd} ({selectedPlan.priceUzs})</span>
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -271,7 +271,7 @@ export const PricingPage: React.FC = () => {
                         onClick={handleCheckout}
                         className="w-full py-6 text-base font-black bg-rose-600 hover:bg-rose-500 text-white rounded-2xl shadow-xl shadow-rose-600/30 transition-all flex items-center justify-center gap-2 transform active:scale-95"
                     >
-                        <span>Continue with {selectedPlan.title}</span>
+                        <span>Continue with {selectedPlan.title} (${selectedPlan.priceUsd})</span>
                         <ArrowRight className="w-5 h-5" />
                     </Button>
                     <p className="text-xs text-slate-500 flex items-center justify-center gap-2">
