@@ -33,6 +33,18 @@ const Layout: React.FC = () => {
     const { focusState } = useFocusTimerContext();
     const { language, setLanguage } = useLanguage();
 
+    const isFullScreenPage = React.useMemo(() => {
+        const fullScreenPaths = [
+            '/speaking-coach',
+            '/ai',
+            '/room',
+            '/focus',
+            '/ielts/speaking-mock',
+            '/jlpt/listening'
+        ];
+        return fullScreenPaths.some(p => location.pathname.startsWith(p));
+    }, [location.pathname]);
+
     // Accordion / Collapsible Group State
     const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>(() => {
         const saved = localStorage.getItem('study_planner_collapsed_groups');
@@ -286,20 +298,22 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
-                <div className="flex-1 overflow-y-auto w-full relative pb-24 md:pb-0">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={location.pathname}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className="h-full w-full"
-                        >
-                            <Outlet />
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={location.pathname}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className={`w-full ${
+                            isFullScreenPage 
+                            ? 'h-full flex flex-col overflow-hidden' 
+                            : 'h-full overflow-y-auto pb-24 md:pb-6'
+                        }`}
+                    >
+                        <Outlet />
+                    </motion.div>
+                </AnimatePresence>
             </main>
 
             {/* Mobile Bottom Navigation */}

@@ -358,7 +358,7 @@ const SpeakingCoachPage: React.FC = () => {
     const currentPersona = PERSONAS[persona];
 
     return (
-        <div className="relative h-[calc(100vh-4rem)] flex flex-col overflow-hidden w-full select-none">
+        <div className="relative h-full flex flex-col overflow-hidden w-full select-none">
             {/* Dynamic Ambient Background */}
             <div className={`absolute inset-0 bg-gradient-to-br ${currentPersona.gradientBg} transition-all duration-1000 pointer-events-none`} />
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">

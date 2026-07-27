@@ -689,7 +689,7 @@ const StudyRoomPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-gray-100 flex flex-col font-sans p-4 md:p-6">
+        <div className="h-full bg-[#0f172a] text-gray-100 flex flex-col font-sans p-4 md:p-6 pb-[76px] md:pb-6">
             {/* Header */}
             <header className="flex justify-between items-center p-4 bg-[#1e293b] border border-slate-700/50 shadow-xl rounded-2xl mb-6">
                 <div className="flex items-center gap-4">

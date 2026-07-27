@@ -551,7 +551,7 @@ const AIAssistantPage: React.FC = () => {
 
     return (
         <AIKeyGuard>
-            <div className="h-full flex flex-col bg-background">
+            <div className="h-full flex flex-col bg-background pb-[76px] md:pb-0">
                 {/* HEADER & CONTEXT SELECTOR */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b border-border bg-card">
                     <div>

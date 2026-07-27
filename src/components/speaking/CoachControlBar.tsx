@@ -40,7 +40,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
     const status = getStatusInfo();
 
     return (
-        <div className="relative z-20 px-3 md:px-5 pb-3 pt-1 flex-shrink-0">
+        <div className="relative z-20 px-3 md:px-5 pb-[72px] md:pb-3 pt-1 flex-shrink-0">
             <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl rounded-2xl shadow-2xl border border-gray-200/60 dark:border-gray-800/60 p-2.5 md:p-3">
                 
                 {/* Audio Visualizer Row — Only during live session */}
