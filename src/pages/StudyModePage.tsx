@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { Flashcard } from '../types';
-import { supabase } from '../lib/supabase';
 import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
 
@@ -21,17 +20,19 @@ const StudyModePage: React.FC = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [totalXpEarned, setTotalXpEarned] = useState(0);
     const [accent, setAccent] = useState<'en-GB' | 'en-US'>('en-US');
+    const [isQueueInitialized, setIsQueueInitialized] = useState(false);
 
     useEffect(() => {
-        if (subjectId && flashcards.length > 0) {
+        if (subjectId && flashcards.length > 0 && !isQueueInitialized) {
             const due = flashcards.filter((c: Flashcard) =>
                 c.subjectId === subjectId && new Date(c.nextReviewDate) <= new Date()
             );
             // If no due cards, show all cards in subject for revision
             const targetSet = due.length > 0 ? due : flashcards.filter((c: Flashcard) => c.subjectId === subjectId);
             setQueue([...targetSet].sort(() => Math.random() - 0.5).slice(0, 20));
+            setIsQueueInitialized(true);
         }
-    }, [subjectId, flashcards]);
+    }, [subjectId, flashcards, isQueueInitialized]);
 
     const currentCard = queue[currentCardIndex];
 
@@ -55,15 +56,7 @@ const StudyModePage: React.FC = () => {
             );
 
             await reviewFlashcard(currentCard.id, grade);
-
-            try {
-                const { data } = await supabase.functions.invoke('update-xp', {
-                    body: { card_id: currentCard.id, rating: grade }
-                });
-                if (data?.earnedXP) setTotalXpEarned(prev => prev + data.earnedXP);
-            } catch (e) {
-                // XP edge function fallback
-            }
+            setTotalXpEarned(prev => prev + grade * 2);
 
             if (currentCardIndex < queue.length - 1) {
                 setIsFlipped(false);
