@@ -145,21 +145,18 @@ const SpeakingCoachPage: React.FC = () => {
         onValidSpeech: (spokenText) => {
             handleSendUserText(spokenText);
         },
-        onResumeListening: () => {
-            resumeListening();
-        },
+        onResumeListening: () => {},
     });
 
-    const resumeListening = () => {
-        startListening();
-    };
-
-    // Auto-resume listening when speaking or thinking finishes
-    useEffect(() => {
-        if (isLiveSession && !isSpeaking && !isThinking && !isProcessingRef.current) {
-            resumeListening();
+    const toggleMic = () => {
+        if (isListening) {
+            if (recognitionRef.current) {
+                try { recognitionRef.current.stop(); } catch (e) {}
+            }
+        } else {
+            startListening();
         }
-    }, [isLiveSession, isSpeaking, isThinking]);
+    };
 
     const handleSendUserText = async (text: string) => {
         if (!text || isProcessingRef.current) return;
@@ -204,7 +201,6 @@ const SpeakingCoachPage: React.FC = () => {
             toast({ variant: 'destructive', title: '❌ AI Xatosi', description: errorMessage });
             setIsThinking(false);
             isProcessingRef.current = false;
-            resumeListening();
         }
     };
 
@@ -456,7 +452,7 @@ const SpeakingCoachPage: React.FC = () => {
                 toggleSession={toggleSession}
                 onClearHistory={() => setChatHistory([])}
                 formatTimer={formatTimer}
-                onForceStartListening={startListening}
+                onForceStartListening={toggleMic}
             />
 
             {/* SETTINGS MODAL */}

@@ -189,8 +189,6 @@ export const useSpeechRecognition = ({
             if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
                 if (isValid) {
                     onValidSpeechRef.current(spokenText);
-                } else {
-                    setTimeout(() => { onResumeListeningRef.current(); }, 300);
                 }
             }
         };
