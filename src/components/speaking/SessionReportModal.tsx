@@ -71,48 +71,87 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                     ) : report ? (
                         <>
                             {/* Score & Level & Overall Feedback Banner */}
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex flex-col items-center justify-center text-center shadow-lg">
-                                    <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-100">
-                                        Fluency Score
-                                    </span>
-                                    <div className="text-3xl font-extrabold my-1">
-                                        {report.fluency_score.toFixed(1)} <span className="text-xs opacity-80">/ 9.0</span>
-                                    </div>
-                                    <span className="text-[10px] text-indigo-100/90 font-medium">
-                                        Erkin so'zlashuv
-                                    </span>
-                                </div>
-
-                                <div className="p-5 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 text-white flex flex-col items-center justify-center text-center shadow-lg">
-                                    <span className="text-[10px] font-semibold uppercase tracking-wider text-rose-100">
-                                        Pronunciation
-                                    </span>
-                                    <div className="text-3xl font-extrabold my-1">
-                                        {report.pronunciation_score ? report.pronunciation_score.toFixed(1) : '7.0'} <span className="text-xs opacity-80">/ 9.0</span>
-                                    </div>
-                                    <span className="text-[10px] text-rose-100/90 font-medium">
-                                        Talaffuz bali
-                                    </span>
-                                </div>
-
-                                <div className="md:col-span-2 p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 flex flex-col justify-between">
-                                    <div>
-                                        <div className="flex items-center justify-between mb-1">
-                                            <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                                                <Sparkles size={16} className="text-indigo-500" />
-                                                Umumiy Xulosa
-                                            </h4>
-                                            {(report.user_level_eng || report.user_level_jp) && (
-                                                <span className="px-2.5 py-1 text-[11px] font-extrabold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 rounded-full">
-                                                    🎯 {report.user_level_eng || report.user_level_jp}
-                                                </span>
-                                            )}
+                            <div className="space-y-4">
+                                {/* Overall Level Badge Banner */}
+                                <div className="p-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl">
+                                            <Sparkles size={32} />
                                         </div>
-                                        <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1">
-                                            {report.overall_feedback}
-                                        </p>
+                                        <div>
+                                            <span className="text-xs font-semibold uppercase tracking-wider opacity-90">
+                                                Umumiy Natija va Daraja
+                                            </span>
+                                            <h3 className="text-2xl font-extrabold">
+                                                {report.user_level_eng || report.user_level_jp || "CEFR B2 (IELTS Band 6.5)"}
+                                            </h3>
+                                        </div>
                                     </div>
+                                    <div className="px-5 py-2.5 bg-white/20 backdrop-blur-md rounded-2xl font-black text-2xl tracking-tight">
+                                        {(report.overall_score || report.fluency_score || 7.0).toFixed(1)} <span className="text-xs font-normal opacity-80">/ 9.0</span>
+                                    </div>
+                                </div>
+
+                                {/* 4 Criteria Breakdown Cards */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-center">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400 block mb-1">
+                                            📚 Lexical (30%)
+                                        </span>
+                                        <div className="text-2xl font-black text-gray-900 dark:text-white">
+                                            {(report.lexical_score || 7.0).toFixed(1)} <span className="text-xs text-gray-400 font-normal">/ 9.0</span>
+                                        </div>
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                            So'z boyligi
+                                        </span>
+                                    </div>
+
+                                    <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-center">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-600 dark:text-purple-400 block mb-1">
+                                            ⚖️ Grammar (30%)
+                                        </span>
+                                        <div className="text-2xl font-black text-gray-900 dark:text-white">
+                                            {(report.grammar_score || 7.0).toFixed(1)} <span className="text-xs text-gray-400 font-normal">/ 9.0</span>
+                                        </div>
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                            Grammatika
+                                        </span>
+                                    </div>
+
+                                    <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 block mb-1">
+                                            🗣️ Fluency (25%)
+                                        </span>
+                                        <div className="text-2xl font-black text-gray-900 dark:text-white">
+                                            {(report.fluency_score || 7.0).toFixed(1)} <span className="text-xs text-gray-400 font-normal">/ 9.0</span>
+                                        </div>
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                            Ravonlik
+                                        </span>
+                                    </div>
+
+                                    <div className="p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-center">
+                                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-pink-600 dark:text-pink-400 block mb-1">
+                                            🎙️ Accent (15%)
+                                        </span>
+                                        <div className="text-2xl font-black text-gray-900 dark:text-white">
+                                            {(report.pronunciation_score || 7.5).toFixed(1)} <span className="text-xs text-gray-400 font-normal">/ 9.0</span>
+                                        </div>
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                            Talaffuz
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Overall Feedback */}
+                                <div className="p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60">
+                                    <h4 className="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-1">
+                                        <Sparkles size={16} className="text-indigo-500" />
+                                        Umumiy Tahlil va Xulosa
+                                    </h4>
+                                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1">
+                                        {report.overall_feedback}
+                                    </p>
                                 </div>
                             </div>
 

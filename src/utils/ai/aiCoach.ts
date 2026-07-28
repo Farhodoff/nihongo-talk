@@ -464,8 +464,11 @@ export const fetchOpenAITTS = async (
 };
 
 export interface SessionAnalysisReport {
+    lexical_score: number;
+    grammar_score: number;
     fluency_score: number;
     pronunciation_score: number;
+    overall_score: number;
     user_level_eng?: string;
     user_level_jp?: string;
     pronunciation_feedback: string;
@@ -477,6 +480,32 @@ export interface SessionAnalysisReport {
     areas_to_improve: string[];
 }
 
+export const calculateWeightedOverallScore = (
+    lexical: number,
+    grammar: number,
+    fluency: number,
+    pronunciation: number
+): number => {
+    const overall = (0.30 * lexical) + (0.30 * grammar) + (0.25 * fluency) + (0.15 * pronunciation);
+    return Math.round(overall * 2) / 2; // Round to nearest 0.5
+};
+
+export const getCEFRLevelFromScore = (score: number): string => {
+    if (score >= 8.5) return "CEFR C2 (IELTS Band 8.5 - 9.0)";
+    if (score >= 7.5) return "CEFR C1 (IELTS Band 7.5 - 8.0)";
+    if (score >= 6.0) return "CEFR B2 (IELTS Band 6.0 - 7.0)";
+    if (score >= 5.0) return "CEFR B1 (IELTS Band 5.0 - 5.5)";
+    return "CEFR A1/A2 (Basic / Elementary)";
+};
+
+export const getJLPTLevelFromScore = (score: number): string => {
+    if (score >= 8.5) return "JLPT N1 (超上級 - Expert)";
+    if (score >= 7.5) return "JLPT N2 (上級 - Advanced)";
+    if (score >= 6.0) return "JLPT N3 (中級 - Intermediate)";
+    if (score >= 5.0) return "JLPT N4 (初級 - Pre-Intermediate)";
+    return "JLPT N5 (入門 - Beginner)";
+};
+
 export const analyzeSpeakingSession = async (
     history: { role: 'user' | 'assistant'; content: string }[],
     language: 'en' | 'ja' = 'en',
@@ -485,8 +514,11 @@ export const analyzeSpeakingSession = async (
     const userMessages = history.filter(h => h.role === 'user').map(h => h.content);
     if (userMessages.length === 0) {
         return {
+            lexical_score: 0,
+            grammar_score: 0,
             fluency_score: 0,
             pronunciation_score: 0,
+            overall_score: 0,
             user_level_eng: "Boshlang'ich (A1)",
             user_level_jp: "Boshlang'ich (N5)",
             pronunciation_feedback: "Talaffuz tahlili uchun suhbatda gaplar aytilishi lozim.",
@@ -508,15 +540,20 @@ export const analyzeSpeakingSession = async (
       Full Conversation Transcript:
       ${conversationText}
 
-      Task: Perform a DEEP, REAL-TIME LINGUISTIC ASSESSMENT of the student's actual responses.
-      1. Calculate exact level for Japanese (JLPT N5, N4, N3, N2, or N1) and English (CEFR A1, A2, B1, B2, C1, C2 / IELTS Band).
-      2. Identify actual grammar errors, better vocabulary suggestions, pronunciation/pitch stress advice, strengths, and improvement areas.
-      3. All explanations MUST be in natural Uzbek (O'zbek tilida).
-      
+      Task: Perform a FORMAL MULTI-DIMENSIONAL LINGUISTIC ASSESSMENT using 4 weighted pillars:
+      1. Lexical Resource (30%): Analyze vocabulary depth, idioms, kanji/keigo or C1/C2 terms used.
+      2. Grammatical Range & Accuracy (30%): Sentence complexity ratio & error density.
+      3. Fluency & Coherence (25%): Turn length & logical connectors used.
+      4. Pronunciation & Intonation (15%): Pitch accent, stress, and clarity.
+
+      Provide JSON feedback in natural Uzbek (O'zbek tilida).
+
       Output Format (STRICT VALID JSON ONLY):
       {
+        "lexical_score": 7.5,
+        "grammar_score": 7.0,
         "fluency_score": 7.5,
-        "pronunciation_score": 7.5,
+        "pronunciation_score": 8.0,
         "user_level_eng": "CEFR B2 (IELTS Band 6.5)",
         "user_level_jp": "JLPT N3 (中級 - Intermediate)",
         "pronunciation_feedback": "Intonatsiya, nutq tempi va urg'u bo'yicha chuqur tahlil (O'zbek tilida)...",
@@ -587,11 +624,20 @@ export const analyzeSpeakingSession = async (
             data = JSON.parse(cleanedText);
         }
 
+        const lexical = typeof data.lexical_score === 'number' ? data.lexical_score : 7.0;
+        const grammar = typeof data.grammar_score === 'number' ? data.grammar_score : 7.0;
+        const fluency = typeof data.fluency_score === 'number' ? data.fluency_score : 7.0;
+        const pronunciation = typeof data.pronunciation_score === 'number' ? data.pronunciation_score : 7.5;
+        const overall = calculateWeightedOverallScore(lexical, grammar, fluency, pronunciation);
+
         return {
-            fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 7.0,
-            pronunciation_score: typeof data.pronunciation_score === 'number' ? data.pronunciation_score : 7.0,
-            user_level_eng: data.user_level_eng || "CEFR B2 (IELTS Band 6.5)",
-            user_level_jp: data.user_level_jp || "JLPT N3 (中級 - Intermediate)",
+            lexical_score: lexical,
+            grammar_score: grammar,
+            fluency_score: fluency,
+            pronunciation_score: pronunciation,
+            overall_score: overall,
+            user_level_eng: data.user_level_eng || getCEFRLevelFromScore(overall),
+            user_level_jp: data.user_level_jp || getJLPTLevelFromScore(overall),
             pronunciation_feedback: data.pronunciation_feedback || "Talaffuzingiz yaxshi, urg'uga biroz e'tibor bering.",
             pronunciation_errors: Array.isArray(data.pronunciation_errors) ? data.pronunciation_errors : [],
             grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
@@ -603,13 +649,17 @@ export const analyzeSpeakingSession = async (
     } catch (err) {
         console.error("Session Analysis Error:", err);
         const totalWords = userMessages.join(' ').split(/\s+/).length;
-        const estScore = Math.min(9, Math.max(5.0, 5.0 + Math.floor(totalWords / 20) * 0.5));
+        const baseScore = Math.min(9.0, Math.max(5.0, 5.0 + Math.floor(totalWords / 20) * 0.5));
+        const overall = calculateWeightedOverallScore(baseScore, baseScore, baseScore, baseScore);
         
         return {
-            fluency_score: estScore,
-            pronunciation_score: estScore,
-            user_level_eng: estScore >= 7.5 ? "CEFR C1 (IELTS Band 7.5+)" : estScore >= 6.5 ? "CEFR B2 (IELTS Band 6.5)" : "CEFR B1 (IELTS Band 5.5)",
-            user_level_jp: estScore >= 7.5 ? "JLPT N2 (上級)" : estScore >= 6.5 ? "JLPT N3 (中級)" : "JLPT N4 (初級)",
+            lexical_score: baseScore,
+            grammar_score: baseScore,
+            fluency_score: baseScore,
+            pronunciation_score: baseScore,
+            overall_score: overall,
+            user_level_eng: getCEFRLevelFromScore(overall),
+            user_level_jp: getJLPTLevelFromScore(overall),
             pronunciation_feedback: "Sessiyadagi so'zlashuv tempi va grammatik bog'liqlik asosida avtomatik daraja baholandi.",
             pronunciation_errors: [],
             grammar_corrections: [],
