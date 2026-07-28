@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Loader2, ArrowLeft, PenTool, Mic, FileText, Headphones, CheckCircle2, XCircle } from 'lucide-react';
+import { Loader2, ArrowLeft, PenTool, Mic, FileText, Headphones, CheckCircle2, XCircle, Award } from 'lucide-react';
 import { WritingSection } from '../../components/exams/WritingSection';
 import { SpeakingSection } from '../../components/exams/SpeakingSection';
 import { Button } from '../../components/ui/Button';
@@ -46,7 +46,6 @@ export const ExamTake: React.FC = () => {
         fetchExam();
     }, [id]);
 
-    // Fetch questions when active section changes
     useEffect(() => {
         if (!activeSectionId) return;
 
@@ -68,7 +67,7 @@ export const ExamTake: React.FC = () => {
     }, [activeSectionId, sections]);
 
     const handleSelectOption = (questionId: string, option: string) => {
-        if (submittedResults) return; // Prevent changing after submission
+        if (submittedResults) return;
         setUserAnswers(prev => ({ ...prev, [questionId]: option }));
     };
 
@@ -82,23 +81,43 @@ export const ExamTake: React.FC = () => {
         setSubmittedResults({ score: correctCount, total: questions.length });
     };
 
-    if (loading) return <div className="p-12 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-500" /></div>;
-    if (!exam) return <div className="p-12 text-center text-slate-500">Imtihon topilmadi.</div>;
+    if (loading) return (
+        <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
+            <Loader2 className="w-10 h-10 animate-spin text-indigo-500" />
+            <p className="text-sm font-semibold text-slate-500">Imtihon yuklanmoqda...</p>
+        </div>
+    );
+
+    if (!exam) return (
+        <div className="min-h-[50vh] flex items-center justify-center">
+            <div className="text-center p-8 bg-slate-50 dark:bg-slate-800 rounded-3xl max-w-sm">
+                <FileText className="w-12 h-12 text-slate-400 mx-auto mb-3" />
+                <h3 className="font-bold text-slate-700 dark:text-slate-300">Imtihon topilmadi</h3>
+            </div>
+        </div>
+    );
 
     const activeSection = sections.find(s => s.id === activeSectionId);
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+        <div className="max-w-6xl mx-auto px-4 py-8 space-y-6 animate-in fade-in duration-300">
             {/* Header */}
-            <div className="flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-                <button onClick={() => navigate(-1)} className="p-2 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 transition">
+            <div className="flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+                <button 
+                    onClick={() => navigate(-1)} 
+                    className="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+                >
                     <ArrowLeft className="w-5 h-5 text-slate-600 dark:text-slate-300" />
                 </button>
                 <div>
-                    <span className="text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-full uppercase">
+                    <span className={`text-xs font-extrabold px-3 py-1 rounded-full uppercase border ${
+                        exam.type.includes('JLPT') 
+                            ? 'bg-rose-500/10 text-rose-600 border-rose-500/20' 
+                            : 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20'
+                    }`}>
                         {exam.type}
                     </span>
-                    <h1 className="text-xl font-bold text-slate-900 dark:text-white mt-1">{exam.title}</h1>
+                    <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{exam.title}</h1>
                 </div>
             </div>
 
@@ -110,17 +129,17 @@ export const ExamTake: React.FC = () => {
                         <button
                             key={section.id}
                             onClick={() => setActiveSectionId(section.id)}
-                            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
+                            className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-extrabold text-sm transition-all whitespace-nowrap ${
                                 isActive
-                                    ? 'bg-indigo-600 text-white shadow-md'
-                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20 scale-[1.02]'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                             }`}
                         >
                             {section.type === 'Writing' && <PenTool className="w-4 h-4" />}
                             {section.type === 'Speaking' && <Mic className="w-4 h-4" />}
                             {section.type === 'Reading' && <FileText className="w-4 h-4" />}
                             {section.type === 'Listening' && <Headphones className="w-4 h-4" />}
-                            {section.title}
+                            <span>{section.title}</span>
                         </button>
                     );
                 })}
@@ -149,12 +168,12 @@ export const ExamTake: React.FC = () => {
                         )}
 
                         {(activeSection.type === 'Reading' || activeSection.type === 'Listening') && (
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                {/* Left Side: Dokkai Reading Passage / Text */}
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4 max-h-[75vh] overflow-y-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                                {/* Left Pane: Dokkai Reading Passage / Text */}
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4 max-h-[78vh] overflow-y-auto sticky top-4">
                                     <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
                                         <FileText className="w-5 h-5 text-indigo-500" />
-                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                                        <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">
                                             {activeSection.title} (Dokkai Matni)
                                         </h3>
                                     </div>
@@ -163,26 +182,30 @@ export const ExamTake: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Right Side: Questions & Option Selector */}
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+                                {/* Right Pane: Questions & Answer Selectors */}
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
                                     <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">Savollar</h3>
-                                        {submittedResults && (
-                                            <span className="text-sm font-bold text-green-600 bg-green-50 dark:bg-green-500/10 px-3 py-1 rounded-full">
-                                                Natija: {submittedResults.score} / {submittedResults.total}
+                                        <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">Savollar</h3>
+                                        {submittedResults ? (
+                                            <span className="text-xs font-black text-green-600 bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full flex items-center gap-1">
+                                                <Award className="w-4 h-4" /> Natija: {submittedResults.score} / {submittedResults.total}
+                                            </span>
+                                        ) : (
+                                            <span className="text-xs font-bold text-slate-400">
+                                                Javob berildi: {Object.keys(userAnswers).length} / {questions.length}
                                             </span>
                                         )}
                                     </div>
 
                                     {loadingQuestions ? (
-                                        <div className="py-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-indigo-500" /></div>
+                                        <div className="py-12 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-500" /></div>
                                     ) : questions.length > 0 ? (
-                                        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-1">
+                                        <div className="space-y-6 max-h-[62vh] overflow-y-auto pr-1">
                                             {questions.map((q, qIdx) => {
                                                 const isCorrect = userAnswers[q.id] === q.correct_answer;
                                                 return (
-                                                    <div key={q.id} className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
-                                                        <p className="font-bold text-sm text-slate-900 dark:text-white">
+                                                    <div key={q.id} className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 space-y-3">
+                                                        <p className="font-bold text-sm text-slate-900 dark:text-white leading-snug">
                                                             {qIdx + 1}. {q.question_text}
                                                         </p>
 
@@ -194,23 +217,23 @@ export const ExamTake: React.FC = () => {
 
                                                                     if (submittedResults) {
                                                                         if (opt === q.correct_answer) {
-                                                                            btnStyle = "bg-green-500/10 border-green-500 text-green-600 font-bold";
+                                                                            btnStyle = "bg-green-500/10 border-green-500 text-green-600 font-bold shadow-sm";
                                                                         } else if (isSelected && !isCorrect) {
-                                                                            btnStyle = "bg-red-500/10 border-red-500 text-red-600";
+                                                                            btnStyle = "bg-red-500/10 border-red-500 text-red-600 font-bold";
                                                                         }
                                                                     } else if (isSelected) {
-                                                                        btnStyle = "bg-indigo-600 text-white font-bold border-indigo-600";
+                                                                        btnStyle = "bg-indigo-600 text-white font-bold border-indigo-600 shadow-md";
                                                                     }
 
                                                                     return (
                                                                         <button
                                                                             key={optIdx}
                                                                             onClick={() => handleSelectOption(q.id, opt)}
-                                                                            className={`w-full text-left p-3 rounded-xl border text-sm transition flex items-center justify-between ${btnStyle}`}
+                                                                            className={`w-full text-left p-3.5 rounded-xl border text-sm transition flex items-center justify-between ${btnStyle}`}
                                                                         >
                                                                             <span>{String.fromCharCode(65 + optIdx)}) {opt}</span>
-                                                                            {submittedResults && opt === q.correct_answer && <CheckCircle2 className="w-4 h-4 text-green-500" />}
-                                                                            {submittedResults && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-red-500" />}
+                                                                            {submittedResults && opt === q.correct_answer && <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />}
+                                                                            {submittedResults && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />}
                                                                         </button>
                                                                     );
                                                                 })}
@@ -224,18 +247,18 @@ export const ExamTake: React.FC = () => {
                                                 <Button
                                                     onClick={handleSubmitAnswers}
                                                     disabled={Object.keys(userAnswers).length === 0}
-                                                    className="w-full py-3"
+                                                    className="w-full py-3.5 font-bold rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                                                 >
-                                                    Javoblarni tekshirish ({Object.keys(userAnswers).length}/{questions.length})
+                                                    Javoblarni Tekshirish ({Object.keys(userAnswers).length}/{questions.length})
                                                 </Button>
                                             ) : (
-                                                <Button variant="outline" onClick={() => setSubmittedResults(null)} className="w-full py-3">
-                                                    Qayta urinish
+                                                <Button variant="outline" onClick={() => setSubmittedResults(null)} className="w-full py-3.5 rounded-2xl font-bold">
+                                                    Qayta Urinish
                                                 </Button>
                                             )}
                                         </div>
                                     ) : (
-                                        <p className="text-center py-8 text-slate-400 text-sm">
+                                        <p className="text-center py-12 text-slate-400 text-sm">
                                             Bu bo'limga hali savollar kiritilmagan.
                                         </p>
                                     )}
