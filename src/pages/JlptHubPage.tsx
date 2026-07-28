@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award, Languages, Compass } from 'lucide-react';
+import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award, Languages, Compass, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateAlgorithmicJlptPlan } from '../utils/curriculum/jlptAlgorithmicPlanner';
 import { JlptOnboardingModal } from '../components/jlpt/JlptOnboardingModal';
 import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaster';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
+import { toast } from '../hooks/use-toast';
 
 export const JlptHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -22,6 +23,17 @@ export const JlptHubPage: React.FC = () => {
             summary: string;
         };
     } | null>(null);
+
+    const handleCancelPlan = () => {
+        if (window.confirm("Haqiqatan ham joriy o'quv rejangiz va maqsadingizni bekor qilmoqchimisiz?")) {
+            localStorage.removeItem('study_planner_jlpt_user_target');
+            setUserPlanData(null);
+            toast({
+                title: '🗑️ Reja bekor qilindi',
+                description: 'Joriy rejangiz o\'chirildi. Yangi reja tuzishingiz mumkin.'
+            });
+        }
+    };
 
     useEffect(() => {
         const saved = localStorage.getItem('study_planner_jlpt_user_target');
@@ -112,9 +124,19 @@ export const JlptHubPage: React.FC = () => {
 
                     <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                         <div className="lg:col-span-8 space-y-3">
-                            <div className="inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30">
-                                <Flame size={14} />
-                                <span>{userPlanData.durationDays || 90}-Kunlik Yapon Tili Challenge</span>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <div className="inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30">
+                                    <Flame size={14} />
+                                    <span>{userPlanData.durationDays || 90}-Kunlik Yapon Tili Challenge</span>
+                                </div>
+                                <button
+                                    onClick={handleCancelPlan}
+                                    className="inline-flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30 transition-colors"
+                                    title="Maqsadni bekor qilish va o'chirish"
+                                >
+                                    <Trash2 size={13} />
+                                    <span>Rejani Bekor Qilish</span>
+                                </button>
                             </div>
                             <h2 className="text-2xl font-black">
                                 {userPlanData.generatedPlan?.headline || userPlanData.finalGoalTitle || `${userPlanData.currentLevel} ➔ ${userPlanData.targetLevel}`}

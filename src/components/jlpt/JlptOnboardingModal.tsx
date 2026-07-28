@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Target, Award, Sparkles, X } from 'lucide-react';
+import { Target, Award, Sparkles, X, AlertTriangle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { ensureJlptSubjectAndDecks } from '../../utils/jlptAutoSubject';
 import { calculateJlptFeasibility } from '../../utils/jlptCalculator';
@@ -28,6 +28,7 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
     const [durationDays, setDurationDays] = useState(90);
     const [isGenerating, setIsGenerating] = useState(false);
     const [showPlacementTest, setShowPlacementTest] = useState(false);
+    const [showConfirmStep, setShowConfirmStep] = useState(false);
 
     const { subjects, addSubject, addFlashcard, addTasksBatch, addFlashcardsBatch, addStudyNotesBatch } = useStudyData();
 
@@ -307,11 +308,11 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                             </div>
 
                             <button
-                                onClick={handleCreatePlan}
+                                onClick={() => setShowConfirmStep(true)}
                                 disabled={isGenerating}
                                 className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
                             >
-                                <span>{isGenerating ? "Reja Yaratilmoqda..." : "Maxsus Rejani Tasdiqlash 🎯"}</span>
+                                <span>Maxsus Rejani Ko'rib Chiqish 🎯</span>
                             </button>
                         </div>
                     ) : (
@@ -382,15 +383,82 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                             </div>
 
                             <button
-                                onClick={handleCreatePlan}
+                                onClick={() => setShowConfirmStep(true)}
                                 disabled={isGenerating}
                                 className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2"
                             >
-                                <span>{isGenerating ? "Reja Yaratilmoqda..." : "JLPT Sertifikat Rejasini Yaratish 🎌"}</span>
+                                <span>JLPT Sertifikat Rejasini Ko'rib Chiqish 🎌</span>
                             </button>
                         </div>
                     )}
                 </div>
+
+                {/* Confirmation Review Modal Step */}
+                {showConfirmStep && (
+                    <div className="absolute inset-0 z-50 bg-background/95 backdrop-blur-md p-6 flex flex-col justify-between animate-in fade-in zoom-in-95">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between border-b border-border pb-3">
+                                <h3 className="text-lg font-black text-foreground flex items-center gap-2">
+                                    <CheckCircle2 className="text-rose-500" size={20} />
+                                    <span>Rejani Tasdiqlash va Yaratish</span>
+                                </h3>
+                                <button
+                                    onClick={() => setShowConfirmStep(false)}
+                                    className="p-1 text-muted-foreground hover:text-foreground rounded-lg"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+
+                            <div className="p-4 bg-muted/40 rounded-2xl border border-border space-y-3">
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="text-muted-foreground font-bold">Reja Turi:</span>
+                                    <span className="font-extrabold text-rose-500 uppercase">
+                                        {planType === 'special' ? `Maxsus Maqsad (${specialGoal})` : 'JLPT Imtihon Rejasi'}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="text-muted-foreground font-bold">Boshlang'ich ➔ Maqsad:</span>
+                                    <span className="font-extrabold text-amber-500">
+                                        {currentLevel === '0' ? '0 Level (Noldan)' : currentLevel} ➔ {targetLevel}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="text-muted-foreground font-bold">Davomiyligi:</span>
+                                    <span className="font-extrabold text-foreground">{durationDays} Kun</span>
+                                </div>
+                            </div>
+
+                            <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-start gap-3 text-xs text-amber-700 dark:text-amber-300">
+                                <AlertTriangle size={18} className="text-amber-500 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="font-bold mb-0.5">⚠️ Diqqat!</p>
+                                    <p className="leading-relaxed">
+                                        Ushbu tugmani bossangiz, joriy o'quv maqsadingiz yangi tanlangan ushbu reja bilan almashtiriladi hamda mos dars jadvali shakllantiriladi.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 pt-4 border-t border-border">
+                            <button
+                                onClick={() => setShowConfirmStep(false)}
+                                disabled={isGenerating}
+                                className="w-1/3 py-3.5 bg-muted hover:bg-muted/80 text-muted-foreground font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5"
+                            >
+                                <ArrowLeft size={14} />
+                                <span>Orqaga</span>
+                            </button>
+                            <button
+                                onClick={handleCreatePlan}
+                                disabled={isGenerating}
+                                className="w-2/3 py-3.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>{isGenerating ? "Reja Yaratilmoqda..." : "Ha, Rejani Yarataman 🚀"}</span>
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <PlacementTestModal 

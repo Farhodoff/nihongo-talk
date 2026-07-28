@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame } from 'lucide-react';
+import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
@@ -7,6 +7,7 @@ import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
 import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
 import { IeltsStudyPlanResult } from '../utils/ai';
 import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
+import { toast } from '../hooks/use-toast';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -18,6 +19,17 @@ export const IeltsHubPage: React.FC = () => {
         durationDays: number;
         generatedPlan: IeltsStudyPlanResult;
     } | null>(null);
+
+    const handleCancelPlan = () => {
+        if (window.confirm("Haqiqatan ham joriy IELTS o'quv rejangizni bekor qilmoqchimisiz?")) {
+            localStorage.removeItem('study_planner_ielts_user_target');
+            setUserPlanData(null);
+            toast({
+                title: '🗑️ Reja bekor qilindi',
+                description: 'Joriy IELTS rejangiz o\'chirildi.'
+            });
+        }
+    };
 
     useEffect(() => {
         const saved = localStorage.getItem('study_planner_ielts_user_target');
@@ -56,9 +68,19 @@ export const IeltsHubPage: React.FC = () => {
 
                     <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                         <div className="lg:col-span-8 space-y-3">
-                            <div className="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30">
-                                <Target size={14} />
-                                <span>30-Day IELTS Challenge</span>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <div className="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30">
+                                    <Target size={14} />
+                                    <span>30-Day IELTS Challenge</span>
+                                </div>
+                                <button
+                                    onClick={handleCancelPlan}
+                                    className="inline-flex items-center gap-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30 transition-colors"
+                                    title="IELTS rejasini bekor qilish"
+                                >
+                                    <Trash2 size={13} />
+                                    <span>Rejani Bekor Qilish</span>
+                                </button>
                             </div>
                             <h2 className="text-2xl font-black">{userPlanData.generatedPlan.headline}</h2>
                             <p className="text-sm text-slate-300 leading-relaxed">{userPlanData.generatedPlan.summary}</p>
