@@ -50,8 +50,9 @@ export const ExamsManager: React.FC = () => {
             });
             if (error) throw error;
             fetchExams();
-        } catch (err) {
-            alert("Xatolik yuz berdi");
+        } catch (err: any) {
+            console.error("Exams creation error details:", err);
+            alert(`Xatolik yuz berdi: ${err?.message || err?.details || JSON.stringify(err)}`);
         }
     };
 

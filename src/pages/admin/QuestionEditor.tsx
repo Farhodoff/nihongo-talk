@@ -54,8 +54,9 @@ export const QuestionEditor: React.FC = () => {
             });
             if (error) throw error;
             fetchExamDetails();
-        } catch (err) {
-            alert('Bo\'lim qo\'shishda xatolik');
+        } catch (err: any) {
+            console.error("Section creation error details:", err);
+            alert(`Bo'lim qo'shishda xatolik: ${err?.message || err?.details || JSON.stringify(err)}`);
         }
     };
 
