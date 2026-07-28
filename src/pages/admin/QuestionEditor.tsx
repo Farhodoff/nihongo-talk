@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { Button } from '../../components/ui/Button';
-import { ArrowLeft, Plus, Loader2, List, FileText, Headphones, Mic, PenTool, Trash2, X } from 'lucide-react';
+import { ArrowLeft, Plus, Loader2, List, FileText, Headphones, Mic, PenTool, Trash2, X, Edit3 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail } from '../../utils/admin';
 
@@ -34,16 +34,14 @@ export const QuestionEditor: React.FC = () => {
     });
     const [savingQuestion, setSavingQuestion] = useState(false);
 
-    // Content editing state (for Writing/Speaking prompts)
+    // Content editing state (for Reading Dokkai text, Listening Audio/Text, Writing/Speaking prompts)
     const [editingContentId, setEditingContentId] = useState<string | null>(null);
     const [editContent, setEditContent] = useState('');
 
     const fetchExamDetails = async () => {
         try {
             const { data: examData, error: examErr } = await supabase.from('exams').select('*').eq('id', id).single();
-            if (examErr) {
-                console.error("Error fetching exam:", examErr);
-            }
+            if (examErr) console.error("Error fetching exam:", examErr);
             setExam(examData);
 
             const { data: sectionsData, error: secErr } = await supabase
@@ -52,9 +50,7 @@ export const QuestionEditor: React.FC = () => {
                 .eq('exam_id', id)
                 .order('order_index', { ascending: true });
 
-            if (secErr) {
-                console.error("Error fetching sections:", secErr);
-            }
+            if (secErr) console.error("Error fetching sections:", secErr);
 
             const secs = sectionsData || [];
             setSections(secs);
@@ -86,7 +82,8 @@ export const QuestionEditor: React.FC = () => {
     }, [user, id]);
 
     const handleAddSection = async (type: string) => {
-        const title = prompt(`${type} bo'limi uchun nom kiriting (masalan: Part 1):`);
+        const defaultTitle = type === 'Reading' ? "Dokkai (読解) Part 1" : type === 'Listening' ? "Choukai (聴解) Part 1" : `${type} Part 1`;
+        const title = prompt(`${type} bo'limi uchun nom kiriting:`, defaultTitle);
         if (!title) return;
 
         try {
@@ -204,32 +201,34 @@ export const QuestionEditor: React.FC = () => {
 
             <div className="flex flex-wrap gap-2 mb-6">
                 <Button variant="outline" className="gap-2" onClick={() => handleAddSection('Reading')}>
-                    <FileText className="w-4 h-4" /> + Reading
+                    <FileText className="w-4 h-4 text-emerald-500" /> + Reading / Dokkai (読解)
                 </Button>
                 <Button variant="outline" className="gap-2" onClick={() => handleAddSection('Listening')}>
-                    <Headphones className="w-4 h-4" /> + Listening
+                    <Headphones className="w-4 h-4 text-blue-500" /> + Listening / Choukai (聴解)
                 </Button>
                 <Button variant="outline" className="gap-2" onClick={() => handleAddSection('Writing')}>
-                    <PenTool className="w-4 h-4" /> + Writing
+                    <PenTool className="w-4 h-4 text-purple-500" /> + Writing / Sakubun
                 </Button>
                 <Button variant="outline" className="gap-2" onClick={() => handleAddSection('Speaking')}>
-                    <Mic className="w-4 h-4" /> + Speaking
+                    <Mic className="w-4 h-4 text-rose-500" /> + Speaking / Kaiwa
                 </Button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
                 {sections.map(section => {
                     const questions = sectionQuestions[section.id] || [];
-                    const isWritingOrSpeaking = section.type === 'Writing' || section.type === 'Speaking';
 
                     return (
-                        <div key={section.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-bold text-lg text-slate-900 dark:text-white">
-                                    {section.title} <span className="text-sm font-normal text-slate-400">({section.type})</span>
+                        <div key={section.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                            <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                                <h3 className="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span>{section.title}</span>
+                                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400">
+                                        {section.type}
+                                    </span>
                                 </h3>
                                 <div className="flex gap-2">
-                                    {!isWritingOrSpeaking && (
+                                    {(section.type === 'Reading' || section.type === 'Listening') && (
                                         <Button variant="outline" size="sm" className="gap-1 text-xs" onClick={() => setShowQuestionForm(section.id)}>
                                             <Plus className="w-3.5 h-3.5" /> Savol qo'shish
                                         </Button>
@@ -244,54 +243,70 @@ export const QuestionEditor: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Writing/Speaking uchun content (prompt) tahrirlash */}
-                            {isWritingOrSpeaking && (
-                                <div className="mb-4">
-                                    {editingContentId === section.id ? (
-                                        <div className="space-y-2">
-                                            <textarea
-                                                rows={4}
-                                                value={editContent}
-                                                onChange={(e) => setEditContent(e.target.value)}
-                                                placeholder={`${section.type} mavzusi/savoli (prompt)...`}
-                                                className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
-                                            />
-                                            <div className="flex gap-2">
-                                                <Button size="sm" onClick={() => handleSaveContent(section.id)}>Saqlash</Button>
-                                                <Button size="sm" variant="outline" onClick={() => setEditingContentId(null)}>Bekor</Button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div
+                            {/* Barcha bo'limlar uchun Matn/Prompt/Passage (content) tahrirlash */}
+                            <div>
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="text-xs font-bold text-slate-500">
+                                        {section.type === 'Reading' ? '📖 Dokkai Matni (Reading Passage):' : section.type === 'Listening' ? '🎧 Audio havolasi / Transkript:' : '📝 Prompt / Mavzu:'}
+                                    </span>
+                                    {editingContentId !== section.id && (
+                                        <button
                                             onClick={() => { setEditingContentId(section.id); setEditContent(section.content || ''); }}
-                                            className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 cursor-pointer hover:border-indigo-300 transition"
+                                            className="text-xs text-indigo-600 hover:underline flex items-center gap-1 font-semibold"
                                         >
-                                            {section.content || `📝 ${section.type} mavzusi yozilmagan. Bosib yozing...`}
-                                        </div>
+                                            <Edit3 className="w-3 h-3" /> Matnni tahrirlash
+                                        </button>
                                     )}
                                 </div>
-                            )}
+
+                                {editingContentId === section.id ? (
+                                    <div className="space-y-2">
+                                        <textarea
+                                            rows={6}
+                                            value={editContent}
+                                            onChange={(e) => setEditContent(e.target.value)}
+                                            placeholder={section.type === 'Reading' ? "Dokkai o'qish matnini kiriting (yaponcha/inglizcha)..." : "Mavzu yoki matnni kiriting..."}
+                                            className="w-full p-3 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-slate-900 text-sm font-sans"
+                                        />
+                                        <div className="flex gap-2">
+                                            <Button size="sm" onClick={() => handleSaveContent(section.id)}>Saqlash</Button>
+                                            <Button size="sm" variant="outline" onClick={() => setEditingContentId(null)}>Bekor</Button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        onClick={() => { setEditingContentId(section.id); setEditContent(section.content || ''); }}
+                                        className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 cursor-pointer hover:border-indigo-300 transition whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto"
+                                    >
+                                        {section.content || `+ Matn yozilmagan. Bosib ${section.type === 'Reading' ? "Dokkai matnini" : "mavzuni"} kiriting...`}
+                                    </div>
+                                )}
+                            </div>
 
                             {/* Reading/Listening uchun savollar ro'yxati */}
-                            {!isWritingOrSpeaking && (
-                                <div className="space-y-2">
+                            {(section.type === 'Reading' || section.type === 'Listening') && (
+                                <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Savollar ({questions.length}):</h4>
                                     {questions.length > 0 ? questions.map((q, idx) => (
                                         <div key={q.id} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                                             <span className="text-xs font-bold text-slate-400 mt-0.5">{idx + 1}.</span>
                                             <div className="flex-1">
                                                 <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{q.question_text}</p>
                                                 {q.options && (
-                                                    <div className="mt-1 flex flex-wrap gap-1">
+                                                    <div className="mt-2 grid grid-cols-2 gap-1.5">
                                                         {(q.options as string[]).map((opt, i) => (
-                                                            <span key={i} className={`text-xs px-2 py-0.5 rounded-full border ${opt === q.correct_answer ? 'bg-green-50 border-green-300 text-green-700 font-bold' : 'bg-slate-100 border-slate-200 text-slate-500'}`}>
-                                                                {opt}
+                                                            <span key={i} className={`text-xs px-2.5 py-1 rounded-lg border ${opt === q.correct_answer ? 'bg-green-500/10 border-green-500/30 text-green-600 font-bold' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'}`}>
+                                                                {String.fromCharCode(65 + i)}) {opt}
                                                             </span>
                                                         ))}
                                                     </div>
                                                 )}
+                                                {q.correct_answer && (
+                                                    <p className="text-[11px] text-green-600 font-bold mt-1">To'g'ri javob: {q.correct_answer}</p>
+                                                )}
                                             </div>
                                             <button onClick={() => handleDeleteQuestion(q.id)} className="text-red-400 hover:text-red-600 p-1">
-                                                <X className="w-3.5 h-3.5" />
+                                                <X className="w-4 h-4" />
                                             </button>
                                         </div>
                                     )) : (
@@ -308,7 +323,7 @@ export const QuestionEditor: React.FC = () => {
                                         rows={2}
                                         value={questionForm.question_text}
                                         onChange={(e) => setQuestionForm(f => ({ ...f, question_text: e.target.value }))}
-                                        placeholder="Savol matni..."
+                                        placeholder="Savol matni (masalan: 本文の内容と合っているものはどれか)..."
                                         className="w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
                                     />
                                     <select
@@ -316,36 +331,48 @@ export const QuestionEditor: React.FC = () => {
                                         onChange={(e) => setQuestionForm(f => ({ ...f, type: e.target.value as any }))}
                                         className="w-full p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
                                     >
-                                        <option value="multiple_choice">Multiple Choice (Ko'p variantli)</option>
+                                        <option value="multiple_choice">Multiple Choice (4 ta variant)</option>
                                         <option value="true_false">True / False</option>
-                                        <option value="short_answer">Short Answer (Qisqa javob)</option>
+                                        <option value="short_answer">Short Answer</option>
                                     </select>
 
                                     {questionForm.type === 'multiple_choice' && (
                                         <div className="space-y-1.5">
                                             <p className="text-xs font-bold text-slate-500">Variantlar:</p>
                                             {questionForm.options.map((opt, i) => (
-                                                <input
-                                                    key={i}
-                                                    value={opt}
-                                                    onChange={(e) => {
-                                                        const newOpts = [...questionForm.options];
-                                                        newOpts[i] = e.target.value;
-                                                        setQuestionForm(f => ({ ...f, options: newOpts }));
-                                                    }}
-                                                    placeholder={`Variant ${String.fromCharCode(65 + i)}`}
-                                                    className="w-full p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
-                                                />
+                                                <div key={i} className="flex items-center gap-2">
+                                                    <span className="text-xs font-bold text-slate-400 w-4">{String.fromCharCode(65 + i)})</span>
+                                                    <input
+                                                        value={opt}
+                                                        onChange={(e) => {
+                                                            const newOpts = [...questionForm.options];
+                                                            newOpts[i] = e.target.value;
+                                                            setQuestionForm(f => ({ ...f, options: newOpts }));
+                                                        }}
+                                                        placeholder={`Variant ${String.fromCharCode(65 + i)}`}
+                                                        className="flex-1 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setQuestionForm(f => ({ ...f, correct_answer: opt }))}
+                                                        className={`text-xs px-2 py-1 rounded-lg border font-bold ${questionForm.correct_answer === opt && opt ? 'bg-green-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}
+                                                    >
+                                                        {questionForm.correct_answer === opt && opt ? "To'g'ri" : "Tanlash"}
+                                                    </button>
+                                                </div>
                                             ))}
                                         </div>
                                     )}
 
-                                    <input
-                                        value={questionForm.correct_answer}
-                                        onChange={(e) => setQuestionForm(f => ({ ...f, correct_answer: e.target.value }))}
-                                        placeholder="To'g'ri javob"
-                                        className="w-full p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
-                                    />
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1">To'g'ri javob matni *</label>
+                                        <input
+                                            value={questionForm.correct_answer}
+                                            onChange={(e) => setQuestionForm(f => ({ ...f, correct_answer: e.target.value }))}
+                                            placeholder="To'g'ri variant matni bilan bir xil bo'lsin"
+                                            className="w-full p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900"
+                                        />
+                                    </div>
 
                                     <div className="flex gap-2 pt-1">
                                         <Button size="sm" onClick={() => handleSaveQuestion(section.id)} disabled={savingQuestion} className="gap-1">
@@ -364,7 +391,7 @@ export const QuestionEditor: React.FC = () => {
                     <div className="p-8 text-center text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700">
                         <List className="w-12 h-12 mx-auto mb-3 opacity-20" />
                         <p>Hali hech qanday bo'lim qo'shilmagan.</p>
-                        <p className="text-xs mt-1">Yuqoridagi tugmalar orqali Reading/Listening/Writing/Speaking qo'shing.</p>
+                        <p className="text-xs mt-1">Yuqoridagi tugmalar orqali Reading (Dokkai) / Listening / Writing / Speaking qo'shing.</p>
                     </div>
                 )}
             </div>

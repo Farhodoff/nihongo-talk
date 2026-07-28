@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Loader2, ArrowLeft, PenTool, Mic, FileText, Headphones } from 'lucide-react';
+import { Loader2, ArrowLeft, PenTool, Mic, FileText, Headphones, CheckCircle2, XCircle } from 'lucide-react';
 import { WritingSection } from '../../components/exams/WritingSection';
 import { SpeakingSection } from '../../components/exams/SpeakingSection';
+import { Button } from '../../components/ui/Button';
 
 export const ExamTake: React.FC = () => {
     const { id } = useParams();
@@ -12,6 +13,12 @@ export const ExamTake: React.FC = () => {
     const [sections, setSections] = useState<any[]>([]);
     const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+
+    // Questions and user answers state
+    const [questions, setQuestions] = useState<any[]>([]);
+    const [loadingQuestions, setLoadingQuestions] = useState(false);
+    const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
+    const [submittedResults, setSubmittedResults] = useState<{ score: number; total: number } | null>(null);
 
     useEffect(() => {
         const fetchExam = async () => {
@@ -38,6 +45,42 @@ export const ExamTake: React.FC = () => {
 
         fetchExam();
     }, [id]);
+
+    // Fetch questions when active section changes
+    useEffect(() => {
+        if (!activeSectionId) return;
+
+        const activeSec = sections.find(s => s.id === activeSectionId);
+        if (activeSec && (activeSec.type === 'Reading' || activeSec.type === 'Listening')) {
+            setLoadingQuestions(true);
+            setSubmittedResults(null);
+            setUserAnswers({});
+            supabase
+                .from('exam_questions')
+                .select('*')
+                .eq('section_id', activeSectionId)
+                .order('order_index', { ascending: true })
+                .then(({ data }) => {
+                    setQuestions(data || []);
+                    setLoadingQuestions(false);
+                });
+        }
+    }, [activeSectionId, sections]);
+
+    const handleSelectOption = (questionId: string, option: string) => {
+        if (submittedResults) return; // Prevent changing after submission
+        setUserAnswers(prev => ({ ...prev, [questionId]: option }));
+    };
+
+    const handleSubmitAnswers = () => {
+        let correctCount = 0;
+        questions.forEach(q => {
+            if (userAnswers[q.id] === q.correct_answer) {
+                correctCount++;
+            }
+        });
+        setSubmittedResults({ score: correctCount, total: questions.length });
+    };
 
     if (loading) return <div className="p-12 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-500" /></div>;
     if (!exam) return <div className="p-12 text-center text-slate-500">Imtihon topilmadi.</div>;
@@ -95,6 +138,7 @@ export const ExamTake: React.FC = () => {
                                 sessionId={id || ''}
                             />
                         )}
+
                         {activeSection.type === 'Speaking' && (
                             <SpeakingSection
                                 examType={exam.type.includes('JLPT') ? 'JLPT' : 'IELTS'}
@@ -103,13 +147,99 @@ export const ExamTake: React.FC = () => {
                                 sessionId={id || ''}
                             />
                         )}
+
                         {(activeSection.type === 'Reading' || activeSection.type === 'Listening') && (
-                            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 text-center space-y-3">
-                                <FileText className="w-12 h-12 mx-auto text-indigo-500 opacity-40" />
-                                <h3 className="font-bold text-lg">{activeSection.title}</h3>
-                                <p className="text-sm text-slate-500 max-w-md mx-auto">
-                                    {activeSection.content || "Matn va savollar yuklanmoqda..."}
-                                </p>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {/* Left Side: Dokkai Reading Passage / Text */}
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4 max-h-[75vh] overflow-y-auto">
+                                    <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                                        <FileText className="w-5 h-5 text-indigo-500" />
+                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                                            {activeSection.title} (Dokkai Matni)
+                                        </h3>
+                                    </div>
+                                    <div className="text-slate-800 dark:text-slate-200 text-sm leading-relaxed whitespace-pre-wrap font-sans">
+                                        {activeSection.content || "Hali matn kiritilmagan."}
+                                    </div>
+                                </div>
+
+                                {/* Right Side: Questions & Option Selector */}
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+                                    <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                                        <h3 className="font-bold text-lg text-slate-900 dark:text-white">Savollar</h3>
+                                        {submittedResults && (
+                                            <span className="text-sm font-bold text-green-600 bg-green-50 dark:bg-green-500/10 px-3 py-1 rounded-full">
+                                                Natija: {submittedResults.score} / {submittedResults.total}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {loadingQuestions ? (
+                                        <div className="py-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-indigo-500" /></div>
+                                    ) : questions.length > 0 ? (
+                                        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-1">
+                                            {questions.map((q, qIdx) => {
+                                                const isCorrect = userAnswers[q.id] === q.correct_answer;
+                                                return (
+                                                    <div key={q.id} className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+                                                        <p className="font-bold text-sm text-slate-900 dark:text-white">
+                                                            {qIdx + 1}. {q.question_text}
+                                                        </p>
+
+                                                        {q.options && (
+                                                            <div className="space-y-2">
+                                                                {(q.options as string[]).map((opt, optIdx) => {
+                                                                    const isSelected = userAnswers[q.id] === opt;
+                                                                    let btnStyle = "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-indigo-400";
+
+                                                                    if (submittedResults) {
+                                                                        if (opt === q.correct_answer) {
+                                                                            btnStyle = "bg-green-500/10 border-green-500 text-green-600 font-bold";
+                                                                        } else if (isSelected && !isCorrect) {
+                                                                            btnStyle = "bg-red-500/10 border-red-500 text-red-600";
+                                                                        }
+                                                                    } else if (isSelected) {
+                                                                        btnStyle = "bg-indigo-600 text-white font-bold border-indigo-600";
+                                                                    }
+
+                                                                    return (
+                                                                        <button
+                                                                            key={optIdx}
+                                                                            onClick={() => handleSelectOption(q.id, opt)}
+                                                                            className={`w-full text-left p-3 rounded-xl border text-sm transition flex items-center justify-between ${btnStyle}`}
+                                                                        >
+                                                                            <span>{String.fromCharCode(65 + optIdx)}) {opt}</span>
+                                                                            {submittedResults && opt === q.correct_answer && <CheckCircle2 className="w-4 h-4 text-green-500" />}
+                                                                            {submittedResults && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-red-500" />}
+                                                                        </button>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+
+                                            {!submittedResults ? (
+                                                <Button
+                                                    onClick={handleSubmitAnswers}
+                                                    disabled={Object.keys(userAnswers).length === 0}
+                                                    className="w-full py-3"
+                                                >
+                                                    Javoblarni tekshirish ({Object.keys(userAnswers).length}/{questions.length})
+                                                </Button>
+                                            ) : (
+                                                <Button variant="outline" onClick={() => setSubmittedResults(null)} className="w-full py-3">
+                                                    Qayta urinish
+                                                </Button>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <p className="text-center py-8 text-slate-400 text-sm">
+                                            Bu bo'limga hali savollar kiritilmagan.
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
