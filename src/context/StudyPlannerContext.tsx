@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
@@ -1169,39 +1169,23 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         await supabase.from('events').delete().eq('id', id);
     };
 
-    const contextValue = useMemo(() => ({
-        goals, tasks, subjects, sessions, coachSessions,
-        addGoal, updateGoal, deleteGoal,
-        addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
-        addSubject, updateSubject, deleteSubject,
-        addSession, addCoachSession, awardXP, resetXP,
-        notes, addNote, updateNote, deleteNote,
-        studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
-        flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
-        whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
-        events, addEvent, updateEvent, deleteEvent,
-        googleEvents, syncGoogleEvents,
-        refreshData: fetchData,
-        settings, updateSettings, getRank,
-        loading, user
-    }), [
-        goals, tasks, subjects, sessions, coachSessions,
-        notes, studyNotes, flashcards, whiteboards, events, googleEvents,
-        settings, loading, user,
-        addGoal, updateGoal, deleteGoal,
-        addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
-        addSubject, updateSubject, deleteSubject,
-        addSession, addCoachSession, awardXP, resetXP,
-        addNote, updateNote, deleteNote,
-        addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
-        addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
-        addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
-        addEvent, updateEvent, deleteEvent, syncGoogleEvents,
-        fetchData, updateSettings, getRank
-    ]);
-
     return (
-        <StudyPlannerContext.Provider value={contextValue}>
+        <StudyPlannerContext.Provider value={{
+            goals, tasks, subjects, sessions, coachSessions,
+            addGoal, updateGoal, deleteGoal,
+            addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
+            addSubject, updateSubject, deleteSubject,
+            addSession, addCoachSession, awardXP, resetXP,
+            notes, addNote, updateNote, deleteNote,
+            studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
+            flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
+            whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
+            events, addEvent, updateEvent, deleteEvent,
+            googleEvents, syncGoogleEvents,
+            refreshData: fetchData,
+            settings, updateSettings, getRank,
+            loading, user
+        }}>
             {children}
         </StudyPlannerContext.Provider>
     );
