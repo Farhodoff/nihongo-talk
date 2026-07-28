@@ -5,6 +5,7 @@ import { useSubscription } from '../hooks/useSubscription';
 import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
+import { WritingBandRadarChart } from '../components/ielts/WritingBandRadarChart';
 
 const SAMPLE_PROMPTS = {
     task1: [
@@ -408,6 +409,9 @@ const IeltsWritingPage: React.FC = () => {
                         </div>
                     ) : (
                         <div className="space-y-6">
+                            {/* Live Radar Chart & Paragraph Breakdown */}
+                            <WritingBandRadarChart report={report} essayText={essayText} />
+
                             {/* Score Overview Card */}
                             <div className="bg-card border border-border p-6 rounded-3xl shadow-sm text-center space-y-4">
                                 <div>
