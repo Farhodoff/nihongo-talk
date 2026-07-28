@@ -38,7 +38,7 @@ export const IeltsHubPage: React.FC = () => {
                     </div>
                     <div>
                         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">
-                            IELTS Master Suite 🎓
+                            IELTS Master Suite
                         </h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                             Reading, Listening, Writing va Speaking bo'yicha sun'iy intellekt darsxonasi.

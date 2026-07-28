@@ -65,31 +65,31 @@ const Layout: React.FC = () => {
             icon: Home,
             items: [
                 { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
-                { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                { name: 'JLPT Hub 🎌', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-                { name: 'AI Coach 🗣️', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+                { name: 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
             ]
         },
         {
             category: "O'QUV QUROLLARI",
             icon: FolderOpen,
             items: [
-                { name: 'Kalendar 📅', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
-                { name: 'Fanlar & Reja 📚', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
-                { name: 'Vazifalar 📋', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: 'Fokus Timer ⏱️', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Qaydlar & Konspektlar 📝', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
-                { name: 'Fleshkartalar 🎴', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: "Aqlli Lug'at 🧠", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
-                { name: 'AI Yordamchi 🤖', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
+                { name: 'Kalendar', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
+                { name: 'Fanlar & Reja', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
+                { name: 'Vazifalar', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                { name: 'Fokus Timer', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
+                { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: "Aqlli Lug'at", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
+                { name: 'AI Yordamchi', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         },
         {
             category: 'TAHLIL & JAMOA',
             icon: BarChart,
             items: [
-                { name: 'Statistika 📊', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Jamoa 👥', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: 'Statistika', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Jamoa', path: '/community', icon: Users, tourId: 'nav-community' },
             ]
         }
     ];
