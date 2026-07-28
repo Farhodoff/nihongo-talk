@@ -70,7 +70,7 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                         </div>
                     ) : report ? (
                         <>
-                            {/* Score & Overall Feedback Banner */}
+                            {/* Score & Level & Overall Feedback Banner */}
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex flex-col items-center justify-center text-center shadow-lg">
                                     <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-100">
@@ -96,14 +96,23 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                     </span>
                                 </div>
 
-                                <div className="md:col-span-2 p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 flex flex-col justify-center">
-                                    <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-1">
-                                        <Sparkles size={16} className="text-indigo-500" />
-                                        Umumiy Xulosa
-                                    </h4>
-                                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        {report.overall_feedback}
-                                    </p>
+                                <div className="md:col-span-2 p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1">
+                                            <h4 className="text-xs font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                                                <Sparkles size={16} className="text-indigo-500" />
+                                                Umumiy Xulosa
+                                            </h4>
+                                            {(report.user_level_eng || report.user_level_jp) && (
+                                                <span className="px-2.5 py-1 text-[11px] font-extrabold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 rounded-full">
+                                                    🎯 {report.user_level_eng || report.user_level_jp}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mt-1">
+                                            {report.overall_feedback}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
