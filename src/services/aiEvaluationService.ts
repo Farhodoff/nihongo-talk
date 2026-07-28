@@ -1,13 +1,16 @@
 import OpenAI from 'openai';
 
-// Assuming we store the DeepSeek API key in env variable VITE_DEEPSEEK_API_KEY
-// In production, AI evaluation should ideally happen on the server/edge function to hide the API key.
-// But for now, we'll keep it on the client/service side as requested.
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_DEEPSEEK_API_KEY || 'dummy_key',
-  baseURL: 'https://api.deepseek.com/v1',
-  dangerouslyAllowBrowser: true // Required since we are in Vite client-side code
-});
+const getDeepSeekClient = () => {
+  const apiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
+  if (!apiKey || apiKey === 'dummy_key') {
+    console.warn('VITE_DEEPSEEK_API_KEY topilmadi! AI baholash ishlamaydi.');
+  }
+  return new OpenAI({
+    apiKey: apiKey || 'missing_key',
+    baseURL: 'https://api.deepseek.com/v1',
+    dangerouslyAllowBrowser: true
+  });
+};
 
 export interface AiEvaluationResult {
   score: number;
@@ -22,10 +25,24 @@ export interface AiEvaluationResult {
   };
 }
 
+const parseAiResponse = (content: string): AiEvaluationResult => {
+  // Strip markdown code fences if present
+  let cleaned = content.trim();
+  cleaned = cleaned.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+
+  try {
+    return JSON.parse(cleaned) as AiEvaluationResult;
+  } catch {
+    console.error('Failed to parse AI response as JSON:', cleaned);
+    // Try to extract score and feedback manually
+    return {
+      score: 0,
+      feedback: cleaned || 'AI javobini qayta ishlashda xatolik yuz berdi.'
+    };
+  }
+};
+
 export const aiEvaluationService = {
-  /**
-   * Evaluates an IELTS or JLPT writing response.
-   */
   async evaluateWriting(
     examType: 'IELTS' | 'JLPT',
     promptText: string,
@@ -43,11 +60,12 @@ export const aiEvaluationService = {
         "coherence": <number>
       }
     }
-    `;
+    Return ONLY the JSON object, no markdown, no code fences.`;
 
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Response:\n${userResponse}`;
 
     try {
+      const openai = getDeepSeekClient();
       const response = await openai.chat.completions.create({
         model: 'deepseek-chat',
         messages: [
@@ -57,23 +75,27 @@ export const aiEvaluationService = {
         response_format: { type: 'json_object' }
       });
 
-      const content = response.choices[0].message.content;
-      if (!content) throw new Error("No content received from DeepSeek");
+      const choices = response.choices;
+      if (!choices || choices.length === 0) {
+        throw new Error('DeepSeek javob bermadi (bo\'sh choices).');
+      }
 
-      const parsed = JSON.parse(content) as AiEvaluationResult;
-      return parsed;
-    } catch (error) {
+      const content = choices[0].message.content;
+      if (!content) throw new Error("DeepSeek javob berdi, lekin content bo'sh.");
+
+      return parseAiResponse(content);
+    } catch (error: any) {
       console.error('Error evaluating writing:', error);
-      throw new Error('Failed to evaluate writing with DeepSeek');
+      if (error?.status === 401) {
+        throw new Error('DeepSeek API kaliti noto\'g\'ri yoki muddati o\'tgan. VITE_DEEPSEEK_API_KEY ni tekshiring.');
+      }
+      if (error?.status === 429) {
+        throw new Error('DeepSeek API rate limit. Biroz kutib qayta urinib ko\'ring.');
+      }
+      throw new Error(`Writing baholashda xatolik: ${error?.message || 'Noma\'lum xato'}`);
     }
   },
 
-  /**
-   * Evaluates a speaking response.
-   * Note: DeepSeek doesn't natively support Audio input directly via Chat API yet in the same way as Whisper.
-   * For a real implementation, you'd first transcribe the audio using Whisper/Google STT, 
-   * then send the transcript to DeepSeek.
-   */
   async evaluateSpeakingTranscript(
     examType: 'IELTS' | 'JLPT',
     promptText: string,
@@ -92,11 +114,12 @@ export const aiEvaluationService = {
         "pronunciation": <number>
       }
     }
-    `;
+    Return ONLY the JSON object, no markdown, no code fences.`;
 
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Spoken Transcript:\n${transcript}`;
 
     try {
+      const openai = getDeepSeekClient();
       const response = await openai.chat.completions.create({
         model: 'deepseek-chat',
         messages: [
@@ -106,14 +129,24 @@ export const aiEvaluationService = {
         response_format: { type: 'json_object' }
       });
 
-      const content = response.choices[0].message.content;
-      if (!content) throw new Error("No content received from DeepSeek");
+      const choices = response.choices;
+      if (!choices || choices.length === 0) {
+        throw new Error('DeepSeek javob bermadi (bo\'sh choices).');
+      }
 
-      const parsed = JSON.parse(content) as AiEvaluationResult;
-      return parsed;
-    } catch (error) {
+      const content = choices[0].message.content;
+      if (!content) throw new Error("DeepSeek javob berdi, lekin content bo'sh.");
+
+      return parseAiResponse(content);
+    } catch (error: any) {
       console.error('Error evaluating speaking:', error);
-      throw new Error('Failed to evaluate speaking transcript with DeepSeek');
+      if (error?.status === 401) {
+        throw new Error('DeepSeek API kaliti noto\'g\'ri yoki muddati o\'tgan. VITE_DEEPSEEK_API_KEY ni tekshiring.');
+      }
+      if (error?.status === 429) {
+        throw new Error('DeepSeek API rate limit. Biroz kutib qayta urinib ko\'ring.');
+      }
+      throw new Error(`Speaking baholashda xatolik: ${error?.message || 'Noma\'lum xato'}`);
     }
   }
 };
