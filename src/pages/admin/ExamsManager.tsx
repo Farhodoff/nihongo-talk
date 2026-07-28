@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { Button } from '../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
-import { Plus, BookOpen, Edit2, Loader2, ArrowLeft, Trash2, X } from 'lucide-react';
+import { Plus, BookOpen, Edit2, Loader2, ArrowLeft, Trash2, X, Award, FileText } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail } from '../../utils/admin';
 
@@ -13,10 +13,12 @@ export const ExamsManager: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [fetchError, setFetchError] = useState<string | null>(null);
 
-    // Create exam modal state
+    // Step-by-Step Creation Wizard State
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [examCategory, setExamCategory] = useState<'IELTS' | 'JLPT'>('IELTS');
+    const [jlptLevel, setJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N3');
+    const [ieltsType, setIeltsType] = useState<'Academic' | 'General'>('Academic');
     const [newTitle, setNewTitle] = useState('');
-    const [newType, setNewType] = useState('IELTS');
     const [newDesc, setNewDesc] = useState('');
     const [creating, setCreating] = useState(false);
 
@@ -46,22 +48,28 @@ export const ExamsManager: React.FC = () => {
     }, [user]);
 
     const handleCreateExam = async () => {
-        if (!newTitle.trim()) {
-            alert("Imtihon nomini kiriting!");
-            return;
-        }
+        const fullType = examCategory === 'JLPT' ? `JLPT ${jlptLevel}` : `IELTS (${ieltsType})`;
+        const titleToSave = newTitle.trim() || `${fullType} Mock Test`;
+
         setCreating(true);
         try {
-            const { error } = await supabase.from('exams').insert({
-                title: newTitle.trim(),
-                type: newType,
+            const { data, error } = await supabase.from('exams').insert({
+                title: titleToSave,
+                type: fullType,
                 description: newDesc.trim() || null
-            });
+            }).select().single();
+
             if (error) throw error;
+
             setShowCreateModal(false);
             setNewTitle('');
             setNewDesc('');
             fetchExams();
+
+            // Automatically navigate to Question Editor for this new exam
+            if (data?.id) {
+                navigate(`/admin/exams/${data.id}`);
+            }
         } catch (err: any) {
             console.error("Exam creation error:", err);
             alert(`Xatolik: ${err?.message || JSON.stringify(err)}`);
@@ -94,11 +102,11 @@ export const ExamsManager: React.FC = () => {
                     </button>
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Imtihonlar (Exams) Manager</h1>
-                        <p className="text-sm text-slate-500">IELTS va JLPT testlarini boshqarish</p>
+                        <p className="text-sm text-slate-500">IELTS va JLPT testlarini boshqarish va yangi savollar qo'shish</p>
                     </div>
                 </div>
                 <Button onClick={() => setShowCreateModal(true)} className="gap-2">
-                    <Plus className="w-4 h-4" /> Yangi imtihon
+                    <Plus className="w-4 h-4" /> Yangi Imtihon Qo'shish
                 </Button>
             </div>
 
@@ -122,13 +130,13 @@ export const ExamsManager: React.FC = () => {
                             {exam.is_published ? (
                                 <span className="text-xs font-bold text-green-500 bg-green-50 dark:bg-green-500/10 px-2 py-0.5 rounded">Active</span>
                             ) : (
-                                <span className="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">Draft</span>
+                                <span className="text-xs font-bold text-amber-500 bg-amber-50 dark:bg-amber-500/10 px-2 py-0.5 rounded">Draft</span>
                             )}
                         </div>
 
                         <div className="flex gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                             <Button variant="outline" className="flex-1 gap-1 text-xs" onClick={() => navigate(`/admin/exams/${exam.id}`)}>
-                                <Edit2 className="w-3.5 h-3.5" /> Savollar
+                                <Edit2 className="w-3.5 h-3.5" /> Savollar va Bo'limlar
                             </Button>
                             <button
                                 onClick={() => handleDeleteExam(exam.id, exam.title)}
@@ -140,51 +148,111 @@ export const ExamsManager: React.FC = () => {
                         </div>
                     </div>
                 ))}
+
                 {exams.length === 0 && !fetchError && (
                     <div className="col-span-full p-8 text-center text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700">
                         <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-20" />
                         <p>Hali hech qanday imtihon yaratilmagan.</p>
+                        <p className="text-xs mt-1">Yuqoridagi tugmani bosib IELTS yoki JLPT imtihonini qo'shing.</p>
                     </div>
                 )}
             </div>
 
-            {/* Create Exam Modal */}
+            {/* Step-by-Step Create Exam Modal */}
             {showCreateModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setShowCreateModal(false)}>
-                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-5" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Yangi Imtihon Yaratish</h3>
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl space-y-6" onClick={e => e.stopPropagation()}>
+                        <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Yangi Imtihon Qo'shish</h3>
                             <button onClick={() => setShowCreateModal(false)} className="p-1 text-slate-400 hover:text-slate-600">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
 
+                        {/* Step 1: Category Selection (IELTS vs JLPT) */}
+                        <div className="space-y-2">
+                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">1. Imtihon Turini Tanlang:</label>
+                            <div className="grid grid-cols-2 gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setExamCategory('IELTS')}
+                                    className={`p-4 rounded-xl border font-bold text-sm flex flex-col items-center gap-2 transition ${
+                                        examCategory === 'IELTS'
+                                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                                            : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300'
+                                    }`}
+                                >
+                                    <FileText className="w-6 h-6" />
+                                    <span>IELTS</span>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setExamCategory('JLPT')}
+                                    className={`p-4 rounded-xl border font-bold text-sm flex flex-col items-center gap-2 transition ${
+                                        examCategory === 'JLPT'
+                                            ? 'bg-rose-600 text-white border-rose-600 shadow-md'
+                                            : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-rose-300'
+                                    }`}
+                                >
+                                    <Award className="w-6 h-6" />
+                                    <span>JLPT (Yapon Tili)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Step 2: Level Selection (If JLPT) or Sub-type (If IELTS) */}
+                        {examCategory === 'JLPT' ? (
+                            <div className="space-y-2">
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">2. JLPT Darajasini Tanlang (N1 - N5):</label>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
+                                        <button
+                                            key={lvl}
+                                            type="button"
+                                            onClick={() => setJlptLevel(lvl)}
+                                            className={`py-3 rounded-xl font-black text-sm border transition ${
+                                                jlptLevel === lvl
+                                                    ? 'bg-rose-600 text-white border-rose-600 shadow-md'
+                                                    : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                                            }`}
+                                        >
+                                            {lvl}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="space-y-2">
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">2. IELTS Turini Tanlang:</label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {(['Academic', 'General'] as const).map(t => (
+                                        <button
+                                            key={t}
+                                            type="button"
+                                            onClick={() => setIeltsType(t)}
+                                            className={`py-2.5 rounded-xl font-bold text-sm border transition ${
+                                                ieltsType === t
+                                                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                                                    : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                                            }`}
+                                        >
+                                            {t}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 3: Title & Description */}
                         <div className="space-y-3">
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 mb-1">Imtihon nomi *</label>
+                                <label className="block text-xs font-bold text-slate-500 mb-1">Imtihon Nomi</label>
                                 <input
                                     value={newTitle}
                                     onChange={e => setNewTitle(e.target.value)}
-                                    placeholder="Masalan: IELTS Mock Test 1"
+                                    placeholder={examCategory === 'JLPT' ? `JLPT ${jlptLevel} Mock Test 1` : `IELTS ${ieltsType} Mock Test 1`}
                                     className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
-                                    autoFocus
                                 />
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-bold text-slate-500 mb-1">Turi *</label>
-                                <select
-                                    value={newType}
-                                    onChange={e => setNewType(e.target.value)}
-                                    className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
-                                >
-                                    <option value="IELTS">IELTS</option>
-                                    <option value="JLPT N5">JLPT N5</option>
-                                    <option value="JLPT N4">JLPT N4</option>
-                                    <option value="JLPT N3">JLPT N3</option>
-                                    <option value="JLPT N2">JLPT N2</option>
-                                    <option value="JLPT N1">JLPT N1</option>
-                                </select>
                             </div>
 
                             <div>
@@ -193,17 +261,17 @@ export const ExamsManager: React.FC = () => {
                                     value={newDesc}
                                     onChange={e => setNewDesc(e.target.value)}
                                     rows={2}
-                                    placeholder="Imtihon haqida qisqacha..."
+                                    placeholder="Imtihon haqida qisqacha ma'lumot..."
                                     className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
                                 />
                             </div>
                         </div>
 
                         <div className="flex gap-2 justify-end pt-2">
-                            <Button variant="outline" onClick={() => setShowCreateModal(false)}>Bekor</Button>
-                            <Button onClick={handleCreateExam} disabled={creating} className="gap-1">
+                            <Button variant="outline" onClick={() => setShowCreateModal(false)}>Bekor qilish</Button>
+                            <Button onClick={handleCreateExam} disabled={creating} className="gap-1 px-6">
                                 {creating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-                                Yaratish
+                                Davom etish va Savollar qo'shish ➔
                             </Button>
                         </div>
                     </div>

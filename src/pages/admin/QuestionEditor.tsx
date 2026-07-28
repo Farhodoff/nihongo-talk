@@ -113,7 +113,7 @@ export const QuestionEditor: React.FC = () => {
         }
     };
 
-    const handleSaveQuestion = async (sectionId: string) => {
+    const handleSaveQuestion = async (sectionId: string, keepOpen = false) => {
         if (!questionForm.question_text.trim()) {
             alert("Savol matnini kiriting!");
             return;
@@ -132,8 +132,10 @@ export const QuestionEditor: React.FC = () => {
             });
             if (error) throw error;
 
-            setShowQuestionForm(null);
             setQuestionForm({ question_text: '', type: 'multiple_choice', options: ['', '', '', ''], correct_answer: '', explanation: '' });
+            if (!keepOpen) {
+                setShowQuestionForm(null);
+            }
             fetchExamDetails();
         } catch (err: any) {
             console.error("Question creation error:", err);
@@ -374,12 +376,17 @@ export const QuestionEditor: React.FC = () => {
                                         />
                                     </div>
 
-                                    <div className="flex gap-2 pt-1">
-                                        <Button size="sm" onClick={() => handleSaveQuestion(section.id)} disabled={savingQuestion} className="gap-1">
+                                    <div className="flex flex-wrap gap-2 pt-2 border-t border-indigo-100 dark:border-indigo-900/30">
+                                        <Button size="sm" onClick={() => handleSaveQuestion(section.id, true)} disabled={savingQuestion} className="gap-1 bg-indigo-600">
                                             {savingQuestion ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
-                                            Saqlash
+                                            Saqlash va Yana Qo'shish (+1)
                                         </Button>
-                                        <Button size="sm" variant="outline" onClick={() => setShowQuestionForm(null)}>Bekor</Button>
+                                        <Button size="sm" variant="outline" onClick={() => handleSaveQuestion(section.id, false)} disabled={savingQuestion}>
+                                            Saqlash va Yopish
+                                        </Button>
+                                        <Button size="sm" variant="outline" className="ml-auto text-slate-400" onClick={() => setShowQuestionForm(null)}>
+                                            Bekor
+                                        </Button>
                                     </div>
                                 </div>
                             )}
