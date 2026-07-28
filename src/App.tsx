@@ -63,6 +63,7 @@ const PageLoader = () => (
 
 import ReloadPrompt from './components/pwa/ReloadPrompt';
 import InstallPrompt from './components/pwa/InstallPrompt';
+import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
 import OfflineIndicator from './components/OfflineIndicator';
 
 const App: React.FC = () => {
@@ -161,6 +162,7 @@ const App: React.FC = () => {
                             {/* PWA Prompts */}
                             <ReloadPrompt />
                             <InstallPrompt />
+                            <PushNotificationPrompt />
                             
                             <OfflineIndicator />
                             <Toaster />

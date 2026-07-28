@@ -1,4 +1,5 @@
 import { Bell, Moon, Sun, HelpCircle } from 'lucide-react';
+import { PushNotificationService } from '../../services/PushNotificationService';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -42,14 +43,32 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                     <div className="p-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-lg">
                         <Bell size={20} />
                     </div>
-                    <span className="font-medium text-gray-900 dark:text-white">Bildirishnomalar</span>
+                    <div className="flex flex-col">
+                        <span className="font-medium text-gray-900 dark:text-white">Bildirishnomalar</span>
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500">Dars va Streak eslatmalarini qurilmada olish</span>
+                    </div>
                 </div>
-                <button
-                    onClick={onToggleNotifications}
-                    className={`w-12 h-6 rounded-full transition-colors relative ${settings.notificationsEnabled ? 'bg-indigo-500' : 'bg-gray-300'}`}
-                >
-                    <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${settings.notificationsEnabled ? 'left-7' : 'left-1'}`} />
-                </button>
+                <div className="flex items-center gap-2">
+                    {settings.notificationsEnabled && (
+                        <button
+                            onClick={() => {
+                                const success = PushNotificationService.sendTestNotification();
+                                if (!success) {
+                                    PushNotificationService.requestPermission();
+                                }
+                            }}
+                            className="px-3 py-1.5 bg-orange-500/10 hover:bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/20 rounded-xl text-xs font-bold transition-all"
+                        >
+                            Sinov Bildirishnomasi 🔔
+                        </button>
+                    )}
+                    <button
+                        onClick={onToggleNotifications}
+                        className={`w-12 h-6 rounded-full transition-colors relative ${settings.notificationsEnabled ? 'bg-indigo-500' : 'bg-gray-300'}`}
+                    >
+                        <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${settings.notificationsEnabled ? 'left-7' : 'left-1'}`} />
+                    </button>
+                </div>
             </div>
 
             <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-t border-gray-100 dark:border-gray-700">
