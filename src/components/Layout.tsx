@@ -74,6 +74,7 @@ const Layout: React.FC = () => {
             category: "O'QUV QUROLLARI",
             icon: FolderOpen,
             items: [
+                { name: 'Kalendar 📅', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
                 { name: 'Fanlar & Reja 📚', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
                 { name: 'Vazifalar 📋', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
                 { name: 'Fokus Timer ⏱️', path: '/focus', icon: Clock, tourId: 'nav-focus' },
