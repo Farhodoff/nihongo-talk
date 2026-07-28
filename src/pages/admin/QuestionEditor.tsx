@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { Button } from '../../components/ui/Button';
-import { ArrowLeft, Plus, Loader2, List, FileText, Headphones, Mic, PenTool, Trash2, X, Edit3, CheckCircle2, Eye, Sparkles } from 'lucide-react';
+import { ArrowLeft, Plus, Loader2, List, FileText, Headphones, Mic, PenTool, Trash2, X, Edit3, CheckCircle2, Eye, Sparkles, Upload, Download } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail } from '../../utils/admin';
 
@@ -37,6 +37,11 @@ export const QuestionEditor: React.FC = () => {
     // Content editing state
     const [editingContentId, setEditingContentId] = useState<string | null>(null);
     const [editContent, setEditContent] = useState('');
+
+    // Bulk Import state
+    const [showBulkModal, setShowBulkModal] = useState<string | null>(null); // section_id
+    const [bulkFileContent, setBulkFileContent] = useState<string>('');
+    const [bulkImporting, setBulkImporting] = useState(false);
 
     const fetchExamDetails = async () => {
         try {
@@ -179,6 +184,89 @@ export const QuestionEditor: React.FC = () => {
         }
     };
 
+    // Bulk JSON/CSV Import Logic
+    const handleDownloadTemplate = () => {
+        const sampleData = [
+            {
+                question_text: "本文の内容と合っているものはどれか。",
+                type: "multiple_choice",
+                options: ["Variant A matni", "Variant B matni", "Variant C matni", "Variant D matni"],
+                correct_answer: "Variant A matni",
+                explanation: "Izoh (ixtiyoriy)"
+            },
+            {
+                question_text: "According to the passage, why did the author move?",
+                type: "multiple_choice",
+                options: ["Job opportunity", "Study abroad", "Family reason", "Weather"],
+                correct_answer: "Job opportunity",
+                explanation: "Mentioned in paragraph 2."
+            }
+        ];
+        const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sample_questions_template.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setBulkFileContent(event.target?.result as string || '');
+        };
+        reader.readAsText(file);
+    };
+
+    const handleExecuteBulkImport = async (sectionId: string) => {
+        if (!bulkFileContent.trim()) {
+            alert("Iltimos, JSON faylni tanlang yoki matn shaklida kiriting!");
+            return;
+        }
+
+        setBulkImporting(true);
+        try {
+            let parsedQuestions: any[] = [];
+            try {
+                parsedQuestions = JSON.parse(bulkFileContent);
+            } catch {
+                throw new Error("JSON formati noto'g'ri. Tayyor shablon shaklida kiritilganiga ishonch hosil qiling.");
+            }
+
+            if (!Array.isArray(parsedQuestions)) {
+                throw new Error("JSON obyekt emas, massiv ([...]) bo'lishi kerak.");
+            }
+
+            const existingQuestions = sectionQuestions[sectionId] || [];
+            const rowsToInsert = parsedQuestions.map((q, i) => ({
+                section_id: sectionId,
+                question_text: q.question_text || `Savol #${i + 1}`,
+                type: q.type || 'multiple_choice',
+                options: Array.isArray(q.options) ? q.options : null,
+                correct_answer: q.correct_answer || '',
+                explanation: q.explanation || null,
+                order_index: existingQuestions.length + i
+            }));
+
+            const { error } = await supabase.from('exam_questions').insert(rowsToInsert);
+            if (error) throw error;
+
+            alert(`✅ ${rowsToInsert.length} ta savol muvaffaqiyatli import qilindi!`);
+            setShowBulkModal(null);
+            setBulkFileContent('');
+            fetchExamDetails();
+        } catch (err: any) {
+            console.error("Bulk import error:", err);
+            alert(`Import qilishda xatolik: ${err?.message || JSON.stringify(err)}`);
+        } finally {
+            setBulkImporting(false);
+        }
+    };
+
     if (loading) return (
         <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-10 h-10 animate-spin text-indigo-500" />
@@ -276,9 +364,19 @@ export const QuestionEditor: React.FC = () => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     {(section.type === 'Reading' || section.type === 'Listening') && (
-                                        <Button size="sm" className="gap-1 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl" onClick={() => setShowQuestionForm(section.id)}>
-                                            <Plus className="w-4 h-4" /> Savol Qo'shish
-                                        </Button>
+                                        <>
+                                            <Button 
+                                                variant="outline" 
+                                                size="sm" 
+                                                className="gap-1 text-xs font-bold rounded-xl"
+                                                onClick={() => setShowBulkModal(section.id)}
+                                            >
+                                                <Upload className="w-3.5 h-3.5" /> Bulk Import (JSON/CSV)
+                                            </Button>
+                                            <Button size="sm" className="gap-1 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl" onClick={() => setShowQuestionForm(section.id)}>
+                                                <Plus className="w-4 h-4" /> Savol Qo'shish
+                                            </Button>
+                                        </>
                                     )}
                                     <button
                                         onClick={() => handleDeleteSection(section.id)}
@@ -378,7 +476,7 @@ export const QuestionEditor: React.FC = () => {
                                         </div>
                                     ) : (
                                         <p className="text-xs text-slate-400 text-center py-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
-                                            Hali savollar kiritilmagan. Yuqoridagi "+ Savol Qo'shish" tugmasini bosing.
+                                            Hali savollar kiritilmagan. Yuqoridagi "+ Savol Qo'shish" yoki "Bulk Import" tugmasini bosing.
                                         </p>
                                     )}
                                 </div>
@@ -467,6 +565,64 @@ export const QuestionEditor: React.FC = () => {
                                         >
                                             Bekor
                                         </Button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Bulk Import Modal */}
+                            {showBulkModal === section.id && (
+                                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in" onClick={() => setShowBulkModal(null)}>
+                                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-xl p-6 shadow-2xl space-y-5" onClick={e => e.stopPropagation()}>
+                                        <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                                            <div className="flex items-center gap-2">
+                                                <Upload className="w-5 h-5 text-indigo-500" />
+                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Savollarni Ommaviy Import Qilish (Bulk)</h3>
+                                            </div>
+                                            <button onClick={() => setShowBulkModal(null)} className="p-1 text-slate-400 hover:text-slate-600">
+                                                <X className="w-5 h-5" />
+                                            </button>
+                                        </div>
+
+                                        <div className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+                                            <p className="leading-relaxed">
+                                                JSON fayl yuklang yoki savollar obyektini pastdagi matn maydoniga qo'ying. Bir yo'la 50-100 ta savol yuklashingiz mumkin.
+                                            </p>
+                                            
+                                            <div className="flex gap-2">
+                                                <Button variant="outline" size="sm" onClick={handleDownloadTemplate} className="gap-1.5 text-xs font-bold rounded-xl">
+                                                    <Download className="w-3.5 h-3.5" /> Shablon JSON Faylini Yuklab Olish
+                                                </Button>
+                                            </div>
+
+                                            <div className="pt-2">
+                                                <label className="block text-xs font-bold text-slate-500 mb-1">Fayldan tanlash (.json):</label>
+                                                <input
+                                                    type="file"
+                                                    accept=".json"
+                                                    onChange={handleFileUpload}
+                                                    className="w-full p-2 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-xs font-bold text-slate-500 mb-1">Yoki JSON Matnini Kiriting:</label>
+                                                <textarea
+                                                    rows={6}
+                                                    value={bulkFileContent}
+                                                    onChange={e => setBulkFileContent(e.target.value)}
+                                                    placeholder='[{"question_text": "...", "options": ["A", "B", "C", "D"], "correct_answer": "A"}]'
+                                                    className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-mono text-xs"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-2 justify-end pt-2">
+                                            <Button variant="outline" onClick={() => setShowBulkModal(null)} className="rounded-xl">Bekor qilish</Button>
+                                            <Button onClick={() => handleExecuteBulkImport(section.id)} disabled={bulkImporting} className="gap-1 bg-indigo-600 text-white font-bold rounded-xl">
+                                                {bulkImporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                                                Import Qilish 🚀
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             )}

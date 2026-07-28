@@ -5,10 +5,13 @@ import { Loader2, ArrowLeft, PenTool, Mic, FileText, Headphones, CheckCircle2, X
 import { WritingSection } from '../../components/exams/WritingSection';
 import { SpeakingSection } from '../../components/exams/SpeakingSection';
 import { Button } from '../../components/ui/Button';
+import { ExamCertificateModal } from '../../components/exams/ExamCertificateModal';
+import { useStudyData } from '../../context/StudyPlannerContext';
 
 export const ExamTake: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { user } = useStudyData();
     const [exam, setExam] = useState<any>(null);
     const [sections, setSections] = useState<any[]>([]);
     const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
@@ -19,6 +22,9 @@ export const ExamTake: React.FC = () => {
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
     const [submittedResults, setSubmittedResults] = useState<{ score: number; total: number } | null>(null);
+
+    // Certificate modal state
+    const [showCertificate, setShowCertificate] = useState(false);
 
     useEffect(() => {
         const fetchExam = async () => {
@@ -71,7 +77,7 @@ export const ExamTake: React.FC = () => {
         setUserAnswers(prev => ({ ...prev, [questionId]: option }));
     };
 
-    const handleSubmitAnswers = () => {
+    const handleSubmitAnswers = async () => {
         let correctCount = 0;
         questions.forEach(q => {
             if (userAnswers[q.id] === q.correct_answer) {
@@ -79,6 +85,21 @@ export const ExamTake: React.FC = () => {
             }
         });
         setSubmittedResults({ score: correctCount, total: questions.length });
+        setShowCertificate(true);
+
+        // Record session to DB if user is logged in
+        if (user?.id && id) {
+            try {
+                await supabase.from('exam_sessions').insert({
+                    user_id: user.id,
+                    exam_id: id,
+                    status: 'completed',
+                    completed_at: new Date().toISOString()
+                });
+            } catch (e) {
+                console.warn("Session record warning:", e);
+            }
+        }
     };
 
     if (loading) return (
@@ -187,9 +208,12 @@ export const ExamTake: React.FC = () => {
                                     <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                                         <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">Savollar</h3>
                                         {submittedResults ? (
-                                            <span className="text-xs font-black text-green-600 bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full flex items-center gap-1">
-                                                <Award className="w-4 h-4" /> Natija: {submittedResults.score} / {submittedResults.total}
-                                            </span>
+                                            <button 
+                                                onClick={() => setShowCertificate(true)}
+                                                className="text-xs font-black text-green-600 bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full flex items-center gap-1 hover:bg-green-500/20 transition"
+                                            >
+                                                <Award className="w-4 h-4" /> Natija: {submittedResults.score} / {submittedResults.total} (Sertifikat)
+                                            </button>
                                         ) : (
                                             <span className="text-xs font-bold text-slate-400">
                                                 Javob berildi: {Object.keys(userAnswers).length} / {questions.length}
@@ -249,7 +273,7 @@ export const ExamTake: React.FC = () => {
                                                     disabled={Object.keys(userAnswers).length === 0}
                                                     className="w-full py-3.5 font-bold rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                                                 >
-                                                    Javoblarni Tekshirish ({Object.keys(userAnswers).length}/{questions.length})
+                                                    Javoblarni Tekshirish va Sertifikat Olish 🎓 ({Object.keys(userAnswers).length}/{questions.length})
                                                 </Button>
                                             ) : (
                                                 <Button variant="outline" onClick={() => setSubmittedResults(null)} className="w-full py-3.5 rounded-2xl font-bold">
@@ -270,6 +294,20 @@ export const ExamTake: React.FC = () => {
                     <div className="text-center py-12 text-slate-400">Bo'lim tanlanmagan yoki yuklanmadi.</div>
                 )}
             </div>
+
+            {/* Official Certificate Modal */}
+            <ExamCertificateModal
+                isOpen={showCertificate}
+                onClose={() => setShowCertificate(false)}
+                examTitle={exam.title}
+                examType={exam.type}
+                overallScore={submittedResults ? `${submittedResults.score} / ${submittedResults.total}` : 'N/A'}
+                sectionScores={{
+                    reading: submittedResults ? `${Math.round((submittedResults.score / submittedResults.total) * 100)}%` : undefined
+                }}
+                userName={user?.email ? user.email.split('@')[0] : 'O\'quvchi'}
+                aiFeedback={submittedResults ? `Tabriklaymiz! Siz ${exam.title} bo'yicha ${submittedResults.score} ta to'g'ri javob berdingiz (${Math.round((submittedResults.score / (submittedResults.total || 1)) * 100)}%). Keyingi bosqichga o'tish tavsiya etiladi.` : undefined}
+            />
         </div>
     );
 };
