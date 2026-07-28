@@ -74,10 +74,15 @@ export const generateJlptStudyPlan = async (
             );
             const cleanedText = response.replace(/```json/g, '').replace(/```/g, '').trim();
             const parsed = JSON.parse(cleanedText);
+            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
+                ? dailyPlanRaw
+                : algorithmicDailyPlan;
+
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik Yapon Tili Rejasi`,
                 summary: parsed.summary || "JLPT tayyorgarligi uchun intensiv yo'l xaritasi.",
-                dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+                dailyPlan: finalDailyPlan,
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         } catch (dsErr) {

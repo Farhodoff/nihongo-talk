@@ -79,10 +79,26 @@ export const generateIeltsStudyPlan = async (
             );
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
+            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+            const fallbackPlan = [
+                {
+                    day: 1,
+                    title: isZeroLevel ? "Foundation: Boshlang'ich Grammatika & Top 50 So'z" : "Writing Task 2 Structure & Intro",
+                    focusSkill: isZeroLevel ? "Vocabulary" as const : "Writing" as const,
+                    tasks: isZeroLevel 
+                        ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
+                        : ["Task 2 uchun 3 ta essay outline tuzish", "20 ta Academic Collocation o'rganish"],
+                    pomodoroTargetMinutes: 90,
+                    vocabularyList: isZeroLevel ? [{word: "always", meaning: "har doim"}] : [{word: "ubiquitous", meaning: "hamma joyda mavjud", example: "Smartphones are ubiquitous."}],
+                    grammarNotes: [{rule: "Subject-Verb Agreement", explanation: "Ega va kesimning moslashuvi."}]
+                }
+            ];
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : fallbackPlan;
+
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
                 summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+                dailyPlan: finalDailyPlan,
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         } catch (dsErr) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award, Languages, Compass } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { generateAlgorithmicJlptPlan } from '../utils/curriculum/jlptAlgorithmicPlanner';
 import { JlptOnboardingModal } from '../components/jlpt/JlptOnboardingModal';
 import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaster';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -26,7 +27,16 @@ export const JlptHubPage: React.FC = () => {
         const saved = localStorage.getItem('study_planner_jlpt_user_target');
         if (saved) {
             try {
-                setUserPlanData(JSON.parse(saved));
+                const parsed = JSON.parse(saved);
+                if (parsed && parsed.generatedPlan && (!parsed.generatedPlan.dailyPlan || parsed.generatedPlan.dailyPlan.length === 0)) {
+                    parsed.generatedPlan.dailyPlan = generateAlgorithmicJlptPlan(
+                        parsed.currentLevel || 'N5',
+                        parsed.targetLevel || 'N3',
+                        parsed.durationDays || 30
+                    );
+                    localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
+                }
+                setUserPlanData(parsed);
             } catch (e) {}
         }
     }, []);
