@@ -3,12 +3,21 @@ import { Target, Award, Sparkles, X } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { ensureJlptSubjectAndDecks } from '../../utils/jlptAutoSubject';
 import { calculateJlptFeasibility } from '../../utils/jlptCalculator';
+import { generateJlptStudyPlan } from '../../utils/ai';
+import { Task, Flashcard, StudyNote } from '../../types';
+import { PlacementTestModal } from '../ui/PlacementTestModal';
 
 interface JlptOnboardingModalProps {
     isOpen: boolean;
     onClose: () => void;
     onPlanCreated?: () => void;
 }
+
+const chunkArray = <T,>(arr: T[], size: number): T[][] => {
+    return Array.from({ length: Math.ceil(arr.length / size) }, (_v, i) =>
+        arr.slice(i * size, i * size + size)
+    );
+};
 
 export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen, onClose, onPlanCreated }) => {
     const [planType, setPlanType] = useState<'special' | 'jlpt'>('special');
@@ -18,15 +27,34 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
     const [targetLevel, setTargetLevel] = useState('N3');
     const [durationDays, setDurationDays] = useState(90);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [showPlacementTest, setShowPlacementTest] = useState(false);
 
-    const { subjects, addSubject, addFlashcard } = useStudyData();
+    const { subjects, addSubject, addFlashcard, addTasksBatch, addFlashcardsBatch, addStudyNotesBatch } = useStudyData();
 
     if (!isOpen) return null;
+
+    if (showPlacementTest) {
+        return (
+            <PlacementTestModal 
+                isOpen={showPlacementTest} 
+                onClose={() => setShowPlacementTest(false)} 
+                testType="jlpt"
+                onComplete={(level) => {
+                    setCurrentLevel(level);
+                    setShowPlacementTest(false);
+                }} 
+            />
+        );
+    }
 
     const handleCreatePlan = async () => {
         setIsGenerating(true);
         try {
-            await ensureJlptSubjectAndDecks(currentLevel, targetLevel, subjects, addSubject, addFlashcard);
+            // 1. Generate study plan using AI
+            const plan = await generateJlptStudyPlan(currentLevel, targetLevel, durationDays, planType, specialGoal);
+
+            // 2. Create Japanese subject and populate decks
+            const jlptSubjectId = await ensureJlptSubjectAndDecks(currentLevel, targetLevel, subjects, addSubject, addFlashcard);
             
             let finalGoalTitle = "";
             if (planType === 'special') {
@@ -46,9 +74,84 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                 currentLevel,
                 targetLevel,
                 durationDays,
+                generatedPlan: plan,
                 createdAt: new Date().toISOString()
             };
             localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(planMeta));
+
+            // 3. Batch Add Tasks
+            if (plan.dailyPlan && plan.dailyPlan.length > 0) {
+                const tasksToInsert: Partial<Task>[] = [];
+                plan.dailyPlan.forEach((day, index) => {
+                    day.tasks.forEach((t) => {
+                        tasksToInsert.push({
+                            title: `[JLPT Day ${day.day}] ${t} (${day.focusArea})`,
+                            completed: false,
+                            status: 'todo',
+                            priority: index === 0 ? 'high' : 'medium',
+                            dueDate: new Date(Date.now() + index * 86400000).toISOString().split('T')[0],
+                            subjectId: jlptSubjectId || undefined
+                        });
+                    });
+                });
+                
+                const taskChunks = chunkArray(tasksToInsert, 100);
+                for (const chunk of taskChunks) {
+                    await addTasksBatch(chunk);
+                }
+            }
+
+            // 4. Batch Add Flashcards & Notes
+            if (plan.dailyPlan && plan.dailyPlan.length > 0) {
+                const flashcardsToInsert: Partial<Flashcard>[] = [];
+                const notesToInsert: Partial<StudyNote>[] = [];
+
+                plan.dailyPlan.forEach((day) => {
+                    // Vocabulary
+                    if (day.vocabularyList) {
+                        day.vocabularyList.forEach(v => {
+                            flashcardsToInsert.push({
+                                subjectId: jlptSubjectId || undefined,
+                                front: v.word + (v.reading ? ` (${v.reading})` : ''),
+                                back: v.meaning + (v.example ? `\n\nMisol: ${v.example}` : '')
+                            });
+                        });
+                    }
+                    // Kanji
+                    if (day.kanjiList) {
+                        day.kanjiList.forEach(k => {
+                            flashcardsToInsert.push({
+                                subjectId: jlptSubjectId || undefined,
+                                front: k.kanji,
+                                back: `Ma'nosi: ${k.meaning}\nOn'yomi: ${k.onyomi || '-'}\nKun'yomi: ${k.kunyomi || '-'}`
+                            });
+                        });
+                    }
+                    // Grammar Notes
+                    if (day.grammarNotes) {
+                        day.grammarNotes.forEach(g => {
+                            notesToInsert.push({
+                                subjectId: jlptSubjectId || undefined,
+                                title: `[JLPT Kun ${day.day}] ${g.rule}`,
+                                content: `## ${g.rule}\n\n**Qoida:** ${g.explanation}\n\n${g.example ? `**Misol:** ${g.example}` : ''}`
+                            });
+                        });
+                    }
+                });
+
+                if (flashcardsToInsert.length > 0) {
+                    const fcChunks = chunkArray(flashcardsToInsert, 100);
+                    for (const chunk of fcChunks) {
+                        await addFlashcardsBatch(chunk);
+                    }
+                }
+                if (notesToInsert.length > 0) {
+                    const notesChunks = chunkArray(notesToInsert, 50);
+                    for (const chunk of notesChunks) {
+                        await addStudyNotesBatch(chunk);
+                    }
+                }
+            }
 
             if (onPlanCreated) onPlanCreated();
             onClose();
@@ -214,9 +317,17 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                     ) : (
                         <div className="space-y-5 animate-in fade-in">
                             <div>
-                                <label className="block text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-                                    <Target size={18} className="text-rose-500" /> Joriy JLPT Darajangiz:
-                                </label>
+                                <div className="flex justify-between items-center mb-3">
+                                    <label className="text-sm font-bold text-foreground flex items-center gap-2">
+                                        <Target size={18} className="text-rose-500" /> Joriy JLPT Darajangiz:
+                                    </label>
+                                    <button 
+                                        onClick={() => setShowPlacementTest(true)}
+                                        className="text-xs font-bold text-indigo-600 bg-indigo-500/10 px-3 py-1 rounded-full hover:bg-indigo-500/20 transition-colors flex items-center gap-1"
+                                    >
+                                        <Sparkles size={12} /> Darajani aniqlash (AI Test)
+                                    </button>
+                                </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
                                     {['0', 'N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
                                         <button
@@ -281,6 +392,15 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                     )}
                 </div>
             </div>
+
+            <PlacementTestModal 
+                isOpen={showPlacementTest}
+                onClose={() => setShowPlacementTest(false)}
+                testType="jlpt"
+                onComplete={(lvl) => {
+                    setCurrentLevel(lvl);
+                }}
+            />
         </div>
     );
 };

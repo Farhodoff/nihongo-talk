@@ -46,6 +46,10 @@ const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => (
 const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
 const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
+const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
+const QuestionEditor = lazy(() => import('./pages/admin/QuestionEditor'));
+const ExamTake = lazy(() => import('./pages/exams/ExamTake'));
+
 
 // Loading component
 const PageLoader = () => (
@@ -68,6 +72,9 @@ const App: React.FC = () => {
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
+            setIsLoading(false);
+        }).catch((err) => {
+            console.warn("Session check aborted/failed:", err);
             setIsLoading(false);
         });
 
@@ -142,6 +149,9 @@ const App: React.FC = () => {
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />
+                                        <Route path="admin/exams" element={<ExamsManager />} />
+                                        <Route path="admin/exams/:id" element={<QuestionEditor />} />
+                                        <Route path="exams/:id" element={<ExamTake />} />
                                     </Route>
                                 </Routes>
                             </Suspense>

@@ -54,6 +54,7 @@ interface StudyPlannerContextType {
 
     // Task operatsiyalari
     addTask: (task: Partial<Task>) => Promise<void>;
+    addTasksBatch: (tasks: Partial<Task>[]) => Promise<Task[]>;
     updateTask: (id: string, updates: Partial<Task>) => Promise<void>;
     deleteTask: (id: string, permanent?: boolean) => Promise<void>;
     restoreTask: (id: string) => Promise<void>;
@@ -86,6 +87,7 @@ interface StudyPlannerContextType {
 
     // Study Note (Konspekt) operatsiyalari
     addStudyNote: (note: Partial<StudyNote>) => Promise<void>;
+    addStudyNotesBatch: (notes: Partial<StudyNote>[]) => Promise<StudyNote[]>;
     updateStudyNote: (id: string, updates: Partial<StudyNote>) => Promise<void>;
     deleteStudyNote: (id: string) => Promise<void>;
 
@@ -139,6 +141,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         tasks,
         setTasks,
         addTask,
+        addTasksBatch,
         updateTask,
         toggleTask,
         updateTaskStatus,
@@ -737,6 +740,79 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
     };
 
+    const addStudyNotesBatch = async (notesData: Partial<StudyNote>[]): Promise<StudyNote[]> => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return [];
+
+        const tempNotes = notesData.map(n => {
+            const noteId = n.id || generateUUID();
+            return {
+                id: noteId,
+                user_id: user.id,
+                subject_id: n.subjectId,
+                title: n.title,
+                content: n.content
+            };
+        });
+
+        const newLocalNotes: StudyNote[] = tempNotes.map(dbNote => ({
+            id: dbNote.id,
+            subjectId: dbNote.subject_id || '',
+            userId: user.id,
+            title: dbNote.title || '',
+            content: dbNote.content || '',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        }));
+
+        setStudyNotes(prev => [...newLocalNotes, ...prev]);
+
+        try {
+            const chunkSize = 100;
+            const insertedNotes: StudyNote[] = [];
+
+            for (let i = 0; i < tempNotes.length; i += chunkSize) {
+                const chunk = tempNotes.slice(i, i + chunkSize);
+                const { data, error } = await supabase
+                    .from('study_notes')
+                    .insert(chunk)
+                    .select();
+
+                if (error || !data) {
+                    console.warn('[addStudyNotesBatch] DB insert chunk error:', error);
+                    insertedNotes.push(...newLocalNotes.slice(i, i + chunkSize));
+                } else {
+                    insertedNotes.push(...(data as any[]).map(n => ({
+                        id: n.id,
+                        subjectId: n.subject_id,
+                        userId: n.user_id,
+                        title: n.title,
+                        content: n.content,
+                        createdAt: n.created_at,
+                        updatedAt: n.updated_at
+                    })));
+                }
+            }
+
+            // Sync updated DB IDs with local state if necessary
+            setStudyNotes(prev => {
+                const next = [...prev];
+                insertedNotes.forEach(inserted => {
+                    const idx = next.findIndex(n => n.id === inserted.id);
+                    if (idx !== -1) {
+                        next[idx] = inserted;
+                    }
+                });
+                return next;
+            });
+
+            return insertedNotes;
+        } catch (err) {
+            console.error('[addStudyNotesBatch] Exception:', err);
+            return newLocalNotes;
+        }
+    };
+
     const updateStudyNote = async (id: string, updates: Partial<StudyNote>) => {
         const dbUpdates: import('../types/supabase-types').DatabaseStudyNoteUpdate = {};
 
@@ -820,10 +896,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         const dbCoachSession = {
             user_id: user.id,
-            persona_title: session.personaTitle || 'AI Coach',
+            persona: session.personaTitle || 'AI Coach',
             fluency_score: session.fluencyScore || 0,
-            vocabulary_score: session.vocabularyScore || 0,
-            grammar_score: session.grammarScore || 0,
             pronunciation_score: session.pronunciationScore || 0,
             feedback: session.feedback || ''
         };
@@ -834,10 +908,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             console.warn("Coach Session Supabase'ga saqlanmadi (lokal saqlanmoqda):", error);
             const newLocalSession: CoachSession = {
                 id: 'cs-' + Date.now(),
-                personaTitle: dbCoachSession.persona_title,
+                personaTitle: dbCoachSession.persona,
                 fluencyScore: dbCoachSession.fluency_score,
-                vocabularyScore: dbCoachSession.vocabulary_score,
-                grammarScore: dbCoachSession.grammar_score,
+                vocabularyScore: session.vocabularyScore || 0,
+                grammarScore: session.grammarScore || 0,
                 pronunciationScore: dbCoachSession.pronunciation_score,
                 feedback: dbCoachSession.feedback,
                 createdAt: new Date().toISOString()
@@ -1099,11 +1173,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         <StudyPlannerContext.Provider value={{
             goals, tasks, subjects, sessions, coachSessions,
             addGoal, updateGoal, deleteGoal,
-            addTask, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
+            addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
             addSubject, updateSubject, deleteSubject,
             addSession, addCoachSession, awardXP, resetXP,
             notes, addNote, updateNote, deleteNote,
-            studyNotes, addStudyNote, updateStudyNote, deleteStudyNote,
+            studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
             flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
             whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
             events, addEvent, updateEvent, deleteEvent,

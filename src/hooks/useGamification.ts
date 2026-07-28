@@ -46,7 +46,7 @@ export const useGamification = (initialState: GamificationState) => {
                 updated_at: new Date().toISOString()
             }).then(({ error }) => {
                 if (error) console.error('Error awarding XP:', error);
-            });
+            }, (e: any) => console.warn('Supabase XP update aborted/failed:', e));
 
             return { ...prev, totalXp: newXp, level: newLevel };
         });

@@ -102,6 +102,45 @@ export const IeltsHubPage: React.FC = () => {
                 </div>
             )}
 
+            {/* AI Generated Study Plan (Roadmap) */}
+            {userPlanData?.generatedPlan?.dailyPlan && userPlanData.generatedPlan.dailyPlan.length > 0 && (
+                <div className="mb-8 bg-white dark:bg-[#1f2937] p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                        <FileText className="text-indigo-500" /> AI Kunlik Dars Rejasi (Yo'l Xaritasi)
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {userPlanData.generatedPlan.dailyPlan.map((dayPlan, idx) => (
+                            <div key={idx} className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
+                                <div className="flex items-start justify-between mb-3">
+                                    <h4 className="font-bold text-indigo-900 dark:text-indigo-100">
+                                        <span className="text-indigo-500 mr-1">Kun {dayPlan.day}:</span> {dayPlan.title}
+                                    </h4>
+                                    <span className="text-[10px] font-bold px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 rounded-lg whitespace-nowrap ml-2">
+                                        {dayPlan.focusSkill}
+                                    </span>
+                                </div>
+                                <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
+                                    {dayPlan.tasks.map((t, i) => <li key={i}>{t}</li>)}
+                                </ul>
+                                <div className="mt-4 pt-3 border-t border-indigo-100 dark:border-indigo-900/30 flex items-center gap-1.5 text-xs text-indigo-400 font-semibold">
+                                    <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {userPlanData.generatedPlan.recommendedTips && userPlanData.generatedPlan.recommendedTips.length > 0 && (
+                        <div className="mt-6 p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30">
+                            <h4 className="font-bold text-amber-900 dark:text-amber-100 mb-3 flex items-center gap-2">
+                                <Award size={18} className="text-amber-500" /> AI Tavsiyalari
+                            </h4>
+                            <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-amber-800 dark:text-amber-200/80">
+                                {userPlanData.generatedPlan.recommendedTips.map((tip, i) => <li key={i}>{tip}</li>)}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* Daily Target Hub */}
             <div className="mb-8">
                 <DailyTargetHub onOpenReflection={() => setIsReflectionOpen(true)} />

@@ -95,18 +95,21 @@ export class UserNotificationService {
 
         let remoteNotifs: UserNotificationItem[] = [];
 
-        try {
-            const { data, error } = await supabase
-                .from('user_notifications')
-                .select('*')
-                .eq('user_id', userId)
-                .eq('is_read', false)
-                .order('created_at', { ascending: false });
+        // Faqat onlayn bo'lganda serverga so'rov yuborish (network xatoliklarini kamaytirish)
+        if (typeof navigator === 'undefined' || navigator.onLine) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_notifications')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .eq('is_read', false)
+                    .order('created_at', { ascending: false });
 
-            if (!error && data) {
-                remoteNotifs = data;
-            }
-        } catch (e) {}
+                if (!error && data) {
+                    remoteNotifs = data;
+                }
+            } catch (e) {}
+        }
 
         // Get local storage unread notifications for this user
         const localNotifs = this.getLocalNotifications(userId).filter(n => !n.is_read);

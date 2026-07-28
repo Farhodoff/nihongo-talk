@@ -39,7 +39,7 @@ export const InAppNotificationModal: React.FC = () => {
 
         window.addEventListener('study_planner_new_notification', handleCustomEvent);
         window.addEventListener('storage', handleStorageEvent);
-        const interval = setInterval(fetchNotifs, 3000); // Check every 3 seconds for fast feedback
+        const interval = setInterval(fetchNotifs, 30000); // Check every 30 seconds (avoids aggressive polling & offline errors)
 
         return () => {
             window.removeEventListener('study_planner_new_notification', handleCustomEvent);

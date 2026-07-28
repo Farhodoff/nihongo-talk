@@ -110,6 +110,26 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         }
     };
 
+    const addTasksBatch = async (tasksData: Partial<Task>[]) => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return [];
+
+        try {
+            const newTasks = await TaskService.addTasksBatch(user.id, tasksData);
+            if (newTasks.length > 0) {
+                setTasks(prev => {
+                    const existingIds = new Set(prev.map(t => t.id));
+                    const filteredNew = newTasks.filter(t => !existingIds.has(t.id));
+                    return [...prev, ...filteredNew];
+                });
+            }
+            return newTasks;
+        } catch (error) {
+            console.error("Failed to add tasks batch:", error);
+            return [];
+        }
+    };
+
     const setTasksState = useCallback((newTasks: Task[]) => {
         setTasks(newTasks);
     }, []);
@@ -118,6 +138,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         tasks,
         setTasks: setTasksState,
         addTask,
+        addTasksBatch,
         updateTask,
         toggleTask,
         updateTaskStatus,

@@ -108,6 +108,50 @@ export const TaskService = {
         }
     },
 
+    async addTasksBatch(userId: string, tasksData: Partial<Task>[]): Promise<Task[]> {
+        const dbTasks = tasksData.map(taskData => {
+            const dbTask: Omit<DatabaseTask, 'id' | 'created_at'> & { id?: string } = {
+                user_id: userId,
+                title: taskData.title || '',
+                status: taskData.status || 'todo',
+                priority: taskData.priority || 'medium',
+                completed: !!taskData.completed,
+                due_date: taskData.deadline || taskData.dueDate,
+                goal_id: taskData.goalId,
+                subject_id: taskData.subjectId
+            };
+            return dbTask;
+        });
+
+        try {
+            const { data, error } = await supabase
+                .from('tasks')
+                .insert(dbTasks)
+                .select();
+
+            if (error) throw error;
+            if (!data) return [];
+
+            return (data as DatabaseTask[]).map(returnedData => ({
+                id: returnedData.id,
+                title: returnedData.title,
+                completed: returnedData.completed,
+                status: returnedData.status as TaskStatus,
+                priority: returnedData.priority as Priority,
+                goalId: returnedData.goal_id,
+                subjectId: returnedData.subject_id,
+                dueDate: returnedData.due_date,
+                deadline: returnedData.due_date,
+                createdAt: returnedData.created_at,
+                googleEventId: returnedData.google_event_id,
+                deletedAt: returnedData.deleted_at || undefined
+            })) as Task[];
+        } catch (error) {
+            console.error('Add tasks batch error:', error);
+            throw error;
+        }
+    },
+
     async updateTask(id: string, updates: Partial<Task>): Promise<void> {
         try {
             const { data: taskData } = await supabase.from('tasks').select('google_event_id').eq('id', id).maybeSingle();

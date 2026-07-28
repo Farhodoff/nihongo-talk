@@ -16,6 +16,10 @@ export const JlptHubPage: React.FC = () => {
         currentLevel?: string;
         targetLevel?: string;
         durationDays?: number;
+        generatedPlan?: {
+            headline: string;
+            summary: string;
+        };
     } | null>(null);
 
     useEffect(() => {
@@ -84,22 +88,38 @@ export const JlptHubPage: React.FC = () => {
 
             {/* Target Roadmap Banner */}
             {userPlanData ? (
-                <div className="bg-gradient-to-r from-rose-900 via-purple-950 to-slate-900 border border-rose-500/30 rounded-3xl p-6 mb-8 text-white shadow-xl space-y-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <div className="p-3 bg-rose-500/20 rounded-2xl border border-rose-500/30 text-rose-400">
-                                <Flame size={24} />
+                <div className="bg-gradient-to-r from-rose-950 via-purple-950 to-slate-900 border border-rose-500/30 rounded-3xl p-6 md:p-8 mb-8 text-white shadow-xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                        <Award size={180} />
+                    </div>
+
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <div className="lg:col-span-8 space-y-3">
+                            <div className="inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30">
+                                <Flame size={14} />
+                                <span>{userPlanData.durationDays || 90}-Kunlik Yapon Tili Challenge</span>
                             </div>
-                            <div>
-                                <span className="text-xs text-rose-300 font-bold uppercase tracking-wider">Joriy Reja Targeti ({userPlanData.durationDays || 90} Kun)</span>
-                                <h3 className="text-xl font-black">
-                                    {userPlanData.finalGoalTitle || `${userPlanData.currentLevel} ➔ ${userPlanData.targetLevel}`}
-                                </h3>
+                            <h2 className="text-2xl font-black">
+                                {userPlanData.generatedPlan?.headline || userPlanData.finalGoalTitle || `${userPlanData.currentLevel} ➔ ${userPlanData.targetLevel}`}
+                            </h2>
+                            <p className="text-sm text-slate-300 leading-relaxed">
+                                {userPlanData.generatedPlan?.summary || "Yapon tilini samarali o'zlashtirish va imtihonlarni topshirish uchun sun'iy intellekt tomonidan shakllantirilgan dars jadvali."}
+                            </p>
+                        </div>
+
+                        <div className="lg:col-span-4 flex items-center justify-around lg:justify-end gap-6 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
+                            <div className="text-center">
+                                <span className="text-xs text-slate-400 font-medium uppercase block">Boshlang'ich</span>
+                                <span className="text-xl font-extrabold text-slate-300">
+                                    {userPlanData.currentLevel === '0' ? "🌱 0 Level" : userPlanData.currentLevel}
+                                </span>
+                            </div>
+                            <ArrowRight size={20} className="text-rose-400" />
+                            <div className="text-center">
+                                <span className="text-xs text-amber-400 font-bold uppercase block">Maqsad</span>
+                                <span className="text-3xl font-black text-amber-400">{userPlanData.targetLevel}</span>
                             </div>
                         </div>
-                        <span className="px-3.5 py-1.5 bg-emerald-500/20 text-emerald-400 font-extrabold text-xs rounded-full border border-emerald-500/30">
-                            🟢 Active Track
-                        </span>
                     </div>
                 </div>
             ) : (
@@ -114,6 +134,45 @@ export const JlptHubPage: React.FC = () => {
                     >
                         JLPT Reja Yaratish 🎌
                     </button>
+                </div>
+            )}
+
+            {/* AI Generated Study Plan (Roadmap) */}
+            {userPlanData && (userPlanData as any).generatedPlan?.dailyPlan && (userPlanData as any).generatedPlan.dailyPlan.length > 0 && (
+                <div className="mb-8 bg-card p-6 md:p-8 rounded-3xl border border-border shadow-sm">
+                    <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                        <FileText className="text-rose-500" /> AI Kunlik Dars Rejasi (Yo'l Xaritasi)
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {(userPlanData as any).generatedPlan.dailyPlan.map((dayPlan: any, idx: number) => (
+                            <div key={idx} className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/20">
+                                <div className="flex items-start justify-between mb-3">
+                                    <h4 className="font-bold text-foreground">
+                                        <span className="text-rose-500 mr-1">Kun {dayPlan.day}:</span> {dayPlan.title}
+                                    </h4>
+                                    <span className="text-[10px] font-bold px-2 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-lg whitespace-nowrap ml-2">
+                                        {dayPlan.focusArea || dayPlan.focusSkill}
+                                    </span>
+                                </div>
+                                <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-muted-foreground">
+                                    {dayPlan.tasks.map((t: string, i: number) => <li key={i}>{t}</li>)}
+                                </ul>
+                                <div className="mt-4 pt-3 border-t border-rose-500/20 flex items-center gap-1.5 text-xs text-rose-500 font-semibold">
+                                    <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {(userPlanData as any).generatedPlan.recommendedTips && (userPlanData as any).generatedPlan.recommendedTips.length > 0 && (
+                        <div className="mt-6 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20">
+                            <h4 className="font-bold text-amber-600 dark:text-amber-500 mb-3 flex items-center gap-2">
+                                <Award size={18} className="text-amber-500" /> AI Tavsiyalari
+                            </h4>
+                            <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-amber-700 dark:text-amber-400/90">
+                                {(userPlanData as any).generatedPlan.recommendedTips.map((tip: string, i: number) => <li key={i}>{tip}</li>)}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             )}
 

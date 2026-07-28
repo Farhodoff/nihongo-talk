@@ -4,6 +4,8 @@ import { generateIeltsStudyPlan, IeltsStudyPlanResult } from '../../utils/ai';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { ensureIeltsSubjectAndDecks } from '../../utils/ieltsAutoSubject';
 import { calculateCefrFeasibility } from '../../utils/cefrCalculator';
+import { Task, Flashcard, StudyNote } from '../../types';
+import { PlacementTestModal } from '../ui/PlacementTestModal';
 
 interface IeltsOnboardingModalProps {
     isOpen: boolean;
@@ -11,12 +13,18 @@ interface IeltsOnboardingModalProps {
     onPlanCreated?: (plan: IeltsStudyPlanResult) => void;
 }
 
+const chunkArray = <T,>(arr: T[], size: number): T[][] => {
+    return Array.from({ length: Math.ceil(arr.length / size) }, (_v, i) =>
+        arr.slice(i * size, i * size + size)
+    );
+};
+
 export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
     isOpen,
     onClose,
     onPlanCreated
 }) => {
-    const { subjects, addSubject, addFlashcard, addTask } = useStudyData();
+    const { subjects, addSubject, addFlashcard, addTasksBatch, addFlashcardsBatch, addStudyNotesBatch } = useStudyData();
     const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
     const [currentBand, setCurrentBand] = useState<number>(5.5);
     const [targetBand, setTargetBand] = useState<number>(7.0);
@@ -26,8 +34,26 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedPlan, setGeneratedPlan] = useState<IeltsStudyPlanResult | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [showPlacementTest, setShowPlacementTest] = useState(false);
 
     if (!isOpen) return null;
+
+    if (showPlacementTest) {
+        return (
+            <PlacementTestModal 
+                isOpen={showPlacementTest} 
+                onClose={() => setShowPlacementTest(false)} 
+                testType="ielts"
+                onComplete={(level) => {
+                    const parsedBand = parseFloat(level);
+                    if (!isNaN(parsedBand)) {
+                        setCurrentBand(parsedBand);
+                    }
+                    setShowPlacementTest(false);
+                }} 
+            />
+        );
+    }
 
     const handleGenerate = async () => {
         setIsGenerating(true);
@@ -48,21 +74,70 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
             }));
 
             // Auto create "IELTS Academic & CEFR Master" subject and populate flashcard decks
-            await ensureIeltsSubjectAndDecks(currentBand, targetBand, subjects, addSubject, addFlashcard);
+            const ieltsSubjectId = await ensureIeltsSubjectAndDecks(currentBand, targetBand, subjects, addSubject, addFlashcard);
 
             // Auto add top daily tasks to user's Task manager
             if (plan.dailyPlan && plan.dailyPlan.length > 0) {
+                const tasksToInsert: Partial<Task>[] = [];
                 plan.dailyPlan.forEach((day, index) => {
                     day.tasks.forEach((t) => {
-                        addTask({
+                        tasksToInsert.push({
                             title: `[IELTS Day ${day.day}] ${t} (${day.focusSkill})`,
                             completed: false,
                             status: 'todo',
                             priority: index === 0 ? 'high' : 'medium',
-                            dueDate: new Date(Date.now() + index * 86400000).toISOString().split('T')[0]
+                            dueDate: new Date(Date.now() + index * 86400000).toISOString().split('T')[0],
+                            subjectId: ieltsSubjectId || undefined
                         });
                     });
                 });
+                
+                const taskChunks = chunkArray(tasksToInsert, 100);
+                for (const chunk of taskChunks) {
+                    await addTasksBatch(chunk);
+                }
+            }
+
+            // Auto add Flashcards and Grammar Notes
+            if (plan.dailyPlan && plan.dailyPlan.length > 0) {
+                const flashcardsToInsert: Partial<Flashcard>[] = [];
+                const notesToInsert: Partial<StudyNote>[] = [];
+
+                plan.dailyPlan.forEach((day) => {
+                    // Vocabulary
+                    if (day.vocabularyList) {
+                        day.vocabularyList.forEach(v => {
+                            flashcardsToInsert.push({
+                                subjectId: ieltsSubjectId || undefined,
+                                front: v.word,
+                                back: v.meaning + (v.example ? `\n\nExample: ${v.example}` : '')
+                            });
+                        });
+                    }
+                    // Grammar Notes
+                    if (day.grammarNotes) {
+                        day.grammarNotes.forEach(g => {
+                            notesToInsert.push({
+                                subjectId: ieltsSubjectId || undefined,
+                                title: `[IELTS Day ${day.day}] ${g.rule}`,
+                                content: `## ${g.rule}\n\n**Explanation:** ${g.explanation}\n\n${g.example ? `**Example:** ${g.example}` : ''}`
+                            });
+                        });
+                    }
+                });
+
+                if (flashcardsToInsert.length > 0) {
+                    const fcChunks = chunkArray(flashcardsToInsert, 100);
+                    for (const chunk of fcChunks) {
+                        await addFlashcardsBatch(chunk);
+                    }
+                }
+                if (notesToInsert.length > 0) {
+                    const notesChunks = chunkArray(notesToInsert, 50);
+                    for (const chunk of notesChunks) {
+                        await addStudyNotesBatch(chunk);
+                    }
+                }
             }
 
             if (onPlanCreated) onPlanCreated(plan);
@@ -105,10 +180,18 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                     {step === 1 && (
                         <div className="space-y-5 animate-in fade-in">
                             <div>
-                                <label className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2">
-                                    <Target size={18} className="text-indigo-500" />
-                                    Joriy (Hozirgi taxminiy) IELTS Ballingiz:
-                                </label>
+                                <div className="flex justify-between items-center mb-3">
+                                    <label className="text-sm font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                                        <Target size={18} className="text-indigo-500" />
+                                        Joriy (Hozirgi taxminiy) IELTS Ballingiz:
+                                    </label>
+                                    <button 
+                                        onClick={() => setShowPlacementTest(true)}
+                                        className="text-xs font-bold text-indigo-600 bg-indigo-500/10 px-3 py-1 rounded-full hover:bg-indigo-500/20 transition-colors flex items-center gap-1"
+                                    >
+                                        <Sparkles size={12} /> Darajani aniqlash (AI Test)
+                                    </button>
+                                </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
                                     {[0, 4.5, 5.0, 5.5, 6.0, 6.5].map((b) => (
                                         <button
@@ -383,6 +466,18 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                     )}
                 </div>
             </div>
+
+            <PlacementTestModal 
+                isOpen={showPlacementTest}
+                onClose={() => setShowPlacementTest(false)}
+                testType="ielts"
+                onComplete={(level) => {
+                    const parsedBand = parseFloat(level);
+                    if (!isNaN(parsedBand)) {
+                        setCurrentBand(parsedBand);
+                    }
+                }}
+            />
         </div>
     );
 };

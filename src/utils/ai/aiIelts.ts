@@ -7,6 +7,8 @@ export interface IeltsStudyPlanDay {
     focusSkill: 'Writing' | 'Speaking' | 'Reading' | 'Listening' | 'Vocabulary';
     tasks: string[];
     pomodoroTargetMinutes: number;
+    vocabularyList?: { word: string; meaning: string; example?: string }[];
+    grammarNotes?: { rule: string; explanation: string; example?: string }[];
 }
 
 export interface IeltsStudyPlanResult {
@@ -53,7 +55,9 @@ export const generateIeltsStudyPlan = async (
             "title": "Kunlik diqqat markazi (masalan: Task 2 Structure & Intro)",
             "focusSkill": "Writing",
             "tasks": ["Task 2 uchun 3 ta mavzuga outline tuzish", "20 ta Academic Collocation o'rganish"],
-            "pomodoroTargetMinutes": 90
+            "pomodoroTargetMinutes": 90,
+            "vocabularyList": [{"word": "crucial", "meaning": "hal qiluvchi, juda muhim", "example": "It is crucial to understand the rules."}],
+            "grammarNotes": [{"rule": "Present Perfect", "explanation": "O'tmishda boshlanib, hozirgacha davom etayotgan ish-harakat.", "example": "I have studied English for 5 years."}]
           }
         ],
         "recommendedTips": ["Tavsiya 1", "Tavsiya 2", "Tavsiya 3"]
@@ -76,10 +80,10 @@ export const generateIeltsStudyPlan = async (
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             return {
-                headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+                headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
                 summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: parsed.dailyPlan || [],
-                recommendedTips: parsed.recommendedTips || []
+                dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+                recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         } catch (dsErr) {
             console.warn("DeepSeek study plan failed, trying Gemini fallback...", dsErr);
@@ -103,10 +107,10 @@ export const generateIeltsStudyPlan = async (
         const parsed = JSON.parse(cleanedText);
 
         return {
-            headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+            headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
             summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-            dailyPlan: parsed.dailyPlan || [],
-            recommendedTips: parsed.recommendedTips || []
+            dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+            recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
         };
     } catch (geminiErr) {
         console.warn("Gemini study plan failed, trying backend proxy...", geminiErr);
@@ -125,10 +129,10 @@ export const generateIeltsStudyPlan = async (
             const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             return {
-                headline: parsed.headline || `${durationDays} Kunlik IELTS Rejasi`,
+                headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
                 summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: parsed.dailyPlan || [],
-                recommendedTips: parsed.recommendedTips || []
+                dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+                recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         }
     } catch (proxyErr) {
@@ -149,7 +153,9 @@ export const generateIeltsStudyPlan = async (
                 tasks: isZeroLevel 
                     ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
                     : ["Task 2 uchun 3 ta essay outline tuzish", "20 ta Academic Collocation o'rganish"],
-                pomodoroTargetMinutes: 90
+                pomodoroTargetMinutes: 90,
+                vocabularyList: isZeroLevel ? [{word: "always", meaning: "har doim"}] : [{word: "ubiquitous", meaning: "hamma joyda mavjud", example: "Smartphones are ubiquitous."}],
+                grammarNotes: [{rule: "Subject-Verb Agreement", explanation: "Ega va kesimning moslashuvi."}]
             },
             {
                 day: 2,

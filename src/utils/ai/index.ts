@@ -5,3 +5,5 @@ export * from './aiNotes';
 export * from './aiCore';
 export * from './aiCoach';
 export * from './aiIelts';
+export * from './aiJlpt';
+export * from './aiPlacementTest';
