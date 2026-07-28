@@ -22,7 +22,6 @@ const FlashcardForm = lazy(() => import('./pages/FlashcardForm'));
 const FocusPage = lazy(() => import('./pages/FocusPage'));
 const GoalsPage = lazy(() => import('./pages/GoalsPage'));
 const NoteEditorPage = lazy(() => import('./pages/NoteEditorPage'));
-const StudyNotesPage = lazy(() => import('./pages/StudyNotesPage'));
 const NotesPage = lazy(() => import('./pages/NotesPage'));
 const ProgressPage = lazy(() => import('./pages/ProgressPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
@@ -117,7 +116,6 @@ const App: React.FC = () => {
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
-                                        <Route path="ielts-writing" element={<IeltsWritingPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
                                         <Route path="ielts/writing" element={<IeltsWritingPage />} />
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
@@ -137,7 +135,6 @@ const App: React.FC = () => {
                                         <Route path="focus" element={<FocusPage />} />
                                         <Route path="notes" element={<NotesPage />} />
                                         <Route path="notes/:id" element={<NoteEditorPage />} />
-                                        <Route path="study-notes" element={<StudyNotesPage />} />
                                         <Route path="ai" element={<AIAssistantPage />} />
                                         <Route path="flashcards" element={<DecksPage />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />

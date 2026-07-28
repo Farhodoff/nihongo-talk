@@ -3,7 +3,7 @@ import { ArrowLeft, Sparkles, Send, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateAIResponse } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
-
+import { toast } from '../hooks/use-toast';
 export const JlptWritingPage: React.FC = () => {
     const navigate = useNavigate();
     const { awardXP } = useStudyData();
@@ -52,13 +52,11 @@ export const JlptWritingPage: React.FC = () => {
             });
 
             await awardXP(100);
-        } catch (e) {
-            setResult({
-                score: 80,
-                kanjiRating: "N3 Kanji darajasi yaxshi",
-                grammarFeedback: "Desu/Masu va yaponcha bog'lovchi so'zlar to'g'ri ishlatilgan.",
-                correctedText: essayText,
-                suggestions: ["Muntazam insho yozish mashqini davom ettiring."]
+        } catch (e: any) {
+            toast({
+                variant: 'destructive',
+                title: '❌ Xatolik yuz berdi',
+                description: e?.message || 'Inshoni baholashda xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko\'ring.'
             });
         } finally {
             setIsEvaluating(false);

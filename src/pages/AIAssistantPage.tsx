@@ -7,7 +7,8 @@ import { getJapaneseRecruiterPrompt, InterviewMode } from '../utils/interviewPro
 import { 
     Bot, Send, User, Sparkles, Loader2, Copy, Save, Paperclip, GraduationCap, 
     MessageSquare, Award, CheckCircle2, XCircle, ChevronRight, HelpCircle, 
-    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, Fullscreen, Minimize2, Mic, MicOff, Briefcase, FileText, Volume2, VolumeX, RefreshCw
+    BrainCircuit, Download, ZoomIn, ZoomOut, Maximize, AlertCircle, ChevronUp, ChevronDown, 
+    Mic, MicOff, Briefcase, FileText, Volume2, VolumeX, RefreshCw, Minimize2, Fullscreen 
 } from 'lucide-react';
 import AIKeyGuard from '../components/AIKeyGuard';
 import ReactMarkdown from 'react-markdown';

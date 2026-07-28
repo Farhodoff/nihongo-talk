@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
     BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen
+    NotebookText, GraduationCap, Mic, Crown, Folder
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -65,31 +65,37 @@ const Layout: React.FC = () => {
             icon: Home,
             items: [
                 { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
-                { name: 'IELTS Hub 🎓', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                { name: 'JLPT Hub 🎌', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-                { name: 'AI Coach 🗣️', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+                { name: 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
             ]
         },
         {
-            category: "O'QUV QUROLLARI",
-            icon: FolderOpen,
+            category: 'REJA & VAQT',
+            icon: Calendar,
             items: [
-                { name: 'Kalendar 📅', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
-                { name: 'Fanlar & Reja 📚', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
-                { name: 'Vazifalar 📋', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: 'Fokus Timer ⏱️', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Qaydlar & Konspektlar 📝', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
-                { name: 'Fleshkartalar 🎴', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: "Aqlli Lug'at 🧠", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
-                { name: 'AI Yordamchi 🤖', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
+                { name: 'Kalendar', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
+                { name: 'Fanlar & Reja', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
+                { name: 'Vazifalar', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                { name: 'Fokus Timer', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            ]
+        },
+        {
+            category: 'BILIM & QAYDLAR',
+            icon: NotebookText,
+            items: [
+                { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
+                { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: "Aqlli Lug'at", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
+                { name: 'AI Yordamchi', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         },
         {
             category: 'TAHLIL & JAMOA',
             icon: BarChart,
             items: [
-                { name: 'Statistika 📊', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Jamoa 👥', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: 'Statistika', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Jamoa', path: '/community', icon: Users, tourId: 'nav-community' },
             ]
         }
     ];
@@ -251,6 +257,7 @@ const Layout: React.FC = () => {
                             size="icon"
                             onClick={() => setIsCollapsed(!isCollapsed)}
                             className="hidden md:flex text-muted-foreground"
+                            aria-label={isCollapsed ? "Sidebar-ni ochish" : "Sidebar-ni yopish"}
                         >
                             {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
                         </Button>
@@ -283,7 +290,7 @@ const Layout: React.FC = () => {
                             className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-sm rounded-2xl shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
                         >
                             <Crown size={18} className="animate-bounce" />
-                            <span>Obunani Yangilash 🚀</span>
+                            <span>Obunani Yangilash</span>
                         </button>
                     ) : (
                         <button
@@ -341,7 +348,7 @@ const Layout: React.FC = () => {
                 
                 <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
                     <SheetTrigger asChild>
-                        <button className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
+                        <button aria-label="Menyuni ochish" className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
                             <Menu size={22} className="mb-1" />
                             <span className="text-[10px] font-medium leading-none">Boshqa</span>
                         </button>
@@ -365,7 +372,7 @@ const Layout: React.FC = () => {
                                 className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 to-indigo-600 text-white font-bold text-sm rounded-xl shadow flex items-center justify-center gap-2"
                             >
                                 <Crown size={18} />
-                                <span>Obunani Yangilash 🚀</span>
+                                <span>Obunani Yangilash</span>
                             </button>
                         </div>
                     </SheetContent>

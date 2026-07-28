@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
-import notificationManager from '../services/NotificationManager';
+import { PushNotificationService } from '../services/PushNotificationService';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
@@ -456,9 +456,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         if (appSettings.notificationsEnabled) {
-            notificationManager.requestPermission().then(granted => {
-                if (granted) {
-                    notificationManager.startInactivityTracker(10);
+            PushNotificationService.requestPermission().then(granted => {
+                if (granted === 'granted') {
+                    PushNotificationService.startInactivityTracker(10);
                 }
             });
         }
@@ -1143,16 +1143,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         if (appSettings.notificationsEnabled && events.length > 0) {
-            notificationManager.requestPermission().then(granted => {
-                if (granted) {
-                    notificationManager.startMonitoring(events, (eventId) => {
+            PushNotificationService.requestPermission().then(granted => {
+                if (granted === 'granted') {
+                    PushNotificationService.startMonitoring(events, (eventId) => {
                         updateEventRef.current(eventId, { isNotified: true });
                     });
                 }
             });
         }
         return () => {
-            notificationManager.stopMonitoring();
+            PushNotificationService.stopMonitoring();
         };
     }, [events, appSettings.notificationsEnabled]);
 
@@ -1169,23 +1169,39 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         await supabase.from('events').delete().eq('id', id);
     };
 
+    const contextValue = useMemo(() => ({
+        goals, tasks, subjects, sessions, coachSessions,
+        addGoal, updateGoal, deleteGoal,
+        addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
+        addSubject, updateSubject, deleteSubject,
+        addSession, addCoachSession, awardXP, resetXP,
+        notes, addNote, updateNote, deleteNote,
+        studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
+        flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
+        whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
+        events, addEvent, updateEvent, deleteEvent,
+        googleEvents, syncGoogleEvents,
+        refreshData: fetchData,
+        settings, updateSettings, getRank,
+        loading, user
+    }), [
+        goals, tasks, subjects, sessions, coachSessions,
+        notes, studyNotes, flashcards, whiteboards, events, googleEvents,
+        settings, loading, user,
+        addGoal, updateGoal, deleteGoal,
+        addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
+        addSubject, updateSubject, deleteSubject,
+        addSession, addCoachSession, awardXP, resetXP,
+        addNote, updateNote, deleteNote,
+        addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
+        addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
+        addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
+        addEvent, updateEvent, deleteEvent, syncGoogleEvents,
+        fetchData, updateSettings, getRank
+    ]);
+
     return (
-        <StudyPlannerContext.Provider value={{
-            goals, tasks, subjects, sessions, coachSessions,
-            addGoal, updateGoal, deleteGoal,
-            addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
-            addSubject, updateSubject, deleteSubject,
-            addSession, addCoachSession, awardXP, resetXP,
-            notes, addNote, updateNote, deleteNote,
-            studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
-            flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
-            whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
-            events, addEvent, updateEvent, deleteEvent,
-            googleEvents, syncGoogleEvents,
-            refreshData: fetchData,
-            settings, updateSettings, getRank,
-            loading, user
-        }}>
+        <StudyPlannerContext.Provider value={contextValue}>
             {children}
         </StudyPlannerContext.Provider>
     );

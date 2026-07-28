@@ -128,19 +128,10 @@ export default defineConfig({
                         if (id.includes('recharts')) {
                             return 'charts';
                         }
-                        if (id.includes('katex')) {
-                            return 'katex';
-                        }
-                        if (id.includes('mermaid')) {
-                            return 'mermaid';
-                        }
-                        if (id.includes('cytoscape')) {
-                            return 'cytoscape';
-                        }
                         if (id.includes('tldraw')) {
                             return 'tldraw';
                         }
-                        if (id.includes('react-big-calendar') || id.includes('moment')) {
+                        if (id.includes('react-big-calendar')) {
                             return 'calendar';
                         }
                         if (id.includes('lucide-react')) {

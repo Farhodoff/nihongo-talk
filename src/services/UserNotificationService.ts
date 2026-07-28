@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import NotificationManager from './NotificationManager';
+import { PushNotificationService } from './PushNotificationService';
 
 export interface UserNotificationItem {
     id: string;
@@ -35,7 +35,7 @@ export class UserNotificationService {
                 type: 'welcome'
             });
 
-            NotificationManager.sendNotification(title, {
+            PushNotificationService.sendNotification(title, {
                 body: "Platformadan unumli foydalanishingiz uchun qo'llanma tayyor!",
                 tag: 'welcome_notice'
             });

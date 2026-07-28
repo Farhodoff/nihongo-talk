@@ -6,8 +6,7 @@
         "moduleResolution": "bundler",
         "allowSyntheticDefaultImports": true,
         "types": [
-            "node",
-            "vitest"
+            "node"
         ]
     },
     "include": [

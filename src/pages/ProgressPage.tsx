@@ -18,7 +18,7 @@ const ProgressPage: React.FC = () => {
     const { sessions, subjects, tasks, settings, flashcards, coachSessions, loading } = useStudyData();
 
     const totalHours = (sessions.reduce((acc, s) => acc + s.duration, 0) / 60).toFixed(1);
-    const completedTasks = tasks.filter(t => t.completed).length;
+    const completedTasks = tasks.filter(t => t.completed || t.status === 'done').length;
     const [isShareOpen, setIsShareOpen] = useState(false);
 
     return (
