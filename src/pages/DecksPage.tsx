@@ -32,17 +32,22 @@ const DecksPage: React.FC = () => {
     const handleImportPresetDeck = async (preset: PresetDeck) => {
         setIsImportingPreset(true);
         try {
-            // Find existing subject or match by clean title
-            const cleanTitle = preset.title.replace(/\s*\(\d+\s*Kartochka\)/i, '').trim();
+            // Remove emoji and count suffix for clean subject name
+            const cleanTitle = preset.title
+                .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]/gu, '')
+                .replace(/\s*\(\d+\s*Kartochka\)/i, '')
+                .trim();
+
             let subject = subjects.find(s => 
                 s.name.toLowerCase() === preset.title.toLowerCase() || 
-                s.name.toLowerCase().startsWith(cleanTitle.toLowerCase())
+                s.name.toLowerCase().includes(cleanTitle.toLowerCase()) ||
+                cleanTitle.toLowerCase().includes(s.name.toLowerCase())
             );
             let targetSubjectId = subject?.id;
 
             if (!targetSubjectId) {
                 const newSub = await addSubject({
-                    name: cleanTitle,
+                    name: cleanTitle || preset.title,
                     color: '#6366f1',
                     icon: preset.icon,
                     isArchived: false,
@@ -52,24 +57,27 @@ const DecksPage: React.FC = () => {
 
             if (targetSubjectId) {
                 const loadedCards = await preset.loadCards();
-                const batchCards = loadedCards.map(c => ({
-                    subjectId: targetSubjectId!,
-                    front: c.front,
-                    back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`,
-                    interval: 1,
-                    repetitions: 0,
-                    easeFactor: 2.5,
-                    nextReviewDate: new Date().toISOString()
-                }));
+                if (loadedCards && loadedCards.length > 0) {
+                    const batchCards = loadedCards.map(c => ({
+                        subjectId: targetSubjectId!,
+                        front: c.front,
+                        back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                        interval: 1,
+                        repetitions: 0,
+                        easeFactor: 2.5,
+                        nextReviewDate: new Date().toISOString()
+                    }));
 
-                await addFlashcardsBatch(batchCards);
+                    await addFlashcardsBatch(batchCards);
+                }
             }
 
             setImportedDeckTitle(preset.title);
-            setTimeout(() => setImportedDeckTitle(null), 3000);
+            setTimeout(() => setImportedDeckTitle(null), 4000);
             setActiveTab('my');
         } catch (err) {
             console.error('Import preset error:', err);
+            alert('To\'plamni saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
         } finally {
             setIsImportingPreset(false);
         }

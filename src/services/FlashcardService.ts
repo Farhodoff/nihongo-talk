@@ -203,30 +203,64 @@ export const FlashcardService = {
         }
     },
 
-    async importFlashcards(userId: string, subjectId: string, cards: { front: string; back: string; example?: string }[]): Promise<boolean> {
-        try {
-            const dbCards = cards.map(c => ({
-                id: generateUUID(),
-                user_id: userId,
-                subject_id: subjectId,
-                front: c.front,
-                back: c.back + (c.example ? `\n\nMisol: ${c.example}` : ''),
-                next_review_date: new Date().toISOString(),
-                ease_factor: 2.5,
-                interval: 0,
-                repetitions: 0
-            }));
+    async importFlashcards(userId: string, subjectId: string, cards: { front: string; back: string; example?: string }[]): Promise<Flashcard[]> {
+        const dbCards = cards.map(c => ({
+            id: generateUUID(),
+            user_id: userId,
+            subject_id: subjectId,
+            front: c.front,
+            back: (c.back + (c.example ? `\n\nMisol: ${c.example}` : '')).trim(),
+            next_review_date: new Date().toISOString(),
+            ease_factor: 2.5,
+            interval: 0,
+            repetitions: 0
+        }));
 
-            
+        const chunkSize = 50;
+        const insertedCards: Flashcard[] = [];
 
-            
-
-            const { error } = await supabase.from('flashcards').insert(dbCards);
-            if (error) throw error;
-            return true;
-        } catch (e) {
-            console.error("Import failed, falling back to local queue", e);
-            return false;
+        for (let i = 0; i < dbCards.length; i += chunkSize) {
+            const chunk = dbCards.slice(i, i + chunkSize);
+            try {
+                const { data, error } = await supabase.from('flashcards').insert(chunk).select();
+                if (error || !data) {
+                    console.warn('[importFlashcards] DB insert chunk error, using local fallback:', error);
+                    insertedCards.push(...chunk.map(c => ({
+                        id: c.id,
+                        subjectId: c.subject_id,
+                        front: c.front,
+                        back: c.back,
+                        nextReviewDate: c.next_review_date,
+                        easeFactor: c.ease_factor,
+                        interval: c.interval,
+                        repetitions: c.repetitions
+                    })) as Flashcard[]);
+                } else {
+                    insertedCards.push(...(data as any[]).map(c => ({
+                        id: c.id,
+                        subjectId: c.subject_id,
+                        front: c.front,
+                        back: c.back,
+                        nextReviewDate: c.next_review_date,
+                        easeFactor: c.ease_factor,
+                        interval: c.interval,
+                        repetitions: c.repetitions
+                    })) as Flashcard[]);
+                }
+            } catch (err) {
+                console.error('[importFlashcards] Chunk exception:', err);
+                insertedCards.push(...chunk.map(c => ({
+                    id: c.id,
+                    subjectId: c.subject_id,
+                    front: c.front,
+                    back: c.back,
+                    nextReviewDate: c.next_review_date,
+                    easeFactor: c.ease_factor,
+                    interval: c.interval,
+                    repetitions: c.repetitions
+                })) as Flashcard[]);
+            }
         }
+        return insertedCards;
     }
 };

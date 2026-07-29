@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "front": "愛想 (あいそ - Aiso)",
+    "back": "Hushmuomalalik, Iltofot (Civility, courtesy)",
+    "phonetic": "aiso",
+    "example": "愛想がいい (Hushmuomala)",
+    "level": "N3"
+  },
+  {
+    "front": "合図 (あいず - Aizu)",
+    "back": "Ishora, Signal (Sign, signal)",
+    "phonetic": "aizu",
+    "example": "手で合図する (Qol bilan ishora qilmoq)",
+    "level": "N3"
+  },
+  {
+    "front": "あいにく (Ainiku)",
+    "back": "Afsuski, Baxtga qarshi (Unfortunately)",
+    "phonetic": "ainiku",
+    "example": "あいにく雨だ (Afsuski yomg'ir yog'yapti)",
+    "level": "N3"
+  },
+  {
+    "front": "明かり (あかり - Akari)",
+    "back": "Yorug'lik, Chiroq (Light, lamp)",
+    "phonetic": "akari",
+    "example": "部屋の明かりをつける (Xona chirog'ini yoqmoq)",
+    "level": "N3"
+  },
+  {
+    "front": "空き (あき - Aki)",
+    "back": "Bosh o'rin, Bo'sh joy (Vacancy)",
+    "phonetic": "aki",
+    "example": "部屋の空きがある (Xonada bo'sh joy bor)",
+    "level": "N3"
+  },
+  {
+    "front": "明らか (あきらか - Akiraka)",
+    "back": "Aniq, Ravshan (Clear, obvious)",
+    "phonetic": "akiraka",
+    "example": "事実が明らかになった (Haqiqat oshkor boladi)",
+    "level": "N3"
+  },
+  {
+    "front": "あきらめる (Akirameru)",
+    "back": "Taslim bo'lmoq, Voz kechmoq (Give up)",
+    "phonetic": "akirameru",
+    "example": "夢をあきらめない (Orzudan voz kechmang)",
+    "level": "N3"
+  },
+  {
+    "front": "握手 (あくしゅ - Akushu)",
+    "back": "Qol berib ko'rishish (Handshake)",
+    "phonetic": "akushu",
+    "example": "固い握手を交わす (Mahkam qol korishmoq)",
+    "level": "N3"
+  },
+  {
+    "front": "あくび (Akubi)",
+    "back": "Esnash (Yawn)",
+    "phonetic": "akubi",
+    "example": "大きなあくびをする (Katta esnamoq)",
+    "level": "N3"
+  },
+  {
+    "front": "あける (Akeru)",
+    "back": "Ochmoq, Bo'shatmoq (Open, empty)",
+    "phonetic": "akeru",
+    "example": "時間をあける (Vaqt ajratmoq)",
+    "level": "N3"
+  }
+]

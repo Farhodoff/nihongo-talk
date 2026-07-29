@@ -1,1 +1,142 @@
-[]
+[
+  {
+    "front": "水 (みず - Mizu)",
+    "back": "Suv (Water)",
+    "phonetic": "mizu",
+    "example": "水を飲みます (Suv ichaman)",
+    "level": "N5"
+  },
+  {
+    "front": "本 (ほん - Hon)",
+    "back": "Kitob (Book)",
+    "phonetic": "hon",
+    "example": "本を読みます (Kitob o'qiyman)",
+    "level": "N5"
+  },
+  {
+    "front": "人 (ひと - Hito)",
+    "back": "Odam, Shaxs (Person)",
+    "phonetic": "hito",
+    "example": "あの人は誰ですか (U odam kimsan?)",
+    "level": "N5"
+  },
+  {
+    "front": "月 (つき - Tsuki)",
+    "back": "Oy (Moon, Month)",
+    "phonetic": "tsuki",
+    "example": "今月 (Kondai/Kongetsu - Shu oy)",
+    "level": "N5"
+  },
+  {
+    "front": "日 (ひ - Hi)",
+    "back": "Quyosh, Kun (Sun, Day)",
+    "phonetic": "hi",
+    "example": "日曜日 (Nichiyoubi - Yakshanba)",
+    "level": "N5"
+  },
+  {
+    "front": "木 (き - Ki)",
+    "back": "Daraxt (Tree)",
+    "phonetic": "ki",
+    "example": "大きな木 (Katta daraxt)",
+    "level": "N5"
+  },
+  {
+    "front": "金 (かね - Kane)",
+    "back": "Pul, Oltin (Money, Gold)",
+    "phonetic": "kane",
+    "example": "お金 (O-kane - Pul)",
+    "level": "N5"
+  },
+  {
+    "front": "土 (つち - Tsuchi)",
+    "back": "Tuproq (Earth, Soil)",
+    "phonetic": "tsuchi",
+    "example": "土曜日 (Doyoubi - Shanba)",
+    "level": "N5"
+  },
+  {
+    "front": "山 (やま - Yama)",
+    "back": "Tog' (Mountain)",
+    "phonetic": "yama",
+    "example": "富士山 (Fujisan - Fuji tog'i)",
+    "level": "N5"
+  },
+  {
+    "front": "川 (かわ - Kawa)",
+    "back": "Daryo (River)",
+    "phonetic": "kawa",
+    "example": "きれいな川 (Toza daryo)",
+    "level": "N5"
+  },
+  {
+    "front": "子 (こ - Ko)",
+    "back": "Bola (Child)",
+    "phonetic": "ko",
+    "example": "男の子 (Otoko no ko - O'g'il bola)",
+    "level": "N5"
+  },
+  {
+    "front": "女 (おんな - Onna)",
+    "back": "Ayol (Woman)",
+    "phonetic": "onna",
+    "example": "女の子 (Onna no ko - Qiz bola)",
+    "level": "N5"
+  },
+  {
+    "front": "学 (まなぶ - Manabu)",
+    "back": "O'rganmoq (Study)",
+    "phonetic": "gakusai",
+    "example": "学校 (Gakkou - Maktab)",
+    "level": "N5"
+  },
+  {
+    "front": "生 (いきる - Ikiru)",
+    "back": "Yashamoq, Tug'ilish (Life)",
+    "phonetic": "sei",
+    "example": "先生 (Sensei - O'qituvchi)",
+    "level": "N5"
+  },
+  {
+    "front": "先 (さき - Saki)",
+    "back": "Oldin, Ilgarigi (Ahead)",
+    "phonetic": "saki",
+    "example": "先月 (Sengetsu - O'tgan oy)",
+    "level": "N5"
+  },
+  {
+    "front": "私 (わたし - Watashi)",
+    "back": "Men (I, me)",
+    "phonetic": "watashi",
+    "example": "私は学生です (Men talabaman)",
+    "level": "N5"
+  },
+  {
+    "front": "友 (とも - Tomo)",
+    "back": "Do'st (Friend)",
+    "phonetic": "tomo",
+    "example": "友達 (Tomodachi - Do'stlar)",
+    "level": "N5"
+  },
+  {
+    "front": "車 (くるま - Kuruma)",
+    "back": "Mashina (Car)",
+    "phonetic": "kuruma",
+    "example": "電車 (Densha - Elektropoyezd)",
+    "level": "N5"
+  },
+  {
+    "front": "門 (もん - Mon)",
+    "back": "Darvoza (Gate)",
+    "phonetic": "mon",
+    "example": "専門 (Senmon - Mutaxassislik)",
+    "level": "N5"
+  },
+  {
+    "front": "間 (あいだ - Aida)",
+    "back": "Orasi, Vaqt (Between)",
+    "phonetic": "aida",
+    "example": "時間 (Jikan - Vaqt)",
+    "level": "N5"
+  }
+]

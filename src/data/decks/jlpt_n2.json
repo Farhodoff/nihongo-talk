@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "front": "把握 (はあく - Haaku)",
+    "back": "Tushunmoq, Qamrab olmoq (Grasp, catch)",
+    "phonetic": "haaku",
+    "example": "状況を把握する (Vaziyatni tushunib olmoq)",
+    "level": "N2"
+  },
+  {
+    "front": "配慮 (はいりょ - Hairyo)",
+    "back": "E'tibor, G'amxo'rlik (Consideration)",
+    "phonetic": "hairyo",
+    "example": "環境への配慮 (Atrof-muhitga e'tibor)",
+    "level": "N2"
+  },
+  {
+    "front": "背景 (はいけい - Haikei)",
+    "back": "Orqa fon, Sabab (Background)",
+    "phonetic": "haikei",
+    "example": "事件の背景を調べる (Voqea sababini o'rganmoq)",
+    "level": "N2"
+  },
+  {
+    "front": "廃止 (はいし - Haishi)",
+    "back": "Bekor qilish, To'xtatish (Abolition)",
+    "phonetic": "haishi",
+    "example": "制度を廃止する (Tizimni bekor qilmoq)",
+    "level": "N2"
+  },
+  {
+    "front": "媒体 (ばいたい - Baitai)",
+    "back": "Media, Vosita (Medium, vehicle)",
+    "phonetic": "baitai",
+    "example": "広告媒体 (Reklama vositasi)",
+    "level": "N2"
+  },
+  {
+    "front": "漠然 (ばくぜん - Bakuzen)",
+    "back": "Noaniq, G'ira-shira (Vague, obscure)",
+    "phonetic": "bakuzen",
+    "example": "漠然とした不安 (Noaniq xavotir)",
+    "level": "N2"
+  },
+  {
+    "front": "爆破 (ばくは - Bakuha)",
+    "back": "Portlatish (Blast, explosion)",
+    "phonetic": "bakuha",
+    "example": "岩を爆破する (Qoyani portlatish)",
+    "level": "N2"
+  },
+  {
+    "front": "抜粋 (ばっすい - Bassui)",
+    "back": "Iqtibos, Parchalari (Excerpt, summary)",
+    "phonetic": "bassui",
+    "example": "記事の抜粋 (Maqoladan parcha)",
+    "level": "N2"
+  },
+  {
+    "front": "伴う (ともなう - Tomonau)",
+    "back": "Keltirib chiqarmoq, Birga kelmoq (Accompany)",
+    "phonetic": "tomonau",
+    "example": "危険を伴う (Xavf tug'dirmoq)",
+    "level": "N2"
+  },
+  {
+    "front": "変遷 (へんせん - Hensen)",
+    "back": "O'zgarish, Rivojlanish (Change, transition)",
+    "phonetic": "hensen",
+    "example": "時代の変遷 (Davrlar o'zgarishi)",
+    "level": "N2"
+  }
+]

@@ -122,17 +122,16 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return false;
 
-        const success = await FlashcardService.importFlashcards(user.id, subjectId, cards);
-        if (success) {
-            // Reload cards to ensure we have the latest
-            try {
-                const updatedCards = await FlashcardService.fetchFlashcards(user.id);
-                setFlashcards(updatedCards);
-            } catch (e) {
-                console.error("Failed to reload cards after import", e);
-            }
+        const importedCards = await FlashcardService.importFlashcards(user.id, subjectId, cards);
+        if (importedCards && importedCards.length > 0) {
+            setFlashcards(prev => {
+                const existingIds = new Set(prev.map(c => c.id));
+                const filteredNew = importedCards.filter(c => !existingIds.has(c.id));
+                return [...prev, ...filteredNew];
+            });
+            return true;
         }
-        return success;
+        return false;
     };
 
     const setFlashcardsState = useCallback((newCards: Flashcard[]) => {

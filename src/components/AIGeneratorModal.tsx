@@ -11,7 +11,7 @@ interface AIGeneratorModalProps {
 }
 
 const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, subjectId: propSubjectId }) => {
-    const { importFlashcards, settings, subjects } = useStudyData();
+    const { importFlashcards, settings, subjects, addSubject } = useStudyData();
     const [topic, setTopic] = useState('');
     const [subjectId, setSubjectId] = useState(propSubjectId || '');
     const [count, setCount] = useState(5);
@@ -47,12 +47,33 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
     };
 
     const handleSaveAll = async () => {
-        if (!subjectId) return;
+        let targetSubjectId = subjectId || propSubjectId;
+
+        // Auto-resolve subject if not selected
+        if (!targetSubjectId) {
+            const firstActiveSub = subjects.find(s => !s.isArchived);
+            if (firstActiveSub) {
+                targetSubjectId = firstActiveSub.id;
+            } else {
+                const newSub = await addSubject({
+                    name: 'AI Fleshkartalar',
+                    color: '#6366f1',
+                    icon: 'Sparkles',
+                    isArchived: false,
+                });
+                targetSubjectId = newSub?.id;
+            }
+        }
+
+        if (!targetSubjectId) {
+            alert("Iltimos, avval fanni tanlang!");
+            return;
+        }
 
         setIsSaving(true);
         try {
-            // Use bulk import to avoid rate limiting and connection issues
-            const success = await importFlashcards(subjectId, generatedCards);
+            // Use bulk import with chunking and optimistic local update
+            const success = await importFlashcards(targetSubjectId, generatedCards);
             
             if (!success) {
                 throw new Error("Failed to bulk save flashcards");
@@ -60,9 +81,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
 
             console.log(`[Batch Save] All ${generatedCards.length} cards saved successfully!`);
 
-            // Only close after all saves are done
             onClose();
-            // Reset state
             setTopic('');
             setGeneratedCards([]);
             setStep('input');
