@@ -13,6 +13,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
+import { AppLogo } from './AppLogo';
 
 interface NavGroup {
     category: string;
@@ -215,7 +216,7 @@ const Layout: React.FC = () => {
             {/* Mobile Header */}
             <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b relative">
                 <div className="flex items-center gap-2">
-                    <Sparkles className="text-primary" size={24} />
+                    <AppLogo size="sm" showText={false} />
                     <h1 className="text-xl font-bold text-gradient">
                         {getPageTitle()}
                     </h1>
@@ -227,30 +228,24 @@ const Layout: React.FC = () => {
                 className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-16 p-4 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border`}>
-                    {!isCollapsed && (
-                        <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-300">
-                            <div className="p-2 bg-primary/10 rounded-xl">
-                                <Sparkles className="text-primary" size={20} />
-                            </div>
-                            <span className="text-lg font-black text-gradient tracking-tight">
-                                PLANNER
-                            </span>
-                        </div>
-                    )}
+                <div className={`h-20 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
+                    <AppLogo size="md" collapsed={isCollapsed} />
+                    
                     <div className="flex items-center gap-1">
-                        <button
-                            onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
-                            className="px-2 py-1 bg-muted hover:bg-muted/80 text-foreground font-bold text-xs rounded-lg border border-border transition-all"
-                            title="Tilni o'zgartirish / Change language"
-                        >
-                            {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
-                        </button>
+                        {!isCollapsed && (
+                            <button
+                                onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
+                                className="px-2 py-1 bg-muted hover:bg-muted/80 text-foreground font-bold text-xs rounded-lg border border-border transition-all"
+                                title="Tilni o'zgartirish / Change language"
+                            >
+                                {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
+                            </button>
+                        )}
                         <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="hidden md:flex text-muted-foreground"
+                            className="hidden md:flex text-muted-foreground hover:text-foreground hover:bg-muted/80 rounded-xl"
                             aria-label={isCollapsed ? "Sidebar-ni ochish" : "Sidebar-ni yopish"}
                         >
                             {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
