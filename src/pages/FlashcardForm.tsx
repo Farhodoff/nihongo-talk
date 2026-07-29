@@ -14,18 +14,26 @@ const FlashcardForm: React.FC = () => {
     const [front, setFront] = useState('');
     const [back, setBack] = useState('');
     const [subjectId, setSubjectId] = useState(defaultSubjectId);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!front || !back || !subjectId) return;
+        if (!front || !back || !subjectId || isSubmitting) return;
 
-        addFlashcard({
-            subjectId,
-            front,
-            back,
-        });
-
-        navigate('/flashcards');
+        setIsSubmitting(true);
+        try {
+            await addFlashcard({
+                subjectId,
+                front,
+                back,
+            });
+            navigate('/flashcards');
+        } catch (error) {
+            console.error("Failed to add flashcard:", error);
+            alert("Fleshkarta saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (

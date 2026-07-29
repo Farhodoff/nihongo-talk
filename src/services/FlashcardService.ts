@@ -2,8 +2,30 @@ import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { generateUUID } from '../utils/uuid';
 
+const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
+
+export const getLocalFlashcardCache = (userId: string): Flashcard[] => {
+    try {
+        const raw = localStorage.getItem(CACHE_KEY_PREFIX + userId);
+        return raw ? JSON.parse(raw) : [];
+    } catch {
+        return [];
+    }
+};
+
+export const setLocalFlashcardCache = (userId: string, cards: Flashcard[]): void => {
+    try {
+        localStorage.setItem(CACHE_KEY_PREFIX + userId, JSON.stringify(cards));
+    } catch (e) {
+        console.warn('Failed to update flashcard local cache:', e);
+    }
+};
+
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
+        const localCached = getLocalFlashcardCache(userId);
+        let dbCards: Flashcard[] = [];
+
         try {
             let { data, error } = await supabase
                 .from('flashcards')
@@ -20,23 +42,36 @@ export const FlashcardService = {
                 error = retry.error;
             }
 
-            if (error) throw error;
-            if (!data) return [];
-
-            const cards = (data as unknown as import('../types/supabase-types').DatabaseFlashcard[]).map(c => ({
-                ...c,
-                subjectId: c.subject_id,
-                nextReviewDate: c.next_review_date,
-                easeFactor: c.ease_factor
-            })) as Flashcard[];
-
-            
-
-            return cards;
+            if (!error && data) {
+                dbCards = (data as unknown as import('../types/supabase-types').DatabaseFlashcard[]).map(c => ({
+                    id: c.id,
+                    subjectId: c.subject_id,
+                    front: c.front,
+                    back: c.back,
+                    nextReviewDate: c.next_review_date,
+                    easeFactor: c.ease_factor,
+                    interval: c.interval,
+                    repetitions: c.repetitions,
+                    deletedAt: c.deleted_at || undefined
+                })) as Flashcard[];
+            }
         } catch (error) {
-            console.error('Fetch flashcards error:', error);
-            throw error;
+            console.error('Fetch flashcards DB error:', error);
         }
+
+        // Merge DB cards and local cached cards (prefer DB version if present)
+        const dbCardIds = new Set(dbCards.map(c => c.id));
+        const missingLocalCards = localCached.filter(c => !dbCardIds.has(c.id) && !c.deletedAt);
+
+        // Sync missing local cards to DB in background
+        if (missingLocalCards.length > 0) {
+            console.log(`[FlashcardSync] Syncing ${missingLocalCards.length} cached cards to DB...`);
+            this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('Background sync error:', e));
+        }
+
+        const merged = [...dbCards, ...missingLocalCards];
+        setLocalFlashcardCache(userId, merged);
+        return merged;
     },
 
     async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {

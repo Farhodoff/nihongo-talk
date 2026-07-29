@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
-import { FlashcardService } from '../services/FlashcardService';
+import { FlashcardService, setLocalFlashcardCache } from '../services/FlashcardService';
 
 export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>) => {
     const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
@@ -13,15 +13,13 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             console.error('[addFlashcard] No user authenticated');
             throw new Error('User not authenticated');
         }
-        console.log('[addFlashcard] User ID:', user.id);
 
         const newCard = await FlashcardService.addFlashcard(user.id, cardData);
-        console.log('[addFlashcard] Card saved to DB:', newCard);
         if (newCard) {
             setFlashcards(prev => {
                 if (prev.some(c => c.id === newCard.id)) return prev;
                 const updated = [...prev, newCard];
-                console.log('[addFlashcard] Updated local state, total cards:', updated.length);
+                setLocalFlashcardCache(user.id, updated);
                 return updated;
             });
         }
@@ -39,24 +37,37 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             setFlashcards(prev => {
                 const existingIds = new Set(prev.map(c => c.id));
                 const filteredNew = newCards.filter(c => !existingIds.has(c.id));
-                return [...prev, ...filteredNew];
+                const updated = [...prev, ...filteredNew];
+                setLocalFlashcardCache(user.id, updated);
+                return updated;
             });
         }
         return newCards;
     };
 
     const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
-        setFlashcards(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c));
+        setFlashcards(prev => {
+            const updated = prev.map(c => c.id === id ? { ...c, ...updates } : c);
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) setLocalFlashcardCache(user.id, updated);
+            });
+            return updated;
+        });
         try {
             await FlashcardService.updateFlashcard(id, updates);
         } catch (error) {
             console.error("Failed to update flashcard:", error);
-            // Revert logic could be added here
         }
     };
 
     const deleteFlashcard = async (id: string, permanent = false) => {
-        setFlashcards(prev => prev.filter(c => c.id !== id));
+        setFlashcards(prev => {
+            const updated = prev.filter(c => c.id !== id);
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) setLocalFlashcardCache(user.id, updated);
+            });
+            return updated;
+        });
         try {
             await FlashcardService.deleteFlashcard(id, permanent);
         } catch (error) {
