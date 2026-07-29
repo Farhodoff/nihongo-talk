@@ -1,6 +1,7 @@
 import { getAIConfig, getAIProvider, getGenAI, parseAIError, requestWithRetry } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
+import { ErrorVaultService } from '../../services/ErrorVaultService';
 
 export interface SpeechAnalysisResult {
     grammar_corrections: string[];
@@ -333,9 +334,12 @@ export const converseWithCoach = async (
         }
     }
 
+    const weakItemsSnippet = ErrorVaultService.getWeakItemsPromptSnippet(language);
+
     const prompt = `
       ${personaPrompt}
       Language: ${language === 'ja' ? 'Japanese (日本語)' : 'English'}
+      ${weakItemsSnippet}
       
       PEDAGOGICAL & LINGUISTIC INSTRUCTIONS:
       1. CRITICAL CONVERSATION & DIALOGUE MANDATE:
