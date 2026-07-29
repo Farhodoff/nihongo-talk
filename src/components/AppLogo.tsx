@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 
 interface AppLogoProps {
     size?: 'sm' | 'md' | 'lg';
@@ -46,18 +45,9 @@ export const AppLogo: React.FC<AppLogoProps> = ({
 
             {/* Brand Title */}
             {showText && !collapsed && (
-                <div className="flex flex-col animate-in fade-in zoom-in duration-300">
-                    <div className="flex items-center gap-1.5">
-                        <span className="text-lg font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm font-sans">
-                            STUDY<span className="text-indigo-500 dark:text-indigo-400">PLANNER</span>
-                        </span>
-                        <span className="px-1.5 py-0.5 text-[9px] font-black tracking-widest uppercase bg-indigo-500/15 text-indigo-400 rounded-md border border-indigo-500/20">
-                            AI
-                        </span>
-                    </div>
-                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest -mt-0.5 flex items-center gap-1">
-                        <Sparkles size={10} className="text-amber-400 animate-spin" style={{ animationDuration: '6s' }} />
-                        Smart Learning Platform
+                <div className="flex items-center animate-in fade-in zoom-in duration-300">
+                    <span className="text-lg font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm font-sans">
+                        Study <span className="text-indigo-500 dark:text-indigo-400">Planner</span>
                     </span>
                 </div>
             )}

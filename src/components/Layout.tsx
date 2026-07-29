@@ -9,7 +9,6 @@ import { SessionCompleteModal } from './SessionCompleteModal';
 import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
-import { useLanguage } from '../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -32,7 +31,6 @@ const Layout: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
-    const { language, setLanguage } = useLanguage();
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -228,29 +226,18 @@ const Layout: React.FC = () => {
                 className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-20 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
+                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
                     <AppLogo size="md" collapsed={isCollapsed} />
                     
-                    <div className="flex items-center gap-1">
-                        {!isCollapsed && (
-                            <button
-                                onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
-                                className="px-2 py-1 bg-muted hover:bg-muted/80 text-foreground font-bold text-xs rounded-lg border border-border transition-all"
-                                title="Tilni o'zgartirish / Change language"
-                            >
-                                {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
-                            </button>
-                        )}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="hidden md:flex text-muted-foreground hover:text-foreground hover:bg-muted/80 rounded-xl"
-                            aria-label={isCollapsed ? "Sidebar-ni ochish" : "Sidebar-ni yopish"}
-                        >
-                            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-                        </Button>
-                    </div>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        className="hidden md:flex text-muted-foreground hover:text-foreground hover:bg-muted/80 rounded-xl"
+                        aria-label={isCollapsed ? "Sidebar-ni ochish" : "Sidebar-ni yopish"}
+                    >
+                        {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+                    </Button>
                 </div>
 
                 {/* Navigation Links (Accordion Folders) */}
