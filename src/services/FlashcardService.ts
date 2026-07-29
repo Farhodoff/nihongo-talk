@@ -88,6 +88,8 @@ export const FlashcardService = {
             repetitions: 0
         };
 
+        console.log('[addFlashcard] Attempting insert to Supabase:', JSON.stringify(dbCard));
+
         try {
             const { data, error } = await supabase
                 .from('flashcards')
@@ -95,15 +97,42 @@ export const FlashcardService = {
                 .select()
                 .single();
 
-            if (error || !data) {
-                return {
-                    ...dbCard,
-                    subjectId: dbCard.subject_id,
-                    nextReviewDate: dbCard.next_review_date,
-                    easeFactor: dbCard.ease_factor
-                } as Flashcard;
+            if (error) {
+                console.error('[addFlashcard] ❌ Supabase INSERT error:', error.message, error.code, error.details, error.hint);
+                
+                // If it's a foreign key error on subject_id, try without subject_id
+                if (error.code === '23503' && error.message?.includes('subject_id')) {
+                    console.warn('[addFlashcard] Foreign key error on subject_id, retrying without it...');
+                    const { data: retryData, error: retryError } = await supabase
+                        .from('flashcards')
+                        .insert({ ...dbCard, subject_id: null })
+                        .select()
+                        .single();
+                    
+                    if (retryError) {
+                        console.error('[addFlashcard] ❌ Retry also failed:', retryError.message);
+                        throw new Error(`Flashcard DB insert failed: ${retryError.message}`);
+                    }
+                    
+                    if (retryData) {
+                        const rc = retryData as import('../types/supabase-types').DatabaseFlashcard;
+                        return {
+                            id: rc.id, subjectId: rc.subject_id, front: rc.front, back: rc.back,
+                            nextReviewDate: rc.next_review_date, easeFactor: rc.ease_factor,
+                            interval: rc.interval, repetitions: rc.repetitions
+                        } as Flashcard;
+                    }
+                }
+                
+                throw new Error(`Flashcard DB insert failed: ${error.message}`);
             }
 
+            if (!data) {
+                console.error('[addFlashcard] ❌ No data returned from Supabase insert (RLS issue?)');
+                throw new Error('Flashcard insert returned no data - possible RLS policy issue');
+            }
+
+            console.log('[addFlashcard] ✅ Successfully inserted to DB, id:', data.id);
             const returnedCard = data as import('../types/supabase-types').DatabaseFlashcard;
             return {
                 id: returnedCard.id,
@@ -116,14 +145,9 @@ export const FlashcardService = {
                 repetitions: returnedCard.repetitions,
                 deletedAt: returnedCard.deleted_at || undefined
             } as Flashcard;
-        } catch (error) {
-            console.error('Add flashcard error:', error);
-            return {
-                ...dbCard,
-                subjectId: dbCard.subject_id,
-                nextReviewDate: dbCard.next_review_date,
-                easeFactor: dbCard.ease_factor
-            } as Flashcard;
+        } catch (error: any) {
+            console.error('[addFlashcard] ❌ Exception during insert:', error?.message || error);
+            throw error;
         }
     },
 
