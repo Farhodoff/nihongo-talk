@@ -159,7 +159,7 @@ export const FlashcardService = {
         const tempCards = cardsData.map(c => ({
             id: c.id || generateUUID(),
             user_id: userId,
-            subject_id: c.subjectId,
+            subject_id: c.subjectId && c.subjectId.trim().length > 0 ? c.subjectId : null,
             front: c.front,
             back: c.back,
             next_review_date: c.nextReviewDate || new Date().toISOString(),
@@ -169,48 +169,67 @@ export const FlashcardService = {
         }));
 
         try {
-            const chunkSize = 200;
+            const chunkSize = 100;
             const insertedCards: Flashcard[] = [];
 
             for (let i = 0; i < tempCards.length; i += chunkSize) {
-                const chunk = tempCards.slice(i, i + chunkSize);
-                const { data, error } = await supabase
+                let chunk = tempCards.slice(i, i + chunkSize);
+                let { data, error } = await supabase
                     .from('flashcards')
                     .insert(chunk)
                     .select();
 
-                if (error || !data) {
-                    console.warn('[addFlashcardsBatch] DB insert chunk error, using local fallback:', error);
-                    insertedCards.push(...chunk.map(c => ({
-                        ...c,
-                        subjectId: c.subject_id,
-                        nextReviewDate: c.next_review_date,
-                        easeFactor: c.ease_factor
-                    })) as Flashcard[]);
-                } else {
-                    insertedCards.push(...(data as any[]).map(c => ({
-                        ...c,
-                        subjectId: c.subject_id,
-                        nextReviewDate: c.next_review_date,
-                        easeFactor: c.ease_factor
-                    })) as Flashcard[]);
+                // If error due to subject_id foreign key constraint (23503) or invalid UUID (22P02), retry with subject_id = null
+                if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
+                    console.warn('[addFlashcardsBatch] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
+                    const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
+                    const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
+                    data = retry.data;
+                    error = retry.error;
                 }
+
+                if (error) {
+                    console.error('[addFlashcardsBatch] ❌ Chunk DB insert error:', error.message);
+                }
+
+                const resultRows = data && data.length > 0 ? data : chunk;
+                insertedCards.push(...(resultRows as any[]).map(c => ({
+                    id: c.id,
+                    subjectId: c.subject_id || c.subjectId,
+                    front: c.front,
+                    back: c.back,
+                    nextReviewDate: c.next_review_date || c.nextReviewDate,
+                    easeFactor: c.ease_factor || c.easeFactor || 2.5,
+                    interval: c.interval || 0,
+                    repetitions: c.repetitions || 0
+                })) as Flashcard[]);
             }
+
+            const currentCache = getLocalFlashcardCache(userId);
+            const mergedCache = [...currentCache, ...insertedCards.filter(ic => !currentCache.some(cc => cc.id === ic.id))];
+            setLocalFlashcardCache(userId, mergedCache);
+
             return insertedCards;
         } catch (err) {
             console.error('[addFlashcardsBatch] Exception:', err);
-            return tempCards.map(c => ({
-                ...c,
+            const fallback = tempCards.map(c => ({
+                id: c.id,
                 subjectId: c.subject_id,
+                front: c.front,
+                back: c.back,
                 nextReviewDate: c.next_review_date,
-                easeFactor: c.ease_factor
+                easeFactor: c.ease_factor,
+                interval: c.interval,
+                repetitions: c.repetitions
             })) as Flashcard[];
+
+            const currentCache = getLocalFlashcardCache(userId);
+            setLocalFlashcardCache(userId, [...currentCache, ...fallback]);
+            return fallback;
         }
     },
 
     async updateFlashcard(id: string, updates: Partial<Flashcard>): Promise<void> {
-        
-
         const dbUpdates: import('../types/supabase-types').DatabaseFlashcardUpdate = {};
 
         if (updates.nextReviewDate) dbUpdates.next_review_date = updates.nextReviewDate;
@@ -220,8 +239,6 @@ export const FlashcardService = {
         if (updates.interval !== undefined) dbUpdates.interval = updates.interval;
         if (updates.repetitions !== undefined) dbUpdates.repetitions = updates.repetitions;
         if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
-
-        
 
         try {
             const { error } = await supabase.from('flashcards').update(dbUpdates).eq('id', id);
@@ -253,10 +270,6 @@ export const FlashcardService = {
     },
 
     async restoreFlashcard(id: string): Promise<void> {
-        
-
-        
-
         try {
             const { error } = await supabase.from('flashcards').update({ deleted_at: null }).eq('id', id);
             if (error) throw error;
@@ -270,7 +283,7 @@ export const FlashcardService = {
         const dbCards = cards.map(c => ({
             id: generateUUID(),
             user_id: userId,
-            subject_id: subjectId,
+            subject_id: subjectId && subjectId.trim().length > 0 ? subjectId : null,
             front: c.front,
             back: (c.back + (c.example ? `\n\nMisol: ${c.example}` : '')).trim(),
             next_review_date: new Date().toISOString(),
@@ -283,47 +296,39 @@ export const FlashcardService = {
         const insertedCards: Flashcard[] = [];
 
         for (let i = 0; i < dbCards.length; i += chunkSize) {
-            const chunk = dbCards.slice(i, i + chunkSize);
-            try {
-                const { data, error } = await supabase.from('flashcards').insert(chunk).select();
-                if (error || !data) {
-                    console.warn('[importFlashcards] DB insert chunk error, using local fallback:', error);
-                    insertedCards.push(...chunk.map(c => ({
-                        id: c.id,
-                        subjectId: c.subject_id,
-                        front: c.front,
-                        back: c.back,
-                        nextReviewDate: c.next_review_date,
-                        easeFactor: c.ease_factor,
-                        interval: c.interval,
-                        repetitions: c.repetitions
-                    })) as Flashcard[]);
-                } else {
-                    insertedCards.push(...(data as any[]).map(c => ({
-                        id: c.id,
-                        subjectId: c.subject_id,
-                        front: c.front,
-                        back: c.back,
-                        nextReviewDate: c.next_review_date,
-                        easeFactor: c.ease_factor,
-                        interval: c.interval,
-                        repetitions: c.repetitions
-                    })) as Flashcard[]);
-                }
-            } catch (err) {
-                console.error('[importFlashcards] Chunk exception:', err);
-                insertedCards.push(...chunk.map(c => ({
-                    id: c.id,
-                    subjectId: c.subject_id,
-                    front: c.front,
-                    back: c.back,
-                    nextReviewDate: c.next_review_date,
-                    easeFactor: c.ease_factor,
-                    interval: c.interval,
-                    repetitions: c.repetitions
-                })) as Flashcard[]);
+            let chunk = dbCards.slice(i, i + chunkSize);
+            let { data, error } = await supabase.from('flashcards').insert(chunk).select();
+
+            // Retry without subject_id if foreign key or UUID syntax error occurs
+            if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
+                console.warn('[importFlashcards] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
+                const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
+                const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
+                data = retry.data;
+                error = retry.error;
             }
+
+            if (error) {
+                console.error('[importFlashcards] ❌ DB import chunk error:', error.message);
+            }
+
+            const resultRows = data && data.length > 0 ? data : chunk;
+            insertedCards.push(...(resultRows as any[]).map(c => ({
+                id: c.id,
+                subjectId: c.subject_id || c.subjectId,
+                front: c.front,
+                back: c.back,
+                nextReviewDate: c.next_review_date || c.nextReviewDate,
+                easeFactor: c.ease_factor || c.easeFactor || 2.5,
+                interval: c.interval || 0,
+                repetitions: c.repetitions || 0
+            })) as Flashcard[]);
         }
+
+        const currentCache = getLocalFlashcardCache(userId);
+        const mergedCache = [...currentCache, ...insertedCards.filter(ic => !currentCache.some(cc => cc.id === ic.id))];
+        setLocalFlashcardCache(userId, mergedCache);
+
         return insertedCards;
     }
 };
