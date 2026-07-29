@@ -1,16 +1,33 @@
 {
   "short_name": "StudyPlanner",
-  "name": "Study Planner — Shaxsiy AI O'quv Yordamchisi",
+  "name": "Study Planner — AI O'quv Yordamchisi",
   "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    },
     {
       "src": "/favicon.svg",
       "type": "image/svg+xml",
-      "sizes": "512x512 192x192 64x64 32x32 24x24 16x16"
+      "sizes": "any"
     }
   ],
   "start_url": "/",
   "background_color": "#0f172a",
-  "theme_color": "#4f46e5",
+  "theme_color": "#6366f1",
   "display": "standalone",
   "orientation": "portrait",
   "description": "Sun'iy intellektga asoslangan shaxsiy o'quv rejalashtiruvchisi va ovozli murabbiy",
