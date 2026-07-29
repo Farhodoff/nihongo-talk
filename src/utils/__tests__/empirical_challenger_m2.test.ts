@@ -11,7 +11,6 @@ import {
 } from '../ai';
 import * as ollamaModule from '../ollama';
 import * as deepseekModule from '../deepseek';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 vi.mock('../ollama', () => ({
     callOllama: vi.fn(),
@@ -132,13 +131,13 @@ describe('EMPIRICAL CHALLENGE 3: Seamless Silent Fallback for Ollama and DeepSee
         localStorage.clear();
     });
 
-    it('seamlessly falls back from Ollama to Gemini 1.5 Flash when Ollama connection fails in generateFlashcardsWithAI', async () => {
+    it('seamlessly falls back from Ollama to DeepSeek when Ollama connection fails in generateFlashcardsWithAI', async () => {
         localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
-            aiModel: 'ollama',
-            googleApiKey: 'AIzaSyD1234567890abcdef'
+            aiModel: 'ollama'
         }));
         const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
         vi.mocked(ollamaModule.callOllama).mockRejectedValueOnce(new Error('Ollama ECONNREFUSED'));
+        vi.mocked(deepseekModule.callDeepSeek).mockResolvedValueOnce(JSON.stringify([{ front: 'Empirical Front', back: 'Empirical Back' }]));
 
         const cards = await generateFlashcardsWithAI('Math', 1);
 
@@ -150,61 +149,23 @@ describe('EMPIRICAL CHALLENGE 3: Seamless Silent Fallback for Ollama and DeepSee
         warnSpy.mockRestore();
     });
 
-    it('seamlessly falls back from DeepSeek to Gemini 1.5 Flash when DeepSeek API errors in analyzeSpeech', async () => {
-        const mockSpeechResponse = {
-            grammar_corrections: ['Empirical fix'],
-            better_vocabulary: [],
-            fluency_score: 8.0,
-            overall_feedback: 'Great speaking!'
-        };
-
+    it('throws parsed error when DeepSeek API errors in analyzeSpeech', async () => {
         localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
             aiModel: 'deepseek',
-            deepseekApiKey: 'sk-invalid-key',
-            googleApiKey: 'AIzaSyD1234567890abcdef'
+            deepseekApiKey: 'sk-invalid-key'
         }));
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
         vi.mocked(deepseekModule.callDeepSeek).mockRejectedValueOnce(new Error('DeepSeek 500 Internal Server Error'));
 
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockReturnValue({
-                generateContent: vi.fn().mockResolvedValue({
-                    response: {
-                        text: () => JSON.stringify(mockSpeechResponse)
-                    }
-                })
-            });
-        } as any);
-
-        const analysis = await analyzeSpeech('Empirical speech test input', 'English');
-
-        expect(warnSpy).toHaveBeenCalledWith(
-            expect.stringContaining('[AI Fallback] DeepSeek failed in analyzeSpeech'),
-            expect.any(Error)
-        );
-        expect(analysis.fluency_score).toBe(8.0);
-        warnSpy.mockRestore();
+        await expect(analyzeSpeech('Empirical speech test input', 'English')).rejects.toThrow();
     });
 
-    it('seamlessly falls back from Ollama to Gemini 1.5 Flash in converseWithCoach when Ollama is offline', async () => {
+    it('seamlessly falls back from Ollama to DeepSeek in converseWithCoach when Ollama is offline', async () => {
         localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
-            coachAiModel: 'ollama',
-            googleApiKey: 'AIzaSyD1234567890abcdef'
+            coachAiModel: 'ollama'
         }));
         const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
         vi.mocked(ollamaModule.callOllama).mockRejectedValueOnce(new Error('Ollama service down'));
-
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockReturnValue({
-                generateContent: vi.fn().mockResolvedValue({
-                    response: {
-                        text: () => 'Gemini coach fallback response'
-                    }
-                })
-            });
-        } as any);
+        vi.mocked(deepseekModule.callDeepSeek).mockResolvedValueOnce('DeepSeek coach fallback response');
 
         const reply = await converseWithCoach('Hello coach', []);
 
@@ -212,7 +173,7 @@ describe('EMPIRICAL CHALLENGE 3: Seamless Silent Fallback for Ollama and DeepSee
             expect.stringContaining('[AI Fallback] Ollama failed in converseWithCoach'),
             expect.any(Error)
         );
-        expect(reply).toBe('Gemini coach fallback response');
+        expect(reply).toBe('DeepSeek coach fallback response');
         warnSpy.mockRestore();
     });
 });

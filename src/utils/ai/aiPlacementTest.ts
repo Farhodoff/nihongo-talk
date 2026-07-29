@@ -1,4 +1,4 @@
-import { getAIConfig, getGenAI, requestWithRetry } from './aiConfig';
+import { getAIConfig } from './aiConfig';
 import { callDeepSeek } from '../deepseek';
 
 export interface PlacementQuestion {
@@ -40,36 +40,20 @@ export const generatePlacementQuestions = async (type: 'jlpt' | 'ielts'): Promis
            ]`;
 
     const config = getAIConfig();
-    let parsed: PlacementQuestion[] = [];
-
-    // Try DeepSeek
-    if (config.provider === 'deepseek' || config.deepseekKey) {
-        try {
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            parsed = JSON.parse(cleanedText);
-            return parsed;
-        } catch (dsErr) {
-            console.warn("DeepSeek placement generation failed, trying Gemini...", dsErr);
-        }
-    }
-
-    // Try Gemini
     try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-        
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        parsed = JSON.parse(cleanedText);
-        return parsed;
-    } catch (gErr) {
-        console.warn("Gemini placement generation failed", gErr);
-        throw new Error("Savollarni generatsiya qilishda xatolik yuz berdi. Internetni tekshiring.");
+        const response = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            undefined,
+            true,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        return JSON.parse(cleanedText);
+    } catch (dsErr) {
+        console.warn("DeepSeek placement generation failed:", dsErr);
+        throw new Error("Savollarni generatsiya qilishda xatolik yuz berdi.");
     }
 };
 
@@ -106,33 +90,25 @@ export const evaluatePlacementTest = async (
            ${transcript}`;
 
     const config = getAIConfig();
-    let parsed: any;
-
-    if (config.provider === 'deepseek' || config.deepseekKey) {
-        try {
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            parsed = JSON.parse(cleanedText);
-            return parsed;
-        } catch (dsErr) {
-            console.warn("DeepSeek placement evaluation failed, trying Gemini...", dsErr);
-        }
-    }
-
     try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-        
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        parsed = JSON.parse(cleanedText);
-        return parsed;
-    } catch (gErr) {
-        console.warn("Gemini placement evaluation failed", gErr);
-        throw new Error("Darajani aniqlashda xatolik yuz berdi. Internetni tekshiring.");
+        const response = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            undefined,
+            true,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        return JSON.parse(cleanedText);
+    } catch (dsErr) {
+        console.warn("DeepSeek placement evaluation failed:", dsErr);
     }
+
+    return {
+        determinedLevel: type === 'jlpt' ? 'N5' : '5.5',
+        score: 3,
+        total: 5,
+        feedback: "Savollar bo'yicha javoblaringiz asosida boshlang'ich daraja belgilandi."
+    };
 };

@@ -1,4 +1,4 @@
-import { getAIConfig, getGenAI, parseAIError, requestWithRetry } from './aiConfig';
+import { getAIConfig, parseAIError } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
 
@@ -8,16 +8,15 @@ export interface ChatMessage {
 }
 
 /**
- * Handles multi-turn chat with the AI, passing context about a specific subject.
+ * Handles multi-turn chat with the AI (DeepSeek), passing context about a specific subject.
  */
 export const chatWithAI = async (
     message: string,
     history: ChatMessage[],
     contextContent: string,
     subjectName: string,
-    userKey?: string
+    _userKey?: string
 ): Promise<string> => {
-    // Construct system instructions
     const systemPrompt = `Siz Study Planner ilovasidagi talabalarga yordam beruvchi do'stona va aqlli o'quv yordamchisisiz (AI Tutor).
 Sizning asosiy vazifangiz talabalarga o'z darslarini yaxshiroq o'zlashtirishga yordam berishdir.
 Javoblaringiz o'zbek tilida, tushunarli va Markdown formatida (chiroyli qilib) bo'lishi kerak.
@@ -37,47 +36,28 @@ Qoidalar:
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
+        const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
+        const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
 
-
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
-                const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
-                const prompt = `${systemPrompt}\n\nSuhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
-                const text = await callOllama(prompt);
+                const ollamaPrompt = `${systemPrompt}\n\n${prompt}`;
+                const text = await callOllama(ollamaPrompt);
                 return text.trim();
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in chatWithAI, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
-                const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
-                const text = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt, false, config.deepseekModel, config.deepseekThinkingMode);
-                return text.trim();
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in chatWithAI, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in chatWithAI, falling back to DeepSeek:", err);
             }
         }
 
-        const apiKey = userKey || config.geminiKey;
-        const result = await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey);
-            const model = ai.getGenerativeModel({ 
-                model: "gemini-2.0-flash",
-                systemInstruction: systemPrompt 
-            });
-
-            const chat = model.startChat({
-                history: history.slice(-5).map(msg => ({
-                    role: msg.role === 'model' ? 'model' : 'user',
-                    parts: [{ text: msg.text }],
-                })),
-            });
-
-            return chat.sendMessage(message);
-        }, 2, 1000, apiKey);
-        return (await result.response).text().trim();
+        const text = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            systemPrompt,
+            false,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        return text.trim();
     } catch (e) {
         console.error("AI Chat Error", e);
         throw new Error(parseAIError(e));
@@ -86,7 +66,7 @@ Qoidalar:
 
 export const generateAIResponse = async (
     messages: { role: 'system' | 'user'; content: string }[],
-    userKey?: string | null
+    _userKey?: string | null
 ): Promise<string> => {
     try {
         const config = getAIConfig();
@@ -100,27 +80,21 @@ export const generateAIResponse = async (
             }
         });
 
-        // 1. Try DeepSeek first
-        try {
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', systemPrompt || undefined, false, config.deepseekModel, config.deepseekThinkingMode);
-            if (response) return response;
-        } catch (dsErr) {
-            console.warn("[generateAIResponse] DeepSeek call error, trying Gemini fallback:", dsErr);
-        }
-
-        // 2. Gemini fallback
-        const apiKey = userKey || config.geminiKey;
-        const result = await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined);
-        return result.response.text();
+        const response = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            systemPrompt || undefined,
+            false,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        return response || '';
     } catch (error) {
         console.error("AI Error:", error);
         throw new Error(parseAIError(error));
     }
 };
+
 export interface AiTutorExplanation {
     questionNumber: string | number;
     studentAnswer: string;
@@ -158,25 +132,20 @@ export const generateAiTutorExplanation = async (
     `;
 
     const config = getAIConfig();
-    if (config.provider === 'deepseek' || config.deepseekKey) {
-        try {
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            return JSON.parse(cleanedText);
-        } catch {}
-    }
-
     try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const response = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            undefined,
+            true,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(cleanedText);
-    } catch {}
+    } catch (err) {
+        console.warn("DeepSeek explanation failed, returning structured fallback:", err);
+    }
 
     return {
         questionNumber: "1",

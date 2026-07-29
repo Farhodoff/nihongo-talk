@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateFlashcardsFromNote, analyzeSpeech, getGeminiAPIKeys, markKeyRateLimited, clearDisabledKeysMap, getGenAI, requestWithRetry, validateSpeechInput, converseWithCoach, analyzeSpeakingSession, generateAITimetable } from '../ai';
+import { generateFlashcardsFromNote, getGeminiAPIKeys, markKeyRateLimited, clearDisabledKeysMap, getGenAI, requestWithRetry, validateSpeechInput, converseWithCoach } from '../ai';
 import * as ollamaModule from '../ollama';
 import * as deepseekModule from '../deepseek';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -36,59 +36,21 @@ describe('AI Silent Fallback Behavior', () => {
         clearDisabledKeysMap();
     });
 
-    it('falls back to Gemini 1.5 Flash if callOllama throws in generateFlashcardsFromNote', async () => {
+    it('falls back to DeepSeek if callOllama throws in generateFlashcardsFromNote', async () => {
         localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
-            aiModel: 'ollama',
-            googleApiKey: 'AIzaSyD1234567890abcdef'
+            aiModel: 'ollama'
         }));
         const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
         vi.mocked(ollamaModule.callOllama).mockRejectedValueOnce(new Error('Ollama offline'));
+        vi.mocked(deepseekModule.callDeepSeek).mockResolvedValueOnce(JSON.stringify([{ front: 'Question 1', back: 'Answer 1' }]));
 
         const cards = await generateFlashcardsFromNote('Note text', 1);
 
         expect(warnSpy).toHaveBeenCalledWith(
-            expect.stringContaining('[AI Fallback] Ollama failed in generateFlashcardsFromNote'),
+            expect.stringContaining('[AI Fallback] Ollama failed'),
             expect.any(Error)
         );
         expect(cards).toEqual([{ front: 'Question 1', back: 'Answer 1' }]);
-        warnSpy.mockRestore();
-    });
-
-    it('falls back to Gemini 1.5 Flash if callDeepSeek throws in analyzeSpeech', async () => {
-        const mockSpeechResponse = {
-            grammar_corrections: ['Fix typo'],
-            better_vocabulary: [{ original: 'good', suggested: 'excellent' }],
-            fluency_score: 7.5,
-            overall_feedback: 'Nice attempt!'
-        };
-
-        localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
-            aiModel: 'deepseek', 
-            deepseekApiKey: 'sk-invalid',
-            googleApiKey: 'AIzaSyD1234567890abcdef'
-        }));
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-        vi.mocked(deepseekModule.callDeepSeek).mockRejectedValueOnce(new Error('DeepSeek 404'));
-
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockReturnValue({
-                generateContent: vi.fn().mockResolvedValue({
-                    response: {
-                        text: () => JSON.stringify(mockSpeechResponse)
-                    }
-                })
-            });
-        } as any);
-
-        const analysis = await analyzeSpeech('I talk about study', 'Study');
-
-        expect(warnSpy).toHaveBeenCalledWith(
-            expect.stringContaining('[AI Fallback] DeepSeek failed in analyzeSpeech'),
-            expect.any(Error)
-        );
-        expect(analysis.fluency_score).toBe(7.5);
-        expect(analysis.grammar_corrections).toEqual(['Fix typo']);
         warnSpy.mockRestore();
     });
 });
@@ -186,111 +148,10 @@ describe('Realtime Speech Recognition Safeguards', () => {
         expect(validateSpeechInput('we talk', 1300)).toBe(true);
     });
 
-    it('uses fallback model chain when primary model returns 404 / error in converseWithCoach', async () => {
-        localStorage.setItem('study_planner_ai_settings', JSON.stringify({ 
-            googleApiKey: 'AIzaSyD1234567890abcdef'
-        }));
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockImplementation(({ model }: { model: string }) => {
-                if (model === 'gemini-1.5-flash') {
-                    throw new Error('404 Model Not Found');
-                }
-                return {
-                    generateContent: vi.fn().mockResolvedValue({
-                        response: { text: () => 'Fallback response from coach' }
-                    })
-                };
-            });
-        } as any);
-
+    it('returns response from DeepSeek in converseWithCoach', async () => {
+        vi.mocked(deepseekModule.callDeepSeek).mockResolvedValueOnce('DeepSeek response from coach');
         const response = await converseWithCoach('Hello coach', []);
-        expect(response).toBe('Fallback response from coach');
-    });
-
-    it('rotates keys and blacklists rate-limited key when converseWithCoach receives 429 rate limit', async () => {
-        const multiKeys = "AIzaSyKeyAAAA1111, AIzaSyKeyBBBB2222";
-        localStorage.setItem('study_planner_ai_settings', JSON.stringify({
-            googleApiKey: multiKeys
-        }));
-        let callCount = 0;
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockImplementation(() => ({
-                generateContent: vi.fn().mockImplementation(async () => {
-                    callCount++;
-                    if (callCount === 1) {
-                        throw new Error("429 RESOURCE_EXHAUSTED: Rate limit exceeded (15 RPM)");
-                    }
-                    return {
-                        response: { text: () => 'Rotated key response' }
-                    };
-                })
-            }));
-        } as any);
-
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-        const response = await converseWithCoach('Hello coach', []);
-        expect(response).toBe('Rotated key response');
-        expect(callCount).toBe(2);
-        warnSpy.mockRestore();
-    });
-
-    it('rotates keys and blacklists rate-limited key when analyzeSpeakingSession receives 429 rate limit', async () => {
-        const multiKeys = "AIzaSyKeyAAAA1111, AIzaSyKeyBBBB2222";
-        localStorage.setItem('study_planner_ai_settings', JSON.stringify({
-            googleApiKey: multiKeys
-        }));
-        let callCount = 0;
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockImplementation(() => ({
-                generateContent: vi.fn().mockImplementation(async () => {
-                    callCount++;
-                    if (callCount === 1) {
-                        throw new Error("429 RESOURCE_EXHAUSTED: Rate limit exceeded (15 RPM)");
-                    }
-                    return {
-                        response: { text: () => JSON.stringify({ fluency_score: 8.0, overall_feedback: "Great!" }) }
-                    };
-                })
-            }));
-        } as any);
-
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-        const report = await analyzeSpeakingSession([{ role: 'user', content: 'Testing report' }]);
-        expect(report.fluency_score).toBe(8.0);
-        expect(callCount).toBe(2);
-        warnSpy.mockRestore();
-    });
-
-    it('rotates keys and blacklists rate-limited key when generateAITimetable receives 429 rate limit', async () => {
-        const multiKeys = "AIzaSyKeyAAAA1111, AIzaSyKeyBBBB2222";
-        localStorage.setItem('study_planner_ai_settings', JSON.stringify({
-            googleApiKey: multiKeys
-        }));
-        let callCount = 0;
-        vi.mocked(GoogleGenerativeAI).mockImplementation(function (this: any, key: string) {
-            this.apiKey = key;
-            this.getGenerativeModel = vi.fn().mockImplementation(() => ({
-                generateContent: vi.fn().mockImplementation(async () => {
-                    callCount++;
-                    if (callCount === 1) {
-                        throw new Error("429 RESOURCE_EXHAUSTED: Rate limit exceeded (15 RPM)");
-                    }
-                    return {
-                        response: { text: () => JSON.stringify([{ title: "Math", description: "Study math", date: "2026-07-22", startTime: "10:00", durationMinutes: 60, eventType: "study" }]) }
-                    };
-                })
-            }));
-        } as any);
-
-        const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-        const timetable = await generateAITimetable('Learn math', 2, 1);
-        expect(timetable.length).toBe(1);
-        expect(timetable[0].title).toBe('Math');
-        expect(callCount).toBe(2);
-        warnSpy.mockRestore();
+        expect(response).toBe('DeepSeek response from coach');
     });
 });
 

@@ -1,8 +1,14 @@
-import { aiCache, getAIConfig, getGenAI, parseAIError, requestWithRetry } from './aiConfig';
+import { aiCache, getAIConfig, parseAIError } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
 
-// Combined Plan + Resources Interface
+export interface SmartResource {
+    title: string;
+    type: 'video' | 'article' | 'book' | 'course';
+    description: string;
+    link: string;
+}
+
 export interface FullStudyPlan {
     schedule: {
         title: string;
@@ -10,12 +16,7 @@ export interface FullStudyPlan {
         duration: number;
         description?: string;
     }[];
-    resources: {
-        title: string;
-        type: 'video' | 'article' | 'book' | 'course';
-        description: string;
-        link: string;
-    }[];
+    resources: SmartResource[];
 }
 
 export const generateFullStudyPlan = async (
@@ -24,7 +25,7 @@ export const generateFullStudyPlan = async (
     hoursPerDay: number,
     level: 'beginner' | 'intermediate' | 'advanced' = 'beginner',
     learningStyle: 'visual' | 'reading' | 'practical' = 'visual',
-    userKey?: string
+    _userKey?: string
 ): Promise<FullStudyPlan> => {
     const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}-${level}-${learningStyle}`;
     if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as FullStudyPlan;
@@ -52,15 +53,13 @@ export const generateFullStudyPlan = async (
         VAZIFA 1: KUNLIK JADVAL (Kuniga bittadan vazifa)
         Mavzuni foydalanuvchi darajasiga qarab to'g'ri taqsimla.
         - Har bir kun uchun bitta vazifa (0 dan ${daysUntilExam - 1} gacha).
-        - Har bir vazifaning "description" qismida: "Nima uchun bu muhim?" va "Qanday qilib amaliyot qilish kerak?" degan savollarga qisqacha o'zbek tilida javob yoz. (Masalan: "Bu tushuncha Reactda holatni boshqarish uchun muhim. Buni amaliyotda Todo app qilib sinab ko'ring.")
+        - Har bir vazifaning "description" qismida: "Nima uchun bu muhim?" va "Qanday qilib amaliyot qilish kerak?" degan savollarga qisqacha o'zbek tilida javob yoz.
         - Agar muddat 6 kundan ko'p bo'lsa, har haftada 1 kunni "Takrorlash (Review)" yoki "Amaliyot" uchun ajrat.
 
         VAZIFA 2: ENG ZO'R RESURSLAR (Aynan 6 ta taqdim et)
         Foydalanuvchining o'rganish uslubiga (${learningStyle}) eng mos keladigan eng sifatli 6 ta resursni tanla.
         - Ta'riflar (description) albatta o'zbek tilida bo'lishi shart!
-        - "link" (havola) qismiga ishlamaydigan fake url bermang! Agar aniq urlni bilmasangiz, qidiruv tizimi urlidan foydalaning. Masalan:
-          - Video uchun: "https://www.youtube.com/results?search_query=..."
-          - Kitob/Maqola uchun: "https://www.google.com/search?q=..."
+        - "link" (havola) qismiga ishlamaydigan fake url bermang! Agar aniq urlni bilmasangiz, qidiruv tizimi urlidan foydalaning.
 
         OUTPUT FORMAT:
         Faqat va faqat YAGONA VALID JSON obyekt qaytar. Hech qanday markdown, izoh yoki text qo'shma. JSON struktura quyidagicha bo'lishi shart:
@@ -69,14 +68,14 @@ export const generateFullStudyPlan = async (
           "schedule": [
             { 
               "title": "Vazifa nomi", 
-              "dayOffset": 0, // 0 = Bugun
-              "duration": ${hoursPerDay * 60}, // minutlarda
+              "dayOffset": 0,
+              "duration": ${hoursPerDay * 60},
               "description": "Nima uchun muhim va qanday amaliyot qilish bo'yicha ko'rsatma..." 
             }
           ],
           "resources": [
             {
-              "title": "Resurs nomi (Masalan: 'Traversy Media - React Crash Course')",
+              "title": "Resurs nomi",
               "type": "video" | "article" | "book" | "course",
               "description": "Nima uchun bu resurs yaxshi ekanligi haqida qisqacha o'zbekcha ta'rif.",
               "link": "https://www.youtube.com/results?search_query=react+crash+course"
@@ -87,38 +86,28 @@ export const generateFullStudyPlan = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
-
         let text: string | null = null;
 
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
                 text = await callOllama(prompt);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateFullStudyPlan, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in generateFullStudyPlan, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in generateFullStudyPlan, falling back to DeepSeek:", err);
             }
         }
 
         if (!text) {
-            const apiKey = userKey || config.geminiKey;
-            const result = await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ 
-                    model: "gemini-2.0-flash",
-                    generationConfig: { responseMimeType: "application/json" }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey);
-            text = (await result.response).text();
+            text = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
         }
 
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
         const json = JSON.parse(cleanedText);
 
         if (!json.schedule || !Array.isArray(json.schedule)) throw new Error("Invalid Schedule Format");
@@ -140,72 +129,51 @@ export const generateFullStudyPlan = async (
         
         aiCache.set(cacheKey, result);
         return result;
-
     } catch (e) {
-        console.error("AI Full Plan Error:", e);
+        console.error("AI Plan Error:", e);
         throw new Error(parseAIError(e));
     }
 };
 
-
-
-
-// Smart Resource Interface
-export interface SmartResource {
-    title: string;
-    type: 'video' | 'article' | 'book' | 'course';
-    description: string;
-    link?: string;
-}
-
-export const recommendResourcesWithAI = async (
+export const generateSmartResources = async (
     topic: string,
-    userKey?: string
-): Promise<SmartResource[]> => {
-    const cacheKey = `resources-${topic}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as SmartResource[];
+    learningStyle: 'visual' | 'reading' | 'practical' = 'visual',
+    _userKey?: string
+): Promise<{ title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string }[]> => {
+    const cacheKey = `res-${topic}-${learningStyle}`;
+    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string }[];
 
     const prompt = `
-        Topic: "${topic}"
-        Task: Recommend 8 learning resources (2 Videos, 2 Articles, 2 Books, 2 Courses).
-        Language: Mix of Uzbek and English.
-        Output: JSON array of {"title": "str", "type": "video|article|book|course", "description": "UZB", "link": "URL/Query"}.
+        Mavzu: "${topic}".
+        O'rganish uslubi: ${learningStyle}.
+        Vazifa: Ushbu mavzuni o'rganish uchun eng mos keladigan 4 ta resursni topib ber.
+        Javob Formati: Faqat JSON array bo'lsin: [{"title": "Resurs nomi", "type": "video"|"article"|"book"|"course", "description": "Qisqacha ta'rif", "link": "Aniq URL"}]
     `;
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
-
         let text: string | null = null;
 
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
                 text = await callOllama(prompt);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in recommendResourcesWithAI, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in recommendResourcesWithAI, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in generateSmartResources, falling back to DeepSeek:", err);
             }
         }
 
         if (!text) {
-            const apiKey = userKey || config.geminiKey;
-            const result = await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ 
-                    model: "gemini-2.0-flash",
-                    generationConfig: { responseMimeType: "application/json" }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey);
-            text = (await result.response).text();
+            text = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
         }
 
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
         const json = JSON.parse(cleanedText);
 
         if (!Array.isArray(json)) throw new Error("Invalid Format");
@@ -230,7 +198,7 @@ export const recommendResourcesWithAI = async (
 
 export const generateStudyInsight = async (
     stats: { subject: string; hours: number; mood: number; pendingTasks: number; masteryScore: number }[],
-    userKey?: string
+    _userKey?: string
 ): Promise<{ subject: string; advice: string }[]> => {
     const cacheKey = `insight-${JSON.stringify(stats)}`;
     if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as { subject: string; advice: string }[];
@@ -239,48 +207,34 @@ export const generateStudyInsight = async (
         Foydalanuvchi o'quv statistikasi: ${JSON.stringify(stats)}
         Vazifa: Eng ko'p e'tibor talab qiladigan 1-2 ta fanni aniqlang va aniq, motivatsiya beruvchi maslahat bering.
         
-        Maslahat berishda quyidagilarga e'tibor bering:
-        - Agar masteryScore < 50 bo'lsa: Ko'proq flashcard yaratishni va SRS orqali takrorlashni maslahat bering.
-        - Agar pendingTasks > 3 bo'lsa: Vazifalarni kichik qismlarga bo'lishni va Pomodoro taymeridan foydalanishni taklif qiling.
-        - Agar soatlar kam bo'lsa: Kuniga kamida 30 daqiqa ajratish muhimligini ayting.
-        
         Javob Formati: Faqat JSON array ko'rinishida bo'lsin: [{"subject": "Fan nomi", "advice": "O'zbek tilida aniq maslahat"}].
         Cheklov: Maksimal 2 ta taklif. Kirish so'zlari yoki qo'shimcha matn qo'shmang.
     `;
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
         let text: string | null = null;
 
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
                 text = await callOllama(prompt);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateStudyInsight, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in generateStudyInsight, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in generateStudyInsight, falling back to DeepSeek:", err);
             }
         }
 
         if (!text) {
-            const apiKey = userKey || config.geminiKey;
-            const result = await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ 
-                    model: "gemini-2.0-flash",
-                    generationConfig: { responseMimeType: "application/json" }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey);
-            text = (await result.response).text();
+            text = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
         }
 
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
         const json = JSON.parse(cleanedText);
 
         if (!Array.isArray(json)) return [];
@@ -304,7 +258,7 @@ export const generateExamWithAI = async (
     subjectName: string,
     notesContent: string,
     questionCount: number = 5,
-    userKey?: string
+    _userKey?: string
 ): Promise<ExamQuestion[]> => {
     const prompt = `
       Fan nomi: "${subjectName}"
@@ -314,7 +268,7 @@ export const generateExamWithAI = async (
       Savollar fanga va konspektlarga mos bo'lsin. Agar konspekt bo'sh bo'lsa, fanga oid umumiy bilimlar bo'yicha savol bering.
       Til: O'zbek tili.
       
-      Javob Formati: Faqat quyidagi strukturali VALID JSON array bo'lsin, boshqa hech qanday matn (preamble, markdown belgilari va h.k.) qo'shmang:
+      Javob Formati: Faqat quyidagi strukturali VALID JSON array bo'lsin:
       [
         {
           "id": 1,
@@ -328,41 +282,28 @@ export const generateExamWithAI = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
-
         let text: string | null = null;
 
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
                 text = await callOllama(prompt);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateExamWithAI, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                text = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in generateExamWithAI, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in generateExamWithAI, falling back to DeepSeek:", err);
             }
         }
 
         if (!text) {
-            const apiKey = userKey || config.geminiKey;
-            const result = await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ 
-                    model: "gemini-2.0-flash",
-                    generationConfig: { 
-                        temperature: 0.7,
-                        responseMimeType: "application/json" 
-                    }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey);
-            text = (await result.response).text();
+            text = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
         }
 
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
         const json = JSON.parse(cleanedText);
 
         if (!Array.isArray(json)) throw new Error("Format xato");
@@ -381,6 +322,7 @@ export const generateExamWithAI = async (
         throw new Error(parseAIError(e));
     }
 };
+
 export interface AITimetableScheduleItem {
     title: string;
     description: string;
@@ -419,40 +361,28 @@ export const generateAITimetable = async (
 
     try {
         const config = getAIConfig();
-        let provider = config.provider;
-
-
         let items: any = null;
 
-        if (provider === 'ollama') {
+        if (config.provider === 'ollama') {
             try {
                 const response = await callOllama(prompt);
                 const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
                 items = JSON.parse(cleanedText);
             } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateAITimetable, falling back to Gemini 1.5 Flash:", err);
-            }
-        } else if (provider === 'deepseek') {
-            try {
-                const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-                items = JSON.parse(response);
-            } catch (err) {
-                console.warn("[AI Fallback] DeepSeek failed in generateAITimetable, falling back to Gemini 1.5 Flash:", err);
+                console.warn("[AI Fallback] Ollama failed in generateAITimetable, falling back to DeepSeek:", err);
             }
         }
 
         if (!items) {
-            const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-            const result = (await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey || undefined);
-                const model = ai.getGenerativeModel({
-                    model: "gemini-2.0-flash",
-                    generationConfig: { responseMimeType: "application/json" }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey || undefined)) as any;
-            const text = (await result.response).text().trim();
-            const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            const response = await callDeepSeek(
+                prompt,
+                config.deepseekKey || '',
+                undefined,
+                true,
+                config.deepseekModel,
+                config.deepseekThinkingMode
+            );
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             items = JSON.parse(cleanedText);
         }
 

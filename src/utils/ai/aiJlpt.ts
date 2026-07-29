@@ -1,4 +1,4 @@
-import { getAIConfig, getGenAI, requestWithRetry } from './aiConfig';
+import { getAIConfig } from './aiConfig';
 import { callDeepSeek } from '../deepseek';
 import { generateAlgorithmicJlptPlan } from '../curriculum/jlptAlgorithmicPlanner';
 
@@ -86,34 +86,8 @@ export const generateJlptStudyPlan = async (
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         } catch (dsErr) {
-            console.warn("DeepSeek study plan failed for JLPT, trying Gemini fallback...", dsErr);
+            console.warn("DeepSeek study plan failed for JLPT, trying backend proxy...", dsErr);
         }
-    }
-
-    // 2. Try Gemini
-    try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({
-                model: "gemini-2.0-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        const parsed = JSON.parse(cleanedText);
-
-        return {
-            headline: parsed.headline || parsed.title || `${durationDays} Kunlik Yapon Tili Rejasi`,
-            summary: parsed.summary || "JLPT tayyorgarligi uchun intensiv yo'l xaritasi.",
-            dailyPlan: algorithmicDailyPlan,
-            recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
-        };
-    } catch (geminiErr) {
-        console.warn("Gemini study plan failed for JLPT, trying backend proxy...", geminiErr);
     }
 
     // 3. Fallback: Call backend proxy /api/ai

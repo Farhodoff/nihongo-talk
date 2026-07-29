@@ -1,4 +1,4 @@
-import { getAIConfig, getGenAI, requestWithRetry } from './aiConfig';
+import { getAIConfig } from './aiConfig';
 import { callDeepSeek } from '../deepseek';
 
 export interface IeltsStudyPlanDay {
@@ -102,34 +102,8 @@ export const generateIeltsStudyPlan = async (
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         } catch (dsErr) {
-            console.warn("DeepSeek study plan failed, trying Gemini fallback...", dsErr);
+            console.warn("DeepSeek study plan failed, trying backend proxy fallback...", dsErr);
         }
-    }
-
-    // 2. Try Gemini
-    try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({
-                model: "gemini-2.0-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        const parsed = JSON.parse(cleanedText);
-
-        return {
-            headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
-            summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-            dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
-            recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
-        };
-    } catch (geminiErr) {
-        console.warn("Gemini study plan failed, trying backend proxy...", geminiErr);
     }
 
     // 3. Fallback: Call backend proxy /api/ai
@@ -281,22 +255,16 @@ export const evaluateIeltsEssay = async (
 
     try {
         const config = getAIConfig();
-        let reportData: any = null;
-
-        // Try Gemini or DeepSeek API
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({
-                model: "gemini-2.0-flash",
-                generationConfig: { responseMimeType: "application/json" }
-            });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        reportData = JSON.parse(cleanedText);
+        const response = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            undefined,
+            true,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const reportData = JSON.parse(cleanedText);
 
         return {
             overallBand: reportData.overallBand || 6.0,
@@ -404,39 +372,8 @@ export const evaluateIeltsSpeakingFullMock = async (
                 improvementTips: parsed.improvementTips || []
             };
         } catch (dsErr) {
-            console.warn("DeepSeek speaking mock evaluation failed, trying Gemini...", dsErr);
+            console.warn("DeepSeek speaking mock evaluation failed:", dsErr);
         }
-    }
-
-    try {
-        const apiKey = config.geminiKey || (config.coachAiModel === 'gemini' && config.coachApiKey && !config.coachApiKey.startsWith('sk-') ? config.coachApiKey : undefined);
-        const result = (await requestWithRetry((genAI) => {
-            const ai = genAI || getGenAI(apiKey || undefined);
-            const model = ai.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { responseMimeType: "application/json" } });
-            return model.generateContent(prompt);
-        }, 2, 1000, apiKey || undefined)) as any;
-        const text = (await result.response).text().trim();
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        const parsed = JSON.parse(cleanedText);
-        return {
-            overallBand: parsed.overallBand || 6.5,
-            fluencyScore: parsed.fluencyScore || 6.5,
-            lexicalResourceScore: parsed.lexicalResourceScore || 6.5,
-            grammarScore: parsed.grammarScore || 6.5,
-            pronunciationScore: parsed.pronunciationScore || 6.5,
-            fluencyFeedback: parsed.fluencyFeedback || "Fluency tahlili.",
-            lexicalResourceFeedback: parsed.lexicalResourceFeedback || "Lug'at tahlili.",
-            grammarFeedback: parsed.grammarFeedback || "Grammatika tahlili.",
-            pronunciationFeedback: parsed.pronunciationFeedback || "Talaffuz tahlili.",
-            strengths: parsed.strengths || [],
-            weaknesses: parsed.weaknesses || [],
-            grammarErrors: parsed.grammarErrors || [],
-            advancedVocabSuggestions: parsed.advancedVocabSuggestions || [],
-            modelAnswers: parsed.modelAnswers || [],
-            improvementTips: parsed.improvementTips || []
-        };
-    } catch (gErr) {
-        console.warn("Gemini speaking mock evaluation failed, using fallback...", gErr);
     }
 
     // Default fallback mock report
