@@ -24,7 +24,7 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
     const [isExporting, setIsExporting] = useState(false);
 
     const handleExportToFlashcards = async () => {
-        if (!report || !report.grammar_corrections || report.grammar_corrections.length === 0) {
+        if (!report || (!report.grammar_corrections?.length && !report.better_vocabulary?.length)) {
             toast({
                 title: 'ℹ️ Xatolar yo\'q',
                 description: 'Ushbu sessiyada saqlash uchun grammatik xatolar topilmadi.'
@@ -34,19 +34,40 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
 
         setIsExporting(true);
         try {
-            const isJapanese = report.user_level_jp && report.user_level_jp.includes('JLPT');
+            const isJapanese = (report.user_level_jp && report.user_level_jp.includes('JLPT')) || false;
             const lang = isJapanese ? 'ja' : 'en';
-            const cards = ErrorVaultService.convertErrorsToFlashcards(lang);
 
-            if (cards.length > 0) {
-                await addFlashcardsBatch(cards);
+            const directCards = (report.grammar_corrections || []).map(g => ({
+                front: `❌ Qoidani tuzating (${lang.toUpperCase()}):\n"${g.original}"`,
+                back: `✅ To'g'ri variant:\n"${g.corrected}"\n\n💡 Tushuntirish:\n${g.explanation}`
+            }));
+
+            const vocabCards = (report.better_vocabulary || []).map(v => ({
+                front: `🧠 Lug'at takomillashtirish (${lang.toUpperCase()}):\n"${v.original}"`,
+                back: `✨ Tavsiya etilgan ibora:\n"${v.suggested}"\n\n📖 Kontekst:\n${v.context}`
+            }));
+
+            const vaultCards = ErrorVaultService.convertErrorsToFlashcards(lang);
+            const allCards = [...directCards, ...vocabCards, ...vaultCards];
+
+            // Remove duplicates by front text
+            const uniqueCards = allCards.filter((card, index, self) =>
+                index === self.findIndex((c) => c.front === card.front)
+            );
+
+            if (uniqueCards.length > 0) {
+                await addFlashcardsBatch(uniqueCards);
                 toast({
                     title: '🎴 Fleshkartalar Yaratildi!',
-                    description: `${cards.length} ta xatolaringiz avtomatik ravishda Flashcardlar bo'limiga qo'shildi.`
+                    description: `${uniqueCards.length} ta xatolar to'plami Flashcardlar bo'limiga qo'shildi va DB ga saqlandi.`
                 });
             }
         } catch (e) {
             console.error('Error exporting cards:', e);
+            toast({
+                title: '❌ Xatolik',
+                description: 'Fleshkartalarni saqlashda xatolik yuz berdi.'
+            });
         } finally {
             setIsExporting(false);
         }

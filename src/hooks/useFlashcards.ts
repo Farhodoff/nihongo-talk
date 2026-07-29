@@ -32,7 +32,27 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             throw new Error('User not authenticated');
         }
 
-        const newCards = await FlashcardService.addFlashcardsBatch(user.id, cardsData);
+        // Ensure every card has a valid subjectId (fallback to user's first subject or auto-assigned ID)
+        const { data: subjectsData } = await supabase.from('subjects').select('id, name').eq('user_id', user.id).limit(1);
+        let fallbackSubjectId = subjectsData && subjectsData.length > 0 ? subjectsData[0].id : null;
+
+        if (!fallbackSubjectId) {
+            // Auto-create "AI Flashcardlar" subject if none exists
+            const { data: newSub } = await supabase.from('subjects').insert({
+                user_id: user.id,
+                name: 'AI Flashcardlar',
+                color: '#6366f1',
+                icon: 'brain'
+            }).select('id').single();
+            if (newSub) fallbackSubjectId = newSub.id;
+        }
+
+        const normalizedCards = cardsData.map(c => ({
+            ...c,
+            subjectId: c.subjectId || fallbackSubjectId || undefined
+        }));
+
+        const newCards = await FlashcardService.addFlashcardsBatch(user.id, normalizedCards);
         if (newCards.length > 0) {
             setFlashcards(prev => {
                 const existingIds = new Set(prev.map(c => c.id));

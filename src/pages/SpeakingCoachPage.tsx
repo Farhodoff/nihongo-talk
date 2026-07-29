@@ -4,6 +4,7 @@ import { ShieldAlert, X } from 'lucide-react';
 import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
+import { ErrorVaultService } from '../services/ErrorVaultService';
 import { isAdminEmail } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import SessionReportModal from '../components/speaking/SessionReportModal';
@@ -268,6 +269,19 @@ const SpeakingCoachPage: React.FC = () => {
                     personaRef.current
                 );
                 setReportData(report);
+
+                // Auto-log errors into ErrorVaultService & Supabase DB
+                if (report.grammar_corrections && report.grammar_corrections.length > 0) {
+                    ErrorVaultService.logErrors(
+                        report.grammar_corrections.map(c => ({
+                            verbatim: c.original,
+                            correction: c.corrected,
+                            category: 'grammar',
+                            explanation: c.explanation,
+                            language: languageRef.current
+                        }))
+                    );
+                }
                 
                 await addCoachSession({
                     personaTitle: PERSONAS_BY_LANG[languageRef.current][personaRef.current].name,
