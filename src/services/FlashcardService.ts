@@ -79,9 +79,8 @@ export const FlashcardService = {
     },
 
     async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {
-        const tempId = cardData.id || (generateUUID());
-        const dbCard = {
-            id: tempId,
+        const tempId = cardData.id || generateUUID();
+        const dbCard: Record<string, any> = {
             user_id: userId,
             subject_id: cardData.subjectId && cardData.subjectId.trim().length > 0 ? cardData.subjectId : null,
             front: cardData.front,
@@ -91,25 +90,29 @@ export const FlashcardService = {
             interval: 0,
             repetitions: 0
         };
+        // Only include id if it's an existing DB card
+        if (cardData.id) {
+            dbCard.id = cardData.id;
+        }
 
-        console.log('[addFlashcard] Attempting upsert to Supabase:', JSON.stringify(dbCard));
+        console.log('[addFlashcard] Attempting insert to Supabase:', JSON.stringify(dbCard));
 
         try {
             let { data, error } = await supabase
                 .from('flashcards')
-                .upsert(dbCard, { onConflict: 'id', ignoreDuplicates: false })
+                .insert(dbCard)
                 .select()
                 .single();
 
             if (error) {
-                console.error('[addFlashcard] ❌ Supabase UPSERT error:', error.message, error.code, error.details);
+                console.error('[addFlashcard] ❌ Supabase INSERT error:', error.message, error.code, error.details);
                 
                 // If foreign key error or UUID syntax error on subject_id, retry with subject_id = null
                 if (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id')) {
                     console.warn('[addFlashcard] Foreign key / UUID error on subject_id, retrying with subject_id = null...');
                     const { data: retryData, error: retryError } = await supabase
                         .from('flashcards')
-                        .upsert({ ...dbCard, subject_id: null }, { onConflict: 'id' })
+                        .insert({ ...dbCard, subject_id: null })
                         .select()
                         .single();
                     
@@ -141,7 +144,7 @@ export const FlashcardService = {
 
             return finalCard;
         } catch (error: any) {
-            console.error('[addFlashcard] ❌ Exception during upsert:', error?.message || error);
+            console.error('[addFlashcard] ❌ Exception during insert:', error?.message || error);
             const fallback: Flashcard = {
                 id: tempId,
                 subjectId: dbCard.subject_id || '',
@@ -159,17 +162,22 @@ export const FlashcardService = {
     },
 
     async addFlashcardsBatch(userId: string, cardsData: Partial<Flashcard>[]): Promise<Flashcard[]> {
-        const tempCards = cardsData.map(c => ({
-            id: c.id || generateUUID(),
-            user_id: userId,
-            subject_id: c.subjectId && c.subjectId.trim().length > 0 ? c.subjectId : null,
-            front: c.front,
-            back: c.back,
-            next_review_date: c.nextReviewDate || new Date().toISOString(),
-            ease_factor: 2.5,
-            interval: 0,
-            repetitions: 0
-        }));
+        const tempCards = cardsData.map(c => {
+            const card: Record<string, any> = {
+                user_id: userId,
+                subject_id: c.subjectId && c.subjectId.trim().length > 0 ? c.subjectId : null,
+                front: c.front,
+                back: c.back,
+                next_review_date: c.nextReviewDate || new Date().toISOString(),
+                ease_factor: 2.5,
+                interval: 0,
+                repetitions: 0
+            };
+            if (c.id && !c.id.startsWith('temp_')) {
+                card.id = c.id;
+            }
+            return card;
+        });
 
         try {
             const chunkSize = 100;
@@ -179,26 +187,26 @@ export const FlashcardService = {
                 let chunk = tempCards.slice(i, i + chunkSize);
                 let { data, error } = await supabase
                     .from('flashcards')
-                    .upsert(chunk, { onConflict: 'id', ignoreDuplicates: true })
+                    .insert(chunk)
                     .select();
 
                 // If error due to subject_id foreign key constraint (23503) or invalid UUID (22P02), retry with subject_id = null
                 if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
                     console.warn('[addFlashcardsBatch] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
                     const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
-                    const retry = await supabase.from('flashcards').upsert(sanitizedChunk, { onConflict: 'id', ignoreDuplicates: true }).select();
+                    const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
                     data = retry.data;
                     error = retry.error;
                 }
 
                 if (error) {
-                    console.error('[addFlashcardsBatch] ❌ Chunk DB upsert error:', error.message);
+                    console.error('[addFlashcardsBatch] ❌ Chunk DB insert error:', error.message);
                 }
 
                 const resultRows = data && data.length > 0 ? data : chunk;
                 insertedCards.push(...(resultRows as any[]).map(c => ({
-                    id: c.id,
-                    subjectId: c.subject_id || c.subjectId,
+                    id: c.id || generateUUID(),
+                    subjectId: c.subject_id || c.subjectId || '',
                     front: c.front,
                     back: c.back,
                     nextReviewDate: c.next_review_date || c.nextReviewDate,
@@ -216,8 +224,8 @@ export const FlashcardService = {
         } catch (err) {
             console.error('[addFlashcardsBatch] Exception:', err);
             const fallback = tempCards.map(c => ({
-                id: c.id,
-                subjectId: c.subject_id,
+                id: c.id || generateUUID(),
+                subjectId: c.subject_id || '',
                 front: c.front,
                 back: c.back,
                 nextReviewDate: c.next_review_date,
@@ -284,7 +292,6 @@ export const FlashcardService = {
 
     async importFlashcards(userId: string, subjectId: string, cards: { front: string; back: string; example?: string }[]): Promise<Flashcard[]> {
         const dbCards = cards.map(c => ({
-            id: generateUUID(),
             user_id: userId,
             subject_id: subjectId && subjectId.trim().length > 0 ? subjectId : null,
             front: c.front,
@@ -300,13 +307,13 @@ export const FlashcardService = {
 
         for (let i = 0; i < dbCards.length; i += chunkSize) {
             let chunk = dbCards.slice(i, i + chunkSize);
-            let { data, error } = await supabase.from('flashcards').upsert(chunk, { onConflict: 'id', ignoreDuplicates: true }).select();
+            let { data, error } = await supabase.from('flashcards').insert(chunk).select();
 
             // Retry without subject_id if foreign key or UUID syntax error occurs
             if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
                 console.warn('[importFlashcards] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
                 const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
-                const retry = await supabase.from('flashcards').upsert(sanitizedChunk, { onConflict: 'id', ignoreDuplicates: true }).select();
+                const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
                 data = retry.data;
                 error = retry.error;
             }
@@ -317,8 +324,8 @@ export const FlashcardService = {
 
             const resultRows = data && data.length > 0 ? data : chunk;
             insertedCards.push(...(resultRows as any[]).map(c => ({
-                id: c.id,
-                subjectId: c.subject_id || c.subjectId,
+                id: c.id || generateUUID(),
+                subjectId: c.subject_id || c.subjectId || '',
                 front: c.front,
                 back: c.back,
                 nextReviewDate: c.next_review_date || c.nextReviewDate,
