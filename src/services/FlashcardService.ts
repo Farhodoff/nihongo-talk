@@ -29,32 +29,24 @@ export const FlashcardService = {
         let dbCards: Flashcard[] = [];
 
         try {
-            // First try with deleted_at filter
+            // Try simple query first (without deleted_at) — most reliable
             let { data, error } = await supabase
                 .from('flashcards')
                 .select('*')
-                .eq('user_id', userId)
-                .is('deleted_at', null);
+                .eq('user_id', userId);
 
-            console.log('[fetchFlashcards] Query with deleted_at filter - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
-
-            if (error && (error.code === '42703' || error.message?.includes('deleted_at'))) {
-                console.log('[fetchFlashcards] deleted_at column not found, retrying without filter...');
-                const retry = await supabase
-                    .from('flashcards')
-                    .select('*')
-                    .eq('user_id', userId);
-                data = retry.data;
-                error = retry.error;
-                console.log('[fetchFlashcards] Retry without filter - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
-            }
+            console.log('[fetchFlashcards] Query result - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
 
             if (error) {
                 console.error('[fetchFlashcards] ❌ DB query error:', error.message, error.code, error.details);
             }
 
             if (!error && data) {
-                dbCards = (data as unknown as import('../types/supabase-types').DatabaseFlashcard[]).map(c => ({
+                // Filter out soft-deleted cards client-side if the column exists
+                const rawCards = data as unknown as import('../types/supabase-types').DatabaseFlashcard[];
+                const activeCards = rawCards.filter(c => !c.deleted_at);
+                
+                dbCards = activeCards.map(c => ({
                     id: c.id,
                     subjectId: c.subject_id,
                     front: c.front,
@@ -65,7 +57,7 @@ export const FlashcardService = {
                     repetitions: c.repetitions,
                     deletedAt: c.deleted_at || undefined
                 })) as Flashcard[];
-                console.log('[fetchFlashcards] ✅ Got', dbCards.length, 'cards from DB');
+                console.log('[fetchFlashcards] ✅ Got', dbCards.length, 'active cards from DB (total raw:', rawCards.length, ')');
             }
         } catch (error: any) {
             console.error('[fetchFlashcards] ❌ Exception:', error?.message || error);
