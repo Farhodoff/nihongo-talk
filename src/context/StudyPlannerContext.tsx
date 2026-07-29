@@ -647,6 +647,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 isArchived: data?.is_archived ?? optimisticSubject.isArchived
             };
 
+            if (finalId !== tempId) {
+                setFlashcards(prev => {
+                    const updated = prev.map(c => c.subjectId === tempId ? { ...c, subjectId: finalId } : c);
+                    try {
+                        localStorage.setItem('study_planner_flashcards_cache_' + user.id, JSON.stringify(updated));
+                    } catch (e) {}
+                    return updated;
+                });
+            }
+
             setSubjects(prev => {
                 const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
                 const updated = [...filtered, finalSubject];

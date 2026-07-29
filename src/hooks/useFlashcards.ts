@@ -165,8 +165,8 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         return false;
     };
 
-    const setFlashcardsState = useCallback((newCards: Flashcard[]) => {
-        setFlashcards(newCards);
+    const setFlashcardsState = useCallback((value: React.SetStateAction<Flashcard[]>) => {
+        setFlashcards(value);
     }, []);
 
     return {

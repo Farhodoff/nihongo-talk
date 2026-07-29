@@ -177,8 +177,11 @@ const DecksPage: React.FC = () => {
 
             {activeTab === 'my' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {subjects.map(subject => {
-                        const deckCards = flashcards.filter(c => c.subjectId === subject.id);
+                    {subjects.map((subject, index) => {
+                        const deckCards = flashcards.filter(c => 
+                            c.subjectId === subject.id || 
+                            (!c.subjectId && index === 0)
+                        );
                         const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
                         const matchingPreset = PRESET_DECKS.find(p => 
                             p.title.toLowerCase().startsWith(subject.name.toLowerCase()) || 
