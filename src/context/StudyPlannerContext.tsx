@@ -317,14 +317,29 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         id: s.id,
                         name: s.name,
                         color: s.color,
-                        schedule: s.schedule,
+                        schedule: s.schedule || [],
                         teacherName: s.teacher_name,
                         roomLocation: s.room_location,
                         description: s.description,
                         icon: s.icon,
-                        isArchived: s.is_archived
+                        isArchived: s.is_archived || false
                     }));
-                    setSubjects(mappedSubjects);
+
+                    // Merge DB subjects with local cached subjects so new subjects are never lost
+                    let localCachedSubs: Subject[] = [];
+                    try {
+                        const rawCache = localStorage.getItem('study_planner_subjects_cache_' + currentUser.id);
+                        if (rawCache) localCachedSubs = JSON.parse(rawCache);
+                    } catch (e) {}
+
+                    const dbSubIds = new Set(mappedSubjects.map(s => s.id));
+                    const missingLocalSubs = localCachedSubs.filter(s => !dbSubIds.has(s.id));
+
+                    const mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
+                    setSubjects(mergedSubjects);
+                    try {
+                        localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
+                    } catch (e) {}
                 }
 
                 if (sessionsRes?.data) {
@@ -564,7 +579,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const tempId = subjectData.id || (generateUUID());
         const optimisticSubject: Subject = {
             id: tempId,
-            name: subjectData.name || '',
+            name: subjectData.name || 'Yangi Fan',
             color: subjectData.color || '#6366f1',
             schedule: subjectData.schedule || [],
             teacherName: subjectData.teacherName,
@@ -575,49 +590,78 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         };
 
         // Optimistic update
-        setSubjects(prev => [...prev, optimisticSubject]);
-        
+        setSubjects(prev => {
+            const filtered = prev.filter(s => s.id !== tempId);
+            const updated = [...filtered, optimisticSubject];
+            try {
+                localStorage.setItem('study_planner_subjects_cache_' + user.id, JSON.stringify(updated));
+            } catch (e) {}
+            return updated;
+        });
 
-        const dbSubject = {
+        const dbSubject: Record<string, any> = {
             id: tempId,
             user_id: user.id,
-            name: subjectData.name,
-            color: subjectData.color,
-            teacher_name: subjectData.teacherName,
-            room_location: subjectData.roomLocation,
-            description: subjectData.description,
+            name: subjectData.name || 'Yangi Fan',
+            color: subjectData.color || '#6366f1',
             schedule: subjectData.schedule || [],
-            icon: subjectData.icon,
-            is_archived: subjectData.isArchived || false
         };
-
-        
+        if (subjectData.teacherName) dbSubject.teacher_name = subjectData.teacherName;
+        if (subjectData.roomLocation) dbSubject.room_location = subjectData.roomLocation;
+        if (subjectData.description) dbSubject.description = subjectData.description;
+        if (subjectData.icon) dbSubject.icon = subjectData.icon;
+        if (subjectData.isArchived !== undefined) dbSubject.is_archived = subjectData.isArchived;
 
         try {
-            const { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
-            if (error) throw error;
-
-            if (data) {
-                const newSubject: Subject = {
-                    id: data.id,
-                    name: data.name,
-                    color: data.color,
-                    schedule: data.schedule,
-                    teacherName: data.teacher_name,
-                    roomLocation: data.room_location,
-                    description: data.description,
-                    icon: data.icon,
-                    isArchived: data.is_archived
+            let { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
+            
+            // Retry without optional columns if DB schema lacks them
+            if (error && (error.code === '42703' || error.message?.includes('column'))) {
+                console.warn('[addSubject] Column mismatch on subjects table, retrying with minimal fields:', error.message);
+                const minimalDbSubject = {
+                    id: tempId,
+                    user_id: user.id,
+                    name: subjectData.name || 'Yangi Fan',
+                    color: subjectData.color || '#6366f1',
+                    schedule: subjectData.schedule || []
                 };
-                setSubjects(prev => prev.map(s => s.id === tempId ? newSubject : s));
-                
-                return newSubject;
+                const retry = await supabase.from('subjects').insert(minimalDbSubject).select().single();
+                data = retry.data;
+                error = retry.error;
             }
+
+            if (error) {
+                console.error('[addSubject] ❌ Supabase insert error:', error.message);
+            }
+
+            const finalId = data?.id || tempId;
+            const finalSubject: Subject = {
+                id: finalId,
+                name: data?.name || optimisticSubject.name,
+                color: data?.color || optimisticSubject.color,
+                schedule: data?.schedule || optimisticSubject.schedule,
+                teacherName: data?.teacher_name || optimisticSubject.teacherName,
+                roomLocation: data?.room_location || optimisticSubject.roomLocation,
+                description: data?.description || optimisticSubject.description,
+                icon: data?.icon || optimisticSubject.icon,
+                isArchived: data?.is_archived ?? optimisticSubject.isArchived
+            };
+
+            setSubjects(prev => {
+                const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
+                const updated = [...filtered, finalSubject];
+                try {
+                    localStorage.setItem('study_planner_subjects_cache_' + user.id, JSON.stringify(updated));
+                } catch (e) {}
+                return updated;
+            });
+
+            return finalSubject;
         } catch (error) {
-            console.error("Failed to add subject:", error);
-            setSubjects(prev => prev.filter(s => s.id !== tempId));
+            console.error("Failed to add subject DB insert:", error);
+            // DO NOT delete optimistic subject! Return optimistic subject so user never loses their subject or cards
+            return optimisticSubject;
         }
-        return null;
     };
 
     const deleteSubject = async (id: string) => {
