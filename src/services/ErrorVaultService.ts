@@ -13,6 +13,8 @@ export interface SpeakingErrorItem {
 
 const STORAGE_KEY = 'study_planner_error_vault';
 
+import { supabase } from '../lib/supabase';
+
 export class ErrorVaultService {
     /**
      * Gets all logged speaking errors
@@ -26,6 +28,23 @@ export class ErrorVaultService {
             console.error('Error loading error vault:', e);
             return [];
         }
+    }
+
+    /**
+     * Syncs error vault from Supabase DB on initialization
+     */
+    public static async syncFromDB(): Promise<SpeakingErrorItem[]> {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user?.user_metadata?.error_vault) {
+                const dbErrors = user.user_metadata.error_vault as SpeakingErrorItem[];
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(dbErrors));
+                return dbErrors;
+            }
+        } catch (e) {
+            console.warn('Failed to sync error vault from DB:', e);
+        }
+        return this.getErrors();
     }
 
     /**
@@ -46,6 +65,16 @@ export class ErrorVaultService {
         } catch (e) {
             console.error('Error saving to error vault:', e);
         }
+
+        // Sync to Supabase Auth user_metadata (DB)
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            if (user) {
+                supabase.auth.updateUser({
+                    data: { error_vault: updated }
+                }).catch(err => console.warn('Failed to sync error vault to DB:', err));
+            }
+        });
+
         return updated;
     }
 

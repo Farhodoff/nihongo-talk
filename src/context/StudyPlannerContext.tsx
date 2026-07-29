@@ -409,13 +409,40 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
 
                 // Profile & Settings
+                const userMeta = currentUser.user_metadata || {};
+                const dbAiSettings = userMeta.ai_settings || {};
+                const dbDailyGoal = userMeta.daily_goal;
+                const dbShowFurigana = userMeta.show_furigana;
+                const dbShowRomaji = userMeta.show_romaji;
+
+                if (dbAiSettings && Object.keys(dbAiSettings).length > 0) {
+                    try {
+                        localStorage.setItem('study_planner_ai_settings', JSON.stringify(dbAiSettings));
+                    } catch (e) {
+                        console.warn("Failed to update localStorage with DB AI settings", e);
+                    }
+                }
+
                 if (profileRes?.data) {
                     const profile = profileRes.data as DatabaseProfile;
                     setAppSettings(prev => ({
                         ...prev,
                         theme: profile.theme || 'light',
                         notificationsEnabled: profile.notifications_enabled ?? true,
-                        googleApiKey: profile.google_api_key,
+                        googleApiKey: dbAiSettings.googleApiKey || profile.google_api_key || prev.googleApiKey,
+                        aiModel: dbAiSettings.aiModel || prev.aiModel,
+                        deepseekApiKey: dbAiSettings.deepseekApiKey || prev.deepseekApiKey,
+                        deepseekModel: dbAiSettings.deepseekModel || prev.deepseekModel,
+                        deepseekThinkingMode: dbAiSettings.deepseekThinkingMode ?? prev.deepseekThinkingMode,
+                        ollamaUrl: dbAiSettings.ollamaUrl || prev.ollamaUrl,
+                        ollamaModel: dbAiSettings.ollamaModel || prev.ollamaModel,
+                        openAIApiKey: dbAiSettings.openAIApiKey || prev.openAIApiKey,
+                        coachVoice: dbAiSettings.coachVoice || prev.coachVoice,
+                        coachAiModel: dbAiSettings.coachAiModel || prev.coachAiModel,
+                        coachApiKey: dbAiSettings.coachApiKey || prev.coachApiKey,
+                        dailyStudyGoalMinutes: dbDailyGoal !== undefined ? Number(dbDailyGoal) : prev.dailyStudyGoalMinutes,
+                        showFurigana: dbShowFurigana !== undefined ? Boolean(dbShowFurigana) : prev.showFurigana,
+                        showRomaji: dbShowRomaji !== undefined ? Boolean(dbShowRomaji) : prev.showRomaji,
                     }));
 
                     setGamificationState({
@@ -998,7 +1025,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             });
         }
 
-        // Persist to DB using UPDATE to avoid setting other fields to null
+        // Persist to DB using UPDATE to profiles table
         const { error } = await supabase.from('profiles').update({
             theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
             notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
@@ -1007,7 +1034,33 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }).eq('id', user.id);
 
         if (error) {
-            console.error('Error updating settings:', error);
+            console.error('Error updating profiles table:', error);
+        }
+
+        // Persist complete AI settings and user preferences to Auth user_metadata (DB)
+        try {
+            await supabase.auth.updateUser({
+                data: {
+                    ai_settings: {
+                        googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
+                        aiModel: updates.aiModel !== undefined ? updates.aiModel : appSettings.aiModel,
+                        deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : appSettings.deepseekApiKey,
+                        deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : appSettings.deepseekModel,
+                        deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : appSettings.deepseekThinkingMode,
+                        ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : appSettings.ollamaUrl,
+                        ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : appSettings.ollamaModel,
+                        openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : appSettings.openAIApiKey,
+                        coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : appSettings.coachVoice,
+                        coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : appSettings.coachAiModel,
+                        coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : appSettings.coachApiKey
+                    },
+                    daily_goal: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : appSettings.dailyStudyGoalMinutes,
+                    show_furigana: updates.showFurigana !== undefined ? updates.showFurigana : appSettings.showFurigana,
+                    show_romaji: updates.showRomaji !== undefined ? updates.showRomaji : appSettings.showRomaji
+                }
+            });
+        } catch (authMetaErr) {
+            console.error('Error syncing user_metadata to Supabase Auth DB:', authMetaErr);
         }
     };
 

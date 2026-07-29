@@ -4,6 +4,7 @@ import { generateAIResponse } from '../utils/ai/aiCore';
 import { speakText } from '../utils/audioTts';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { FuriganaText } from '../components/jlpt/FuriganaText';
+import { supabase } from '../lib/supabase';
 
 export interface VocabWordDetails {
     word: string;
@@ -43,6 +44,7 @@ export const VocabularyBuilderPage: React.FC = () => {
     ];
 
     useEffect(() => {
+        // Load from localStorage as fallback
         try {
             const h = localStorage.getItem('study_planner_vocab_history');
             if (h) setHistory(JSON.parse(h));
@@ -52,6 +54,28 @@ export const VocabularyBuilderPage: React.FC = () => {
         } catch (e) {
             console.error(e);
         }
+
+        // Load from Supabase DB
+        const fetchDbVocab = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.user_metadata) {
+                    if (user.user_metadata.vocab_history) {
+                        const dbH = user.user_metadata.vocab_history;
+                        setHistory(dbH);
+                        localStorage.setItem('study_planner_vocab_history', JSON.stringify(dbH));
+                    }
+                    if (user.user_metadata.vocab_saved) {
+                        const dbS = user.user_metadata.vocab_saved;
+                        setSavedWords(dbS);
+                        localStorage.setItem('study_planner_vocab_saved', JSON.stringify(dbS));
+                    }
+                }
+            } catch (err) {
+                console.warn('Failed to fetch DB vocab state:', err);
+            }
+        };
+        fetchDbVocab();
     }, []);
 
     useEffect(() => {
@@ -103,7 +127,14 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
             // Add to history
             const updatedHistory = [parsed, ...history.filter(h => h.word.toLowerCase() !== parsed.word.toLowerCase())].slice(0, 30);
             setHistory(updatedHistory);
-            localStorage.setItem('study_planner_vocab_history', JSON.stringify(updatedHistory));
+            try {
+                localStorage.setItem('study_planner_vocab_history', JSON.stringify(updatedHistory));
+            } catch (e) { console.warn(e); }
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) {
+                    supabase.auth.updateUser({ data: { vocab_history: updatedHistory } }).catch(err => console.warn(err));
+                }
+            });
         } catch (err: any) {
             console.error(err);
             setErrorMsg("So'z ma'lumotlarini yuklashda xatolik. Qayta urinib ko'ring.");
@@ -121,7 +152,14 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
             updated = [wordObj, ...savedWords];
         }
         setSavedWords(updated);
-        localStorage.setItem('study_planner_vocab_saved', JSON.stringify(updated));
+        try {
+            localStorage.setItem('study_planner_vocab_saved', JSON.stringify(updated));
+        } catch (e) { console.warn(e); }
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            if (user) {
+                supabase.auth.updateUser({ data: { vocab_saved: updated } }).catch(err => console.warn(err));
+            }
+        });
     };
 
     const handleCreateFlashcard = async () => {

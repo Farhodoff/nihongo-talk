@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 
 export type MasteryStatus = 'unlearned' | 'learned' | 'hard' | 'mastered';
 
@@ -18,19 +19,49 @@ export const useJlptMastery = () => {
         }
     });
 
+    // Load from DB on mount
     useEffect(() => {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-        } catch (e) {
-            console.error('Failed to save JLPT mastery status:', e);
-        }
-    }, [records]);
+        const fetchDbMastery = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.user_metadata?.jlpt_mastery) {
+                    const dbRecords = user.user_metadata.jlpt_mastery as MasteryRecord;
+                    setRecords(prev => {
+                        const merged = { ...dbRecords, ...prev };
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+                        return merged;
+                    });
+                }
+            } catch (e) {
+                console.warn('Failed to fetch DB JLPT mastery:', e);
+            }
+        };
+        fetchDbMastery();
+    }, []);
 
     const setItemStatus = (itemId: string, status: MasteryStatus) => {
-        setRecords(prev => ({
-            ...prev,
-            [itemId]: status
-        }));
+        setRecords(prev => {
+            const updated = {
+                ...prev,
+                [itemId]: status
+            };
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+            } catch (e) {
+                console.error('Failed to save JLPT mastery status to localStorage:', e);
+            }
+
+            // Sync to DB
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) {
+                    supabase.auth.updateUser({
+                        data: { jlpt_mastery: updated }
+                    }).catch(err => console.warn('Failed to sync JLPT mastery to DB:', err));
+                }
+            });
+
+            return updated;
+        });
     };
 
     const getItemStatus = (itemId: string): MasteryStatus => {
