@@ -88,31 +88,54 @@ export const generateFlashcardsWithAI = async (
         }
 
         if (!json) {
-            const apiKey = userKey || config.geminiKey;
-            const result = await requestWithRetry((genAI) => {
-                const ai = genAI || getGenAI(apiKey);
-                const model = ai.getGenerativeModel({ 
-                    model: "gemini-2.0-flash",
-                    generationConfig: {
-                        temperature: 0.7,
-                        topP: 0.95,
-                        topK: 40,
-                        maxOutputTokens: 8192,
-                        responseMimeType: "application/json",
+            try {
+                const apiKey = userKey || config.geminiKey;
+                const result = await requestWithRetry((genAI) => {
+                    const ai = genAI || getGenAI(apiKey);
+                    const model = ai.getGenerativeModel({ 
+                        model: "gemini-2.0-flash",
+                        generationConfig: {
+                            temperature: 0.7,
+                            topP: 0.95,
+                            topK: 40,
+                            maxOutputTokens: 8192,
+                            responseMimeType: "application/json",
+                        }
+                    });
+                    return model.generateContent(prompt);
+                }, 2, 1000, apiKey);
+                const response = await result.response;
+                const text = response.text();
+                
+                let cleanedText = text.trim();
+                if (cleanedText.startsWith('```')) {
+                    cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
+                }
+                
+                json = JSON.parse(cleanedText) as unknown[];
+            } catch (geminiErr) {
+                console.warn("[AI Fallback] Gemini failed in generateFlashcardsWithAI, attempting DeepSeek fallback...", geminiErr);
+                // Fallback to DeepSeek if configured or available
+                if (config.deepseekKey || config.provider === 'deepseek') {
+                    try {
+                        const dsResponse = await callDeepSeek(
+                            prompt,
+                            config.deepseekKey || '',
+                            undefined,
+                            true,
+                            config.deepseekModel,
+                            config.deepseekThinkingMode
+                        );
+                        const cleanedText = dsResponse.replace(/```json/g, "").replace(/```/g, "").trim();
+                        json = JSON.parse(cleanedText);
+                    } catch (dsErr) {
+                        console.warn("[AI Fallback] DeepSeek fallback also failed:", dsErr);
+                        throw geminiErr;
                     }
-                });
-                return model.generateContent(prompt);
-            }, 2, 1000, apiKey);
-            const response = await result.response;
-            const text = response.text();
-            
-            // Even with responseMimeType, let's be safe
-            let cleanedText = text.trim();
-            if (cleanedText.startsWith('```')) {
-                cleanedText = cleanedText.replace(/```json/g, "").replace(/```/g, "").trim();
+                } else {
+                    throw geminiErr;
+                }
             }
-            
-            json = JSON.parse(cleanedText) as unknown[];
         }
 
         if (!Array.isArray(json)) throw new Error("Invalid response format");

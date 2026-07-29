@@ -2,7 +2,7 @@ import { Bot, Loader2, Save, Sparkles, X } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateFlashcardsWithAI, isAIKeyConfigured } from '../utils/ai';
+import { generateFlashcardsWithAI, isAIKeyConfigured, parseAIError } from '../utils/ai';
 
 interface AIGeneratorModalProps {
     isOpen: boolean;
@@ -37,8 +37,10 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
             const cards = await generateFlashcardsWithAI(topic, count, settings.googleApiKey);
             setGeneratedCards(cards);
             setStep('preview');
-        } catch (error) {
-            alert('Yaratishda xatolik. Internetni tekshiring yoki mavzuni o\'zgartiring.');
+        } catch (error: any) {
+            console.error('Error generating flashcards:', error);
+            const friendlyError = parseAIError(error);
+            alert(friendlyError);
         } finally {
             setIsLoading(false);
         }
