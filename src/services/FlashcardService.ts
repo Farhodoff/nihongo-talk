@@ -23,23 +23,34 @@ export const setLocalFlashcardCache = (userId: string, cards: Flashcard[]): void
 
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
+        console.log('[fetchFlashcards] Starting for userId:', userId);
         const localCached = getLocalFlashcardCache(userId);
+        console.log('[fetchFlashcards] Local cache has', localCached.length, 'cards');
         let dbCards: Flashcard[] = [];
 
         try {
+            // First try with deleted_at filter
             let { data, error } = await supabase
                 .from('flashcards')
                 .select('*')
                 .eq('user_id', userId)
                 .is('deleted_at', null);
 
+            console.log('[fetchFlashcards] Query with deleted_at filter - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
+
             if (error && (error.code === '42703' || error.message?.includes('deleted_at'))) {
+                console.log('[fetchFlashcards] deleted_at column not found, retrying without filter...');
                 const retry = await supabase
                     .from('flashcards')
                     .select('*')
                     .eq('user_id', userId);
                 data = retry.data;
                 error = retry.error;
+                console.log('[fetchFlashcards] Retry without filter - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
+            }
+
+            if (error) {
+                console.error('[fetchFlashcards] ❌ DB query error:', error.message, error.code, error.details);
             }
 
             if (!error && data) {
@@ -54,22 +65,23 @@ export const FlashcardService = {
                     repetitions: c.repetitions,
                     deletedAt: c.deleted_at || undefined
                 })) as Flashcard[];
+                console.log('[fetchFlashcards] ✅ Got', dbCards.length, 'cards from DB');
             }
-        } catch (error) {
-            console.error('Fetch flashcards DB error:', error);
+        } catch (error: any) {
+            console.error('[fetchFlashcards] ❌ Exception:', error?.message || error);
         }
 
         // Merge DB cards and local cached cards (prefer DB version if present)
         const dbCardIds = new Set(dbCards.map(c => c.id));
         const missingLocalCards = localCached.filter(c => !dbCardIds.has(c.id) && !c.deletedAt);
 
-        // Sync missing local cards to DB in background
         if (missingLocalCards.length > 0) {
-            console.log(`[FlashcardSync] Syncing ${missingLocalCards.length} cached cards to DB...`);
-            this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('Background sync error:', e));
+            console.log(`[fetchFlashcards] Found ${missingLocalCards.length} cached cards NOT in DB, syncing...`);
+            this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('[fetchFlashcards] Background sync error:', e));
         }
 
         const merged = [...dbCards, ...missingLocalCards];
+        console.log('[fetchFlashcards] Final merged count:', merged.length, '(DB:', dbCards.length, '+ cached missing:', missingLocalCards.length, ')');
         setLocalFlashcardCache(userId, merged);
         return merged;
     },
