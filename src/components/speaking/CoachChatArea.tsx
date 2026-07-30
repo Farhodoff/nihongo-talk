@@ -1,6 +1,7 @@
 import React from 'react';
 import { CoachChatMessage } from './speakingTypes';
 import { Check, Copy, Volume2, Mic } from 'lucide-react';
+import { extractSpeechAudioText } from '../../utils/ai';
 
 interface CoachChatAreaProps {
     chatHistory: CoachChatMessage[];
@@ -110,7 +111,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             </button>
                             {msg.role === 'assistant' && (
                                 <button
-                                    onClick={() => speakText(msg.content)}
+                                    onClick={() => speakText(extractSpeechAudioText(msg.content))}
                                     className="p-1 rounded-md hover:bg-gray-200/60 dark:hover:bg-gray-700/60 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                                     title="Qayta O'qib berish"
                                 >

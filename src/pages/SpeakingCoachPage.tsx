@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
-import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors } from '../utils/ai';
+import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
@@ -197,7 +197,7 @@ const SpeakingCoachPage: React.FC = () => {
             chatHistoryRef.current = finalHistory;
 
             setIsThinking(false);
-            speakText(aiResponse);
+            speakText(extractSpeechAudioText(aiResponse));
         } catch (err: any) {
             console.error("Coach response error:", err);
             let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';

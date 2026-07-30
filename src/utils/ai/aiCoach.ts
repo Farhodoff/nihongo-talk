@@ -193,21 +193,20 @@ export const converseWithCoach = async (
                    [タメ口のフランクな返答・質問] (新出スラングや日常口語の簡単なウズベク語・日本語解説)`;
                 break;
             default: // 'roast' -> Oni Sensei (鬼先生)
-                personaPrompt = `IDENTITY: あなたは非常に厳しく、鋭いツッコミを入れるが、根は温かい「鬼先生」です。
-                   GOAL: 外国人が陥りがちな助詞のミス、敬語の誤用、不自然な直訳表現を容赦なく炙り出して絶滅させます。
+                personaPrompt = `IDENTITY: あなたは非常に熱心で、自然で実践的な会話を引き出す日本語コーチ「鬼先生」です。
+                   GOAL: 学生とのリアルな対話を第一優先にし、会話の流れを自然に保ちながら、不自然な表現を画面上の視覚的なカードで指導します。
                    RULES:
-                   1. 間違いを見つけたら、まず「ダメです！」や「違います！」と厳しくツッコミを入れ、何が間違っているかを明快に説明します。
-                   2. 必ず正しい文章を提示し、復唱を促してください。
-                   FORBIDDEN: 感情的な暴言やレッテル貼り、過度な長文解説は避けること。
+                   1. 会話第一主義: まず学生の会話に直接返答し、次の質問や話題を自然に振って会話を繋げてください。
+                   2. 音声と解説の分離: 長々とした文法講義を音声で読ませて学生を退屈させないでください。文法や表現の修正はメッセージの最後に視覚ノートとして追加します。
                    FEW-SHOT EXAMPLE:
-                   Student: 日本で友達を作りたいです。日本語を勉強します。
-                   Coach: 😤 文のつなぎ方が初級レベルです！「から」や「ので」を使って理由をスマートに繋げなさい！
-                   📖 正しい文: 日本で友達を作りたいので、日本語を勉強します。
-                   📝 解説: 理由を表す「ので」を繋げると、一気に知的な表現になります。
+                   Student: はじめまして。自己紹介の練習をしたいです。
+                   Coach: はじめまして！自己紹介の練習ですね。ぜひお手伝いさせてください！まずは、お名前と普段のお仕事や勉強について教えていただけますか？
+                   
+                   💡 表現のヒント: 「〜たいです」よりも「〜させてください」と許可を求める表現にすると、より丁寧で好印象になりますよ！
                    OUTPUT FORMAT:
-                   😤 [厳しいツッコミ・リアクション]
-                   📖 正しい文: [正しい文の例]
-                   📝 解説: [文法や表現の間違いの明確な理由]`;
+                   [自然な会話の返答・次の質問 (1〜2文)]
+                   
+                   💡 表現のヒント: [画面表示用の短いアドバイス・正しい表現例]`;
                 break;
         }
     } else { // English
@@ -658,4 +657,53 @@ export const parseMicroErrors = (text: string) => {
     }
 
     return errors;
+};
+
+/**
+ * Extracts clean, natural conversational text for TTS voice playback.
+ * Removes visual grammar notes, emojis, PREP analysis, bracketed translations, and lecture sections so voice audio remains concise and natural (5-10 seconds max).
+ */
+export const extractSpeechAudioText = (fullText: string): string => {
+    if (!fullText) return '';
+
+    // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
+    let text = fullText.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
+
+    // 2. Separate conversational dialogue from visual note sections (📖, 📝, 📋, ✍️, 💡, 📊)
+    const lines = text.split('\n');
+    const spokenLines: string[] = [];
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        // Skip lines that start with visual report/lecture markers
+        if (
+            line.startsWith('📖') ||
+            line.startsWith('📝') ||
+            line.startsWith('📋') ||
+            line.startsWith('✍️') ||
+            line.startsWith('📊') ||
+            line.startsWith('💡') ||
+            line.startsWith('🎯') ||
+            line.startsWith('解説:') ||
+            line.startsWith('正しい文:') ||
+            line.startsWith('Grammar Note:')
+        ) {
+            break; // Visual notes section starts here; stop collecting spoken text
+        }
+        spokenLines.push(line);
+    }
+
+    let spokenText = spokenLines.join(' ');
+
+    // 3. Clean out bracketed Uzbek/English long notes and emojis
+    spokenText = spokenText.replace(/\[[^\]]{15,}\]/g, '');
+    spokenText = spokenText.replace(/\([^)]*Romaji[^)]*\)/gi, '');
+    spokenText = spokenText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
+
+    const result = spokenText.replace(/\s+/g, ' ').trim();
+    if (result.length > 0) return result;
+
+    // Fallback if entire message was text
+    return fullText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]/gu, '').replace(/\s+/g, ' ').trim();
 };
