@@ -39,6 +39,8 @@ export const useSpeechRecognition = ({
     const transcriptBufferRef = useRef('');
     const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const speechStartTimeRef = useRef<number>(0);
+    const lastSpeechTimeRef = useRef<number>(0);
+    const isSilenceTimeoutRef = useRef<boolean>(false);
 
     const [isListening, setIsListening] = useState(false);
     const [currentTranscript, setCurrentTranscript] = useState('');
@@ -71,6 +73,8 @@ export const useSpeechRecognition = ({
         transcriptBufferRef.current = '';
         setCurrentTranscript('');
         setError(null);
+        isSilenceTimeoutRef.current = false;
+        lastSpeechTimeRef.current = Date.now();
 
         // Ensure browser mic permission is requested
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -114,7 +118,9 @@ export const useSpeechRecognition = ({
         recognitionRef.current = recognition;
 
         recognition.onstart = () => {
-            speechStartTimeRef.current = 0;
+            if (!speechStartTimeRef.current) {
+                speechStartTimeRef.current = Date.now();
+            }
             setIsListening(true);
             setError(null);
         };
@@ -123,12 +129,14 @@ export const useSpeechRecognition = ({
             if (!speechStartTimeRef.current) {
                 speechStartTimeRef.current = Date.now();
             }
+            lastSpeechTimeRef.current = Date.now();
         };
 
         recognition.onsoundstart = () => {
             if (!speechStartTimeRef.current) {
                 speechStartTimeRef.current = Date.now();
             }
+            lastSpeechTimeRef.current = Date.now();
         };
 
         recognition.onresult = (event: any) => {
@@ -148,12 +156,18 @@ export const useSpeechRecognition = ({
                 }
             }
             const cleanText = (finalTranscript + interimTranscript).replace(/\s+/g, ' ').trim();
-            setCurrentTranscript(cleanText);
-            transcriptBufferRef.current = cleanText;
+            
+            if (cleanText) {
+                setCurrentTranscript(cleanText);
+                transcriptBufferRef.current = cleanText;
+                lastSpeechTimeRef.current = Date.now();
+            }
 
+            // 3-SECOND STRICT SILENCE TIMEOUT
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {
                 if (isLiveSessionRef.current && !isProcessingRef.current && transcriptBufferRef.current.trim().length > 0) {
+                    isSilenceTimeoutRef.current = true;
                     try { recognition.stop(); } catch (e) {
                         console.debug('Recognition stop failed:', e);
                     }
@@ -164,31 +178,55 @@ export const useSpeechRecognition = ({
         recognition.onerror = (event: any) => {
             if (event.error === 'not-allowed' || event.error === 'permission-denied') {
                 setError('Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.');
+                setIsListening(false);
             } else if (event.error !== 'no-speech') {
                 console.warn('Speech recognition status:', event.error);
             }
-            setIsListening(false);
         };
 
         recognition.onend = () => {
             setIsListening(false);
-            if (silenceTimerRef.current) {
-                clearTimeout(silenceTimerRef.current);
-                silenceTimerRef.current = null;
-            }
+            
             const spokenText = transcriptBufferRef.current.trim();
             const duration = speechStartTimeRef.current > 0 ? Date.now() - speechStartTimeRef.current : 0;
-            speechStartTimeRef.current = 0;
+            const silenceElapsed = lastSpeechTimeRef.current > 0 ? Date.now() - lastSpeechTimeRef.current : 0;
 
-            const isValid = validateSpeechInput(spokenText, duration);
+            // Trigger submission ONLY if 3-second silence timeout expired or explicit user stop with >= 2.8s pause
+            if (isSilenceTimeoutRef.current || silenceElapsed >= 2800) {
+                if (silenceTimerRef.current) {
+                    clearTimeout(silenceTimerRef.current);
+                    silenceTimerRef.current = null;
+                }
+                isSilenceTimeoutRef.current = false;
+                speechStartTimeRef.current = 0;
+                lastSpeechTimeRef.current = 0;
 
-            // Always clear the buffers immediately on end to avoid stale speech replays
-            transcriptBufferRef.current = '';
-            setCurrentTranscript('');
+                const isValid = validateSpeechInput(spokenText, duration);
 
-            if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
-                if (isValid) {
-                    onValidSpeechRef.current(spokenText);
+                // Always clear buffers upon submission
+                transcriptBufferRef.current = '';
+                setCurrentTranscript('');
+
+                if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
+                    if (isValid) {
+                        onValidSpeechRef.current(spokenText);
+                    }
+                }
+            } else if (
+                isLiveSessionRef.current && 
+                !isProcessingRef.current && 
+                !isMutedRef.current && 
+                !isSpeakingRef.current && 
+                !isThinkingRef.current
+            ) {
+                // Chrome's SpeechRecognition engine stopped prematurely after a brief pause mid-sentence.
+                // Restart recognition seamlessly to let the user finish speaking without truncating!
+                try {
+                    recognition.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+                    recognition.start();
+                    setIsListening(true);
+                } catch (e) {
+                    // Recognition may already be starting or active
                 }
             }
         };
