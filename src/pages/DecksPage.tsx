@@ -1,4 +1,4 @@
-import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert } from 'lucide-react';
+import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
@@ -14,10 +14,12 @@ import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
 
 const DecksPage: React.FC = () => {
-    const { user, subjects, flashcards, importFlashcards, addSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
+    const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
+    const [subTab, setSubTab] = useState<'active' | 'archived'>('active');
+    const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
@@ -26,6 +28,10 @@ const DecksPage: React.FC = () => {
     const [isImportingPreset, setIsImportingPreset] = useState(false);
 
     const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
+
+    const activeSubjects = subjects.filter(s => !s.isArchived);
+    const archivedSubjects = subjects.filter(s => !!s.isArchived);
+    const currentList = subTab === 'active' ? activeSubjects : archivedSubjects;
 
     const { handleImport, downloadTemplate, isImporting } = useFlashcardImport(importFlashcards);
 
@@ -70,7 +76,6 @@ const DecksPage: React.FC = () => {
             }
 
             if (targetSubjectId) {
-                // Ensure we don't import duplicates if subject already has cards
                 const existingCards = flashcards.filter(c => c.subjectId === targetSubjectId);
                 if (existingCards.length === 0) {
                     const loadedCards = await preset.loadCards();
@@ -85,7 +90,6 @@ const DecksPage: React.FC = () => {
                             nextReviewDate: new Date().toISOString()
                         }));
 
-                        // Chunk insertions into batches of 100 for maximum stability
                         const chunkSize = 100;
                         for (let i = 0; i < batchCards.length; i += chunkSize) {
                             const chunk = batchCards.slice(i, i + chunkSize);
@@ -116,6 +120,39 @@ const DecksPage: React.FC = () => {
                 console.error("Remove preset deck error:", err);
             }
         }
+    };
+
+    // Selection Handlers
+    const toggleSelectSubject = (id: string) => {
+        setSelectedSubjectIds(prev => 
+            prev.includes(id) ? prev.filter(sId => sId !== id) : [...prev, id]
+        );
+    };
+
+    const toggleSelectAll = () => {
+        if (selectedSubjectIds.length === currentList.length) {
+            setSelectedSubjectIds([]);
+        } else {
+            setSelectedSubjectIds(currentList.map(s => s.id));
+        }
+    };
+
+    const handleBatchDelete = async () => {
+        if (selectedSubjectIds.length === 0) return;
+        if (!window.confirm(`Siz rostdan ham tanlangan ${selectedSubjectIds.length} ta fan/to'plamni va ularning BARCHA KARTALARINI o'chirmoqchimisiz?`)) return;
+
+        for (const id of selectedSubjectIds) {
+            await deleteSubject(id);
+        }
+        setSelectedSubjectIds([]);
+    };
+
+    const handleBatchArchive = async (archive: boolean) => {
+        if (selectedSubjectIds.length === 0) return;
+        for (const id of selectedSubjectIds) {
+            await updateSubject(id, { isArchived: archive });
+        }
+        setSelectedSubjectIds([]);
     };
 
     return (
@@ -220,54 +257,134 @@ const DecksPage: React.FC = () => {
             </div>
 
             {activeTab === 'my' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {subjects.map((subject, index) => {
-                        const deckCards = flashcards.filter(c => 
-                            c.subjectId === subject.id || 
-                            (!c.subjectId && index === 0)
-                        );
-                        const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
-                        const matchingPreset = PRESET_DECKS.find(p => {
-                            const cleanTitle = getCleanTitle(p.title).toLowerCase();
-                            const cleanSubName = subject.name.toLowerCase().trim();
-                            return cleanSubName === p.title.toLowerCase().trim() ||
-                                cleanSubName.includes(cleanTitle) ||
-                                cleanTitle.includes(cleanSubName);
-                        });
-
-                        return (
-                            <DeckCard
-                                key={subject.id}
-                                subject={subject}
-                                cardCount={deckCards.length}
-                                dueCount={dueCards.length}
-                                onAIGenerate={() => setAiSubjectId(subject.id)}
-                                onPopulatePreset={matchingPreset ? () => handleImportPresetDeck(matchingPreset) : undefined}
-                            />
-                        );
-                    })}
-
-                    {subjects.length === 0 && (
-                        <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
-                            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
-                                <Book size={40} />
-                            </div>
-                            <h3 className="text-xl font-bold text-foreground mb-2">Fleshkartalar to'plami yo'q</h3>
-                            <p className="text-muted-foreground max-w-sm mb-8">
-                                O'zingiz fan qo'shing yoki Standart Kutubxonadan tayyor IELTS to'plamlarini saqlab oling.
-                            </p>
-                            <div className="flex gap-3">
-                                <Button onClick={() => setActiveTab('library')} variant="secondary" className="px-6 font-bold">
-                                    <Library size={18} className="mr-2" /> Standart Kutubxona
-                                </Button>
-                                <Link to="/subjects">
-                                    <Button className="px-6 font-bold">
-                                        <Plus size={18} className="mr-2" /> Fan Qo'shish
-                                    </Button>
-                                </Link>
-                            </div>
+                <div className="space-y-6">
+                    {/* Sub-tabs & Multi-select Toolbar */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 p-3 bg-muted/30 border border-border/80 rounded-2xl">
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => { setSubTab('active'); setSelectedSubjectIds([]); }}
+                                className={`flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl transition-all ${
+                                    subTab === 'active'
+                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                                }`}
+                            >
+                                <FolderCheck size={15} /> Faol To'plamlar ({activeSubjects.length})
+                            </button>
+                            <button
+                                onClick={() => { setSubTab('archived'); setSelectedSubjectIds([]); }}
+                                className={`flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl transition-all ${
+                                    subTab === 'archived'
+                                        ? 'bg-amber-600 text-white shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                                }`}
+                            >
+                                <FolderArchive size={15} /> Arxivlangan ({archivedSubjects.length})
+                            </button>
                         </div>
-                    )}
+
+                        {/* Multi-select Action Buttons */}
+                        {currentList.length > 0 && (
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={toggleSelectAll}
+                                    className="px-3 py-2 bg-background border border-input rounded-xl text-xs font-bold text-foreground hover:bg-muted flex items-center gap-1.5"
+                                >
+                                    {selectedSubjectIds.length === currentList.length && currentList.length > 0 ? (
+                                        <CheckSquare size={14} className="text-indigo-600 dark:text-indigo-400" />
+                                    ) : (
+                                        <Square size={14} />
+                                    )}
+                                    <span>Barchasini Belgilash</span>
+                                </button>
+
+                                {selectedSubjectIds.length > 0 && (
+                                    <>
+                                        <button
+                                            onClick={() => handleBatchArchive(subTab === 'active')}
+                                            className="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-xl text-xs font-bold flex items-center gap-1.5"
+                                        >
+                                            {subTab === 'active' ? <Archive size={14} /> : <ArchiveRestore size={14} />}
+                                            <span>{subTab === 'active' ? `${selectedSubjectIds.length} ta Arxivlash` : `${selectedSubjectIds.length} ta Tiklash`}</span>
+                                        </button>
+
+                                        <button
+                                            onClick={handleBatchDelete}
+                                            className="px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm"
+                                        >
+                                            <Trash2 size={14} />
+                                            <span>{selectedSubjectIds.length} ta O'chirish</span>
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {currentList.map((subject, index) => {
+                            const deckCards = flashcards.filter(c => 
+                                c.subjectId === subject.id || 
+                                (!c.subjectId && index === 0)
+                            );
+                            const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
+                            const matchingPreset = PRESET_DECKS.find(p => {
+                                const cleanTitle = getCleanTitle(p.title).toLowerCase();
+                                const cleanSubName = subject.name.toLowerCase().trim();
+                                return cleanSubName === p.title.toLowerCase().trim() ||
+                                    cleanSubName.includes(cleanTitle) ||
+                                    cleanTitle.includes(cleanSubName);
+                            });
+
+                            return (
+                                <DeckCard
+                                    key={subject.id}
+                                    subject={subject}
+                                    cardCount={deckCards.length}
+                                    dueCount={dueCards.length}
+                                    isSelected={selectedSubjectIds.includes(subject.id)}
+                                    onToggleSelect={() => toggleSelectSubject(subject.id)}
+                                    onToggleArchive={() => updateSubject(subject.id, { isArchived: !subject.isArchived })}
+                                    onDelete={async () => {
+                                        if (window.confirm(`"${subject.name}" fani va uning barcha kartalarini o'chirasizmi?`)) {
+                                            await deleteSubject(subject.id);
+                                        }
+                                    }}
+                                    onAIGenerate={() => setAiSubjectId(subject.id)}
+                                    onPopulatePreset={matchingPreset ? () => handleImportPresetDeck(matchingPreset) : undefined}
+                                />
+                            );
+                        })}
+
+                        {currentList.length === 0 && (
+                            <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
+                                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
+                                    {subTab === 'archived' ? <FolderArchive size={40} /> : <Book size={40} />}
+                                </div>
+                                <h3 className="text-xl font-bold text-foreground mb-2">
+                                    {subTab === 'archived' ? "Arxivlangan to'plamlar yo'q" : "Fleshkartalar to'plami yo'q"}
+                                </h3>
+                                <p className="text-muted-foreground max-w-sm mb-8">
+                                    {subTab === 'archived' 
+                                        ? "Siz hali hech qanday to'plamni arxivga o'tkazmagansiz."
+                                        : "O'zingiz fan qo'shing yoki Standart Kutubxonadan tayyor IELTS to'plamlarini saqlab oling."
+                                    }
+                                </p>
+                                {subTab === 'active' && (
+                                    <div className="flex gap-3">
+                                        <Button onClick={() => setActiveTab('library')} variant="secondary" className="px-6 font-bold">
+                                            <Library size={18} className="mr-2" /> Standart Kutubxona
+                                        </Button>
+                                        <Link to="/subjects">
+                                            <Button className="px-6 font-bold">
+                                                <Plus size={18} className="mr-2" /> Fan Qo'shish
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
 
