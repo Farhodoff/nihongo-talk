@@ -8,6 +8,7 @@ import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
 import { IeltsStudyPlanResult } from '../utils/ai';
 import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
+import { supabase } from '../lib/supabase';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -20,10 +21,13 @@ export const IeltsHubPage: React.FC = () => {
         generatedPlan: IeltsStudyPlanResult;
     } | null>(null);
 
-    const handleCancelPlan = () => {
+    const handleCancelPlan = async () => {
         if (window.confirm("Haqiqatan ham joriy IELTS o'quv rejangizni bekor qilmoqchimisiz?")) {
             localStorage.removeItem('study_planner_ielts_user_target');
             setUserPlanData(null);
+            try {
+                await supabase.auth.updateUser({ data: { ielts_user_target: null } });
+            } catch (e) {}
             toast({
                 title: '🗑️ Reja bekor qilindi',
                 description: 'Joriy IELTS rejangiz o\'chirildi.'
@@ -32,12 +36,28 @@ export const IeltsHubPage: React.FC = () => {
     };
 
     useEffect(() => {
-        const saved = localStorage.getItem('study_planner_ielts_user_target');
-        if (saved) {
-            try {
-                setUserPlanData(JSON.parse(saved));
-            } catch (e) {}
-        }
+        const loadPlan = async () => {
+            let plan = null;
+            const saved = localStorage.getItem('study_planner_ielts_user_target');
+            if (saved) {
+                try { plan = JSON.parse(saved); } catch (e) {}
+            }
+
+            if (!plan) {
+                try {
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user?.user_metadata?.ielts_user_target) {
+                        plan = user.user_metadata.ielts_user_target;
+                        localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
+                    }
+                } catch (e) {}
+            }
+
+            if (plan) {
+                setUserPlanData(plan);
+            }
+        };
+        loadPlan();
     }, []);
 
     return (

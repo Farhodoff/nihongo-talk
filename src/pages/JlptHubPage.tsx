@@ -7,6 +7,7 @@ import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaste
 import { useStudyData } from '../context/StudyPlannerContext';
 import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 import { toast } from '../hooks/use-toast';
+import { supabase } from '../lib/supabase';
 
 export const JlptHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -24,10 +25,13 @@ export const JlptHubPage: React.FC = () => {
         };
     } | null>(null);
 
-    const handleCancelPlan = () => {
+    const handleCancelPlan = async () => {
         if (window.confirm("Haqiqatan ham joriy o'quv rejangiz va maqsadingizni bekor qilmoqchimisiz?")) {
             localStorage.removeItem('study_planner_jlpt_user_target');
             setUserPlanData(null);
+            try {
+                await supabase.auth.updateUser({ data: { jlpt_user_target: null } });
+            } catch (e) {}
             toast({
                 title: '🗑️ Reja bekor qilindi',
                 description: 'Joriy rejangiz o\'chirildi. Yangi reja tuzishingiz mumkin.'
@@ -36,11 +40,25 @@ export const JlptHubPage: React.FC = () => {
     };
 
     useEffect(() => {
-        const saved = localStorage.getItem('study_planner_jlpt_user_target');
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                if (parsed && parsed.generatedPlan && (!parsed.generatedPlan.dailyPlan || parsed.generatedPlan.dailyPlan.length === 0)) {
+        const loadPlan = async () => {
+            let parsed = null;
+            const saved = localStorage.getItem('study_planner_jlpt_user_target');
+            if (saved) {
+                try { parsed = JSON.parse(saved); } catch (e) {}
+            }
+
+            if (!parsed) {
+                try {
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user?.user_metadata?.jlpt_user_target) {
+                        parsed = user.user_metadata.jlpt_user_target;
+                        localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
+                    }
+                } catch (e) {}
+            }
+
+            if (parsed) {
+                if (parsed.generatedPlan && (!parsed.generatedPlan.dailyPlan || parsed.generatedPlan.dailyPlan.length === 0)) {
                     parsed.generatedPlan.dailyPlan = generateAlgorithmicJlptPlan(
                         parsed.currentLevel || 'N5',
                         parsed.targetLevel || 'N3',
@@ -49,8 +67,9 @@ export const JlptHubPage: React.FC = () => {
                     localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
                 }
                 setUserPlanData(parsed);
-            } catch (e) {}
-        }
+            }
+        };
+        loadPlan();
     }, []);
 
     const jlptCards = flashcards.filter(f => f.front.includes('[N') || f.front.includes('漢字') || f.front.includes('語彙'));

@@ -6,6 +6,7 @@ import { calculateJlptFeasibility } from '../../utils/jlptCalculator';
 import { generateJlptStudyPlan } from '../../utils/ai';
 import { Task, Flashcard, StudyNote } from '../../types';
 import { PlacementTestModal } from '../ui/PlacementTestModal';
+import { supabase } from '../../lib/supabase';
 
 interface JlptOnboardingModalProps {
     isOpen: boolean;
@@ -79,6 +80,14 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                 createdAt: new Date().toISOString()
             };
             localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(planMeta));
+
+            try {
+                await supabase.auth.updateUser({
+                    data: { jlpt_user_target: planMeta }
+                });
+            } catch (e) {
+                console.error("Failed to sync JLPT plan to Supabase DB:", e);
+            }
 
             // 3. Batch Add Tasks
             if (plan.dailyPlan && plan.dailyPlan.length > 0) {

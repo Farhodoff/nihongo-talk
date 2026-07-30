@@ -6,6 +6,7 @@ import { ensureIeltsSubjectAndDecks } from '../../utils/ieltsAutoSubject';
 import { calculateCefrFeasibility } from '../../utils/cefrCalculator';
 import { Task, Flashcard, StudyNote } from '../../types';
 import { PlacementTestModal } from '../ui/PlacementTestModal';
+import { supabase } from '../../lib/supabase';
 
 interface IeltsOnboardingModalProps {
     isOpen: boolean;
@@ -63,15 +64,26 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
             setGeneratedPlan(plan);
             setStep(5);
 
-            // Save to localStorage
-            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify({
+            const targetObj = {
                 currentBand,
                 targetBand,
                 durationDays,
                 weakSkill,
                 generatedPlan: plan,
                 createdAt: new Date().toISOString()
-            }));
+            };
+
+            // Save to localStorage
+            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(targetObj));
+
+            // Save to Supabase DB user_metadata so cache clear never loses the plan
+            try {
+                await supabase.auth.updateUser({
+                    data: { ielts_user_target: targetObj }
+                });
+            } catch (e) {
+                console.error("Failed to sync IELTS plan to Supabase DB:", e);
+            }
 
             // Auto create "IELTS Academic & CEFR Master" subject and populate flashcard decks
             const ieltsSubjectId = await ensureIeltsSubjectAndDecks(currentBand, targetBand, subjects, addSubject, addFlashcard);
