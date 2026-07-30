@@ -51,10 +51,8 @@ const DecksPage: React.FC = () => {
     const findMatchingSubject = (preset: PresetDeck) => {
         const cleanTitle = getCleanTitle(preset.title).toLowerCase();
         return subjects.find(s => {
-            const cleanSubName = s.name.toLowerCase().trim();
-            return cleanSubName === preset.title.toLowerCase().trim() ||
-                cleanSubName.includes(cleanTitle) ||
-                cleanTitle.includes(cleanSubName);
+            const cleanSubName = getCleanTitle(s.name).toLowerCase();
+            return cleanSubName === cleanTitle || s.name.toLowerCase().trim() === preset.title.toLowerCase().trim();
         });
     };
 

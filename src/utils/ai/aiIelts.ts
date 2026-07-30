@@ -1,5 +1,6 @@
 import { getAIConfig } from './aiConfig';
 import { callDeepSeek } from '../deepseek';
+import { generateAlgorithmicIeltsPlan } from '../curriculum/ieltsAlgorithmicPlanner';
 
 export interface IeltsStudyPlanDay {
     day: number;
@@ -25,6 +26,8 @@ export const generateIeltsStudyPlan = async (
     weakSkill: string
 ): Promise<IeltsStudyPlanResult> => {
     const isZeroLevel = currentBand === 0;
+    const algorithmicDailyPlan = generateAlgorithmicIeltsPlan(currentBand, targetBand, durationDays, weakSkill);
+
     const prompt = `
       Act as a Head IELTS Academic Master Coach.
       Generate a customized ${durationDays}-day IELTS Study Roadmap for a student with:
@@ -63,7 +66,7 @@ export const generateIeltsStudyPlan = async (
               {"word": "ubiquitous", "meaning": "hamma joyda uchraydigan", "example": "Smartphones are ubiquitous nowadays."},
               {"word": "detrimental", "meaning": "zararli, salbiy ta'sir etuvchi", "example": "Smoking has a detrimental effect on health."}
             ],
-            "grammarNotes": [{"rule": "Present Perfect", "explanation": "O'tmishda boshlanib, hozirgacha davom etayotgan ish-harakat.", "example": "I have studied English for 5 years."}]
+            "grammarNotes": [{"rule": "Subject-Verb Agreement", "explanation": "Ega va kesimning moslashuvi."}]
           }
         ],
         "recommendedTips": ["Tavsiya 1", "Tavsiya 2", "Tavsiya 3"]
@@ -86,20 +89,7 @@ export const generateIeltsStudyPlan = async (
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-            const fallbackPlan = [
-                {
-                    day: 1,
-                    title: isZeroLevel ? "Foundation: Boshlang'ich Grammatika & Top 50 So'z" : "Writing Task 2 Structure & Intro",
-                    focusSkill: isZeroLevel ? "Vocabulary" as const : "Writing" as const,
-                    tasks: isZeroLevel 
-                        ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
-                        : ["Task 2 uchun 3 ta essay outline tuzish", "20 ta Academic Collocation o'rganish"],
-                    pomodoroTargetMinutes: 90,
-                    vocabularyList: isZeroLevel ? [{word: "always", meaning: "har doim"}] : [{word: "ubiquitous", meaning: "hamma joyda mavjud", example: "Smartphones are ubiquitous."}],
-                    grammarNotes: [{rule: "Subject-Verb Agreement", explanation: "Ega va kesimning moslashuvi."}]
-                }
-            ];
-            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : fallbackPlan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : algorithmicDailyPlan;
 
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
@@ -124,10 +114,12 @@ export const generateIeltsStudyPlan = async (
             const rawText = data.text || data.reply || '';
             const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
+            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : algorithmicDailyPlan;
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
                 summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: parsed.dailyPlan || parsed.daily_plan || parsed.plan || [],
+                dailyPlan: finalDailyPlan,
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         }
@@ -141,37 +133,7 @@ export const generateIeltsStudyPlan = async (
         summary: isZeroLevel 
             ? "Noldan boshlab IELTS 7.0+ darajasiga erishish uchun 3 bosqichli poydevoriy dars rejasi."
             : `Hozirgi Band ${currentBand} darajangizdan Band ${targetBand} ga yetish uchun intensiv kunlik reja.`,
-        dailyPlan: [
-            {
-                day: 1,
-                title: isZeroLevel ? "Foundation: Boshlang'ich Grammatika & Top 50 So'z" : "Writing Task 2 Structure & Intro",
-                focusSkill: isZeroLevel ? "Vocabulary" : "Writing",
-                tasks: isZeroLevel 
-                    ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
-                    : ["Task 2 uchun 3 ta essay outline tuzish", "20 ta Academic Collocation o'rganish"],
-                pomodoroTargetMinutes: 90,
-                vocabularyList: isZeroLevel ? [{word: "always", meaning: "har doim"}] : [{word: "ubiquitous", meaning: "hamma joyda mavjud", example: "Smartphones are ubiquitous."}],
-                grammarNotes: [{rule: "Subject-Verb Agreement", explanation: "Ega va kesimning moslashuvi."}]
-            },
-            {
-                day: 2,
-                title: isZeroLevel ? "Foundation: Eshitib Tushunish va Talaffuz" : "Speaking Part 1 & Part 2 Cue Cards",
-                focusSkill: isZeroLevel ? "Listening" : "Speaking",
-                tasks: isZeroLevel 
-                    ? ["Sodda inglizcha dialogni tinglab tushunish", "A1 so'zlar bo'yicha flashcard mashqi", "AI Coach bilan 10 min suhbat"]
-                    : ["5 ta Part 1 savoliga javob berish", "1 ta Part 2 Cue Card bo'yicha gapirish"],
-                pomodoroTargetMinutes: 60
-            },
-            {
-                day: 3,
-                title: isZeroLevel ? "Pre-IELTS: Gap Paraphrase Qilish Mashqlari" : "Reading Skimming & Scanning Technique",
-                focusSkill: isZeroLevel ? "Writing" : "Reading",
-                tasks: isZeroLevel 
-                    ? ["Sodda gaplarni 3 xil usulda qayta yozish (Paraphrase)", "Top 30 ta sinonim o'rganish"]
-                    : ["True/False/Not Given savollariga yondashuv", "1 ta Reading matnini 20 daqiqada ishlash"],
-                pomodoroTargetMinutes: 90
-            }
-        ],
+        dailyPlan: algorithmicDailyPlan,
         recommendedTips: [
             "Kuniga kamida 45-60 daqiqa diqqat bilan shug'ullaning.",
             "Yangi o'rgangan so'zlaringizni darhol gap ichida qo'llang.",

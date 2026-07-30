@@ -23,11 +23,14 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({ is
         if (!card.front || !card.back) return true;
         if (card.front.trim().length === 0 || card.back.trim().length === 0) return true;
         
-        // Detect JSON code leaks or raw response strings
+        // Detect JSON code leaks, raw response strings, or object serialization leaks
         if (card.front.includes('```') || card.back.includes('```') || card.front.includes('{"') || card.back.includes('{"')) return true;
+        if (card.front.includes('"front":') || card.back.includes('"back":') || card.front.includes('"word":')) return true;
 
-        // Detect weird html or unparsed tags
+        // Detect weird JS artifacts or unparsed tags
         if (card.front.includes('undefined') || card.back.includes('undefined')) return true;
+        if (card.front.includes('[object Object]') || card.back.includes('[object Object]')) return true;
+        if (card.front.includes('null') && card.front.length < 10) return true;
 
         return false;
     };
