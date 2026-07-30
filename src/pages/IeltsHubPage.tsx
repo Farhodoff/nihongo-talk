@@ -9,9 +9,11 @@ import { IeltsStudyPlanResult } from '../utils/ai';
 import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
+    const { tasks } = useStudyData();
     const [isQuizOpen, setIsQuizOpen] = useState(false);
     const [isReflectionOpen, setIsReflectionOpen] = useState(false);
     const [userPlanData, setUserPlanData] = useState<{
@@ -53,12 +55,60 @@ export const IeltsHubPage: React.FC = () => {
                 } catch (e) {}
             }
 
+            // Auto-reconstruct IELTS plan if tasks exist in DB from previous creation
+            if (!plan && tasks && tasks.length > 0) {
+                const ieltsTasks = tasks.filter(t => t.title.includes('[IELTS') || t.title.toLowerCase().includes('ielts'));
+                if (ieltsTasks.length > 0) {
+                    const dayMap = new Map<number, string[]>();
+                    ieltsTasks.forEach(t => {
+                        const match = t.title.match(/\[IELTS Day (\d+)\]\s*(.*)/i);
+                        const dayNum = match ? parseInt(match[1], 10) : 1;
+                        const taskContent = match ? match[2] : t.title;
+                        if (!dayMap.has(dayNum)) dayMap.set(dayNum, []);
+                        dayMap.get(dayNum)!.push(taskContent);
+                    });
+
+                    const reconstructedDailyPlan = Array.from(dayMap.entries()).map(([day, taskList]) => ({
+                        day,
+                        focusSkill: day % 4 === 1 ? 'Reading & Vocabulary' : day % 4 === 2 ? 'Listening & Shadowing' : day % 4 === 3 ? 'Writing Essay Structure' : 'Speaking Examiner Practice',
+                        tasks: taskList,
+                        estimatedMinutes: 60
+                    })).sort((a, b) => a.day - b.day);
+
+                    plan = {
+                        currentBand: 6.0,
+                        targetBand: 7.5,
+                        durationDays: reconstructedDailyPlan.length || 30,
+                        weakSkill: 'Writing & Speaking',
+                        createdAt: new Date().toISOString(),
+                        generatedPlan: {
+                            headline: "Tiklangan IELTS Intensiv Dars Rejasi",
+                            summary: "Bazada saqlangan vazifalaringiz asosida avtomatik tiklangan IELTS dars jadvali",
+                            targetBand: 7.5,
+                            estimatedHoursPerDay: 1.5,
+                            dailyPlan: reconstructedDailyPlan.length > 0 ? reconstructedDailyPlan : [
+                                { day: 1, focusSkill: 'Reading & Vocabulary', tasks: ieltsTasks.slice(0, 3).map(t => t.title), estimatedMinutes: 60 }
+                            ],
+                            keyMilestones: [
+                                { day: 7, milestone: "1-haftalik Listening & Reading diagnostic mock test" },
+                                { day: 15, milestone: "Task 2 Essay va Speaking Part 2 intensiv nazorati" },
+                                { day: 30, milestone: "Barcha 4 ta modul bo'yicha Full Mock Test" }
+                            ],
+                            recommendedTools: ["IELTS Hub", "AI Speaking Coach", "Vocabulary Decks"]
+                        }
+                    };
+
+                    localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
+                    supabase.auth.updateUser({ data: { ielts_user_target: plan } }).catch(() => {});
+                }
+            }
+
             if (plan) {
                 setUserPlanData(plan);
             }
         };
         loadPlan();
-    }, []);
+    }, [tasks]);
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16">
