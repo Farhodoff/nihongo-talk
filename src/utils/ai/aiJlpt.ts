@@ -57,7 +57,7 @@ export const generateJlptStudyPlan = async (
       }
     `;
 
-    const algorithmicDailyPlan = generateAlgorithmicJlptPlan(currentLevel, targetLevel, durationDays);
+    const algorithmicDailyPlan = generateAlgorithmicJlptPlan(currentLevel, targetLevel, durationDays, planType, specialGoal);
 
     const config = getAIConfig();
 

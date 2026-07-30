@@ -423,15 +423,28 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
                                 <div className="flex items-center justify-between text-xs">
                                     <span className="text-muted-foreground font-bold">Reja Turi:</span>
                                     <span className="font-extrabold text-rose-500 uppercase">
-                                        {planType === 'special' ? `Maxsus Maqsad (${specialGoal})` : 'JLPT Imtihon Rejasi'}
+                                        {planType === 'special' ? '🎯 MAXSUS MAQSAD' : '🎓 JLPT IMTIHON REJASI'}
                                     </span>
                                 </div>
-                                <div className="flex items-center justify-between text-xs">
-                                    <span className="text-muted-foreground font-bold">Boshlang'ich ➔ Maqsad:</span>
-                                    <span className="font-extrabold text-amber-500">
-                                        {currentLevel === '0' ? '0 Level (Noldan)' : currentLevel} ➔ {targetLevel}
-                                    </span>
-                                </div>
+                                {planType === 'special' ? (
+                                    <div className="flex items-center justify-between text-xs">
+                                        <span className="text-muted-foreground font-bold">Maxsus Maqsad Yo'nalishi:</span>
+                                        <span className="font-extrabold text-amber-500">
+                                            {specialGoal === 'kaiwa' && "🗣️ Kaiwa (Erkin Muloqot & Suhbat)"}
+                                            {specialGoal === 'mensetsu' && "💼 Mensetsu (Kompaniyaga Intervyu)"}
+                                            {specialGoal === 'dokkai' && "📖 Dokkai (Mutolaa & Matnlar)"}
+                                            {specialGoal === 'kanji' && "⛩️ Kanji & Lug'at Yodlash"}
+                                            {specialGoal === 'custom' && (customGoalText || "🎯 Shaxsiy Maqsad")}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center justify-between text-xs">
+                                        <span className="text-muted-foreground font-bold">Boshlang'ich ➔ Maqsad:</span>
+                                        <span className="font-extrabold text-amber-500">
+                                            {currentLevel === '0' ? '0 Level (Noldan)' : currentLevel} ➔ {targetLevel}
+                                        </span>
+                                    </div>
+                                )}
                                 <div className="flex items-center justify-between text-xs">
                                     <span className="text-muted-foreground font-bold">Davomiyligi:</span>
                                     <span className="font-extrabold text-foreground">{durationDays} Kun</span>
