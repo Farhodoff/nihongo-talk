@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
-import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured } from '../utils/ai';
+import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
@@ -18,6 +18,7 @@ import { CoachControlBar } from '../components/speaking/CoachControlBar';
 import { CoachSettingsModal } from '../components/speaking/CoachSettingsModal';
 import { CoachProModal } from '../components/speaking/CoachProModal';
 import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
+import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
     en: [
@@ -62,6 +63,7 @@ const SpeakingCoachPage: React.FC = () => {
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [sessionSeconds, setSessionSeconds] = useState(0);
     const [showPersonaSelector, setShowPersonaSelector] = useState(false);
+    const [liveErrors, setLiveErrors] = useState<ErrorTag[]>([]);
 
     // Session Analysis Report Modal state
     const [isReportOpen, setIsReportOpen] = useState(false);
@@ -185,6 +187,12 @@ const SpeakingCoachPage: React.FC = () => {
             const aiMsg: CoachChatMessage = { role: 'assistant', content: aiResponse, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
             const finalHistory = [...updatedHistory, aiMsg];
             
+            // Parse micro-errors for real-time live overlay
+            const extractedErrs = parseMicroErrors(aiResponse);
+            if (extractedErrs.length > 0) {
+                setLiveErrors(prev => [...extractedErrs, ...prev].slice(0, 10));
+            }
+
             setChatHistory(finalHistory);
             chatHistoryRef.current = finalHistory;
 
@@ -436,20 +444,31 @@ const SpeakingCoachPage: React.FC = () => {
                         </div>
                     </div>
                 ) : (
-                    <CoachChatArea 
-                        chatHistory={chatHistory}
-                        isLiveSession={isLiveSession}
-                        currentPersona={currentPersona}
-                        currentTranscript={currentTranscript}
-                        isListening={isListening}
-                        isThinking={isThinking}
-                        copiedIndex={copiedIndex}
-                        chatContainerRef={chatContainerRef}
-                        handleTranslateMessage={handleTranslateMessage}
-                        copyToClipboard={copyToClipboard}
-                        speakText={speakText}
-                        setChatHistory={setChatHistory}
-                    />
+                    <div className="flex-1 flex flex-col gap-4 overflow-hidden">
+                        <RealtimeVoiceOverlay
+                            isRecording={isListening}
+                            isAiSpeaking={isSpeaking}
+                            transcript={currentTranscript}
+                            errors={liveErrors}
+                            activeCefrLevel="B2"
+                            activeJlptLevel={language === 'ja' ? 'N3' : undefined}
+                            onToggleRecording={toggleMic}
+                        />
+                        <CoachChatArea 
+                            chatHistory={chatHistory}
+                            isLiveSession={isLiveSession}
+                            currentPersona={currentPersona}
+                            currentTranscript={currentTranscript}
+                            isListening={isListening}
+                            isThinking={isThinking}
+                            copiedIndex={copiedIndex}
+                            chatContainerRef={chatContainerRef}
+                            handleTranslateMessage={handleTranslateMessage}
+                            copyToClipboard={copyToClipboard}
+                            speakText={speakText}
+                            setChatHistory={setChatHistory}
+                        />
+                    </div>
                 )}
             </div>
 

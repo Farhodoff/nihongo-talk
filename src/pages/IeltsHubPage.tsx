@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame, Trash2 } from 'lucide-react';
+import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame, Trash2, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
@@ -10,6 +10,7 @@ import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { analyzeAndRebalanceSchedule } from '../utils/ai/weeklyRebalancer';
 
 export const IeltsHubPage: React.FC = () => {
     const navigate = useNavigate();
@@ -22,6 +23,29 @@ export const IeltsHubPage: React.FC = () => {
         durationDays: number;
         generatedPlan: IeltsStudyPlanResult;
     } | null>(null);
+
+    const { flashcards } = useStudyData();
+    const [isRebalancing, setIsRebalancing] = useState(false);
+
+    const handleRebalancePlan = async () => {
+        setIsRebalancing(true);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            const result = await analyzeAndRebalanceSchedule(user?.id || '', tasks, flashcards, 'IELTS');
+            if (result.success) {
+                toast({
+                    title: '🪄 Reja Optimizatsiya Qilindi!',
+                    description: result.message
+                });
+            } else {
+                toast({ variant: 'destructive', title: '⚠️ Xatolik', description: result.message });
+            }
+        } catch (e) {
+            toast({ variant: 'destructive', title: '❌ Xatolik', description: 'Rejani optimallashtirishda xato bo\'ldi.' });
+        } finally {
+            setIsRebalancing(false);
+        }
+    };
 
     const handleCancelPlan = async () => {
         if (window.confirm("Haqiqatan ham joriy IELTS o'quv rejangizni bekor qilmoqchimisiz?")) {
@@ -143,6 +167,15 @@ export const IeltsHubPage: React.FC = () => {
                                     <Target size={14} />
                                     <span>30-Day IELTS Challenge</span>
                                 </div>
+                                <button
+                                    onClick={handleRebalancePlan}
+                                    disabled={isRebalancing}
+                                    className="inline-flex items-center gap-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/30 transition-colors disabled:opacity-50"
+                                    title="AI bilan haftalik rejani qayta optimallashtirish"
+                                >
+                                    <RefreshCw size={13} className={isRebalancing ? 'animate-spin' : ''} />
+                                    <span>{isRebalancing ? 'Optimizatsiya...' : 'Haftalik Rejani Optimizatsiya Qilish 🪄'}</span>
+                                </button>
                                 <button
                                     onClick={handleCancelPlan}
                                     className="inline-flex items-center gap-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30 transition-colors"

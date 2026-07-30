@@ -623,3 +623,39 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
         return text;
     }
 };
+
+/**
+ * Dynamically builds a system prompt for adaptive CEFR / JLPT conversation tutoring
+ */
+export const buildAdaptiveSystemPrompt = (
+    mode: 'eng' | 'jp' = 'eng',
+    cefrLevel: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' = 'B2',
+    jlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
+): string => {
+    if (mode === 'jp') {
+        return `You are Sakamoto-sensei, an expert Japanese Kaiwa coach. Target JLPT Level: ${jlptLevel || 'N3'}. Adapt vocabulary and kanji usage dynamically. If user makes a grammar error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
+    }
+    return `You are Alex, an expert IELTS Examiner and adaptive CEFR Coach. Current Target CEFR Level: ${cefrLevel}. Adapt vocabulary, speed, and question depth. If user makes a grammar/vocab error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
+};
+
+/**
+ * Parses micro-error tags from AI streaming or text output
+ */
+export const parseMicroErrors = (text: string) => {
+    const errorRegex = /\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):\s*([^->]+)->([^|]+)\|\s*([^\]]+)\]/gi;
+    const errors: { id: string; type: 'grammar' | 'vocabulary' | 'pronunciation'; originalText: string; correction: string; explanation: string }[] = [];
+    
+    let match;
+    while ((match = errorRegex.exec(text)) !== null) {
+        const typeTag = match[1].toUpperCase();
+        errors.push({
+            id: Math.random().toString(36).substring(2, 9),
+            type: typeTag.includes('VOCAB') ? 'vocabulary' : typeTag.includes('PRON') ? 'pronunciation' : 'grammar',
+            originalText: match[2].trim(),
+            correction: match[3].trim(),
+            explanation: match[4].trim()
+        });
+    }
+
+    return errors;
+};
