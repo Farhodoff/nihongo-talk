@@ -77,7 +77,7 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
                 {promptSuggestions.map((item, idx) => (
                     <button
                         key={idx}
-                        onClick={() => onPromptClick(item.text)}
+                        onClick={() => onPromptClick(item.title)}
                         className="group relative p-3 bg-white/70 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/40 hover:border-indigo-300/60 dark:hover:border-indigo-600/40 rounded-2xl transition-all duration-200 text-left shadow-sm hover:shadow-lg hover:-translate-y-0.5"
                     >
                         <div className="flex items-start gap-2.5">

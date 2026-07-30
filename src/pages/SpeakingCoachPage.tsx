@@ -235,20 +235,28 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
-    const startSession = () => {
+    const startSession = (topicTitle?: string) => {
         setIsLiveSession(true);
         isLiveSessionRef.current = true;
         setCurrentTranscript('');
         setError(null);
 
-        const greeting = getInitialGreeting(language, persona);
+        let greeting = getInitialGreeting(language, persona);
+        if (topicTitle) {
+            if (language === 'ja') {
+                greeting = `こんにちは！「${topicTitle}」ですね。準備ができたら話しかけてください！`;
+            } else {
+                greeting = `Hello! Let's practice with "${topicTitle}". Feel free to speak whenever you are ready!`;
+            }
+        }
+
         const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const initHistory: CoachChatMessage[] = [{ role: 'assistant', content: greeting, timestamp: timeStr }];
         
         setChatHistory(initHistory);
         chatHistoryRef.current = initHistory;
 
-        speakText(greeting);
+        speakText(extractSpeechAudioText(greeting));
     };
 
     const endSession = async () => {
@@ -341,13 +349,8 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
-    const handlePromptClick = (text: string) => {
-        if (!isLiveSession) {
-            startSession();
-        }
-        setTimeout(() => {
-            handleSendUserText(text);
-        }, 500);
+    const handlePromptClick = (topicTitle: string) => {
+        startSession(topicTitle);
     };
 
     const copyToClipboard = (text: string, index: number) => {
