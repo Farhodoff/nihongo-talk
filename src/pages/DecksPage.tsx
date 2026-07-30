@@ -1,4 +1,4 @@
-import { Book, Plus, Sparkles, Upload, Library, Layers, FileText } from 'lucide-react';
+import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
@@ -6,21 +6,26 @@ import DeckCard from '../components/decks/DeckCard';
 import ImportModal from '../components/decks/ImportModal';
 import { PresetDeckCard } from '../components/decks/PresetDeckCard';
 import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
+import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
+import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
 
 const DecksPage: React.FC = () => {
-    const { subjects, flashcards, importFlashcards, addSubject, addFlashcardsBatch } = useStudyData();
+    const { user, subjects, flashcards, importFlashcards, addSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
+
+    const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
 
     const { handleImport, downloadTemplate, isImporting } = useFlashcardImport(importFlashcards);
 
@@ -29,20 +34,29 @@ const DecksPage: React.FC = () => {
         setImportModalOpen(false);
     };
 
+    const getCleanTitle = (title: string) => {
+        return title
+            .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]/gu, '')
+            .replace(/\s*\(\d+\s*Kartochka\)/i, '')
+            .replace(/\s*\([^)]*\)/gi, '')
+            .trim();
+    };
+
+    const findMatchingSubject = (preset: PresetDeck) => {
+        const cleanTitle = getCleanTitle(preset.title).toLowerCase();
+        return subjects.find(s => {
+            const cleanSubName = s.name.toLowerCase().trim();
+            return cleanSubName === preset.title.toLowerCase().trim() ||
+                cleanSubName.includes(cleanTitle) ||
+                cleanTitle.includes(cleanSubName);
+        });
+    };
+
     const handleImportPresetDeck = async (preset: PresetDeck) => {
         setIsImportingPreset(true);
         try {
-            // Remove emoji and count suffix for clean subject name
-            const cleanTitle = preset.title
-                .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]/gu, '')
-                .replace(/\s*\(\d+\s*Kartochka\)/i, '')
-                .trim();
-
-            let subject = subjects.find(s => 
-                s.name.toLowerCase() === preset.title.toLowerCase() || 
-                s.name.toLowerCase().includes(cleanTitle.toLowerCase()) ||
-                cleanTitle.toLowerCase().includes(s.name.toLowerCase())
-            );
+            const cleanTitle = getCleanTitle(preset.title);
+            let subject = findMatchingSubject(preset);
             let targetSubjectId = subject?.id;
 
             if (!targetSubjectId) {
@@ -56,30 +70,51 @@ const DecksPage: React.FC = () => {
             }
 
             if (targetSubjectId) {
-                const loadedCards = await preset.loadCards();
-                if (loadedCards && loadedCards.length > 0) {
-                    const batchCards = loadedCards.map(c => ({
-                        subjectId: targetSubjectId!,
-                        front: c.front,
-                        back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
-                        interval: 1,
-                        repetitions: 0,
-                        easeFactor: 2.5,
-                        nextReviewDate: new Date().toISOString()
-                    }));
+                // Ensure we don't import duplicates if subject already has cards
+                const existingCards = flashcards.filter(c => c.subjectId === targetSubjectId);
+                if (existingCards.length === 0) {
+                    const loadedCards = await preset.loadCards();
+                    if (loadedCards && loadedCards.length > 0) {
+                        const batchCards = loadedCards.map(c => ({
+                            subjectId: targetSubjectId!,
+                            front: c.front,
+                            back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                            interval: 1,
+                            repetitions: 0,
+                            easeFactor: 2.5,
+                            nextReviewDate: new Date().toISOString()
+                        }));
 
-                    await addFlashcardsBatch(batchCards);
+                        // Chunk insertions into batches of 100 for maximum stability
+                        const chunkSize = 100;
+                        for (let i = 0; i < batchCards.length; i += chunkSize) {
+                            const chunk = batchCards.slice(i, i + chunkSize);
+                            await addFlashcardsBatch(chunk);
+                        }
+                    }
                 }
             }
 
             setImportedDeckTitle(preset.title);
             setTimeout(() => setImportedDeckTitle(null), 4000);
-            setActiveTab('my');
         } catch (err) {
             console.error('Import preset error:', err);
             alert('To\'plamni saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
         } finally {
             setIsImportingPreset(false);
+        }
+    };
+
+    const handleRemovePresetDeck = async (preset: PresetDeck) => {
+        const matchingSubject = findMatchingSubject(preset);
+        if (!matchingSubject) return;
+
+        if (window.confirm(`"${preset.title}" to'plamini va uning barcha kartochkalarini "Mening To'plamlarim"dan o'chirmoqchimisiz?`)) {
+            try {
+                await deleteSubject(matchingSubject.id);
+            } catch (err) {
+                console.error("Remove preset deck error:", err);
+            }
         }
     };
 
@@ -128,6 +163,15 @@ const DecksPage: React.FC = () => {
                         >
                             <Upload size={15} /> Import
                         </button>
+                        {isAdmin && (
+                            <button
+                                onClick={() => setIsAdminModalOpen(true)}
+                                className="flex items-center gap-1.5 px-3 py-2 text-xs font-black text-rose-600 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl transition-all"
+                                title="Buzuq kartalarni saralash va o'chirish"
+                            >
+                                <ShieldAlert size={15} /> Admin Cleaner
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -171,7 +215,7 @@ const DecksPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Library size={16} className="text-amber-500" /> Standart IELTS Kutubxonasi ({PRESET_DECKS.length})
+                    <Library size={16} className="text-amber-500" /> Standart Kutubxona ({PRESET_DECKS.length})
                 </button>
             </div>
 
@@ -183,10 +227,13 @@ const DecksPage: React.FC = () => {
                             (!c.subjectId && index === 0)
                         );
                         const dueCards = deckCards.filter(c => new Date(c.nextReviewDate) <= new Date());
-                        const matchingPreset = PRESET_DECKS.find(p => 
-                            p.title.toLowerCase().startsWith(subject.name.toLowerCase()) || 
-                            subject.name.toLowerCase().startsWith(p.title.toLowerCase().replace(/\s*\(\d+\s*kartochka\)/i, '').trim())
-                        );
+                        const matchingPreset = PRESET_DECKS.find(p => {
+                            const cleanTitle = getCleanTitle(p.title).toLowerCase();
+                            const cleanSubName = subject.name.toLowerCase().trim();
+                            return cleanSubName === p.title.toLowerCase().trim() ||
+                                cleanSubName.includes(cleanTitle) ||
+                                cleanTitle.includes(cleanSubName);
+                        });
 
                         return (
                             <DeckCard
@@ -226,14 +273,19 @@ const DecksPage: React.FC = () => {
 
             {activeTab === 'library' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {PRESET_DECKS.map(deck => (
-                        <PresetDeckCard
-                            key={deck.id}
-                            deck={deck}
-                            onImport={handleImportPresetDeck}
-                            onUpgradeClick={() => navigate('/settings')}
-                        />
-                    ))}
+                    {PRESET_DECKS.map(deck => {
+                        const matchingSubject = findMatchingSubject(deck);
+                        return (
+                            <PresetDeckCard
+                                key={deck.id}
+                                deck={deck}
+                                isAdded={!!matchingSubject}
+                                onImport={handleImportPresetDeck}
+                                onRemove={handleRemovePresetDeck}
+                                onUpgradeClick={() => navigate('/settings')}
+                            />
+                        );
+                    })}
                 </div>
             )}
 
@@ -244,6 +296,11 @@ const DecksPage: React.FC = () => {
                     subjectId={aiSubjectId === 'global' ? undefined : aiSubjectId}
                 />
             )}
+
+            <AdminFlashcardManager
+                isOpen={isAdminModalOpen}
+                onClose={() => setIsAdminModalOpen(false)}
+            />
 
             <ImportModal
                 isOpen={isImportModalOpen}
@@ -264,3 +321,4 @@ const DecksPage: React.FC = () => {
 };
 
 export default DecksPage;
+

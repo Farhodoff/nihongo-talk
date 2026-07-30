@@ -1,24 +1,40 @@
 import React from 'react';
 import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { Lock, Sparkles, Download, BookOpen } from 'lucide-react';
+import { Lock, Sparkles, Plus, Check, Trash2, BookOpen } from 'lucide-react';
 import { useSubscription } from '../../hooks/useSubscription';
 
 interface PresetDeckCardProps {
     deck: PresetDeck;
+    isAdded?: boolean;
     onImport: (deck: PresetDeck) => void;
+    onRemove?: (deck: PresetDeck) => void;
     onUpgradeClick: () => void;
 }
 
-export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ deck, onImport, onUpgradeClick }) => {
+export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ 
+    deck, 
+    isAdded = false, 
+    onImport, 
+    onRemove, 
+    onUpgradeClick 
+}) => {
     const { isPro, subscription } = useSubscription();
     const isLocked = deck.isPremiumOnly && !isPro && subscription?.tier !== 'premium';
 
     return (
-        <div className="bg-card border border-border rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group">
+        <div className={`bg-card border rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group ${
+            isAdded ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-border'
+        }`}>
             {deck.isPremiumOnly && (
                 <div className="absolute top-3 right-3 px-2.5 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-[11px] font-extrabold rounded-full flex items-center gap-1">
                     {isLocked ? <Lock size={12} /> : <Sparkles size={12} />} PRO
+                </div>
+            )}
+
+            {isAdded && !deck.isPremiumOnly && (
+                <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-extrabold rounded-full flex items-center gap-1">
+                    <Check size={12} /> Saqlangan
                 </div>
             )}
 
@@ -52,15 +68,24 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ deck, onImport, 
                     >
                         <Lock size={14} /> PRO Obuna bilan Ochish
                     </Button>
+                ) : isAdded ? (
+                    <Button
+                        variant="outline"
+                        onClick={() => onRemove && onRemove(deck)}
+                        className="w-full py-2.5 border-rose-500/30 text-rose-600 hover:bg-rose-500/10 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
+                    >
+                        <Trash2 size={14} /> - Mening to'plamimdan o'chirish
+                    </Button>
                 ) : (
                     <Button
                         onClick={() => onImport(deck)}
-                        className="w-full py-2.5 bg-primary text-primary-foreground text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow"
+                        className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow"
                     >
-                        <Download size={14} /> To'plamni Saqlash
+                        <Plus size={14} /> + Mening to'plamimga qo'shish
                     </Button>
                 )}
             </div>
         </div>
     );
 };
+

@@ -1,8 +1,9 @@
-import { ArrowLeft, CheckCircle2, Loader2, Volume2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
 import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
@@ -11,7 +12,8 @@ const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
     const navigate = useNavigate();
 
-    const { flashcards, reviewFlashcard, loading } = useStudyData();
+    const { user, flashcards, reviewFlashcard, deleteFlashcard, loading } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -40,6 +42,24 @@ const StudyModePage: React.FC = () => {
         e?.stopPropagation();
         if (currentCard?.front) {
             speakText(currentCard.front, accent);
+        }
+    };
+
+    const handleDeleteCard = async (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!currentCard) return;
+        if (window.confirm("Ushbu buzuq/xato kartochkani BAZADAN BUTKUL O'CHIRMOQCHIMISIZ?")) {
+            const cardToDeleteId = currentCard.id;
+            // Advance to next card
+            if (currentCardIndex < queue.length - 1) {
+                setCurrentCardIndex(prev => prev);
+                setQueue(prev => prev.filter(c => c.id !== cardToDeleteId));
+            } else {
+                setQueue(prev => prev.filter(c => c.id !== cardToDeleteId));
+                setIsFinished(true);
+            }
+            setIsFlipped(false);
+            await deleteFlashcard(cardToDeleteId, true);
         }
     };
 
@@ -123,7 +143,16 @@ const StudyModePage: React.FC = () => {
                 <div className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                     {/* Front Side */}
                     <div className="absolute inset-0 backface-hidden glass-card border border-border bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl flex flex-col justify-between p-8">
-                        <div className="flex justify-end">
+                        <div className="flex justify-between items-center">
+                            {isAdmin ? (
+                                <button
+                                    onClick={handleDeleteCard}
+                                    title="Admin: Ushbu kartochkani bazadan o'chirish"
+                                    className="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-2xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5 text-xs font-bold"
+                                >
+                                    <Trash2 size={16} /> Admin O'chirish
+                                </button>
+                            ) : <div />}
                             <button
                                 onClick={handleSpeak}
                                 title="Talaffuzni eshitish"
