@@ -42,9 +42,15 @@ export const generateAlgorithmicJlptPlan = (
         else if (day % 2 === 0) focusArea = 'Kanji';
 
         const tasks: string[] = [];
-        if (kanjiChunk.length > 0) tasks.push(`Kanjilarni yodlash: ${kanjiChunk.map(k => k.kanji).join(', ')}`);
-        if (vocabChunk.length > 0) tasks.push(`Yangi so'zlarni o'rganish: ${vocabChunk.length} ta so'z`);
-        if (grammarChunk.length > 0) tasks.push(`Grammatika qoidasini ko'rib chiqish: ${grammarChunk.map(g => g.title).join(', ')}`);
+        if (kanjiChunk.length > 0) {
+            tasks.push(`Kanjilarni yodlash: ${kanjiChunk.map(k => `${k.kanji} (${k.meaningUz})`).join(', ')}`);
+        }
+        if (vocabChunk.length > 0) {
+            tasks.push(`Yangi so'zlarni yodlash: ${vocabChunk.map(v => `${v.front} (${v.back})`).join(', ')}`);
+        }
+        if (grammarChunk.length > 0) {
+            tasks.push(`Grammatika qoidasi: ${grammarChunk.map(g => `${g.title} (${g.meaningUz})`).join(', ')}`);
+        }
 
         // If it's a review day (all items exhausted)
         if (tasks.length === 0) {

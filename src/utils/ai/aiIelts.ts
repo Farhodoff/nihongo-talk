@@ -44,6 +44,8 @@ export const generateIeltsStudyPlan = async (
       1. Provide a motivating headline and Uzbek summary.
       2. Provide a 7-day representative weekly routine schedule (Day 1 to Day 7) that repeats and escalates over the ${durationDays} days.
       3. All daily tasks, headlines, and tips MUST be in Uzbek (O'zbek tilida).
+      4. CRITICAL MANDATE: For EVERY day, you MUST provide a "vocabularyList" of 5-10 specific target IELTS words/collocations (with Uzbek meaning & example).
+      5. CRITICAL MANDATE: In the "tasks" array for vocabulary or topic days, explicitly include the exact target words to learn (e.g., "Mavzuga oid lug'at yodlash: crucial, ubiquitous, detrimental"). Never leave the user guessing which words to memorize!
 
       Output JSON Schema (Return ONLY valid JSON):
       {
@@ -54,9 +56,13 @@ export const generateIeltsStudyPlan = async (
             "day": 1,
             "title": "Kunlik diqqat markazi (masalan: Task 2 Structure & Intro)",
             "focusSkill": "Writing",
-            "tasks": ["Task 2 uchun 3 ta mavzuga outline tuzish", "20 ta Academic Collocation o'rganish"],
+            "tasks": ["Task 2 uchun 3 ta essay outline tuzish", "Mavzuga oid lug'at yodlash: crucial, ubiquitous, detrimental"],
             "pomodoroTargetMinutes": 90,
-            "vocabularyList": [{"word": "crucial", "meaning": "hal qiluvchi, juda muhim", "example": "It is crucial to understand the rules."}],
+            "vocabularyList": [
+              {"word": "crucial", "meaning": "hal qiluvchi, juda muhim", "example": "It is crucial to understand the rules."},
+              {"word": "ubiquitous", "meaning": "hamma joyda uchraydigan", "example": "Smartphones are ubiquitous nowadays."},
+              {"word": "detrimental", "meaning": "zararli, salbiy ta'sir etuvchi", "example": "Smoking has a detrimental effect on health."}
+            ],
             "grammarNotes": [{"rule": "Present Perfect", "explanation": "O'tmishda boshlanib, hozirgacha davom etayotgan ish-harakat.", "example": "I have studied English for 5 years."}]
           }
         ],

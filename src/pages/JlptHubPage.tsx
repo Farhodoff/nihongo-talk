@@ -202,6 +202,62 @@ export const JlptHubPage: React.FC = () => {
                                 <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-muted-foreground">
                                     {dayPlan.tasks.map((t: string, i: number) => <li key={i}>{t}</li>)}
                                 </ul>
+
+                                {/* Daily Kanji List */}
+                                {dayPlan.kanjiList && dayPlan.kanjiList.length > 0 && (
+                                    <div className="mt-3 pt-3 border-t border-rose-500/20">
+                                        <span className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1 mb-2">
+                                            ⛩️ Bugungi Kanji ({dayPlan.kanjiList.length} ta):
+                                        </span>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {dayPlan.kanjiList.map((k: any, kIdx: number) => (
+                                                <span 
+                                                    key={kIdx} 
+                                                    title={`On: ${k.onyomi || '-'} | Kun: ${k.kunyomi || '-'}`}
+                                                    className="px-2 py-1 bg-rose-500/10 text-rose-700 dark:text-rose-300 text-xs font-bold rounded-lg border border-rose-500/20"
+                                                >
+                                                    <strong className="text-sm font-black mr-1">{k.kanji}</strong> ({k.meaning})
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Daily Vocabulary List */}
+                                {dayPlan.vocabularyList && dayPlan.vocabularyList.length > 0 && (
+                                    <div className="mt-3 pt-2 border-t border-rose-500/10">
+                                        <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 mb-2">
+                                            📖 Bugungi Lug'at ({dayPlan.vocabularyList.length} ta):
+                                        </span>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {dayPlan.vocabularyList.map((v: any, vIdx: number) => (
+                                                <span 
+                                                    key={vIdx} 
+                                                    className="px-2 py-1 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-lg border border-indigo-500/20"
+                                                >
+                                                    {v.word} {v.reading ? `<${v.reading}>` : ''} <span className="font-normal opacity-80">({v.meaning})</span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Daily Grammar Notes */}
+                                {dayPlan.grammarNotes && dayPlan.grammarNotes.length > 0 && (
+                                    <div className="mt-3 pt-2 border-t border-rose-500/10">
+                                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1.5">
+                                            📝 Grammatika Qoidasi:
+                                        </span>
+                                        <div className="space-y-1">
+                                            {dayPlan.grammarNotes.map((g: any, gIdx: number) => (
+                                                <div key={gIdx} className="text-xs text-muted-foreground bg-emerald-500/5 p-2 rounded-lg border border-emerald-500/10">
+                                                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{g.rule}:</span> {g.explanation}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="mt-4 pt-3 border-t border-rose-500/20 flex items-center gap-1.5 text-xs text-rose-500 font-semibold">
                                     <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
                                 </div>

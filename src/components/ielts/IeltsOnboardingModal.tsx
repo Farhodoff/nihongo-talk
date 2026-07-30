@@ -102,6 +102,22 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
                             subjectId: ieltsSubjectId || undefined
                         });
                     });
+
+                    // Explicitly add specific vocabulary task for the day if provided
+                    if (day.vocabularyList && day.vocabularyList.length > 0) {
+                        const wordsStr = day.vocabularyList.map(v => `${v.word} (${v.meaning})`).join(', ');
+                        const alreadyIncludesWords = day.tasks.some(t => day.vocabularyList?.some(v => t.includes(v.word)));
+                        if (!alreadyIncludesWords) {
+                            tasksToInsert.push({
+                                title: `[IELTS Day ${day.day}] 📖 Kunlik maxsus lug'at yodlash: ${wordsStr}`,
+                                completed: false,
+                                status: 'todo',
+                                priority: 'high',
+                                dueDate: new Date(Date.now() + index * 86400000).toISOString().split('T')[0],
+                                subjectId: ieltsSubjectId || undefined
+                            });
+                        }
+                    }
                 });
                 
                 const taskChunks = chunkArray(tasksToInsert, 100);

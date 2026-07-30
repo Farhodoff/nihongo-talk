@@ -247,6 +247,43 @@ export const IeltsHubPage: React.FC = () => {
                                 <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
                                     {dayPlan.tasks.map((t, i) => <li key={i}>{t}</li>)}
                                 </ul>
+
+                                {/* Daily Vocabulary Target List */}
+                                {dayPlan.vocabularyList && dayPlan.vocabularyList.length > 0 && (
+                                    <div className="mt-3 pt-3 border-t border-indigo-100 dark:border-indigo-900/30">
+                                        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-1 mb-2">
+                                            📖 Bugungi Lug'at ({dayPlan.vocabularyList.length} ta so'z):
+                                        </span>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {dayPlan.vocabularyList.map((v, vIdx) => (
+                                                <span 
+                                                    key={vIdx} 
+                                                    title={v.example ? `Misol: ${v.example}` : v.meaning}
+                                                    className="px-2 py-1 bg-indigo-100/70 dark:bg-indigo-900/40 text-indigo-900 dark:text-indigo-200 text-xs font-bold rounded-lg border border-indigo-200/50 dark:border-indigo-800/50"
+                                                >
+                                                    {v.word} <span className="font-normal opacity-80">({v.meaning})</span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Daily Grammar Notes */}
+                                {dayPlan.grammarNotes && dayPlan.grammarNotes.length > 0 && (
+                                    <div className="mt-3 pt-2 border-t border-indigo-100/60 dark:border-indigo-900/20">
+                                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1.5">
+                                            📝 Grammatika Qoidasi:
+                                        </span>
+                                        <div className="space-y-1">
+                                            {dayPlan.grammarNotes.map((g, gIdx) => (
+                                                <div key={gIdx} className="text-xs text-gray-700 dark:text-gray-300 bg-emerald-500/5 p-2 rounded-lg border border-emerald-500/10">
+                                                    <span className="font-bold text-emerald-700 dark:text-emerald-300">{g.rule}:</span> {g.explanation}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="mt-4 pt-3 border-t border-indigo-100 dark:border-indigo-900/30 flex items-center gap-1.5 text-xs text-indigo-400 font-semibold">
                                     <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
                                 </div>
