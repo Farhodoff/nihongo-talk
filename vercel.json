@@ -5,7 +5,9 @@
     "installCommand": "npm install --legacy-peer-deps",
     "rewrites": [
         { "source": "/api/(.*)", "destination": "/api/$1" },
-        { "source": "/((?!api/).*)", "destination": "/index.html" }
+        { "source": "/sw.js", "destination": "/sw.js" },
+        { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
+        { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
     ],
     "headers": [
         {
