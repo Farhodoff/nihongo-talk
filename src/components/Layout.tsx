@@ -181,7 +181,7 @@ const Layout: React.FC = () => {
             {focusState.isActive && location.pathname !== '/focus' && (
                 <div 
                     onClick={() => navigate('/focus')}
-                    className="fixed bottom-6 right-6 z-50 glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:scale-105 transition-all group animate-in slide-in-from-bottom-4"
+                    className={`fixed ${isFullScreenPage ? 'bottom-28 md:bottom-24 right-6' : 'bottom-20 md:bottom-6 right-6'} z-50 glass-card p-3 rounded-2xl flex items-center gap-3 cursor-pointer hover:scale-105 transition-all group animate-in slide-in-from-bottom-4 shadow-xl`}
                 >
                     <div className="relative">
                         <div className="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center">

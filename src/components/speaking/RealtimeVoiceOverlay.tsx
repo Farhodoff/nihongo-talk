@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { Mic, MicOff, Sparkles, AlertCircle, CheckCircle2, Flame } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React from 'react';
+import { Mic, Sparkles, AlertCircle, CheckCircle2, Flame, Volume2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export interface ErrorTag {
     id: string;
@@ -23,197 +23,112 @@ interface RealtimeVoiceOverlayProps {
 export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     isRecording,
     isAiSpeaking,
-    transcript,
     errors,
     activeCefrLevel = 'B2',
     activeJlptLevel,
-    onToggleRecording
 }) => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-    // Animated Neon Soundwave Simulation
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        let animationId: number;
-        let phase = 0;
-
-        const renderWave = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const width = canvas.width;
-            const height = canvas.height;
-            const centerY = height / 2;
-
-            if (isRecording || isAiSpeaking) {
-                const waveColor = isAiSpeaking ? '#38bdf8' : '#a855f7';
-                ctx.beginPath();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = waveColor;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = waveColor;
-
-                for (let x = 0; x < width; x += 4) {
-                    const amplitude = isRecording ? (Math.sin(x * 0.05 + phase) * 20 + Math.cos(x * 0.03) * 15) : (Math.sin(x * 0.08 + phase) * 30);
-                    const y = centerY + amplitude;
-                    if (x === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-
-                ctx.stroke();
-                phase += 0.15;
-            } else {
-                ctx.beginPath();
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#475569';
-                ctx.shadowBlur = 0;
-                ctx.moveTo(0, centerY);
-                ctx.lineTo(width, centerY);
-                ctx.stroke();
-            }
-
-            animationId = requestAnimationFrame(renderWave);
-        };
-
-        renderWave();
-
-        return () => {
-            cancelAnimationFrame(animationId);
-        };
-    }, [isRecording, isAiSpeaking]);
-
     const getBadgeStyle = (level: string) => {
         switch (level) {
             case 'C2': case 'C1': case 'N1':
-                return 'from-rose-500 to-purple-600 text-white shadow-rose-500/30';
+                return 'from-rose-500 to-purple-600 text-white shadow-rose-500/20';
             case 'B2': case 'B1': case 'N2': case 'N3':
-                return 'from-indigo-500 to-cyan-500 text-white shadow-indigo-500/30';
+                return 'from-indigo-500 to-cyan-500 text-white shadow-indigo-500/20';
             default:
-                return 'from-emerald-500 to-teal-500 text-white shadow-emerald-500/30';
+                return 'from-emerald-500 to-teal-500 text-white shadow-emerald-500/20';
         }
     };
 
     return (
-        <div className="w-full bg-slate-900/90 border border-indigo-500/20 rounded-3xl p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden space-y-6">
-            {/* Header & Adaptive Scaffolding Badge */}
-            <div className="flex items-center justify-between">
+        <div className="w-full space-y-2 shrink-0">
+            {/* Sleek Compact Top Bar */}
+            <div className="w-full bg-slate-900/80 backdrop-blur-xl border border-indigo-500/20 rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-xl">
+                {/* Left: Live Status Badge */}
                 <div className="flex items-center gap-3">
-                    <div className={`p-3 rounded-2xl bg-gradient-to-r ${isRecording ? 'from-purple-600 to-indigo-600 animate-pulse' : 'from-slate-800 to-slate-900'} text-white shadow-lg`}>
-                        <Mic size={22} className={isRecording ? 'animate-bounce' : ''} />
+                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-white shadow-md transition-colors ${
+                        isAiSpeaking 
+                            ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 animate-pulse'
+                            : isRecording 
+                            ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse'
+                            : 'bg-slate-800 text-slate-400 border border-slate-700'
+                    }`}>
+                        {isAiSpeaking ? (
+                            <Volume2 size={16} className="animate-bounce" />
+                        ) : isRecording ? (
+                            <Mic size={16} className="animate-pulse text-rose-400" />
+                        ) : (
+                            <Sparkles size={16} />
+                        )}
                     </div>
+
                     <div>
-                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                            Real-Time Voice Assistant
-                            {isAiSpeaking && (
-                                <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-widest bg-cyan-500/20 text-cyan-400 rounded-full border border-cyan-500/30 animate-pulse">
-                                    AI Examiner Gapirmoqda...
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-extrabold text-white tracking-wide">
+                                {isAiSpeaking ? 'AI Coach Gapirmoqda...' : isRecording ? 'Jonli Ovoz Yozib Olinmoqda...' : 'Real-Time Voice Coach'}
+                            </span>
+                            {(isRecording || isAiSpeaking) && (
+                                <span className="flex h-2 w-2 relative">
+                                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isAiSpeaking ? 'bg-cyan-400' : 'bg-rose-400'}`} />
+                                    <span className={`relative inline-flex rounded-full h-2 w-2 ${isAiSpeaking ? 'bg-cyan-500' : 'bg-rose-500'}`} />
                                 </span>
                             )}
-                        </h3>
-                        <p className="text-xs text-slate-400">
-                            {isRecording ? 'Ovozingiz jonli yozib olinmoqda va tahlil qilinmoqda...' : 'Muloqotni boshlash uchun mikrofonni bosing'}
+                        </div>
+                        <p className="text-[10px] text-slate-400 font-medium">
+                            {isRecording ? 'Ovozingiz avtomatik tahlil qilinmoqda' : 'Jonli ovozli muloqot rejimida'}
                         </p>
                     </div>
                 </div>
 
-                {/* CEFR / JLPT Level Scaffolding Badge */}
+                {/* Right: Level Badges & Micro-error Count */}
                 <div className="flex items-center gap-2">
+                    {errors.length > 0 && (
+                        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold">
+                            <AlertCircle size={13} />
+                            <span>{errors.length} maslahat</span>
+                        </div>
+                    )}
+                    
                     {activeJlptLevel && (
-                        <div className={`px-3 py-1.5 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeJlptLevel)} font-black text-xs shadow-lg flex items-center gap-1.5`}>
-                            <Flame size={14} />
+                        <div className={`px-2.5 py-1 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeJlptLevel)} font-black text-[11px] shadow-sm flex items-center gap-1`}>
+                            <Flame size={12} />
                             <span>JLPT {activeJlptLevel}</span>
                         </div>
                     )}
-                    <div className={`px-3 py-1.5 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeCefrLevel)} font-black text-xs shadow-lg flex items-center gap-1.5`}>
-                        <Sparkles size={14} />
+
+                    <div className={`px-2.5 py-1 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeCefrLevel)} font-black text-[11px] shadow-sm flex items-center gap-1`}>
+                        <Sparkles size={12} />
                         <span>CEFR {activeCefrLevel}</span>
                     </div>
                 </div>
             </div>
 
-            {/* Neon Waveform Canvas */}
-            <div className="relative w-full h-24 bg-slate-950/80 rounded-2xl border border-indigo-500/10 flex items-center justify-center overflow-hidden">
-                <canvas ref={canvasRef} width={600} height={96} className="w-full h-full" />
-                {!isRecording && !isAiSpeaking && (
-                    <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-slate-500">
-                        Ovoz to'lqinlari shu yerda aks etadi
-                    </div>
+            {/* Expandable Micro-error toasts if detected */}
+            <AnimatePresence>
+                {errors.length > 0 && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+                    >
+                        {errors.slice(0, 2).map((err) => (
+                            <div key={err.id} className="bg-amber-950/40 border border-amber-500/20 rounded-xl p-2.5 flex items-start gap-2.5 text-xs backdrop-blur-md">
+                                <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                                <div className="min-w-0 space-y-0.5">
+                                    <div className="font-bold text-amber-200 truncate flex items-center gap-1.5 text-[11px]">
+                                        <span className="line-through text-slate-400">{err.originalText}</span>
+                                        <span className="text-emerald-400 font-bold flex items-center gap-0.5">
+                                            <CheckCircle2 size={11} /> {err.correction}
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-300 text-[10px] line-clamp-1">
+                                        {err.explanation}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </motion.div>
                 )}
-            </div>
-
-            {/* Live Transcript & Error Highlights */}
-            {transcript && (
-                <div className="bg-slate-950/60 rounded-2xl p-4 border border-slate-800 space-y-3 animate-in fade-in duration-300">
-                    <div className="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        <span>Jonli Nutq Matni (Transcript)</span>
-                        {errors.length > 0 && (
-                            <span className="text-amber-400 flex items-center gap-1">
-                                <AlertCircle size={13} /> {errors.length} ta grammatik maslahat
-                            </span>
-                        )}
-                    </div>
-                    <p className="text-sm font-medium text-slate-200 leading-relaxed font-sans">
-                        "{transcript}"
-                    </p>
-                </div>
-            )}
-
-            {/* Inline Micro-Error Cards */}
-            {errors.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-                    {errors.slice(0, 4).map((err) => (
-                        <motion.div
-                            key={err.id}
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            className="bg-amber-950/30 border border-amber-500/20 rounded-2xl p-3.5 flex items-start gap-3"
-                        >
-                            <div className="p-1.5 bg-amber-500/20 text-amber-400 rounded-lg mt-0.5">
-                                <AlertCircle size={15} />
-                            </div>
-                            <div className="space-y-1 text-xs">
-                                <div className="font-bold text-amber-300 capitalize flex items-center gap-1.5">
-                                    <span>{err.type} Xatosi</span>
-                                    <span className="line-through text-slate-500">{err.originalText}</span>
-                                </div>
-                                <div className="text-emerald-400 font-semibold flex items-center gap-1">
-                                    <CheckCircle2 size={13} /> {err.correction}
-                                </div>
-                                <p className="text-slate-400 text-[11px] leading-snug">
-                                    {err.explanation}
-                                </p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            )}
-
-            {/* Record Toggle Button */}
-            <div className="flex justify-center pt-2">
-                <button
-                    onClick={onToggleRecording}
-                    className={`py-3.5 px-8 rounded-2xl font-black text-sm shadow-xl flex items-center gap-3 transition-all transform active:scale-95 ${
-                        isRecording
-                            ? 'bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white shadow-rose-500/30'
-                            : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 text-white shadow-indigo-500/30'
-                    }`}
-                >
-                    {isRecording ? (
-                        <>
-                            <MicOff size={18} />
-                            <span>Yozib Olishni To'xtatish</span>
-                        </>
-                    ) : (
-                        <>
-                            <Mic size={18} />
-                            <span>Gapirishni Boshlash 🎙️</span>
-                        </>
-                    )}
-                </button>
-            </div>
+            </AnimatePresence>
         </div>
     );
 };
