@@ -88,10 +88,35 @@ export const generateAlgorithmicJlptPlan = (
                 if (kSlice.length > 0) tasks.push(`Kanjilarni yodlash va yozish: ${kSlice.map(k => `${k.kanji} (${k.meaningUz})`).join(', ')}`);
                 tasks.push("Kanji va so'zlar bo'yicha Flashcard kartalarni takrorlash");
             } else {
-                focusArea = 'Vocabulary';
-                dayTitle = `🎯 Custom Maqsadli Mashg'ulot (Kun ${day})`;
-                tasks.push(`Kunlik maqsadingiz bo'yicha mashq bajarish`);
-                tasks.push("Yangi iboralar va qoidalarni qayta ko'rib chiqish");
+                // Dynamic rotating topics for custom goal
+                const customTopics = [
+                    { title: "Salomlashish va Rasmiy Muloqot Foundation", focus: "Speaking" as const, task1: "Kirish va salomlashish iboralarini takrorlash", task2: "Kundalik muloqot so'zlarini ovozli aytib mashq qilish" },
+                    { title: "Soha bo'yicha Maxsus Lug'at Boyligi", focus: "Vocabulary" as const, task1: "Tanlangan maqsad bo'yicha 5 ta asosiy terminga ta'rif berish", task2: "Lug'atlar va so'z iboralarini Flashcard shaklida yodlash" },
+                    { title: "Grammatik Qurilmalar va Gap Tuzish", focus: "Grammar" as const, task1: "So'z birikmalaridan foydalanib 3 ta murakkab gap tuzish", task2: "O'tilgan grammatika qoidalarini amaliyotda qo'llash" },
+                    { title: "Listening va Audio Shadowing Mashqi", focus: "Listening" as const, task1: "Dialog va audiolarni 3 martadan tinglab qaytarish", task2: "Eshtilgan ma'lumot bo'yicha qisqa xulosa yozish" },
+                    { title: "Erkin Nutq va AI Coach bilan Suhbat", focus: "Speaking" as const, task1: "Kaiwa AI Coach bilan 15 daqiqa jonli gaplashish", task2: "Talaffuz va intonatsiyani to'g'rilash mashqi" },
+                    { title: "Matnlar va Soha Hujjatlarini O'qish", focus: "Reading" as const, task1: "1 ta qisqa matnni o'qib, o'zbekchaga tarjima qilish", task2: "Yangi so'zlarni daftarga qayd etish" },
+                    { title: "Haftalik Takrorlash va Bilimni Mustahkamlash", focus: "Vocabulary" as const, task1: "Hafta davomida o'rganilgan so'zlarni qayta sinovdan o'tkazish", task2: "Yo'l xaritasi bo'yicha keyingi qadamni belgilash" }
+                ];
+                const topic = customTopics[(day - 1) % customTopics.length];
+                focusArea = topic.focus;
+                const cleanGoalTitle = specialGoal.length > 30 ? specialGoal.substring(0, 30) + '...' : specialGoal;
+                dayTitle = `🎯 ${cleanGoalTitle}: ${topic.title} (Kun ${day})`;
+                tasks.push(topic.task1);
+                tasks.push(topic.task2);
+                tasks.push(`"${cleanGoalTitle}" maqsadi bo'yicha kunlik amaliyot`);
+
+                // Include a fallback vocabulary item for custom goal
+                const startVocab = (day - 1) * vocabPerDay;
+                const vocabChunk = vocabForLevel.slice(startVocab, startVocab + vocabPerDay);
+                if (vocabChunk.length > 0) {
+                    dayVocab = vocabChunk.map(v => ({
+                        word: v.front,
+                        reading: v.romaji || v.furigana || '',
+                        meaning: v.back,
+                        example: v.example
+                    }));
+                }
             }
         } else {
             // General JLPT Level plan

@@ -30,29 +30,39 @@ export const generateJlptStudyPlan = async (
     const isZeroLevel = currentLevel === '0';
     const prompt = `
       Act as a Senior Japanese Language Master Coach and JLPT Specialist.
-      Generate a customized ${durationDays}-day Japanese Study Roadmap for a student with:
-      - Plan Type: ${planType} (${planType === 'special' ? `Focus Area: ${specialGoal}` : 'General JLPT Prep'})
+      Generate a highly customized ${durationDays}-day Japanese Study Roadmap for a student:
+      - Plan Type: ${planType === 'special' ? `MAXSUS MAQSAD (Focus/Goal: ${specialGoal})` : `JLPT ${targetLevel} Imtihon Rejasi`}
       - Current Level: ${isZeroLevel ? "0 Level (Absolute Beginner starting from Hiragana/Katakana)" : currentLevel}
-      - Target Level/Goal: ${targetLevel}
-      - Preparation Period: ${durationDays} days
-
-      ${isZeroLevel ? `CRITICAL SPECIAL INSTRUCTION FOR BEGINNER (0 LEVEL):
-      The student starts from scratch (A0/A1) and needs to learn Hiragana and Katakana first.
-      Structure the 7-day schedule to focus on:
-      - Phase 1 (Kana Foundation): Hiragana and Katakana writing/pronunciation.
-      - Phase 2 (Basic Kanji/Vocab): Basic Kanji (like Numbers, Days, Simple nouns), basic N5 vocabulary.
-      - Phase 3 (Intro Bunpou): Simple sentence patterns (A wa B desu, particles like wa, ga, o, ni).` : ''}
+      - Target Goal: ${planType === 'special' ? specialGoal : targetLevel}
+      - Duration: ${durationDays} days
 
       Requirements:
-      1. Provide a motivating headline and Uzbek summary.
-      2. Provide exactly 3 recommended tips.
-      3. All headlines, summaries, and tips MUST be in Uzbek (O'zbek tilida).
-      4. DO NOT generate the daily plan, it will be handled by the algorithm.
+      1. Provide a motivating headline and Uzbek summary tailored specifically to "${specialGoal || targetLevel}".
+      2. Provide a 7-day representative weekly routine schedule (Day 1 to Day 7) that escalates over ${durationDays} days.
+      3. For EACH day, provide:
+         - "title": A unique, inspiring day title in Uzbek (e.g. "Kun 1: Jikoshoukai & Salomlashish iboralari", "Kun 2: Ishxona Muloqoti & Keigo", etc.)
+         - "focusArea": One of 'Speaking' | 'Listening' | 'Reading' | 'Kanji' | 'Vocabulary' | 'Grammar'
+         - "tasks": Array of 2-3 specific, actionable study tasks in Uzbek.
+         - "vocabularyList": Array of 3-5 target Japanese words/phrases with "word", "reading", "meaning" (in Uzbek), and optional "example".
+      4. All headlines, summaries, daily titles, and tasks MUST be in Uzbek (O'zbek tilida).
 
       Output JSON Schema (Return ONLY valid JSON):
       {
-        "headline": "Uzbekcha sarlavha (masalan: 90 Kunlik JLPT N3 Intensiv Yo'l Xaritasi)",
+        "headline": "Uzbekcha sarlavha (masalan: 30 Kunlik Kaiwa Erkin Muloqot Yo'l Xaritasi)",
         "summary": "Qisqa Uzbekcha strategik tavsiya va reja mazmuni.",
+        "dailyPlan": [
+          {
+            "day": 1,
+            "title": "Kun 1: O'zini tanishtirish (Jikoshoukai) va Salomlashish",
+            "focusArea": "Speaking",
+            "tasks": ["1 daqiqalik Jikoshoukai nutqini yozish", "Salomlashish va odob-ahloq iboralarini takrorlash"],
+            "pomodoroTargetMinutes": 60,
+            "vocabularyList": [
+              {"word": "はじめまして", "reading": "hajimemashite", "meaning": "tanishganimdan xursandman", "example": "はじめまして、田中です。"},
+              {"word": "よろしくお願いします", "reading": "yoroshiku onegaishimasu", "meaning": "e'tiboringiz uchun rahmat", "example": "本日はよろしくお願いします。"}
+            ]
+          }
+        ],
         "recommendedTips": ["Tavsiya 1", "Tavsiya 2", "Tavsiya 3"]
       }
     `;

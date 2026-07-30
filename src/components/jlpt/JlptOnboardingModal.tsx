@@ -53,7 +53,8 @@ export const JlptOnboardingModal: React.FC<JlptOnboardingModalProps> = ({ isOpen
         setIsGenerating(true);
         try {
             // 1. Generate study plan using AI
-            const plan = await generateJlptStudyPlan(currentLevel, targetLevel, durationDays, planType, specialGoal);
+            const effectiveGoal = specialGoal === 'custom' ? (customGoalText || "Shaxsiy Yapon Tili Maqsadi") : specialGoal;
+            const plan = await generateJlptStudyPlan(currentLevel, targetLevel, durationDays, planType, effectiveGoal);
 
             // 2. Create Japanese subject and populate decks
             const jlptSubjectId = await ensureJlptSubjectAndDecks(currentLevel, targetLevel, subjects, addSubject, addFlashcard);
