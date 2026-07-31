@@ -1,22 +1,26 @@
 import React from 'react';
 import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { Lock, Sparkles, Plus, Check, Trash2, BookOpen } from 'lucide-react';
+import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen } from 'lucide-react';
 import { useSubscription } from '../../hooks/useSubscription';
 
 interface PresetDeckCardProps {
     deck: PresetDeck;
     isAdded?: boolean;
+    isAdmin?: boolean;
     onImport: (deck: PresetDeck) => void;
     onRemove?: (deck: PresetDeck) => void;
+    onAdminAudit?: (deck: PresetDeck) => void;
     onUpgradeClick: () => void;
 }
 
 export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ 
     deck, 
     isAdded = false, 
+    isAdmin = false,
     onImport, 
     onRemove, 
+    onAdminAudit,
     onUpgradeClick 
 }) => {
     const { isPro, subscription } = useSubscription();
@@ -59,7 +63,17 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                 </div>
             </div>
 
-            <div className="pt-6 border-t border-border/50 mt-4">
+            <div className="pt-6 border-t border-border/50 mt-4 space-y-2">
+                {isAdmin && (
+                    <Button
+                        variant="outline"
+                        onClick={() => onAdminAudit && onAdminAudit(deck)}
+                        className="w-full py-2 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-amber-500/10 hover:bg-rose-500/20 text-rose-500 dark:text-rose-400 border border-rose-500/30 text-xs font-black rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-sm"
+                    >
+                        <ShieldAlert size={14} /> 🛠️ Admin Tekshirish va Saralash
+                    </Button>
+                )}
+
                 {isLocked ? (
                     <Button
                         variant="secondary"

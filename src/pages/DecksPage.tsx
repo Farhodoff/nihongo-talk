@@ -7,6 +7,7 @@ import ImportModal from '../components/decks/ImportModal';
 import { PresetDeckCard } from '../components/decks/PresetDeckCard';
 import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
 import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
+import { AdminPresetAuditorModal } from '../components/decks/AdminPresetAuditorModal';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
@@ -24,6 +25,7 @@ const DecksPage: React.FC = () => {
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+    const [auditingDeck, setAuditingDeck] = useState<PresetDeck | null>(null);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
 
@@ -395,8 +397,10 @@ const DecksPage: React.FC = () => {
                                 key={deck.id}
                                 deck={deck}
                                 isAdded={!!matchingSubject}
+                                isAdmin={isAdmin}
                                 onImport={handleImportPresetDeck}
                                 onRemove={handleRemovePresetDeck}
+                                onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
                                 onUpgradeClick={() => navigate('/settings')}
                             />
                         );
@@ -415,6 +419,12 @@ const DecksPage: React.FC = () => {
             <AdminFlashcardManager
                 isOpen={isAdminModalOpen}
                 onClose={() => setIsAdminModalOpen(false)}
+            />
+
+            <AdminPresetAuditorModal
+                isOpen={!!auditingDeck}
+                deck={auditingDeck}
+                onClose={() => setAuditingDeck(null)}
             />
 
             <ImportModal
