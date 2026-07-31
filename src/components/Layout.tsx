@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
+import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 
 interface NavGroup {
     category: string;
@@ -282,6 +283,7 @@ const Layout: React.FC = () => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
+                <GlobalAnnouncementBanner />
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={location.pathname}

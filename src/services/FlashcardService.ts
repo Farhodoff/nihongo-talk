@@ -36,11 +36,11 @@ const KNOWN_JLPT_FIXES: Record<string, string> = {
     '注意 [N4]': "ちゅうい (chuui)\n\n📌 Ma'nosi: E'tibor berish, Ogohlantirish (Attention / Caution)\n\n💬 Misol: 「車に注意する」 (Mashinaga e'tiborli bo'lmoq)",
 };
 
-function cleanJapaneseOcrText(text: string): string {
+export function cleanJapaneseOcrText(text: string): string {
     if (!text) return text;
     return text
         .replace(/^\d+\s*/, '') // Remove OCR leading numbers "6 "
-        .replace(/\([a-d]/gi, '（　　）') // Replace OCR markers "(a" with clean brackets
+        .replace(/\([a-d]/gi, '（　t）') // Replace OCR markers "(a" with clean brackets
         .replace(/([一-龯ぁ-んァ-ヶ])\s+([一-龯ぁ-んァ-ヶ])/g, '$1$2') // Fix OCR spaces inside words
         .replace(/([一-龯ぁ-んァ-ヶ])\s+([一-龯ぁ-んァ-ヶ])/g, '$1$2')
         .replace(/^[a-d]\s*/gi, '') // Fix leading choice letters "b"
@@ -48,7 +48,7 @@ function cleanJapaneseOcrText(text: string): string {
         .trim();
 }
 
-function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModified: boolean } {
+export function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModified: boolean } {
     if (!card.back && !card.front) return { card, wasModified: false };
     let front = card.front || '';
     let back = card.back || '';

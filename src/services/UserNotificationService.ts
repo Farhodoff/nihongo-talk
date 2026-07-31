@@ -189,4 +189,71 @@ export class UserNotificationService {
             localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(trimmed));
         } catch (e) {}
     }
+
+    /**
+     * Broadcasts a global announcement to all users (Admin only feature)
+     */
+    static async sendGlobalBroadcastAnnouncement(data: {
+        title: string;
+        message: string;
+        tag?: string;
+    }): Promise<boolean> {
+        try {
+            const announcement = {
+                id: `broadcast_${Date.now()}`,
+                title: data.title,
+                message: data.message,
+                tag: data.tag || 'general',
+                created_at: new Date().toISOString(),
+                is_active: true
+            };
+
+            // Save to Supabase DB
+            await supabase.from('admin_announcements').upsert(announcement as any);
+
+            // Save to local storage for instant broadcast render
+            const raw = localStorage.getItem('study_planner_global_announcements');
+            const list = raw ? JSON.parse(raw) : [];
+            list.unshift(announcement);
+            localStorage.setItem('study_planner_global_announcements', JSON.stringify(list.slice(0, 20)));
+
+            // Trigger web push notification
+            PushNotificationService.sendNotification(`📢 ${data.title}`, {
+                body: data.message,
+                tag: 'global_broadcast'
+            });
+
+            return true;
+        } catch (err) {
+            console.error("Global broadcast error:", err);
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves active global announcements
+     */
+    static async getActiveBroadcastAnnouncements(): Promise<Array<{ id: string; title: string; message: string; tag?: string; created_at: string }>> {
+        try {
+            const { data, error } = await supabase
+                .from('admin_announcements')
+                .select('*')
+                .eq('is_active', true)
+                .order('created_at', { ascending: false })
+                .limit(5);
+
+            if (!error && data && data.length > 0) {
+                return data;
+            }
+        } catch (e) {}
+
+        // Fallback to local storage
+        try {
+            const raw = localStorage.getItem('study_planner_global_announcements');
+            if (raw) return JSON.parse(raw);
+        } catch (e) {}
+
+        return [];
+    }
 }
+

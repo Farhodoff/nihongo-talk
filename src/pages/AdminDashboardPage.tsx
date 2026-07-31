@@ -4,14 +4,16 @@ import { supabase } from '../lib/supabase';
 import {
     Shield, Users, Key, Loader2, Save, CheckCircle2,
     MessageSquare, Send, X, Gift, Crown,
-    Zap, Star, RefreshCw, MoreVertical, UserX, Home, Activity, TrendingUp, BookOpen
+    Zap, Star, RefreshCw, MoreVertical, UserX, Home, Activity, TrendingUp, BookOpen,
+    Megaphone, Wand2, PieChart, AlertTriangle
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { isAdminEmail } from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
+import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
 import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+    AreaChart, Area, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 
 interface UserSubscription {
@@ -153,11 +155,39 @@ const AdminDashboardPage: React.FC = () => {
     const [statsError, setStatsError] = useState<boolean>(false);
     const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
 
+    // Broadcast modal / form
+    const [broadcastTitle, setBroadcastTitle] = useState('🚀 Yangi JLPT N2 5-Qism va 6-Qism 100 ta Kanjilari yuklandi!');
+    const [broadcastMessage, setBroadcastMessage] = useState("Platformaning 'To'plamlar' bo'limiga kirib, yangi yuklangan 100 ta Kanjilarni o'rganishni boshlashingiz mumkin.");
+    const [broadcastTag, setBroadcastTag] = useState('JLPT N2');
+    const [sendingBroadcast, setSendingBroadcast] = useState(false);
+    const [broadcastSuccess, setBroadcastSuccess] = useState(false);
+
+    // AI Card Cleaner
+    const [isCleanerOpen, setIsCleanerOpen] = useState(false);
+
     // Message modal
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
     const [msgTitle, setMsgTitle] = useState('🎁 Maxsus Xabar');
     const [msgContent, setMsgContent] = useState('');
     const [sendingMsg, setSendingMsg] = useState(false);
+
+    const handleSendBroadcast = async () => {
+        if (!broadcastTitle.trim() || !broadcastMessage.trim()) return;
+        setSendingBroadcast(true);
+        try {
+            await UserNotificationService.sendGlobalBroadcastAnnouncement({
+                title: broadcastTitle.trim(),
+                message: broadcastMessage.trim(),
+                tag: broadcastTag
+            });
+            setBroadcastSuccess(true);
+            setTimeout(() => setBroadcastSuccess(false), 4000);
+        } catch (err) {
+            console.error("Failed to send broadcast:", err);
+        } finally {
+            setSendingBroadcast(false);
+        }
+    };
 
     // Stats
     const totalUsers = subscriptions.length;
@@ -317,6 +347,13 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setIsCleanerOpen(true)}
+                        className="flex items-center gap-2 text-sm font-bold text-amber-300 bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500/30 px-4 py-2 rounded-xl transition-all shadow-sm"
+                    >
+                        <Wand2 className="w-4 h-4" />
+                        ⚡ AI Card Cleaner
+                    </button>
                     <button
                         onClick={() => navigate('/admin/exams')}
                         className="flex items-center gap-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-xl transition-colors"
@@ -702,6 +739,166 @@ GRANT SELECT ON public.admin_daily_stats TO authenticated;`}
                     </div>
                 </div>
             )}
+
+            {/* ── 📢 Broadcast Announcement Form Section ── */}
+            <div className="bg-gradient-to-br from-indigo-900 via-purple-950 to-slate-900 text-white rounded-3xl p-6 shadow-xl border border-white/10 space-y-4">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="p-3 bg-amber-500/20 border border-amber-500/30 rounded-2xl text-amber-400">
+                            <Megaphone size={22} />
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-black flex items-center gap-2">
+                                📢 Global Broadcast Announcement (Barcha Foydalanuvchilarga E'lon)
+                            </h2>
+                            <p className="text-xs text-slate-300">
+                                Ushbu bildirishnoma barcha foydalanuvchilar ekranida va Push-notification shaklida ko'rinadi.
+                            </p>
+                        </div>
+                    </div>
+
+                    {broadcastSuccess && (
+                        <div className="px-3.5 py-1.5 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl flex items-center gap-1.5 animate-in fade-in">
+                            <CheckCircle2 size={16} /> Live E'lon Barchaga Yuborildi!
+                        </div>
+                    )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div>
+                        <label className="font-extrabold text-slate-300 block mb-1.5">E'lon Sarlavhasi:</label>
+                        <input
+                            type="text"
+                            value={broadcastTitle}
+                            onChange={e => setBroadcastTitle(e.target.value)}
+                            placeholder="🚀 Yangi JLPT N2 5-Qism va 6-Qism 100 ta Kanjilari yuklandi!"
+                            className="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white font-bold placeholder:text-slate-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="font-extrabold text-slate-300 block mb-1.5">Tag (Kategoriya / Daraja):</label>
+                        <select
+                            value={broadcastTag}
+                            onChange={e => setBroadcastTag(e.target.value)}
+                            className="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white font-bold"
+                        >
+                            <option value="JLPT N2">JLPT N2</option>
+                            <option value="JLPT N3">JLPT N3</option>
+                            <option value="JLPT N4">JLPT N4</option>
+                            <option value="JLPT N5">JLPT N5</option>
+                            <option value="IELTS">IELTS</option>
+                            <option value="E'lon">Umumiy E'lon</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="font-extrabold text-slate-300 block mb-1.5">Harakat (Action):</label>
+                        <Button
+                            disabled={sendingBroadcast || !broadcastTitle.trim() || !broadcastMessage.trim()}
+                            onClick={handleSendBroadcast}
+                            className="w-full py-3 bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-lg flex items-center justify-center gap-2"
+                        >
+                            {sendingBroadcast ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
+                            {sendingBroadcast ? "Yuborilmoqda..." : "📢 Live Broadcast Yuborish"}
+                        </Button>
+                    </div>
+                </div>
+
+                <div>
+                    <label className="font-extrabold text-slate-300 block mb-1.5 text-xs">E'lon Matni:</label>
+                    <textarea
+                        rows={2}
+                        value={broadcastMessage}
+                        onChange={e => setBroadcastMessage(e.target.value)}
+                        placeholder="Platformaning 'To'plamlar' bo'limiga kirib, yangi yuklangan 100 ta Kanjilarni o'rganishni boshlashingiz mumkin."
+                        className="w-full p-3 bg-black/40 border border-white/10 rounded-xl text-white font-medium text-xs placeholder:text-slate-500 resize-none"
+                    />
+                </div>
+            </div>
+
+            {/* ── 📊 Student Deck Popularity & Struggled Cards Analytics ── */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2.5 bg-indigo-500/10 text-indigo-500 rounded-2xl">
+                            <PieChart size={20} />
+                        </div>
+                        <div>
+                            <h3 className="font-black text-base text-foreground">Kutubxona Decklar Mashhurligi (Deck Popularity)</h3>
+                            <p className="text-xs text-muted-foreground">Foydalanuvchilar eng ko'p saqlagan darajalar ulushi</p>
+                        </div>
+                    </div>
+
+                    <div className="h-56 w-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={[
+                                { name: 'JLPT N4', count: 6655, fill: '#6366f1' },
+                                { name: 'IELTS A1-A2', count: 1646, fill: '#10b981' },
+                                { name: 'IELTS B1-B2', count: 1201, fill: '#f59e0b' },
+                                { name: 'JLPT N3', count: 350, fill: '#ec4899' },
+                                { name: 'JLPT N5', count: 200, fill: '#3b82f6' },
+                                { name: 'JLPT N2', count: 150, fill: '#8b5cf6' },
+                            ]}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148, 163, 184, 0.15)" />
+                                <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                                <Tooltip />
+                                <Bar dataKey="count" radius={[8, 8, 0, 0]}>
+                                    {[
+                                        { fill: '#6366f1' },
+                                        { fill: '#10b981' },
+                                        { fill: '#f59e0b' },
+                                        { fill: '#ec4899' },
+                                        { fill: '#3b82f6' },
+                                        { fill: '#8b5cf6' }
+                                    ].map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2.5 bg-rose-500/10 text-rose-500 rounded-2xl">
+                            <AlertTriangle size={20} />
+                        </div>
+                        <div>
+                            <h3 className="font-black text-base text-foreground">Eng Qiyin Kartochkalar (Struggled Cards)</h3>
+                            <p className="text-xs text-muted-foreground">O'quvchilar ko'p marotaba Qayta (AGAIN) deb baholagan so'zlar</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-2.5 text-xs max-h-56 overflow-y-auto pr-1">
+                        {[
+                            { word: 'たくさん (Takusan)', meaning: 'Ko\'p, mo\'l-ko me l', count: '142 marta qayta' },
+                            { word: '勉強 (Benkyou)', meaning: 'O\'qish, ta\'lim olish', count: '98 marta qayta' },
+                            { word: '約束 (Yakusoku)', meaning: 'Va\'da, kelishuv', count: '76 marta qayta' },
+                            { word: '準備 (Junbi)', meaning: 'Tayyorgarlik', count: '64 marta qayta' },
+                            { word: '複雑 (Fukuzatsu)', meaning: 'Murakkab, chigal', count: '52 marta qayta' },
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-800">
+                                <div>
+                                    <span className="font-extrabold text-foreground block">{item.word}</span>
+                                    <span className="text-[11px] text-muted-foreground">{item.meaning}</span>
+                                </div>
+                                <span className="px-2.5 py-1 text-[10px] font-black text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                                    {item.count}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* AI OCR Card Cleaner Modal */}
+            <AdminAiCardCleanerModal
+                isOpen={isCleanerOpen}
+                onClose={() => setIsCleanerOpen(false)}
+            />
         </div>
     );
 };
