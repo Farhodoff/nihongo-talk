@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
@@ -7,12 +7,13 @@ import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
 import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
+import { toast } from '../hooks/use-toast';
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
     const navigate = useNavigate();
 
-    const { user, flashcards, subjects, reviewFlashcard, deleteFlashcard, loading } = useStudyData();
+    const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } = useStudyData();
     const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
@@ -23,6 +24,11 @@ const StudyModePage: React.FC = () => {
     const [totalXpEarned, setTotalXpEarned] = useState(0);
     const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
     const [isQueueInitialized, setIsQueueInitialized] = useState(false);
+
+    // Admin inline editing state
+    const [isEditingCard, setIsEditingCard] = useState(false);
+    const [editFront, setEditFront] = useState('');
+    const [editBack, setEditBack] = useState('');
 
     const currentSubject = subjects.find(s => s.id === subjectId);
 
@@ -64,11 +70,9 @@ const StudyModePage: React.FC = () => {
     const handleDeleteCard = async (e: React.MouseEvent) => {
         e.stopPropagation();
         if (!currentCard) return;
-        if (window.confirm("Ushbu buzuq/xato kartochkani BAZADAN BUTKUL O'CHIRMOQCHIMISIZ?")) {
+        if (window.confirm("Admin: Ushbu kartochkani bazadan BUTKUL O'CHIRMOQCHIMISIZ?")) {
             const cardToDeleteId = currentCard.id;
-            // Advance to next card
             if (currentCardIndex < queue.length - 1) {
-                setCurrentCardIndex(prev => prev);
                 setQueue(prev => prev.filter(c => c.id !== cardToDeleteId));
             } else {
                 setQueue(prev => prev.filter(c => c.id !== cardToDeleteId));
@@ -76,6 +80,36 @@ const StudyModePage: React.FC = () => {
             }
             setIsFlipped(false);
             await deleteFlashcard(cardToDeleteId, true);
+            toast({ title: "🗑️ Kartochka bazadan o'chirildi" });
+        }
+    };
+
+    const handleStartEdit = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!currentCard) return;
+        setEditFront(currentCard.front);
+        setEditBack(currentCard.back);
+        setIsEditingCard(true);
+    };
+
+    const handleSaveEdit = async () => {
+        if (!currentCard || !editFront.trim() || !editBack.trim()) return;
+        try {
+            await updateFlashcard(currentCard.id, {
+                front: editFront.trim(),
+                back: editBack.trim()
+            });
+
+            // Update local queue state
+            setQueue(prev => prev.map((c, idx) => 
+                idx === currentCardIndex ? { ...c, front: editFront.trim(), back: editBack.trim() } : c
+            ));
+
+            setIsEditingCard(false);
+            toast({ title: "✅ Kartochka to'g'rilandi va saqlandi" });
+        } catch (err) {
+            console.error("Failed to edit flashcard:", err);
+            toast({ variant: 'destructive', title: "❌ Xatolik", description: "Kartochkani tahrirlashda xatolik yuz berdi." });
         }
     };
 
@@ -126,7 +160,22 @@ const StudyModePage: React.FC = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-6">
+        <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-6 relative">
+            {isEditingCard && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                    <div className="bg-card w-full max-w-lg rounded-3xl p-6 shadow-2xl border border-border">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="font-bold">Kartochkani tahrirlash</h3>
+                            <button onClick={() => setIsEditingCard(false)} className="p-1 rounded-full hover:bg-muted"><X size={20} /></button>
+                        </div>
+                        <div className="space-y-4">
+                            <input value={editFront} onChange={(e) => setEditFront(e.target.value)} className="w-full p-3 rounded-xl bg-muted border border-border" placeholder="Old qismi" />
+                            <textarea value={editBack} onChange={(e) => setEditBack(e.target.value)} className="w-full p-3 rounded-xl bg-muted border border-border h-32" placeholder="Orqa qismi" />
+                            <Button onClick={handleSaveEdit} className="w-full">Saqlash</Button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="flex items-center justify-between">
                 <button onClick={() => navigate('/flashcards')} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
                     <ArrowLeft size={20} />
@@ -173,13 +222,22 @@ const StudyModePage: React.FC = () => {
                     <div className="absolute inset-0 backface-hidden glass-card border border-border bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl flex flex-col justify-between p-8">
                         <div className="flex justify-between items-center">
                             {isAdmin ? (
-                                <button
-                                    onClick={handleDeleteCard}
-                                    title="Admin: Ushbu kartochkani bazadan o'chirish"
-                                    className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
-                                >
-                                    <Trash2 size={14} /> O'chirish
-                                </button>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={handleStartEdit}
+                                        title="Admin: Ushbu kartochkani tahrirlash"
+                                        className="p-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
+                                    >
+                                        <Edit3 size={14} /> Tahrirlash
+                                    </button>
+                                    <button
+                                        onClick={handleDeleteCard}
+                                        title="Admin: Ushbu kartochkani bazadan o'chirish"
+                                        className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
+                                    >
+                                        <Trash2 size={14} /> O'chirish
+                                    </button>
+                                </div>
                             ) : <div />}
                             <button
                                 onClick={handleSpeak}
