@@ -1,5 +1,5 @@
 import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -7,12 +7,13 @@ import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
 import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
+import FuriganaText from '../components/jlpt/FuriganaText';
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
     const navigate = useNavigate();
 
-    const { user, flashcards, reviewFlashcard, deleteFlashcard, loading } = useStudyData();
+    const { user, flashcards, subjects, reviewFlashcard, deleteFlashcard, loading } = useStudyData();
     const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
@@ -21,8 +22,10 @@ const StudyModePage: React.FC = () => {
     const [isFinished, setIsFinished] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [totalXpEarned, setTotalXpEarned] = useState(0);
-    const [accent, setAccent] = useState<'en-GB' | 'en-US'>('en-US');
+    const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
     const [isQueueInitialized, setIsQueueInitialized] = useState(false);
+
+    const currentSubject = subjects.find(s => s.id === subjectId);
 
     useEffect(() => {
         if (subjectId && flashcards.length > 0 && !isQueueInitialized) {
@@ -38,10 +41,24 @@ const StudyModePage: React.FC = () => {
 
     const currentCard = queue[currentCardIndex];
 
+    const isJapanese = useMemo(() => {
+        if (!currentCard && !currentSubject) return false;
+        const frontText = currentCard?.front || '';
+        const backText = currentCard?.back || '';
+        const subjectTitle = currentSubject?.name || '';
+        const subjectType = (currentSubject as any)?.type || '';
+        const subjectCategory = (currentSubject as any)?.category || '';
+
+        const hasJapaneseChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(frontText + backText + subjectTitle);
+        const isJlptMeta = subjectType.toLowerCase().includes('jlpt') || subjectCategory.toLowerCase().includes('jlpt') || subjectTitle.toLowerCase().includes('jlpt') || subjectTitle.toLowerCase().includes('kanji') || subjectTitle.toLowerCase().includes('yapon');
+
+        return hasJapaneseChars || isJlptMeta;
+    }, [currentCard, currentSubject]);
+
     const handleSpeak = (e?: React.MouseEvent) => {
         e?.stopPropagation();
         if (currentCard?.front) {
-            speakText(currentCard.front, accent);
+            speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
         }
     };
 
@@ -116,20 +133,32 @@ const StudyModePage: React.FC = () => {
                     <ArrowLeft size={20} />
                 </button>
                 <div className="flex items-center gap-3">
-                    {/* Accent Switcher */}
+                    {/* Accent / Language Switcher */}
                     <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-xl border border-border">
-                        <button
-                            onClick={() => setAccent('en-US')}
-                            className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-US' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
-                        >
-                            🇺🇸 US
-                        </button>
-                        <button
-                            onClick={() => setAccent('en-GB')}
-                            className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-GB' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
-                        >
-                            🇬🇧 UK
-                        </button>
+                        {isJapanese ? (
+                            <button
+                                onClick={() => setAccent('ja-JP')}
+                                className="px-2.5 py-1 text-xs font-bold rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-1.5"
+                                title="Yapon tili talaffuzi (ja-JP)"
+                            >
+                                🇯🇵 JP (Yapon)
+                            </button>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={() => setAccent('en-US')}
+                                    className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-US' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                                >
+                                    🇺🇸 US
+                                </button>
+                                <button
+                                    onClick={() => setAccent('en-GB')}
+                                    className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${accent === 'en-GB' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                                >
+                                    🇬🇧 UK
+                                </button>
+                            </>
+                        )}
                     </div>
 
                     <span className="text-xs font-black text-primary px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
@@ -148,9 +177,9 @@ const StudyModePage: React.FC = () => {
                                 <button
                                     onClick={handleDeleteCard}
                                     title="Admin: Ushbu kartochkani bazadan o'chirish"
-                                    className="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-2xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5 text-xs font-bold"
+                                    className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
                                 >
-                                    <Trash2 size={16} /> Admin O'chirish
+                                    <Trash2 size={14} /> O'chirish
                                 </button>
                             ) : <div />}
                             <button
@@ -162,7 +191,13 @@ const StudyModePage: React.FC = () => {
                             </button>
                         </div>
                         <div className="text-center my-auto">
-                            <p className="text-4xl font-extrabold text-foreground tracking-tight">{currentCard?.front}</p>
+                            {isJapanese ? (
+                                <div className="text-4xl font-extrabold text-foreground tracking-tight flex justify-center">
+                                    <FuriganaText text={currentCard?.front || ''} className="text-4xl font-extrabold text-foreground tracking-tight" />
+                                </div>
+                            ) : (
+                                <p className="text-4xl font-extrabold text-foreground tracking-tight">{currentCard?.front}</p>
+                            )}
                         </div>
                         <p className="text-xs text-center text-muted-foreground font-medium">Kartani bosing — Javobni ko'rish</p>
                     </div>
