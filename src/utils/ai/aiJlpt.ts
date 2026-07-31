@@ -20,6 +20,68 @@ export interface JlptStudyPlanResult {
     recommendedTips: string[];
 }
 
+function enrichJlptPlanWithConcreteContent(
+    aiDailyPlan: JlptStudyPlanDay[],
+    algorithmicDailyPlan: JlptStudyPlanDay[]
+): JlptStudyPlanDay[] {
+    return aiDailyPlan.map((dayItem, idx) => {
+        const algoItem = algorithmicDailyPlan[idx % algorithmicDailyPlan.length] || algorithmicDailyPlan[0];
+
+        const vocabularyList = (dayItem.vocabularyList && dayItem.vocabularyList.length > 0)
+            ? dayItem.vocabularyList
+            : algoItem.vocabularyList;
+
+        const grammarNotes = (dayItem.grammarNotes && dayItem.grammarNotes.length > 0)
+            ? dayItem.grammarNotes
+            : algoItem.grammarNotes;
+
+        const kanjiList = (dayItem.kanjiList && dayItem.kanjiList.length > 0)
+            ? dayItem.kanjiList
+            : algoItem.kanjiList;
+
+        let enrichedTasks = Array.isArray(dayItem.tasks) && dayItem.tasks.length > 0
+            ? [...dayItem.tasks]
+            : [...algoItem.tasks];
+
+        // Ensure tasks explicitly contain vocabulary items if missing
+        if (vocabularyList && vocabularyList.length > 0) {
+            const firstWord = vocabularyList[0].word;
+            const hasVocabInTasks = enrichedTasks.some(t => t.includes(firstWord) || t.includes('Yangi so\'z') || t.includes('Lug\'at:'));
+            if (!hasVocabInTasks) {
+                const vocabStr = vocabularyList.slice(0, 4).map(v => `${v.word}（${v.meaning}）`).join('、 ');
+                enrichedTasks.unshift(`📖 Yangi so'zlarni yodlash: ${vocabStr} — 5 marta yozib, gapda qo'llang`);
+            }
+        }
+
+        // Ensure tasks explicitly contain grammar rule if missing
+        if (grammarNotes && grammarNotes.length > 0) {
+            const g = grammarNotes[0];
+            const hasGrammarInTasks = enrichedTasks.some(t => t.includes(g.rule) || t.includes('Grammatika:'));
+            if (!hasGrammarInTasks) {
+                enrichedTasks.push(`✏️ Grammatika o'rganing: 【${g.rule}】 — ${g.explanation}. ${g.example ? `Misol: "${g.example}"` : ''}`);
+            }
+        }
+
+        // Ensure tasks contain kanji list if present and missing
+        if (kanjiList && kanjiList.length > 0) {
+            const k = kanjiList[0];
+            const hasKanjiInTasks = enrichedTasks.some(t => t.includes(k.kanji) || t.includes('Kanji:'));
+            if (!hasKanjiInTasks) {
+                const kanjiStr = kanjiList.slice(0, 3).map(item => `${item.kanji}[${item.meaning}]`).join('、 ');
+                enrichedTasks.push(`⛩️ Kanji yodlash: ${kanjiStr} — yozib, talaffuzini yodlang`);
+            }
+        }
+
+        return {
+            ...dayItem,
+            tasks: enrichedTasks,
+            vocabularyList,
+            grammarNotes,
+            kanjiList
+        };
+    });
+}
+
 export const generateJlptStudyPlan = async (
     currentLevel: string,
     targetLevel: string,
@@ -42,7 +104,7 @@ export const generateJlptStudyPlan = async (
       3. For EACH day, provide:
          - "title": A unique, inspiring day title in Uzbek (e.g. "Kun 1: Jikoshoukai & Salomlashish iboralari", "Kun 2: Ishxona Muloqoti & Keigo", etc.)
          - "focusArea": One of 'Speaking' | 'Listening' | 'Reading' | 'Kanji' | 'Vocabulary' | 'Grammar'
-         - "tasks": Array of 2-3 specific, actionable study tasks in Uzbek.
+         - "tasks": Array of 2-3 specific, actionable study tasks in Uzbek. Explicitly list the target words, kanji, and grammar inside the task strings.
          - "vocabularyList": Array of 3-5 target Japanese words/phrases with "word", "reading", "meaning" (in Uzbek), and optional "example".
       4. All headlines, summaries, daily titles, and tasks MUST be in Uzbek (O'zbek tilida).
 
@@ -55,7 +117,7 @@ export const generateJlptStudyPlan = async (
             "day": 1,
             "title": "Kun 1: O'zini tanishtirish (Jikoshoukai) va Salomlashish",
             "focusArea": "Speaking",
-            "tasks": ["1 daqiqalik Jikoshoukai nutqini yozish", "Salomlashish va odob-ahloq iboralarini takrorlash"],
+            "tasks": ["1 daqiqalik Jikoshoukai nutqini yozish: はじめまして (tanishganimdan xursandman)", "Salomlashish va odob-ahloq iboralarini takrorlash"],
             "pomodoroTargetMinutes": 60,
             "vocabularyList": [
               {"word": "はじめまして", "reading": "hajimemashite", "meaning": "tanishganimdan xursandman", "example": "はじめまして、田中です。"},
@@ -86,7 +148,7 @@ export const generateJlptStudyPlan = async (
             const parsed = JSON.parse(cleanedText);
             const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
             const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
-                ? dailyPlanRaw
+                ? enrichJlptPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
                 : algorithmicDailyPlan;
 
             return {
@@ -112,10 +174,15 @@ export const generateJlptStudyPlan = async (
             const rawText = data.text || data.reply || '';
             const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
+            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
+                ? enrichJlptPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
+                : algorithmicDailyPlan;
+
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik Yapon Tili Rejasi`,
                 summary: parsed.summary || "JLPT tayyorgarligi uchun intensiv yo'l xaritasi.",
-                dailyPlan: algorithmicDailyPlan,
+                dailyPlan: finalDailyPlan,
                 recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
             };
         }

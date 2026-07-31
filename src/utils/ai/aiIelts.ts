@@ -19,6 +19,53 @@ export interface IeltsStudyPlanResult {
     recommendedTips: string[];
 }
 
+function enrichIeltsPlanWithConcreteContent(
+    aiDailyPlan: IeltsStudyPlanDay[],
+    algorithmicDailyPlan: IeltsStudyPlanDay[]
+): IeltsStudyPlanDay[] {
+    return aiDailyPlan.map((dayItem, idx) => {
+        const algoItem = algorithmicDailyPlan[idx % algorithmicDailyPlan.length] || algorithmicDailyPlan[0];
+
+        const vocabularyList = (dayItem.vocabularyList && dayItem.vocabularyList.length > 0)
+            ? dayItem.vocabularyList
+            : algoItem.vocabularyList;
+
+        const grammarNotes = (dayItem.grammarNotes && dayItem.grammarNotes.length > 0)
+            ? dayItem.grammarNotes
+            : algoItem.grammarNotes;
+
+        let enrichedTasks = Array.isArray(dayItem.tasks) && dayItem.tasks.length > 0
+            ? [...dayItem.tasks]
+            : [...algoItem.tasks];
+
+        // Ensure tasks explicitly contain vocabulary items if missing
+        if (vocabularyList && vocabularyList.length > 0) {
+            const firstWord = vocabularyList[0].word;
+            const hasVocabInTasks = enrichedTasks.some(t => t.toLowerCase().includes(firstWord.toLowerCase()) || t.includes('Lug\'at') || t.includes('so\'z'));
+            if (!hasVocabInTasks) {
+                const vocabStr = vocabularyList.slice(0, 4).map(v => `"${v.word}" (${v.meaning})`).join(', ');
+                enrichedTasks.unshift(`📖 Lug'at yodlash: ${vocabStr} — ma'nosi va misoli bilan`);
+            }
+        }
+
+        // Ensure tasks explicitly contain grammar notes if missing
+        if (grammarNotes && grammarNotes.length > 0) {
+            const g = grammarNotes[0];
+            const hasGrammarInTasks = enrichedTasks.some(t => t.includes(g.rule) || t.includes('Grammatika'));
+            if (!hasGrammarInTasks) {
+                enrichedTasks.push(`✏️ Grammatika: "${g.rule}" — ${g.explanation}. ${g.example ? `Misol: ${g.example}` : ''}`);
+            }
+        }
+
+        return {
+            ...dayItem,
+            tasks: enrichedTasks,
+            vocabularyList,
+            grammarNotes
+        };
+    });
+}
+
 export const generateIeltsStudyPlan = async (
     currentBand: number,
     targetBand: number,
@@ -89,7 +136,9 @@ export const generateIeltsStudyPlan = async (
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : algorithmicDailyPlan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
+                ? enrichIeltsPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
+                : algorithmicDailyPlan;
 
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
@@ -115,7 +164,9 @@ export const generateIeltsStudyPlan = async (
             const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0) ? dailyPlanRaw : algorithmicDailyPlan;
+            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
+                ? enrichIeltsPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
+                : algorithmicDailyPlan;
             return {
                 headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
                 summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
