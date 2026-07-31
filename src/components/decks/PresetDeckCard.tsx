@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen } from 'lucide-react';
+import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Layers, FolderPlus } from 'lucide-react';
 import { useSubscription } from '../../hooks/useSubscription';
+import { PresetDeckService, DeckPart } from '../../services/PresetDeckService';
 
 interface PresetDeckCardProps {
     deck: PresetDeck;
     isAdded?: boolean;
     isAdmin?: boolean;
     onImport: (deck: PresetDeck) => void;
+    onImportPart?: (part: DeckPart) => void;
     onRemove?: (deck: PresetDeck) => void;
     onAdminAudit?: (deck: PresetDeck) => void;
+    onAdminAddNextPart?: (deck: PresetDeck, nextPartNumber: number) => void;
     onUpgradeClick: () => void;
 }
 
@@ -18,13 +21,31 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
     deck, 
     isAdded = false, 
     isAdmin = false,
-    onImport, 
+    onImport,
+    onImportPart, 
     onRemove, 
     onAdminAudit,
+    onAdminAddNextPart,
     onUpgradeClick 
 }) => {
     const { isPro, subscription } = useSubscription();
     const isLocked = deck.isPremiumOnly && !isPro && subscription?.tier !== 'premium';
+
+    const [isPartsOpen, setIsPartsOpen] = useState(false);
+    const [parts, setParts] = useState<DeckPart[]>([]);
+    const [loadingParts, setLoadingParts] = useState(false);
+
+    useEffect(() => {
+        if (isPartsOpen && parts.length === 0) {
+            setLoadingParts(true);
+            PresetDeckService.getDeckParts(deck, 100).then(loadedParts => {
+                setParts(loadedParts);
+                setLoadingParts(false);
+            }).catch(() => setLoadingParts(false));
+        }
+    }, [isPartsOpen, deck, parts.length]);
+
+    const nextPartNumber = parts.length > 0 ? (Math.max(...parts.map(p => p.partNumber)) + 1) : 1;
 
     return (
         <div className={`bg-card border rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group ${
@@ -57,10 +78,60 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                     {deck.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                    <BookOpen size={14} className="text-primary" />
-                    <span>{deck.cardCount} ta kartochka</span>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
+                        <BookOpen size={14} className="text-primary" />
+                        <span>{deck.cardCount} ta kartochka</span>
+                    </div>
+
+                    <button
+                        onClick={() => setIsPartsOpen(!isPartsOpen)}
+                        className="text-xs font-extrabold text-primary hover:underline flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-lg border border-primary/20"
+                    >
+                        <Layers size={13} /> Qismlarga bo'lish {isPartsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                    </button>
                 </div>
+
+                {/* Expandable Parts Drawer */}
+                {isPartsOpen && (
+                    <div className="p-3 bg-muted/40 border border-border rounded-2xl space-y-2 animate-in fade-in max-h-60 overflow-y-auto">
+                        <div className="text-[11px] font-extrabold text-muted-foreground flex items-center justify-between border-b border-border pb-1.5">
+                            <span>📂 Qismlar va Boblar (100 tadan)</span>
+                            {isAdmin && (
+                                <button
+                                    onClick={() => onAdminAddNextPart && onAdminAddNextPart(deck, nextPartNumber)}
+                                    className="text-[10px] font-black text-rose-500 hover:underline flex items-center gap-1"
+                                >
+                                    <FolderPlus size={12} /> ➕ {nextPartNumber}-Qism Qo'shish
+                                </button>
+                            )}
+                        </div>
+
+                        {loadingParts ? (
+                            <p className="text-[11px] text-muted-foreground text-center py-2 animate-pulse">Qismlar yuklanmoqda...</p>
+                        ) : parts.length === 0 ? (
+                            <p className="text-[11px] text-muted-foreground text-center py-2">Qismlar mavjud emas</p>
+                        ) : (
+                            parts.map(part => (
+                                <div key={part.id} className="flex items-center justify-between p-2 bg-card rounded-xl border border-border/80 text-xs">
+                                    <div className="space-y-0.5">
+                                        <span className="font-extrabold text-foreground block leading-tight">{part.title}</span>
+                                        {part.isCustomAdminPart && (
+                                            <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded">Admin Qo'shgan</span>
+                                        )}
+                                    </div>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
+                                        className="py-1 px-2.5 text-[10px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none"
+                                    >
+                                        + Qo'shish
+                                    </Button>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className="pt-6 border-t border-border/50 mt-4 space-y-2">

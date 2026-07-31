@@ -14,6 +14,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
 import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
+import { DeckPart } from '../services/PresetDeckService';
 
 const DecksPage: React.FC = () => {
     const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
@@ -106,6 +107,44 @@ const DecksPage: React.FC = () => {
         } catch (err) {
             console.error('Import preset error:', err);
             alert('To\'plamni saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
+        } finally {
+            setIsImportingPreset(false);
+        }
+    };
+
+    const handleImportDeckPart = async (part: DeckPart) => {
+        setIsImportingPreset(true);
+        try {
+            let subject = subjects.find(s => s.name.toLowerCase().trim() === part.title.toLowerCase().trim());
+            let targetSubjectId = subject?.id;
+
+            if (!targetSubjectId) {
+                const newSub = await addSubject({
+                    name: part.title,
+                    color: '#6366f1',
+                    icon: '📚',
+                    isArchived: false,
+                });
+                targetSubjectId = newSub?.id;
+            }
+
+            if (targetSubjectId && part.cards.length > 0) {
+                const batchCards = part.cards.map(c => ({
+                    subjectId: targetSubjectId!,
+                    front: c.front,
+                    back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                    interval: 1,
+                    repetitions: 0,
+                    easeFactor: 2.5,
+                    dueDate: new Date().toISOString().split('T')[0],
+                    isArchived: false
+                }));
+                await addFlashcardsBatch(batchCards);
+                setImportedDeckTitle(part.title);
+                setTimeout(() => setImportedDeckTitle(null), 4000);
+            }
+        } catch (err) {
+            console.error("Part import error:", err);
         } finally {
             setIsImportingPreset(false);
         }
@@ -421,8 +460,10 @@ const DecksPage: React.FC = () => {
                                     isAdded={!!matchingSubject}
                                     isAdmin={isAdmin}
                                     onImport={handleImportPresetDeck}
+                                    onImportPart={handleImportDeckPart}
                                     onRemove={handleRemovePresetDeck}
                                     onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
+                                    onAdminAddNextPart={() => setIsAlbumCreatorOpen(true)}
                                     onUpgradeClick={() => navigate('/settings')}
                                 />
                             );
