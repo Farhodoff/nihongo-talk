@@ -459,6 +459,7 @@ const DecksPage: React.FC = () => {
                                     deck={deck}
                                     isAdded={!!matchingSubject}
                                     isAdmin={isAdmin}
+                                    userSubjectNames={subjects.map(s => s.name)}
                                     onImport={handleImportPresetDeck}
                                     onImportPart={handleImportDeckPart}
                                     onRemove={handleRemovePresetDeck}

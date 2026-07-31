@@ -9,6 +9,7 @@ interface PresetDeckCardProps {
     deck: PresetDeck;
     isAdded?: boolean;
     isAdmin?: boolean;
+    userSubjectNames?: string[];
     onImport: (deck: PresetDeck) => void;
     onImportPart?: (part: DeckPart) => void;
     onRemove?: (deck: PresetDeck) => void;
@@ -21,6 +22,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
     deck, 
     isAdded = false, 
     isAdmin = false,
+    userSubjectNames = [],
     onImport,
     onImportPart, 
     onRemove, 
@@ -112,23 +114,32 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                         ) : parts.length === 0 ? (
                             <p className="text-[11px] text-muted-foreground text-center py-2">Qismlar mavjud emas</p>
                         ) : (
-                            parts.map(part => (
-                                <div key={part.id} className="flex items-center justify-between p-2 bg-card rounded-xl border border-border/80 text-xs">
-                                    <div className="space-y-0.5">
-                                        <span className="font-extrabold text-foreground block leading-tight">{part.title}</span>
-                                        {part.isCustomAdminPart && (
-                                            <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded">Admin Qo'shgan</span>
+                            parts.map(part => {
+                                const isPartAdded = userSubjectNames.some(name => name.toLowerCase().trim() === part.title.toLowerCase().trim());
+                                return (
+                                    <div key={part.id} className="flex items-center justify-between p-2 bg-card rounded-xl border border-border/80 text-xs">
+                                        <div className="space-y-0.5">
+                                            <span className="font-extrabold text-foreground block leading-tight">{part.title}</span>
+                                            {part.isCustomAdminPart && (
+                                                <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded">Admin Qo'shgan</span>
+                                            )}
+                                        </div>
+                                        {isPartAdded ? (
+                                            <span className="px-2.5 py-1 text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1">
+                                                <Check size={12} /> Saqlangan
+                                            </span>
+                                        ) : (
+                                            <Button
+                                                size="sm"
+                                                onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
+                                                className="py-1 px-2.5 text-[10px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none"
+                                            >
+                                                + Qo'shish
+                                            </Button>
                                         )}
                                     </div>
-                                    <Button
-                                        size="sm"
-                                        onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
-                                        className="py-1 px-2.5 text-[10px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none"
-                                    >
-                                        + Qo'shish
-                                    </Button>
-                                </div>
-                            ))
+                                );
+                            })
                         )}
                     </div>
                 )}

@@ -14,21 +14,23 @@ export interface DeckPart {
 
 export const PresetDeckService = {
     /**
-     * Splits a large preset deck into 100-card Parts (1-Qism, 2-Qism, ... 10-Qism)
-     * and merges any Admin-created custom parts (11-Qism, 12-Qism...) from Supabase DB.
+     * Splits a large preset deck into 100-card Parts (1-Qism, 2-Qism, ... N-Qism)
+     * and merges any Admin-created custom parts (N+1-Qism...) dynamically ensuring NO duplicate Part numbers.
      */
     async getDeckParts(deck: PresetDeck, chunkSize: number = 100): Promise<DeckPart[]> {
         const parts: DeckPart[] = [];
+        const seenIds = new Set<string>();
         
         try {
-            // 1. Load base deck cards
+            // 1. Load base deck cards and partition into 100-card chunks
             const allCards = await deck.loadCards();
             if (allCards && allCards.length > 0) {
                 let partNum = 1;
                 for (let i = 0; i < allCards.length; i += chunkSize) {
                     const chunk = allCards.slice(i, i + chunkSize);
+                    const partId = `${deck.id}_part_${partNum}`;
                     parts.push({
-                        id: `${deck.id}_part_${partNum}`,
+                        id: partId,
                         deckId: deck.id,
                         level: deck.level,
                         partNumber: partNum,
@@ -37,49 +39,61 @@ export const PresetDeckService = {
                         cards: chunk,
                         isCustomAdminPart: false
                     });
+                    seenIds.add(partId);
                     partNum++;
                 }
             }
 
-            // 2. Fetch custom Admin-created extension parts (11-Qism...) from Supabase DB
+            // Determine highest base part number
+            let currentHighestPartNumber = parts.length > 0 ? Math.max(...parts.map(p => p.partNumber)) : 0;
+
+            // 2. Fetch custom Admin-created extension parts from Supabase DB
             const { data: dbAlbums, error } = await supabase
                 .from('admin_preset_albums')
                 .select('*')
                 .eq('level', deck.level);
 
             if (!error && dbAlbums && dbAlbums.length > 0) {
-                const nextStartingPart = parts.length + 1;
-                dbAlbums.forEach((alb: any, idx: number) => {
-                    const pNum = alb.part_number || (nextStartingPart + idx);
-                    parts.push({
-                        id: alb.id || `custom_part_${deck.id}_${pNum}`,
-                        deckId: deck.id,
-                        level: deck.level,
-                        partNumber: pNum,
-                        title: alb.title || `${deck.level} — ${pNum}-Qism (${alb.card_count || alb.cards?.length || 0} ta card)`,
-                        cardCount: alb.card_count || alb.cards?.length || 0,
-                        cards: alb.cards || [],
-                        isCustomAdminPart: true
-                    });
+                dbAlbums.forEach((alb: any) => {
+                    if (alb.id && !seenIds.has(alb.id)) {
+                        currentHighestPartNumber++;
+                        const allocatedPartNumber = currentHighestPartNumber;
+                        const partId = alb.id;
+                        seenIds.add(partId);
+
+                        parts.push({
+                            id: partId,
+                            deckId: deck.id,
+                            level: deck.level,
+                            partNumber: allocatedPartNumber,
+                            title: `${deck.level} — ${allocatedPartNumber}-Qism (${alb.card_count || alb.cards?.length || 0} ta card)`,
+                            cardCount: alb.card_count || alb.cards?.length || 0,
+                            cards: alb.cards || [],
+                            isCustomAdminPart: true
+                        });
+                    }
                 });
             }
 
-            // Also check localStorage cache for offline/backup custom parts
+            // 3. Also check localStorage cache for offline/backup custom parts
             const savedLocal = localStorage.getItem('study_planner_admin_albums');
             if (savedLocal) {
                 try {
                     const localAlbums: PresetSubDeck[] = JSON.parse(savedLocal);
                     const matchingLocal = localAlbums.filter(a => a.level === deck.level);
-                    const existingPartIds = new Set(parts.map(p => p.id));
                     
                     matchingLocal.forEach(alb => {
-                        if (!existingPartIds.has(alb.id)) {
+                        if (alb.id && !seenIds.has(alb.id)) {
+                            currentHighestPartNumber++;
+                            const allocatedPartNumber = currentHighestPartNumber;
+                            seenIds.add(alb.id);
+
                             parts.push({
                                 id: alb.id,
                                 deckId: deck.id,
                                 level: deck.level,
-                                partNumber: alb.partNumber,
-                                title: alb.title,
+                                partNumber: allocatedPartNumber,
+                                title: `${deck.level} — ${allocatedPartNumber}-Qism (${alb.cardCount} ta card)`,
                                 cardCount: alb.cardCount,
                                 cards: alb.cards,
                                 isCustomAdminPart: true
@@ -92,7 +106,7 @@ export const PresetDeckService = {
             console.error("Error building deck parts:", err);
         }
 
-        // Sort by partNumber ascending
+        // Sort strictly by partNumber ascending
         return parts.sort((a, b) => a.partNumber - b.partNumber);
     }
 };
