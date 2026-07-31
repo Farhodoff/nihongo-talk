@@ -21,6 +21,51 @@ export const setLocalFlashcardCache = (userId: string, cards: Flashcard[]): void
     }
 };
 
+const KNOWN_JLPT_FIXES: Record<string, string> = {
+    '表記': 'ひょうき (hyōki)\n\n📌 Ma\'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)',
+    '表記 [N4]': 'ひょうき (hyōki)\n\n📌 Ma\'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)',
+    'スミス': 'スミス (Sumisu)\n\n📌 Ma\'nosi: Smit / Smith (Xorijiy ism / familiya)',
+    'スミス [N4]': 'スミス (Sumisu)\n\n📌 Ma\'nosi: Smit / Smith (Xorijiy ism / familiya)',
+    '案内': 'あんない (annai)\n\n📌 Ma\'nosi: Yo\'l ko\'rsatish, E\'lon qilish (Guidance / Information)',
+    '案内 [N4]': 'あんない (annai)\n\n📌 Ma\'nosi: Yo\'l ko\'rsatish, E\'lon qilish (Guidance / Information)',
+    '意見': 'いけん (iken)\n\n📌 Ma\'nosi: Fikr, Mulohaza (Opinion / View)',
+    '意見 [N4]': 'いけん (iken)\n\n📌 Ma\'nosi: Fikr, Mulohaza (Opinion / View)',
+    '意味': 'いみ (imi)\n\n📌 Ma\'nosi: Ma\'no, Mazmun (Meaning / Sense)',
+    '意味 [N4]': 'いみ (imi)\n\n📌 Ma\'nosi: Ma\'no, Mazmun (Meaning / Sense)',
+    '注意': 'ちゅうい (chuui)\n\n📌 Ma\'nosi: E\'tibor berish, Ogohlantirish (Attention / Caution)',
+    '注意 [N4]': 'ちゅうい (chuui)\n\n📌 Ma\'nosi: E\'tibor berish, Ogohlantirish (Attention / Caution)',
+};
+
+function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModified: boolean } {
+    if (!card.back) return { card, wasModified: false };
+    let back = card.back;
+    let wasModified = false;
+
+    const frontClean = (card.front || '').trim();
+
+    if (KNOWN_JLPT_FIXES[frontClean]) {
+        back = KNOWN_JLPT_FIXES[frontClean];
+        wasModified = true;
+    } else if (back.includes('darsligidan olingan') || back.includes('Vocabulary Item') || back.includes('Example: ""')) {
+        back = back
+            .replace(/JLPT N\d darsligidan olingan lug'at iborasi\.?/gi, '')
+            .replace(/JLPT N\d Vocabulary Item/gi, '')
+            .replace(/Example: ""/gi, '')
+            .replace(/Misol: ""/gi, '')
+            .trim();
+
+        if (!back) {
+            back = "JLPT yaponcha lug'at so'zi / iyeroglifi";
+        }
+        wasModified = true;
+    }
+
+    if (wasModified) {
+        return { card: { ...card, back }, wasModified: true };
+    }
+    return { card, wasModified: false };
+}
+
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
         console.log('[fetchFlashcards] Starting for userId:', userId);
@@ -29,20 +74,16 @@ export const FlashcardService = {
         let dbCards: Flashcard[] = [];
 
         try {
-            // Try simple query first (without deleted_at) — most reliable
             let { data, error } = await supabase
                 .from('flashcards')
                 .select('*')
                 .eq('user_id', userId);
-
-            console.log('[fetchFlashcards] Query result - error:', error?.message || 'none', 'data count:', data?.length ?? 'null');
 
             if (error) {
                 console.error('[fetchFlashcards] ❌ DB query error:', error.message, error.code, error.details);
             }
 
             if (!error && data) {
-                // Filter out soft-deleted cards client-side if the column exists
                 const rawCards = data as unknown as import('../types/supabase-types').DatabaseFlashcard[];
                 const activeCards = rawCards.filter(c => !c.deleted_at);
                 
@@ -57,25 +98,43 @@ export const FlashcardService = {
                     repetitions: c.repetitions,
                     deletedAt: c.deleted_at || undefined
                 })) as Flashcard[];
-                console.log('[fetchFlashcards] ✅ Got', dbCards.length, 'active cards from DB (total raw:', rawCards.length, ')');
             }
         } catch (error: any) {
             console.error('[fetchFlashcards] ❌ Exception:', error?.message || error);
         }
 
-        // Merge DB cards and local cached cards (prefer DB version if present)
         const dbCardIds = new Set(dbCards.map(c => c.id));
         const missingLocalCards = localCached.filter(c => !dbCardIds.has(c.id) && !c.deletedAt);
 
         if (missingLocalCards.length > 0) {
-            console.log(`[fetchFlashcards] Found ${missingLocalCards.length} cached cards NOT in DB, syncing...`);
             this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('[fetchFlashcards] Background sync error:', e));
         }
 
-        const merged = [...dbCards, ...missingLocalCards];
-        console.log('[fetchFlashcards] Final merged count:', merged.length, '(DB:', dbCards.length, '+ cached missing:', missingLocalCards.length, ')');
-        setLocalFlashcardCache(userId, merged);
-        return merged;
+        const rawMerged = [...dbCards, ...missingLocalCards];
+
+        // Sanitize any corrupted placeholder cards
+        const sanitizedMerged: Flashcard[] = [];
+        const cardsToUpdateInDb: Flashcard[] = [];
+
+        for (const card of rawMerged) {
+            const { card: cleanCard, wasModified } = sanitizeCardContent(card);
+            sanitizedMerged.push(cleanCard);
+            if (wasModified) {
+                cardsToUpdateInDb.push(cleanCard);
+            }
+        }
+
+        if (cardsToUpdateInDb.length > 0) {
+            console.log(`[fetchFlashcards] Auto-cleaning ${cardsToUpdateInDb.length} placeholder cards in DB...`);
+            Promise.all(
+                cardsToUpdateInDb.map(c =>
+                    supabase.from('flashcards').update({ back: c.back }).eq('id', c.id)
+                )
+            ).catch(err => console.warn("Background card DB update error:", err));
+        }
+
+        setLocalFlashcardCache(userId, sanitizedMerged);
+        return sanitizedMerged;
     },
 
     async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {

@@ -7,7 +7,6 @@ import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
 import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
-import FuriganaText from '../components/jlpt/FuriganaText';
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId: string }>();
@@ -191,13 +190,7 @@ const StudyModePage: React.FC = () => {
                             </button>
                         </div>
                         <div className="text-center my-auto">
-                            {isJapanese ? (
-                                <div className="text-4xl font-extrabold text-foreground tracking-tight flex justify-center">
-                                    <FuriganaText text={currentCard?.front || ''} className="text-4xl font-extrabold text-foreground tracking-tight" />
-                                </div>
-                            ) : (
-                                <p className="text-4xl font-extrabold text-foreground tracking-tight">{currentCard?.front}</p>
-                            )}
+                            <p className="text-4xl font-extrabold text-foreground tracking-tight">{currentCard?.front}</p>
                         </div>
                         <p className="text-xs text-center text-muted-foreground font-medium">Kartani bosing — Javobni ko'rish</p>
                     </div>
