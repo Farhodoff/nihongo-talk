@@ -8,6 +8,7 @@ import { PresetDeckCard } from '../components/decks/PresetDeckCard';
 import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
 import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
 import { AdminPresetAuditorModal } from '../components/decks/AdminPresetAuditorModal';
+import { AdminAlbumCreatorModal } from '../components/decks/AdminAlbumCreatorModal';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
@@ -25,6 +26,7 @@ const DecksPage: React.FC = () => {
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+    const [isAlbumCreatorOpen, setIsAlbumCreatorOpen] = useState(false);
     const [auditingDeck, setAuditingDeck] = useState<PresetDeck | null>(null);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
@@ -389,22 +391,43 @@ const DecksPage: React.FC = () => {
             )}
 
             {activeTab === 'library' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {PRESET_DECKS.map(deck => {
-                        const matchingSubject = findMatchingSubject(deck);
-                        return (
-                            <PresetDeckCard
-                                key={deck.id}
-                                deck={deck}
-                                isAdded={!!matchingSubject}
-                                isAdmin={isAdmin}
-                                onImport={handleImportPresetDeck}
-                                onRemove={handleRemovePresetDeck}
-                                onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
-                                onUpgradeClick={() => navigate('/settings')}
-                            />
-                        );
-                    })}
+                <div className="space-y-6">
+                    {isAdmin && (
+                        <div className="p-4 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-indigo-500/10 border border-rose-500/20 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div className="space-y-0.5">
+                                <h3 className="text-sm font-black text-foreground flex items-center gap-2">
+                                    <Sparkles size={16} className="text-rose-500" /> Admin Albomlar va JSON Boshqaruvi
+                                </h3>
+                                <p className="text-xs text-muted-foreground">
+                                    N3/N4 darajalaridagi 500+ cardli to'plamlarni 50 tadan bo'lib, 1-Qism, 2-Qism albomlari tuzish yoki yangi JSON yuklash.
+                                </p>
+                            </div>
+                            <Button
+                                onClick={() => setIsAlbumCreatorOpen(true)}
+                                className="px-5 py-2.5 bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-md shrink-0 flex items-center gap-2"
+                            >
+                                <Plus size={16} /> ➕ Yangi Albom Yaratish (JSON Import)
+                            </Button>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {PRESET_DECKS.map(deck => {
+                            const matchingSubject = findMatchingSubject(deck);
+                            return (
+                                <PresetDeckCard
+                                    key={deck.id}
+                                    deck={deck}
+                                    isAdded={!!matchingSubject}
+                                    isAdmin={isAdmin}
+                                    onImport={handleImportPresetDeck}
+                                    onRemove={handleRemovePresetDeck}
+                                    onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
+                                    onUpgradeClick={() => navigate('/settings')}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
             )}
 
@@ -425,6 +448,11 @@ const DecksPage: React.FC = () => {
                 isOpen={!!auditingDeck}
                 deck={auditingDeck}
                 onClose={() => setAuditingDeck(null)}
+            />
+
+            <AdminAlbumCreatorModal
+                isOpen={isAlbumCreatorOpen}
+                onClose={() => setIsAlbumCreatorOpen(false)}
             />
 
             <ImportModal

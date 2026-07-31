@@ -18,6 +18,17 @@ export interface PresetDeck {
     loadCards: () => Promise<PresetCard[]>;
 }
 
+export interface PresetSubDeck {
+    id: string;
+    deckId: string;
+    title: string;
+    level: string;
+    partNumber: number;
+    cardCount: number;
+    cards: PresetCard[];
+    createdAt: string;
+}
+
 export const PRESET_DECKS: PresetDeck[] = [
     {
         id: 'deck_starter_a1_a2',
