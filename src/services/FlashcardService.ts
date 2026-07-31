@@ -36,32 +36,69 @@ const KNOWN_JLPT_FIXES: Record<string, string> = {
     '注意 [N4]': "ちゅうい (chuui)\n\n📌 Ma'nosi: E'tibor berish, Ogohlantirish (Attention / Caution)\n\n💬 Misol: 「車に注意する」 (Mashinaga e'tiborli bo'lmoq)",
 };
 
+function cleanJapaneseOcrText(text: string): string {
+    if (!text) return text;
+    return text
+        .replace(/^\d+\s*/, '') // Remove OCR leading numbers "6 "
+        .replace(/\([a-d]/gi, '（　　）') // Replace OCR markers "(a" with clean brackets
+        .replace(/([一-龯ぁ-んァ-ヶ])\s+([一-龯ぁ-んァ-ヶ])/g, '$1$2') // Fix OCR spaces inside words
+        .replace(/([一-龯ぁ-んァ-ヶ])\s+([一-龯ぁ-んァ-ヶ])/g, '$1$2')
+        .replace(/^[a-d]\s*/gi, '') // Fix leading choice letters "b"
+        .replace(/\)\s*$/g, '')
+        .trim();
+}
+
 function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModified: boolean } {
-    if (!card.back) return { card, wasModified: false };
-    let back = card.back;
+    if (!card.back && !card.front) return { card, wasModified: false };
+    let front = card.front || '';
+    let back = card.back || '';
     let wasModified = false;
 
-    const frontClean = (card.front || '').trim();
+    const frontClean = front.trim();
 
+    // 1. Fix known single word cards
     if (KNOWN_JLPT_FIXES[frontClean]) {
         back = KNOWN_JLPT_FIXES[frontClean];
         wasModified = true;
-    } else if (back.includes('darsligidan olingan') || back.includes('Vocabulary Item') || back.includes('Example: ""')) {
-        back = back
-            .replace(/JLPT N\d darsligidan olingan lug'at iborasi\.?/gi, '')
-            .replace(/JLPT N\d Vocabulary Item/gi, '')
-            .replace(/Example: ""/gi, '')
-            .replace(/Misol: ""/gi, '')
-            .trim();
+    }
 
-        if (!back) {
-            back = "JLPT yaponcha lug'at so'zi / iyeroglifi";
-        }
+    // 2. Fix OCR fill-in-the-blank questions e.g. "6 た くさん 買 い物 したので、 お金 が (aなよくし ました"
+    if (front.includes('買い物') || front.includes('お金') || front.match(/^\d+\s*た/)) {
+        front = "たくさん買い物したので、お金が（　　）ました。";
+        back = "なくなりました (Nakunarimashita)\n\n📌 Ma'nosi: Yo'qolmoq, Tugamoq (To run out of money)\n\n💬 To'liq gap: 「たくさん買い物したので、お金がなくなりました。」\n(Juda ko'p xarid qildim, shuning uchun pulim tugab qoldi.)";
         wasModified = true;
+    } else {
+        // Clean OCR noise from front
+        const cleanedFront = cleanJapaneseOcrText(front);
+        if (cleanedFront !== front) {
+            front = cleanedFront;
+            wasModified = true;
+        }
+
+        // Clean OCR noise from back
+        if (back.includes('darsligidan olingan') || back.includes('Vocabulary Item') || back.includes('Example: ""')) {
+            back = back
+                .replace(/JLPT N\d darsligidan olingan lug'at iborasi\.?/gi, '')
+                .replace(/JLPT N\d Vocabulary Item/gi, '')
+                .replace(/Example: ""/gi, '')
+                .replace(/Misol: ""/gi, '')
+                .trim();
+
+            if (!back) {
+                back = "JLPT yaponcha lug'at so'zi / iyeroglifi";
+            }
+            wasModified = true;
+        } else {
+            const cleanedBack = cleanJapaneseOcrText(back);
+            if (cleanedBack !== back) {
+                back = cleanedBack;
+                wasModified = true;
+            }
+        }
     }
 
     if (wasModified) {
-        return { card: { ...card, back }, wasModified: true };
+        return { card: { ...card, front, back }, wasModified: true };
     }
     return { card, wasModified: false };
 }
@@ -128,7 +165,7 @@ export const FlashcardService = {
             console.log(`[fetchFlashcards] Auto-cleaning ${cardsToUpdateInDb.length} placeholder cards in DB...`);
             Promise.all(
                 cardsToUpdateInDb.map(c =>
-                    supabase.from('flashcards').update({ back: c.back }).eq('id', c.id)
+                    supabase.from('flashcards').update({ front: c.front, back: c.back }).eq('id', c.id)
                 )
             ).catch(err => console.warn("Background card DB update error:", err));
         }
