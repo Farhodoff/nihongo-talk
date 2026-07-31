@@ -9,6 +9,7 @@ import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
 import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
 import { AdminPresetAuditorModal } from '../components/decks/AdminPresetAuditorModal';
 import { AdminAlbumCreatorModal } from '../components/decks/AdminAlbumCreatorModal';
+import { LevelFolderExplorerModal } from '../components/decks/LevelFolderExplorerModal';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
@@ -29,6 +30,8 @@ const DecksPage: React.FC = () => {
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [isAlbumCreatorOpen, setIsAlbumCreatorOpen] = useState(false);
     const [auditingDeck, setAuditingDeck] = useState<PresetDeck | null>(null);
+    const [explorerDeck, setExplorerDeck] = useState<PresetDeck | null>(null);
+    const [explorerParts, setExplorerParts] = useState<DeckPart[]>([]);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
 
@@ -465,6 +468,10 @@ const DecksPage: React.FC = () => {
                                     onRemove={handleRemovePresetDeck}
                                     onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
                                     onAdminAddNextPart={() => setIsAlbumCreatorOpen(true)}
+                                    onOpenFolderExplorer={(d, p) => {
+                                        setExplorerDeck(d);
+                                        setExplorerParts(p);
+                                    }}
                                     onUpgradeClick={() => navigate('/settings')}
                                 />
                             );
@@ -495,6 +502,20 @@ const DecksPage: React.FC = () => {
             <AdminAlbumCreatorModal
                 isOpen={isAlbumCreatorOpen}
                 onClose={() => setIsAlbumCreatorOpen(false)}
+            />
+
+            <LevelFolderExplorerModal
+                isOpen={!!explorerDeck}
+                deck={explorerDeck}
+                parts={explorerParts}
+                userSubjectNames={subjects.map(s => s.name)}
+                isAdmin={isAdmin}
+                onClose={() => setExplorerDeck(null)}
+                onImportPart={handleImportDeckPart}
+                onAdminAddNextPart={() => {
+                    setExplorerDeck(null);
+                    setIsAlbumCreatorOpen(true);
+                }}
             />
 
             <ImportModal

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Layers, FolderPlus } from 'lucide-react';
+import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Folder, FolderCheck, FolderPlus, ExternalLink } from 'lucide-react';
 import { useSubscription } from '../../hooks/useSubscription';
 import { PresetDeckService, DeckPart } from '../../services/PresetDeckService';
 
@@ -15,6 +15,7 @@ interface PresetDeckCardProps {
     onRemove?: (deck: PresetDeck) => void;
     onAdminAudit?: (deck: PresetDeck) => void;
     onAdminAddNextPart?: (deck: PresetDeck, nextPartNumber: number) => void;
+    onOpenFolderExplorer?: (deck: PresetDeck, parts: DeckPart[]) => void;
     onUpgradeClick: () => void;
 }
 
@@ -28,6 +29,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
     onRemove, 
     onAdminAudit,
     onAdminAddNextPart,
+    onOpenFolderExplorer,
     onUpgradeClick 
 }) => {
     const { isPro, subscription } = useSubscription();
@@ -88,58 +90,85 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
 
                     <button
                         onClick={() => setIsPartsOpen(!isPartsOpen)}
-                        className="text-xs font-extrabold text-primary hover:underline flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-lg border border-primary/20"
+                        className="text-xs font-extrabold text-primary hover:underline flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 px-3 py-1.5 rounded-xl border border-primary/20 transition-all shadow-sm"
                     >
-                        <Layers size={13} /> Qismlarga bo'lish {isPartsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                        <Folder size={14} /> Jildlar ({parts.length > 0 ? parts.length : '...'}) {isPartsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                 </div>
 
-                {/* Expandable Parts Drawer */}
+                {/* Expandable Parts Folder Drawer */}
                 {isPartsOpen && (
-                    <div className="p-3 bg-muted/40 border border-border rounded-2xl space-y-2 animate-in fade-in max-h-60 overflow-y-auto">
-                        <div className="text-[11px] font-extrabold text-muted-foreground flex items-center justify-between border-b border-border pb-1.5">
-                            <span>📂 Qismlar va Boblar (100 tadan)</span>
-                            {isAdmin && (
+                    <div className="p-3.5 bg-muted/40 border border-border rounded-2xl space-y-3 animate-in fade-in max-h-72 overflow-y-auto">
+                        <div className="text-[11px] font-extrabold text-muted-foreground flex items-center justify-between border-b border-border/80 pb-2">
+                            <span className="flex items-center gap-1">📂 Jildlar Kolleksiyasi (100 tadan)</span>
+                            <div className="flex items-center gap-2">
                                 <button
-                                    onClick={() => onAdminAddNextPart && onAdminAddNextPart(deck, nextPartNumber)}
-                                    className="text-[10px] font-black text-rose-500 hover:underline flex items-center gap-1"
+                                    onClick={() => onOpenFolderExplorer && onOpenFolderExplorer(deck, parts)}
+                                    className="text-[10px] font-extrabold text-indigo-500 hover:underline flex items-center gap-1"
                                 >
-                                    <FolderPlus size={12} /> ➕ {nextPartNumber}-Qism Qo'shish
+                                    <ExternalLink size={12} /> Barchasini Ochish
                                 </button>
-                            )}
+                                {isAdmin && (
+                                    <button
+                                        onClick={() => onAdminAddNextPart && onAdminAddNextPart(deck, nextPartNumber)}
+                                        className="text-[10px] font-black text-rose-500 hover:underline flex items-center gap-1"
+                                    >
+                                        <FolderPlus size={12} /> ➕ {nextPartNumber}-Qism
+                                    </button>
+                                )}
+                            </div>
                         </div>
 
                         {loadingParts ? (
-                            <p className="text-[11px] text-muted-foreground text-center py-2 animate-pulse">Qismlar yuklanmoqda...</p>
+                            <p className="text-[11px] text-muted-foreground text-center py-3 animate-pulse">Jildlar yuklanmoqda...</p>
                         ) : parts.length === 0 ? (
-                            <p className="text-[11px] text-muted-foreground text-center py-2">Qismlar mavjud emas</p>
+                            <p className="text-[11px] text-muted-foreground text-center py-3">Jildlar mavjud emas</p>
                         ) : (
-                            parts.map(part => {
-                                const isPartAdded = userSubjectNames.some(name => name.toLowerCase().trim() === part.title.toLowerCase().trim());
-                                return (
-                                    <div key={part.id} className="flex items-center justify-between p-2 bg-card rounded-xl border border-border/80 text-xs">
-                                        <div className="space-y-0.5">
-                                            <span className="font-extrabold text-foreground block leading-tight">{part.title}</span>
-                                            {part.isCustomAdminPart && (
-                                                <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded">Admin Qo'shgan</span>
+                            <div className="grid grid-cols-1 gap-2">
+                                {parts.map(part => {
+                                    const isPartAdded = userSubjectNames.some(name => name.toLowerCase().trim() === part.title.toLowerCase().trim());
+                                    return (
+                                        <div
+                                            key={part.id}
+                                            className={`p-2.5 bg-card rounded-xl border flex items-center justify-between transition-all hover:shadow-md ${
+                                                part.isCustomAdminPart 
+                                                    ? 'border-amber-500/30 bg-amber-500/5' 
+                                                    : isPartAdded ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-border/80'
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-2.5">
+                                                <div className={`p-1.5 rounded-lg border ${
+                                                    part.isCustomAdminPart 
+                                                        ? 'bg-amber-500/20 text-amber-500 border-amber-500/30' 
+                                                        : 'bg-primary/10 text-primary border-primary/20'
+                                                }`}>
+                                                    {isPartAdded ? <FolderCheck size={16} /> : <Folder size={16} />}
+                                                </div>
+                                                <div className="space-y-0.5">
+                                                    <span className="font-black text-foreground block text-xs leading-tight">{part.title}</span>
+                                                    {part.isCustomAdminPart && (
+                                                        <span className="text-[9px] font-extrabold text-amber-500 bg-amber-500/10 px-1 rounded">Admin Jildi</span>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {isPartAdded ? (
+                                                <span className="px-2 py-1 text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1 shrink-0">
+                                                    <Check size={12} /> Saqlangan
+                                                </span>
+                                            ) : (
+                                                <Button
+                                                    size="sm"
+                                                    onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
+                                                    className="py-1 px-2.5 text-[10px] font-extrabold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none shrink-0"
+                                                >
+                                                    + Qo'shish
+                                                </Button>
                                             )}
                                         </div>
-                                        {isPartAdded ? (
-                                            <span className="px-2.5 py-1 text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1">
-                                                <Check size={12} /> Saqlangan
-                                            </span>
-                                        ) : (
-                                            <Button
-                                                size="sm"
-                                                onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
-                                                className="py-1 px-2.5 text-[10px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none"
-                                            >
-                                                + Qo'shish
-                                            </Button>
-                                        )}
-                                    </div>
-                                );
-                            })
+                                    );
+                                })}
+                            </div>
                         )}
                     </div>
                 )}
