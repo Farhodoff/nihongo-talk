@@ -1,5 +1,193 @@
 import { IeltsStudyPlanDay } from '../ai/aiIelts';
+import {
+    getVocabByBand,
+    getGrammarByBand,
+    IELTS_TOPIC_COLLOCATIONS,
+    IeltsVocabItem,
+    IeltsGrammarItem
+} from './ieltsVocabularyBank';
 
+// ─── Phase structure ──────────────────────────────────────────────────────────
+interface Phase {
+    name: string;
+    startDay: number;
+    endDay: number;
+    skills: Array<'Writing' | 'Speaking' | 'Reading' | 'Listening' | 'Vocabulary'>;
+    emphasis: string;
+}
+
+function buildPhases(durationDays: number, weakSkill: string): Phase[] {
+    const p1End = Math.floor(durationDays * 0.35);
+    const p2End = Math.floor(durationDays * 0.70);
+    const p3End = durationDays;
+
+    const weakAsSkill = (['Writing', 'Speaking', 'Reading', 'Listening'].includes(weakSkill)
+        ? weakSkill
+        : 'Writing') as 'Writing' | 'Speaking' | 'Reading' | 'Listening';
+
+    return [
+        {
+            name: "Foundation & Vocabulary Building",
+            startDay: 1,
+            endDay: p1End,
+            skills: ['Vocabulary', 'Writing', 'Listening', 'Vocabulary'],
+            emphasis: "Poydevor lug'at va grammatika asosi"
+        },
+        {
+            name: "Skill Development & Practice",
+            startDay: p1End + 1,
+            endDay: p2End,
+            skills: ['Reading', 'Speaking', weakAsSkill, 'Vocabulary'],
+            emphasis: "Ko'nikmalarni rivojlantirish va amaliyot"
+        },
+        {
+            name: "Exam Simulation & Refinement",
+            startDay: p2End + 1,
+            endDay: p3End,
+            skills: [weakAsSkill, 'Writing', 'Reading', 'Vocabulary'],
+            emphasis: "Mock test, tahlil va zaif tomonlarni tuzatish"
+        }
+    ];
+}
+
+function getPhaseForDay(day: number, phases: Phase[]): Phase {
+    return phases.find(p => day >= p.startDay && day <= p.endDay) || phases[phases.length - 1];
+}
+
+// ─── Task templates per skill & phase ─────────────────────────────────────────
+function getSkillTasks(
+    skill: 'Writing' | 'Speaking' | 'Reading' | 'Listening' | 'Vocabulary',
+    phase: number,
+    vocab: IeltsVocabItem[],
+    grammar: IeltsGrammarItem | undefined,
+    _weakSkill: string,
+    isZeroLevel: boolean,
+    targetBand: number
+): string[] {
+    const vocabStr = vocab.length > 0
+        ? `"${vocab.map(v => v.word).join('", "')}"`
+        : 'mavzuга oid so\'zlar';
+    const grammarStr = grammar ? `"${grammar.rule}"` : 'grammatika takror';
+
+    if (isZeroLevel) {
+        return [
+            `📖 Lug'at yodlash (A1-A2 daraja): ${vocabStr} — ma'nosi va talaffuzini o'rganing`,
+            `✏️ Grammatika: ${grammarStr} — ${grammar ? grammar.example : 'asosiy gaplar qurilishi'}`,
+            `👂 10 daqiqa sodda inglizcha audio (A1 daraja) tinglash va asosiy so'zlarni yozib olish`,
+            `🗣️ Yodlangan so'zlardan foydalanib 2-3 ta sodda gap tuzing va ovozga yozib ko'ring`
+        ];
+    }
+
+    const writingTasks = {
+        1: [
+            `📖 Lug'at yodlash: ${vocabStr} — ma'no, talaffuz va misol gaplari bilan`,
+            `✏️ Task 2 Essay: Kirish (Introduction) va fikr (Body Paragraph 1) yozish, ushbu so'zlardan kamida 3 tasini ishlating`,
+            `📝 Grammatika mashqi: ${grammarStr} — 3 ta yangi gap tuzing`,
+            `🔄 Kechagi essayни qayta ko'rib, discourse markers (Furthermore, Nevertheless, Consequently) qo'shing`
+        ],
+        2: [
+            `📖 Lug'at yodlash: ${vocabStr} — collocations bilan birga o'rganing`,
+            `✏️ Task 2: To'liq essay yozing (250+ so'z, taymer bilan 40 daqiqa)`,
+            `📝 Grammatika: ${grammarStr} — essayda kamida 1 marta qo'llang`,
+            `🔍 Task 1 grafik tavsifi: overview + 2 ta key feature yozing`
+        ],
+        3: [
+            `📖 Lug'at: ${vocabStr} — band ${targetBand} uchun Academic synonyms toping`,
+            `✏️ Band ${targetBand} darajasidagi model essay o'qib, tuzilishni tahlil qiling`,
+            `📝 Grammatika: ${grammarStr} — Task 1 yoki Task 2 da amaliyot`,
+            `⏱️ Timed Essay: 40 daqiqada Task 2 yozing va AI Coach bilan tekshiring`
+        ]
+    };
+    const speakingTasks = {
+        1: [
+            `📖 Lug'at yodlash (Speaking uchun): ${vocabStr} — ovoz bilan 5 marta takrorlang`,
+            `🗣️ Part 1: Kundalik 5 savolga (Work, Hometown, Hobbies) 2-3 gap bilan javob bering`,
+            `✏️ Grammatika: ${grammarStr} — ushbu qurilmani so'zlashuv gaplarida qo'llang`,
+            `🎤 Javoblarni yozib oling, so'ng yuqoridagi so'zlarni qanchalik ishlatganingizni tekshiring`
+        ],
+        2: [
+            `📖 Lug'at: ${vocabStr} — Part 2 Cue Card mavzusiga bog'lang`,
+            `🗣️ Part 2: 1 daqiqa tayyorlanib, 2 daqiqa gapiring (taymer biling), ushbu so'zlardan foydalaning`,
+            `✏️ Grammatika: ${grammarStr} — Shu qoidadan Part 2 nutqida foydalaning`,
+            `👂 Band 8 model answer tinglang va iboralari (fillers, connectors) ni yozib oling`
+        ],
+        3: [
+            `📖 Lug'at (Band ${targetBand} Speaking): ${vocabStr} — idiom va collocation bilan birgalikda o'rganing`,
+            `🗣️ Part 3 Abstract Discussion: 3 ta murakkab savolga batafsil javob bering`,
+            `✏️ Grammatika: ${grammarStr} — murakkab argumentlarda qo'llang`,
+            `🎤 AI Coach bilan to'liq 3 qismli mock speaking sessiyasi o'tkazing`
+        ]
+    };
+    const readingTasks = {
+        1: [
+            `📖 Lug'at yodlash (Reading uchun): ${vocabStr} — ushbu so'zlarni matnda uchratib kontekstni tushunish mashqi`,
+            `📰 1 ta qisqa (300-400 so'z) matnni o'qing: True/False/Not Given savollarini ishlang`,
+            `✏️ Grammatika: ${grammarStr} — matnda ushbu qurilmani toping va misol oling`,
+            `🔎 Noma'lum so'zlarni kontekst orqali taxmin qiling, so'ngra lug'atda tekshiring`
+        ],
+        2: [
+            `📖 Lug'at: ${vocabStr} — Academic matnlarda qanday ishlatilishini ko'ring`,
+            `📰 IELTS Academic Reading passage (650-700 so'z): barcha savol turlarini ishlang`,
+            `✏️ Grammatika: ${grammarStr} — passagedagi ushbu qurilmani toping`,
+            `⏱️ Taymer bilian: 20 daqiqada 1 to'liq passage ishlash mashqi`
+        ],
+        3: [
+            `📖 Lug'at (Academic Band ${targetBand}): ${vocabStr} — passivе boshdan faol vocabulary ga o'tkazing`,
+            `📰 IELTS Mock Reading test — 3 passage, 40 savol, 60 daqiqa taymer bilan`,
+            `✏️ Grammatika: ${grammarStr} — passagdagi murakkab gaplar tahlili`,
+            `📊 Xatolarni tahlil qiling: qaysi savol turi ko'proq xato — diqqat qarating`
+        ]
+    };
+    const listeningTasks = {
+        1: [
+            `📖 Lug'at yodlash (Listening uchun): ${vocabStr} — tinglab, qanday talaffuz qilinishini o'rganing`,
+            `👂 IELTS Section 1-2 (kundalik muloqot) tinglang va bo'sh joylarni to'ldiring`,
+            `✏️ Grammatika: ${grammarStr} — audioda ushbu qurilmani eshitganingizda belgilang`,
+            `🎤 Dictation mashqi: audio gaplarini bitta-bitta yozib oling`
+        ],
+        2: [
+            `📖 Lug'at: ${vocabStr} — audioda uchraydigan akademik so'zlar sifatida o'rganing`,
+            `👂 IELTS Section 3-4 (akademik muhokama, monolog) tinglang`,
+            `✏️ Grammatika: ${grammarStr} — tinglatmadagi gaplarda ushbu qurilmani toping`,
+            `🔄 Shadowing: audio gaplarni pauza qilib, bir xil intonatsiya bilan qaytaring`
+        ],
+        3: [
+            `📖 Lug'at (Band ${targetBand} Listening): ${vocabStr} — academic synonyms bilan birgalikda`,
+            `👂 IELTS Mock Listening test — 4 Section, 40 savol, 30 daqiqa (+ 10 daqiqa ko'chirish)`,
+            `✏️ Grammatika: ${grammarStr} — audioda eshitilgan murakkab gaplarni tahlil qiling`,
+            `📊 Xatolar tahlili: qaysi section / savol turi qiyin — maxsus mashq bajaring`
+        ]
+    };
+    const vocabTasks = {
+        1: [
+            `📖 Asosiy Lug'at Bloki: ${vocabStr} — har biri uchun: o'qing, ma'nosini yodlang, misol gapni yozing`,
+            `✏️ Grammatika: ${grammarStr} — yodlagan so'zlar bilan 3 ta gap tuzing, shu qoidani qo'llab`,
+            `🃏 Flashcard yarating: har bir so'z uchun karta (old: inglizcha so'z, orqa: ma'no + misol)`,
+            `🔄 Spaced Repetition: bugungi so'zlarni kechqurun qaytadan tekshiring`
+        ],
+        2: [
+            `📖 Lug'at va Collocations: ${vocabStr} — har biri bilan 1 ta collocation toping (e.g., 'dramatic increase')`,
+            `✏️ Grammatika: ${grammarStr} — ushbu qurilmadan foydalanib IELTS style gap yozing`,
+            `📝 Synonyms toping: har bir so'z uchun 1-2 ta sinonim va ularning farqini tushuning`,
+            `🎤 So'zlarni ovoz bilan 5 marta takrorlang va gapda qo'llang`
+        ],
+        3: [
+            `📖 Advanced Vocabulary: ${vocabStr} — band ${targetBand} uchun ushbu so'zlarni qo'llanilish kontekstida o'rganing`,
+            `✏️ Grammatika: ${grammarStr} — band ${targetBand} standard gap yozing`,
+            `📝 Word Forms (noun/verb/adjective/adverb): har bir so'zning barcha shakllarini toping`,
+            `✍️ Paragraph yozing: yodlagan so'zlardan kamida 4 tasini ishlatib, bir mavzuda 80-100 so'zlik paragraf`
+        ]
+    };
+
+    const phaseIdx = Math.min(phase - 1, 2);
+    if (skill === 'Writing') return writingTasks[phaseIdx + 1 as 1 | 2 | 3];
+    if (skill === 'Speaking') return speakingTasks[phaseIdx + 1 as 1 | 2 | 3];
+    if (skill === 'Reading') return readingTasks[phaseIdx + 1 as 1 | 2 | 3];
+    if (skill === 'Listening') return listeningTasks[phaseIdx + 1 as 1 | 2 | 3];
+    return vocabTasks[phaseIdx + 1 as 1 | 2 | 3];
+}
+
+// ─── MAIN FUNCTION ─────────────────────────────────────────────────────────────
 export const generateAlgorithmicIeltsPlan = (
     currentBand: number,
     targetBand: number,
@@ -9,121 +197,94 @@ export const generateAlgorithmicIeltsPlan = (
     const isZeroLevel = currentBand === 0;
     const isHighTarget = targetBand >= 7.5;
 
-    const academicVocabList = [
-        { word: "crucial", meaning: "hal qiluvchi, juda muhim", example: "It is crucial to practice writing daily." },
-        { word: "ubiquitous", meaning: "hamma joyda uchraydigan", example: "Digital devices have become ubiquitous in modern education." },
-        { word: "detrimental", meaning: "zararli, salbiy ta'sir ko'rsatuvchi", example: "Excessive stress has a detrimental impact on performance." },
-        { word: "substantive", meaning: "muhim, jiddiy, asosli", example: "The report provided substantive evidence for the claim." },
-        { word: "paramount", meaning: "eng muhim, ustuvor", example: "Safety is of paramount importance during the exam." },
-        { word: "imperative", meaning: "juda zarur, kechiktirib bo'lmaydigan", example: "It is imperative to manage time wisely in Reading." },
-        { word: "advocate", meaning: "qo'llab-quvvatlamoq, tarafdor bo'lmoq", example: "Many experts advocate for early language learning." },
-        { word: "mitigate", meaning: "yumshatmoq, ozaytirmoq", example: "Effective planning can mitigate exam anxiety." },
-        { word: "profound", meaning: "chuqur, kuchli ta'sirga ega", example: "Technology has had a profound effect on global communication." },
-        { word: "exacerbate", meaning: "og'irlashtirmoq, yomonlashtirmoq", example: "Lack of sleep can exacerbate stress levels." }
-    ];
+    // Get vocab + grammar pool based on band
+    const vocabPool = getVocabByBand(currentBand, targetBand);
+    const grammarPool = getGrammarByBand(currentBand, targetBand);
 
-    const beginnerVocabList = [
-        { word: "always", meaning: "har doim", example: "I always study in the morning." },
-        { word: "frequently", meaning: "tez-tez, tez fursatda", example: "She frequently visits the library." },
-        { word: "improve", meaning: "rivojlantirmoq, yaxshilamoq", example: "I want to improve my speaking skills." },
-        { word: "essential", meaning: "zaruriy, juda kerakli", example: "Vocabulary is essential for IELTS." },
-        { word: "understand", meaning: "tushunmoq", example: "Do you understand this grammar rule?" },
-        { word: "practice", meaning: "mashq qilmoq", example: "Practice makes perfect." }
-    ];
+    // How many vocab items per day (3-5)
+    const vocabPerDay = isHighTarget ? 5 : 4;
 
-    const grammarRules = [
-        { rule: "Subject-Verb Agreement", explanation: "Ega va kesimning birlik/ko'plikda mos kelishi.", example: "The list of items is ready." },
-        { rule: "Complex Sentences (Although/While)", explanation: "Zidlovchi va bog'lovchi ergashgan gaplar.", example: "Although it was difficult, he scored Band 7.5." },
-        { rule: "Passive Voice in Task 1", explanation: "Jarayon va ilmiy tasvirlarda majhul nisbat.", example: "The data is processed in three main stages." },
-        { rule: "Conditionals (Type 2 & 3)", explanation: "Shart ergash gaplar va taxminiy ssenariylar.", example: "If governments invested more in green energy, pollution would decrease." },
-        { rule: "Relative Clauses (Which/Who/Where)", explanation: "Ergashgan aniqlovchi gaplar.", example: "Students who practice daily achieve higher scores." }
-    ];
+    // Phase structure
+    const phases = buildPhases(durationDays, weakSkill);
 
-    const weeklyTopics = [
-        {
-            title: isZeroLevel ? "Foundation: Boshlang'ich Grammatika & Top 50 So'z" : "Writing Task 2 Structure & Essay Outline",
-            skill: isZeroLevel ? "Vocabulary" as const : "Writing" as const,
-            tasks: isZeroLevel
-                ? ["Present & Past Simple gap qurilishini o'rganish", "Top 50 ta tayanch so'zni yodlash", "20 daqiqa tinglash mashqi"]
-                : ["Task 2 uchun 3 ta essay outline tuzish", "Academic Collocations o'rganish", "Insho kirish qismini yozish mashqi"]
-        },
-        {
-            title: isZeroLevel ? "Foundation: Eshitib Tushunish va Talaffuz" : "Speaking Part 1 & Part 2 Cue Cards",
-            skill: isZeroLevel ? "Listening" as const : "Speaking" as const,
-            tasks: isZeroLevel
-                ? ["Sodda inglizcha dialogni tinglab tushunish", "A1 so'zlar bo'yicha flashcard mashqi", "AI Coach bilan 10 min suhbat"]
-                : ["5 ta Part 1 savoliga javob berish", "1 ta Part 2 Cue Card bo'yicha gapirish", "Ovozni yozib olib tahlil qilish"]
-        },
-        {
-            title: isZeroLevel ? "Pre-IELTS: Gap Paraphrase Qilish Mashqlari" : "Reading Skimming & Scanning Technique",
-            skill: isZeroLevel ? "Writing" as const : "Reading" as const,
-            tasks: isZeroLevel
-                ? ["Sodda gaplarni 3 xil usulda qayta yozish (Paraphrase)", "Top 30 ta sinonim o'rganish"]
-                : ["True/False/Not Given savollariga yondashuv", "1 ta Reading matnini 20 daqiqada ishlash", "Noma'lum so'zlarni kontekstdan topish"]
-        },
-        {
-            title: isZeroLevel ? "Pre-IELTS: Matnlarni O'qish va So'z Boyligi" : "Listening Note-Taking & Multiple Choice",
-            skill: isZeroLevel ? "Reading" as const : "Listening" as const,
-            tasks: isZeroLevel
-                ? ["Qisqa inglizcha hikoyalarni o'qib tushunish", "Yangi so'zlarni daftarga qayd qilish"]
-                : ["Section 3 & 4 akademik dialogni tinglash", "Multiple choice savollarida chalg'ituvchi kalit so'zlarni ajratish"]
-        },
-        {
-            title: isZeroLevel ? "Intro IELTS: Sodda Insho Tuzilishi" : "Writing Task 1 Process Diagram & Graphs",
-            skill: "Writing" as const,
-            tasks: isZeroLevel
-                ? ["Idea & Supporting sentences shakllantirish", "Oddiy insho strukturasi bilan tanishish"]
-                : ["Overview qismini yozish qoidalari", "Data comparison iboralarini ishlatib Task 1 yozish"]
-        },
-        {
-            title: isZeroLevel ? "Intro IELTS: Nutqni Rivojlantirish" : "Speaking Part 3 Abstract Discussion",
-            skill: "Speaking" as const,
-            tasks: isZeroLevel
-                ? ["Erkin mavzuda 2 daqiqa gapirish", "AI Coach bilan muloqot mashqi"]
-                : ["Part 3 bahsli savollariga chuqur javob berish", "Opinion & Hypothesis iboralarini qo'llash"]
-        },
-        {
-            title: "Haftalik Mock Test & Zaif Tomlarni Tahlil Qilish",
-            skill: weakSkill as any || "Reading",
-            tasks: [
-                "1 ta to'liq bo'lim mock testini taymer bilan ishlash",
-                "Yo'l qo'yilgan xatolarni chuqur tahlil qilish",
-                "AI Coach orqali zaif nuqtalarni takrorlash"
-            ]
-        }
-    ];
+    // Topic collocations rotation for advanced
+    const topicKeys = Object.keys(IELTS_TOPIC_COLLOCATIONS);
 
     const dailyPlan: IeltsStudyPlanDay[] = [];
 
     for (let day = 1; day <= durationDays; day++) {
-        const topicIndex = (day - 1) % weeklyTopics.length;
-        const topic = weeklyTopics[topicIndex];
+        const phase = getPhaseForDay(day, phases);
+        const phaseNumber = phases.indexOf(phase) + 1;
 
-        // Pick vocabulary
-        const vocabPool = isZeroLevel ? beginnerVocabList : academicVocabList;
-        const vStart = ((day - 1) * 2) % vocabPool.length;
-        const dayVocab = vocabPool.slice(vStart, vStart + 3);
+        // Select skill for today
+        let skill: 'Writing' | 'Speaking' | 'Reading' | 'Listening' | 'Vocabulary';
+        if (day === 7 || day === 14 || day === 21 || day % 14 === 0) {
+            // Mock test days
+            skill = weakSkill as any || 'Reading';
+        } else {
+            const phaseSkills = phase.skills;
+            skill = phaseSkills[(day - 1) % phaseSkills.length];
+        }
 
-        // Pick grammar note
-        const gIndex = (day - 1) % grammarRules.length;
-        const dayGrammar = [grammarRules[gIndex]];
+        // Select vocab slice (unique per day, cycling)
+        const vStart = ((day - 1) * vocabPerDay) % vocabPool.length;
+        const rawSlice = vocabPool.slice(vStart, vStart + vocabPerDay);
+        // Wrap around if near end
+        const dayVocab: IeltsVocabItem[] = rawSlice.length < vocabPerDay
+            ? [...rawSlice, ...vocabPool.slice(0, vocabPerDay - rawSlice.length)]
+            : rawSlice;
 
-        let focusSkill = topic.skill;
-        if (weakSkill && day % 2 === 1 && (weakSkill === 'Writing' || weakSkill === 'Speaking' || weakSkill === 'Reading' || weakSkill === 'Listening')) {
-            focusSkill = weakSkill as any;
+        // Select grammar rule
+        const gIndex = (day - 1) % grammarPool.length;
+        const dayGrammar: IeltsGrammarItem = grammarPool[gIndex];
+
+        // Build tasks
+        const isMockDay = day === 7 || day === 14 || day === 21 || (day > 21 && day % 14 === 0);
+        let tasks: string[];
+        let dayTitle: string;
+
+        if (isMockDay) {
+            dayTitle = `Kun ${day}: 🎯 Haftalik Mock Test va Tahlil (${phase.name})`;
+            const weakSkillLabel = weakSkill || 'Reading';
+            tasks = [
+                `📖 Lug'at takrorlash: ${dayVocab.slice(0, 3).map(v => v.word).join(', ')} — hafta davomida o'rganilganlarni qayta tekshiring`,
+                `✏️ Grammatika: ${dayGrammar.rule} — ushbu qoidadan 2 ta murakkab gap tuzing`,
+                `⏱️ ${weakSkillLabel} Mock Test: taymer bilan to'liq section ishlang`,
+                `📊 Xatolarni tahlil qiling: noto'g'ri javoblar sababini tushunib, izoh yozing`,
+                `🔄 AI Coach orqali Writing yoki Speaking ni tekshiring va ball oling`
+            ];
+            skill = weakSkill as any || 'Reading';
+        } else {
+            dayTitle = `Kun ${day}: ${skill} — ${phase.name}`;
+            tasks = getSkillTasks(skill, phaseNumber, dayVocab, dayGrammar, weakSkill, isZeroLevel, targetBand);
+        }
+
+        // Add collocation bonus for advanced learners (band 6.5+)
+        if (targetBand >= 6.5 && !isMockDay) {
+            const topicKey = topicKeys[(day - 1) % topicKeys.length];
+            const collocations = IELTS_TOPIC_COLLOCATIONS[topicKey];
+            if (collocations) {
+                const collSlice = collocations.slice(((day - 1) % collocations.length), ((day - 1) % collocations.length) + 3);
+                tasks.push(`💡 Mavzuга oid collocations (${topicKey}): "${collSlice.join('", "')}" — kontekstda foydalanib ko'ring`);
+            }
         }
 
         dailyPlan.push({
             day,
-            title: `Kun ${day}: ${topic.title}`,
-            focusSkill,
-            tasks: [
-                ...topic.tasks,
-                `Bugungi maxsus lug'at yodlash: ${dayVocab.map(v => v.word).join(', ')}`
-            ],
-            pomodoroTargetMinutes: isHighTarget ? 90 : 60,
-            vocabularyList: dayVocab,
-            grammarNotes: dayGrammar
+            title: dayTitle,
+            focusSkill: skill,
+            tasks,
+            pomodoroTargetMinutes: isHighTarget ? 90 : (isZeroLevel ? 45 : 60),
+            vocabularyList: dayVocab.map(v => ({
+                word: v.word,
+                meaning: v.meaning,
+                example: v.example
+            })),
+            grammarNotes: [{
+                rule: dayGrammar.rule,
+                explanation: dayGrammar.explanation,
+                example: dayGrammar.example
+            }]
         });
     }
 
