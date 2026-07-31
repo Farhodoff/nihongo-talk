@@ -22,18 +22,18 @@ export const setLocalFlashcardCache = (userId: string, cards: Flashcard[]): void
 };
 
 const KNOWN_JLPT_FIXES: Record<string, string> = {
-    '表記': 'ひょうき (hyōki)\n\n📌 Ma\'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)',
-    '表記 [N4]': 'ひょうき (hyōki)\n\n📌 Ma\'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)',
-    'スミス': 'スミス (Sumisu)\n\n📌 Ma\'nosi: Smit / Smith (Xorijiy ism / familiya)',
-    'スミス [N4]': 'スミス (Sumisu)\n\n📌 Ma\'nosi: Smit / Smith (Xorijiy ism / familiya)',
-    '案内': 'あんない (annai)\n\n📌 Ma\'nosi: Yo\'l ko\'rsatish, E\'lon qilish (Guidance / Information)',
-    '案内 [N4]': 'あんない (annai)\n\n📌 Ma\'nosi: Yo\'l ko\'rsatish, E\'lon qilish (Guidance / Information)',
-    '意見': 'いけん (iken)\n\n📌 Ma\'nosi: Fikr, Mulohaza (Opinion / View)',
-    '意見 [N4]': 'いけん (iken)\n\n📌 Ma\'nosi: Fikr, Mulohaza (Opinion / View)',
-    '意味': 'いみ (imi)\n\n📌 Ma\'nosi: Ma\'no, Mazmun (Meaning / Sense)',
-    '意味 [N4]': 'いみ (imi)\n\n📌 Ma\'nosi: Ma\'no, Mazmun (Meaning / Sense)',
-    '注意': 'ちゅうい (chuui)\n\n📌 Ma\'nosi: E\'tibor berish, Ogohlantirish (Attention / Caution)',
-    '注意 [N4]': 'ちゅうい (chuui)\n\n📌 Ma\'nosi: E\'tibor berish, Ogohlantirish (Attention / Caution)',
+    '表記': "ひょうき (hyōki)\n\n📌 Ma'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)\n\n💬 Misol: 「正しい表記で書く」 (To'g'ri imlo bilan yozmoq)",
+    '表記 [N4]': "ひょうき (hyōki)\n\n📌 Ma'nosi: Yozuv, Imlo, Belgilash (Notation / Writing)\n\n💬 Misol: 「正しい表記で書く」 (To'g'ri imlo bilan yozmoq)",
+    'スミス': "スミス (Sumisu)\n\n📌 Ma'nosi: Smit / Smith (Xorijiy ism / familiya)\n\n💬 Misol: 「スミスさんは学生です」 (Smit bobi talabadir)",
+    'スミス [N4]': "スミス (Sumisu)\n\n📌 Ma'nosi: Smit / Smith (Xorijiy ism / familiya)\n\n💬 Misol: 「スミスさんは学生です」 (Smit bobi talabadir)",
+    '案内': "あんない (annai)\n\n📌 Ma'nosi: Yo'l ko'rsatish, E'lon qilish (Guidance / Information)\n\n💬 Misol: 「街を案内する」 (Shaharni ko'rsatib aylantirmoq)",
+    '案内 [N4]': "あんない (annai)\n\n📌 Ma'nosi: Yo'l ko'rsatish, E'lon qilish (Guidance / Information)\n\n💬 Misol: 「街を案内する」 (Shaharni ko'rsatib aylantirmoq)",
+    '意見': "いけん (iken)\n\n📌 Ma'nosi: Fikr, Mulohaza (Opinion / View)\n\n💬 Misol: 「自分の意見を言う」 (O'z fikrini aytmoq)",
+    '意見 [N4]': "いけん (iken)\n\n📌 Ma'nosi: Fikr, Mulohaza (Opinion / View)\n\n💬 Misol: 「自分の意見を言う」 (O'z fikrini aytmoq)",
+    '意味': "いみ (imi)\n\n📌 Ma'nosi: Ma'no, Mazmun (Meaning / Sense)\n\n💬 Misol: 「言葉の意味を調べる」 (So'z ma'nosini qidirmoq)",
+    '意味 [N4]': "いみ (imi)\n\n📌 Ma'nosi: Ma'no, Mazmun (Meaning / Sense)\n\n💬 Misol: 「言葉の意味を調べる」 (So'z ma'nosini qidirmoq)",
+    '注意': "ちゅうい (chuui)\n\n📌 Ma'nosi: E'tibor berish, Ogohlantirish (Attention / Caution)\n\n💬 Misol: 「車に注意する」 (Mashinaga e'tiborli bo'lmoq)",
+    '注意 [N4]': "ちゅうい (chuui)\n\n📌 Ma'nosi: E'tibor berish, Ogohlantirish (Attention / Caution)\n\n💬 Misol: 「車に注意する」 (Mashinaga e'tiborli bo'lmoq)",
 };
 
 function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModified: boolean } {

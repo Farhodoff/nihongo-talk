@@ -205,10 +205,12 @@ const StudyModePage: React.FC = () => {
                                 <Volume2 size={24} />
                             </button>
                         </div>
-                        <div className="text-center my-auto space-y-3">
-                            <p className="text-3xl font-black">{currentCard?.back}</p>
-                            <div className="pt-4 border-t border-white/20">
-                                <p className="text-sm font-semibold opacity-90">{currentCard?.front}</p>
+                        <div className="text-center my-auto space-y-3 max-h-[220px] overflow-y-auto px-2 custom-scrollbar">
+                            <div className="text-xl md:text-2xl font-bold whitespace-pre-line leading-relaxed tracking-wide">
+                                {currentCard?.back}
+                            </div>
+                            <div className="pt-3 border-t border-white/20">
+                                <p className="text-xs font-semibold opacity-80">{currentCard?.front}</p>
                             </div>
                         </div>
                         <p className="text-xs text-center opacity-75 font-medium">SuperMemo SM-2 bo'yicha baholang</p>
