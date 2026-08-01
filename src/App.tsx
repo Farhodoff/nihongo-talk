@@ -137,6 +137,10 @@ const App: React.FC = () => {
                                         <Route path="notes/:id" element={<NoteEditorPage />} />
                                         <Route path="ai" element={<AIAssistantPage />} />
                                         <Route path="flashcards" element={<DecksPage />} />
+                                        <Route path="deck" element={<DecksPage />} />
+                                        <Route path="decks" element={<DecksPage />} />
+                                        <Route path="deck/:id" element={<DecksPage />} />
+                                        <Route path="decks/:id" element={<DecksPage />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
