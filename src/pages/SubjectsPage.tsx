@@ -46,14 +46,19 @@ const SubjectsPage: React.FC = () => {
         return total > 0 ? Math.round((completed / total) * 100) : 0;
     };
 
-    const handleSubjectSubmit = (data: Partial<Subject>) => {
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    const handleSubjectSubmit = async (data: Partial<Subject>) => {
         if (editingSubject) {
-            updateSubject(editingSubject.id, data);
+            await updateSubject(editingSubject.id, data);
+            setSuccessMessage(`"${data.name || editingSubject.name}" fani muvaffaqiyatli yangilandi! ✨`);
         } else {
-            addSubject(data);
+            const newSub = await addSubject(data);
+            setSuccessMessage(`"${data.name || newSub?.name || 'Yangi fan'}" fani muvaffaqiyatli yaratildi! 🎉`);
         }
         setIsAdding(false);
         setEditingSubject(null);
+        setTimeout(() => setSuccessMessage(null), 4000);
     };
 
     const handleEditClick = (subject: Subject) => {
@@ -93,6 +98,13 @@ const SubjectsPage: React.FC = () => {
                     </Button>
                 </div>
             </div>
+
+            {/* Success Toast */}
+            {successMessage && (
+                <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl font-bold text-sm animate-in fade-in duration-300 flex items-center justify-between">
+                    <span>{successMessage}</span>
+                </div>
+            )}
 
             {/* Tabs */}
             <div className="flex space-x-1 bg-secondary/50 p-1 rounded-xl w-fit mb-6">

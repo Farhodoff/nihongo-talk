@@ -17,6 +17,8 @@ import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
 import { DeckPart } from '../services/PresetDeckService';
 
+import SubjectForm from '../components/subjects/SubjectForm';
+
 const DecksPage: React.FC = () => {
     const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
     const navigate = useNavigate();
@@ -29,6 +31,7 @@ const DecksPage: React.FC = () => {
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [isAlbumCreatorOpen, setIsAlbumCreatorOpen] = useState(false);
+    const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
     const [auditingDeck, setAuditingDeck] = useState<PresetDeck | null>(null);
     const [explorerDeck, setExplorerDeck] = useState<PresetDeck | null>(null);
     const [explorerParts, setExplorerParts] = useState<DeckPart[]>([]);
@@ -242,6 +245,14 @@ const DecksPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2.5">
+                    {/* Add Subject Button */}
+                    <Button
+                        onClick={() => setIsAddSubjectOpen(true)}
+                        className="font-extrabold shadow-md rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 text-xs"
+                    >
+                        <Plus size={16} className="mr-1.5" /> + Fan Qo'shish
+                    </Button>
+
                     {/* Primary Button */}
                     <Link to="/flashcards/new">
                         <Button className="font-extrabold shadow-md rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 text-xs">
@@ -302,6 +313,17 @@ const DecksPage: React.FC = () => {
                         <span>"{importedDeckTitle}" to'plami va uning barcha kartochkalari muvaffaqiyatli saqlandi!</span>
                     </div>
                 </div>
+            )}
+
+            {/* SubjectForm Modal */}
+            {isAddSubjectOpen && (
+                <SubjectForm
+                    onClose={() => setIsAddSubjectOpen(false)}
+                    onSubmit={async (data) => {
+                        await addSubject(data);
+                        setIsAddSubjectOpen(false);
+                    }}
+                />
             )}
 
             {/* Navigation Tabs */}
