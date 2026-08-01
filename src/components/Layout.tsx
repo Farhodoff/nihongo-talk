@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { 
     BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen
+    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen, Moon, Sun
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -32,6 +33,12 @@ const Layout: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
+    const { settings, updateSettings } = useStudyData();
+
+    const toggleTheme = () => {
+        const nextTheme = settings.theme === 'dark' ? 'light' : 'dark';
+        updateSettings({ theme: nextTheme });
+    };
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -244,8 +251,24 @@ const Layout: React.FC = () => {
                 {/* Navigation Links (Accordion Folders) */}
                 <NavLinks />
 
-                {/* Bottom Section: Settings & Get Premium (Xuddi 2-rasmdagidek) */}
+                {/* Bottom Section: Quick Theme Toggle, Settings & Get Premium */}
                 <div className="p-3 border-t border-border space-y-2 bg-card">
+                    <button
+                        onClick={toggleTheme}
+                        className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground`}
+                        title={settings.theme === 'dark' ? "Kunduzgi Rejimga o'tish" : "Tungi Rejimga o'tish"}
+                    >
+                        <div className="flex items-center gap-3">
+                            {settings.theme === 'dark' ? <Sun size={19} className="text-amber-400" /> : <Moon size={19} className="text-indigo-500" />}
+                            {!isCollapsed && <span>{settings.theme === 'dark' ? "Kunduzgi Rejim" : "Tungi Rejim"}</span>}
+                        </div>
+                        {!isCollapsed && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                                {settings.theme === 'dark' ? 'DARK' : 'LIGHT'}
+                            </span>
+                        )}
+                    </button>
+
                     <NavLink
                         to="/settings"
                         className={({ isActive }) =>
