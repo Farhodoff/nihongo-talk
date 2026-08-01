@@ -34,8 +34,30 @@ export const FocusTimerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 };
 
  
-export const useFocusTimerContext = () => {
+export const useFocusTimerContext = (): FocusTimerContextType => {
     const context = useContext(FocusTimerContext);
-    if (!context) throw new Error("useFocusTimerContext must be used within FocusTimerProvider");
+    if (!context) {
+        return {
+            focusState: {
+                mode: 'focus',
+                timeLeft: 1500,
+                isActive: false,
+                selectedSubjectId: null,
+                selectedTaskId: null,
+                bgSound: 'none',
+                isMuted: false,
+                isSessionCompleted: false,
+            },
+            startTimer: () => {},
+            pauseTimer: () => {},
+            resetTimer: () => {},
+            switchMode: () => {},
+            setCustomTime: () => {},
+            setFocusSubject: () => {},
+            setFocusTask: () => {},
+            setBgSound: () => {},
+            setMuted: () => {},
+        };
+    }
     return context;
 };

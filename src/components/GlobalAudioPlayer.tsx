@@ -22,7 +22,7 @@ const GlobalAudioPlayer = () => {
                 audioRef.current.src = soundUrl;
             }
             // Silent fail if browser blocks autoplay
-            audioRef.current.play().catch(e => console.error("Audio play blocked", e));
+            audioRef.current.play().catch(e => console.warn("Audio play blocked by browser:", e));
         } else {
             audioRef.current.pause();
         }
@@ -31,7 +31,7 @@ const GlobalAudioPlayer = () => {
     useEffect(() => {
         if (focusState.isSessionCompleted && !focusState.isMuted) {
             const ringtone = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3');
-            ringtone.play().catch(e => console.error("Ringtone play blocked", e));
+            ringtone.play().catch(e => console.warn("Ringtone play blocked by browser:", e));
             
             // Auto stop ringtone after 5 seconds to avoid annoyance
             const timer = setTimeout(() => {
