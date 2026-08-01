@@ -44,9 +44,13 @@ export const TaskService = {
             
 
             return tasks;
-        } catch (error) {
-            console.error('Fetch tasks error:', error);
-            throw error;
+        } catch (error: any) {
+            console.warn('Fetch tasks offline warning:', error?.message || error);
+            try {
+                const local = localStorage.getItem('study_planner_tasks');
+                if (local) return JSON.parse(local);
+            } catch { }
+            return [];
         }
     },
 

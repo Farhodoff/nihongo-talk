@@ -306,16 +306,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             try {
                 const fetchedTasks = await TaskService.fetchTasks(currentUser.id);
                 setTasks(fetchedTasks);
-            } catch (e) {
-                console.error("Error fetching tasks:", e);
+            } catch (e: any) {
+                console.warn("Tasks sync warning:", e?.message || e);
             }
 
             // --- FLASHCARDS via Service ---
             try {
                 const fetchedCards = await FlashcardService.fetchFlashcards(currentUser.id);
                 setFlashcards(fetchedCards);
-            } catch (e) {
-                console.error("Error fetching flashcards:", e);
+            } catch (e: any) {
+                console.warn("Flashcards sync warning:", e?.message || e);
             }
 
             // Parallel yuklash for other entities
