@@ -45,7 +45,9 @@ export const TaskService = {
 
             return tasks;
         } catch (error: any) {
-            console.warn('Fetch tasks offline warning:', error?.message || error);
+            if (error?.message && !error.message.includes('Offline') && !error.message.includes('Network')) {
+                console.warn('Fetch tasks warning:', error.message);
+            }
             try {
                 const local = localStorage.getItem('study_planner_tasks');
                 if (local) return JSON.parse(local);

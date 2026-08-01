@@ -119,7 +119,9 @@ export const FlashcardService = {
                 .eq('user_id', userId);
 
             if (error) {
-                console.warn('[fetchFlashcards] DB query warning:', error.message);
+                if (error.message && !error.message.includes('Offline') && !error.message.includes('Network')) {
+                    console.warn('[fetchFlashcards] DB query warning:', error.message);
+                }
                 isNetworkError = true;
             }
 
