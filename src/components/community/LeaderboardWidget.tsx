@@ -18,7 +18,27 @@ const LeaderboardWidget: React.FC = () => {
 
     useEffect(() => {
         fetchLeaderboard();
+
+        // Real-time subscription to Supabase profiles table changes
+        const channel = supabase
+            .channel('public:profiles')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
+                fetchLeaderboard();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
+
+    const getRankTitle = (level: number) => {
+        if (level >= 30) return 'USTOZ';
+        if (level >= 20) return 'MUTAXASSIS';
+        if (level >= 10) return 'TAJRIBALI';
+        if (level >= 5) return "O'RGANUVCHI";
+        return 'BOSHLOVCHI';
+    };
 
     const fetchLeaderboard = async () => {
         setLoading(true);
@@ -135,12 +155,12 @@ const LeaderboardWidget: React.FC = () => {
                                 <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 overflow-hidden mb-1.5">
                                     <div 
                                         className={`h-full rounded-full transition-all duration-1000 ${index === 0 ? 'bg-gradient-to-r from-yellow-400 to-orange-500' : 'bg-indigo-500'}`}
-                                        style={{ width: `${Math.min((user.total_xp / 10000) * 100, 100)}%` }}
+                                        style={{ width: `${Math.min(user.total_xp === 0 ? 0 : ((user.total_xp % 1000) / 1000) * 100, 100)}%` }}
                                     ></div>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-xs font-bold text-indigo-600/80 dark:text-indigo-400/80">{user.total_xp.toLocaleString()} XP</span>
-                                    {index < 3 && <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Master</span>}
+                                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{getRankTitle(user.level)}</span>
                                 </div>
                             </div>
                         </div>
