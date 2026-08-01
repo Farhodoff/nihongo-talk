@@ -210,18 +210,55 @@ const AdminDashboardPage: React.FC = () => {
                 .single();
             if (appSettings) setApiKey(appSettings.gemini_api_key || '');
 
+            let statsData: any[] = [];
             const { data: stats, error: statsErr } = await supabase
                 .from('admin_daily_stats')
                 .select('*')
                 .order('activity_date', { ascending: true })
                 .limit(30);
-            if (statsErr) {
-                console.warn('Failed to fetch admin_daily_stats:', statsErr);
-                setStatsError(true);
-            } else {
-                setDailyStats(stats || []);
+
+            if (!statsErr && stats && stats.length > 0) {
+                statsData = stats;
                 setStatsError(false);
+            } else {
+                // Client-side fallback aggregation from study_sessions table
+                try {
+                    const { data: rawSessions } = await supabase
+                        .from('study_sessions')
+                        .select('id, user_id, duration, start_time')
+                        .order('start_time', { ascending: false })
+                        .limit(500);
+
+                    if (rawSessions && rawSessions.length > 0) {
+                        const groupedByDate: Record<string, { users: Set<string>; duration: number; sessionsCount: number }> = {};
+                        rawSessions.forEach(s => {
+                            const dateStr = s.start_time ? s.start_time.split('T')[0] : new Date().toISOString().split('T')[0];
+                            if (!groupedByDate[dateStr]) {
+                                groupedByDate[dateStr] = { users: new Set(), duration: 0, sessionsCount: 0 };
+                            }
+                            if (s.user_id) groupedByDate[dateStr].users.add(s.user_id);
+                            groupedByDate[dateStr].duration += (s.duration || 0);
+                            groupedByDate[dateStr].sessionsCount += 1;
+                        });
+
+                        statsData = Object.entries(groupedByDate).map(([activity_date, data]) => ({
+                            activity_date,
+                            active_users: data.users.size,
+                            total_duration_minutes: data.duration,
+                            total_sessions: data.sessionsCount
+                        })).sort((a, b) => a.activity_date.localeCompare(b.activity_date)).slice(-30);
+
+                        setStatsError(false);
+                    } else {
+                        setStatsError(false);
+                    }
+                } catch (e) {
+                    console.warn('Fallback study_sessions aggregation error:', e);
+                    setStatsError(false);
+                }
             }
+
+            setDailyStats(statsData);
         } catch (err) {
             console.error(err);
         }
