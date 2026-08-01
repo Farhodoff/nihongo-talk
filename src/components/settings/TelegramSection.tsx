@@ -139,6 +139,28 @@ const TelegramSection: React.FC = () => {
                         </button>
                     </div>
 
+                    {/* Test Notification Button */}
+                    <Button
+                        onClick={async () => {
+                            if (!user) return;
+                            setLoading(true);
+                            const ok = await telegramService.sendNotification(
+                                user.id,
+                                "🔔 <b>Study Planner Eslatmasi!</b>\n\nBugun o'z oldingizga qo'ygan kunlik maqsad va darslaringizni bajardingizmi? Tizimga kirib streak ballingizni oshiring! 🚀"
+                            );
+                            if (ok) {
+                                alert("✅ Telegram bot orqali sinov xabarnomasi muvaffaqiyatli yuborildi!");
+                            } else {
+                                alert("⚠️ Xabar yuborishda xatolik. Botni /start bilan qayta faollashtiring.");
+                            }
+                            setLoading(false);
+                        }}
+                        disabled={loading}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition-all"
+                    >
+                        Sinov Xabarini Yuborish 🔔
+                    </Button>
+
                     {/* Unlink Button */}
                     <Button
                         onClick={handleUnlink}

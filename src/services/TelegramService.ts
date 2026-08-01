@@ -192,10 +192,41 @@ class TelegramService {
     }
 
     /**
-     * Send a notification to user via Telegram Edge Function
+     * Send direct message via Telegram Bot HTTP API
+     */
+    async sendDirectTelegramMessage(chatId: number | string, message: string): Promise<boolean> {
+        try {
+            const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '8334623009:AAFBAdttU84-GX2TMhqMAc3-H6LJmRZ_tSA';
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            const resp = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+            const resData = await resp.json();
+            return resData.ok === true;
+        } catch (err) {
+            console.error('Direct Telegram API send error:', err);
+            return false;
+        }
+    }
+
+    /**
+     * Send a notification to user via Edge function or Direct Telegram API
      */
     async sendNotification(userId: string, message: string): Promise<boolean> {
         try {
+            // First try to get linked account chatId
+            const account = await this.getLinkedAccount(userId);
+            if (account && account.chat_id) {
+                const ok = await this.sendDirectTelegramMessage(account.chat_id, message);
+                if (ok) return true;
+            }
+
             const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
                 body: { userId, message },
             });
