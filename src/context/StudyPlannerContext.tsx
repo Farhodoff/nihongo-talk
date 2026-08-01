@@ -256,10 +256,40 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            const { data: { user: currentUser }, error: authError } = await supabase.auth.getUser();
-            if (authError || !currentUser) {
-                console.error("Auth error or no user, signing out:", authError);
-                await supabase.auth.signOut();
+            let currentUser: any = null;
+            try {
+                const { data, error: authError } = await supabase.auth.getUser();
+                if (!authError && data?.user) {
+                    currentUser = data.user;
+                } else if (authError) {
+                    console.warn("[StudyPlannerContext] Auth getUser warning:", authError.message);
+                }
+            } catch (e) {
+                console.warn("[StudyPlannerContext] Auth exception:", e);
+            }
+
+            // Fallback to getSession if getUser failed or had temporary network error
+            if (!currentUser && typeof supabase?.auth?.getSession === 'function') {
+                try {
+                    const { data: sessionData } = await supabase.auth.getSession();
+                    if (sessionData?.session?.user) {
+                        currentUser = sessionData.session.user;
+                    }
+                } catch (e) {
+                    console.warn("[StudyPlannerContext] Auth getSession exception:", e);
+                }
+            }
+
+            if (!currentUser) {
+                try {
+                    await supabase.auth.signOut({ scope: 'local' });
+                } catch {
+                    Object.keys(localStorage).forEach(key => {
+                        if (key.startsWith('sb-') && key.endsWith('-auth-token')) {
+                            localStorage.removeItem(key);
+                        }
+                    });
+                }
                 setUser(null);
                 setLoading(false);
                 return;
