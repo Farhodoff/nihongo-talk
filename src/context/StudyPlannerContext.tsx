@@ -378,6 +378,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
                         localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
                     } catch (e) {}
+
+                    // Background Sync: Upsert subjects directly into Supabase DB
+                    if (mergedSubjects.length > 0) {
+                        const dbPayload = mergedSubjects.map(s => ({
+                            id: s.id,
+                            user_id: currentUser.id,
+                            name: s.name,
+                            color: s.color,
+                            icon: s.icon,
+                            description: s.description || null,
+                            is_archived: s.isArchived || false
+                        }));
+                        supabase.from('subjects').upsert(dbPayload).then(({ error }) => {
+                            if (error) console.warn("[Background Sync] Subjects upsert warning:", error);
+                        });
+                    }
                 }
 
                 if (sessionsRes?.data) {
