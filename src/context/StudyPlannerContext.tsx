@@ -261,7 +261,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const { data, error: authError } = await supabase.auth.getUser();
                 if (!authError && data?.user) {
                     currentUser = data.user;
-                } else if (authError && authError.message && !authError.message.includes('Offline') && !authError.message.includes('Network')) {
+                } else if (authError && authError.message && authError.message !== 'Auth session missing!' && !authError.message.includes('Offline') && !authError.message.includes('Network')) {
                     console.warn("[StudyPlannerContext] Auth getUser warning:", authError.message);
                 }
             } catch (e) {
