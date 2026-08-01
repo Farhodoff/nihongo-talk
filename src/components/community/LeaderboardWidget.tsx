@@ -30,19 +30,32 @@ const LeaderboardWidget: React.FC = () => {
                 .order('total_xp', { ascending: false })
                 .limit(50);
 
-            let users: CommunityUser[] = [];
+            let dbUsers: CommunityUser[] = [];
             if (data && data.length > 0) {
-                users = data.map(u => ({
+                dbUsers = data.map(u => ({
                     id: u.id,
-                    full_name: u.full_name || '',
+                    full_name: u.full_name || 'Talaba',
                     level: u.level || 1,
                     total_xp: u.total_xp || 0,
-                    avatar_url: u.avatar_url || '',
+                    avatar_url: u.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.full_name || u.id}`,
                     isMe: user?.id === u.id
                 }));
             }
 
-            setLeaderboard(users);
+            const defaultMembers: CommunityUser[] = [
+                { id: 'comm_user_1', full_name: 'Azizbek Rahimov', level: 5, total_xp: 12450, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Azizbek' },
+                { id: 'comm_user_2', full_name: 'Shohruh Oblakulov', level: 4, total_xp: 9800, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shohruh' },
+                { id: 'comm_user_3', full_name: 'Shahina Norqulova', level: 4, total_xp: 8650, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shahina' },
+                { id: 'comm_user_4', full_name: 'Murodjon Olimjonov', level: 3, total_xp: 6400, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Murodjon' },
+                { id: 'comm_user_5', full_name: 'Dilshodbek Usmonov', level: 3, total_xp: 5200, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dilshodbek' },
+                { id: 'comm_user_6', full_name: 'Sardor Soyilov', level: 2, total_xp: 3900, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sardor' }
+            ];
+
+            const dbUserIds = new Set(dbUsers.map(u => u.id));
+            const missingDefault = defaultMembers.filter(m => !dbUserIds.has(m.id));
+            const merged = [...dbUsers, ...missingDefault].sort((a, b) => b.total_xp - a.total_xp);
+
+            setLeaderboard(merged);
         } catch (err) {
             console.error('Leaderboard error:', err);
         } finally {
