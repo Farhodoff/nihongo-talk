@@ -77,11 +77,13 @@ export class UserNotificationService {
                     is_read: false
                 });
 
-            if (error) {
-                console.warn('Supabase notification insert info (using local fallback):', error.message);
+            if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
+                console.warn('Supabase notification insert info:', error.message);
             }
-        } catch (e) {
-            console.warn('Supabase notification insert exception (using local fallback):', e);
+        } catch (e: any) {
+            if (e?.message && !e.message.includes('Offline') && !e.message.includes('Network')) {
+                console.warn('Supabase notification insert exception:', e);
+            }
         }
 
         return true;

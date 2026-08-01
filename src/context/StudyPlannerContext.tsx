@@ -718,7 +718,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     error = retry.error;
                 }
 
-                if (error) {
+                if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
                     console.warn('[addSubject] Supabase insert warning:', error.message);
                 }
 
@@ -755,8 +755,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 });
 
                 return finalSubject;
-            } catch (error) {
-                console.warn("Failed to add subject DB insert, using optimistic subject:", error);
+            } catch (error: any) {
+                if (error?.message && !error.message.includes('Offline') && !error.message.includes('Network')) {
+                    console.warn("Failed to add subject DB insert, using optimistic subject:", error);
+                }
                 return optimisticSubject;
             }
         }
@@ -788,8 +790,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         
 
         const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
-        if (error) {
-            console.error("Error updating subject:", error);
+        if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
+            console.warn("Update subject warning:", error.message);
         }
     };
 
