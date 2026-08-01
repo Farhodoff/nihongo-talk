@@ -34,7 +34,7 @@ const SettingsPage: React.FC = () => {
     const toggleTheme = () => {
         const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
         updateSettings({ theme: newTheme });
-        toast({ title: newTheme === 'dark' ? '🌙 Tungi rejim yoqildi' : '☀️ Kunduzgi rejim yoqildi', description: 'Mavzu muvaffaqiyatli o\'zgartirildi.' });
+        toast({ title: newTheme === 'dark' ? '🌙 Tungi rejim yoqildi' : '☀️ Kunduzgi rejim yoqildi' });
     };
 
     const toggleNotifications = async () => {
@@ -42,9 +42,9 @@ const SettingsPage: React.FC = () => {
             const granted = await requestNotificationPermission();
             if (granted) {
                 updateSettings({ notificationsEnabled: true });
-                toast({ title: '🔔 Bildirishnomalar yoqildi', description: 'Siz endi xabarnomalar olasiz.' });
+                toast({ title: '🔔 Bildirishnomalar yoqildi' });
             } else {
-                toast({ variant: 'destructive', title: '❌ Ruxsat rad etildi', description: 'Iltimos, brauzer sozlamalarida bildirishnomalarni yoqing.' });
+                toast({ variant: 'destructive', title: '❌ Ruxsat rad etildi' });
             }
         } else {
             updateSettings({ notificationsEnabled: false });
@@ -57,28 +57,22 @@ const SettingsPage: React.FC = () => {
     };
 
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen">
-            {/* Header / Profile Header */}
-            <div className="mb-8 p-6 rounded-3xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-gray-200/80 dark:border-slate-800/80 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                    <div className="relative">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-500/25">
-                            {user?.email?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900 flex items-center justify-center text-[10px] text-white">✓</div>
+        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6">
+            {/* Header / Profile Summary */}
+            <div className="flex items-center justify-between pb-4 border-b border-border">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold border border-primary/20">
+                        {user?.email?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div>
-                        <div className="flex items-center gap-2">
-                            <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Sozlamalar</h2>
-                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">PREMIUM VIP</span>
-                        </div>
-                        <p className="text-sm font-medium text-gray-500 dark:text-slate-400 mt-1">{user?.email}</p>
+                        <h1 className="text-2xl font-bold text-foreground">Sozlamalar</h1>
+                        <p className="text-xs text-muted-foreground">{user?.email}</p>
                     </div>
                 </div>
             </div>
 
             {/* Desktop Tabs / Mobile Scrollable Tabs */}
-            <div className="flex overflow-x-auto scrollbar-hide space-x-2 bg-gray-100/80 dark:bg-slate-900/80 p-2 rounded-2xl border border-gray-200/80 dark:border-slate-800/80 mb-8">
+            <div className="flex overflow-x-auto scrollbar-hide gap-2 p-1.5 bg-card rounded-xl border border-border">
                 {tabs.map(tab => {
                     const isActive = activeTab === tab.id;
                     const Icon = tab.icon;
@@ -86,59 +80,51 @@ const SettingsPage: React.FC = () => {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2.5 px-5 py-3 text-sm font-bold transition-all duration-200 whitespace-nowrap rounded-xl ${
+                            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold transition-all duration-150 whitespace-nowrap rounded-lg ${
                                 isActive 
-                                    ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-md shadow-slate-900/5 dark:shadow-slate-950/40 scale-[1.02]' 
-                                    : 'text-gray-500 hover:text-gray-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-white/40 dark:hover:bg-slate-800/40'
+                                    ? 'bg-primary text-primary-foreground shadow-sm' 
+                                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                             }`}
                         >
-                            <Icon size={18} className={isActive ? 'text-indigo-500 dark:text-indigo-400 animate-pulse' : ''} />
+                            <Icon size={16} />
                             {tab.label}
                         </button>
                     );
                 })}
             </div>
 
-            {/* Tab Content */}
-            <div className="space-y-6 animate-in fade-in duration-300">
+            {/* Tab Contents */}
+            <div className="mt-6">
                 {activeTab === 'profile' && (
                     <div className="space-y-6">
-                        <SubscriptionSection />
                         <AccountSection />
+                        <DailyGoalSection />
+                        <SubscriptionSection />
                     </div>
                 )}
 
                 {activeTab === 'ai' && (
                     <div className="space-y-6">
                         <AIProviderSection />
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                            <TelegramSection />
-                        </div>
+                        <TelegramSection />
                         <GoogleCalendarSection />
                     </div>
                 )}
 
                 {activeTab === 'preferences' && (
-                    <div className="space-y-6">
-                        <PreferencesSection
-                            settings={settings}
-                            onToggleTheme={toggleTheme}
-                            onToggleNotifications={toggleNotifications}
-                        />
-                        <DailyGoalSection />
-                    </div>
+                    <PreferencesSection
+                        settings={settings}
+                        onToggleTheme={toggleTheme}
+                        onToggleNotifications={toggleNotifications}
+                    />
                 )}
 
                 {activeTab === 'data' && (
-                    <div className="space-y-6">
-                        <DataManagementSection onClearData={handleClearData} />
-                    </div>
+                    <DataManagementSection onClearData={handleClearData} />
                 )}
 
-                {activeTab === 'admin' && isAdminEmail(user?.email) && (
-                    <div className="space-y-6 pt-2">
-                        <AdminDashboardPage />
-                    </div>
+                {activeTab === 'admin' && (
+                    <AdminDashboardPage />
                 )}
             </div>
         </div>
