@@ -25,6 +25,11 @@ const StudyModePage: React.FC = () => {
     const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
     const [isQueueInitialized, setIsQueueInitialized] = useState(false);
 
+    // Study Mode: 'srs' | 'type'
+    const [studyMode, setStudyMode] = useState<'srs' | 'type'>('srs');
+    const [typedAnswer, setTypedAnswer] = useState('');
+    const [typeResult, setTypeResult] = useState<'correct' | 'incorrect' | null>(null);
+
     // Admin inline editing state
     const [isEditingCard, setIsEditingCard] = useState(false);
     const [editFront, setEditFront] = useState('');
@@ -177,9 +182,26 @@ const StudyModePage: React.FC = () => {
                 </div>
             )}
             <div className="flex items-center justify-between">
-                <button onClick={() => navigate('/flashcards')} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
-                    <ArrowLeft size={20} />
-                </button>
+                <div className="flex items-center gap-2">
+                    <button onClick={() => navigate('/flashcards')} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
+                        <ArrowLeft size={20} />
+                    </button>
+                    {/* Mode selector */}
+                    <div className="flex items-center gap-1 bg-muted p-1 rounded-xl border border-border">
+                        <button
+                            onClick={() => setStudyMode('srs')}
+                            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${studyMode === 'srs' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                        >
+                            🎴 Flashcard SRS
+                        </button>
+                        <button
+                            onClick={() => setStudyMode('type')}
+                            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${studyMode === 'type' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                        >
+                            ✏️ Yozib Tekshirish
+                        </button>
+                    </div>
+                </div>
                 <div className="flex items-center gap-3">
                     {/* Accent / Language Switcher */}
                     <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-xl border border-border">
@@ -215,8 +237,77 @@ const StudyModePage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Professional 3D Flip Card */}
-            <div className="perspective-1000 h-96 cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
+            {studyMode === 'type' ? (
+                <div className="bg-card border border-border rounded-3xl p-8 shadow-xl flex flex-col justify-between min-h-[380px]">
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Yozma Javob Berish</span>
+                        <button onClick={handleSpeak} className="p-3 bg-primary/10 text-primary rounded-xl hover:bg-primary/20 transition-all">
+                            <Volume2 size={20} />
+                        </button>
+                    </div>
+                    <div className="text-center my-6 space-y-4">
+                        <h3 className="text-3xl font-extrabold text-foreground">{currentCard?.front}</h3>
+                        <p className="text-xs text-muted-foreground">Ushbu so'z yoki iboraning o'zbekcha/inglizcha ma'nosini yozing:</p>
+                        <input
+                            type="text"
+                            value={typedAnswer}
+                            onChange={(e) => { setTypedAnswer(e.target.value); setTypeResult(null); }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    const cleanTyped = typedAnswer.toLowerCase().trim();
+                                    const cleanBack = (currentCard?.back || '').toLowerCase();
+                                    if (cleanTyped && (cleanBack.includes(cleanTyped) || cleanTyped.includes(cleanBack.split('\n')[0].trim()))) {
+                                        setTypeResult('correct');
+                                        setTotalXpEarned(x => x + 25);
+                                        setTimeout(() => {
+                                            setTypedAnswer('');
+                                            setTypeResult(null);
+                                            if (currentCardIndex < queue.length - 1) {
+                                                setCurrentCardIndex(i => i + 1);
+                                            } else {
+                                                setIsFinished(true);
+                                            }
+                                        }, 1200);
+                                    } else {
+                                        setTypeResult('incorrect');
+                                    }
+                                }
+                            }}
+                            placeholder="Javobingizni shu yerga yozing va Enter bosing..."
+                            className={`w-full max-w-md mx-auto px-4 py-3 text-center text-base rounded-2xl border transition-all ${
+                                typeResult === 'correct' ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 font-bold' :
+                                typeResult === 'incorrect' ? 'border-rose-500 bg-rose-500/10 text-rose-600' :
+                                'border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary'
+                            }`}
+                        />
+                        {typeResult === 'correct' && (
+                            <p className="text-sm font-bold text-emerald-500 animate-bounce">✨ Muvaffaqiyatli! +25 XP</p>
+                        )}
+                        {typeResult === 'incorrect' && (
+                            <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs text-rose-500 text-left max-w-md mx-auto">
+                                <span className="font-bold block">To'g'ri ma'nosi:</span>
+                                <span className="whitespace-pre-line font-medium">{currentCard?.back}</span>
+                            </div>
+                        )}
+                    </div>
+                    <Button
+                        onClick={() => {
+                            if (currentCardIndex < queue.length - 1) {
+                                setTypedAnswer('');
+                                setTypeResult(null);
+                                setCurrentCardIndex(i => i + 1);
+                            } else {
+                                setIsFinished(true);
+                            }
+                        }}
+                        className="w-full py-3 font-bold rounded-2xl"
+                    >
+                        {typeResult === 'incorrect' ? "Keyingi Kartaga o'tish →" : "Tekshirish / Keyingisi →"}
+                    </Button>
+                </div>
+            ) : (
+                /* Professional 3D Flip Card */
+                <div className="perspective-1000 h-96 cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
                 <div className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                     {/* Front Side */}
                     <div className="absolute inset-0 backface-hidden glass-card border border-border bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl flex flex-col justify-between p-8">
@@ -275,41 +366,44 @@ const StudyModePage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            )}
 
-            <div>
-                {!isFlipped ? (
-                    <Button className="w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-primary/20" onClick={() => setIsFlipped(true)}>
-                        Javobni ko'rish
-                    </Button>
-                ) : (
-                    (() => {
-                        const intervals = currentCard
-                            ? getPreviewIntervals(currentCard.interval || 0, currentCard.repetitions || 0, currentCard.easeFactor || 2.5)
-                            : { [Rating.AGAIN]: 1, [Rating.HARD]: 3, [Rating.GOOD]: 7, [Rating.EASY]: 14 };
-                        
-                        return (
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                {[
-                                    { l: 'Qayta (❌)', v: Rating.AGAIN, sub: `${intervals[Rating.AGAIN]} kun`, c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
-                                    { l: 'Qiyin (😐)', v: Rating.HARD, sub: `${intervals[Rating.HARD]} kun`, c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
-                                    { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: `${intervals[Rating.GOOD]} kun`, c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
-                                    { l: 'Oson (😄)', v: Rating.EASY, sub: `${intervals[Rating.EASY]} kun`, c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
-                                ].map(b => (
-                                    <button
-                                        key={b.v}
-                                        disabled={isProcessing}
-                                        onClick={() => handleRate(b.v)}
-                                        className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
-                                    >
-                                        <div>{b.l}</div>
-                                        <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        );
-                    })()
-                )}
-            </div>
+            {studyMode === 'srs' && (
+                <div>
+                    {!isFlipped ? (
+                        <Button className="w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-primary/20" onClick={() => setIsFlipped(true)}>
+                            Javobni ko'rish
+                        </Button>
+                    ) : (
+                        (() => {
+                            const intervals = currentCard
+                                ? getPreviewIntervals(currentCard.interval || 0, currentCard.repetitions || 0, currentCard.easeFactor || 2.5)
+                                : { [Rating.AGAIN]: 1, [Rating.HARD]: 3, [Rating.GOOD]: 7, [Rating.EASY]: 14 };
+                            
+                            return (
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    {[
+                                        { l: 'Qayta (❌)', v: Rating.AGAIN, sub: `${intervals[Rating.AGAIN]} kun`, c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
+                                        { l: 'Qiyin (😐)', v: Rating.HARD, sub: `${intervals[Rating.HARD]} kun`, c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
+                                        { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: `${intervals[Rating.GOOD]} kun`, c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
+                                        { l: 'Oson (😄)', v: Rating.EASY, sub: `${intervals[Rating.EASY]} kun`, c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
+                                    ].map(b => (
+                                        <button
+                                            key={b.v}
+                                            disabled={isProcessing}
+                                            onClick={() => handleRate(b.v)}
+                                            className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
+                                        >
+                                            <div>{b.l}</div>
+                                            <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            );
+                        })()
+                    )}
+                </div>
+            )}
         </div>
     );
 };
