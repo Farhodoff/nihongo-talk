@@ -494,9 +494,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
                 if (profileRes?.data) {
                     const profile = profileRes.data as DatabaseProfile;
+                    const savedLocalTheme = localStorage.getItem('study_planner_theme') as 'light' | 'dark' | null;
                     setAppSettings(prev => ({
                         ...prev,
-                        theme: profile.theme || 'light',
+                        theme: savedLocalTheme || profile.theme || prev.theme || 'light',
                         notificationsEnabled: profile.notifications_enabled ?? true,
                         googleApiKey: dbAiSettings.googleApiKey || profile.google_api_key || prev.googleApiKey,
                         aiModel: dbAiSettings.aiModel || prev.aiModel,
@@ -1072,8 +1073,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== UPDATE SETTINGS (Combined) =====
     const updateSettings = async (updates: Partial<Settings>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+        // 1. Instant local DOM and state update
+        if (updates.theme !== undefined) {
+            localStorage.setItem('study_planner_theme', updates.theme);
+            if (updates.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
 
         // Separate gamification updates from app settings
         if (updates.totalXp !== undefined || updates.level !== undefined) {
@@ -1133,7 +1141,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             });
         }
 
-        // Persist to DB using UPDATE to profiles table
+        // 2. Persist to DB using UPDATE to profiles table
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
         const { error } = await supabase.from('profiles').update({
             theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
             notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
