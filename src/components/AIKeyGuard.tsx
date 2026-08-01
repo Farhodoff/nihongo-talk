@@ -18,7 +18,7 @@ const AIKeyGuard: React.FC<AIKeyGuardProps> = ({ children }) => {
     const { subscription, loading: subLoading } = useSubscription();
     
     const [provider, setProvider] = useState<AIProvider>(
-        (settings.aiModel as AIProvider) || 'gemini'
+        (settings.aiModel as AIProvider) || 'deepseek'
     );
     const [geminiKey, setGeminiKey] = useState(settings.googleApiKey || '');
     const [deepseekKey, setDeepseekKey] = useState(settings.deepseekApiKey || '');

@@ -78,7 +78,7 @@ const SpeakingCoachPage: React.FC = () => {
     const { user, settings, updateSettings, addCoachSession } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'gemini');
+    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'deepseek');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
