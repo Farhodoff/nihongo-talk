@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { generateUUID } from '../utils/uuid';
+import { PRESET_DECKS } from '../data/presetDecks';
 
 const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
 
@@ -168,6 +169,39 @@ export const FlashcardService = {
                     supabase.from('flashcards').update({ front: c.front, back: c.back }).eq('id', c.id)
                 )
             ).catch(err => console.warn("Background card DB update error:", err));
+        }
+
+        if (sanitizedMerged.length === 0) {
+            console.log('[fetchFlashcards] No cards found, auto-seeding standard library decks for user:', userId);
+            try {
+                const autoSeededCards: Partial<Flashcard>[] = [];
+                for (const deck of PRESET_DECKS) {
+                    const cards = await deck.loadCards();
+                    if (cards && cards.length > 0) {
+                        cards.slice(0, 50).forEach(c => {
+                            autoSeededCards.push({
+                                subjectId: 'a0000000-0000-0000-0000-000000000001',
+                                front: c.front,
+                                back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                                nextReviewDate: new Date().toISOString(),
+                                easeFactor: 2.5,
+                                interval: 1,
+                                repetitions: 0
+                            });
+                        });
+                    }
+                }
+
+                if (autoSeededCards.length > 0) {
+                    const savedSeeded = await this.addFlashcardsBatch(userId, autoSeededCards);
+                    if (savedSeeded.length > 0) {
+                        setLocalFlashcardCache(userId, savedSeeded);
+                        return savedSeeded;
+                    }
+                }
+            } catch (e) {
+                console.warn('[fetchFlashcards] Auto-seeding error:', e);
+            }
         }
 
         setLocalFlashcardCache(userId, sanitizedMerged);

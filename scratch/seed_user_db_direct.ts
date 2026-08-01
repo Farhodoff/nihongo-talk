@@ -67,8 +67,7 @@ async function seedUserDataDirectly() {
                     interval: 1,
                     repetitions: 0,
                     ease_factor: 2.5,
-                    next_review_date: new Date().toISOString(),
-                    is_archived: false
+                    next_review_date: new Date().toISOString()
                 }));
                 cardsToInsert.push(...mapped);
             }
