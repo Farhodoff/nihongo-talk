@@ -110,6 +110,7 @@ export const FlashcardService = {
         const localCached = getLocalFlashcardCache(userId);
         console.log('[fetchFlashcards] Local cache has', localCached.length, 'cards');
         let dbCards: Flashcard[] = [];
+        let isNetworkError = false;
 
         try {
             let { data, error } = await supabase
@@ -118,7 +119,8 @@ export const FlashcardService = {
                 .eq('user_id', userId);
 
             if (error) {
-                console.error('[fetchFlashcards] ❌ DB query error:', error.message, error.code, error.details);
+                console.warn('[fetchFlashcards] DB query warning:', error.message);
+                isNetworkError = true;
             }
 
             if (!error && data) {
@@ -138,13 +140,19 @@ export const FlashcardService = {
                 })) as Flashcard[];
             }
         } catch (error: any) {
-            console.error('[fetchFlashcards] ❌ Exception:', error?.message || error);
+            console.warn('[fetchFlashcards] Network/Offline Exception:', error?.message || error);
+            isNetworkError = true;
+        }
+
+        // If network error occurred, return local cached cards directly without trying to seed DB offline
+        if (isNetworkError && dbCards.length === 0) {
+            return localCached;
         }
 
         const dbCardIds = new Set(dbCards.map(c => c.id));
         const missingLocalCards = localCached.filter(c => !dbCardIds.has(c.id) && !c.deletedAt);
 
-        if (missingLocalCards.length > 0) {
+        if (missingLocalCards.length > 0 && !isNetworkError) {
             this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('[fetchFlashcards] Background sync error:', e));
         }
 
@@ -162,7 +170,7 @@ export const FlashcardService = {
             }
         }
 
-        if (cardsToUpdateInDb.length > 0) {
+        if (cardsToUpdateInDb.length > 0 && !isNetworkError) {
             console.log(`[fetchFlashcards] Auto-cleaning ${cardsToUpdateInDb.length} placeholder cards in DB...`);
             Promise.all(
                 cardsToUpdateInDb.map(c =>
@@ -171,7 +179,7 @@ export const FlashcardService = {
             ).catch(err => console.warn("Background card DB update error:", err));
         }
 
-        if (sanitizedMerged.length === 0) {
+        if (sanitizedMerged.length === 0 && !isNetworkError) {
             console.log('[fetchFlashcards] No cards found, auto-seeding standard library decks for user:', userId);
             try {
                 const autoSeededCards: Partial<Flashcard>[] = [];
