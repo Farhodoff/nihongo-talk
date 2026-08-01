@@ -197,11 +197,31 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const { data: subs } = await supabase
-                .from('user_subscriptions')
-                .select('*')
-                .order('created_at', { ascending: false });
-            setSubscriptions(subs || []);
+            const [subsRes, profilesRes] = await Promise.all([
+                supabase.from('user_subscriptions').select('*'),
+                supabase.from('profiles').select('*').order('created_at', { ascending: false })
+            ]);
+
+            const dbProfiles = profilesRes.data || [];
+            const dbSubs = subsRes.data || [];
+
+            // Map all DB profiles so every registered user shows up in Admin Panel
+            const mappedUsers: UserSubscription[] = dbProfiles.map((p: any) => {
+                const existingSub = dbSubs.find((s: any) => s.user_id === p.id);
+                return {
+                    id: existingSub?.id || p.id,
+                    user_id: p.id,
+                    email: p.email || p.full_name || 'user@planner.app',
+                    tier: existingSub?.tier || 'premium',
+                    status: existingSub?.status || 'active',
+                    ai_credits: existingSub?.ai_credits ?? 100,
+                    last_reset_date: existingSub?.last_reset_date || new Date().toISOString(),
+                    current_period_end: existingSub?.current_period_end || new Date(Date.now() + 365*24*60*60*1000).toISOString(),
+                    created_at: p.created_at || new Date().toISOString()
+                };
+            });
+
+            setSubscriptions(mappedUsers.length > 0 ? mappedUsers : (dbSubs || []));
 
             const { data: appSettings } = await supabase
                 .from('app_settings')
