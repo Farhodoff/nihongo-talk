@@ -621,17 +621,21 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     // 2. Actions (Optimistic Updates + Supabase Sync) for other entities
 
     const addGoal = async (goalData: Partial<Goal>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return null;
-
+        const activeUserId = user?.id || 'local_user';
         const goalId = goalData.id || (generateUUID());
-        const fullGoalData = { ...goalData, id: goalId, user_id: user.id };
+        const fullGoalData = { ...goalData, id: goalId, user_id: activeUserId };
 
-        
+        setGoals(prev => [...prev.filter(g => g.id !== goalId), fullGoalData as Goal]);
 
-        const { data } = await supabase.from('goals').insert(fullGoalData).select().single();
-        if (data) setGoals(prev => [...prev, data]);
-        return data;
+        if (activeUserId !== 'local_user') {
+            try {
+                const { data } = await supabase.from('goals').insert(fullGoalData).select().single();
+                if (data) setGoals(prev => [...prev.filter(g => g.id !== goalId), data]);
+            } catch (e) {
+                console.warn("[addGoal] DB sync error:", e);
+            }
+        }
+        return fullGoalData as Goal;
     };
 
     const updateGoal = async (id: string, updates: Partial<Goal>) => {
@@ -658,8 +662,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== SUBJECT OPERATSIYALARI =====
     const addSubject = async (subjectData: Partial<Subject>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return null;
+        const activeUserId = user?.id || 'local_user';
 
         const tempId = subjectData.id || (generateUUID());
         const optimisticSubject: Subject = {
@@ -674,89 +677,91 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             isArchived: subjectData.isArchived || false
         };
 
-        // Optimistic update
+        // Optimistic update - ALWAYS update state immediately so user sees the new subject!
         setSubjects(prev => {
             const filtered = prev.filter(s => s.id !== tempId);
             const updated = [...filtered, optimisticSubject];
             try {
-                localStorage.setItem('study_planner_subjects_cache_' + user.id, JSON.stringify(updated));
+                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
             } catch (e) {}
             return updated;
         });
 
-        const dbSubject: Record<string, any> = {
-            id: tempId,
-            user_id: user.id,
-            name: subjectData.name || 'Yangi Fan',
-            color: subjectData.color || '#6366f1',
-            schedule: subjectData.schedule || [],
-        };
-        if (subjectData.teacherName) dbSubject.teacher_name = subjectData.teacherName;
-        if (subjectData.roomLocation) dbSubject.room_location = subjectData.roomLocation;
-        if (subjectData.description) dbSubject.description = subjectData.description;
-        if (subjectData.icon) dbSubject.icon = subjectData.icon;
-        if (subjectData.isArchived !== undefined) dbSubject.is_archived = subjectData.isArchived;
-
-        try {
-            let { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
-            
-            // Retry without optional columns if DB schema lacks them
-            if (error && (error.code === '42703' || error.message?.includes('column'))) {
-                console.warn('[addSubject] Column mismatch on subjects table, retrying with minimal fields:', error.message);
-                const minimalDbSubject = {
-                    id: tempId,
-                    user_id: user.id,
-                    name: subjectData.name || 'Yangi Fan',
-                    color: subjectData.color || '#6366f1',
-                    schedule: subjectData.schedule || []
-                };
-                const retry = await supabase.from('subjects').insert(minimalDbSubject).select().single();
-                data = retry.data;
-                error = retry.error;
-            }
-
-            if (error) {
-                console.error('[addSubject] ❌ Supabase insert error:', error.message);
-            }
-
-            const finalId = data?.id || tempId;
-            const finalSubject: Subject = {
-                id: finalId,
-                name: data?.name || optimisticSubject.name,
-                color: data?.color || optimisticSubject.color,
-                schedule: data?.schedule || optimisticSubject.schedule,
-                teacherName: data?.teacher_name || optimisticSubject.teacherName,
-                roomLocation: data?.room_location || optimisticSubject.roomLocation,
-                description: data?.description || optimisticSubject.description,
-                icon: data?.icon || optimisticSubject.icon,
-                isArchived: data?.is_archived ?? optimisticSubject.isArchived
+        if (activeUserId !== 'local_user') {
+            const dbSubject: Record<string, any> = {
+                id: tempId,
+                user_id: activeUserId,
+                name: subjectData.name || 'Yangi Fan',
+                color: subjectData.color || '#6366f1',
+                schedule: subjectData.schedule || [],
             };
+            if (subjectData.teacherName) dbSubject.teacher_name = subjectData.teacherName;
+            if (subjectData.roomLocation) dbSubject.room_location = subjectData.roomLocation;
+            if (subjectData.description) dbSubject.description = subjectData.description;
+            if (subjectData.icon) dbSubject.icon = subjectData.icon;
+            if (subjectData.isArchived !== undefined) dbSubject.is_archived = subjectData.isArchived;
 
-            if (finalId !== tempId) {
-                setFlashcards(prev => {
-                    const updated = prev.map(c => c.subjectId === tempId ? { ...c, subjectId: finalId } : c);
+            try {
+                let { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
+                
+                // Retry without optional columns if DB schema lacks them
+                if (error && (error.code === '42703' || error.message?.includes('column'))) {
+                    const minimalDbSubject = {
+                        id: tempId,
+                        user_id: activeUserId,
+                        name: subjectData.name || 'Yangi Fan',
+                        color: subjectData.color || '#6366f1',
+                        schedule: subjectData.schedule || []
+                    };
+                    const retry = await supabase.from('subjects').insert(minimalDbSubject).select().single();
+                    data = retry.data;
+                    error = retry.error;
+                }
+
+                if (error) {
+                    console.warn('[addSubject] Supabase insert warning:', error.message);
+                }
+
+                const finalId = data?.id || tempId;
+                const finalSubject: Subject = {
+                    id: finalId,
+                    name: data?.name || optimisticSubject.name,
+                    color: data?.color || optimisticSubject.color,
+                    schedule: data?.schedule || optimisticSubject.schedule,
+                    teacherName: data?.teacher_name || optimisticSubject.teacherName,
+                    roomLocation: data?.room_location || optimisticSubject.roomLocation,
+                    description: data?.description || optimisticSubject.description,
+                    icon: data?.icon || optimisticSubject.icon,
+                    isArchived: data?.is_archived ?? optimisticSubject.isArchived
+                };
+
+                if (finalId !== tempId) {
+                    setFlashcards(prev => {
+                        const updated = prev.map(c => c.subjectId === tempId ? { ...c, subjectId: finalId } : c);
+                        try {
+                            localStorage.setItem('study_planner_flashcards_cache_' + activeUserId, JSON.stringify(updated));
+                        } catch (e) {}
+                        return updated;
+                    });
+                }
+
+                setSubjects(prev => {
+                    const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
+                    const updated = [...filtered, finalSubject];
                     try {
-                        localStorage.setItem('study_planner_flashcards_cache_' + user.id, JSON.stringify(updated));
+                        localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
                     } catch (e) {}
                     return updated;
                 });
+
+                return finalSubject;
+            } catch (error) {
+                console.warn("Failed to add subject DB insert, using optimistic subject:", error);
+                return optimisticSubject;
             }
-
-            setSubjects(prev => {
-                const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
-                const updated = [...filtered, finalSubject];
-                try {
-                    localStorage.setItem('study_planner_subjects_cache_' + user.id, JSON.stringify(updated));
-                } catch (e) {}
-                return updated;
-            });
-
-            return finalSubject;
-        } catch (error) {
-            console.error("Failed to add subject DB insert:", error);
-            // DO NOT delete optimistic subject! Return optimistic subject so user never loses their subject or cards
-            return optimisticSubject;
         }
+
+        return optimisticSubject;
     };
 
     const deleteSubject = async (id: string) => {
@@ -790,13 +795,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // ===== NOTE OPERATSIYALARI =====
     const addNote = async (noteData: Partial<Note>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return null;
+        const activeUserId = user?.id || 'local_user';
 
         const noteId = noteData.id || (generateUUID());
         const dbNote = {
             id: noteId,
-            user_id: user.id,
+            user_id: activeUserId,
             subject_id: noteData.subjectId,
             title: noteData.title,
             content: noteData.content,
