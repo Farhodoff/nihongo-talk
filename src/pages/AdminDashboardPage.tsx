@@ -206,7 +206,7 @@ const AdminDashboardPage: React.FC = () => {
             const dbSubs = subsRes.data || [];
 
             const fallbackProfiles = [
-                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', email: 'fsoyilov@gmail.com', full_name: 'Farhod Soyilov (Admin)', tier: 'premium' },
+                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', email: 'fsoyilov@gmail.com', full_name: 'Farhod Soyilov', tier: 'premium' },
                 { id: '02d66fab-68a0-45a6-9493-4984c14eb677', email: 'ibodullayev.dev@gmail.com', full_name: 'Ibodullayev Dev', tier: 'premium' },
                 { id: 'e8c4f1e6-d12c-4e9c-a9f3-41cf492b9a54', email: 'dilshodbek@gmail.com', full_name: 'Dilshodbek Usmonov', tier: 'pro' },
                 { id: 'b173e27e-01e8-43d1-8a3d-b373e4b71e12', email: 'shohruh@gmail.com', full_name: 'Shohruh Oblakulov', tier: 'premium' },

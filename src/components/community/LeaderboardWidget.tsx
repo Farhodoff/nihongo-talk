@@ -43,7 +43,7 @@ const LeaderboardWidget: React.FC = () => {
             }
 
             const defaultMembers: CommunityUser[] = [
-                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', full_name: 'Farhod Soyilov (Admin)', level: 10, total_xp: 25400, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Farhod' },
+                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', full_name: 'Farhod Soyilov', level: 10, total_xp: 25400, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Farhod' },
                 { id: '02d66fab-68a0-45a6-9493-4984c14eb677', full_name: 'Ibodullayev Dev', level: 8, total_xp: 18900, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ibodullayev' },
                 { id: 'b173e27e-01e8-43d1-8a3d-b373e4b71e12', full_name: 'Shohruh Oblakulov', level: 7, total_xp: 15600, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shohruh' },
                 { id: 'f2012408-c512-4c16-a984-3639ca8ea516', full_name: 'Shahina Norqulova', level: 6, total_xp: 13200, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shahina' },
