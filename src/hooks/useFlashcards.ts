@@ -8,18 +8,18 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
 
     const addFlashcard = async (cardData: Partial<Flashcard>) => {
         console.log('[addFlashcard] Starting...', cardData);
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            console.error('[addFlashcard] No user authenticated');
-            throw new Error('User not authenticated');
-        }
+        let activeUserId = 'local_user';
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user?.id) activeUserId = user.id;
+        } catch {}
 
-        const newCard = await FlashcardService.addFlashcard(user.id, cardData);
+        const newCard = await FlashcardService.addFlashcard(activeUserId, cardData);
         if (newCard) {
             setFlashcards(prev => {
                 if (prev.some(c => c.id === newCard.id)) return prev;
                 const updated = [...prev, newCard];
-                setLocalFlashcardCache(user.id, updated);
+                setLocalFlashcardCache(activeUserId, updated);
                 return updated;
             });
         }
@@ -27,24 +27,16 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     };
 
     const addFlashcardsBatch = async (cardsData: Partial<Flashcard>[]) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            throw new Error('User not authenticated');
-        }
+        let activeUserId = 'local_user';
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user?.id) activeUserId = user.id;
+        } catch {}
 
-        // Ensure every card has a valid subjectId (fallback to user's first subject or auto-assigned ID)
-        const { data: subjectsData } = await supabase.from('subjects').select('id, name').eq('user_id', user.id).limit(1);
-        let fallbackSubjectId = subjectsData && subjectsData.length > 0 ? subjectsData[0].id : null;
-
-        if (!fallbackSubjectId) {
-            // Auto-create "AI Flashcardlar" subject if none exists
-            const { data: newSub } = await supabase.from('subjects').insert({
-                user_id: user.id,
-                name: 'AI Flashcardlar',
-                color: '#6366f1',
-                icon: 'brain'
-            }).select('id').single();
-            if (newSub) fallbackSubjectId = newSub.id;
+        let fallbackSubjectId: string | null = null;
+        if (activeUserId !== 'local_user') {
+            const { data: subjectsData } = await supabase.from('subjects').select('id, name').eq('user_id', activeUserId).limit(1);
+            fallbackSubjectId = subjectsData && subjectsData.length > 0 ? subjectsData[0].id : null;
         }
 
         const normalizedCards = cardsData.map(c => ({
@@ -52,13 +44,13 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             subjectId: c.subjectId || fallbackSubjectId || undefined
         }));
 
-        const newCards = await FlashcardService.addFlashcardsBatch(user.id, normalizedCards);
+        const newCards = await FlashcardService.addFlashcardsBatch(activeUserId, normalizedCards);
         if (newCards.length > 0) {
             setFlashcards(prev => {
                 const existingIds = new Set(prev.map(c => c.id));
                 const filteredNew = newCards.filter(c => !existingIds.has(c.id));
                 const updated = [...prev, ...filteredNew];
-                setLocalFlashcardCache(user.id, updated);
+                setLocalFlashcardCache(activeUserId, updated);
                 return updated;
             });
         }
