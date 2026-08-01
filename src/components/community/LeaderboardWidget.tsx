@@ -43,12 +43,26 @@ const LeaderboardWidget: React.FC = () => {
             }
 
             const defaultMembers: CommunityUser[] = [
-                { id: 'comm_user_1', full_name: 'Azizbek Rahimov', level: 5, total_xp: 12450, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Azizbek' },
-                { id: 'comm_user_2', full_name: 'Shohruh Oblakulov', level: 4, total_xp: 9800, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shohruh' },
-                { id: 'comm_user_3', full_name: 'Shahina Norqulova', level: 4, total_xp: 8650, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shahina' },
-                { id: 'comm_user_4', full_name: 'Murodjon Olimjonov', level: 3, total_xp: 6400, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Murodjon' },
-                { id: 'comm_user_5', full_name: 'Dilshodbek Usmonov', level: 3, total_xp: 5200, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dilshodbek' },
-                { id: 'comm_user_6', full_name: 'Sardor Soyilov', level: 2, total_xp: 3900, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sardor' }
+                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', full_name: 'Farhod Soyilov (Admin)', level: 10, total_xp: 25400, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Farhod' },
+                { id: '02d66fab-68a0-45a6-9493-4984c14eb677', full_name: 'Ibodullayev Dev', level: 8, total_xp: 18900, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ibodullayev' },
+                { id: 'b173e27e-01e8-43d1-8a3d-b373e4b71e12', full_name: 'Shohruh Oblakulov', level: 7, total_xp: 15600, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shohruh' },
+                { id: 'f2012408-c512-4c16-a984-3639ca8ea516', full_name: 'Shahina Norqulova', level: 6, total_xp: 13200, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shahina' },
+                { id: 'e8c4f1e6-d12c-4e9c-a9f3-41cf492b9a54', full_name: 'Dilshodbek Usmonov', level: 6, total_xp: 12100, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dilshodbek' },
+                { id: '92d9dfb1-8e93-47f9-b6f2-c2e40a9de0bf', full_name: 'Mirzayev Jo\'rabek', level: 5, total_xp: 10800, avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mirzayev' },
+                { id: '8545b7e4-9b85-4a19-a001-45a6f0823844', level: 5, total_xp: 9500, full_name: 'Murodjon Olimjonov', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Murodjon' },
+                { id: '2e395f64-4b64-43be-8ce8-a9fc46ca9634', level: 4, total_xp: 8400, full_name: 'Ogabek', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ogabek' },
+                { id: 'f76d6c68-bfee-4b5b-91a5-c96a774ec544', level: 4, total_xp: 7600, full_name: 'Sardor Soyilov', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sardor' },
+                { id: 'f33bded2-e41f-4bf2-935f-2d3f9546b232', level: 4, total_xp: 6900, full_name: 'Gemini AI Assistant', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Gemini' },
+                { id: '0ddb46de-b612-42bf-b013-9aeab3d20188', level: 3, total_xp: 5800, full_name: 'Dhan', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dhan' },
+                { id: '90e7922f-64d2-4f9a-b522-34a52e24cdd2', level: 3, total_xp: 4900, full_name: 'Oblakulov Shohruh', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Oblakulov' },
+                { id: '5ef8a391-b523-420c-8c9e-d33ed742759e', level: 2, total_xp: 3800, full_name: 'ggfddrgbvcde', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ggfdd' },
+                { id: 'e8f1b6dd-7740-4f1d-b627-d2620beb8743', level: 2, total_xp: 3200, full_name: 'User 13', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User13' },
+                { id: 'd767f465-4da1-4cef-81da-6b6c6066aadd', level: 2, total_xp: 2600, full_name: 'Test User', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Test' },
+                { id: '9489263a-b23c-47d9-a0d5-157c78547e35', level: 2, total_xp: 2100, full_name: 'Test User 1', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Test1' },
+                { id: '3153e276-d72f-4f7c-9cb9-738c22125b73', level: 1, total_xp: 1700, full_name: 'Murodjon 2', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Murodjon2' },
+                { id: '4bcd845a-61f9-4565-8ca8-c8289dbcafc8', level: 1, total_xp: 1300, full_name: 'Personal User', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Personal' },
+                { id: '89d2d404-f610-4ccf-8ecd-1bea6510ee0a', level: 1, total_xp: 950, full_name: 'Murodjon 3', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Murodjon3' },
+                { id: '4b91e127-139d-4ece-8480-bff8d7dda14c', level: 1, total_xp: 600, full_name: 'Oblakulov 3', avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Oblakulov3' }
             ];
 
             const dbUserIds = new Set(dbUsers.map(u => u.id));
