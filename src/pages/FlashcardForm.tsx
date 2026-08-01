@@ -18,12 +18,14 @@ const FlashcardForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!front || !back || !subjectId || isSubmitting) return;
+        if (!front || !back || isSubmitting) return;
+
+        const targetSubId = subjectId || (subjects.find(s => !s.isArchived)?.id || '');
 
         setIsSubmitting(true);
         try {
             await addFlashcard({
-                subjectId,
+                subjectId: targetSubId,
                 front,
                 back,
             });
@@ -52,9 +54,8 @@ const FlashcardForm: React.FC = () => {
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
-                        required
                     >
-                        <option value="">Fanni Tanlang</option>
+                        <option value="">Avtomatik Fan (yoki tanlang)</option>
                         {subjects.filter(s => !s.isArchived).map(s => (
                             <option key={s.id} value={s.id}>{s.name}</option>
                         ))}
