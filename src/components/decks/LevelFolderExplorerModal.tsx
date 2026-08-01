@@ -123,7 +123,11 @@ export const LevelFolderExplorerModal: React.FC<LevelFolderExplorerModalProps> =
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {filteredParts.map(part => {
-                                const isSaved = userSubjectNames.some(name => name.toLowerCase().trim() === part.title.toLowerCase().trim());
+                                const isSaved = userSubjectNames.some(name => {
+                                    const cleanUserSub = name.toLowerCase().trim();
+                                    const cleanPartTitle = part.title.toLowerCase().trim();
+                                    return cleanUserSub === cleanPartTitle || cleanUserSub.includes(cleanPartTitle) || cleanPartTitle.includes(cleanUserSub);
+                                });
                                 return (
                                     <div
                                         key={part.id}

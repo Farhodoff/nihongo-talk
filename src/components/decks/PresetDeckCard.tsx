@@ -126,7 +126,11 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                         ) : (
                             <div className="grid grid-cols-1 gap-2">
                                 {parts.map(part => {
-                                    const isPartAdded = userSubjectNames.some(name => name.toLowerCase().trim() === part.title.toLowerCase().trim());
+                                    const isPartAdded = userSubjectNames.some(name => {
+                                        const cleanUserSub = name.toLowerCase().trim();
+                                        const cleanPartTitle = part.title.toLowerCase().trim();
+                                        return cleanUserSub === cleanPartTitle || cleanUserSub.includes(cleanPartTitle) || cleanPartTitle.includes(cleanUserSub);
+                                    });
                                     return (
                                         <div
                                             key={part.id}

@@ -118,12 +118,17 @@ const DecksPage: React.FC = () => {
     const handleImportDeckPart = async (part: DeckPart) => {
         setIsImportingPreset(true);
         try {
-            let subject = subjects.find(s => s.name.toLowerCase().trim() === part.title.toLowerCase().trim());
+            const cleanTitle = part.title.trim();
+            let subject = subjects.find(s => {
+                const cleanSubName = s.name.toLowerCase().trim();
+                const cleanPTitle = cleanTitle.toLowerCase();
+                return cleanSubName === cleanPTitle || cleanSubName.includes(cleanPTitle) || cleanPTitle.includes(cleanSubName);
+            });
             let targetSubjectId = subject?.id;
 
             if (!targetSubjectId) {
                 const newSub = await addSubject({
-                    name: part.title,
+                    name: cleanTitle,
                     color: '#6366f1',
                     icon: '📚',
                     isArchived: false,
@@ -131,23 +136,46 @@ const DecksPage: React.FC = () => {
                 targetSubjectId = newSub?.id;
             }
 
-            if (targetSubjectId && part.cards.length > 0) {
-                const batchCards = part.cards.map(c => ({
-                    subjectId: targetSubjectId!,
-                    front: c.front,
-                    back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
-                    interval: 1,
-                    repetitions: 0,
-                    easeFactor: 2.5,
-                    dueDate: new Date().toISOString().split('T')[0],
-                    isArchived: false
-                }));
-                await addFlashcardsBatch(batchCards);
-                setImportedDeckTitle(part.title);
-                setTimeout(() => setImportedDeckTitle(null), 4000);
+            if (targetSubjectId) {
+                let cardsToImport = part.cards || [];
+
+                // If cards are not preloaded on part, find matching preset deck and load cards
+                if (cardsToImport.length === 0 && part.deckId) {
+                    const presetDeck = PRESET_DECKS.find(p => p.id === part.deckId);
+                    if (presetDeck) {
+                        const loaded = await presetDeck.loadCards();
+                        const chunkSize = 100;
+                        const startIndex = (part.partNumber - 1) * chunkSize;
+                        cardsToImport = loaded.slice(startIndex, startIndex + chunkSize);
+                    }
+                }
+
+                if (cardsToImport.length > 0) {
+                    const batchCards = cardsToImport.map(c => ({
+                        subjectId: targetSubjectId!,
+                        front: c.front,
+                        back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                        interval: 1,
+                        repetitions: 0,
+                        easeFactor: 2.5,
+                        dueDate: new Date().toISOString().split('T')[0],
+                        nextReviewDate: new Date().toISOString(),
+                        isArchived: false
+                    }));
+
+                    const chunkSize = 50;
+                    for (let i = 0; i < batchCards.length; i += chunkSize) {
+                        const chunk = batchCards.slice(i, i + chunkSize);
+                        await addFlashcardsBatch(chunk);
+                    }
+
+                    setImportedDeckTitle(cleanTitle);
+                    setTimeout(() => setImportedDeckTitle(null), 4000);
+                }
             }
         } catch (err) {
             console.error("Part import error:", err);
+            alert("Jildni saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
         } finally {
             setIsImportingPreset(false);
         }
