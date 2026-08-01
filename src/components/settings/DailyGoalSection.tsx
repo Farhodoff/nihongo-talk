@@ -17,32 +17,48 @@ const DailyGoalSection: React.FC = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-[#1f2937] rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-6">
-            <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-400 text-sm flex justify-between items-center">
-                <span>⏱ KUNLIK MAQSAD VA NAZORAT</span>
+        <div className="bg-white/80 dark:bg-[#111827]/80 backdrop-blur-xl rounded-[2.5rem] border border-gray-200/80 dark:border-slate-800/80 shadow-2xl p-6 md:p-8 space-y-6 animate-in fade-in duration-300">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4">
+                <div>
+                    <span className="font-extrabold text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400">NAZORAT & MONTIORING</span>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-0.5">⏱ Kunlik O'qish Maqsadi</h3>
+                </div>
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-800/50">
+                    {goalHours} Soat / Kun
+                </span>
             </div>
             
-            <div className="p-4 space-y-4">
+            <div className="space-y-5">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Kunlik O'qish Maqsadi (Soatlarda)
+                    <label className="block text-xs font-bold text-gray-400 dark:text-slate-400 uppercase tracking-widest mb-2">
+                        Kunlik O'qish Vaqti (Soat)
                     </label>
-                    <input
-                        type="number"
-                        min="1"
-                        max="24"
-                        value={goalHours}
-                        onChange={(e) => setGoalHours(Number(e.target.value))}
-                        className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                        AI Ustoz ushbu maqsadga asosan sizni nazorat qilib boradi. Agar dars qilmasangiz, ogohlantirishlar beradi.
+                    <div className="relative">
+                        <input
+                            type="number"
+                            min="1"
+                            max="24"
+                            value={goalHours}
+                            onChange={(e) => setGoalHours(Number(e.target.value))}
+                            className="w-full px-5 py-4 border-2 border-gray-200 dark:border-slate-800 rounded-2xl bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-white font-bold text-lg focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-inner"
+                        />
+                        <span className="absolute right-5 top-1/2 -translate-y-1/2 text-sm font-bold text-gray-400">Soat</span>
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-2.5 leading-relaxed">
+                        🤖 AI Ustoz ushbu belgilangan maqsadga qarab darslaringizni kuzatib boradi hamda vaqtida bajarmasangiz bildirishnoma beradi.
                     </p>
                 </div>
                 
                 <div className="pt-2">
-                    <Button onClick={handleSave} className={`w-full transition-all ${isSaved ? 'bg-emerald-600 hover:bg-emerald-700' : ''}`}>
-                        {isSaved ? "✅ Maqsad Saqlandi!" : "O'zgarishlarni Saqlash"}
+                    <Button 
+                        onClick={handleSave} 
+                        className={`w-full py-4 text-base font-bold rounded-2xl transition-all shadow-lg active:scale-95 ${
+                            isSaved 
+                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/25' 
+                                : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-indigo-500/25'
+                        }`}
+                    >
+                        {isSaved ? "✅ Maqsad Muvaffaqiyatli Saqlandi!" : "O'zgarishlarni Saqlash"}
                     </Button>
                 </div>
             </div>
