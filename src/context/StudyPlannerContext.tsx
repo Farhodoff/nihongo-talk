@@ -335,10 +335,48 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     const dbSubIds = new Set(mappedSubjects.map(s => s.id));
                     const missingLocalSubs = localCachedSubs.filter(s => !dbSubIds.has(s.id));
 
-                    const mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
+                    let mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
+                    if (mergedSubjects.length === 0) {
+                        mergedSubjects = [
+                            {
+                                id: 'sub_jlpt_master',
+                                name: '🎌 JLPT Japanese Master',
+                                color: '#f43f5e',
+                                icon: 'Sparkles',
+                                schedule: [],
+                                isArchived: false
+                            },
+                            {
+                                id: 'sub_ielts_master',
+                                name: '📘 IELTS Academic & CEFR Master',
+                                color: '#6366f1',
+                                icon: 'GraduationCap',
+                                schedule: [],
+                                isArchived: false
+                            },
+                            {
+                                id: 'sub_it_programming',
+                                name: '💻 IT & Dasturlash',
+                                color: '#10b981',
+                                icon: 'Code',
+                                schedule: [],
+                                isArchived: false
+                            },
+                            {
+                                id: 'sub_general_notes',
+                                name: '📝 Qaydnoma va Konspektlar',
+                                color: '#8b5cf6',
+                                icon: 'BookOpen',
+                                schedule: [],
+                                isArchived: false
+                            }
+                        ];
+                    }
+
                     setSubjects(mergedSubjects);
                     try {
                         localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
+                        localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
                     } catch (e) {}
                 }
 
