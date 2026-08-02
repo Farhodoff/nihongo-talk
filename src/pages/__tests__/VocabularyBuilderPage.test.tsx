@@ -1,9 +1,18 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { VocabularyBuilderPage } from '../VocabularyBuilderPage';
 import { generateAIResponse } from '../../utils/ai/aiCore';
 
 const mockAddFlashcard = vi.fn();
+
+vi.mock('../../lib/supabase', () => ({
+    supabase: {
+        auth: {
+            getUser: vi.fn(() => Promise.resolve({ data: { user: null }, error: null })),
+            updateUser: vi.fn(() => Promise.resolve({ data: { user: null }, error: null })),
+        },
+    },
+}));
 
 vi.mock('../../context/StudyPlannerContext', () => ({
     useStudyData: () => ({
@@ -22,8 +31,10 @@ describe('VocabularyBuilderPage Component', () => {
         localStorage.clear();
     });
 
-    it('renders header, search bar, and sample topic buttons', () => {
-        render(<VocabularyBuilderPage />);
+    it('renders header, search bar, and sample topic buttons', async () => {
+        await act(async () => {
+            render(<VocabularyBuilderPage />);
+        });
 
         expect(screen.getByText(/Smart Vocabulary Builder 🧠/i)).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/So'z kiritib Enter bosing/i)).toBeInTheDocument();
@@ -46,10 +57,14 @@ describe('VocabularyBuilderPage Component', () => {
 
         vi.mocked(generateAIResponse).mockResolvedValue(mockResponse);
 
-        render(<VocabularyBuilderPage />);
+        await act(async () => {
+            render(<VocabularyBuilderPage />);
+        });
 
         const sampleBtn = screen.getByText('paramount (C1)');
-        fireEvent.click(sampleBtn);
+        await act(async () => {
+            fireEvent.click(sampleBtn);
+        });
 
         await waitFor(() => {
             expect(screen.getByText(/eng muhim, asosiy/i)).toBeInTheDocument();
@@ -74,18 +89,24 @@ describe('VocabularyBuilderPage Component', () => {
 
         vi.mocked(generateAIResponse).mockResolvedValue(mockResponse);
 
-        render(<VocabularyBuilderPage />);
+        await act(async () => {
+            render(<VocabularyBuilderPage />);
+        });
 
         const input = screen.getByPlaceholderText(/So'z kiritib Enter bosing/i);
-        fireEvent.change(input, { target: { value: 'resilient' } });
-        fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+        await act(async () => {
+            fireEvent.change(input, { target: { value: 'resilient' } });
+            fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+        });
 
         await waitFor(() => {
             expect(screen.getByText(/bosh egmas, chidamli/i)).toBeInTheDocument();
         });
 
         const addFlashcardBtn = screen.getByRole('button', { name: /Fleshkartalarga Qo'shish/i });
-        fireEvent.click(addFlashcardBtn);
+        await act(async () => {
+            fireEvent.click(addFlashcardBtn);
+        });
 
         expect(mockAddFlashcard).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -95,3 +116,4 @@ describe('VocabularyBuilderPage Component', () => {
         );
     });
 });
+

@@ -21,22 +21,22 @@ vi.mock('../../lib/supabase', () => ({
 }));
 
 describe('TasksPage', () => {
-    it('should render without crashing', async () => {
+    it('should render task page title and task creation form', async () => {
         await act(async () => {
             render(<TasksPage />);
         });
 
-        // Just verify the page renders
-        expect(document.body).toBeTruthy();
+        expect(screen.getByRole('heading', { level: 2, name: /Kunlik Vazifalar/i })).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/Yangi vazifa qo'shish.../i)).toBeInTheDocument();
     });
 
-    it('should have tasks heading', async () => {
+    it('should render view mode selection buttons', async () => {
         await act(async () => {
             render(<TasksPage />);
         });
 
-        // Check for page title/heading
-        const heading = screen.queryByText(/Kunlik Vazifalar/i);
-        expect(heading).toBeTruthy();
+        expect(screen.getByRole('button', { name: /Ro'yxat/i })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Doska/i })).toBeInTheDocument();
     });
 });
+
