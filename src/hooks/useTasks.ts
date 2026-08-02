@@ -1,10 +1,24 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Task, TaskStatus } from '../types';
 import { TaskService } from '../services/TaskService';
 
+const LOCAL_STORAGE_KEY = 'study_planner_tasks';
+
+const saveTasksToLocalStorage = (taskList: Task[]) => {
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(taskList));
+    } catch (e) {
+        console.warn('Failed to sync tasks to localStorage:', e);
+    }
+};
+
 export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) => {
     const [tasks, setTasks] = useState<Task[]>([]);
+
+    useEffect(() => {
+        saveTasksToLocalStorage(tasks);
+    }, [tasks]);
 
     const addTask = async (taskData: Partial<Task>) => {
         const { data: { user } } = await supabase.auth.getUser();
@@ -24,28 +38,43 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
             ...taskData
         } as Task;
 
-        setTasks(prev => [...prev, optimisticTask]);
+        setTasks(prev => {
+            const updated = [...prev, optimisticTask];
+            saveTasksToLocalStorage(updated);
+            return updated;
+        });
 
         try {
             const newTask = await TaskService.addTask(user.id, taskData);
             if (newTask) {
                 // Replace temp task with real one
-                setTasks(prev => prev.map(t => t.id === tempId ? newTask : t));
+                setTasks(prev => {
+                    const updated = prev.map(t => t.id === tempId ? newTask : t);
+                    saveTasksToLocalStorage(updated);
+                    return updated;
+                });
             }
         } catch (error) {
             console.error("Failed to add task:", error);
             // Revert on failure
-            setTasks(prev => prev.filter(t => t.id !== tempId));
+            setTasks(prev => {
+                const updated = prev.filter(t => t.id !== tempId);
+                saveTasksToLocalStorage(updated);
+                return updated;
+            });
         }
     };
 
     const updateTask = async (id: string, updates: Partial<Task>) => {
-        setTasks(prev => prev.map(t => t.id === id ? { ...t, ...updates } : t));
+        setTasks(prev => {
+            const updated = prev.map(t => t.id === id ? { ...t, ...updates } : t);
+            saveTasksToLocalStorage(updated);
+            return updated;
+        });
         try {
             await TaskService.updateTask(id, updates);
         } catch (error) {
             console.error("Failed to update task:", error);
-            // Optionally revert state here if needed
         }
     };
 
@@ -56,7 +85,11 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         const newCompleted = !task.completed;
 
         // Optimistic update
-        setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: newCompleted, status: newCompleted ? 'done' : 'todo' } : t));
+        setTasks(prev => {
+            const updated = prev.map(t => t.id === id ? { ...t, completed: newCompleted, status: (newCompleted ? 'done' : 'todo') as TaskStatus } : t);
+            saveTasksToLocalStorage(updated);
+            return updated;
+        });
 
         try {
             await TaskService.updateTaskStatus(id, newCompleted ? 'done' : 'todo', newCompleted);
@@ -68,7 +101,11 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         } catch (error) {
             console.error("Failed to toggle task:", error);
             // Revert on failure
-            setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: !newCompleted, status: !newCompleted ? 'done' : 'todo' } : t));
+            setTasks(prev => {
+                const updated = prev.map(t => t.id === id ? { ...t, completed: !newCompleted, status: (!newCompleted ? 'done' : 'todo') as TaskStatus } : t);
+                saveTasksToLocalStorage(updated);
+                return updated;
+            });
         }
     };
 
@@ -76,7 +113,11 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         const completed = status === 'done' || status === 'completed';
 
         // Optimistic update
-        setTasks(prev => prev.map(t => t.id === id ? { ...t, status: status as TaskStatus, completed } : t));
+        setTasks(prev => {
+            const updated = prev.map(t => t.id === id ? { ...t, status: status as TaskStatus, completed } : t);
+            saveTasksToLocalStorage(updated);
+            return updated;
+        });
 
         try {
             await TaskService.updateTaskStatus(id, status, completed);
@@ -89,7 +130,11 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
     };
 
     const deleteTask = async (id: string, permanent = false) => {
-        setTasks(prev => prev.filter(t => t.id !== id));
+        setTasks(prev => {
+            const updated = prev.filter(t => t.id !== id);
+            saveTasksToLocalStorage(updated);
+            return updated;
+        });
         try {
             await TaskService.deleteTask(id, permanent);
         } catch (error) {
@@ -104,6 +149,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
             if (user) {
                 const updatedTasks = await TaskService.fetchTasks(user.id);
                 setTasks(updatedTasks);
+                saveTasksToLocalStorage(updatedTasks);
             }
         } catch (error) {
             console.error("Failed to restore task:", error);
@@ -120,7 +166,9 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
                 setTasks(prev => {
                     const existingIds = new Set(prev.map(t => t.id));
                     const filteredNew = newTasks.filter(t => !existingIds.has(t.id));
-                    return [...prev, ...filteredNew];
+                    const updated = [...prev, ...filteredNew];
+                    saveTasksToLocalStorage(updated);
+                    return updated;
                 });
             }
             return newTasks;
@@ -132,6 +180,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
 
     const setTasksState = useCallback((newTasks: Task[]) => {
         setTasks(newTasks);
+        saveTasksToLocalStorage(newTasks);
     }, []);
 
     return {

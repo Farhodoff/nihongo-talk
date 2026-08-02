@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
-import { Rating, Grade, calculateReview, getPreviewIntervals } from '../utils/srs';
+import { Rating, Grade, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 
@@ -123,14 +123,7 @@ const StudyModePage: React.FC = () => {
         setIsProcessing(true);
 
         try {
-            calculateReview(
-                grade,
-                currentCard.interval || 0,
-                currentCard.repetitions || 0,
-                currentCard.easeFactor || 2.5
-            );
-
-            await reviewFlashcard(currentCard.id, grade);
+            await reviewFlashcard(currentCard.id, grade, currentCard);
             setTotalXpEarned(prev => prev + grade * 2);
 
             if (currentCardIndex < queue.length - 1) {

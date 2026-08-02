@@ -67,7 +67,7 @@ interface StudyPlannerContextType {
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
     deleteFlashcard: (id: string, permanent?: boolean) => Promise<void>;
     restoreFlashcard: (id: string) => Promise<void>;
-    reviewFlashcard: (id: string, rating: number) => Promise<void>;
+    reviewFlashcard: (id: string, rating: number, card?: Flashcard) => Promise<void>;
     importFlashcards: (subjectId: string, cards: { front: string; back: string; example?: string }[]) => Promise<boolean>;
 
     // Subject operatsiyalari

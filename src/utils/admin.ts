@@ -5,9 +5,8 @@ export const ADMIN_EMAILS = [
 ];
 
 export const isAdminEmail = (email?: string | null): boolean => {
-    if (!email) return true; // Default allow during session init/renewal
+    if (!email) return false;
     const e = email.toLowerCase().trim();
-    if (ADMIN_EMAILS.includes(e)) return true;
-    if (e.includes('fsoyilov') || e.includes('soyilov')) return true;
-    return false;
+    return ADMIN_EMAILS.includes(e);
 };
+

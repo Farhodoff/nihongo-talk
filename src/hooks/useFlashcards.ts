@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { FlashcardService, setLocalFlashcardCache } from '../services/FlashcardService';
+import { calculateReview, Grade } from '../utils/srs';
 
 export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>) => {
     const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
@@ -100,35 +101,20 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         }
     };
 
-    const reviewFlashcard = async (id: string, rating: number) => {
-        const now = new Date();
-        const nextReviewDate = new Date(now);
+    const reviewFlashcard = async (id: string, rating: number, card?: Flashcard) => {
+        const targetCard = card || flashcards.find(c => c.id === id);
+        const reviewResult = calculateReview(
+            rating as Grade,
+            targetCard?.interval || 0,
+            targetCard?.repetitions || 0,
+            targetCard?.easeFactor || 2.5
+        );
 
-        // SRS Logic (Custom as per user request)
-        // 1 (Bilmayman) -> 10 minutes
-        // 2 (Qiyin) -> 1 day
-        // 3 (Yaxshi) -> 3 days
-        // 4 (Juda oson) -> 7 days
-
-        switch (rating) {
-            case 1: // Again / Bilmayman
-                nextReviewDate.setMinutes(now.getMinutes() + 10);
-                break;
-            case 2: // Hard / Qiyin
-                nextReviewDate.setDate(now.getDate() + 1);
-                break;
-            case 3: // Good / Yaxshi
-                nextReviewDate.setDate(now.getDate() + 3);
-                break;
-            case 4: // Easy / Juda oson
-                nextReviewDate.setDate(now.getDate() + 7);
-                break;
-            default:
-                nextReviewDate.setDate(now.getDate() + 1);
-        }
-
-        const updates = {
-            nextReviewDate: nextReviewDate.toISOString(),
+        const updates: Partial<Flashcard> = {
+            easeFactor: reviewResult.easeFactor,
+            interval: reviewResult.interval,
+            repetitions: reviewResult.repetitions,
+            nextReviewDate: reviewResult.nextReviewDate,
         };
 
         try {
