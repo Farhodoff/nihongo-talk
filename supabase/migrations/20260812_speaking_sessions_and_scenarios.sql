@@ -1,5 +1,5 @@
 -- ====================================================================
--- KAIZEN AI - Supabase Database Schema Migration
+-- KAIZEN AI - Supabase Database Schema Migration (Idempotent Safe)
 -- Tables: conversation_scenarios, speaking_sessions
 -- ====================================================================
 
@@ -22,6 +22,10 @@ CREATE TABLE IF NOT EXISTS public.conversation_scenarios (
 
 -- Enable RLS for conversation_scenarios
 ALTER TABLE public.conversation_scenarios ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if re-running script to avoid ERROR 42710
+DROP POLICY IF EXISTS "Public read scenarios" ON public.conversation_scenarios;
+DROP POLICY IF EXISTS "Public write scenarios" ON public.conversation_scenarios;
 
 -- Allow public read access to conversation_scenarios
 CREATE POLICY "Public read scenarios" 
@@ -55,6 +59,11 @@ CREATE TABLE IF NOT EXISTS public.speaking_sessions (
 
 -- Enable RLS for speaking_sessions
 ALTER TABLE public.speaking_sessions ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if re-running script to avoid ERROR 42710
+DROP POLICY IF EXISTS "Public read speaking_sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Public insert speaking_sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Public update speaking_sessions" ON public.speaking_sessions;
 
 -- Allow read access for authenticated and anonymous users
 CREATE POLICY "Public read speaking_sessions" 
