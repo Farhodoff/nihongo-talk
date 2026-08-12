@@ -10,9 +10,11 @@ import { LanguageProvider } from './context/LanguageContext';
 import { supabase } from './lib/supabase';
 import { OnboardingTour } from './components/OnboardingTour';
 import { Toaster } from './components/ui/toaster';
+import OfflineIndicator from './components/OfflineIndicator';
 
 // Lazy load all page components for better performance
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const LandingPage = lazy(() => import('./pages/LandingPage'));
 const AIAssistantPage = lazy(() => import('./pages/AIAssistantPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
@@ -37,6 +39,7 @@ const IeltsHubPage = lazy(() => import('./pages/IeltsHubPage'));
 const IeltsSpeakingMockPage = lazy(() => import('./pages/IeltsSpeakingMockPage'));
 const IeltsReadingListeningMockPage = lazy(() => import('./pages/IeltsReadingListeningMockPage').then(m => ({ default: m.IeltsReadingListeningMockPage })));
 const JlptHubPage = lazy(() => import('./pages/JlptHubPage'));
+const ScenarioPickerPage = lazy(() => import('./pages/ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
 const JlptWritingPage = lazy(() => import('./pages/JlptWritingPage'));
 const JlptListeningMockPage = lazy(() => import('./pages/JlptListeningMockPage').then(m => ({ default: m.JlptListeningMockPage })));
 const JlptGrammarQuizPage = lazy(() => import('./pages/JlptGrammarQuizPage').then(m => ({ default: m.JlptGrammarQuizPage })));
@@ -63,7 +66,6 @@ const PageLoader = () => (
 import ReloadPrompt from './components/pwa/ReloadPrompt';
 import InstallPrompt from './components/pwa/InstallPrompt';
 import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
-import OfflineIndicator from './components/OfflineIndicator';
 
 const App: React.FC = () => {
     const [session, setSession] = useState<Session | null>(null);
@@ -94,7 +96,9 @@ const App: React.FC = () => {
             <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <Suspense fallback={<PageLoader />}>
                     <Routes>
-                        <Route path="*" element={<AuthPage />} />
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/auth" element={<AuthPage />} />
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </Suspense>
                 <ReloadPrompt />
@@ -108,6 +112,7 @@ const App: React.FC = () => {
             <LanguageProvider>
                 <StudyPlannerProvider>
                     <FocusTimerProvider>
+                        <OfflineIndicator />
                         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                         <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
                             <Suspense fallback={<PageLoader />}>
@@ -121,6 +126,7 @@ const App: React.FC = () => {
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
                                         <Route path="ielts/reading-listening" element={<IeltsReadingListeningMockPage />} />
                                         <Route path="jlpt" element={<JlptHubPage />} />
+                                        <Route path="scenarios" element={<ScenarioPickerPage />} />
                                         <Route path="jlpt-speaking" element={<Navigate to="/speaking-coach?lang=ja" replace />} />
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="jlpt/listening" element={<JlptListeningMockPage />} />

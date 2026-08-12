@@ -22,7 +22,7 @@ export const GoogleCalendarService = {
         try {
             const record = item as Record<string, unknown>;
             const title = item.title || String(record.name || '') || 'Sarlavhasiz';
-            const description = String(record.description || '') || 'Study Planner orqali yaratilgan';
+            const description = String(record.description || '') || 'Kaizen AI orqali yaratilgan';
             
             // Task uchun dueDate, Event uchun eventDate ishlatiladi
             const date = String(record.dueDate || record.eventDate || record.date || '');

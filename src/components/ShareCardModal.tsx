@@ -239,7 +239,7 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({ isOpen, onClose }) => {
                                         <Sparkles size={18} style={{ color: theme.accent }} />
                                     </div>
                                     <div>
-                                        <p className="text-sm font-bold" style={{ color: theme.text }}>Study Planner</p>
+                                        <p className="text-sm font-bold" style={{ color: theme.text }}>Kaizen AI</p>
                                         <p className="text-[10px]" style={{ color: theme.muted }}>{dateStr}</p>
                                     </div>
                                 </div>
@@ -336,7 +336,7 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({ isOpen, onClose }) => {
                                  style={{ borderColor: theme.border }}>
                                 <Sparkles size={10} style={{ color: theme.muted }} />
                                 <p className="text-[9px] tracking-wider" style={{ color: theme.muted }}>
-                                    STUDY PLANNER APP
+                                    KAIZEN AI APP
                                 </p>
                             </div>
                         </div>

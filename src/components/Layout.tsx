@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
     BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen
+    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen, Compass
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -67,6 +67,7 @@ const Layout: React.FC = () => {
                 { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
                 { name: 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
                 { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: 'Yaponcha Scenarios', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
                 { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
             ]
         },
@@ -106,7 +107,7 @@ const Layout: React.FC = () => {
             if (found) return found.name;
         }
         if (location.pathname === '/settings') return 'Sozlamalar';
-        return 'Study Planner';
+        return 'Kaizen AI';
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (

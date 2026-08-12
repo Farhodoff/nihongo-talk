@@ -65,7 +65,7 @@ export class PushNotificationService {
      * Triggers a Test Notification for user verification
      */
     public static sendTestNotification(): boolean {
-        return this.sendNotification("Study Planner 🔔 Test Bildirishnomasi", {
+        return this.sendNotification("Kaizen AI 🔔 Test Bildirishnomasi", {
             body: "Tabriklaymiz! Mobil va brauzer bildirishnomalari muvaffaqiyatli ulindi. 🔥",
             tag: 'test-notification'
         });

@@ -90,7 +90,7 @@ const InstallPrompt: React.FC = () => {
                     <div className="space-y-1">
                         <h3 className="text-xl font-bold">Ilovani o'rnating</h3>
                         <p className="text-indigo-100 text-sm">
-                            Study Planner-ni mobil ilova sifatida ishlating va barcha imkoniyatlardan tezroq foydalaning.
+                            Kaizen AI-ni mobil ilova sifatida ishlating va barcha imkoniyatlardan tezroq foydalaning.
                         </p>
                     </div>
 

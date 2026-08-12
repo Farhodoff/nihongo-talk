@@ -22,7 +22,7 @@ export const PricingPage: React.FC = () => {
     const plans: PlanOption[] = [
         {
             id: 'pro_monthly',
-            title: 'Study Planner Pro (1 Oy)',
+            title: 'Kaizen AI Pro (1 Oy)',
             priceUsd: 5,
             priceUzs: "60,000 so'm / oy",
             effectiveMonthly: '$5.00/month',
@@ -40,7 +40,7 @@ export const PricingPage: React.FC = () => {
         },
         {
             id: 'premium_monthly',
-            title: 'Study Planner Premium (1 Oy)',
+            title: 'Kaizen AI Premium (1 Oy)',
             badge: 'Popular',
             priceUsd: 12,
             priceUzs: "150,000 so'm / oy",
@@ -59,7 +59,7 @@ export const PricingPage: React.FC = () => {
         },
         {
             id: 'ultra_6months',
-            title: 'Study Planner Ultra VIP (6 Oy)',
+            title: 'Kaizen AI Ultra VIP (6 Oy)',
             badge: 'Save 30%',
             bestValue: true,
             priceUsd: 50,
@@ -97,7 +97,7 @@ export const PricingPage: React.FC = () => {
     };
 
     const handleCheckout = () => {
-        const text = encodeURIComponent(`Assalomu alaykum! Men Study Planner ${selectedPlan.title} ($${selectedPlan.priceUsd} / ${selectedPlan.priceUzs}) obunasini rasmiylashtirmoqchiman.`);
+        const text = encodeURIComponent(`Assalomu alaykum! Men Kaizen AI ${selectedPlan.title} ($${selectedPlan.priceUsd} / ${selectedPlan.priceUzs}) obunasini rasmiylashtirmoqchiman.`);
         window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
     };
 
