@@ -268,14 +268,21 @@ export const AdminScenarioManager: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block font-bold mb-1">AI Kontekst Prompt (AI uchun instruktsiya)</label>
+                                <div className="flex items-center justify-between mb-1">
+                                    <label className="font-bold text-foreground">🤖 AI Kontekst Prompt (AI uchun Rol va Instruktsiya)</label>
+                                    <span className="text-[10px] text-indigo-500 font-bold">AI shu matnga asosan suhbatlashadi</span>
+                                </div>
                                 <textarea
-                                    rows={3}
+                                    rows={4}
+                                    required
                                     value={editingScenario.context_prompt || ''}
                                     onChange={e => setEditingScenario({ ...editingScenario, context_prompt: e.target.value })}
-                                    placeholder="Siz yapon restorani ofitsiantisiz. Bemor/mijozdan menyu so'rang..."
-                                    className="w-full p-2.5 bg-muted border border-border rounded-xl"
+                                    placeholder="Masalan: Siz Tokiodagi kiyim do'koni sotuvchisisiz. Mijozdan qaysi rang va o'lcham kerakligini so'rang, narxni tushuntiring..."
+                                    className="w-full p-3 bg-muted border border-border rounded-xl font-mono text-xs leading-relaxed focus:ring-2 focus:ring-indigo-500 outline-none"
                                 />
+                                <p className="text-[10px] text-muted-foreground mt-1">
+                                    💡 <b>Maslahat:</b> AI ga kim rolida gapirishi, qanday savollar berishi va foydalanuvchidan nimani so'rashi kerakligini batafsil yozing.
+                                </p>
                             </div>
 
                             <div>
