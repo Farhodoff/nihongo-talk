@@ -19,6 +19,7 @@ interface CoachTopBarProps {
     onOpenProModal: (reason: string) => void;
     onOpenSettings: () => void;
     formatTimer: (sec: number) => string;
+    activeScenario?: any;
 }
 
 export const CoachTopBar: React.FC<CoachTopBarProps> = ({
@@ -38,17 +39,30 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     onOpenProModal,
     onOpenSettings,
     formatTimer,
+    activeScenario
 }) => {
     const PERSONAS = PERSONAS_BY_LANG[language];
     const currentPersona = PERSONAS[persona];
     const ActivePersonaIcon = currentPersona.icon;
+
+    const displayName = activeScenario
+        ? `${activeScenario.emoji} ${activeScenario.title_ja}`
+        : currentPersona.name;
+
+    const displayDesc = activeScenario
+        ? `JLPT ${activeScenario.difficulty} • ${activeScenario.title_uz}`
+        : currentPersona.desc;
 
     return (
         <div className="relative z-10 px-3 md:px-5 pt-3 pb-2 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap flex-shrink-0">
             {/* Left: Title + Status */}
             <div className="flex items-center gap-2.5 min-w-0">
                 <div className={`relative p-2 sm:p-2.5 bg-gradient-to-tr ${currentPersona.color} text-white rounded-2xl shadow-lg flex items-center justify-center shrink-0`}>
-                    <ActivePersonaIcon size={18} />
+                    {activeScenario ? (
+                        <span className="text-lg">{activeScenario.emoji}</span>
+                    ) : (
+                        <ActivePersonaIcon size={18} />
+                    )}
                     {isLiveSession && (
                         <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-gray-900 animate-pulse" />
                     )}
@@ -56,7 +70,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                 <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                         <h2 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight text-gray-900 dark:text-white truncate">
-                            {currentPersona.name}
+                            {displayName}
                         </h2>
                         {isLiveSession && (
                             <span className="shrink-0 px-2 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-500/20 flex items-center gap-1">
@@ -66,7 +80,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                         )}
                     </div>
                     <p className="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 font-medium truncate">
-                        {isLiveSession ? `⏱ ${formatTimer(sessionSeconds)} • ${chatHistoryLength} xabar` : currentPersona.desc}
+                        {isLiveSession ? `⏱ ${formatTimer(sessionSeconds)} • ${chatHistoryLength} xabar` : displayDesc}
                     </p>
                 </div>
             </div>

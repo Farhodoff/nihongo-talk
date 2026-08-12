@@ -482,6 +482,7 @@ const SpeakingCoachPage: React.FC = () => {
                 }}
                 onOpenSettings={() => setIsSettingsOpen(true)}
                 formatTimer={formatTimer}
+                activeScenario={activeScenario}
             />
 
             {/* Active Japanese Scenario Banner */}
@@ -550,15 +551,17 @@ const SpeakingCoachPage: React.FC = () => {
                     </div>
                 ) : (
                     <div className="flex-1 flex flex-col gap-4 overflow-hidden">
-                        <RealtimeVoiceOverlay
-                            isRecording={isListening}
-                            isAiSpeaking={isSpeaking}
-                            transcript={currentTranscript}
-                            errors={liveErrors}
-                            activeCefrLevel="B2"
-                            activeJlptLevel={language === 'ja' ? 'N3' : undefined}
-                            onToggleRecording={toggleMic}
-                        />
+                        {!activeScenario && (
+                            <RealtimeVoiceOverlay
+                                isRecording={isListening}
+                                isAiSpeaking={isSpeaking}
+                                transcript={currentTranscript}
+                                errors={liveErrors}
+                                activeCefrLevel="B2"
+                                activeJlptLevel={language === 'ja' ? 'N3' : undefined}
+                                onToggleRecording={toggleMic}
+                            />
+                        )}
                         <CoachChatArea 
                             chatHistory={chatHistory}
                             isLiveSession={isLiveSession}
