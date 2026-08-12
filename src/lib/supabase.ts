@@ -1,29 +1,39 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder-project.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key';
+const rawUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+const rawKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-    console.warn('Supabase credentials topilmadi. VITE_SUPABASE_URL va VITE_SUPABASE_ANON_KEY o\'rniga fallback kalitlar ishlatilmoqda.');
+const isValidUrl = (url?: string) => {
+    if (!url) return false;
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch {
+        return false;
+    }
+};
+
+const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://placeholder-project.supabase.co';
+const supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : 'placeholder-anon-key';
+
+if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
+    console.warn('Supabase credentials topilmadi yoki noto\'g\'ri. VITE_SUPABASE_URL va VITE_SUPABASE_ANON_KEY o\'rniga fallback kalitlar ishlatilmoqda.');
 }
 
-// Custom fetch wrapper that handles network offline/AdBlocker fetch errors gracefully
+// Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     try {
         return await fetch(input, init);
     } catch (err: any) {
-        if (err?.name === 'TypeError' || err?.message?.includes('Failed to fetch')) {
-            // Return structured 503 response for Supabase client when offline/blocked
-            return new Response(
-                JSON.stringify({ error: 'Network unavailable', message: 'Offline or network request blocked' }),
-                {
-                    status: 503,
-                    statusText: 'Service Unavailable',
-                    headers: { 'Content-Type': 'application/json' }
-                }
-            );
-        }
-        throw err;
+        // Return 503 Service Unavailable so Supabase SDK falls back cleanly without unhandled rejection
+        return new Response(
+            JSON.stringify({ error: 'Network unavailable', message: err?.message || 'Network connection reset or offline' }),
+            {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: { 'Content-Type': 'application/json' }
+            }
+        );
     }
 };
 

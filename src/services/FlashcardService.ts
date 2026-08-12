@@ -106,9 +106,7 @@ export function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModi
 
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
-        console.log('[fetchFlashcards] Starting for userId:', userId);
         const localCached = getLocalFlashcardCache(userId);
-        console.log('[fetchFlashcards] Local cache has', localCached.length, 'cards');
         let dbCards: Flashcard[] = [];
         let isNetworkError = false;
 
@@ -119,9 +117,6 @@ export const FlashcardService = {
                 .eq('user_id', userId);
 
             if (error) {
-                if (error.message && !error.message.includes('Offline') && !error.message.includes('Network')) {
-                    console.warn('[fetchFlashcards] DB query warning:', error.message);
-                }
                 isNetworkError = true;
             }
 

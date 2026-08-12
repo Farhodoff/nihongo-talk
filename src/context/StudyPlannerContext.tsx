@@ -256,13 +256,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
+            // Ofiine rejimda brauzer network error spam bo'lmasligi uchun lokal keshdan yuklaymiz
+            if (typeof navigator !== 'undefined' && !navigator.onLine) {
+                const localSession = localStorage.getItem('study_planner_user_cache');
+                if (localSession) {
+                    try {
+                        setUser(JSON.parse(localSession));
+                    } catch {}
+                }
+                setLoading(false);
+                return;
+            }
+
             let currentUser: any = null;
             try {
                 const { data, error: authError } = await supabase.auth.getUser();
                 if (!authError && data?.user) {
                     currentUser = data.user;
-                } else if (authError && authError.message && authError.message !== 'Auth session missing!' && !authError.message.includes('Offline') && !authError.message.includes('Network')) {
-                    console.warn("[StudyPlannerContext] Auth getUser warning:", authError.message);
+                } else if (authError && authError.message && typeof authError.message === 'string' && authError.message !== 'Auth session missing!' && !authError.message.includes('Offline') && !authError.message.includes('Network') && !authError.message.includes('Failed to fetch')) {
+                    console.warn("[StudyPlannerContext] Auth getUser notice:", authError.message);
                 }
             } catch (e) {
                 console.warn("[StudyPlannerContext] Auth exception:", e);
@@ -281,19 +293,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (!currentUser) {
-                try {
-                    await supabase.auth.signOut({ scope: 'local' });
-                } catch {
-                    Object.keys(localStorage).forEach(key => {
-                        if (key.startsWith('sb-') && key.endsWith('-auth-token')) {
-                            localStorage.removeItem(key);
-                        }
-                    });
-                }
+                localStorage.removeItem('study_planner_user_cache');
                 setUser(null);
                 setLoading(false);
                 return;
             }
+            localStorage.setItem('study_planner_user_cache', JSON.stringify(currentUser));
             setUser(currentUser);
 
             
@@ -565,6 +570,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         fetchData();
+        const handleOnline = () => {
+            fetchData();
+        };
+        window.addEventListener('online', handleOnline);
+        return () => window.removeEventListener('online', handleOnline);
     }, [fetchData]);
 
     
@@ -767,31 +777,48 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const deleteSubject = async (id: string) => {
-        setSubjects(prev => prev.filter(s => s.id !== id));
+        const activeUserId = user?.id || 'local_user';
+        setSubjects(prev => {
+            const updated = prev.filter(s => s.id !== id);
+            try {
+                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+            } catch (e) {}
+            return updated;
+        });
 
-        
-
-        await supabase.from('subjects').delete().eq('id', id);
+        if (activeUserId !== 'local_user') {
+            const { error } = await supabase.from('subjects').delete().eq('id', id);
+            if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
+                console.warn("Delete subject warning:", error.message);
+            }
+        }
     };
 
     const updateSubject = async (id: string, updates: Partial<Subject>) => {
-        const dbUpdates: Partial<DatabaseSubject> = {};
-        if (updates.name) dbUpdates.name = updates.name;
-        if (updates.color) dbUpdates.color = updates.color;
-        if (updates.teacherName !== undefined) dbUpdates.teacher_name = updates.teacherName;
-        if (updates.roomLocation !== undefined) dbUpdates.room_location = updates.roomLocation;
-        if (updates.description !== undefined) dbUpdates.description = updates.description;
-        if (updates.icon) dbUpdates.icon = updates.icon;
-        if (updates.schedule) dbUpdates.schedule = updates.schedule;
-        if (updates.isArchived !== undefined) dbUpdates.is_archived = updates.isArchived;
+        const activeUserId = user?.id || 'local_user';
+        setSubjects(prev => {
+            const updated = prev.map(s => s.id === id ? { ...s, ...updates } : s);
+            try {
+                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+            } catch (e) {}
+            return updated;
+        });
 
-        setSubjects(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
+        if (activeUserId !== 'local_user') {
+            const dbUpdates: Partial<DatabaseSubject> = {};
+            if (updates.name) dbUpdates.name = updates.name;
+            if (updates.color) dbUpdates.color = updates.color;
+            if (updates.teacherName !== undefined) dbUpdates.teacher_name = updates.teacherName;
+            if (updates.roomLocation !== undefined) dbUpdates.room_location = updates.roomLocation;
+            if (updates.description !== undefined) dbUpdates.description = updates.description;
+            if (updates.icon) dbUpdates.icon = updates.icon;
+            if (updates.schedule) dbUpdates.schedule = updates.schedule;
+            if (updates.isArchived !== undefined) dbUpdates.is_archived = updates.isArchived;
 
-        
-
-        const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
-        if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
-            console.warn("Update subject warning:", error.message);
+            const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
+            if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
+                console.warn("Update subject warning:", error.message);
+            }
         }
     };
 

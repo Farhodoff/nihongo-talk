@@ -113,7 +113,7 @@ export const JlptProgressAnalytics: React.FC = () => {
                         JLPT Imtihon Natijalari Dinamikasi (180 ballik shkala)
                     </h4>
                     <div className="h-44 w-full pt-2">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={150}>
                             <LineChart data={chartData}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
                                 <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />

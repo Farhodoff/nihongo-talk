@@ -21,14 +21,17 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
     }, [tasks]);
 
     const addTask = async (taskData: Partial<Task>) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+        let activeUserId = 'local_user';
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user?.id) activeUserId = user.id;
+        } catch {}
 
         // Optimistic update
-        const tempId = `temp-${Date.now()}`;
+        const tempId = taskData.id || `temp-${Date.now()}`;
         const optimisticTask: Task = {
             id: tempId,
-            userId: user.id,
+            userId: activeUserId,
             title: taskData.title || '',
             status: taskData.status || 'todo',
             priority: taskData.priority || 'medium',
@@ -44,24 +47,20 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
             return updated;
         });
 
-        try {
-            const newTask = await TaskService.addTask(user.id, taskData);
-            if (newTask) {
-                // Replace temp task with real one
-                setTasks(prev => {
-                    const updated = prev.map(t => t.id === tempId ? newTask : t);
-                    saveTasksToLocalStorage(updated);
-                    return updated;
-                });
+        if (activeUserId !== 'local_user') {
+            try {
+                const newTask = await TaskService.addTask(activeUserId, taskData);
+                if (newTask) {
+                    // Replace temp task with real one
+                    setTasks(prev => {
+                        const updated = prev.map(t => t.id === tempId ? newTask : t);
+                        saveTasksToLocalStorage(updated);
+                        return updated;
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to add task:", error);
             }
-        } catch (error) {
-            console.error("Failed to add task:", error);
-            // Revert on failure
-            setTasks(prev => {
-                const updated = prev.filter(t => t.id !== tempId);
-                saveTasksToLocalStorage(updated);
-                return updated;
-            });
         }
     };
 

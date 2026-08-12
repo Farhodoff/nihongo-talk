@@ -93,6 +93,11 @@ export class HistoryService {
     }
 
     static async getWritingHistory(): Promise<WritingHistoryItem[]> {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            const local = localStorage.getItem('study_planner_ielts_writing_history');
+            return local ? JSON.parse(local) : [];
+        }
+
         if (!isTableDisabled('ielts_writing_history')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
@@ -165,6 +170,11 @@ export class HistoryService {
     }
 
     static async getSpeakingHistory(): Promise<SpeakingSessionItem[]> {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            const local = localStorage.getItem('study_planner_speaking_coach_sessions');
+            return local ? JSON.parse(local) : [];
+        }
+
         if (!isTableDisabled('speaking_coach_sessions')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
@@ -236,6 +246,11 @@ export class HistoryService {
     }
 
     static async getMockExamsHistory(): Promise<MockExamItem[]> {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            const local = localStorage.getItem('study_planner_mock_exams_history');
+            return local ? JSON.parse(local) : [];
+        }
+
         if (!isTableDisabled('mock_exams_history')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
