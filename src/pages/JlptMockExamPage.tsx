@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Clock, Award, Volume2, BookOpen, CheckCircle2, 
-    FileText, BarChart2 
+    FileText 
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
+import { evaluateMockExamSession, ExamDiagnosticReport, ExamQuestionAnswer } from '../utils/ai/examEvaluator';
+import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
 
 interface ExamQuestion {
     id: number;
@@ -79,6 +81,10 @@ export const JlptMockExamPage: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
+    // AI Diagnostic Report State
+    const [diagnosticReport, setDiagnosticReport] = useState<ExamDiagnosticReport | null>(null);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+
     // Questions filtering
     const levelQuestions = MOCK_EXAM_QUESTIONS[level] || MOCK_EXAM_QUESTIONS['N5'];
     const knowledgeQuestions = levelQuestions.filter(q => q.section === 'knowledge');
@@ -135,21 +141,31 @@ export const JlptMockExamPage: React.FC = () => {
         setIsPlaying(false);
         setIsTimerRunning(false);
         setStep('report');
+        setIsAnalyzing(true);
 
-        // Score calculations
-        let correctCount = 0;
-        levelQuestions.forEach(q => {
-            if (userAnswers[q.id] === q.correctAnswer) {
-                correctCount++;
-            }
+        const durSecs = Math.max(10, 3000 - timeLeft);
+
+        const questionAnswers: ExamQuestionAnswer[] = levelQuestions.map(q => {
+            const userIdx = userAnswers[q.id];
+            const isCorr = userIdx === q.correctAnswer;
+            return {
+                questionText: q.questionText,
+                section: q.section,
+                userAnswer: userIdx !== undefined ? q.options[userIdx] : "Javob berilmagan",
+                correctAnswer: q.options[q.correctAnswer],
+                isCorrect: isCorr,
+                explanationUzbek: q.explanationUzbek
+            };
         });
 
-        // Unified score out of 180 points maximum (60 pts per section)
-        // Scaled score based on actual correct questions count
-        const totalQ = levelQuestions.length;
-        const finalScorePoints = Math.round((correctCount / totalQ) * 180);
-
         try {
+            const report = await evaluateMockExamSession(`JLPT ${level}`, questionAnswers, durSecs);
+            setDiagnosticReport(report);
+
+            let correctCount = questionAnswers.filter(q => q.isCorrect).length;
+            const totalQ = levelQuestions.length;
+            const finalScorePoints = Math.round((correctCount / totalQ) * 180);
+
             await HistoryService.saveMockExam({
                 examType: 'jlpt',
                 level: level,
@@ -158,26 +174,10 @@ export const JlptMockExamPage: React.FC = () => {
             });
         } catch (e) {
             console.error(e);
+        } finally {
+            setIsAnalyzing(false);
         }
     };
-
-    // Score calculations for UI
-    const getSectionScorePoints = (sect: 'knowledge' | 'reading' | 'listening') => {
-        const sectQuestions = levelQuestions.filter(q => q.section === sect);
-        let correct = 0;
-        sectQuestions.forEach(q => {
-            if (userAnswers[q.id] === q.correctAnswer) {
-                correct++;
-            }
-        });
-        return sectQuestions.length > 0 ? Math.round((correct / sectQuestions.length) * 60) : 0;
-    };
-
-    const getExamTotalScore = () => {
-        return getSectionScorePoints('knowledge') + getSectionScorePoints('reading') + getSectionScorePoints('listening');
-    };
-
-    const isPass = getExamTotalScore() >= 90; // JLPT pass threshold generally 90/180
 
     return (
         <div className="p-4 md:p-8 max-w-5xl mx-auto pb-16 space-y-6">
@@ -383,85 +383,24 @@ export const JlptMockExamPage: React.FC = () => {
 
             {/* STEP 3: REPORT */}
             {step === 'report' && (
-                <div className="bg-card border border-border rounded-3xl p-8 space-y-6 shadow-xl max-w-2xl mx-auto text-center">
-                    <div className="w-16 h-16 bg-rose-500/10 text-rose-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
-                        <Award size={32} />
+                isAnalyzing ? (
+                    <div className="py-20 text-center space-y-4 bg-card border border-border rounded-3xl p-8 max-w-xl mx-auto shadow-xl">
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-rose-500 border-t-transparent shadow-md" />
+                        <h3 className="text-base font-extrabold text-foreground">
+                            🤖 AI Coach imtihon natijangizni va xatolarni tahlil qilmoqda...
+                        </h3>
+                        <p className="text-xs text-muted-foreground">
+                            Xatolaringiz o'rganilmoqda va tavsiyalar tayyorlanmoqda.
+                        </p>
                     </div>
-
-                    <div>
-                        <span className="text-xs font-extrabold uppercase text-rose-500 tracking-wider block">
-                            JLPT {level} Mock Exam Report
-                        </span>
-                        <h2 className="text-5xl font-black text-foreground mt-1">
-                            {getExamTotalScore()} / 180 Pt.
-                        </h2>
-                        <span className={`inline-block mt-2 px-3 py-1 font-black text-xs rounded-full ${
-                            isPass ? 'bg-emerald-500/20 text-emerald-600' : 'bg-rose-500/20 text-rose-600'
-                        }`}>
-                            {isPass ? "🟢 PASS (Muvaffaqiyatli o'tdingiz)" : "🔴 FAIL (Yiqildingiz)"}
-                        </span>
-                    </div>
-
-                    {/* Breakdown Scores */}
-                    <div className="grid grid-cols-3 gap-2 text-center border-t border-border pt-4">
-                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
-                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">Til bilimi</span>
-                            <span className="text-base font-black text-foreground">{getSectionScorePoints('knowledge')} / 60</span>
-                        </div>
-                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
-                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">O'qish</span>
-                            <span className="text-base font-black text-foreground">{getSectionScorePoints('reading')} / 60</span>
-                        </div>
-                        <div className="p-3 bg-muted/40 border border-border rounded-xl">
-                            <span className="text-[9px] text-muted-foreground font-bold block uppercase truncate">Tinglash</span>
-                            <span className="text-base font-black text-foreground">{getSectionScorePoints('listening')} / 60</span>
-                        </div>
-                    </div>
-
-                    {/* Explanations List */}
-                    <div className="text-left space-y-3 border-t border-border pt-4">
-                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                            <BarChart2 size={16} /> Savollar Tahlili:
-                        </h4>
-
-                        {levelQuestions.map((q, idx) => {
-                            const isCorrect = userAnswers[q.id] === q.correctAnswer;
-                            return (
-                                <div key={q.id} className={`p-4 rounded-2xl border text-xs space-y-2 ${isCorrect ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-rose-500/5 border-rose-500/20'}`}>
-                                    <div className="font-bold text-foreground flex items-center justify-between">
-                                        <span>Q{idx + 1}. {q.questionText}</span>
-                                        <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${isCorrect ? 'bg-emerald-500/20 text-emerald-600' : 'bg-rose-500/20 text-rose-600'}`}>
-                                            {isCorrect ? "To'g'ri" : "Xato"}
-                                        </span>
-                                    </div>
-
-                                    {q.script && (
-                                        <p className="text-[10px] text-muted-foreground bg-muted/50 p-2 rounded-lg italic">
-                                            <b>Audio Script:</b> {q.script}
-                                        </p>
-                                    )}
-
-                                    <p className="text-[11px] text-muted-foreground">
-                                        To'g'ri javob: <span className="font-bold text-rose-500">{q.options[q.correctAnswer]}</span>
-                                    </p>
-
-                                    <div className="text-muted-foreground text-[10px] bg-muted/40 p-2 rounded-lg border border-border/50">
-                                        💡 <b>Tushuntirish:</b> {q.explanationUzbek}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    <Button
-                        onClick={() => {
-                            setStep('intro');
-                        }}
-                        className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg"
-                    >
-                        Bosh sahifaga qaytish 🔄
-                    </Button>
-                </div>
+                ) : diagnosticReport ? (
+                    <JlptExamResultCard
+                        report={diagnosticReport}
+                        level={level}
+                        onRetry={() => setStep('intro')}
+                        onBackToHub={() => navigate('/jlpt')}
+                    />
+                ) : null
             )}
         </div>
     );
