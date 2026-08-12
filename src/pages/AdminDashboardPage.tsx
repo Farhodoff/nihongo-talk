@@ -9,9 +9,11 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin, grantAdminRole, revokeAdminRole } from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
 import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
+import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
+import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
 import {
     AreaChart, Area, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
@@ -33,9 +35,11 @@ interface DropdownMenuProps {
     onTier: (id: string, tier: string, months: number) => void;
     onMessage: (user: { id: string; email: string }) => void;
     onFree: (id: string) => void;
+    onToggleAdmin?: (email: string) => void;
+    isUserAdmin?: boolean;
 }
 
-const ActionDropdown: React.FC<DropdownMenuProps> = ({ sub, onTierDays, onTier, onMessage, onFree }) => {
+const ActionDropdown: React.FC<DropdownMenuProps> = ({ sub, onTierDays, onTier, onMessage, onFree, onToggleAdmin, isUserAdmin }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -75,6 +79,14 @@ const ActionDropdown: React.FC<DropdownMenuProps> = ({ sub, onTierDays, onTier, 
             color: 'text-rose-400',
             bg: 'hover:bg-rose-500/10',
             onClick: () => { onTier(sub.id, 'premium', 6); setOpen(false); },
+        },
+        { divider: true },
+        {
+            label: isUserAdmin ? '🛡️ Admin Rolini Bekor Qilish' : '🛡️ Admin Rolini Berish',
+            desc: isUserAdmin ? 'Japanese Scenarios boshqaruvini bekor qilish' : 'Japanese Scenarios va Speech analytics ruxsatini berish',
+            color: isUserAdmin ? 'text-rose-400' : 'text-emerald-400',
+            bg: isUserAdmin ? 'hover:bg-rose-500/10' : 'hover:bg-emerald-500/10',
+            onClick: () => { if (onToggleAdmin) onToggleAdmin(sub.email); setOpen(false); },
         },
         { divider: true },
         {
@@ -205,32 +217,14 @@ const AdminDashboardPage: React.FC = () => {
             const dbProfiles = profilesRes.data || [];
             const dbSubs = subsRes.data || [];
 
-            const fallbackProfiles = [
-                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', email: 'fsoyilov@gmail.com', full_name: 'Farhod Soyilov', tier: 'premium' },
-                { id: '02d66fab-68a0-45a6-9493-4984c14eb677', email: 'ibodullayev.dev@gmail.com', full_name: 'Ibodullayev Dev', tier: 'premium' },
-                { id: 'e8c4f1e6-d12c-4e9c-a9f3-41cf492b9a54', email: 'dilshodbek@gmail.com', full_name: 'Dilshodbek Usmonov', tier: 'pro' },
-                { id: 'b173e27e-01e8-43d1-8a3d-b373e4b71e12', email: 'shohruh@gmail.com', full_name: 'Shohruh Oblakulov', tier: 'premium' },
-                { id: '92d9dfb1-8e93-47f9-b6f2-c2e40a9de0bf', email: 'mirzayev@gmail.com', full_name: 'Mirzayev Jo\'rabek', tier: 'pro' },
-                { id: '8545b7e4-9b85-4a19-a001-45a6f0823844', email: 'murodjon@gmail.com', full_name: 'Murodjon Olimjonov', tier: 'free' },
-                { id: 'f2012408-c512-4c16-a984-3639ca8ea516', email: 'shahina@gmail.com', full_name: 'Shahina Norqulova', tier: 'premium' },
-                { id: 'f76d6c68-bfee-4b5b-91a5-c96a774ec544', email: 'sardor@gmail.com', full_name: 'Sardor Soyilov', tier: 'free' },
-                { id: '2e395f64-4b64-43be-8ce8-a9fc46ca9634', email: 'ogabek@gmail.com', full_name: 'Ogabek', tier: 'pro' },
-                { id: '0ddb46de-b612-42bf-b013-9aeab3d20188', email: 'dhan@gmail.com', full_name: 'Dhan', tier: 'free' },
-                { id: '5ef8a391-b523-420c-8c9e-d33ed742759e', email: 'user11@planner.app', full_name: 'Talaba 11', tier: 'free' },
-                { id: '90e7922f-64d2-4f9a-b522-34a52e24cdd2', email: 'user12@planner.app', full_name: 'Oblakulov Shohruh', tier: 'pro' },
-                { id: 'e8f1b6dd-7740-4f1d-b627-d2620beb8743', email: 'user13@planner.app', full_name: 'Foydalanuvchi 13', tier: 'free' },
-                { id: 'd767f465-4da1-4cef-81da-6b6c6066aadd', email: 'test@planner.app', full_name: 'Test User', tier: 'free' },
-                { id: '9489263a-b23c-47d9-a0d5-157c78547e35', email: 'test1@planner.app', full_name: 'Test User 1', tier: 'free' },
-                { id: '3153e276-d72f-4f7c-9cb9-738c22125b73', email: 'murodjon2@gmail.com', full_name: 'Murodjon 2', tier: 'free' },
-                { id: '4bcd845a-61f9-4565-8ca8-c8289dbcafc8', email: 'personal@planner.app', full_name: 'Personal User', tier: 'free' },
-                { id: 'f33bded2-e41f-4bf2-935f-2d3f9546b232', email: 'gemini@planner.app', full_name: 'Gemini AI', tier: 'premium' },
-                { id: '89d2d404-f610-4ccf-8ecd-1bea6510ee0a', email: 'murodjon3@gmail.com', full_name: 'Murodjon 3', tier: 'free' },
-                { id: '4b91e127-139d-4ece-8480-bff8d7dda14c', email: 'oblakulov3@gmail.com', full_name: 'Oblakulov 3', tier: 'free' }
+            // Real user profiles fallback (Only super admin fsoyilov@gmail.com if DB profiles table is empty)
+            const defaultAdminProfile = [
+                { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', email: 'fsoyilov@gmail.com', full_name: 'Farhod Soyilov', tier: 'premium' }
             ];
 
             const dbUserIds = new Set(dbProfiles.map(p => p.id));
-            const missingFallbacks = fallbackProfiles.filter(f => !dbUserIds.has(f.id));
-            const allProfiles = [...dbProfiles, ...missingFallbacks];
+            const missingSuperAdmin = defaultAdminProfile.filter(f => !dbUserIds.has(f.id));
+            const allProfiles = dbProfiles.length > 0 ? [...dbProfiles, ...missingSuperAdmin] : defaultAdminProfile;
 
             const mappedUsers: UserSubscription[] = allProfiles.map((p: any) => {
                 const existingSub = dbSubs.find((s: any) => s.user_id === p.id);
@@ -392,7 +386,68 @@ const AdminDashboardPage: React.FC = () => {
         return new Date(iso).toLocaleDateString('uz-UZ', { day: '2-digit', month: 'short', year: 'numeric' });
     };
 
-    // ── Render ────────────────────────────────────────────────────────────────
+    const handleToggleAdmin = (targetEmail: string) => {
+        if (!isSuperAdmin(user?.email)) {
+            alert('Faqat Super Admin (fsoyilov@gmail.com) boshqa foydalanuvchiga Admin rolini bera oladi.');
+            return;
+        }
+        if (isAdminEmail(targetEmail)) {
+            revokeAdminRole(targetEmail);
+            alert(`🛡️ ${targetEmail} adminlikdan chiqarildi.`);
+        } else {
+            grantAdminRole(targetEmail);
+            alert(`🛡️ ${targetEmail} ga Admin roli berildi!`);
+        }
+        fetchAdminData();
+    };
+
+    const isSuper = isSuperAdmin(user?.email);
+
+    // ── Render Scoped Admin View for Standard Admins ──────────────────────────
+    if (!isSuper) {
+        return (
+            <div className="max-w-7xl mx-auto px-4 py-8 space-y-8 animate-in fade-in duration-300">
+                <div className="flex items-center justify-between border-b border-border pb-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                            <Shield className="text-white w-5 h-5" />
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <h1 className="text-2xl font-bold text-foreground leading-tight">Admin Paneli</h1>
+                                <span className="text-[10px] font-extrabold px-2.5 py-0.5 bg-indigo-500/10 text-indigo-500 rounded-full border border-indigo-500/20">
+                                    🛡️ Japanese & Speech Admin
+                                </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                                Yaponcha muloqot ssenariylarini boshqarish va foydalanuvchilar talaffuz tahlillarini ko'rish.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={handleRefresh}
+                        className="flex items-center gap-2 text-xs font-bold text-muted-foreground hover:text-foreground bg-muted p-2.5 rounded-xl transition-colors"
+                    >
+                        <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+                        <span>Yangilash</span>
+                    </button>
+                </div>
+
+                {/* 1. Japanese Scenarios Manager */}
+                <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+                    <AdminScenarioManager />
+                </div>
+
+                {/* 2. User Speech & Speaking Analytics */}
+                <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+                    <AdminSpeechAnalytics />
+                </div>
+            </div>
+        );
+    }
+
+    // ── Render Full Super Admin View ──────────────────────────────────────────
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 space-y-7 animate-in fade-in duration-300">
 
@@ -403,8 +458,13 @@ const AdminDashboardPage: React.FC = () => {
                         <Shield className="text-white w-5 h-5" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Admin Paneli</h1>
-                        <p className="text-xs text-slate-400 mt-0.5">Foydalanuvchilar va obunalarni boshqarish</p>
+                        <div className="flex items-center gap-2">
+                            <h1 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Super Admin Paneli</h1>
+                            <span className="text-[10px] font-extrabold px-2.5 py-0.5 bg-amber-500/10 text-amber-500 rounded-full border border-amber-500/20">
+                                👑 Super Admin (Full Access)
+                            </span>
+                        </div>
+                        <p className="text-xs text-slate-400 mt-0.5">Tizim obunalari, admin rollari, API keylar va ssenariylarni to'liq boshqarish</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -518,7 +578,7 @@ GRANT SELECT ON public.admin_daily_stats TO authenticated;`}
                                 Kunlik faoliyat bo'yicha ma'lumotlar mavjud emas.
                             </div>
                         ) : (
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={200}>
                                 <AreaChart data={dailyStats} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -573,6 +633,16 @@ GRANT SELECT ON public.admin_daily_stats TO authenticated;`}
                     </div>
                 </div>
             )}
+
+            {/* ── Japanese Scenarios Manager ── */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                <AdminScenarioManager />
+            </div>
+
+            {/* ── User Speech Analytics ── */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                <AdminSpeechAnalytics />
+            </div>
 
             {/* ── API Key ── */}
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
@@ -701,6 +771,8 @@ GRANT SELECT ON public.admin_daily_stats TO authenticated;`}
                                                 onTier={setUserTier}
                                                 onMessage={setMessageModalUser}
                                                 onFree={(id) => setUserTier(id, 'free', 0)}
+                                                onToggleAdmin={handleToggleAdmin}
+                                                isUserAdmin={isAdminEmail(sub.email)}
                                             />
                                         </div>
                                     </td>

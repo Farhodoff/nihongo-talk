@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isAdminEmail, ADMIN_EMAILS } from '../admin';
+import { isAdminEmail, isSuperAdmin, DEFAULT_ADMIN_EMAILS, SUPER_ADMIN_EMAIL } from '../admin';
 
 describe('Admin Email Security Tests', () => {
     it('returns false for null or undefined email', () => {
@@ -15,10 +15,15 @@ describe('Admin Email Security Tests', () => {
     });
 
     it('returns true strictly for configured admin emails', () => {
-        ADMIN_EMAILS.forEach(email => {
+        DEFAULT_ADMIN_EMAILS.forEach(email => {
             expect(isAdminEmail(email)).toBe(true);
             expect(isAdminEmail(email.toUpperCase())).toBe(true);
             expect(isAdminEmail(`  ${email}  `)).toBe(true);
         });
+    });
+
+    it('identifies super admin correctly', () => {
+        expect(isSuperAdmin(SUPER_ADMIN_EMAIL)).toBe(true);
+        expect(isSuperAdmin('other@gmail.com')).toBe(false);
     });
 });
