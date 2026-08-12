@@ -11,6 +11,11 @@ import SessionReportModal from '../components/speaking/SessionReportModal';
 import { PERSONAS_BY_LANG, CoachPersona, CoachChatMessage } from '../components/speaking/speakingTypes';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useTTS } from '../hooks/useTTS';
+import { useVoiceRecorder } from '../hooks/useVoiceRecorder';
+import { ConversationScenario, ScenarioSessionResult } from '../components/speaking/scenarioTypes';
+import { ScenarioService } from '../services/ScenarioService';
+import { evaluateScenarioSession } from '../utils/ai/aiScenarioEval';
+import { ScenarioReportModal } from '../components/speaking/ScenarioReportModal';
 import { CoachTopBar } from '../components/speaking/CoachTopBar';
 import { CoachWelcomeScreen } from '../components/speaking/CoachWelcomeScreen';
 import { CoachChatArea } from '../components/speaking/CoachChatArea';
@@ -19,6 +24,7 @@ import { CoachSettingsModal } from '../components/speaking/CoachSettingsModal';
 import { CoachProModal } from '../components/speaking/CoachProModal';
 import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
 import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
+
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
     en: [
@@ -46,6 +52,30 @@ const SpeakingCoachPage: React.FC = () => {
             setLanguage(langParam);
         }
     }, [searchParams]);
+
+    // Scenario & Voice Recorder state
+    const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(null);
+    const [isScenarioReportOpen, setIsScenarioReportOpen] = useState(false);
+    const [isScenarioEvalLoading, setIsScenarioEvalLoading] = useState(false);
+    const [scenarioEvalResult, setScenarioEvalResult] = useState<ScenarioSessionResult | null>(null);
+
+    const voiceRecorder = useVoiceRecorder();
+
+    useEffect(() => {
+        const scenarioId = searchParams.get('scenario');
+        if (scenarioId) {
+            ScenarioService.getScenarios().then(scenarios => {
+                const found = scenarios.find(s => s.id === scenarioId);
+                if (found) {
+                    setActiveScenario(found);
+                    setLanguage('ja');
+                }
+            });
+        } else {
+            setActiveScenario(null);
+        }
+    }, [searchParams]);
+
 
     const handleLanguageChange = (newLang: 'en' | 'ja') => {
         if (isLiveSession) return;
@@ -81,12 +111,17 @@ const SpeakingCoachPage: React.FC = () => {
     const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'deepseek');
     const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
 
+    const activeScenarioRef = useRef(activeScenario);
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const isProcessingRef = useRef(false);
     const isLiveSessionRef = useRef(false);
     const chatHistoryRef = useRef<CoachChatMessage[]>([]);
     const languageRef = useRef(language);
     const personaRef = useRef(persona);
+
+    useEffect(() => {
+        activeScenarioRef.current = activeScenario;
+    }, [activeScenario]);
 
     useEffect(() => {
         chatHistoryRef.current = chatHistory;
@@ -181,7 +216,9 @@ const SpeakingCoachPage: React.FC = () => {
                 text,
                 updatedHistory.map(h => ({ role: h.role, content: h.content })),
                 languageRef.current,
-                personaRef.current
+                personaRef.current,
+                undefined,
+                activeScenarioRef.current
             );
 
             const aiMsg: CoachChatMessage = { role: 'assistant', content: aiResponse, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
@@ -241,8 +278,13 @@ const SpeakingCoachPage: React.FC = () => {
         setCurrentTranscript('');
         setError(null);
 
+        // Start voice recorder for student self-audio recording
+        voiceRecorder.startRecording();
+
         let greeting = getInitialGreeting(language, persona);
-        if (topicTitle) {
+        if (activeScenario) {
+            greeting = activeScenario.opening_line_ja;
+        } else if (topicTitle) {
             if (language === 'ja') {
                 greeting = `こんにちは！「${topicTitle}」ですね。準備ができたら話しかけてください！`;
             } else {
@@ -261,6 +303,11 @@ const SpeakingCoachPage: React.FC = () => {
 
     const endSession = async () => {
         const historyToAnalyze = [...chatHistoryRef.current];
+        const durSecs = sessionSeconds;
+
+        // Stop voice recording
+        voiceRecorder.stopRecording();
+
         setIsLiveSession(false);
         isLiveSessionRef.current = false;
         isProcessingRef.current = false;
@@ -276,41 +323,61 @@ const SpeakingCoachPage: React.FC = () => {
         // Trigger AI analysis report if user sent any messages
         const userSpoke = historyToAnalyze.some(h => h.role === 'user');
         if (userSpoke) {
-            setIsReportOpen(true);
-            setIsReportLoading(true);
-            try {
-                const report = await analyzeSpeakingSession(
-                    historyToAnalyze.map(h => ({ role: h.role, content: h.content })),
-                    languageRef.current,
-                    personaRef.current
-                );
-                setReportData(report);
-
-                // Auto-log errors into ErrorVaultService & Supabase DB
-                if (report.grammar_corrections && report.grammar_corrections.length > 0) {
-                    ErrorVaultService.logErrors(
-                        report.grammar_corrections.map(c => ({
-                            verbatim: c.original,
-                            correction: c.corrected,
-                            category: 'grammar',
-                            explanation: c.explanation,
-                            language: languageRef.current
-                        }))
-                    );
+            if (activeScenario) {
+                // Scenario Evaluation Flow
+                setIsScenarioReportOpen(true);
+                setIsScenarioEvalLoading(true);
+                try {
+                    const evalResult = await evaluateScenarioSession({
+                        scenario: activeScenario,
+                        chatHistory: historyToAnalyze.map(h => ({ role: h.role, content: h.content })),
+                        durationSeconds: durSecs,
+                        recordedUrl: voiceRecorder.recordedUrl
+                    });
+                    setScenarioEvalResult(evalResult);
+                    await ScenarioService.saveSessionResult(evalResult);
+                } catch (err) {
+                    console.error("Scenario evaluation error:", err);
+                } finally {
+                    setIsScenarioEvalLoading(false);
                 }
-                
-                await addCoachSession({
-                    personaTitle: PERSONAS_BY_LANG[languageRef.current][personaRef.current].name,
-                    fluencyScore: report.fluency_score || 0,
-                    vocabularyScore: Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5),
-                    grammarScore: Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5),
-                    pronunciationScore: report.fluency_score || 0,
-                    feedback: report.overall_feedback || ''
-                });
-            } catch (err) {
-                console.error("Report generation error:", err);
-            } finally {
-                setIsReportLoading(false);
+            } else {
+                // Standard Speaking Coach Report Flow
+                setIsReportOpen(true);
+                setIsReportLoading(true);
+                try {
+                    const report = await analyzeSpeakingSession(
+                        historyToAnalyze.map(h => ({ role: h.role, content: h.content })),
+                        languageRef.current,
+                        personaRef.current
+                    );
+                    setReportData(report);
+
+                    if (report.grammar_corrections && report.grammar_corrections.length > 0) {
+                        ErrorVaultService.logErrors(
+                            report.grammar_corrections.map(c => ({
+                                verbatim: c.original,
+                                correction: c.corrected,
+                                category: 'grammar',
+                                explanation: c.explanation,
+                                language: languageRef.current
+                            }))
+                        );
+                    }
+                    
+                    await addCoachSession({
+                        personaTitle: PERSONAS_BY_LANG[languageRef.current][personaRef.current].name,
+                        fluencyScore: report.fluency_score || 0,
+                        vocabularyScore: Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5),
+                        grammarScore: Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5),
+                        pronunciationScore: report.fluency_score || 0,
+                        feedback: report.overall_feedback || ''
+                    });
+                } catch (err) {
+                    console.error("Report generation error:", err);
+                } finally {
+                    setIsReportLoading(false);
+                }
             }
         }
     };
@@ -417,6 +484,41 @@ const SpeakingCoachPage: React.FC = () => {
                 formatTimer={formatTimer}
             />
 
+            {/* Active Japanese Scenario Banner */}
+            {activeScenario && (
+                <div className="mx-3 md:mx-5 mt-1.5 p-3 bg-gradient-to-r from-indigo-950/90 via-purple-950/90 to-slate-900/90 border border-indigo-500/30 rounded-2xl text-white shadow-lg backdrop-blur-md flex items-center justify-between gap-4 z-10 animate-in fade-in shrink-0">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <div className="text-xl p-2 bg-indigo-500/20 rounded-xl border border-indigo-500/30 shrink-0">
+                            {activeScenario.emoji}
+                        </div>
+                        <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <span className="text-xs font-black text-white tracking-tight truncate">
+                                    {activeScenario.title_ja} ({activeScenario.title_uz})
+                                </span>
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-500/30 text-indigo-200 border border-indigo-500/40">
+                                    JLPT {activeScenario.difficulty}
+                                </span>
+                            </div>
+                            <p className="text-[11px] text-gray-300 truncate mt-0.5">
+                                {activeScenario.description_uz}
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => {
+                            setSearchParams({ lang: 'ja' });
+                        }}
+                        className="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-gray-200 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1 shrink-0"
+                        title="Ssenariydan chiqish"
+                    >
+                        <X size={13} />
+                        <span className="hidden sm:inline">Chiqish</span>
+                    </button>
+                </div>
+            )}
+
             {/* Error Banner */}
             {error && (
                 <div className="mx-3 md:mx-5 mb-2 p-2.5 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs text-center flex items-center justify-center gap-2 backdrop-blur-sm animate-in fade-in">
@@ -510,6 +612,21 @@ const SpeakingCoachPage: React.FC = () => {
                 report={reportData}
                 isLoading={isReportLoading}
                 personaTitle={PERSONAS[persona].name}
+            />
+
+            {/* SCENARIO EVALUATION REPORT MODAL */}
+            <ScenarioReportModal
+                isOpen={isScenarioReportOpen}
+                onClose={() => setIsScenarioReportOpen(false)}
+                result={scenarioEvalResult}
+                isLoading={isScenarioEvalLoading}
+                recordedUrl={voiceRecorder.recordedUrl}
+                durationSeconds={voiceRecorder.durationSeconds}
+                isPlayingRecorded={voiceRecorder.isPlaying}
+                audioProgressRecorded={voiceRecorder.audioProgress}
+                onPlayRecorded={voiceRecorder.playRecorded}
+                onPauseRecorded={voiceRecorder.pauseRecorded}
+                onRetry={() => startSession()}
             />
 
             {/* PRO UPGRADE MODAL */}

@@ -1,0 +1,167 @@
+import { ConversationScenario, ScenarioSessionResult } from '../components/speaking/scenarioTypes';
+import { DEFAULT_SCENARIOS } from '../data/defaultScenarios';
+import { supabase } from '../lib/supabase';
+
+const CUSTOM_SCENARIOS_KEY = 'kaizen_custom_scenarios';
+const SCENARIO_HISTORY_KEY = 'kaizen_scenario_history';
+
+export class ScenarioService {
+    // 1. Get all scenarios (Default + Custom Admin Scenarios)
+    static async getScenarios(): Promise<ConversationScenario[]> {
+        let customScenarios: ConversationScenario[] = [];
+        try {
+            const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+            if (local) {
+                customScenarios = JSON.parse(local);
+            }
+        } catch (e) {
+            console.error('Error reading custom scenarios from local storage:', e);
+        }
+
+        // Try syncing from Supabase if table exists
+        try {
+            const { data, error } = await supabase.from('scenarios').select('*');
+            if (!error && data && data.length > 0) {
+                const dbScenarios: ConversationScenario[] = data.map(item => ({
+                    id: item.id,
+                    title_ja: item.title_ja,
+                    title_uz: item.title_uz,
+                    emoji: item.emoji || '🗣️',
+                    difficulty: item.difficulty || 'N4',
+                    category: item.category || 'daily',
+                    description_uz: item.description_uz || '',
+                    opening_line_ja: item.opening_line_ja,
+                    context_prompt: item.context_prompt,
+                    key_phrases: Array.isArray(item.key_phrases) ? item.key_phrases : [],
+                    is_custom: true,
+                    created_at: item.created_at
+                }));
+
+                // Merge unique custom scenarios
+                const merged = [...customScenarios];
+                for (const dbS of dbScenarios) {
+                    if (!merged.some(m => m.id === dbS.id)) {
+                        merged.push(dbS);
+                    }
+                }
+                customScenarios = merged;
+            }
+        } catch (e) {
+            // Table might not exist yet; gracefully fallback
+        }
+
+        return [...DEFAULT_SCENARIOS, ...customScenarios];
+    }
+
+    // 2. Add or Update Custom Scenario (Admin)
+    static async saveScenario(scenario: ConversationScenario): Promise<void> {
+        let customScenarios: ConversationScenario[] = [];
+        try {
+            const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+            if (local) {
+                customScenarios = JSON.parse(local);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
+        const index = customScenarios.findIndex(s => s.id === scenario.id);
+        if (index >= 0) {
+            customScenarios[index] = scenario;
+        } else {
+            customScenarios.push(scenario);
+        }
+
+        localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
+
+        // Sync to Supabase table asynchronously
+        try {
+            await supabase.from('scenarios').upsert({
+                id: scenario.id,
+                title_ja: scenario.title_ja,
+                title_uz: scenario.title_uz,
+                emoji: scenario.emoji,
+                difficulty: scenario.difficulty,
+                category: scenario.category,
+                description_uz: scenario.description_uz,
+                opening_line_ja: scenario.opening_line_ja,
+                context_prompt: scenario.context_prompt,
+                key_phrases: scenario.key_phrases,
+                updated_at: new Date().toISOString()
+            });
+        } catch (e) {
+            console.warn('Supabase scenario sync omitted:', e);
+        }
+    }
+
+    // 3. Delete Custom Scenario (Admin)
+    static async deleteScenario(id: string): Promise<void> {
+        let customScenarios: ConversationScenario[] = [];
+        try {
+            const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+            if (local) {
+                customScenarios = JSON.parse(local);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
+        customScenarios = customScenarios.filter(s => s.id !== id);
+        localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
+
+        try {
+            await supabase.from('scenarios').delete().eq('id', id);
+        } catch (e) {
+            console.warn('Supabase scenario delete error:', e);
+        }
+    }
+
+    // 4. Save Session Evaluation Result
+    static async saveSessionResult(result: ScenarioSessionResult): Promise<void> {
+        let history: ScenarioSessionResult[] = [];
+        try {
+            const local = localStorage.getItem(SCENARIO_HISTORY_KEY);
+            if (local) {
+                history = JSON.parse(local);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
+        history.unshift(result);
+        localStorage.setItem(SCENARIO_HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
+
+        // Sync to Supabase coach_sessions table if logged in
+        try {
+            const { data: userData } = await supabase.auth.getUser();
+            if (userData?.user) {
+                await supabase.from('coach_sessions').insert({
+                    user_id: userData.user.id,
+                    persona_title: result.scenario_title,
+                    fluency_score: result.fluency_score,
+                    vocabulary_score: result.vocabulary_score,
+                    grammar_score: result.grammar_score,
+                    pronunciation_score: result.pronunciation_score,
+                    duration_seconds: result.duration_seconds,
+                    feedback: result.ai_feedback,
+                    created_at: result.created_at
+                });
+            }
+        } catch (e) {
+            console.warn('Supabase session history insert error:', e);
+        }
+    }
+
+    // 5. Get Learning History
+    static async getScenarioHistory(): Promise<ScenarioSessionResult[]> {
+        try {
+            const local = localStorage.getItem(SCENARIO_HISTORY_KEY);
+            if (local) {
+                return JSON.parse(local);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        return [];
+    }
+}

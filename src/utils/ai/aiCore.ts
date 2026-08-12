@@ -17,7 +17,7 @@ export const chatWithAI = async (
     subjectName: string,
     _userKey?: string
 ): Promise<string> => {
-    const systemPrompt = `Siz Study Planner ilovasidagi talabalarga yordam beruvchi do'stona va aqlli o'quv yordamchisisiz (AI Tutor).
+    const systemPrompt = `Siz Kaizen AI platformasidagi talabalarga yordam beruvchi do'stona va aqlli o'quv yordamchisisiz (AI Tutor).
 Sizning asosiy vazifangiz talabalarga o'z darslarini yaxshiroq o'zlashtirishga yordam berishdir.
 Javoblaringiz o'zbek tilida, tushunarli va Markdown formatida (chiroyli qilib) bo'lishi kerak.
 

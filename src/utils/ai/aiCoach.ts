@@ -2,6 +2,7 @@ import { getAIConfig, parseAIError } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
 import { ErrorVaultService } from '../../services/ErrorVaultService';
+import { ConversationScenario } from '../../components/speaking/scenarioTypes';
 
 export interface SpeechAnalysisResult {
     grammar_corrections: string[];
@@ -33,40 +34,22 @@ export const analyzeSpeech = async (
 
     try {
         const config = getAIConfig();
-        let json: unknown = null;
+        const fullPrompt = prompt;
 
         if (config.provider === 'ollama') {
             try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                json = JSON.parse(cleanedText);
+                const text = await callOllama(fullPrompt);
+                const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+                return JSON.parse(cleanedText);
             } catch (err) {
                 console.warn("[AI Fallback] Ollama failed in analyzeSpeech, falling back to DeepSeek:", err);
             }
         }
 
-        if (!json) {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
-        }
-
-        const data = json as any;
-        return {
-            grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
-            better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
-            fluency_score: typeof data.fluency_score === 'number' ? data.fluency_score : 5.0,
-            overall_feedback: data.overall_feedback || 'Good effort, keep practicing!',
-        };
-    } catch (error: unknown) {
-        console.error('AI Speech Analysis Error:', error);
+        const text = await callDeepSeek(fullPrompt, undefined, undefined, true);
+        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        return JSON.parse(cleanedText);
+    } catch (error: any) {
         throw new Error(parseAIError(error));
     }
 };
@@ -76,7 +59,8 @@ export const converseWithCoach = async (
     history: { role: 'user' | 'assistant', content: string }[],
     language: 'en' | 'ja' = 'en',
     persona: string = 'roast',
-    userKey?: string
+    userKey?: string,
+    scenario?: ConversationScenario | null
 ): Promise<string> => {
     // Keep last 6 messages to optimize token usage & ensure fast responses
     const recentHistory = history.slice(-6);
@@ -84,7 +68,23 @@ export const converseWithCoach = async (
     
     let personaPrompt = '';
 
-    if (language === 'ja') {
+    if (scenario) {
+        personaPrompt = `IDENTITY: あなたは【${scenario.title_ja} (${scenario.title_uz})】の会話シナリオに登場するネイティブ日本人キャラクターです。
+           GOAL: 学生（JLPT難易度: ${scenario.difficulty}）とリアリティのある役割演技（ロールプレイ）を行ってください。
+           シナリオの文脈: ${scenario.context_prompt}
+           学習目標・キーフレーズ: ${scenario.key_phrases.join(', ')}
+
+           RULES:
+           1. シナリオの状況【${scenario.title_ja}】になりきり、自然で適切な日本語で会話を続けてください。
+           2. 一度の返答は長すぎず、会話がテンポ良く続くように質問や促しを入れてください。
+           3. 学生が誤った助詞（は/が、に/で等）や不自然な日本語を使った場合は、優しく自然な言い回しを提示してください。
+           4. 必ず丸括弧()内にローマ字(Romaji)を、四角括弧[]内にウズベク語訳[Uzbek Translation]を添えて出力してください。
+
+           OUTPUT FORMAT:
+           [キャラクターとしての日本語の返答]
+           (Romaji translation)
+           [Uzbek translation]`;
+    } else if (language === 'ja') {
         switch (persona) {
             case 'keigo':
                 personaPrompt = `IDENTITY: あなたは「敬語・ビジネス日本語マスター」のプロフェッショナル教師です。

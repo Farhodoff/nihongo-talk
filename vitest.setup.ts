@@ -29,5 +29,24 @@ window.matchMedia = window.matchMedia || function () {
     };
 };
 
+// Mock IntersectionObserver for jsdom & framer-motion useInView
+class MockIntersectionObserver {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+});
+
+Object.defineProperty(global, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+});
+
 // Mock scrollIntoView (not implemented in jsdom)
 window.HTMLElement.prototype.scrollIntoView = vi.fn();

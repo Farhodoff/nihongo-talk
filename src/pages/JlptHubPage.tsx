@@ -279,6 +279,31 @@ export const JlptHubPage: React.FC = () => {
 
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Conversation Scenarios Card */}
+                <div
+                    onClick={() => navigate('/scenarios')}
+                    className="group bg-gradient-to-br from-indigo-900/10 via-purple-900/5 to-transparent hover:bg-indigo-500/[0.04] p-6 rounded-3xl border border-indigo-500/30 hover:border-indigo-500/60 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                >
+                    <div>
+                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Compass size={24} />
+                        </div>
+                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-indigo-500/10 text-indigo-500 text-[10px] font-extrabold rounded-full border border-indigo-500/20 mb-2">
+                            ✨ YANGI MANZIL
+                        </div>
+                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-indigo-500 transition-colors">
+                            Yaponcha Dialog va Scenarios
+                        </h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            Restoran, shopping, o'zini tanishtirish va boshqa rolli muloqot mashqlari + ovozni yozib talaffuzni baholash.
+                        </p>
+                    </div>
+                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-indigo-500">
+                        <span>Ssenariylarni Tanlash</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                </div>
+
                 {/* Kaiwa AI Speaking Coach */}
                 <div
                     onClick={() => navigate('/jlpt-speaking')}
