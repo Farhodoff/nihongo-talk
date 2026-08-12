@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { ScenarioService } from '../../services/ScenarioService';
-import { Mic, Search, RefreshCw, Award, Clock, User, Calendar, TrendingUp } from 'lucide-react';
+import { Mic, Search, RefreshCw, Award, Clock, User, Calendar, TrendingUp, MessageSquareText, X, FileText } from 'lucide-react';
 
 export interface SpeakingSessionRecord {
     id: string;
@@ -13,6 +13,12 @@ export interface SpeakingSessionRecord {
     vocabulary_score: number;
     duration_seconds: number;
     feedback?: string;
+    transcript?: Array<{
+        role: 'user' | 'assistant';
+        content: string;
+        timestamp?: string;
+        translation?: string;
+    }>;
     created_at: string;
 }
 
@@ -32,37 +38,68 @@ export const AdminSpeechAnalytics: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<'users' | 'history'>('users');
+    const [selectedTranscriptSession, setSelectedTranscriptSession] = useState<SpeakingSessionRecord | null>(null);
 
     const fetchSessions = async () => {
         setIsLoading(true);
         let list: SpeakingSessionRecord[] = [];
 
         try {
-            // 1. Fetch from Supabase coach_sessions
-            const { data, error } = await supabase
-                .from('coach_sessions')
+            // 1. Fetch primary speaking_sessions table with transcript JSONB
+            const { data: speakData, error: speakErr } = await supabase
+                .from('speaking_sessions')
                 .select('*')
                 .order('created_at', { ascending: false });
 
-            if (!error && data && data.length > 0) {
-                list = data.map(item => ({
+            if (!speakErr && speakData && speakData.length > 0) {
+                list = speakData.map(item => ({
                     id: item.id,
-                    user_email: item.user_email || item.profiles?.email || 'Student',
-                    persona_title: item.persona_title || 'Yaponcha Suhbat',
+                    user_email: item.user_email || 'Student',
+                    persona_title: item.persona_title || 'Yaponcha Muloqot',
                     fluency_score: item.fluency_score || 0,
                     pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
                     grammar_score: item.grammar_score || 75,
                     vocabulary_score: item.vocabulary_score || 75,
                     duration_seconds: item.duration_seconds || 60,
                     feedback: item.feedback || '',
+                    transcript: item.transcript || [],
                     created_at: item.created_at || new Date().toISOString()
                 }));
             }
         } catch (err) {
-            console.warn('Supabase coach_sessions fetch error:', err);
+            console.warn('Supabase speaking_sessions fetch notice:', err);
         }
 
-        // 2. Fetch local scenario history records
+        try {
+            // 2. Legacy fallback from coach_sessions
+            const { data: legacyData, error: legacyErr } = await supabase
+                .from('coach_sessions')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (!legacyErr && legacyData && legacyData.length > 0) {
+                for (const item of legacyData) {
+                    if (!list.some(l => l.id === item.id)) {
+                        list.push({
+                            id: item.id,
+                            user_email: item.user_email || 'Student',
+                            persona_title: item.persona_title || 'Yaponcha Muloqot',
+                            fluency_score: item.fluency_score || 0,
+                            pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
+                            grammar_score: item.grammar_score || 75,
+                            vocabulary_score: item.vocabulary_score || 75,
+                            duration_seconds: item.duration_seconds || 60,
+                            feedback: item.feedback || '',
+                            created_at: item.created_at || new Date().toISOString()
+                        });
+                    }
+                }
+            }
+        } catch (err) {
+            console.warn('Supabase coach_sessions fetch notice:', err);
+        }
+
+        // 3. Fetch local scenario history records
         try {
             const scenarioHistory = await ScenarioService.getScenarioHistory();
             for (const item of scenarioHistory) {
@@ -77,6 +114,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
                         vocabulary_score: item.vocabulary_score,
                         duration_seconds: item.duration_seconds,
                         feedback: item.ai_feedback,
+                        transcript: item.transcript || [],
                         created_at: item.created_at
                     });
                 }
@@ -381,6 +419,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
                                             <th className="p-3.5 text-center">Grammatika</th>
                                             <th className="p-3.5 text-center">Lug'at</th>
                                             <th className="p-3.5 text-center">Vaqt</th>
+                                            <th className="p-3.5 text-center">Matn (Transcript)</th>
                                             <th className="p-3.5 text-right">Sana</th>
                                         </tr>
                                     </thead>
@@ -411,6 +450,16 @@ export const AdminSpeechAnalytics: React.FC = () => {
                                                 <td className="p-3.5 text-center text-muted-foreground">
                                                     {Math.round(item.duration_seconds / 60)} min ({item.duration_seconds}s)
                                                 </td>
+                                                <td className="p-3.5 text-center">
+                                                    <button
+                                                        onClick={() => setSelectedTranscriptSession(item)}
+                                                        className="px-2.5 py-1 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 rounded-lg text-[11px] font-extrabold inline-flex items-center gap-1 transition-all"
+                                                        title="Suhbat matnini (transcript) ko'rish"
+                                                    >
+                                                        <MessageSquareText size={12} />
+                                                        <span>📜 Matn ({item.transcript?.length || 0})</span>
+                                                    </button>
+                                                </td>
                                                 <td className="p-3.5 text-right text-[11px] text-muted-foreground">
                                                     {new Date(item.created_at).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                                 </td>
@@ -421,6 +470,115 @@ export const AdminSpeechAnalytics: React.FC = () => {
                             </div>
                         </div>
                     )}
+                </div>
+            )}
+
+            {/* TRANSCRIPT VIEWER MODAL */}
+            {selectedTranscriptSession && (
+                <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
+                    <div className="bg-card border border-border rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl animate-in zoom-in-95">
+                        {/* Modal Header */}
+                        <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between gap-4 bg-muted/30">
+                            <div className="flex items-center gap-3 min-w-0">
+                                <div className="p-2.5 bg-indigo-500/20 text-indigo-500 rounded-2xl shrink-0">
+                                    <FileText size={20} />
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="text-base font-extrabold text-foreground truncate">
+                                        📜 Suhbat Tarixi va Matni (Transcript)
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground truncate">
+                                        {selectedTranscriptSession.user_email} • {selectedTranscriptSession.persona_title}
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setSelectedTranscriptSession(null)}
+                                className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        {/* Session Overview Stats */}
+                        <div className="px-5 py-3 bg-muted/20 border-b border-border/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+                            <div className="flex items-center gap-2">
+                                <span className="text-muted-foreground font-semibold">O'rtacha Ball:</span>
+                                <span className="font-extrabold font-mono text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                                    {Math.round((selectedTranscriptSession.fluency_score + selectedTranscriptSession.pronunciation_score + selectedTranscriptSession.grammar_score + selectedTranscriptSession.vocabulary_score) / 4)}%
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-muted-foreground font-semibold">Davomiyligi:</span>
+                                <span className="font-extrabold text-foreground">
+                                    {selectedTranscriptSession.duration_seconds}s
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-muted-foreground font-semibold">Sana:</span>
+                                <span className="text-muted-foreground">
+                                    {new Date(selectedTranscriptSession.created_at).toLocaleString()}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Chat Messages List */}
+                        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+                            {!selectedTranscriptSession.transcript || selectedTranscriptSession.transcript.length === 0 ? (
+                                <div className="py-12 text-center text-xs text-muted-foreground">
+                                    <MessageSquareText size={24} className="mx-auto mb-2 opacity-50" />
+                                    <p>Ushbu seans uchun saqlangan suhbat matni topilmadi.</p>
+                                </div>
+                            ) : (
+                                selectedTranscriptSession.transcript.map((msg, index) => (
+                                    <div
+                                        key={index}
+                                        className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+                                    >
+                                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-bold mb-1 px-1">
+                                            <span>{msg.role === 'user' ? `👤 ${selectedTranscriptSession.user_email}` : `🤖 ${selectedTranscriptSession.persona_title}`}</span>
+                                            {msg.timestamp && <span>• {msg.timestamp}</span>}
+                                        </div>
+                                        <div
+                                            className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm font-medium leading-relaxed shadow-sm ${
+                                                msg.role === 'user'
+                                                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-none'
+                                                    : 'bg-muted/80 text-foreground border border-border rounded-tl-none'
+                                            }`}
+                                        >
+                                            <p className="whitespace-pre-wrap">{msg.content}</p>
+                                            {msg.translation && (
+                                                <div className="mt-2 pt-2 border-t border-white/20 dark:border-border text-xs italic opacity-90">
+                                                    🇺🇿 {msg.translation}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+
+                            {selectedTranscriptSession.feedback && (
+                                <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-xs">
+                                    <div className="font-extrabold text-amber-600 dark:text-amber-400 mb-1 flex items-center gap-1.5">
+                                        💡 AI Coach Xulosasi & Feedback:
+                                    </div>
+                                    <p className="text-muted-foreground leading-relaxed">
+                                        {selectedTranscriptSession.feedback}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="p-4 border-t border-border flex justify-end bg-muted/30">
+                            <button
+                                onClick={() => setSelectedTranscriptSession(null)}
+                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-md"
+                            >
+                                Yopish
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

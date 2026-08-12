@@ -334,6 +334,14 @@ const SpeakingCoachPage: React.FC = () => {
                         durationSeconds: durSecs,
                         recordedUrl: voiceRecorder.recordedUrl
                     });
+                    
+                    evalResult.transcript = historyToAnalyze.map(h => ({
+                        role: h.role,
+                        content: h.content,
+                        timestamp: h.timestamp,
+                        translation: h.translation
+                    }));
+
                     setScenarioEvalResult(evalResult);
                     await ScenarioService.saveSessionResult(evalResult);
                 } catch (err) {
@@ -365,13 +373,42 @@ const SpeakingCoachPage: React.FC = () => {
                         );
                     }
                     
+                    const personaTitle = PERSONAS_BY_LANG[languageRef.current][personaRef.current].name;
+                    const fluency = report.fluency_score || 75;
+                    const vocab = Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5);
+                    const grammar = Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5);
+                    const overall = Math.round((fluency + vocab + grammar) / 3);
+
                     await addCoachSession({
-                        personaTitle: PERSONAS_BY_LANG[languageRef.current][personaRef.current].name,
-                        fluencyScore: report.fluency_score || 0,
-                        vocabularyScore: Math.max(0, 100 - (report.better_vocabulary?.length || 0) * 5),
-                        grammarScore: Math.max(0, 100 - (report.grammar_corrections?.length || 0) * 5),
-                        pronunciationScore: report.fluency_score || 0,
+                        personaTitle,
+                        fluencyScore: fluency,
+                        vocabularyScore: vocab,
+                        grammarScore: grammar,
+                        pronunciationScore: fluency,
                         feedback: report.overall_feedback || ''
+                    });
+
+                    // Save session with transcript into Supabase speaking_sessions
+                    await ScenarioService.saveSessionResult({
+                        id: `session-${Date.now()}`,
+                        scenario_id: 'general_speaking',
+                        scenario_title: personaTitle,
+                        fluency_score: fluency,
+                        vocabulary_score: vocab,
+                        grammar_score: grammar,
+                        pronunciation_score: fluency,
+                        overall_score: overall,
+                        duration_seconds: durSecs,
+                        ai_feedback: report.overall_feedback || 'Bajarildi',
+                        key_phrases_used: [],
+                        key_phrases_missed: [],
+                        transcript: historyToAnalyze.map(h => ({
+                            role: h.role,
+                            content: h.content,
+                            timestamp: h.timestamp,
+                            translation: h.translation
+                        })),
+                        created_at: new Date().toISOString()
                     });
                 } catch (err) {
                     console.error("Report generation error:", err);

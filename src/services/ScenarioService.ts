@@ -131,12 +131,33 @@ export class ScenarioService {
         history.unshift(result);
         localStorage.setItem(SCENARIO_HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
 
-        // Sync to Supabase coach_sessions table if logged in
+        // Sync to Supabase speaking_sessions & coach_sessions tables
         try {
             const { data: userData } = await supabase.auth.getUser();
-            if (userData?.user) {
+            const userId = userData?.user?.id || null;
+            const userEmail = userData?.user?.email || 'guest@kaizen.ai';
+
+            // 1. Primary insertion into speaking_sessions (with transcript)
+            await supabase.from('speaking_sessions').insert({
+                user_id: userId,
+                user_email: userEmail,
+                scenario_id: result.scenario_id,
+                persona_title: result.scenario_title,
+                fluency_score: result.fluency_score,
+                vocabulary_score: result.vocabulary_score,
+                grammar_score: result.grammar_score,
+                pronunciation_score: result.pronunciation_score,
+                overall_score: result.overall_score,
+                duration_seconds: result.duration_seconds,
+                feedback: result.ai_feedback,
+                transcript: result.transcript || [],
+                created_at: result.created_at
+            });
+
+            // 2. Legacy table fallback insertion
+            if (userId) {
                 await supabase.from('coach_sessions').insert({
-                    user_id: userData.user.id,
+                    user_id: userId,
                     persona_title: result.scenario_title,
                     fluency_score: result.fluency_score,
                     vocabulary_score: result.vocabulary_score,
@@ -148,7 +169,7 @@ export class ScenarioService {
                 });
             }
         } catch (e) {
-            console.warn('Supabase session history insert error:', e);
+            console.warn('Supabase session history insert notice:', e);
         }
     }
 

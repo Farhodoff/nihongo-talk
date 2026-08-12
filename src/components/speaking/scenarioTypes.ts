@@ -27,5 +27,11 @@ export interface ScenarioSessionResult {
     ai_feedback: string;
     key_phrases_used: string[];
     key_phrases_missed: string[];
+    transcript?: Array<{
+        role: 'user' | 'assistant';
+        content: string;
+        timestamp?: string;
+        translation?: string;
+    }>;
     created_at: string;
 }
