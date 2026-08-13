@@ -48,7 +48,6 @@ const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => (
 const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
 const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
-const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage').then(m => ({ default: m.LeaderboardPage })));
 const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
 const QuestionEditor = lazy(() => import('./pages/admin/QuestionEditor'));
 const ExamTake = lazy(() => import('./pages/exams/ExamTake'));
@@ -155,7 +154,7 @@ const App: React.FC = () => {
                                         <Route path="cv-creator" element={<CVCreatorTab />} />
                                         <Route path="vocabulary" element={<VocabularyBuilderPage />} />
                                         <Route path="pricing" element={<PricingPage />} />
-                                        <Route path="leaderboard" element={<LeaderboardPage />} />
+                                        <Route path="leaderboard" element={<Navigate to="/community?tab=leaderboard" replace />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />

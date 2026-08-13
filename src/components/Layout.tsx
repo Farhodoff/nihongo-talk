@@ -69,7 +69,7 @@ const Layout: React.FC = () => {
                 { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
                 { name: 'Yaponcha Scenarios', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
                 { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
-                { name: 'Reyting & Leaderboard', path: '/leaderboard', icon: Trophy, tourId: 'nav-leaderboard' },
+                { name: 'Reyting & Leaderboard', path: '/community?tab=leaderboard', icon: Trophy, tourId: 'nav-leaderboard' },
             ]
         },
         {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Loader2, Plus, Video, X, Trash2 } from 'lucide-react';
+import { ArrowRight, Loader2, Plus, Video, X, Trash2, Globe, Lock, Share2, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 
@@ -9,6 +9,7 @@ interface StudyRoom {
     name: string;
     description: string;
     creator_id: string;
+    is_private?: boolean;
     is_active: boolean;
     created_at: string;
 }
@@ -26,7 +27,9 @@ const RoomList: React.FC = () => {
     const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
     const [newRoomName, setNewRoomName] = useState('');
     const [newRoomDesc, setNewRoomDesc] = useState('');
+    const [isPrivate, setIsPrivate] = useState(false);
     const [createRoomLoading, setCreateRoomLoading] = useState(false);
+    const [copiedId, setCopiedId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -37,6 +40,8 @@ const RoomList: React.FC = () => {
         };
         fetchUser();
         fetchCustomRooms();
+
+        // Supabase WebSocket Realtime Channel for study_rooms
         const roomsChannel = supabase.channel('custom-rooms')
             .on(
                 'postgres_changes',
@@ -48,9 +53,12 @@ const RoomList: React.FC = () => {
             .subscribe();
 
         return () => { supabase.removeChannel(roomsChannel); };
-    }, []);
+    }, [currentUserId]);
 
     const fetchCustomRooms = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        const userId = user?.id || currentUserId;
+
         const { data, error } = await supabase
             .from('study_rooms')
             .select('*')
@@ -60,7 +68,11 @@ const RoomList: React.FC = () => {
         if (error) {
             console.error('Error fetching custom rooms:', error);
         } else {
-            setCustomRooms(data || []);
+            // Filter out private rooms unless current user is the creator
+            const filtered = (data || []).filter((r: StudyRoom) => 
+                !r.is_private || (userId && r.creator_id === userId)
+            );
+            setCustomRooms(filtered);
         }
     };
 
@@ -83,8 +95,9 @@ const RoomList: React.FC = () => {
             .insert({
                 room_id: roomId,
                 name: newRoomName,
-                description: newRoomDesc || 'Maxsus o\'quv xonasi',
-                creator_id: user.id
+                description: newRoomDesc || (isPrivate ? 'Yopiq shaxsiy o\'quv xonasi' : 'Umumiy o\'quv xonasi'),
+                creator_id: user.id,
+                is_private: isPrivate
             });
 
         if (error) {
@@ -93,21 +106,30 @@ const RoomList: React.FC = () => {
         } else {
             setNewRoomName('');
             setNewRoomDesc('');
+            setIsPrivate(false);
             setShowCreateRoomModal(false);
             fetchCustomRooms();
         }
         setCreateRoomLoading(false);
     };
- 
+
+    const handleShareLink = (roomId: string, e: React.MouseEvent) => {
+        e.stopPropagation();
+        const shareUrl = `${window.location.origin}/room/${roomId}`;
+        navigator.clipboard.writeText(shareUrl);
+        setCopiedId(roomId);
+        setTimeout(() => setCopiedId(null), 2500);
+    };
+
     const handleDeleteRoom = async (id: string) => {
         const confirmDelete = window.confirm("Haqiqatan ham bu xonani o'chirmoqchimisiz?");
         if (!confirmDelete) return;
- 
+
         const { error } = await supabase
             .from('study_rooms')
             .update({ is_active: false })
             .eq('id', id);
- 
+
         if (error) {
             console.error('Error deleting room:', error);
             alert("Xonani o'chirishda xatolik yuz berdi");
@@ -130,15 +152,15 @@ const RoomList: React.FC = () => {
                             <X size={24} />
                         </button>
                         
-                        <div className="mb-8">
-                            <div className="w-14 h-14 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
+                        <div className="mb-6">
+                            <div className="w-14 h-14 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-3">
                                 <Plus size={32} />
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Yangi Xona Yaratish</h3>
-                            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">O'z o'quv xonangizni yarating va boshqalarni taklif qiling.</p>
+                            <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">O'z o'quv xonangizni yarating va boshqalarni taklif qiling.</p>
                         </div>
 
-                        <form onSubmit={handleCreateRoom} className="space-y-5">
+                        <form onSubmit={handleCreateRoom} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Xona Nomi</label>
                                 <input
@@ -146,7 +168,7 @@ const RoomList: React.FC = () => {
                                     value={newRoomName}
                                     onChange={(e) => setNewRoomName(e.target.value)}
                                     placeholder="Masalan: IELTS Tayyorlov Guruhi"
-                                    className="w-full px-5 py-4 rounded-2xl border-2 border-gray-50 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all shadow-inner"
+                                    className="w-full px-4 py-3.5 rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-sm font-medium transition-all"
                                     required
                                 />
                             </div>
@@ -156,24 +178,59 @@ const RoomList: React.FC = () => {
                                     value={newRoomDesc}
                                     onChange={(e) => setNewRoomDesc(e.target.value)}
                                     placeholder="Xona maqsadi va qoidalari haqida..."
-                                    className="w-full px-5 py-4 rounded-2xl border-2 border-gray-50 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 resize-none transition-all shadow-inner"
-                                    rows={3}
+                                    className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-xs font-medium resize-none transition-all"
+                                    rows={2}
                                 />
                             </div>
-                            <div className="flex gap-4 pt-4">
+
+                            {/* Public vs Private Toggle */}
+                            <div className="pt-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Xona Turi (Ruxsat)</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsPrivate(false)}
+                                        className={`p-3.5 rounded-2xl border-2 text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
+                                            !isPrivate 
+                                                ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shadow-sm' 
+                                                : 'border-gray-200 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                                        }`}
+                                    >
+                                        <Globe size={20} />
+                                        <span>🌐 Ochiq (Public)</span>
+                                        <span className="text-[10px] font-normal text-gray-400">Jamoada hammaniki</span>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsPrivate(true)}
+                                        className={`p-3.5 rounded-2xl border-2 text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
+                                            isPrivate 
+                                                ? 'border-purple-600 bg-purple-50/50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 shadow-sm' 
+                                                : 'border-gray-200 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                                        }`}
+                                    >
+                                        <Lock size={20} />
+                                        <span>🔒 Yopiq (Private)</span>
+                                        <span className="text-[10px] font-normal text-gray-400">Faqat link orqali</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-3 pt-3">
                                 <button
                                     type="button"
                                     onClick={() => setShowCreateRoomModal(false)}
-                                    className="flex-1 px-6 py-4 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    className="flex-1 px-4 py-3 rounded-2xl font-bold text-xs text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                                 >
                                     Bekor qilish
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={createRoomLoading}
-                                    className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white px-6 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center"
+                                    className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white px-4 py-3 rounded-2xl font-bold text-xs transition-all shadow-lg active:scale-95 flex items-center justify-center"
                                 >
-                                    {createRoomLoading ? <Loader2 className="animate-spin" size={24} /> : 'Yaratish'}
+                                    {createRoomLoading ? <Loader2 className="animate-spin" size={18} /> : 'Yaratish'}
                                 </button>
                             </div>
                         </form>
@@ -224,13 +281,33 @@ const RoomList: React.FC = () => {
 
                 {/* Custom Rooms */}
                 {customRooms.map(room => (
-                    <div key={room.id} className="group bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1">
+                    <div key={room.id} className="group bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1 relative">
                         <div className="flex justify-between items-start mb-6">
-                            <div className="w-14 h-14 bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform ${
+                                room.is_private
+                                    ? 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400'
+                                    : 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                            }`}>
                                 <Video size={32} />
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-[10px] font-bold uppercase tracking-widest bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full">Maxsus</span>
+                            <div className="flex items-center gap-1.5">
+                                <span className={`text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 ${
+                                    room.is_private
+                                        ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800'
+                                        : 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800'
+                                }`}>
+                                    {room.is_private ? <Lock size={10} /> : <Globe size={10} />}
+                                    {room.is_private ? 'Yopiq' : 'Ochiq'}
+                                </span>
+
+                                <button
+                                    onClick={(e) => handleShareLink(room.room_id, e)}
+                                    className="p-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 rounded-lg transition-colors"
+                                    title="Xona havolasini nusxalash"
+                                >
+                                    {copiedId === room.room_id ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
+                                </button>
+
                                 {currentUserId === room.creator_id && (
                                     <button
                                         onClick={() => handleDeleteRoom(room.id)}
@@ -245,7 +322,11 @@ const RoomList: React.FC = () => {
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight truncate">{room.name}</h3>
                         <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed mb-8 h-12 overflow-hidden">{room.description}</p>
                         <button 
-                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 group/btn" 
+                            className={`w-full text-white font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 group/btn ${
+                                room.is_private
+                                    ? 'bg-purple-600 hover:bg-purple-700'
+                                    : 'bg-emerald-600 hover:bg-emerald-700'
+                            }`} 
                             onClick={() => navigate(`/room/${room.room_id}`)}
                         >
                             Kirish <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
