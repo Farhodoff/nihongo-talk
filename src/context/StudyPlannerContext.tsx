@@ -466,7 +466,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
 
                 if (goalsRes?.data) {
-                    setGoals(goalsRes.data);
+                    const mappedGoals = goalsRes.data.map((g: any) => ({
+                        id: g.id,
+                        title: g.title,
+                        description: g.description || '',
+                        deadline: g.deadline || g.target_date || new Date().toISOString(),
+                        progress: typeof g.progress === 'number' ? g.progress : 0,
+                        color: g.color || '#6366f1',
+                        priority: g.priority || 'medium',
+                        createdAt: g.created_at || g.createdAt || new Date().toISOString(),
+                        completed: g.completed || false
+                    }));
+                    setGoals(mappedGoals);
                 }
 
                 if (whiteboardsRes?.data) {
@@ -634,27 +645,67 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const addGoal = async (goalData: Partial<Goal>) => {
         const activeUserId = user?.id || 'local_user';
         const goalId = goalData.id || (generateUUID());
-        const fullGoalData = { ...goalData, id: goalId, user_id: activeUserId };
+        const fullGoalData: Goal = {
+            id: goalId,
+            title: goalData.title || 'Adsiz Maqsad',
+            description: goalData.description || '',
+            deadline: goalData.deadline || new Date().toISOString(),
+            progress: goalData.progress || 0,
+            color: goalData.color || '#6366f1',
+            priority: goalData.priority || 'medium',
+            createdAt: new Date().toISOString(),
+            completed: goalData.completed || false
+        };
 
-        setGoals(prev => [...prev.filter(g => g.id !== goalId), fullGoalData as Goal]);
+        setGoals(prev => [...prev.filter(g => g.id !== goalId), fullGoalData]);
 
         if (activeUserId !== 'local_user') {
             try {
-                const { data } = await supabase.from('goals').insert(fullGoalData).select().single();
-                if (data) setGoals(prev => [...prev.filter(g => g.id !== goalId), data]);
+                const dbPayload = {
+                    id: goalId,
+                    user_id: activeUserId,
+                    title: fullGoalData.title,
+                    description: fullGoalData.description,
+                    deadline: fullGoalData.deadline,
+                    target_date: fullGoalData.deadline ? fullGoalData.deadline.split('T')[0] : null,
+                    progress: fullGoalData.progress,
+                    color: fullGoalData.color,
+                    priority: fullGoalData.priority,
+                    completed: fullGoalData.completed
+                };
+                const { data } = await supabase.from('goals').upsert(dbPayload).select().maybeSingle();
+                if (data) {
+                    const mapped: Goal = {
+                        id: data.id,
+                        title: data.title,
+                        description: data.description || '',
+                        deadline: data.deadline || data.target_date || fullGoalData.deadline,
+                        progress: typeof data.progress === 'number' ? data.progress : 0,
+                        color: data.color || '#6366f1',
+                        priority: data.priority || 'medium',
+                        createdAt: data.created_at || fullGoalData.createdAt,
+                        completed: data.completed || false
+                    };
+                    setGoals(prev => [...prev.filter(g => g.id !== goalId), mapped]);
+                }
             } catch (e) {
                 console.warn("[addGoal] DB sync error:", e);
             }
         }
-        return fullGoalData as Goal;
+        return fullGoalData;
     };
 
     const updateGoal = async (id: string, updates: Partial<Goal>) => {
         setGoals(prev => prev.map(g => g.id === id ? { ...g, ...updates } : g));
 
-        
-
-        await supabase.from('goals').update(updates).eq('id', id);
+        const activeUserId = user?.id || 'local_user';
+        if (activeUserId !== 'local_user') {
+            const dbUpdates: any = { ...updates };
+            if (updates.deadline) {
+                dbUpdates.target_date = updates.deadline.split('T')[0];
+            }
+            await supabase.from('goals').update(dbUpdates).eq('id', id);
+        }
     };
 
     const deleteGoal = async (id: string) => {

@@ -87,7 +87,7 @@ const GoalsPage: React.FC = () => {
                                 {new Date(goal.createdAt || Date.now()).toLocaleDateString()}
                             </div>
                             <div className="text-xs font-medium">
-                                Tugash: {format(new Date(goal.deadline), 'dd.MM.yyyy HH:mm')}
+                                Tugash: {goal.deadline ? (isNaN(new Date(goal.deadline).getTime()) ? goal.deadline : format(new Date(goal.deadline), 'dd.MM.yyyy HH:mm')) : '—'}
                             </div>
                         </div>
                     </div>
