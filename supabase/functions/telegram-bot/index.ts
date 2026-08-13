@@ -135,9 +135,10 @@ async function editMessageText(chatId: number, messageId: number, text: string, 
 // Handle /start command
 async function handleStart(message: TelegramMessage) {
     const chatId = message.chat.id;
-    let args = text.split(' ')[1]?.trim(); // Get code after /start
-    if (!args && text.trim().length === 6 && /^[A-Za-z0-9]{6}$/.test(text.trim())) {
-        args = text.trim().toUpperCase();
+    const msgText = message.text || '';
+    let args = msgText.split(' ')[1]?.trim(); // Get code after /start
+    if (!args && msgText.trim().length === 6 && /^[A-Za-z0-9]{6}$/.test(msgText.trim())) {
+        args = msgText.trim().toUpperCase();
     }
 
     const telegramId = message.from?.id;

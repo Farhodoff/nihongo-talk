@@ -28,6 +28,27 @@ const TelegramSection: React.FC = () => {
             loadLinkedAccount();
         }
     }, [user]);
+
+    // Poll for link completion after code is generated
+    useEffect(() => {
+        if (!user || !linkCode || linkedAccount) return;
+
+        const pollInterval = setInterval(async () => {
+            try {
+                const account = await telegramService.getLinkedAccount(user.id);
+                if (account) {
+                    setLinkedAccount(account);
+                    setNotificationsEnabled(account.notifications_enabled);
+                    setLinkCode(null);
+                    setError('');
+                }
+            } catch {
+                // Silently ignore polling errors
+            }
+        }, 3000);
+
+        return () => clearInterval(pollInterval);
+    }, [user, linkCode, linkedAccount]);
     const handleGenerateCode = async () => {
         if (!user) return;
 
