@@ -30,87 +30,66 @@ class TelegramService {
      * Returns the code that user will enter in Telegram bot
      */
     async generateLinkCode(userId: string): Promise<{ code: string; expires_at: string } | null> {
-        try {
-            // Check if user already has an active link
-            const { data: existing } = await supabase
-                .from('telegram_users')
-                .select('*')
-                .eq('user_id', userId)
-                .maybeSingle();
+        // 1. Check if user already has an active link
+        const { data: existing } = await supabase
+            .from('telegram_users')
+            .select('*')
+            .eq('user_id', userId)
+            .maybeSingle();
 
-            if (existing) {
-                throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
-            }
-
-            // Also check local cache if linked
-            const localAccountStr = localStorage.getItem(`study_planner_telegram_user_${userId}`);
-            if (localAccountStr) {
-                const localAccount = JSON.parse(localAccountStr);
-                if (localAccount && localAccount.is_active) {
-                    throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
-                }
-            }
-
-            // Generate unique code
-            let code = this.generateCode();
-            let attempts = 0;
-
-            // Ensure code is unique in Supabase
-            while (attempts < 10) {
-                const { data: existingCode } = await supabase
-                    .from('telegram_link_codes')
-                    .select('code')
-                    .eq('code', code)
-                    .eq('used', false)
-                    .maybeSingle();
-
-                if (!existingCode) break;
-                code = this.generateCode();
-                attempts++;
-            }
-
-            // Create link code in Supabase
-            const { data, error } = await supabase
-                .from('telegram_link_codes')
-                .insert({
-                    user_id: userId,
-                    code: code,
-                })
-                .select()
-                .maybeSingle();
-
-            if (!error && data) {
-                return {
-                    code: data.code,
-                    expires_at: data.expires_at,
-                };
-            }
-
-            if (error) {
-                console.warn('Supabase link code creation notice (using bulletproof fallback):', error.message || error);
-            }
-        } catch (error: any) {
-            if (error?.message?.includes('allaqachon ulangan')) {
-                throw error;
-            }
-            console.warn('Notice generating link code via Supabase, proceeding with local code fallback:', error);
+        if (existing) {
+            throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
         }
 
-        // Bulletproof Fallback: Generate local 6-digit code valid for 15 minutes
-        const code = this.generateCode();
-        const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
-        
-        try {
-            const localCodes = JSON.parse(localStorage.getItem('study_planner_telegram_codes') || '[]');
-            localCodes.push({ userId, code, expires_at: expiresAt, used: false });
-            localStorage.setItem('study_planner_telegram_codes', JSON.stringify(localCodes));
-        } catch (err) {
-            console.error('LocalStorage write error for telegram code:', err);
+        // Also check local cache if linked
+        const localAccountStr = localStorage.getItem(`study_planner_telegram_user_${userId}`);
+        if (localAccountStr) {
+            const localAccount = JSON.parse(localAccountStr);
+            if (localAccount && localAccount.is_active) {
+                throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
+            }
+        }
+
+        // 2. Generate unique code
+        let code = this.generateCode();
+        let attempts = 0;
+
+        // Ensure code is unique in Supabase
+        while (attempts < 10) {
+            const { data: existingCode } = await supabase
+                .from('telegram_link_codes')
+                .select('code')
+                .eq('code', code)
+                .eq('used', false)
+                .maybeSingle();
+
+            if (!existingCode) break;
+            code = this.generateCode();
+            attempts++;
+        }
+
+        // 3. Create link code in Supabase DB so Telegram Bot (cloud Edge Function) can verify it
+        const { data, error } = await supabase
+            .from('telegram_link_codes')
+            .insert({
+                user_id: userId,
+                code: code,
+            })
+            .select()
+            .maybeSingle();
+
+        if (error) {
+            console.error('Supabase link code creation error:', error);
+            throw new Error(`Baza xatosi: ${error.message || 'Kod saqlanmadi'}`);
+        }
+
+        if (!data) {
+            throw new Error('Kod yaratishda xatolik yuz berdi (DB data null).');
         }
 
         return {
-            code,
-            expires_at: expiresAt,
+            code: data.code,
+            expires_at: data.expires_at,
         };
     }
 
@@ -159,33 +138,6 @@ class TelegramService {
             }
         } catch (error) {
             console.error('Error verifying link code via Supabase:', error);
-        }
-
-        // Check local codes fallback
-        try {
-            const localCodes = JSON.parse(localStorage.getItem('study_planner_telegram_codes') || '[]');
-            const foundIndex = localCodes.findIndex((c: any) => c.code === code && !c.used && new Date(c.expires_at).getTime() > Date.now());
-            if (foundIndex !== -1) {
-                const item = localCodes[foundIndex];
-                item.used = true;
-                localStorage.setItem('study_planner_telegram_codes', JSON.stringify(localCodes));
-
-                const localAccount: TelegramUser = {
-                    id: `tg_${Date.now()}`,
-                    user_id: item.userId,
-                    telegram_id: telegramId,
-                    telegram_username: username,
-                    telegram_first_name: firstName,
-                    telegram_last_name: lastName,
-                    chat_id: chatId,
-                    is_active: true,
-                    notifications_enabled: true
-                };
-                localStorage.setItem(`study_planner_telegram_user_${item.userId}`, JSON.stringify(localAccount));
-                return item.userId;
-            }
-        } catch (err) {
-            console.error('Error checking local telegram code:', err);
         }
 
         return null;

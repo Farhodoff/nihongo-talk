@@ -1,4 +1,7 @@
--- Fix RLS policies for telegram_link_codes and telegram_users to allow link code creation and verification
+-- Fix RLS policies and foreign keys for telegram_link_codes and telegram_users to allow link code creation and cloud bot verification
+ALTER TABLE public.telegram_link_codes DROP CONSTRAINT IF EXISTS telegram_link_codes_user_id_fkey;
+ALTER TABLE public.telegram_users DROP CONSTRAINT IF EXISTS telegram_users_user_id_fkey;
+
 ALTER TABLE public.telegram_link_codes ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Users can view own link codes" ON public.telegram_link_codes;
