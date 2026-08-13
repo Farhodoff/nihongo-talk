@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.study_rooms (
     room_id TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     description TEXT,
-    creator_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    creator_id TEXT, -- TEXT allows both auth UUIDs and guest strings
     is_private BOOLEAN DEFAULT false,
     share_code TEXT,
     is_active BOOLEAN DEFAULT true,
@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.study_rooms (
 -- 2. Add columns if table already exists
 ALTER TABLE public.study_rooms ADD COLUMN IF NOT EXISTS is_private BOOLEAN DEFAULT false;
 ALTER TABLE public.study_rooms ADD COLUMN IF NOT EXISTS share_code TEXT;
+ALTER TABLE public.study_rooms ALTER COLUMN creator_id TYPE TEXT;
 
 -- Enable RLS
 ALTER TABLE public.study_rooms ENABLE ROW LEVEL SECURITY;

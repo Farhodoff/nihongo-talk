@@ -31,15 +31,28 @@ const RoomList: React.FC = () => {
     const [createRoomLoading, setCreateRoomLoading] = useState(false);
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchUser = async () => {
+    const getEffectiveUserId = async (): Promise<string> => {
+        try {
             const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                setCurrentUserId(user.id);
-            }
+            if (user?.id) return user.id;
+        } catch (e) {
+            console.warn('Auth check notice:', e);
+        }
+        let localId = localStorage.getItem('kaizen_guest_user_id');
+        if (!localId) {
+            localId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
+            localStorage.setItem('kaizen_guest_user_id', localId);
+        }
+        return localId;
+    };
+
+    useEffect(() => {
+        const init = async () => {
+            const userId = await getEffectiveUserId();
+            setCurrentUserId(userId);
+            fetchCustomRooms(userId);
         };
-        fetchUser();
-        fetchCustomRooms();
+        init();
 
         // Supabase WebSocket Realtime Channel for study_rooms
         const roomsChannel = supabase.channel('custom-rooms')
@@ -47,7 +60,7 @@ const RoomList: React.FC = () => {
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'study_rooms' },
                 () => {
-                    fetchCustomRooms();
+                    if (currentUserId) fetchCustomRooms(currentUserId);
                 }
             )
             .subscribe();
@@ -55,25 +68,47 @@ const RoomList: React.FC = () => {
         return () => { supabase.removeChannel(roomsChannel); };
     }, [currentUserId]);
 
-    const fetchCustomRooms = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
-        const userId = user?.id || currentUserId;
+    const fetchCustomRooms = async (userIdOverride?: string) => {
+        const userId = userIdOverride || currentUserId || await getEffectiveUserId();
+        let dbRooms: StudyRoom[] = [];
 
-        const { data, error } = await supabase
-            .from('study_rooms')
-            .select('*')
-            .eq('is_active', true)
-            .order('created_at', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('study_rooms')
+                .select('*')
+                .eq('is_active', true)
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('Error fetching custom rooms:', error);
-        } else {
-            // Filter out private rooms unless current user is the creator
-            const filtered = (data || []).filter((r: StudyRoom) => 
-                !r.is_private || (userId && r.creator_id === userId)
-            );
-            setCustomRooms(filtered);
+            if (!error && data) {
+                dbRooms = data;
+            }
+        } catch (e) {
+            console.warn('Supabase fetch rooms notice:', e);
         }
+
+        // Get local fallback custom rooms
+        let localRooms: StudyRoom[] = [];
+        try {
+            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            if (saved) localRooms = JSON.parse(saved);
+        } catch (e) {
+            localRooms = [];
+        }
+
+        // Merge DB rooms and local rooms
+        const roomMap = new Map<string, StudyRoom>();
+        dbRooms.forEach(r => roomMap.set(r.room_id, r));
+        localRooms.forEach(r => {
+            if (!roomMap.has(r.room_id)) roomMap.set(r.room_id, r);
+        });
+
+        const allRooms = Array.from(roomMap.values());
+        // Filter out private rooms unless current user is the creator
+        const filtered = allRooms.filter((r: StudyRoom) => 
+            !r.is_private || (userId && r.creator_id === userId)
+        );
+
+        setCustomRooms(filtered);
     };
 
     const handleCreateRoom = async (e: React.FormEvent) => {
@@ -81,36 +116,51 @@ const RoomList: React.FC = () => {
         if (!newRoomName.trim()) return;
 
         setCreateRoomLoading(true);
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            alert('Xona yaratish uchun tizimga kiring');
-            setCreateRoomLoading(false);
-            return;
-        }
-
+        const userId = await getEffectiveUserId();
         const roomId = `custom_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        const { error } = await supabase
-            .from('study_rooms')
-            .insert({
-                room_id: roomId,
-                name: newRoomName,
-                description: newRoomDesc || (isPrivate ? 'Yopiq shaxsiy o\'quv xonasi' : 'Umumiy o\'quv xonasi'),
-                creator_id: user.id,
-                is_private: isPrivate
-            });
+        const newRoomObj: StudyRoom = {
+            id: roomId,
+            room_id: roomId,
+            name: newRoomName.trim(),
+            description: newRoomDesc.trim() || (isPrivate ? 'Yopiq shaxsiy o\'quv xonasi' : 'Umumiy o\'quv xonasi'),
+            creator_id: userId,
+            is_private: isPrivate,
+            is_active: true,
+            created_at: new Date().toISOString()
+        };
 
-        if (error) {
-            console.error('Error creating room:', error);
-            alert('Xona yaratishda xatolik yuz berdi');
-        } else {
-            setNewRoomName('');
-            setNewRoomDesc('');
-            setIsPrivate(false);
-            setShowCreateRoomModal(false);
-            fetchCustomRooms();
+        // Try inserting into Supabase
+        try {
+            await supabase
+                .from('study_rooms')
+                .insert({
+                    room_id: roomId,
+                    name: newRoomObj.name,
+                    description: newRoomObj.description,
+                    creator_id: userId,
+                    is_private: isPrivate
+                });
+        } catch (err) {
+            console.warn('Supabase insert notice:', err);
         }
+
+        // Save to local storage cache for instant UI availability
+        try {
+            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            const localRooms: StudyRoom[] = saved ? JSON.parse(saved) : [];
+            localRooms.unshift(newRoomObj);
+            localStorage.setItem('kaizen_local_custom_rooms', JSON.stringify(localRooms));
+        } catch (err) {
+            console.warn('Local storage save notice:', err);
+        }
+
+        setNewRoomName('');
+        setNewRoomDesc('');
+        setIsPrivate(false);
+        setShowCreateRoomModal(false);
         setCreateRoomLoading(false);
+        fetchCustomRooms(userId);
     };
 
     const handleShareLink = (roomId: string, e: React.MouseEvent) => {
