@@ -1,10 +1,9 @@
-import { getAIConfig, parseAIError } from './aiConfig';
-import { callOllama } from '../ollama';
-import { callDeepSeek } from '../deepseek';
+import { parseAIError } from './aiConfig';
+import { callSelectedAIProvider } from './aiCore';
 
 export const expandNoteWithAI = async (
     content: string,
-    subjectName: string,
+    subjectName: string = 'Umumiy',
     _userKey?: string
 ): Promise<string> => {
     const prompt = `
@@ -19,228 +18,143 @@ export const expandNoteWithAI = async (
     `;
 
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in expandNoteWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                false,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        return (text || '').replace(/```markdown/g, "").replace(/```/g, "").trim();
-    } catch (e) {
-        console.error("AI Expand Note Error", e);
-        throw new Error(parseAIError(e));
+        const text = await callSelectedAIProvider(prompt, undefined, false);
+        return text ? text.trim() : content;
+    } catch (error: unknown) {
+        console.error('AI Expand Note Error:', error);
+        throw new Error(parseAIError(error));
     }
 };
 
 export const summarizeNoteWithAI = async (
     content: string,
-    subjectName: string,
+    _subjectName?: string,
     _userKey?: string
 ): Promise<string> => {
     const prompt = `
-      Fan: "${subjectName}"
       Konspekt matni: "${content.substring(0, 4000)}"
       
-      Vazifa: Ushbu konspekt matnini qisqacha xulosalang (summary yarating). Muhim tushunchalar va asosiy fikrlarni saqlab qoling.
-      Format: Markdown formatidan foydalaning (qisqa bandlar/punktlar shaklida bo'lsin).
+      Vazifa: Ushbu konspekt matnining eng muhim va asosiy g'oyalarini qisqa, tushunarli qilib xulosa qiling (Executive Summary).
+      Format: Bullet pointlar (nuqtalar) ko'rinishida Markdown formatidan foydalaning.
       Til: O'zbek tili.
-      Cheklov: Faqat tayyor xulosani qaytaring, boshqa hech qanday qo'shimcha kirish yoki tushuntirish yozmang.
+      Cheklov: Faqat xulosa matnini qaytaring. Boshqa kirish so'zlar yozmang.
     `;
 
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in summarizeNoteWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                false,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        return (text || '').replace(/```markdown/g, "").replace(/```/g, "").trim();
-    } catch (e) {
-        console.error("AI Summarize Note Error", e);
-        throw new Error(parseAIError(e));
+        const text = await callSelectedAIProvider(prompt, undefined, false);
+        return text ? text.trim() : content;
+    } catch (error: unknown) {
+        console.error('AI Summarize Note Error:', error);
+        throw new Error(parseAIError(error));
     }
 };
 
 export const fixNoteSpellingWithAI = async (
     content: string,
-    subjectName: string,
+    _subjectName?: string,
     _userKey?: string
 ): Promise<string> => {
     const prompt = `
-      Fan: "${subjectName}"
-      Konspekt matni: "${content.substring(0, 4000)}"
-      
-      Vazifa: Ushbu konspekt matnidagi barcha grammatik, imlo va tinish belgilari xatolarini tuzatib chiqing. Matn mazmuni va uslubini o'zgartirmang, faqat to'g'ri yozilishini ta'minlang.
-      Format: Markdown formatida bo'lsin.
+      Vazifa: Ushbu konspekt matnidagi imlo va grammatik xatolarni to'g'rilab, matnni toza Markdown formatida qaytaring.
+      Matn: "${content.substring(0, 4000)}"
       Til: O'zbek tili.
-      Cheklov: Faqat tuzatilgan tayyor matnni qaytaring, boshqa hech qanday izoh yozmang.
+      Cheklov: Faqat to'g'rilangan matnni qaytaring.
     `;
-
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in fixNoteSpellingWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                false,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        return (text || '').replace(/```markdown/g, "").replace(/```/g, "").trim();
-    } catch (e) {
-        console.error("AI Fix Spelling Error", e);
-        throw new Error(parseAIError(e));
+        const text = await callSelectedAIProvider(prompt, undefined, false);
+        return text ? text.trim() : content;
+    } catch {
+        return content;
     }
 };
 
-/**
- * Generates Mermaid.js Mind Map code based on user notes via DeepSeek.
- */
-export const generateMindMapWithAI = async (
+export const generateQuizFromNote = async (
     content: string,
+    questionCount: number = 3,
     _userKey?: string
-): Promise<string> => {
+): Promise<{ question: string; options: string[]; answerIndex: number; explanation: string }[]> => {
     const prompt = `
-      Siz expert darajasidagi Mind Map yaratuvchi AIsiz.
-      Foydalanuvchi sizga mavzu, yo'riqnoma yoki matn beradi.
-      Sizning vazifangiz shu mavzuni chuqur tahlil qilib, kerakli barcha ma'lumotlarni (konseptlar, texnologiyalar, misollar) o'zingizning bilimingizdan qo'shgan holda, batafsil va keng qamrovli Mermaid.js "mindmap" kodini yaratishdir.
-      
-      Foydalanuvchi so'rovi: "${content.substring(0, 4000)}"
-      
-      Qoidalar:
-      1. Agar foydalanuvchi shunchaki mavzu (masalan, "JavaScript") yoki qandaydir yo'riqnoma bersa, siz uning ichini o'zingizning bilimingiz asosida aniq va to'g'ri ma'lumotlar bilan to'ldiring. Aslo quruq sarlavhalarning o'zini qaytarmang!
-      2. Agar foydalanuvchi xarita qanday shoxlarga bo'linishi kerakligini aytgan bo'lsa, o'sha shoxlarni yarating va har bir shoxning ichini tegishli muhim mavzular (terminlar, texnologiyalar, tushunchalar) bilan kengaytiring.
-      3. Hech qanday tushuntirishsiz, faqatgina toza kod holatida qaytaring (hech qanday \`\`\`mermaid yoki \`\`\`markdown belgilarisiz, to'g'ridan to'g'ri "mindmap" so'zidan boshlang).
-      4. O'zbek tilidan foydalaning.
-      5. Mermaid.js ning "mindmap" formatidan foydalaning. Misol:
-mindmap
-  root((Mavzu nomi))
-    Tarmoq 1
-      Ost-tarmoq 1
-      Ost-tarmoq 2
-    Tarmoq 2
-      Ost-tarmoq 3
-    `;
-
-    try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateMindMapWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                false,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        return (text || '').replace(/```mermaid/g, "").replace(/```markdown/g, "").replace(/```/g, "").trim();
-    } catch (e) {
-        console.error("AI Mind Map Error", e);
-        throw new Error(parseAIError(e));
-    }
-};
-
-export interface ExtractedVocabItem {
-    front: string;
-    back: string;
-    phonetic: string;
-    example: string;
-}
-
-export const extractVocabularyFromText = async (text: string): Promise<ExtractedVocabItem[]> => {
-    const prompt = `
-      Act as an IELTS Academic Vocabulary Specialist.
-      Analyze the following text and extract 5 to 10 key B1-C2 level vocabulary words/phrases for an English learner.
-      Provide Uzbek translation, phonetic transcription, and an example sentence.
-
-      Text: "${text.substring(0, 2000)}"
-
-      Output JSON Schema (Return ONLY valid JSON array):
+      Konspekt matni: "${content.substring(0, 4000)}"
+      Vazifa: Ushbu konspekt asosida ${questionCount} ta ko'p variantli (Multiple Choice) test savollari yarating.
+      Format: FAQAT QUYIDAGI VALID JSON ARRAY BO'LSIN:
       [
         {
-          "front": "Word or Phrase",
-          "back": "Uzbekcha ma'nosi",
-          "phonetic": "/fonetik transkripsiya/",
-          "example": "English example sentence from context or relevant use case."
+          "question": "Savol matni",
+          "options": ["Variant A", "Variant B", "Variant C", "Variant D"],
+          "answerIndex": 0,
+          "explanation": "Nega ushbu variant to'g'ri ekanligi haqida qisqa tushuntirish"
         }
       ]
+      Cheklov: JSON dan tashqari hech qanday matn qaytarmang!
     `;
 
     try {
-        const config = getAIConfig();
-        const response = await callDeepSeek(
-            prompt,
-            config.deepseekKey || '',
-            undefined,
-            true,
-            config.deepseekModel,
-            config.deepseekThinkingMode
-        );
-        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-        return JSON.parse(cleanedText);
-    } catch (dsErr) {
-        console.warn("DeepSeek vocab extraction failed, returning default vocabulary:", dsErr);
+        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
+        if (Array.isArray(json)) {
+            return json;
+        }
+        return [];
+    } catch (error: unknown) {
+        console.error('AI Quiz Error:', error);
+        throw new Error(parseAIError(error));
+    }
+};
+
+export const explainComplexTopic = async (
+    topic: string,
+    context: string = '',
+    _userKey?: string
+): Promise<string> => {
+    const prompt = `
+      Mavzu: "${topic}"
+      ${context ? `Kontekst: "${context.substring(0, 2000)}"` : ''}
+      
+      Vazifa: Ushbu muloqotdagi murakkab mavzuni xuddi 5 yoshli bolaga tushuntirgandek juda sodda, qiziqarli o'xshatishlar va hayotiy misollar bilan tushuntirib bering (Feynman usulida).
+      Til: O'zbek tili.
+      Format: Chiroyli Markdown.
+    `;
+
+    try {
+        const text = await callSelectedAIProvider(prompt, undefined, false);
+        return text ? text.trim() : "Mavzuni tushuntirishda xatolik yuz berdi.";
+    } catch (error: unknown) {
+        console.error('AI Feynman Explain Error:', error);
+        throw new Error(parseAIError(error));
+    }
+};
+
+export const generateSmartSummary = async (
+    rawText: string,
+    mode: 'key_takeaways' | 'action_items' | 'mindmap_tree' | 'qa_breakdown' = 'key_takeaways',
+    _userKey?: string
+): Promise<string> => {
+    let modeInstruction = "";
+    if (mode === 'key_takeaways') {
+        modeInstruction = "Eng muhim 5 ta asosiy xulosani 💡 belgilari bilan tartiblangan ro'yxat qiling.";
+    } else if (mode === 'action_items') {
+        modeInstruction = "Ushbu matndan kelib chiqib bajarilishi kerak bo'lgan amaliy vazifalar (Action Items) ro'yxatini 🎯 belgilari bilan chiqaring.";
+    } else if (mode === 'mindmap_tree') {
+        modeInstruction = "Ushbu matn tarkibini iyerarxik Mind-map ko'rinishida (Daraxtsimon ro'yxat) tuzing.";
+    } else if (mode === 'qa_breakdown') {
+        modeInstruction = "Ushbu matn bo'yicha eng ko'p beriladigan 3 ta savol va ularga javob (Q&A) shaklida shakllantiring.";
     }
 
-    return [
-        { front: "Extract", back: "Ajratib olmoq, terib olmoq", phonetic: "/ˈek.strækt/", example: "We extract key words from reading texts." },
-        { front: "Vocabulary", back: "Lug'at zaxirasi", phonetic: "/vəˈkæb.jə.lər.i/", example: "Building vocabulary improves writing." }
-    ];
+    const prompt = `
+      Boshlang'ich Matn: "${rawText.substring(0, 5000)}"
+      
+      Vazifa: ${modeInstruction}
+      Format: Markdown formatida chiroyli qiling.
+      Til: O'zbek tili.
+      Cheklov: Faqat tayyorlangan natijani qaytaring.
+    `;
+
+    try {
+        const response = await callSelectedAIProvider(prompt, undefined, false);
+        return response ? response.trim() : "Xulosa shakllantirishda xatolik yuz berdi.";
+    } catch (error) {
+        console.error("Smart Summary Error:", error);
+        throw new Error(parseAIError(error));
+    }
 };

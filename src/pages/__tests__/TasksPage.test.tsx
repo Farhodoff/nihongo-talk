@@ -26,7 +26,7 @@ describe('TasksPage', () => {
             render(<TasksPage />);
         });
 
-        expect(screen.getByRole('heading', { level: 2, name: /Kunlik Vazifalar/i })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 2, name: /Vazifalar/i })).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/Yangi vazifa qo'shish.../i)).toBeInTheDocument();
     });
 

@@ -12,6 +12,7 @@ import { AdminAlbumCreatorModal } from '../components/decks/AdminAlbumCreatorMod
 import { LevelFolderExplorerModal } from '../components/decks/LevelFolderExplorerModal';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
 import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
@@ -21,6 +22,7 @@ import SubjectForm from '../components/subjects/SubjectForm';
 
 const DecksPage: React.FC = () => {
     const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
+    const { t } = useLanguage();
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
@@ -336,7 +338,7 @@ const DecksPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Layers size={16} className="text-indigo-500" /> Mening To'plamlarim ({subjects.length})
+                    <Layers size={16} className="text-indigo-500" /> {t('flashcards.myDecks')} ({subjects.length})
                 </button>
                 <button
                     onClick={() => setActiveTab('library')}
@@ -346,7 +348,7 @@ const DecksPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Library size={16} className="text-amber-500" /> Standart Kutubxona ({PRESET_DECKS.length})
+                    <Library size={16} className="text-amber-500" /> {t('flashcards.library')} ({PRESET_DECKS.length})
                 </button>
             </div>
 

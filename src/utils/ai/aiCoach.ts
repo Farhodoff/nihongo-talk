@@ -1,6 +1,6 @@
 import { getAIConfig, parseAIError } from './aiConfig';
 import { callOllama } from '../ollama';
-import { callDeepSeek } from '../deepseek';
+import { callSelectedAIProvider } from './aiCore';
 import { ErrorVaultService } from '../../services/ErrorVaultService';
 import { ConversationScenario } from '../../components/speaking/scenarioTypes';
 
@@ -46,7 +46,7 @@ export const analyzeSpeech = async (
             }
         }
 
-        const text = await callDeepSeek(fullPrompt, undefined, undefined, true);
+        const text = await callSelectedAIProvider(fullPrompt, undefined, true);
         const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
         return JSON.parse(cleanedText);
     } catch (error: any) {
@@ -59,7 +59,7 @@ export const converseWithCoach = async (
     history: { role: 'user' | 'assistant', content: string }[],
     language: 'en' | 'ja' = 'en',
     persona: string = 'roast',
-    userKey?: string,
+    _userKey?: string,
     scenario?: ConversationScenario | null
 ): Promise<string> => {
     // Keep last 6 messages to optimize token usage & ensure fast responses
@@ -353,18 +353,7 @@ export const converseWithCoach = async (
             }
         }
         
-        const dsKeyToUse = (userKey && userKey.trim().startsWith('sk-') ? userKey.trim() : undefined)
-            || (config.coachApiKey && config.coachApiKey.trim().startsWith('sk-') ? config.coachApiKey.trim() : undefined) 
-            || (config.deepseekKey && config.deepseekKey.trim().startsWith('sk-') ? config.deepseekKey.trim() : undefined);
-        
-        const dsResult = await callDeepSeek(
-            prompt,
-            dsKeyToUse,
-            undefined,
-            false,
-            config.deepseekModel || 'deepseek-chat',
-            config.deepseekThinkingMode
-        );
+        const dsResult = await callSelectedAIProvider(prompt, undefined, false);
         if (dsResult) return dsResult;
 
         if (language === 'ja' || (typeof prompt === 'string' && (prompt.includes('Japanese') || prompt.includes('Kaiwa')))) {
@@ -536,7 +525,6 @@ export const analyzeSpeakingSession = async (
     try {
         const config = getAIConfig();
         const provider = config.coachAiModel || config.provider || 'deepseek';
-        const deepseekKey = (config.coachApiKey && config.coachApiKey.trim()) || (config.deepseekKey && config.deepseekKey.trim());
 
         let data: any = null;
 
@@ -551,8 +539,9 @@ export const analyzeSpeakingSession = async (
         }
 
         if (!data) {
-            const response = await callDeepSeek(prompt, deepseekKey, undefined, true, config.deepseekModel, config.deepseekThinkingMode);
-            data = JSON.parse(response);
+            const response = await callSelectedAIProvider(prompt, undefined, true);
+            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+            data = JSON.parse(cleanedText);
         }
 
         const lexical = typeof data.lexical_score === 'number' ? data.lexical_score : 7.0;
@@ -612,9 +601,7 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
     `;
 
     try {
-        const config = getAIConfig();
-        const dsKey = config.deepseekKey || config.coachApiKey;
-        const dsResult = await callDeepSeek(prompt, dsKey, undefined, false, config.deepseekModel, config.deepseekThinkingMode);
+        const dsResult = await callSelectedAIProvider(prompt, undefined, false);
         if (dsResult) return dsResult.trim().replace(/^["']|["']$/g, '');
         return text;
     } catch (err) {

@@ -35,11 +35,14 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                 const hours = subjectSessions.reduce((acc, sess) => acc + sess.duration, 0) / 60;
                 const mood = subjectSessions.length > 0 ? subjectSessions.reduce((acc, sess) => acc + (sess.moodAfter || sess.moodBefore || 3), 0) / subjectSessions.length : 3;
                 return {
+                    name: s.name,
                     subject: s.name,
                     hours,
                     mood,
                     pendingTasks: 0,
-                    masteryScore: 0
+                    masteryScore: 0,
+                    progress: 50,
+                    mastery: 0
                 };
             });
             const result = await generateStudyInsight(stats, googleApiKey);

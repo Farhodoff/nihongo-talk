@@ -3,12 +3,14 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CountdownWidget from '../components/CountdownWidget';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { calculateMasteryScore } from '../utils/analytics';
 import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Sparkles } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings } = useStudyData();
+    const { language, t } = useLanguage();
     const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>([]);
     const [isAiInsightsLoading, setIsAiInsightsLoading] = useState(false);
 
@@ -42,10 +44,15 @@ const DashboardPage: React.FC = () => {
 
     const greeting = useMemo(() => {
         const hour = new Date().getHours();
+        if (language === 'en') {
+            if (hour < 12) return "Good morning";
+            if (hour < 18) return "Good afternoon";
+            return "Good evening";
+        }
         if (hour < 12) return "Xayrli tong";
         if (hour < 18) return "Xayrli kun";
         return "Xayrli kech";
-    }, []);
+    }, [language]);
 
     const subjectsStats = useMemo(() => {
         return subjects.map(subject => {
@@ -64,11 +71,14 @@ const DashboardPage: React.FC = () => {
             const masteryScore = calculateMasteryScore(subjectCards);
 
             return {
+                name: subject.name,
                 subject: subject.name,
                 hours,
                 mood: avgMood,
                 pendingTasks,
-                masteryScore
+                masteryScore,
+                progress: 50,
+                mastery: masteryScore
             };
         });
     }, [subjects, sessions, tasks, flashcards]);
@@ -108,21 +118,24 @@ const DashboardPage: React.FC = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-foreground tracking-tight">
-                        {greeting}, O'quvchi! 👋
+                        {greeting}, <span className="text-gradient">Farhod</span> 👋
                     </h1>
-                    <p className="text-muted-foreground mt-1">
-                        Bugun nimani o'rganamiz? O'z oldingizga qo'ygan maqsadlarga bir qadam yaqinlashing.
+                    <p className="text-sm text-muted-foreground mt-1">
+                        {todayPendingTasks.length > 0
+                            ? (language === 'en' ? `You have ${todayPendingTasks.length} tasks scheduled for today` : `Bugun sizda ${todayPendingTasks.length} ta bajarilishi kerak bo'lgan vazifa bor`)
+                            : (language === 'en' ? "Great job! All of today's tasks are completed 🎉" : "Ajoyib! Bugungi barcha vazifalar bajarildi 🎉")
+                        }
                     </p>
                 </div>
                 
                 {/* Mini Stats Card */}
-                <div className="glass-card p-4 rounded-2xl flex items-center gap-4">
+                <div className="flex items-center gap-4 glass-card p-3 px-5 rounded-2xl border-border">
                     <div className="p-3 bg-primary/10 rounded-xl text-primary">
                         <Trophy size={24} />
                     </div>
                     <div>
                         <div className="flex justify-between items-end mb-1">
-                            <span className="text-sm font-medium text-muted-foreground">Kunlik progress</span>
+                            <span className="text-sm font-medium text-muted-foreground">{language === 'en' ? 'Daily Progress' : 'Kunlik progress'}</span>
                             <span className="text-sm font-bold text-foreground ml-4">{progressPercentage}%</span>
                         </div>
                         <div className="w-32 h-2 bg-secondary rounded-full overflow-hidden">
@@ -146,10 +159,10 @@ const DashboardPage: React.FC = () => {
                         <div className="flex items-center justify-between">
                             <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
                                 <ListTodo className="text-primary" size={24} />
-                                Bugungi Reja
+                                {t('dashboard.todayTasks')}
                             </h2>
                             <Link to="/tasks" className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1">
-                                Barchasi <ArrowRight size={16} />
+                                {t('common.all')} <ArrowRight size={16} />
                             </Link>
                         </div>
 

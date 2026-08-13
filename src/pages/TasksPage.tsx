@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TaskStatus } from '../types';
 import { sendNotification } from '../utils/notifications';
 import KanbanBoard from './kanban/KanbanBoard';
 
 const TasksPage: React.FC = () => {
     const { tasks, subjects, goals, updateTask, deleteTask, toggleTask, addTask, settings, awardXP } = useStudyData();
+    const { t } = useLanguage();
     const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
 
     // New Task Form
@@ -64,8 +66,8 @@ const TasksPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-foreground">Kunlik Vazifalar</h2>
-                    <p className="text-muted-foreground mt-1">Kunlik faoliyatingizni boshqaring</p>
+                    <h2 className="text-3xl font-bold text-foreground">{t('tasks.title')}</h2>
+                    <p className="text-muted-foreground mt-1">{t('tasks.subtitle')}</p>
                 </div>
                 <div className="flex bg-muted/50 p-1 rounded-xl w-fit border border-border/50">
                     <button
@@ -78,7 +80,7 @@ const TasksPage: React.FC = () => {
                         onClick={() => setViewMode('board')}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                        Doska
+                        Kanban Doska
                     </button>
                 </div>
             </div>

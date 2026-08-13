@@ -1,4 +1,4 @@
-import { callDeepSeek } from '../deepseek';
+import { callSelectedAIProvider } from './aiCore';
 
 export interface ExamQuestionAnswer {
     questionText: string;
@@ -46,7 +46,7 @@ export async function evaluateMockExamSession(
         };
     }
 
-    // Try AI deep analysis via DeepSeek
+    // Try AI deep analysis via selected AI provider
     try {
         const prompt = `JLPT/IELTS Imtihon Natijalari Tahlili:
 Daraja: ${level}
@@ -75,13 +75,10 @@ Format faqat JSON bo'lsin:
   "actionable_recommendation": "Amaliy tavsiya matni o'zbek tilida"
 }`;
 
-        const aiResponseText = await callDeepSeek(
+        const aiResponseText = await callSelectedAIProvider(
             prompt,
-            undefined,
             "Siz Yapon va Ingliz tili imtihonlari (JLPT/IELTS) bo'yicha professional ekspert va AI murabbiyisiz. Javobingiz faqat so'ralgan JSON formatida bo'lsin.",
-            true,
-            'deepseek-chat',
-            false
+            true
         );
 
         if (aiResponseText) {

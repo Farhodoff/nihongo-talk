@@ -9,6 +9,7 @@ import { SessionCompleteModal } from './SessionCompleteModal';
 import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -59,38 +60,40 @@ const Layout: React.FC = () => {
         });
     };
 
+    const { language, setLanguage, t } = useLanguage();
+
     const navGroups: NavGroup[] = [
         {
-            category: 'ASOSIY',
+            category: t('nav.categories.main'),
             icon: Home,
             items: [
-                { name: 'Dashboard', path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
-                { name: 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-                { name: 'Yaponcha Scenarios', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
-                { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+                { name: t('nav.dashboard'), path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
+                { name: t('nav.ieltsHub'), path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                { name: t('nav.jlptHub'), path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: t('nav.scenarios'), path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
+                { name: t('nav.aiCoach'), path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
             ]
         },
         {
-            category: "O'QUV QUROLLARI",
+            category: t('nav.categories.tools'),
             icon: FolderOpen,
             items: [
-                { name: 'Kalendar', path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
-                { name: 'Fanlar & Reja', path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
-                { name: 'Vazifalar', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: 'Fokus Timer', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Qaydlar & Konspektlar', path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
-                { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: "Aqlli Lug'at", path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
-                { name: 'AI Yordamchi', path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
+                { name: t('nav.calendar'), path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
+                { name: t('nav.subjects'), path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
+                { name: t('nav.tasks'), path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                { name: t('nav.focus'), path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: t('nav.notes'), path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
+                { name: t('nav.flashcards'), path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: t('nav.smartVocab'), path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
+                { name: t('nav.aiAssistant'), path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         },
         {
-            category: 'TAHLIL & JAMOA',
+            category: t('nav.categories.analytics'),
             icon: BarChart,
             items: [
-                { name: 'Statistika', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Jamoa', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: t('nav.progress'), path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: t('nav.community'), path: '/community', icon: Users, tourId: 'nav-community' },
             ]
         }
     ];
@@ -248,19 +251,29 @@ const Layout: React.FC = () => {
                 {/* Bottom Section: Settings & Get Premium */}
                 <div className="p-3 border-t border-border space-y-2 bg-card">
 
-                    <NavLink
-                        to="/settings"
-                        className={({ isActive }) =>
-                            `flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                                ? 'bg-primary/10 text-primary font-bold shadow-sm'
-                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                            }`
-                        }
-                        title={isCollapsed ? 'Sozlamalar & Profil' : ''}
-                    >
-                        <SettingsIcon size={19} />
-                        {!isCollapsed && <span>Sozlamalar & Profil</span>}
-                    </NavLink>
+                    <div className="flex items-center gap-1">
+                        <NavLink
+                            to="/settings"
+                            className={({ isActive }) =>
+                                `flex-1 flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-semibold ${isActive
+                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
+                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                }`
+                            }
+                            title={isCollapsed ? t('nav.settings') : ''}
+                        >
+                            <SettingsIcon size={17} />
+                            {!isCollapsed && <span>{t('nav.settings')}</span>}
+                        </NavLink>
+
+                        <button
+                            onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
+                            className="px-2.5 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors border border-border shrink-0"
+                            title={language === 'uz' ? 'Switch to English' : "O'zbekchaga o'tish"}
+                        >
+                            {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
+                        </button>
+                    </div>
 
                     {/* Premium Upgrade Button */}
                     {!isCollapsed ? (

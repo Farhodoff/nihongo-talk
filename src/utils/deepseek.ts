@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { callGeminiFallback } from './ai/aiConfig';
 
 let openaiInstance: OpenAI | null = null;
 let currentKey: string = '';
@@ -58,9 +59,10 @@ export const callDeepSeek = async (
         } catch (e) {}
     }
 
-    // If no valid DeepSeek API key exists, do not attempt failing HTTP calls
+    // If no valid DeepSeek API key exists, fallback to Gemini
     if (!validApiKey || !validApiKey.startsWith('sk-')) {
-        throw new Error("[DeepSeek] Valid DeepSeek API key (sk-...) not configured");
+        console.warn("[DeepSeek] API key missing or invalid. Falling back to Google Gemini...");
+        return callGeminiFallback(prompt, systemPrompt);
     }
 
     try {
@@ -69,9 +71,14 @@ export const callDeepSeek = async (
         const text = response.choices[0]?.message?.content || '';
         if (text) return text;
     } catch (sdkErr: any) {
-        console.warn('[DeepSeek] Direct SDK call failed:', sdkErr?.message || sdkErr);
-        throw sdkErr;
+        console.warn('[DeepSeek] SDK call failed (e.g. 402 Insufficient Balance). Falling back to Google Gemini:', sdkErr?.message || sdkErr);
+        try {
+            return await callGeminiFallback(prompt, systemPrompt);
+        } catch (fallbackErr) {
+            console.error('[Gemini Fallback Failed]:', fallbackErr);
+            throw sdkErr;
+        }
     }
 
-    throw new Error("🔑 DeepSeek xizmati bilan bog'lanishda xato. Gemini zaxira modeliga o'tilmoqda.");
+    return callGeminiFallback(prompt, systemPrompt);
 };

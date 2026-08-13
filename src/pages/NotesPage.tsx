@@ -3,9 +3,11 @@ import { Edit, FileText, Plus, Search, Trash2, Pin, PinOff, BookOpen, NotebookTe
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const NotesPage: React.FC = () => {
     const { notes, studyNotes, subjects, deleteNote, updateNote } = useStudyData();
+    const { t } = useLanguage();
     const [activeTab, setActiveTab] = useState<'stickers' | 'study-notes'>('stickers');
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
@@ -40,9 +42,9 @@ export const NotesPage: React.FC = () => {
             {/* Header & Main Switcher */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-3xl font-black text-foreground">Qaydlar & Konspektlar 📝</h2>
+                    <h2 className="text-3xl font-black text-foreground">{t('notes.title')} 📝</h2>
                     <p className="text-muted-foreground mt-1 text-sm">
-                        Tezkor stikerlar, g'oyalar va fanlarga oid strukturaviy konspektlar
+                        {t('notes.subtitle')}
                     </p>
                 </div>
 

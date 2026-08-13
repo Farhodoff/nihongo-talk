@@ -4,17 +4,23 @@ export const uz = {
         ieltsHub: 'IELTS Hub 🎓',
         aiCoach: 'AI Coach 🗣️',
         jlptHub: 'JLPT Hub 🎌',
-        subjects: 'Fanlar',
+        scenarios: 'Yaponcha Scenarios',
+        subjects: 'Fanlar & Reja',
         tasks: 'Vazifalar',
         calendar: 'Kalendar',
-        focus: 'Fokus',
+        focus: 'Fokus Timer',
         notes: 'Qaydlar & Konspektlar',
         flashcards: 'Fleshkartalar',
-        aiAssistant: 'AI Yordamchi',
         smartVocab: "Aqlli Lug'at 🧠",
+        aiAssistant: 'AI Yordamchi',
         community: 'Jamoa',
         progress: 'Statistika',
-        settings: 'Sozlamalar'
+        settings: 'Sozlamalar & Profil',
+        categories: {
+            main: 'ASOSIY',
+            tools: "O'QUV QUROLLARI",
+            analytics: 'TAHLIL & JAMOA'
+        }
     },
     common: {
         save: 'Saqlash',
@@ -23,6 +29,117 @@ export const uz = {
         error: 'Xatolik yuz berdi',
         start: 'Boshlash',
         submit: 'Javoblarni Tekshirish',
-        language: 'Til'
+        language: 'Til',
+        uzbek: 'O\'zbekcha 🇺🇿',
+        english: 'English 🇬🇧',
+        search: 'Qidiruv...',
+        actions: 'Harakatlar',
+        delete: 'O\'chirish',
+        edit: 'Tahrirlash',
+        back: 'Orqaga',
+        close: 'Yopish',
+        success: 'Muvaffaqiyatli',
+        confirm: 'Tasdiqlash',
+        add: 'Qo\'shish',
+        all: 'Barchasi',
+        filter: 'Saralash',
+        noData: 'Ma\'lumot topilmadi',
+        upgrade: 'Obunani Yangilash 🚀',
+        days: 'kun',
+        minutes: 'daqiqa',
+        hours: 'soat'
+    },
+    dashboard: {
+        title: 'Bosh sahifa',
+        welcome: 'Xush kelibsiz',
+        dailyStreak: 'Kunlik Ketma-ketlik',
+        totalXp: 'Jami XP Ballar',
+        level: 'Daraja',
+        todayTasks: 'Bugungi Vazifalar',
+        recentNotes: 'Oxirgi Qaydlar',
+        studyTime: 'O\'qish Vaqti',
+        quickStart: 'Tezkor Boshlash',
+        startFocusSession: 'Fokus Seansini Boshlash',
+        createTask: 'Yangi Vazifa',
+        viewProgress: 'Statistikani Ko\'rish'
+    },
+    tasks: {
+        title: 'Vazifalar Boshqaruvi',
+        subtitle: 'O\'quv topshiriqlaringiz va rejalar ro\'yxati',
+        addTask: '+ Vazifa Qo\'shish',
+        pending: 'Bajarilmoqda',
+        completed: 'Bajarildi',
+        priority: 'Muhimlik',
+        dueDate: 'Muddati',
+        subject: 'Fan',
+        noTasks: 'Hozircha vazifalar yo\'q. Yangi vazifa qo\'shing!'
+    },
+    flashcards: {
+        title: 'Fleshkartalar & Lug\'at',
+        subtitle: 'Anki SM-2 algoritmi va tayyor to\'plamlar bilan lug\'at boyligingizni oshiring',
+        myDecks: 'Mening To\'plamlarim',
+        library: 'Standart Kutubxona',
+        createDeck: '+ Fan Qo\'shish',
+        addManual: '+ Qo\'lda Qo\'shish',
+        createAlbum: '+ Yangi Albom Yaratish',
+        aiGenerate: 'AI Yaratish',
+        cardCount: 'ta kartochka',
+        studyNow: 'Hozir O\'rganish',
+        review: 'Takrorlash'
+    },
+    calendar: {
+        title: 'O\'quv Kalendari',
+        subtitle: 'Dars jadvali va muhim imtihon sanalarini rejalashtirish',
+        addEvent: '+ Tadbir Qo\'shish',
+        today: 'Bugun',
+        month: 'Oy',
+        week: 'Hafta'
+    },
+    notes: {
+        title: 'Qaydlar & Konspektlar',
+        subtitle: 'Dars konspektlari, fayllar va aqlli xulosalar',
+        createNote: '+ Yangi Qaydnoma',
+        searchNotes: 'Qaydlardan qidirish...',
+        noNotes: 'Hali qaydnoma yaratilmagan'
+    },
+    focus: {
+        title: 'Fokus Timer',
+        subtitle: 'Pomodoro texnikasi bilan chalg\'imasdan dars qiling',
+        workTime: 'Fokus Vaqti',
+        breakTime: 'Tanaffus',
+        start: 'Boshlash',
+        pause: 'Tanaffus',
+        reset: 'Nolga tushirish',
+        completedSessions: 'Bajarilgan Seanslar'
+    },
+    aiCoach: {
+        title: 'AI Speaking Coach',
+        subtitle: 'Suhbatdosh AI bilan ingliz va yapon tillarida gapirishni mashq qiling',
+        selectPersona: 'Muloqot Personasini Tanlang',
+        startCall: 'Muloqotni Boshlash 🎙️',
+        endCall: 'Tugatish',
+        fluencyScore: 'Ravonlik Balli',
+        feedback: 'AI Fikr-Mulohazalari'
+    },
+    community: {
+        title: 'Jamoa & Hamjamiyat',
+        leaderboard: '🏆 Reyting & Leaderboard',
+        chat: '💬 Umumiy Chat',
+        whiteboard: '🎨 Jamoaviy Whiteboard',
+        studyRooms: '📚 Onlayn Dars Xonalari',
+        topStudents: 'Top O\'quvchilar'
+    },
+    settings: {
+        title: 'Sozlamalar & Profil',
+        profile: 'Profil',
+        aiIntegration: 'AI & Integratsiya',
+        customization: 'Moslashtirish',
+        data: 'Ma\'lumotlar',
+        adminPanel: 'Admin Panel',
+        appLanguage: 'Ilova Tili',
+        selectLanguage: 'Tilni tanlang',
+        theme: 'Display & Mavzu',
+        lightMode: 'Kunduzgi Rejim',
+        darkMode: 'Tungi Rejim'
     }
 };

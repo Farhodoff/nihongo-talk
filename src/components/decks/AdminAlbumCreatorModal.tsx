@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PRESET_DECKS, PresetCard, PresetSubDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { X, Upload, Scissors, CheckCircle2, Sparkles, FolderPlus, FileJson, AlertCircle } from 'lucide-react';
+import { X, Upload, Scissors, CheckCircle2, Sparkles, FolderPlus, FileJson, AlertCircle, Layers } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
 import { supabase } from '../../lib/supabase';
 import { generateUUID } from '../../utils/uuid';
@@ -17,11 +17,16 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
     onClose,
     onAlbumCreated
 }) => {
-    const [mode, setMode] = useState<'json_upload' | 'auto_split'>('json_upload');
+    const [mode, setMode] = useState<'json_upload' | 'auto_split' | 'custom_standalone'>('json_upload');
     const [selectedLevel, setSelectedLevel] = useState<string>('JLPT N3');
     const [partName, setPartName] = useState<string>('1-Qism');
     const [chunkSize, setChunkSize] = useState<number>(50);
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+    // Custom Standalone Album states
+    const [customTitle, setCustomTitle] = useState<string>('Biznes va Ish Yaponchasi (Special Album)');
+    const [customDesc, setCustomDesc] = useState<string>("Suhbatlar va rasmiy muloqot uchun maxsus iboralar to'plami.");
+    const [customBadge, setCustomBadge] = useState<string>('MUSTAQIL');
 
     // JSON upload states
     const [uploadedCards, setUploadedCards] = useState<PresetCard[]>([]);
@@ -88,7 +93,7 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                 createdAt: new Date().toISOString()
             };
 
-            // Save album to Supabase DB table
+            // Save album directly to Supabase DB table
             const { error } = await supabase.from('admin_preset_albums').upsert({
                 id: newAlbum.id,
                 deck_id: newAlbum.deckId,
@@ -113,13 +118,77 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
             if (onAlbumCreated) onAlbumCreated(newAlbum);
 
             toast({
-                title: "🎉 Albom Muvaffaqiyatli Yaratildi!",
+                title: "🎉 Albom DBga Saqlandi!",
                 description: `"${newAlbum.title}" albomiga ${newAlbum.cardCount} ta kartochka biriktirildi.`
             });
             onClose();
         } catch (err: any) {
             console.error("Album creation error:", err);
             toast({ variant: 'destructive', title: "❌ Xatolik", description: err.message || "Albomni saqlashda xatolik yuz berdi." });
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
+    const handleCreateCustomStandaloneAlbum = async () => {
+        if (uploadedCards.length === 0) {
+            toast({ variant: 'destructive', title: "❌ Kartochka yo'q", description: "Iltimos, avval JSON fayl yuklang." });
+            return;
+        }
+
+        if (!customTitle.trim()) {
+            toast({ variant: 'destructive', title: "❌ Sarlavha yo'q", description: "Mustaqil albom sarlavhasini kiriting." });
+            return;
+        }
+
+        setIsProcessing(true);
+        try {
+            const albumId = 'standalone_' + generateUUID();
+
+            const newStandaloneAlbum: PresetSubDeck = {
+                id: albumId,
+                deckId: 'deck_custom_standalone',
+                title: customTitle.trim(),
+                level: customBadge.trim() || 'MUSTAQIL',
+                partNumber: 1,
+                cardCount: uploadedCards.length,
+                cards: uploadedCards,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save directly to Supabase DB table `admin_preset_albums`
+            const { error } = await supabase.from('admin_preset_albums').upsert({
+                id: newStandaloneAlbum.id,
+                deck_id: newStandaloneAlbum.deckId,
+                title: newStandaloneAlbum.title,
+                level: newStandaloneAlbum.level,
+                description: customDesc.trim(),
+                part_number: 1,
+                card_count: newStandaloneAlbum.cardCount,
+                cards: newStandaloneAlbum.cards,
+                created_at: newStandaloneAlbum.createdAt
+            } as any);
+
+            if (error) {
+                console.warn("Supabase standalone album insert warning:", error.message);
+            }
+
+            // Save to localStorage cache as backup
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+            localAlbums.push(newStandaloneAlbum);
+            localStorage.setItem('study_planner_admin_albums', JSON.stringify(localAlbums));
+
+            if (onAlbumCreated) onAlbumCreated(newStandaloneAlbum);
+
+            toast({
+                title: "✨ Mustaqil Albom Muvaffaqiyatli Saqlandi!",
+                description: `"${newStandaloneAlbum.title}" (${newStandaloneAlbum.cardCount} ta card) DBga to'g'ridan-to'g'ri joylandi.`
+            });
+            onClose();
+        } catch (err: any) {
+            console.error("Custom standalone album error:", err);
+            toast({ variant: 'destructive', title: "❌ Xatolik", description: err.message || "Mustaqil albomni saqlashda xatolik." });
         } finally {
             setIsProcessing(false);
         }
@@ -197,38 +266,48 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                 <div className="p-6 bg-gradient-to-r from-rose-900 via-purple-950 to-indigo-900 text-white flex items-center justify-between">
                     <div className="space-y-1">
                         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-white/20 backdrop-blur-md">
-                            <FolderPlus size={14} /> Admin Albom Yaratuvchisi
+                            <FolderPlus size={14} /> Admin Albom & JSON Boshqaruvi
                         </div>
-                        <h2 className="text-xl font-black">50 tadan Bo'lingan Albom Yaratish (JSON Import)</h2>
+                        <h2 className="text-xl font-black">Yangi Albom Yaratish (DB Direct JSON Import)</h2>
                     </div>
                     <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-full transition-all">
                         <X size={20} />
                     </button>
                 </div>
 
-                {/* Mode Selector */}
-                <div className="p-4 bg-muted/40 border-b border-border flex items-center gap-2">
+                {/* Mode Selector Tabs */}
+                <div className="p-3 bg-muted/40 border-b border-border flex items-center gap-2">
                     <button
                         onClick={() => setMode('json_upload')}
-                        className={`flex-1 py-2.5 px-4 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2 ${
+                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
                             mode === 'json_upload' ? 'bg-primary text-primary-foreground shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
                         }`}
                     >
-                        <FileJson size={16} /> JSON Fayl Yuklash & Albom Tuzish
+                        <FileJson size={15} /> Standard Darajali Import
                     </button>
+
                     <button
-                        onClick={() => setMode('auto_split')}
-                        className={`flex-1 py-2.5 px-4 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-2 ${
-                            mode === 'auto_split' ? 'bg-primary text-primary-foreground shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        onClick={() => setMode('custom_standalone')}
+                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'custom_standalone' ? 'bg-emerald-600 text-white shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
                         }`}
                     >
-                        <Scissors size={16} /> Katta To'plamni 50 tadan Bo'lish
+                        <Layers size={15} /> Mustaqil Maxsus Albom (DB)
+                    </button>
+
+                    <button
+                        onClick={() => setMode('auto_split')}
+                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'auto_split' ? 'bg-purple-600 text-white shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        }`}
+                    >
+                        <Scissors size={15} /> Avto 50 tadan Bo'lish
                     </button>
                 </div>
 
                 {/* Body */}
                 <div className="p-6 space-y-6 flex-1 overflow-y-auto">
-                    {mode === 'json_upload' ? (
+                    {mode === 'json_upload' && (
                         <div className="space-y-5">
                             <div className="grid grid-cols-2 gap-4 text-xs">
                                 <div>
@@ -298,7 +377,77 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                 )}
                             </div>
                         </div>
-                    ) : (
+                    )}
+
+                    {mode === 'custom_standalone' && (
+                        <div className="space-y-5 text-xs">
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 flex items-start gap-3 text-emerald-600 dark:text-emerald-400">
+                                <Sparkles size={20} className="shrink-0 mt-0.5 text-emerald-500" />
+                                <div>
+                                    <p className="font-extrabold">Mustaqil Maxsus Albom Yaratish (Super Admin):</p>
+                                    <p className="text-[11px] opacity-90 mt-0.5">
+                                        Standart darajalardan (JLPT/IELTS) tashqari har qanday mustaqil mavzu uchun yangi Albom tuzing. JSON kartochkalar to'g'ridan-to'g'ri DBga saqlanadi.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="font-extrabold text-foreground block mb-1.5">Albom Sarlavhasi:</label>
+                                    <input
+                                        type="text"
+                                        value={customTitle}
+                                        onChange={e => setCustomTitle(e.target.value)}
+                                        placeholder="Kompaniya & Biznes Yaponchasi"
+                                        className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="font-extrabold text-foreground block mb-1.5">Kategoriya / Yorliq (Badge):</label>
+                                    <input
+                                        type="text"
+                                        value={customBadge}
+                                        onChange={e => setCustomBadge(e.target.value)}
+                                        placeholder="MUSTAQIL, SPECIAL, BIZNES"
+                                        className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="font-extrabold text-foreground block mb-1.5">Albom Tavsifi (Description):</label>
+                                <textarea
+                                    rows={2}
+                                    value={customDesc}
+                                    onChange={e => setCustomDesc(e.target.value)}
+                                    placeholder="Albom haqida qisqacha ma'lumot..."
+                                    className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-medium outline-none resize-none"
+                                />
+                            </div>
+
+                            {/* JSON Drag & Drop */}
+                            <div className="border-2 border-dashed border-emerald-500/40 hover:border-emerald-500 rounded-2xl p-6 text-center space-y-3 bg-emerald-500/5 transition-all">
+                                <FileJson className="mx-auto text-emerald-500 animate-bounce" size={36} />
+                                <div>
+                                    <p className="text-xs font-extrabold text-foreground">Mustaqil Albom JSON Faylini Yuklang</p>
+                                    <p className="text-[11px] text-muted-foreground mt-0.5">Format: [{`{"front":"word","back":"meaning"}`}]</p>
+                                </div>
+                                <label className="inline-block px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl cursor-pointer shadow-sm">
+                                    <Upload size={14} className="inline mr-1.5" /> JSON Fayl Tanlash
+                                    <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
+                                </label>
+
+                                {jsonFileName && (
+                                    <div className="pt-2 flex items-center justify-center gap-2 text-xs font-black text-emerald-500">
+                                        <CheckCircle2 size={16} /> {jsonFileName} ({uploadedCards.length} ta card tayyor)
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {mode === 'auto_split' && (
                         <div className="space-y-5 text-xs">
                             <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 flex items-start gap-3 text-amber-600 dark:text-amber-400">
                                 <AlertCircle size={20} className="shrink-0 mt-0.5" />
@@ -356,6 +505,14 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                             className="px-6 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs rounded-xl shadow-lg flex items-center gap-2"
                         >
                             <Sparkles size={16} /> JSON Albomni Yaratish ({uploadedCards.length} ta card)
+                        </Button>
+                    ) : mode === 'custom_standalone' ? (
+                        <Button
+                            disabled={isProcessing || uploadedCards.length === 0 || !customTitle.trim()}
+                            onClick={handleCreateCustomStandaloneAlbum}
+                            className="px-6 py-2 bg-gradient-to-r from-emerald-600 to-indigo-600 text-white font-black text-xs rounded-xl shadow-lg flex items-center gap-2"
+                        >
+                            <Sparkles size={16} /> Mustaqil Albomni DBga Saqlash ({uploadedCards.length} ta card)
                         </Button>
                     ) : (
                         <Button

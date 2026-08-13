@@ -2,6 +2,7 @@ import { CheckCircle2 } from 'lucide-react';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
+import { useLanguage } from '../context/LanguageContext';
 import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
@@ -32,6 +33,7 @@ const FOCUS_TOUR_STEPS: LocalTourStep[] = [
 const FocusPage: React.FC = () => {
     const { subjects, addSession, awardXP, tasks, updateTaskStatus } = useStudyData();
     const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setCustomTime, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
+    const { t } = useLanguage();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);
@@ -161,8 +163,8 @@ const FocusPage: React.FC = () => {
             </div>
 
             <div className="mb-4 text-center">
-                <h2 className="text-3xl font-bold text-foreground mb-2">Fokus Mod</h2>
-                <p className="text-muted-foreground">Har bir sessiyada unumli bo'ling.</p>
+                <h2 className="text-3xl font-bold text-foreground mb-2">{t('focus.title')}</h2>
+                <p className="text-muted-foreground">{t('focus.subtitle')}</p>
             </div>
 
             <div data-tour="focus-sound-mixer">

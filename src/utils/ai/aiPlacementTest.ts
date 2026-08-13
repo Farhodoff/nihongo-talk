@@ -1,5 +1,4 @@
-import { getAIConfig } from './aiConfig';
-import { callDeepSeek } from '../deepseek';
+import { callSelectedAIProvider } from './aiCore';
 
 export interface PlacementQuestion {
     id: string;
@@ -39,21 +38,13 @@ export const generatePlacementQuestions = async (type: 'jlpt' | 'ielts'): Promis
              }
            ]`;
 
-    const config = getAIConfig();
     try {
-        const response = await callDeepSeek(
-            prompt,
-            config.deepseekKey || '',
-            undefined,
-            true,
-            config.deepseekModel,
-            config.deepseekThinkingMode
-        );
+        const response = await callSelectedAIProvider(prompt, undefined, true);
         const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(cleanedText);
-    } catch (dsErr) {
-        console.warn("DeepSeek placement generation failed:", dsErr);
-        throw new Error("Savollarni generatsiya qilishda xatolik yuz berdi.");
+    } catch (err) {
+        console.warn("AI placement generation failed:", err);
+        throw new Error("Savollarni generatsiya qilishda xatolik yuz berdi. Iltimos, AI sozlamalarini tekshiring.");
     }
 };
 
@@ -89,20 +80,12 @@ export const evaluatePlacementTest = async (
            Transcript:
            ${transcript}`;
 
-    const config = getAIConfig();
     try {
-        const response = await callDeepSeek(
-            prompt,
-            config.deepseekKey || '',
-            undefined,
-            true,
-            config.deepseekModel,
-            config.deepseekThinkingMode
-        );
+        const response = await callSelectedAIProvider(prompt, undefined, true);
         const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(cleanedText);
-    } catch (dsErr) {
-        console.warn("DeepSeek placement evaluation failed:", dsErr);
+    } catch (err) {
+        console.warn("AI placement evaluation failed:", err);
     }
 
     return {

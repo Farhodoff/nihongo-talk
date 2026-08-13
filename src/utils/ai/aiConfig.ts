@@ -407,3 +407,16 @@ export const requestWithRetry = async <T>(
         throw new Error(parseAIError(error));
     }
 };
+
+/**
+ * Fallback AI execution using Google Gemini model
+ */
+export const callGeminiFallback = async (prompt: string, systemPrompt?: string): Promise<string> => {
+    return requestWithRetry(async (genAI) => {
+        if (!genAI) throw new Error("Gemini AI instance unavailable");
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
+        const result = await model.generateContent(fullPrompt);
+        return result.response.text();
+    });
+};

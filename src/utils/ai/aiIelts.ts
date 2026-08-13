@@ -1,5 +1,5 @@
 import { getAIConfig } from './aiConfig';
-import { callDeepSeek } from '../deepseek';
+import { callSelectedAIProvider } from './aiCore';
 import { generateAlgorithmicIeltsPlan } from '../curriculum/ieltsAlgorithmicPlanner';
 
 export interface IeltsStudyPlanDay {
@@ -120,35 +120,23 @@ export const generateIeltsStudyPlan = async (
       }
     `;
 
-    const config = getAIConfig();
+    try {
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const parsed = JSON.parse(cleanedText);
+        const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+        const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
+            ? enrichIeltsPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
+            : algorithmicDailyPlan;
 
-    // 1. Try DeepSeek first if configured or available
-    if (config.provider === 'deepseek' || config.deepseekKey) {
-        try {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            const parsed = JSON.parse(cleanedText);
-            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
-                ? enrichIeltsPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
-                : algorithmicDailyPlan;
-
-            return {
-                headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
-                summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: finalDailyPlan,
-                recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
-            };
-        } catch (dsErr) {
-            console.warn("DeepSeek study plan failed, trying backend proxy fallback...", dsErr);
-        }
+        return {
+            headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
+            summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
+            dailyPlan: finalDailyPlan,
+            recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
+        };
+    } catch (dsErr) {
+        console.warn("AI study plan generation failed, using fallback plan:", dsErr);
     }
 
     // 3. Fallback: Call backend proxy /api/ai
@@ -273,15 +261,7 @@ export const evaluateIeltsEssay = async (
     `;
 
     try {
-        const config = getAIConfig();
-        const response = await callDeepSeek(
-            prompt,
-            config.deepseekKey || '',
-            undefined,
-            true,
-            config.deepseekModel,
-            config.deepseekThinkingMode
-        );
+        const response = await callSelectedAIProvider(prompt, undefined, true);
         const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
         const reportData = JSON.parse(cleanedText);
 
@@ -370,7 +350,7 @@ export const evaluateIeltsSpeakingFullMock = async (
     const config = getAIConfig();
     if (config.provider === 'deepseek' || config.deepseekKey) {
         try {
-            const response = await callDeepSeek(prompt, config.deepseekKey || '', undefined, true, config.deepseekModel, config.deepseekThinkingMode);
+            const response = await callSelectedAIProvider(prompt, undefined, true);
             const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
             const parsed = JSON.parse(cleanedText);
             return {

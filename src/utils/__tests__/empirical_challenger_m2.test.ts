@@ -142,7 +142,7 @@ describe('EMPIRICAL CHALLENGE 3: Seamless Silent Fallback for Ollama and DeepSee
         const cards = await generateFlashcardsWithAI('Math', 1);
 
         expect(warnSpy).toHaveBeenCalledWith(
-            expect.stringContaining('[AI Fallback] Ollama failed in generateFlashcardsWithAI'),
+            expect.stringContaining('[AI Fallback] Ollama failed'),
             expect.any(Error)
         );
         expect(cards).toEqual([{ front: 'Empirical Front', back: 'Empirical Back' }]);

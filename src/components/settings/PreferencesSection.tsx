@@ -1,6 +1,7 @@
 import React from 'react';
-import { Bell, Moon, Sun, HelpCircle } from 'lucide-react';
+import { Bell, Moon, Sun, HelpCircle, Globe } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -18,10 +19,61 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     onToggleTheme,
     onToggleNotifications
 }) => {
+    const { language, setLanguage, t } = useLanguage();
+
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
-            {/* Theme Selector Section */}
+            {/* Language Selector Section */}
             <div>
+                <div className="flex items-center justify-between mb-5">
+                    <div>
+                        <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                            <Globe size={20} className="text-primary" />
+                            {t('settings.appLanguage')}
+                        </h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">{t('settings.selectLanguage')}</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Uzbek Language Card */}
+                    <button
+                        type="button"
+                        onClick={() => setLanguage('uz')}
+                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
+                            language === 'uz'
+                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                    >
+                        <div className="text-3xl shrink-0">🇺🇿</div>
+                        <div>
+                            <div className="text-sm font-bold text-foreground">O'zbekcha</div>
+                            <div className="text-xs text-muted-foreground">O'zbek tili (Uzbek)</div>
+                        </div>
+                    </button>
+
+                    {/* English Language Card */}
+                    <button
+                        type="button"
+                        onClick={() => setLanguage('en')}
+                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
+                            language === 'en'
+                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                    >
+                        <div className="text-3xl shrink-0">🇬🇧</div>
+                        <div>
+                            <div className="text-sm font-bold text-foreground">English</div>
+                            <div className="text-xs text-muted-foreground">English Language</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            {/* Theme Selector Section */}
+            <div className="pt-6 border-t border-border">
                 <div className="flex items-center justify-between mb-5">
                     <div>
                         <h3 className="text-lg font-bold text-foreground">Display & Mavzu</h3>

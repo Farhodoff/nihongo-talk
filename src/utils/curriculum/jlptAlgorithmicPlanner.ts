@@ -152,7 +152,7 @@ export const generateAlgorithmicJlptPlan = (
     _currentLevel: string,
     targetLevel: string,
     durationDays: number,
-    planType: 'special' | 'jlpt' = 'jlpt',
+    planType: string = 'jlpt',
     specialGoal: string = ''
 ): JlptStudyPlanDay[] => {
 

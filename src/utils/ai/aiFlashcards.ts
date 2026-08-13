@@ -1,9 +1,8 @@
-import { aiCache, getAIConfig, parseAIError } from './aiConfig';
-import { callOllama } from '../ollama';
-import { callDeepSeek } from '../deepseek';
+import { aiCache, parseAIError } from './aiConfig';
+import { callSelectedAIProvider } from './aiCore';
 
 /**
- * Generates flashcards using AI (DeepSeek Engine). 
+ * Generates flashcards using selected AI engine (Ollama, Gemini, or DeepSeek). 
  * Supports batching for large counts to prevent output truncation and token waste.
  */
 export const generateFlashcardsWithAI = async (
@@ -62,33 +61,11 @@ export const generateFlashcardsWithAI = async (
     `;
 
     try {
-        const config = getAIConfig();
-        let json: unknown[] | null = null;
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
 
-        if (config.provider === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                json = JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateFlashcardsWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!json) {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
-        }
-
-        if (!Array.isArray(json)) throw new Error("Invalid response format from DeepSeek");
+        if (!Array.isArray(json)) throw new Error("Invalid response format from AI Provider");
 
         const result = json.slice(0, count).map((item: unknown) => {
             const card = item as { front?: string; back?: string };
@@ -102,13 +79,13 @@ export const generateFlashcardsWithAI = async (
         return result;
 
     } catch (error: unknown) {
-        console.error('DeepSeek AI Flashcard Error:', error);
+        console.error('AI Flashcard Error:', error);
         throw new Error(parseAIError(error));
     }
 };
 
 /**
- * Generates flashcards based on a specific study note (markdown content) via DeepSeek.
+ * Generates flashcards based on a specific study note (markdown content) via selected AI.
  */
 export const generateFlashcardsFromNote = async (
     noteContent: string,
@@ -124,33 +101,11 @@ export const generateFlashcardsFromNote = async (
     `;
 
     try {
-        const config = getAIConfig();
-        let json: unknown[] | null = null;
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
 
-        if (config.provider === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                json = JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!json) {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
-        }
-
-        if (!Array.isArray(json)) throw new Error("Invalid response format from DeepSeek");
+        if (!Array.isArray(json)) throw new Error("Invalid response format from AI Provider");
 
         return json.slice(0, count).map((item: unknown) => {
             const card = item as { front?: string; back?: string };
@@ -161,7 +116,7 @@ export const generateFlashcardsFromNote = async (
         });
 
     } catch (error: unknown) {
-        console.error('DeepSeek AI Flashcards from Note Error:', error);
+        console.error('AI Flashcards from Note Error:', error);
         throw new Error(parseAIError(error));
     }
 };

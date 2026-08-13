@@ -11,7 +11,7 @@ import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate, DatabaseCoachSession } from '../types/supabase-types';
 import { generateUUID } from '../utils/uuid';
-import { LeaderboardService } from '../services/LeaderboardService';
+
 
 
 interface Settings {
@@ -1152,7 +1152,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             setGamificationState(prev => {
                 const newXp = updates.totalXp ?? prev.totalXp;
                 const newStreak = updates.currentStreak ?? prev.currentStreak;
-                LeaderboardService.syncUserProgress(newXp, newStreak);
                 return {
                     ...prev,
                     totalXp: newXp,

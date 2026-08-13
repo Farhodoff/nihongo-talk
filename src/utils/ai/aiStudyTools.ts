@@ -1,6 +1,5 @@
-import { aiCache, getAIConfig, parseAIError } from './aiConfig';
-import { callOllama } from '../ollama';
-import { callDeepSeek } from '../deepseek';
+import { aiCache, parseAIError } from './aiConfig';
+import { callSelectedAIProvider } from './aiCore';
 
 export interface SmartResource {
     title: string;
@@ -19,386 +18,395 @@ export interface FullStudyPlan {
     resources: SmartResource[];
 }
 
-export const generateFullStudyPlan = async (
-    topic: string,
-    daysUntilExam: number,
-    hoursPerDay: number,
-    level: 'beginner' | 'intermediate' | 'advanced' = 'beginner',
-    learningStyle: 'visual' | 'reading' | 'practical' = 'visual',
+export interface ExtractedVocabItem {
+    front: string;
+    back: string;
+    word?: string;
+    reading?: string;
+    meaning?: string;
+    phonetic?: string;
+    example?: string;
+}
+
+export const extractVocabularyFromText = async (
+    text: string,
     _userKey?: string
-): Promise<FullStudyPlan> => {
-    const cacheKey = `plan-${topic}-${daysUntilExam}-${hoursPerDay}-${level}-${learningStyle}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as FullStudyPlan;
-
-    const levelDescriptions = {
-        beginner: "This user is completely new to the topic. Explain fundamentals simply and clearly without jargon.",
-        intermediate: "This user knows the basics. Skip introductions and focus on core concepts and deeper understanding.",
-        advanced: "This user is experienced. Focus entirely on advanced topics, edge cases, best practices, and complex problems."
-    };
-
-    const styleDescriptions = {
-        visual: "Focus heavily on recommending YouTube video tutorials, visual diagrams, and interactive content.",
-        reading: "Focus heavily on recommending official documentation, books, and detailed articles/blogs.",
-        practical: "Focus heavily on coding exercises, hands-on projects, platforms like LeetCode/HackerRank, and practical labs."
-    };
-
+): Promise<ExtractedVocabItem[]> => {
     const prompt = `
-        Sen professional Akademik Mentor va O'quv Rejalashtiruvchi uztozsan.
-        Mavzu: "${topic}".
-        Muddati: ${daysUntilExam} kun.
-        Kunlik vaqt: ${hoursPerDay} soat.
-        Foydalanuvchi darajasi: ${level} (${levelDescriptions[level]}).
-        O'rganish uslubi: ${learningStyle} (${styleDescriptions[learningStyle]}).
-
-        VAZIFA 1: KUNLIK JADVAL (Kuniga bittadan vazifa)
-        Mavzuni foydalanuvchi darajasiga qarab to'g'ri taqsimla.
-        - Har bir kun uchun bitta vazifa (0 dan ${daysUntilExam - 1} gacha).
-        - Har bir vazifaning "description" qismida: "Nima uchun bu muhim?" va "Qanday qilib amaliyot qilish kerak?" degan savollarga qisqacha o'zbek tilida javob yoz.
-        - Agar muddat 6 kundan ko'p bo'lsa, har haftada 1 kunni "Takrorlash (Review)" yoki "Amaliyot" uchun ajrat.
-
-        VAZIFA 2: ENG ZO'R RESURSLAR (Aynan 6 ta taqdim et)
-        Foydalanuvchining o'rganish uslubiga (${learningStyle}) eng mos keladigan eng sifatli 6 ta resursni tanla.
-        - Ta'riflar (description) albatta o'zbek tilida bo'lishi shart!
-        - "link" (havola) qismiga ishlamaydigan fake url bermang! Agar aniq urlni bilmasangiz, qidiruv tizimi urlidan foydalaning.
-
-        OUTPUT FORMAT:
-        Faqat va faqat YAGONA VALID JSON obyekt qaytar. Hech qanday markdown, izoh yoki text qo'shma. JSON struktura quyidagicha bo'lishi shart:
-        
+      Extract key educational vocabulary items (words, terms, kanji/phrases) from this text:
+      "${text.substring(0, 4000)}"
+      
+      Output Format: VALID JSON ARRAY of objects:
+      [
         {
-          "schedule": [
-            { 
-              "title": "Vazifa nomi", 
-              "dayOffset": 0,
-              "duration": ${hoursPerDay * 60},
-              "description": "Nima uchun muhim va qanday amaliyot qilish bo'yicha ko'rsatma..." 
-            }
-          ],
-          "resources": [
-            {
-              "title": "Resurs nomi",
-              "type": "video" | "article" | "book" | "course",
-              "description": "Nima uchun bu resurs yaxshi ekanligi haqida qisqacha o'zbekcha ta'rif.",
-              "link": "https://www.youtube.com/results?search_query=react+crash+course"
-            }
-          ]
+          "word": "So'z yoki atama",
+          "reading": "O'qilish yoki romaji (agar bo'lsa)",
+          "meaning": "Ma'nosi (O'zbekcha)",
+          "example": "Namuna jumla (agar bo'lsa)"
         }
+      ]
+      Constraint: ONLY return valid JSON.
     `;
-
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateFullStudyPlan, falling back to DeepSeek:", err);
-            }
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleaned = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleaned);
+        if (Array.isArray(json)) {
+            return json.map((item: any) => ({
+                front: String(item.front || item.word || item.term || ''),
+                back: String(item.back || item.meaning || ''),
+                word: String(item.word || item.front || ''),
+                meaning: String(item.meaning || item.back || ''),
+                reading: item.reading ? String(item.reading) : undefined,
+                phonetic: item.phonetic || item.reading ? String(item.phonetic || item.reading) : undefined,
+                example: item.example ? String(item.example) : undefined
+            }));
         }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
-        const json = JSON.parse(cleanedText);
-
-        if (!json.schedule || !Array.isArray(json.schedule)) throw new Error("Invalid Schedule Format");
-
-        const resources = (json.resources || []).map((item: unknown) => {
-            const resource = item as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string };
-            return {
-                ...resource,
-                link: resource.link.startsWith('http') ? resource.link :
-                    resource.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(resource.link)}` :
-                        `https://www.google.com/search?q=${encodeURIComponent(resource.link)}`
-            };
-        });
-
-        const result = {
-            schedule: json.schedule,
-            resources: resources
-        };
-        
-        aiCache.set(cacheKey, result);
-        return result;
-    } catch (e) {
-        console.error("AI Plan Error:", e);
-        throw new Error(parseAIError(e));
-    }
-};
-
-export const generateSmartResources = async (
-    topic: string,
-    learningStyle: 'visual' | 'reading' | 'practical' = 'visual',
-    _userKey?: string
-): Promise<{ title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string }[]> => {
-    const cacheKey = `res-${topic}-${learningStyle}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string }[];
-
-    const prompt = `
-        Mavzu: "${topic}".
-        O'rganish uslubi: ${learningStyle}.
-        Vazifa: Ushbu mavzuni o'rganish uchun eng mos keladigan 4 ta resursni topib ber.
-        Javob Formati: Faqat JSON array bo'lsin: [{"title": "Resurs nomi", "type": "video"|"article"|"book"|"course", "description": "Qisqacha ta'rif", "link": "Aniq URL"}]
-    `;
-
-    try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateSmartResources, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
-        const json = JSON.parse(cleanedText);
-
-        if (!Array.isArray(json)) throw new Error("Invalid Format");
-
-        const result = json.map((item: unknown) => {
-            const resource = item as { title: string; type: 'video' | 'article' | 'book' | 'course'; description: string; link: string };
-            return {
-                ...resource,
-                link: resource.link.startsWith('http') ? resource.link :
-                    resource.type === 'video' ? `https://www.youtube.com/results?search_query=${encodeURIComponent(resource.link)}` :
-                        `https://www.google.com/search?q=${encodeURIComponent(resource.link)}`
-            };
-        });
-        
-        aiCache.set(cacheKey, result);
-        return result;
-    } catch (e) {
-        console.error("Smart Resource Error:", e);
+        return [];
+    } catch {
         return [];
     }
 };
 
-export const generateStudyInsight = async (
-    stats: { subject: string; hours: number; mood: number; pendingTasks: number; masteryScore: number }[],
+export interface AITimetableScheduleItem {
+    id?: string;
+    title: string;
+    description?: string;
+    date?: string;
+    startTime?: string;
+    dayOffset: number;
+    timeStr: string;
+    subject: string;
+    topic: string;
+    durationMinutes: number;
+}
+
+export const generateAITimetable = async (
+    goalDescription: string,
+    dailyHours: number = 3,
+    daysCount: number = 7,
     _userKey?: string
-): Promise<{ subject: string; advice: string }[]> => {
-    const cacheKey = `insight-${JSON.stringify(stats)}`;
-    if (aiCache.has(cacheKey)) return aiCache.get(cacheKey) as { subject: string; advice: string }[];
-
+): Promise<AITimetableScheduleItem[]> => {
     const prompt = `
-        Foydalanuvchi o'quv statistikasi: ${JSON.stringify(stats)}
-        Vazifa: Eng ko'p e'tibor talab qiladigan 1-2 ta fanni aniqlang va aniq, motivatsiya beruvchi maslahat bering.
-        
-        Javob Formati: Faqat JSON array ko'rinishida bo'lsin: [{"subject": "Fan nomi", "advice": "O'zbek tilida aniq maslahat"}].
-        Cheklov: Maksimal 2 ta taklif. Kirish so'zlari yoki qo'shimcha matn qo'shmang.
+      Goal: "${goalDescription}"
+      Daily Available Hours: ${dailyHours} hours
+      Days Count: ${daysCount} days
+      
+      Task: Generate a realistic, structured daily study schedule for the student in Uzbek.
+      Output Format: VALID JSON ARRAY:
+      [
+        {
+          "dayOffset": 0,
+          "timeStr": "09:00 - 10:30",
+          "subject": "Fan nomi",
+          "topic": "O'rganiladigan mavzu",
+          "durationMinutes": 90
+        }
+      ]
+      Constraint: ONLY return valid JSON.
     `;
-
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateStudyInsight, falling back to DeepSeek:", err);
-            }
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleaned = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleaned);
+        if (Array.isArray(json)) {
+            const today = new Date();
+            return json.map((item: any, idx: number) => {
+                const dayOffset = Math.min(daysCount - 1, Math.max(0, parseInt(item.dayOffset) || 0));
+                const targetDate = new Date(today.valueOf() + dayOffset * 24 * 60 * 60 * 1000);
+                const dateStr = targetDate.toISOString().split('T')[0];
+                return {
+                    id: `schedule_${idx + 1}`,
+                    title: String(item.title || item.topic || item.subject || 'Dars seansi'),
+                    description: String(item.description || item.topic || ''),
+                    date: String(item.date || dateStr),
+                    startTime: String(item.startTime || item.timeStr?.split('-')[0]?.trim() || '09:00'),
+                    dayOffset,
+                    timeStr: String(item.timeStr || '09:00 - 10:30'),
+                    subject: String(item.subject || 'Dars'),
+                    topic: String(item.topic || 'Mavzu'),
+                    durationMinutes: parseInt(item.durationMinutes || item.duration) || 60
+                };
+            });
         }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
-        const json = JSON.parse(cleanedText);
-
-        if (!Array.isArray(json)) return [];
-        aiCache.set(cacheKey, json);
-        return json;
-    } catch (e) {
-        console.error("AI Insight Error", e);
+        return [];
+    } catch {
         return [];
     }
 };
 
 export interface ExamQuestion {
-    id: number;
+    id: string;
     question: string;
     options: string[];
-    correctAnswer: number;
+    answerIndex: number;
+    correctAnswer: any;
     explanation: string;
 }
 
 export const generateExamWithAI = async (
-    subjectName: string,
-    notesContent: string,
-    questionCount: number = 5,
+    topic: string,
+    param2?: any,
+    param3?: any,
+    _param4?: any,
     _userKey?: string
 ): Promise<ExamQuestion[]> => {
+    let questionCount = typeof param2 === 'number' ? param2 : (typeof param3 === 'number' ? param3 : 5);
+    let difficulty = typeof param3 === 'string' ? param3 : 'medium';
+    let extraContext = typeof param2 === 'string' ? param2 : '';
+
     const prompt = `
-      Fan nomi: "${subjectName}"
-      Fanga oid Konspektlar va Flashcardlar: "${notesContent.substring(0, 4000)}"
+      Topic: "${topic}"
+      ${extraContext ? `Context: "${extraContext.substring(0, 3000)}"` : ''}
+      Question Count: ${questionCount}
+      Difficulty: ${difficulty}
+      Language: Uzbek (O'zbek tili)
       
-      Vazifa: Yuqoridagi ma'lumotlar va fan nomi asosida aynan ${questionCount} ta multiple choice (savol va 4 ta variantli) test savollarini yarating. 
-      Savollar fanga va konspektlarga mos bo'lsin. Agar konspekt bo'sh bo'lsa, fanga oid umumiy bilimlar bo'yicha savol bering.
-      Til: O'zbek tili.
-      
-      Javob Formati: Faqat quyidagi strukturali VALID JSON array bo'lsin:
+      Task: Create a mock exam test.
+      Output Format: VALID JSON ARRAY:
       [
         {
-          "id": 1,
-          "question": "Savol matni",
-          "options": ["Variant A", "Variant B", "Variant C", "Variant D"],
+          "id": "q1",
+          "question": "Savol matni?",
+          "options": ["A", "B", "C", "D"],
+          "answerIndex": 0,
           "correctAnswer": 0,
-          "explanation": "Bu javobning to'g'riligi sababi va boshqa variantlar noto'g'riligi izohi (O'zbek tilida)"
+          "explanation": "To'g'ri javob izohi"
         }
       ]
+      Constraint: ONLY return valid JSON.
     `;
-
     try {
-        const config = getAIConfig();
-        let text: string | null = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                text = await callOllama(prompt);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateExamWithAI, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!text) {
-            text = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-        }
-
-        const cleanedText = (text || '').replace(/```json/g, "").replace(/```/g, "").trim();
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
         const json = JSON.parse(cleanedText);
 
-        if (!Array.isArray(json)) throw new Error("Format xato");
-        return json.map((item: unknown) => {
-            const temp = item as { id?: number; question?: string; options?: string[]; correctAnswer?: number; explanation?: string };
-            return {
-                id: Number(temp.id || 0),
-                question: String(temp.question || ''),
-                options: Array.isArray(temp.options) ? temp.options.map(String) : [],
-                correctAnswer: Number(temp.correctAnswer ?? 0),
-                explanation: String(temp.explanation || '')
-            };
-        });
-    } catch (e) {
-        console.error("AI Exam Generation Error", e);
-        throw new Error(parseAIError(e));
+        if (Array.isArray(json)) {
+            return json.map((item: any, idx: number) => {
+                const options = Array.isArray(item.options) ? item.options.map(String) : ['A', 'B', 'C', 'D'];
+                const answerIndex = typeof item.answerIndex === 'number' ? item.answerIndex : (typeof item.correctAnswer === 'number' ? item.correctAnswer : 0);
+                return {
+                    id: `q_${idx + 1}`,
+                    question: String(item.question || 'Savol'),
+                    options,
+                    answerIndex,
+                    correctAnswer: answerIndex,
+                    explanation: String(item.explanation || '')
+                };
+            });
+        }
+        return [];
+    } catch {
+        return [];
     }
 };
 
-export interface AITimetableScheduleItem {
-    title: string;
-    description: string;
-    date: string; // YYYY-MM-DD
-    startTime: string; // HH:mm
-    durationMinutes: number;
-    eventType: 'study' | 'exam' | 'reminder';
-}
-
-export const generateAITimetable = async (
-    goalDescription: string,
-    dailyHours: number,
-    daysCount: number = 7
-): Promise<AITimetableScheduleItem[]> => {
-    const todayStr = new Date().toISOString().split('T')[0];
+export const generateMindMapWithAI = async (
+    topic: string,
+    _userKey?: string
+): Promise<string> => {
     const prompt = `
-      You are an expert AI Study Planner & Academic Mentor.
-      The user wants an automated study timetable for the goal: "${goalDescription}".
-      Daily study limit: ${dailyHours} hours per day.
-      Generate a realistic, structured study schedule starting from today (${todayStr}) for the next ${daysCount} days.
+      Topic: "${topic}"
+      Task: Generate a Mermaid.js diagram definition (graph TD or mindmap) explaining this topic hierarchical structure in Uzbek.
+      Constraint: ONLY return valid Mermaid markup string starting with \`graph TD\` or \`mindmap\`. No markdown block wraps.
+    `;
+    try {
+        const response = await callSelectedAIProvider(prompt, undefined, false);
+        return response.replace(/```mermaid/g, "").replace(/```/g, "").trim();
+    } catch {
+        return `graph TD\n    A[${topic}] --> B[Asosiy tushunchalar]`;
+    }
+};
 
-      Return JSON array of objects with the exact schema:
-      [
-        {
-          "title": "Subject/Topic Title in Uzbek (e.g. IELTS Reading Mock Test 1)",
-          "description": "Specific action plan in Uzbek",
-          "date": "YYYY-MM-DD",
-          "startTime": "HH:mm (e.g. 09:00, 14:00, 18:00)",
-          "durationMinutes": 60,
-          "eventType": "study"
-        }
-      ]
+export const generateSmartResources = async (
+    subjectName: string,
+    topicCount: number = 3,
+    _userKey?: string
+): Promise<SmartResource[]> => {
+    const cacheKey = `smart-resources-${subjectName}-${topicCount}`;
+    if (aiCache.has(cacheKey)) {
+        return aiCache.get(cacheKey) as SmartResource[];
+    }
 
-      Constraint: Return ONLY valid JSON array without any markdown formatting or commentary.
+    const prompt = `
+      Subject: "${subjectName}"
+      Task: Recommend ${topicCount} high-quality, practical learning resources (YouTube videos, free online courses, authoritative articles, or classic books) specifically for mastering this subject.
+      Language: Uzbek for titles/descriptions, valid HTTP URLs for links (e.g. https://youtube.com, https://coursera.org, https://khanacademy.org).
+      
+      Output Format: A VALID JSON array of objects with keys:
+      - "title": string (resource title in Uzbek)
+      - "type": one of ["video", "article", "book", "course"]
+      - "description": string (short 1-sentence summary of why it's useful in Uzbek)
+      - "link": string (a valid web URL)
+      
+      Constraint: ONLY return the JSON array. No preamble or markdown formatting.
     `;
 
     try {
-        const config = getAIConfig();
-        let items: any = null;
+        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
 
-        if (config.provider === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                items = JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in generateAITimetable, falling back to DeepSeek:", err);
-            }
+        if (!Array.isArray(json)) throw new Error("Invalid response format from AI Provider");
+
+        const result: SmartResource[] = json.map((item: any) => ({
+            title: String(item.title || 'Resurs'),
+            type: ['video', 'article', 'book', 'course'].includes(item.type) ? item.type : 'article',
+            description: String(item.description || ''),
+            link: String(item.link || 'https://google.com')
+        }));
+
+        aiCache.set(cacheKey, result);
+        return result;
+    } catch (error) {
+        console.error('Smart Resources Error:', error);
+        throw new Error(parseAIError(error));
+    }
+};
+
+export const generateStudyInsight = async (
+    subjectsStats: { name: string; hours: number; progress: number; mastery: number }[],
+    _userKey?: string
+): Promise<{ subject: string; advice: string }[]> => {
+    const prompt = `
+      Student Statistics:
+      ${JSON.stringify(subjectsStats, null, 2)}
+      
+      Task: Act as an expert AI Study Mentor. Analyze the student's study time, completion progress, and mastery scores across subjects.
+      Generate 2-3 personalized, actionable advice items (insights) to help them balance their weak areas and maintain momentum.
+      Language: Uzbek (O'zbek tili).
+      
+      Output Format: A VALID JSON array of objects:
+      [
+        {
+          "subject": "Fan nomi (masalan, Matematika)",
+          "advice": "Tavsiya matni (masalan, So'nggi haftada o'zlashtirish 45% ga tushdi, har kuni 25 daqiqa Pomodoro bag'ishlang.)"
         }
+      ]
+      Constraint: ONLY return the JSON array. No markdown backticks or preamble.
+    `;
 
-        if (!items) {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            items = JSON.parse(cleanedText);
-        }
+    try {
+        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
 
-        if (Array.isArray(items)) {
-            return items.map(item => ({
-                title: item.title || 'Dars Mashg\'uloti',
-                description: item.description || 'AI tomonidan rejalashtirilgan mashg\'ulot',
-                date: item.date || todayStr,
-                startTime: item.startTime || '10:00',
-                durationMinutes: typeof item.durationMinutes === 'number' ? item.durationMinutes : 60,
-                eventType: item.eventType || 'study'
+        if (Array.isArray(json)) {
+            return json.map(item => ({
+                subject: String(item.subject || 'Umumiy'),
+                advice: String(item.advice || 'O\'qish jadvalingizni muntazam davom ettiring.')
             }));
         }
         return [];
-    } catch (err) {
-        console.error("AI Timetable Error:", err);
+    } catch (error) {
+        console.error('Study Insight Error:', error);
         return [];
+    }
+};
+
+export const generateAutoSchedule = async (
+    subjects: { id: string; name: string; targetHoursPerWeek?: number }[],
+    daysAhead: number = 7,
+    _userKey?: string
+): Promise<{ title: string; dayOffset: number; duration: number; description?: string }[]> => {
+    const prompt = `
+      Subjects List: ${JSON.stringify(subjects)}
+      Planning Window: Next ${daysAhead} days.
+      
+      Task: Create a balanced, realistic daily study timetable for a student for the next ${daysAhead} days.
+      Distribute study time among the provided subjects intelligently.
+      
+      Output Format: A VALID JSON array of objects:
+      [
+        {
+          "title": "Subject Name + Study Topic (e.g. Fizika - Dinamika qonunlari)",
+          "dayOffset": 0 (0 for today, 1 for tomorrow, up to ${daysAhead - 1}),
+          "duration": 45 (in minutes),
+          "description": "Short action note in Uzbek"
+        }
+      ]
+      Constraint: ONLY return valid JSON.
+    `;
+
+    try {
+        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
+
+        if (Array.isArray(json)) {
+            return json.map((item: any) => ({
+                title: String(item.title || 'Dars seansi'),
+                dayOffset: Math.min(daysAhead - 1, Math.max(0, parseInt(item.dayOffset) || 0)),
+                duration: parseInt(item.duration) || 30,
+                description: item.description ? String(item.description) : undefined
+            }));
+        }
+        return [];
+    } catch (error) {
+        console.error('Auto Schedule Error:', error);
+        return [];
+    }
+};
+
+export const generateFullStudyPlan = async (
+    topicOrSubjects: any,
+    daysAhead: number = 7,
+    _hoursPerDay: number = 2,
+    _level?: string,
+    _learningStyle?: string,
+    _userKey?: string
+): Promise<FullStudyPlan> => {
+    let subjects = Array.isArray(topicOrSubjects) ? topicOrSubjects : [{ id: '1', name: String(topicOrSubjects || 'O\'quv reja') }];
+    const schedule = await generateAutoSchedule(subjects, daysAhead, _userKey);
+    const mainSubject = subjects[0]?.name || 'Umumiy o\'quv reja';
+    const resources = await generateSmartResources(mainSubject, 3, _userKey);
+
+    return { schedule, resources };
+};
+
+export const generateQuizQuestions = async (
+    topic: string,
+    count: number = 5,
+    difficulty: 'easy' | 'medium' | 'hard' = 'medium',
+    _userKey?: string
+): Promise<{ id: string; question: string; options: string[]; answerIndex: number; explanation: string }[]> => {
+    const prompt = `
+      Topic: "${topic}"
+      Count: ${count} questions
+      Difficulty: ${difficulty}
+      Language: Uzbek (O'zbek tili)
+      
+      Task: Generate ${count} multiple-choice quiz questions to test knowledge on this topic.
+      Output Format: A VALID JSON array of objects:
+      [
+        {
+          "id": "q1",
+          "question": "Savol matni?",
+          "options": ["Variant A", "Variant B", "Variant C", "Variant D"],
+          "answerIndex": 0,
+          "explanation": "Nega aynan shu javob to'g'riligi haqida qisqa tushuntirish"
+        }
+      ]
+      Constraint: ONLY return the JSON array.
+    `;
+
+    try {
+        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
+
+        if (Array.isArray(json)) {
+            return json.map((item: any, idx: number) => ({
+                id: `q_${idx + 1}`,
+                question: String(item.question || 'Savol'),
+                options: Array.isArray(item.options) ? item.options.map(String) : ['A', 'B', 'C', 'D'],
+                answerIndex: typeof item.answerIndex === 'number' ? item.answerIndex : 0,
+                explanation: String(item.explanation || '')
+            }));
+        }
+        return [];
+    } catch (error) {
+        console.error('Quiz Generation Error:', error);
+        throw new Error(parseAIError(error));
     }
 };

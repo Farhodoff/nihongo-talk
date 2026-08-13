@@ -1,7 +1,5 @@
 import { ConversationScenario, ScenarioSessionResult } from '../../components/speaking/scenarioTypes';
-import { getAIConfig } from './aiConfig';
-import { callDeepSeek } from '../deepseek';
-import { callOllama } from '../ollama';
+import { callSelectedAIProvider } from './aiCore';
 
 export interface EvaluateScenarioParams {
     scenario: ConversationScenario;
@@ -57,31 +55,9 @@ export const evaluateScenarioSession = async ({
     `;
 
     try {
-        const config = getAIConfig();
-        let json: any = null;
-
-        if (config.provider === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                json = JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[Ollama Fallback] falling back to DeepSeek for scenario eval:", err);
-            }
-        }
-
-        if (!json) {
-            const response = await callDeepSeek(
-                prompt,
-                config.deepseekKey || '',
-                undefined,
-                true,
-                config.deepseekModel,
-                config.deepseekThinkingMode
-            );
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            json = JSON.parse(cleanedText);
-        }
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const json = JSON.parse(cleanedText);
 
         const pronunciation_score = Math.min(100, Math.max(0, json.pronunciation_score || 75));
         const fluency_score = Math.min(100, Math.max(0, json.fluency_score || 70));

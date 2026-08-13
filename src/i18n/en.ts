@@ -4,17 +4,23 @@ export const en = {
         ieltsHub: 'IELTS Hub 🎓',
         aiCoach: 'AI Coach 🗣️',
         jlptHub: 'JLPT Hub 🎌',
-        subjects: 'Subjects',
+        scenarios: 'Japanese Scenarios',
+        subjects: 'Subjects & Plan',
         tasks: 'Tasks',
         calendar: 'Calendar',
         focus: 'Focus Timer',
         notes: 'Notes & Summaries',
         flashcards: 'Flashcards',
-        aiAssistant: 'AI Assistant',
         smartVocab: 'Smart Vocab 🧠',
+        aiAssistant: 'AI Assistant',
         community: 'Community',
         progress: 'Analytics',
-        settings: 'Settings'
+        settings: 'Settings & Profile',
+        categories: {
+            main: 'MAIN',
+            tools: 'STUDY TOOLS',
+            analytics: 'ANALYTICS & COMMUNITY'
+        }
     },
     common: {
         save: 'Save',
@@ -23,6 +29,117 @@ export const en = {
         error: 'An error occurred',
         start: 'Start',
         submit: 'Check Answers',
-        language: 'Language'
+        language: 'Language',
+        uzbek: 'O\'zbekcha 🇺🇿',
+        english: 'English 🇬🇧',
+        search: 'Search...',
+        actions: 'Actions',
+        delete: 'Delete',
+        edit: 'Edit',
+        back: 'Back',
+        close: 'Close',
+        success: 'Success',
+        confirm: 'Confirm',
+        add: 'Add',
+        all: 'All',
+        filter: 'Filter',
+        noData: 'No data found',
+        upgrade: 'Upgrade Plan 🚀',
+        days: 'days',
+        minutes: 'minutes',
+        hours: 'hours'
+    },
+    dashboard: {
+        title: 'Dashboard',
+        welcome: 'Welcome back',
+        dailyStreak: 'Daily Streak',
+        totalXp: 'Total XP Points',
+        level: 'Level',
+        todayTasks: 'Today\'s Tasks',
+        recentNotes: 'Recent Notes',
+        studyTime: 'Study Time',
+        quickStart: 'Quick Start',
+        startFocusSession: 'Start Focus Session',
+        createTask: 'New Task',
+        viewProgress: 'View Progress'
+    },
+    tasks: {
+        title: 'Task Management',
+        subtitle: 'Manage your study tasks and schedule',
+        addTask: '+ Add Task',
+        pending: 'Pending',
+        completed: 'Completed',
+        priority: 'Priority',
+        dueDate: 'Due Date',
+        subject: 'Subject',
+        noTasks: 'No tasks yet. Create a new task!'
+    },
+    flashcards: {
+        title: 'Flashcards & Vocabulary',
+        subtitle: 'Boost your vocabulary with Anki SM-2 SRS algorithm & preset decks',
+        myDecks: 'My Decks',
+        library: 'Preset Library',
+        createDeck: '+ Add Subject Deck',
+        addManual: '+ Add Manually',
+        createAlbum: '+ Create Custom Album',
+        aiGenerate: 'AI Generator',
+        cardCount: 'cards',
+        studyNow: 'Study Now',
+        review: 'Review'
+    },
+    calendar: {
+        title: 'Study Calendar',
+        subtitle: 'Schedule class timetables and exam deadlines',
+        addEvent: '+ Add Event',
+        today: 'Today',
+        month: 'Month',
+        week: 'Week'
+    },
+    notes: {
+        title: 'Notes & Summaries',
+        subtitle: 'Lecture notes, documents & AI summaries',
+        createNote: '+ New Note',
+        searchNotes: 'Search notes...',
+        noNotes: 'No notes created yet'
+    },
+    focus: {
+        title: 'Focus Timer',
+        subtitle: 'Boost productivity with Pomodoro focus sessions',
+        workTime: 'Focus Time',
+        breakTime: 'Break',
+        start: 'Start',
+        pause: 'Pause',
+        reset: 'Reset',
+        completedSessions: 'Completed Sessions'
+    },
+    aiCoach: {
+        title: 'AI Speaking Coach',
+        subtitle: 'Practice speaking English & Japanese with interactive AI personas',
+        selectPersona: 'Select Conversation Persona',
+        startCall: 'Start Conversation 🎙️',
+        endCall: 'End Call',
+        fluencyScore: 'Fluency Score',
+        feedback: 'AI Feedback'
+    },
+    community: {
+        title: 'Community & Network',
+        leaderboard: '🏆 Leaderboard',
+        chat: '💬 Public Chat',
+        whiteboard: '🎨 Collaborative Whiteboard',
+        studyRooms: '📚 Online Study Rooms',
+        topStudents: 'Top Students'
+    },
+    settings: {
+        title: 'Settings & Profile',
+        profile: 'Profile',
+        aiIntegration: 'AI & Integration',
+        customization: 'Customization',
+        data: 'Data',
+        adminPanel: 'Admin Panel',
+        appLanguage: 'Application Language',
+        selectLanguage: 'Select Language',
+        theme: 'Display & Theme',
+        lightMode: 'Light Mode',
+        darkMode: 'Dark Mode'
     }
 };
