@@ -78,26 +78,6 @@ export class LeaderboardService {
             console.warn('Supabase leaderboard fetch notice:', e);
         }
 
-        // Fallback default student mock entries if DB table has few entries
-        if (list.length < 5) {
-            const defaultEntries: LeaderboardEntry[] = [
-                { id: '1', user_email: 'fsoyilov@gmail.com', display_name: 'Farhod (Super Admin)', total_xp: 15400, level: 7, level_title: 'Grossmeyster', streak_days: 14, last_active_at: new Date().toISOString(), rank: 1 },
-                { id: '2', user_email: 'kenji.tanaka@japan.jp', display_name: 'Kenji Tanaka', total_xp: 9800, level: 6, level_title: 'Usta', streak_days: 10, last_active_at: new Date().toISOString(), rank: 2 },
-                { id: '3', user_email: 'sakura.yoshida@tokyo.edu', display_name: 'Sakura Yoshida', total_xp: 6200, level: 5, level_title: 'Ekspert', streak_days: 7, last_active_at: new Date().toISOString(), rank: 3 },
-                { id: '4', user_email: 'student_pro@planner.app', display_name: 'Azizbek K.', total_xp: 4100, level: 4, level_title: 'Tadqiqotchi', streak_days: 5, last_active_at: new Date().toISOString(), rank: 4 },
-                { id: '5', user_email: 'nodira_ja@planner.app', display_name: 'Nodira M.', total_xp: 2800, level: 3, level_title: 'Olim', streak_days: 4, last_active_at: new Date().toISOString(), rank: 5 }
-            ];
-
-            for (const d of defaultEntries) {
-                if (!list.some(l => l.user_email === d.user_email)) {
-                    list.push(d);
-                }
-            }
-
-            list.sort((a, b) => b.total_xp - a.total_xp);
-            list.forEach((item, idx) => { item.rank = idx + 1; });
-        }
-
         return list;
     }
 }

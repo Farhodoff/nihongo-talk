@@ -124,7 +124,7 @@ export const LeaderboardPage: React.FC = () => {
             </div>
 
             {/* TOP 3 CHAMPIONS PODIUM */}
-            {filteredLeaderboard.length >= 3 && (
+            {filteredLeaderboard.length >= 1 && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                     {/* 2nd Place (Silver) */}
                     {top2 && (
