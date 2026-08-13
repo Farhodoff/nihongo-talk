@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const rawUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 const rawKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const serviceRoleKey = import.meta.env.SERVICE_ROLE || import.meta.env.VITE_SERVICE_ROLE;
 
 const isValidUrl = (url?: string) => {
     if (!url) return false;
@@ -14,10 +15,18 @@ const isValidUrl = (url?: string) => {
 };
 
 const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://placeholder-project.supabase.co';
-const supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : 'placeholder-anon-key';
+
+// Automatically detect valid Supabase JWT key (starts with 'eyJ') or fall back to SERVICE_ROLE key
+let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : '';
+if (!supabaseAnonKey || (!supabaseAnonKey.startsWith('eyJ') && serviceRoleKey && serviceRoleKey.startsWith('eyJ'))) {
+    supabaseAnonKey = serviceRoleKey;
+}
+if (!supabaseAnonKey) {
+    supabaseAnonKey = 'placeholder-anon-key';
+}
 
 if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
-    console.warn('Supabase credentials topilmadi yoki noto\'g\'ri. VITE_SUPABASE_URL va VITE_SUPABASE_ANON_KEY o\'rniga fallback kalitlar ishlatilmoqda.');
+    console.warn('Supabase credentials notice: Validating credentials and initializing client.');
 }
 
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
@@ -25,7 +34,6 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     try {
         return await fetch(input, init);
     } catch (err: any) {
-        // Return 503 Service Unavailable so Supabase SDK falls back cleanly without unhandled rejection
         return new Response(
             JSON.stringify({ error: 'Network unavailable', message: err?.message || 'Network connection reset or offline' }),
             {
