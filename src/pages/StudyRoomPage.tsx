@@ -1,10 +1,9 @@
-import { ArrowLeft, VideoOff, Clock, Users, PenTool, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Maximize2, Minimize2 } from 'lucide-react';
+import { ArrowLeft, VideoOff, Users, PenTool, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Minimize2 } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Editor } from 'tldraw';
 const RoomWhiteboard = React.lazy(() => import('../components/study-room/RoomWhiteboard'));
 import { Button } from '../components/ui/Button';
-import { RoomPomodoro } from '../components/study-room/RoomPomodoro';
 import { supabase } from '../lib/supabase';
 import { LocalTour, LocalTourStep } from '../components/LocalTour';
 
@@ -36,7 +35,7 @@ interface UserProfile {
 }
 
 // StudyRoomPage component handles custom WebRTC peer-to-peer audio/video streaming,
-// screen sharing, and the Pomodoro/Whiteboard collaboration synchronization.
+// screen sharing, and the Whiteboard collaboration synchronization.
 const StudyRoomPage: React.FC = () => {
     const { roomId } = useParams<{ roomId: string }>();
     const navigate = useNavigate();
@@ -46,7 +45,6 @@ const StudyRoomPage: React.FC = () => {
     const clientIdRef = useRef<string>(Math.random().toString(36).substring(2, 9));
 
     // UI State
-    const [activeTab, setActiveTab] = useState<'pomodoro' | 'whiteboard'>('pomodoro');
     const [mobileView, setMobileView] = useState<'video' | 'collab'>('video');
     const [showCollabPanel, setShowCollabPanel] = useState(true);
 
@@ -612,47 +610,6 @@ const StudyRoomPage: React.FC = () => {
         );
     }
 
-    // Pomodoro Controllers
-    const handleStart = () => {
-        setIsRunning(true);
-        channelRef.current?.send({
-            type: 'broadcast',
-            event: 'pomodoro_state_update',
-            payload: { timeLeft, isRunning: true, mode: pomodoroMode, senderId: clientIdRef.current }
-        });
-    };
-
-    const handlePause = () => {
-        setIsRunning(false);
-        channelRef.current?.send({
-            type: 'broadcast',
-            event: 'pomodoro_state_update',
-            payload: { timeLeft, isRunning: false, mode: pomodoroMode, senderId: clientIdRef.current }
-        });
-    };
-
-    const handleReset = (newTime: number = 25 * 60) => {
-        setIsRunning(false);
-        setTimeLeft(newTime);
-        channelRef.current?.send({
-            type: 'broadcast',
-            event: 'pomodoro_state_update',
-            payload: { timeLeft: newTime, isRunning: false, mode: pomodoroMode, senderId: clientIdRef.current }
-        });
-    };
-
-    const handleModeChange = (newMode: 'focus' | 'short_break' | 'long_break', durationMinutes: number) => {
-        const seconds = durationMinutes * 60;
-        setPomodoroMode(newMode);
-        setIsRunning(false);
-        setTimeLeft(seconds);
-        channelRef.current?.send({
-            type: 'broadcast',
-            event: 'pomodoro_state_update',
-            payload: { timeLeft: seconds, isRunning: false, mode: newMode, senderId: clientIdRef.current }
-        });
-    };
-
     // Whiteboard Mount Handler
     const handleWhiteboardMount = (editor: Editor) => {
         editorRef.current = editor;
@@ -681,13 +638,6 @@ const StudyRoomPage: React.FC = () => {
         return cleanup;
     };
 
-    // Format Pomodoro Time Display
-    const formatTime = (seconds: number) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    };
-
     return (
         <div className="h-full bg-[#0f172a] text-gray-100 flex flex-col font-sans p-4 md:p-6 pb-[76px] md:pb-6">
             {/* Header */}
@@ -709,14 +659,18 @@ const StudyRoomPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    {/* Desktop Fullscreen/Panel Toggle Button */}
+                    {/* Desktop Whiteboard Panel Toggle Button */}
                     <button
                         onClick={() => setShowCollabPanel(!showCollabPanel)}
-                        className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition-all active:scale-95 shadow-sm"
-                        title={showCollabPanel ? "Hamkorlik panelini yashirish" : "Hamkorlik panelini ko'rsatish"}
+                        className={`hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95 shadow-sm border ${
+                            showCollabPanel
+                                ? 'bg-indigo-600/20 text-indigo-300 border-indigo-500/40'
+                                : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
+                        }`}
+                        title={showCollabPanel ? "Oq doskani yashirish" : "Oq doskani ko'rsatish"}
                     >
-                        {showCollabPanel ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
-                        <span>{showCollabPanel ? "Katta ekran" : "Hamkorlik paneli"}</span>
+                        <PenTool size={16} />
+                        <span>{showCollabPanel ? "Oq doskani yashirish" : "Oq doska (Whiteboard)"}</span>
                     </button>
 
                     {/* Mobile Switch View Button */}
@@ -731,7 +685,7 @@ const StudyRoomPage: React.FC = () => {
                             onClick={() => setMobileView('collab')}
                             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${mobileView === 'collab' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400'}`}
                         >
-                            Hamkorlik
+                            Oq doska
                         </button>
                     </div>
 
@@ -889,61 +843,44 @@ const StudyRoomPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Right Side: Collaboration Panel (Pomodoro / Whiteboard) */}
-                <div className={`w-full md:w-[420px] lg:w-[460px] bg-[#1e293b] border border-slate-700/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden ${
-                    !showCollabPanel ? 'hidden' : (mobileView === 'collab' ? 'block' : 'hidden md:flex')
-                }`}>
-                    {/* Right Panel Tabs */}
-                    <div className="flex bg-slate-900/60 p-2 border-b border-slate-800">
-                        <button
-                            onClick={() => setActiveTab('pomodoro')}
-                            className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${
-                                activeTab === 'pomodoro' 
-                                    ? 'bg-indigo-600 text-white shadow-md' 
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-                            }`}
-                        >
-                            <Clock size={16} /> Pomodoro
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('whiteboard')}
-                            className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${
-                                activeTab === 'whiteboard' 
-                                    ? 'bg-indigo-600 text-white shadow-md' 
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-                            }`}
-                            data-tour="room-whiteboard-tab"
-                        >
-                            <PenTool size={16} /> Whiteboard
-                        </button>
-                    </div>
-
-                    {/* Tab Contents */}
-                    <div className="flex-1 flex flex-col p-6 min-h-0 overflow-y-auto">
-                        {activeTab === 'pomodoro' ? (
-                            /* POMODORO CONTENT */
-                            <RoomPomodoro
-                                pomodoroMode={pomodoroMode}
-                                timeLeft={timeLeft}
-                                isRunning={isRunning}
-                                handleModeChange={handleModeChange}
-                                handleStart={handleStart}
-                                handlePause={handlePause}
-                                handleReset={handleReset}
-                                formatTime={formatTime}
-                            />
-                        ) : (
-                            /* WHITEBOARD CONTENT */
-                            <div className="flex-1 flex flex-col h-full min-h-[300px] border border-slate-800 rounded-2xl overflow-hidden bg-white touch-none animate-in fade-in duration-300 relative">
-                                <React.Suspense fallback={<div className="flex items-center justify-center h-full text-slate-500">Oq doska yuklanmoqda...</div>}>
-                                    <RoomWhiteboard
-                                        onMount={handleWhiteboardMount}
-                                    />
-                                </React.Suspense>
+                {/* Right Side: Collapsible Whiteboard Sidebar Panel */}
+                {showCollabPanel ? (
+                    <div className="w-full md:w-[460px] lg:w-[540px] bg-[#1e293b] border border-slate-700/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 relative animate-in fade-in slide-in-from-right-4">
+                        {/* Panel Header */}
+                        <div className="flex items-center justify-between bg-slate-900/80 px-5 py-4 border-b border-slate-800">
+                            <div className="flex items-center gap-2 text-white font-bold text-sm tracking-tight" data-tour="room-whiteboard-tab">
+                                <PenTool size={18} className="text-indigo-400" />
+                                <span>Oq Doska (Whiteboard)</span>
                             </div>
-                        )}
+                            <button
+                                onClick={() => setShowCollabPanel(false)}
+                                className="p-1.5 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white transition-colors"
+                                title="Yashirish"
+                            >
+                                <Minimize2 size={18} />
+                            </button>
+                        </div>
+
+                        {/* Whiteboard Content Area */}
+                        <div className="flex-1 flex flex-col p-4 min-h-[380px] bg-white rounded-b-3xl overflow-hidden touch-none relative">
+                            <React.Suspense fallback={<div className="flex items-center justify-center h-full text-slate-500 font-bold text-xs">Oq doska yuklanmoqda...</div>}>
+                                <RoomWhiteboard
+                                    onMount={handleWhiteboardMount}
+                                />
+                            </React.Suspense>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    /* Floating Re-open Button when panel is collapsed */
+                    <button
+                        onClick={() => setShowCollabPanel(true)}
+                        className="hidden md:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-4 py-3 rounded-2xl font-bold text-xs shadow-xl shadow-indigo-600/30 border border-indigo-400/30 transition-all hover:scale-105 active:scale-95 self-start"
+                        title="Oq Doskani Ochish"
+                    >
+                        <PenTool size={18} />
+                        <span>Oq Doska (Whiteboard)</span>
+                    </button>
+                )}
             </div>
             
             <LocalTour steps={ROOM_TOUR_STEPS} tourKey="study_room_tour_completed" />
