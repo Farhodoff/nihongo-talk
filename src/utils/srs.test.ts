@@ -113,7 +113,7 @@ describe('SRS (Spaced Repetition System) Utils', () => {
                 const result = calculateReview(Rating.GOOD, 0, 0, 2.5);
                 const nextDate = new Date(result.nextReviewDate);
                 const now = new Date();
-                const daysDiff = Math.floor((nextDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+                const daysDiff = Math.round((nextDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
                 expect(daysDiff).toBe(result.interval);
             });
         });
