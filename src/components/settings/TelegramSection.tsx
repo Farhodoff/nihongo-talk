@@ -49,6 +49,7 @@ const TelegramSection: React.FC = () => {
 
         return () => clearInterval(pollInterval);
     }, [user, linkCode, linkedAccount]);
+
     const handleGenerateCode = async () => {
         if (!user) return;
 
@@ -60,11 +61,8 @@ const TelegramSection: React.FC = () => {
             if (result) {
                 setLinkCode(result.code);
                 setExpiresAt(result.expires_at);
-                if (result.isLocalFallback) {
-                    setError('⚠️ Brauzeringiz Supabase bulut bazasiga ulana olmadi (AdBlocker yoki VPN ni o\'chirib qayta urinib ko\'ring).');
-                }
             } else {
-                setError('Kod yaratishda xatolik yuz berdi');
+                setError('Kod yaratishda xatolik yuz berdi. Qaytadan urinib ko\'ring.');
             }
         } catch (err: unknown) {
             setError(err instanceof Error ? err.message : 'Xatolik yuz berdi');
@@ -122,7 +120,7 @@ const TelegramSection: React.FC = () => {
                             <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
                             <div className="flex-1">
                                 <h4 className="font-medium text-green-900 dark:text-green-100 mb-1">
-                                    Telegram ulangan
+                                    ✅ Telegram muvaffaqiyatli ulangan!
                                 </h4>
                                 <div className="text-sm text-green-700 dark:text-green-300 space-y-1">
                                     <p>
@@ -224,14 +222,9 @@ const TelegramSection: React.FC = () => {
                             Qadamlar:
                         </p>
                         <ol className="space-y-2 list-decimal list-inside">
-                            <li>Telegram da @{botUsername} botni oching</li>
-                            <li>
-                                <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-                                    /start {linkCode}
-                                </code>{' '}
-                                yuboring
-                            </li>
-                            <li>Tasdiq xabarini kuting</li>
+                            <li>Quyidagi tugmani bosing — Telegram da bot ochiladi</li>
+                            <li>Telegram da <b>Start</b> tugmasini bosing</li>
+                            <li>Bu sahifa avtomatik yangilanadi ✅</li>
                         </ol>
                     </div>
 
@@ -241,9 +234,13 @@ const TelegramSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-2 w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors"
                     >
-                        Telegram da ochish
+                        📱 Telegram da ochish
                         <ExternalLink size={16} />
                     </a>
+
+                    <p className="text-xs text-center text-gray-500 dark:text-gray-500">
+                        Bot ulangandan so'ng bu sahifa avtomatik "✅ Ulangan" holatiga o'tadi
+                    </p>
 
                     <Button
                         onClick={() => setLinkCode(null)}
@@ -283,7 +280,7 @@ const TelegramSection: React.FC = () => {
                                 Yuklanmoqda...
                             </>
                         ) : (
-                            'Telegram ni ulash'
+                            '🔗 Telegram ni ulash'
                         )}
                     </Button>
                 </div>
