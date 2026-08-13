@@ -135,8 +135,10 @@ async function editMessageText(chatId: number, messageId: number, text: string, 
 // Handle /start command
 async function handleStart(message: TelegramMessage) {
     const chatId = message.chat.id;
-    const text = message.text || '';
-    const args = text.split(' ')[1]?.trim(); // Get code after /start
+    let args = text.split(' ')[1]?.trim(); // Get code after /start
+    if (!args && text.trim().length === 6 && /^[A-Za-z0-9]{6}$/.test(text.trim())) {
+        args = text.trim().toUpperCase();
+    }
 
     const telegramId = message.from?.id;
     const username = message.from?.username;
@@ -713,6 +715,8 @@ serve(async (req: Request) => {
                         await handleAddTask(message, taskTitle);
                     }
                 }
+            } else if (text.trim().length === 6 && /^[A-Za-z0-9]{6}$/.test(text.trim())) {
+                await handleStart(message);
             } else {
                 await sendMessage(message.chat.id, "Tushunmadim. Quyidagi menyu tugmalaridan foydalanishingiz mumkin:");
             }
