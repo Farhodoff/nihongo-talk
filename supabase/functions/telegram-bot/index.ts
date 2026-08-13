@@ -192,17 +192,20 @@ Yordam: /help`);
             return sendMessage(chatId, "Noto'g'ri yoki muddati o'tgan kod!\n\nIltimos, <a href=\"https://task-planner-tau.vercel.app/settings\">task-planner-tau.vercel.app/settings</a> sahifasidan yangi kod oling.");
         }
 
-        // Create link
+        // Create or update link in telegram_users
         const { error: linkError } = await supabase
             .from('telegram_users')
-            .insert({
+            .upsert({
                 user_id: linkCode.user_id,
                 telegram_id: telegramId,
                 telegram_username: username,
                 telegram_first_name: firstName,
                 telegram_last_name: lastName,
                 chat_id: chatId,
-            });
+                is_active: true,
+                notifications_enabled: true,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'telegram_id' });
 
         if (linkError) {
             console.error('Link error:', linkError);

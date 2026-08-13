@@ -119,14 +119,17 @@ class TelegramService {
                 // Create telegram_users record in Supabase
                 await supabase
                     .from('telegram_users')
-                    .insert({
+                    .upsert({
                         user_id: linkCode.user_id,
                         telegram_id: telegramId,
                         telegram_username: username,
                         telegram_first_name: firstName,
                         telegram_last_name: lastName,
                         chat_id: chatId,
-                    });
+                        is_active: true,
+                        notifications_enabled: true,
+                        updated_at: new Date().toISOString()
+                    }, { onConflict: 'telegram_id' });
 
                 // Mark code as used
                 await supabase
