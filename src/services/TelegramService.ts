@@ -32,14 +32,18 @@ class TelegramService {
     async generateLinkCode(userId: string): Promise<{ code: string; expires_at: string } | null> {
         try {
             // Check if user already has an active link
-            const { data: existing } = await supabase
+            const { data: existing, error: existingErr } = await supabase
                 .from('telegram_users')
                 .select('*')
                 .eq('user_id', userId)
-                .single();
+                .maybeSingle();
+
+            if (existingErr) {
+                console.warn('Error checking existing telegram_users:', existingErr);
+            }
 
             if (existing) {
-                throw new Error('Telegram already linked. Unlink first.');
+                throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
             }
 
             // Generate unique code
@@ -53,7 +57,7 @@ class TelegramService {
                     .select('code')
                     .eq('code', code)
                     .eq('used', false)
-                    .single();
+                    .maybeSingle();
 
                 if (!existingCode) break;
                 code = this.generateCode();
@@ -68,17 +72,18 @@ class TelegramService {
                     code: code,
                 })
                 .select()
-                .single();
+                .maybeSingle();
 
             if (error) throw error;
+            if (!data) throw new Error('Kod yaratishda xatolik yuz berdi (ma\'lumotlar saqlanmadi).');
 
             return {
                 code: data.code,
                 expires_at: data.expires_at,
             };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error generating link code:', error);
-            return null;
+            throw error;
         }
     }
 
@@ -102,7 +107,7 @@ class TelegramService {
                 .eq('code', code)
                 .eq('used', false)
                 .gt('expires_at', new Date().toISOString())
-                .single();
+                .maybeSingle();
 
             if (codeError || !linkCode) {
                 return null; // Invalid or expired code
@@ -144,7 +149,7 @@ class TelegramService {
                 .from('telegram_users')
                 .select('*')
                 .eq('user_id', userId)
-                .single();
+                .maybeSingle();
 
             if (error) return null;
             return data;
@@ -155,7 +160,7 @@ class TelegramService {
     }
 
     /**
-     * Unlink Telegram account
+     * Unlink Telegram account for a user
      */
     async unlinkAccount(userId: string): Promise<boolean> {
         try {
@@ -164,7 +169,8 @@ class TelegramService {
                 .delete()
                 .eq('user_id', userId);
 
-            return !error;
+            if (error) throw error;
+            return true;
         } catch (error) {
             console.error('Error unlinking account:', error);
             return false;
@@ -174,17 +180,15 @@ class TelegramService {
     /**
      * Update notification settings
      */
-    async updateNotificationSettings(
-        userId: string,
-        enabled: boolean
-    ): Promise<boolean> {
+    async updateNotificationSettings(userId: string, enabled: boolean): Promise<boolean> {
         try {
             const { error } = await supabase
                 .from('telegram_users')
                 .update({ notifications_enabled: enabled })
                 .eq('user_id', userId);
 
-            return !error;
+            if (error) throw error;
+            return true;
         } catch (error) {
             console.error('Error updating notification settings:', error);
             return false;
@@ -192,47 +196,35 @@ class TelegramService {
     }
 
     /**
-     * Send direct message via Telegram Bot HTTP API
+     * Send a notification message to a user via Telegram
      */
-    async sendDirectTelegramMessage(chatId: number | string, message: string): Promise<boolean> {
+    async sendNotification(userId: string, text: string): Promise<boolean> {
         try {
-            const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '8334623009:AAFBAdttU84-GX2TMhqMAc3-H6LJmRZ_tSA';
-            const url = `https://api.telegram.org/bot${token}/sendMessage`;
-            const resp = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            });
-            const resData = await resp.json();
-            return resData.ok === true;
-        } catch (err) {
-            console.error('Direct Telegram API send error:', err);
-            return false;
-        }
-    }
-
-    /**
-     * Send a notification to user via Edge function or Direct Telegram API
-     */
-    async sendNotification(userId: string, message: string): Promise<boolean> {
-        try {
-            // First try to get linked account chatId
             const account = await this.getLinkedAccount(userId);
-            if (account && account.chat_id) {
-                const ok = await this.sendDirectTelegramMessage(account.chat_id, message);
-                if (ok) return true;
+            if (!account || !account.is_active || !account.notifications_enabled) {
+                return false;
             }
 
-            const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
-                body: { userId, message },
+            const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+            if (!botToken) {
+                console.warn('VITE_TELEGRAM_BOT_TOKEN is not set');
+                return false;
+            }
+
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: account.chat_id,
+                    text: text,
+                    parse_mode: 'HTML',
+                }),
             });
 
-            if (error) throw error;
-            return data?.success || false;
+            const data = await response.json();
+            return data.ok;
         } catch (error) {
             console.error('Error sending Telegram notification:', error);
             return false;

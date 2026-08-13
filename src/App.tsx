@@ -8,13 +8,12 @@ import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { supabase } from './lib/supabase';
-import { OnboardingTour } from './components/OnboardingTour';
-import { Toaster } from './components/ui/toaster';
 import OfflineIndicator from './components/OfflineIndicator';
+import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
+import { Toaster } from './components/ui/toaster';
 
-// Lazy load all page components for better performance
-const AuthPage = lazy(() => import('./pages/AuthPage'));
-const LandingPage = lazy(() => import('./pages/LandingPage'));
+import { OnboardingTour } from './components/OnboardingTour';
+
 const AIAssistantPage = lazy(() => import('./pages/AIAssistantPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
@@ -64,8 +63,8 @@ const PageLoader = () => (
 );
 
 import ReloadPrompt from './components/pwa/ReloadPrompt';
+import UnauthRouter from './components/UnauthRouter';
 import InstallPrompt from './components/pwa/InstallPrompt';
-import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
 
 const App: React.FC = () => {
     const [session, setSession] = useState<Session | null>(null);
@@ -93,17 +92,11 @@ const App: React.FC = () => {
 
     if (!session) {
         return (
-            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-                <Suspense fallback={<PageLoader />}>
-                    <Routes>
-                        <Route path="/" element={<LandingPage />} />
-                        <Route path="/auth" element={<AuthPage />} />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Routes>
-                </Suspense>
+            <>
+                <UnauthRouter />
                 <ReloadPrompt />
                 <InstallPrompt />
-            </BrowserRouter>
+            </>
         );
     }
 
