@@ -39,6 +39,9 @@ const TelegramSection: React.FC = () => {
             if (result) {
                 setLinkCode(result.code);
                 setExpiresAt(result.expires_at);
+                if (result.isLocalFallback) {
+                    setError('⚠️ Brauzeringiz Supabase bulut bazasiga ulana olmadi (AdBlocker yoki VPN ni o\'chirib qayta urinib ko\'ring).');
+                }
             } else {
                 setError('Kod yaratishda xatolik yuz berdi');
             }

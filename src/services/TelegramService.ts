@@ -29,7 +29,7 @@ class TelegramService {
      * Generate a linking code for a user
      * Returns the code that user will enter in Telegram bot
      */
-    async generateLinkCode(userId: string): Promise<{ code: string; expires_at: string } | null> {
+    async generateLinkCode(userId: string): Promise<{ code: string; expires_at: string; isLocalFallback?: boolean } | null> {
         // 1. Check if user already has an active link
         try {
             const { data: existing } = await supabase
@@ -76,6 +76,7 @@ class TelegramService {
                     return {
                         code: data.code,
                         expires_at: data.expires_at,
+                        isLocalFallback: false,
                     };
                 }
 
@@ -101,6 +102,7 @@ class TelegramService {
         return {
             code: fallbackCode,
             expires_at: expiresAt,
+            isLocalFallback: true,
         };
     }
 
