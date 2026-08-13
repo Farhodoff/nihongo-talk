@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Loader2, CheckCircle2, XCircle, ExternalLink } from 'lucide-react';
+import { Loader2, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/Button';
 import telegramService, { TelegramUser } from '../../services/TelegramService';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -10,7 +10,6 @@ const TelegramSection: React.FC = () => {
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
     const [linkedAccount, setLinkedAccount] = useState<TelegramUser | null>(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
     // Get stable user ID (authenticated user ID or fallback guest ID)
@@ -18,7 +17,7 @@ const TelegramSection: React.FC = () => {
         if (user?.id) return user.id;
         let guestId = localStorage.getItem('study_planner_guest_user_id');
         if (!guestId) {
-            guestId = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721'; // Default active test user ID
+            guestId = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
             localStorage.setItem('study_planner_guest_user_id', guestId);
         }
         return guestId;
@@ -50,7 +49,6 @@ const TelegramSection: React.FC = () => {
                     setLinkedAccount(account);
                     setNotificationsEnabled(account.notifications_enabled);
                     setLinkCode(null);
-                    setError('');
                 }
             } catch {
                 // Silently ignore polling errors
@@ -62,25 +60,18 @@ const TelegramSection: React.FC = () => {
 
     const handleGenerateCode = async () => {
         setLoading(true);
-        setError('');
 
         try {
             const result = await telegramService.generateLinkCode(effectiveUserId);
-            if (result) {
-                if (result.linked && result.account) {
-                    setLinkedAccount(result.account);
-                    setNotificationsEnabled(result.account.notifications_enabled);
-                } else if (result.code && result.expires_at) {
-                    setLinkCode(result.code);
-                    setExpiresAt(result.expires_at);
-                } else {
-                    setError('Kod yaratishda xatolik yuz berdi. Qaytadan urinib ko\'ring.');
-                }
-            } else {
-                setError('Kod yaratishda xatolik yuz berdi. Qaytadan urinib ko\'ring.');
+            if (result.linked && result.account) {
+                setLinkedAccount(result.account);
+                setNotificationsEnabled(result.account.notifications_enabled);
+            } else if (result.code) {
+                setLinkCode(result.code);
+                setExpiresAt(result.expires_at || new Date(Date.now() + 15 * 60 * 1000).toISOString());
             }
         } catch (err: unknown) {
-            setError(err instanceof Error ? err.message : 'Xatolik yuz berdi');
+            console.error('handleGenerateCode exception:', err);
         } finally {
             setLoading(false);
         }
@@ -265,13 +256,6 @@ const TelegramSection: React.FC = () => {
             ) : (
                 // Not Linked State
                 <div className="space-y-4">
-                    {error && (
-                        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 flex items-start gap-3">
-                            <XCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
-                            <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
-                        </div>
-                    )}
-
                     <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
                         <p>Telegram botni ulash orqali:</p>
                         <ul className="list-disc list-inside space-y-1 ml-2">
