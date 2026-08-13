@@ -10,6 +10,13 @@ export interface TelegramUser {
     notifications_enabled: boolean;
 }
 
+export interface LinkCodeResult {
+    code?: string;
+    expires_at?: string;
+    linked?: boolean;
+    account?: TelegramUser;
+}
+
 /**
  * TelegramService — uses local /api/telegram/* endpoints to communicate with Supabase
  * server-side, bypassing any browser-level network restrictions (adblockers, VPN, CORS).
@@ -27,7 +34,7 @@ class TelegramService {
     /**
      * Generate a linking code for a user (server-side via local API)
      */
-    async generateLinkCode(userId: string): Promise<{ code: string; expires_at: string } | null> {
+    async generateLinkCode(userId: string): Promise<LinkCodeResult | null> {
         try {
             const result = await this.apiCall<{
                 code?: string;
@@ -38,7 +45,7 @@ class TelegramService {
             }>('generate-code', { userId });
 
             if (result.linked && result.account) {
-                throw new Error('Telegram akkaunti allaqachon ulangan. Avval uzing.');
+                return { linked: true, account: result.account };
             }
 
             if (result.code && result.expires_at) {
@@ -48,9 +55,6 @@ class TelegramService {
             console.warn('Code generation failed:', result.error);
             return null;
         } catch (err: unknown) {
-            if (err instanceof Error && err.message.includes('allaqachon ulangan')) {
-                throw err;
-            }
             console.error('generateLinkCode error:', err);
             return null;
         }

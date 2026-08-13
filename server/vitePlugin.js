@@ -107,7 +107,7 @@ export function telegramApiPlugin() {
                             .maybeSingle();
 
                         if (existing) {
-                            return sendJson(409, { error: 'Telegram allaqachon ulangan', linked: true, account: existing });
+                            return sendJson(200, { error: 'Telegram allaqachon ulangan', linked: true, account: existing });
                         }
 
                         // Delete old unused codes

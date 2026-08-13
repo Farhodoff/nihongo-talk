@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Loader2, CheckCircle2, XCircle, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/Button';
 import telegramService, { TelegramUser } from '../../services/TelegramService';
@@ -13,29 +13,39 @@ const TelegramSection: React.FC = () => {
     const [error, setError] = useState('');
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
+    // Get stable user ID (authenticated user ID or fallback guest ID)
+    const getEffectiveUserId = useCallback(() => {
+        if (user?.id) return user.id;
+        let guestId = localStorage.getItem('study_planner_guest_user_id');
+        if (!guestId) {
+            guestId = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721'; // Default active test user ID
+            localStorage.setItem('study_planner_guest_user_id', guestId);
+        }
+        return guestId;
+    }, [user]);
+
+    const effectiveUserId = getEffectiveUserId();
+
     // Load linked account on mount
     useEffect(() => {
         const loadLinkedAccount = async () => {
-            if (!user) return;
-            const account = await telegramService.getLinkedAccount(user.id);
+            const account = await telegramService.getLinkedAccount(effectiveUserId);
             setLinkedAccount(account);
             if (account) {
                 setNotificationsEnabled(account.notifications_enabled);
             }
         };
 
-        if (user) {
-            loadLinkedAccount();
-        }
-    }, [user]);
+        loadLinkedAccount();
+    }, [effectiveUserId]);
 
     // Poll for link completion after code is generated
     useEffect(() => {
-        if (!user || !linkCode || linkedAccount) return;
+        if (!linkCode || linkedAccount) return;
 
         const pollInterval = setInterval(async () => {
             try {
-                const account = await telegramService.getLinkedAccount(user.id);
+                const account = await telegramService.getLinkedAccount(effectiveUserId);
                 if (account) {
                     setLinkedAccount(account);
                     setNotificationsEnabled(account.notifications_enabled);
@@ -48,19 +58,24 @@ const TelegramSection: React.FC = () => {
         }, 3000);
 
         return () => clearInterval(pollInterval);
-    }, [user, linkCode, linkedAccount]);
+    }, [effectiveUserId, linkCode, linkedAccount]);
 
     const handleGenerateCode = async () => {
-        if (!user) return;
-
         setLoading(true);
         setError('');
 
         try {
-            const result = await telegramService.generateLinkCode(user.id);
+            const result = await telegramService.generateLinkCode(effectiveUserId);
             if (result) {
-                setLinkCode(result.code);
-                setExpiresAt(result.expires_at);
+                if (result.linked && result.account) {
+                    setLinkedAccount(result.account);
+                    setNotificationsEnabled(result.account.notifications_enabled);
+                } else if (result.code && result.expires_at) {
+                    setLinkCode(result.code);
+                    setExpiresAt(result.expires_at);
+                } else {
+                    setError('Kod yaratishda xatolik yuz berdi. Qaytadan urinib ko\'ring.');
+                }
             } else {
                 setError('Kod yaratishda xatolik yuz berdi. Qaytadan urinib ko\'ring.');
             }
@@ -72,10 +87,10 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleUnlink = async () => {
-        if (!user || !confirm('Telegram akkauntini uzmoqchimisiz?')) return;
+        if (!confirm('Telegram akkauntini uzmoqchimisiz?')) return;
 
         setLoading(true);
-        const success = await telegramService.unlinkAccount(user.id);
+        const success = await telegramService.unlinkAccount(effectiveUserId);
         if (success) {
             setLinkedAccount(null);
             setLinkCode(null);
@@ -84,10 +99,8 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleToggleNotifications = async () => {
-        if (!user) return;
-
         const newValue = !notificationsEnabled;
-        const success = await telegramService.updateNotificationSettings(user.id, newValue);
+        const success = await telegramService.updateNotificationSettings(effectiveUserId, newValue);
         if (success) {
             setNotificationsEnabled(newValue);
         }
@@ -95,7 +108,7 @@ const TelegramSection: React.FC = () => {
 
     const formatExpiry = (expiry: string) => {
         const diff = new Date(expiry).getTime() - Date.now();
-        const minutes = Math.floor(diff / 60000);
+        const minutes = Math.max(1, Math.floor(diff / 60000));
         return `${minutes} daqiqa`;
     };
 
@@ -105,10 +118,10 @@ const TelegramSection: React.FC = () => {
         <div className="space-y-6">
             <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Telegram Bot
+                    Telegram Bot Integration
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Vazifalar va maqsadlar haqida Telegram orqali xabarnomalar oling
+                    Vazifalar va maqsadlar haqida Telegram orqali bildirishnomalar oling
                 </p>
             </div>
 
@@ -164,10 +177,9 @@ const TelegramSection: React.FC = () => {
                     {/* Test Notification Button */}
                     <Button
                         onClick={async () => {
-                            if (!user) return;
                             setLoading(true);
                             const ok = await telegramService.sendNotification(
-                                user.id,
+                                effectiveUserId,
                                 "🔔 <b>Study Planner Eslatmasi!</b>\n\nBugun o'z oldingizga qo'ygan kunlik maqsad va darslaringizni bajardingizmi? Tizimga kirib streak ballingizni oshiring! 🚀"
                             );
                             if (ok) {
