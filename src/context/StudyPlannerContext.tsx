@@ -11,6 +11,7 @@ import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate, DatabaseCoachSession } from '../types/supabase-types';
 import { generateUUID } from '../utils/uuid';
+import { LeaderboardService } from '../services/LeaderboardService';
 
 
 interface Settings {
@@ -1148,13 +1149,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Separate gamification updates from app settings
         if (updates.totalXp !== undefined || updates.level !== undefined) {
-            setGamificationState(prev => ({
-                ...prev,
-                totalXp: updates.totalXp ?? prev.totalXp,
-                level: updates.level ?? prev.level,
-                currentStreak: updates.currentStreak ?? prev.currentStreak,
-                lastActivityDate: updates.lastActivityDate ?? prev.lastActivityDate
-            }));
+            setGamificationState(prev => {
+                const newXp = updates.totalXp ?? prev.totalXp;
+                const newStreak = updates.currentStreak ?? prev.currentStreak;
+                LeaderboardService.syncUserProgress(newXp, newStreak);
+                return {
+                    ...prev,
+                    totalXp: newXp,
+                    level: updates.level ?? prev.level,
+                    currentStreak: newStreak,
+                    lastActivityDate: updates.lastActivityDate ?? prev.lastActivityDate
+                };
+            });
         }
 
         if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined || updates.coachAiModel !== undefined || updates.coachApiKey !== undefined || updates.showFurigana !== undefined || updates.showRomaji !== undefined) {

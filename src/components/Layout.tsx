@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
     BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen, Compass
+    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen, Compass, Trophy
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -69,6 +69,7 @@ const Layout: React.FC = () => {
                 { name: 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
                 { name: 'Yaponcha Scenarios', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
                 { name: 'AI Coach', path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+                { name: 'Reyting & Leaderboard', path: '/leaderboard', icon: Trophy, tourId: 'nav-leaderboard' },
             ]
         },
         {
