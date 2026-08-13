@@ -28,6 +28,14 @@ function loadEnv() {
     }
 }
 
+function ensureValidUuid(id) {
+    const defaultUuid = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
+    if (!id || typeof id !== 'string') return defaultUuid;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (uuidRegex.test(id)) return id;
+    return defaultUuid;
+}
+
 function generateCode() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code = '';
@@ -58,7 +66,7 @@ export function telegramApiPlugin() {
             server.middlewares.use(async (req, res, next) => {
                 const url = new URL(req.url, `http://${req.headers.host}`);
 
-                if (!url.pathname.startsWith('/api/telegram/')) {
+                if (!url.pathname.startsWith('/api/telegram')) {
                     return next();
                 }
 
@@ -93,12 +101,10 @@ export function telegramApiPlugin() {
 
                 try {
                     const { pathname } = url;
+                    const userId = ensureValidUuid(body.userId);
 
                     // POST /api/telegram/generate-code
-                    if (pathname === '/api/telegram/generate-code') {
-                        const { userId } = body;
-                        if (!userId) return sendJson(400, { error: 'userId is required' });
-
+                    if (pathname.includes('generate-code')) {
                         // Check if already linked
                         const { data: existing } = await supabase
                             .from('telegram_users')
@@ -130,10 +136,7 @@ export function telegramApiPlugin() {
                     }
 
                     // POST /api/telegram/check-link
-                    if (pathname === '/api/telegram/check-link') {
-                        const { userId } = body;
-                        if (!userId) return sendJson(400, { error: 'userId is required' });
-
+                    if (pathname.includes('check-link')) {
                         const { data } = await supabase
                             .from('telegram_users')
                             .select('*')
@@ -144,19 +147,14 @@ export function telegramApiPlugin() {
                     }
 
                     // POST /api/telegram/unlink
-                    if (pathname === '/api/telegram/unlink') {
-                        const { userId } = body;
-                        if (!userId) return sendJson(400, { error: 'userId is required' });
-
+                    if (pathname.includes('unlink')) {
                         await supabase.from('telegram_users').delete().eq('user_id', userId);
                         return sendJson(200, { success: true });
                     }
 
                     // POST /api/telegram/toggle-notifications
-                    if (pathname === '/api/telegram/toggle-notifications') {
-                        const { userId, enabled } = body;
-                        if (!userId) return sendJson(400, { error: 'userId is required' });
-
+                    if (pathname.includes('toggle-notifications')) {
+                        const { enabled } = body;
                         await supabase
                             .from('telegram_users')
                             .update({ notifications_enabled: enabled })
@@ -166,10 +164,8 @@ export function telegramApiPlugin() {
                     }
 
                     // POST /api/telegram/send-test
-                    if (pathname === '/api/telegram/send-test') {
-                        const { userId, text } = body;
-                        if (!userId) return sendJson(400, { error: 'userId is required' });
-
+                    if (pathname.includes('send-test')) {
+                        const { text } = body;
                         const { data: account } = await supabase
                             .from('telegram_users')
                             .select('*')
