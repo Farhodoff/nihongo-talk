@@ -177,15 +177,16 @@ Yordam: /help`);
 
     if (args && telegramId) {
         // Code linking flow
-        console.log('Checking code:', args);
+        const cleanCode = (args || '').trim().toUpperCase();
+        console.log('Checking code:', cleanCode);
 
         const { data: linkCode, error } = await supabase
             .from('telegram_link_codes')
             .select('*')
-            .eq('code', args)
+            .ilike('code', cleanCode)
             .eq('used', false)
             .gt('expires_at', new Date().toISOString())
-            .single();
+            .maybeSingle();
 
         if (error || !linkCode) {
             console.log('Invalid code:', error);

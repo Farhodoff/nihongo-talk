@@ -117,11 +117,12 @@ class TelegramService {
         lastName?: string
     ): Promise<string | null> {
         try {
+            const cleanCode = (code || '').trim().toUpperCase();
             // Find valid code in Supabase
             const { data: linkCode, error: codeError } = await supabase
                 .from('telegram_link_codes')
                 .select('*')
-                .eq('code', code)
+                .ilike('code', cleanCode)
                 .eq('used', false)
                 .gt('expires_at', new Date().toISOString())
                 .maybeSingle();
