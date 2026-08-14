@@ -175,14 +175,53 @@ export class ScenarioService {
 
     // 5. Get Learning History
     static async getScenarioHistory(): Promise<ScenarioSessionResult[]> {
+        let history: ScenarioSessionResult[] = [];
         try {
             const local = localStorage.getItem(SCENARIO_HISTORY_KEY);
             if (local) {
-                return JSON.parse(local);
+                history = JSON.parse(local);
             }
         } catch (e) {
             console.error(e);
         }
-        return [];
+
+        try {
+            const { data: userData } = await supabase.auth.getUser();
+            const userId = userData?.user?.id;
+            if (userId) {
+                const { data, error } = await supabase
+                    .from('speaking_sessions')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false })
+                    .limit(50);
+                if (!error && data && data.length > 0) {
+                    const dbHistory: ScenarioSessionResult[] = data.map(item => ({
+                        id: item.id || `sc_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+                        scenario_id: item.scenario_id || 'custom',
+                        scenario_title: item.persona_title || 'Ssenariy',
+                        duration_seconds: item.duration_seconds || 0,
+                        overall_score: item.overall_score || 0,
+                        fluency_score: item.fluency_score || 0,
+                        vocabulary_score: item.vocabulary_score || 0,
+                        grammar_score: item.grammar_score || 0,
+                        pronunciation_score: item.pronunciation_score || 0,
+                        ai_feedback: item.feedback || '',
+                        key_phrases_used: Array.isArray(item.key_phrases_used) ? item.key_phrases_used : [],
+                        key_phrases_missed: Array.isArray(item.key_phrases_missed) ? item.key_phrases_missed : [],
+                        transcript: item.transcript || [],
+                        created_at: item.created_at
+                    }));
+                    const dbTimes = new Set(dbHistory.map(h => h.created_at));
+                    const merged = [...dbHistory, ...history.filter(h => !dbTimes.has(h.created_at))].slice(0, 50);
+                    localStorage.setItem(SCENARIO_HISTORY_KEY, JSON.stringify(merged));
+                    return merged;
+                }
+            }
+        } catch (e) {
+            console.warn('Scenario history fetch from DB notice:', e);
+        }
+
+        return history;
     }
 }

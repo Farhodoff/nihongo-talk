@@ -35,11 +35,14 @@ export class ErrorVaultService {
      */
     public static async syncFromDB(): Promise<SpeakingErrorItem[]> {
         try {
+            const localErrors = this.getErrors();
             const { data: { user } } = await supabase.auth.getUser();
             if (user?.user_metadata?.error_vault) {
                 const dbErrors = user.user_metadata.error_vault as SpeakingErrorItem[];
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(dbErrors));
-                return dbErrors;
+                const dbIds = new Set(dbErrors.map(e => e.id));
+                const merged = [...dbErrors, ...localErrors.filter(e => !dbIds.has(e.id))].slice(0, 100);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+                return merged;
             }
         } catch (e) {
             console.warn('Failed to sync error vault from DB:', e);
