@@ -3,6 +3,7 @@ import 'tldraw/tldraw.css';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
+import { idbGet, idbSet } from '../utils/storage/indexedDb';
 
 interface WhiteboardProps {
     whiteboardId: string;
@@ -40,12 +41,20 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
             if (data?.data && Object.keys(data.data).length > 0) {
                 setStoreData(data.data);
             } else {
-                // 2. Fallback to LocalStorage
-                const local = localStorage.getItem(persistenceKey);
-                if (local) {
+                // 2. Fallback to IndexedDB (async & large capacity)
+                const idbData = await idbGet<Record<string, unknown>>(persistenceKey);
+                if (idbData && Object.keys(idbData).length > 0) {
+                    setStoreData(idbData);
+                } else {
+                    // 3. Fallback to legacy LocalStorage and migrate
                     try {
-                        const parsed = JSON.parse(local);
-                        setStoreData(parsed);
+                        const local = localStorage.getItem(persistenceKey);
+                        if (local) {
+                            const parsed = JSON.parse(local);
+                            setStoreData(parsed);
+                            await idbSet(persistenceKey, parsed);
+                            localStorage.removeItem(persistenceKey);
+                        }
                     } catch (e) {
                         console.error("Failed to parse local whiteboard", e);
                     }
@@ -75,10 +84,10 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
             if (localSaveTimeoutRef.current) clearTimeout(localSaveTimeoutRef.current);
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
 
-            // Local Storage Save (Fast debounce - 1s)
-            localSaveTimeoutRef.current = setTimeout(() => {
+            // Local IndexedDB Save (Fast debounce - 1s, non-blocking & large capacity)
+            localSaveTimeoutRef.current = setTimeout(async () => {
                 const snapshot = getSnapshot(editor.store);
-                localStorage.setItem(persistenceKey, JSON.stringify(snapshot));
+                await idbSet(persistenceKey, snapshot);
             }, 1000);
 
             // Supabase Save (Slow debounce - 3s)

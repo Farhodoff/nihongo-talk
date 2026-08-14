@@ -14,7 +14,7 @@ const StudyModePage: React.FC = () => {
     const navigate = useNavigate();
 
     const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } = useStudyData();
-    const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
+    const isAdmin = isAdminEmail(user?.email);
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);

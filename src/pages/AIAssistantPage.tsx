@@ -79,10 +79,10 @@ const AIAssistantPage: React.FC = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Persist chat messages to localStorage
+    // Persist chat messages to localStorage (capped to latest 50)
     useEffect(() => {
         try {
-            localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
+            localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-50)));
         } catch {}
     }, [messages]);
 
@@ -292,11 +292,11 @@ const AIAssistantPage: React.FC = () => {
         return [];
     });
 
-    // Persist interview messages to localStorage
+    // Persist interview messages to localStorage (capped to latest 50)
     useEffect(() => {
         try {
             if (interviewMsgs.length > 0) {
-                localStorage.setItem(INTERVIEW_STORAGE_KEY, JSON.stringify(interviewMsgs));
+                localStorage.setItem(INTERVIEW_STORAGE_KEY, JSON.stringify(interviewMsgs.slice(-50)));
             }
         } catch {}
     }, [interviewMsgs]);

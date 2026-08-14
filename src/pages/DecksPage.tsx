@@ -40,7 +40,7 @@ const DecksPage: React.FC = () => {
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
 
-    const isAdmin = isAdminEmail(user?.email) || localStorage.getItem('admin_override') === 'true';
+    const isAdmin = isAdminEmail(user?.email);
 
     const activeSubjects = subjects.filter(s => !s.isArchived);
     const archivedSubjects = subjects.filter(s => !!s.isArchived);

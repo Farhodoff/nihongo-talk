@@ -87,7 +87,7 @@ export class HistoryService {
         const local = localStorage.getItem('study_planner_ielts_writing_history');
         const list: WritingHistoryItem[] = local ? JSON.parse(local) : [];
         list.unshift(newItem);
-        localStorage.setItem('study_planner_ielts_writing_history', JSON.stringify(list));
+        localStorage.setItem('study_planner_ielts_writing_history', JSON.stringify(list.slice(0, 50)));
 
         return newItem;
     }
@@ -164,7 +164,7 @@ export class HistoryService {
         const local = localStorage.getItem('study_planner_speaking_coach_sessions');
         const list: SpeakingSessionItem[] = local ? JSON.parse(local) : [];
         list.unshift(newItem);
-        localStorage.setItem('study_planner_speaking_coach_sessions', JSON.stringify(list));
+        localStorage.setItem('study_planner_speaking_coach_sessions', JSON.stringify(list.slice(0, 50)));
 
         return newItem;
     }
@@ -240,7 +240,7 @@ export class HistoryService {
         const local = localStorage.getItem('study_planner_mock_exams_history');
         const list: MockExamItem[] = local ? JSON.parse(local) : [];
         list.unshift(newItem);
-        localStorage.setItem('study_planner_mock_exams_history', JSON.stringify(list));
+        localStorage.setItem('study_planner_mock_exams_history', JSON.stringify(list.slice(0, 50)));
 
         return newItem;
     }
