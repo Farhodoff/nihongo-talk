@@ -10,7 +10,7 @@ import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate, DatabaseCoachSession } from '../types/supabase-types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 
 
 
@@ -365,8 +365,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const profileRes = profileSettled.status === 'fulfilled' ? profileSettled.value : null;
                 const coachSessionsRes = coachSessionsSettled.status === 'fulfilled' ? coachSessionsSettled.value : null;
 
-                if (subjectsRes?.data) {
-                    const mappedSubjects = subjectsRes.data.map((s: DatabaseSubject) => ({
+                let localCachedSubs: Subject[] = [];
+                try {
+                    const rawCache = (currentUser?.id ? localStorage.getItem('study_planner_subjects_cache_' + currentUser.id) : null) || localStorage.getItem('study_planner_subjects_cache');
+                    if (rawCache) {
+                        const parsed = JSON.parse(rawCache);
+                        if (Array.isArray(parsed) && parsed.length > 0) localCachedSubs = parsed;
+                    }
+                } catch (e) {}
+
+                let mappedSubjects: Subject[] = [];
+                if (subjectsRes?.data && Array.isArray(subjectsRes.data)) {
+                    mappedSubjects = subjectsRes.data.map((s: DatabaseSubject) => ({
                         id: s.id,
                         name: s.name,
                         color: s.color,
@@ -377,64 +387,62 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         icon: s.icon,
                         isArchived: s.is_archived || false
                     }));
+                }
 
-                    // Merge DB subjects with local cached subjects so new subjects are never lost
-                    let localCachedSubs: Subject[] = [];
-                    try {
-                        const rawCache = localStorage.getItem('study_planner_subjects_cache_' + currentUser.id);
-                        if (rawCache) localCachedSubs = JSON.parse(rawCache);
-                    } catch (e) {}
+                const dbSubIds = new Set(mappedSubjects.map(s => s.id));
+                const missingLocalSubs = localCachedSubs.filter(s => !dbSubIds.has(s.id));
 
-                    const dbSubIds = new Set(mappedSubjects.map(s => s.id));
-                    const missingLocalSubs = localCachedSubs.filter(s => !dbSubIds.has(s.id));
+                let mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
+                if (mergedSubjects.length === 0) {
+                    mergedSubjects = [
+                        {
+                            id: '00000000-0000-4000-8000-000000000001',
+                            name: '🎌 JLPT Japanese Master',
+                            color: '#f43f5e',
+                            icon: 'Sparkles',
+                            schedule: [],
+                            isArchived: false
+                        },
+                        {
+                            id: '00000000-0000-4000-8000-000000000002',
+                            name: '📘 IELTS Academic & CEFR Master',
+                            color: '#6366f1',
+                            icon: 'GraduationCap',
+                            schedule: [],
+                            isArchived: false
+                        },
+                        {
+                            id: '00000000-0000-4000-8000-000000000003',
+                            name: '💻 IT & Dasturlash',
+                            color: '#10b981',
+                            icon: 'Code',
+                            schedule: [],
+                            isArchived: false
+                        },
+                        {
+                            id: '00000000-0000-4000-8000-000000000004',
+                            name: '📝 Qaydnoma va Konspektlar',
+                            color: '#8b5cf6',
+                            icon: 'BookOpen',
+                            schedule: [],
+                            isArchived: false
+                        }
+                    ];
+                }
 
-                    let mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
-                    if (mergedSubjects.length === 0) {
-                        mergedSubjects = [
-                            {
-                                id: 'sub_jlpt_master',
-                                name: '🎌 JLPT Japanese Master',
-                                color: '#f43f5e',
-                                icon: 'Sparkles',
-                                schedule: [],
-                                isArchived: false
-                            },
-                            {
-                                id: 'sub_ielts_master',
-                                name: '📘 IELTS Academic & CEFR Master',
-                                color: '#6366f1',
-                                icon: 'GraduationCap',
-                                schedule: [],
-                                isArchived: false
-                            },
-                            {
-                                id: 'sub_it_programming',
-                                name: '💻 IT & Dasturlash',
-                                color: '#10b981',
-                                icon: 'Code',
-                                schedule: [],
-                                isArchived: false
-                            },
-                            {
-                                id: 'sub_general_notes',
-                                name: '📝 Qaydnoma va Konspektlar',
-                                color: '#8b5cf6',
-                                icon: 'BookOpen',
-                                schedule: [],
-                                isArchived: false
-                            }
-                        ];
-                    }
-
-                    setSubjects(mergedSubjects);
-                    try {
+                setSubjects(mergedSubjects);
+                try {
+                    if (currentUser?.id) {
                         localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
-                        localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
-                    } catch (e) {}
+                    }
+                    localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
+                } catch (e) {}
 
-                    // Background Sync: Upsert subjects directly into Supabase DB
-                    if (mergedSubjects.length > 0) {
-                        const dbPayload = mergedSubjects.map(s => ({
+                // Background Sync: Upsert subjects directly into Supabase DB
+                if (mergedSubjects.length > 0 && currentUser?.id) {
+                    const dbPayload = mergedSubjects
+                        .filter(s => isUuid(s.id))
+                        .map(s => ({
                             id: s.id,
                             user_id: currentUser.id,
                             name: s.name,
@@ -443,6 +451,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                             description: s.description || null,
                             is_archived: s.isArchived || false
                         }));
+                    if (dbPayload.length > 0) {
                         supabase.from('subjects').upsert(dbPayload).then(({ error }) => {
                             if (error) console.warn("[Background Sync] Subjects upsert warning:", error);
                         });
@@ -762,6 +771,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             const updated = [...filtered, optimisticSubject];
             try {
                 localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
             } catch (e) {}
             return updated;
         });
@@ -829,6 +839,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     const updated = [...filtered, finalSubject];
                     try {
                         localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+                        localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
                     } catch (e) {}
                     return updated;
                 });
@@ -851,6 +862,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             const updated = prev.filter(s => s.id !== id);
             try {
                 localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
             } catch (e) {}
             return updated;
         });
@@ -869,6 +881,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             const updated = prev.map(s => s.id === id ? { ...s, ...updates } : s);
             try {
                 localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
+                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
             } catch (e) {}
             return updated;
         });
