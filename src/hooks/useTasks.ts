@@ -14,7 +14,18 @@ const saveTasksToLocalStorage = (taskList: Task[]) => {
 };
 
 export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) => {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<Task[]>(() => {
+        try {
+            const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch (e) {
+            console.warn('Failed to load initial tasks from localStorage:', e);
+        }
+        return [];
+    });
 
     useEffect(() => {
         saveTasksToLocalStorage(tasks);

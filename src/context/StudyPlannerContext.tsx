@@ -162,7 +162,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         importFlashcards
     } = useFlashcards(awardXP);
 
-    const [subjects, setSubjects] = useState<Subject[]>([]);
+    const [subjects, setSubjects] = useState<Subject[]>(() => {
+        try {
+            const raw = localStorage.getItem('study_planner_subjects_cache');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch {}
+        return [];
+    });
     const [goals, setGoals] = useState<Goal[]>([]);
     const [notes, setNotes] = useState<Note[]>([]);
     const [studyNotes, setStudyNotes] = useState<StudyNote[]>([]);
@@ -173,7 +182,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
 
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(() => {
+        try {
+            const localSession = localStorage.getItem('study_planner_user_cache');
+            if (localSession) {
+                return JSON.parse(localSession);
+            }
+        } catch {}
+        return null;
+    });
 
     // Google Calendar tadbirlarini sinxronizatsiya qilish
     const syncGoogleEvents = useCallback(async () => {
