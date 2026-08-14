@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PRESET_DECKS, PresetCard, PresetSubDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { X, Upload, Scissors, CheckCircle2, Sparkles, FolderPlus, FileJson, AlertCircle, Layers } from 'lucide-react';
+import { X, Upload, Scissors, CheckCircle2, Sparkles, FolderPlus, FileJson, AlertCircle, Layers, Download } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
 import { supabase } from '../../lib/supabase';
 import { generateUUID } from '../../utils/uuid';
@@ -31,6 +31,49 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
     // JSON upload states
     const [uploadedCards, setUploadedCards] = useState<PresetCard[]>([]);
     const [jsonFileName, setJsonFileName] = useState<string | null>(null);
+
+    const downloadSampleJson = () => {
+        const sampleData = [
+            {
+                "front": "申し込む (もうしこむ)",
+                "back": "Ariza topshirmoq, ro'yxatdan o'tmoq",
+                "phonetic": "moushikomu",
+                "example": "JLPT imtihoniga ariza topshirdim.",
+                "category": "Fe'l"
+            },
+            {
+                "front": "打ち合わせ (うちあわせ)",
+                "back": "Oldindan uchrashuv, maslahatlashuv",
+                "phonetic": "uchiawase",
+                "example": "Ertaga soat 10 da mijoz bilan uchrashuvimiz bor.",
+                "category": "Biznes"
+            },
+            {
+                "front": "Comprehensive",
+                "back": "Keng qamrovli, har tomonlama to'liq",
+                "phonetic": "/ˌkɑːmprɪˈhensɪv/",
+                "example": "The study offers a comprehensive analysis of the topic.",
+                "category": "IELTS Academic"
+            },
+            {
+                "front": "Substantial",
+                "back": "Sezilarli darajada katta, muhim",
+                "phonetic": "/səbˈstænʃl/",
+                "example": "There was a substantial increase in exports.",
+                "category": "IELTS Academic"
+            }
+        ];
+        const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sample_flashcards_template.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast({ title: "📥 Namuna JSON yuklab olindi!", description: "sample_flashcards_template.json fayli saqlandi." });
+    };
 
     // Auto-split states
     const [selectedDeckId, setSelectedDeckId] = useState<string>('deck_jlpt_n4');
@@ -365,10 +408,19 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                     <p className="text-xs font-extrabold text-foreground">JSON Faylni Tanlang yoki Shuyerga Tashlang</p>
                                     <p className="text-[11px] text-muted-foreground mt-0.5">Format: [{`{"front":"so'z","back":"ta'rif"}`}]</p>
                                 </div>
-                                <label className="inline-block px-5 py-2.5 bg-primary text-primary-foreground font-bold text-xs rounded-xl cursor-pointer shadow-sm hover:shadow">
-                                    <Upload size={14} className="inline mr-1.5" /> Faylni Tanlash (.json)
-                                    <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
-                                </label>
+                                <div className="flex items-center justify-center gap-3 flex-wrap">
+                                    <label className="inline-block px-5 py-2.5 bg-primary text-primary-foreground font-bold text-xs rounded-xl cursor-pointer shadow-sm hover:shadow">
+                                        <Upload size={14} className="inline mr-1.5" /> Faylni Tanlash (.json)
+                                        <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={downloadSampleJson}
+                                        className="px-4 py-2.5 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-sm border border-border"
+                                    >
+                                        <Download size={14} /> Namuna JSON Yuklab Olish
+                                    </button>
+                                </div>
 
                                 {jsonFileName && (
                                     <div className="pt-2 flex items-center justify-center gap-2 text-xs font-black text-emerald-500">
@@ -433,10 +485,19 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                     <p className="text-xs font-extrabold text-foreground">Mustaqil Albom JSON Faylini Yuklang</p>
                                     <p className="text-[11px] text-muted-foreground mt-0.5">Format: [{`{"front":"word","back":"meaning"}`}]</p>
                                 </div>
-                                <label className="inline-block px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl cursor-pointer shadow-sm">
-                                    <Upload size={14} className="inline mr-1.5" /> JSON Fayl Tanlash
-                                    <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
-                                </label>
+                                <div className="flex items-center justify-center gap-3 flex-wrap">
+                                    <label className="inline-block px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl cursor-pointer shadow-sm">
+                                        <Upload size={14} className="inline mr-1.5" /> JSON Fayl Tanlash
+                                        <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={downloadSampleJson}
+                                        className="px-4 py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-sm border border-emerald-500/30"
+                                    >
+                                        <Download size={14} /> Namuna JSON Yuklab Olish
+                                    </button>
+                                </div>
 
                                 {jsonFileName && (
                                     <div className="pt-2 flex items-center justify-center gap-2 text-xs font-black text-emerald-500">

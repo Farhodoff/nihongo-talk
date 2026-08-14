@@ -1,0 +1,37 @@
+[
+  {
+    "front": "申し込む (もうしこむ)",
+    "back": "Ariza topshirmoq, ro'yxatdan o'tmoq",
+    "phonetic": "moushikomu",
+    "example": "JLPT imtihoniga ariza topshirdim.",
+    "category": "Fe'l"
+  },
+  {
+    "front": "打ち合わせ (うちあわせ)",
+    "back": "Oldindan uchrashuv, maslahatlashuv",
+    "phonetic": "uchiawase",
+    "example": "Ertaga soat 10 da mijoz bilan uchrashuvimiz bor.",
+    "category": "Biznes"
+  },
+  {
+    "front": "Comprehensive",
+    "back": "Keng qamrovli, har tomonlama to'liq",
+    "phonetic": "/ˌkɑːmprɪˈhensɪv/",
+    "example": "The study offers a comprehensive analysis of the topic.",
+    "category": "IELTS Academic"
+  },
+  {
+    "front": "Substantial",
+    "back": "Sezilarli darajada katta, muhim",
+    "phonetic": "/səbˈstænʃl/",
+    "example": "There was a substantial increase in exports.",
+    "category": "IELTS Academic"
+  },
+  {
+    "front": "お疲れ様です (おつかれさまです)",
+    "back": "Charchamang / Ishingizga unum bersin (Hamkasblarga xushmuomala salom)",
+    "phonetic": "otsukaresama desu",
+    "example": "Bugungi ish kuni uchun hammaga rahmat, charchamang!",
+    "category": "Muloqot"
+  }
+]
