@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PRESET_DECKS, PresetCard, PresetSubDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { X, Upload, Scissors, CheckCircle2, Sparkles, FolderPlus, FileJson, AlertCircle, Layers, Download } from 'lucide-react';
+import { X, Upload, Scissors, CheckCircle2, Sparkles, FileJson, AlertCircle, Download } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
 import { supabase } from '../../lib/supabase';
 import { generateUUID } from '../../utils/uuid';
@@ -10,23 +10,41 @@ interface AdminAlbumCreatorModalProps {
     isOpen: boolean;
     onClose: () => void;
     onAlbumCreated?: (album: PresetSubDeck) => void;
+    initialTitle?: string;
+    initialPartName?: string;
+    initialBadge?: string;
+    initialMode?: 'json_upload' | 'auto_split' | 'custom_standalone';
 }
 
 export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
     isOpen,
     onClose,
-    onAlbumCreated
+    onAlbumCreated,
+    initialTitle,
+    initialPartName,
+    initialBadge,
+    initialMode
 }) => {
-    const [mode, setMode] = useState<'json_upload' | 'auto_split' | 'custom_standalone'>('json_upload');
+    const [mode, setMode] = useState<'json_upload' | 'auto_split' | 'custom_standalone'>('custom_standalone');
     const [selectedLevel, setSelectedLevel] = useState<string>('JLPT N3');
     const [partName, setPartName] = useState<string>('1-Qism');
     const [chunkSize, setChunkSize] = useState<number>(50);
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
     // Custom Standalone Album states
-    const [customTitle, setCustomTitle] = useState<string>('Biznes va Ish Yaponchasi (Special Album)');
-    const [customDesc, setCustomDesc] = useState<string>("Suhbatlar va rasmiy muloqot uchun maxsus iboralar to'plami.");
+    const [customTitle, setCustomTitle] = useState<string>('日本語できる');
+    const [customPartName, setCustomPartName] = useState<string>('2-Qism');
+    const [customDesc, setCustomDesc] = useState<string>("Suhbatlar va darsliklar uchun maxsus iboralar to'plami.");
     const [customBadge, setCustomBadge] = useState<string>('MUSTAQIL');
+
+    useEffect(() => {
+        if (isOpen) {
+            if (initialTitle) setCustomTitle(initialTitle);
+            if (initialPartName) setCustomPartName(initialPartName);
+            if (initialBadge) setCustomBadge(initialBadge);
+            if (initialMode) setMode(initialMode);
+        }
+    }, [isOpen, initialTitle, initialPartName, initialBadge, initialMode]);
 
     // JSON upload states
     const [uploadedCards, setUploadedCards] = useState<PresetCard[]>([]);
@@ -187,27 +205,32 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
         setIsProcessing(true);
         try {
             const albumId = 'standalone_' + generateUUID();
+            const trimmedTitle = customTitle.trim();
+            const trimmedPart = customPartName.trim();
+            const fullTitle = (trimmedPart && !trimmedTitle.toLowerCase().includes(trimmedPart.toLowerCase()))
+                ? `${trimmedTitle} — ${trimmedPart}`
+                : trimmedTitle;
+            const partNumber = parseInt(trimmedPart.replace(/\D/g, '')) || 1;
 
             const newStandaloneAlbum: PresetSubDeck = {
                 id: albumId,
                 deckId: 'deck_custom_standalone',
-                title: customTitle.trim(),
+                title: fullTitle,
                 level: customBadge.trim() || 'MUSTAQIL',
                 description: customDesc.trim(),
-                partNumber: 1,
+                partNumber: partNumber,
                 cardCount: uploadedCards.length,
                 cards: uploadedCards,
                 createdAt: new Date().toISOString()
             };
 
-            // Save directly to Supabase DB table `admin_preset_albums`
             const { error } = await supabase.from('admin_preset_albums').upsert({
                 id: newStandaloneAlbum.id,
                 deck_id: newStandaloneAlbum.deckId,
                 title: newStandaloneAlbum.title,
                 level: newStandaloneAlbum.level,
                 description: customDesc.trim(),
-                part_number: 1,
+                part_number: newStandaloneAlbum.partNumber,
                 card_count: newStandaloneAlbum.cardCount,
                 cards: newStandaloneAlbum.cards,
                 created_at: newStandaloneAlbum.createdAt
@@ -216,12 +239,6 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
             if (error) {
                 console.warn("Supabase standalone album insert warning:", error.message);
             }
-
-            // Save to localStorage cache as backup
-            const savedLocal = localStorage.getItem('study_planner_admin_albums');
-            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
-            localAlbums.push(newStandaloneAlbum);
-            localStorage.setItem('study_planner_admin_albums', JSON.stringify(localAlbums));
 
             if (onAlbumCreated) onAlbumCreated(newStandaloneAlbum);
 
@@ -244,113 +261,100 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
 
         setIsProcessing(true);
         try {
-            const loadedCards = await targetDeck.loadCards();
-            if (!loadedCards || loadedCards.length === 0) {
-                toast({ variant: 'destructive', title: "❌ Kartochkalar topilmadi" });
-                setIsProcessing(false);
+            const allCards = await targetDeck.loadCards();
+            if (!allCards || allCards.length === 0) {
+                toast({ variant: 'destructive', title: "Xatolik", description: "To'plamda kartalar topilmadi." });
                 return;
             }
 
-            const createdAlbums: PresetSubDeck[] = [];
-            let partCounter = 1;
+            let createdCount = 0;
+            for (let i = 0; i < allCards.length; i += chunkSize) {
+                const chunk = allCards.slice(i, i + chunkSize);
+                const pNum = Math.floor(i / chunkSize) + 1;
+                const albumId = `${targetDeck.id}_split_${chunkSize}_part_${pNum}`;
 
-            for (let i = 0; i < loadedCards.length; i += chunkSize) {
-                const chunk = loadedCards.slice(i, i + chunkSize);
-                const album: PresetSubDeck = {
-                    id: `album_${targetDeck.id}_part_${partCounter}`,
-                    deckId: targetDeck.id,
-                    title: `${targetDeck.level} — ${partCounter}-Qism (${chunk.length} ta card)`,
+                const dbPayload = {
+                    id: albumId,
+                    deck_id: targetDeck.id,
+                    title: `${targetDeck.level} — ${pNum}-Qism`,
                     level: targetDeck.level,
-                    partNumber: partCounter,
-                    cardCount: chunk.length,
+                    part_number: pNum,
+                    card_count: chunk.length,
                     cards: chunk,
-                    createdAt: new Date().toISOString()
+                    created_at: new Date().toISOString()
                 };
-                createdAlbums.push(album);
-                partCounter++;
+
+                await supabase.from('admin_preset_albums').upsert(dbPayload as any);
+                createdCount++;
             }
 
-            // Batch save albums to Supabase DB
-            const dbPayload = createdAlbums.map(a => ({
-                id: a.id,
-                deck_id: a.deckId,
-                title: a.title,
-                level: a.level,
-                part_number: a.partNumber,
-                card_count: a.cardCount,
-                cards: a.cards,
-                created_at: a.createdAt
-            }));
-
-            await supabase.from('admin_preset_albums').upsert(dbPayload as any);
-
-            const savedLocal = localStorage.getItem('study_planner_admin_albums');
-            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
-            const updatedLocal = [...localAlbums, ...createdAlbums];
-            localStorage.setItem('study_planner_admin_albums', JSON.stringify(updatedLocal));
-
             toast({
-                title: "⚡ Avto-Bo'lish Yakunlandi!",
-                description: `"${targetDeck.title}" to'plami ${createdAlbums.length} ta (${chunkSize} tadan) Albom qismlariga bo'lindi!`
+                title: "✂️ Avto-Bo'lish Muvaffaqiyatli!",
+                description: `${targetDeck.title} to'plami ${createdCount} ta alohida ${chunkSize} tadan iborat qismga ajratilib, DBga saqlandi!`
             });
             onClose();
         } catch (err: any) {
-            console.error("Auto split error:", err);
-            toast({ variant: 'destructive', title: "❌ Xatolik", description: err.message || "To'plamni bo'lishda xatolik yuz berdi." });
+            toast({ variant: 'destructive', title: "Xatolik", description: err.message });
         } finally {
             setIsProcessing(false);
         }
     };
 
+    if (!isOpen) return null;
+
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-            <div className="bg-card border border-border w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col relative">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
+            <div className="bg-card border border-border w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col relative max-h-[90vh]">
                 
-                {/* Header */}
-                <div className="p-6 bg-gradient-to-r from-rose-900 via-purple-950 to-indigo-900 text-white flex items-center justify-between">
+                {/* Modal Header */}
+                <div className="p-6 bg-gradient-to-r from-rose-950 via-purple-950 to-indigo-950 text-white flex items-center justify-between border-b border-white/10 shrink-0">
                     <div className="space-y-1">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-white/20 backdrop-blur-md">
-                            <FolderPlus size={14} /> Admin Albom & JSON Boshqaruvi
+                        <div className="flex items-center gap-2">
+                            <span className="p-1.5 bg-rose-500/20 border border-rose-500/40 rounded-xl text-xs font-black text-rose-300 flex items-center gap-1">
+                                <Sparkles size={14} /> SUPER ADMIN
+                            </span>
+                            <span className="text-xs font-bold text-slate-300">Albom Yaratish & Bo'lish</span>
                         </div>
-                        <h2 className="text-xl font-black">Yangi Albom Yaratish (DB Direct JSON Import)</h2>
+                        <h2 className="text-xl font-black flex items-center gap-2">
+                            <span>📚</span> Albom Yaratish (DB Direct JSON Import)
+                        </h2>
                     </div>
+
                     <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-full transition-all">
                         <X size={20} />
                     </button>
                 </div>
 
-                {/* Mode Selector Tabs */}
-                <div className="p-3 bg-muted/40 border-b border-border flex items-center gap-2">
-                    <button
-                        onClick={() => setMode('json_upload')}
-                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                            mode === 'json_upload' ? 'bg-primary text-primary-foreground shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                        }`}
-                    >
-                        <FileJson size={15} /> Standard Darajali Import
-                    </button>
-
+                {/* Tabs */}
+                <div className="p-2 bg-muted/60 border-b border-border flex items-center gap-2 shrink-0">
                     <button
                         onClick={() => setMode('custom_standalone')}
-                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                            mode === 'custom_standalone' ? 'bg-emerald-600 text-white shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'custom_standalone' ? 'bg-emerald-600 text-white shadow-sm' : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
-                        <Layers size={15} /> Mustaqil Maxsus Albom (DB)
+                        <Sparkles size={14} /> Mustaqil Maxsus Albom (DB)
                     </button>
-
+                    <button
+                        onClick={() => setMode('json_upload')}
+                        className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'json_upload' ? 'bg-indigo-600 text-white shadow-sm' : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        <FileJson size={14} /> JLPT / IELTS Qism Qo'shish
+                    </button>
                     <button
                         onClick={() => setMode('auto_split')}
-                        className={`flex-1 py-2 px-3 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
-                            mode === 'auto_split' ? 'bg-purple-600 text-white shadow-md' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+                            mode === 'auto_split' ? 'bg-amber-600 text-white shadow-sm' : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
-                        <Scissors size={15} /> Avto 50 tadan Bo'lish
+                        <Scissors size={14} /> Katta To'plamni Bo'lish
                     </button>
                 </div>
 
-                {/* Body */}
-                <div className="p-6 space-y-6 flex-1 overflow-y-auto">
+                {/* Modal Body */}
+                <div className="p-6 overflow-y-auto space-y-6 flex-1">
                     {mode === 'json_upload' && (
                         <div className="space-y-5">
                             <div className="grid grid-cols-2 gap-4 text-xs">
@@ -437,21 +441,32 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 flex items-start gap-3 text-emerald-600 dark:text-emerald-400">
                                 <Sparkles size={20} className="shrink-0 mt-0.5 text-emerald-500" />
                                 <div>
-                                    <p className="font-extrabold">Mustaqil Maxsus Albom Yaratish (Super Admin):</p>
+                                    <p className="font-extrabold">Mustaqil Maxsus Albom Yaratish / Keyingi Qism Qo'shish:</p>
                                     <p className="text-[11px] opacity-90 mt-0.5">
-                                        Standart darajalardan (JLPT/IELTS) tashqari har qanday mustaqil mavzu uchun yangi Albom tuzing. JSON kartochkalar to'g'ridan-to'g'ri DBga saqlanadi.
+                                        Har qanday mavzudagi to'plam yoki mavjud albomning 1-Qism, 2-Qism, 3-Qismlarini yuklang. JSON kartochkalar to'g'ridan-to'g'ri DBga saqlanadi.
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="font-extrabold text-foreground block mb-1.5">Albom Sarlavhasi:</label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="md:col-span-1">
+                                    <label className="font-extrabold text-foreground block mb-1.5">Albom Asosiy Nomi:</label>
                                     <input
                                         type="text"
                                         value={customTitle}
                                         onChange={e => setCustomTitle(e.target.value)}
-                                        placeholder="Kompaniya & Biznes Yaponchasi"
+                                        placeholder="日本語できる"
+                                        className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="font-extrabold text-foreground block mb-1.5">Qism Nomi (Part):</label>
+                                    <input
+                                        type="text"
+                                        value={customPartName}
+                                        onChange={e => setCustomPartName(e.target.value)}
+                                        placeholder="2-Qism (yoki 3-Qism)"
                                         className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
                                     />
                                 </div>

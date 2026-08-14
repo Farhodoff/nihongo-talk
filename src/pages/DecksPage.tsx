@@ -1,4 +1,4 @@
-import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive } from 'lucide-react';
+import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive, FolderPlus } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
@@ -200,20 +200,59 @@ const DecksPage: React.FC = () => {
         loadStandaloneAlbums();
     }, [loadStandaloneAlbums]);
 
+    const [albumCreatorProps, setAlbumCreatorProps] = useState<{
+        initialTitle?: string;
+        initialPartName?: string;
+        initialBadge?: string;
+        initialMode?: 'json_upload' | 'auto_split' | 'custom_standalone';
+    }>({});
+
+    const handleOpenAddPartForAlbum = (album: PresetSubDeck) => {
+        const rawTitle = album.title.trim();
+        const baseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
+        const currentPartNum = album.partNumber || 1;
+        const nextPartNum = currentPartNum + 1;
+        
+        setAlbumCreatorProps({
+            initialTitle: baseTitle,
+            initialPartName: `${nextPartNum}-Qism`,
+            initialBadge: album.level || 'MUSTAQIL',
+            initialMode: 'custom_standalone'
+        });
+        setIsAlbumCreatorOpen(true);
+    };
+
+    const isStandaloneAlbumAdded = (album: PresetSubDeck) => {
+        const rawTitle = album.title.trim();
+        const cleanBaseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
+        const subject = subjects.find(s => {
+            const sName = s.name.toLowerCase().trim();
+            return sName === rawTitle.toLowerCase() || sName === cleanBaseTitle.toLowerCase();
+        });
+        if (!subject) return false;
+        if (!album.cards || album.cards.length === 0) return true;
+        
+        const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
+        const subjectFronts = new Set(subjectCards.map(c => c.front.trim().toLowerCase()));
+        const addedCount = album.cards.filter(c => subjectFronts.has(c.front.trim().toLowerCase())).length;
+        return addedCount >= Math.min(album.cards.length, 3);
+    };
+
     const handleImportStandaloneAlbum = async (album: PresetSubDeck) => {
         setIsImportingPreset(true);
         try {
-            const cleanTitle = album.title.trim();
+            const rawTitle = album.title.trim();
+            const cleanBaseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
+
             let subject = subjects.find(s => {
                 const cleanSubName = s.name.toLowerCase().trim();
-                const cleanPTitle = cleanTitle.toLowerCase();
-                return cleanSubName === cleanPTitle;
+                return cleanSubName === rawTitle.toLowerCase() || cleanSubName === cleanBaseTitle.toLowerCase();
             });
             let targetSubjectId = subject?.id;
 
             if (!targetSubjectId) {
                 const newSub = await addSubject({
-                    name: cleanTitle,
+                    name: cleanBaseTitle || rawTitle,
                     color: '#10b981',
                     icon: album.icon || '⭐',
                     description: album.description,
@@ -223,25 +262,33 @@ const DecksPage: React.FC = () => {
             }
 
             if (targetSubjectId && album.cards && album.cards.length > 0) {
-                const batchCards = album.cards.map(c => ({
-                    subjectId: targetSubjectId!,
-                    front: c.front,
-                    back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
-                    interval: 1,
-                    repetitions: 0,
-                    easeFactor: 2.5,
-                    dueDate: new Date().toISOString().split('T')[0],
-                    nextReviewDate: new Date().toISOString(),
-                    isArchived: false
-                }));
+                const existingFronts = new Set(
+                    flashcards.filter(c => c.subjectId === targetSubjectId).map(c => c.front.trim().toLowerCase())
+                );
+                const newCards = album.cards.filter(c => !existingFronts.has(c.front.trim().toLowerCase()));
 
-                const chunkSize = 50;
-                for (let i = 0; i < batchCards.length; i += chunkSize) {
-                    const chunk = batchCards.slice(i, i + chunkSize);
-                    await addFlashcardsBatch(chunk);
+                if (newCards.length > 0) {
+                    const batchCards = newCards.map(c => ({
+                        subjectId: targetSubjectId!,
+                        front: c.front,
+                        back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                        interval: 1,
+                        repetitions: 0,
+                        easeFactor: 2.5,
+                        dueDate: new Date().toISOString().split('T')[0],
+                        nextReviewDate: new Date().toISOString(),
+                        isArchived: false
+                    }));
+
+                    const chunkSize = 50;
+                    for (let i = 0; i < batchCards.length; i += chunkSize) {
+                        const chunk = batchCards.slice(i, i + chunkSize);
+                        await addFlashcardsBatch(chunk);
+                    }
+                    setImportedDeckTitle(`${rawTitle} (${newCards.length} ta kartochka "${subject ? subject.name : cleanBaseTitle}" to'plamiga qo'shildi)`);
+                } else {
+                    setImportedDeckTitle(`"${rawTitle}" kartochkalari allaqachon to'plamingizda mavjud!`);
                 }
-
-                setImportedDeckTitle(cleanTitle);
                 setTimeout(() => setImportedDeckTitle(null), 4000);
             }
         } catch (err) {
@@ -592,7 +639,6 @@ const DecksPage: React.FC = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {standaloneAlbums.map(album => {
-                                    const isAdded = subjects.some(s => s.name.toLowerCase().trim() === album.title.toLowerCase().trim());
                                     return (
                                         <div key={album.id} className="glass-card rounded-3xl p-6 border border-emerald-500/30 hover:border-emerald-500 flex flex-col justify-between transition-all group hover:shadow-xl bg-card">
                                             <div className="space-y-3">
@@ -632,18 +678,27 @@ const DecksPage: React.FC = () => {
                                             </div>
 
                                             <div className="pt-5 mt-4 border-t border-border/60 flex items-center gap-2">
-                                                {isAdded ? (
-                                                    <div className="w-full py-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-black text-center flex items-center justify-center gap-1.5 border border-emerald-500/20">
+                                                {isStandaloneAlbumAdded(album) ? (
+                                                    <div className="flex-1 py-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-black text-center flex items-center justify-center gap-1.5 border border-emerald-500/20">
                                                         <FolderCheck size={15} /> Qo'shilgan
                                                     </div>
                                                 ) : (
                                                     <Button
                                                         onClick={() => handleImportStandaloneAlbum(album)}
                                                         disabled={isImportingPreset}
-                                                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black py-2.5 flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
+                                                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black py-2.5 flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
                                                     >
                                                         <Plus size={15} /> To'plamlarimga Qo'shish
                                                     </Button>
+                                                )}
+                                                {isAdmin && (
+                                                    <button
+                                                        onClick={() => handleOpenAddPartForAlbum(album)}
+                                                        className="px-3 py-2.5 bg-muted hover:bg-muted/80 text-foreground font-black text-xs rounded-xl flex items-center gap-1 border border-border shrink-0 transition-all hover:border-emerald-500/40"
+                                                        title="Keyingi qismni (2-Qism, 3-Qism) yuklash"
+                                                    >
+                                                        <FolderPlus size={14} className="text-emerald-500" /> + Qism
+                                                    </button>
                                                 )}
                                             </div>
                                         </div>
@@ -676,7 +731,14 @@ const DecksPage: React.FC = () => {
                                         onImportPart={handleImportDeckPart}
                                         onRemove={handleRemovePresetDeck}
                                         onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
-                                        onAdminAddNextPart={() => setIsAlbumCreatorOpen(true)}
+                                        onAdminAddNextPart={() => {
+                                            setAlbumCreatorProps({
+                                                initialTitle: deck.title,
+                                                initialBadge: deck.level,
+                                                initialMode: 'json_upload'
+                                            });
+                                            setIsAlbumCreatorOpen(true);
+                                        }}
                                         onOpenFolderExplorer={(d, p) => {
                                             setExplorerDeck(d);
                                             setExplorerParts(p);
@@ -711,8 +773,13 @@ const DecksPage: React.FC = () => {
 
             <AdminAlbumCreatorModal
                 isOpen={isAlbumCreatorOpen}
+                initialTitle={albumCreatorProps.initialTitle}
+                initialPartName={albumCreatorProps.initialPartName}
+                initialBadge={albumCreatorProps.initialBadge}
+                initialMode={albumCreatorProps.initialMode}
                 onClose={() => {
                     setIsAlbumCreatorOpen(false);
+                    setAlbumCreatorProps({});
                     loadStandaloneAlbums();
                 }}
                 onAlbumCreated={() => {
