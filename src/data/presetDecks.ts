@@ -23,6 +23,9 @@ export interface PresetSubDeck {
     deckId: string;
     title: string;
     level: string;
+    description?: string;
+    badgeColor?: string;
+    icon?: string;
     partNumber: number;
     cardCount: number;
     cards: PresetCard[];

@@ -1,5 +1,5 @@
 import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
 import DeckCard from '../components/decks/DeckCard';
@@ -15,8 +15,8 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
 import { isAdminEmail } from '../utils/admin';
-import { PRESET_DECKS, PresetDeck } from '../data/presetDecks';
-import { DeckPart } from '../services/PresetDeckService';
+import { PRESET_DECKS, PresetDeck, PresetSubDeck } from '../data/presetDecks';
+import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
 
 import SubjectForm from '../components/subjects/SubjectForm';
 
@@ -39,6 +39,7 @@ const DecksPage: React.FC = () => {
     const [explorerParts, setExplorerParts] = useState<DeckPart[]>([]);
     const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
     const [isImportingPreset, setIsImportingPreset] = useState(false);
+    const [standaloneAlbums, setStandaloneAlbums] = useState<PresetSubDeck[]>([]);
 
     const isAdmin = isAdminEmail(user?.email);
 
@@ -184,6 +185,77 @@ const DecksPage: React.FC = () => {
         } finally {
             setIsImportingPreset(false);
         }
+    };
+
+    const loadStandaloneAlbums = useCallback(async () => {
+        try {
+            const list = await PresetDeckService.getStandaloneAlbums();
+            setStandaloneAlbums(list);
+        } catch (e) {
+            console.error('Error loading standalone albums:', e);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadStandaloneAlbums();
+    }, [loadStandaloneAlbums]);
+
+    const handleImportStandaloneAlbum = async (album: PresetSubDeck) => {
+        setIsImportingPreset(true);
+        try {
+            const cleanTitle = album.title.trim();
+            let subject = subjects.find(s => {
+                const cleanSubName = s.name.toLowerCase().trim();
+                const cleanPTitle = cleanTitle.toLowerCase();
+                return cleanSubName === cleanPTitle;
+            });
+            let targetSubjectId = subject?.id;
+
+            if (!targetSubjectId) {
+                const newSub = await addSubject({
+                    name: cleanTitle,
+                    color: '#10b981',
+                    icon: album.icon || '⭐',
+                    description: album.description,
+                    isArchived: false,
+                });
+                targetSubjectId = newSub?.id;
+            }
+
+            if (targetSubjectId && album.cards && album.cards.length > 0) {
+                const batchCards = album.cards.map(c => ({
+                    subjectId: targetSubjectId!,
+                    front: c.front,
+                    back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                    interval: 1,
+                    repetitions: 0,
+                    easeFactor: 2.5,
+                    dueDate: new Date().toISOString().split('T')[0],
+                    nextReviewDate: new Date().toISOString(),
+                    isArchived: false
+                }));
+
+                const chunkSize = 50;
+                for (let i = 0; i < batchCards.length; i += chunkSize) {
+                    const chunk = batchCards.slice(i, i + chunkSize);
+                    await addFlashcardsBatch(chunk);
+                }
+
+                setImportedDeckTitle(cleanTitle);
+                setTimeout(() => setImportedDeckTitle(null), 4000);
+            }
+        } catch (err) {
+            console.error("Standalone album import error:", err);
+            alert("Albomni saqlashda xatolik yuz berdi.");
+        } finally {
+            setIsImportingPreset(false);
+        }
+    };
+
+    const handleDeleteStandaloneAlbum = async (album: PresetSubDeck) => {
+        if (!window.confirm(`"${album.title}" maxsus albomini butunlay o'chirmoqchimisiz?`)) return;
+        await PresetDeckService.deleteStandaloneAlbum(album.id);
+        await loadStandaloneAlbums();
     };
 
     const handleRemovePresetDeck = async (preset: PresetDeck) => {
@@ -505,29 +577,115 @@ const DecksPage: React.FC = () => {
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {PRESET_DECKS.map(deck => {
-                            const matchingSubject = findMatchingSubject(deck);
-                            return (
-                                <PresetDeckCard
-                                    key={deck.id}
-                                    deck={deck}
-                                    isAdded={!!matchingSubject}
-                                    isAdmin={isAdmin}
-                                    userSubjectNames={subjects.map(s => s.name)}
-                                    onImport={handleImportPresetDeck}
-                                    onImportPart={handleImportDeckPart}
-                                    onRemove={handleRemovePresetDeck}
-                                    onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
-                                    onAdminAddNextPart={() => setIsAlbumCreatorOpen(true)}
-                                    onOpenFolderExplorer={(d, p) => {
-                                        setExplorerDeck(d);
-                                        setExplorerParts(p);
-                                    }}
-                                    onUpgradeClick={() => navigate('/settings')}
-                                />
-                            );
-                        })}
+                    {/* Standalone Custom Albums Section */}
+                    {standaloneAlbums.length > 0 && (
+                        <div className="space-y-4 pt-2">
+                            <div className="flex items-center justify-between pb-2 border-b border-border/50">
+                                <div>
+                                    <h3 className="text-base font-black text-foreground flex items-center gap-2">
+                                        <Sparkles size={18} className="text-emerald-500" />
+                                        Maxsus & Mustaqil Albomlar ({standaloneAlbums.length})
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground">Admin tomonidan yaratilgan mustaqil mavzudagi maxsus to'plamlar</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {standaloneAlbums.map(album => {
+                                    const isAdded = subjects.some(s => s.name.toLowerCase().trim() === album.title.toLowerCase().trim());
+                                    return (
+                                        <div key={album.id} className="glass-card rounded-3xl p-6 border border-emerald-500/30 hover:border-emerald-500 flex flex-col justify-between transition-all group hover:shadow-xl bg-card">
+                                            <div className="space-y-3">
+                                                <div className="flex items-start justify-between gap-3">
+                                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-black shrink-0 border border-emerald-500/20">
+                                                        ⭐
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                                                            {album.level || 'MUSTAQIL'}
+                                                        </span>
+                                                        {isAdmin && (
+                                                            <button
+                                                                onClick={() => handleDeleteStandaloneAlbum(album)}
+                                                                className="p-1.5 text-muted-foreground hover:text-rose-500 transition-colors"
+                                                                title="Albomni o'chirish"
+                                                            >
+                                                                <Trash2 size={14} />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <h4 className="text-base font-black text-foreground group-hover:text-emerald-500 transition-colors">
+                                                        {album.title}
+                                                    </h4>
+                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                                        {album.description || "Maxsus mustaqil kartochkalar to'plami."}
+                                                    </p>
+                                                </div>
+
+                                                <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground pt-1">
+                                                    <Layers size={14} className="text-emerald-500" />
+                                                    <span>{album.cardCount || album.cards?.length || 0} ta kartochka</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-5 mt-4 border-t border-border/60 flex items-center gap-2">
+                                                {isAdded ? (
+                                                    <div className="w-full py-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-black text-center flex items-center justify-center gap-1.5 border border-emerald-500/20">
+                                                        <FolderCheck size={15} /> Qo'shilgan
+                                                    </div>
+                                                ) : (
+                                                    <Button
+                                                        onClick={() => handleImportStandaloneAlbum(album)}
+                                                        disabled={isImportingPreset}
+                                                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black py-2.5 flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
+                                                    >
+                                                        <Plus size={15} /> To'plamlarimga Qo'shish
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Standard Level Library */}
+                    <div className="space-y-4 pt-2">
+                        <div className="pb-2 border-b border-border/50">
+                            <h3 className="text-base font-black text-foreground flex items-center gap-2">
+                                <Library size={18} className="text-amber-500" />
+                                Standart Darajalar Kutubxonasi
+                            </h3>
+                            <p className="text-xs text-muted-foreground">JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {PRESET_DECKS.map(deck => {
+                                const matchingSubject = findMatchingSubject(deck);
+                                return (
+                                    <PresetDeckCard
+                                        key={deck.id}
+                                        deck={deck}
+                                        isAdded={!!matchingSubject}
+                                        isAdmin={isAdmin}
+                                        userSubjectNames={subjects.map(s => s.name)}
+                                        onImport={handleImportPresetDeck}
+                                        onImportPart={handleImportDeckPart}
+                                        onRemove={handleRemovePresetDeck}
+                                        onAdminAudit={deckToAudit => setAuditingDeck(deckToAudit)}
+                                        onAdminAddNextPart={() => setIsAlbumCreatorOpen(true)}
+                                        onOpenFolderExplorer={(d, p) => {
+                                            setExplorerDeck(d);
+                                            setExplorerParts(p);
+                                        }}
+                                        onUpgradeClick={() => navigate('/settings')}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             )}
@@ -553,7 +711,13 @@ const DecksPage: React.FC = () => {
 
             <AdminAlbumCreatorModal
                 isOpen={isAlbumCreatorOpen}
-                onClose={() => setIsAlbumCreatorOpen(false)}
+                onClose={() => {
+                    setIsAlbumCreatorOpen(false);
+                    loadStandaloneAlbums();
+                }}
+                onAlbumCreated={() => {
+                    loadStandaloneAlbums();
+                }}
             />
 
             <LevelFolderExplorerModal

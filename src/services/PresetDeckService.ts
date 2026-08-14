@@ -108,5 +108,83 @@ export const PresetDeckService = {
 
         // Sort strictly by partNumber ascending
         return parts.sort((a, b) => a.partNumber - b.partNumber);
+    },
+
+    /**
+     * Fetches all Custom Standalone Albums created by Super Admin (from DB + LocalStorage cache)
+     */
+    async getStandaloneAlbums(): Promise<PresetSubDeck[]> {
+        const albumsMap = new Map<string, PresetSubDeck>();
+
+        // 1. Check local storage cache first for instant UI response
+        try {
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            if (savedLocal) {
+                const localAlbums: PresetSubDeck[] = JSON.parse(savedLocal);
+                localAlbums
+                    .filter(a => a.deckId === 'deck_custom_standalone' || a.id.startsWith('standalone_') || a.level === 'MUSTAQIL' || a.level === 'SPECIAL' || a.level === 'BIZNES')
+                    .forEach(a => albumsMap.set(a.id, a));
+            }
+        } catch (e) {}
+
+        // 2. Fetch from Supabase DB table `admin_preset_albums`
+        try {
+            const { data: dbAlbums, error } = await supabase
+                .from('admin_preset_albums')
+                .select('*')
+                .or('deck_id.eq.deck_custom_standalone,id.ilike.standalone_%');
+
+            if (!error && dbAlbums && dbAlbums.length > 0) {
+                dbAlbums.forEach((alb: any) => {
+                    albumsMap.set(alb.id, {
+                        id: alb.id,
+                        deckId: alb.deck_id || 'deck_custom_standalone',
+                        title: alb.title || 'Mustaqil Albom',
+                        level: alb.level || 'MUSTAQIL',
+                        description: alb.description || '',
+                        partNumber: alb.part_number || 1,
+                        cardCount: alb.card_count || (Array.isArray(alb.cards) ? alb.cards.length : 0),
+                        cards: Array.isArray(alb.cards) ? alb.cards : [],
+                        createdAt: alb.created_at || new Date().toISOString()
+                    });
+                });
+            }
+        } catch (err) {
+            console.warn('Supabase standalone albums fetch notice:', err);
+        }
+
+        const allStandalone = Array.from(albumsMap.values());
+        
+        // Update local cache with merged standalone albums
+        try {
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            const localList: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+            const nonStandalone = localList.filter(a => a.deckId !== 'deck_custom_standalone' && !a.id.startsWith('standalone_'));
+            localStorage.setItem('study_planner_admin_albums', JSON.stringify([...nonStandalone, ...allStandalone]));
+        } catch (e) {}
+
+        return allStandalone.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    },
+
+    /**
+     * Deletes a Standalone Album from DB and Local Cache
+     */
+    async deleteStandaloneAlbum(id: string): Promise<boolean> {
+        try {
+            await supabase.from('admin_preset_albums').delete().eq('id', id);
+        } catch (e) {
+            console.warn('Supabase delete standalone album notice:', e);
+        }
+
+        try {
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            if (savedLocal) {
+                const localList: PresetSubDeck[] = JSON.parse(savedLocal);
+                const updated = localList.filter(a => a.id !== id);
+                localStorage.setItem('study_planner_admin_albums', JSON.stringify(updated));
+            }
+        } catch (e) {}
+
+        return true;
     }
 };

@@ -193,6 +193,7 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                 deckId: 'deck_custom_standalone',
                 title: customTitle.trim(),
                 level: customBadge.trim() || 'MUSTAQIL',
+                description: customDesc.trim(),
                 partNumber: 1,
                 cardCount: uploadedCards.length,
                 cards: uploadedCards,
