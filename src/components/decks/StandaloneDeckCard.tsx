@@ -42,14 +42,13 @@ export const StandaloneDeckCard: React.FC<StandaloneDeckCardProps> = ({
 
     const isPartAdded = (part: PresetSubDeck) => {
         const cleanPartTitle = part.title.toLowerCase().trim();
-        const cleanBase = group.baseTitle.toLowerCase().trim();
         return userSubjectNames.some(name => {
             const cleanUserSub = name.toLowerCase().trim();
-            return cleanUserSub === cleanPartTitle || cleanUserSub === cleanBase;
+            return cleanUserSub === cleanPartTitle || cleanUserSub.includes(cleanPartTitle) || cleanPartTitle.includes(cleanUserSub);
         });
     };
 
-    const isGroupFullyAdded = group.parts.every(p => isPartAdded(p));
+    const isGroupFullyAdded = group.parts.length > 0 && group.parts.every(p => isPartAdded(p));
 
     return (
         <div className="glass-card rounded-3xl p-6 border border-emerald-500/30 hover:border-emerald-500 flex flex-col justify-between transition-all group hover:shadow-xl bg-card relative overflow-hidden">

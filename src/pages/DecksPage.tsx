@@ -254,17 +254,17 @@ const DecksPage: React.FC = () => {
         setIsImportingPreset(true);
         try {
             const rawTitle = album.title.trim();
-            const cleanBaseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
 
             let subject = subjects.find(s => {
                 const cleanSubName = s.name.toLowerCase().trim();
-                return cleanSubName === rawTitle.toLowerCase() || cleanSubName === cleanBaseTitle.toLowerCase();
+                const cleanRaw = rawTitle.toLowerCase().trim();
+                return cleanSubName === cleanRaw || cleanSubName.includes(cleanRaw) || cleanRaw.includes(cleanSubName);
             });
             let targetSubjectId = subject?.id;
 
             if (!targetSubjectId) {
                 const newSub = await addSubject({
-                    name: cleanBaseTitle || rawTitle,
+                    name: rawTitle,
                     color: '#10b981',
                     icon: album.icon || '⭐',
                     description: album.description,
@@ -297,7 +297,7 @@ const DecksPage: React.FC = () => {
                         const chunk = batchCards.slice(i, i + chunkSize);
                         await addFlashcardsBatch(chunk);
                     }
-                    setImportedDeckTitle(`${rawTitle} (${newCards.length} ta kartochka "${subject ? subject.name : cleanBaseTitle}" to'plamiga qo'shildi)`);
+                    setImportedDeckTitle(`${rawTitle} (${newCards.length} ta kartochka to'plamga qo'shildi)`);
                 } else {
                     setImportedDeckTitle(`"${rawTitle}" kartochkalari allaqachon to'plamingizda mavjud!`);
                 }
