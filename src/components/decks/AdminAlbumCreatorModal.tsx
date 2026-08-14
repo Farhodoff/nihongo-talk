@@ -36,11 +36,15 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
     const [customPartName, setCustomPartName] = useState<string>('2-Qism');
     const [customDesc, setCustomDesc] = useState<string>("Suhbatlar va darsliklar uchun maxsus iboralar to'plami.");
     const [customBadge, setCustomBadge] = useState<string>('MUSTAQIL');
+    const [customSplitMode, setCustomSplitMode] = useState<'auto_50' | 'auto_100' | 'single_part' | 'no_split'>('auto_50');
 
     useEffect(() => {
         if (isOpen) {
             if (initialTitle) setCustomTitle(initialTitle);
-            if (initialPartName) setCustomPartName(initialPartName);
+            if (initialPartName) {
+                setCustomPartName(initialPartName);
+                setCustomSplitMode('single_part');
+            }
             if (initialBadge) setCustomBadge(initialBadge);
             if (initialMode) setMode(initialMode);
         }
@@ -203,55 +207,98 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
 
         setIsProcessing(true);
         try {
-            const albumId = 'standalone_' + generateUUID();
             const trimmedTitle = customTitle.trim();
-            const trimmedPart = customPartName.trim();
-            const fullTitle = (trimmedPart && !trimmedTitle.toLowerCase().includes(trimmedPart.toLowerCase()))
-                ? `${trimmedTitle} — ${trimmedPart}`
-                : trimmedTitle;
-            const partNumber = parseInt(trimmedPart.replace(/\D/g, '')) || 1;
+            const trimmedBadge = customBadge.trim() || 'MUSTAQIL';
+            const trimmedDesc = customDesc.trim();
 
-            const newStandaloneAlbum: PresetSubDeck = {
-                id: albumId,
-                deckId: 'deck_custom_standalone',
-                title: fullTitle,
-                level: customBadge.trim() || 'MUSTAQIL',
-                description: customDesc.trim(),
-                partNumber: partNumber,
-                cardCount: uploadedCards.length,
-                cards: uploadedCards,
-                createdAt: new Date().toISOString()
-            };
+            const albumsToSave: PresetSubDeck[] = [];
 
-            // 1. Save to localStorage cache immediately
-            const savedLocal = localStorage.getItem('study_planner_admin_albums');
-            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
-            const filteredLocal = localAlbums.filter(a => a.id !== newStandaloneAlbum.id);
-            filteredLocal.push(newStandaloneAlbum);
-            localStorage.setItem('study_planner_admin_albums', JSON.stringify(filteredLocal));
+            if ((customSplitMode === 'auto_50' || customSplitMode === 'auto_100') && uploadedCards.length > (customSplitMode === 'auto_50' ? 50 : 100)) {
+                const size = customSplitMode === 'auto_50' ? 50 : 100;
+                for (let i = 0; i < uploadedCards.length; i += size) {
+                    const chunk = uploadedCards.slice(i, i + size);
+                    const pNum = Math.floor(i / size) + 1;
+                    const albumId = 'standalone_' + generateUUID();
 
-            // 2. Save directly to Supabase DB table `admin_preset_albums`
-            const { error } = await supabase.from('admin_preset_albums').upsert({
-                id: newStandaloneAlbum.id,
-                deck_id: newStandaloneAlbum.deckId,
-                title: newStandaloneAlbum.title,
-                level: newStandaloneAlbum.level,
-                description: newStandaloneAlbum.description,
-                part_number: newStandaloneAlbum.partNumber,
-                card_count: newStandaloneAlbum.cardCount,
-                cards: newStandaloneAlbum.cards,
-                created_at: newStandaloneAlbum.createdAt
-            } as any);
+                    albumsToSave.push({
+                        id: albumId,
+                        deckId: 'deck_custom_standalone',
+                        title: `${trimmedTitle} — ${pNum}-Qism`,
+                        level: trimmedBadge,
+                        description: trimmedDesc,
+                        partNumber: pNum,
+                        cardCount: chunk.length,
+                        cards: chunk,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+            } else if (customSplitMode === 'no_split') {
+                const albumId = 'standalone_' + generateUUID();
+                albumsToSave.push({
+                    id: albumId,
+                    deckId: 'deck_custom_standalone',
+                    title: trimmedTitle,
+                    level: trimmedBadge,
+                    description: trimmedDesc,
+                    partNumber: 1,
+                    cardCount: uploadedCards.length,
+                    cards: uploadedCards,
+                    createdAt: new Date().toISOString()
+                });
+            } else {
+                // single_part mode or small card count
+                const trimmedPart = customPartName.trim();
+                const fullTitle = (trimmedPart && !trimmedTitle.toLowerCase().includes(trimmedPart.toLowerCase()))
+                    ? `${trimmedTitle} — ${trimmedPart}`
+                    : trimmedTitle;
+                const partNumber = parseInt(trimmedPart.replace(/\D/g, '')) || 1;
+                const albumId = 'standalone_' + generateUUID();
 
-            if (error) {
-                console.warn("Supabase standalone album insert warning:", error.message);
+                albumsToSave.push({
+                    id: albumId,
+                    deckId: 'deck_custom_standalone',
+                    title: fullTitle,
+                    level: trimmedBadge,
+                    description: trimmedDesc,
+                    partNumber: partNumber,
+                    cardCount: uploadedCards.length,
+                    cards: uploadedCards,
+                    createdAt: new Date().toISOString()
+                });
             }
 
-            if (onAlbumCreated) onAlbumCreated(newStandaloneAlbum);
+            // 1. Save all generated parts to localStorage cache immediately
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+            const idsToDelete = new Set(albumsToSave.map(a => a.id));
+            const filteredLocal = localAlbums.filter(a => !idsToDelete.has(a.id));
+            localStorage.setItem('study_planner_admin_albums', JSON.stringify([...filteredLocal, ...albumsToSave]));
+
+            // 2. Save directly to Supabase DB table `admin_preset_albums`
+            const dbPayloads = albumsToSave.map(a => ({
+                id: a.id,
+                deck_id: a.deckId,
+                title: a.title,
+                level: a.level,
+                description: a.description,
+                part_number: a.partNumber,
+                card_count: a.cardCount,
+                cards: a.cards,
+                created_at: a.createdAt
+            }));
+
+            const { error } = await supabase.from('admin_preset_albums').upsert(dbPayloads as any);
+            if (error) {
+                console.warn("Supabase standalone album batch insert warning:", error.message);
+            }
+
+            if (onAlbumCreated && albumsToSave[0]) {
+                onAlbumCreated(albumsToSave[0]);
+            }
 
             toast({
                 title: "✨ Mustaqil Albom Muvaffaqiyatli Saqlandi!",
-                description: `"${newStandaloneAlbum.title}" (${newStandaloneAlbum.cardCount} ta card) muvaffaqiyatli saqlandi.`
+                description: `"${trimmedTitle}" albomi ${albumsToSave.length} ta jildga (${uploadedCards.length} ta card) ajratilib saqlandi.`
             });
             onClose();
         } catch (err: any) {
@@ -468,17 +515,6 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                 </div>
 
                                 <div>
-                                    <label className="font-extrabold text-foreground block mb-1.5">Qism Nomi (Part):</label>
-                                    <input
-                                        type="text"
-                                        value={customPartName}
-                                        onChange={e => setCustomPartName(e.target.value)}
-                                        placeholder="2-Qism (yoki 3-Qism)"
-                                        className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
-                                    />
-                                </div>
-
-                                <div>
                                     <label className="font-extrabold text-foreground block mb-1.5">Kategoriya / Yorliq (Badge):</label>
                                     <input
                                         type="text"
@@ -487,6 +523,43 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                         placeholder="MUSTAQIL, SPECIAL, BIZNES"
                                         className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
                                     />
+                                    <div className="flex flex-wrap gap-1 mt-1.5">
+                                        {['MUSTAQIL', 'JLPT N3', 'JLPT N2', 'IELTS', 'BIZNES', 'TIBBIYOT', 'A1-A2'].map(tag => (
+                                            <button
+                                                key={tag}
+                                                type="button"
+                                                onClick={() => setCustomBadge(tag)}
+                                                className={`px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all ${
+                                                    customBadge === tag ? 'bg-emerald-600 text-white' : 'bg-muted/60 text-muted-foreground hover:text-foreground'
+                                                }`}
+                                            >
+                                                {tag}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="font-extrabold text-foreground block mb-1.5">Jild Rejimi (Split / Part):</label>
+                                    <select
+                                        value={customSplitMode}
+                                        onChange={e => setCustomSplitMode(e.target.value as any)}
+                                        className="w-full p-2.5 bg-muted/50 border border-border rounded-xl font-bold"
+                                    >
+                                        <option value="auto_50">⚡ Har 50 tadan jildlarga bo'lish (Avtomatik)</option>
+                                        <option value="auto_100">⚡ Har 100 tadan jildlarga bo'lish</option>
+                                        <option value="single_part">📁 Alohida qism yuklash ({customPartName || '2-Qism'})</option>
+                                        <option value="no_split">📦 Bo'linmasin (Yagona to'plam)</option>
+                                    </select>
+                                    {customSplitMode === 'single_part' && (
+                                        <input
+                                            type="text"
+                                            value={customPartName}
+                                            onChange={e => setCustomPartName(e.target.value)}
+                                            placeholder="2-Qism (yoki 3-Qism)"
+                                            className="w-full mt-1.5 p-2 bg-muted/50 border border-border rounded-lg font-bold text-xs"
+                                        />
+                                    )}
                                 </div>
                             </div>
 
@@ -523,8 +596,15 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                                 </div>
 
                                 {jsonFileName && (
-                                    <div className="pt-2 flex items-center justify-center gap-2 text-xs font-black text-emerald-500">
-                                        <CheckCircle2 size={16} /> {jsonFileName} ({uploadedCards.length} ta card tayyor)
+                                    <div className="pt-2 space-y-1">
+                                        <div className="flex items-center justify-center gap-2 text-xs font-black text-emerald-500">
+                                            <CheckCircle2 size={16} /> {jsonFileName} ({uploadedCards.length} ta card tayyor)
+                                        </div>
+                                        {uploadedCards.length > 0 && (customSplitMode === 'auto_50' || customSplitMode === 'auto_100') && (
+                                            <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 py-1 px-3 rounded-full inline-block">
+                                                ⚡ Avtomatik {Math.ceil(uploadedCards.length / (customSplitMode === 'auto_50' ? 50 : 100))} ta jildga (1-Qism, 2-Qism...) ajratilib, bitta albom kartasi ostiga joylanadi!
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
