@@ -96,8 +96,6 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
     // Auto-split states
     const [selectedDeckId, setSelectedDeckId] = useState<string>('deck_jlpt_n4');
 
-    if (!isOpen) return null;
-
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -154,6 +152,13 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                 createdAt: new Date().toISOString()
             };
 
+            // Save to localStorage cache as backup
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+            const filteredLocal = localAlbums.filter(a => a.id !== newAlbum.id);
+            filteredLocal.push(newAlbum);
+            localStorage.setItem('study_planner_admin_albums', JSON.stringify(filteredLocal));
+
             // Save album directly to Supabase DB table
             const { error } = await supabase.from('admin_preset_albums').upsert({
                 id: newAlbum.id,
@@ -169,12 +174,6 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
             if (error) {
                 console.warn("Supabase album insert warning:", error.message);
             }
-
-            // Save to localStorage cache as backup
-            const savedLocal = localStorage.getItem('study_planner_admin_albums');
-            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
-            localAlbums.push(newAlbum);
-            localStorage.setItem('study_planner_admin_albums', JSON.stringify(localAlbums));
 
             if (onAlbumCreated) onAlbumCreated(newAlbum);
 
@@ -224,12 +223,20 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
                 createdAt: new Date().toISOString()
             };
 
+            // 1. Save to localStorage cache immediately
+            const savedLocal = localStorage.getItem('study_planner_admin_albums');
+            const localAlbums: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+            const filteredLocal = localAlbums.filter(a => a.id !== newStandaloneAlbum.id);
+            filteredLocal.push(newStandaloneAlbum);
+            localStorage.setItem('study_planner_admin_albums', JSON.stringify(filteredLocal));
+
+            // 2. Save directly to Supabase DB table `admin_preset_albums`
             const { error } = await supabase.from('admin_preset_albums').upsert({
                 id: newStandaloneAlbum.id,
                 deck_id: newStandaloneAlbum.deckId,
                 title: newStandaloneAlbum.title,
                 level: newStandaloneAlbum.level,
-                description: customDesc.trim(),
+                description: newStandaloneAlbum.description,
                 part_number: newStandaloneAlbum.partNumber,
                 card_count: newStandaloneAlbum.cardCount,
                 cards: newStandaloneAlbum.cards,
@@ -244,7 +251,7 @@ export const AdminAlbumCreatorModal: React.FC<AdminAlbumCreatorModalProps> = ({
 
             toast({
                 title: "✨ Mustaqil Albom Muvaffaqiyatli Saqlandi!",
-                description: `"${newStandaloneAlbum.title}" (${newStandaloneAlbum.cardCount} ta card) DBga to'g'ridan-to'g'ri joylandi.`
+                description: `"${newStandaloneAlbum.title}" (${newStandaloneAlbum.cardCount} ta card) muvaffaqiyatli saqlandi.`
             });
             onClose();
         } catch (err: any) {

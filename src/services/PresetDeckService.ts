@@ -131,23 +131,30 @@ export const PresetDeckService = {
         try {
             const { data: dbAlbums, error } = await supabase
                 .from('admin_preset_albums')
-                .select('*')
-                .or('deck_id.eq.deck_custom_standalone,id.ilike.standalone_%');
+                .select('*');
 
             if (!error && dbAlbums && dbAlbums.length > 0) {
-                dbAlbums.forEach((alb: any) => {
-                    albumsMap.set(alb.id, {
-                        id: alb.id,
-                        deckId: alb.deck_id || 'deck_custom_standalone',
-                        title: alb.title || 'Mustaqil Albom',
-                        level: alb.level || 'MUSTAQIL',
-                        description: alb.description || '',
-                        partNumber: alb.part_number || 1,
-                        cardCount: alb.card_count || (Array.isArray(alb.cards) ? alb.cards.length : 0),
-                        cards: Array.isArray(alb.cards) ? alb.cards : [],
-                        createdAt: alb.created_at || new Date().toISOString()
+                dbAlbums
+                    .filter((alb: any) => 
+                        alb.deck_id === 'deck_custom_standalone' || 
+                        (alb.id && String(alb.id).startsWith('standalone_')) || 
+                        alb.level === 'MUSTAQIL' || 
+                        alb.level === 'SPECIAL' || 
+                        alb.level === 'BIZNES'
+                    )
+                    .forEach((alb: any) => {
+                        albumsMap.set(alb.id, {
+                            id: alb.id,
+                            deckId: alb.deck_id || 'deck_custom_standalone',
+                            title: alb.title || 'Mustaqil Albom',
+                            level: alb.level || 'MUSTAQIL',
+                            description: alb.description || '',
+                            partNumber: alb.part_number || 1,
+                            cardCount: alb.card_count || (Array.isArray(alb.cards) ? alb.cards.length : 0),
+                            cards: Array.isArray(alb.cards) ? alb.cards : [],
+                            createdAt: alb.created_at || new Date().toISOString()
+                        });
                     });
-                });
             }
         } catch (err) {
             console.warn('Supabase standalone albums fetch notice:', err);
