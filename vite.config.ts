@@ -77,7 +77,23 @@ export default defineConfig({
                 cleanupOutdatedCaches: true,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
                 navigateFallback: '/index.html',
+                navigateFallbackDenylist: [/^\/api/],
                 runtimeCaching: [
+                    {
+                        urlPattern: ({ request }) => request.mode === 'navigate',
+                        handler: 'NetworkFirst',
+                        options: {
+                            cacheName: 'html-pages-cache',
+                            networkTimeoutSeconds: 3,
+                            expiration: {
+                                maxEntries: 10,
+                                maxAgeSeconds: 60 * 60 * 24
+                            },
+                            cacheableResponse: {
+                                statuses: [0, 200]
+                            }
+                        }
+                    },
                     {
                         urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
                         handler: 'CacheFirst',

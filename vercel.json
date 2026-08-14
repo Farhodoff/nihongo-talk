@@ -11,7 +11,7 @@
     ],
     "headers": [
         {
-            "source": "/(index.html|sw.js|workbox-.*.js)",
+            "source": "/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",
