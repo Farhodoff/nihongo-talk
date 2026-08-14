@@ -1,10 +1,11 @@
-import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive, FolderPlus } from 'lucide-react';
-import { useState, useEffect, useCallback } from 'react';
+import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive } from 'lucide-react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
 import DeckCard from '../components/decks/DeckCard';
 import ImportModal from '../components/decks/ImportModal';
 import { PresetDeckCard } from '../components/decks/PresetDeckCard';
+import { StandaloneDeckCard, StandaloneDeckGroup } from '../components/decks/StandaloneDeckCard';
 import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
 import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
 import { AdminPresetAuditorModal } from '../components/decks/AdminPresetAuditorModal';
@@ -200,43 +201,54 @@ const DecksPage: React.FC = () => {
         loadStandaloneAlbums();
     }, [loadStandaloneAlbums]);
 
+    const standaloneGroups: StandaloneDeckGroup[] = useMemo(() => {
+        const groupMap = new Map<string, StandaloneDeckGroup>();
+
+        standaloneAlbums.forEach(album => {
+            const rawTitle = album.title.trim();
+            const baseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
+
+            if (!groupMap.has(baseTitle)) {
+                groupMap.set(baseTitle, {
+                    baseTitle: baseTitle,
+                    level: album.level || 'MUSTAQIL',
+                    description: album.description || "Maxsus mustaqil kartochkalar to'plami.",
+                    totalCards: 0,
+                    parts: []
+                });
+            }
+
+            const grp = groupMap.get(baseTitle)!;
+            grp.parts.push(album);
+            grp.totalCards += (album.cardCount || album.cards?.length || 0);
+        });
+
+        return Array.from(groupMap.values()).map(grp => ({
+            ...grp,
+            parts: grp.parts.sort((a, b) => (a.partNumber || 1) - (b.partNumber || 1))
+        }));
+    }, [standaloneAlbums]);
+
+    const handleImportAllGroupParts = async (group: StandaloneDeckGroup) => {
+        for (const part of group.parts) {
+            await handleImportStandaloneAlbum(part);
+        }
+    };
+
+    const handleDeleteGroup = async (group: StandaloneDeckGroup) => {
+        if (!window.confirm(`"${group.baseTitle}" albomini va uning barcha ${group.parts.length} ta qismini o'chirasizmi?`)) return;
+        for (const part of group.parts) {
+            await PresetDeckService.deleteStandaloneAlbum(part.id);
+        }
+        await loadStandaloneAlbums();
+    };
+
     const [albumCreatorProps, setAlbumCreatorProps] = useState<{
         initialTitle?: string;
         initialPartName?: string;
         initialBadge?: string;
         initialMode?: 'json_upload' | 'auto_split' | 'custom_standalone';
     }>({});
-
-    const handleOpenAddPartForAlbum = (album: PresetSubDeck) => {
-        const rawTitle = album.title.trim();
-        const baseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
-        const currentPartNum = album.partNumber || 1;
-        const nextPartNum = currentPartNum + 1;
-        
-        setAlbumCreatorProps({
-            initialTitle: baseTitle,
-            initialPartName: `${nextPartNum}-Qism`,
-            initialBadge: album.level || 'MUSTAQIL',
-            initialMode: 'custom_standalone'
-        });
-        setIsAlbumCreatorOpen(true);
-    };
-
-    const isStandaloneAlbumAdded = (album: PresetSubDeck) => {
-        const rawTitle = album.title.trim();
-        const cleanBaseTitle = rawTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
-        const subject = subjects.find(s => {
-            const sName = s.name.toLowerCase().trim();
-            return sName === rawTitle.toLowerCase() || sName === cleanBaseTitle.toLowerCase();
-        });
-        if (!subject) return false;
-        if (!album.cards || album.cards.length === 0) return true;
-        
-        const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
-        const subjectFronts = new Set(subjectCards.map(c => c.front.trim().toLowerCase()));
-        const addedCount = album.cards.filter(c => subjectFronts.has(c.front.trim().toLowerCase())).length;
-        return addedCount >= Math.min(album.cards.length, 3);
-    };
 
     const handleImportStandaloneAlbum = async (album: PresetSubDeck) => {
         setIsImportingPreset(true);
@@ -625,85 +637,41 @@ const DecksPage: React.FC = () => {
                     )}
 
                     {/* Standalone Custom Albums Section */}
-                    {standaloneAlbums.length > 0 && (
+                    {standaloneGroups.length > 0 && (
                         <div className="space-y-4 pt-2">
                             <div className="flex items-center justify-between pb-2 border-b border-border/50">
                                 <div>
                                     <h3 className="text-base font-black text-foreground flex items-center gap-2">
                                         <Sparkles size={18} className="text-emerald-500" />
-                                        Maxsus & Mustaqil Albomlar ({standaloneAlbums.length})
+                                        Maxsus & Mustaqil Albomlar ({standaloneGroups.length})
                                     </h3>
-                                    <p className="text-xs text-muted-foreground">Admin tomonidan yaratilgan mustaqil mavzudagi maxsus to'plamlar</p>
+                                    <p className="text-xs text-muted-foreground">Admin tomonidan yaratilgan mustaqil to'plamlar va ularning jildlari</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {standaloneAlbums.map(album => {
-                                    return (
-                                        <div key={album.id} className="glass-card rounded-3xl p-6 border border-emerald-500/30 hover:border-emerald-500 flex flex-col justify-between transition-all group hover:shadow-xl bg-card">
-                                            <div className="space-y-3">
-                                                <div className="flex items-start justify-between gap-3">
-                                                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-black shrink-0 border border-emerald-500/20">
-                                                        ⭐
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                                                            {album.level || 'MUSTAQIL'}
-                                                        </span>
-                                                        {isAdmin && (
-                                                            <button
-                                                                onClick={() => handleDeleteStandaloneAlbum(album)}
-                                                                className="p-1.5 text-muted-foreground hover:text-rose-500 transition-colors"
-                                                                title="Albomni o'chirish"
-                                                            >
-                                                                <Trash2 size={14} />
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <h4 className="text-base font-black text-foreground group-hover:text-emerald-500 transition-colors">
-                                                        {album.title}
-                                                    </h4>
-                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                                        {album.description || "Maxsus mustaqil kartochkalar to'plami."}
-                                                    </p>
-                                                </div>
-
-                                                <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground pt-1">
-                                                    <Layers size={14} className="text-emerald-500" />
-                                                    <span>{album.cardCount || album.cards?.length || 0} ta kartochka</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="pt-5 mt-4 border-t border-border/60 flex items-center gap-2">
-                                                {isStandaloneAlbumAdded(album) ? (
-                                                    <div className="flex-1 py-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-black text-center flex items-center justify-center gap-1.5 border border-emerald-500/20">
-                                                        <FolderCheck size={15} /> Qo'shilgan
-                                                    </div>
-                                                ) : (
-                                                    <Button
-                                                        onClick={() => handleImportStandaloneAlbum(album)}
-                                                        disabled={isImportingPreset}
-                                                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black py-2.5 flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
-                                                    >
-                                                        <Plus size={15} /> To'plamlarimga Qo'shish
-                                                    </Button>
-                                                )}
-                                                {isAdmin && (
-                                                    <button
-                                                        onClick={() => handleOpenAddPartForAlbum(album)}
-                                                        className="px-3 py-2.5 bg-muted hover:bg-muted/80 text-foreground font-black text-xs rounded-xl flex items-center gap-1 border border-border shrink-0 transition-all hover:border-emerald-500/40"
-                                                        title="Keyingi qismni (2-Qism, 3-Qism) yuklash"
-                                                    >
-                                                        <FolderPlus size={14} className="text-emerald-500" /> + Qism
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                {standaloneGroups.map(group => (
+                                    <StandaloneDeckCard
+                                        key={group.baseTitle}
+                                        group={group}
+                                        isAdmin={isAdmin}
+                                        userSubjectNames={subjects.map(s => s.name)}
+                                        isImporting={isImportingPreset}
+                                        onImportPart={handleImportStandaloneAlbum}
+                                        onImportAllParts={handleImportAllGroupParts}
+                                        onAddNextPart={(grp, nextPNum) => {
+                                            setAlbumCreatorProps({
+                                                initialTitle: grp.baseTitle,
+                                                initialPartName: `${nextPNum}-Qism`,
+                                                initialBadge: grp.level || 'MUSTAQIL',
+                                                initialMode: 'custom_standalone'
+                                            });
+                                            setIsAlbumCreatorOpen(true);
+                                        }}
+                                        onDeletePart={handleDeleteStandaloneAlbum}
+                                        onDeleteGroup={handleDeleteGroup}
+                                    />
+                                ))}
                             </div>
                         </div>
                     )}
