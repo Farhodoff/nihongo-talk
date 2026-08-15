@@ -1,20 +1,25 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
-import { PushNotificationService } from '../services/PushNotificationService';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
+import { useSubjects } from '../hooks/useSubjects';
+import { useGoals } from '../hooks/useGoals';
+import { useNotes } from '../hooks/useNotes';
+import { useStudyNotes } from '../hooks/useStudyNotes';
+import { useSessions } from '../hooks/useSessions';
+import { useWhiteboards } from '../hooks/useWhiteboards';
+import { useEvents } from '../hooks/useEvents';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
-import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
-import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile, DatabaseEventUpdate, DatabaseCoachSession } from '../types/supabase-types';
-import { generateUUID, isUuid } from '../utils/uuid';
+import { GoogleCalendarEvent } from '../services/GoogleCalendarService';
+import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile } from '../types/supabase-types';
+import { isUuid } from '../utils/uuid';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
-
-
-interface Settings {
+export interface Settings {
     theme: 'light' | 'dark';
     notificationsEnabled: boolean;
     totalXp: number;
@@ -37,7 +42,7 @@ interface Settings {
     showRomaji: boolean;
 }
 
-interface StudyPlannerContextType {
+export interface StudyPlannerContextType {
     goals: Goal[];
     tasks: Task[];
     flashcards: Flashcard[];
@@ -53,7 +58,7 @@ interface StudyPlannerContextType {
     loading: boolean;
     user: User | null;
 
-    // Task operatsiyalari
+    // Task operations
     addTask: (task: Partial<Task>) => Promise<void>;
     addTasksBatch: (tasks: Partial<Task>[]) => Promise<Task[]>;
     updateTask: (id: string, updates: Partial<Task>) => Promise<void>;
@@ -62,7 +67,7 @@ interface StudyPlannerContextType {
     toggleTask: (id: string) => Promise<void>;
     updateTaskStatus: (id: string, status: string) => Promise<void>;
 
-    // Flashcard operatsiyalari
+    // Flashcard operations
     addFlashcard: (card: Partial<Flashcard>) => Promise<Flashcard | null>;
     addFlashcardsBatch: (cards: Partial<Flashcard>[]) => Promise<Flashcard[]>;
     updateFlashcard: (id: string, updates: Partial<Flashcard>) => Promise<void>;
@@ -71,60 +76,55 @@ interface StudyPlannerContextType {
     reviewFlashcard: (id: string, rating: number, card?: Flashcard) => Promise<void>;
     importFlashcards: (subjectId: string, cards: { front: string; back: string; example?: string }[]) => Promise<boolean>;
 
-    // Subject operatsiyalari
+    // Subject operations
     addSubject: (subject: Partial<Subject>) => Promise<Subject | null>;
     updateSubject: (id: string, updates: Partial<Subject>) => Promise<void>;
     deleteSubject: (id: string) => Promise<void>;
 
-    // Goal operatsiyalari
+    // Goal operations
     addGoal: (goal: Partial<Goal>) => Promise<Goal | null>;
     updateGoal: (id: string, updates: Partial<Goal>) => Promise<void>;
     deleteGoal: (id: string) => Promise<void>;
 
-    // Note operatsiyalari
+    // Note operations
     addNote: (note: Partial<Note>) => Promise<Note | null>;
     updateNote: (id: string, updates: Partial<Note>) => Promise<void>;
     deleteNote: (id: string) => Promise<void>;
 
-    // Study Note (Konspekt) operatsiyalari
+    // Study Note (Konspekt) operations
     addStudyNote: (note: Partial<StudyNote>) => Promise<void>;
     addStudyNotesBatch: (notes: Partial<StudyNote>[]) => Promise<StudyNote[]>;
     updateStudyNote: (id: string, updates: Partial<StudyNote>) => Promise<void>;
     deleteStudyNote: (id: string) => Promise<void>;
 
-    // Whiteboard operatsiyalari
+    // Whiteboard operations
     addWhiteboard: (subjectId: string, title: string) => Promise<string | null>;
     deleteWhiteboard: (id: string) => Promise<void>;
     updateWhiteboardTitle: (id: string, title: string) => Promise<void>;
 
-    // Event operatsiyalari
+    // Event operations
     addEvent: (event: Partial<Event>) => Promise<Event | null>;
     updateEvent: (id: string, updates: Partial<Event>) => Promise<void>;
     deleteEvent: (id: string) => Promise<void>;
     syncGoogleEvents: () => Promise<void>;
 
-    // Session operatsiyalari
+    // Session operations
     addSession: (session: Partial<StudySession>) => Promise<void>;
     addCoachSession: (session: Partial<CoachSession>) => Promise<void>;
 
-    // Data
+    // Data & Settings
     refreshData: () => Promise<void>;
-
-    // Settings & XP
     updateSettings: (updates: Partial<Settings>) => Promise<void>;
     awardXP: (amount: number) => Promise<void>;
     resetXP: () => Promise<void>;
     getRank: (level: number) => string;
-
 }
-
 
 const StudyPlannerContext = createContext<StudyPlannerContextType | undefined>(undefined);
 
 // ===== PROVIDER =====
 export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // 1. Core Hooks
-
+    // 1. Gamification Hook
     const {
         gameState,
         setGamificationState,
@@ -138,6 +138,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         lastActivityDate: null
     });
 
+    // 2. Tasks & Flashcards Hooks
     const {
         tasks,
         setTasks,
@@ -162,108 +163,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         importFlashcards
     } = useFlashcards(awardXP);
 
-    const [subjects, setSubjects] = useState<Subject[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_subjects_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [goals, setGoals] = useState<Goal[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_goals_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [notes, setNotes] = useState<Note[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_notes_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [studyNotes, setStudyNotes] = useState<StudyNote[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_study_notes_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [sessions, setSessions] = useState<StudySession[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_sessions_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_whiteboards_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [events, setEvents] = useState<Event[]>(() => {
-        try {
-            const raw = localStorage.getItem('study_planner_events_cache');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (Array.isArray(parsed)) return parsed;
-            }
-        } catch {}
-        return [];
-    });
-    const [coachSessions, setCoachSessions] = useState<CoachSession[]>([]);
-    const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
+    // 3. Extracted Domain Hooks
+    const { subjects, setSubjects, addSubject, updateSubject, deleteSubject } = useSubjects(setFlashcards);
+    const { goals, setGoals, addGoal, updateGoal, deleteGoal } = useGoals();
+    const { notes, setNotes, addNote, updateNote, deleteNote } = useNotes();
+    const { studyNotes, setStudyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote } = useStudyNotes();
+    const { sessions, setSessions, coachSessions, setCoachSessions, addSession, addCoachSession } = useSessions(awardXP);
+    const { whiteboards, setWhiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle } = useWhiteboards();
 
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(() => {
-        try {
-            const localSession = localStorage.getItem('study_planner_user_cache');
-            if (localSession) {
-                return JSON.parse(localSession);
-            }
-        } catch {}
-        return null;
-    });
-
-    // Google Calendar tadbirlarini sinxronizatsiya qilish
-    const syncGoogleEvents = useCallback(async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.provider_token) {
-            try {
-                const now = new Date();
-                const timeMin = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString();
-                const timeMax = new Date(now.getFullYear(), now.getMonth() + 2, 1).toISOString();
-                
-                const fetchedEvents = await GoogleCalendarService.listEvents(session.provider_token, timeMin, timeMax);
-                setGoogleEvents(fetchedEvents);
-            } catch (error) {
-                console.error("Google Calendar sync error:", error);
-            }
-        }
-    }, []);
-
-    // App Settings (Non-gamification)
+    // 4. App Settings State
     const [appSettings, setAppSettings] = useState<{
         theme: 'light' | 'dark';
         notificationsEnabled: boolean;
@@ -282,10 +190,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         showFurigana: boolean;
         showRomaji: boolean;
     }>(() => {
-        const savedTheme = localStorage.getItem('study_planner_theme');
-        const savedAiSettingsStr = localStorage.getItem('study_planner_ai_settings');
-        const savedAiSettings = savedAiSettingsStr ? JSON.parse(savedAiSettingsStr) : {};
-        const savedGoal = localStorage.getItem('study_planner_daily_goal');
+        const savedTheme = safeLocalStorage.getItem('study_planner_theme');
+        const savedAiSettings = safeLocalStorage.getJSON<Record<string, any>>('study_planner_ai_settings', {});
+        const savedGoal = safeLocalStorage.getItem('study_planner_daily_goal');
         
         let dsModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
         if (savedAiSettings.deepseekModel) {
@@ -313,28 +220,41 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             coachVoice: savedAiSettings.coachVoice || 'alloy',
             coachAiModel: savedAiSettings.coachAiModel || 'deepseek',
             coachApiKey: savedAiSettings.coachApiKey || '',
-            showFurigana: localStorage.getItem('study_planner_show_furigana') !== 'false',
-            showRomaji: localStorage.getItem('study_planner_show_romaji') === 'true',
+            showFurigana: safeLocalStorage.getItem('study_planner_show_furigana') !== 'false',
+            showRomaji: safeLocalStorage.getItem('study_planner_show_romaji') === 'true',
         };
     });
 
-    // Derived full settings for consumers
+    // 5. Events Hook
+    const {
+        events,
+        setEvents,
+        googleEvents,
+        addEvent,
+        updateEvent,
+        deleteEvent,
+        syncGoogleEvents
+    } = useEvents(appSettings.notificationsEnabled);
+
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<User | null>(() => {
+        return safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+    });
+
+    // Combined settings for consumers
     const settings: Settings = {
         ...appSettings,
         ...gameState
     };
 
-    // Ma'lumotlarni yuklash
+    // Global Data Fetcher and Synchronizer
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            // Ofiine rejimda brauzer network error spam bo'lmasligi uchun lokal keshdan yuklaymiz
             if (typeof navigator !== 'undefined' && !navigator.onLine) {
-                const localSession = localStorage.getItem('study_planner_user_cache');
+                const localSession = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
                 if (localSession) {
-                    try {
-                        setUser(JSON.parse(localSession));
-                    } catch {}
+                    setUser(localSession);
                 }
                 setLoading(false);
                 return;
@@ -352,7 +272,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.warn("[StudyPlannerContext] Auth exception:", e);
             }
 
-            // Fallback to getSession if getUser failed or had temporary network error
             if (!currentUser && typeof supabase?.auth?.getSession === 'function') {
                 try {
                     const { data: sessionData } = await supabase.auth.getSession();
@@ -365,21 +284,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (!currentUser) {
-                localStorage.removeItem('study_planner_user_cache');
+                safeLocalStorage.removeItem('study_planner_user_cache');
                 setUser(null);
                 setLoading(false);
                 return;
             }
-            localStorage.setItem('study_planner_user_cache', JSON.stringify(currentUser));
+            safeLocalStorage.setJSON('study_planner_user_cache', currentUser);
             setUser(currentUser);
 
-            
-
-            // Google Calendar sinxronizatsiyasi
+            // Sync Google Calendar
             syncGoogleEvents();
 
-            // --- BACKGROUND SYNC: Fetch fresh data from Supabase ---
-            // --- TASKS via Service ---
+            // Sync Tasks
             try {
                 const fetchedTasks = await TaskService.fetchTasks(currentUser.id);
                 setTasks(fetchedTasks);
@@ -387,7 +303,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.warn("Tasks sync warning:", e?.message || e);
             }
 
-            // --- FLASHCARDS via Service ---
+            // Sync Flashcards
             try {
                 const fetchedCards = await FlashcardService.fetchFlashcards(currentUser.id);
                 setFlashcards(fetchedCards);
@@ -395,7 +311,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.warn("Flashcards sync warning:", e?.message || e);
             }
 
-            // Parallel yuklash for other entities
+            // Parallel fetch for remaining entities
             try {
                 const [subjectsSettled, goalsSettled, notesSettled, sessionsSettled, studyNotesSettled, whiteboardsSettled, eventsSettled, profileSettled, coachSessionsSettled] = await Promise.allSettled([
                     supabase.from('subjects').select('*').eq('user_id', currentUser.id),
@@ -419,14 +335,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const profileRes = profileSettled.status === 'fulfilled' ? profileSettled.value : null;
                 const coachSessionsRes = coachSessionsSettled.status === 'fulfilled' ? coachSessionsSettled.value : null;
 
+                // Subjects sync
                 let localCachedSubs: Subject[] = [];
-                try {
-                    const rawCache = (currentUser?.id ? localStorage.getItem('study_planner_subjects_cache_' + currentUser.id) : null) || localStorage.getItem('study_planner_subjects_cache');
-                    if (rawCache) {
-                        const parsed = JSON.parse(rawCache);
-                        if (Array.isArray(parsed) && parsed.length > 0) localCachedSubs = parsed;
-                    }
-                } catch (e) { /* localStorage parse error — non-critical */ }
+                if (currentUser?.id) {
+                    localCachedSubs = safeLocalStorage.getJSON<Subject[]>('study_planner_subjects_cache_' + currentUser.id, []);
+                }
+                if (localCachedSubs.length === 0) {
+                    localCachedSubs = safeLocalStorage.getJSON<Subject[]>('study_planner_subjects_cache', []);
+                }
 
                 let mappedSubjects: Subject[] = [];
                 if (subjectsRes?.data && Array.isArray(subjectsRes.data)) {
@@ -443,56 +359,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     }));
                 }
 
-                const dbSubIds = new Set(mappedSubjects.map(s => s.id));
-                const missingLocalSubs = localCachedSubs.filter(s => !dbSubIds.has(s.id));
-
-                let mergedSubjects = [...mappedSubjects, ...missingLocalSubs];
-                if (mergedSubjects.length === 0) {
-                    mergedSubjects = [
-                        {
-                            id: '00000000-0000-4000-8000-000000000001',
-                            name: '🎌 JLPT Japanese Master',
-                            color: '#f43f5e',
-                            icon: 'Sparkles',
-                            schedule: [],
-                            isArchived: false
-                        },
-                        {
-                            id: '00000000-0000-4000-8000-000000000002',
-                            name: '📘 IELTS Academic & CEFR Master',
-                            color: '#6366f1',
-                            icon: 'GraduationCap',
-                            schedule: [],
-                            isArchived: false
-                        },
-                        {
-                            id: '00000000-0000-4000-8000-000000000003',
-                            name: '💻 IT & Dasturlash',
-                            color: '#10b981',
-                            icon: 'Code',
-                            schedule: [],
-                            isArchived: false
-                        },
-                        {
-                            id: '00000000-0000-4000-8000-000000000004',
-                            name: '📝 Qaydnoma va Konspektlar',
-                            color: '#8b5cf6',
-                            icon: 'BookOpen',
-                            schedule: [],
-                            isArchived: false
-                        }
-                    ];
-                }
-
+                const dbSubjectIds = new Set(mappedSubjects.map(s => s.id));
+                const uniqueLocal = localCachedSubs.filter(s => !dbSubjectIds.has(s.id));
+                const mergedSubjects = [...mappedSubjects, ...uniqueLocal];
                 setSubjects(mergedSubjects);
-                try {
-                    if (currentUser?.id) {
-                        localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
-                    }
-                    localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
-                } catch (e) { /* localStorage write error — quota may be full */ }
 
-                // Background Sync: Upsert subjects directly into Supabase DB
+                if (currentUser?.id) {
+                    safeLocalStorage.setJSON('study_planner_subjects_cache_' + currentUser.id, mergedSubjects);
+                }
+                safeLocalStorage.setJSON('study_planner_subjects_cache', mergedSubjects);
+
                 if (mergedSubjects.length > 0 && currentUser?.id) {
                     const dbPayload = mergedSubjects
                         .filter(s => isUuid(s.id))
@@ -512,12 +388,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     }
                 }
 
-                // Sessions merging & persistence
-                let localSessions: StudySession[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_sessions_cache');
-                    if (raw) localSessions = JSON.parse(raw);
-                } catch {}
+                // Sessions sync
+                const localSessions = safeLocalStorage.getJSON<StudySession[]>('study_planner_sessions_cache', []);
                 const dbSessions = (sessionsRes?.data || []).map((s: DatabaseSession) => ({
                     ...s,
                     subjectId: s.subject_id,
@@ -528,14 +400,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbSessionIds = new Set(dbSessions.map((s: any) => s.id));
                 const mergedSessions = [...dbSessions, ...localSessions.filter(s => !dbSessionIds.has(s.id))];
                 setSessions(mergedSessions);
-                try { localStorage.setItem('study_planner_sessions_cache', JSON.stringify(mergedSessions)); } catch {}
+                safeLocalStorage.setJSON('study_planner_sessions_cache', mergedSessions);
 
-                // Notes merging & persistence
-                let localNotes: Note[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_notes_cache');
-                    if (raw) localNotes = JSON.parse(raw);
-                } catch {}
+                // Notes sync
+                const localNotes = safeLocalStorage.getJSON<Note[]>('study_planner_notes_cache', []);
                 const dbNotes = (notesRes?.data || []).map((n: DatabaseNote) => ({
                     ...n,
                     subjectId: n.subject_id,
@@ -546,14 +414,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbNoteIds = new Set(dbNotes.map((n: any) => n.id));
                 const mergedNotes = [...dbNotes, ...localNotes.filter(n => !dbNoteIds.has(n.id))];
                 setNotes(mergedNotes);
-                try { localStorage.setItem('study_planner_notes_cache', JSON.stringify(mergedNotes)); } catch {}
+                safeLocalStorage.setJSON('study_planner_notes_cache', mergedNotes);
 
-                // Study Notes (Konspektlar) merging & persistence
-                let localStudyNotes: StudyNote[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_study_notes_cache');
-                    if (raw) localStudyNotes = JSON.parse(raw);
-                } catch {}
+                // Study Notes (Konspektlar) sync
+                const localStudyNotes = safeLocalStorage.getJSON<StudyNote[]>('study_planner_study_notes_cache', []);
                 const dbStudyNotes = (studyNotesRes?.data || []).map((n: DatabaseStudyNote) => ({
                     ...n,
                     userId: n.user_id,
@@ -564,14 +428,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbStudyNoteIds = new Set(dbStudyNotes.map((n: any) => n.id));
                 const mergedStudyNotes = [...dbStudyNotes, ...localStudyNotes.filter(n => !dbStudyNoteIds.has(n.id))];
                 setStudyNotes(mergedStudyNotes);
-                try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(mergedStudyNotes)); } catch {}
+                safeLocalStorage.setJSON('study_planner_study_notes_cache', mergedStudyNotes);
 
-                // Goals merging & persistence
-                let localGoals: Goal[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_goals_cache');
-                    if (raw) localGoals = JSON.parse(raw);
-                } catch {}
+                // Goals sync
+                const localGoals = safeLocalStorage.getJSON<Goal[]>('study_planner_goals_cache', []);
                 const dbGoals = (goalsRes?.data || []).map((g: any) => ({
                     id: g.id,
                     title: g.title,
@@ -586,32 +446,24 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbGoalIds = new Set(dbGoals.map((g: any) => g.id));
                 const mergedGoals = [...dbGoals, ...localGoals.filter(g => !dbGoalIds.has(g.id))];
                 setGoals(mergedGoals);
-                try { localStorage.setItem('study_planner_goals_cache', JSON.stringify(mergedGoals)); } catch {}
+                safeLocalStorage.setJSON('study_planner_goals_cache', mergedGoals);
 
-                // Whiteboards merging & persistence
-                let localWhiteboards: WhiteboardMetadata[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_whiteboards_cache');
-                    if (raw) localWhiteboards = JSON.parse(raw);
-                } catch {}
+                // Whiteboards sync
+                const localWhiteboards = safeLocalStorage.getJSON<WhiteboardMetadata[]>('study_planner_whiteboards_cache', []);
                 const dbWhiteboards = (whiteboardsRes?.data || []).map((w: DatabaseWhiteboard) => ({
                     id: w.id,
                     subjectId: w.subject_id,
                     userId: w.user_id,
                     title: w.title || 'Adsiz Doska',
-                    updatedAt: w.updated_at
+                    updatedAt: w.updated_at || new Date().toISOString()
                 }));
-                const dbWhiteboardIds = new Set(dbWhiteboards.map((w: any) => w.id));
-                const mergedWhiteboards = [...dbWhiteboards, ...localWhiteboards.filter(w => !dbWhiteboardIds.has(w.id))];
+                const dbWbIds = new Set(dbWhiteboards.map(w => w.id));
+                const mergedWhiteboards = [...dbWhiteboards, ...localWhiteboards.filter(w => !dbWbIds.has(w.id))];
                 setWhiteboards(mergedWhiteboards);
-                try { localStorage.setItem('study_planner_whiteboards_cache', JSON.stringify(mergedWhiteboards)); } catch {}
+                safeLocalStorage.setJSON('study_planner_whiteboards_cache', mergedWhiteboards);
 
-                // Events (Kalendar tadbirlari) merging & persistence
-                let localEvents: Event[] = [];
-                try {
-                    const raw = localStorage.getItem('study_planner_events_cache');
-                    if (raw) localEvents = JSON.parse(raw);
-                } catch {}
+                // Events sync
+                const localEvents = safeLocalStorage.getJSON<Event[]>('study_planner_events_cache', []);
                 const dbEvents = (eventsRes?.data || []).map((e: DatabaseEvent) => ({
                     id: e.id,
                     userId: e.user_id,
@@ -621,750 +473,59 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     eventDate: e.event_date,
                     notifyBeforeMinutes: e.notify_before_minutes,
                     isNotified: e.is_notified,
-                    repetitionType: e.repetition_type || 'none',
+                    repetitionType: e.repetition_type,
                     repetitionEndDate: e.repetition_end_date,
                     repetitionDays: e.repetition_days,
                     googleEventId: e.google_event_id,
                     createdAt: e.created_at,
                     updatedAt: e.updated_at
                 }));
-                const dbEventIds = new Set(dbEvents.map((e: any) => e.id));
+                const dbEventIds = new Set(dbEvents.map(e => e.id));
                 const mergedEvents = [...dbEvents, ...localEvents.filter(e => !dbEventIds.has(e.id))];
                 setEvents(mergedEvents);
-                try { localStorage.setItem('study_planner_events_cache', JSON.stringify(mergedEvents)); } catch {}
+                safeLocalStorage.setJSON('study_planner_events_cache', mergedEvents);
 
-                if (coachSessionsRes?.data) {
-                    const mappedCoachSessions = coachSessionsRes.data.map((s: DatabaseCoachSession) => ({
-                        id: s.id,
-                        personaTitle: s.persona_title,
-                        fluencyScore: s.fluency_score,
-                        vocabularyScore: s.vocabulary_score,
-                        grammarScore: s.grammar_score,
-                        pronunciationScore: s.pronunciation_score,
-                        feedback: s.feedback,
-                        createdAt: s.created_at
-                    }));
-                    setCoachSessions(mappedCoachSessions);
+                // Coach Sessions sync
+                if (coachSessionsRes?.data && Array.isArray(coachSessionsRes.data)) {
+                    setCoachSessions(coachSessionsRes.data.map((c: any) => ({
+                        id: c.id,
+                        personaTitle: c.persona || c.persona_title,
+                        fluencyScore: c.fluency_score,
+                        vocabularyScore: c.vocabulary_score || 0,
+                        grammarScore: c.grammar_score || 0,
+                        pronunciationScore: c.pronunciation_score,
+                        feedback: c.feedback,
+                        createdAt: c.created_at
+                    })));
                 }
 
-                // Profile & Settings
-                const userMeta = currentUser.user_metadata || {};
-                const dbAiSettings = userMeta.ai_settings || {};
-                const dbDailyGoal = userMeta.daily_goal;
-                const dbShowFurigana = userMeta.show_furigana;
-                const dbShowRomaji = userMeta.show_romaji;
-
-                if (dbAiSettings && Object.keys(dbAiSettings).length > 0) {
-                    try {
-                        localStorage.setItem('study_planner_ai_settings', JSON.stringify(dbAiSettings));
-                    } catch (e) {
-                        console.warn("Failed to update localStorage with DB AI settings", e);
-                    }
-                }
-
+                // Profile & Gamification sync
                 if (profileRes?.data) {
-                    const profile = profileRes.data as DatabaseProfile;
-                    const savedLocalTheme = localStorage.getItem('study_planner_theme') as 'light' | 'dark' | null;
-                    setAppSettings(prev => ({
+                    const prof = profileRes.data as DatabaseProfile;
+                    setGamificationState(prev => ({
                         ...prev,
-                        theme: savedLocalTheme || profile.theme || prev.theme || 'light',
-                        notificationsEnabled: profile.notifications_enabled ?? true,
-                        googleApiKey: dbAiSettings.googleApiKey || profile.google_api_key || prev.googleApiKey,
-                        aiModel: dbAiSettings.aiModel || prev.aiModel,
-                        deepseekApiKey: dbAiSettings.deepseekApiKey || prev.deepseekApiKey,
-                        deepseekModel: dbAiSettings.deepseekModel || prev.deepseekModel,
-                        deepseekThinkingMode: dbAiSettings.deepseekThinkingMode ?? prev.deepseekThinkingMode,
-                        ollamaUrl: dbAiSettings.ollamaUrl || prev.ollamaUrl,
-                        ollamaModel: dbAiSettings.ollamaModel || prev.ollamaModel,
-                        openAIApiKey: dbAiSettings.openAIApiKey || prev.openAIApiKey,
-                        coachVoice: dbAiSettings.coachVoice || prev.coachVoice,
-                        coachAiModel: dbAiSettings.coachAiModel || prev.coachAiModel,
-                        coachApiKey: dbAiSettings.coachApiKey || prev.coachApiKey,
-                        dailyStudyGoalMinutes: dbDailyGoal !== undefined ? Number(dbDailyGoal) : prev.dailyStudyGoalMinutes,
-                        showFurigana: dbShowFurigana !== undefined ? Boolean(dbShowFurigana) : prev.showFurigana,
-                        showRomaji: dbShowRomaji !== undefined ? Boolean(dbShowRomaji) : prev.showRomaji,
+                        totalXp: prof.total_xp || prev.totalXp,
+                        level: prof.level || prev.level,
+                        currentStreak: prof.current_streak || prev.currentStreak,
+                        lastActivityDate: prof.last_activity_date || prev.lastActivityDate
                     }));
-
-                    setGamificationState({
-                        totalXp: profile.total_xp || 0,
-                        level: profile.level || 1,
-                        currentStreak: profile.current_streak || 0,
-                        lastActivityDate: profile.last_activity_date || null,
-                    });
                 }
-            } catch (innerError) {
-                console.error("Tarmoq xatosi", innerError);
+            } catch (err) {
+                console.warn("[fetchData] Entity sync warning:", err);
             }
-
-        } catch (error) {
-            console.error("Ma'lumot yuklashda xato:", error);
         } finally {
             setLoading(false);
         }
-    }, [syncGoogleEvents, setFlashcards, setTasks, setGoals, setWhiteboards, setEvents, setAppSettings, setGamificationState]);
+    }, [setTasks, setFlashcards, setSubjects, setGoals, setNotes, setStudyNotes, setSessions, setWhiteboards, setEvents, setCoachSessions, setGamificationState, syncGoogleEvents]);
 
     useEffect(() => {
         fetchData();
-        const handleOnline = () => {
-            fetchData();
-        };
-        window.addEventListener('online', handleOnline);
-        return () => window.removeEventListener('online', handleOnline);
     }, [fetchData]);
 
-    
-
-    // Apply theme
-    useEffect(() => {
-        if (appSettings.theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        localStorage.setItem('study_planner_theme', appSettings.theme);
-    }, [appSettings.theme]);
-
-
-
-    useEffect(() => {
-        if (appSettings.notificationsEnabled) {
-            PushNotificationService.requestPermission().then(granted => {
-                if (granted === 'granted') {
-                    PushNotificationService.startInactivityTracker(10);
-                }
-            });
-        }
-
-        const interval = setInterval(() => {
-            if (!appSettings.notificationsEnabled || Notification.permission !== 'granted') return;
-
-            const now = new Date();
-            sessions.forEach(session => {
-                if (session.completed) return;
-                const start = new Date(session.startTime);
-                const diffMs = start.getTime() - now.getTime();
-                const diffMins = diffMs / 60000;
-
-                if (diffMins > 0 && diffMins <= 15) {
-                    const key = `notif-session-${session.id}`;
-                    if (!sessionStorage.getItem(key)) {
-                        new Notification("Dars vaqti yaqinlashmoqda!", {
-                            body: `Dars 15 daqiqa ichida boshlanadi.`,
-                            icon: '/favicon.svg'
-                        });
-                        sessionStorage.setItem(key, 'true');
-                    }
-                }
-            });
-
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, [sessions, appSettings.notificationsEnabled]);
-
-
-    // 2. Actions (Optimistic Updates + Supabase Sync) for other entities
-
-    const addGoal = async (goalData: Partial<Goal>) => {
-        const activeUserId = user?.id || 'local_user';
-        const goalId = goalData.id || (generateUUID());
-        const fullGoalData: Goal = {
-            id: goalId,
-            title: goalData.title || 'Adsiz Maqsad',
-            description: goalData.description || '',
-            deadline: goalData.deadline || new Date().toISOString(),
-            progress: goalData.progress || 0,
-            color: goalData.color || '#6366f1',
-            priority: goalData.priority || 'medium',
-            createdAt: new Date().toISOString(),
-            completed: goalData.completed || false
-        };
-
-        setGoals(prev => {
-            const updated = [...prev.filter(g => g.id !== goalId), fullGoalData];
-            try { localStorage.setItem('study_planner_goals_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            try {
-                const dbPayload = {
-                    id: goalId,
-                    user_id: activeUserId,
-                    title: fullGoalData.title,
-                    description: fullGoalData.description,
-                    deadline: fullGoalData.deadline,
-                    target_date: fullGoalData.deadline ? fullGoalData.deadline.split('T')[0] : null,
-                    progress: fullGoalData.progress,
-                    color: fullGoalData.color,
-                    priority: fullGoalData.priority,
-                    completed: fullGoalData.completed
-                };
-                const { data } = await supabase.from('goals').upsert(dbPayload).select().maybeSingle();
-                if (data) {
-                    const mapped: Goal = {
-                        id: data.id,
-                        title: data.title,
-                        description: data.description || '',
-                        deadline: data.deadline || data.target_date || fullGoalData.deadline,
-                        progress: typeof data.progress === 'number' ? data.progress : 0,
-                        color: data.color || '#6366f1',
-                        priority: data.priority || 'medium',
-                        createdAt: data.created_at || fullGoalData.createdAt,
-                        completed: data.completed || false
-                    };
-                    setGoals(prev => {
-                        const updated = [...prev.filter(g => g.id !== goalId), mapped];
-                        try { localStorage.setItem('study_planner_goals_cache', JSON.stringify(updated)); } catch {}
-                        return updated;
-                    });
-                }
-            } catch (e) {
-                console.warn("[addGoal] DB sync error:", e);
-            }
-        }
-        return fullGoalData;
-    };
-
-    const updateGoal = async (id: string, updates: Partial<Goal>) => {
-        setGoals(prev => {
-            const updated = prev.map(g => g.id === id ? { ...g, ...updates } : g);
-            try { localStorage.setItem('study_planner_goals_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        const activeUserId = user?.id || 'local_user';
-        if (activeUserId !== 'local_user') {
-            const dbUpdates: any = { ...updates };
-            if (updates.deadline) {
-                dbUpdates.target_date = updates.deadline.split('T')[0];
-            }
-            await supabase.from('goals').update(dbUpdates).eq('id', id);
-        }
-    };
-
-    const deleteGoal = async (id: string) => {
-        setGoals(prev => {
-            const updated = prev.filter(g => g.id !== id);
-            try { localStorage.setItem('study_planner_goals_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        await supabase.from('goals').delete().eq('id', id);
-    };
-
-    // Task & XP logic moved to hooks, but other entity logic stays:
-
-    // ===== FLASHCARD OPERATSIYALARI =====
-
-
-
-    // ===== SUBJECT OPERATSIYALARI =====
-    const addSubject = async (subjectData: Partial<Subject>) => {
-        const activeUserId = user?.id || 'local_user';
-
-        const tempId = subjectData.id || (generateUUID());
-        const optimisticSubject: Subject = {
-            id: tempId,
-            name: subjectData.name || 'Yangi Fan',
-            color: subjectData.color || '#6366f1',
-            schedule: subjectData.schedule || [],
-            teacherName: subjectData.teacherName,
-            roomLocation: subjectData.roomLocation,
-            description: subjectData.description,
-            icon: subjectData.icon,
-            isArchived: subjectData.isArchived || false
-        };
-
-        // Optimistic update - ALWAYS update state immediately so user sees the new subject!
-        setSubjects(prev => {
-            const filtered = prev.filter(s => s.id !== tempId);
-            const updated = [...filtered, optimisticSubject];
-            try {
-                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
-                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
-            } catch (e) {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            const dbSubject: Record<string, any> = {
-                id: tempId,
-                user_id: activeUserId,
-                name: subjectData.name || 'Yangi Fan',
-                color: subjectData.color || '#6366f1',
-                schedule: subjectData.schedule || [],
-            };
-            if (subjectData.teacherName) dbSubject.teacher_name = subjectData.teacherName;
-            if (subjectData.roomLocation) dbSubject.room_location = subjectData.roomLocation;
-            if (subjectData.description) dbSubject.description = subjectData.description;
-            if (subjectData.icon) dbSubject.icon = subjectData.icon;
-            if (subjectData.isArchived !== undefined) dbSubject.is_archived = subjectData.isArchived;
-
-            try {
-                let { data, error } = await supabase.from('subjects').insert(dbSubject).select().single();
-                
-                // Retry without optional columns if DB schema lacks them
-                if (error && (error.code === '42703' || error.message?.includes('column'))) {
-                    const minimalDbSubject = {
-                        id: tempId,
-                        user_id: activeUserId,
-                        name: subjectData.name || 'Yangi Fan',
-                        color: subjectData.color || '#6366f1',
-                        schedule: subjectData.schedule || []
-                    };
-                    const retry = await supabase.from('subjects').insert(minimalDbSubject).select().single();
-                    data = retry.data;
-                    error = retry.error;
-                }
-
-                if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
-                    console.warn('[addSubject] Supabase insert warning:', error.message);
-                }
-
-                const finalId = data?.id || tempId;
-                const finalSubject: Subject = {
-                    id: finalId,
-                    name: data?.name || optimisticSubject.name,
-                    color: data?.color || optimisticSubject.color,
-                    schedule: data?.schedule || optimisticSubject.schedule,
-                    teacherName: data?.teacher_name || optimisticSubject.teacherName,
-                    roomLocation: data?.room_location || optimisticSubject.roomLocation,
-                    description: data?.description || optimisticSubject.description,
-                    icon: data?.icon || optimisticSubject.icon,
-                    isArchived: data?.is_archived ?? optimisticSubject.isArchived
-                };
-
-                if (finalId !== tempId) {
-                    setFlashcards(prev => {
-                        const updated = prev.map(c => c.subjectId === tempId ? { ...c, subjectId: finalId } : c);
-                        try {
-                            localStorage.setItem('study_planner_flashcards_cache_' + activeUserId, JSON.stringify(updated));
-                        } catch (e) {}
-                        return updated;
-                    });
-                }
-
-                setSubjects(prev => {
-                    const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
-                    const updated = [...filtered, finalSubject];
-                    try {
-                        localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
-                        localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
-                    } catch (e) {}
-                    return updated;
-                });
-
-                return finalSubject;
-            } catch (error: any) {
-                if (error?.message && !error.message.includes('Offline') && !error.message.includes('Network')) {
-                    console.warn("Failed to add subject DB insert, using optimistic subject:", error);
-                }
-                return optimisticSubject;
-            }
-        }
-
-        return optimisticSubject;
-    };
-
-    const deleteSubject = async (id: string) => {
-        const activeUserId = user?.id || 'local_user';
-        setSubjects(prev => {
-            const updated = prev.filter(s => s.id !== id);
-            try {
-                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
-                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
-            } catch (e) {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            const { error } = await supabase.from('subjects').delete().eq('id', id);
-            if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
-                console.warn("Delete subject warning:", error.message);
-            }
-        }
-    };
-
-    const updateSubject = async (id: string, updates: Partial<Subject>) => {
-        const activeUserId = user?.id || 'local_user';
-        setSubjects(prev => {
-            const updated = prev.map(s => s.id === id ? { ...s, ...updates } : s);
-            try {
-                localStorage.setItem('study_planner_subjects_cache_' + activeUserId, JSON.stringify(updated));
-                localStorage.setItem('study_planner_subjects_cache', JSON.stringify(updated));
-            } catch (e) {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            const dbUpdates: Partial<DatabaseSubject> = {};
-            if (updates.name) dbUpdates.name = updates.name;
-            if (updates.color) dbUpdates.color = updates.color;
-            if (updates.teacherName !== undefined) dbUpdates.teacher_name = updates.teacherName;
-            if (updates.roomLocation !== undefined) dbUpdates.room_location = updates.roomLocation;
-            if (updates.description !== undefined) dbUpdates.description = updates.description;
-            if (updates.icon) dbUpdates.icon = updates.icon;
-            if (updates.schedule) dbUpdates.schedule = updates.schedule;
-            if (updates.isArchived !== undefined) dbUpdates.is_archived = updates.isArchived;
-
-            const { error } = await supabase.from('subjects').update(dbUpdates).eq('id', id);
-            if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
-                console.warn("Update subject warning:", error.message);
-            }
-        }
-    };
-
-    // ===== NOTE OPERATSIYALARI =====
-    const addNote = async (noteData: Partial<Note>) => {
-        const activeUserId = user?.id || 'local_user';
-
-        const noteId = noteData.id || (generateUUID());
-        const dbNote = {
-            id: noteId,
-            user_id: activeUserId,
-            subject_id: noteData.subjectId,
-            title: noteData.title,
-            content: noteData.content,
-            attachments: noteData.attachments,
-            is_pinned: noteData.isPinned || false
-        };
-
-        const newNote: Note = {
-            id: noteId,
-            subjectId: noteData.subjectId || '',
-            title: noteData.title || '',
-            content: noteData.content || '',
-            attachments: noteData.attachments || [],
-            isPinned: noteData.isPinned || false,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-
-        setNotes(prev => {
-            const updated = [...prev, newNote];
-            try { localStorage.setItem('study_planner_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        try {
-            const { data } = await supabase.from('notes').insert(dbNote).select().single();
-            if (data) {
-                const returnedNote: Note = {
-                    id: data.id,
-                    subjectId: data.subject_id,
-                    title: data.title,
-                    content: data.content,
-                    attachments: data.attachments || [],
-                    isPinned: data.is_pinned || false,
-                    createdAt: data.created_at,
-                    updatedAt: data.updated_at
-                };
-                setNotes(prev => {
-                    const updated = prev.map(n => n.id === noteId ? returnedNote : n);
-                    try { localStorage.setItem('study_planner_notes_cache', JSON.stringify(updated)); } catch {}
-                    return updated;
-                });
-                return returnedNote;
-            }
-        } catch (e) {
-            console.warn('[addNote] DB insert notice (local note preserved):', e);
-        }
-        return newNote;
-    };
-
-    const updateNote = async (id: string, updates: Partial<Note>) => {
-        const dbUpdates: Record<string, unknown> = { ...updates };
-        if (updates.subjectId) {
-            dbUpdates.subject_id = updates.subjectId;
-            delete dbUpdates.subjectId;
-        }
-        if (updates.isPinned !== undefined) {
-            dbUpdates.is_pinned = updates.isPinned;
-            delete dbUpdates.isPinned;
-        }
-
-        setNotes(prev => {
-            const updated = prev.map(n => n.id === id ? { ...n, ...updates } : n);
-            try { localStorage.setItem('study_planner_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        await supabase.from('notes').update(dbUpdates).eq('id', id);
-    };
-
-    const deleteNote = async (id: string) => {
-        setNotes(prev => {
-            const updated = prev.filter(n => n.id !== id);
-            try { localStorage.setItem('study_planner_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        await supabase.from('notes').delete().eq('id', id);
-    };
-
-    // ===== STUDY NOTES (KONSPEKTLAR) OPERATSIYALARI =====
-    const addStudyNote = async (noteData: Partial<StudyNote>) => {
-        const activeUserId = user?.id || 'local_user';
-
-        const noteId = noteData.id || (generateUUID());
-        const dbNote = {
-            id: noteId,
-            user_id: activeUserId,
-            subject_id: noteData.subjectId,
-            title: noteData.title,
-            content: noteData.content,
-        };
-
-        const newNote: StudyNote = {
-            id: noteId,
-            subjectId: noteData.subjectId || '',
-            userId: activeUserId,
-            title: noteData.title || '',
-            content: noteData.content || '',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-
-        setStudyNotes(prev => {
-            const updated = [...prev, newNote];
-            try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        try {
-            const { data } = await supabase.from('study_notes').insert(dbNote).select().single();
-            if (data) {
-                const returnedNote: StudyNote = {
-                    id: data.id,
-                    subjectId: data.subject_id,
-                    userId: data.user_id,
-                    title: data.title,
-                    content: data.content,
-                    createdAt: data.created_at,
-                    updatedAt: data.updated_at
-                };
-                setStudyNotes(prev => {
-                    const updated = prev.map(n => n.id === noteId ? returnedNote : n);
-                    try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(updated)); } catch {}
-                    return updated;
-                });
-            }
-        } catch (e) {
-            console.warn('[addStudyNote] DB insert notice (local study note preserved):', e);
-        }
-    };
-
-    const addStudyNotesBatch = async (notesData: Partial<StudyNote>[]): Promise<StudyNote[]> => {
-        const activeUserId = user?.id || 'local_user';
-
-        const tempNotes = notesData.map(n => {
-            const noteId = n.id || generateUUID();
-            return {
-                id: noteId,
-                user_id: activeUserId,
-                subject_id: n.subjectId,
-                title: n.title,
-                content: n.content
-            };
-        });
-
-        const newLocalNotes: StudyNote[] = tempNotes.map(dbNote => ({
-            id: dbNote.id,
-            subjectId: dbNote.subject_id || '',
-            userId: activeUserId,
-            title: dbNote.title || '',
-            content: dbNote.content || '',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        }));
-
-        setStudyNotes(prev => {
-            const updated = [...newLocalNotes, ...prev];
-            try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        try {
-            const chunkSize = 100;
-            const insertedNotes: StudyNote[] = [];
-
-            for (let i = 0; i < tempNotes.length; i += chunkSize) {
-                const chunk = tempNotes.slice(i, i + chunkSize);
-                const { data, error } = await supabase
-                    .from('study_notes')
-                    .insert(chunk)
-                    .select();
-
-                if (error || !data) {
-                    console.warn('[addStudyNotesBatch] DB insert chunk error:', error);
-                    insertedNotes.push(...newLocalNotes.slice(i, i + chunkSize));
-                } else {
-                    insertedNotes.push(...(data as any[]).map(n => ({
-                        id: n.id,
-                        subjectId: n.subject_id,
-                        userId: n.user_id,
-                        title: n.title,
-                        content: n.content,
-                        createdAt: n.created_at,
-                        updatedAt: n.updated_at
-                    })));
-                }
-            }
-
-            // Sync updated DB IDs with local state if necessary
-            setStudyNotes(prev => {
-                const next = [...prev];
-                insertedNotes.forEach(inserted => {
-                    const idx = next.findIndex(n => n.id === inserted.id);
-                    if (idx !== -1) {
-                        next[idx] = inserted;
-                    }
-                });
-                try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(next)); } catch {}
-                return next;
-            });
-
-            return insertedNotes;
-        } catch (err) {
-            console.error('[addStudyNotesBatch] Exception:', err);
-            return newLocalNotes;
-        }
-    };
-
-    const updateStudyNote = async (id: string, updates: Partial<StudyNote>) => {
-        const dbUpdates: import('../types/supabase-types').DatabaseStudyNoteUpdate = {};
-
-        if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
-        if (updates.title) dbUpdates.title = updates.title;
-        if (updates.content) dbUpdates.content = updates.content;
-        dbUpdates.updated_at = new Date().toISOString();
-
-        setStudyNotes(prev => {
-            const updated = prev.map(n => n.id === id ? { ...n, ...updates } : n);
-            try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        await supabase.from('study_notes').update(dbUpdates).eq('id', id);
-    };
-
-    const deleteStudyNote = async (id: string) => {
-        setStudyNotes(prev => {
-            const updated = prev.filter(n => n.id !== id);
-            try { localStorage.setItem('study_planner_study_notes_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        await supabase.from('study_notes').delete().eq('id', id);
-    };
-
-    // ===== SESSION OPERATSIYALARI =====
-    const addSession = async (sessionData: Partial<StudySession>) => {
-        const activeUserId = user?.id || 'local_user';
-
-        const sessionId = sessionData.id || (generateUUID());
-        const supabaseData: DatabaseSession = {
-            id: sessionId,
-            user_id: activeUserId,
-            duration: sessionData.duration || 0,
-            type: sessionData.type || 'focus',
-            completed: !!sessionData.completed,
-            mood_before: sessionData.moodBefore === null ? undefined : sessionData.moodBefore,
-            mood_after: sessionData.moodAfter === null ? undefined : sessionData.moodAfter,
-            subject_id: sessionData.subjectId || undefined,
-            start_time: sessionData.startTime || new Date().toISOString()
-        };
-
-        const mappedSession: StudySession = {
-            id: sessionId,
-            subjectId: sessionData.subjectId,
-            startTime: supabaseData.start_time,
-            duration: supabaseData.duration,
-            type: supabaseData.type as 'focus' | 'break',
-            completed: supabaseData.completed,
-            moodBefore: supabaseData.mood_before,
-            moodAfter: supabaseData.mood_after
-        };
-
-        setSessions(prev => {
-            const updated = [...prev, mappedSession];
-            try { localStorage.setItem('study_planner_sessions_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            try {
-                const { data, error } = await supabase.from('study_sessions').insert(supabaseData).select().single();
-                if (data && !error) {
-                    setSessions(prev => {
-                        const updated = prev.map(s => s.id === sessionId ? {
-                            ...data,
-                            subjectId: data.subject_id,
-                            startTime: data.start_time,
-                            moodBefore: data.mood_before,
-                            moodAfter: data.mood_after
-                        } as StudySession : s);
-                        try { localStorage.setItem('study_planner_sessions_cache', JSON.stringify(updated)); } catch {}
-                        return updated;
-                    });
-                    awardXP(sessionData.type === 'focus' ? 10 : 2);
-                }
-            } catch (e) {
-                console.warn('[addSession] DB sync notice (local session preserved):', e);
-            }
-        }
-    };
-
-    const addCoachSession = useCallback(async (session: Partial<CoachSession>) => {
-        if (!user) return;
-
-        const dbCoachSession = {
-            user_id: user.id,
-            persona: session.personaTitle || 'AI Coach',
-            fluency_score: session.fluencyScore || 0,
-            pronunciation_score: session.pronunciationScore || 0,
-            feedback: session.feedback || ''
-        };
-
-        const { data, error } = await supabase.from('speaking_coach_sessions').insert(dbCoachSession).select().single();
-
-        if (error) {
-            console.warn("Coach Session Supabase'ga saqlanmadi (lokal saqlanmoqda):", error);
-            const newLocalSession: CoachSession = {
-                id: 'cs-' + Date.now(),
-                personaTitle: dbCoachSession.persona,
-                fluencyScore: dbCoachSession.fluency_score,
-                vocabularyScore: session.vocabularyScore || 0,
-                grammarScore: session.grammarScore || 0,
-                pronunciationScore: dbCoachSession.pronunciation_score,
-                feedback: dbCoachSession.feedback,
-                createdAt: new Date().toISOString()
-            };
-            setCoachSessions(prev => [newLocalSession, ...prev]);
-            return;
-        }
-
-        if (data) {
-            setCoachSessions(prev => [{
-                id: data.id,
-                personaTitle: data.persona_title,
-                fluencyScore: data.fluency_score,
-                vocabularyScore: data.vocabulary_score,
-                grammarScore: data.grammar_score,
-                pronunciationScore: data.pronunciation_score,
-                feedback: data.feedback,
-                createdAt: data.created_at
-            }, ...prev]);
-            awardXP(15);
-        }
-    }, [user, awardXP]);
-
-    // ===== UPDATE SETTINGS (Combined) =====
+    // Update Settings Handler
     const updateSettings = async (updates: Partial<Settings>) => {
-        // 1. Instant local DOM and state update
         if (updates.theme !== undefined) {
-            localStorage.setItem('study_planner_theme', updates.theme);
+            safeLocalStorage.setItem('study_planner_theme', updates.theme);
             if (updates.theme === 'dark') {
                 document.documentElement.classList.add('dark');
             } else {
@@ -1372,85 +533,69 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
         }
 
-        // Separate gamification updates from app settings
         if (updates.totalXp !== undefined || updates.level !== undefined) {
-            setGamificationState(prev => {
-                const newXp = updates.totalXp ?? prev.totalXp;
-                const newStreak = updates.currentStreak ?? prev.currentStreak;
-                return {
-                    ...prev,
-                    totalXp: newXp,
-                    level: updates.level ?? prev.level,
-                    currentStreak: newStreak,
-                    lastActivityDate: updates.lastActivityDate ?? prev.lastActivityDate
-                };
-            });
+            setGamificationState(prev => ({
+                ...prev,
+                totalXp: updates.totalXp ?? prev.totalXp,
+                level: updates.level ?? prev.level,
+                currentStreak: updates.currentStreak ?? prev.currentStreak,
+                lastActivityDate: updates.lastActivityDate ?? prev.lastActivityDate
+            }));
         }
 
-        if (updates.theme !== undefined || updates.notificationsEnabled !== undefined || updates.googleApiKey !== undefined || updates.aiModel !== undefined || updates.deepseekApiKey !== undefined || updates.deepseekModel !== undefined || updates.deepseekThinkingMode !== undefined || updates.ollamaUrl !== undefined || updates.ollamaModel !== undefined || updates.dailyStudyGoalMinutes !== undefined || updates.openAIApiKey !== undefined || updates.coachVoice !== undefined || updates.coachAiModel !== undefined || updates.coachApiKey !== undefined || updates.showFurigana !== undefined || updates.showRomaji !== undefined) {
-            setAppSettings(prev => {
-                const newState = {
-                    ...prev,
-                    theme: updates.theme !== undefined ? updates.theme : prev.theme,
-                    notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
-                    googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
-                    aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
-                    deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
-                    deepseekModel: updates.deepseekModel !== undefined ? (updates.deepseekModel as any) : prev.deepseekModel,
-                    deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : prev.deepseekThinkingMode,
-                    ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
-                    ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
-                    dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
-                    openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : prev.openAIApiKey,
-                    coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
-                    coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
-                    coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
-                    showFurigana: updates.showFurigana !== undefined ? updates.showFurigana : prev.showFurigana,
-                    showRomaji: updates.showRomaji !== undefined ? updates.showRomaji : prev.showRomaji,
-                };
-                
-                // Save AI settings to localStorage
-                localStorage.setItem('study_planner_ai_settings', JSON.stringify({
-                    googleApiKey: newState.googleApiKey,
-                    aiModel: newState.aiModel,
-                    deepseekApiKey: newState.deepseekApiKey,
-                    deepseekModel: newState.deepseekModel,
-                    deepseekThinkingMode: newState.deepseekThinkingMode,
-                    ollamaUrl: newState.ollamaUrl,
-                    ollamaModel: newState.ollamaModel,
-                    openAIApiKey: newState.openAIApiKey,
-                    coachVoice: newState.coachVoice,
-                    coachAiModel: newState.coachAiModel,
-                    coachApiKey: newState.coachApiKey
-                }));
+        setAppSettings(prev => {
+            const newState = {
+                ...prev,
+                theme: updates.theme !== undefined ? updates.theme : prev.theme,
+                notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
+                googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
+                aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
+                deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
+                deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : prev.deepseekModel,
+                deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : prev.deepseekThinkingMode,
+                ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
+                ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
+                dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
+                openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : prev.openAIApiKey,
+                coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
+                coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
+                coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
+                showFurigana: updates.showFurigana !== undefined ? updates.showFurigana : prev.showFurigana,
+                showRomaji: updates.showRomaji !== undefined ? updates.showRomaji : prev.showRomaji,
+            };
 
-                // Save Goal to localStorage
-                localStorage.setItem('study_planner_daily_goal', newState.dailyStudyGoalMinutes.toString());
-                // Save Furigana/Romaji prefs
-                localStorage.setItem('study_planner_show_furigana', String(newState.showFurigana));
-                localStorage.setItem('study_planner_show_romaji', String(newState.showRomaji));
-                
-                return newState;
+            safeLocalStorage.setJSON('study_planner_ai_settings', {
+                googleApiKey: newState.googleApiKey,
+                aiModel: newState.aiModel,
+                deepseekApiKey: newState.deepseekApiKey,
+                deepseekModel: newState.deepseekModel,
+                deepseekThinkingMode: newState.deepseekThinkingMode,
+                ollamaUrl: newState.ollamaUrl,
+                ollamaModel: newState.ollamaModel,
+                openAIApiKey: newState.openAIApiKey,
+                coachVoice: newState.coachVoice,
+                coachAiModel: newState.coachAiModel,
+                coachApiKey: newState.coachApiKey
             });
-        }
 
-        // 2. Persist to DB using UPDATE to profiles table
+            safeLocalStorage.setItem('study_planner_daily_goal', newState.dailyStudyGoalMinutes.toString());
+            safeLocalStorage.setItem('study_planner_show_furigana', String(newState.showFurigana));
+            safeLocalStorage.setItem('study_planner_show_romaji', String(newState.showRomaji));
+
+            return newState;
+        });
+
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
 
-        const { error } = await supabase.from('profiles').update({
-            theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
-            notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
-            google_api_key: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
-            updated_at: new Date().toISOString()
-        }).eq('id', user.id);
-
-        if (error) {
-            console.error('Error updating profiles table:', error);
-        }
-
-        // Persist complete AI settings and user preferences to Auth user_metadata (DB)
         try {
+            await supabase.from('profiles').update({
+                theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
+                notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
+                google_api_key: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
+                updated_at: new Date().toISOString()
+            }).eq('id', user.id);
+
             await supabase.auth.updateUser({
                 data: {
                     ai_settings: {
@@ -1471,226 +616,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     show_romaji: updates.showRomaji !== undefined ? updates.showRomaji : appSettings.showRomaji
                 }
             });
-        } catch (authMetaErr) {
-            console.error('Error syncing user_metadata to Supabase Auth DB:', authMetaErr);
+        } catch (e) {
+            console.warn("Profile / Metadata sync notice:", e);
         }
-    };
-
-    const addWhiteboard = async (subjectId: string, title: string) => {
-        const activeUserId = user?.id || 'local_user';
-        const newId = generateUUID();
-        const newWb: WhiteboardMetadata = {
-            id: newId,
-            subjectId: subjectId,
-            userId: activeUserId,
-            title: title || 'Adsiz Doska',
-            updatedAt: new Date().toISOString()
-        };
-
-        setWhiteboards(prev => {
-            const updated = [...prev, newWb];
-            try { localStorage.setItem('study_planner_whiteboards_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        if (activeUserId !== 'local_user') {
-            try {
-                const { data } = await supabase.from('whiteboards').insert({
-                    id: newId,
-                    user_id: activeUserId,
-                    subject_id: subjectId,
-                    title: title,
-                    updated_at: new Date().toISOString()
-                }).select('id, subject_id, user_id, title, updated_at').single();
-
-                if (data) {
-                    setWhiteboards(prev => {
-                        const updated = prev.map(w => w.id === newId ? {
-                            id: data.id,
-                            subjectId: data.subject_id,
-                            userId: data.user_id,
-                            title: data.title,
-                            updatedAt: data.updated_at
-                        } : w);
-                        try { localStorage.setItem('study_planner_whiteboards_cache', JSON.stringify(updated)); } catch {}
-                        return updated;
-                    });
-                }
-            } catch (error: any) {
-                console.warn("addWhiteboard DB notice (local whiteboard preserved):", error);
-            }
-        }
-        return newId;
-    };
-
-    const deleteWhiteboard = async (id: string) => {
-        setWhiteboards(prev => {
-            const updated = prev.filter(w => w.id !== id);
-            try { localStorage.setItem('study_planner_whiteboards_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-        await supabase.from('whiteboards').delete().eq('id', id);
-    };
-
-    const updateWhiteboardTitle = async (id: string, title: string) => {
-        setWhiteboards(prev => {
-            const updated = prev.map(w => w.id === id ? { ...w, title } : w);
-            try { localStorage.setItem('study_planner_whiteboards_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-        await supabase.from('whiteboards').update({ title }).eq('id', id);
-    };
-
-    // ===== EVENT OPERATSIYALARI =====
-    const addEvent = async (eventData: Partial<Event>) => {
-        const { data: { session } } = await supabase.auth.getSession();
-        const activeUserId = session?.user?.id || user?.id || 'local_user';
-        const eventId = eventData.id || generateUUID();
-
-        const newEvent: Event = {
-            id: eventId,
-            userId: activeUserId,
-            title: eventData.title || '',
-            description: eventData.description,
-            eventType: eventData.eventType || 'personal',
-            eventDate: eventData.eventDate || '',
-            notifyBeforeMinutes: eventData.notifyBeforeMinutes || 60,
-            isNotified: false,
-            repetitionType: eventData.repetitionType || 'none',
-            repetitionEndDate: eventData.repetitionEndDate,
-            repetitionDays: eventData.repetitionDays,
-            googleEventId: undefined,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-
-        setEvents(prev => {
-            const updated = [...prev, newEvent];
-            try { localStorage.setItem('study_planner_events_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-
-        if (session?.user) {
-            const dbEvent: Omit<DatabaseEvent, 'id' | 'created_at' | 'updated_at'> & { id?: string; google_event_id?: string } = {
-                id: eventId,
-                user_id: session.user.id,
-                title: eventData.title || '',
-                description: eventData.description,
-                event_type: (eventData.eventType === 'google' ? 'personal' : (eventData.eventType || 'personal')) as 'jdu' | 'career' | 'jlpt' | 'personal',
-                event_date: eventData.eventDate || '',
-                notify_before_minutes: eventData.notifyBeforeMinutes || 60,
-                repetition_type: (eventData.repetitionType || 'none') as 'none' | 'daily' | 'weekly' | 'monthly',
-                repetition_end_date: eventData.repetitionEndDate,
-                repetition_days: eventData.repetitionDays,
-                is_notified: false
-            };
-
-            // Google Calendar Sync
-            if (session.provider_token && eventData.eventDate) {
-                const googleEventId = await GoogleCalendarService.createEvent(session.provider_token, eventData);
-                if (googleEventId) {
-                    dbEvent.google_event_id = googleEventId;
-                }
-            }
-
-            try {
-                const { data } = await supabase.from('events').insert(dbEvent).select().single();
-                if (data) {
-                    const returnedEvent: Event = {
-                        id: data.id,
-                        userId: data.user_id,
-                        title: data.title,
-                        description: data.description,
-                        eventType: data.event_type,
-                        eventDate: data.event_date,
-                        notifyBeforeMinutes: data.notify_before_minutes,
-                        isNotified: data.is_notified,
-                        repetitionType: data.repetition_type || 'none',
-                        repetitionEndDate: data.repetition_end_date,
-                        repetitionDays: data.repetition_days,
-                        googleEventId: data.google_event_id,
-                        createdAt: data.created_at,
-                        updatedAt: data.updated_at
-                    };
-                    setEvents(prev => {
-                        const updated = prev.map(e => e.id === eventId ? returnedEvent : e);
-                        try { localStorage.setItem('study_planner_events_cache', JSON.stringify(updated)); } catch {}
-                        return updated;
-                    });
-                    return returnedEvent;
-                }
-            } catch (error) {
-                console.warn("addEvent DB notice (local event preserved):", error);
-            }
-        }
-        return newEvent;
-    };
-
-    const updateEvent = useCallback(async (id: string, updates: Partial<Event>) => {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        // Find current event to get googleEventId
-        const currentEvent = events.find(e => e.id === id);
-        if (currentEvent?.googleEventId && session?.provider_token) {
-            await GoogleCalendarService.updateEvent(session.provider_token, currentEvent.googleEventId, updates);
-        }
-
-        // Construct dbUpdates with explicit mapping to avoid 'any'
-        const dbUpdates: DatabaseEventUpdate = {};
-
-        if (updates.title) dbUpdates.title = updates.title;
-        if (updates.description) dbUpdates.description = updates.description;
-        if (updates.eventType) dbUpdates.event_type = updates.eventType;
-        if (updates.eventDate) dbUpdates.event_date = updates.eventDate;
-        if (updates.notifyBeforeMinutes !== undefined) dbUpdates.notify_before_minutes = updates.notifyBeforeMinutes;
-        if (updates.isNotified !== undefined) dbUpdates.is_notified = updates.isNotified;
-        if (updates.repetitionType) dbUpdates.repetition_type = updates.repetitionType;
-        if (updates.repetitionEndDate) dbUpdates.repetition_end_date = updates.repetitionEndDate;
-        if (updates.repetitionDays) dbUpdates.repetition_days = updates.repetitionDays;
-
-        await supabase.from('events').update(dbUpdates).eq('id', id);
-        setEvents(prev => {
-            const updated = prev.map(e => e.id === id ? { ...e, ...updates } : e);
-            try { localStorage.setItem('study_planner_events_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-    }, [events]);
-
-    const updateEventRef = useRef(updateEvent);
-    useEffect(() => {
-        updateEventRef.current = updateEvent;
-    }, [updateEvent]);
-
-    useEffect(() => {
-        if (appSettings.notificationsEnabled && events.length > 0) {
-            PushNotificationService.requestPermission().then(granted => {
-                if (granted === 'granted') {
-                    PushNotificationService.startMonitoring(events, (eventId) => {
-                        updateEventRef.current(eventId, { isNotified: true });
-                    });
-                }
-            });
-        }
-        return () => {
-            PushNotificationService.stopMonitoring();
-        };
-    }, [events, appSettings.notificationsEnabled]);
-
-    const deleteEvent = async (id: string) => {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        // Find current event to get googleEventId
-        const currentEvent = events.find(e => e.id === id);
-        if (currentEvent?.googleEventId && session?.provider_token) {
-            await GoogleCalendarService.deleteEvent(session.provider_token, currentEvent.googleEventId);
-        }
-
-        setEvents(prev => {
-            const updated = prev.filter(e => e.id !== id);
-            try { localStorage.setItem('study_planner_events_cache', JSON.stringify(updated)); } catch {}
-            return updated;
-        });
-        await supabase.from('events').delete().eq('id', id);
     };
 
     return (
@@ -1715,7 +643,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     );
 };
 
- 
 export const useStudyData = () => {
     const context = useContext(StudyPlannerContext);
     if (!context) throw new Error("useStudyData must be used within StudyPlannerProvider");

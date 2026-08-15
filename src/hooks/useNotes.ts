@@ -1,0 +1,110 @@
+import { useState, useCallback } from 'react';
+import { supabase } from '../lib/supabase';
+import { Note } from '../types';
+import { generateUUID } from '../utils/uuid';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+export const useNotes = () => {
+    const [notes, setNotes] = useState<Note[]>(() => {
+        return safeLocalStorage.getJSON<Note[]>('study_planner_notes_cache', []);
+    });
+
+    const addNote = useCallback(async (noteData: Partial<Note>): Promise<Note | null> => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user?.id) activeUserId = user.id;
+        } catch {}
+
+        const noteId = noteData.id || generateUUID();
+        const dbNote = {
+            id: noteId,
+            user_id: activeUserId,
+            subject_id: noteData.subjectId,
+            title: noteData.title,
+            content: noteData.content,
+            attachments: noteData.attachments,
+            is_pinned: noteData.isPinned || false
+        };
+
+        const newNote: Note = {
+            id: noteId,
+            subjectId: noteData.subjectId || '',
+            title: noteData.title || '',
+            content: noteData.content || '',
+            attachments: noteData.attachments || [],
+            isPinned: noteData.isPinned || false,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        setNotes(prev => {
+            const updated = [...prev, newNote];
+            safeLocalStorage.setJSON('study_planner_notes_cache', updated);
+            return updated;
+        });
+
+        try {
+            const { data } = await supabase.from('notes').insert(dbNote).select().single();
+            if (data) {
+                const returnedNote: Note = {
+                    id: data.id,
+                    subjectId: data.subject_id,
+                    title: data.title,
+                    content: data.content,
+                    attachments: data.attachments || [],
+                    isPinned: data.is_pinned || false,
+                    createdAt: data.created_at,
+                    updatedAt: data.updated_at
+                };
+                setNotes(prev => {
+                    const updated = prev.map(n => n.id === noteId ? returnedNote : n);
+                    safeLocalStorage.setJSON('study_planner_notes_cache', updated);
+                    return updated;
+                });
+                return returnedNote;
+            }
+        } catch (e) {
+            console.warn('[addNote] DB insert notice (local note preserved):', e);
+        }
+        return newNote;
+    }, []);
+
+    const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
+        const dbUpdates: Record<string, unknown> = { ...updates };
+        if (updates.subjectId) {
+            dbUpdates.subject_id = updates.subjectId;
+            delete dbUpdates.subjectId;
+        }
+        if (updates.isPinned !== undefined) {
+            dbUpdates.is_pinned = updates.isPinned;
+            delete dbUpdates.isPinned;
+        }
+
+        setNotes(prev => {
+            const updated = prev.map(n => n.id === id ? { ...n, ...updates } : n);
+            safeLocalStorage.setJSON('study_planner_notes_cache', updated);
+            return updated;
+        });
+
+        await supabase.from('notes').update(dbUpdates).eq('id', id);
+    }, []);
+
+    const deleteNote = useCallback(async (id: string) => {
+        setNotes(prev => {
+            const updated = prev.filter(n => n.id !== id);
+            safeLocalStorage.setJSON('study_planner_notes_cache', updated);
+            return updated;
+        });
+
+        await supabase.from('notes').delete().eq('id', id);
+    }, []);
+
+    return {
+        notes,
+        setNotes,
+        addNote,
+        updateNote,
+        deleteNote
+    };
+};
