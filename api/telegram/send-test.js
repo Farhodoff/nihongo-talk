@@ -38,17 +38,22 @@ export default async function handler(req, res) {
 
         const botToken = process.env.TELEGRAM_BOT_TOKEN || process.env.VITE_TELEGRAM_BOT_TOKEN || '8334623009:AAFBAdttU84-GX2TMhqMAc3-H6LJmRZ_tSA';
 
+        const telegramBody = {
+            chat_id: account.chat_id,
+            text: text,
+            parse_mode: 'HTML',
+        };
+        if (body.reply_markup) {
+            telegramBody.reply_markup = body.reply_markup;
+        }
+
         const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: account.chat_id,
-                text: text,
-                parse_mode: 'HTML',
-            }),
+            body: JSON.stringify(telegramBody),
         });
         const result = await response.json();
-        return res.status(200).json({ ok: result.ok });
+        return res.status(200).json({ ok: result.ok, result });
     } catch (err) {
         console.error('send-test error:', err);
         return res.status(500).json({ error: 'Internal server error' });

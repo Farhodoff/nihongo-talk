@@ -313,10 +313,11 @@ export function telegramApiPlugin() {
                                 chat_id: account.chat_id,
                                 text: text || '🔔 Test xabarnomasi',
                                 parse_mode: 'HTML',
+                                ...(body.reply_markup ? { reply_markup: body.reply_markup } : {})
                             }),
                         });
                         const result = await response.json();
-                        return sendJson(200, { ok: result.ok });
+                        return sendJson(200, { ok: result.ok, result });
                     }
 
                     // Unknown route

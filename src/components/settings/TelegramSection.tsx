@@ -5,12 +5,14 @@ import telegramService, { TelegramUser } from '../../services/TelegramService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 
 const TelegramSection: React.FC = () => {
-    const { user } = useStudyData();
+    const { user, flashcards } = useStudyData();
     const [linkCode, setLinkCode] = useState<string | null>(null);
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
     const [linkedAccount, setLinkedAccount] = useState<TelegramUser | null>(null);
     const [loading, setLoading] = useState(false);
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
+    const dueCardsCount = flashcards.filter(f => !f.nextReviewDate || new Date(f.nextReviewDate) <= new Date()).length;
 
     // Get stable user ID (authenticated user ID or fallback guest ID)
     const getEffectiveUserId = useCallback(() => {
@@ -165,33 +167,74 @@ const TelegramSection: React.FC = () => {
                         </button>
                     </div>
 
-                    {/* Test Notification Button */}
-                    <Button
-                        onClick={async () => {
-                            setLoading(true);
-                            const ok = await telegramService.sendNotification(
-                                effectiveUserId,
-                                "🔔 <b>Study Planner Eslatmasi!</b>\n\nBugun o'z oldingizga qo'ygan kunlik maqsad va darslaringizni bajardingizmi? Tizimga kirib streak ballingizni oshiring! 🚀"
-                            );
-                            if (ok) {
-                                alert("✅ Telegram bot orqali sinov xabarnomasi muvaffaqiyatli yuborildi!");
-                            } else {
-                                alert("⚠️ Xabar yuborishda xatolik. Botni /start bilan qayta faollashtiring.");
-                            }
-                            setLoading(false);
-                        }}
-                        disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition-all"
-                    >
-                        Sinov Xabarini Yuborish 🔔
-                    </Button>
+                    {/* SRS Status info */}
+                    <div className="p-4 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-xl flex items-center justify-between">
+                        <div>
+                            <div className="font-semibold text-sm text-foreground flex items-center gap-2">
+                                <span>🧠 SRS Fleshkartalar Eslatmasi</span>
+                                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary">
+                                    {dueCardsCount} ta tayyor
+                                </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                                Har kuni 09:00 va 20:00 da takrorlash kutilayotgan so'zlar haqida push-xabar yuboriladi
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <Button
+                            onClick={async () => {
+                                setLoading(true);
+                                const text = `🧠 <b>Kaizen AI — SRS Fleshkartalar Eslatmasi!</b>\n\n` +
+                                    `Salom, ${linkedAccount.telegram_first_name || "O'quvchi"}! 👋\n` +
+                                    (dueCardsCount > 0 
+                                        ? `Sizda bugun takrorlash uchun <b>${dueCardsCount} ta fleshkarta</b> tayyor turibdi.\nUxlashdan oldin 5 daqiqa ajratib takrorlab oling va streak ballingizni oshiring! 🚀`
+                                        : `Barcha fleshkartalaringiz bugun uchun o'zlashtirilgan! Yangi so'zlar qo'shishingiz yoki test topshirishingiz mumkin. ✨`
+                                    );
+                                const ok = await telegramService.sendNotification(effectiveUserId, text);
+                                if (ok) {
+                                    alert("✅ Telegram bot orqali SRS eslatmasi muvaffaqiyatli yuborildi!");
+                                } else {
+                                    alert("⚠️ Xabar yuborishda xatolik. Botni /start bilan qayta faollashtiring.");
+                                }
+                                setLoading(false);
+                            }}
+                            disabled={loading}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl transition-all"
+                        >
+                            🧠 SRS Eslatmasini Yuborish
+                        </Button>
+
+                        <Button
+                            onClick={async () => {
+                                setLoading(true);
+                                const ok = await telegramService.sendNotification(
+                                    effectiveUserId,
+                                    "🔔 <b>Kaizen AI Kunlik Eslatmasi!</b>\n\nBugun o'z oldingizga qo'ygan kunlik maqsad va darslaringizni bajardingizmi? Tizimga kirib streak ballingizni oshiring! 🚀"
+                                );
+                                if (ok) {
+                                    alert("✅ Telegram bot orqali sinov xabarnomasi muvaffaqiyatli yuborildi!");
+                                } else {
+                                    alert("⚠️ Xabar yuborishda xatolik. Botni /start bilan qayta faollashtiring.");
+                                }
+                                setLoading(false);
+                            }}
+                            disabled={loading}
+                            variant="secondary"
+                            className="font-medium py-2.5 rounded-xl"
+                        >
+                            🔔 Test Xabarnomasi
+                        </Button>
+                    </div>
 
                     {/* Unlink Button */}
                     <Button
                         onClick={handleUnlink}
                         disabled={loading}
                         variant="secondary"
-                        className="w-full text-red-600 border-red-200 hover:bg-red-50"
+                        className="w-full text-red-600 border-red-200 hover:bg-red-50 dark:border-red-900/30 dark:hover:bg-red-950/20"
                     >
                         {loading ? (
                             <>
