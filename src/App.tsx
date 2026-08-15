@@ -50,6 +50,7 @@ const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ defaul
 const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
 const QuestionEditor = lazy(() => import('./pages/admin/QuestionEditor'));
 const ExamTake = lazy(() => import('./pages/exams/ExamTake'));
+const DeveloperApiPage = lazy(() => import('./pages/DeveloperApiPage'));
 
 
 // Loading component
@@ -150,6 +151,8 @@ const App: React.FC = () => {
                                         <Route path="leaderboard" element={<Navigate to="/community?tab=leaderboard" replace />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
+                                        <Route path="developers" element={<DeveloperApiPage />} />
+                                        <Route path="api-docs" element={<Navigate to="/developers" replace />} />
                                         <Route path="admin" element={<AdminDashboardPage />} />
                                         <Route path="admin/exams" element={<ExamsManager />} />
                                         <Route path="admin/exams/:id" element={<QuestionEditor />} />
