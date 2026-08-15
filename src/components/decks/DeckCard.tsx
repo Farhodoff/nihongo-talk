@@ -13,6 +13,7 @@ interface DeckCardProps {
     onDelete?: () => void;
     onAIGenerate: () => void;
     onPopulatePreset?: () => void;
+    onExploreFolders?: () => void;
 }
 
 const renderSubjectIcon = (iconName?: string) => {
@@ -54,7 +55,8 @@ const DeckCard: React.FC<DeckCardProps> = ({
     onToggleArchive,
     onDelete,
     onAIGenerate, 
-    onPopulatePreset 
+    onPopulatePreset,
+    onExploreFolders 
 }) => {
     return (
         <div className={`glass-card p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between relative group ${
@@ -136,6 +138,16 @@ const DeckCard: React.FC<DeckCardProps> = ({
                                 <Play size={15} /> {dueCount > 0 ? "O'rganish" : "Qayta Ko'rib Chiqish"}
                             </Button>
                         </Link>
+                        {onExploreFolders && (
+                            <Button
+                                variant="secondary"
+                                className="px-3 text-indigo-600 dark:text-indigo-400"
+                                onClick={onExploreFolders}
+                                title="Keyingi qismlar / Jildlarni ko'rish"
+                            >
+                                <BookOpen size={18} />
+                            </Button>
+                        )}
                         <Button
                             variant="secondary"
                             className="px-3 text-primary"

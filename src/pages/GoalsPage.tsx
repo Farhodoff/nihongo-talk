@@ -13,20 +13,25 @@ const GoalsPage: React.FC = () => {
     const [newTitle, setNewTitle] = useState('');
     const [newDeadline, setNewDeadline] = useState(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
 
-    const handleAdd = (e: React.FormEvent) => {
+    const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newTitle.trim()) return;
 
-        addGoal({
-            title: newTitle,
-            description: '',
-            deadline: new Date(newDeadline).toISOString(),
-            priority: 'medium',
-            progress: 0
-        });
-        setNewTitle('');
-        setNewDeadline(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
-        setModalOpen(false);
+        try {
+            await addGoal({
+                title: newTitle.trim(),
+                description: '',
+                deadline: new Date(newDeadline).toISOString(),
+                priority: 'medium',
+                progress: 0
+            });
+            setNewTitle('');
+            setNewDeadline(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
+            setModalOpen(false);
+        } catch (err) {
+            console.error("Add goal error:", err);
+            alert("Maqsadni saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
+        }
     };
 
     return (

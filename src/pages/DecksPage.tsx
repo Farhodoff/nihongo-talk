@@ -89,18 +89,26 @@ const DecksPage: React.FC = () => {
             }
 
             if (targetSubjectId) {
-                const existingCards = flashcards.filter(c => c.subjectId === targetSubjectId);
-                if (existingCards.length === 0) {
-                    const loadedCards = await preset.loadCards();
-                    if (loadedCards && loadedCards.length > 0) {
-                        const batchCards = loadedCards.map(c => ({
+                const loadedCards = await preset.loadCards();
+                if (loadedCards && loadedCards.length > 0) {
+                    const existingFronts = new Set(
+                        flashcards
+                            .filter(c => c.subjectId === targetSubjectId)
+                            .map(c => c.front.trim().toLowerCase())
+                    );
+                    const newCards = loadedCards.filter(c => !existingFronts.has(c.front.trim().toLowerCase()));
+
+                    if (newCards.length > 0) {
+                        const batchCards = newCards.map(c => ({
                             subjectId: targetSubjectId!,
                             front: c.front,
                             back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
                             interval: 1,
                             repetitions: 0,
                             easeFactor: 2.5,
-                            nextReviewDate: new Date().toISOString()
+                            dueDate: new Date().toISOString().split('T')[0],
+                            nextReviewDate: new Date().toISOString(),
+                            isArchived: false
                         }));
 
                         const chunkSize = 100;
@@ -108,11 +116,13 @@ const DecksPage: React.FC = () => {
                             const chunk = batchCards.slice(i, i + chunkSize);
                             await addFlashcardsBatch(chunk);
                         }
+                        setImportedDeckTitle(`${cleanTitle || preset.title} (${newCards.length} ta yangi kartochka qo'shildi)`);
+                    } else {
+                        setImportedDeckTitle(`${cleanTitle || preset.title} (Barcha kartochkalar mavjud)`);
                     }
                 }
             }
 
-            setImportedDeckTitle(preset.title);
             setTimeout(() => setImportedDeckTitle(null), 4000);
         } catch (err) {
             console.error('Import preset error:', err);
@@ -126,10 +136,15 @@ const DecksPage: React.FC = () => {
         setIsImportingPreset(true);
         try {
             const cleanTitle = part.title.trim();
+            // Match existing subject by base level/title or part name
             let subject = subjects.find(s => {
                 const cleanSubName = s.name.toLowerCase().trim();
                 const cleanPTitle = cleanTitle.toLowerCase();
-                return cleanSubName === cleanPTitle || cleanSubName.includes(cleanPTitle) || cleanPTitle.includes(cleanSubName);
+                const partBase = cleanPTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
+                return cleanSubName === cleanPTitle || 
+                       cleanSubName === partBase ||
+                       cleanSubName.includes(partBase) || 
+                       partBase.includes(cleanSubName);
             });
             let targetSubjectId = subject?.id;
 
@@ -158,25 +173,36 @@ const DecksPage: React.FC = () => {
                 }
 
                 if (cardsToImport.length > 0) {
-                    const batchCards = cardsToImport.map(c => ({
-                        subjectId: targetSubjectId!,
-                        front: c.front,
-                        back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
-                        interval: 1,
-                        repetitions: 0,
-                        easeFactor: 2.5,
-                        dueDate: new Date().toISOString().split('T')[0],
-                        nextReviewDate: new Date().toISOString(),
-                        isArchived: false
-                    }));
+                    const existingFronts = new Set(
+                        flashcards
+                            .filter(c => c.subjectId === targetSubjectId)
+                            .map(c => c.front.trim().toLowerCase())
+                    );
+                    const newCards = cardsToImport.filter(c => !existingFronts.has(c.front.trim().toLowerCase()));
 
-                    const chunkSize = 50;
-                    for (let i = 0; i < batchCards.length; i += chunkSize) {
-                        const chunk = batchCards.slice(i, i + chunkSize);
-                        await addFlashcardsBatch(chunk);
+                    if (newCards.length > 0) {
+                        const batchCards = newCards.map(c => ({
+                            subjectId: targetSubjectId!,
+                            front: c.front,
+                            back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                            interval: 1,
+                            repetitions: 0,
+                            easeFactor: 2.5,
+                            dueDate: new Date().toISOString().split('T')[0],
+                            nextReviewDate: new Date().toISOString(),
+                            isArchived: false
+                        }));
+
+                        const chunkSize = 50;
+                        for (let i = 0; i < batchCards.length; i += chunkSize) {
+                            const chunk = batchCards.slice(i, i + chunkSize);
+                            await addFlashcardsBatch(chunk);
+                        }
+
+                        setImportedDeckTitle(`${cleanTitle} (${newCards.length} ta yangi kartochka qo'shildi)`);
+                    } else {
+                        setImportedDeckTitle(`${cleanTitle} (Barcha kartochkalar mavjud)`);
                     }
-
-                    setImportedDeckTitle(cleanTitle);
                     setTimeout(() => setImportedDeckTitle(null), 4000);
                 }
             }
@@ -361,6 +387,16 @@ const DecksPage: React.FC = () => {
             await updateSubject(id, { isArchived: archive });
         }
         setSelectedSubjectIds([]);
+    };
+
+    const handleOpenDeckExplorer = async (preset: PresetDeck) => {
+        try {
+            const parts = await PresetDeckService.getDeckParts(preset);
+            setExplorerDeck(preset);
+            setExplorerParts(parts);
+        } catch (e) {
+            console.error("Error opening explorer:", e);
+        }
     };
 
     return (
@@ -579,6 +615,7 @@ const DecksPage: React.FC = () => {
                                     }}
                                     onAIGenerate={() => setAiSubjectId(subject.id)}
                                     onPopulatePreset={matchingPreset ? () => handleImportPresetDeck(matchingPreset) : undefined}
+                                    onExploreFolders={matchingPreset ? () => handleOpenDeckExplorer(matchingPreset) : undefined}
                                 />
                             );
                         })}

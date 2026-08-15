@@ -19,7 +19,20 @@ const SubjectDetailPage: React.FC = () => {
     const [selectedWhiteboardId, setSelectedWhiteboardId] = useState<string | null>(null);
 
     const subject = subjects.find(s => s.id === id);
-    if (!subject) return <div>Fan topilmadi</div>;
+    if (!subject) {
+        return (
+            <div className="p-8 max-w-xl mx-auto text-center space-y-4">
+                <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto text-2xl font-bold">
+                    📚
+                </div>
+                <h3 className="text-xl font-black text-foreground">Fan Topilmadi</h3>
+                <p className="text-xs text-muted-foreground">Ushbu fan o'chirilgan yoki mavjud emas.</p>
+                <Button onClick={() => navigate('/subjects')} className="font-bold text-xs">
+                    <ArrowLeft size={14} className="mr-1.5" /> Fanlar Ro'yxatiga Qaytish
+                </Button>
+            </div>
+        );
+    }
 
     const subjectTasks = tasks
         .filter(t => t.subjectId === id)
