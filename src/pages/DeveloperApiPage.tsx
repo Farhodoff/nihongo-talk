@@ -127,7 +127,8 @@ response = requests.post(url, json=payload)
 data = response.json()
 print("IELTS Band:", data['data']['overallBand'])`;
         }
-        return `import requests
+        if (activeTab === 'flashcards') {
+            return `import requests
 
 url = "${baseUrl}/api/v1/flashcards-generate"
 payload = {
@@ -135,7 +136,19 @@ payload = {
     "count": 5
 }
 response = requests.post(url, json=payload)
-print(response.json())`;
+print("Kartochkalar:", response.json())`;
+        }
+        return `import requests
+
+url = "${baseUrl}/api/v1/srs"
+payload = {
+    "quality": ${srsQuality},
+    "repetitions": 1,
+    "interval": 1,
+    "easeFactor": 2.5
+}
+response = requests.post(url, json=payload)
+print("Keyingi takrorlash:", response.json())`;
     };
 
     return (

@@ -65,6 +65,132 @@ export function telegramApiPlugin() {
 
             server.middlewares.use(async (req, res, next) => {
                 const url = new URL(req.url, `http://${req.headers.host}`);
+                const pathname = url.pathname;
+
+                // Handle CORS preflight for all /api/
+                if (pathname.startsWith('/api/')) {
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+                    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Kaizen-Key');
+                    if (req.method === 'OPTIONS') {
+                        res.statusCode = 204;
+                        res.end();
+                        return;
+                    }
+                }
+
+                // Handle /api/v1/srs
+                if (pathname === '/api/v1/srs') {
+                    let quality = url.searchParams.get('quality');
+                    let repetitions = url.searchParams.get('repetitions') || 0;
+                    let interval = url.searchParams.get('interval') || 1;
+                    let easeFactor = url.searchParams.get('easeFactor') || 2.5;
+
+                    if (req.method === 'POST') {
+                        try {
+                            const chunks = [];
+                            for await (const chunk of req) chunks.push(chunk);
+                            const raw = Buffer.concat(chunks).toString();
+                            if (raw) {
+                                const b = JSON.parse(raw);
+                                quality = b.quality;
+                                repetitions = b.repetitions ?? repetitions;
+                                interval = b.interval ?? interval;
+                                easeFactor = b.easeFactor ?? easeFactor;
+                            }
+                        } catch {}
+                    }
+
+                    const q = Math.max(0, Math.min(5, Number(quality) || 0));
+                    let newRep = Number(repetitions) || 0;
+                    let newInt = Number(interval) || 1;
+                    let newEF = Number(easeFactor) || 2.5;
+
+                    if (q >= 3) {
+                        if (newRep === 0) newInt = 1;
+                        else if (newRep === 1) newInt = 6;
+                        else newInt = Math.round(newInt * newEF);
+                        newRep += 1;
+                    } else {
+                        newRep = 0;
+                        newInt = 1;
+                    }
+                    newEF = Math.max(1.3, newEF + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02)));
+                    const nextDate = new Date();
+                    nextDate.setDate(nextDate.getDate() + newInt);
+
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({
+                        success: true,
+                        data: {
+                            repetitions: newRep,
+                            interval: newInt,
+                            easeFactor: Math.round(newEF * 100) / 100,
+                            nextReviewDate: nextDate.toISOString(),
+                            dueInDays: newInt
+                        }
+                    }));
+                    return;
+                }
+
+                // Handle /api/v1/flashcards-generate
+                if (pathname === '/api/v1/flashcards-generate') {
+                    res.setHeader('Content-Type', 'application/json');
+                    try {
+                        const chunks = [];
+                        for await (const chunk of req) chunks.push(chunk);
+                        const raw = Buffer.concat(chunks).toString();
+                        const b = raw ? JSON.parse(raw) : {};
+                        const topic = b.topic || 'General Topic';
+                        const count = b.count || 3;
+
+                        const mockCards = [
+                            { front: `${topic} - Term 1`, back: `${topic} bo'yicha asosiy tushuncha va ta'rif`, example: `Sample sentence for ${topic}.` },
+                            { front: `${topic} - Term 2`, back: `Amaliy qo'llanilishi va misol`, example: `Practical application of ${topic}.` },
+                            { front: `${topic} - Term 3`, back: `Muhim qoida yoki qonuniyat`, example: `Key principle of ${topic}.` }
+                        ].slice(0, count);
+
+                        res.end(JSON.stringify({ success: true, count: mockCards.length, data: mockCards }));
+                    } catch {
+                        res.end(JSON.stringify({ success: true, data: [] }));
+                    }
+                    return;
+                }
+
+                // Handle /api/v1/ielts-evaluate
+                if (pathname === '/api/v1/ielts-evaluate') {
+                    res.setHeader('Content-Type', 'application/json');
+                    try {
+                        const chunks = [];
+                        for await (const chunk of req) chunks.push(chunk);
+                        const raw = Buffer.concat(chunks).toString();
+                        const b = raw ? JSON.parse(raw) : {};
+                        const essay = b.essay || '';
+
+                        const words = essay.trim().split(/\s+/).filter(Boolean).length;
+                        const band = words > 150 ? 7.5 : words > 80 ? 6.5 : 5.5;
+
+                        res.end(JSON.stringify({
+                            success: true,
+                            data: {
+                                overallBand: band,
+                                scores: {
+                                    taskAchievement: band,
+                                    coherenceAndCohesion: band,
+                                    lexicalResource: band,
+                                    grammaticalRange: band
+                                },
+                                summary: "Well-structured essay with cohesive paragraph transitions and appropriate academic vocabulary.",
+                                strengths: ["Good topic progression", "Relevant contextual arguments"],
+                                improvements: ["Consider expanding on complex compound sentences"],
+                                correctedEssay: essay
+                            }
+                        }));
+                    } catch {
+                        res.end(JSON.stringify({ success: false, error: 'Invalid payload' }));
+                    }
+                    return;
+                }
 
                 if (!url.pathname.startsWith('/api/telegram')) {
                     return next();
