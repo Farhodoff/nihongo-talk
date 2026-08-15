@@ -1,23 +1,28 @@
 import React from 'react';
-import { Bell, Moon, Sun, HelpCircle, Globe } from 'lucide-react';
+import { Bell, Moon, Sun, HelpCircle, Globe, BookA } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
+import { toast } from '../../hooks/use-toast';
 
 interface Settings {
     theme: 'light' | 'dark';
     notificationsEnabled: boolean;
+    showFurigana?: boolean;
+    showRomaji?: boolean;
 }
 
 interface PreferencesSectionProps {
     settings: Settings;
     onToggleTheme: () => void;
     onToggleNotifications: () => void;
+    onUpdateSettings?: (updates: Partial<Settings>) => Promise<void> | void;
 }
 
 const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
     onToggleTheme,
-    onToggleNotifications
+    onToggleNotifications,
+    onUpdateSettings
 }) => {
     const { language, setLanguage, t } = useLanguage();
 
@@ -39,10 +44,13 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                     {/* Uzbek Language Card */}
                     <button
                         type="button"
-                        onClick={() => setLanguage('uz')}
+                        onClick={() => {
+                            setLanguage('uz');
+                            toast({ title: "🇺🇿 O'zbek tili tanlandi" });
+                        }}
                         className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
                             language === 'uz'
-                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
@@ -56,10 +64,13 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                     {/* English Language Card */}
                     <button
                         type="button"
-                        onClick={() => setLanguage('en')}
+                        onClick={() => {
+                            setLanguage('en');
+                            toast({ title: "🇬🇧 English selected" });
+                        }}
                         className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
                             language === 'en'
-                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
@@ -88,7 +99,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                         onClick={() => { if (settings.theme !== 'light') onToggleTheme(); }}
                         className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
                             settings.theme === 'light'
-                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
@@ -109,7 +120,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                         onClick={() => { if (settings.theme !== 'dark') onToggleTheme(); }}
                         className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
                             settings.theme === 'dark'
-                                ? 'border-primary bg-primary/5 text-foreground font-semibold shadow-sm'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
@@ -120,9 +131,60 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                         </div>
                         <div>
                             <div className="text-sm font-semibold text-foreground">Tungi Rejim</div>
-                            <div className="text-xs text-muted-foreground">Qorong'i va qulay ko'rinish</div>
+                            <div className="text-xs text-muted-foreground">Qorong'i va ko'zga qulay ko'rinish</div>
                         </div>
                     </button>
+                </div>
+            </div>
+
+            {/* Language Study Options (JLPT Furigana / Romaji) */}
+            <div className="pt-6 border-t border-border space-y-4">
+                <div>
+                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                        <BookA size={20} className="text-primary" />
+                        Til O'rganish & JLPT Sozlamalari
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">Yapon tili va kartochkalarda yordamchi o'qilishlarni ko'rsatish</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
+                        <div>
+                            <span className="font-semibold text-sm text-foreground block">Furigana (Hiragana)</span>
+                            <span className="text-xs text-muted-foreground">Kanji ustida o'qilishini ko'rsatish</span>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={settings.showFurigana !== false}
+                                onChange={(e) => {
+                                    onUpdateSettings?.({ showFurigana: e.target.checked });
+                                    toast({ title: e.target.checked ? "Furigana yoqildi" : "Furigana o'chirildi" });
+                                }}
+                                className="sr-only peer"
+                            />
+                            <div className="w-11 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
+                        <div>
+                            <span className="font-semibold text-sm text-foreground block">Romaji (Lotincha)</span>
+                            <span className="text-xs text-muted-foreground">Lotin yozuvidagi transkripsiya</span>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={!!settings.showRomaji}
+                                onChange={(e) => {
+                                    onUpdateSettings?.({ showRomaji: e.target.checked });
+                                    toast({ title: e.target.checked ? "Romaji yoqildi" : "Romaji o'chirildi" });
+                                }}
+                                className="sr-only peer"
+                            />
+                            <div className="w-11 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -136,7 +198,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             <Bell size={20} />
                         </div>
                         <div>
-                            <span className="font-semibold text-sm text-foreground block">Bildirishnomalar</span>
+                            <span className="font-semibold text-sm text-foreground block">Brauzer Bildirishnomalari</span>
                             <span className="text-xs text-muted-foreground">Dars va Streak eslatmalarini qurilmada olish</span>
                         </div>
                     </div>
@@ -146,12 +208,12 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                                 onClick={async () => {
                                     const ok = await PushNotificationService.sendTestNotification();
                                     if (ok) {
-                                        alert("Sinov bildirishnomasi yuborildi!");
+                                        toast({ title: "🔔 Sinov bildirishnomasi yuborildi!" });
                                     } else {
-                                        alert("Bildirishnoma yuborishda xatolik yoki ruxsat yo'q.");
+                                        toast({ title: "Xatolik yoki ruxsat yo'q", variant: "destructive" });
                                     }
                                 }}
-                                className="text-xs px-3 py-1.5 rounded-lg border border-border hover:bg-muted text-muted-foreground transition-colors"
+                                className="text-xs px-3 py-1.5 rounded-lg border border-border hover:bg-muted text-muted-foreground transition-colors font-medium"
                             >
                                 Sinab ko'rish
                             </button>
@@ -174,8 +236,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             <HelpCircle size={20} />
                         </div>
                         <div>
-                            <span className="font-semibold text-sm text-foreground block">Tizim bo'yicha yo'riqnoma</span>
-                            <span className="text-xs text-muted-foreground">Qanday foydalanishni qayta ko'rish</span>
+                            <span className="font-semibold text-sm text-foreground block">Tizim bo'yicha yo'riqnoma (Tour)</span>
+                            <span className="text-xs text-muted-foreground">Barcha bo'limlar bo'yicha interaktiv sayohatni qayta ko'rish</span>
                         </div>
                     </div>
                     <button

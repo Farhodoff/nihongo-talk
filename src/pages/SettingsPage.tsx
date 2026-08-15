@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useSubscription } from '../hooks/useSubscription';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
 import DataManagementSection from '../components/settings/DataManagementSection';
@@ -9,20 +10,27 @@ import GoogleCalendarSection from '../components/settings/GoogleCalendarSection'
 import AIProviderSection from '../components/settings/AIProviderSection';
 import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
-import { User, Sparkles, Sliders, Database, Shield } from 'lucide-react';
+import { 
+    User, Sparkles, Sliders, Database, Shield, Crown, 
+    Target, Flame, Award, Clock
+} from 'lucide-react';
 import { isAdminEmail } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import AdminDashboardPage from './AdminDashboardPage';
 
 const SettingsPage: React.FC = () => {
-    const { settings, updateSettings, refreshData, user } = useStudyData();
+    const { settings, updateSettings, refreshData, user, getRank } = useStudyData();
+    const { subscription } = useSubscription();
     const [activeTab, setActiveTab] = useState('profile');
 
     const tabs = [
-        { id: 'profile', label: 'Profil', icon: User },
+        { id: 'profile', label: 'Profil & Hisob', icon: User },
+        { id: 'subscription', label: 'Tarif & Obuna', icon: Crown },
+        { id: 'dailyGoal', label: "O'qish Maqsadi", icon: Target },
         { id: 'ai', label: 'AI & Integratsiya', icon: Sparkles },
-        { id: 'preferences', label: 'Moslashtirish', icon: Sliders },
+        { id: 'preferences', label: 'Interfeys & Til', icon: Sliders },
         { id: 'data', label: "Ma'lumotlar", icon: Database },
     ];
 
@@ -56,23 +64,99 @@ const SettingsPage: React.FC = () => {
         await refreshData();
     };
 
+    const rankTitle = getRank ? getRank(settings.level || 1) : 'Bilimdon';
+    const userName = user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || user?.email?.split('@')[0] || "O'quvchi";
+
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6">
-            {/* Header / Profile Summary */}
-            <div className="flex items-center justify-between pb-4 border-b border-border">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold border border-primary/20">
-                        {user?.email?.charAt(0).toUpperCase() || 'U'}
+        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6 pb-28 md:pb-12 animate-in fade-in duration-300">
+            {/* Hero Profile Banner */}
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-card p-6 md:p-8 shadow-xs">
+                {/* Background Ambient Glow */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    {/* Left: Avatar & Identity */}
+                    <div className="flex items-center gap-5">
+                        <div className="relative">
+                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-primary to-indigo-600 text-white flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg shadow-primary/25 border-2 border-background">
+                                {userName.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="absolute -bottom-1.5 -right-1.5 px-2 py-0.5 rounded-full bg-background border border-border text-[10px] font-black text-primary shadow-xs">
+                                Lvl {settings.level || 1}
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
+                                    {userName}
+                                </h1>
+                                {subscription?.tier === 'premium' ? (
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs">
+                                        PREMIUM VIP
+                                    </span>
+                                ) : subscription?.tier === 'pro' ? (
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-white shadow-xs">
+                                        PRO A'ZO
+                                    </span>
+                                ) : (
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-muted text-muted-foreground border border-border">
+                                        TRIAL / FREE
+                                    </span>
+                                )}
+                            </div>
+                            <p className="text-xs md:text-sm text-muted-foreground mt-0.5">
+                                {user?.email || "Mahalliy Foydalanuvchi"}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <h1 className="text-2xl font-bold text-foreground">Sozlamalar</h1>
-                        <p className="text-xs text-muted-foreground">{user?.email}</p>
+
+                    {/* Right: 4 Quick Stats */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
+                            <div className="flex items-center justify-center gap-1 text-orange-500 mb-0.5">
+                                <Flame size={15} />
+                                <span className="text-xs font-bold uppercase tracking-wider">Streak</span>
+                            </div>
+                            <span className="text-base font-black text-foreground tabular-nums">
+                                {settings.currentStreak || 0} <span className="text-[11px] font-medium text-muted-foreground">kun</span>
+                            </span>
+                        </div>
+
+                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
+                            <div className="flex items-center justify-center gap-1 text-primary mb-0.5">
+                                <Award size={15} />
+                                <span className="text-xs font-bold uppercase tracking-wider">Daraja</span>
+                            </div>
+                            <span className="text-base font-black text-foreground tabular-nums">
+                                {settings.level || 1} <span className="text-[11px] font-medium text-muted-foreground">{rankTitle}</span>
+                            </span>
+                        </div>
+
+                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
+                            <div className="flex items-center justify-center gap-1 text-indigo-500 mb-0.5">
+                                <Clock size={15} />
+                                <span className="text-xs font-bold uppercase tracking-wider">Maqsad</span>
+                            </div>
+                            <span className="text-base font-black text-foreground tabular-nums">
+                                {Math.floor((settings.dailyStudyGoalMinutes || 240) / 60)} <span className="text-[11px] font-medium text-muted-foreground">s/kun</span>
+                            </span>
+                        </div>
+
+                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
+                            <div className="flex items-center justify-center gap-1 text-emerald-500 mb-0.5">
+                                <Sparkles size={15} />
+                                <span className="text-xs font-bold uppercase tracking-wider">AI Kredit</span>
+                            </div>
+                            <span className="text-base font-black text-foreground tabular-nums">
+                                {(subscription?.tier === 'pro' || subscription?.tier === 'premium') ? 'Cheksiz' : `${subscription?.ai_credits || 0} ta`}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Desktop Tabs / Mobile Scrollable Tabs */}
-            <div className="flex overflow-x-auto scrollbar-hide gap-2 p-1.5 bg-card rounded-xl border border-border">
+            {/* Navigation Tabs (Horizontal Scrollable Pills) */}
+            <div className="flex overflow-x-auto scrollbar-hide gap-1.5 p-1.5 bg-card/90 backdrop-blur-md rounded-2xl border border-border sticky top-0 z-20 shadow-xs">
                 {tabs.map(tab => {
                     const isActive = activeTab === tab.id;
                     const Icon = tab.icon;
@@ -80,53 +164,67 @@ const SettingsPage: React.FC = () => {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold transition-all duration-150 whitespace-nowrap rounded-lg ${
+                            className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold transition-all duration-200 whitespace-nowrap rounded-xl select-none ${
                                 isActive 
-                                    ? 'bg-primary text-primary-foreground shadow-sm' 
-                                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                    ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20 scale-[1.02]' 
+                                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                             }`}
                         >
-                            <Icon size={16} />
+                            <Icon size={15} />
                             {tab.label}
                         </button>
                     );
                 })}
             </div>
 
-            {/* Tab Contents */}
-            <div className="mt-6">
-                {activeTab === 'profile' && (
-                    <div className="space-y-6">
+            {/* Tab Contents with Framer Motion Animation */}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.18 }}
+                    className="mt-6"
+                >
+                    {activeTab === 'profile' && (
                         <AccountSection />
-                        <DailyGoalSection />
+                    )}
+
+                    {activeTab === 'subscription' && (
                         <SubscriptionSection />
-                    </div>
-                )}
+                    )}
 
-                {activeTab === 'ai' && (
-                    <div className="space-y-6">
-                        <AIProviderSection />
-                        <TelegramSection />
-                        <GoogleCalendarSection />
-                    </div>
-                )}
+                    {activeTab === 'dailyGoal' && (
+                        <DailyGoalSection />
+                    )}
 
-                {activeTab === 'preferences' && (
-                    <PreferencesSection
-                        settings={settings}
-                        onToggleTheme={toggleTheme}
-                        onToggleNotifications={toggleNotifications}
-                    />
-                )}
+                    {activeTab === 'ai' && (
+                        <div className="space-y-6">
+                            <AIProviderSection />
+                            <TelegramSection />
+                            <GoogleCalendarSection />
+                        </div>
+                    )}
 
-                {activeTab === 'data' && (
-                    <DataManagementSection onClearData={handleClearData} />
-                )}
+                    {activeTab === 'preferences' && (
+                        <PreferencesSection
+                            settings={settings}
+                            onToggleTheme={toggleTheme}
+                            onToggleNotifications={toggleNotifications}
+                            onUpdateSettings={updateSettings}
+                        />
+                    )}
 
-                {activeTab === 'admin' && (
-                    <AdminDashboardPage />
-                )}
-            </div>
+                    {activeTab === 'data' && (
+                        <DataManagementSection onClearData={handleClearData} />
+                    )}
+
+                    {activeTab === 'admin' && (
+                        <AdminDashboardPage />
+                    )}
+                </motion.div>
+            </AnimatePresence>
         </div>
     );
 };
