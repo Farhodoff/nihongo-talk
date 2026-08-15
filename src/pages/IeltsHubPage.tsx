@@ -11,8 +11,16 @@ import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { analyzeAndRebalanceSchedule } from '../utils/ai/weeklyRebalancer';
+import { useSEO } from '../hooks/useSEO';
 
 export const IeltsHubPage: React.FC = () => {
+    useSEO({
+        title: "IELTS Tayyorgarlik Markazi (Mock Exams, AI Speaking, Writing)",
+        description: "IELTS Band 7.5+ uchun maxsus AI o'quv rejasi. Speaking Simulyatori, Writing Task 1 & 2 baholovchisi va Reading/Listening mock testlari.",
+        canonical: "/ielts",
+        keywords: "IELTS mock exam O'zbekiston, IELTS Speaking AI, IELTS Writing baholash, IELTS Band 7 tayyorgarlik"
+    });
+
     const navigate = useNavigate();
     const { tasks } = useStudyData();
     const [isQuizOpen, setIsQuizOpen] = useState(false);

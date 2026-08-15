@@ -6,8 +6,16 @@ import {
 import { toast } from '../hooks/use-toast';
 import { KaizenAI } from '../sdk/kaizen-sdk';
 import { AppLogo } from '../components/AppLogo';
+import { useSEO } from '../hooks/useSEO';
 
 const DeveloperApiPage: React.FC = () => {
+    useSEO({
+        title: "Developer Portal & REST API Documentation",
+        description: "Kaizen AI Developer API va TypeScript SDK. IELTS Essay Scoring, Flashcard AI Generator va Anki SM-2 SRS API integratsiyasi.",
+        canonical: "/developers",
+        keywords: "Kaizen AI API, IELTS API, Flashcard API, Anki SM-2 REST API, educational API SDK"
+    });
+
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'ielts' | 'flashcards' | 'srs'>('ielts');
     const [copiedCode, setCopiedCode] = useState<string | null>(null);

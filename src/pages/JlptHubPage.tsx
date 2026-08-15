@@ -8,8 +8,16 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
+import { useSEO } from '../hooks/useSEO';
 
 export const JlptHubPage: React.FC = () => {
+    useSEO({
+        title: "JLPT N5-N1 Tayyorgarlik Markazi (Kanji, Grammatika, Mocks)",
+        description: "Yapon tili JLPT N5 dan N1 gacha bo'lgan to'liq o'quv dasturi. 1000+ Kanji mashqi, grammatika viktorinalari va rasmiy formatdagi mock imtihonlar.",
+        canonical: "/jlpt",
+        keywords: "JLPT N5 N4 N3 N2 N1, yapon tili o'rganish O'zbekiston, Kanji mashq, JLPT mock exam"
+    });
+
     const navigate = useNavigate();
     const [isQuizOpen, setIsQuizOpen] = useState(false);
     const { flashcards, settings, updateSettings } = useStudyData();

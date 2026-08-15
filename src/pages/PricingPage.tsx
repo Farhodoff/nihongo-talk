@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight, Infinity as InfinityIcon, ChevronDown, ChevronUp, Sparkles, Zap, ShieldCheck } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSEO } from '../hooks/useSEO';
 
 export interface PlanOption {
     id: string;
@@ -19,6 +20,13 @@ export interface PlanOption {
 }
 
 export const PricingPage: React.FC = () => {
+    useSEO({
+        title: "Tariflar va Obuna Rejalari",
+        description: "Kaizen AI Pro va Premium tariflari. Cheksiz AI Speaking Coach, IELTS & JLPT Mock Exams va Anki SM-2 Fleshkartalar.",
+        canonical: "/pricing",
+        keywords: "Kaizen AI narxlar, IELTS tayyorgarlik kursi, JLPT onlayn obuna, AI speaking narxi"
+    });
+
     const plans: PlanOption[] = [
         {
             id: 'pro_monthly',

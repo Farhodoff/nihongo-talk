@@ -8,6 +8,7 @@ import {
     Rocket, Shield, Play, Volume2, Award
 } from 'lucide-react';
 import { AppLogo } from '../components/AppLogo';
+import { useSEO } from '../hooks/useSEO';
 
 /* ------------------------------------------------------------------ */
 /*  Animated section wrapper – fades in when scrolled into view        */
@@ -317,6 +318,13 @@ const LiveAppShowcase: React.FC = () => {
 /* ------------------------------------------------------------------ */
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
+
+    useSEO({
+        title: "Kaizen AI — Aqlli O'quv Platformasi | IELTS & JLPT",
+        description: "IELTS Band 7+ va JLPT N3 ga 60 kunda tayyorlaning. AI Speaking Examiner, Writing Evaluator, Anki SM-2 Fleshkartalar va shaxsiy o'quv rejalashtiruvchi.",
+        canonical: "/",
+        keywords: "Kaizen AI, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer"
+    });
 
     const [isDark, setIsDark] = useState(() => {
         if (typeof window !== 'undefined') {

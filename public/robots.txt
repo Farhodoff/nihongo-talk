@@ -1,9 +1,18 @@
+# Kaizen AI Web Robots Configuration
 User-agent: *
 Allow: /
+Allow: /pricing
+Allow: /ielts
+Allow: /jlpt
+Allow: /flashcards
+Allow: /developers
+Allow: /auth
 Disallow: /api/
-Disallow: /auth
 Disallow: /dashboard
 Disallow: /settings
 Disallow: /admin
+Disallow: /study-room/
 
+# Host and Sitemap
+Host: https://kaizen-ai.vercel.app
 Sitemap: https://kaizen-ai.vercel.app/sitemap.xml
