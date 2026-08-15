@@ -239,7 +239,9 @@ class TelegramService {
             const account = await this.getLinkedAccount(userId);
             if (!account?.chat_id) return false;
 
-            const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '8334623009:AAFBAdttU84-GX2TMhqMAc3-H6LJmRZ_tSA';
+            const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+            if (!botToken) return false;
+
             const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

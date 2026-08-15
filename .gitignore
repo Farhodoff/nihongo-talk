@@ -58,6 +58,9 @@ coverage/
 
 
 # Custom workspace files
+scratch/
+scripts/temp/
+*.log
 key.txt
 test-report-screenshot.png
 test_reports/
