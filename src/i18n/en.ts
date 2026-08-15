@@ -19,7 +19,11 @@ export const en = {
         categories: {
             main: 'MAIN',
             tools: 'STUDY TOOLS',
-            analytics: 'ANALYTICS & COMMUNITY'
+            analytics: 'ANALYTICS & COMMUNITY',
+            management: 'STUDY & MANAGEMENT',
+            flashcards: 'FLASHCARDS & VOCAB',
+            languages: 'LANGUAGES & EXAMS',
+            focusAndCommunity: 'FOCUS & COMMUNITY'
         }
     },
     common: {

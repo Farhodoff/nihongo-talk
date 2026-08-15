@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, FolderOpen, Compass
+    NotebookText, GraduationCap, Mic, Crown, Folder, Compass, Search, Brain
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
+import { QuickCommandPalette } from './common/QuickCommandPalette';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -28,11 +29,24 @@ interface NavGroup {
 }
 
 const Layout: React.FC = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile
+    const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile Sheet
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
+    const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
+
+    // Global shortcut ⌘K / Ctrl+K
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                setIsCommandPaletteOpen(prev => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -64,36 +78,42 @@ const Layout: React.FC = () => {
 
     const navGroups: NavGroup[] = [
         {
-            category: t('nav.categories.main'),
-            icon: Home,
+            category: t('nav.categories.management') || 'BOSHQARUV & REJA',
+            icon: CheckSquare,
             items: [
                 { name: t('nav.dashboard'), path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
-                { name: t('nav.ieltsHub'), path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                { name: t('nav.jlptHub'), path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-                { name: t('nav.scenarios'), path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
-                { name: t('nav.aiCoach'), path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
-            ]
-        },
-        {
-            category: t('nav.categories.tools'),
-            icon: FolderOpen,
-            items: [
+                { name: t('nav.tasks'), path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
                 { name: t('nav.calendar'), path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
                 { name: t('nav.subjects'), path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
-                { name: t('nav.tasks'), path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: t('nav.focus'), path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: t('nav.notes'), path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
-                { name: t('nav.flashcards'), path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: t('nav.smartVocab'), path: '/vocabulary', icon: BookOpen, tourId: 'nav-vocabulary' },
-                { name: t('nav.aiAssistant'), path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         },
         {
-            category: t('nav.categories.analytics'),
-            icon: BarChart,
+            category: t('nav.categories.flashcards') || "FLESHKARTALAR & LUG'AT",
+            icon: Copy,
             items: [
-                { name: t('nav.progress'), path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: t('nav.flashcards'), path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: t('nav.smartVocab'), path: '/vocabulary', icon: Brain, tourId: 'nav-vocabulary' },
+            ]
+        },
+        {
+            category: t('nav.categories.languages') || 'TIL & IMTIHONLAR',
+            icon: GraduationCap,
+            items: [
+                { name: t('nav.jlptHub'), path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+                { name: t('nav.ieltsHub'), path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                { name: t('nav.aiCoach'), path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
+                { name: t('nav.scenarios'), path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
+            ]
+        },
+        {
+            category: t('nav.categories.focusAndCommunity') || 'FOKUS & HAMJAMIYAT',
+            icon: Users,
+            items: [
+                { name: t('nav.focus'), path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: t('nav.notes'), path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
                 { name: t('nav.community'), path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: t('nav.progress'), path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: t('nav.aiAssistant'), path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         }
     ];
@@ -114,7 +134,37 @@ const Layout: React.FC = () => {
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-4">
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-3">
+            {/* Quick Search Button */}
+            {!isCollapsed ? (
+                <button
+                    onClick={() => {
+                        setIsCommandPaletteOpen(true);
+                        onClick?.();
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground bg-muted/50 hover:bg-muted border border-border/60 rounded-xl transition-all mb-3 group"
+                >
+                    <span className="flex items-center gap-2">
+                        <Search size={14} className="text-primary" />
+                        <span>Tezkor Qidiruv...</span>
+                    </span>
+                    <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-bold bg-background text-muted-foreground border border-border rounded shadow-xs">
+                        ⌘K
+                    </kbd>
+                </button>
+            ) : (
+                <button
+                    onClick={() => {
+                        setIsCommandPaletteOpen(true);
+                        onClick?.();
+                    }}
+                    title="Tezkor Qidiruv (⌘K)"
+                    className="w-full py-2 flex justify-center text-muted-foreground hover:text-primary hover:bg-muted/80 rounded-xl transition-all mb-2"
+                >
+                    <Search size={18} />
+                </button>
+            )}
+
             {navGroups.map((group) => {
                 const isGroupCollapsed = !!collapsedGroups[group.category];
                 const GroupIcon = group.icon || Folder;
@@ -124,13 +174,13 @@ const Layout: React.FC = () => {
                         {!isCollapsed ? (
                             <button
                                 onClick={() => toggleGroup(group.category)}
-                                className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 hover:text-slate-200 transition-colors rounded-lg hover:bg-slate-800/40 select-none group"
+                                className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/40 select-none group"
                             >
                                 <span className="flex items-center gap-1.5">
-                                    <GroupIcon size={13} className="text-primary/70" />
+                                    <GroupIcon size={13} className="text-primary/80" />
                                     {group.category}
                                 </span>
-                                <div className="text-slate-500 group-hover:text-slate-300 transition-transform">
+                                <div className="text-muted-foreground/60 group-hover:text-foreground transition-transform">
                                     {isGroupCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
                                 </div>
                             </button>
@@ -145,7 +195,7 @@ const Layout: React.FC = () => {
                                     animate={{ height: 'auto', opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
                                     transition={{ duration: 0.2 }}
-                                    className="space-y-1 overflow-hidden"
+                                    className="space-y-0.5 overflow-hidden"
                                 >
                                     {group.items.map((item) => (
                                         <NavLink
@@ -154,19 +204,30 @@ const Layout: React.FC = () => {
                                             onClick={onClick}
                                             data-tour={item.tourId}
                                             className={({ isActive }) =>
-                                                `group flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
-                                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                                `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                                                    ? 'bg-primary/10 text-primary font-bold shadow-xs'
+                                                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                                                 }`
                                             }
                                             title={isCollapsed ? item.name : ''}
                                         >
-                                            <item.icon 
-                                                size={19} 
-                                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'}`} 
-                                                strokeWidth={2}
-                                            />
-                                            {!isCollapsed && <span className="truncate">{item.name}</span>}
+                                            {({ isActive }) => (
+                                                <>
+                                                    {isActive && (
+                                                        <motion.div
+                                                            layoutId="activeNavIndicator"
+                                                            className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                                        />
+                                                    )}
+                                                    <item.icon 
+                                                        size={18} 
+                                                        className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
+                                                        strokeWidth={isActive ? 2.5 : 2}
+                                                    />
+                                                    {!isCollapsed && <span className="truncate">{item.name}</span>}
+                                                </>
+                                            )}
                                         </NavLink>
                                     ))}
                                 </motion.div>
@@ -224,6 +285,13 @@ const Layout: React.FC = () => {
                         {getPageTitle()}
                     </h1>
                 </div>
+                <button
+                    onClick={() => setIsCommandPaletteOpen(true)}
+                    className="p-2 rounded-xl bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    aria-label="Qidiruv"
+                >
+                    <Search size={18} />
+                </button>
             </header>
 
             {/* Desktop Sidebar */}
@@ -250,13 +318,12 @@ const Layout: React.FC = () => {
 
                 {/* Bottom Section: Settings & Get Premium */}
                 <div className="p-3 border-t border-border space-y-2 bg-card">
-
                     <div className="flex items-center gap-1">
                         <NavLink
                             to="/settings"
                             className={({ isActive }) =>
                                 `flex-1 flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-semibold ${isActive
-                                    ? 'bg-primary/10 text-primary font-bold shadow-sm'
+                                    ? 'bg-primary/10 text-primary font-bold shadow-xs'
                                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                 }`
                             }
@@ -279,18 +346,18 @@ const Layout: React.FC = () => {
                     {!isCollapsed ? (
                         <button
                             onClick={() => navigate('/pricing')}
-                            className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-sm rounded-2xl shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
+                            className="w-full py-2.5 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
                         >
-                            <Crown size={18} className="animate-bounce" />
+                            <Crown size={16} className="animate-bounce" />
                             <span>Obunani Yangilash 🚀</span>
                         </button>
                     ) : (
                         <button
                             onClick={() => navigate('/pricing')}
                             title="Obunani Yangilash (Get Premium)"
-                            className="w-full py-3 flex justify-center bg-gradient-to-r from-rose-500 to-indigo-600 text-white rounded-xl shadow-lg hover:scale-110 transition-transform"
+                            className="w-full py-2.5 flex justify-center bg-gradient-to-r from-rose-500 to-indigo-600 text-white rounded-xl shadow-md hover:scale-110 transition-transform"
                         >
-                            <Crown size={20} />
+                            <Crown size={18} />
                         </button>
                     )}
                 </div>
@@ -318,21 +385,21 @@ const Layout: React.FC = () => {
             </main>
 
             {/* Mobile Bottom Navigation */}
-            <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/80 backdrop-blur-md">
+            <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
                 {[
                     { name: 'Dashboard', path: '/dashboard', icon: Home },
-                    { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
+                    { name: 'Fleshkarta', path: '/flashcards', icon: Copy },
                     { name: 'Fokus', path: '/focus', icon: Clock },
-                    { name: 'Kalendar', path: '/calendar', icon: Calendar },
+                    { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
                 ].map(item => (
                     <NavLink
                         key={item.path}
                         to={item.path}
-                        className={({ isActive }) => `flex flex-col items-center justify-center w-16 p-1.5 rounded-xl transition-all duration-200 ${isActive ? 'text-primary bg-primary/10 scale-105' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={({ isActive }) => `flex flex-col items-center justify-center w-16 p-1.5 rounded-xl transition-all duration-200 ${isActive ? 'text-primary bg-primary/10 font-bold scale-105' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         {({ isActive }) => (
                             <>
-                                <item.icon size={22} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
+                                <item.icon size={20} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
                                 <span className="text-[10px] font-medium leading-none">{item.name}</span>
                             </>
                         )}
@@ -342,21 +409,18 @@ const Layout: React.FC = () => {
                 <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
                     <SheetTrigger asChild>
                         <button aria-label="Menyuni ochish" className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
-                            <Menu size={22} className="mb-1" />
-                            <span className="text-[10px] font-medium leading-none">Boshqa</span>
+                            <Menu size={20} className="mb-1" />
+                            <span className="text-[10px] font-medium leading-none">Menyu</span>
                         </button>
                     </SheetTrigger>
-                    <SheetContent side="left" className="p-0 w-72 flex flex-col">
-                        <div className="h-16 p-4 flex items-center gap-3 border-b border-border">
-                            <div className="p-2 bg-primary/10 rounded-xl">
-                                <Sparkles className="text-primary" size={20} />
+                    <SheetContent side="left" className="p-0 w-72 flex flex-col bg-card">
+                        <div className="h-16 p-4 flex items-center justify-between border-b border-border">
+                            <div className="flex items-center gap-2">
+                                <AppLogo size="sm" />
                             </div>
-                            <span className="text-lg font-black text-gradient tracking-tight">
-                                PLANNER
-                            </span>
                         </div>
                         <NavLinks onClick={() => setSidebarOpen(false)} />
-                        <div className="p-4 border-t border-border">
+                        <div className="p-4 border-t border-border space-y-2">
                             <button
                                 onClick={() => {
                                     setSidebarOpen(false);
@@ -371,6 +435,12 @@ const Layout: React.FC = () => {
                     </SheetContent>
                 </Sheet>
             </nav>
+
+            {/* Quick Command Palette (⌘K) */}
+            <QuickCommandPalette 
+                isOpen={isCommandPaletteOpen} 
+                onClose={() => setIsCommandPaletteOpen(false)} 
+            />
 
             {/* Global Modals */}
             <SessionCompleteModal />

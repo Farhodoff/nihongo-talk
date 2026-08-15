@@ -19,7 +19,11 @@ export const uz = {
         categories: {
             main: 'ASOSIY',
             tools: "O'QUV QUROLLARI",
-            analytics: 'TAHLIL & JAMOA'
+            analytics: 'TAHLIL & JAMOA',
+            management: 'BOSHQARUV & REJA',
+            flashcards: "FLESHKARTALAR & LUG'AT",
+            languages: 'TIL & IMTIHONLAR',
+            focusAndCommunity: 'FOKUS & HAMJAMIYAT'
         }
     },
     common: {
