@@ -53,7 +53,7 @@ export const GoogleCalendarService = {
 
             const data = await response.json();
             if (data.id) {
-                console.log('Google Calendar tadbiri yaratildi:', data.id);
+
                 return data.id as string;
             }
             return null;

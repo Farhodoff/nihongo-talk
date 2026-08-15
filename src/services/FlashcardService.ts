@@ -168,7 +168,7 @@ export const FlashcardService = {
         }
 
         if (cardsToUpdateInDb.length > 0 && !isNetworkError) {
-            console.log(`[fetchFlashcards] Auto-cleaning ${cardsToUpdateInDb.length} placeholder cards in DB...`);
+
             Promise.all(
                 cardsToUpdateInDb.map(c =>
                     supabase.from('flashcards').update({ front: c.front, back: c.back }).eq('id', c.id)
@@ -177,7 +177,7 @@ export const FlashcardService = {
         }
 
         if (sanitizedMerged.length === 0 && !isNetworkError) {
-            console.log('[fetchFlashcards] No cards found, auto-seeding standard library decks for user:', userId);
+
             try {
                 const autoSeededCards: Partial<Flashcard>[] = [];
                 for (const deck of PRESET_DECKS) {
@@ -230,7 +230,7 @@ export const FlashcardService = {
             dbCard.id = cardData.id;
         }
 
-        console.log('[addFlashcard] Attempting insert to Supabase:', JSON.stringify(dbCard));
+
 
         try {
             let { data, error } = await supabase

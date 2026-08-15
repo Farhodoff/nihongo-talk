@@ -426,7 +426,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         const parsed = JSON.parse(rawCache);
                         if (Array.isArray(parsed) && parsed.length > 0) localCachedSubs = parsed;
                     }
-                } catch (e) {}
+                } catch (e) { /* localStorage parse error — non-critical */ }
 
                 let mappedSubjects: Subject[] = [];
                 if (subjectsRes?.data && Array.isArray(subjectsRes.data)) {
@@ -490,7 +490,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         localStorage.setItem('study_planner_subjects_cache_' + currentUser.id, JSON.stringify(mergedSubjects));
                     }
                     localStorage.setItem('study_planner_subjects_cache', JSON.stringify(mergedSubjects));
-                } catch (e) {}
+                } catch (e) { /* localStorage write error — quota may be full */ }
 
                 // Background Sync: Upsert subjects directly into Supabase DB
                 if (mergedSubjects.length > 0 && currentUser?.id) {

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /admin
+
+Sitemap: https://kaizen-ai.vercel.app/sitemap.xml
