@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
-    ArrowRight, BarChart3, Bot, Calendar, CheckCircle2,
-    Clock, Copy, FileText, GraduationCap, Mic, Moon, Sparkles,
-    Sun, Target, Users, Zap, ChevronRight, Globe, Brain,
-    Rocket, Star, Shield, BookMarked
+    ArrowRight, BarChart3, CheckCircle2,
+    Clock, Copy, GraduationCap, Moon, Sparkles,
+    Sun, Users, Zap, Brain,
+    Rocket, Shield, Play, Volume2, Award
 } from 'lucide-react';
 import { AppLogo } from '../components/AppLogo';
 
@@ -18,14 +18,14 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
     delay = 0,
 }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: '-80px' });
+    const isInView = useInView(ref, { once: true, margin: '-60px' });
 
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, delay, ease: 'easeOut' }}
             className={className}
         >
             {children}
@@ -34,147 +34,291 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 /* ------------------------------------------------------------------ */
-/*  Feature card data                                                   */
+/*  Interactive Live Mockup Component                                 */
 /* ------------------------------------------------------------------ */
-interface Feature {
-    icon: React.ComponentType<any>;
-    title: string;
-    description: string;
-    gradient: string;
-    iconColor: string;
-}
+const LiveAppShowcase: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<'jlpt' | 'ielts' | 'focus' | 'flashcards'>('jlpt');
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [isPlayingSound, setIsPlayingSound] = useState(false);
 
-const features: Feature[] = [
-    {
-        icon: BarChart3,
-        title: 'Dashboard & Statistika',
-        description: "Kunlik progress, vazifalar holati va AI aqlli tahlil paneli bilan o'quv samarangizni kuzating.",
-        gradient: 'from-blue-500/20 to-cyan-500/20',
-        iconColor: 'text-blue-500',
-    },
-    {
-        icon: GraduationCap,
-        title: 'IELTS Hub',
-        description: "Writing baholash, Speaking Mock imtihon, Reading & Listening mashqlari — barchasi AI yordamida.",
-        gradient: 'from-emerald-500/20 to-teal-500/20',
-        iconColor: 'text-emerald-500',
-    },
-    {
-        icon: Globe,
-        title: 'JLPT Hub',
-        description: "N5 dan N1 gacha — Grammar Quiz, Mock Exam, Listening, Reading va Writing mashqlari.",
-        gradient: 'from-rose-500/20 to-pink-500/20',
-        iconColor: 'text-rose-500',
-    },
-    {
-        icon: Mic,
-        title: 'AI Speaking Coach',
-        description: "Sun'iy intellekt bilan jonli suhbat — talaffuz va grammatikangizni real vaqtda yaxshilang.",
-        gradient: 'from-violet-500/20 to-purple-500/20',
-        iconColor: 'text-violet-500',
-    },
-    {
-        icon: Calendar,
-        title: 'Kalendar & Vazifalar',
-        description: "Darslar, deadlinelar va vazifalarni rejalashtiring. Hech narsa esdan chiqmaydi.",
-        gradient: 'from-orange-500/20 to-amber-500/20',
-        iconColor: 'text-orange-500',
-    },
-    {
-        icon: Clock,
-        title: 'Fokus Timer',
-        description: "Pomodoro texnikasi bilan diqqatni jamla. Mini-timer har doim ko'rinib turadi.",
-        gradient: 'from-red-500/20 to-rose-500/20',
-        iconColor: 'text-red-500',
-    },
-    {
-        icon: FileText,
-        title: 'Qaydlar & Konspektlar',
-        description: "Boy matn muharriri bilan dars qaydlarini yarating, tashkil qiling va tez toping.",
-        gradient: 'from-sky-500/20 to-blue-500/20',
-        iconColor: 'text-sky-500',
-    },
-    {
-        icon: Copy,
-        title: 'Fleshkartalar',
-        description: "SM-2 Spaced Repetition algoritmi bilan eslab qolishni 3 barobar oshiring.",
-        gradient: 'from-indigo-500/20 to-violet-500/20',
-        iconColor: 'text-indigo-500',
-    },
-    {
-        icon: BookMarked,
-        title: "Aqlli Lug'at",
-        description: "Akademik so'z boyligini kengaytiring — kontekstli misollar va mashqlar bilan.",
-        gradient: 'from-teal-500/20 to-emerald-500/20',
-        iconColor: 'text-teal-500',
-    },
-    {
-        icon: Bot,
-        title: 'AI Yordamchi',
-        description: "Shaxsiy AI tyutor — savollaringizga javob beradi, tushuntiradi va yo'l ko'rsatadi.",
-        gradient: 'from-purple-500/20 to-fuchsia-500/20',
-        iconColor: 'text-purple-500',
-    },
-    {
-        icon: Users,
-        title: 'Jamoa & Study Room',
-        description: "Virtual xonalarda birga o'qing, do'stlar bilan motivatsiyani oshiring.",
-        gradient: 'from-cyan-500/20 to-sky-500/20',
-        iconColor: 'text-cyan-500',
-    },
-    {
-        icon: FileText,
-        title: 'CV Creator',
-        description: "Professional rezyume yarating — tayyor shablonlar va AI tavsiyalari bilan.",
-        gradient: 'from-amber-500/20 to-yellow-500/20',
-        iconColor: 'text-amber-500',
-    },
-];
+    return (
+        <div className="relative mx-auto max-w-5xl rounded-3xl border border-white/20 dark:border-white/10 bg-card/60 backdrop-blur-2xl shadow-2xl overflow-hidden p-4 sm:p-8">
+            {/* Top Mockup Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
+                <div className="flex items-center gap-2">
+                    <div className="w-3.5 h-3.5 rounded-full bg-rose-500/80" />
+                    <div className="w-3.5 h-3.5 rounded-full bg-amber-500/80" />
+                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/80" />
+                    <span className="ml-3 text-xs font-mono text-muted-foreground hidden sm:inline">
+                        app.kaizen-ai.uz/dashboard
+                    </span>
+                </div>
+
+                {/* Tab Switchers */}
+                <div className="flex items-center gap-1.5 p-1 bg-muted/80 rounded-2xl border border-border">
+                    <button
+                        onClick={() => setActiveTab('jlpt')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            activeTab === 'jlpt'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        🎌 Yapon Tili & JLPT
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('ielts')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            activeTab === 'ielts'
+                                ? 'bg-blue-600 text-white shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        🎓 IELTS & Writing
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('focus')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            activeTab === 'focus'
+                                ? 'bg-orange-500 text-white shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        ⏱️ Fokus Pomodoro
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('flashcards')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            activeTab === 'flashcards'
+                                ? 'bg-emerald-600 text-white shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        🎴 SRS Flashcards
+                    </button>
+                </div>
+            </div>
+
+            {/* Tab Contents */}
+            <div className="pt-6 min-h-[380px] flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                    {activeTab === 'jlpt' && (
+                        <motion.div
+                            key="jlpt"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                        >
+                            <div className="md:col-span-6 space-y-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs">
+                                    <Sparkles size={14} /> JLPT N3 Smart Flashcard
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
+                                    Kanji, Furigana & Audio bir teginishda
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    Yapon tili lug'atini SM-2 takrorlash algoritmi bilan o'rganing. Furigana va Romaji avtomatik ko'rsatiladi.
+                                </p>
+                                <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground pt-2">
+                                    <span className="flex items-center gap-1.5 text-emerald-500">
+                                        <CheckCircle2 size={16} /> 2,500+ N5-N1 So'zlar
+                                    </span>
+                                    <span className="flex items-center gap-1.5 text-indigo-500">
+                                        <CheckCircle2 size={16} /> Ovozli Talaffuz
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Interactive Card */}
+                            <div className="md:col-span-6 flex justify-center">
+                                <div 
+                                    onClick={() => setIsFlipped(!isFlipped)}
+                                    className="w-full max-w-sm h-64 cursor-pointer rounded-3xl bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-rose-500/10 border-2 border-indigo-500/30 p-6 flex flex-col justify-between shadow-xl hover:scale-102 transition-all relative overflow-hidden group"
+                                >
+                                    <div className="flex items-center justify-between text-xs font-bold text-muted-foreground">
+                                        <span className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-black">JLPT N3</span>
+                                        <button 
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setIsPlayingSound(true);
+                                                setTimeout(() => setIsPlayingSound(false), 1200);
+                                            }}
+                                            className="p-2 rounded-xl bg-muted/80 hover:bg-primary/20 text-primary transition-colors"
+                                        >
+                                            <Volume2 size={18} className={isPlayingSound ? "animate-ping" : ""} />
+                                        </button>
+                                    </div>
+
+                                    <div className="text-center space-y-1">
+                                        <ruby className="text-4xl sm:text-5xl font-black text-foreground">
+                                            継続
+                                            <rt className="text-sm font-semibold text-primary">けいぞく</rt>
+                                        </ruby>
+                                        <div className="text-xs text-muted-foreground font-mono">[keizoku]</div>
+                                    </div>
+
+                                    <div className="text-center">
+                                        {isFlipped ? (
+                                            <div className="animate-in fade-in zoom-in-95 duration-200">
+                                                <div className="text-base font-extrabold text-indigo-600 dark:text-indigo-400">
+                                                    Davomiylik, to'xtovsiz harakat
+                                                </div>
+                                                <div className="text-xs text-muted-foreground mt-1 italic">
+                                                    "継続は力なり" (Davomiylik — bu kuchdir)
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="text-xs font-bold text-primary flex items-center justify-center gap-1.5 group-hover:underline">
+                                                <span>Tarjimani ko'rish uchun bosing</span>
+                                                <ArrowRight size={14} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {activeTab === 'ielts' && (
+                        <motion.div
+                            key="ielts"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                        >
+                            <div className="md:col-span-6 space-y-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs">
+                                    <GraduationCap size={14} /> IELTS AI Examiner
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
+                                    Writing va Speaking uchun 8.0+ Band Tahlili
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    Esseingizni yuklang va 5 soniyada rasmiy 4 ta IELTS mezoni bo'yicha batafsil fikr-mulohaza oling.
+                                </p>
+                                <div className="space-y-2 pt-2">
+                                    <div className="flex items-center justify-between text-xs font-bold">
+                                        <span>Task Achievement & Coherence</span>
+                                        <span className="text-emerald-500">Band 8.0</span>
+                                    </div>
+                                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                                        <div className="h-full bg-emerald-500 rounded-full w-[85%]" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="md:col-span-6 p-6 rounded-3xl bg-card border border-border shadow-xl space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-extrabold uppercase text-muted-foreground">AI Baholash Natijasi</span>
+                                    <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black text-sm">
+                                        Overall: 7.5
+                                    </span>
+                                </div>
+                                <div className="p-3.5 rounded-2xl bg-muted/50 text-xs text-foreground space-y-1.5 border border-border">
+                                    <div className="font-bold text-primary flex items-center gap-1.5">
+                                        <Sparkles size={14} /> Kengaytirilgan So'z Boyligi (Lexical Resource):
+                                    </div>
+                                    <p className="text-muted-foreground leading-relaxed">
+                                        "substantial increase" va "dramatic surge" iboralaridan foydalanilgani balingizni 7.5 dan 8.0 ga ko'taradi.
+                                    </p>
+                                </div>
+                                <div className="flex items-center justify-between text-xs text-muted-foreground font-semibold pt-1">
+                                    <span>Grammar Accuracy: 96%</span>
+                                    <span className="text-blue-500 font-bold">Speaking Mock Tayyor 🎙️</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {activeTab === 'focus' && (
+                        <motion.div
+                            key="focus"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                        >
+                            <div className="md:col-span-6 space-y-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold text-xs">
+                                    <Clock size={14} /> Pomodoro & Lo-Fi Studio
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
+                                    Chalg'imasdan dars qilish va Ovoz Mikseri
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    Yomg'ir, o'rmon, qahvaxona va Lo-Fi ohanglari bilan to'liq diqqatni jamlang. Har bir dars uchun XP va streak oling.
+                                </p>
+                            </div>
+
+                            <div className="md:col-span-6 flex justify-center">
+                                <div className="w-full max-w-sm p-6 rounded-3xl bg-gradient-to-br from-orange-500/10 via-card to-amber-500/10 border border-orange-500/30 shadow-2xl text-center space-y-4">
+                                    <span className="text-xs font-black uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                                        🔥 25 Daqiqa Fokus Sessiyasi
+                                    </span>
+                                    <div className="text-5xl sm:text-6xl font-black tracking-tight text-foreground font-mono">
+                                        24:59
+                                    </div>
+                                    <div className="flex items-center justify-center gap-2 text-xs font-bold text-muted-foreground">
+                                        <span>🎧 Yomg'ir ovozi faol</span>
+                                        <span>•</span>
+                                        <span>+50 XP mukofot</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {activeTab === 'flashcards' && (
+                        <motion.div
+                            key="flashcards"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.96 }}
+                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                        >
+                            <div className="md:col-span-6 space-y-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                                    <Brain size={14} /> Interval Takrorlash (SRS)
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
+                                    Unutish egri chizig'ini yenguvchi xotira
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    SM-2 algoritmi so'zni aynan siz unutish arafasida bo'lganingizda qayta takrorlatadi. Natija — 3 barobar mustahkam xotira!
+                                </p>
+                            </div>
+
+                            <div className="md:col-span-6 p-6 rounded-3xl bg-card border border-border shadow-xl space-y-3">
+                                <div className="flex items-center justify-between text-xs font-bold">
+                                    <span className="text-foreground font-extrabold">Bugungi Takrorlash: 18 ta so'z</span>
+                                    <span className="text-emerald-500">98% Eslab qolish</span>
+                                </div>
+                                <div className="space-y-2">
+                                    {['Perseverance — Matonat', 'Kanji 成長 — Rivojlanish', 'Eloquent — Notiq, ravon'].map((w, idx) => (
+                                        <div key={idx} className="p-3 rounded-xl bg-muted/50 border border-border flex items-center justify-between text-xs font-semibold">
+                                            <span>{w}</span>
+                                            <span className="text-[10px] px-2 py-0.5 rounded-md bg-primary/10 text-primary font-bold">Ertaga</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        </div>
+    );
+};
 
 /* ------------------------------------------------------------------ */
-/*  How-it-works step data                                              */
-/* ------------------------------------------------------------------ */
-const steps = [
-    {
-        number: '01',
-        icon: Rocket,
-        title: "Ro'yxatdan o'ting",
-        description: "Bir daqiqada bepul akkaunt oching va barcha imkoniyatlardan foydalaning.",
-        color: 'from-indigo-500 to-purple-600',
-    },
-    {
-        number: '02',
-        icon: Target,
-        title: 'Rejangizni tuzing',
-        description: "Fanlar, maqsadlar va kunlik vazifalarni belgilang. AI sizga optimal reja tuzib beradi.",
-        color: 'from-purple-500 to-pink-600',
-    },
-    {
-        number: '03',
-        icon: Star,
-        title: 'Natijaga erishing',
-        description: "Har kuni oz-ozdan rivojlaning. Statistikangiz sizni rag'batlantiradi.",
-        color: 'from-pink-500 to-rose-600',
-    },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Stats data                                                          */
-/* ------------------------------------------------------------------ */
-const stats = [
-    { value: '15+', label: "O'quv qurollari" },
-    { value: 'AI', label: 'Aqlli yordamchi' },
-    { value: '24/7', label: 'Doim tayyor' },
-    { value: '100%', label: 'Bepul boshlash' },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Landing Page Component                                              */
+/*  Main Landing Page Component                                       */
 /* ------------------------------------------------------------------ */
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
 
-    const [isDark, setIsDark] = React.useState(() => {
+    const [isDark, setIsDark] = useState(() => {
         if (typeof window !== 'undefined') {
             return document.documentElement.classList.contains('dark');
         }
@@ -187,13 +331,13 @@ const LandingPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans">
+        <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary">
             {/* ======== NAVBAR ======== */}
             <motion.nav
                 initial={{ y: -40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50"
+                transition={{ duration: 0.4 }}
+                className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/60"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     <AppLogo size="md" />
@@ -201,239 +345,172 @@ const LandingPage: React.FC = () => {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                            className="p-2.5 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
                             aria-label="Rejim o'zgartirish"
                         >
-                            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            {isDark ? <Sun size={19} /> : <Moon size={19} />}
                         </button>
 
                         <button
                             onClick={() => navigate('/auth')}
-                            className="px-4 py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors rounded-xl hover:bg-muted"
+                            className="px-4 py-2 text-sm font-bold text-foreground hover:text-primary transition-colors rounded-xl hover:bg-muted"
                         >
                             Kirish
                         </button>
 
                         <button
                             onClick={() => navigate('/auth')}
-                            className="px-5 py-2.5 text-sm font-bold text-white rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 hover:scale-105 active:scale-95"
+                            className="px-5 py-2.5 text-sm font-black text-white rounded-xl bg-gradient-to-r from-primary via-indigo-600 to-primary hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
                         >
-                            Boshlash
+                            <span>Boshlash</span>
+                            <ArrowRight size={16} />
                         </button>
                     </div>
                 </div>
             </motion.nav>
 
             {/* ======== HERO SECTION ======== */}
-            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
+            <section className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden pt-12 pb-20 px-4 sm:px-6 lg:px-8">
+                {/* Background Glows */}
+                <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
+                <div className="absolute top-1/3 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -z-10 animate-pulse" />
+                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-indigo-500/15 rounded-full blur-3xl -z-10" />
 
-                {/* Floating blobs */}
-                <div className="absolute top-20 -left-20 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/10 rounded-full blur-3xl animate-blob" />
-                <div className="absolute top-40 -right-20 w-96 h-96 bg-purple-400/20 dark:bg-purple-600/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
-                <div className="absolute -bottom-20 left-1/3 w-96 h-96 bg-cyan-400/20 dark:bg-cyan-600/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
-
-                {/* Grid pattern overlay */}
-                <div
-                    className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-                    style={{
-                        backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
-                        backgroundSize: '40px 40px',
-                    }}
-                />
-
-                <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
                     {/* Badge */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-8"
+                        transition={{ duration: 0.4 }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs sm:text-sm font-bold"
                     >
-                        <Sparkles size={16} className="animate-pulse" />
-                        AI bilan quvvatlangan o'quv platformasi
+                        <Sparkles size={16} className="animate-spin text-primary" />
+                        <span>🚀 60 Soniyada Shaxsiy O'quv Rejangizni Yarating</span>
                     </motion.div>
 
-                    {/* Main heading */}
+                    {/* Headline */}
                     <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 25 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6"
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
                     >
-                        <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                            O'qishni
+                        Yapon va Ingliz tilini <br />
+                        <span className="bg-gradient-to-r from-primary via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                            AI Ustoz bilan 3x Tezroq
                         </span>{' '}
-                        osonlashtiring,{' '}
-                        <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">
-                            natijani
-                        </span>{' '}
-                        ko'paytiring
+                        O'rganing
                     </motion.h1>
 
-                    {/* Sub-heading */}
+                    {/* Subtitle */}
                     <motion.p
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 25 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.35 }}
-                        className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
                     >
-                        IELTS, JLPT va umumiy fanlar uchun AI yordamchi, fokus timer, fleshkartalar, 
-                        statistika va yana 15+ qurol — barchasi bir joyda.
+                        <strong>JLPT (N5-N1)</strong>, <strong>IELTS (8.0+)</strong>, Spaced Repetition fleshkartalar, jonli Speaking Coach va Lo-Fi Fokus taymer — barchasi bitta ixcham platformada.
                     </motion.p>
 
-                    {/* CTA buttons */}
+                    {/* CTAs */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 25 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
                     >
                         <button
                             onClick={() => navigate('/auth')}
-                            className="group relative px-8 py-4 text-base font-bold text-white rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+                            className="w-full sm:w-auto px-8 py-4 text-base font-black text-white rounded-2xl bg-gradient-to-r from-primary via-indigo-600 to-purple-600 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2.5"
                         >
                             <Zap size={20} />
-                            Bepul boshlash
-                            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                            <span>60 Soniyada Bepul Boshlash</span>
+                            <ArrowRight size={18} />
                         </button>
 
                         <button
                             onClick={() => {
-                                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                                document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            className="px-8 py-4 text-base font-semibold text-foreground rounded-2xl border border-border hover:bg-muted transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+                            className="w-full sm:w-auto px-8 py-4 text-base font-bold text-foreground rounded-2xl border border-border bg-card/80 hover:bg-muted transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
                         >
-                            Ko'proq bilish
-                            <ChevronRight size={18} />
+                            <Play size={18} className="text-primary fill-primary" />
+                            <span>Imkoniyatlarni Ko'rish</span>
                         </button>
                     </motion.div>
 
-                    {/* Stats */}
+                    {/* Social Proof Badges */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.65 }}
-                        className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.45 }}
+                        className="pt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground font-semibold"
                     >
-                        {stats.map((stat, i) => (
-                            <div key={i} className="text-center">
-                                <div className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                                    {stat.value}
-                                </div>
-                                <div className="text-sm text-muted-foreground font-medium mt-1">
-                                    {stat.label}
-                                </div>
-                            </div>
-                        ))}
+                        <div className="flex items-center gap-1.5">
+                            <span className="text-amber-500 font-black">★★★★★</span>
+                            <span>4.9/5 O'quvchilar bahosi</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <Shield size={15} className="text-emerald-500" />
+                            <span>100% Bepul Boshlash</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <Award size={15} className="text-indigo-500" />
+                            <span>JLPT & IELTS Rasmiy formatida</span>
+                        </div>
                     </motion.div>
                 </div>
-            </section>
 
-            {/* ======== FEATURES SECTION ======== */}
-            <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent" />
-
-                <div className="max-w-7xl mx-auto relative">
-                    <AnimatedSection className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
-                            <Brain size={16} />
-                            Barcha imkoniyatlar
-                        </div>
-                        <h2 className="text-4xl sm:text-5xl font-black tracking-tight mb-4">
-                            Nima qila{' '}
-                            <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                                olasiz?
-                            </span>
-                        </h2>
-                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Bir platformada barcha kerakli o'quv qurollari — IELTS va JLPT imtihonlaridan tortib, kundalik o'qish rejasigacha.
-                        </p>
-                    </AnimatedSection>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                        {features.map((feature, index) => (
-                            <AnimatedSection key={feature.title} delay={index * 0.05}>
-                                <div className="group relative h-full p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 cursor-default">
-                                    {/* Gradient background on hover */}
-                                    <div
-                                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                                    />
-
-                                    <div className="relative z-10">
-                                        <div
-                                            className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.gradient} mb-4`}
-                                        >
-                                            <feature.icon size={24} className={feature.iconColor} strokeWidth={2} />
-                                        </div>
-
-                                        <h3 className="text-lg font-bold mb-2 text-foreground group-hover:text-foreground transition-colors">
-                                            {feature.title}
-                                        </h3>
-
-                                        <p className="text-sm text-muted-foreground leading-relaxed">
-                                            {feature.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </AnimatedSection>
-                        ))}
-                    </div>
+                {/* Live Showcase */}
+                <div id="demo" className="w-full mt-16">
+                    <LiveAppShowcase />
                 </div>
             </section>
 
-            {/* ======== HOW IT WORKS ======== */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
-
-                <div className="max-w-5xl mx-auto relative">
-                    <AnimatedSection className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
-                            <Rocket size={16} />
-                            Oson boshlang
+            {/* ======== 3-STEP EASY ONBOARDING SECTION ======== */}
+            <section className="py-24 px-4 sm:px-6 lg:px-8 border-y border-border/60 bg-muted/20">
+                <div className="max-w-6xl mx-auto">
+                    <AnimatedSection className="text-center mb-16 space-y-3">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold">
+                            <Rocket size={16} /> Tez & Sodda
                         </div>
-                        <h2 className="text-4xl sm:text-5xl font-black tracking-tight mb-4">
-                            Qanday{' '}
-                            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                                ishlaydi?
-                            </span>
+                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
+                            Qanday qilib 60 soniyada boshlaysiz?
                         </h2>
-                        <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                            Uch oddiy qadamda o'quv rejangizni tuzing va natijaga erishing.
+                        <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+                            Murakkab sozlamalarsiz, 3 ta oddiy savol orqali shaxsiy o'quv yo'lingizni tanlang:
                         </p>
                     </AnimatedSection>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {steps.map((step, index) => (
-                            <AnimatedSection key={step.number} delay={index * 0.15}>
-                                <div className="relative text-center group">
-                                    {/* Connector line (not on last) */}
-                                    {index < steps.length - 1 && (
-                                        <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-px bg-gradient-to-r from-border to-transparent" />
-                                    )}
-
-                                    {/* Step number circle */}
-                                    <div className="relative inline-flex mb-6">
-                                        <div
-                                            className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300`}
-                                        >
-                                            <step.icon size={36} className="text-white" strokeWidth={2} />
-                                        </div>
-
-                                        {/* Number badge */}
-                                        <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center text-xs font-black text-foreground shadow">
-                                            {step.number}
-                                        </div>
+                        {[
+                            {
+                                step: '01',
+                                icon: '🎌',
+                                title: "Til & Yo'nalishni Tanlang",
+                                desc: "Yapon tili (JLPT), Ingliz tili (IELTS) yoki Dasturlash fanlaridan birini belgilang."
+                            },
+                            {
+                                step: '02',
+                                icon: '🎯',
+                                title: 'Darajangizni Belgilang',
+                                desc: "Boshlang'ich (N5/5.5) dan tortib, Master (N1/8.0+) gacha bo'lgan maqsadni tanlang."
+                            },
+                            {
+                                step: '03',
+                                icon: '🚀',
+                                title: 'Kunlik Rejani Boshlang',
+                                desc: "Tizim darhol sizga mos dars to'plamini kutubxonangizga yuklaydi va dars boshlanadi."
+                            }
+                        ].map((s, idx) => (
+                            <AnimatedSection key={s.step} delay={idx * 0.15}>
+                                <div className="p-8 rounded-3xl bg-card border border-border/80 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-4xl p-3 rounded-2xl bg-muted/60">{s.icon}</span>
+                                        <span className="text-3xl font-black text-muted-foreground/30 font-mono">{s.step}</span>
                                     </div>
-
-                                    <h3 className="text-xl font-bold mb-3 text-foreground">
-                                        {step.title}
-                                    </h3>
-                                    <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-                                        {step.description}
-                                    </p>
+                                    <h3 className="text-lg font-black text-foreground">{s.title}</h3>
+                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
                                 </div>
                             </AnimatedSection>
                         ))}
@@ -441,118 +518,119 @@ const LandingPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* ======== TRUST / WHY US SECTION ======== */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
-                <div className="max-w-5xl mx-auto">
-                    <AnimatedSection>
-                        <div className="relative rounded-3xl overflow-hidden">
-                            {/* Background */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500" />
-                            <div
-                                className="absolute inset-0 opacity-10"
-                                style={{
-                                    backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-                                    backgroundSize: '30px 30px',
-                                }}
-                            />
+            {/* ======== CORE MODULES BENTO GRID ======== */}
+            <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <AnimatedSection className="text-center mb-16 space-y-3">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
+                        <Brain size={16} /> Barcha Qurollar
+                    </div>
+                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
+                        Barcha Zaruriy Qurollar Bitta Joyda
+                    </h2>
+                </AnimatedSection>
 
-                            <div className="relative z-10 p-10 sm:p-16 text-center text-white">
-                                <h2 className="text-3xl sm:text-4xl font-black mb-6">
-                                    Nima uchun Kaizen AI?
-                                </h2>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-10">
-                                    {[
-                                        {
-                                            icon: Brain,
-                                            title: 'AI quvvatli',
-                                            desc: "Sun'iy intellekt sizga moslashtirilgan tavsiyalar va mashqlar beradi.",
-                                        },
-                                        {
-                                            icon: Shield,
-                                            title: "Barchasi bir joyda",
-                                            desc: "15+ o'quv qurolini alohida-alohida izlash shart emas — barchasi shu yerda.",
-                                        },
-                                        {
-                                            icon: Zap,
-                                            title: 'Tez va qulay',
-                                            desc: "Mobil va desktop — istalgan qurilmadan foydalaning, offlayda ham ishlaydi.",
-                                        },
-                                    ].map((item, i) => (
-                                        <div key={i} className="flex flex-col items-center">
-                                            <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4 border border-white/20">
-                                                <item.icon size={28} className="text-white" />
-                                            </div>
-                                            <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                                            <p className="text-white/80 text-sm leading-relaxed">{item.desc}</p>
-                                        </div>
-                                    ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[
+                        {
+                            icon: Sparkles,
+                            title: 'JLPT N5-N1 Hub 🎌',
+                            desc: 'Kanji, Grammatika testlari, Listening Mock va Furigana o\'qish qurollari.',
+                            badge: 'Mashhur',
+                            color: 'from-rose-500 to-pink-600'
+                        },
+                        {
+                            icon: GraduationCap,
+                            title: 'IELTS AI Examiner 🎓',
+                            desc: 'Writing Task 1 & 2 baholovchi, Speaking Mock imtihon va Akademik lug\'at.',
+                            badge: 'AI Powered',
+                            color: 'from-blue-500 to-indigo-600'
+                        },
+                        {
+                            icon: Copy,
+                            title: 'Spaced Repetition Fleshkartalar 🎴',
+                            desc: 'SM-2 algoritmi asosida tuzilgan aqlli kartochkalar va tayyor albomlar.',
+                            badge: 'Samarali',
+                            color: 'from-purple-500 to-indigo-600'
+                        },
+                        {
+                            icon: Clock,
+                            title: 'Fokus Taymer & Pomodoro ⏱️',
+                            desc: 'Lo-Fi sokin musiqa mikseri va chalg\'imasdan ishlash taymeri.',
+                            badge: 'Lo-Fi Audio',
+                            color: 'from-orange-500 to-amber-600'
+                        },
+                        {
+                            icon: Users,
+                            title: 'Hamjamiyat & Study Room 👥',
+                            desc: 'Jonli ovozli/video xonalar, ekran ulashish va do\'stlar bilan o\'qish.',
+                            badge: 'Jonli',
+                            color: 'from-emerald-500 to-teal-600'
+                        },
+                        {
+                            icon: BarChart3,
+                            title: 'Statistika & O\'quv Tahlili 📊',
+                            desc: 'Kunlik progress, streak grafigi, XP reytingi va qobiliyat xaritasi.',
+                            badge: 'Gamifikatsiya',
+                            color: 'from-cyan-500 to-blue-600'
+                        },
+                    ].map((card, idx) => (
+                        <AnimatedSection key={card.title} delay={idx * 0.1}>
+                            <div className="h-full p-6 rounded-3xl bg-card border border-border/80 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${card.color} text-white flex items-center justify-center shadow-md`}>
+                                        <card.icon size={24} />
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-md bg-muted text-foreground border border-border">
+                                        {card.badge}
+                                    </span>
                                 </div>
+                                <h3 className="text-base font-extrabold text-foreground">{card.title}</h3>
+                                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
                             </div>
-                        </div>
-                    </AnimatedSection>
+                        </AnimatedSection>
+                    ))}
                 </div>
             </section>
 
-            {/* ======== FINAL CTA ======== */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/[0.03] to-transparent" />
+            {/* ======== FINAL CTA SECTION ======== */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+                <AnimatedSection className="p-10 sm:p-16 rounded-3xl bg-gradient-to-br from-primary via-indigo-600 to-purple-600 text-white shadow-2xl space-y-6 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,white_0%,transparent_60%)] opacity-15" />
 
-                <AnimatedSection className="max-w-3xl mx-auto text-center relative">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-6">
-                        <CheckCircle2 size={16} />
-                        Bepul boshlash mumkin
-                    </div>
-
-                    <h2 className="text-4xl sm:text-5xl font-black tracking-tight mb-6">
-                        Hoziroq{' '}
-                        <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                            boshlang!
-                        </span>
+                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight relative z-10">
+                        O'qishingizda bugun yangi bosqichga chiqing!
                     </h2>
-
-                    <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto">
-                        Minglab talabalar allaqachon Kaizen AI bilan o'qishmoqda. Siz ham jamoaga qo'shiling!
+                    <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto leading-relaxed relative z-10">
+                        Bir necha daqiqa ichida o'z yo'nalishingizni belgilang va Kaizen falsafasi bilan har kuni 1% yaxshiroq bo'ling.
                     </p>
 
-                    <button
-                        onClick={() => navigate('/auth')}
-                        className="group relative px-10 py-4 text-lg font-bold text-white rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105 active:scale-95 inline-flex items-center gap-3"
-                    >
-                        <Sparkles size={22} className="animate-pulse" />
-                        Bepul ro'yxatdan o'tish
-                        <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-                    </button>
+                    <div className="pt-4 relative z-10">
+                        <button
+                            onClick={() => navigate('/auth')}
+                            className="px-10 py-4 rounded-2xl bg-white text-indigo-700 font-black text-base shadow-xl hover:bg-white/95 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2"
+                        >
+                            <span>🚀 Hoziroq Bepul Boshlash</span>
+                            <ArrowRight size={18} />
+                        </button>
+                    </div>
                 </AnimatedSection>
             </section>
 
             {/* ======== FOOTER ======== */}
-            <footer className="border-t border-border/50 bg-card/30 backdrop-blur-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div className="flex items-center gap-3">
-                            <AppLogo size="sm" />
-                        </div>
-
-                        <p className="text-sm text-muted-foreground">
-                            © {new Date().getFullYear()} Kaizen AI. Barcha huquqlar himoyalangan.
-                        </p>
-
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => navigate('/auth')}
-                                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                            >
-                                Kirish
-                            </button>
-                            <span className="text-border">|</span>
-                            <button
-                                onClick={() => navigate('/auth')}
-                                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                            >
-                                Ro'yxatdan o'tish
-                            </button>
-                        </div>
+            <footer className="border-t border-border bg-card/50 py-10 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <AppLogo size="sm" />
+                    <p className="text-xs text-muted-foreground">
+                        © {new Date().getFullYear()} Kaizen AI Study Planner. Barcha huquqlar himoyalangan.
+                    </p>
+                    <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground">
+                        <button onClick={() => navigate('/auth')} className="hover:text-primary transition-colors">
+                            Kirish
+                        </button>
+                        <span>•</span>
+                        <button onClick={() => navigate('/auth')} className="hover:text-primary transition-colors">
+                            Ro'yxatdan o'tish
+                        </button>
                     </div>
                 </div>
             </footer>
