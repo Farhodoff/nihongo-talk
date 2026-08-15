@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
-    Terminal, Copy, Check, Send
+    Terminal, Copy, Check, Send, ArrowLeft
 } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 import { KaizenAI } from '../sdk/kaizen-sdk';
+import { AppLogo } from '../components/AppLogo';
 
 const DeveloperApiPage: React.FC = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'ielts' | 'flashcards' | 'srs'>('ielts');
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
@@ -136,29 +139,59 @@ print(response.json())`;
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground p-4 md:p-8 space-y-8 animate-in fade-in duration-300 max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-border">
-                <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-2">
-                        <Terminal size={14} />
-                        Kaizen AI Developer Suite & Public API
-                    </div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground">
-                        Dasturchilar Uchun Ochiq API & SDK
-                    </h1>
-                    <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                        Istalgan tashqi loyihangizdan (Telegram bot, Mobil ilova, React/Next.js, Python) Kaizen AI imkoniyatlarini chaqiring.
-                    </p>
+        <div className="min-h-screen bg-background text-foreground pb-12 animate-in fade-in duration-300">
+            {/* Top Navbar */}
+            <div className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border px-4 sm:px-8 py-3 flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                        title="Orqaga"
+                    >
+                        <ArrowLeft size={18} />
+                    </button>
+                    <AppLogo size="sm" />
                 </div>
 
-                <div className="flex items-center gap-3">
-                    <span className="text-xs font-black px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        CORS: Barcha domenlarga ochiq (*)
-                    </span>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => navigate('/')}
+                        className="px-3 py-1.5 rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                        Asosiy Sahifa
+                    </button>
+                    <button
+                        onClick={() => navigate('/auth')}
+                        className="px-4 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-black shadow-xs hover:scale-102 transition-all"
+                    >
+                        Kirish / Ro'yxat
+                    </button>
                 </div>
             </div>
+
+            <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-8">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-border">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-2">
+                            <Terminal size={14} />
+                            Kaizen AI Developer Suite & Public API
+                        </div>
+                        <h1 className="text-3xl font-black tracking-tight text-foreground">
+                            Dasturchilar Uchun Ochiq API & SDK
+                        </h1>
+                        <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                            Istalgan tashqi loyihangizdan (Telegram bot, Mobil ilova, React/Next.js, Python) Kaizen AI imkoniyatlarini chaqiring.
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <span className="text-xs font-black px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            CORS: Barcha domenlarga ochiq (*)
+                        </span>
+                    </div>
+                </div>
 
             {/* Quick Feature Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -325,6 +358,7 @@ print(response.json())`;
                         </div>
                     )}
                 </div>
+            </div>
             </div>
         </div>
     );
