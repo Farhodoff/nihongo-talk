@@ -17,6 +17,8 @@ import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 
+import { PersonalizedOnboardingModal } from './onboarding/PersonalizedOnboardingModal';
+
 interface NavGroup {
     category: string;
     icon?: React.ComponentType<any>;
@@ -32,6 +34,9 @@ const Layout: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile Sheet
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
     const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+    const [showOnboarding, setShowOnboarding] = useState(() => {
+        return !localStorage.getItem('study_planner_personalized_onboarded');
+    });
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
@@ -113,7 +118,6 @@ const Layout: React.FC = () => {
                 { name: t('nav.notes'), path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
                 { name: t('nav.community'), path: '/community', icon: Users, tourId: 'nav-community' },
                 { name: t('nav.progress'), path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: t('nav.aiAssistant'), path: '/ai', icon: Sparkles, tourId: 'nav-ai' },
             ]
         }
     ];
@@ -440,6 +444,12 @@ const Layout: React.FC = () => {
             <QuickCommandPalette 
                 isOpen={isCommandPaletteOpen} 
                 onClose={() => setIsCommandPaletteOpen(false)} 
+            />
+
+            {/* Personalized 60s Onboarding Wizard */}
+            <PersonalizedOnboardingModal
+                isOpen={showOnboarding}
+                onClose={() => setShowOnboarding(false)}
             />
 
             {/* Global Modals */}

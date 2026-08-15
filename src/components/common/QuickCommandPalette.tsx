@@ -39,8 +39,7 @@ const COMMANDS: CommandItem[] = [
     { id: 'notes', title: 'Qaydlar & Konspektlar 📝', description: 'Mavzular bo\'yicha xulosalar', category: 'Fokus & Hamjamiyat', path: '/notes', icon: NotebookText, keywords: ['konspekt', 'qayd', 'notepad', 'yozuvlar'] },
     { id: 'community', title: 'Hamjamiyat & O\'quv Xonalari 👥', description: 'Boshqalar bilan birga o\'rganish', category: 'Fokus & Hamjamiyat', path: '/community', icon: Users, keywords: ['chat', 'study room', 'jamoa', 'xona'] },
     { id: 'progress', title: 'Natijalar & Tahlil 📊', description: 'O\'rganish grafigi va samaradorlik', category: 'Fokus & Hamjamiyat', path: '/progress', icon: BarChart, keywords: ['statistika', 'grafik', 'samaradorlik', 'analytics'] },
-    { id: 'ai', title: 'AI Yordamchi ✨', description: 'Savollarga javob va reja tuzish', category: 'Fokus & Hamjamiyat', path: '/ai', icon: Sparkles, keywords: ['gemini', 'gpt', 'bot', 'maslahat'] },
-    { id: 'settings', title: 'Sozlamalar ⚙️', description: 'Profil, API kalitlar va mavzu', category: 'Boshqaruv', path: '/settings', icon: Settings, keywords: ['profile', 'theme', 'api', 'sozlash'] }
+    { id: 'settings', title: 'Sozlamalar & Profil ⚙️', description: 'Profil, maqsadlar va interfeys', category: 'Boshqaruv', path: '/settings', icon: Settings, keywords: ['profile', 'theme', 'api', 'sozlash', 'maqsad', 'onboarding'] }
 ];
 
 interface QuickCommandPaletteProps {

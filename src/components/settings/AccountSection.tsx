@@ -8,10 +8,13 @@ import {
 } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
 
+import { PersonalizedOnboardingModal } from '../onboarding/PersonalizedOnboardingModal';
+
 const AccountSection: React.FC = () => {
     const { user, settings, resetXP, getRank } = useStudyData();
 
     const [isEditingName, setIsEditingName] = useState(false);
+    const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
     const [fullName, setFullName] = useState<string>(
         user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || ''
     );
@@ -155,9 +158,19 @@ const AccountSection: React.FC = () => {
 
                         {/* Target Exam / Goal */}
                         <div className="md:col-span-2">
-                            <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
-                                Asosiy Maqsad & Imtihon
-                            </label>
+                            <div className="flex items-center justify-between mb-2">
+                                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                    Asosiy Maqsad & Imtihon
+                                </label>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsOnboardingOpen(true)}
+                                    className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+                                >
+                                    <Target size={13} />
+                                    Yo'nalishni Qayta Sozlash (Onboarding)
+                                </button>
+                            </div>
                             {isEditingName ? (
                                 <input
                                     type="text"
@@ -167,15 +180,31 @@ const AccountSection: React.FC = () => {
                                     className="w-full px-4 py-2.5 rounded-xl border border-primary/50 bg-background text-foreground font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                             ) : (
-                                <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground text-sm font-semibold">
-                                    <Target size={16} className="text-primary shrink-0" />
-                                    <span>{targetGoal}</span>
+                                <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground text-sm font-semibold">
+                                    <div className="flex items-center gap-3">
+                                        <Target size={16} className="text-primary shrink-0" />
+                                        <span>{targetGoal}</span>
+                                    </div>
+                                    <button
+                                        onClick={() => setIsOnboardingOpen(true)}
+                                        className="text-xs text-primary font-bold hover:bg-primary/10 px-2.5 py-1 rounded-lg transition-colors"
+                                    >
+                                        O'zgartirish ➔
+                                    </button>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
+
+            <PersonalizedOnboardingModal
+                isOpen={isOnboardingOpen}
+                onClose={() => {
+                    setIsOnboardingOpen(false);
+                    setTargetGoal(localStorage.getItem('study_planner_target_goal') || targetGoal);
+                }}
+            />
 
             {/* Gamification Level & Rank Summary */}
             <div className="bg-gradient-to-br from-primary/5 via-card to-card rounded-2xl border border-primary/20 p-6 shadow-xs">
