@@ -5,9 +5,11 @@ import AIPlanModal from '../components/AIPlanModal';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const GoalsPage: React.FC = () => {
     const { goals, addGoal, deleteGoal, updateGoal } = useStudyData();
+    const { t } = useLanguage();
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAIModalOpen, setAIModalOpen] = useState(false);
     const [newTitle, setNewTitle] = useState('');
@@ -30,7 +32,7 @@ const GoalsPage: React.FC = () => {
             setModalOpen(false);
         } catch (err) {
             console.error("Add goal error:", err);
-            alert("Maqsadni saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
+            alert(t('common.error'));
         }
     };
 
@@ -38,15 +40,15 @@ const GoalsPage: React.FC = () => {
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold text-foreground">Maqsadlar</h2>
-                    <p className="text-muted-foreground mt-1">Akademik maqsadlaringizni qo'ying va kuzatib boring</p>
+                    <h2 className="text-3xl font-bold text-foreground">{t('goals.title')}</h2>
+                    <p className="text-muted-foreground mt-1">{t('goals.subtitle')}</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="secondary" onClick={() => setAIModalOpen(true)} className="text-indigo-600 bg-indigo-50 border-indigo-100">
-                        <Sparkles size={20} className="mr-2" /> AI Reja
+                        <Sparkles size={20} className="mr-2" /> {t('goals.aiPlan')}
                     </Button>
                     <Button onClick={() => setModalOpen(true)}>
-                        <Plus size={20} className="mr-2" /> Yangi Maqsad
+                        <Plus size={20} className="mr-2" /> {t('goals.addGoal')}
                     </Button>
                 </div>
             </div>

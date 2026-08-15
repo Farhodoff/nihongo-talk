@@ -34,7 +34,7 @@ export const en = {
         start: 'Start',
         submit: 'Check Answers',
         language: 'Language',
-        uzbek: 'O\'zbekcha 🇺🇿',
+        uzbek: "O'zbekcha 🇺🇿",
         english: 'English 🇬🇧',
         search: 'Search...',
         actions: 'Actions',
@@ -77,6 +77,23 @@ export const en = {
         dueDate: 'Due Date',
         subject: 'Subject',
         noTasks: 'No tasks yet. Create a new task!'
+    },
+    goals: {
+        title: 'Goals',
+        subtitle: 'Set and track your academic goals',
+        addGoal: 'New Goal',
+        aiPlan: 'AI Plan',
+        deadline: 'Deadline',
+        progress: 'Progress',
+        noGoals: 'No goals set yet. Create your first goal!'
+    },
+    subjects: {
+        title: 'Subjects & Timetable',
+        subtitle: 'Manage your enrolled subjects and weekly schedule',
+        addSubject: '+ Add Subject',
+        noSubjects: 'No subjects added yet. Create a new subject!',
+        tasksCount: 'tasks',
+        cardsCount: 'flashcards'
     },
     flashcards: {
         title: 'Flashcards & Vocabulary',
@@ -132,6 +149,26 @@ export const en = {
         whiteboard: '🎨 Collaborative Whiteboard',
         studyRooms: '📚 Online Study Rooms',
         topStudents: 'Top Students'
+    },
+    progress: {
+        title: 'Analytics & Insights',
+        subtitle: 'Track your study performance and progress',
+        share: 'Share',
+        totalHours: 'Total Study Time',
+        completedTasks: 'Completed Tasks',
+        currentStreak: 'Streak'
+    },
+    ielts: {
+        hubTitle: 'IELTS Preparation Hub',
+        speakingMock: 'Speaking Simulator',
+        writingEvaluator: 'Writing Evaluator',
+        readingListening: 'Reading & Listening Mocks'
+    },
+    jlpt: {
+        hubTitle: 'JLPT Preparation Hub',
+        grammarQuiz: 'Grammar & Kanji Quiz',
+        readingMock: 'Reading Practice',
+        listeningMock: 'Listening Practice'
     },
     settings: {
         title: 'Settings & Profile',

@@ -353,7 +353,7 @@ const Layout: React.FC = () => {
                             className="w-full py-2.5 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
                         >
                             <Crown size={16} className="animate-bounce" />
-                            <span>Obunani Yangilash 🚀</span>
+                            <span>{t('common.upgrade')}</span>
                         </button>
                     ) : (
                         <button
