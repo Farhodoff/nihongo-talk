@@ -190,7 +190,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         showFurigana: boolean;
         showRomaji: boolean;
     }>(() => {
-        const savedTheme = safeLocalStorage.getItem('study_planner_theme');
         const savedAiSettings = safeLocalStorage.getJSON<Record<string, any>>('study_planner_ai_settings', {});
         const savedGoal = safeLocalStorage.getItem('study_planner_daily_goal');
         
@@ -206,7 +205,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
 
         return {
-            theme: (savedTheme as 'light' | 'dark') || 'light',
+            theme: 'dark',
             notificationsEnabled: true,
             googleApiKey: savedAiSettings.googleApiKey,
             aiModel: savedAiSettings.aiModel || 'deepseek',
@@ -524,14 +523,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Update Settings Handler
     const updateSettings = async (updates: Partial<Settings>) => {
-        if (updates.theme !== undefined) {
-            safeLocalStorage.setItem('study_planner_theme', updates.theme);
-            if (updates.theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
+        safeLocalStorage.setItem('study_planner_theme', 'dark');
+        document.documentElement.classList.add('dark');
 
         if (updates.totalXp !== undefined || updates.level !== undefined) {
             setGamificationState(prev => ({

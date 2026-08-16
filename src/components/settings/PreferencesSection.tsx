@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Moon, Sun, HelpCircle, Globe, BookA } from 'lucide-react';
+import { Bell, Moon, HelpCircle, Globe, BookA } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
 import { toast } from '../../hooks/use-toast';
@@ -13,14 +13,13 @@ interface Settings {
 
 interface PreferencesSectionProps {
     settings: Settings;
-    onToggleTheme: () => void;
+    onToggleTheme?: () => void;
     onToggleNotifications: () => void;
     onUpdateSettings?: (updates: Partial<Settings>) => Promise<void> | void;
 }
 
 const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
-    onToggleTheme,
     onToggleNotifications,
     onUpdateSettings
 }) => {
@@ -88,52 +87,27 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                 <div className="flex items-center justify-between mb-5">
                     <div>
                         <h3 className="text-lg font-bold text-foreground">Display & Mavzu</h3>
-                        <p className="text-xs text-muted-foreground mt-0.5">Ilovaning ko'rinish va rang rejimini tanlang</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">Ilova to'liq professional Cyberpunk OLED Dark rejimiga sozlangan</p>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Light Mode Card */}
-                    <button
-                        type="button"
-                        onClick={() => { if (settings.theme !== 'light') onToggleTheme(); }}
-                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
-                            settings.theme === 'light'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className={`p-3 rounded-lg ${
-                            settings.theme === 'light' ? 'bg-amber-500 text-white' : 'bg-muted text-muted-foreground'
-                        }`}>
-                            <Sun size={22} />
-                        </div>
-                        <div>
-                            <div className="text-sm font-semibold text-foreground">Kunduzgi Rejim</div>
-                            <div className="text-xs text-muted-foreground">Yorug' va tinch ko'rinish</div>
-                        </div>
-                    </button>
-
-                    {/* Dark Mode Card */}
-                    <button
-                        type="button"
-                        onClick={() => { if (settings.theme !== 'dark') onToggleTheme(); }}
-                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
-                            settings.theme === 'dark'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className={`p-3 rounded-lg ${
-                            settings.theme === 'dark' ? 'bg-indigo-600 text-white' : 'bg-muted text-muted-foreground'
-                        }`}>
+                <div className="p-5 rounded-2xl border border-indigo-500/30 bg-indigo-950/20 text-foreground flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
                             <Moon size={22} />
                         </div>
                         <div>
-                            <div className="text-sm font-semibold text-foreground">Tungi Rejim</div>
-                            <div className="text-xs text-muted-foreground">Qorong'i va ko'zga qulay ko'rinish</div>
+                            <div className="text-sm font-bold text-white flex items-center gap-2">
+                                <span>OLED Dark Rejim (Doimiy)</span>
+                                <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                                    Faol
+                                </span>
+                            </div>
+                            <div className="text-xs text-slate-400 mt-0.5">
+                                Ko'zni charchatmaydigan, batareyani tejovchi va yuqori kontrastli qorong'u rejim.
+                            </div>
                         </div>
-                    </button>
+                    </div>
                 </div>
             </div>
 
