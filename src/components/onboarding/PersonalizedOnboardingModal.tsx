@@ -21,18 +21,17 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
     const navigate = useNavigate();
 
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-    const [selectedLanguage, setSelectedLanguage] = useState<'ja' | 'en' | 'general'>('ja');
-    const [selectedLevel, setSelectedLevel] = useState<string>('JLPT N3');
+    const [selectedLanguage, setSelectedLanguage] = useState<'ja' | 'en'>('en');
+    const [selectedLevel, setSelectedLevel] = useState<string>('IELTS 7.0');
     const [selectedGoalMinutes, setSelectedGoalMinutes] = useState<number>(30);
     const [isFinalizing, setIsFinalizing] = useState(false);
 
     if (!isOpen) return null;
 
-    const handleLanguageSelect = (lang: 'ja' | 'en' | 'general') => {
+    const handleLanguageSelect = (lang: 'ja' | 'en') => {
         setSelectedLanguage(lang);
         if (lang === 'ja') setSelectedLevel('JLPT N3');
-        else if (lang === 'en') setSelectedLevel('IELTS 7.0');
-        else setSelectedLevel('IT & Dasturlash');
+        else setSelectedLevel('IELTS 7.0');
         setStep(2);
     };
 
@@ -44,9 +43,11 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                 dailyStudyGoalMinutes: selectedGoalMinutes
             });
 
-            // 2. Save target goal
+            // 2. Save target goal & single study track
+            localStorage.setItem('study_planner_study_track', selectedLanguage);
             localStorage.setItem('study_planner_target_goal', `${selectedLevel} (${selectedLanguage.toUpperCase()})`);
             localStorage.setItem('study_planner_personalized_onboarded', 'true');
+            window.dispatchEvent(new Event('study-track-changed'));
 
             if (user) {
                 await supabase.auth.updateUser({
@@ -155,55 +156,39 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                             </p>
                         </div>
 
-                        <div className="space-y-3">
-                            <button
-                                onClick={() => handleLanguageSelect('ja')}
-                                className="w-full p-4 rounded-2xl border-2 border-border hover:border-primary bg-background hover:bg-primary/5 text-left flex items-center gap-4 transition-all group"
-                            >
-                                <span className="text-3xl p-2 rounded-xl bg-muted/60 group-hover:bg-primary/10 transition-colors">🎌</span>
-                                <div className="flex-1">
-                                    <div className="font-extrabold text-sm text-foreground flex items-center justify-between">
-                                        <span>Yapon Tili (JLPT)</span>
-                                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-primary/10 text-primary">Tavsiya</span>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground mt-0.5">
-                                        Kanji, So'z boyligi, Tinglab tushunish va N5-N1 testlari
-                                    </p>
-                                </div>
-                                <ArrowRight size={18} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                            </button>
-
+                        <div className="grid grid-cols-1 gap-3.5">
                             <button
                                 onClick={() => handleLanguageSelect('en')}
-                                className="w-full p-4 rounded-2xl border-2 border-border hover:border-blue-500 bg-background hover:bg-blue-500/5 text-left flex items-center gap-4 transition-all group"
+                                className="w-full p-5 rounded-2xl border-2 border-border hover:border-indigo-500 bg-background hover:bg-indigo-500/5 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
                             >
-                                <span className="text-3xl p-2 rounded-xl bg-muted/60 group-hover:bg-blue-500/10 transition-colors">🎓</span>
+                                <span className="text-4xl p-2.5 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:scale-105 transition-transform">🇬🇧</span>
                                 <div className="flex-1">
-                                    <div className="font-extrabold text-sm text-foreground flex items-center justify-between">
-                                        <span>Ingliz Tili (IELTS / General)</span>
-                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">Mashhur</span>
+                                    <div className="font-extrabold text-base text-foreground flex items-center justify-between">
+                                        <span>Ingliz Tili (IELTS Track)</span>
+                                        <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Band 6.0 – 8.5</span>
                                     </div>
-                                    <p className="text-xs text-muted-foreground mt-0.5">
-                                        IELTS Speaking, Writing baholash va Akademik lug'at
+                                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                                        IELTS Examiner Speaking, Writing baholash, Reading/Listening testlari va Anki lug'at
                                     </p>
                                 </div>
-                                <ArrowRight size={18} className="text-muted-foreground group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
+                                <ArrowRight size={20} className="text-muted-foreground group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
                             </button>
 
                             <button
-                                onClick={() => handleLanguageSelect('general')}
-                                className="w-full p-4 rounded-2xl border-2 border-border hover:border-emerald-500 bg-background hover:bg-emerald-500/5 text-left flex items-center gap-4 transition-all group"
+                                onClick={() => handleLanguageSelect('ja')}
+                                className="w-full p-5 rounded-2xl border-2 border-border hover:border-rose-500 bg-background hover:bg-rose-500/5 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
                             >
-                                <span className="text-3xl p-2 rounded-xl bg-muted/60 group-hover:bg-emerald-500/10 transition-colors">📚</span>
+                                <span className="text-4xl p-2.5 rounded-2xl bg-rose-500/10 text-rose-400 group-hover:scale-105 transition-transform">🇯🇵</span>
                                 <div className="flex-1">
-                                    <div className="font-extrabold text-sm text-foreground">
-                                        Dasturlash & Umumiy Fanlar
+                                    <div className="font-extrabold text-base text-foreground flex items-center justify-between">
+                                        <span>Yapon Tili (JLPT Track)</span>
+                                        <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">N5 – N1</span>
                                     </div>
-                                    <p className="text-xs text-muted-foreground mt-0.5">
-                                        IT atamalari, Universitet fanlari va Shaxsiy rejalar
+                                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                                        Kanji eslash, Grammatika testi, AI Yaponcha suhbat senariylari va Minna no Nihongo
                                     </p>
                                 </div>
-                                <ArrowRight size={18} className="text-muted-foreground group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
+                                <ArrowRight size={20} className="text-muted-foreground group-hover:text-rose-400 group-hover:translate-x-1 transition-all" />
                             </button>
                         </div>
                     </div>
@@ -290,33 +275,6 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                                         </div>
                                         {selectedLevel === item.level && (
                                             <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0">
-                                                <Check size={14} />
-                                            </div>
-                                        )}
-                                    </button>
-                                ))
-                            )}
-
-                            {selectedLanguage === 'general' && (
-                                [
-                                    { level: 'IT & Dasturlash', desc: "Frontend, Backend, Algoritm va IT atamalari" },
-                                    { level: 'Universitet & Fanlar', desc: "Aniq va gumanitar fanlar, imtihonlarga tayyorgarlik" },
-                                ].map((item) => (
-                                    <button
-                                        key={item.level}
-                                        onClick={() => setSelectedLevel(item.level)}
-                                        className={`w-full p-3.5 rounded-2xl border-2 text-left flex items-center justify-between transition-all ${
-                                            selectedLevel === item.level
-                                                ? 'border-emerald-500 bg-emerald-500/10 text-foreground font-bold shadow-xs'
-                                                : 'border-border bg-background hover:bg-muted/60 text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        <div>
-                                            <div className="text-sm font-extrabold text-foreground">{item.level}</div>
-                                            <div className="text-xs text-muted-foreground mt-0.5">{item.desc}</div>
-                                        </div>
-                                        {selectedLevel === item.level && (
-                                            <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
                                                 <Check size={14} />
                                             </div>
                                         )}

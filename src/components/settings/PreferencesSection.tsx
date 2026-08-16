@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Moon, HelpCircle, Globe, BookA } from 'lucide-react';
+import { Bell, Moon, HelpCircle, Globe, BookA, GraduationCap } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
 import { toast } from '../../hooks/use-toast';
@@ -108,6 +108,65 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Main Study Track Selector (IELTS vs JLPT) */}
+            <div className="pt-6 border-t border-border space-y-4">
+                <div>
+                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                        <GraduationCap size={20} className="text-primary" />
+                        Asosiy O'quv Yo'nalishi (Fokus)
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                        Ilova interfeysi, menyusi va AI mashqlari qaysi tilga moslashtirilishini belgilang
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            localStorage.setItem('study_planner_study_track', 'en');
+                            window.dispatchEvent(new Event('study-track-changed'));
+                            toast({ title: "🇬🇧 Ingliz tili (IELTS) yo'nalishi tanlandi" });
+                        }}
+                        className={`p-5 rounded-2xl border text-left transition-all flex items-center gap-4 ${
+                            (localStorage.getItem('study_planner_study_track') || 'en') === 'en'
+                                ? 'border-indigo-500 bg-indigo-950/25 ring-2 ring-indigo-500/20 text-foreground font-bold shadow-xs'
+                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                    >
+                        <div className="text-3xl p-2 rounded-xl bg-indigo-500/10 text-indigo-400">
+                            🇬🇧
+                        </div>
+                        <div>
+                            <div className="text-sm font-bold text-foreground">Ingliz Tili (IELTS)</div>
+                            <div className="text-xs text-muted-foreground">IELTS Examiner, Writing va Oxford so'zlar</div>
+                        </div>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => {
+                            localStorage.setItem('study_planner_study_track', 'ja');
+                            window.dispatchEvent(new Event('study-track-changed'));
+                            toast({ title: "🇯🇵 Yapon tili (JLPT) yo'nalishi tanlandi" });
+                        }}
+                        className={`p-5 rounded-2xl border text-left transition-all flex items-center gap-4 ${
+                            localStorage.getItem('study_planner_study_track') === 'ja'
+                                ? 'border-rose-500 bg-rose-950/25 ring-2 ring-rose-500/20 text-foreground font-bold shadow-xs'
+                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                    >
+                        <div className="text-3xl p-2 rounded-xl bg-rose-500/10 text-rose-400">
+                            🇯🇵
+                        </div>
+                        <div>
+                            <div className="text-sm font-bold text-foreground">Yapon Tili (JLPT)</div>
+                            <div className="text-xs text-muted-foreground">JLPT Hub, Kanji, Grammatika va Senariylar</div>
+                        </div>
+                    </button>
                 </div>
             </div>
 

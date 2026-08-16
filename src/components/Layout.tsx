@@ -81,6 +81,45 @@ const Layout: React.FC = () => {
 
     const { language, setLanguage, t } = useLanguage();
 
+    const [studyTrack, setStudyTrack] = useState<'en' | 'ja'>(() => {
+        const saved = localStorage.getItem('study_planner_study_track');
+        return (saved === 'ja' || saved === 'en') ? saved : 'en';
+    });
+
+    useEffect(() => {
+        const handleTrackChange = () => {
+            const saved = localStorage.getItem('study_planner_study_track');
+            if (saved === 'ja' || saved === 'en') {
+                setStudyTrack(saved);
+            }
+        };
+        window.addEventListener('study-track-changed', handleTrackChange);
+        return () => window.removeEventListener('study-track-changed', handleTrackChange);
+    }, []);
+
+    const handleSwitchTrack = (track: 'en' | 'ja') => {
+        setStudyTrack(track);
+        localStorage.setItem('study_planner_study_track', track);
+        window.dispatchEvent(new Event('study-track-changed'));
+    };
+
+    const languageGroup: NavGroup = studyTrack === 'en' ? {
+        category: 'IELTS & INGLIZ TILI',
+        icon: GraduationCap,
+        items: [
+            { name: t('nav.ieltsHub') || 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+            { name: t('nav.aiCoach') || 'Speaking Examiner', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking-coach' },
+        ]
+    } : {
+        category: 'JLPT & YAPON TILI',
+        icon: Sparkles,
+        items: [
+            { name: t('nav.jlptHub') || 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
+            { name: t('nav.aiCoach') || 'Speaking Coach', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking-coach' },
+            { name: t('nav.scenarios') || 'Suhbat Senariylari', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
+        ]
+    };
+
     const navGroups: NavGroup[] = [
         {
             category: t('nav.categories.management') || 'BOSHQARUV & REJA',
@@ -93,23 +132,14 @@ const Layout: React.FC = () => {
             ]
         },
         {
-            category: t('nav.categories.flashcards') || "FLESHKARTALAR & LUG'AT",
+            category: t('nav.categories.flashcards') || (studyTrack === 'en' ? "FLESHKARTALAR & LUG'AT" : "FLESHKARTALAR & KANJI"),
             icon: Copy,
             items: [
                 { name: t('nav.flashcards'), path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
                 { name: t('nav.smartVocab'), path: '/vocabulary', icon: Brain, tourId: 'nav-vocabulary' },
             ]
         },
-        {
-            category: t('nav.categories.languages') || 'TIL & IMTIHONLAR',
-            icon: GraduationCap,
-            items: [
-                { name: t('nav.jlptHub'), path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-                { name: t('nav.ieltsHub'), path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                { name: t('nav.aiCoach'), path: '/speaking-coach', icon: Mic, tourId: 'nav-speaking-coach' },
-                { name: t('nav.scenarios'), path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
-            ]
-        },
+        languageGroup,
         {
             category: t('nav.categories.focusAndCommunity') || 'FOKUS & HAMJAMIYAT',
             icon: Users,
@@ -316,6 +346,51 @@ const Layout: React.FC = () => {
                         {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
                     </Button>
                 </div>
+
+                {/* Track Switcher Bar */}
+                {!isCollapsed ? (
+                    <div className="px-3 pt-3 pb-1">
+                        <div className="p-1 bg-muted/60 border border-border rounded-xl flex items-center gap-1">
+                            <button
+                                type="button"
+                                onClick={() => handleSwitchTrack('en')}
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-black transition-all ${
+                                    studyTrack === 'en'
+                                        ? 'bg-indigo-600 text-white shadow-xs'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                title="Ingliz tili & IELTS yo'nalishi"
+                            >
+                                <span>🇬🇧</span>
+                                <span>IELTS</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => handleSwitchTrack('ja')}
+                                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-black transition-all ${
+                                    studyTrack === 'ja'
+                                        ? 'bg-rose-600 text-white shadow-xs'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                title="Yapon tili & JLPT yo'nalishi"
+                            >
+                                <span>🇯🇵</span>
+                                <span>JLPT</span>
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="px-2 pt-2 pb-1 flex justify-center">
+                        <button
+                            type="button"
+                            onClick={() => handleSwitchTrack(studyTrack === 'en' ? 'ja' : 'en')}
+                            className="w-10 h-10 rounded-xl bg-muted/60 border border-border flex items-center justify-center text-lg hover:scale-105 transition-all"
+                            title={studyTrack === 'en' ? "Hozir: 🇬🇧 IELTS (Bosib 🇯🇵 JLPT ga o'ting)" : "Hozir: 🇯🇵 JLPT (Bosib 🇬🇧 IELTS ga o'ting)"}
+                        >
+                            {studyTrack === 'en' ? '🇬🇧' : '🇯🇵'}
+                        </button>
+                    </div>
+                )}
 
                 {/* Navigation Links (Accordion Folders) */}
                 <NavLinks />
