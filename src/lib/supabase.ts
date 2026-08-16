@@ -2,7 +2,6 @@ import { createClient } from '@supabase/supabase-js';
 
 const rawUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 const rawKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const serviceRoleKey = import.meta.env.SERVICE_ROLE || import.meta.env.VITE_SERVICE_ROLE;
 
 const isValidUrl = (url?: string) => {
     if (!url) return false;
@@ -14,19 +13,16 @@ const isValidUrl = (url?: string) => {
     }
 };
 
-const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://placeholder-project.supabase.co';
+const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
 
-// Automatically detect valid Supabase JWT key (starts with 'eyJ') or fall back to SERVICE_ROLE key
+// Clean and validate Supabase Anon Key (never expose or use SERVICE_ROLE in client bundle)
 let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : '';
-if (!supabaseAnonKey || (!supabaseAnonKey.startsWith('eyJ') && serviceRoleKey && serviceRoleKey.startsWith('eyJ'))) {
-    supabaseAnonKey = serviceRoleKey;
-}
 if (!supabaseAnonKey) {
     supabaseAnonKey = 'placeholder-anon-key';
 }
 
 if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
-    console.warn('Supabase credentials notice: Validating credentials and initializing client.');
+    console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully

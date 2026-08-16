@@ -132,8 +132,30 @@ export const useVoiceRecorder = (): UseVoiceRecorderReturn => {
 
     useEffect(() => {
         return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
-            if (recordedUrl) URL.revokeObjectURL(recordedUrl);
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+            if (recordedUrl) {
+                URL.revokeObjectURL(recordedUrl);
+            }
+            if (audioPlayerRef.current) {
+                audioPlayerRef.current.pause();
+                audioPlayerRef.current = null;
+            }
+            if (mediaRecorderRef.current) {
+                if (mediaRecorderRef.current.state !== 'inactive') {
+                    try {
+                        mediaRecorderRef.current.stop();
+                    } catch {}
+                }
+                if (mediaRecorderRef.current.stream) {
+                    try {
+                        mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
+                    } catch {}
+                }
+                mediaRecorderRef.current = null;
+            }
         };
     }, [recordedUrl]);
 

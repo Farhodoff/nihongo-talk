@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import { safeStorage } from "../safeStorage";
 
 export type AIProvider = 'ollama' | 'gemini' | 'deepseek';
 
@@ -10,44 +10,34 @@ const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export const aiCache = {
     has: (key: string): boolean => {
-        const itemStr = localStorage.getItem(CACHE_PREFIX + key);
-        if (!itemStr) return false;
-        try {
-            const item = JSON.parse(itemStr);
-            if (Date.now() > item.expiry) {
-                localStorage.removeItem(CACHE_PREFIX + key);
-                return false;
-            }
-            return true;
-        } catch {
+        const item = safeStorage.getItem<{ value: unknown; expiry: number }>(CACHE_PREFIX + key);
+        if (!item) return false;
+        if (Date.now() > item.expiry) {
+            safeStorage.removeItem(CACHE_PREFIX + key);
             return false;
         }
+        return true;
     },
     get: (key: string): unknown | undefined => {
-        const itemStr = localStorage.getItem(CACHE_PREFIX + key);
-        if (!itemStr) return undefined;
-        try {
-            const item = JSON.parse(itemStr);
-            return item.value;
-        } catch {
+        const item = safeStorage.getItem<{ value: unknown; expiry: number }>(CACHE_PREFIX + key);
+        if (!item) return undefined;
+        if (Date.now() > item.expiry) {
+            safeStorage.removeItem(CACHE_PREFIX + key);
             return undefined;
         }
+        return item.value;
     },
     set: (key: string, value: unknown): void => {
         const item = {
             value,
             expiry: Date.now() + CACHE_TTL_MS
         };
-        try {
-            localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(item));
-        } catch (e) {
-            console.warn('Failed to save to AI cache, possibly quota exceeded', e);
-        }
+        safeStorage.setItem(CACHE_PREFIX + key, item);
     }
 };
 
 export const getAIConfig = () => {
-    const savedStr = localStorage.getItem('study_planner_ai_settings');
+    const saved = safeStorage.getItem<Record<string, any>>('study_planner_ai_settings');
     let aiModel: AIProvider = 'deepseek';
     let deepseekKey = '';
     let geminiKey = '';
@@ -59,9 +49,8 @@ export const getAIConfig = () => {
     let coachAiModel: AIProvider | undefined;
     let coachApiKey: string | undefined;
 
-    if (savedStr) {
+    if (saved) {
         try {
-            const saved = JSON.parse(savedStr);
             if (saved.aiModel) aiModel = saved.aiModel;
             if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
             if (saved.googleApiKey) geminiKey = saved.googleApiKey;
@@ -80,11 +69,11 @@ export const getAIConfig = () => {
             if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
             if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
         } catch (e) {
-            console.error("Failed to parse ai settings from localStorage", e);
+            console.error("Failed to parse ai settings from storage", e);
         }
     }
 
-    // Environment variable fallbacks — .env.local dan o'qiladi agar localStorage da yo'q bo me
+    // Environment variable fallbacks — .env.local dan o'qiladi agar storage da yo'q bo'lsa
     try {
         if (typeof import.meta !== 'undefined' && import.meta.env) {
             const envDeepSeek = import.meta.env.VITE_DEEPSEEK_API_KEY;
@@ -101,17 +90,11 @@ export const getAIConfig = () => {
         // ignore env inspection errors
     }
 
-    if (!deepseekKey) {
-        try {
-            deepseekKey = atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
-        } catch (e) {}
-    }
-
     // Sukut bo'yicha DeepSeek asosiy model qilinadi
-    if (!savedStr || !coachAiModel) {
+    if (!saved || !coachAiModel) {
         coachAiModel = 'deepseek';
     }
-    if (!savedStr || !aiModel) {
+    if (!saved || !aiModel) {
         aiModel = 'deepseek';
     }
 
