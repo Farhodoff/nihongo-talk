@@ -7,6 +7,7 @@ import ImportModal from '../components/decks/ImportModal';
 import { PresetDeckCard } from '../components/decks/PresetDeckCard';
 import { StandaloneDeckCard, StandaloneDeckGroup } from '../components/decks/StandaloneDeckCard';
 import { ExtractVocabModal } from '../components/decks/ExtractVocabModal';
+import { AiDocumentFlashcardModal } from '../components/decks/AiDocumentFlashcardModal';
 import { AdminFlashcardManager } from '../components/decks/AdminFlashcardManager';
 import { AdminPresetAuditorModal } from '../components/decks/AdminPresetAuditorModal';
 import { AdminAlbumCreatorModal } from '../components/decks/AdminAlbumCreatorModal';
@@ -32,6 +33,7 @@ const DecksPage: React.FC = () => {
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
     const [isImportModalOpen, setImportModalOpen] = useState(false);
     const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
+    const [isDocGeneratorOpen, setIsDocGeneratorOpen] = useState(false);
     const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [isAlbumCreatorOpen, setIsAlbumCreatorOpen] = useState(false);
     const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
@@ -432,11 +434,18 @@ const DecksPage: React.FC = () => {
                     {/* AI & Import Action Group */}
                     <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-2xl">
                         <button
+                            onClick={() => setIsDocGeneratorOpen(true)}
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl shadow-sm transition-all"
+                            title="Konspekt yoki matndan Q&A va test fleshkartalari tuzish"
+                        >
+                            <Sparkles size={15} /> AI Konspekt & Quiz
+                        </button>
+                        <button
                             onClick={() => setAiSubjectId('global')}
                             className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-primary hover:bg-background rounded-xl transition-all"
                             title="AI bilan kartochka yaratish"
                         >
-                            <Sparkles size={15} /> AI Yaratish
+                            <Book size={15} /> AI Generator
                         </button>
                         <button
                             onClick={() => setIsExtractModalOpen(true)}
@@ -818,6 +827,12 @@ const DecksPage: React.FC = () => {
             <ExtractVocabModal
                 isOpen={isExtractModalOpen}
                 onClose={() => setIsExtractModalOpen(false)}
+                subjects={subjects}
+            />
+
+            <AiDocumentFlashcardModal
+                isOpen={isDocGeneratorOpen}
+                onClose={() => setIsDocGeneratorOpen(false)}
                 subjects={subjects}
             />
         </div>
