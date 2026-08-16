@@ -50,91 +50,24 @@ export const useSubscription = () => {
                 if (!keyError && appSettings) {
                     setAdminApiKey(appSettings.gemini_api_key);
                 }
-
-                // AI kalitlarni va obunani localStorage ga saqlash (ai.ts tezkor o'qishi uchun)
-                if (appSettings?.gemini_api_key || subData) {
-                    const existingStr = localStorage.getItem('study_planner_subscription');
-                    let existing = {};
-                    try { existing = existingStr ? JSON.parse(existingStr) : {}; } catch(e){}
-                    
-                    localStorage.setItem('study_planner_subscription', JSON.stringify({
-                        ...existing,
-                        tier: subData?.tier || 'free',
-                        ai_credits: subData?.ai_credits ?? 20,
-                        trial_start_date: subData?.trial_start_date,
-                        ...(appSettings?.gemini_api_key ? { adminApiKey: appSettings.gemini_api_key } : {})
-                    }));
-                }
-            } catch (err) {
-                console.error("Subscription fetch error:", err);
+            } catch (error) {
+                console.error("Subscription fetch error:", error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchSubscription();
-
-        // Subscription o'zgarishlarini tinglash (real-time)
-        const channel = supabase
-            .channel('public:user_subscriptions')
-            .on('postgres_changes', { 
-                event: 'UPDATE', 
-                schema: 'public', 
-                table: 'user_subscriptions',
-                filter: `id=eq.${user.id}`
-            }, (payload) => {
-                setSubscription(prev => {
-                    const newSub = payload.new as any;
-                    if (!prev) {
-                        return {
-                            tier: newSub.tier || 'free',
-                            ai_credits: newSub.ai_credits || 0,
-                            last_reset_date: newSub.last_reset_date || new Date().toISOString(),
-                            trial_start_date: newSub.trial_start_date
-                        };
-                    }
-                    const updated = {
-                        ...prev,
-                        tier: payload.new.tier,
-                        ai_credits: payload.new.ai_credits,
-                        last_reset_date: payload.new.last_reset_date,
-                        trial_start_date: payload.new.trial_start_date
-                    };
-                    
-                    // LocalStorage ni ham yangilash
-                    const stored = localStorage.getItem('study_planner_subscription');
-                    if (stored) {
-                        const parsed = JSON.parse(stored);
-                        localStorage.setItem('study_planner_subscription', JSON.stringify({
-                            ...parsed,
-                            ...updated
-                        }));
-                    }
-                    
-                    return updated;
-                });
-            })
-            .subscribe();
-
-        return () => {
-            supabase.removeChannel(channel);
-        };
     }, [user]);
 
-    // AI so'rovidan keyin kreditni 1 taga kamaytirish
     const decrementCredit = async () => {
-        if (!user || !subscription || subscription.ai_credits <= 0) return;
-        
-        // Admin uchun cheklov yo'q
-        if (isAdminEmail(user.email)) return;
-        
-        try {
-            const newCredits = subscription.ai_credits - 1;
-            
-            // Mahalliy yangilash (tezlik uchun)
-            setSubscription(prev => prev ? { ...prev, ai_credits: newCredits } : null);
+        if (!user || !subscription) return;
+        if (subscription.tier === 'premium') return; // Unlimited
 
-            // Serverni yangilash
+        const newCredits = Math.max(0, subscription.ai_credits - 1);
+        setSubscription(prev => prev ? { ...prev, ai_credits: newCredits } : null);
+
+        try {
             await supabase
                 .from('user_subscriptions')
                 .update({ ai_credits: newCredits })
@@ -157,11 +90,37 @@ export const useSubscription = () => {
           }
         : subscription;
 
+    const upgradeTier = async (newTier: 'pro' | 'premium') => {
+        const credits = newTier === 'premium' ? 9999 : 500;
+        setSubscription(prev => ({
+            tier: newTier,
+            ai_credits: credits,
+            last_reset_date: new Date().toISOString(),
+            trial_start_date: prev?.trial_start_date || new Date().toISOString()
+        }));
+
+        if (user) {
+            try {
+                await supabase
+                    .from('user_subscriptions')
+                    .upsert({
+                        id: user.id,
+                        tier: newTier,
+                        ai_credits: credits,
+                        last_reset_date: new Date().toISOString()
+                    });
+            } catch (err) {
+                console.warn('Subscription upsert error:', err);
+            }
+        }
+    };
+
     return {
         subscription: effectiveSubscription,
         adminApiKey,
         loading,
         decrementCredit,
+        upgradeTier,
         isPro: isUserAdmin || subscription?.tier === 'pro' || subscription?.tier === 'premium',
         hasCredits: isUserAdmin || (subscription?.ai_credits || 0) > 0,
         isAdmin: isUserAdmin

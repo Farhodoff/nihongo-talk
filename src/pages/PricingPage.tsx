@@ -19,7 +19,10 @@ export interface PlanOption {
     features: string[];
 }
 
+import { CheckoutModal } from '../components/pricing/CheckoutModal';
+
 export const PricingPage: React.FC = () => {
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     useSEO({
         title: "Tariflar va Obuna Rejalari",
         description: "Kaizen AI Pro va Premium tariflari. Cheksiz AI Speaking Coach, IELTS & JLPT Mock Exams va Anki SM-2 Fleshkartalar.",
@@ -105,8 +108,7 @@ export const PricingPage: React.FC = () => {
     };
 
     const handleCheckout = () => {
-        const text = encodeURIComponent(`Assalomu alaykum! Men Kaizen AI ${selectedPlan.title} ($${selectedPlan.priceUsd} / ${selectedPlan.priceUzs}) obunasini rasmiylashtirmoqchiman.`);
-        window.open(`https://t.me/jdu_f?text=${text}`, '_blank');
+        setIsCheckoutOpen(true);
     };
 
     return (
@@ -288,6 +290,12 @@ export const PricingPage: React.FC = () => {
                     </p>
                 </div>
             </div>
+
+            <CheckoutModal
+                isOpen={isCheckoutOpen}
+                onClose={() => setIsCheckoutOpen(false)}
+                plan={selectedPlan}
+            />
         </div>
     );
 };
