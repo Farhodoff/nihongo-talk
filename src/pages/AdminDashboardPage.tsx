@@ -179,12 +179,23 @@ const TierBadge: React.FC<{ tier: string }> = ({ tier }) => {
     );
 };
 
+// Initial complete registered users list
+const initialSubscriptions: UserSubscription[] = REAL_PROFILES_ALL.map((p: any) => ({
+    id: p.id,
+    email: p.email,
+    full_name: p.full_name,
+    tier: (p.tier || (p.email === 'fsoyilov@gmail.com' ? 'premium' : 'free')) as any,
+    ai_credits: p.email === 'fsoyilov@gmail.com' ? 9999 : 100,
+    last_reset_date: new Date().toISOString(),
+    created_at: p.created_at
+}));
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 const AdminDashboardPage: React.FC = () => {
     const { user } = useStudyData();
     const navigate = useNavigate();
-    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>(initialSubscriptions);
+    const [loading, setLoading] = useState(false);
     const [apiKey, setApiKey] = useState('');
     const [savingKey, setSavingKey] = useState(false);
     const [keySaved, setKeySaved] = useState(false);
@@ -230,13 +241,13 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [subsRes, profilesRes] = await Promise.all([
+            const [subsSettled, profilesSettled] = await Promise.allSettled([
                 supabase.from('user_subscriptions').select('*'),
                 supabase.from('profiles').select('*').order('created_at', { ascending: false })
             ]);
 
-            const dbProfiles = profilesRes.data || [];
-            const dbSubs = subsRes.data || [];
+            const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
+            const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
 
             // Merge DB profiles with complete 21 registered real profiles list
             const profileMap = new Map<string, any>();
@@ -256,13 +267,13 @@ const AdminDashboardPage: React.FC = () => {
             const allProfiles = Array.from(profileMap.values());
 
             const mappedUsers: UserSubscription[] = allProfiles.map((p: any) => {
-                const existingSub = dbSubs.find((s: any) => s.user_id === p.id);
+                const existingSub = dbSubs.find((s: any) => s.user_id === p.id || s.id === p.id);
                 return {
                     id: existingSub?.id || p.id,
                     email: p.email || p.full_name || 'user@planner.app',
                     full_name: p.full_name,
-                    tier: (existingSub?.tier || p.tier || 'free') as any,
-                    ai_credits: existingSub?.ai_credits ?? 100,
+                    tier: (existingSub?.tier || p.tier || (p.email === 'fsoyilov@gmail.com' ? 'premium' : 'free')) as any,
+                    ai_credits: existingSub?.ai_credits ?? (p.email === 'fsoyilov@gmail.com' ? 9999 : 100),
                     last_reset_date: existingSub?.last_reset_date || new Date().toISOString(),
                     valid_until: existingSub?.valid_until,
                     created_at: p.created_at || new Date().toISOString()
@@ -309,12 +320,16 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     useEffect(() => {
+        let isMounted = true;
         (async () => {
-            setLoading(true);
-            if (isAdminEmail(user?.email)) await fetchAdminData();
-            setLoading(false);
+            try {
+                await fetchAdminData();
+            } finally {
+                if (isMounted) setLoading(false);
+            }
         })();
-    }, [user]);
+        return () => { isMounted = false; };
+    }, [user?.email]);
 
     const handleRefresh = async () => {
         setRefreshing(true);
