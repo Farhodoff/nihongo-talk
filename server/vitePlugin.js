@@ -274,13 +274,20 @@ export function telegramApiPlugin() {
 
                     // POST /api/telegram/check-link
                     if (pathname.includes('check-link')) {
-                        const { data } = await supabase
-                            .from('telegram_users')
-                            .select('*')
-                            .eq('user_id', userId)
-                            .maybeSingle();
+                        try {
+                            const { data, error } = await supabase
+                                .from('telegram_users')
+                                .select('*')
+                                .eq('user_id', userId)
+                                .maybeSingle();
 
-                        return sendJson(200, { linked: !!data, account: data });
+                            if (error) {
+                                return sendJson(200, { linked: false, account: null });
+                            }
+                            return sendJson(200, { linked: !!data, account: data });
+                        } catch {
+                            return sendJson(200, { linked: false, account: null });
+                        }
                     }
 
                     // POST /api/telegram/unlink

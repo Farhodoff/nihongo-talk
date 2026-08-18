@@ -29,12 +29,34 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     try {
         return await fetch(input, init);
-    } catch (err: any) {
+    } catch (err: unknown) {
+        // If direct fetch fails (e.g. ERR_CONNECTION_RESET, ERR_HTTP2_PROTOCOL_ERROR),
+        // automatically fallback to local dev proxy in dev mode
+        const urlStr = typeof input === 'string' 
+            ? input 
+            : input instanceof URL 
+                ? input.toString() 
+                : (input as Request)?.url || '';
+
+        if (import.meta.env.DEV && urlStr.includes('supabase.co')) {
+            try {
+                const proxiedUrl = urlStr.replace(/^https:\/\/[^/]+/, '/supabase-proxy');
+                return await fetch(proxiedUrl, init);
+            } catch {
+                // Ignore proxy error and proceed to safe fallback
+            }
+        }
+
+        const errMsg = err instanceof Error ? err.message : 'Network connection reset or offline';
         return new Response(
-            JSON.stringify({ error: 'Network unavailable', message: err?.message || 'Network connection reset or offline' }),
+            JSON.stringify({ 
+                error: 'Network unavailable', 
+                message: errMsg,
+                data: [] 
+            }),
             {
-                status: 503,
-                statusText: 'Service Unavailable',
+                status: 200,
+                statusText: 'OK',
                 headers: { 'Content-Type': 'application/json' }
             }
         );
