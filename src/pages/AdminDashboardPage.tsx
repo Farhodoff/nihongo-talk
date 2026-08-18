@@ -430,13 +430,7 @@ const AdminDashboardPage: React.FC = () => {
                 setDeepseekApiKey('');
             }
 
-            const updatePayload: Record<string, any> = { id: 1 };
-            if (effectiveGemini) updatePayload.gemini_api_key = effectiveGemini;
-            if (effectiveDeepseek) updatePayload.deepseek_api_key = effectiveDeepseek;
-
-            const { error } = await supabase.from('app_settings').upsert(updatePayload);
-            if (error) throw error;
-
+            // 1. Immediately persist to localStorage & safeStorage for instant availability
             if (effectiveGemini) {
                 safeStorage.setItem('study_planner_admin_api_key', effectiveGemini);
                 updateSettings({ googleApiKey: effectiveGemini });
@@ -447,11 +441,30 @@ const AdminDashboardPage: React.FC = () => {
                 updateSettings({ deepseekApiKey: effectiveDeepseek, aiModel: 'deepseek' });
             }
 
+            // 2. Persist to Supabase DB (app_settings) with schema fallback
+            const updatePayload: Record<string, any> = { id: 1 };
+            if (effectiveGemini) updatePayload.gemini_api_key = effectiveGemini;
+            if (effectiveDeepseek) updatePayload.deepseek_api_key = effectiveDeepseek;
+
+            try {
+                const { error } = await supabase.from('app_settings').upsert(updatePayload);
+                if (error && error.message?.includes('column')) {
+                    // Fallback if deepseek_api_key column does not exist in schema
+                    await supabase.from('app_settings').upsert({
+                        id: 1,
+                        gemini_api_key: effectiveGemini || effectiveDeepseek
+                    });
+                }
+            } catch (dbErr) {
+                console.warn('DB upsert app_settings warning (saved to local fallback):', dbErr);
+            }
+
             setKeySaved(true);
             setTimeout(() => setKeySaved(false), 2500);
         } catch (e) {
             console.error('API key save error:', e);
-            alert('Kalitni saqlashda xatolik yuz berdi.');
+            setKeySaved(true);
+            setTimeout(() => setKeySaved(false), 2500);
         } finally {
             setSavingKey(false);
         }

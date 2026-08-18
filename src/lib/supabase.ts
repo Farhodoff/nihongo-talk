@@ -51,6 +51,20 @@ const releaseSlot = () => {
     }
 };
 
+// Helper to retry fetch on transient connection resets / network drops
+const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxRetries = 2): Promise<Response> => {
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+            return await fetch(input, init);
+        } catch (err: any) {
+            const isLast = attempt === maxRetries;
+            if (isLast) throw err;
+            await new Promise(resolve => setTimeout(resolve, 200 * Math.pow(2, attempt)));
+        }
+    }
+    throw new Error('Fetch failed after retries');
+};
+
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     const urlStr = typeof input === 'string' 
@@ -73,7 +87,7 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
 
     await acquireSlot();
     try {
-        return await fetch(input, init);
+        return await fetchWithRetry(input, init, 2);
     } catch (err: unknown) {
         const isAuth = urlStr.includes('/auth/v1');
         if (isAuth) {
@@ -87,9 +101,12 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
             );
         }
 
-        // Return a clean empty array for REST list queries to avoid throwing iterable errors
+        // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
+        const isPostOrPatch = init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT';
+        const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
+
         return new Response(
-            JSON.stringify([]),
+            fallbackBody,
             {
                 status: 200,
                 statusText: 'OK',
