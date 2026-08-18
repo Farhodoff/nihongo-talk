@@ -336,13 +336,15 @@ const AdminDashboardPage: React.FC = () => {
         )
         : subscriptions;
 
+    const isAuthorized = isAdminEmail(user?.email);
+
     if (loading) return (
         <div className="flex items-center justify-center h-[60vh]">
             <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
     );
 
-    if (!isAdminEmail(user?.email)) return (
+    if (!isAuthorized) return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-center">
             <span className="text-5xl">🔒</span>
             <h2 className="text-xl font-bold text-foreground">Kirish taqiqlangan</h2>

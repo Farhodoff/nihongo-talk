@@ -25,20 +25,54 @@ export const getDynamicAdminEmails = (): string[] => {
 
 // Check if user is Super Admin (fsoyilov@gmail.com)
 export const isSuperAdmin = (email?: string | null): boolean => {
-    if (!email) return false;
-    const e = email.toLowerCase().trim();
-    return e === SUPER_ADMIN_EMAIL;
+    if (email) {
+        const e = email.toLowerCase().trim();
+        return e === SUPER_ADMIN_EMAIL;
+    }
+
+    try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const cached = localStorage.getItem('study_planner_user_cache');
+            if (cached) {
+                const parsed = JSON.parse(cached);
+                if (parsed?.email && parsed.email.toLowerCase().trim() === SUPER_ADMIN_EMAIL) {
+                    return true;
+                }
+            }
+        }
+    } catch {}
+
+    return false;
 };
 
 // Check if user is Admin or Super Admin
 export const isAdminEmail = (email?: string | null): boolean => {
-    if (!email) return false;
-    const e = email.toLowerCase().trim();
-    if (e === SUPER_ADMIN_EMAIL) return true;
-    if (DEFAULT_ADMIN_EMAILS.includes(e)) return true;
-    
-    const dynamicAdmins = getDynamicAdminEmails();
-    return dynamicAdmins.includes(e);
+    if (email) {
+        const e = email.toLowerCase().trim();
+        if (e === SUPER_ADMIN_EMAIL) return true;
+        if (DEFAULT_ADMIN_EMAILS.includes(e)) return true;
+        const dynamicAdmins = getDynamicAdminEmails();
+        if (dynamicAdmins.includes(e)) return true;
+        return false;
+    }
+
+    // If email is not passed directly, verify against localStorage caches
+    try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const cached = localStorage.getItem('study_planner_user_cache');
+            if (cached) {
+                const parsed = JSON.parse(cached);
+                if (parsed?.email) {
+                    const pe = parsed.email.toLowerCase().trim();
+                    if (pe === SUPER_ADMIN_EMAIL || DEFAULT_ADMIN_EMAILS.includes(pe) || getDynamicAdminEmails().includes(pe)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    } catch {}
+
+    return false;
 };
 
 // Super Admin action: Grant Admin role to user email
