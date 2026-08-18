@@ -1,4 +1,4 @@
-import { Bell, Moon, Sun, HelpCircle, Globe, BookA, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Bell, HelpCircle, Globe, BookA, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -13,14 +13,12 @@ interface Settings {
 
 interface PreferencesSectionProps {
     settings: Settings;
-    onToggleTheme?: () => void;
     onToggleNotifications: () => void;
     onUpdateSettings?: (updates: Partial<Settings>) => Promise<void> | void;
 }
 
 const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
-    onToggleTheme,
     onToggleNotifications,
     onUpdateSettings
 }) => {
@@ -88,79 +86,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             <div className="text-sm font-bold text-foreground">English</div>
                             <div className="text-xs text-muted-foreground">English Language</div>
                         </div>
-                    </button>
-                </div>
-            </div>
-
-            {/* Theme Selector Section */}
-            <div className="pt-6 border-t border-border">
-                <div className="flex items-center justify-between mb-5">
-                    <div>
-                        <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                            <Moon size={20} className="text-primary" />
-                            Display & Mavzu
-                        </h3>
-                        <p className="text-xs text-muted-foreground mt-0.5">Ilova dizayni va ranglar rejimini tanlang</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            if (settings.theme !== 'dark') {
-                                onToggleTheme ? onToggleTheme() : onUpdateSettings?.({ theme: 'dark' });
-                            }
-                        }}
-                        className={`p-5 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between ${
-                            settings.theme === 'dark'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
-                                <Moon size={22} />
-                            </div>
-                            <div>
-                                <div className="text-sm font-bold text-foreground">OLED Dark (Tungi)</div>
-                                <div className="text-xs text-muted-foreground">Ko'zni charchatmaydigan yuqori kontrast</div>
-                            </div>
-                        </div>
-                        {settings.theme === 'dark' && (
-                            <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
-                                Faol
-                            </span>
-                        )}
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => {
-                            if (settings.theme !== 'light') {
-                                onToggleTheme ? onToggleTheme() : onUpdateSettings?.({ theme: 'light' });
-                            }
-                        }}
-                        className={`p-5 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between ${
-                            settings.theme === 'light'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 rounded-xl bg-amber-500 text-white shadow-md shadow-amber-500/30">
-                                <Sun size={22} />
-                            </div>
-                            <div>
-                                <div className="text-sm font-bold text-foreground">Light (Kunduzgi)</div>
-                                <div className="text-xs text-muted-foreground">Yorqin va toza ko'rinish</div>
-                            </div>
-                        </div>
-                        {settings.theme === 'light' && (
-                            <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
-                                Faol
-                            </span>
-                        )}
                     </button>
                 </div>
             </div>

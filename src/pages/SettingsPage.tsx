@@ -4,9 +4,8 @@ import { useSubscription } from '../hooks/useSubscription';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
 import AccountSection from '../components/settings/AccountSection';
-import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { 
-    User, Sliders, Shield, Crown, 
+    User, Sliders, Shield, 
     Flame, Award, Clock, Sparkles
 } from 'lucide-react';
 import { isAdminEmail } from '../utils/admin';
@@ -22,7 +21,6 @@ const SettingsPage: React.FC = () => {
 
     const tabs = [
         { id: 'profile', label: 'Profil & Hisob', icon: User },
-        { id: 'subscription', label: 'Tarif & Obuna', icon: Crown },
         { id: 'preferences', label: 'Interfeys & Til', icon: Sliders },
     ];
 
@@ -30,12 +28,6 @@ const SettingsPage: React.FC = () => {
     if (isAdminEmail(user?.email)) {
         tabs.push({ id: 'admin', label: 'Admin Panel', icon: Shield });
     }
-
-    const toggleTheme = () => {
-        const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
-        updateSettings({ theme: newTheme });
-        toast({ title: newTheme === 'dark' ? '🌙 Tungi rejim yoqildi' : '☀️ Kunduzgi rejim yoqildi' });
-    };
 
     const toggleNotifications = async () => {
         if (!settings.notificationsEnabled) {
@@ -179,14 +171,9 @@ const SettingsPage: React.FC = () => {
                         <AccountSection />
                     )}
 
-                    {activeTab === 'subscription' && (
-                        <SubscriptionSection />
-                    )}
-
                     {activeTab === 'preferences' && (
                         <PreferencesSection
                             settings={settings}
-                            onToggleTheme={toggleTheme}
                             onToggleNotifications={toggleNotifications}
                             onUpdateSettings={updateSettings}
                         />
