@@ -145,40 +145,26 @@ export const FlashcardService = {
             isNetworkError = true;
         }
 
-        // If network error occurred, return local cached cards directly without trying to seed DB offline
-        if (isNetworkError && dbCards.length === 0) {
+        // If network error occurred or empty DB returned with existing cache, return cached
+        if ((isNetworkError || dbCards.length === 0) && localCached.length > 0) {
             return localCached;
         }
 
         const dbCardIds = new Set(dbCards.map(c => c.id));
         const missingLocalCards = localCached.filter(c => !dbCardIds.has(c.id) && !c.deletedAt);
 
-        if (missingLocalCards.length > 0 && !isNetworkError) {
-            this.addFlashcardsBatch(userId, missingLocalCards).catch(e => console.warn('[fetchFlashcards] Background sync error:', e));
+        // Only sync if there are a few missing local cards and DB actually returned items
+        if (dbCards.length > 0 && missingLocalCards.length > 0 && missingLocalCards.length <= 10 && !isNetworkError) {
+            this.addFlashcardsBatch(userId, missingLocalCards).catch(() => {});
         }
 
         const rawMerged = [...dbCards, ...missingLocalCards];
 
-        // Sanitize any corrupted placeholder cards
-        const sanitizedMerged: Flashcard[] = [];
-        const cardsToUpdateInDb: Flashcard[] = [];
-
-        for (const card of rawMerged) {
-            const { card: cleanCard, wasModified } = sanitizeCardContent(card);
-            sanitizedMerged.push(cleanCard);
-            if (wasModified) {
-                cardsToUpdateInDb.push(cleanCard);
-            }
-        }
-
-        if (cardsToUpdateInDb.length > 0 && !isNetworkError) {
-
-            Promise.all(
-                cardsToUpdateInDb.map(c =>
-                    supabase.from('flashcards').update({ front: c.front, back: c.back }).eq('id', c.id)
-                )
-            ).catch(err => console.warn("Background card DB update error:", err));
-        }
+        // Sanitize any corrupted placeholder cards in memory
+        const sanitizedMerged: Flashcard[] = rawMerged.map(card => {
+            const { card: cleanCard } = sanitizeCardContent(card);
+            return cleanCard;
+        });
 
         if (sanitizedMerged.length === 0 && !isNetworkError) {
 
