@@ -3,7 +3,7 @@ import {
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
     GraduationCap, Mic, Crown, Folder, Brain,
-    Headphones, PenTool, FileText, Target
+    Headphones, PenTool, FileText, Target, Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -12,6 +12,7 @@ import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { isAdminEmail } from '../utils/admin';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -75,7 +76,8 @@ const Layout: React.FC = () => {
     };
 
     const { language, setLanguage, t } = useLanguage();
-    const { primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
+    const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email);
 
     const navGroups: NavGroup[] = useMemo(() => {
         if (primaryLanguage === 'ja') {
@@ -383,8 +385,24 @@ const Layout: React.FC = () => {
                 {/* Navigation Links */}
                 <NavLinks />
 
-                {/* Bottom Section: Settings & Get Premium */}
+                {/* Bottom Section: Settings & Admin */}
                 <div className="p-3 border-t border-border space-y-2 bg-card">
+                    {isAdmin && (
+                        <NavLink
+                            to="/admin"
+                            className={({ isActive }) =>
+                                `w-full flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-bold ${isActive
+                                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40 shadow-xs'
+                                    : 'text-rose-400 hover:bg-rose-500/10 border border-rose-500/20'
+                                }`
+                            }
+                            title={isCollapsed ? 'Admin Panel' : ''}
+                        >
+                            <Shield size={17} className="text-rose-500 shrink-0" />
+                            {!isCollapsed && <span>Admin Panel</span>}
+                        </NavLink>
+                    )}
+
                     <div className="flex items-center gap-1">
                         <NavLink
                             to="/settings"

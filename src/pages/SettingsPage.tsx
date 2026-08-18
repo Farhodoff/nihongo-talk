@@ -8,7 +8,7 @@ import {
     User, Sliders, Shield, 
     Flame, Award, Clock, Sparkles
 } from 'lucide-react';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -70,7 +70,15 @@ const SettingsPage: React.FC = () => {
                                 <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
                                     {userName}
                                 </h1>
-                                {subscription?.tier === 'premium' ? (
+                                {isSuperAdmin(user?.email) ? (
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-xs border border-rose-400/40">
+                                        👑 SUPER ADMIN
+                                    </span>
+                                ) : isAdminEmail(user?.email) ? (
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs border border-indigo-400/40">
+                                        🛡️ ADMIN
+                                    </span>
+                                ) : subscription?.tier === 'premium' ? (
                                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs">
                                         PREMIUM VIP
                                     </span>
