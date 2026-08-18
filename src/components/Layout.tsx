@@ -55,8 +55,7 @@ const Layout: React.FC = () => {
             '/room',
             '/focus',
             '/ielts/speaking-mock',
-            '/jlpt/listening',
-            '/admin'
+            '/jlpt/listening'
         ];
         return fullScreenPaths.some(p => location.pathname.startsWith(p));
     }, [location.pathname]);
