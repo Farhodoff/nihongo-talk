@@ -30,4 +30,4 @@ jobs:
       run: npm run lint
 
     - name: Execute Vitest Unit Tests
-      run: npx vitest run
+      run: npm test -- --run

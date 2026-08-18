@@ -18,7 +18,7 @@ export const useSubscription = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!user || !user.id || !isUuid(user.id)) {
+        if (!user || !user.id || user.id === 'undefined' || user.id === 'null') {
             setLoading(false);
             return;
         }
