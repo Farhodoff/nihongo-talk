@@ -14,18 +14,20 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
     const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
 
     const syncGoogleEvents = useCallback(async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.provider_token) {
-            try {
+        if (typeof supabase?.auth?.getSession !== 'function') return;
+        try {
+            const { data: sessionData } = await supabase.auth.getSession();
+            const session = sessionData?.session;
+            if (session?.provider_token) {
                 const now = new Date();
                 const timeMin = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString();
                 const timeMax = new Date(now.getFullYear(), now.getMonth() + 2, 1).toISOString();
                 
                 const fetchedEvents = await GoogleCalendarService.listEvents(session.provider_token, timeMin, timeMax);
                 setGoogleEvents(fetchedEvents);
-            } catch (error) {
-                console.error("Google Calendar sync error:", error);
             }
+        } catch (error) {
+            console.error("Google Calendar sync error:", error);
         }
     }, []);
 

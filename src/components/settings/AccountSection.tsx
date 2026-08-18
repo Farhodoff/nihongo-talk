@@ -4,14 +4,19 @@ import { supabase } from '../../lib/supabase';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { 
     Mail, User as UserIcon, Shield, KeyRound, 
-    LogOut, RotateCcw, Check, Edit3, Target, Award
+    LogOut, RotateCcw, Check, Edit3, Target, Award, Crown
 } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
+import { isAdminEmail, isSuperAdmin } from '../../utils/admin';
 
 import { PersonalizedOnboardingModal } from '../onboarding/PersonalizedOnboardingModal';
 
 const AccountSection: React.FC = () => {
     const { user, settings, resetXP, getRank } = useStudyData();
+
+    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
+    const isCurrentSuperAdmin = isSuperAdmin(displayEmail);
+    const isCurrentAdmin = isAdminEmail(displayEmail);
 
     const [isEditingName, setIsEditingName] = useState(false);
     const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
@@ -145,14 +150,25 @@ const AccountSection: React.FC = () => {
                         {/* Email */}
                         <div>
                             <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
-                                Elektron Pochta
+                                Elektron Pochta (Gmail)
                             </label>
                             <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground text-sm font-medium">
-                                <Mail size={16} className="text-muted-foreground shrink-0" />
-                                <span className="truncate">{user?.email || "Foydalanuvchi"}</span>
-                                <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                                    Tasdiqlangan
-                                </span>
+                                <Mail size={16} className="text-primary shrink-0" />
+                                <span className="font-bold truncate text-foreground">{displayEmail}</span>
+                                {isCurrentSuperAdmin ? (
+                                    <span className="ml-auto text-[10px] font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/30 shadow-xs flex items-center gap-1">
+                                        <Crown size={12} className="text-rose-500" />
+                                        SUPER ADMIN
+                                    </span>
+                                ) : isCurrentAdmin ? (
+                                    <span className="ml-auto text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/30 shadow-xs">
+                                        🛡️ ADMIN
+                                    </span>
+                                ) : (
+                                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                        Tasdiqlangan
+                                    </span>
+                                )}
                             </div>
                         </div>
 

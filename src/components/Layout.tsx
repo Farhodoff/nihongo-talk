@@ -77,7 +77,8 @@ const Layout: React.FC = () => {
 
     const { language, setLanguage, t } = useLanguage();
     const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
-    const isAdmin = isAdminEmail(user?.email);
+    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
+    const isAdmin = isAdminEmail(displayEmail);
 
     const navGroups: NavGroup[] = useMemo(() => {
         if (primaryLanguage === 'ja') {

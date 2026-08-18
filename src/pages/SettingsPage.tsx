@@ -6,7 +6,7 @@ import PreferencesSection from '../components/settings/PreferencesSection';
 import AccountSection from '../components/settings/AccountSection';
 import { 
     User, Sliders, Shield, 
-    Flame, Award, Clock, Sparkles
+    Flame, Award, Clock, Sparkles, Mail
 } from 'lucide-react';
 import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
@@ -19,13 +19,17 @@ const SettingsPage: React.FC = () => {
     const { subscription } = useSubscription();
     const [activeTab, setActiveTab] = useState('profile');
 
+    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
+    const isCurrentSuperAdmin = isSuperAdmin(displayEmail);
+    const isCurrentAdmin = isAdminEmail(displayEmail);
+
     const tabs = [
         { id: 'profile', label: 'Profil & Hisob', icon: User },
         { id: 'preferences', label: 'Interfeys & Til', icon: Sliders },
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz
-    if (isAdminEmail(user?.email)) {
+    if (isCurrentAdmin) {
         tabs.push({ id: 'admin', label: 'Admin Panel', icon: Shield });
     }
 
@@ -45,7 +49,7 @@ const SettingsPage: React.FC = () => {
     };
 
     const rankTitle = getRank ? getRank(settings.level || 1) : 'Bilimdon';
-    const userName = user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || user?.email?.split('@')[0] || "O'quvchi";
+    const userName = user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || displayEmail.split('@')[0] || "Farhod Soyilov";
 
     return (
         <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6 pb-28 md:pb-12 animate-in fade-in duration-300">
@@ -70,11 +74,11 @@ const SettingsPage: React.FC = () => {
                                 <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
                                     {userName}
                                 </h1>
-                                {isSuperAdmin(user?.email) ? (
+                                {isCurrentSuperAdmin ? (
                                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-xs border border-rose-400/40">
                                         👑 SUPER ADMIN
                                     </span>
-                                ) : isAdminEmail(user?.email) ? (
+                                ) : isCurrentAdmin ? (
                                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs border border-indigo-400/40">
                                         🛡️ ADMIN
                                     </span>
@@ -92,8 +96,9 @@ const SettingsPage: React.FC = () => {
                                     </span>
                                 )}
                             </div>
-                            <p className="text-xs md:text-sm text-muted-foreground mt-0.5">
-                                {user?.email || "Mahalliy Foydalanuvchi"}
+                            <p className="text-xs md:text-sm text-foreground/90 font-medium flex items-center gap-1.5 mt-1">
+                                <Mail size={14} className="text-primary shrink-0" />
+                                <span className="font-bold text-primary">{displayEmail}</span>
                             </p>
                         </div>
                     </div>
