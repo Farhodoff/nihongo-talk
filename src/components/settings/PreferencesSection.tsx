@@ -1,4 +1,4 @@
-import { Bell, HelpCircle, Globe, BookA, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Bell, HelpCircle, Globe, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -14,13 +14,11 @@ interface Settings {
 interface PreferencesSectionProps {
     settings: Settings;
     onToggleNotifications: () => void;
-    onUpdateSettings?: (updates: Partial<Settings>) => Promise<void> | void;
 }
 
 const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
-    onToggleNotifications,
-    onUpdateSettings
+    onToggleNotifications
 }) => {
     const { language, setLanguage, t } = useLanguage();
     const { 
@@ -236,57 +234,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             </div>
                         </div>
                     ))}
-                </div>
-            </div>
-
-            {/* Language Study Options (JLPT Furigana / Romaji) */}
-            <div className="pt-6 border-t border-border space-y-4">
-                <div>
-                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                        <BookA size={20} className="text-primary" />
-                        Til O'rganish & JLPT Sozlamalari
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">Yapon tili va kartochkalarda yordamchi o'qilishlarni ko'rsatish</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
-                        <div>
-                            <span className="font-semibold text-sm text-foreground block">Furigana (Hiragana)</span>
-                            <span className="text-xs text-muted-foreground">Kanji ustida o'qilishini ko'rsatish</span>
-                        </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={settings.showFurigana !== false}
-                                onChange={(e) => {
-                                    onUpdateSettings?.({ showFurigana: e.target.checked });
-                                    toast({ title: e.target.checked ? "Furigana yoqildi" : "Furigana o'chirildi" });
-                                }}
-                                className="sr-only peer"
-                            />
-                            <div className="w-11 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                        </label>
-                    </div>
-
-                    <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
-                        <div>
-                            <span className="font-semibold text-sm text-foreground block">Romaji (Lotincha)</span>
-                            <span className="text-xs text-muted-foreground">Lotin yozuvidagi transkripsiya</span>
-                        </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={!!settings.showRomaji}
-                                onChange={(e) => {
-                                    onUpdateSettings?.({ showRomaji: e.target.checked });
-                                    toast({ title: e.target.checked ? "Romaji yoqildi" : "Romaji o'chirildi" });
-                                }}
-                                className="sr-only peer"
-                            />
-                            <div className="w-11 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                        </label>
-                    </div>
                 </div>
             </div>
 

@@ -188,7 +188,6 @@ const SettingsPage: React.FC = () => {
                         <PreferencesSection
                             settings={settings}
                             onToggleNotifications={toggleNotifications}
-                            onUpdateSettings={updateSettings}
                         />
                     )}
 
