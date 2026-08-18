@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
-    BarChart, BookOpen, Calendar, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
+    BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    NotebookText, GraduationCap, Mic, Crown, Folder, Compass, Search, Brain
+    GraduationCap, Mic, Crown, Folder, Brain,
+    Headphones, PenTool, FileText, Target
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
 import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
-import { QuickCommandPalette } from './common/QuickCommandPalette';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useStudyData } from '../context/StudyPlannerContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -31,27 +32,20 @@ interface NavGroup {
 }
 
 const Layout: React.FC = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile Sheet
-    const [isCollapsed, setIsCollapsed] = useState(false); // Desktop
-    const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-    const [showOnboarding, setShowOnboarding] = useState(() => {
-        return !localStorage.getItem('study_planner_personalized_onboarded');
-    });
     const location = useLocation();
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(() => {
+        const saved = localStorage.getItem('study_planner_sidebar_collapsed');
+        return saved === 'true';
+    });
 
-    // Global shortcut ⌘K / Ctrl+K
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setIsCommandPaletteOpen(prev => !prev);
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    // Personalized Onboarding First-Visit Trigger
+    const [showOnboarding, setShowOnboarding] = useState(() => {
+        const onboarded = localStorage.getItem('study_planner_personalized_onboarded');
+        return !onboarded;
+    });
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -60,7 +54,8 @@ const Layout: React.FC = () => {
             '/room',
             '/focus',
             '/ielts/speaking-mock',
-            '/jlpt/listening'
+            '/jlpt/listening',
+            '/admin'
         ];
         return fullScreenPaths.some(p => location.pathname.startsWith(p));
     }, [location.pathname]);
@@ -80,77 +75,79 @@ const Layout: React.FC = () => {
     };
 
     const { language, setLanguage, t } = useLanguage();
+    const { primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
 
-    const [studyTrack, setStudyTrack] = useState<'en' | 'ja'>(() => {
-        const saved = localStorage.getItem('study_planner_study_track');
-        return (saved === 'ja' || saved === 'en') ? saved : 'en';
-    });
-
-    useEffect(() => {
-        const handleTrackChange = () => {
-            const saved = localStorage.getItem('study_planner_study_track');
-            if (saved === 'ja' || saved === 'en') {
-                setStudyTrack(saved);
-            }
-        };
-        window.addEventListener('study-track-changed', handleTrackChange);
-        return () => window.removeEventListener('study-track-changed', handleTrackChange);
-    }, []);
-
-    const handleSwitchTrack = (track: 'en' | 'ja') => {
-        setStudyTrack(track);
-        localStorage.setItem('study_planner_study_track', track);
-        window.dispatchEvent(new Event('study-track-changed'));
-    };
-
-    const languageGroup: NavGroup = studyTrack === 'en' ? {
-        category: 'IELTS & INGLIZ TILI',
-        icon: GraduationCap,
-        items: [
-            { name: t('nav.ieltsHub') || 'IELTS Hub', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-            { name: t('nav.aiCoach') || 'Speaking Examiner', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking-coach' },
-        ]
-    } : {
-        category: 'JLPT & YAPON TILI',
-        icon: Sparkles,
-        items: [
-            { name: t('nav.jlptHub') || 'JLPT Hub', path: '/jlpt', icon: Sparkles, tourId: 'nav-jlpt' },
-            { name: t('nav.aiCoach') || 'Speaking Coach', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking-coach' },
-            { name: t('nav.scenarios') || 'Suhbat Senariylari', path: '/scenarios', icon: Compass, tourId: 'nav-scenarios' },
-        ]
-    };
-
-    const navGroups: NavGroup[] = [
-        {
-            category: t('nav.categories.management') || 'BOSHQARUV & REJA',
-            icon: CheckSquare,
-            items: [
-                { name: t('nav.dashboard'), path: '/dashboard', icon: Home, tourId: 'nav-dashboard' },
-                { name: t('nav.tasks'), path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: t('nav.calendar'), path: '/calendar', icon: Calendar, tourId: 'nav-calendar' },
-                { name: t('nav.subjects'), path: '/subjects', icon: BookOpen, tourId: 'nav-subjects' },
-            ]
-        },
-        {
-            category: t('nav.categories.flashcards') || (studyTrack === 'en' ? "FLESHKARTALAR & LUG'AT" : "FLESHKARTALAR & KANJI"),
-            icon: Copy,
-            items: [
-                { name: t('nav.flashcards'), path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: t('nav.smartVocab'), path: '/vocabulary', icon: Brain, tourId: 'nav-vocabulary' },
-            ]
-        },
-        languageGroup,
-        {
-            category: t('nav.categories.focusAndCommunity') || 'FOKUS & HAMJAMIYAT',
-            icon: Users,
-            items: [
-                { name: t('nav.focus'), path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: t('nav.notes'), path: '/notes', icon: NotebookText, tourId: 'nav-notes' },
-                { name: t('nav.community'), path: '/community', icon: Users, tourId: 'nav-community' },
-                { name: t('nav.progress'), path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-            ]
+    const navGroups: NavGroup[] = useMemo(() => {
+        if (primaryLanguage === 'ja') {
+            return [
+                {
+                    category: "O'RGANISH (LEARN)",
+                    icon: BookOpen,
+                    items: [
+                        { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+                        { name: "Kanji O'rganish", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+                        { name: "Grammatika Quiz", path: '/jlpt/grammar-quiz', icon: Sparkles, tourId: 'nav-grammar' },
+                        { name: "Reading (O'qish)", path: '/jlpt/reading', icon: FileText, tourId: 'nav-reading' },
+                        { name: "Listening (Tinglash)", path: '/jlpt/listening', icon: Headphones, tourId: 'nav-listening' },
+                        { name: "Speaking & Senariylar", path: '/scenarios', icon: Mic, tourId: 'nav-speaking' },
+                    ]
+                },
+                {
+                    category: 'TARGET (JLPT)',
+                    icon: Target,
+                    items: [
+                        { name: 'JLPT Hub (Level)', path: '/jlpt', icon: GraduationCap, tourId: 'nav-jlpt' },
+                        { name: 'JLPT Mock Exam', path: '/jlpt/mock-exam', icon: Sparkles, tourId: 'nav-mock' },
+                    ]
+                },
+                {
+                    category: 'ASBOBLAR (TOOLS)',
+                    icon: CheckSquare,
+                    items: [
+                        { name: 'Tasks', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                        { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                        { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                        { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                        { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
+                    ]
+                }
+            ];
         }
-    ];
+
+        // Default: English ('en')
+        return [
+            {
+                category: "O'RGANISH (LEARN)",
+                icon: BookOpen,
+                items: [
+                    { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+                    { name: "Grammatika", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+                    { name: "Reading & Listening", path: '/ielts/reading-listening', icon: Headphones, tourId: 'nav-reading' },
+                    { name: "Writing Mock", path: '/ielts/writing', icon: PenTool, tourId: 'nav-writing' },
+                    { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+                ]
+            },
+            {
+                category: 'TARGET (IELTS)',
+                icon: Target,
+                items: [
+                    { name: 'IELTS Hub (Band)', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
+                    { name: 'Speaking Mock Exam', path: '/ielts/speaking-mock', icon: Sparkles, tourId: 'nav-mock' },
+                ]
+            },
+            {
+                category: 'ASBOBLAR (TOOLS)',
+                icon: CheckSquare,
+                items: [
+                    { name: 'Tasks', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                    { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                    { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                    { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                    { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
+                ]
+            }
+        ];
+    }, [primaryLanguage]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -169,35 +166,37 @@ const Layout: React.FC = () => {
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
         <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-3">
-            {/* Quick Search Button */}
-            {!isCollapsed ? (
-                <button
-                    onClick={() => {
-                        setIsCommandPaletteOpen(true);
-                        onClick?.();
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground bg-muted/50 hover:bg-muted border border-border/60 rounded-xl transition-all mb-3 group"
-                >
-                    <span className="flex items-center gap-2">
-                        <Search size={14} className="text-primary" />
-                        <span>Tezkor Qidiruv...</span>
-                    </span>
-                    <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-bold bg-background text-muted-foreground border border-border rounded shadow-xs">
-                        ⌘K
-                    </kbd>
-                </button>
-            ) : (
-                <button
-                    onClick={() => {
-                        setIsCommandPaletteOpen(true);
-                        onClick?.();
-                    }}
-                    title="Tezkor Qidiruv (⌘K)"
-                    className="w-full py-2 flex justify-center text-muted-foreground hover:text-primary hover:bg-muted/80 rounded-xl transition-all mb-2"
-                >
-                    <Search size={18} />
-                </button>
-            )}
+            {/* Standalone Dashboard Link */}
+            <NavLink
+                to="/dashboard"
+                onClick={onClick}
+                data-tour="nav-dashboard"
+                className={({ isActive }) =>
+                    `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                        ? 'bg-primary/10 text-primary font-bold shadow-xs'
+                        : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                    }`
+                }
+                title={isCollapsed ? (t('nav.dashboard') || 'Dashboard') : ''}
+            >
+                {({ isActive }) => (
+                    <>
+                        {isActive && (
+                            <motion.div
+                                layoutId="activeNavIndicator"
+                                className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
+                        )}
+                        <Home 
+                            size={18} 
+                            className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
+                            strokeWidth={isActive ? 2.5 : 2}
+                        />
+                        {!isCollapsed && <span className="truncate">{t('nav.dashboard') || 'Dashboard'}</span>}
+                    </>
+                )}
+            </NavLink>
 
             {navGroups.map((group) => {
                 const isGroupCollapsed = !!collapsedGroups[group.category];
@@ -319,13 +318,6 @@ const Layout: React.FC = () => {
                         {getPageTitle()}
                     </h1>
                 </div>
-                <button
-                    onClick={() => setIsCommandPaletteOpen(true)}
-                    className="p-2 rounded-xl bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                    aria-label="Qidiruv"
-                >
-                    <Search size={18} />
-                </button>
             </header>
 
             {/* Desktop Sidebar */}
@@ -347,52 +339,48 @@ const Layout: React.FC = () => {
                     </Button>
                 </div>
 
-                {/* Track Switcher Bar */}
-                {!isCollapsed ? (
-                    <div className="px-3 pt-3 pb-1">
-                        <div className="p-1 bg-muted/60 border border-border rounded-xl flex items-center gap-1">
+                {/* Secondary Focus Quick Switcher (Only when 2 languages enabled) */}
+                {enabledLanguages.length > 1 && (
+                    <div className={`px-3 pt-2 pb-1 ${isCollapsed ? 'flex justify-center px-1' : ''}`}>
+                        {!isCollapsed ? (
+                            <div className={`px-2.5 py-1.5 rounded-xl border flex items-center justify-between transition-all ${
+                                primaryLanguage === 'ja'
+                                    ? 'bg-rose-950/25 border-rose-500/30 text-rose-300'
+                                    : 'bg-indigo-950/25 border-indigo-500/30 text-indigo-300'
+                            }`}>
+                                <div className="flex items-center gap-1.5 min-w-0">
+                                    <span className="text-sm">{primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}</span>
+                                    <span className="text-xs font-bold truncate text-foreground">
+                                        {primaryLanguage === 'ja' ? `JLPT ${targetLevel || 'N3'}` : `IELTS ${targetLevel || 'B2'}`}
+                                    </span>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setPrimaryFocus(primaryLanguage === 'en' ? 'ja' : 'en')}
+                                    className="px-2 py-0.5 rounded-lg bg-background/80 hover:bg-background border border-border text-[10px] font-bold text-muted-foreground hover:text-foreground transition-all shadow-xs shrink-0"
+                                    title="Boshqa tilga o'tish"
+                                >
+                                    ⇄ Almashtirish
+                                </button>
+                            </div>
+                        ) : (
                             <button
                                 type="button"
-                                onClick={() => handleSwitchTrack('en')}
-                                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-black transition-all ${
-                                    studyTrack === 'en'
-                                        ? 'bg-indigo-600 text-white shadow-xs'
-                                        : 'text-muted-foreground hover:text-foreground'
+                                onClick={() => setPrimaryFocus(primaryLanguage === 'en' ? 'ja' : 'en')}
+                                className={`w-9 h-9 rounded-xl border flex items-center justify-center text-sm transition-all ${
+                                    primaryLanguage === 'ja'
+                                        ? 'bg-rose-950/30 border-rose-500/30'
+                                        : 'bg-indigo-950/30 border-indigo-500/30'
                                 }`}
-                                title="Ingliz tili & IELTS yo'nalishi"
+                                title={primaryLanguage === 'ja' ? `🇯🇵 JLPT ${targetLevel || 'N3'}` : `🇬🇧 IELTS ${targetLevel || 'B2'}`}
                             >
-                                <span>🇬🇧</span>
-                                <span>IELTS</span>
+                                {primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}
                             </button>
-                            <button
-                                type="button"
-                                onClick={() => handleSwitchTrack('ja')}
-                                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-black transition-all ${
-                                    studyTrack === 'ja'
-                                        ? 'bg-rose-600 text-white shadow-xs'
-                                        : 'text-muted-foreground hover:text-foreground'
-                                }`}
-                                title="Yapon tili & JLPT yo'nalishi"
-                            >
-                                <span>🇯🇵</span>
-                                <span>JLPT</span>
-                            </button>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="px-2 pt-2 pb-1 flex justify-center">
-                        <button
-                            type="button"
-                            onClick={() => handleSwitchTrack(studyTrack === 'en' ? 'ja' : 'en')}
-                            className="w-10 h-10 rounded-xl bg-muted/60 border border-border flex items-center justify-center text-lg hover:scale-105 transition-all"
-                            title={studyTrack === 'en' ? "Hozir: 🇬🇧 IELTS (Bosib 🇯🇵 JLPT ga o'ting)" : "Hozir: 🇯🇵 JLPT (Bosib 🇬🇧 IELTS ga o'ting)"}
-                        >
-                            {studyTrack === 'en' ? '🇬🇧' : '🇯🇵'}
-                        </button>
+                        )}
                     </div>
                 )}
 
-                {/* Navigation Links (Accordion Folders) */}
+                {/* Navigation Links */}
                 <NavLinks />
 
                 {/* Bottom Section: Settings & Get Premium */}
@@ -514,12 +502,6 @@ const Layout: React.FC = () => {
                     </SheetContent>
                 </Sheet>
             </nav>
-
-            {/* Quick Command Palette (⌘K) */}
-            <QuickCommandPalette 
-                isOpen={isCommandPaletteOpen} 
-                onClose={() => setIsCommandPaletteOpen(false)} 
-            />
 
             {/* Personalized 60s Onboarding Wizard */}
             <PersonalizedOnboardingModal

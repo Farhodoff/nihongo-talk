@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { StudySession, CoachSession } from '../types';
 import { DatabaseSession } from '../types/supabase-types';
@@ -6,6 +6,11 @@ import { generateUUID } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
+    const awardXPRef = useRef(awardXP);
+    useEffect(() => {
+        awardXPRef.current = awardXP;
+    }, [awardXP]);
+
     const [sessions, setSessions] = useState<StudySession[]>(() => {
         return safeLocalStorage.getJSON<StudySession[]>('study_planner_sessions_cache', []);
     });
@@ -63,15 +68,15 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
                         safeLocalStorage.setJSON('study_planner_sessions_cache', updated);
                         return updated;
                     });
-                    if (awardXP) {
-                        await awardXP(sessionData.type === 'focus' ? 10 : 2);
+                    if (awardXPRef.current) {
+                        await awardXPRef.current(sessionData.type === 'focus' ? 10 : 2);
                     }
                 }
             } catch (e) {
                 console.warn('[addSession] DB sync notice (local session preserved):', e);
             }
         }
-    }, [awardXP]);
+    }, []);
 
     const addCoachSession = useCallback(async (session: Partial<CoachSession>): Promise<void> => {
         let activeUserId: string | null = null;
@@ -119,17 +124,25 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
                 feedback: data.feedback,
                 createdAt: data.created_at
             }, ...prev]);
-            if (awardXP) {
-                await awardXP(15);
+            if (awardXPRef.current) {
+                await awardXPRef.current(15);
             }
         }
-    }, [awardXP]);
+    }, []);
+
+    const setSessionsState = useCallback((value: React.SetStateAction<StudySession[]>) => {
+        setSessions(value);
+    }, []);
+
+    const setCoachSessionsState = useCallback((value: React.SetStateAction<CoachSession[]>) => {
+        setCoachSessions(value);
+    }, []);
 
     return {
         sessions,
-        setSessions,
+        setSessions: setSessionsState,
         coachSessions,
-        setCoachSessions,
+        setCoachSessions: setCoachSessionsState,
         addSession,
         addCoachSession
     };

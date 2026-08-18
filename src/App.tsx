@@ -51,6 +51,7 @@ const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
 const QuestionEditor = lazy(() => import('./pages/admin/QuestionEditor'));
 const ExamTake = lazy(() => import('./pages/exams/ExamTake'));
 const DeveloperApiPage = lazy(() => import('./pages/DeveloperApiPage'));
+const LessonPlayerPage = lazy(() => import('./pages/LessonPlayerPage'));
 
 
 // Loading component
@@ -106,7 +107,6 @@ const App: React.FC = () => {
             <LanguageProvider>
                 <StudyPlannerProvider>
                     <FocusTimerProvider>
-                        <OfflineIndicator />
                         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                         <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
                             <Suspense fallback={<PageLoader />}>
@@ -114,6 +114,7 @@ const App: React.FC = () => {
                                     <Route path="/" element={<Layout />}>
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
+                                        <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
                                         <Route path="ielts/writing" element={<IeltsWritingPage />} />
@@ -125,6 +126,7 @@ const App: React.FC = () => {
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="jlpt/listening" element={<JlptListeningMockPage />} />
                                         <Route path="jlpt/grammar" element={<JlptGrammarQuizPage />} />
+                                        <Route path="jlpt/grammar-quiz" element={<JlptGrammarQuizPage />} />
                                         <Route path="jlpt/reading" element={<JlptReadingPage />} />
                                         <Route path="jlpt/mock-exam" element={<JlptMockExamPage />} />
                                         <Route path="calendar" element={<CalendarPage />} />

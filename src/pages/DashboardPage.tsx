@@ -9,7 +9,7 @@ import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Sparkles } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
-    const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings } = useStudyData();
+    const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings, primaryLanguage, targetLevel, targetGoal } = useStudyData();
     const { language, t } = useLanguage();
     const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>([]);
     const [isAiInsightsLoading, setIsAiInsightsLoading] = useState(false);
@@ -77,47 +77,44 @@ const DashboardPage: React.FC = () => {
                 mood: avgMood,
                 pendingTasks,
                 masteryScore,
+                mastery: masteryScore,
                 progress: 50,
-                mastery: masteryScore
             };
         });
     }, [subjects, sessions, tasks, flashcards]);
 
     useEffect(() => {
-        if (subjectsStats.length === 0 || loading || !isAIKeyConfigured()) return;
-
-        const loadInsights = async () => {
+        let isMounted = true;
+        if (subjectsStats.length > 0 && aiInsights.length === 0 && !isAiInsightsLoading && isAIKeyConfigured()) {
             setIsAiInsightsLoading(true);
-            try {
-                const insights = await generateStudyInsight(subjectsStats, settings.googleApiKey);
-                setAiInsights(insights);
-            } catch (error) {
-                console.error("Failed to load AI insights:", error);
-            } finally {
-                setIsAiInsightsLoading(false);
-            }
-        };
-
-        loadInsights();
-        // Use stringified JSON to prevent infinite loop or excessive API calls
-        // when object references change but data remains the same
-    }, [JSON.stringify(subjectsStats), settings.googleApiKey, loading]);
+            generateStudyInsight(subjectsStats, settings.googleApiKey)
+                .then(insights => {
+                    if (isMounted && insights && insights.length > 0) {
+                        setAiInsights(insights);
+                    }
+                })
+                .catch(() => {})
+                .finally(() => {
+                    if (isMounted) setIsAiInsightsLoading(false);
+                });
+        }
+        return () => { isMounted = false; };
+    }, [subjectsStats.length, settings.googleApiKey]);
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center h-64 space-y-4">
-                <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
-                <p className="text-gray-500 dark:text-gray-400 font-medium">Ma'lumotlar yuklanmoqda...</p>
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
 
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header / Greeting */}
+        <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-200">
+            {/* Top Greeting & Quick Stats */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-foreground tracking-tight">
+                    <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
                         {greeting}, <span className="text-gradient">Farhod</span> 👋
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -147,6 +144,121 @@ const DashboardPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Language Focus Hero Card */}
+            {primaryLanguage === 'ja' ? (
+                <div className="p-6 rounded-3xl border border-rose-500/30 bg-gradient-to-r from-rose-950/30 via-card to-card relative overflow-hidden shadow-lg">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <span className="text-2xl">🇯🇵</span>
+                                <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                                    JLPT {targetLevel} Focus Mode
+                                </span>
+                                <span className="text-xs text-muted-foreground font-medium">
+                                    • {targetGoal}
+                                </span>
+                            </div>
+                            <h3 className="text-xl font-bold text-foreground">
+                                Bugungi Yapon Tili Mashg'ulotlari
+                            </h3>
+                            <p className="text-xs text-muted-foreground max-w-xl">
+                                Har kuni 20 ta yangi Kanji, 1 ta grammatika qoidasi va AI bilan 10 daqiqa jonli ovozli muloqot qiling.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 shrink-0">
+                            <Link
+                                to="/lesson/ja-n3-u1-l1"
+                                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-black shadow-md shadow-rose-600/30 transition-all flex items-center gap-1.5"
+                            >
+                                <span>🚀</span> 1-Darsni Boshlash
+                            </Link>
+                            <Link
+                                to="/jlpt"
+                                className="px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🈶</span> Kanji
+                            </Link>
+                            <Link
+                                to="/jlpt/grammar-quiz"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>📖</span> Grammatika
+                            </Link>
+                            <Link
+                                to="/speaking-coach?lang=ja"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🗣️</span> AI Suhbat
+                            </Link>
+                            <Link
+                                to="/jlpt/mock-exam"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🎌</span> JLPT Mock
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className="p-6 rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/30 via-card to-card relative overflow-hidden shadow-lg">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <span className="text-2xl">🇬🇧</span>
+                                <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                                    IELTS ({targetLevel}) Focus Mode
+                                </span>
+                                <span className="text-xs text-muted-foreground font-medium">
+                                    • {targetGoal}
+                                </span>
+                            </div>
+                            <h3 className="text-xl font-bold text-foreground">
+                                Bugungi IELTS & Akademik Ingliz Tili
+                            </h3>
+                            <p className="text-xs text-muted-foreground max-w-xl">
+                                Band 7.0+ uchun 4 ta ko'nikmani parallel rivojlantiring: Speaking Examiner, Writing tahlili va Oxford Academic lug'at.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 shrink-0">
+                            <Link
+                                to="/lesson/en-b2-u1-l1"
+                                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black shadow-md shadow-indigo-600/30 transition-all flex items-center gap-1.5"
+                            >
+                                <span>🚀</span> Start Lesson 1
+                            </Link>
+                            <Link
+                                to="/speaking-coach?lang=en"
+                                className="px-3.5 py-2 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🎙️</span> Speaking Examiner
+                            </Link>
+                            <Link
+                                to="/ielts/writing"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-indigo-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>✍️</span> Writing Mock
+                            </Link>
+                            <Link
+                                to="/vocabulary"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-indigo-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🧠</span> Academic Vocab
+                            </Link>
+                            <Link
+                                to="/ielts"
+                                className="px-3.5 py-2 rounded-xl bg-card border border-border hover:border-indigo-500/40 text-foreground text-xs font-bold transition-all flex items-center gap-1.5"
+                            >
+                                <span>🎓</span> IELTS Hub
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <CountdownWidget />
 

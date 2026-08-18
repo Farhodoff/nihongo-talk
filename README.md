@@ -141,10 +141,14 @@ npm install
 ### 3. Configure environment variables
 Create a `.env` file in the project root:
 ```env
+# Frontend Client (Public Anon Key)
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_OPENAI_API_KEY=your_openai_api_key
-VITE_DEEPSEEK_API_KEY=your_deepseek_api_key
+
+# Backend Serverless Environment Variables (Never use VITE_ prefix for secrets!)
+DEEPSEEK_API_KEY=your_deepseek_api_key
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+SERVICE_ROLE=your_supabase_service_role_key
 ```
 
 ### 4. Run development server

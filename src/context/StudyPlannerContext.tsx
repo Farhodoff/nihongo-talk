@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { supabase } from '../lib/supabase';
-import { User } from '@supabase/supabase-js';
-import { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
+import type { User } from '@supabase/supabase-js';
+import type { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
 import { useGamification } from '../hooks/useGamification';
 import { useTasks } from '../hooks/useTasks';
 import { useFlashcards } from '../hooks/useFlashcards';
@@ -112,6 +112,15 @@ export interface StudyPlannerContextType {
     addSession: (session: Partial<StudySession>) => Promise<void>;
     addCoachSession: (session: Partial<CoachSession>) => Promise<void>;
 
+    // Learning Focus
+    primaryLanguage: 'en' | 'ja';
+    enabledLanguages: ('en' | 'ja')[];
+    targetLevel: string;
+    targetGoal: string;
+    setPrimaryFocus: (lang: 'en' | 'ja', level?: string, goal?: string) => Promise<void>;
+    addSecondaryLanguage: (lang: 'en' | 'ja') => Promise<void>;
+    removeSecondaryLanguage: (lang: 'en' | 'ja') => Promise<void>;
+
     // Data & Settings
     refreshData: () => Promise<void>;
     updateSettings: (updates: Partial<Settings>) => Promise<void>;
@@ -123,6 +132,13 @@ export interface StudyPlannerContextType {
 const StudyPlannerContext = createContext<StudyPlannerContextType | undefined>(undefined);
 
 // ===== PROVIDER =====
+const INITIAL_GAMIFICATION_STATE = {
+    totalXp: 0,
+    level: 1,
+    currentStreak: 0,
+    lastActivityDate: null
+};
+
 export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // 1. Gamification Hook
     const {
@@ -131,12 +147,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         awardXP,
         resetXP,
         getRank
-    } = useGamification({
-        totalXp: 0,
-        level: 1,
-        currentStreak: 0,
-        lastActivityDate: null
-    });
+    } = useGamification(INITIAL_GAMIFICATION_STATE);
 
     // 2. Tasks & Flashcards Hooks
     const {
@@ -238,6 +249,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(() => {
         return safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+    });
+
+    // Learning Focus State
+    const [primaryLanguage, setPrimaryLanguage] = useState<'en' | 'ja'>(() => {
+        const saved = safeLocalStorage.getItem('study_planner_primary_language') || safeLocalStorage.getItem('study_planner_study_track');
+        return (saved === 'ja' || saved === 'en') ? saved : 'en';
+    });
+
+    const [enabledLanguages, setEnabledLanguages] = useState<('en' | 'ja')[]>(() => {
+        const saved = safeLocalStorage.getJSON<('en' | 'ja')[] | null>('study_planner_enabled_languages', null);
+        if (Array.isArray(saved) && saved.length > 0) return saved;
+        return [primaryLanguage];
+    });
+
+    const [targetLevel, setTargetLevel] = useState<string>(() => {
+        return safeLocalStorage.getItem('study_planner_target_level') || (primaryLanguage === 'ja' ? 'N3' : 'B2');
+    });
+
+    const [targetGoal, setTargetGoal] = useState<string>(() => {
+        return safeLocalStorage.getItem('study_planner_target_goal') || (primaryLanguage === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+');
     });
 
     // Combined settings for consumers
@@ -382,7 +413,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         }));
                     if (dbPayload.length > 0) {
                         supabase.from('subjects').upsert(dbPayload).then(({ error }) => {
-                            if (error) console.warn("[Background Sync] Subjects upsert warning:", error);
+                            if (error && error.message !== 'Network unavailable' && navigator.onLine) {
+                                console.warn("[Background Sync] Subjects upsert warning:", error);
+                            }
                         });
                     }
                 }
@@ -508,6 +541,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         currentStreak: prof.current_streak || prev.currentStreak,
                         lastActivityDate: prof.last_activity_date || prev.lastActivityDate
                     }));
+
+                    if (prof.primary_language) {
+                        setPrimaryLanguage(prof.primary_language);
+                        safeLocalStorage.setItem('study_planner_primary_language', prof.primary_language);
+                        safeLocalStorage.setItem('study_planner_study_track', prof.primary_language);
+                        safeLocalStorage.setItem('study_planner_personalized_onboarded', 'true');
+                    }
+                    if (prof.enabled_languages && Array.isArray(prof.enabled_languages)) {
+                        setEnabledLanguages(prof.enabled_languages as ('en' | 'ja')[]);
+                        safeLocalStorage.setJSON('study_planner_enabled_languages', prof.enabled_languages);
+                    }
+                    if (prof.target_level) {
+                        setTargetLevel(prof.target_level);
+                        safeLocalStorage.setItem('study_planner_target_level', prof.target_level);
+                    }
+                    if (prof.target_goal) {
+                        setTargetGoal(prof.target_goal);
+                        safeLocalStorage.setItem('study_planner_target_goal', prof.target_goal);
+                    }
                 }
             } catch (err) {
                 console.warn("[fetchData] Entity sync warning:", err);
@@ -519,7 +571,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, []);
 
     // Update Settings Handler
     const updateSettings = async (updates: Partial<Settings>) => {
@@ -614,20 +666,110 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
     };
 
+    // Learning Focus Actions
+    const setPrimaryFocus = useCallback(async (lang: 'en' | 'ja', level?: string, goal?: string) => {
+        setPrimaryLanguage(lang);
+        safeLocalStorage.setItem('study_planner_primary_language', lang);
+        safeLocalStorage.setItem('study_planner_study_track', lang);
+
+        let currentEnabled: ('en' | 'ja')[] = [];
+        setEnabledLanguages(prev => {
+            const next = prev.includes(lang) ? prev : [lang, ...prev];
+            currentEnabled = next;
+            safeLocalStorage.setJSON('study_planner_enabled_languages', next);
+            return next;
+        });
+
+        const newLevel = level || (lang === 'ja' ? 'N3' : 'B2');
+        const newGoal = goal || (lang === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+');
+
+        setTargetLevel(newLevel);
+        safeLocalStorage.setItem('study_planner_target_level', newLevel);
+
+        setTargetGoal(newGoal);
+        safeLocalStorage.setItem('study_planner_target_goal', newGoal);
+
+        safeLocalStorage.setItem('study_planner_personalized_onboarded', 'true');
+        window.dispatchEvent(new Event('study-track-changed'));
+
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                await Promise.allSettled([
+                    supabase.from('profiles').update({
+                        primary_language: lang,
+                        enabled_languages: currentEnabled.length > 0 ? currentEnabled : [lang],
+                        target_level: newLevel,
+                        target_goal: newGoal,
+                        updated_at: new Date().toISOString()
+                    }).eq('id', user.id),
+                    supabase.auth.updateUser({
+                        data: {
+                            primary_language: lang,
+                            enabled_languages: currentEnabled.length > 0 ? currentEnabled : [lang],
+                            target_level: newLevel,
+                            target_goal: newGoal
+                        }
+                    })
+                ]);
+            }
+        } catch (err) {
+            console.warn('Sync learning focus warning:', err);
+        }
+    }, []);
+
+    const addSecondaryLanguage = useCallback(async (lang: 'en' | 'ja') => {
+        setEnabledLanguages(prev => {
+            if (prev.includes(lang)) return prev;
+            const next = [...prev, lang];
+            safeLocalStorage.setJSON('study_planner_enabled_languages', next);
+
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) {
+                    supabase.from('profiles').update({
+                        enabled_languages: next,
+                        updated_at: new Date().toISOString()
+                    }).eq('id', user.id).then(() => {});
+                }
+            });
+            return next;
+        });
+    }, []);
+
+    const removeSecondaryLanguage = useCallback(async (lang: 'en' | 'ja') => {
+        setEnabledLanguages(prev => {
+            if (lang === primaryLanguage) return prev;
+            const next = prev.filter(l => l !== lang);
+            safeLocalStorage.setJSON('study_planner_enabled_languages', next);
+
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) {
+                    supabase.from('profiles').update({
+                        enabled_languages: next,
+                        updated_at: new Date().toISOString()
+                    }).eq('id', user.id).then(() => {});
+                }
+            });
+            return next;
+        });
+    }, [primaryLanguage]);
+
     const contextValue = useMemo(() => ({
-        goals, tasks, subjects, sessions, coachSessions,
-        addGoal, updateGoal, deleteGoal,
-        addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
-        addSubject, updateSubject, deleteSubject,
-        addSession, addCoachSession, awardXP, resetXP,
+        goals, addGoal, updateGoal, deleteGoal,
+        tasks, addTask, addTasksBatch, toggleTask, deleteTask, restoreTask, updateTask, updateTaskStatus,
+        subjects, addSubject, updateSubject, deleteSubject,
+        sessions, addSession, coachSessions, addCoachSession,
+        awardXP, resetXP, getRank,
         notes, addNote, updateNote, deleteNote,
         studyNotes, addStudyNote, addStudyNotesBatch, updateStudyNote, deleteStudyNote,
         flashcards, addFlashcard, addFlashcardsBatch, updateFlashcard, deleteFlashcard, restoreFlashcard, reviewFlashcard, importFlashcards,
         whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
         events, addEvent, updateEvent, deleteEvent,
         googleEvents, syncGoogleEvents,
+        primaryLanguage, enabledLanguages, targetLevel, targetGoal,
+        setPrimaryFocus, addSecondaryLanguage, removeSecondaryLanguage,
         refreshData: fetchData,
-        settings, updateSettings, getRank,
+        settings, updateSettings,
         loading, user
     }), [
         goals, tasks, subjects, sessions, coachSessions,
@@ -641,6 +783,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         whiteboards, addWhiteboard, deleteWhiteboard, updateWhiteboardTitle,
         events, addEvent, updateEvent, deleteEvent,
         googleEvents, syncGoogleEvents,
+        primaryLanguage, enabledLanguages, targetLevel, targetGoal,
+        setPrimaryFocus, addSecondaryLanguage, removeSecondaryLanguage,
         fetchData, settings, updateSettings, getRank,
         loading, user
     ]);

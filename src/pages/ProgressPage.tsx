@@ -6,7 +6,6 @@ import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
 import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import ExamHistoryAnalytics from '../components/analytics/ExamHistoryAnalytics';
-import { AIExamScorePredictor } from '../components/analytics/AIExamScorePredictor';
 import CoachAnalytics from '../components/analytics/CoachAnalytics';
 import JlptProgressAnalytics from '../components/analytics/JlptProgressAnalytics';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -75,7 +74,6 @@ const ProgressPage: React.FC = () => {
                 </div>
             ) : (
                 <>
-                    <AIExamScorePredictor />
                     <JlptProgressAnalytics />
                     <ActivityAnalytics sessions={sessions} />
                     <CoachAnalytics sessions={coachSessions} />

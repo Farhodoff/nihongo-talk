@@ -23,12 +23,13 @@ import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
 import SubjectForm from '../components/subjects/SubjectForm';
 
 const DecksPage: React.FC = () => {
-    const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch } = useStudyData();
+    const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch, primaryLanguage } = useStudyData();
     const { t } = useLanguage();
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
     const [subTab, setSubTab] = useState<'active' | 'archived'>('active');
+    const [libraryFilter, setLibraryFilter] = useState<'primary' | 'ja' | 'en' | 'all'>('primary');
     const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
     const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
     const [isImportModalOpen, setImportModalOpen] = useState(false);
@@ -725,14 +726,88 @@ const DecksPage: React.FC = () => {
                     {/* Standard Level Library */}
                     <div className="space-y-4 pt-2">
                         <div className="pb-2 border-b border-border/50">
-                            <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                                <Library size={18} className="text-amber-500" />
-                                Standart Darajalar Kutubxonasi
-                            </h3>
-                            <p className="text-xs text-muted-foreground">JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami</p>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div>
+                                    <h3 className="text-xl font-bold text-foreground">
+                                        Standart Darajalar Kutubxonasi
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground">
+                                        JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami
+                                    </p>
+                                </div>
+                                
+                                {/* Filter Chips */}
+                                <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-xl self-start sm:self-center">
+                                    <button
+                                        type="button"
+                                        onClick={() => setLibraryFilter('primary')}
+                                        className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
+                                            libraryFilter === 'primary'
+                                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        ⭐ Asosiy ({primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'})
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setLibraryFilter('ja')}
+                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                            libraryFilter === 'ja'
+                                                ? 'bg-rose-600 text-white shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        🇯🇵 JLPT
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setLibraryFilter('en')}
+                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                            libraryFilter === 'en'
+                                                ? 'bg-indigo-600 text-white shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        🇬🇧 IELTS
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setLibraryFilter('all')}
+                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                            libraryFilter === 'all'
+                                                ? 'bg-background text-foreground shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        Barchasi
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {PRESET_DECKS.map(deck => {
+                            {[...PRESET_DECKS]
+                                .filter(deck => {
+                                    const isJa = deck.level.startsWith('JLPT');
+                                    if (libraryFilter === 'primary') {
+                                        return primaryLanguage === 'ja' ? isJa : !isJa;
+                                    }
+                                    if (libraryFilter === 'ja') return isJa;
+                                    if (libraryFilter === 'en') return !isJa;
+                                    return true;
+                                })
+                                .sort((a, b) => {
+                                    const aIsJa = a.level.startsWith('JLPT');
+                                    const bIsJa = b.level.startsWith('JLPT');
+                                    if (primaryLanguage === 'ja') {
+                                        if (aIsJa && !bIsJa) return -1;
+                                        if (!aIsJa && bIsJa) return 1;
+                                    } else {
+                                        if (!aIsJa && bIsJa) return -1;
+                                        if (aIsJa && !bIsJa) return 1;
+                                    }
+                                    return 0;
+                                }).map(deck => {
                                 const matchingSubject = findMatchingSubject(deck);
                                 return (
                                     <PresetDeckCard

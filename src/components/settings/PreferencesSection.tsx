@@ -1,7 +1,7 @@
-import React from 'react';
-import { Bell, Moon, HelpCircle, Globe, BookA, GraduationCap } from 'lucide-react';
+import { Bell, Moon, Sun, HelpCircle, Globe, BookA, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useLanguage } from '../../context/LanguageContext';
+import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 
 interface Settings {
@@ -20,14 +20,24 @@ interface PreferencesSectionProps {
 
 const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
+    onToggleTheme,
     onToggleNotifications,
     onUpdateSettings
 }) => {
     const { language, setLanguage, t } = useLanguage();
+    const { 
+        primaryLanguage, 
+        enabledLanguages, 
+        targetLevel, 
+        targetGoal, 
+        setPrimaryFocus, 
+        addSecondaryLanguage, 
+        removeSecondaryLanguage 
+    } = useStudyData();
 
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
-            {/* Language Selector Section */}
+            {/* Language Selector Section (App UI Language) */}
             <div>
                 <div className="flex items-center justify-between mb-5">
                     <div>
@@ -86,87 +96,221 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             <div className="pt-6 border-t border-border">
                 <div className="flex items-center justify-between mb-5">
                     <div>
-                        <h3 className="text-lg font-bold text-foreground">Display & Mavzu</h3>
-                        <p className="text-xs text-muted-foreground mt-0.5">Ilova to'liq professional Cyberpunk OLED Dark rejimiga sozlangan</p>
+                        <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                            <Moon size={20} className="text-primary" />
+                            Display & Mavzu
+                        </h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">Ilova dizayni va ranglar rejimini tanlang</p>
                     </div>
-                </div>
-
-                <div className="p-5 rounded-2xl border border-indigo-500/30 bg-indigo-950/20 text-foreground flex items-center justify-between shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
-                            <Moon size={22} />
-                        </div>
-                        <div>
-                            <div className="text-sm font-bold text-white flex items-center gap-2">
-                                <span>OLED Dark Rejim (Doimiy)</span>
-                                <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                                    Faol
-                                </span>
-                            </div>
-                            <div className="text-xs text-slate-400 mt-0.5">
-                                Ko'zni charchatmaydigan, batareyani tejovchi va yuqori kontrastli qorong'u rejim.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Study Track Selector (IELTS vs JLPT) */}
-            <div className="pt-6 border-t border-border space-y-4">
-                <div>
-                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                        <GraduationCap size={20} className="text-primary" />
-                        Asosiy O'quv Yo'nalishi (Fokus)
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                        Ilova interfeysi, menyusi va AI mashqlari qaysi tilga moslashtirilishini belgilang
-                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button
                         type="button"
                         onClick={() => {
-                            localStorage.setItem('study_planner_study_track', 'en');
-                            window.dispatchEvent(new Event('study-track-changed'));
-                            toast({ title: "🇬🇧 Ingliz tili (IELTS) yo'nalishi tanlandi" });
+                            if (settings.theme !== 'dark') {
+                                onToggleTheme ? onToggleTheme() : onUpdateSettings?.({ theme: 'dark' });
+                            }
                         }}
-                        className={`p-5 rounded-2xl border text-left transition-all flex items-center gap-4 ${
-                            (localStorage.getItem('study_planner_study_track') || 'en') === 'en'
-                                ? 'border-indigo-500 bg-indigo-950/25 ring-2 ring-indigo-500/20 text-foreground font-bold shadow-xs'
+                        className={`p-5 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between ${
+                            settings.theme === 'dark'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
-                        <div className="text-3xl p-2 rounded-xl bg-indigo-500/10 text-indigo-400">
-                            🇬🇧
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
+                                <Moon size={22} />
+                            </div>
+                            <div>
+                                <div className="text-sm font-bold text-foreground">OLED Dark (Tungi)</div>
+                                <div className="text-xs text-muted-foreground">Ko'zni charchatmaydigan yuqori kontrast</div>
+                            </div>
                         </div>
-                        <div>
-                            <div className="text-sm font-bold text-foreground">Ingliz Tili (IELTS)</div>
-                            <div className="text-xs text-muted-foreground">IELTS Examiner, Writing va Oxford so'zlar</div>
-                        </div>
+                        {settings.theme === 'dark' && (
+                            <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
+                                Faol
+                            </span>
+                        )}
                     </button>
 
                     <button
                         type="button"
                         onClick={() => {
-                            localStorage.setItem('study_planner_study_track', 'ja');
-                            window.dispatchEvent(new Event('study-track-changed'));
-                            toast({ title: "🇯🇵 Yapon tili (JLPT) yo'nalishi tanlandi" });
+                            if (settings.theme !== 'light') {
+                                onToggleTheme ? onToggleTheme() : onUpdateSettings?.({ theme: 'light' });
+                            }
                         }}
-                        className={`p-5 rounded-2xl border text-left transition-all flex items-center gap-4 ${
-                            localStorage.getItem('study_planner_study_track') === 'ja'
-                                ? 'border-rose-500 bg-rose-950/25 ring-2 ring-rose-500/20 text-foreground font-bold shadow-xs'
+                        className={`p-5 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between ${
+                            settings.theme === 'light'
+                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
                                 : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                         }`}
                     >
-                        <div className="text-3xl p-2 rounded-xl bg-rose-500/10 text-rose-400">
-                            🇯🇵
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 rounded-xl bg-amber-500 text-white shadow-md shadow-amber-500/30">
+                                <Sun size={22} />
+                            </div>
+                            <div>
+                                <div className="text-sm font-bold text-foreground">Light (Kunduzgi)</div>
+                                <div className="text-xs text-muted-foreground">Yorqin va toza ko'rinish</div>
+                            </div>
                         </div>
-                        <div>
-                            <div className="text-sm font-bold text-foreground">Yapon Tili (JLPT)</div>
-                            <div className="text-xs text-muted-foreground">JLPT Hub, Kanji, Grammatika va Senariylar</div>
-                        </div>
+                        {settings.theme === 'light' && (
+                            <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
+                                Faol
+                            </span>
+                        )}
                     </button>
+                </div>
+            </div>
+
+            {/* Dedicated Learning Focus & Languages Manager */}
+            <div id="learning-focus" className="pt-6 border-t border-border space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                            <GraduationCap size={20} className="text-primary" />
+                            O'quv Yo'nalishi & Tillari (Learning Focus)
+                        </h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                            Asosiy til menyu, o'quv rejalari va tavsiyalarni boshqaradi. Ikkilamchi tillar ma'lumotlaringizni o'chirmasdan saqlanadi.
+                        </p>
+                    </div>
+                    
+                    {/* Add Secondary Language Action */}
+                    {enabledLanguages.length < 2 && (
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                const nextLang = primaryLanguage === 'en' ? 'ja' : 'en';
+                                await addSecondaryLanguage(nextLang);
+                                toast({ title: nextLang === 'ja' ? "🇯🇵 Yapon tili qo'shildi" : "🇬🇧 Ingliz tili qo'shildi" });
+                            }}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 text-xs font-black transition-all self-start"
+                        >
+                            <Plus size={15} />
+                            <span>{primaryLanguage === 'en' ? "+ 🇯🇵 Yapon tilini qo'shish" : "+ 🇬🇧 Ingliz tilini qo'shish"}</span>
+                        </button>
+                    )}
+                </div>
+
+                {/* Primary & Additional Languages List */}
+                <div className="space-y-4">
+                    {/* 1. PRIMARY LANGUAGE CARD */}
+                    <div className={`p-5 rounded-2xl border-2 transition-all ${
+                        primaryLanguage === 'ja'
+                            ? 'border-rose-500/80 bg-rose-950/20 shadow-lg shadow-rose-950/20'
+                            : 'border-indigo-500/80 bg-indigo-950/20 shadow-lg shadow-indigo-950/20'
+                    }`}>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div className="flex items-center gap-4">
+                                <div className="text-4xl p-2.5 rounded-2xl bg-background/80 border border-border shadow-xs">
+                                    {primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-base font-black text-foreground">
+                                            {primaryLanguage === 'ja' ? 'Yapon Tili (JLPT)' : 'Ingliz Tili (IELTS)'}
+                                        </span>
+                                        <span className={`text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full border ${
+                                            primaryLanguage === 'ja'
+                                                ? 'bg-rose-500 text-white border-rose-400'
+                                                : 'bg-indigo-600 text-white border-indigo-400'
+                                        }`}>
+                                            ★ ASOSIY FOKUS (PRIMARY)
+                                        </span>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground">
+                                        Maqsad: <strong className="text-foreground">{targetLevel}</strong> • {targetGoal}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Level Quick Select */}
+                            <div className="flex items-center gap-2 self-start sm:self-center">
+                                <span className="text-xs font-bold text-muted-foreground">Daraja:</span>
+                                <select
+                                    value={targetLevel}
+                                    onChange={(e) => setPrimaryFocus(primaryLanguage, e.target.value, targetGoal)}
+                                    className="px-3 py-1.5 rounded-xl bg-background border border-border text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-hidden"
+                                >
+                                    {primaryLanguage === 'ja' ? (
+                                        <>
+                                            <option value="N5">JLPT N5 (Boshlang'ich)</option>
+                                            <option value="N4">JLPT N4</option>
+                                            <option value="N3">JLPT N3 (O'rta)</option>
+                                            <option value="N2">JLPT N2 (Biznes)</option>
+                                            <option value="N1">JLPT N1 (Yuqori)</option>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <option value="A2">Beginner (A2)</option>
+                                            <option value="B1">Intermediate (B1)</option>
+                                            <option value="B2">Upper-Int / IELTS 6.5 (B2)</option>
+                                            <option value="C1">Advanced / IELTS 7.5+ (C1)</option>
+                                            <option value="C2">Mastery / IELTS 8.5+ (C2)</option>
+                                        </>
+                                    )}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 2. ADDITIONAL (SECONDARY) LANGUAGES */}
+                    {enabledLanguages.filter(l => l !== primaryLanguage).map(secLang => (
+                        <div 
+                            key={secLang}
+                            className="p-5 rounded-2xl border border-border bg-background/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:bg-muted/40"
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className="text-3xl p-2 rounded-2xl bg-muted/60 border border-border">
+                                    {secLang === 'ja' ? '🇯🇵' : '🇬🇧'}
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm font-bold text-foreground">
+                                            {secLang === 'ja' ? 'Yapon Tili (JLPT)' : 'Ingliz Tili (IELTS)'}
+                                        </span>
+                                        <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
+                                            Qo'shimcha (Additional)
+                                        </span>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground mt-0.5">
+                                        O'rganish ma'lumotlari saqlangan
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={async () => {
+                                        await setPrimaryFocus(secLang);
+                                        toast({ title: secLang === 'ja' ? "🇯🇵 Yapon tili asosiy fokusga o'tkazildi" : "🇬🇧 Ingliz tili asosiy fokusga o'tkazildi" });
+                                    }}
+                                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary text-primary-foreground font-black text-xs shadow-sm hover:scale-[1.02] active:scale-95 transition-all"
+                                >
+                                    <ArrowRightLeft size={14} />
+                                    <span>Asosiy Qilish</span>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={async () => {
+                                        if (window.confirm(secLang === 'ja' ? "Yapon tilini qo'shimcha ro'yxatdan olib tashlamoqchimisiz?" : "Ingliz tilini qo'shimcha ro'yxatdan olib tashlamoqchimisiz?")) {
+                                            await removeSecondaryLanguage(secLang);
+                                            toast({ title: "Til ro'yxatdan olib tashlandi" });
+                                        }
+                                    }}
+                                    className="p-2 rounded-xl text-muted-foreground hover:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-colors"
+                                    title="Qo'shimcha ro'yxatdan o'chirish"
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 

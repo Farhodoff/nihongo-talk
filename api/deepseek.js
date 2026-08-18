@@ -1,13 +1,7 @@
+import { verifyAuth, getBearerToken } from './_auth.js';
+
 export const config = {
   runtime: 'edge',
-};
-
-const getFallbackKey = () => {
-  try {
-    return atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
-  } catch (e) {
-    return '';
-  }
 };
 
 export default async function handler(req) {
@@ -17,19 +11,55 @@ export default async function handler(req) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Custom-Key',
       },
     });
   }
 
   if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    });
   }
 
+  const token = getBearerToken(req);
+  const customKey = req.headers.get('X-Custom-Key');
   const serverKey = process.env.DEEPSEEK_API_KEY;
-  const clientAuth = req.headers.get('Authorization');
-  const clientKey = clientAuth?.startsWith('Bearer ') && clientAuth.length > 15 ? clientAuth.substring(7) : null;
-  const apiKey = serverKey || clientKey || getFallbackKey();
+
+  let effectiveApiKey = null;
+
+  // 1. If user provided a direct DeepSeek key (BYOK: sk-...)
+  if (customKey && customKey.startsWith('sk-')) {
+    effectiveApiKey = customKey;
+  } else if (token && token.startsWith('sk-')) {
+    effectiveApiKey = token;
+  } else {
+    // 2. Otherwise verify user's Supabase JWT access token
+    const { user, error: authError } = await verifyAuth(req);
+    if (authError || !user) {
+      return new Response(JSON.stringify({
+        error: 'Unauthorized',
+        message: 'Foydalanuvchi tizimga kirmagan yoki shaxsiy API kalit kiritilmagan.',
+        details: authError,
+      }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    // 3. User is authenticated, use server-side configured API key
+    if (!serverKey) {
+      return new Response(JSON.stringify({
+        error: 'Service Unavailable',
+        message: 'Serverda DeepSeek API kaliti sozlanmagan. Iltimos Sozlamalar bo\'limida o\'z API kalitingizni kiriting.',
+      }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+    effectiveApiKey = serverKey;
+  }
 
   let payload;
   try {
@@ -37,7 +67,7 @@ export default async function handler(req) {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
@@ -46,7 +76,7 @@ export default async function handler(req) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${effectiveApiKey}`,
       },
       body: JSON.stringify(payload),
     });
@@ -61,9 +91,9 @@ export default async function handler(req) {
     });
   } catch (error) {
     console.error('DeepSeek API proxy error:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+    return new Response(JSON.stringify({ error: 'Internal Server Error', message: error?.message }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 }

@@ -161,6 +161,10 @@ export interface DatabaseProfile {
     current_streak?: number;
     last_activity_date?: string;
     google_api_key?: string;
+    primary_language?: 'en' | 'ja';
+    enabled_languages?: ('en' | 'ja')[];
+    target_level?: string;
+    target_goal?: string;
     updated_at?: string;
 }
 

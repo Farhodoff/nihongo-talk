@@ -19,15 +19,33 @@ export interface LinkCodeResult {
     account?: TelegramUser;
 }
 
-function ensureValidUuid(id: string): string {
-    const defaultUuid = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
-    if (!id || typeof id !== 'string') return defaultUuid;
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (uuidRegex.test(id)) return id;
-    return defaultUuid;
-}
-
 class TelegramService {
+    private async resolveUserId(id?: string): Promise<string | null> {
+        if (id && typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+            return id;
+        }
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) {
+                return session.user.id;
+            }
+        } catch {}
+        return id || null;
+    }
+
+    private async getAuthHeaders(): Promise<Record<string, string>> {
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.access_token) {
+                headers['Authorization'] = `Bearer ${session.access_token}`;
+            }
+        } catch {}
+        return headers;
+    }
+
     private generateCodeStr(): string {
         const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
         let code = '';
@@ -44,7 +62,10 @@ class TelegramService {
      * 3. Resilient Local Code Fallback
      */
     async generateLinkCode(rawUserId: string): Promise<LinkCodeResult> {
-        const userId = ensureValidUuid(rawUserId);
+        const userId = await this.resolveUserId(rawUserId);
+        if (!userId) {
+            return { code: undefined };
+        }
 
         // Tier 1: Direct Supabase Client Call
         try {
@@ -83,9 +104,10 @@ class TelegramService {
 
         // Tier 2: Server API Proxy Call
         try {
+            const headers = await this.getAuthHeaders();
             const response = await fetch('/api/telegram/generate-code', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ userId }),
             });
 
@@ -102,7 +124,7 @@ class TelegramService {
             console.warn('Tier 2 Server API generateLinkCode notice:', tier2Err);
         }
 
-        // Tier 3: Resilient Local Fallback (Always Guaranteed to Succeed!)
+        // Tier 3: Resilient Local Fallback
         const fallbackCode = this.generateCodeStr();
         const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
 
@@ -121,7 +143,8 @@ class TelegramService {
      * 2. Server API Proxy
      */
     async getLinkedAccount(rawUserId: string): Promise<TelegramUser | null> {
-        const userId = ensureValidUuid(rawUserId);
+        const userId = await this.resolveUserId(rawUserId);
+        if (!userId) return null;
 
         // Tier 1: Direct Supabase Client
         try {
@@ -141,9 +164,10 @@ class TelegramService {
 
         // Tier 2: Server API Proxy
         try {
+            const headers = await this.getAuthHeaders();
             const response = await fetch('/api/telegram/check-link', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ userId }),
             });
 
@@ -171,16 +195,18 @@ class TelegramService {
      * Unlink Telegram account
      */
     async unlinkAccount(rawUserId: string): Promise<boolean> {
-        const userId = ensureValidUuid(rawUserId);
+        const userId = await this.resolveUserId(rawUserId);
+        if (!userId) return false;
 
         try {
             await supabase.from('telegram_users').delete().eq('user_id', userId);
         } catch {}
 
         try {
+            const headers = await this.getAuthHeaders();
             await fetch('/api/telegram/unlink', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ userId }),
             });
         } catch {}
@@ -196,7 +222,8 @@ class TelegramService {
      * Update notification settings
      */
     async updateNotificationSettings(rawUserId: string, enabled: boolean): Promise<boolean> {
-        const userId = ensureValidUuid(rawUserId);
+        const userId = await this.resolveUserId(rawUserId);
+        if (!userId) return false;
 
         try {
             await supabase
@@ -206,9 +233,10 @@ class TelegramService {
         } catch {}
 
         try {
+            const headers = await this.getAuthHeaders();
             await fetch('/api/telegram/toggle-notifications', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ userId, enabled }),
             });
         } catch {}
@@ -220,12 +248,14 @@ class TelegramService {
      * Send a test notification via Telegram
      */
     async sendNotification(rawUserId: string, text: string): Promise<boolean> {
-        const userId = ensureValidUuid(rawUserId);
+        const userId = await this.resolveUserId(rawUserId);
+        if (!userId) return false;
 
         try {
+            const headers = await this.getAuthHeaders();
             const response = await fetch('/api/telegram/send-test', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ userId, text }),
             });
             if (response.ok) {
@@ -234,29 +264,7 @@ class TelegramService {
             }
         } catch {}
 
-        // Fallback direct bot call
-        try {
-            const account = await this.getLinkedAccount(userId);
-            if (!account?.chat_id) return false;
-
-            const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-            if (!botToken) return false;
-
-            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: account.chat_id,
-                    text,
-                    parse_mode: 'HTML',
-                }),
-            });
-            const data = await response.json();
-            return !!data.ok;
-        } catch (err) {
-            console.error('sendNotification error:', err);
-            return false;
-        }
+        return false;
     }
 }
 

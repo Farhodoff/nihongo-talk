@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-    Sparkles, Target, Clock, ArrowRight, ArrowLeft, Check
+    Sparkles, Target, Clock, ArrowRight, ArrowLeft
 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
-import { supabase } from '../../lib/supabase';
 import { toast } from '../../hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,12 +16,13 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
     isOpen,
     onClose
 }) => {
-    const { user, updateSettings, subjects, addSubject, addFlashcardsBatch } = useStudyData();
+    const { updateSettings, subjects, addSubject, addFlashcardsBatch, setPrimaryFocus } = useStudyData();
     const navigate = useNavigate();
 
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
     const [selectedLanguage, setSelectedLanguage] = useState<'ja' | 'en'>('en');
-    const [selectedLevel, setSelectedLevel] = useState<string>('IELTS 7.0');
+    const [selectedLevel, setSelectedLevel] = useState<string>('B2');
+    const [selectedGoal, setSelectedGoal] = useState<string>('🎯 IELTS Imtihoni (Band 7+)');
     const [selectedGoalMinutes, setSelectedGoalMinutes] = useState<number>(30);
     const [isFinalizing, setIsFinalizing] = useState(false);
 
@@ -30,8 +30,13 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
 
     const handleLanguageSelect = (lang: 'ja' | 'en') => {
         setSelectedLanguage(lang);
-        if (lang === 'ja') setSelectedLevel('JLPT N3');
-        else setSelectedLevel('IELTS 7.0');
+        if (lang === 'ja') {
+            setSelectedLevel('N3');
+            setSelectedGoal('🎯 JLPT Imtihoni (N3-N1)');
+        } else {
+            setSelectedLevel('B2');
+            setSelectedGoal('🎯 IELTS Imtihoni (Band 7+)');
+        }
         setStep(2);
     };
 
@@ -43,31 +48,18 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                 dailyStudyGoalMinutes: selectedGoalMinutes
             });
 
-            // 2. Save target goal & single study track
-            localStorage.setItem('study_planner_study_track', selectedLanguage);
-            localStorage.setItem('study_planner_target_goal', `${selectedLevel} (${selectedLanguage.toUpperCase()})`);
-            localStorage.setItem('study_planner_personalized_onboarded', 'true');
-            window.dispatchEvent(new Event('study-track-changed'));
-
-            if (user) {
-                await supabase.auth.updateUser({
-                    data: {
-                        target_goal: selectedLevel,
-                        study_language: selectedLanguage,
-                        daily_minutes: selectedGoalMinutes
-                    }
-                });
-            }
+            // 2. Save primary focus through unified context & Supabase
+            await setPrimaryFocus(selectedLanguage, selectedLevel, `${selectedGoal} (${selectedLevel})`);
 
             // 3. Auto-seed starter subject and flashcards if user has 0 subjects
             if (subjects.length === 0) {
                 if (selectedLanguage === 'ja') {
                     const newSub = await addSubject({
-                        name: `${selectedLevel} Asosiy Lug'at`,
-                        color: '#6366f1',
+                        name: `JLPT ${selectedLevel} Asosiy Lug'at`,
+                        color: '#f43f5e',
                         icon: '🎌',
                         schedule: [],
-                        description: `${selectedLevel} darajasi uchun boshlang'ich so'zlar`
+                        description: `JLPT ${selectedLevel} darajasi uchun boshlang'ich so'zlar`
                     });
                     if (newSub && newSub.id) {
                         await addFlashcardsBatch([
@@ -80,11 +72,11 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                     }
                 } else if (selectedLanguage === 'en') {
                     const newSub = await addSubject({
-                        name: `${selectedLevel} High-Frequency Vocab`,
-                        color: '#3b82f6',
+                        name: `IELTS (${selectedLevel}) High-Frequency Vocab`,
+                        color: '#6366f1',
                         icon: '🎓',
                         schedule: [],
-                        description: `${selectedLevel} vocabulary set`
+                        description: `${selectedLevel} vocabulary set for IELTS & Academic English`
                     });
                     if (newSub && newSub.id) {
                         await addFlashcardsBatch([
@@ -194,7 +186,7 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                     </div>
                 )}
 
-                {/* STEP 2: Choose Level / Goal */}
+                {/* STEP 2: Choose Current / Target Level */}
                 {step === 2 && (
                     <div className="space-y-6">
                         <div className="text-center space-y-2">
@@ -202,82 +194,70 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                                 <Target size={28} />
                             </div>
                             <h2 className="text-2xl font-black text-foreground tracking-tight">
-                                Qaysi darajaga erishmoqchisiz?
+                                Hozirgi yoki maqsad darajangiz qanday?
                             </h2>
                             <p className="text-xs text-muted-foreground">
-                                Tizim ushbu darajaga mos lug'at va testlarni tayyorlaydi
+                                Tizim aynan ushbu darajaga mos lug'at, testlar va o'quv rejasini tayyorlaydi
                             </p>
                         </div>
 
-                        <div className="space-y-2.5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1">
                             {selectedLanguage === 'ja' && (
                                 [
-                                    { level: 'JLPT N5', desc: "Boshlang'ich (Hiragana, Katakana & Oddiy jumlalar)" },
-                                    { level: 'JLPT N4', desc: "Boshlang'ich-O'rta (Kundalik suhbat va asosiy Kanji)" },
-                                    { level: 'JLPT N3', desc: "O'rta Daraja (Yaponiya hayoti va ishlash uchun)", tag: 'Tavsiya' },
-                                    { level: 'JLPT N2', desc: "Yuqori Daraja (Biznes, universitet va erkin muloqot)" },
-                                    { level: 'JLPT N1', desc: "Master Daraja (To'liq ona tili darajasida)" },
+                                    { level: 'Beginner', title: '🌱 Boshlang\'ich (N5)', desc: "Hiragana, Katakana & asosiy iboralar" },
+                                    { level: 'N4', title: '🎌 JLPT N4', desc: "Kundalik suhbat va 300 ta Kanji" },
+                                    { level: 'N3', title: '🎌 JLPT N3', desc: "O'rta daraja, ishlash & 650 Kanji", tag: 'Tavsiya' },
+                                    { level: 'N2', title: '🎌 JLPT N2', desc: "Biznes & Universitet darajasi" },
+                                    { level: 'N1', title: '🎌 JLPT N1', desc: "Ona tili darajasida erkin" },
                                 ].map((item) => (
                                     <button
                                         key={item.level}
                                         onClick={() => setSelectedLevel(item.level)}
-                                        className={`w-full p-3.5 rounded-2xl border-2 text-left flex items-center justify-between transition-all ${
+                                        className={`p-3.5 rounded-2xl border-2 text-left flex flex-col justify-between transition-all ${
                                             selectedLevel === item.level
-                                                ? 'border-primary bg-primary/10 text-foreground font-bold shadow-xs'
+                                                ? 'border-rose-500 bg-rose-500/10 text-foreground font-bold shadow-xs'
                                                 : 'border-border bg-background hover:bg-muted/60 text-muted-foreground hover:text-foreground'
                                         }`}
                                     >
-                                        <div>
-                                            <div className="text-sm font-extrabold text-foreground flex items-center gap-2">
-                                                <span>{item.level}</span>
-                                                {item.tag && (
-                                                    <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-primary text-primary-foreground">
-                                                        {item.tag}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="text-xs text-muted-foreground mt-0.5">{item.desc}</div>
+                                        <div className="flex items-center justify-between w-full">
+                                            <span className="text-sm font-extrabold text-foreground">{item.title}</span>
+                                            {item.tag && (
+                                                <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-rose-500 text-white">
+                                                    {item.tag}
+                                                </span>
+                                            )}
                                         </div>
-                                        {selectedLevel === item.level && (
-                                            <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                                                <Check size={14} />
-                                            </div>
-                                        )}
+                                        <div className="text-[11px] text-muted-foreground mt-1">{item.desc}</div>
                                     </button>
                                 ))
                             )}
 
                             {selectedLanguage === 'en' && (
                                 [
-                                    { level: 'IELTS 5.5 - 6.0', desc: "Foundation & General (Asosiy grammatika va so'zlar)" },
-                                    { level: 'IELTS 6.5 - 7.0', desc: "Academic Target (Xorijiy universitetlar uchun)", tag: 'Tavsiya' },
-                                    { level: 'IELTS 7.5 - 8.5', desc: "Advanced Mastery (To'liq erkin so'zlashuv va akademik esse)" },
+                                    { level: 'A1-A2', title: '🌱 Beginner (A1-A2)', desc: "Asosiy grammatika & tayanch so'zlar" },
+                                    { level: 'B1', title: '🎓 Intermediate (B1)', desc: "IELTS 4.5 - 5.5 bazasi" },
+                                    { level: 'B2', title: '🎓 Upper-Int (B2)', desc: "IELTS 6.0 - 7.0 akademik tayyorgarlik", tag: 'Tavsiya' },
+                                    { level: 'C1', title: '🎓 Advanced (C1)', desc: "IELTS 7.5 - 8.5 & Karyera" },
+                                    { level: 'C2', title: '🎓 Mastery (C2)', desc: "Ona tili darajasidagi ravonlik" },
                                 ].map((item) => (
                                     <button
                                         key={item.level}
                                         onClick={() => setSelectedLevel(item.level)}
-                                        className={`w-full p-3.5 rounded-2xl border-2 text-left flex items-center justify-between transition-all ${
+                                        className={`p-3.5 rounded-2xl border-2 text-left flex flex-col justify-between transition-all ${
                                             selectedLevel === item.level
-                                                ? 'border-blue-500 bg-blue-500/10 text-foreground font-bold shadow-xs'
+                                                ? 'border-indigo-500 bg-indigo-500/10 text-foreground font-bold shadow-xs'
                                                 : 'border-border bg-background hover:bg-muted/60 text-muted-foreground hover:text-foreground'
                                         }`}
                                     >
-                                        <div>
-                                            <div className="text-sm font-extrabold text-foreground flex items-center gap-2">
-                                                <span>{item.level}</span>
-                                                {item.tag && (
-                                                    <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-blue-500 text-white">
-                                                        {item.tag}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="text-xs text-muted-foreground mt-0.5">{item.desc}</div>
+                                        <div className="flex items-center justify-between w-full">
+                                            <span className="text-sm font-extrabold text-foreground">{item.title}</span>
+                                            {item.tag && (
+                                                <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-indigo-600 text-white">
+                                                    {item.tag}
+                                                </span>
+                                            )}
                                         </div>
-                                        {selectedLevel === item.level && (
-                                            <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0">
-                                                <Check size={14} />
-                                            </div>
-                                        )}
+                                        <div className="text-[11px] text-muted-foreground mt-1">{item.desc}</div>
                                     </button>
                                 ))
                             )}
@@ -302,54 +282,80 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                     </div>
                 )}
 
-                {/* STEP 3: Choose Daily Time Intensity */}
+                {/* STEP 3: Choose Primary Goal & Daily Intensity */}
                 {step === 3 && (
-                    <div className="space-y-6">
-                        <div className="text-center space-y-2">
-                            <div className="w-14 h-14 mx-auto rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/20 shadow-xs">
-                                <Clock size={28} />
+                    <div className="space-y-5">
+                        <div className="text-center space-y-1.5">
+                            <div className="w-12 h-12 mx-auto rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/20 shadow-xs">
+                                <Clock size={24} />
                             </div>
-                            <h2 className="text-2xl font-black text-foreground tracking-tight">
-                                Kuniga necha daqiqa ajratasiz?
+                            <h2 className="text-xl font-black text-foreground tracking-tight">
+                                Asosiy maqsadingiz va kunlik rejangiz
                             </h2>
                             <p className="text-xs text-muted-foreground">
-                                Kichik, lekin doimiy odat ulkan natijaga olib keladi (Kaizen falsafasi)
+                                O'qishingiz uchun optimal yuklamani belgilang
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3">
-                            {[
-                                { min: 15, title: "☕ 15 Daqiqa / Kun", badge: "Yengil & Doimiy", desc: "Kuniga 10-15 ta yangi so'z va 1 ta mikro-takrorlash" },
-                                { min: 30, title: "🎯 30 Daqiqa / Kun", badge: "Tavsiya etiladi", desc: "Kuniga 20 ta so'z + 1 ta qisqa JLPT/IELTS audio testi", popular: true },
-                                { min: 60, title: "🔥 60 Daqiqa / Kun", badge: "Super Fokus", desc: "Kuniga 40+ ta so'z, to'liq testlar va AI Speaking" },
-                            ].map((opt) => (
-                                <button
-                                    key={opt.min}
-                                    onClick={() => setSelectedGoalMinutes(opt.min)}
-                                    className={`p-4 rounded-2xl border-2 text-left flex items-center justify-between transition-all ${
-                                        selectedGoalMinutes === opt.min
-                                            ? 'border-primary bg-primary/10 text-foreground font-bold shadow-xs'
-                                            : 'border-border bg-background hover:bg-muted/60 text-muted-foreground hover:text-foreground'
-                                    }`}
-                                >
-                                    <div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-extrabold text-sm text-foreground">{opt.title}</span>
-                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                                                opt.popular ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                                            }`}>
-                                                {opt.badge}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-muted-foreground mt-1">{opt.desc}</p>
-                                    </div>
-                                    {selectedGoalMinutes === opt.min && (
-                                        <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                                            <Check size={14} />
-                                        </div>
-                                    )}
-                                </button>
-                            ))}
+                        {/* Goal Choices */}
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                Asosiy Maqsad:
+                            </label>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {(selectedLanguage === 'ja' ? [
+                                    '🎯 JLPT Imtihon topshirish',
+                                    '💬 Erkin Yaponcha Suhbat',
+                                    '🗾 Yaponiyada Yashash & Ishlash',
+                                    '📚 Umumiy Qiziqish & Anime'
+                                ] : [
+                                    '🎯 IELTS 7.0+ Imtihoni',
+                                    '💬 Erkin Speaking & Muloqot',
+                                    '🎓 Xorijiy Universitetga Kirish',
+                                    '💼 Xalqaro Karyera & Ish'
+                                ]).map((g) => (
+                                    <button
+                                        key={g}
+                                        type="button"
+                                        onClick={() => setSelectedGoal(g)}
+                                        className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all ${
+                                            selectedGoal === g
+                                                ? 'border-primary bg-primary/10 text-primary shadow-xs'
+                                                : 'border-border bg-background text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        {g}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Daily Time Goal */}
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                Kunlik O'qish Vaqti:
+                            </label>
+                            <div className="grid grid-cols-3 gap-2">
+                                {[
+                                    { min: 15, title: "15 daqiqa", desc: "Yengil" },
+                                    { min: 30, title: "30 daqiqa", desc: "Tavsiya", popular: true },
+                                    { min: 60, title: "60 daqiqa", desc: "Super Fokus" },
+                                ].map((opt) => (
+                                    <button
+                                        key={opt.min}
+                                        type="button"
+                                        onClick={() => setSelectedGoalMinutes(opt.min)}
+                                        className={`p-3 rounded-xl border text-center transition-all ${
+                                            selectedGoalMinutes === opt.min
+                                                ? 'border-primary bg-primary/10 text-primary font-bold shadow-xs'
+                                                : 'border-border bg-background text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        <div className="text-xs font-extrabold">{opt.title}</div>
+                                        <div className="text-[10px] text-muted-foreground">{opt.desc}</div>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="flex items-center justify-between pt-2">
@@ -363,9 +369,9 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                             <button
                                 onClick={handleFinish}
                                 disabled={isFinalizing}
-                                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white font-black text-xs shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-95 transition-all"
+                                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white font-black text-xs shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                             >
-                                {isFinalizing ? "Tayyorlanmoqda..." : "Rejani Yaratish 🚀"}
+                                {isFinalizing ? 'Tayyorlanmoqda...' : 'Rejani Yaratish 🚀'}
                             </button>
                         </div>
                     </div>

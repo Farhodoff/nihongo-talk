@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { callGeminiFallback } from './ai/aiConfig';
+import { supabase } from '../lib/supabase';
 
 let openaiInstance: OpenAI | null = null;
 let currentKey: string = '';
@@ -24,9 +25,9 @@ export const callDeepSeek = async (
     modelName: string = 'deepseek-chat',
     thinkingEnabled: boolean = false
 ): Promise<string> => {
-    let actualModel = 'deepseek-v4-flash';
+    let actualModel = 'deepseek-chat';
     if (modelName === 'deepseek-reasoner' || modelName === 'deepseek-v4-pro' || modelName.includes('pro') || modelName.includes('reasoner') || thinkingEnabled) {
-        actualModel = 'deepseek-v4-pro';
+        actualModel = 'deepseek-reasoner';
     }
 
     const messages: { role: string; content: string }[] = [];
@@ -50,35 +51,53 @@ export const callDeepSeek = async (
         validApiKey = null;
     }
 
-    // Try env variable
-    if (!validApiKey) {
+    // 1. If user provided a direct DeepSeek key, use SDK / direct call
+    if (validApiKey && validApiKey.startsWith('sk-')) {
         try {
-            if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEEPSEEK_API_KEY) {
-                validApiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
-            }
-        } catch (e) {}
-    }
-
-    // If no valid DeepSeek API key exists, fallback to Gemini
-    if (!validApiKey || !validApiKey.startsWith('sk-')) {
-        console.warn("[DeepSeek] API key missing or invalid. Falling back to Google Gemini...");
-        return callGeminiFallback(prompt, systemPrompt);
-    }
-
-    try {
-        const client = getDeepSeekClient(validApiKey);
-        const response = await client.chat.completions.create(payload as any);
-        const text = response.choices[0]?.message?.content || '';
-        if (text) return text;
-    } catch (sdkErr: any) {
-        console.warn('[DeepSeek] SDK call failed (e.g. 402 Insufficient Balance). Falling back to Google Gemini:', sdkErr?.message || sdkErr);
-        try {
-            return await callGeminiFallback(prompt, systemPrompt);
-        } catch (fallbackErr) {
-            console.error('[Gemini Fallback Failed]:', fallbackErr);
-            throw sdkErr;
+            const client = getDeepSeekClient(validApiKey);
+            const response = await client.chat.completions.create(payload as any);
+            const text = response.choices[0]?.message?.content || '';
+            if (text) return text;
+        } catch (sdkErr: any) {
+            console.warn('[DeepSeek] Direct client call failed. Attempting proxy / fallback:', sdkErr?.message || sdkErr);
         }
     }
 
-    return callGeminiFallback(prompt, systemPrompt);
+    // 2. Try serverless proxy /api/deepseek with Supabase auth token or client key
+    try {
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (validApiKey && validApiKey.startsWith('sk-')) {
+            headers['X-Custom-Key'] = validApiKey;
+        }
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+            headers['Authorization'] = `Bearer ${session.access_token}`;
+        }
+
+        const response = await fetch('/api/deepseek', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const text = data.choices?.[0]?.message?.content || '';
+            if (text) return text;
+        }
+    } catch (proxyErr) {
+        console.warn('[DeepSeek Proxy] Error calling serverless proxy:', proxyErr);
+    }
+
+    // 3. Fallback to Gemini if configured
+    try {
+        return await callGeminiFallback(prompt, systemPrompt);
+    } catch (fallbackErr) {
+        console.error('[Gemini Fallback Failed]:', fallbackErr);
+        throw new Error("AI xizmatiga ulanib bo'lmadi. Iltimos Sozlamalar bo'limida API kalitingizni tekshiring.");
+    }
 };

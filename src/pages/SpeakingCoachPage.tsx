@@ -42,16 +42,19 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 };
 
 const SpeakingCoachPage: React.FC = () => {
+    const { primaryLanguage } = useStudyData();
     const [searchParams, setSearchParams] = useSearchParams();
-    const initialLang = searchParams.get('lang') === 'ja' ? 'ja' : 'en';
+    const initialLang = searchParams.get('lang') === 'ja' ? 'ja' : searchParams.get('lang') === 'en' ? 'en' : (primaryLanguage || 'en');
     const [language, setLanguage] = useState<'en' | 'ja'>(initialLang);
 
     useEffect(() => {
         const langParam = searchParams.get('lang');
         if (langParam === 'ja' || langParam === 'en') {
             setLanguage(langParam);
+        } else if (primaryLanguage) {
+            setLanguage(primaryLanguage);
         }
-    }, [searchParams]);
+    }, [searchParams, primaryLanguage]);
 
     // Scenario & Voice Recorder state
     const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(null);

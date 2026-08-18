@@ -21,7 +21,7 @@ export interface VocabWordDetails {
 }
 
 export const VocabularyBuilderPage: React.FC = () => {
-    const { subjects, addFlashcard } = useStudyData();
+    const { subjects, addFlashcard, primaryLanguage } = useStudyData();
 
     const [query, setQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
@@ -34,13 +34,20 @@ export const VocabularyBuilderPage: React.FC = () => {
     const [history, setHistory] = useState<VocabWordDetails[]>([]);
     const [savedWords, setSavedWords] = useState<VocabWordDetails[]>([]);
 
-    const SAMPLE_WORDS = [
+    const SAMPLE_WORDS = primaryLanguage === 'ja' ? [
+        { label: '勉強[べんきょう] (N5)', query: '勉強' },
+        { label: '維持[いじ] (N2)', query: '維持' },
+        { label: '習慣[しゅうかん] (N3)', query: '習慣' },
+        { label: '挑戦[ちょうせん] (N2)', query: '挑戦' },
+        { label: '継続[けいぞく] (N1)', query: '継続' },
+        { label: '成長[せいちょう] (N3)', query: '成長' },
+    ] : [
         { label: 'paramount (C1)', query: 'paramount' },
         { label: 'ubiquitous (C2)', query: 'ubiquitous' },
         { label: 'resilient (B2)', query: 'resilient' },
-        { label: '勉強[べんきょう] (N5)', query: '勉強' },
-        { label: '維持[いじ] (N2)', query: '維持' },
         { label: 'pragmatic (C1)', query: 'pragmatic' },
+        { label: 'perseverance (C1)', query: 'perseverance' },
+        { label: 'meticulous (C2)', query: 'meticulous' },
     ];
 
     useEffect(() => {

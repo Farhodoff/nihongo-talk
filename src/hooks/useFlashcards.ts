@@ -1,14 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { FlashcardService, setLocalFlashcardCache } from '../services/FlashcardService';
 import { calculateReview, Grade } from '../utils/srs';
 
 export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>) => {
+    const onCardReviewedRef = useRef(onCardReviewed);
+    useEffect(() => {
+        onCardReviewedRef.current = onCardReviewed;
+    }, [onCardReviewed]);
+
     const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
 
-    const addFlashcard = async (cardData: Partial<Flashcard>) => {
-        console.log('[addFlashcard] Starting...', cardData);
+    const addFlashcard = useCallback(async (cardData: Partial<Flashcard>) => {
         let activeUserId = 'local_user';
         try {
             const { data: { user } } = await supabase.auth.getUser();
@@ -25,9 +29,9 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             });
         }
         return newCard;
-    };
+    }, []);
 
-    const addFlashcardsBatch = async (cardsData: Partial<Flashcard>[]) => {
+    const addFlashcardsBatch = useCallback(async (cardsData: Partial<Flashcard>[]) => {
         let activeUserId = 'local_user';
         try {
             const { data: { user } } = await supabase.auth.getUser();
@@ -56,9 +60,9 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             });
         }
         return newCards;
-    };
+    }, []);
 
-    const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
+    const updateFlashcard = useCallback(async (id: string, updates: Partial<Flashcard>) => {
         setFlashcards(prev => {
             const updated = prev.map(c => c.id === id ? { ...c, ...updates } : c);
             supabase.auth.getUser().then(({ data: { user } }) => {
@@ -71,9 +75,9 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         } catch (error) {
             console.error("Failed to update flashcard:", error);
         }
-    };
+    }, []);
 
-    const deleteFlashcard = async (id: string, permanent = false) => {
+    const deleteFlashcard = useCallback(async (id: string, permanent = false) => {
         setFlashcards(prev => {
             const updated = prev.filter(c => c.id !== id);
             supabase.auth.getUser().then(({ data: { user } }) => {
@@ -86,9 +90,9 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         } catch (error) {
             console.error("Failed to delete flashcard:", error);
         }
-    };
+    }, []);
 
-    const restoreFlashcard = async (id: string) => {
+    const restoreFlashcard = useCallback(async (id: string) => {
         try {
             await FlashcardService.restoreFlashcard(id);
             const { data: { user } } = await supabase.auth.getUser();
@@ -99,35 +103,38 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         } catch (error) {
             console.error("Failed to restore flashcard:", error);
         }
-    };
+    }, []);
 
-    const reviewFlashcard = async (id: string, rating: number, card?: Flashcard) => {
-        const targetCard = card || flashcards.find(c => c.id === id);
-        const reviewResult = calculateReview(
-            rating as Grade,
-            targetCard?.interval || 0,
-            targetCard?.repetitions || 0,
-            targetCard?.easeFactor || 2.5
-        );
+    const reviewFlashcard = useCallback(async (id: string, rating: number, card?: Flashcard) => {
+        setFlashcards(prev => {
+            const targetCard = card || prev.find(c => c.id === id);
+            const reviewResult = calculateReview(
+                rating as Grade,
+                targetCard?.interval || 0,
+                targetCard?.repetitions || 0,
+                targetCard?.easeFactor || 2.5
+            );
 
-        const updates: Partial<Flashcard> = {
-            easeFactor: reviewResult.easeFactor,
-            interval: reviewResult.interval,
-            repetitions: reviewResult.repetitions,
-            nextReviewDate: reviewResult.nextReviewDate,
-        };
+            const updates: Partial<Flashcard> = {
+                easeFactor: reviewResult.easeFactor,
+                interval: reviewResult.interval,
+                repetitions: reviewResult.repetitions,
+                nextReviewDate: reviewResult.nextReviewDate,
+            };
 
-        try {
-            await updateFlashcard(id, updates);
-            if (onCardReviewed) {
-                await onCardReviewed(rating * 2); // XP based on performance: 2, 4, 6, 8 XP
+            FlashcardService.updateFlashcard(id, updates).catch(e => {
+                console.error("Failed to review flashcard:", e);
+            });
+
+            if (onCardReviewedRef.current) {
+                onCardReviewedRef.current(rating * 2);
             }
-        } catch (error) {
-            console.error("Failed to review flashcard:", error);
-        }
-    };
 
-    const importFlashcards = async (subjectId: string, cards: { front: string; back: string; example?: string }[]) => {
+            return prev.map(c => c.id === id ? { ...c, ...updates } : c);
+        });
+    }, []);
+
+    const importFlashcards = useCallback(async (subjectId: string, cards: { front: string; back: string; example?: string }[]) => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return false;
 
@@ -141,7 +148,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             return true;
         }
         return false;
-    };
+    }, []);
 
     const setFlashcardsState = useCallback((value: React.SetStateAction<Flashcard[]>) => {
         setFlashcards(value);

@@ -1,13 +1,7 @@
+import { verifyAuth, getBearerToken } from '../_auth.js';
+
 export const config = {
   runtime: 'edge',
-};
-
-const getFallbackKey = () => {
-  try {
-    return atob('c2stOGI1YjZiMTg5MWI3NDRmNGExZTJiOWZiY2M5MTcyNjk=');
-  } catch (e) {
-    return '';
-  }
 };
 
 export default async function handler(req) {
@@ -17,7 +11,7 @@ export default async function handler(req) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Kaizen-Key',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Kaizen-Key, X-Custom-Key',
       },
     });
   }
@@ -29,11 +23,40 @@ export default async function handler(req) {
     });
   }
 
+  const token = getBearerToken(req);
+  const customKey = req.headers.get('X-Custom-Key') || req.headers.get('X-Kaizen-Key');
   const serverKey = process.env.DEEPSEEK_API_KEY;
-  const clientAuth = req.headers.get('Authorization');
-  const clientKey = clientAuth?.startsWith('Bearer ') && clientAuth.length > 15 ? clientAuth.substring(7) : null;
-  const customKey = req.headers.get('X-Kaizen-Key');
-  const apiKey = serverKey || customKey || clientKey || getFallbackKey();
+
+  let effectiveApiKey = null;
+
+  if (customKey && customKey.startsWith('sk-')) {
+    effectiveApiKey = customKey;
+  } else if (token && token.startsWith('sk-')) {
+    effectiveApiKey = token;
+  } else {
+    const { user, error: authError } = await verifyAuth(req);
+    if (authError || !user) {
+      return new Response(JSON.stringify({
+        error: 'Unauthorized',
+        message: 'Foydalanuvchi tizimga kirmagan yoki shaxsiy API kalit kiritilmagan.',
+        details: authError,
+      }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    if (!serverKey) {
+      return new Response(JSON.stringify({
+        error: 'Service Unavailable',
+        message: 'Serverda DeepSeek API kaliti sozlanmagan.',
+      }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+    effectiveApiKey = serverKey;
+  }
 
   let body;
   try {
@@ -54,7 +77,10 @@ export default async function handler(req) {
     });
   }
 
-  const prompt = `Generate exactly ${Math.min(25, Math.max(1, count))} high-quality educational flashcards about: "${topic}".
+  const safeCount = Math.min(25, Math.max(1, count));
+  const safeTopic = topic.substring(0, 500);
+
+  const prompt = `Generate exactly ${safeCount} high-quality educational flashcards about: "${safeTopic}".
 Target language for translations / explanations: ${language}.
 
 Format strictly as raw JSON without markdown:
@@ -73,7 +99,7 @@ Format strictly as raw JSON without markdown:
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${effectiveApiKey}`,
       },
       body: JSON.stringify({
         model: 'deepseek-chat',
@@ -106,7 +132,7 @@ Format strictly as raw JSON without markdown:
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Internal API Server Error', message: error.message }), {
+    return new Response(JSON.stringify({ error: 'Internal API Server Error', message: error?.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });

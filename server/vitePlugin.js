@@ -28,12 +28,10 @@ function loadEnv() {
     }
 }
 
-function ensureValidUuid(id) {
-    const defaultUuid = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
-    if (!id || typeof id !== 'string') return defaultUuid;
+function isValidUuid(id) {
+    if (!id || typeof id !== 'string') return false;
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (uuidRegex.test(id)) return id;
-    return defaultUuid;
+    return uuidRegex.test(id);
 }
 
 function generateCode() {
@@ -227,7 +225,20 @@ export function telegramApiPlugin() {
 
                 try {
                     const { pathname } = url;
-                    const userId = ensureValidUuid(body.userId);
+                    let userId = body.userId;
+
+                    const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+                    if (authHeader && authHeader.startsWith('Bearer ')) {
+                        const token = authHeader.substring(7).trim();
+                        try {
+                            const { data: { user } } = await supabase.auth.getUser(token);
+                            if (user?.id) userId = user.id;
+                        } catch {}
+                    }
+
+                    if (!isValidUuid(userId)) {
+                        return sendJson(400, { error: 'Invalid or missing user ID / authentication token' });
+                    }
 
                     // POST /api/telegram/generate-code
                     if (pathname.includes('generate-code')) {

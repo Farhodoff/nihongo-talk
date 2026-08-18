@@ -73,23 +73,6 @@ export const getAIConfig = () => {
         }
     }
 
-    // Environment variable fallbacks — .env.local dan o'qiladi agar storage da yo'q bo'lsa
-    try {
-        if (typeof import.meta !== 'undefined' && import.meta.env) {
-            const envDeepSeek = import.meta.env.VITE_DEEPSEEK_API_KEY;
-            const envGemini = import.meta.env.VITE_GEMINI_API_KEY;
-            
-            if (!deepseekKey && envDeepSeek && typeof envDeepSeek === 'string' && envDeepSeek.startsWith('sk-')) {
-                deepseekKey = envDeepSeek;
-            }
-            if (!geminiKey && envGemini && typeof envGemini === 'string' && envGemini.startsWith('AIza')) {
-                geminiKey = envGemini;
-            }
-        }
-    } catch (e) {
-        // ignore env inspection errors
-    }
-
     // Sukut bo'yicha DeepSeek asosiy model qilinadi
     if (!saved || !coachAiModel) {
         coachAiModel = 'deepseek';
@@ -176,26 +159,6 @@ export const getGeminiAPIKeys = (userKey?: string): string[] => {
                 console.error("Failed to parse subscription", e);
             }
         }
-
-        try {
-            if (typeof import.meta !== 'undefined' && import.meta.env) {
-                const envViteKey = import.meta.env.VITE_GEMINI_API_KEY;
-                const envGeminiKey = import.meta.env.GEMINI_API_KEY;
-                if (envViteKey && typeof envViteKey === 'string' && !envViteKey.trim().startsWith('sk-')) {
-                    candidateStrings.push(envViteKey);
-                }
-                if (envGeminiKey && typeof envGeminiKey === 'string' && !envGeminiKey.trim().startsWith('sk-')) {
-                    candidateStrings.push(envGeminiKey);
-                }
-            }
-        } catch (e) {
-            // ignore env inspection errors
-        }
-    }
-
-    if (candidateStrings.length === 0) {
-        // Built-in public fallback Gemini key
-        candidateStrings.push(atob('QUl6YVN5RHBldVFFaFNpdFFSclJtY0xOWEoxTFZZaFV6bzVvQzVz'));
     }
 
     const rawKeys = candidateStrings.flatMap(str => str.split(/[\s,;\n]+/));
@@ -211,7 +174,7 @@ export const getGeminiAPIKeys = (userKey?: string): string[] => {
     }
 
     if (uniqueKeys.length === 0) {
-        throw new Error("Yaroqli Gemini API Kaliti topilmadi.");
+        throw new Error("Google Gemini API kaliti sozlanmagan. Iltimos Sozlamalar bo'limida o'z API kalitingizni kiriting.");
     }
 
     return uniqueKeys;

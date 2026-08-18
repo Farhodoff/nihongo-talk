@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
-import { TaskStatus } from '../types';
+import { Task, TaskStatus } from '../types';
 import { sendNotification } from '../utils/notifications';
+import { ListTodo, LayoutGrid, Calendar as CalendarIcon } from 'lucide-react';
 import KanbanBoard from './kanban/KanbanBoard';
+import TaskCalendarView from '../components/tasks/TaskCalendarView';
 
 const TasksPage: React.FC = () => {
     const { tasks, subjects, goals, updateTask, deleteTask, toggleTask, addTask, settings, awardXP } = useStudyData();
     const { t } = useLanguage();
-    const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
+    const [viewMode, setViewMode] = useState<'list' | 'board' | 'calendar'>('list');
 
     // New Task Form
     const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -53,6 +55,22 @@ const TasksPage: React.FC = () => {
         }
     };
 
+    const handleAddTaskFromCalendar = (taskData: Partial<Task>) => {
+        if (!taskData.title) return;
+        addTask({
+            title: taskData.title,
+            priority: taskData.priority || 'medium',
+            dueDate: taskData.dueDate || new Date().toISOString().split('T')[0],
+            goalId: taskData.goalId,
+            subjectId: taskData.subjectId,
+            link: taskData.link
+        });
+
+        if (settings.notificationsEnabled) {
+            sendNotification('Task Added', `Added "${taskData.title}" to your list.`);
+        }
+    };
+
     const getGoalTitle = (id?: string) => {
         const g = goals.find(x => x.id === id);
         return g ? g.title : null;
@@ -69,18 +87,39 @@ const TasksPage: React.FC = () => {
                     <h2 className="text-3xl font-bold text-foreground">{t('tasks.title')}</h2>
                     <p className="text-muted-foreground mt-1">{t('tasks.subtitle')}</p>
                 </div>
-                <div className="flex bg-muted/50 p-1 rounded-xl w-fit border border-border/50">
+                <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl w-fit border border-border/80 shadow-xs">
                     <button
                         onClick={() => setViewMode('list')}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'list' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            viewMode === 'list'
+                                ? 'bg-background shadow-xs text-foreground font-black'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
                     >
-                        Ro'yxat
+                        <ListTodo size={14} />
+                        <span>Ro'yxat</span>
                     </button>
                     <button
                         onClick={() => setViewMode('board')}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'board' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            viewMode === 'board'
+                                ? 'bg-background shadow-xs text-foreground font-black'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
                     >
-                        Kanban Doska
+                        <LayoutGrid size={14} />
+                        <span>Kanban Doska</span>
+                    </button>
+                    <button
+                        onClick={() => setViewMode('calendar')}
+                        className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            viewMode === 'calendar'
+                                ? 'bg-background shadow-xs text-foreground font-black'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        <CalendarIcon size={14} />
+                        <span>Taqvim</span>
                     </button>
                 </div>
             </div>
@@ -265,10 +304,20 @@ const TasksPage: React.FC = () => {
                         );
                     })()}
                 </div>
-            ) : (
+            ) : viewMode === 'board' ? (
                 <KanbanBoard
                     tasks={tasks}
                     onStatusChange={handleStageChange}
+                />
+            ) : (
+                <TaskCalendarView
+                    tasks={tasks}
+                    subjects={subjects}
+                    goals={goals}
+                    onToggleTask={handleToggleTask}
+                    onUpdateTask={updateTask}
+                    onDeleteTask={deleteTask}
+                    onAddTask={handleAddTaskFromCalendar}
                 />
             )}
         </div>

@@ -1,16 +1,5 @@
-import OpenAI from 'openai';
-
-const getDeepSeekClient = () => {
-  const apiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
-  if (!apiKey || apiKey === 'dummy_key') {
-    console.warn('VITE_DEEPSEEK_API_KEY topilmadi! AI baholash ishlamaydi.');
-  }
-  return new OpenAI({
-    apiKey: apiKey || 'missing_key',
-    baseURL: 'https://api.deepseek.com/v1',
-    dangerouslyAllowBrowser: true
-  });
-};
+import { callDeepSeek } from '../utils/deepseek';
+import { getAIConfig } from '../utils/ai/aiConfig';
 
 export interface AiEvaluationResult {
   score: number;
@@ -34,7 +23,6 @@ const parseAiResponse = (content: string): AiEvaluationResult => {
     return JSON.parse(cleaned) as AiEvaluationResult;
   } catch {
     console.error('Failed to parse AI response as JSON:', cleaned);
-    // Try to extract score and feedback manually
     return {
       score: 0,
       feedback: cleaned || 'AI javobini qayta ishlashda xatolik yuz berdi.'
@@ -65,33 +53,23 @@ export const aiEvaluationService = {
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Response:\n${userResponse}`;
 
     try {
-      const openai = getDeepSeekClient();
-      const response = await openai.chat.completions.create({
-        model: 'deepseek-chat',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage }
-        ],
-        response_format: { type: 'json_object' }
-      });
+      const config = getAIConfig();
+      const content = await callDeepSeek(
+        userMessage,
+        config.deepseekKey || null,
+        systemPrompt,
+        true,
+        config.deepseekModel,
+        config.deepseekThinkingMode
+      );
 
-      const choices = response.choices;
-      if (!choices || choices.length === 0) {
-        throw new Error('DeepSeek javob bermadi (bo\'sh choices).');
+      if (!content) {
+        throw new Error('DeepSeek javob bermadi.');
       }
-
-      const content = choices[0].message.content;
-      if (!content) throw new Error("DeepSeek javob berdi, lekin content bo'sh.");
 
       return parseAiResponse(content);
     } catch (error: any) {
       console.error('Error evaluating writing:', error);
-      if (error?.status === 401) {
-        throw new Error('DeepSeek API kaliti noto\'g\'ri yoki muddati o\'tgan. VITE_DEEPSEEK_API_KEY ni tekshiring.');
-      }
-      if (error?.status === 429) {
-        throw new Error('DeepSeek API rate limit. Biroz kutib qayta urinib ko\'ring.');
-      }
       throw new Error(`Writing baholashda xatolik: ${error?.message || 'Noma\'lum xato'}`);
     }
   },
@@ -119,33 +97,23 @@ export const aiEvaluationService = {
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Spoken Transcript:\n${transcript}`;
 
     try {
-      const openai = getDeepSeekClient();
-      const response = await openai.chat.completions.create({
-        model: 'deepseek-chat',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage }
-        ],
-        response_format: { type: 'json_object' }
-      });
+      const config = getAIConfig();
+      const content = await callDeepSeek(
+        userMessage,
+        config.deepseekKey || null,
+        systemPrompt,
+        true,
+        config.deepseekModel,
+        config.deepseekThinkingMode
+      );
 
-      const choices = response.choices;
-      if (!choices || choices.length === 0) {
-        throw new Error('DeepSeek javob bermadi (bo\'sh choices).');
+      if (!content) {
+        throw new Error('DeepSeek javob bermadi.');
       }
-
-      const content = choices[0].message.content;
-      if (!content) throw new Error("DeepSeek javob berdi, lekin content bo'sh.");
 
       return parseAiResponse(content);
     } catch (error: any) {
       console.error('Error evaluating speaking:', error);
-      if (error?.status === 401) {
-        throw new Error('DeepSeek API kaliti noto\'g\'ri yoki muddati o\'tgan. VITE_DEEPSEEK_API_KEY ni tekshiring.');
-      }
-      if (error?.status === 429) {
-        throw new Error('DeepSeek API rate limit. Biroz kutib qayta urinib ko\'ring.');
-      }
       throw new Error(`Speaking baholashda xatolik: ${error?.message || 'Noma\'lum xato'}`);
     }
   }
