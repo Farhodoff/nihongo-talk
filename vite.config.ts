@@ -188,12 +188,6 @@ export default defineConfig({
                 target: 'https://api.deepseek.com',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api\/deepseek/, '')
-            },
-            '/supabase-proxy': {
-                target: 'https://qmuimxnknxwarvnkpnlo.supabase.co',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/supabase-proxy/, ''),
-                secure: false
             }
         },
         fs: {

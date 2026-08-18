@@ -13,17 +13,7 @@ const isValidUrl = (url?: string) => {
     }
 };
 
-const getSupabaseEndpoint = () => {
-    // In browser environment (both local dev and production on Vercel),
-    // route through same-origin /supabase-proxy to eliminate ERR_HTTP2_PROTOCOL_ERROR
-    // and ERR_CONNECTION_RESET caused by ISP DPI throttling on *.supabase.co domains.
-    if (typeof window !== 'undefined' && window.location?.origin && !window.location.origin.includes('localhost:3000')) {
-        return `${window.location.origin}/supabase-proxy`;
-    }
-    return isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
-};
-
-const supabaseUrl = getSupabaseEndpoint();
+const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
 
 // Clean and validate Supabase Anon Key (never expose or use SERVICE_ROLE in client bundle)
 let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : '';
