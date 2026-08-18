@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isAdminEmail } from '../utils/admin';
-import { isUuid } from '../utils/uuid';
 
 export interface UserSubscription {
     tier: 'free' | 'pro' | 'premium';
