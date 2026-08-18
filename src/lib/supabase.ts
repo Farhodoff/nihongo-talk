@@ -25,6 +25,32 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
     console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
+// Lightweight concurrency queue to prevent HTTP/2 stream multiplexing resets
+let activeRequests = 0;
+const MAX_CONCURRENT = 3;
+const requestQueue: Array<() => void> = [];
+
+const acquireSlot = async (): Promise<void> => {
+    if (activeRequests < MAX_CONCURRENT) {
+        activeRequests++;
+        return;
+    }
+    return new Promise<void>((resolve) => {
+        requestQueue.push(() => {
+            activeRequests++;
+            resolve();
+        });
+    });
+};
+
+const releaseSlot = () => {
+    activeRequests--;
+    if (requestQueue.length > 0 && activeRequests < MAX_CONCURRENT) {
+        const next = requestQueue.shift();
+        if (next) next();
+    }
+};
+
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     const urlStr = typeof input === 'string' 
@@ -45,6 +71,7 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
         );
     }
 
+    await acquireSlot();
     try {
         return await fetch(input, init);
     } catch (err: unknown) {
@@ -69,6 +96,8 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
                 headers: { 'Content-Type': 'application/json' }
             }
         );
+    } finally {
+        releaseSlot();
     }
 };
 
