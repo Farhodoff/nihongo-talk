@@ -78,7 +78,8 @@ export const useSubscription = () => {
         }
     };
 
-    const isUserAdmin = isAdminEmail(user?.email);
+    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
+    const isUserAdmin = isAdminEmail(displayEmail);
 
     // Super Admin uchun obunani doim "premium" qilib ko'rsatish
     const effectiveSubscription: UserSubscription | null = isUserAdmin 
