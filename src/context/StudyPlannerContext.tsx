@@ -704,22 +704,35 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         safeLocalStorage.setItem('study_planner_target_level', newLevel);
 
         setTargetGoal(newGoal);
-        safeLocalStorage.setItem('study_planner_target_goal', newGoal);
+                safeLocalStorage.setItem('study_planner_target_goal', newGoal);
 
         safeLocalStorage.setItem('study_planner_personalized_onboarded', 'true');
         window.dispatchEvent(new Event('study-track-changed'));
 
+        let targetUserId: string | null = null;
+        const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+        if (cachedUser?.id && isUuid(cachedUser.id)) {
+            targetUserId = cachedUser.id;
+        }
+
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
+            if (!targetUserId) {
+                const { data: authData } = await supabase.auth.getUser();
+                if (authData?.user?.id && isUuid(authData.user.id)) {
+                    targetUserId = authData.user.id;
+                }
+            }
+
+            if (targetUserId && isUuid(targetUserId)) {
                 await Promise.allSettled([
-                    supabase.from('profiles').update({
+                    supabase.from('profiles').upsert({
+                        id: targetUserId,
                         primary_language: lang,
                         enabled_languages: currentEnabled.length > 0 ? currentEnabled : [lang],
                         target_level: newLevel,
                         target_goal: newGoal,
                         updated_at: new Date().toISOString()
-                    }).eq('id', user.id),
+                    }),
                     supabase.auth.updateUser({
                         data: {
                             primary_language: lang,
@@ -741,35 +754,35 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             const next = [...prev, lang];
             safeLocalStorage.setJSON('study_planner_enabled_languages', next);
 
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) {
-                    supabase.from('profiles').update({
-                        enabled_languages: next,
-                        updated_at: new Date().toISOString()
-                    }).eq('id', user.id).then(() => {});
-                }
-            });
+            const cached = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+            const uid = cached?.id;
+            if (uid && isUuid(uid)) {
+                supabase.from('profiles').update({
+                    enabled_languages: next,
+                    updated_at: new Date().toISOString()
+                }).eq('id', uid).then(() => {});
+            }
             return next;
         });
     }, []);
 
     const removeSecondaryLanguage = useCallback(async (lang: 'en' | 'ja') => {
         setEnabledLanguages(prev => {
-            if (lang === primaryLanguage) return prev;
+            if (prev.length <= 1 || !prev.includes(lang)) return prev;
             const next = prev.filter(l => l !== lang);
             safeLocalStorage.setJSON('study_planner_enabled_languages', next);
 
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) {
-                    supabase.from('profiles').update({
-                        enabled_languages: next,
-                        updated_at: new Date().toISOString()
-                    }).eq('id', user.id).then(() => {});
-                }
-            });
+            const cached = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+            const uid = cached?.id;
+            if (uid && isUuid(uid)) {
+                supabase.from('profiles').update({
+                    enabled_languages: next,
+                    updated_at: new Date().toISOString()
+                }).eq('id', uid).then(() => {});
+            }
             return next;
         });
-    }, [primaryLanguage]);
+    }, []);
 
     const contextValue = useMemo(() => ({
         goals, addGoal, updateGoal, deleteGoal,

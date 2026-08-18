@@ -148,6 +148,11 @@ export const getGeminiAPIKeys = (userKey?: string): string[] => {
             candidateStrings.push(config.geminiKey);
         }
 
+        const directAdminKey = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_admin_api_key') : null;
+        if (directAdminKey && typeof directAdminKey === 'string' && !directAdminKey.trim().startsWith('sk-')) {
+            candidateStrings.push(directAdminKey);
+        }
+
         const subStr = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_subscription') : null;
         if (subStr) {
             try {

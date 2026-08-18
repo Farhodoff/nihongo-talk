@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
@@ -42,11 +42,10 @@ const Layout: React.FC = () => {
         return saved === 'true';
     });
 
-    // Personalized Onboarding First-Visit Trigger
-    const [showOnboarding, setShowOnboarding] = useState(() => {
-        const onboarded = localStorage.getItem('study_planner_personalized_onboarded');
-        return !onboarded;
-    });
+    const { language, setLanguage, t } = useLanguage();
+    const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus, loading } = useStudyData();
+    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
+    const isAdmin = isAdminEmail(displayEmail);
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -74,10 +73,22 @@ const Layout: React.FC = () => {
         });
     };
 
-    const { language, setLanguage, t } = useLanguage();
-    const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
-    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
-    const isAdmin = isAdminEmail(displayEmail);
+    // Personalized Onboarding First-Visit Trigger (DB-synchronized across devices)
+    const [showOnboarding, setShowOnboarding] = useState(false);
+
+    useEffect(() => {
+        if (loading) return;
+        const onboarded = localStorage.getItem('study_planner_personalized_onboarded');
+        // Agar foydalanuvchining DB profilingda primary_language yoki target_level saqlangan bo'lsa, qayta onboarding so'ralmaydi
+        if (!onboarded && !primaryLanguage && !targetLevel) {
+            setShowOnboarding(true);
+        } else {
+            setShowOnboarding(false);
+            if (!onboarded && (primaryLanguage || targetLevel)) {
+                localStorage.setItem('study_planner_personalized_onboarded', 'true');
+            }
+        }
+    }, [loading, primaryLanguage, targetLevel]);
 
     const navGroups: NavGroup[] = useMemo(() => {
         if (primaryLanguage === 'ja') {
