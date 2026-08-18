@@ -420,8 +420,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
                 safeLocalStorage.setJSON('study_planner_subjects_cache', mergedSubjects);
 
-                if (mergedSubjects.length > 0 && currentUser?.id) {
-                    const dbPayload = mergedSubjects
+                if (uniqueLocal.length > 0 && mappedSubjects.length > 0 && currentUser?.id) {
+                    const dbPayload = uniqueLocal
                         .filter(s => isUuid(s.id))
                         .map(s => ({
                             id: s.id,
@@ -433,11 +433,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                             is_archived: s.isArchived || false
                         }));
                     if (dbPayload.length > 0) {
-                        supabase.from('subjects').upsert(dbPayload).then(({ error }) => {
-                            if (error && error.message !== 'Network unavailable' && navigator.onLine) {
-                                console.warn("[Background Sync] Subjects upsert warning:", error);
-                            }
-                        });
+                        supabase.from('subjects').upsert(dbPayload).then(() => {});
                     }
                 }
 
