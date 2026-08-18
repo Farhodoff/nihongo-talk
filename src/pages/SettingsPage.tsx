@@ -25,7 +25,7 @@ const SettingsPage: React.FC = () => {
 
     const tabs = [
         { id: 'profile', label: 'Profil & Hisob', icon: User },
-        { id: 'preferences', label: 'Interfeys & Til', icon: Sliders },
+        { id: 'preferences', label: "O'quv Yo'nalishi & Tizim", icon: Sliders },
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz

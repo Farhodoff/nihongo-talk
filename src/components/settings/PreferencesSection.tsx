@@ -1,6 +1,5 @@
-import { Bell, HelpCircle, Globe, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Bell, HelpCircle, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
-import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 
@@ -20,7 +19,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
     onToggleNotifications
 }) => {
-    const { language, setLanguage, t } = useLanguage();
     const { 
         primaryLanguage, 
         enabledLanguages, 
@@ -33,63 +31,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
 
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
-            {/* Language Selector Section (App UI Language) */}
-            <div>
-                <div className="flex items-center justify-between mb-5">
-                    <div>
-                        <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                            <Globe size={20} className="text-primary" />
-                            {t('settings.appLanguage')}
-                        </h3>
-                        <p className="text-xs text-muted-foreground mt-0.5">{t('settings.selectLanguage')}</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Uzbek Language Card */}
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setLanguage('uz');
-                            toast({ title: "🇺🇿 O'zbek tili tanlandi" });
-                        }}
-                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
-                            language === 'uz'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className="text-3xl shrink-0">🇺🇿</div>
-                        <div>
-                            <div className="text-sm font-bold text-foreground">O'zbekcha</div>
-                            <div className="text-xs text-muted-foreground">O'zbek tili (Uzbek)</div>
-                        </div>
-                    </button>
-
-                    {/* English Language Card */}
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setLanguage('en');
-                            toast({ title: "🇬🇧 English selected" });
-                        }}
-                        className={`p-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-4 ${
-                            language === 'en'
-                                ? 'border-primary bg-primary/10 text-foreground font-semibold shadow-xs'
-                                : 'border-border bg-background/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                        }`}
-                    >
-                        <div className="text-3xl shrink-0">🇬🇧</div>
-                        <div>
-                            <div className="text-sm font-bold text-foreground">English</div>
-                            <div className="text-xs text-muted-foreground">English Language</div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
             {/* Dedicated Learning Focus & Languages Manager */}
-            <div id="learning-focus" className="pt-6 border-t border-border space-y-6">
+            <div id="learning-focus" className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                         <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
