@@ -313,7 +313,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
             }
 
-            if (!currentUser) {
+            if (!currentUser || !currentUser.id || !isUuid(currentUser.id)) {
                 safeLocalStorage.removeItem('study_planner_user_cache');
                 setUser(null);
                 setLoading(false);

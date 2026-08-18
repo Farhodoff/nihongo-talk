@@ -3,6 +3,7 @@ import { Sparkles, Bell, CheckCircle2, X } from 'lucide-react';
 import { Button } from './ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { UserNotificationItem, UserNotificationService } from '../services/UserNotificationService';
+import { isUuid } from '../utils/uuid';
 
 export const InAppNotificationModal: React.FC = () => {
     const { user } = useStudyData();
@@ -12,7 +13,7 @@ export const InAppNotificationModal: React.FC = () => {
     const activeNotif = unreadNotifs[currentNotifIndex];
 
     useEffect(() => {
-        if (!user) return;
+        if (!user || !user.id || !isUuid(user.id)) return;
 
         // 1. Check and trigger welcome message for new user
         UserNotificationService.checkAndSendWelcomeMessage(user.id);

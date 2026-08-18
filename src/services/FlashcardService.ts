@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { PRESET_DECKS } from '../data/presetDecks';
 
 const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
@@ -106,6 +106,10 @@ export function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModi
 
 export const FlashcardService = {
     async fetchFlashcards(userId: string): Promise<Flashcard[]> {
+        if (!userId || !isUuid(userId)) {
+            return getLocalFlashcardCache(userId || 'guest');
+        }
+
         const localCached = getLocalFlashcardCache(userId);
         let dbCards: Flashcard[] = [];
         let isNetworkError = false;

@@ -27,6 +27,24 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
 
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    const urlStr = typeof input === 'string' 
+        ? input 
+        : input instanceof URL 
+            ? input.toString() 
+            : (input as Request)?.url || '';
+
+    // Prevent sending malformed undefined/null queries to Supabase
+    if (urlStr.includes('=eq.undefined') || urlStr.includes('=eq.null')) {
+        return new Response(
+            JSON.stringify([]),
+            {
+                status: 200,
+                statusText: 'OK',
+                headers: { 'Content-Type': 'application/json' }
+            }
+        );
+    }
+
     try {
         return await fetch(input, init);
     } catch (err: unknown) {

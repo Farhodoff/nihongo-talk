@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { PushNotificationService } from './PushNotificationService';
+import { isUuid } from '../utils/uuid';
 
 export interface UserNotificationItem {
     id: string;
@@ -18,7 +19,7 @@ export class UserNotificationService {
      * Ensures an automatic welcome message is sent to a newly registered/first-time user.
      */
     static async checkAndSendWelcomeMessage(userId: string): Promise<void> {
-        if (!userId) return;
+        if (!userId || !isUuid(userId)) return;
 
         const welcomeKey = `study_planner_welcome_sent_${userId}`;
         if (localStorage.getItem(welcomeKey)) return;
@@ -93,7 +94,7 @@ export class UserNotificationService {
      * Fetches unread notifications for a user (Combines Supabase & Local storage)
      */
     static async getUnreadNotifications(userId: string): Promise<UserNotificationItem[]> {
-        if (!userId) return [];
+        if (!userId || !isUuid(userId)) return [];
 
         let remoteNotifs: UserNotificationItem[] = [];
 

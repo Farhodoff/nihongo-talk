@@ -16,6 +16,17 @@ const sanitizeSubjectId = (id?: string | null): string | null => {
 
 export const TaskService = {
     async fetchTasks(userId: string): Promise<Task[]> {
+        if (!userId || !isUuid(userId)) {
+            try {
+                const local = localStorage.getItem('study_planner_tasks');
+                if (local) {
+                    const parsed = JSON.parse(local);
+                    if (Array.isArray(parsed)) return parsed;
+                }
+            } catch (e) {}
+            return [];
+        }
+
         try {
             let { data, error } = await supabase
                 .from('tasks')
