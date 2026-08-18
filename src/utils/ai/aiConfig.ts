@@ -73,6 +73,13 @@ export const getAIConfig = () => {
         }
     }
 
+    if (!deepseekKey && typeof localStorage !== 'undefined') {
+        deepseekKey = localStorage.getItem('study_planner_admin_deepseek_api_key') || localStorage.getItem('study_planner_deepseek_api_key') || '';
+    }
+    if (!geminiKey && typeof localStorage !== 'undefined') {
+        geminiKey = localStorage.getItem('study_planner_admin_api_key') || '';
+    }
+
     // Sukut bo'yicha DeepSeek asosiy model qilinadi
     if (!saved || !coachAiModel) {
         coachAiModel = 'deepseek';

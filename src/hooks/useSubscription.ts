@@ -40,15 +40,21 @@ export const useSubscription = () => {
                     });
                 }
 
-                // AI kalitni o'qish (faqat auth o'tganlarga beriladi, RLS orqali)
+                // AI kalitlarni o'qish (faqat auth o'tganlarga beriladi, RLS orqali)
                 const { data: appSettings, error: keyError } = await supabase
                     .from('app_settings')
-                    .select('gemini_api_key')
+                    .select('gemini_api_key, deepseek_api_key')
                     .eq('id', 1)
                     .single();
 
                 if (!keyError && appSettings) {
-                    setAdminApiKey(appSettings.gemini_api_key);
+                    if (appSettings.gemini_api_key) {
+                        setAdminApiKey(appSettings.gemini_api_key);
+                        localStorage.setItem('study_planner_admin_api_key', appSettings.gemini_api_key);
+                    }
+                    if (appSettings.deepseek_api_key) {
+                        localStorage.setItem('study_planner_admin_deepseek_api_key', appSettings.deepseek_api_key);
+                    }
                 }
             } catch (error) {
                 console.error("Subscription fetch error:", error);

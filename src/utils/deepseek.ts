@@ -51,6 +51,15 @@ export const callDeepSeek = async (
         validApiKey = null;
     }
 
+    if (!validApiKey || !validApiKey.startsWith('sk-')) {
+        const storedAdminKey = typeof localStorage !== 'undefined'
+            ? localStorage.getItem('study_planner_admin_deepseek_api_key') || localStorage.getItem('study_planner_deepseek_api_key')
+            : null;
+        if (storedAdminKey && storedAdminKey.startsWith('sk-')) {
+            validApiKey = storedAdminKey;
+        }
+    }
+
     // 1. If user provided a direct DeepSeek key, use SDK / direct call
     if (validApiKey && validApiKey.startsWith('sk-')) {
         try {
