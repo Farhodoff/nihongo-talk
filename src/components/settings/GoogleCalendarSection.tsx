@@ -7,7 +7,6 @@ import { useStudyData } from '../../context/StudyPlannerContext';
 const GoogleCalendarSection: React.FC = () => {
     const { syncGoogleEvents } = useStudyData();
     const [isConnected, setIsConnected] = useState(false);
-    const [isConnecting, setIsConnecting] = useState(false);
     const [isSyncing, setIsSyncing] = useState(false);
 
     useEffect(() => {
@@ -33,12 +32,11 @@ const GoogleCalendarSection: React.FC = () => {
         }
     };
 
+    const [comingSoonNotice, setComingSoonNotice] = useState(false);
+
     const handleConnect = async () => {
-        setIsConnecting(true);
-        setTimeout(() => {
-            alert('Bu xizmat hozircha jarayonda. Tez orada ishga tushadi!');
-            setIsConnecting(false);
-        }, 1500);
+        setComingSoonNotice(true);
+        setTimeout(() => setComingSoonNotice(false), 4000);
     };
 
     return (
@@ -49,7 +47,12 @@ const GoogleCalendarSection: React.FC = () => {
                         <Calendar size={24} />
                     </div>
                     <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Google Calendar</h3>
+                        <div className="flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Google Calendar</h3>
+                            <span className="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+                                Tez kunda
+                            </span>
+                        </div>
                         <p className="text-sm text-gray-500 dark:text-gray-400">Vazifalarni kalendaringizga sinxronizatsiya qiling</p>
                     </div>
                 </div>
@@ -61,6 +64,11 @@ const GoogleCalendarSection: React.FC = () => {
             </div>
 
             <div className="space-y-4">
+                {comingSoonNotice && (
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-lg text-xs text-blue-700 dark:text-blue-300 animate-in fade-in">
+                        🔔 Google Calendar bilan to'liq avtomatik integratsiya keyingi yangilanishda taqdim etiladi!
+                    </div>
+                )}
                 {isConnected ? (
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
@@ -92,11 +100,10 @@ const GoogleCalendarSection: React.FC = () => {
                         </p>
                         <Button
                             onClick={handleConnect}
-                            disabled={isConnecting}
                             className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 shadow-sm"
                         >
                             <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
-                            {isConnecting ? 'Jarayonda...' : 'Google bilan bog\'lash'}
+                            Google bilan bog'lash (Tez kunda)
                         </Button>
                     </div>
                 )}

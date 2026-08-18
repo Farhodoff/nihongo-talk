@@ -6,24 +6,25 @@ export const config = {
  * SM-2 Algorithm calculation
  * Quality: 0 (Blackout) to 5 (Perfect recall)
  */
-function calculateSM2(quality, repetitions = 0, interval = 1, easeFactor = 2.5) {
+function calculateSM2(quality, repetitions = 0, interval = 0, easeFactor = 2.5) {
   const q = Math.max(0, Math.min(5, Number(quality) || 0));
   let newRepetitions = Number(repetitions) || 0;
-  let newInterval = Number(interval) || 1;
+  let newInterval = Number(interval) || 0;
   let newEaseFactor = Number(easeFactor) || 2.5;
 
-  if (q >= 3) {
-    if (newRepetitions === 0) {
-      newInterval = 1;
-    } else if (newRepetitions === 1) {
-      newInterval = 6;
-    } else {
-      newInterval = Math.round(newInterval * newEaseFactor);
-    }
-    newRepetitions += 1;
-  } else {
+  if (q < 3) {
     newRepetitions = 0;
     newInterval = 1;
+  } else {
+    if (newRepetitions === 0) {
+      newInterval = q >= 5 ? 4 : q === 4 ? 2 : 1;
+    } else if (newRepetitions === 1) {
+      newInterval = q >= 5 ? 10 : q === 4 ? 6 : 3;
+    } else {
+      const multiplier = q >= 5 ? newEaseFactor * 1.3 : q === 3 ? 1.2 : newEaseFactor;
+      newInterval = Math.max(newInterval + 1, Math.round(newInterval * multiplier));
+    }
+    newRepetitions += 1;
   }
 
   // Update Ease Factor (min 1.3)
@@ -34,6 +35,7 @@ function calculateSM2(quality, repetitions = 0, interval = 1, easeFactor = 2.5) 
 
   const nextDate = new Date();
   nextDate.setDate(nextDate.getDate() + newInterval);
+  nextDate.setHours(4, 0, 0, 0);
 
   return {
     repetitions: newRepetitions,

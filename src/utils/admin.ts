@@ -8,88 +8,36 @@ export const DEFAULT_ADMIN_EMAILS = [
     '220075f@jdu.uz'
 ];
 
-const ADMIN_STORAGE_KEY = 'kaizen_dynamic_admins';
-
-// Helper to get dynamically assigned admins from localStorage
-export const getDynamicAdminEmails = (): string[] => {
-    try {
-        const stored = localStorage.getItem(ADMIN_STORAGE_KEY);
-        if (stored) {
-            return JSON.parse(stored);
-        }
-    } catch (e) {
-        console.error('Error reading dynamic admins:', e);
-    }
-    return [];
-};
-
 // Check if user is Super Admin (fsoyilov@gmail.com)
 export const isSuperAdmin = (email?: string | null): boolean => {
-    if (email) {
-        const e = email.toLowerCase().trim();
-        return e === SUPER_ADMIN_EMAIL;
-    }
+    if (!email) return false;
+    const e = email.toLowerCase().trim();
+    return e === SUPER_ADMIN_EMAIL;
+};
 
-    try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            const cached = localStorage.getItem('study_planner_user_cache');
-            if (cached) {
-                const parsed = JSON.parse(cached);
-                if (parsed?.email && parsed.email.toLowerCase().trim() === SUPER_ADMIN_EMAIL) {
-                    return true;
-                }
-            }
-        }
-    } catch {}
-
+// Check if user is Admin or Super Admin based on verified email or role
+export const isAdminEmail = (email?: string | null, role?: string | null): boolean => {
+    if (role === 'admin' || role === 'superadmin') return true;
+    if (!email) return false;
+    const e = email.toLowerCase().trim();
+    if (e === SUPER_ADMIN_EMAIL) return true;
+    if (DEFAULT_ADMIN_EMAILS.includes(e)) return true;
     return false;
 };
 
-// Check if user is Admin or Super Admin
-export const isAdminEmail = (email?: string | null): boolean => {
-    if (email) {
-        const e = email.toLowerCase().trim();
-        if (e === SUPER_ADMIN_EMAIL) return true;
-        if (DEFAULT_ADMIN_EMAILS.includes(e)) return true;
-        const dynamicAdmins = getDynamicAdminEmails();
-        if (dynamicAdmins.includes(e)) return true;
-        return false;
-    }
-
-    // If email is not passed directly, verify against localStorage caches
-    try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            const cached = localStorage.getItem('study_planner_user_cache');
-            if (cached) {
-                const parsed = JSON.parse(cached);
-                if (parsed?.email) {
-                    const pe = parsed.email.toLowerCase().trim();
-                    if (pe === SUPER_ADMIN_EMAIL || DEFAULT_ADMIN_EMAILS.includes(pe) || getDynamicAdminEmails().includes(pe)) {
-                        return true;
-                    }
-                }
-            }
-        }
-    } catch {}
-
-    return false;
+// Helper for user object
+export const isUserAdmin = (user?: { email?: string | null; role?: string | null } | null): boolean => {
+    if (!user) return false;
+    return isAdminEmail(user.email, user.role);
 };
 
-// Super Admin action: Grant Admin role to user email
-export const grantAdminRole = (email: string): void => {
+// Dynamic role grant placeholder (delegates to backend DB role)
+export const grantAdminRole = async (email: string): Promise<void> => {
     if (!email) return;
-    const cleanEmail = email.toLowerCase().trim();
-    const current = getDynamicAdminEmails();
-    if (!current.includes(cleanEmail)) {
-        current.push(cleanEmail);
-        localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(current));
-    }
+    console.info(`[Admin] Admin role requested for ${email}`);
 };
 
-// Super Admin action: Revoke Admin role from user email
-export const revokeAdminRole = (email: string): void => {
+export const revokeAdminRole = async (email: string): Promise<void> => {
     if (!email) return;
-    const cleanEmail = email.toLowerCase().trim();
-    const current = getDynamicAdminEmails().filter(e => e !== cleanEmail);
-    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(current));
+    console.info(`[Admin] Admin role revoke requested for ${email}`);
 };

@@ -29,20 +29,16 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'SERVICE_ROLE environment variable is not configured on server' });
   }
 
-  // 1. Verify caller identity via Supabase JWT with fallback
+  // 1. Verify caller identity strictly via Supabase JWT
   const { user, error: authError } = await verifyAuth(req);
-  let userId = user?.id;
-  if (!userId && req.body?.userId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(req.body.userId)) {
-    userId = req.body.userId;
-  }
-
-  if (!userId) {
+  if (!user || !user.id) {
     return res.status(401).json({
       error: 'Unauthorized',
       message: 'Ushbu amalni bajarish uchun tizimga kirish talab etiladi.',
       details: authError,
     });
   }
+  const userId = user.id;
 
   const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
   const body = req.body || {};

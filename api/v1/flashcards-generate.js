@@ -1,8 +1,28 @@
 import { verifyAuth, getBearerToken } from '../_auth.js';
+import { checkRateLimit } from '../_rateLimit.js';
 
 export const config = {
   runtime: 'edge',
 };
+
+function safeParseJson(rawContent, fallback = {}) {
+  if (!rawContent || typeof rawContent !== 'string') return fallback;
+  try {
+    const cleaned = rawContent
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/\s*```$/i, '')
+      .trim();
+    return JSON.parse(cleaned);
+  } catch (e) {
+    const match = rawContent.match(/\{[\s\S]*\}/);
+    if (match) {
+      try {
+        return JSON.parse(match[0]);
+      } catch {}
+    }
+    return fallback;
+  }
+}
 
 export default async function handler(req) {
   if (req.method === 'OPTIONS') {
@@ -28,6 +48,7 @@ export default async function handler(req) {
   const serverKey = process.env.DEEPSEEK_API_KEY;
 
   let effectiveApiKey = null;
+  let authenticatedUserId = null;
 
   if (customKey && customKey.startsWith('sk-')) {
     effectiveApiKey = customKey;
@@ -43,6 +64,25 @@ export default async function handler(req) {
       }), {
         status: 401,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    authenticatedUserId = user.id;
+
+    // Rate limiting for shared server API key
+    const rateCheck = checkRateLimit(req, authenticatedUserId);
+    if (!rateCheck.allowed) {
+      return new Response(JSON.stringify({
+        error: 'Too Many Requests',
+        message: `Fleshkarta yaratish so'rovlari chegarasi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        retryAfter: rateCheck.retryAfter,
+      }), {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Retry-After': String(rateCheck.retryAfter),
+        },
       });
     }
 
@@ -122,7 +162,7 @@ Format strictly as raw JSON without markdown:
 
     const aiData = await aiResponse.json();
     const content = aiData.choices?.[0]?.message?.content;
-    const parsed = JSON.parse(content || '{}');
+    const parsed = safeParseJson(content, { flashcards: [] });
 
     return new Response(JSON.stringify({ success: true, count: parsed.flashcards?.length || 0, data: parsed.flashcards || [] }), {
       status: 200,

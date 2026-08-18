@@ -1,4 +1,5 @@
 import { verifyAuth, getBearerToken } from './_auth.js';
+import { checkRateLimit } from './_rateLimit.js';
 
 export const config = {
   runtime: 'edge',
@@ -28,6 +29,7 @@ export default async function handler(req) {
   const serverKey = process.env.DEEPSEEK_API_KEY;
 
   let effectiveApiKey = null;
+  let authenticatedUserId = null;
 
   // 1. If user provided a direct DeepSeek key (BYOK: sk-...)
   if (customKey && customKey.startsWith('sk-')) {
@@ -45,6 +47,25 @@ export default async function handler(req) {
       }), {
         status: 401,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    authenticatedUserId = user.id;
+
+    // Rate limit check for shared server key
+    const rateCheck = checkRateLimit(req, authenticatedUserId);
+    if (!rateCheck.allowed) {
+      return new Response(JSON.stringify({
+        error: 'Too Many Requests',
+        message: `AI so'rovlar chegarasi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        retryAfter: rateCheck.retryAfter,
+      }), {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Retry-After': String(rateCheck.retryAfter),
+        },
       });
     }
 

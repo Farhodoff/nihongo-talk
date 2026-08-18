@@ -61,6 +61,7 @@ export function calculateReview(
 
     const nextDate = new Date();
     nextDate.setDate(nextDate.getDate() + newInterval);
+    nextDate.setHours(4, 0, 0, 0);
 
     return {
         interval: newInterval,
