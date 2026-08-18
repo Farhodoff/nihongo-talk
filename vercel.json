@@ -5,9 +5,10 @@
     "installCommand": "npm install --legacy-peer-deps",
     "rewrites": [
         { "source": "/api/(.*)", "destination": "/api/$1" },
+        { "source": "/supabase-proxy/(.*)", "destination": "https://qmuimxnknxwarvnkpnlo.supabase.co/$1" },
         { "source": "/sw.js", "destination": "/sw.js" },
         { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
-        { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
+        { "source": "/((?!api/|supabase-proxy/|sw\\.js|workbox-).*)", "destination": "/index.html" }
     ],
     "headers": [
         {

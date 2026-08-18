@@ -13,7 +13,17 @@ const isValidUrl = (url?: string) => {
     }
 };
 
-const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
+const getSupabaseEndpoint = () => {
+    // In browser environment (both local dev and production on Vercel),
+    // route through same-origin /supabase-proxy to eliminate ERR_HTTP2_PROTOCOL_ERROR
+    // and ERR_CONNECTION_RESET caused by ISP DPI throttling on *.supabase.co domains.
+    if (typeof window !== 'undefined' && window.location?.origin && !window.location.origin.includes('localhost:3000')) {
+        return `${window.location.origin}/supabase-proxy`;
+    }
+    return isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
+};
+
+const supabaseUrl = getSupabaseEndpoint();
 
 // Clean and validate Supabase Anon Key (never expose or use SERVICE_ROLE in client bundle)
 let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : '';
@@ -30,23 +40,6 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     try {
         return await fetch(input, init);
     } catch (err: unknown) {
-        // If direct fetch fails (e.g. ERR_CONNECTION_RESET, ERR_HTTP2_PROTOCOL_ERROR),
-        // automatically fallback to local dev proxy in dev mode
-        const urlStr = typeof input === 'string' 
-            ? input 
-            : input instanceof URL 
-                ? input.toString() 
-                : (input as Request)?.url || '';
-
-        if (import.meta.env.DEV && urlStr.includes('supabase.co')) {
-            try {
-                const proxiedUrl = urlStr.replace(/^https:\/\/[^/]+/, '/supabase-proxy');
-                return await fetch(proxiedUrl, init);
-            } catch {
-                // Ignore proxy error and proceed to safe fallback
-            }
-        }
-
         const errMsg = err instanceof Error ? err.message : 'Network connection reset or offline';
         return new Response(
             JSON.stringify({ 
