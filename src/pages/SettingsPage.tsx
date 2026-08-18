@@ -3,16 +3,11 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
-import DataManagementSection from '../components/settings/DataManagementSection';
 import AccountSection from '../components/settings/AccountSection';
-import TelegramSection from '../components/settings/TelegramSection';
-import GoogleCalendarSection from '../components/settings/GoogleCalendarSection';
-import AIProviderSection from '../components/settings/AIProviderSection';
-import DailyGoalSection from '../components/settings/DailyGoalSection';
 import SubscriptionSection from '../components/settings/SubscriptionSection';
 import { 
-    User, Sparkles, Sliders, Database, Shield, Crown, 
-    Target, Flame, Award, Clock
+    User, Sliders, Shield, Crown, 
+    Flame, Award, Clock, Sparkles
 } from 'lucide-react';
 import { isAdminEmail } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
@@ -21,17 +16,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AdminDashboardPage from './AdminDashboardPage';
 
 const SettingsPage: React.FC = () => {
-    const { settings, updateSettings, refreshData, user, getRank } = useStudyData();
+    const { settings, updateSettings, user, getRank } = useStudyData();
     const { subscription } = useSubscription();
     const [activeTab, setActiveTab] = useState('profile');
 
     const tabs = [
         { id: 'profile', label: 'Profil & Hisob', icon: User },
         { id: 'subscription', label: 'Tarif & Obuna', icon: Crown },
-        { id: 'dailyGoal', label: "O'qish Maqsadi", icon: Target },
-        { id: 'ai', label: 'AI & Integratsiya', icon: Sparkles },
         { id: 'preferences', label: 'Interfeys & Til', icon: Sliders },
-        { id: 'data', label: "Ma'lumotlar", icon: Database },
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz
@@ -58,10 +50,6 @@ const SettingsPage: React.FC = () => {
             updateSettings({ notificationsEnabled: false });
             toast({ title: '🔕 Bildirishnomalar o\'chirildi' });
         }
-    };
-
-    const handleClearData = async () => {
-        await refreshData();
     };
 
     const rankTitle = getRank ? getRank(settings.level || 1) : 'Bilimdon';
@@ -195,18 +183,6 @@ const SettingsPage: React.FC = () => {
                         <SubscriptionSection />
                     )}
 
-                    {activeTab === 'dailyGoal' && (
-                        <DailyGoalSection />
-                    )}
-
-                    {activeTab === 'ai' && (
-                        <div className="space-y-6">
-                            <AIProviderSection />
-                            <TelegramSection />
-                            <GoogleCalendarSection />
-                        </div>
-                    )}
-
                     {activeTab === 'preferences' && (
                         <PreferencesSection
                             settings={settings}
@@ -214,10 +190,6 @@ const SettingsPage: React.FC = () => {
                             onToggleNotifications={toggleNotifications}
                             onUpdateSettings={updateSettings}
                         />
-                    )}
-
-                    {activeTab === 'data' && (
-                        <DataManagementSection onClearData={handleClearData} />
                     )}
 
                     {activeTab === 'admin' && (
