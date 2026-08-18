@@ -587,11 +587,37 @@ const AdminDashboardPage: React.FC = () => {
                                         dataKey="activity_date"
                                         tickLine={false}
                                         axisLine={false}
-                                        tickFormatter={(val) => val ? new Date(val).toLocaleDateString('uz-UZ', { day: '2-digit', month: 'short' }) : ''}
+                                        tickFormatter={(val) => {
+                                            if (!val) return '';
+                                            try {
+                                                const d = new Date(val);
+                                                const day = d.getDate();
+                                                const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'];
+                                                return `${day}-${months[d.getMonth()]}`;
+                                            } catch {
+                                                return val;
+                                            }
+                                        }}
                                         tick={{ fill: '#94a3b8', fontSize: 10 }}
                                     />
                                     <YAxis tickLine={false} axisLine={false} tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                                    <Tooltip />
+                                    <Tooltip
+                                        formatter={(value: any) => [
+                                            chartMode === 'dau' ? `${value} ta faol talaba` : `${Math.round(Number(value) / 60)} soat (${value} daqiqa)`,
+                                            chartMode === 'dau' ? 'Kunlik faollar' : "O'qish vaqti"
+                                        ]}
+                                        labelFormatter={(label) => {
+                                            if (!label) return '';
+                                            try {
+                                                const d = new Date(label);
+                                                const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'];
+                                                return `${d.getDate()}-${months[d.getMonth()]}, ${d.getFullYear()}`;
+                                            } catch {
+                                                return label;
+                                            }
+                                        }}
+                                        contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#fff', fontSize: '12px' }}
+                                    />
                                     <Area
                                         type="monotone"
                                         dataKey={chartMode === 'dau' ? 'active_users' : 'total_duration_minutes'}
