@@ -48,13 +48,21 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     try {
         return await fetch(input, init);
     } catch (err: unknown) {
-        const errMsg = err instanceof Error ? err.message : 'Network connection reset or offline';
+        const isAuth = urlStr.includes('/auth/v1');
+        if (isAuth) {
+            return new Response(
+                JSON.stringify({ error: 'Network connection reset or offline' }),
+                {
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        }
+
+        // Return a clean empty array for REST list queries to avoid throwing iterable errors
         return new Response(
-            JSON.stringify({ 
-                error: 'Network unavailable', 
-                message: errMsg,
-                data: [] 
-            }),
+            JSON.stringify([]),
             {
                 status: 200,
                 statusText: 'OK',

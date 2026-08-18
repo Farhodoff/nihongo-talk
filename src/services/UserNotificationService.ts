@@ -98,7 +98,7 @@ export class UserNotificationService {
 
         let remoteNotifs: UserNotificationItem[] = [];
 
-        // Faqat onlayn bo'lganda serverga so'rov yuborish (network xatoliklarini kamaytirish)
+        // Faqat onlayn bo'lganda serverga so'rov yuborish
         if (typeof navigator === 'undefined' || navigator.onLine) {
             try {
                 const { data, error } = await supabase
@@ -108,18 +108,20 @@ export class UserNotificationService {
                     .eq('is_read', false)
                     .order('created_at', { ascending: false });
 
-                if (!error && data) {
+                if (!error && Array.isArray(data)) {
                     remoteNotifs = data;
                 }
             } catch (e) {}
         }
 
         // Get local storage unread notifications for this user
-        const localNotifs = this.getLocalNotifications(userId).filter(n => !n.is_read);
+        const localList = this.getLocalNotifications(userId);
+        const localNotifs = Array.isArray(localList) ? localList.filter(n => n && !n.is_read) : [];
 
         // Merge and deduplicate by title + message or ID
-        const combined = [...remoteNotifs];
+        const combined: UserNotificationItem[] = Array.isArray(remoteNotifs) ? [...remoteNotifs] : [];
         for (const loc of localNotifs) {
+            if (!loc) continue;
             const exists = combined.some(r => r.id === loc.id || (r.title === loc.title && r.message === loc.message));
             if (!exists) {
                 combined.push(loc);
@@ -149,13 +151,15 @@ export class UserNotificationService {
         try {
             const raw = localStorage.getItem(LOCAL_NOTIFS_KEY);
             if (raw) {
-                const list: UserNotificationItem[] = JSON.parse(raw);
-                const updated = list.map(n => 
-                    (n.id === notificationId || (n.user_id === userId && !n.is_read))
-                        ? { ...n, is_read: true }
-                        : n
-                );
-                localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(updated));
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    const updated = parsed.map((n: any) => 
+                        (n.id === notificationId || (n.user_id === userId && !n.is_read))
+                            ? { ...n, is_read: true }
+                            : n
+                    );
+                    localStorage.setItem(LOCAL_NOTIFS_KEY, JSON.stringify(updated));
+                }
             }
         } catch (e) {}
     }
@@ -164,8 +168,9 @@ export class UserNotificationService {
         try {
             const raw = localStorage.getItem(LOCAL_NOTIFS_KEY);
             if (!raw) return [];
-            const list: UserNotificationItem[] = JSON.parse(raw);
-            return list.filter(n => n.user_id === userId);
+            const parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed)) return [];
+            return parsed.filter((n: any) => n && n.user_id === userId);
         } catch {
             return [];
         }
@@ -245,7 +250,7 @@ export class UserNotificationService {
                 .order('created_at', { ascending: false })
                 .limit(5);
 
-            if (!error && data && data.length > 0) {
+            if (!error && Array.isArray(data) && data.length > 0) {
                 return data;
             }
         } catch (e) {}
@@ -253,7 +258,10 @@ export class UserNotificationService {
         // Fallback to local storage
         try {
             const raw = localStorage.getItem('study_planner_global_announcements');
-            if (raw) return JSON.parse(raw);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
         } catch (e) {}
 
         return [];

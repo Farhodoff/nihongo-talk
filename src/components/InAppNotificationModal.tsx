@@ -20,8 +20,12 @@ export const InAppNotificationModal: React.FC = () => {
 
         // 2. Fetch unread notifications
         const fetchNotifs = async () => {
-            const list = await UserNotificationService.getUnreadNotifications(user.id);
-            setUnreadNotifs(list);
+            try {
+                const list = await UserNotificationService.getUnreadNotifications(user.id);
+                setUnreadNotifs(Array.isArray(list) ? list : []);
+            } catch {
+                // Silently handle offline or network error
+            }
         };
 
         fetchNotifs();
