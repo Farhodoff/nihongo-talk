@@ -3,7 +3,9 @@ export const SUPER_ADMIN_EMAIL = 'fsoyilov@gmail.com';
 export const DEFAULT_ADMIN_EMAILS = [
     'fsoyilov@gmail.com',
     'fsoyilovv@gmail.com',
-    'soyilovfarhod157@gmail.com'
+    'soyilovfarhod157@gmail.com',
+    'ssoyilov7700@gmail.com',
+    '220075f@jdu.uz'
 ];
 
 const ADMIN_STORAGE_KEY = 'kaizen_dynamic_admins';
@@ -24,7 +26,8 @@ export const getDynamicAdminEmails = (): string[] => {
 // Check if user is Super Admin (fsoyilov@gmail.com)
 export const isSuperAdmin = (email?: string | null): boolean => {
     if (!email) return false;
-    return email.toLowerCase().trim() === SUPER_ADMIN_EMAIL;
+    const e = email.toLowerCase().trim();
+    return e === SUPER_ADMIN_EMAIL;
 };
 
 // Check if user is Admin or Super Admin
