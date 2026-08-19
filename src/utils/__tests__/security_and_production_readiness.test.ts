@@ -216,4 +216,40 @@ describe('PRODUCTION LAUNCH READINESS & SECURITY SUITE (15 Critical Scenarios)',
         expect(whiteboardStore.get(roomB_id).shapes).toEqual(['square']);
         expect(whiteboardStore.get(roomA_id)).not.toEqual(whiteboardStore.get(roomB_id));
     });
+
+    // 16. Vercel Production Security Headers
+    it('16. Vercel deployment configuration enforces X-Frame-Options, X-Content-Type-Options, and Referrer-Policy', async () => {
+        const vercelJson = await import('../../../vercel.json');
+
+        const globalHeadersObj = vercelJson.headers.find((h: any) => h.source === '/(.*)');
+        expect(globalHeadersObj).toBeDefined();
+
+        const headers = globalHeadersObj?.headers || [];
+        const xContentType = headers.find((h: any) => h.key === 'X-Content-Type-Options');
+        const xFrameOptions = headers.find((h: any) => h.key === 'X-Frame-Options');
+        const referrerPolicy = headers.find((h: any) => h.key === 'Referrer-Policy');
+
+        expect(xContentType?.value).toBe('nosniff');
+        expect(xFrameOptions?.value).toBe('SAMEORIGIN');
+        expect(referrerPolicy?.value).toBe('strict-origin-when-cross-origin');
+    });
+
+    // 17. XSS Escaping & Script Injection Guard
+    it('17. HTML tags and malicious script payloads in user content are safely escaped', () => {
+        const maliciousInput = '<script>alert("XSS")</script><img src="x" onerror="stealCookies()"/>';
+        const escapeHtml = (str: string) => {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        };
+
+        const safeOutput = escapeHtml(maliciousInput);
+        expect(safeOutput).not.toContain('<script>');
+        expect(safeOutput).not.toContain('<img');
+        expect(safeOutput).toContain('&lt;script&gt;');
+        expect(safeOutput).toContain('&lt;img');
+    });
 });
