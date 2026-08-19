@@ -10,7 +10,7 @@ import { supabase } from '../../lib/supabase';
 import { toast } from '../../hooks/use-toast';
 
 export const IeltsGrammarMaster: React.FC = () => {
-    const { addFlashcardsBatch, awardXP, subjects, addSubject } = useStudyData();
+    const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
     const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1-A2' | 'B1-B2' | 'C1'>('ALL');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedTopic, setSelectedTopic] = useState<IeltsGrammarTopic>(IELTS_GRAMMAR_DATABASE[0]);
@@ -75,6 +75,20 @@ export const IeltsGrammarMaster: React.FC = () => {
         // Award XP
         if (correct > 0) {
             await awardXP(correct * 25);
+        }
+
+        // Record study session duration in public.study_sessions
+        if (addSession) {
+            try {
+                let ieltsSub = subjects.find(s => s.name.toLowerCase().includes('ielts'));
+                await addSession({
+                    duration: 5,
+                    type: 'focus',
+                    completed: true,
+                    subjectId: ieltsSub?.id || undefined,
+                    startTime: new Date().toISOString()
+                });
+            } catch (e) {}
         }
 
         // Save exam history

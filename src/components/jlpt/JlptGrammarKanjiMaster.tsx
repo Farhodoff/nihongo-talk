@@ -12,7 +12,7 @@ import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
 import { HistoryService } from '../../services/HistoryService';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
-    const { addFlashcardsBatch, subjects, awardXP } = useStudyData();
+    const { addFlashcardsBatch, subjects, awardXP, addSession } = useStudyData();
     const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
 
     const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
@@ -127,6 +127,15 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             try {
                 if (awardXP && score > 0) {
                     awardXP(score * 20);
+                }
+                if (addSession) {
+                    addSession({
+                        duration: Math.max(3, Math.round(quizQuestions.length * 1.5)),
+                        type: 'focus',
+                        completed: true,
+                        subjectId: subjects[0]?.id || undefined,
+                        startTime: new Date().toISOString()
+                    });
                 }
                 HistoryService.saveMockExam({
                     examType: 'jlpt',
