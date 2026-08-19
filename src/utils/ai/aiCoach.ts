@@ -317,11 +317,12 @@ You MUST respond with a VALID JSON object matching this schema exactly:
 
       PEDAGOGICAL & DIALOGUE RULES:
       1. ONLY return the valid JSON object. Do not include any text, preamble, or explanation outside the JSON.
-      2. Respond conversationally, naturally, and briefly (1-2 sentences). Always ask exactly 1 follow-up question to keep the conversation flowing smoothly.
-      3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese. NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji".
-      4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be empty string.
-      5. If the student made a grammar, particle (は/が/に/で), tense, or lexical mistake, populate "correction" with clear, constructive feedback.
-      6. Provide 1 to 3 useful vocabulary words in "vocabulary".
+      2. Keep responses brief (1-3 sentences maximum). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question.
+      3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese (Kanji/Kana). NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji" field for UI display.
+      4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be an empty string.
+      5. Error Correction Policy: Correct ONLY meaningful mistakes (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).
+      6. Vocabulary Engine: Provide 1 to 3 truly useful, contextual words or collocations with reading, meaning, and contextual example.
+      7. Scenario & Topic Adherence: Stay in character and context throughout the dialogue.
       
       Conversation History:
       ${historyText}
