@@ -18,6 +18,7 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
+import { QuickCommandPalette } from './common/QuickCommandPalette';
 
 import { PersonalizedOnboardingModal } from './onboarding/PersonalizedOnboardingModal';
 
@@ -37,6 +38,7 @@ const Layout: React.FC = () => {
     const navigate = useNavigate();
     const { focusState } = useFocusTimerContext();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(() => {
         const saved = localStorage.getItem('study_planner_sidebar_collapsed');
         return saved === 'true';
@@ -46,6 +48,40 @@ const Layout: React.FC = () => {
     const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus, loading } = useStudyData();
     const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
     const isAdmin = isAdminEmail(displayEmail);
+
+    // Global Keyboard Shortcuts (Cmd/Ctrl+K, F, T, D)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                setIsCommandPaletteOpen(prev => !prev);
+                return;
+            }
+
+            const target = e.target as HTMLElement | null;
+            if (target && (
+                target.tagName === 'INPUT' || 
+                target.tagName === 'TEXTAREA' || 
+                target.tagName === 'SELECT' || 
+                target.isContentEditable
+            )) {
+                return;
+            }
+
+            if (!e.metaKey && !e.ctrlKey && !e.altKey) {
+                if (e.key === 'f' || e.key === 'F') {
+                    navigate('/focus');
+                } else if (e.key === 't' || e.key === 'T') {
+                    navigate('/tasks');
+                } else if (e.key === 'd' || e.key === 'D') {
+                    navigate('/dashboard');
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [navigate]);
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -536,6 +572,12 @@ const Layout: React.FC = () => {
             <PersonalizedOnboardingModal
                 isOpen={showOnboarding}
                 onClose={() => setShowOnboarding(false)}
+            />
+
+            {/* Quick Command Palette (Cmd/Ctrl + K) */}
+            <QuickCommandPalette
+                isOpen={isCommandPaletteOpen}
+                onClose={() => setIsCommandPaletteOpen(false)}
             />
 
             {/* Global Modals */}
