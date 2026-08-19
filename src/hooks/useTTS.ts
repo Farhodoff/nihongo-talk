@@ -1,4 +1,5 @@
 import { useRef, useCallback } from 'react';
+import { trackTTSTelemetry } from '../lib/errorTracking';
 
 interface UseTTSOptions {
     language: 'en' | 'ja';
@@ -57,6 +58,7 @@ export const useTTS = ({
     }, []);
 
     const speakText = useCallback(async (text: string) => {
+        const startTime = Date.now();
         const clean = (text || '').trim();
         if (!clean) {
             onSpeakEnd();
@@ -66,7 +68,7 @@ export const useTTS = ({
         onSpeakStart();
         stopSpeaking();
 
-        const onSpeechFinish = () => {
+        const onSpeechFinish = (success: boolean = true, error?: string) => {
             if (ttsSafetyTimeoutRef.current) {
                 clearTimeout(ttsSafetyTimeoutRef.current);
                 ttsSafetyTimeoutRef.current = null;
@@ -77,11 +79,12 @@ export const useTTS = ({
                 }
                 currentObjectUrlRef.current = null;
             }
+            trackTTSTelemetry({ durationMs: Date.now() - startTime, success, error });
             onSpeakEnd();
         };
 
         // 10-second safety timeout in case Web Speech or Audio drops end event
-        ttsSafetyTimeoutRef.current = setTimeout(() => { onSpeechFinish(); }, 10000);
+        ttsSafetyTimeoutRef.current = setTimeout(() => { onSpeechFinish(false, 'TTS timeout 10s exceeded'); }, 10000);
 
         // 1. Google Translate Free Audio Stream
         try {
@@ -91,7 +94,7 @@ export const useTTS = ({
             
             const audio = new Audio(gUrl);
             audioPlayerRef.current = audio;
-            audio.onended = () => onSpeechFinish();
+            audio.onended = () => onSpeechFinish(true);
             audio.onerror = () => fallbackWebSpeech();
             
             const playPromise = audio.play();
@@ -109,7 +112,7 @@ export const useTTS = ({
         function fallbackWebSpeech() {
             const synth = synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
             if (!synth) {
-                onSpeechFinish();
+                onSpeechFinish(false, 'Web Speech API not available');
                 return;
             }
 

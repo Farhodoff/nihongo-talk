@@ -1,6 +1,7 @@
 import { getAIConfig, parseAIError, callGeminiFallback } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
+import { trackAITelemetry } from '../../lib/errorTracking';
 
 export interface ChatMessage {
     role: 'user' | 'model';
@@ -17,33 +18,49 @@ export const callSelectedAIProvider = async (
     isJson: boolean = false
 ): Promise<string> => {
     const config = getAIConfig();
+    const startTime = Date.now();
 
     if (config.provider === 'ollama') {
         try {
             const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
             const text = await callOllama(fullPrompt);
-            if (text && text.trim()) return text.trim();
-        } catch (err) {
+            if (text && text.trim()) {
+                trackAITelemetry({ provider: 'ollama', durationMs: Date.now() - startTime, success: true });
+                return text.trim();
+            }
+        } catch (err: any) {
             console.warn("[AI Fallback] Ollama failed in callSelectedAIProvider, attempting fallback to DeepSeek/Gemini:", err);
+            trackAITelemetry({ provider: 'ollama', durationMs: Date.now() - startTime, success: false, error: err?.message });
         }
     } else if (config.provider === 'gemini') {
         try {
             const text = await callGeminiFallback(prompt, systemPrompt);
-            if (text && text.trim()) return text.trim();
-        } catch (err) {
+            if (text && text.trim()) {
+                trackAITelemetry({ provider: 'gemini', durationMs: Date.now() - startTime, success: true });
+                return text.trim();
+            }
+        } catch (err: any) {
             console.warn("[AI Dispatcher] Gemini execution failed, attempting fallback to DeepSeek:", err);
+            trackAITelemetry({ provider: 'gemini', durationMs: Date.now() - startTime, success: false, error: err?.message });
         }
     }
 
     // Default / DeepSeek provider
-    return await callDeepSeek(
-        prompt,
-        config.deepseekKey || '',
-        systemPrompt,
-        isJson,
-        config.deepseekModel,
-        config.deepseekThinkingMode
-    );
+    try {
+        const result = await callDeepSeek(
+            prompt,
+            config.deepseekKey || '',
+            systemPrompt,
+            isJson,
+            config.deepseekModel,
+            config.deepseekThinkingMode
+        );
+        trackAITelemetry({ provider: 'deepseek', model: config.deepseekModel, durationMs: Date.now() - startTime, success: true });
+        return result;
+    } catch (err: any) {
+        trackAITelemetry({ provider: 'deepseek', model: config.deepseekModel, durationMs: Date.now() - startTime, success: false, error: err?.message });
+        throw err;
+    }
 };
 
 /**

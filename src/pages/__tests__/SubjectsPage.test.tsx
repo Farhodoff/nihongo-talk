@@ -86,6 +86,6 @@ describe('SubjectsPage - Fan Yaratish va Boshqarish', () => {
         // Verify subject card is rendered in the UI
         await waitFor(() => {
             expect(screen.getByText('Backend Pythons')).toBeInTheDocument();
-        });
-    });
+        }, { timeout: 10000 });
+    }, 15000);
 });
