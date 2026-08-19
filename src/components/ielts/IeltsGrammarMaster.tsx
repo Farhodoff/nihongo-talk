@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
     CheckCircle2, AlertCircle, Sparkles, 
-    Search, PlusCircle, BookCheck
+    Search, PlusCircle, BookCheck, Loader2, RefreshCw
 } from 'lucide-react';
-import { IELTS_GRAMMAR_DATABASE, IeltsGrammarTopic } from '../../data/ielts/ielts_grammar_data';
+import { IeltsGrammarTopic } from '../../data/ielts/ielts_grammar_data';
+import { useGrammarLessons } from '../../hooks/useGrammarLessons';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { HistoryService } from '../../services/HistoryService';
 import { supabase } from '../../lib/supabase';
@@ -11,15 +12,26 @@ import { toast } from '../../hooks/use-toast';
 
 export const IeltsGrammarMaster: React.FC = () => {
     const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
+    const { topics, isLoading, error, refetch } = useGrammarLessons('en');
+
     const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1-A2' | 'B1-B2' | 'C1'>('ALL');
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedTopic, setSelectedTopic] = useState<IeltsGrammarTopic>(IELTS_GRAMMAR_DATABASE[0]);
+    const [selectedTopic, setSelectedTopic] = useState<IeltsGrammarTopic | null>(null);
     
     // Quiz state
     const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
     const [quizSubmitted, setQuizSubmitted] = useState(false);
     const [isSavingCards, setIsSavingCards] = useState(false);
     const [masteredTopics, setMasteredTopics] = useState<Set<string>>(new Set());
+
+    // Sync selected topic when topics load
+    useEffect(() => {
+        if (topics.length > 0) {
+            if (!selectedTopic || !topics.some(t => t.id === selectedTopic.id)) {
+                setSelectedTopic(topics[0]);
+            }
+        }
+    }, [topics, selectedTopic]);
 
     useEffect(() => {
         const loadMastery = async () => {
@@ -41,7 +53,7 @@ export const IeltsGrammarMaster: React.FC = () => {
         loadMastery();
     }, []);
 
-    const filteredTopics = IELTS_GRAMMAR_DATABASE.filter(t => {
+    const filteredTopics = topics.filter(t => {
         const matchesLevel = selectedLevel === 'ALL' || t.level === selectedLevel;
         const matchesSearch = t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                               t.uzbekMeaning.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -205,52 +217,82 @@ export const IeltsGrammarMaster: React.FC = () => {
                 />
             </div>
 
-            {/* Content Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                {/* Left Sidebar: Topics List */}
-                <div className="lg:col-span-4 space-y-2 max-h-[600px] overflow-y-auto pr-1">
-                    {filteredTopics.map(t => {
-                        const isSelected = selectedTopic?.id === t.id;
-                        const isMastered = masteredTopics.has(t.id);
-
-                        return (
-                            <button
-                                key={t.id}
-                                onClick={() => handleSelectTopic(t)}
-                                className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
-                                    isSelected 
-                                        ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-700 shadow-sm' 
-                                        : 'bg-white dark:bg-gray-800/40 border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
-                                }`}
-                            >
-                                <div className="space-y-1">
-                                    <div className="flex items-center gap-2">
-                                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                                            t.level === 'C1' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300' :
-                                            t.level === 'B1-B2' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' :
-                                            'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
-                                        }`}>
-                                            {t.level}
-                                        </span>
-                                        <span className="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">
-                                            {t.title}
-                                        </span>
-                                    </div>
-                                    <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
-                                        {t.uzbekMeaning}
-                                    </p>
-                                </div>
-
-                                {isMastered && (
-                                    <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-1" />
-                                )}
-                            </button>
-                        );
-                    })}
+            {/* Loading & Error Indicators */}
+            {isLoading && (
+                <div className="p-8 text-center bg-gray-50 dark:bg-gray-800/30 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-3">
+                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-600" />
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Grammatika darslari PostgreSQL bazasidan yuklanmoqda...</p>
                 </div>
+            )}
 
-                {/* Right Area: Selected Topic Details & Quiz */}
-                <div className="lg:col-span-8 space-y-6 bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl border border-gray-100 dark:border-gray-800">
+            {error && !isLoading && (
+                <div className="p-6 bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900 rounded-3xl flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                        <p className="text-xs text-rose-700 dark:text-rose-300">{error}</p>
+                    </div>
+                    <button
+                        onClick={() => refetch()}
+                        className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow"
+                    >
+                        <RefreshCw size={14} /> Qayta yuklash
+                    </button>
+                </div>
+            )}
+
+            {/* Content Layout */}
+            {!isLoading && (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    {/* Left Sidebar: Topics List */}
+                    <div className="lg:col-span-4 space-y-2 max-h-[600px] overflow-y-auto pr-1">
+                        {filteredTopics.length === 0 ? (
+                            <div className="p-6 text-center bg-gray-50 dark:bg-gray-800/40 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700 text-xs text-gray-400">
+                                Mos keluvchi grammatika mavzusi topilmadi.
+                            </div>
+                        ) : (
+                            filteredTopics.map(t => {
+                                const isSelected = selectedTopic?.id === t.id;
+                                const isMastered = masteredTopics.has(t.id);
+
+                                return (
+                                    <button
+                                        key={t.id}
+                                        onClick={() => handleSelectTopic(t)}
+                                        className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
+                                            isSelected 
+                                                ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-700 shadow-sm' 
+                                                : 'bg-white dark:bg-gray-800/40 border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
+                                        }`}
+                                    >
+                                        <div className="space-y-1">
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
+                                                    t.level === 'C1' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300' :
+                                                    t.level === 'B1-B2' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' :
+                                                    'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                                                }`}>
+                                                    {t.level}
+                                                </span>
+                                                <span className="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">
+                                                    {t.title}
+                                                </span>
+                                            </div>
+                                            <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
+                                                {t.uzbekMeaning}
+                                            </p>
+                                        </div>
+
+                                        {isMastered && (
+                                            <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-1" />
+                                        )}
+                                    </button>
+                                );
+                            })
+                        )}
+                    </div>
+
+                    {/* Right Area: Selected Topic Details & Quiz */}
+                    <div className="lg:col-span-8 space-y-6 bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl border border-gray-100 dark:border-gray-800">
                     {selectedTopic ? (
                         <>
                             {/* Topic Title & Formula Banner */}
@@ -428,6 +470,7 @@ export const IeltsGrammarMaster: React.FC = () => {
                     )}
                 </div>
             </div>
+            )}
         </div>
     );
 };
