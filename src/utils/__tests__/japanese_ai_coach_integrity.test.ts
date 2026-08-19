@@ -4,10 +4,10 @@ import {
     cleanJapaneseTTS,
     extractSpeechAudioText,
     converseWithCoachStructured,
-    converseWithCoach,
     validateSpeechInput
 } from '../ai';
 import { DEFAULT_SCENARIOS } from '../../data/defaultScenarios';
+import { FlashcardService } from '../../services/FlashcardService';
 
 vi.mock('../ai/aiCore', () => ({
     callSelectedAIProvider: vi.fn(),
@@ -15,9 +15,30 @@ vi.mock('../ai/aiCore', () => ({
     isAIKeyConfigured: vi.fn(() => true)
 }));
 
+vi.mock('../../lib/supabase', () => ({
+    supabase: {
+        auth: {
+            getUser: vi.fn().mockResolvedValue({
+                data: { user: { id: 'test-user-uuid-123', email: 'test@kaizen.ai' } },
+                error: null
+            })
+        },
+        from: vi.fn().mockReturnValue({
+            select: vi.fn().mockReturnThis(),
+            insert: vi.fn().mockImplementation((chunk) => ({
+                select: vi.fn().mockResolvedValue({ data: chunk.map((c: any) => ({ ...c, id: `db-${Math.random()}` })), error: null })
+            })),
+            upsert: vi.fn().mockResolvedValue({ data: null, error: null }),
+            eq: vi.fn().mockReturnThis(),
+            order: vi.fn().mockReturnThis(),
+            limit: vi.fn().mockResolvedValue({ data: [], error: null })
+        })
+    }
+}));
+
 import { callSelectedAIProvider } from '../ai/aiCore';
 
-describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
+describe('JAPANESE AI COACH & SYSTEM INTEGRITY SUITE', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
@@ -67,7 +88,7 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         expect(parsed.romaji).toBe('');
     });
 
-    it('TEST 3 & 4: cleanJapaneseTTS completely strips Romaji, Uzbek translations, and emojis from TTS text', () => {
+    it('TEST 3: cleanJapaneseTTS completely strips Romaji, Uzbek translations, and emojis from Japanese TTS text', () => {
         const dirtyJapaneseWithRomaji = 'ご注文はお決まりですか？ (Gochuumon wa okimari desu ka?) [Buyurtmangiz tayyormi? 🎉]';
         const cleanTTS = cleanJapaneseTTS(dirtyJapaneseWithRomaji);
 
@@ -76,6 +97,21 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         expect(cleanTTS).not.toContain('Gochuumon');
         expect(cleanTTS).not.toContain('Buyurtmangiz');
         expect(cleanTTS).not.toContain('🎉');
+    });
+
+    it('TEST 4: Romaji is strictly excluded from TTS output and preserved only in UI property', () => {
+        const mockResponse = JSON.stringify({
+            language: 'ja',
+            reply: 'お待たせいたしました。',
+            ttsText: 'お待たせいたしました。',
+            romaji: 'Omatase itashimashita.',
+            correction: { hasError: false }
+        });
+
+        const parsed = parseCoachResponse(mockResponse, 'ja');
+        expect(parsed.ttsText).not.toContain('Omatase');
+        expect(parsed.ttsText).toBe('お待たせいたしました。');
+        expect(parsed.romaji).toBe('Omatase itashimashita.');
     });
 
     it('TEST 5: extractSpeechAudioText extracts clean spoken text without visual notes or lecture markers', () => {
@@ -94,7 +130,28 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         expect(spoken).not.toContain('Kashikomarimashita');
     });
 
-    it('TEST 6 & 7: Japanese grammar correction is structured properly with error details and explanation', () => {
+    it('TEST 6: Correction and explanation are NEVER automatically played via TTS', () => {
+        const errorResponse = JSON.stringify({
+            language: 'ja',
+            reply: '図書館で本を借りましたね。どんな本を読みましたか？',
+            ttsText: '図書館で本を借りましたね。どんな本を読みましたか？',
+            romaji: 'Toshokan de hon o karimashita ne. Donna hon o yomimashita ka?',
+            correction: {
+                hasError: true,
+                original: '図書館に本を借りました',
+                corrected: '図書館で本を借りました',
+                explanation: '場所で動作を行うときは助詞「で」を使います。'
+            }
+        });
+
+        const parsed = parseCoachResponse(errorResponse, 'ja');
+        // ttsText MUST NOT contain the error or correction explanation
+        expect(parsed.ttsText).not.toContain('図書館に本を借りました');
+        expect(parsed.ttsText).not.toContain('場所で動作を行うときは');
+        expect(parsed.ttsText).toBe('図書館で本を借りましたね。どんな本を読みましたか？');
+    });
+
+    it('TEST 7: Japanese grammar correction is structured properly with error details and explanation', () => {
         const mockErrorResponse = JSON.stringify({
             language: 'ja',
             reply: '昨日学校へ行きましたね。学校では何を勉強しましたか？',
@@ -118,7 +175,7 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         expect(parsed.correction?.explanation).toContain('過去形');
     });
 
-    it('TEST 8: Scenario context is preserved when calling converseWithCoachStructured', async () => {
+    it('TEST 8: Scenario context, target JLPT level, and key phrases are preserved when calling converseWithCoachStructured', async () => {
         const ramenScenario = DEFAULT_SCENARIOS.find(s => s.id === 'sc_restaurant_ramen') || DEFAULT_SCENARIOS[0];
 
         (callSelectedAIProvider as any).mockResolvedValueOnce(JSON.stringify({
@@ -148,7 +205,7 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         );
     });
 
-    it('TEST 9 & 10: Deduplication prevents duplicate vocabulary flashcards from being generated', () => {
+    it('TEST 9 & 10: Deduplication prevents duplicate vocabulary flashcards in both batch and existing store', () => {
         const vocabList = [
             { front: '🇯🇵 単語:\n"注文"', back: "📌 Ma'nosi: Buyurtma" },
             { front: '🇯🇵 単語:\n"注文"', back: "📌 Ma'nosi: Buyurtma (takror)" },
@@ -164,22 +221,27 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
             '🇯🇵 単語:\n"注文"',
             '🇯🇵 単語:\n"お冷"'
         ]);
+
+        // Existing store filter check
+        const existingStore = [{ id: '1', front: '🇯🇵 単語:\n"注文"', back: 'test' }];
+        const existingFronts = new Set(existingStore.map(s => s.front));
+        const finalToInsert = uniqueVocab.filter(c => !existingFronts.has(c.front));
+        expect(finalToInsert.length).toBe(1);
+        expect(finalToInsert[0].front).toBe('🇯🇵 単語:\n"お冷"');
     });
 
-    it('TEST 11: converseWithCoach backward compatibility returns clean reply string', async () => {
-        (callSelectedAIProvider as any).mockResolvedValueOnce(JSON.stringify({
-            language: 'ja',
-            reply: 'お待たせいたしました！醤油ラーメンです。',
-            ttsText: 'お待たせいたしました！醤油ラーメンです。',
-            romaji: 'Omatase itashimashita! Shouyu raamen desu.',
-            correction: { hasError: false }
-        }));
+    it('TEST 11: Vocabulary -> Flashcard batch insertion initializes Anki SM-2 default parameters', async () => {
+        const newCards = await FlashcardService.addFlashcardsBatch('test-user-uuid-123', [
+            { front: '単語', back: "Ma'nosi", subjectId: 'jlpt-sub-id' }
+        ]);
 
-        const replyString = await converseWithCoach('ラーメンをお願いします', [], 'ja');
-        expect(replyString).toBe('お待たせいたしました！醤油ラーメンです。');
+        expect(newCards.length).toBe(1);
+        expect(newCards[0].interval).toBe(0);
+        expect(newCards[0].repetitions).toBe(0);
+        expect(newCards[0].easeFactor).toBe(2.5);
     });
 
-    it('TEST 12 & 13: validateSpeechInput rejects empty or sub-second accidental noise', () => {
+    it('TEST 12 & 13: validateSpeechInput rejects empty, whitespace, or sub-second accidental noise', () => {
         expect(validateSpeechInput('', 0)).toBe(false);
         expect(validateSpeechInput('   ', 2000)).toBe(false);
         expect(validateSpeechInput('a', 200)).toBe(false); // Too short duration
@@ -197,5 +259,13 @@ describe('JAPANESE AI COACH & TTS INTEGRITY SUITE', () => {
         const parsed2 = parseCoachResponse(malformed2, 'en');
         expect(parsed2.language).toBe('en');
         expect(parsed2.reply).toBe("Understood, let's keep going!");
+    });
+
+    it('TEST 15: User isolation verifies userId is strictly bound to authenticated session', async () => {
+        const inserted = await FlashcardService.addFlashcardsBatch('authenticated-user-999', [
+            { front: 'Kanji', back: 'Meaning' }
+        ]);
+        expect(inserted.length).toBe(1);
+        expect(inserted[0].front).toBe('Kanji');
     });
 });

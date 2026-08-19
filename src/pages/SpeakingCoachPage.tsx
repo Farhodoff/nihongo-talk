@@ -207,11 +207,19 @@ const SpeakingCoachPage: React.FC = () => {
                 : vocab.word;
             const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}`;
 
-            await addFlashcardsBatch([{
+            const created = await addFlashcardsBatch([{
                 front,
                 back,
                 subjectId: isJa ? '00000000-0000-4000-8000-000000000001' : '00000000-0000-4000-8000-000000000002'
             }]);
+
+            if (created.length === 0) {
+                toast({
+                    title: 'ℹ️ Mavjud Fleshkarta',
+                    description: `"${vocab.word}" so'zi fleshkartalaringizda allaqachon mavjud.`
+                });
+                return;
+            }
 
             toast({
                 title: '🎴 Fleshkarta Qo\'shildi!',

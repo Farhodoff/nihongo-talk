@@ -38,13 +38,26 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             if (user?.id) activeUserId = user.id;
         } catch {}
 
+        // 1. Deduplicate incoming cards by front text
+        const uniqueIncoming = cardsData.filter((card, idx, self) =>
+            card.front && idx === self.findIndex(c => c.front?.trim().toLowerCase() === card.front?.trim().toLowerCase())
+        );
+
+        // 2. Deduplicate against already existing flashcards in state/cache
+        const existingFronts = new Set(flashcards.map(c => c.front.trim().toLowerCase()));
+        const trulyNewCards = uniqueIncoming.filter(c => c.front && !existingFronts.has(c.front.trim().toLowerCase()));
+
+        if (trulyNewCards.length === 0) {
+            return [];
+        }
+
         let fallbackSubjectId: string | null = null;
         if (activeUserId !== 'local_user') {
             const { data: subjectsData } = await supabase.from('subjects').select('id, name').eq('user_id', activeUserId).limit(1);
             fallbackSubjectId = subjectsData && subjectsData.length > 0 ? subjectsData[0].id : null;
         }
 
-        const normalizedCards = cardsData.map(c => ({
+        const normalizedCards = trulyNewCards.map(c => ({
             ...c,
             subjectId: c.subjectId || fallbackSubjectId || undefined
         }));
@@ -60,7 +73,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
             });
         }
         return newCards;
-    }, []);
+    }, [flashcards]);
 
     const updateFlashcard = useCallback(async (id: string, updates: Partial<Flashcard>) => {
         setFlashcards(prev => {
