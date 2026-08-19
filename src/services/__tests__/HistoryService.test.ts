@@ -107,21 +107,25 @@ describe('HistoryService', () => {
         });
 
         it('fetches writing history from Supabase when user is logged in', async () => {
+            const dataResult = {
+                data: [{
+                    id: 'item-1',
+                    user_id: 'user-123',
+                    task_type: 'task2',
+                    prompt: 'Remote prompt',
+                    essay: 'Remote essay',
+                    score: 7.5,
+                    criteria: { tr: 7.5, cc: 7.5, lr: 7.5, gra: 7.5 },
+                    feedback: 'Remote feedback',
+                    created_at: '2026-07-26T00:00:00.000Z'
+                }],
+                error: null
+            };
             const mockSelect = vi.fn().mockReturnValue({
                 eq: vi.fn().mockReturnValue({
-                    order: vi.fn().mockResolvedValue({
-                        data: [{
-                            id: 'item-1',
-                            user_id: 'user-123',
-                            task_type: 'task2',
-                            prompt: 'Remote prompt',
-                            essay: 'Remote essay',
-                            score: 7.5,
-                            criteria: { tr: 7.5, cc: 7.5, lr: 7.5, gra: 7.5 },
-                            feedback: 'Remote feedback',
-                            created_at: '2026-07-26T00:00:00.000Z'
-                        }],
-                        error: null
+                    order: vi.fn().mockReturnValue({
+                        limit: vi.fn().mockResolvedValue(dataResult),
+                        then: (resolve: any) => Promise.resolve(dataResult).then(resolve)
                     })
                 })
             });
@@ -135,20 +139,24 @@ describe('HistoryService', () => {
         });
 
         it('falls back to item.user_id when item.id is missing in Supabase data', async () => {
+            const dataResult = {
+                data: [{
+                    user_id: 'user-123',
+                    task_type: 'task1',
+                    prompt: 'Prompt',
+                    essay: 'Essay',
+                    score: 7.0,
+                    criteria: { tr: 7, cc: 7, lr: 7, gra: 7 },
+                    feedback: 'FB',
+                    created_at: '2026-07-26'
+                }],
+                error: null
+            };
             const mockSelect = vi.fn().mockReturnValue({
                 eq: vi.fn().mockReturnValue({
-                    order: vi.fn().mockResolvedValue({
-                        data: [{
-                            user_id: 'user-123',
-                            task_type: 'task1',
-                            prompt: 'Prompt',
-                            essay: 'Essay',
-                            score: 7.0,
-                            criteria: { tr: 7, cc: 7, lr: 7, gra: 7 },
-                            feedback: 'FB',
-                            created_at: '2026-07-26'
-                        }],
-                        error: null
+                    order: vi.fn().mockReturnValue({
+                        limit: vi.fn().mockResolvedValue(dataResult),
+                        then: (resolve: any) => Promise.resolve(dataResult).then(resolve)
                     })
                 })
             });
@@ -216,21 +224,25 @@ describe('HistoryService', () => {
         });
 
         it('fetches speaking history from Supabase and falls back to localStorage on exception', async () => {
+            const dataResult = {
+                data: [{
+                    id: 'sp-1',
+                    language: 'ja',
+                    persona: 'Friend',
+                    duration_seconds: 90,
+                    fluency_score: 9.0,
+                    pronunciation_score: 8.5,
+                    transcript: 'Ohayou',
+                    feedback: 'Sugoi',
+                    created_at: '2026-07-26'
+                }],
+                error: null
+            };
             const mockSelect = vi.fn().mockReturnValue({
                 eq: vi.fn().mockReturnValue({
-                    order: vi.fn().mockResolvedValue({
-                        data: [{
-                            id: 'sp-1',
-                            language: 'ja',
-                            persona: 'Friend',
-                            duration_seconds: 90,
-                            fluency_score: 9.0,
-                            pronunciation_score: 8.5,
-                            transcript: 'Ohayou',
-                            feedback: 'Sugoi',
-                            created_at: '2026-07-26'
-                        }],
-                        error: null
+                    order: vi.fn().mockReturnValue({
+                        limit: vi.fn().mockResolvedValue(dataResult),
+                        then: (resolve: any) => Promise.resolve(dataResult).then(resolve)
                     })
                 })
             });
@@ -287,19 +299,23 @@ describe('HistoryService', () => {
         });
 
         it('fetches mock exams history from Supabase and falls back to empty array when localStorage empty', async () => {
+            const dataResult = {
+                data: [{
+                    id: 'mock-1',
+                    exam_type: 'jlpt',
+                    level: 'N1',
+                    score: 150,
+                    total_questions: 180,
+                    band_score: null,
+                    created_at: '2026-07-26'
+                }],
+                error: null
+            };
             const mockSelect = vi.fn().mockReturnValue({
                 eq: vi.fn().mockReturnValue({
-                    order: vi.fn().mockResolvedValue({
-                        data: [{
-                            id: 'mock-1',
-                            exam_type: 'jlpt',
-                            level: 'N1',
-                            score: 150,
-                            total_questions: 180,
-                            band_score: null,
-                            created_at: '2026-07-26'
-                        }],
-                        error: null
+                    order: vi.fn().mockReturnValue({
+                        limit: vi.fn().mockResolvedValue(dataResult),
+                        then: (resolve: any) => Promise.resolve(dataResult).then(resolve)
                     })
                 })
             });

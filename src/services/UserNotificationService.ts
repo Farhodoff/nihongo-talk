@@ -106,7 +106,8 @@ export class UserNotificationService {
                     .select('*')
                     .eq('user_id', userId)
                     .eq('is_read', false)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .limit(50);
 
                 if (!error && Array.isArray(data)) {
                     remoteNotifs = data;

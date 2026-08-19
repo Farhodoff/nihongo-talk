@@ -106,7 +106,8 @@ export class HistoryService {
                         .from('ielts_writing_history')
                         .select('*')
                         .eq('user_id', user.id)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(100);
                     if (!error && data) {
                         return data.map((item: any) => ({
                             id: item.id || item.user_id,
@@ -183,7 +184,8 @@ export class HistoryService {
                         .from('speaking_coach_sessions')
                         .select('*')
                         .eq('user_id', user.id)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(100);
                     if (!error && data) {
                         return data.map((item: any) => ({
                             id: item.id || item.user_id,
@@ -259,7 +261,8 @@ export class HistoryService {
                         .from('mock_exams_history')
                         .select('*')
                         .eq('user_id', user.id)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(100);
                     if (!error && data) {
                         return data.map((item: any) => ({
                             id: item.id || item.user_id,
