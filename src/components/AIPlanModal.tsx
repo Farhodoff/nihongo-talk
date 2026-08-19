@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { generateFullStudyPlan, SmartResource, FullStudyPlan, isAIKeyConfigured } from '../utils/ai';
+import { toast } from '../hooks/use-toast';
 
 interface AIPlanModalProps {
     isOpen: boolean;
@@ -27,7 +28,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
 
     const handleGenerate = async () => {
         if (!isAIKeyConfigured()) {
-            alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.' });
             return;
         }
         if (!topic && !selectedSubject) return;
@@ -40,7 +41,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
             : 7;
 
         if (days <= 0) {
-            alert("Imtihon sanasi kelajakda bo'lishi kerak!");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Imtihon sanasi kelajakda bo'lishi kerak!" });
             return;
         }
 
@@ -66,7 +67,7 @@ const AIPlanModal: React.FC<AIPlanModalProps> = ({ isOpen, onClose }) => {
             const message = isRateLimit
                 ? "AI hozir band. Iltimos keyinroq urinib ko'ring."
                 : `Reja yaratishda xatolik: ${errorMessage}`;
-            alert(message);
+            toast({ variant: 'destructive', title: 'Xatolik', description: message });
         } finally {
             setIsLoading(false);
         }

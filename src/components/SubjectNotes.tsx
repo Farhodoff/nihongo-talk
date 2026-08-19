@@ -7,6 +7,7 @@ import { StudyNote } from '../types';
 import MermaidViewer from './MermaidViewer';
 import FontSelector from './FontSelector';
 import { Button } from './ui/Button';
+import { toast } from '../hooks/use-toast';
 
 interface SubjectNotesProps {
     subjectId: string;
@@ -51,7 +52,10 @@ const SubjectNotes: React.FC<SubjectNotesProps> = ({ subjectId }) => {
     };
 
     const saveNote = () => {
-        if (!title.trim()) return alert("Sarlavha yozing!");
+        if (!title.trim()) {
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Sarlavha yozing!" });
+            return;
+        }
 
         if (isCreating) {
             addStudyNote({

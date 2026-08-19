@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from './use-toast';
 
 export const useFlashcardImport = (importFlashcards: (subjectId: string, cards: { front: string; back: string; example?: string }[]) => Promise<boolean>) => {
     const [isImporting, setIsImporting] = useState(false);
@@ -18,34 +19,43 @@ export const useFlashcardImport = (importFlashcards: (subjectId: string, cards: 
                         try {
                             const json = JSON.parse(content);
                             if (Array.isArray(json)) {
-                                cards = json.map((item: any) => ({
-                                    front: item.front || item.term || item.word || item.kanji || '',
-                                    back: item.back || item.definition || item.meaning || item.romaji || '',
-                                    example: item.example || item.sentence || item.notes || ''
+                                cards = json.map(c => ({
+                                    front: String(c.front || c.Front || c.question || c.q || ''),
+                                    back: String(c.back || c.Back || c.answer || c.a || ''),
+                                    example: c.example || c.Example || ''
                                 })).filter(c => c.front && c.back);
                             }
-                        } catch (err) {
-                            console.warn("JSON parse attempt failed, trying delimited text:", err);
+                        } catch (e) {
+                            console.warn("JSON parse failed, falling back to CSV/text", e);
                         }
                     }
 
-                    // 2. Try CSV / TSV / Anki Text format if JSON parsing gave no cards
+                    // 2. Fallback to Tab/Comma Delimited or Anki Text
                     if (cards.length === 0) {
-                        const lines = content.split(/\r?\n/).filter(line => line.trim() && !line.startsWith('#'));
+                        const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
                         for (const line of lines) {
-                            // Determine delimiter: tab, semicolon, or comma
-                            let delimiter = '\t';
-                            if (line.includes('\t')) delimiter = '\t';
-                            else if (line.includes(';')) delimiter = ';';
-                            else if (line.includes(',')) delimiter = ',';
+                            if (line.startsWith('#')) continue; // Skip comments
 
-                            const parts = line.split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
-                            if (parts.length >= 2) {
-                                cards.push({
-                                    front: parts[0],
-                                    back: parts[1],
-                                    example: parts[2] || ''
-                                });
+                            // Check Tab separated (Anki default)
+                            if (line.includes('\t')) {
+                                const parts = line.split('\t');
+                                if (parts.length >= 2) {
+                                    cards.push({
+                                        front: parts[0].trim(),
+                                        back: parts[1].trim(),
+                                        example: parts[2] ? parts[2].trim() : ''
+                                    });
+                                }
+                            } else if (line.includes(',')) {
+                                // Simple CSV fallback
+                                const parts = line.split(',');
+                                if (parts.length >= 2) {
+                                    cards.push({
+                                        front: parts[0].trim().replace(/^"|"$/g, ''),
+                                        back: parts[1].trim().replace(/^"|"$/g, ''),
+                                        example: parts[2] ? parts[2].trim().replace(/^"|"$/g, '') : ''
+                                    });
+                                }
                             }
                         }
                     }
@@ -56,15 +66,15 @@ export const useFlashcardImport = (importFlashcards: (subjectId: string, cards: 
 
                     const success = await importFlashcards(subjectId, cards);
                     if (success) {
-                        alert(`🎉 Muvaffaqiyatli! ${cards.length} ta kartochka import qilindi.`);
+                        toast({ title: 'Muvaffaqiyatli', description: `🎉 ${cards.length} ta kartochka import qilindi.` });
                         resolve();
                     } else {
-                        alert("Xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
+                        toast({ variant: 'destructive', title: 'Xatolik', description: "Xatolik yuz berdi. Iltimos qayta urinib ko'ring." });
                         reject(new Error("Import failed"));
                     }
                 } catch (error: any) {
                     console.error(error);
-                    alert(error?.message || "Fayl xato formatda! JSON, CSV yoki Anki text fayllarini yuklang.");
+                    toast({ variant: 'destructive', title: 'Xatolik', description: error?.message || "Fayl xato formatda! JSON, CSV yoki Anki text fayllarini yuklang." });
                     reject(error);
                 } finally {
                     setIsImporting(false);

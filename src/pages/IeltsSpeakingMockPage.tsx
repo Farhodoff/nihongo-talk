@@ -5,11 +5,15 @@ import { Button } from '../components/ui/Button';
 import { evaluateIeltsSpeakingFullMock, SpeakingMockReport } from '../utils/ai';
 import { speakText } from '../utils/audioTts';
 import { CAMBRIDGE_IELTS_TOPICS, IeltsSpeakingTopic } from '../data/ieltsSpeakingTopics';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { HistoryService } from '../services/HistoryService';
+import { toast } from '../hooks/use-toast';
 
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 export const IeltsSpeakingMockPage: React.FC = () => {
     const navigate = useNavigate();
+    const { awardXP, addSession } = useStudyData();
 
     // Topic Selection
     const [selectedTopic, setSelectedTopic] = useState<IeltsSpeakingTopic>(() => {
@@ -39,34 +43,35 @@ export const IeltsSpeakingMockPage: React.FC = () => {
         setSelectedTopic(random);
     };
 
-    // STT & Transcripts
-    const [transcriptList, setTranscriptList] = useState<{ part: string; question: string; answer: string }[]>([]);
-    const [currentAnswerText, setCurrentAnswerText] = useState('');
+    // State for Recording & Answers
     const [isListening, setIsListening] = useState(false);
+    const [currentAnswerText, setCurrentAnswerText] = useState('');
+    const [transcriptList, setTranscriptList] = useState<{ part: string; question: string; answer: string }[]>([]);
     const [report, setReport] = useState<SpeakingMockReport | null>(null);
 
     const recognitionRef = useRef<any>(null);
     const silenceTimerRef = useRef<any>(null);
 
-    // Prep countdown timer for Part 2
+    // Countdown Timers
     useEffect(() => {
         let timer: any;
-        if (step === 'part2_prep') {
-            if (prepSeconds > 0) {
-                timer = setTimeout(() => setPrepSeconds(prev => prev - 1), 1000);
-            } else {
-                setStep('part2_speech');
-            }
+        if (step === 'part2_prep' && prepSeconds > 0) {
+            timer = setTimeout(() => setPrepSeconds(prev => prev - 1), 1000);
+        } else if (step === 'part2_prep' && prepSeconds === 0) {
+            setStep('part2_speech');
+            startListening();
         }
         return () => clearTimeout(timer);
     }, [step, prepSeconds]);
 
-    // Speech countdown timer for Part 2
     useEffect(() => {
         let timer: any;
-        if (step === 'part2_speech') {
-            if (speechSeconds > 0) {
-                timer = setTimeout(() => setSpeechSeconds(prev => prev - 1), 1000);
+        if (step === 'part2_speech' && speechSeconds > 0) {
+            timer = setTimeout(() => setSpeechSeconds(prev => prev - 1), 1000);
+        } else if (step === 'part2_speech' && speechSeconds === 0) {
+            if (isListening) {
+                stopListening();
+                handleFinishPart2();
             } else {
                 handleFinishPart2();
             }
@@ -76,7 +81,10 @@ export const IeltsSpeakingMockPage: React.FC = () => {
 
     // Initialize Speech Recognition
     const startListening = () => {
-        if (!SpeechRecognition) return alert("Brauzeringiz ovozli yozishni qo'llab-quvvatlamaydi.");
+        if (!SpeechRecognition) {
+            toast({ variant: 'destructive', title: 'Ovozli yozish mavjud emas', description: "Brauzeringiz ovozli yozishni qo'llab-quvvatlamaydi." });
+            return;
+        }
         if (recognitionRef.current) recognitionRef.current.stop();
 
         const recognition = new SpeechRecognition();
@@ -167,9 +175,34 @@ export const IeltsSpeakingMockPage: React.FC = () => {
         try {
             const evalReport = await evaluateIeltsSpeakingFullMock(fullTranscript);
             setReport(evalReport);
+
+            // Persist to database and gamification
+            try {
+                if (awardXP) {
+                    await awardXP(100);
+                }
+                if (addSession) {
+                    await addSession({
+                        duration: 15,
+                        type: 'focus',
+                        completed: true,
+                        startTime: new Date().toISOString()
+                    });
+                }
+                await HistoryService.saveMockExam({
+                    examType: 'ielts_speaking',
+                    level: 'Academic Speaking Mock',
+                    score: Math.round(evalReport.overallBand * 10),
+                    totalQuestions: 90,
+                    bandScore: evalReport.overallBand
+                });
+            } catch (e) {
+                console.warn('Failed to save IELTS speaking mock exam history:', e);
+            }
+
             setStep('report');
         } catch (err) {
-            alert("Examiner baholashida xatolik yuz berdi. Qayta urinib ko'ring.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Examiner baholashida xatolik yuz berdi. Qayta urinib ko'ring." });
             setStep('intro');
         }
     };

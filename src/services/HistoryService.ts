@@ -30,7 +30,7 @@ export interface SpeakingSessionItem {
 
 export interface MockExamItem {
     id: string;
-    examType: 'ielts_reading' | 'ielts_listening' | 'jlpt';
+    examType: 'ielts_reading' | 'ielts_listening' | 'ielts_speaking' | 'ielts_writing' | 'jlpt';
     level?: string; // for JLPT (N5-N1)
     score: number; // raw correct count or JLPT score out of 180
     totalQuestions: number;

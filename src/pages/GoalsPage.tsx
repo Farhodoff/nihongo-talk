@@ -6,6 +6,7 @@ import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
+import { toast } from '../hooks/use-toast';
 
 const GoalsPage: React.FC = () => {
     const { goals, addGoal, deleteGoal, updateGoal } = useStudyData();
@@ -27,12 +28,13 @@ const GoalsPage: React.FC = () => {
                 priority: 'medium',
                 progress: 0
             });
+            toast({ title: 'Maqsad Yaratildi', description: 'Yangi maqsad muvaffaqiyatli saqlandi!' });
             setNewTitle('');
             setNewDeadline(format(addWeeks(new Date(), 1), "yyyy-MM-dd'T'HH:mm"));
             setModalOpen(false);
         } catch (err) {
             console.error("Add goal error:", err);
-            alert(t('common.error'));
+            toast({ variant: 'destructive', title: 'Xatolik', description: t('common.error') });
         }
     };
 

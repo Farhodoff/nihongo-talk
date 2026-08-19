@@ -18,6 +18,9 @@ import { Button } from '../components/ui/Button';
 import mermaid from 'mermaid';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { CVCreatorTab } from '../components/CVCreator/CVCreatorTab';
+import { HistoryService } from '../services/HistoryService';
+import { toast } from '../hooks/use-toast';
+import { supabase } from '../lib/supabase';
 
 import { isAdminEmail } from '../utils/admin';
 
@@ -41,7 +44,7 @@ interface InterviewMessage {
 
 const AIAssistantPage: React.FC = () => {
     const location = useLocation();
-    const { user, subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP } = useStudyData();
+    const { user, subjects, notes, studyNotes, flashcards, settings, addStudyNote, awardXP, addSession } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
 
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>(location.state?.subjectId || '');
@@ -79,7 +82,23 @@ const AIAssistantPage: React.FC = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Persist chat messages to localStorage (capped to latest 50)
+    // Load remote chat messages if available
+    useEffect(() => {
+        const loadRemoteChat = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.user_metadata?.ai_chat_history && Array.isArray(user.user_metadata.ai_chat_history)) {
+                    if (messages.length <= 1) {
+                        setMessages(user.user_metadata.ai_chat_history);
+                        localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(user.user_metadata.ai_chat_history));
+                    }
+                }
+            } catch (e) {}
+        };
+        loadRemoteChat();
+    }, []);
+
+    // Persist chat messages to localStorage
     useEffect(() => {
         try {
             localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-50)));
@@ -114,20 +133,30 @@ const AIAssistantPage: React.FC = () => {
             }
 
             const aiResponse = await chatWithAI(userMsg, newHistory, contextContent, subjectName, settings.googleApiKey);
-            setMessages([...newHistory, { role: 'model', text: aiResponse }]);
+            const updated = [...newHistory, { role: 'model' as const, text: aiResponse }];
+            setMessages(updated);
+
+            try {
+                await supabase.auth.updateUser({
+                    data: { ai_chat_history: updated.slice(-30) }
+                });
+            } catch (e) {}
         } catch (error: any) {
-            setMessages([...newHistory, { role: 'model', text: `⚠️ Xatolik yuz berdi: ${error.message}` }]);
+            setMessages([...newHistory, { role: 'model' as const, text: `⚠️ Xatolik yuz berdi: ${error.message}` }]);
         } finally {
             setIsChatLoading(false);
         }
     };
 
     const handleSaveNote = async (text: string) => {
-        if (!selectedSubjectId) return alert("Konspektni saqlash uchun avval chap tomondan fanni tanlang!");
+        if (!selectedSubjectId) {
+            toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Konspektni saqlash uchun avval chap tomondan fanni tanlang!' });
+            return;
+        }
         const title = prompt("Konspekt uchun qisqacha sarlavha kiriting:", "AI Javobi");
         if (!title) return;
         await addStudyNote({ title, content: text, subjectId: selectedSubjectId });
-        alert('Konspekt muvaffaqiyatli saqlandi! ✅');
+        toast({ title: 'Konspekt saqlandi', description: 'Konspekt muvaffaqiyatli saqlandi! ✅' });
     };
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +181,10 @@ const AIAssistantPage: React.FC = () => {
     const [xpEarned, setXpEarned] = useState(0);
 
     const handleStartExam = async () => {
-        if (!selectedSubjectId) return alert('Iltimos, chap tomondan fanni tanlang!');
+        if (!selectedSubjectId) {
+            toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Iltimos, chap tomondan fanni tanlang!' });
+            return;
+        }
         const selectedSubject = subjects.find(s => s.id === selectedSubjectId);
         if (!selectedSubject) return;
 
@@ -170,13 +202,13 @@ const AIAssistantPage: React.FC = () => {
             setSelectedAnswers({});
             setExamState('testing');
         } catch (error) {
-            alert('AI Imtihon yaratishda xatolik yuz berdi. Iltimos, API kalitingizni tekshiring.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'AI Imtihon yaratishda xatolik yuz berdi. Iltimos, API kalitingizni tekshiring.' });
         } finally {
             setIsExamLoading(false);
         }
     };
 
-    const handleNextQuestion = () => {
+    const handleNextQuestion = async () => {
         if (currentQuestionIdx < questions.length - 1) {
             setCurrentQuestionIdx(prev => prev + 1);
         } else {
@@ -185,12 +217,33 @@ const AIAssistantPage: React.FC = () => {
             const points = correctCount * 50; 
             setScore(correctCount);
             setXpEarned(points);
-            awardXP(points);
+            if (awardXP && points > 0) {
+                await awardXP(points);
+            }
             
-            // Save to exam history
+            // Save to exam history in database & localStorage
             try {
                 const subject = subjects.find(s => s.id === selectedSubjectId);
                 const subjectName = subject ? subject.name : 'Umumiy';
+                
+                await HistoryService.saveMockExam({
+                    examType: 'jlpt',
+                    level: subjectName,
+                    score: correctCount,
+                    totalQuestions: questions.length,
+                    bandScore: Math.round((correctCount / (questions.length || 1)) * 100)
+                });
+
+                if (addSession) {
+                    await addSession({
+                        duration: Math.max(5, questions.length * 2),
+                        type: 'focus',
+                        completed: true,
+                        subjectId: selectedSubjectId || undefined,
+                        startTime: new Date().toISOString()
+                    });
+                }
+
                 const newResult = {
                     id: Date.now().toString(),
                     subjectName,

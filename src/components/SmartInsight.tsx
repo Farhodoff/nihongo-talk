@@ -6,6 +6,7 @@ import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import MermaidViewer from './MermaidViewer';
 import { Button } from './ui/Button';
 import { StudySession, Subject } from '../types';
+import { toast } from '../hooks/use-toast';
 
 interface SmartInsightContentProps {
     sessions: StudySession[];
@@ -19,12 +20,12 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
 
     const handleAnalyze = useCallback(async () => {
         if (!isAIKeyConfigured()) {
-            alert("Iltimos, avval Sozlamalar sahifasida AI API kalitini kiriting.");
+            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'Iltimos, avval Sozlamalar sahifasida AI API kalitini kiriting.' });
             return;
         }
 
         if (sessions.length < 5) {
-            alert("Tahlil uchun kamida 5 ta o'qish sessiyasi kerak. Ko'proq shug'ullaning! 📚");
+            toast({ variant: 'destructive', title: 'Sessiyalar kam', description: "Tahlil uchun kamida 5 ta o'qish sessiyasi kerak. Ko'proq shug'ullaning! 📚" });
             return;
         }
 
@@ -50,7 +51,7 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
             setInsight(mdInsight || "Hozircha yetarli ma'lumot yo'q.");
         } catch (error: unknown) {
             console.error('AI Insight Error:', error);
-            alert("Tahlil qilishda xatolik: " + ((error as Error).message || "Noma'lum xato"));
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Tahlil qilishda xatolik: " + ((error as Error).message || "Noma'lum xato") });
         } finally {
             setLoading(false);
         }

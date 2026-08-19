@@ -19,6 +19,7 @@ import { useFlashcardImport } from '../hooks/useFlashcardImport';
 import { isAdminEmail } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck, PresetSubDeck } from '../data/presetDecks';
 import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
+import { toast } from '../hooks/use-toast';
 
 import SubjectForm from '../components/subjects/SubjectForm';
 
@@ -129,7 +130,7 @@ const DecksPage: React.FC = () => {
             setTimeout(() => setImportedDeckTitle(null), 4000);
         } catch (err) {
             console.error('Import preset error:', err);
-            alert('To\'plamni saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'To\'plamni saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.' });
         } finally {
             setIsImportingPreset(false);
         }
@@ -143,60 +144,47 @@ const DecksPage: React.FC = () => {
             let subject = subjects.find(s => {
                 const cleanSubName = s.name.toLowerCase().trim();
                 const cleanPTitle = cleanTitle.toLowerCase();
-                const partBase = cleanPTitle.replace(/\s*—\s*\d+-Qism.*/i, '').trim();
-                return cleanSubName === cleanPTitle || 
-                       cleanSubName === partBase ||
-                       cleanSubName.includes(partBase) || 
-                       partBase.includes(cleanSubName);
+                return cleanSubName === cleanPTitle || cleanSubName.includes(cleanPTitle) || cleanPTitle.includes(cleanSubName);
             });
-            let targetSubjectId = subject?.id;
 
-            if (!targetSubjectId) {
+            if (!subject) {
+                // Determine sensible color based on level
+                let color = '#8b5cf6';
+                if (cleanTitle.includes('N5')) color = '#10b981';
+                else if (cleanTitle.includes('N4')) color = '#3b82f6';
+                else if (cleanTitle.includes('N3')) color = '#f59e0b';
+                else if (cleanTitle.includes('N2')) color = '#ec4899';
+                else if (cleanTitle.includes('N1')) color = '#ef4444';
+
                 const newSub = await addSubject({
                     name: cleanTitle,
-                    color: '#6366f1',
-                    icon: '📚',
-                    isArchived: false,
+                    color,
+                    schedule: []
                 });
-                targetSubjectId = newSub?.id;
+                if (newSub) {
+                    subject = newSub;
+                }
             }
 
-            if (targetSubjectId) {
-                let cardsToImport = part.cards || [];
+            if (subject) {
+                const existingCards = flashcards.filter(f => f.subjectId === subject.id);
+                const existingFronts = new Set(existingCards.map(f => f.front.trim().toLowerCase()));
 
-                // If cards are not preloaded on part, find matching preset deck and load cards
-                if (cardsToImport.length === 0 && part.deckId) {
-                    const presetDeck = PRESET_DECKS.find(p => p.id === part.deckId);
-                    if (presetDeck) {
-                        const loaded = await presetDeck.loadCards();
-                        const chunkSize = 100;
-                        const startIndex = (part.partNumber - 1) * chunkSize;
-                        cardsToImport = loaded.slice(startIndex, startIndex + chunkSize);
-                    }
-                }
-
-                if (cardsToImport.length > 0) {
-                    const existingFronts = new Set(
-                        flashcards
-                            .filter(c => c.subjectId === targetSubjectId)
-                            .map(c => c.front.trim().toLowerCase())
-                    );
-                    const newCards = cardsToImport.filter(c => !existingFronts.has(c.front.trim().toLowerCase()));
+                const rawCards = part.cards || [];
+                if (rawCards && rawCards.length > 0) {
+                    const newCards = rawCards.filter((c: any) => !existingFronts.has(c.front.trim().toLowerCase()));
 
                     if (newCards.length > 0) {
-                        const batchCards = newCards.map(c => ({
-                            subjectId: targetSubjectId!,
+                        const batchCards = newCards.map((c: any) => ({
+                            subjectId: subject!.id,
                             front: c.front,
-                            back: `${c.back} ${c.phonetic ? `(${c.phonetic})` : ''} ${c.example ? `\nExample: "${c.example}"` : ''}`.trim(),
+                            back: c.back,
                             interval: 1,
                             repetitions: 0,
-                            easeFactor: 2.5,
-                            dueDate: new Date().toISOString().split('T')[0],
-                            nextReviewDate: new Date().toISOString(),
-                            isArchived: false
+                            easeFactor: 2.5
                         }));
 
-                        const chunkSize = 50;
+                        const chunkSize = 100;
                         for (let i = 0; i < batchCards.length; i += chunkSize) {
                             const chunk = batchCards.slice(i, i + chunkSize);
                             await addFlashcardsBatch(chunk);
@@ -211,7 +199,7 @@ const DecksPage: React.FC = () => {
             }
         } catch (err) {
             console.error("Part import error:", err);
-            alert("Jildni saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Jildni saqlashda xatolik yuz berdi. Qayta urinib ko'ring." });
         } finally {
             setIsImportingPreset(false);
         }
@@ -334,7 +322,7 @@ const DecksPage: React.FC = () => {
             }
         } catch (err) {
             console.error("Standalone album import error:", err);
-            alert("Albomni saqlashda xatolik yuz berdi.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Albomni saqlashda xatolik yuz berdi." });
         } finally {
             setIsImportingPreset(false);
         }

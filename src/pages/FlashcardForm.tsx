@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { toast } from '../hooks/use-toast';
 
 const FlashcardForm: React.FC = () => {
     const navigate = useNavigate();
@@ -20,12 +21,13 @@ const FlashcardForm: React.FC = () => {
         const created = await addSubject({
             name: newSubName.trim(),
             color: newSubColor,
+            schedule: []
         });
-        if (created) {
+        if (created && created.id) {
             setSubjectId(created.id);
+            setIsCreatingNewSub(false);
+            setNewSubName('');
         }
-        setNewSubName('');
-        setIsCreatingNewSub(false);
     };
 
     const [front, setFront] = useState('');
@@ -46,10 +48,11 @@ const FlashcardForm: React.FC = () => {
                 front,
                 back,
             });
+            toast({ title: 'Fleshkarta Saqlandi', description: 'Yangi fleshkarta muvaffaqiyatli saqlandi!' });
             navigate('/flashcards');
         } catch (error) {
             console.error("Failed to add flashcard:", error);
-            alert("Fleshkarta saqlashda xatolik yuz berdi. Qayta urinib ko'ring.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Fleshkarta saqlashda xatolik yuz berdi. Qayta urinib ko'ring." });
         } finally {
             setIsSubmitting(false);
         }

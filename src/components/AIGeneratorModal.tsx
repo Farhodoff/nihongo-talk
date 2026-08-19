@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { generateFlashcardsWithAI, isAIKeyConfigured, parseAIError } from '../utils/ai';
+import { toast } from '../hooks/use-toast';
 
 interface AIGeneratorModalProps {
     isOpen: boolean;
@@ -24,12 +25,12 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
 
     const handleGenerate = async () => {
         if (!isAIKeyConfigured()) {
-            alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.' });
             return;
         }
         if (!topic.trim()) return;
         if (!subjectId) {
-            alert("Iltimos, avval fanni tanlang!");
+            toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Iltimos, avval fanni tanlang!' });
             return;
         }
         setIsLoading(true);
@@ -40,7 +41,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         } catch (error: any) {
             console.error('Error generating flashcards:', error);
             const friendlyError = parseAIError(error);
-            alert(friendlyError);
+            toast({ variant: 'destructive', title: 'Xatolik', description: friendlyError });
         } finally {
             setIsLoading(false);
         }
@@ -66,7 +67,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         }
 
         if (!targetSubjectId) {
-            alert("Iltimos, avval fanni tanlang!");
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'Iltimos, avval fanni tanlang!' });
             return;
         }
 
@@ -79,7 +80,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
                 throw new Error("Failed to bulk save flashcards");
             }
 
-            console.log(`[Batch Save] All ${generatedCards.length} cards saved successfully!`);
+            toast({ title: '🧠 Fleshkartalar Saqlandi', description: `${generatedCards.length} ta karta muvaffaqiyatli saqlandi!` });
 
             onClose();
             setTopic('');
@@ -87,7 +88,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
             setStep('input');
         } catch (error) {
             console.error('Failed to save flashcards:', error);
-            alert('Saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'Saqlashda xatolik yuz berdi. Qayta urinib ko\'ring.' });
         } finally {
             setIsSaving(false);
         }

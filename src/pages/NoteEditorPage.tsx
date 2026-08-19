@@ -8,6 +8,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFontPreference } from '../hooks/useFontPreference';
 import { generateFlashcardsFromNote, expandNoteWithAI, summarizeNoteWithAI, fixNoteSpellingWithAI, isAIKeyConfigured } from '../utils/ai';
+import { toast } from '../hooks/use-toast';
 
 const NoteEditorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -26,8 +27,8 @@ const NoteEditorPage: React.FC = () => {
     const [isAiMenuOpen, setIsAiMenuOpen] = useState(false);
 
     useEffect(() => {
-        if (!isNew) {
-            const note = notes.find(n => n.id === id);
+        if (!isNew && notes.length > 0) {
+            const note = notes.find((n) => n.id === id);
             if (note) {
                 setTitle(note.title);
                 setContent(note.content);
@@ -37,8 +38,14 @@ const NoteEditorPage: React.FC = () => {
     }, [id, notes, isNew]);
 
     const handleSave = () => {
-        if (!title.trim()) return alert('Sarlavha kiritish shart');
-        if (!subjectId) return alert('Fan tanlash shart');
+        if (!title.trim()) {
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'Sarlavha kiritish shart' });
+            return;
+        }
+        if (!subjectId) {
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'Fan tanlash shart' });
+            return;
+        }
 
         const noteData = {
             subjectId,
@@ -52,18 +59,22 @@ const NoteEditorPage: React.FC = () => {
         } else {
             updateNote(id!, noteData);
         }
+        toast({ title: 'Konspekt Saqlandi', description: 'Konspekt muvaffaqiyatli saqlandi!' });
         navigate('/notes');
     };
 
     const handleGenerateFlashcards = async () => {
         if (!isAIKeyConfigured()) {
-            return alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
+            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.' });
+            return;
         }
         if (!content.trim() || content.length < 50) {
-            return alert('Fleshkartalar yaratish uchun kamida 50 ta belgi bo\'lgan matn kerak.');
+            toast({ variant: 'destructive', title: 'Matn yetarli emas', description: 'Fleshkartalar yaratish uchun kamida 50 ta belgi bo\'lgan matn kerak.' });
+            return;
         }
         if (!subjectId) {
-            return alert('Iltimos, avval fanni tanlang, kartalar shu fanga biriktiriladi.');
+            toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Iltimos, avval fanni tanlang, kartalar shu fanga biriktiriladi.' });
+            return;
         }
 
         setIsGenerating(true);
@@ -80,19 +91,28 @@ const NoteEditorPage: React.FC = () => {
                 count++;
             }
             
-            alert(`${count} ta fleshkarta muvaffaqiyatli yaratildi va fanga biriktirildi!`);
+            toast({ title: '🧠 Fleshkartalar Yaratildi', description: `${count} ta fleshkarta muvaffaqiyatli yaratildi va fanga biriktirildi!` });
         } catch (error) {
             console.error('Flashcard generation error:', error);
-            alert('Fleshkartalar yaratishda xatolik yuz berdi. API kalitini tekshiring.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'AI orqali kartalar yaratishda xatolik yuz berdi.' });
         } finally {
             setIsGenerating(false);
         }
     };
 
     const handleAIAction = async (action: 'expand' | 'summarize' | 'fix') => {
-        if (!isAIKeyConfigured()) return alert('AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.');
-        if (!content.trim()) return alert('AI ishlov berishi uchun konspekt matni yozilgan bo\'lishi kerak!');
-        if (!subjectId) return alert('Iltimos, avval fanni tanlang!');
+        if (!isAIKeyConfigured()) {
+            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'AI funksiyalar uchun API kalit kerak.' });
+            return;
+        }
+        if (!content.trim()) {
+            toast({ variant: 'destructive', title: 'Matn yetarli emas', description: 'AI ishlov berishi uchun konspekt matni yozilgan bo\'lishi kerak!' });
+            return;
+        }
+        if (!subjectId) {
+            toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Iltimos, avval fanni tanlang!' });
+            return;
+        }
 
         const selectedSubject = subjects.find(s => s.id === subjectId);
         const subjectName = selectedSubject ? selectedSubject.name : '';
@@ -113,7 +133,7 @@ const NoteEditorPage: React.FC = () => {
             }
         } catch (error) {
             console.error(`AI ${action} failed:`, error);
-            alert('AI amalni bajarishda xatolik yuz berdi. Sozlamalarda API kalitini tekshiring.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'AI amalni bajarishda xatolik yuz berdi. Sozlamalarda API kalitini tekshiring.' });
         } finally {
             setIsAiLoading(false);
         }

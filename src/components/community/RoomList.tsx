@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight, Loader2, Plus, Video, X, Trash2, Globe, Lock, Share2, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { toast } from '../../hooks/use-toast';
 
 interface StudyRoom {
     id: string;
@@ -182,8 +183,9 @@ const RoomList: React.FC = () => {
 
         if (error) {
             console.error('Error deleting room:', error);
-            alert("Xonani o'chirishda xatolik yuz berdi");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Xonani o'chirishda xatolik yuz berdi" });
         } else {
+            toast({ title: 'Xona o\'chirildi', description: 'Xona muvaffaqiyatli o\'chirildi.' });
             fetchCustomRooms();
         }
     };

@@ -3,6 +3,7 @@ import { useStudyData } from '../../context/StudyPlannerContext';
 import { Flashcard } from '../../types';
 import { Button } from '../ui/Button';
 import { Search, Trash2, ShieldAlert, CheckSquare, Square, X, AlertCircle, Filter } from 'lucide-react';
+import { toast } from '../../hooks/use-toast';
 
 interface AdminFlashcardManagerProps {
     isOpen: boolean;
@@ -68,10 +69,11 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({ is
             for (const id of selectedCardIds) {
                 await deleteFlashcard(id, true); // permanent delete
             }
+            toast({ title: "Muvaffaqiyatli", description: `${selectedCardIds.length} ta karta o'chirildi.` });
             setSelectedCardIds([]);
         } catch (err) {
             console.error("Admin batch delete error:", err);
-            alert("Kartalarni o'chirishda xatolik yuz berdi.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: "Kartalarni o'chirishda xatolik yuz berdi." });
         } finally {
             setIsDeleting(false);
         }

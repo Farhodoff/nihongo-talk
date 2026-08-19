@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import { Button } from '../ui/Button';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { exportImportService } from '../../services/ExportImportService';
+import { toast } from '../../hooks/use-toast';
 
 interface DataManagementSectionProps {
     onClearData: () => Promise<void>;
@@ -23,7 +24,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
     const handleClear = async () => {
         await onClearData();
         setShowClearModal(false);
-        alert("Barcha ma'lumotlar tozalandi.");
+        toast({ title: 'Tozalandi', description: "Barcha ma'lumotlar tozalandi." });
     };
 
     const handleExportJSON = async () => {
@@ -31,8 +32,9 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
         setIsExporting(true);
         try {
             await exportImportService.exportToJSON(user.id);
+            toast({ title: 'Eksport qilindi', description: 'JSON zaxira fayli yuklandi.' });
         } catch (err) {
-            alert(err instanceof Error ? err.message : 'Xatolik yuz berdi.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : 'Xatolik yuz berdi.' });
         } finally {
             setIsExporting(false);
         }
@@ -46,10 +48,10 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
             const success = await exportImportService.importFromJSON(file, user.id);
             if (success) {
                 await refreshData();
-                alert("Ma'lumotlar muvaffaqiyatli import qilindi! 🚀");
+                toast({ title: 'Muvaffaqiyatli', description: "Ma'lumotlar muvaffaqiyatli import qilindi! 🚀" });
             }
         } catch (err) {
-            alert(err instanceof Error ? err.message : "Faylni import qilishda xatolik yuz berdi.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : "Faylni import qilishda xatolik yuz berdi." });
         } finally {
             setIsImporting(false);
             if (jsonFileInputRef.current) jsonFileInputRef.current.value = '';
@@ -61,8 +63,9 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
         setIsExporting(true);
         try {
             await exportImportService.exportTasksToCSV(user.id);
+            toast({ title: 'Eksport qilindi', description: 'Vazifalar CSV fayli yuklandi.' });
         } catch (err) {
-            alert(err instanceof Error ? err.message : 'Xatolik yuz berdi.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : 'Xatolik yuz berdi.' });
         } finally {
             setIsExporting(false);
         }
@@ -76,10 +79,10 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
             const success = await exportImportService.importTasksFromCSV(file, user.id);
             if (success) {
                 await refreshData();
-                alert("Vazifalar muvaffaqiyatli import qilindi! 📋");
+                toast({ title: 'Muvaffaqiyatli', description: "Vazifalar muvaffaqiyatli import qilindi! 📋" });
             }
         } catch (err) {
-            alert(err instanceof Error ? err.message : "Vazifalarni import qilishda xatolik yuz berdi.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : "Vazifalarni import qilishda xatolik yuz berdi." });
         } finally {
             setIsImporting(false);
             if (csvTasksInputRef.current) csvTasksInputRef.current.value = '';
@@ -91,8 +94,9 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
         setIsExporting(true);
         try {
             await exportImportService.exportFlashcardsToCSV(user.id);
+            toast({ title: 'Eksport qilindi', description: 'Flashcardlar CSV fayli yuklandi.' });
         } catch (err) {
-            alert(err instanceof Error ? err.message : 'Xatolik yuz berdi.');
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : 'Xatolik yuz berdi.' });
         } finally {
             setIsExporting(false);
         }
@@ -107,10 +111,10 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
             if (success) {
                 await refreshData();
                 setShowImportFlashcardsModal(false);
-                alert("Flashcardlar muvaffaqiyatli import qilindi! 🧠");
+                toast({ title: 'Muvaffaqiyatli', description: "Flashcardlar muvaffaqiyatli import qilindi! 🧠" });
             }
         } catch (err) {
-            alert(err instanceof Error ? err.message : "Flashcardlarni import qilishda xatolik yuz berdi.");
+            toast({ variant: 'destructive', title: 'Xatolik', description: err instanceof Error ? err.message : "Flashcardlarni import qilishda xatolik yuz berdi." });
         } finally {
             setIsImporting(false);
             if (csvFlashcardsInputRef.current) csvFlashcardsInputRef.current.value = '';
@@ -228,7 +232,7 @@ const DataManagementSection: React.FC<DataManagementSectionProps> = ({ onClearDa
                                 variant="secondary"
                                 onClick={() => {
                                     if (subjects.length === 0) {
-                                        alert("Avval kamida bitta fan yaratishingiz kerak.");
+                                        toast({ variant: 'destructive', title: 'Fan kerak', description: "Avval kamida bitta fan yaratishingiz kerak." });
                                         return;
                                     }
                                     setSelectedSubjectId(subjects[0].id);
