@@ -388,8 +388,7 @@ const AdminDashboardPage: React.FC = () => {
         }
         const { error } = await supabase
             .from('user_subscriptions')
-            .update({ tier: newTier, valid_until: validUntil || null })
-            .eq('id', userId);
+            .upsert({ id: userId, tier: newTier, valid_until: validUntil || null, updated_at: new Date().toISOString() });
         if (!error) setSubscriptions(s => s.map(x => x.id === userId ? { ...x, tier: newTier as any, valid_until: validUntil } : x));
     };
 
@@ -399,8 +398,7 @@ const AdminDashboardPage: React.FC = () => {
         const validUntil = d.toISOString();
         const { error } = await supabase
             .from('user_subscriptions')
-            .update({ tier: newTier, valid_until: validUntil })
-            .eq('id', userId);
+            .upsert({ id: userId, tier: newTier, valid_until: validUntil, updated_at: new Date().toISOString() });
         if (!error) {
             setSubscriptions(s => s.map(x => x.id === userId ? { ...x, tier: newTier as any, valid_until: validUntil } : x));
             await UserNotificationService.sendNotification({
