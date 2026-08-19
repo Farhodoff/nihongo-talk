@@ -10,6 +10,8 @@ import { HistoryService } from '../../services/HistoryService';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../hooks/use-toast';
 
+import { GrammarService } from '../../services/GrammarService';
+
 export const IeltsGrammarMaster: React.FC = () => {
     const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
     const { topics, isLoading, error, refetch } = useGrammarLessons('en');
@@ -42,11 +44,18 @@ export const IeltsGrammarMaster: React.FC = () => {
                 } catch (e) {}
             }
             try {
+                // 1. Load from public.english_grammar_progress DB table
+                const dbProgress = await GrammarService.getUserProgress();
+                const masteredFromDb = Object.values(dbProgress).filter(p => p.completed).map(p => p.lessonSlug);
+
+                // 2. Load from auth metadata
                 const { data: { user } } = await supabase.auth.getUser();
-                if (user?.user_metadata?.ielts_grammar_mastery) {
-                    const dbSet = new Set<string>(user.user_metadata.ielts_grammar_mastery);
-                    setMasteredTopics(dbSet);
-                    localStorage.setItem('study_planner_ielts_grammar_mastery', JSON.stringify(Array.from(dbSet)));
+                const metaMastery = user?.user_metadata?.ielts_grammar_mastery || [];
+
+                const combined = new Set<string>([...masteredFromDb, ...metaMastery]);
+                if (combined.size > 0) {
+                    setMasteredTopics(combined);
+                    localStorage.setItem('study_planner_ielts_grammar_mastery', JSON.stringify(Array.from(combined)));
                 }
             } catch (e) {}
         };
@@ -112,6 +121,16 @@ export const IeltsGrammarMaster: React.FC = () => {
                 totalQuestions: totalQ,
                 bandScore: (correct / totalQ) * 9.0
             });
+        } catch (e) {}
+
+        // Save progress to public.english_grammar_progress DB
+        try {
+            await GrammarService.saveUserProgress(
+                selectedTopic.id,
+                correct === totalQ,
+                correct,
+                totalQ
+            );
         } catch (e) {}
 
         // Mark as mastered if 100%

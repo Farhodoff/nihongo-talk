@@ -34,6 +34,15 @@ export interface DbGrammarLessonRow {
     updated_at?: string;
 }
 
+export interface UserGrammarProgress {
+    lessonSlug: string;
+    completed: boolean;
+    score: number;
+    totalQuestions: number;
+    attempts: number;
+    lastAttemptAt: string;
+}
+
 export function mapRowToTopic(row: DbGrammarLessonRow): IeltsGrammarTopic {
     return {
         id: row.slug || row.id,
@@ -102,6 +111,78 @@ export const GrammarService = {
         } catch (err) {
             const fallback = IELTS_GRAMMAR_DATABASE.find(t => t.id === slug);
             return fallback || null;
+        }
+    },
+
+    /**
+     * Fetches progress for current user from public.english_grammar_progress.
+     */
+    async getUserProgress(): Promise<Record<string, UserGrammarProgress>> {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return {};
+
+            const { data, error } = await supabase
+                .from('english_grammar_progress')
+                .select('*')
+                .eq('user_id', user.id);
+
+            if (error || !data) {
+                return {};
+            }
+
+            const map: Record<string, UserGrammarProgress> = {};
+            data.forEach((row: any) => {
+                map[row.lesson_slug] = {
+                    lessonSlug: row.lesson_slug,
+                    completed: row.completed,
+                    score: Number(row.score),
+                    totalQuestions: Number(row.total_questions),
+                    attempts: Number(row.attempts),
+                    lastAttemptAt: row.last_attempt_at
+                };
+            });
+            return map;
+        } catch (err) {
+            console.warn('GrammarService.getUserProgress error:', err);
+            return {};
+        }
+    },
+
+    /**
+     * Saves user attempt and progress to public.english_grammar_progress.
+     */
+    async saveUserProgress(
+        lessonSlug: string,
+        completed: boolean,
+        score: number,
+        totalQuestions: number
+    ): Promise<boolean> {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return false;
+
+            const payload = {
+                user_id: user.id,
+                lesson_slug: lessonSlug,
+                completed,
+                score,
+                total_questions: totalQuestions,
+                last_attempt_at: new Date().toISOString()
+            };
+
+            const { error } = await supabase
+                .from('english_grammar_progress')
+                .upsert(payload, { onConflict: 'user_id,lesson_slug' });
+
+            if (error) {
+                console.warn('GrammarService.saveUserProgress DB error:', error.message);
+                return false;
+            }
+            return true;
+        } catch (err) {
+            console.warn('GrammarService.saveUserProgress unexpected error:', err);
+            return false;
         }
     },
 

@@ -5,9 +5,13 @@ import { IELTS_GRAMMAR_DATABASE } from '../../data/ielts/ielts_grammar_data';
 
 vi.mock('../../lib/supabase', () => {
     const mockFrom = vi.fn();
+    const mockGetUser = vi.fn().mockResolvedValue({ data: { user: { id: 'user-uuid-1' } } });
     return {
         supabase: {
-            from: mockFrom
+            from: mockFrom,
+            auth: {
+                getUser: mockGetUser
+            }
         }
     };
 });
@@ -108,5 +112,49 @@ describe('GrammarService & PostgreSQL Dynamic Curriculum Tests', () => {
         const lessons = await GrammarService.fetchLessons('en');
         expect(lessons.length).toBe(IELTS_GRAMMAR_DATABASE.length);
         expect(lessons[0].title).toBe('Present Simple vs. Present Continuous');
+    });
+
+    it('should save user grammar progress into english_grammar_progress table', async () => {
+        const mockUpsert = vi.fn().mockResolvedValue({ error: null });
+        (supabase.from as any).mockReturnValue({
+            upsert: mockUpsert
+        });
+
+        const success = await GrammarService.saveUserProgress('present_perfect', true, 5, 5);
+        expect(success).toBe(true);
+        expect(mockUpsert).toHaveBeenCalledWith(
+            expect.objectContaining({
+                user_id: 'user-uuid-1',
+                lesson_slug: 'present_perfect',
+                completed: true,
+                score: 5,
+                total_questions: 5
+            }),
+            expect.anything()
+        );
+    });
+
+    it('should fetch user grammar progress map by user_id', async () => {
+        const mockData = [
+            {
+                lesson_slug: 'present_perfect',
+                completed: true,
+                score: 4,
+                total_questions: 4,
+                attempts: 1,
+                last_attempt_at: '2026-08-19T10:00:00Z'
+            }
+        ];
+
+        (supabase.from as any).mockReturnValue({
+            select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: mockData, error: null })
+            })
+        });
+
+        const progressMap = await GrammarService.getUserProgress();
+        expect(progressMap['present_perfect']).toBeDefined();
+        expect(progressMap['present_perfect'].completed).toBe(true);
+        expect(progressMap['present_perfect'].score).toBe(4);
     });
 });
