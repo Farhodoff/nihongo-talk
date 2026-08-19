@@ -62,6 +62,67 @@ export const useFocusTimer = (notificationsEnabled: boolean) => {
         };
     }, [focusState.isActive, focusState.timeLeft, focusState.mode, notificationsEnabled]);
 
+    // Cross-tab Synchronization via Storage Event
+    useEffect(() => {
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === 'study_planner_focus_state' && e.newValue) {
+                try {
+                    const parsed = JSON.parse(e.newValue);
+                    if (parsed.isActive && parsed.lastUpdated) {
+                        const now = Date.now();
+                        const passedSeconds = Math.floor((now - parsed.lastUpdated) / 1000);
+                        const newTimeLeft = Math.max(0, parsed.timeLeft - passedSeconds);
+                        setFocusState(prev => ({
+                            ...prev,
+                            ...parsed,
+                            timeLeft: newTimeLeft,
+                            isActive: newTimeLeft > 0 ? parsed.isActive : false,
+                            isSessionCompleted: newTimeLeft <= 0
+                        }));
+                    } else {
+                        setFocusState(prev => ({ ...prev, ...parsed }));
+                    }
+                } catch (e) {
+                    console.warn('Cross-tab focus state sync warning:', e);
+                }
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
+    // Page Visibility Resync (resumes accurate time when returning from background tab)
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                const saved = localStorage.getItem('study_planner_focus_state');
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (parsed.isActive && parsed.lastUpdated) {
+                            const now = Date.now();
+                            const passedSeconds = Math.floor((now - parsed.lastUpdated) / 1000);
+                            const newTimeLeft = Math.max(0, parsed.timeLeft - passedSeconds);
+                            setFocusState(prev => ({
+                                ...prev,
+                                ...parsed,
+                                timeLeft: newTimeLeft,
+                                isActive: newTimeLeft > 0 ? parsed.isActive : false,
+                                isSessionCompleted: newTimeLeft <= 0
+                            }));
+                        }
+                    } catch (e) {
+                        console.warn('Visibility focus sync warning:', e);
+                    }
+                }
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }, []);
+
     // localStorage'ga saqlash
     useEffect(() => {
         localStorage.setItem('study_planner_focus_state', JSON.stringify({

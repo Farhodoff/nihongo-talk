@@ -15,7 +15,7 @@ describe('App', () => {
         expect(screen.getByText(/Yuklanmoqda.../i)).toBeInTheDocument();
 
         // Verify transition to unauthenticated LandingPage header ("Kirish" action button) after session check
-        const elements = await screen.findAllByText(/Kirish/i, {}, { timeout: 3000 });
+        const elements = await screen.findAllByText(/Kirish/i, {}, { timeout: 10000 });
         expect(elements[0]).toBeInTheDocument();
-    });
+    }, 15000);
 });

@@ -87,7 +87,18 @@ const App: React.FC = () => {
             setSession(session);
         });
 
-        return () => subscription.unsubscribe();
+        const handleStorageAuth = (e: StorageEvent) => {
+            if (e.key && (e.key.includes('auth-token') || e.key.includes('supabase.auth.token')) && !e.newValue) {
+                setSession(null);
+            }
+        };
+
+        window.addEventListener('storage', handleStorageAuth);
+
+        return () => {
+            subscription.unsubscribe();
+            window.removeEventListener('storage', handleStorageAuth);
+        };
     }, []);
 
     if (isLoading) return <div className="h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-500">Yuklanmoqda...</div>;
