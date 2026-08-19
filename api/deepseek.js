@@ -1,5 +1,6 @@
 import { verifyAuth, getBearerToken } from './_auth.js';
 import { checkRateLimit } from './_rateLimit.js';
+import { checkDailyQuota } from './_quota.js';
 
 export const config = {
   runtime: 'edge',
@@ -20,6 +21,17 @@ export default async function handler(req) {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
       status: 405,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    });
+  }
+
+  const rawBody = await req.text().catch(() => '');
+  let payload;
+  try {
+    payload = JSON.parse(rawBody || '{}');
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
+      status: 400,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
@@ -52,12 +64,12 @@ export default async function handler(req) {
 
     authenticatedUserId = user.id;
 
-    // Rate limit check for shared server key
-    const rateCheck = checkRateLimit(req, authenticatedUserId);
+    // Rate limit check for shared server key (Distributed / In-Memory)
+    const rateCheck = await checkRateLimit(req, authenticatedUserId);
     if (!rateCheck.allowed) {
       return new Response(JSON.stringify({
         error: 'Too Many Requests',
-        message: `AI so'rovlar chegarasi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
         retryAfter: rateCheck.retryAfter,
       }), {
         status: 429,
@@ -65,6 +77,21 @@ export default async function handler(req) {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Retry-After': String(rateCheck.retryAfter),
+        },
+      });
+    }
+
+    // Daily quota & Request size check
+    const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
+    if (!quotaCheck.allowed) {
+      return new Response(JSON.stringify({
+        error: 'Quota Exceeded',
+        message: quotaCheck.reason,
+      }), {
+        status: 403,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       });
     }
@@ -80,16 +107,6 @@ export default async function handler(req) {
       });
     }
     effectiveApiKey = serverKey;
-  }
-
-  let payload;
-  try {
-    payload = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
   }
 
   try {

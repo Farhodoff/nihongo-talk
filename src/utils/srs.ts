@@ -1,12 +1,15 @@
 /**
  * Standard SuperMemo-2 (SM-2) algorithm for Spaced Repetition Flashcards.
+ * Implements deterministic calendar-day semantics safe from timezone and DST artifacts.
  */
 
 export interface ReviewResult {
     interval: number; // in days
     repetitions: number;
     easeFactor: number;
-    nextReviewDate: string; // ISO String
+    dueDate: string; // "YYYY-MM-DD" calendar date
+    nextReviewDate: string; // ISO String ("YYYY-MM-DDT00:00:00.000Z")
+    dueInDays: number;
 }
 
 export const Rating = {
@@ -19,13 +22,56 @@ export const Rating = {
 export type Grade = typeof Rating[keyof typeof Rating];
 
 /**
+ * Adds an integer number of calendar days in a timezone-invariant manner.
+ * Operates on UTC date boundaries to eliminate local DST shift artifacts.
+ */
+export function addCalendarDays(
+    dateInput: string | Date = new Date(),
+    daysToAdd: number = 1
+): { dueDate: string; nextReviewDate: string } {
+    let year: number, month: number, day: number;
+
+    if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}/.test(dateInput)) {
+        const parts = dateInput.substring(0, 10).split('-');
+        year = parseInt(parts[0], 10);
+        month = parseInt(parts[1], 10) - 1;
+        day = parseInt(parts[2], 10);
+    } else {
+        const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+        year = d.getFullYear();
+        month = d.getMonth();
+        day = d.getDate();
+    }
+
+    if (isNaN(daysToAdd) || !isFinite(daysToAdd)) {
+        throw new RangeError('Invalid time value');
+    }
+
+    // Construct pure UTC calendar date to avoid any local DST shift artifacts
+    const target = new Date(Date.UTC(year, month, day + daysToAdd, 0, 0, 0, 0));
+    if (isNaN(target.getTime())) {
+        throw new RangeError('Invalid time value');
+    }
+    const targetYear = target.getUTCFullYear();
+    const targetMonth = String(target.getUTCMonth() + 1).padStart(2, '0');
+    const targetDay = String(target.getUTCDate()).padStart(2, '0');
+    const dueDateStr = `${targetYear}-${targetMonth}-${targetDay}`;
+
+    return {
+        dueDate: dueDateStr,
+        nextReviewDate: `${dueDateStr}T00:00:00.000Z`,
+    };
+}
+
+/**
  * Calculates next review interval, ease factor, and review date based on SM-2.
  */
 export function calculateReview(
     grade: Grade,
     priorInterval: number = 0,
     priorRepetitions: number = 0,
-    priorEaseFactor: number = 2.5
+    priorEaseFactor: number = 2.5,
+    baseDate: string | Date = new Date()
 ): ReviewResult {
     let newInterval: number;
     let newRepetitions: number;
@@ -59,15 +105,15 @@ export function calculateReview(
     newEaseFactor = priorEaseFactor + (0.1 - (5 - standardGrade) * (0.08 + (5 - standardGrade) * 0.02));
     if (newEaseFactor < 1.3) newEaseFactor = 1.3;
 
-    const nextDate = new Date();
-    nextDate.setDate(nextDate.getDate() + newInterval);
-    nextDate.setHours(4, 0, 0, 0);
+    const { dueDate, nextReviewDate } = addCalendarDays(baseDate, newInterval);
 
     return {
         interval: newInterval,
         repetitions: newRepetitions,
         easeFactor: Math.round(newEaseFactor * 100) / 100,
-        nextReviewDate: nextDate.toISOString()
+        dueDate,
+        nextReviewDate,
+        dueInDays: newInterval,
     };
 }
 
@@ -77,12 +123,13 @@ export function calculateReview(
 export function getPreviewIntervals(
     priorInterval: number = 0,
     priorRepetitions: number = 0,
-    priorEaseFactor: number = 2.5
+    priorEaseFactor: number = 2.5,
+    baseDate: string | Date = new Date()
 ): Record<Grade, number> {
     return {
-        [Rating.AGAIN]: calculateReview(Rating.AGAIN, priorInterval, priorRepetitions, priorEaseFactor).interval,
-        [Rating.HARD]: calculateReview(Rating.HARD, priorInterval, priorRepetitions, priorEaseFactor).interval,
-        [Rating.GOOD]: calculateReview(Rating.GOOD, priorInterval, priorRepetitions, priorEaseFactor).interval,
-        [Rating.EASY]: calculateReview(Rating.EASY, priorInterval, priorRepetitions, priorEaseFactor).interval,
+        [Rating.AGAIN]: calculateReview(Rating.AGAIN, priorInterval, priorRepetitions, priorEaseFactor, baseDate).interval,
+        [Rating.HARD]: calculateReview(Rating.HARD, priorInterval, priorRepetitions, priorEaseFactor, baseDate).interval,
+        [Rating.GOOD]: calculateReview(Rating.GOOD, priorInterval, priorRepetitions, priorEaseFactor, baseDate).interval,
+        [Rating.EASY]: calculateReview(Rating.EASY, priorInterval, priorRepetitions, priorEaseFactor, baseDate).interval,
     };
 }

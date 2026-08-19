@@ -157,19 +157,23 @@ const StudyRoomPage: React.FC = () => {
         const createPeerConnection = (peerId: string) => {
             if (pcsRef.current[peerId]) return pcsRef.current[peerId];
 
-            console.log(`Creating RTCPeerConnection for peer ${peerId}`);
+            // Enterprise TURN server configuration (configured via env or fallback to openrelay)
+            const configuredTurnUrls = import.meta.env.VITE_TURN_URLS ? import.meta.env.VITE_TURN_URLS.split(',') : [
+                'turn:openrelay.metered.ca:80',
+                'turn:openrelay.metered.ca:443',
+                'turn:openrelay.metered.ca:443?transport=tcp'
+            ];
+            const configuredTurnUsername = import.meta.env.VITE_TURN_USERNAME || 'openrelayproject';
+            const configuredTurnCredential = import.meta.env.VITE_TURN_CREDENTIAL || 'openrelayproject';
+
             const pc = new RTCPeerConnection({
                 iceServers: [
                     { urls: 'stun:stun.l.google.com:19302' },
                     { urls: 'stun:stun1.l.google.com:19302' },
                     {
-                        urls: [
-                            'turn:openrelay.metered.ca:80',
-                            'turn:openrelay.metered.ca:443',
-                            'turn:openrelay.metered.ca:443?transport=tcp'
-                        ],
-                        username: 'openrelayproject',
-                        credential: 'openrelayproject'
+                        urls: configuredTurnUrls,
+                        username: configuredTurnUsername,
+                        credential: configuredTurnCredential
                     }
                 ]
             });

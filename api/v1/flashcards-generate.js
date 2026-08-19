@@ -1,5 +1,7 @@
 import { verifyAuth, getBearerToken } from '../_auth.js';
 import { checkRateLimit } from '../_rateLimit.js';
+import { checkDailyQuota } from '../_quota.js';
+import { validateFlashcardsResponse } from '../_validators.js';
 
 export const config = {
   runtime: 'edge',
@@ -43,6 +45,17 @@ export default async function handler(req) {
     });
   }
 
+  const rawBodyText = await req.text().catch(() => '');
+  let body;
+  try {
+    body = JSON.parse(rawBodyText || '{}');
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    });
+  }
+
   const token = getBearerToken(req);
   const customKey = req.headers.get('X-Custom-Key') || req.headers.get('X-Kaizen-Key');
   const serverKey = process.env.DEEPSEEK_API_KEY;
@@ -70,11 +83,11 @@ export default async function handler(req) {
     authenticatedUserId = user.id;
 
     // Rate limiting for shared server API key
-    const rateCheck = checkRateLimit(req, authenticatedUserId);
+    const rateCheck = await checkRateLimit(req, authenticatedUserId);
     if (!rateCheck.allowed) {
       return new Response(JSON.stringify({
         error: 'Too Many Requests',
-        message: `Fleshkarta yaratish so'rovlari chegarasi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        message: `Fleshkarta yaratish so'rovlari tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
         retryAfter: rateCheck.retryAfter,
       }), {
         status: 429,
@@ -82,6 +95,21 @@ export default async function handler(req) {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Retry-After': String(rateCheck.retryAfter),
+        },
+      });
+    }
+
+    // Daily quota & Request size check
+    const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBodyText);
+    if (!quotaCheck.allowed) {
+      return new Response(JSON.stringify({
+        error: 'Quota Exceeded',
+        message: quotaCheck.reason,
+      }), {
+        status: 403,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       });
     }
@@ -96,16 +124,6 @@ export default async function handler(req) {
       });
     }
     effectiveApiKey = serverKey;
-  }
-
-  let body;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
   }
 
   const { topic, language = 'uz', count = 5 } = body;
@@ -162,9 +180,10 @@ Format strictly as raw JSON without markdown:
 
     const aiData = await aiResponse.json();
     const content = aiData.choices?.[0]?.message?.content;
-    const parsed = safeParseJson(content, { flashcards: [] });
+    const rawParsed = safeParseJson(content, { flashcards: [] });
+    const validatedCards = validateFlashcardsResponse(rawParsed);
 
-    return new Response(JSON.stringify({ success: true, count: parsed.flashcards?.length || 0, data: parsed.flashcards || [] }), {
+    return new Response(JSON.stringify({ success: true, count: validatedCards.length, data: validatedCards }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

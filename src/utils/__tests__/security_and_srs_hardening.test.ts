@@ -33,12 +33,10 @@ describe('Security: Admin Role Verification Hardening', () => {
 });
 
 describe('SRS: Spaced Repetition Normalization & Consistency', () => {
-    it('should normalize next review date to start of day (04:00 AM)', () => {
-        const review = calculateReview(Rating.GOOD, 0, 0, 2.5);
-        const reviewDate = new Date(review.nextReviewDate);
-        expect(reviewDate.getHours()).toBe(4);
-        expect(reviewDate.getMinutes()).toBe(0);
-        expect(reviewDate.getSeconds()).toBe(0);
+    it('should calculate valid calendar review date and ISO format', () => {
+        const review = calculateReview(Rating.GOOD, 0, 0, 2.5, '2026-08-19');
+        expect(review.dueDate).toBe('2026-08-21');
+        expect(review.nextReviewDate).toBe('2026-08-21T00:00:00.000Z');
     });
 
     it('should calculate initial repetitions accurately', () => {

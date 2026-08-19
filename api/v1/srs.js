@@ -6,7 +6,37 @@ export const config = {
  * SM-2 Algorithm calculation
  * Quality: 0 (Blackout) to 5 (Perfect recall)
  */
-function calculateSM2(quality, repetitions = 0, interval = 0, easeFactor = 2.5) {
+function addCalendarDays(dateInput = new Date(), daysToAdd = 1) {
+  let year, month, day;
+  if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}/.test(dateInput)) {
+    const parts = dateInput.substring(0, 10).split('-');
+    year = parseInt(parts[0], 10);
+    month = parseInt(parts[1], 10) - 1;
+    day = parseInt(parts[2], 10);
+  } else {
+    const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+    year = d.getFullYear();
+    month = d.getMonth();
+    day = d.getDate();
+  }
+
+  const target = new Date(Date.UTC(year, month, day + Math.max(0, daysToAdd), 0, 0, 0, 0));
+  const targetYear = target.getUTCFullYear();
+  const targetMonth = String(target.getUTCMonth() + 1).padStart(2, '0');
+  const targetDay = String(target.getUTCDate()).padStart(2, '0');
+  const dueDateStr = `${targetYear}-${targetMonth}-${targetDay}`;
+
+  return {
+    dueDate: dueDateStr,
+    nextReviewDate: `${dueDateStr}T00:00:00.000Z`,
+  };
+}
+
+/**
+ * SM-2 Algorithm calculation
+ * Quality: 0 (Blackout) to 5 (Perfect recall)
+ */
+function calculateSM2(quality, repetitions = 0, interval = 0, easeFactor = 2.5, baseDate = new Date()) {
   const q = Math.max(0, Math.min(5, Number(quality) || 0));
   let newRepetitions = Number(repetitions) || 0;
   let newInterval = Number(interval) || 0;
@@ -33,15 +63,14 @@ function calculateSM2(quality, repetitions = 0, interval = 0, easeFactor = 2.5) 
     newEaseFactor = 1.3;
   }
 
-  const nextDate = new Date();
-  nextDate.setDate(nextDate.getDate() + newInterval);
-  nextDate.setHours(4, 0, 0, 0);
+  const { dueDate, nextReviewDate } = addCalendarDays(baseDate, newInterval);
 
   return {
     repetitions: newRepetitions,
     interval: newInterval,
     easeFactor: Math.round(newEaseFactor * 100) / 100,
-    nextReviewDate: nextDate.toISOString(),
+    dueDate,
+    nextReviewDate,
     dueInDays: newInterval,
   };
 }
