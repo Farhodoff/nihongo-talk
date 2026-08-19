@@ -36,3 +36,34 @@ export const getLevelInfo = (xp: number) => {
         xpToNext: next ? next.minXp - xp : 0
     };
 };
+
+/**
+ * Calculates current streak accurately based on last activity date and today's date in user's local timezone.
+ */
+export const calculateStreak = (
+    lastActivityDate: string | null,
+    currentStreak: number,
+    now: Date = new Date()
+): { streak: number; lastActivityDate: string } => {
+    const todayStr = now.toISOString().split('T')[0];
+    if (!lastActivityDate) {
+        return { streak: 1, lastActivityDate: todayStr };
+    }
+
+    const lastStr = lastActivityDate.split('T')[0];
+    if (lastStr === todayStr) {
+        return { streak: Math.max(1, currentStreak || 1), lastActivityDate: todayStr };
+    }
+
+    const lastDate = new Date(lastStr);
+    const currentDate = new Date(todayStr);
+    const diffTime = Math.abs(currentDate.getTime() - lastDate.getTime());
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+        return { streak: (currentStreak || 0) + 1, lastActivityDate: todayStr };
+    } else {
+        // Missed one or more days
+        return { streak: 1, lastActivityDate: todayStr };
+    }
+};

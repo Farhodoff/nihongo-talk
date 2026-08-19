@@ -35,4 +35,40 @@ describe('Gamification Logic', () => {
         expect(getLevelInfo(0).title).toBe("Boshlang'ich Talaba");
         expect(getLevelInfo(500).title).toBe('Shogird');
     });
+
+    describe('calculateStreak logic', () => {
+        it('boshlang\'ich faoliyatda streakni 1 deb belgilashi kerak', () => {
+            const today = new Date('2026-08-20T10:00:00Z');
+            const result = import('./gamification').then(m => {
+                const res = m.calculateStreak(null, 0, today);
+                expect(res.streak).toBe(1);
+                expect(res.lastActivityDate).toBe('2026-08-20');
+            });
+            return result;
+        });
+
+        it('bir kunda bir necha bor bajarsa streak o\'zgarmasligi kerak', async () => {
+            const { calculateStreak } = await import('./gamification');
+            const today = new Date('2026-08-20T10:00:00Z');
+            const res = calculateStreak('2026-08-20', 5, today);
+            expect(res.streak).toBe(5);
+            expect(res.lastActivityDate).toBe('2026-08-20');
+        });
+
+        it('ketma-ket keyingi kuni bajarsa streak 1 ga oshishi kerak', async () => {
+            const { calculateStreak } = await import('./gamification');
+            const today = new Date('2026-08-21T10:00:00Z');
+            const res = calculateStreak('2026-08-20', 5, today);
+            expect(res.streak).toBe(6);
+            expect(res.lastActivityDate).toBe('2026-08-21');
+        });
+
+        it('kun o\'tkazib yuborilsa streak 1 ga qaytishi kerak', async () => {
+            const { calculateStreak } = await import('./gamification');
+            const today = new Date('2026-08-25T10:00:00Z');
+            const res = calculateStreak('2026-08-20', 5, today);
+            expect(res.streak).toBe(1);
+            expect(res.lastActivityDate).toBe('2026-08-25');
+        });
+    });
 });
