@@ -6,6 +6,7 @@ const RoomWhiteboard = React.lazy(() => import('../components/study-room/RoomWhi
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
 import { LocalTour, LocalTourStep } from '../components/LocalTour';
+import { recordTelemetryEvent } from '../lib/errorTracking';
 
 const ROOM_TOUR_STEPS: LocalTourStep[] = [
     {
@@ -120,18 +121,36 @@ const StudyRoomPage: React.FC = () => {
         fetchUser();
     }, []);
 
-    // Fetch local camera & microphone stream
+    // Fetch local camera & microphone stream with progressive fallback
     useEffect(() => {
         const getMedia = async () => {
+            if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) return;
+            let stream: MediaStream | null = null;
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({
+                stream = await navigator.mediaDevices.getUserMedia({
                     video: { width: 640, height: 480, frameRate: { ideal: 15 } },
                     audio: true
                 });
+            } catch (videoAudioErr) {
+                console.warn('Video+Audio getUserMedia failed, attempting audio-only fallback:', videoAudioErr);
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: false,
+                        audio: true
+                    });
+                    setVideoEnabled(false);
+                } catch (audioErr: any) {
+                    console.warn('Audio-only getUserMedia also failed or was denied:', audioErr);
+                    setVideoEnabled(false);
+                    setAudioEnabled(false);
+                    recordTelemetryEvent('webrtc', 'Media devices access denied or unavailable', {
+                        metadata: { error: audioErr?.message || String(audioErr) }
+                    });
+                }
+            }
+            if (stream) {
                 setLocalStream(stream);
                 localStreamRef.current = stream;
-            } catch (e) {
-                console.error('Failed to get media devices:', e);
             }
         };
         if (userProfile) {
@@ -209,10 +228,23 @@ const StudyRoomPage: React.FC = () => {
                 }));
             };
 
-            // State change logger
+            // State change logger & auto-reconnect
             pc.onconnectionstatechange = () => {
                 console.log(`Connection state with ${peerId}: ${pc.connectionState}`);
-                if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed' || pc.connectionState === 'closed') {
+                if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed') {
+                    cleanupPeerConnection(peerId);
+                    // Schedule auto-reconnect if still in active call
+                    if (joinedCallRef.current && isComponentMounted) {
+                        setTimeout(() => {
+                            if (joinedCallRef.current && isComponentMounted && !pcsRef.current[peerId]) {
+                                createPeerConnection(peerId);
+                                if (userProfile.id < peerId) {
+                                    initiateCall(peerId);
+                                }
+                            }
+                        }, 2000);
+                    }
+                } else if (pc.connectionState === 'closed') {
                     cleanupPeerConnection(peerId);
                 }
             };
