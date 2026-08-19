@@ -15,8 +15,8 @@ interface State {
 export function sanitizeErrorMessage(msg: string): string {
     if (!msg) return "Noma'lum xatolik";
     return msg
-        .replace(/(AIzaSy[A-Za-z0-9_-]{33})/g, 'AIzaSy[REDACTED]')
-        .replace(/(sk-[A-Za-z0-9_-]{20,})/g, 'sk-[REDACTED]')
+        .replace(/(AIzaSy[A-Za-z0-9_-]{10,})/g, 'AIzaSy[REDACTED]')
+        .replace(/(sk-[A-Za-z0-9_-]{10,})/g, 'sk-[REDACTED]')
         .replace(/(Bearer\s+[A-Za-z0-9._-]+)/gi, 'Bearer [REDACTED]')
         .replace(/(apikey=[A-Za-z0-9._-]+)/gi, 'apikey=[REDACTED]');
 }
