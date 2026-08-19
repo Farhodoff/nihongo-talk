@@ -14,11 +14,14 @@ const sanitizeSubjectId = (id?: string | null): string | null => {
     return null;
 };
 
+const getTaskCacheKey = (userId?: string) => `study_planner_tasks_${userId || 'local_user'}`;
+
 export const TaskService = {
     async fetchTasks(userId: string): Promise<Task[]> {
+        const cacheKey = getTaskCacheKey(userId);
         if (!userId || !isUuid(userId)) {
             try {
-                const local = localStorage.getItem('study_planner_tasks');
+                const local = localStorage.getItem(cacheKey) || localStorage.getItem('study_planner_tasks');
                 if (local) {
                     const parsed = JSON.parse(local);
                     if (Array.isArray(parsed)) return parsed;
@@ -49,6 +52,7 @@ export const TaskService = {
 
             const dbTasks = (data || []).map(t => ({
                 id: t.id,
+                userId: t.user_id,
                 title: t.title,
                 completed: t.completed,
                 status: t.status as TaskStatus,
@@ -62,13 +66,13 @@ export const TaskService = {
                 deletedAt: t.deleted_at || undefined
             })) as Task[];
 
-            // Merge with local tasks so newly created or offline tasks are never lost
+            // Merge with local tasks scoped to this user so offline changes are preserved without cross-user leakage
             let localTasks: Task[] = [];
             try {
-                const local = localStorage.getItem('study_planner_tasks');
+                const local = localStorage.getItem(cacheKey);
                 if (local) {
                     const parsed = JSON.parse(local);
-                    if (Array.isArray(parsed)) localTasks = parsed;
+                    if (Array.isArray(parsed)) localTasks = parsed.filter(t => !t.userId || t.userId === userId);
                 }
             } catch {}
 
@@ -77,6 +81,7 @@ export const TaskService = {
             const allMergedTasks = [...dbTasks, ...missingLocalTasks];
 
             try {
+                localStorage.setItem(cacheKey, JSON.stringify(allMergedTasks));
                 localStorage.setItem('study_planner_tasks', JSON.stringify(allMergedTasks));
             } catch {}
 
@@ -86,7 +91,7 @@ export const TaskService = {
                 console.warn('Fetch tasks warning:', error.message);
             }
             try {
-                const local = localStorage.getItem('study_planner_tasks');
+                const local = localStorage.getItem(cacheKey) || localStorage.getItem('study_planner_tasks');
                 if (local) return JSON.parse(local);
             } catch { }
             return [];

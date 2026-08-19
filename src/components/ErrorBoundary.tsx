@@ -11,14 +11,15 @@ interface State {
     error: Error | null;
 }
 
-// Redacts sensitive keys, tokens, and authorization credentials from technical strings
+// Redacts sensitive keys, tokens, database passwords, and authorization credentials from technical strings
 export function sanitizeErrorMessage(msg: string): string {
     if (!msg) return "Noma'lum xatolik";
     return msg
         .replace(/(AIzaSy[A-Za-z0-9_-]{10,})/g, 'AIzaSy[REDACTED]')
         .replace(/(sk-[A-Za-z0-9_-]{10,})/g, 'sk-[REDACTED]')
         .replace(/(Bearer\s+[A-Za-z0-9._-]+)/gi, 'Bearer [REDACTED]')
-        .replace(/(apikey=[A-Za-z0-9._-]+)/gi, 'apikey=[REDACTED]');
+        .replace(/(apikey=[A-Za-z0-9._-]+)/gi, 'apikey=[REDACTED]')
+        .replace(/(postgres(?:ql)?:\/\/[^:]+:)([^@]+)(@)/gi, '$1[REDACTED_PASSWORD]$3');
 }
 
 class ErrorBoundary extends Component<Props, State> {

@@ -582,7 +582,39 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         fetchData();
-    }, []);
+
+        let subscription: any = null;
+        if (typeof supabase?.auth?.onAuthStateChange === 'function') {
+            const authSub = supabase.auth.onAuthStateChange((event, session) => {
+                if (event === 'SIGNED_OUT') {
+                    setUser(null);
+                    setTasks([]);
+                    setFlashcards([]);
+                    setSubjects([]);
+                    setGoals([]);
+                    setNotes([]);
+                    setStudyNotes([]);
+                    setSessions([]);
+                    setWhiteboards([]);
+                    setEvents([]);
+                    setCoachSessions([]);
+                    safeLocalStorage.removeItem('study_planner_user_cache');
+                    safeLocalStorage.removeItem('study_planner_user_email');
+                } else if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'TOKEN_REFRESHED') {
+                    if (session?.user) {
+                        fetchData();
+                    }
+                }
+            });
+            subscription = authSub?.data?.subscription;
+        }
+
+        return () => {
+            if (subscription?.unsubscribe) {
+                subscription.unsubscribe();
+            }
+        };
+    }, [fetchData, setTasks, setFlashcards, setSubjects, setGoals, setNotes, setStudyNotes, setSessions, setWhiteboards, setEvents, setCoachSessions]);
 
     // Update Settings Handler
     const updateSettings = async (updates: Partial<Settings>) => {
