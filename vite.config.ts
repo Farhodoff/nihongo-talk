@@ -141,12 +141,18 @@ export default defineConfig({
                             return 'vendor';
                         }
                         if (id.includes('@google/generative-ai')) {
-                            return 'ai';
+                            return 'ai-gemini';
+                        }
+                        if (id.includes('cytoscape')) {
+                            return 'cytoscape';
+                        }
+                        if (id.includes('katex')) {
+                            return 'katex';
                         }
                         if (id.includes('recharts')) {
                             return 'charts';
                         }
-                        if (id.includes('tldraw')) {
+                        if (id.includes('tldraw') || id.includes('@tldraw')) {
                             return 'tldraw';
                         }
                         if (id.includes('react-big-calendar')) {
@@ -165,8 +171,8 @@ export default defineConfig({
                 },
             },
         },
-        // Chunk size warning limit oshirish
-        chunkSizeWarningLimit: 600,
+        // Chunk size warning limit
+        chunkSizeWarningLimit: 1800,
         // esbuild minification (tezroq va default)
         minify: 'esbuild',
         // CSS code splitting
