@@ -104,7 +104,6 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ whiteboardId }) => {
 
                 if (error) {
                     setSaveStatus('error');
-                    // alert("Saqlashda xatolik bo'ldi! Internetni tekshiring."); // Optional
                 } else {
                     setSaveStatus('saved');
                 }
