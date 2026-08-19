@@ -199,7 +199,7 @@ export class ScenarioService {
                     const dbHistory: ScenarioSessionResult[] = data.map(item => ({
                         id: item.id || `sc_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
                         scenario_id: item.scenario_id || 'custom',
-                        scenario_title: item.persona_title || 'Ssenariy',
+                        scenario_title: item.persona_title || item.scenario_title || 'Ssenariy',
                         duration_seconds: item.duration_seconds || 0,
                         overall_score: item.overall_score || 0,
                         fluency_score: item.fluency_score || 0,
