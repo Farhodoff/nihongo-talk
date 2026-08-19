@@ -9,6 +9,7 @@ interface BackupData {
     flashcards?: Omit<Flashcard, 'id'>[];
     goals?: Omit<Goal, 'id'>[];
     notes?: Omit<Note, 'id'>[];
+    examResults?: any[];
 }
 
 class ExportImportService {
@@ -113,12 +114,13 @@ class ExportImportService {
      */
     async exportToJSON(userId: string): Promise<void> {
         try {
-            const [subjectsRes, tasksRes, flashcardsRes, goalsRes, notesRes] = await Promise.all([
+            const [subjectsRes, tasksRes, flashcardsRes, goalsRes, notesRes, examResultsRes] = await Promise.all([
                 supabase.from('subjects').select('*').eq('user_id', userId),
                 supabase.from('tasks').select('*').eq('user_id', userId),
                 supabase.from('flashcards').select('*').eq('user_id', userId),
                 supabase.from('goals').select('*').eq('user_id', userId),
                 supabase.from('notes').select('*').eq('user_id', userId),
+                supabase.from('exam_results').select('*').eq('user_id', userId),
             ]);
 
             const backup: BackupData = {
@@ -129,6 +131,7 @@ class ExportImportService {
                 flashcards: flashcardsRes.data || [],
                 goals: goalsRes.data || [],
                 notes: notesRes.data || [],
+                examResults: examResultsRes.data || [],
             };
 
             const jsonStr = JSON.stringify(backup, null, 2);
@@ -141,7 +144,7 @@ class ExportImportService {
     }
 
     /**
-     * Import entire data from JSON
+     * Import entire data from JSON with comprehensive schema integrity checks
      */
     async importFromJSON(file: File, userId: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
@@ -149,14 +152,23 @@ class ExportImportService {
             reader.onload = async (e) => {
                 try {
                     const content = e.target?.result as string;
-                    const backup = JSON.parse(content) as BackupData;
+                    if (!content || typeof content !== 'string') {
+                        throw new Error("Fayl bo'sh yoki o'qib bo'lmadi.");
+                    }
 
-                    if (!backup.version) {
-                        throw new Error("Noto'g'ri zaxira fayl formati.");
+                    let backup: BackupData;
+                    try {
+                        backup = JSON.parse(content) as BackupData;
+                    } catch {
+                        throw new Error("Noto'g'ri JSON formati: Fayl strukturasi buzilgan.");
+                    }
+
+                    if (!backup || typeof backup !== 'object' || !backup.version) {
+                        throw new Error("Noto'g'ri zaxira fayl formati: version maydoni topilmadi.");
                     }
 
                     // 1. Import Subjects first (to handle foreign keys if necessary)
-                    if (backup.subjects && backup.subjects.length > 0) {
+                    if (Array.isArray(backup.subjects) && backup.subjects.length > 0) {
                         const subjectsToInsert = backup.subjects.map(s => ({
                             ...s,
                             user_id: userId,
@@ -165,7 +177,7 @@ class ExportImportService {
                     }
 
                     // 2. Import Tasks
-                    if (backup.tasks && backup.tasks.length > 0) {
+                    if (Array.isArray(backup.tasks) && backup.tasks.length > 0) {
                         const tasksToInsert = backup.tasks.map(t => ({
                             ...t,
                             user_id: userId,
@@ -174,7 +186,7 @@ class ExportImportService {
                     }
 
                     // 3. Import Flashcards
-                    if (backup.flashcards && backup.flashcards.length > 0) {
+                    if (Array.isArray(backup.flashcards) && backup.flashcards.length > 0) {
                         const flashcardsToInsert = backup.flashcards.map(f => ({
                             ...f,
                             user_id: userId,
@@ -183,7 +195,7 @@ class ExportImportService {
                     }
 
                     // 4. Import Goals
-                    if (backup.goals && backup.goals.length > 0) {
+                    if (Array.isArray(backup.goals) && backup.goals.length > 0) {
                         const goalsToInsert = backup.goals.map(g => ({
                             ...g,
                             user_id: userId,
@@ -192,12 +204,21 @@ class ExportImportService {
                     }
 
                     // 5. Import Notes
-                    if (backup.notes && backup.notes.length > 0) {
+                    if (Array.isArray(backup.notes) && backup.notes.length > 0) {
                         const notesToInsert = backup.notes.map(n => ({
                             ...n,
                             user_id: userId,
                         }));
                         await supabase.from('notes').upsert(notesToInsert);
+                    }
+
+                    // 6. Import Exam Results
+                    if (Array.isArray(backup.examResults) && backup.examResults.length > 0) {
+                        const examsToInsert = backup.examResults.map(ex => ({
+                            ...ex,
+                            user_id: userId,
+                        }));
+                        await supabase.from('exam_results').upsert(examsToInsert);
                     }
 
                     resolve(true);
@@ -206,6 +227,7 @@ class ExportImportService {
                     reject(err);
                 }
             };
+            reader.onerror = () => reject(new Error('Faylni o\'qishda xatolik yuz berdi.'));
             reader.readAsText(file);
         });
     }

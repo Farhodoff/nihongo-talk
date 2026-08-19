@@ -47,4 +47,16 @@ describe('ExportImportService', () => {
             expect(escape('hello "world"')).toBe('"hello ""world"""');
         });
     });
+
+    describe('JSON Backup Validation & Disaster Recovery', () => {
+        it('rejects corrupted or malformed JSON payloads gracefully', async () => {
+            const malformedFile = new File(['{ "brokenJson": ...'], 'corrupt.json', { type: 'application/json' });
+            await expect(exportImportService.importFromJSON(malformedFile, 'user-123')).rejects.toThrow(/Noto'g'ri JSON formati/i);
+        });
+
+        it('rejects backup payload missing version field', async () => {
+            const noVersionFile = new File([JSON.stringify({ tasks: [] })], 'no_version.json', { type: 'application/json' });
+            await expect(exportImportService.importFromJSON(noVersionFile, 'user-123')).rejects.toThrow(/version maydoni topilmadi/i);
+        });
+    });
 });
