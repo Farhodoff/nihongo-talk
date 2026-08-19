@@ -1,54 +1,75 @@
 import { Goal, Task } from '../types';
 
-export const calculateStreak = (tasks: Task[]): number => {
-    if (tasks.length === 0) return 0;
+export interface StudyActivityItem {
+    type: 'task' | 'session' | 'flashcard' | 'quiz' | 'exam' | 'speaking';
+    timestamp: string | number | Date;
+}
 
-    // Filter only completed tasks and sort by date descending
-    const completedTasks = tasks
-        .filter(t => t.completed && t.deadline) // Assuming we use deadline as "completion date" for simulated streak, or created/update time. 
-        // Ideally we'd have a 'completedAt' field. For this MVP, let's assume if it's completed, we use the deadline date or creation date?
-        // User didn't specify 'completedAt'. Let's strictly check based on 'deadline' dates if they were "done on that day".
-        // Better yet, let's assume tasks done today count for today. 
-        // Since we don't have 'completedAt', calculating a REAL streak is hard.
-        // Let's degrade gracefully: Streak = "Count of tasks completed"? No.
-        // Let's use `updatedAt` if we had it. We don't.
-        // Let's use `deadline` as a proxy for "Day this task was for".
-        .sort((a, b) => new Date(b.deadline || 0).getTime() - new Date(a.deadline || 0).getTime());
+/**
+ * Extracts normalized local calendar date timestamp (midnight 00:00:00) from various input formats.
+ */
+function extractMidnightTimestamp(dateInput?: string | number | Date | null): number | null {
+    if (!dateInput) return null;
+    const d = new Date(dateInput);
+    if (isNaN(d.getTime())) return null;
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+}
 
-    if (completedTasks.length === 0) return 0;
+/**
+ * Calculates current streak across all learning activities (Tasks, Pomodoro sessions, Flashcards, Quizzes).
+ */
+export const calculateUnifiedStreak = (
+    tasks: Task[] = [],
+    sessions: { createdAt?: string; startTime?: string; completed?: boolean }[] = [],
+    additionalActivities: StudyActivityItem[] = []
+): number => {
+    const activityDates = new Set<number>();
 
-    let streak = 0;
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
+    // 1. Completed Tasks (using deadline, dueDate, or createdAt)
+    tasks.forEach(t => {
+        if (t.completed || t.status === 'done') {
+            const time = extractMidnightTimestamp(t.deadline || t.dueDate || t.createdAt);
+            if (time) activityDates.add(time);
+        }
+    });
 
-    // Get unique dates from completed tasks
-    const uniqueDates = Array.from(new Set(completedTasks.map(t => {
-        const d = new Date(t.deadline || 0); // Warning: this logic is flawed if users don't set deadlines.
-        d.setHours(0, 0, 0, 0);
-        return d.getTime();
-    }))).sort((a, b) => b - a);
+    // 2. Completed Study Sessions (Pomodoro)
+    sessions.forEach(s => {
+        if (s.completed !== false) {
+            const time = extractMidnightTimestamp(s.createdAt || s.startTime);
+            if (time) activityDates.add(time);
+        }
+    });
 
-    // Check if today (or yesterday) has a completed task
-    const todayTime = currentDate.getTime();
+    // 3. Additional Activities (Flashcard reviews, quizzes, exams, speaking)
+    additionalActivities.forEach(a => {
+        const time = extractMidnightTimestamp(a.timestamp);
+        if (time) activityDates.add(time);
+    });
+
+    if (activityDates.size === 0) return 0;
+
+    const sortedDates = Array.from(activityDates).sort((a, b) => b - a);
+
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const todayTime = now.getTime();
     const yesterdayTime = todayTime - 86400000;
 
-    if (uniqueDates.length === 0) return 0;
+    const lastActiveDate = sortedDates[0];
 
-    const lastCompletedDate = uniqueDates[0];
-
-    // If no task done today OR yesterday, streak is broken (0).
-    if (lastCompletedDate !== todayTime && lastCompletedDate !== yesterdayTime) {
+    // If no activity today OR yesterday, streak is broken
+    if (lastActiveDate !== todayTime && lastActiveDate !== yesterdayTime) {
         return 0;
     }
 
-    // Count consecutive days
-    // Iterate backwards? No, we have sorted Descending.
-    let expectedDate = lastCompletedDate;
-    streak = 1;
+    let streak = 1;
+    let expectedDate = lastActiveDate;
 
-    for (let i = 1; i < uniqueDates.length; i++) {
+    for (let i = 1; i < sortedDates.length; i++) {
         const prevDate = expectedDate - 86400000;
-        if (uniqueDates[i] === prevDate) {
+        if (sortedDates[i] === prevDate) {
             streak++;
             expectedDate = prevDate;
         } else {
@@ -57,6 +78,13 @@ export const calculateStreak = (tasks: Task[]): number => {
     }
 
     return streak;
+};
+
+/**
+ * Backward compatible task-based streak calculation.
+ */
+export const calculateStreak = (tasks: Task[]): number => {
+    return calculateUnifiedStreak(tasks);
 };
 
 export const calculateCompletionRates = (goals: Goal[], tasks: Task[]) => {

@@ -8,6 +8,7 @@ import { Button } from '../components/ui/Button';
 import { generateAIResponse } from '../utils/ai/aiCore';
 import { IELTS_LISTENING_EXAMS } from '../data/ielts/listening_data';
 import { HistoryService } from '../services/HistoryService';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 interface Question {
     id: number;
@@ -27,6 +28,7 @@ interface PassageData {
 
 export const IeltsReadingListeningMockPage: React.FC = () => {
     const navigate = useNavigate();
+    const { awardXP } = useStudyData();
     const [testType, setTestType] = useState<'reading' | 'listening'>('reading');
     const [step, setStep] = useState<'intro' | 'test' | 'report'>('intro');
 
@@ -415,6 +417,13 @@ export const IeltsReadingListeningMockPage: React.FC = () => {
 
         setScore(correctCount);
         setStep('report');
+
+        // Award XP
+        try {
+            if (awardXP && correctCount > 0) {
+                await awardXP(correctCount * 25);
+            }
+        } catch (e) {}
 
         // Calculate band score
         const band = getBandScore(correctCount, currentPassage.questions.length);

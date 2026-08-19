@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Award, Sparkles, BookOpen, AlertCircle, 
-    CheckCircle2, RefreshCw, XCircle, ChevronRight 
+    CheckCircle2, RefreshCw, XCircle, ChevronRight, Plus, Check 
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { generateAIResponse } from '../utils/ai/aiCore';
 import { JLPT_GRAMMAR_QUESTIONS, JlptGrammarQuestion } from '../data/jlpt/grammar_data';
+import { useStudyData } from '../context/StudyPlannerContext';
+import { useJlptMastery } from '../hooks/useJlptMastery';
+import { HistoryService } from '../services/HistoryService';
 
 export const JlptGrammarQuizPage: React.FC = () => {
     const navigate = useNavigate();
+    const { awardXP, addFlashcardsBatch, subjects } = useStudyData();
+    const { setItemStatus } = useJlptMastery();
+
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'quiz' | 'report'>('intro');
 
@@ -23,12 +29,14 @@ export const JlptGrammarQuizPage: React.FC = () => {
     const [score, setScore] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
     const [showExplanation, setShowExplanation] = useState(false);
+    const [missedQuestions, setMissedQuestions] = useState<JlptGrammarQuestion[]>([]);
+    const [flashcardsCreated, setFlashcardsCreated] = useState(false);
 
     // --- Start Quiz with Sample Data ---
     const handleStartSampleQuiz = () => {
         const filtered = JLPT_GRAMMAR_QUESTIONS.filter(q => q.level === level);
         if (filtered.length === 0) {
-            alert("Ushbu daraja uchun tayyor testlar hozircha yo'q. Iltimos, AI rejimini sinab ko'ring!");
+            setAiError("Ushbu daraja uchun testlar hozircha AI rejimida mavjud.");
             return;
         }
         setQuestions(filtered);
@@ -102,17 +110,51 @@ export const JlptGrammarQuizPage: React.FC = () => {
 
         if (selectedAnswer === currentQ.correctAnswer) {
             setScore(prev => prev + 1);
+            setItemStatus(`jlpt_${level}_${currentQ.id}`, 'mastered');
+        } else {
+            setMissedQuestions(prev => [...prev, currentQ]);
+            setItemStatus(`jlpt_${level}_${currentQ.id}`, 'hard');
         }
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         setSelectedAnswer(null);
         setShowExplanation(false);
         if (currentIdx < questions.length - 1) {
             setCurrentIdx(prev => prev + 1);
         } else {
             setStep('report');
+            // Persist quiz to HistoryService and award XP
+            try {
+                if (awardXP) {
+                    await awardXP(score * 20);
+                }
+                await HistoryService.saveMockExam({
+                    examType: 'jlpt',
+                    level: level,
+                    score: score,
+                    totalQuestions: questions.length,
+                    bandScore: Math.round((score / (questions.length || 1)) * 180)
+                });
+            } catch (e) {
+                console.warn('Failed to persist grammar quiz result:', e);
+            }
         }
+    };
+
+    const handleCreateFlashcardsFromMistakes = async () => {
+        if (missedQuestions.length === 0 || flashcardsCreated) return;
+        const subjectId = subjects[0]?.id || undefined;
+        const cards = missedQuestions.map(q => ({
+            subjectId,
+            front: `[JLPT ${level} Bunpou] ${q.pattern}\n\n${q.questionText}`,
+            back: `To'g'ri javob: ${q.options[q.correctAnswer]}\n\n🇺🇿 Tahlil: ${q.explanationUzbek}`,
+            interval: 1,
+            repetitions: 0,
+            easeFactor: 2.5
+        }));
+        await addFlashcardsBatch(cards);
+        setFlashcardsCreated(true);
     };
 
     return (
@@ -299,18 +341,55 @@ export const JlptGrammarQuizPage: React.FC = () => {
                             {score} / {questions.length} To'g'ri
                         </h2>
                         <p className="text-xs text-muted-foreground mt-1">
-                            Grammatika bo'yicha baholash yakunlandi.
+                            Grammatika natijangiz umumiy statistika va tarixga muvaffaqiyatli saqlandi (+{score * 20} XP).
                         </p>
                     </div>
 
-                    <Button
-                        onClick={() => {
-                            setStep('intro');
-                        }}
-                        className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg"
-                    >
-                        Qayta Topsherish 🔄
-                    </Button>
+                    {missedQuestions.length > 0 && (
+                        <div className="p-4 bg-rose-500/5 border border-rose-500/20 rounded-2xl space-y-3 text-left">
+                            <h4 className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                                <Sparkles size={14} className="text-rose-500" />
+                                Noto'g'ri javoblar ({missedQuestions.length} ta):
+                            </h4>
+                            <div className="space-y-1.5 text-xs text-muted-foreground">
+                                {missedQuestions.map((mq, idx) => (
+                                    <div key={idx} className="p-2 bg-background rounded-lg border border-border flex justify-between items-center">
+                                        <span>• {mq.pattern}</span>
+                                        <span className="text-emerald-500 font-bold">{mq.options[mq.correctAnswer]}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <Button
+                                onClick={handleCreateFlashcardsFromMistakes}
+                                disabled={flashcardsCreated}
+                                className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2"
+                            >
+                                {flashcardsCreated ? <Check size={14} /> : <Plus size={14} />}
+                                {flashcardsCreated ? "Fleshkartalar yaratildi! 🚀" : "Xatolarni Fleshkartaga qo'shish (Anki SRS)"}
+                            </Button>
+                        </div>
+                    )}
+
+                    <div className="flex gap-3">
+                        <Button
+                            onClick={() => {
+                                setScore(0);
+                                setMissedQuestions([]);
+                                setFlashcardsCreated(false);
+                                setStep('intro');
+                            }}
+                            variant="outline"
+                            className="flex-1 py-4 font-bold text-sm rounded-2xl"
+                        >
+                            Qayta Topsherish 🔄
+                        </Button>
+                        <Button
+                            onClick={() => navigate('/jlpt')}
+                            className="flex-1 py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg"
+                        >
+                            JLPT Markaziga Qaytish ⛩️
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>

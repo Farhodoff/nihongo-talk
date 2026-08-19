@@ -6,6 +6,8 @@ import FuriganaText from '../components/jlpt/FuriganaText';
 import { JLPT_READING_PASSAGES, JlptReadingPassage } from '../data/jlptReadingData';
 import { useStudyData } from '../context/StudyPlannerContext';
 
+import { HistoryService } from '../services/HistoryService';
+
 export const JlptReadingPage: React.FC = () => {
     const navigate = useNavigate();
     const { awardXP } = useStudyData();
@@ -53,7 +55,7 @@ export const JlptReadingPage: React.FC = () => {
         }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!currentPassage || isSubmitted) return;
         setIsSubmitted(true);
         setIsTimerActive(false);
@@ -68,6 +70,19 @@ export const JlptReadingPage: React.FC = () => {
 
         if (correctCount > 0 && awardXP) {
             awardXP(correctCount * 15);
+        }
+
+        // Persist attempt to HistoryService
+        try {
+            await HistoryService.saveMockExam({
+                examType: 'jlpt',
+                level: selectedLevel,
+                score: correctCount,
+                totalQuestions: currentPassage.questions.length,
+                bandScore: Math.round((correctCount / (currentPassage.questions.length || 1)) * 180)
+            });
+        } catch (e) {
+            console.warn('Failed to save JLPT reading score:', e);
         }
     };
 

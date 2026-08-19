@@ -7,9 +7,11 @@ import {
 import { Button } from '../components/ui/Button';
 import { JLPT_LISTENING_QUESTIONS, JlptListeningQuestion } from '../data/jlpt/listening_data';
 import { HistoryService } from '../services/HistoryService';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 export const JlptListeningMockPage: React.FC = () => {
     const navigate = useNavigate();
+    const { awardXP } = useStudyData();
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'test' | 'report'>('intro');
 
@@ -58,10 +60,9 @@ export const JlptListeningMockPage: React.FC = () => {
 
     // --- Start JLPT Listening Test ---
     const handleStartTest = () => {
-        const filtered = JLPT_LISTENING_QUESTIONS.filter(q => q.level === level);
+        let filtered = JLPT_LISTENING_QUESTIONS.filter(q => q.level === level);
         if (filtered.length === 0) {
-            alert("Ushbu daraja uchun test savollari tez kunda qo'shiladi!");
-            return;
+            filtered = JLPT_LISTENING_QUESTIONS.filter(q => q.level === 'N5');
         }
 
         stopAudio();
@@ -199,13 +200,21 @@ export const JlptListeningMockPage: React.FC = () => {
         setScore(correctCount);
         setStep('report');
 
+        // Award XP
+        try {
+            if (awardXP && correctCount > 0) {
+                await awardXP(correctCount * 25);
+            }
+        } catch (e) {}
+
         // Save mock exam to history
         try {
             await HistoryService.saveMockExam({
                 examType: 'jlpt',
                 level: level,
                 score: correctCount,
-                totalQuestions: activeQuestions.length
+                totalQuestions: activeQuestions.length,
+                bandScore: Math.round((correctCount / (activeQuestions.length || 1)) * 180)
             });
         } catch (e) {
             console.error("Failed to save JLPT score:", e);

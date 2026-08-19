@@ -6,6 +6,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tool
 import { useSubscription } from '../hooks/useSubscription';
 import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
 import { WritingBandRadarChart } from '../components/ielts/WritingBandRadarChart';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 const SAMPLE_PROMPTS = {
     task1: [
@@ -20,6 +21,7 @@ const SAMPLE_PROMPTS = {
 
 const IeltsWritingPage: React.FC = () => {
     const { subscription } = useSubscription();
+    const { awardXP } = useStudyData();
     const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium' || isAIKeyConfigured();
 
     const [taskType, setTaskType] = useState<'task1' | 'task2'>('task2');
@@ -122,6 +124,13 @@ const IeltsWritingPage: React.FC = () => {
                 },
                 feedback: res.taskResponseFeedback
             });
+
+            // Award XP
+            try {
+                if (awardXP) {
+                    await awardXP(50);
+                }
+            } catch (e) {}
 
             // Refresh history
             fetchHistory();

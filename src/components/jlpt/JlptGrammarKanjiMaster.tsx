@@ -3,14 +3,16 @@ import { BookOpen, Sparkles, Search, Volume2, CheckCircle2, GraduationCap, Flame
 import { JLPT_GRAMMAR_DATA, JLPT_KANJI_DATA, JlptGrammarItem, JlptKanjiItem } from '../../data/jlptGrammarKanji';
 import { JLPT_GRAMMAR_DATABASE } from '../../data/jlptGrammarDatabase';
 import { JLPT_KANJI_DATABASE } from '../../data/jlptKanjiDatabase';
+import { JLPT_GRAMMAR_QUESTIONS, JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { FuriganaText } from './FuriganaText';
 import { KanjiStrokeOrderModal } from './KanjiStrokeOrderModal';
 import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
+import { HistoryService } from '../../services/HistoryService';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
-    const { addFlashcardsBatch, subjects } = useStudyData();
+    const { addFlashcardsBatch, subjects, awardXP } = useStudyData();
     const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
 
     const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
@@ -94,43 +96,64 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [score, setScore] = useState(0);
     const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+    const [missedQuizQuestions, setMissedQuizQuestions] = useState<JlptGrammarQuestion[]>([]);
+    const [quizFlashcardsSaved, setQuizFlashcardsSaved] = useState(false);
 
-    const QUIZ_QUESTIONS = [
-        {
-            question: "「ここで写真を撮って（　　）いけません。」 Bo'sh joyga mos qo'shimchani tanlang.",
-            options: ["は (wa)", "が (ga)", "に (ni)", "を (wo)"],
-            answer: 0,
-            explanation: "〜てはいけません iborasi bajarish taqiqlangan harakatlarni bildiradi."
-        },
-        {
-            question: "「富士山に登った（　　）があります。」 Mos so'zni tanlang.",
-            options: ["もの (mono)", "こと (koto)", "とき (toki)", "ところ (tokoro)"],
-            answer: 1,
-            explanation: "〜たことがあります tajriba yoki o'tgan zamon natijasini bildiradi."
-        },
-        {
-            question: "「日曜日」 so'zidagi 「日」 iyeroglifining to'g'ri o'qilishi qaysi?",
-            options: ["にち (nichi)", "つき (tsuki)", "みず (mizu)", "ほん (hon)"],
-            answer: 0,
-            explanation: "日曜日 (Nichiyoubi) - Yakshanba kungi Onyomi o'qilishi にち."
-        }
-    ];
+    const quizQuestions: JlptGrammarQuestion[] = selectedLevel === 'ALL'
+        ? JLPT_GRAMMAR_QUESTIONS
+        : (JLPT_GRAMMAR_QUESTIONS.filter(q => q.level === selectedLevel).length > 0
+            ? JLPT_GRAMMAR_QUESTIONS.filter(q => q.level === selectedLevel)
+            : JLPT_GRAMMAR_QUESTIONS);
 
     const handleAnswerQuiz = (index: number) => {
         if (selectedOption !== null) return;
         setSelectedOption(index);
-        if (index === QUIZ_QUESTIONS[quizIndex].answer) {
+        const currentQ = quizQuestions[quizIndex];
+        if (index === currentQ.correctAnswer) {
             setScore(prev => prev + 1);
+            setItemStatus(`jlpt_${currentQ.level}_${currentQ.id}`, 'mastered');
+        } else {
+            setMissedQuizQuestions(prev => [...prev, currentQ]);
+            setItemStatus(`jlpt_${currentQ.level}_${currentQ.id}`, 'hard');
         }
     };
 
     const handleNextQuiz = () => {
         setSelectedOption(null);
-        if (quizIndex + 1 < QUIZ_QUESTIONS.length) {
+        if (quizIndex + 1 < quizQuestions.length) {
             setQuizIndex(prev => prev + 1);
         } else {
             setIsQuizCompleted(true);
+            try {
+                if (awardXP && score > 0) {
+                    awardXP(score * 20);
+                }
+                HistoryService.saveMockExam({
+                    examType: 'jlpt',
+                    level: selectedLevel === 'ALL' ? 'N3' : selectedLevel,
+                    score,
+                    totalQuestions: quizQuestions.length,
+                    bandScore: Math.round((score / (quizQuestions.length || 1)) * 180)
+                });
+            } catch (e) {
+                console.warn('Failed to save JLPT quiz score:', e);
+            }
         }
+    };
+
+    const handleCreateFlashcardsFromMistakes = async () => {
+        if (missedQuizQuestions.length === 0 || quizFlashcardsSaved) return;
+        const subjectId = subjects[0]?.id || '';
+        const cards = missedQuizQuestions.map(q => ({
+            subjectId,
+            front: `[JLPT ${q.level} Grammar] ${q.pattern}\n\n${q.questionText}`,
+            back: `To'g'ri javob: ${q.options[q.correctAnswer]}\n\n🇺🇿 Tahlil: ${q.explanationUzbek}`,
+            interval: 1,
+            repetitions: 0,
+            easeFactor: 2.5
+        }));
+        await addFlashcardsBatch(cards);
+        setQuizFlashcardsSaved(true);
     };
 
     const resetQuiz = () => {
@@ -138,6 +161,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         setSelectedOption(null);
         setScore(0);
         setIsQuizCompleted(false);
+        setMissedQuizQuestions([]);
+        setQuizFlashcardsSaved(false);
     };
 
     return (
@@ -508,21 +533,21 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             {/* TAB 3: QUIZ MODE */}
             {activeTab === 'quiz' && (
                 <div className="max-w-2xl mx-auto bg-slate-900/90 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-slate-800 shadow-2xl space-y-6">
-                    {!isQuizCompleted ? (
+                    {!isQuizCompleted && quizQuestions.length > 0 ? (
                         <>
                             <div className="flex items-center justify-between text-xs text-slate-400 font-semibold border-b border-slate-800 pb-3">
-                                <span>Savol {quizIndex + 1} / {QUIZ_QUESTIONS.length}</span>
+                                <span>Savol {quizIndex + 1} / {quizQuestions.length} ({quizQuestions[quizIndex]?.level})</span>
                                 <span>Joriy Ball: {score}</span>
                             </div>
 
                             <h3 className="text-xl font-bold text-white leading-relaxed">
-                                {QUIZ_QUESTIONS[quizIndex].question}
+                                {quizQuestions[quizIndex]?.questionText}
                             </h3>
 
                             <div className="space-y-3">
-                                {QUIZ_QUESTIONS[quizIndex].options.map((opt, idx) => {
+                                {quizQuestions[quizIndex]?.options.map((opt, idx) => {
                                     const isSelected = selectedOption === idx;
-                                    const isCorrect = idx === QUIZ_QUESTIONS[quizIndex].answer;
+                                    const isCorrect = idx === quizQuestions[quizIndex].correctAnswer;
 
                                     let btnClass = "w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ";
 
@@ -552,7 +577,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                             {selectedOption !== null && (
                                 <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 space-y-3 animate-fadeIn">
                                     <div className="text-xs text-indigo-300 font-semibold">
-                                        💡 Tushuntirish: {QUIZ_QUESTIONS[quizIndex].explanation}
+                                        💡 Tushuntirish: {quizQuestions[quizIndex]?.explanationUzbek}
                                     </div>
                                     <button
                                         onClick={handleNextQuiz}
@@ -564,20 +589,47 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                             )}
                         </>
                     ) : (
-                        <div className="text-center space-y-4 py-8">
+                        <div className="text-center space-y-5 py-8">
                             <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto text-2xl font-bold">
                                 🏆
                             </div>
                             <h3 className="text-2xl font-black text-white">Test Yakunlandi!</h3>
                             <p className="text-slate-400 text-sm">
-                                Siz {QUIZ_QUESTIONS.length} ta savoldan <span className="font-bold text-emerald-400">{score} ta</span> to'g'ri javob berdingiz.
+                                Siz {quizQuestions.length} ta savoldan <span className="font-bold text-emerald-400">{score} ta</span> to'g'ri javob berdingiz. (+{score * 20} XP)
                             </p>
-                            <button
-                                onClick={resetQuiz}
-                                className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition"
-                            >
-                                Qayta Boshlash
-                            </button>
+
+                            {missedQuizQuestions.length > 0 && (
+                                <div className="pt-2">
+                                    <button
+                                        onClick={handleCreateFlashcardsFromMistakes}
+                                        disabled={quizFlashcardsSaved}
+                                        className={`w-full py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg ${
+                                            quizFlashcardsSaved
+                                                ? 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/30'
+                                                : 'bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white shadow-indigo-500/20'
+                                        }`}
+                                    >
+                                        {quizFlashcardsSaved ? (
+                                            <>
+                                                <Check className="w-4 h-4" /> Xatolar Fleshkartalarga Qo'shildi!
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Plus className="w-4 h-4" /> {missedQuizQuestions.length} ta Xatolarni Fleshkartaga Aylantirish (Anki SRS)
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            )}
+
+                            <div className="pt-2">
+                                <button
+                                    onClick={resetQuiz}
+                                    className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition"
+                                >
+                                    Qayta Boshlash
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>

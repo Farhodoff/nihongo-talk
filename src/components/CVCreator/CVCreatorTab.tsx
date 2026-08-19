@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { generateAIResponse } from '../../utils/ai';
 import { cvCreatorSystemPrompt } from '../../utils/cvPrompts';
 import { useSubscription } from '../../hooks/useSubscription';
@@ -6,6 +6,9 @@ import { CVForm } from './CVForm';
 import { CVPreview } from './CVPreview';
 import { FileText, Wand2, Download, RefreshCw, AlertCircle } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
+import { supabase } from '../../lib/supabase';
+
+const CV_STORAGE_KEY = 'study_planner_saved_cv_data_v1';
 
 export interface CVData {
     personalInfo: {
@@ -37,9 +40,31 @@ export const CVCreatorTab: React.FC = () => {
     const { hasCredits, decrementCredit, adminApiKey } = useSubscription();
     
     const [isGenerating, setIsGenerating] = useState(false);
-    const [cvData, setCvData] = useState<CVData | null>(null);
+    const [cvData, setCvData] = useState<CVData | null>(() => {
+        try {
+            const saved = localStorage.getItem(CV_STORAGE_KEY);
+            return saved ? JSON.parse(saved) : null;
+        } catch {
+            return null;
+        }
+    });
     const [advice, setAdvice] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    // Restore from Supabase on mount
+    useEffect(() => {
+        const loadRemoteCv = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.user_metadata?.saved_cv && !cvData) {
+                    setCvData(user.user_metadata.saved_cv);
+                }
+            } catch (e) {
+                console.warn('Failed to load remote CV:', e);
+            }
+        };
+        loadRemoteCv();
+    }, []);
     
     const componentRef = useRef<HTMLDivElement>(null);
     const handlePrint = useReactToPrint({
@@ -92,7 +117,7 @@ ${rawInput.rawEducation}
 
             const parsedData = JSON.parse(jsonMatch[0]);
             
-            setCvData({
+            const newCvData: CVData = {
                 personalInfo: {
                     fullName: rawInput.fullName,
                     email: rawInput.email,
@@ -106,8 +131,24 @@ ${rawInput.rawEducation}
                 education: parsedData.education || [],
                 skills: parsedData.skills || [],
                 certificates: parsedData.certificates || []
-            });
+            };
+
+            setCvData(newCvData);
             setAdvice(parsedData.advice || null);
+
+            // Persist locally and in Supabase
+            try {
+                localStorage.setItem(CV_STORAGE_KEY, JSON.stringify(newCvData));
+                supabase.auth.getUser().then(({ data: { user } }) => {
+                    if (user) {
+                        supabase.auth.updateUser({
+                            data: { saved_cv: newCvData }
+                        }).catch(e => console.warn('Failed to sync CV to Supabase:', e));
+                    }
+                });
+            } catch (e) {
+                console.warn('Failed to cache CV:', e);
+            }
 
         } catch (err: unknown) {
             console.error(err);
