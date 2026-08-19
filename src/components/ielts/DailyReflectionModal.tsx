@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BrainCircuit, X, CheckCircle2, Sparkles, Send, Award } from 'lucide-react';
 import { generateAIResponse } from '../../utils/ai';
+import { supabase } from '../../lib/supabase';
+import { useStudyData } from '../../context/StudyPlannerContext';
 
 interface DailyReflectionModalProps {
     isOpen: boolean;
@@ -8,6 +10,7 @@ interface DailyReflectionModalProps {
 }
 
 export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({ isOpen, onClose }) => {
+    const { awardXP } = useStudyData();
     const [learnedText, setLearnedText] = useState('');
     const [isEvaluating, setIsEvaluating] = useState(false);
     const [evaluationResult, setEvaluationResult] = useState<{
@@ -55,6 +58,18 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({ isOp
                 timestamp: new Date().toISOString()
             };
             localStorage.setItem('study_planner_daily_reflections', JSON.stringify(logs));
+
+            // Sync to Supabase user_metadata for cross-device persistence
+            try {
+                await supabase.auth.updateUser({
+                    data: { daily_reflections: logs }
+                });
+            } catch (e) {}
+
+            // Award XP for reflection completion
+            try {
+                await awardXP(25);
+            } catch (e) {}
 
         } catch (err) {
             setEvaluationResult({

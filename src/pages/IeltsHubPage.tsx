@@ -5,6 +5,7 @@ import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
 import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
 import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
+import { IeltsGrammarMaster } from '../components/ielts/IeltsGrammarMaster';
 import { IeltsStudyPlanResult } from '../utils/ai';
 import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
@@ -326,6 +327,11 @@ export const IeltsHubPage: React.FC = () => {
                 <VocabularyGenerator />
             </div>
 
+            {/* IELTS English Grammar Master Section (A1 to C1) */}
+            <div className="mb-8">
+                <IeltsGrammarMaster />
+            </div>
+
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Tool 1: AI Speaking Coach & Roast */}
@@ -355,7 +361,7 @@ export const IeltsHubPage: React.FC = () => {
 
                 {/* Tool 2: Writing Evaluator */}
                 <div 
-                    onClick={() => navigate('/ielts-writing')}
+                    onClick={() => navigate('/ielts/writing')}
                     className="group bg-white dark:bg-[#1f2937] p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
                 >
                     <div>

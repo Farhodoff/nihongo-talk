@@ -117,7 +117,9 @@ const App: React.FC = () => {
                                         <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
+                                        <Route path="ielts/grammar" element={<IeltsHubPage />} />
                                         <Route path="ielts/writing" element={<IeltsWritingPage />} />
+                                        <Route path="ielts-writing" element={<Navigate to="/ielts/writing" replace />} />
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
                                         <Route path="ielts/reading-listening" element={<IeltsReadingListeningMockPage />} />
                                         <Route path="jlpt" element={<JlptHubPage />} />
