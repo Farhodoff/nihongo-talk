@@ -1,6 +1,6 @@
 import React from 'react';
-import { CoachChatMessage } from './speakingTypes';
-import { Check, Copy, Volume2, Mic } from 'lucide-react';
+import { CoachChatMessage, CoachVocabularyItem } from './speakingTypes';
+import { Check, Copy, Volume2, Mic, Plus } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
 
 interface CoachChatAreaProps {
@@ -16,6 +16,7 @@ interface CoachChatAreaProps {
     copyToClipboard: (text: string, index: number) => void;
     speakText: (text: string) => void;
     setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
+    onAddVocabulary?: (vocab: CoachVocabularyItem) => void;
 }
 
 export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
@@ -31,6 +32,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
     copyToClipboard,
     speakText,
     setChatHistory,
+    onAddVocabulary,
 }) => {
     const ActivePersonaIcon = currentPersona.icon;
 
@@ -69,6 +71,62 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             <p className="text-xs sm:text-sm leading-relaxed font-medium whitespace-pre-wrap">
                                 {msg.content}
                             </p>
+
+                            {/* Romaji Reading Aid (UI Only) */}
+                            {msg.role === 'assistant' && msg.romaji && (
+                                <p className="text-[11px] font-mono text-gray-500 dark:text-gray-400 mt-1 italic leading-tight">
+                                    {msg.romaji}
+                                </p>
+                            )}
+
+                            {/* Instant Correction Banner */}
+                            {msg.role === 'assistant' && msg.correction && msg.correction.hasError && msg.correction.corrected && (
+                                <div className="mt-2.5 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs space-y-1">
+                                    <div className="flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400 text-[11px]">
+                                        <span>💡 Grammatika / Iborani yaxshilash:</span>
+                                    </div>
+                                    {msg.correction.original && (
+                                        <div className="text-rose-600 dark:text-rose-400 line-through text-[11px]">
+                                            ❌ {msg.correction.original}
+                                        </div>
+                                    )}
+                                    <div className="text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                                        ✅ {msg.correction.corrected}
+                                    </div>
+                                    {msg.correction.explanation && (
+                                        <div className="text-gray-600 dark:text-gray-300 text-[11px] mt-0.5 leading-relaxed">
+                                            {msg.correction.explanation}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Vocabulary Recommendations */}
+                            {msg.role === 'assistant' && msg.vocabulary && msg.vocabulary.length > 0 && (
+                                <div className="mt-2.5 pt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-1.5">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                                        <span>🧠 Yangi Lug'atlar:</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {msg.vocabulary.map((vocab, vIdx) => (
+                                            <div key={vIdx} className="inline-flex items-center gap-1.5 px-2 py-1 bg-gray-100 dark:bg-gray-700/60 border border-gray-200/80 dark:border-gray-600/60 rounded-lg text-xs">
+                                                <span className="font-bold text-gray-900 dark:text-gray-100">{vocab.word}</span>
+                                                {vocab.reading && <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">({vocab.reading})</span>}
+                                                <span className="text-[11px] text-gray-600 dark:text-gray-300">• {vocab.meaning}</span>
+                                                {onAddVocabulary && (
+                                                    <button
+                                                        onClick={() => onAddVocabulary(vocab)}
+                                                        className="ml-0.5 p-0.5 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                                                        title="Flashcardga qo'shish"
+                                                    >
+                                                        <Plus size={12} />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Uzbek Translation Box */}
                             {msg.role === 'assistant' && (
@@ -111,7 +169,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             </button>
                             {msg.role === 'assistant' && (
                                 <button
-                                    onClick={() => speakText(extractSpeechAudioText(msg.content))}
+                                    onClick={() => speakText(msg.ttsText || extractSpeechAudioText(msg.content))}
                                     className="p-1 rounded-md hover:bg-gray-200/60 dark:hover:bg-gray-700/60 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                                     title="Qayta O'qib berish"
                                 >

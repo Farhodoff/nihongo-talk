@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
-import { converseWithCoach, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
+import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
@@ -108,7 +108,7 @@ const SpeakingCoachPage: React.FC = () => {
     const [showProModal, setShowProModal] = useState(false);
     const [proModalReason, setProModalReason] = useState('');
 
-    const { user, settings, updateSettings, addCoachSession } = useStudyData();
+    const { user, settings, updateSettings, addCoachSession, addFlashcardsBatch } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'deepseek');
@@ -199,6 +199,33 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
+    const handleAddVocabToFlashcards = async (vocab: CoachVocabularyItem) => {
+        try {
+            const isJa = language === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(vocab.word);
+            const front = isJa
+                ? `${vocab.word}${vocab.reading ? ` (${vocab.reading})` : ''}`
+                : vocab.word;
+            const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}`;
+
+            await addFlashcardsBatch([{
+                front,
+                back,
+                subjectId: isJa ? '00000000-0000-4000-8000-000000000001' : '00000000-0000-4000-8000-000000000002'
+            }]);
+
+            toast({
+                title: '🎴 Fleshkarta Qo\'shildi!',
+                description: `"${vocab.word}" Anki SM-2 Fleshkartalariga saqlandi.`
+            });
+        } catch (err) {
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: 'Fleshkartaga saqlashda xatolik yuz berdi.'
+            });
+        }
+    };
+
     const handleSendUserText = async (text: string) => {
         if (!text || isProcessingRef.current) return;
         isProcessingRef.current = true;
@@ -215,7 +242,7 @@ const SpeakingCoachPage: React.FC = () => {
         chatHistoryRef.current = updatedHistory;
 
         try {
-            const aiResponse = await converseWithCoach(
+            const structured = await converseWithCoachStructured(
                 text,
                 updatedHistory.map(h => ({ role: h.role, content: h.content })),
                 languageRef.current,
@@ -224,20 +251,39 @@ const SpeakingCoachPage: React.FC = () => {
                 activeScenarioRef.current
             );
 
-            const aiMsg: CoachChatMessage = { role: 'assistant', content: aiResponse, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
+            const aiMsg: CoachChatMessage = {
+                role: 'assistant',
+                content: structured.reply,
+                romaji: structured.romaji,
+                ttsText: structured.ttsText,
+                correction: structured.correction,
+                vocabulary: structured.vocabulary,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
             const finalHistory = [...updatedHistory, aiMsg];
             
-            // Parse micro-errors for real-time live overlay
-            const extractedErrs = parseMicroErrors(aiResponse);
-            if (extractedErrs.length > 0) {
-                setLiveErrors(prev => [...extractedErrs, ...prev].slice(0, 10));
+            // Record structured micro-error for real-time live overlay
+            if (structured.correction && structured.correction.hasError && structured.correction.corrected) {
+                setLiveErrors(prev => [{
+                    id: Math.random().toString(36).substring(2, 9),
+                    type: 'grammar' as const,
+                    originalText: structured.correction?.original || '',
+                    correction: structured.correction?.corrected || '',
+                    explanation: structured.correction?.explanation || ''
+                }, ...prev].slice(0, 10));
+            } else {
+                const extractedErrs = parseMicroErrors(structured.rawText || structured.reply);
+                if (extractedErrs.length > 0) {
+                    setLiveErrors(prev => [...extractedErrs, ...prev].slice(0, 10));
+                }
             }
 
             setChatHistory(finalHistory);
             chatHistoryRef.current = finalHistory;
 
             setIsThinking(false);
-            speakText(extractSpeechAudioText(aiResponse));
+            // STRICT TTS: Speak ONLY canonical Japanese/English TTS text (never Romaji or visual notes)
+            speakText(structured.ttsText || extractSpeechAudioText(structured.reply));
         } catch (err: any) {
             console.error("Coach response error:", err);
             let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';
@@ -615,6 +661,7 @@ const SpeakingCoachPage: React.FC = () => {
                             copyToClipboard={copyToClipboard}
                             speakText={speakText}
                             setChatHistory={setChatHistory}
+                            onAddVocabulary={handleAddVocabToFlashcards}
                         />
                     </div>
                 )}

@@ -58,6 +58,12 @@ export const useTTS = ({
     }, []);
 
     const speakText = useCallback(async (text: string) => {
+        const clean = (text || '').trim();
+        if (!clean) {
+            onSpeakEnd();
+            return;
+        }
+
         onSpeakStart();
         stopSpeaking();
 

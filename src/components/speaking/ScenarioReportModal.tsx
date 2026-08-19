@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScenarioSessionResult } from './scenarioTypes';
 import { VoicePlaybackBar } from './VoicePlaybackBar';
-import { Award, CheckCircle2, XCircle, Sparkles, RotateCcw, ArrowRight, X } from 'lucide-react';
+import { Award, CheckCircle2, XCircle, Sparkles, RotateCcw, ArrowRight, X, Layers } from 'lucide-react';
+import { useStudyData } from '../../context/StudyPlannerContext';
+import { toast } from '../../hooks/use-toast';
 
 interface ScenarioReportModalProps {
     isOpen: boolean;
@@ -30,7 +32,48 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
     onPauseRecorded,
     onRetry,
 }) => {
+    const { addFlashcardsBatch } = useStudyData();
+    const [isExporting, setIsExporting] = useState(false);
+
     if (!isOpen) return null;
+
+    const handleExportToFlashcards = async () => {
+        if (!result) return;
+        const phrases = [...(result.key_phrases_missed || []), ...(result.key_phrases_used || [])];
+        if (phrases.length === 0) {
+            toast({
+                title: 'ℹ️ Iboralar yo\'q',
+                description: 'Fleshkartaga saqlash uchun kalit iboralar topilmadi.'
+            });
+            return;
+        }
+
+        setIsExporting(true);
+        try {
+            const cards = phrases.map(p => ({
+                front: `🇯🇵 Scenario Iborasi (${result.scenario_title}):\n"${p}"`,
+                back: `✨ Kontekst: ${result.scenario_title}\n\n💡 Tavsiya: ${result.ai_feedback.substring(0, 150)}...`,
+                subjectId: '00000000-0000-4000-8000-000000000001' // JLPT Master
+            }));
+
+            // Deduplicate
+            const uniqueCards = cards.filter((c, i, self) => i === self.findIndex(x => x.front === c.front));
+            await addFlashcardsBatch(uniqueCards);
+
+            toast({
+                title: '🎴 Fleshkartalar Yaratildi!',
+                description: `${uniqueCards.length} ta yaponcha iboralar Anki SM-2 Fleshkartalariga saqlandi.`
+            });
+        } catch (e) {
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: 'Fleshkartalarga eksport qilishda xatolik yuz berdi.'
+            });
+        } finally {
+            setIsExporting(false);
+        }
+    };
 
     const getGrade = (score: number) => {
         if (score >= 90) return { label: 'S (A`lo)', color: 'text-amber-500 bg-amber-500/10 border-amber-500/30' };
@@ -169,27 +212,38 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                         </div>
 
                         {/* Actions */}
-                        <div className="flex items-center justify-end gap-3 pt-2">
-                            {onRetry && (
-                                <button
-                                    onClick={() => {
-                                        onClose();
-                                        onRetry();
-                                    }}
-                                    className="px-4 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
-                                >
-                                    <RotateCcw size={14} />
-                                    <span>Qayta Mashq Qilish</span>
-                                </button>
-                            )}
-
+                        <div className="flex items-center justify-between gap-3 pt-2">
                             <button
-                                onClick={onClose}
-                                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-500/20 transition-all"
+                                onClick={handleExportToFlashcards}
+                                disabled={isExporting}
+                                className="px-4 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-800/40 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
                             >
-                                <span>Yopish va Saqlash</span>
-                                <ArrowRight size={14} />
+                                <Layers size={14} />
+                                <span>{isExporting ? 'Saqlanmoqda...' : "Iboralardan Fleshkarta Yaratish 🎴"}</span>
                             </button>
+
+                            <div className="flex items-center gap-2">
+                                {onRetry && (
+                                    <button
+                                        onClick={() => {
+                                            onClose();
+                                            onRetry();
+                                        }}
+                                        className="px-4 py-2.5 bg-muted hover:bg-muted/80 text-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+                                    >
+                                        <RotateCcw size={14} />
+                                        <span>Qayta Mashq Qilish</span>
+                                    </button>
+                                )}
+
+                                <button
+                                    onClick={onClose}
+                                    className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-500/20 transition-all"
+                                >
+                                    <span>Yopish va Saqlash</span>
+                                    <ArrowRight size={14} />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
