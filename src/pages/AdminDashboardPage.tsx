@@ -18,6 +18,7 @@ import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
+import { toast } from '../hooks/use-toast';
 
 interface UserSubscription {
     id: string;
@@ -480,24 +481,43 @@ const AdminDashboardPage: React.FC = () => {
                 message: msgContent,
                 type: 'admin'
             });
-            alert(`✅ Xabar ${messageModalUser.email} ga yuborildi!`);
+            toast({
+                title: '✅ Xabar Yuborildi',
+                description: `Xabar ${messageModalUser.email} ga muvaffaqiyatli yetkazildi.`
+            });
             setMessageModalUser(null);
             setMsgContent('');
-        } catch { alert('Xabar yuborishda xatolik.'); }
+        } catch { 
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: 'Xabar yuborishda xatolik yuz berdi.'
+            });
+        }
         finally { setSendingMsg(false); }
     };
 
     const handleToggleAdmin = (targetEmail: string) => {
         if (!isSuperAdmin(user?.email)) {
-            alert('Faqat Super Admin boshqa foydalanuvchiga Admin rolini bera oladi.');
+            toast({
+                variant: 'destructive',
+                title: 'Ruxsat Cheklangan',
+                description: 'Faqat Super Admin boshqa foydalanuvchiga Admin rolini bera oladi.'
+            });
             return;
         }
         if (isAdminEmail(targetEmail)) {
             revokeAdminRole(targetEmail);
-            alert(`🛡️ ${targetEmail} adminlikdan chiqarildi.`);
+            toast({
+                title: '🛡️ Adminlik Bekor Qilindi',
+                description: `${targetEmail} adminlikdan chiqarildi.`
+            });
         } else {
             grantAdminRole(targetEmail);
-            alert(`🛡️ ${targetEmail} ga Admin roli berildi!`);
+            toast({
+                title: '🛡️ Admin Roli Berildi',
+                description: `${targetEmail} ga Admin roli muvaffaqiyatli berildi!`
+            });
         }
         fetchAdminData();
     };

@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { ArrowLeft, Plus, Loader2, List, FileText, Headphones, Mic, PenTool, Trash2, X, Edit3, CheckCircle2, Eye, Sparkles, Upload, Download } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail } from '../../utils/admin';
+import { toast } from '../../hooks/use-toast';
 
 interface QuestionFormData {
     question_text: string;
@@ -99,9 +100,17 @@ export const QuestionEditor: React.FC = () => {
             });
             if (error) throw error;
             fetchExamDetails();
+            toast({
+                title: '✅ Bo\'lim Qo\'shildi',
+                description: `"${title}" muvaffaqiyatli saqlandi.`
+            });
         } catch (err: any) {
             console.error("Section creation error:", err);
-            alert(`Bo'lim qo'shishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Bo'lim qo'shishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
@@ -111,15 +120,27 @@ export const QuestionEditor: React.FC = () => {
             const { error } = await supabase.from('exam_sections').delete().eq('id', sectionId);
             if (error) throw error;
             fetchExamDetails();
+            toast({
+                title: '🗑️ O\'chirildi',
+                description: "Bo'lim muvaffaqiyatli o'chirildi."
+            });
         } catch (err: any) {
             console.error("Section delete error:", err);
-            alert(`O'chirishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `O'chirishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
     const handleSaveQuestion = async (sectionId: string, keepOpen = false) => {
         if (!questionForm.question_text.trim()) {
-            alert("Savol matnini kiriting!");
+            toast({
+                variant: 'destructive',
+                title: 'Diqqat',
+                description: "Savol matnini kiriting!"
+            });
             return;
         }
         setSavingQuestion(true);
@@ -141,9 +162,17 @@ export const QuestionEditor: React.FC = () => {
                 setShowQuestionForm(null);
             }
             fetchExamDetails();
+            toast({
+                title: '✅ Savol Qo\'shildi',
+                description: "Savol muvaffaqiyatli saqlandi."
+            });
         } catch (err: any) {
             console.error("Question creation error:", err);
-            alert(`Savol qo'shishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Savol qo'shishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         } finally {
             setSavingQuestion(false);
         }
@@ -155,9 +184,17 @@ export const QuestionEditor: React.FC = () => {
             const { error } = await supabase.from('exam_questions').delete().eq('id', questionId);
             if (error) throw error;
             fetchExamDetails();
+            toast({
+                title: '🗑️ O\'chirildi',
+                description: "Savol muvaffaqiyatli o'chirildi."
+            });
         } catch (err: any) {
             console.error("Question delete error:", err);
-            alert(`Savolni o'chirishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Savolni o'chirishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
@@ -167,9 +204,17 @@ export const QuestionEditor: React.FC = () => {
             if (error) throw error;
             setEditingContentId(null);
             fetchExamDetails();
+            toast({
+                title: '💾 Saqlandi',
+                description: "Bo'lim matni saqlandi."
+            });
         } catch (err: any) {
             console.error("Content save error:", err);
-            alert(`Kontentni saqlashda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Kontentni saqlashda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
@@ -178,9 +223,17 @@ export const QuestionEditor: React.FC = () => {
             const { error } = await supabase.from('exams').update({ is_published: !exam.is_published }).eq('id', exam.id);
             if (error) throw error;
             fetchExamDetails();
+            toast({
+                title: '📢 Holat O\'zgardi',
+                description: exam.is_published ? "Imtihon qoralama holatiga o'tkazildi." : "Imtihon barcha o'quvchilar uchun e'lon qilindi!"
+            });
         } catch (err: any) {
             console.error("Publish toggle error:", err);
-            alert(`Nashr qilishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Nashr qilishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
@@ -224,7 +277,11 @@ export const QuestionEditor: React.FC = () => {
 
     const handleExecuteBulkImport = async (sectionId: string) => {
         if (!bulkFileContent.trim()) {
-            alert("Iltimos, JSON faylni tanlang yoki matn shaklida kiriting!");
+            toast({
+                variant: 'destructive',
+                title: 'Diqqat',
+                description: "Iltimos, JSON faylni tanlang yoki matn shaklida kiriting!"
+            });
             return;
         }
 
@@ -255,13 +312,20 @@ export const QuestionEditor: React.FC = () => {
             const { error } = await supabase.from('exam_questions').insert(rowsToInsert);
             if (error) throw error;
 
-            alert(`✅ ${rowsToInsert.length} ta savol muvaffaqiyatli import qilindi!`);
+            toast({
+                title: '✅ Import Qilindi',
+                description: `${rowsToInsert.length} ta savol muvaffaqiyatli import qilindi!`
+            });
             setShowBulkModal(null);
             setBulkFileContent('');
             fetchExamDetails();
         } catch (err: any) {
             console.error("Bulk import error:", err);
-            alert(`Import qilishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Import Xatosi',
+                description: `Import qilishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         } finally {
             setBulkImporting(false);
         }

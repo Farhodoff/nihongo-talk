@@ -6,6 +6,8 @@ import { Plus, BookOpen, Edit2, Loader2, Trash2, X, Award, FileText, Sparkles, C
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail } from '../../utils/admin';
 
+import { toast } from '../../hooks/use-toast';
+
 export const ExamsManager: React.FC = () => {
     const { user } = useStudyData();
     const navigate = useNavigate();
@@ -115,13 +117,21 @@ export const ExamsManager: React.FC = () => {
             setNewTitle('');
             setNewDesc('');
             fetchExams();
+            toast({
+                title: '✅ Imtihon Yaratildi',
+                description: `"${titleToSave}" muvaffaqiyatli saqlandi.`
+            });
 
             if (data?.id) {
                 navigate(`/admin/exams/${data.id}`);
             }
         } catch (err: any) {
             console.error("Exam creation error:", err);
-            alert(`Xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `Xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         } finally {
             setCreating(false);
         }
@@ -133,9 +143,17 @@ export const ExamsManager: React.FC = () => {
             const { error } = await supabase.from('exams').delete().eq('id', examId);
             if (error) throw error;
             fetchExams();
+            toast({
+                title: '🗑️ O\'chirildi',
+                description: `"${examTitle}" imtihoni o'chirildi.`
+            });
         } catch (err: any) {
             console.error("Exam delete error:", err);
-            alert(`O'chirishda xatolik: ${err?.message || JSON.stringify(err)}`);
+            toast({
+                variant: 'destructive',
+                title: 'Xatolik',
+                description: `O'chirishda xatolik: ${err?.message || JSON.stringify(err)}`
+            });
         }
     };
 
