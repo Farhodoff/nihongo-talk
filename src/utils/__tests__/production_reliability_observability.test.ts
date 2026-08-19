@@ -212,8 +212,8 @@ describe('PRODUCTION RELIABILITY & OBSERVABILITY SUITE', () => {
         });
 
         it('Failure 13: Cross-user access is blocked by Row-Level Security auth check', () => {
-            const currentUserId = 'user-A';
-            const resourceOwnerId = 'user-B';
+            const currentUserId: string = 'user-A';
+            const resourceOwnerId: string = 'user-B';
             const isAllowed = currentUserId === resourceOwnerId;
             expect(isAllowed).toBe(false);
         });
