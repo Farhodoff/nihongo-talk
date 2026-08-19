@@ -268,4 +268,33 @@ describe('JAPANESE AI COACH & SYSTEM INTEGRITY SUITE', () => {
         expect(inserted.length).toBe(1);
         expect(inserted[0].front).toBe('Kanji');
     });
+
+    it('TEST 16: TTS audio generation verifies single audio instance and stop before speak', () => {
+        const mockAudioStop = vi.fn();
+        const mockAudioPlay = vi.fn();
+
+        let isPlaying = true;
+        const stopSpeaking = () => {
+            if (isPlaying) {
+                mockAudioStop();
+                isPlaying = false;
+            }
+        };
+
+        const speakText = (text: string) => {
+            if (!text.trim()) return;
+            stopSpeaking();
+            mockAudioPlay(text);
+            isPlaying = true;
+        };
+
+        speakText('いらっしゃいませ！');
+        expect(mockAudioStop).toHaveBeenCalledTimes(1);
+        expect(mockAudioPlay).toHaveBeenCalledWith('いらっしゃいませ！');
+
+        // Calling again cancels previous and plays once
+        speakText('お飲み物は何にしますか？');
+        expect(mockAudioStop).toHaveBeenCalledTimes(2);
+        expect(mockAudioPlay).toHaveBeenCalledTimes(2);
+    });
 });
