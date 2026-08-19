@@ -1,5 +1,5 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import { Button } from './ui/Button';
 
 interface Props {
@@ -9,6 +9,16 @@ interface Props {
 interface State {
     hasError: boolean;
     error: Error | null;
+}
+
+// Redacts sensitive keys, tokens, and authorization credentials from technical strings
+export function sanitizeErrorMessage(msg: string): string {
+    if (!msg) return "Noma'lum xatolik";
+    return msg
+        .replace(/(AIzaSy[A-Za-z0-9_-]{33})/g, 'AIzaSy[REDACTED]')
+        .replace(/(sk-[A-Za-z0-9_-]{20,})/g, 'sk-[REDACTED]')
+        .replace(/(Bearer\s+[A-Za-z0-9._-]+)/gi, 'Bearer [REDACTED]')
+        .replace(/(apikey=[A-Za-z0-9._-]+)/gi, 'apikey=[REDACTED]');
 }
 
 class ErrorBoundary extends Component<Props, State> {
@@ -22,7 +32,8 @@ class ErrorBoundary extends Component<Props, State> {
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.error('ErrorBoundary caught an error:', error, errorInfo);
+        const safeMessage = sanitizeErrorMessage(error?.message || '');
+        console.error('[ErrorBoundary Safe Log]:', safeMessage, errorInfo?.componentStack?.slice(0, 300));
     }
 
     handleReset = () => {
@@ -30,8 +41,14 @@ class ErrorBoundary extends Component<Props, State> {
         window.location.reload();
     };
 
+    handleGoHome = () => {
+        this.setState({ hasError: false, error: null });
+        window.location.href = '/';
+    };
+
     render() {
         if (this.state.hasError) {
+            const displayError = sanitizeErrorMessage(this.state.error?.message || '');
             return (
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
                     <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center">
@@ -42,21 +59,26 @@ class ErrorBoundary extends Component<Props, State> {
                             Xatolik yuz berdi
                         </h2>
                         <p className="text-gray-600 dark:text-gray-400 mb-6">
-                            Nimadir noto'g'ri ketdi. Iltimos, sahifani yangilang yoki administratorga murojaat qiling.
+                            Nimadir noto'g'ri ketdi. Iltimos, sahifani yangilang yoki bosh sahifaga qayting.
                         </p>
-                        {this.state.error && (
+                        {displayError && (
                             <details className="mb-6 text-left">
                                 <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
                                     Texnik ma'lumot
                                 </summary>
-                                <pre className="mt-2 p-3 bg-gray-100 dark:bg-gray-900 rounded text-xs overflow-auto">
-                                    {this.state.error.message}
+                                <pre className="mt-2 p-3 bg-gray-100 dark:bg-gray-900 rounded text-xs overflow-auto font-mono text-gray-700 dark:text-gray-300">
+                                    {displayError}
                                 </pre>
                             </details>
                         )}
-                        <Button onClick={this.handleReset} className="w-full">
-                            Sahifani yangilash
-                        </Button>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <Button onClick={this.handleReset} className="w-full flex items-center justify-center gap-2">
+                                <RefreshCw className="w-4 h-4" /> Sahifani yangilash
+                            </Button>
+                            <Button variant="secondary" onClick={this.handleGoHome} className="w-full flex items-center justify-center gap-2">
+                                <Home className="w-4 h-4" /> Bosh sahifa
+                            </Button>
+                        </div>
                     </div>
                 </div>
             );

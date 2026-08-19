@@ -269,7 +269,11 @@ export const parseAIError = (error: unknown): string => {
     }
 
     // Umumiy xatolik
-    return `❌ AI xatoligi yuz berdi: ${msg.substring(0, 150)}`;
+    const sanitizedMsg = msg
+        .replace(/(aizasy[a-z0-9_-]{33})/gi, 'AIzaSy[REDACTED]')
+        .replace(/(sk-[a-z0-9_-]{20,})/gi, 'sk-[REDACTED]')
+        .replace(/(bearer\s+[a-z0-9._-]+)/gi, 'Bearer [REDACTED]');
+    return `❌ AI xatoligi yuz berdi: ${sanitizedMsg.substring(0, 150)}`;
 };
 
 import { supabase } from '../../lib/supabase';

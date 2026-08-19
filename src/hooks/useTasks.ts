@@ -58,7 +58,8 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
         } as Task;
 
         setTasks(prev => {
-            const updated = [...prev, optimisticTask];
+            const exists = prev.some(t => t.id === tempId);
+            const updated = exists ? prev.map(t => t.id === tempId ? optimisticTask : t) : [...prev, optimisticTask];
             saveTasksToLocalStorage(updated);
             return updated;
         });
