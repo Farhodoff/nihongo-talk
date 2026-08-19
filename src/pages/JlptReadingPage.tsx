@@ -10,7 +10,7 @@ import { HistoryService } from '../services/HistoryService';
 
 export const JlptReadingPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP } = useStudyData();
+    const { awardXP, addSession } = useStudyData();
 
     const [selectedLevel, setSelectedLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
@@ -69,7 +69,18 @@ export const JlptReadingPage: React.FC = () => {
         });
 
         if (correctCount > 0 && awardXP) {
-            awardXP(correctCount * 15);
+            await awardXP(correctCount * 15);
+        }
+
+        if (addSession) {
+            try {
+                await addSession({
+                    duration: currentPassage.recommendedTimeMinutes || 10,
+                    type: 'focus',
+                    completed: true,
+                    startTime: new Date().toISOString()
+                });
+            } catch (e) {}
         }
 
         // Persist attempt to HistoryService

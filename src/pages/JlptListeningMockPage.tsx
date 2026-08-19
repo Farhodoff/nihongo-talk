@@ -11,7 +11,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 
 export const JlptListeningMockPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP } = useStudyData();
+    const { awardXP, addSession } = useStudyData();
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'test' | 'report'>('intro');
 
@@ -79,50 +79,55 @@ export const JlptListeningMockPage: React.FC = () => {
         const activeQ = activeQuestions[currentQIdx];
         if (!activeQ) return;
 
-        if (isUsingTts || !activeQ.audioUrl) {
-            triggerTts(activeQ.script);
-            return;
-        }
-
-        if (!audioRef.current) {
-            const audio = new Audio(activeQ.audioUrl);
-            audioRef.current = audio;
-            audio.playbackRate = playbackSpeed;
-
-            audio.addEventListener('loadedmetadata', () => {
-                setAudioDuration(audio.duration);
-            });
-            audio.addEventListener('timeupdate', () => {
-                setAudioProgress(audio.currentTime);
-            });
-            audio.addEventListener('ended', () => {
-                setIsPlaying(false);
-                setAudioProgress(0);
-            });
-            audio.addEventListener('error', () => {
-                setIsUsingTts(true);
-                triggerTts(activeQ.script);
-            });
-        }
-
         if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
+            stopAudio();
         } else {
-            audioRef.current.play().catch(() => {
-                setIsUsingTts(true);
-                triggerTts(activeQ.script);
-            });
-            setIsPlaying(true);
+            playAudio(activeQ);
         }
     };
 
-    const triggerTts = (text: string) => {
-        if (isPlaying) {
-            window.speechSynthesis.cancel();
-            setIsPlaying(false);
+    const playAudio = (q: JlptListeningQuestion) => {
+        stopAudio();
+        setIsPlaying(true);
+
+        if (q.audioUrl) {
+            const audio = new Audio(q.audioUrl);
+            audio.playbackRate = playbackSpeed;
+            audioRef.current = audio;
+
+            audio.onloadedmetadata = () => {
+                setAudioDuration(audio.duration);
+            };
+
+            audio.ontimeupdate = () => {
+                setAudioProgress(audio.currentTime);
+            };
+
+            audio.onended = () => {
+                setIsPlaying(false);
+                setAudioProgress(0);
+            };
+
+            audio.onerror = () => {
+                console.warn("Audio file failed to load, falling back to Web Speech TTS");
+                setIsUsingTts(true);
+                playTtsFallback(q.script);
+            };
+
+            audio.play().catch(e => {
+                console.warn("Audio play rejected, using TTS:", e);
+                setIsUsingTts(true);
+                playTtsFallback(q.script);
+            });
         } else {
-            setIsPlaying(true);
+            setIsUsingTts(true);
+            playTtsFallback(q.script);
+        }
+    };
+
+    const playTtsFallback = (text: string) => {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ja-JP';
             utterance.rate = playbackSpeed;
@@ -206,6 +211,18 @@ export const JlptListeningMockPage: React.FC = () => {
                 await awardXP(correctCount * 25);
             }
         } catch (e) {}
+
+        // Add study session to public.study_sessions
+        if (addSession) {
+            try {
+                await addSession({
+                    duration: 20,
+                    type: 'focus',
+                    completed: true,
+                    startTime: new Date().toISOString()
+                });
+            } catch (e) {}
+        }
 
         // Save mock exam to history
         try {
@@ -309,7 +326,9 @@ export const JlptListeningMockPage: React.FC = () => {
                                         <Volume2 size={32} />
                                     </div>
                                 </div>
-                                <h4 className="text-xs font-bold text-foreground">Listening Audio Track</h4>
+                                <h4 className="text-xs font-bold text-foreground">
+                                    {isUsingTts ? "TTS Audio Track (AI Ovoz)" : "Listening Audio Track"}
+                                </h4>
                             </div>
 
                             {/* Audio Progress Slider */}
