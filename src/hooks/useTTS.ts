@@ -1,5 +1,4 @@
 import { useRef, useCallback } from 'react';
-import { fetchOpenAITTS, getAIConfig } from '../utils/ai';
 
 interface UseTTSOptions {
     language: 'en' | 'ja';
@@ -84,26 +83,7 @@ export const useTTS = ({
         // 10-second safety timeout in case Web Speech or Audio drops end event
         ttsSafetyTimeoutRef.current = setTimeout(() => { onSpeechFinish(); }, 10000);
 
-        const config = getAIConfig();
-
-        // 1. OpenAI TTS (if API key configured)
-        if (config.openAIApiKey) {
-            try {
-                const blob = await fetchOpenAITTS(text, config.coachVoice || 'alloy', config.openAIApiKey);
-                const url = URL.createObjectURL(blob);
-                currentObjectUrlRef.current = url;
-                const audio = new Audio(url);
-                audioPlayerRef.current = audio;
-                audio.onended = () => onSpeechFinish();
-                audio.onerror = () => onSpeechFinish();
-                audio.play().catch(() => onSpeechFinish());
-                return;
-            } catch (error) {
-                console.warn('OpenAI TTS fallback to Web Speech', error);
-            }
-        }
-
-        // 2. Google Translate Free Audio Stream
+        // 1. Google Translate Free Audio Stream
         try {
             const cleanText = text.replace(/[*_#`~]/g, '').trim();
             const targetLang = languageRef.current === 'ja' ? 'ja' : 'en';

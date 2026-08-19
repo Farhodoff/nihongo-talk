@@ -1,21 +1,5 @@
-import OpenAI from "openai";
 import { callGeminiFallback } from './ai/aiConfig';
 import { supabase } from '../lib/supabase';
-
-let openaiInstance: OpenAI | null = null;
-let currentKey: string = '';
-
-const getDeepSeekClient = (apiKey: string) => {
-    if (!openaiInstance || currentKey !== apiKey) {
-        openaiInstance = new OpenAI({
-            baseURL: 'https://api.deepseek.com/v1',
-            apiKey: apiKey,
-            dangerouslyAllowBrowser: true 
-        });
-        currentKey = apiKey;
-    }
-    return openaiInstance;
-};
 
 export const callDeepSeek = async (
     prompt: string,
@@ -45,7 +29,7 @@ export const callDeepSeek = async (
         payload.response_format = { type: "json_object" };
     }
 
-    // Enforce strict key isolation: reject non-DeepSeek keys (e.g. Gemini AIza... or OpenAI sk-proj-...)
+    // Enforce strict key isolation: reject non-DeepSeek keys (e.g. Gemini AIza...)
     let validApiKey = apiKey;
     if (validApiKey && (validApiKey.startsWith('AIza') || validApiKey.startsWith('sk-proj-'))) {
         validApiKey = null;
@@ -60,15 +44,25 @@ export const callDeepSeek = async (
         }
     }
 
-    // 1. If user provided a direct DeepSeek key, use SDK / direct call
+    // 1. If user provided a direct DeepSeek key, use direct REST API fetch
     if (validApiKey && validApiKey.startsWith('sk-')) {
         try {
-            const client = getDeepSeekClient(validApiKey);
-            const response = await client.chat.completions.create(payload as any);
-            const text = response.choices[0]?.message?.content || '';
-            if (text) return text;
-        } catch (sdkErr: any) {
-            console.warn('[DeepSeek] Direct client call failed. Attempting proxy / fallback:', sdkErr?.message || sdkErr);
+            const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${validApiKey}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const text = data.choices?.[0]?.message?.content || '';
+                if (text) return text;
+            }
+        } catch (directErr: any) {
+            console.warn('[DeepSeek] Direct REST call failed. Attempting proxy / fallback:', directErr?.message || directErr);
         }
     }
 

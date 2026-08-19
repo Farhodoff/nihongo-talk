@@ -378,40 +378,6 @@ export const converseWithCoach = async (
 };
 
 
-/**
- * Fetches TTS audio blob from OpenAI's audio/speech endpoint
- */
-export const fetchOpenAITTS = async (
-    text: string, 
-    voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer', 
-    apiKey: string
-): Promise<Blob> => {
-    try {
-        const response = await fetch('https://api.openai.com/v1/audio/speech', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                model: 'tts-1',
-                input: text,
-                voice: voice
-            })
-        });
-
-        if (!response.ok) {
-            const errText = await response.text();
-            throw new Error(`OpenAI TTS Error: ${response.status} - ${errText}`);
-        }
-
-        return await response.blob();
-    } catch (error: unknown) {
-        console.error('OpenAI TTS API Error:', error);
-        throw error;
-    }
-};
-
 export interface SessionAnalysisReport {
     lexical_score: number;
     grammar_score: number;

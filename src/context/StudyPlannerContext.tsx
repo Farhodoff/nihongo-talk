@@ -34,8 +34,6 @@ export interface Settings {
     ollamaUrl?: string;
     ollamaModel?: string;
     dailyStudyGoalMinutes: number;
-    openAIApiKey?: string;
-    coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
     coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
     coachApiKey?: string;
     showFurigana: boolean;
@@ -194,8 +192,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ollamaUrl?: string;
         ollamaModel?: string;
         dailyStudyGoalMinutes: number;
-        openAIApiKey?: string;
-        coachVoice?: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
         coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
         coachApiKey?: string;
         showFurigana: boolean;
@@ -226,8 +222,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             ollamaUrl: savedAiSettings.ollamaUrl,
             ollamaModel: savedAiSettings.ollamaModel,
             dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal, 10) : 240,
-            openAIApiKey: savedAiSettings.openAIApiKey,
-            coachVoice: savedAiSettings.coachVoice || 'alloy',
             coachAiModel: savedAiSettings.coachAiModel || 'deepseek',
             coachApiKey: savedAiSettings.coachApiKey || '',
             showFurigana: safeLocalStorage.getItem('study_planner_show_furigana') !== 'false',
@@ -618,8 +612,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
                 ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
                 dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
-                openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : prev.openAIApiKey,
-                coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : prev.coachVoice,
                 coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
                 coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
                 showFurigana: updates.showFurigana !== undefined ? updates.showFurigana : prev.showFurigana,
@@ -634,8 +626,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 deepseekThinkingMode: newState.deepseekThinkingMode,
                 ollamaUrl: newState.ollamaUrl,
                 ollamaModel: newState.ollamaModel,
-                openAIApiKey: newState.openAIApiKey,
-                coachVoice: newState.coachVoice,
                 coachAiModel: newState.coachAiModel,
                 coachApiKey: newState.coachApiKey
             });
@@ -668,8 +658,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : appSettings.deepseekThinkingMode,
                         ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : appSettings.ollamaUrl,
                         ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : appSettings.ollamaModel,
-                        openAIApiKey: updates.openAIApiKey !== undefined ? updates.openAIApiKey : appSettings.openAIApiKey,
-                        coachVoice: updates.coachVoice !== undefined ? updates.coachVoice : appSettings.coachVoice,
                         coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : appSettings.coachAiModel,
                         coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : appSettings.coachApiKey
                     },

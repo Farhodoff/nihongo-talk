@@ -56,7 +56,7 @@ A comprehensive, full-stack learning management, language coaching, and producti
   - 🎓 *IELTS Examiner* (standard band 9 score assessment)
   - 💼 *Tech Interviewer* (IT job interview prep)
   - ✈️ *Travel & Airport* & ☕ *Casual Friend*
-- **Speech Tech:** Powered by Web Speech API, OpenAI TTS, and Live Ambient Sphere audio visualization.
+- **Speech Tech:** Powered by Web Speech API, Google Audio TTS, and Live Ambient Sphere audio visualization.
 
 ### 👥 4. Real-Time Collaboration & Whiteboard (Study Room)
 - **WebRTC P2P Video/Audio:** Multi-user study rooms with screen sharing.
@@ -71,7 +71,7 @@ A comprehensive, full-stack learning management, language coaching, and producti
 | :--- | :--- |
 | **Frontend** | React 18 (Vite), TypeScript (Strict), Tailwind CSS, Framer Motion, Lucide Icons |
 | **Backend & Auth** | Supabase (PostgreSQL, Row Level Security, Realtime Channels) |
-| **AI Core** | OpenAI GPT-4o / DeepSeek API / Gemini 2.0 Flash, OpenAI TTS Engine |
+| **AI Core** | DeepSeek API (Reasoner / Chat) / Google Gemini 2.0 Flash / Ollama Local LLMs |
 | **State & Routing** | React Context API, React Router v6, PWA Service Worker (VitePWA) |
 | **Performance** | Dynamic `import()` deck JSON chunking, Lazy-loaded page routes |
 

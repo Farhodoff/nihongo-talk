@@ -44,8 +44,6 @@ export const getAIConfig = () => {
 
     let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
     let deepseekThinkingMode = false;
-    let openAIApiKey = '';
-    let coachVoice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer' = 'alloy';
     let coachAiModel: AIProvider | undefined;
     let coachApiKey: string | undefined;
 
@@ -64,8 +62,6 @@ export const getAIConfig = () => {
                 }
             }
             if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
-            if (saved.openAIApiKey) openAIApiKey = saved.openAIApiKey;
-            if (saved.coachVoice) coachVoice = saved.coachVoice;
             if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
             if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
         } catch (e) {
@@ -94,8 +90,6 @@ export const getAIConfig = () => {
         deepseekKey,
         deepseekModel,
         deepseekThinkingMode,
-        openAIApiKey,
-        coachVoice,
         coachAiModel: coachAiModel || aiModel as AIProvider,
         coachApiKey
     };
