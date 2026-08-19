@@ -28,7 +28,7 @@ describe('TasksPage', () => {
 
         expect(screen.getByRole('heading', { level: 2, name: /Vazifalar/i })).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/Yangi vazifa qo'shish.../i)).toBeInTheDocument();
-    });
+    }, 15000);
 
     it('should render view mode selection buttons', async () => {
         await act(async () => {

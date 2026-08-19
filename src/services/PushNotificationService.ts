@@ -8,7 +8,7 @@ export class PushNotificationService {
      * Checks if Notifications API is supported in current browser/device
      */
     public static isSupported(): boolean {
-        return typeof window !== 'undefined' && 'Notification' in window;
+        return typeof window !== 'undefined' && (typeof Notification !== 'undefined' || 'Notification' in window);
     }
 
     /**
@@ -34,7 +34,7 @@ export class PushNotificationService {
     }
 
     /**
-     * Triggers a live Push Notification immediately
+     * Triggers a live Push Notification immediately (sync fallback)
      */
     public static sendNotification(title: string, options?: NotificationOptions): boolean {
         if (!this.isSupported() || this.getPermission() !== 'granted') {
@@ -43,6 +43,18 @@ export class PushNotificationService {
         }
 
         try {
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.ready.then(reg => {
+                    if (reg && 'showNotification' in reg) {
+                        reg.showNotification(title, {
+                            icon: '/icons/icon-192x192.png',
+                            badge: '/icons/icon-192x192.png',
+                            ...options
+                        });
+                    }
+                }).catch(() => {});
+            }
+
             const notification = new Notification(title, {
                 icon: '/icons/icon-192x192.png',
                 badge: '/icons/icon-192x192.png',
@@ -57,6 +69,34 @@ export class PushNotificationService {
             return true;
         } catch (e) {
             console.error('Error triggering notification:', e);
+            return false;
+        }
+    }
+
+    /**
+     * Triggers a live Push Notification asynchronously using Service Worker where possible
+     */
+    public static async sendNotificationAsync(title: string, options?: NotificationOptions): Promise<boolean> {
+        if (!this.isSupported() || this.getPermission() !== 'granted') {
+            return false;
+        }
+
+        try {
+            if ('serviceWorker' in navigator) {
+                const reg = await navigator.serviceWorker.ready.catch(() => null);
+                if (reg && 'showNotification' in reg) {
+                    await reg.showNotification(title, {
+                        icon: '/icons/icon-192x192.png',
+                        badge: '/icons/icon-192x192.png',
+                        ...options
+                    });
+                    return true;
+                }
+            }
+
+            return this.sendNotification(title, options);
+        } catch (e) {
+            console.error('Error triggering async notification:', e);
             return false;
         }
     }
@@ -78,6 +118,17 @@ export class PushNotificationService {
         return this.sendNotification("Kunlik O'quv Zanjiri (Streak) 🔥", {
             body: `Sizning joriy zanjiringiz: ${streakDays} kun! Bugungi darslaringizni bajarib zanjirni uzmang! 📚`,
             tag: 'streak-reminder'
+        });
+    }
+
+    /**
+     * Sends SRS Flashcards Due Reminder
+     */
+    public static sendFlashcardsDueReminder(dueCount: number): boolean {
+        if (dueCount <= 0) return false;
+        return this.sendNotification("Fleshkartalarni Takrorlash Vaqti 🧠", {
+            body: `Sizda bugun takrorlash uchun ${dueCount} ta so'z tayyor turibdi. 5 daqiqa ajrating va esda saqlab qoling! ⚡`,
+            tag: 'srs-due-reminder'
         });
     }
 
