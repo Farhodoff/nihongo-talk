@@ -47,6 +47,25 @@ export const callSelectedAIProvider = async (
 };
 
 /**
+ * Detects user intent to provide accurate, helpful assistance without hallucinations.
+ */
+export function detectUserIntent(message: string): 'video_generation' | 'video_search' | 'video_prompt' | 'general' {
+    const lower = message.toLowerCase();
+    if (/video.*(qidir|topib|top|search|find|smotret|posmotret|qayerda)/i.test(lower) ||
+        /(qidir|topib|top|search|find).*video/i.test(lower)) {
+        return 'video_search';
+    }
+    if (/prompt.*video|video.*prompt|storyboard|script.*video|video.*script/i.test(lower)) {
+        return 'video_prompt';
+    }
+    if (/video.*(qil|yarat|tayyorla|generate|create|render|animatsiya|sdelat|sozdat)/i.test(lower) ||
+        /(qil|yarat|tayyorla|generate|create|render|sozdat|sdelat).*video/i.test(lower)) {
+        return 'video_generation';
+    }
+    return 'general';
+}
+
+/**
  * Handles multi-turn chat with the AI, passing context about a specific subject.
  */
 export const chatWithAI = async (
@@ -56,26 +75,36 @@ export const chatWithAI = async (
     subjectName: string,
     _userKey?: string
 ): Promise<string> => {
-    const systemPrompt = `Siz Kaizen AI platformasidagi talabalarga yordam beruvchi do'stona va aqlli o'quv yordamchisisiz (AI Tutor).
-Sizning asosiy vazifangiz talabalarga o'z darslarini yaxshiroq o'zlashtirishga yordam berishdir.
-Javoblaringiz o'zbek tilida, tushunarli va Markdown formatida (chiroyli qilib) bo'lishi kerak.
+    const systemPrompt = `Siz Kaizen AI (Study Planner) platformasidagi do'stona, professional va intellektual o'quv yordamchisisiz (AI Tutor & Assistant).
 
-Mavzu/Fan nomi: "${subjectName || 'Umumiy'}"
+MUHIM QOIDALAR (STRICT CAPABILITY & LANGUAGE RULES):
+1. LANGUAGE CONSISTENCY:
+   - Foydalanuvchi qaysi tilda murojaat qilsa (O'zbekcha, English, Русский, 日本語 va h.k.), AYNAN O'SHA TILDA javob bering.
+   - O'zbek tilidagi murojaatga ruscha yoki boshqa tilda javob bermang. Rus tilidagi murojaatga ruscha javob bering. Ingliz tilidagi murojaatga inglizcha javob bering.
 
-Talabaning ushbu fanga oid konspekt va ma'lumotlari:
+2. CAPABILITY AWARENESS & NO HALLUCINATED LIMITATIONS:
+   - Siz matnli AI yordamchisiz.
+   - HECH QACHON "Bugun video yaratib bo'lmaydi", "Сегодня создать видео уже не получится", "Bugun limit tugadi", "Server band", "Keyinroq urinib ko'ring" kabi o'ylab topilgan vaqtinchalik bahonalar qilmang.
+   - Agar foydalanuvchi video yoki animatsiya yaratishni so'rasa:
+     * To'g'ridan-to'g'ri MP4 video faylini chatda render qilib bo'lmasligini 1 ta qisqa jumlada ayting.
+     * DARHOL foydalanuvchiga amaliy va foydali yechim taqdim eting: AI Video vositalari (Runway Gen-3, Midjourney, Luma Dream Machine, Sora, Pika) uchun tayyor Promptlar, Sahna ko'rinishlari (Storyboard), Dialog va Ovozli matn (Voiceover Script) yozib bering.
+   - Agar foydalanuvchi video qidirishni so'rasa: aniq qidiruv kalit so'zlari, YouTube/ta'lim kanallari va mavzu bo'yicha tavsiyalarni bering.
+   - Agar foydalanuvchi video prompt so'rasa: to'g'ridan-to'g'ri batafsil video promptlarini taqdim eting.
+   - Dars, grammatika, IELTS, JLPT, fan konspektlari, rejalashtirish yoki dasturlash bo'yicha so'rovlarga to'liq, amaliy va aniq javob bering.
+
+3. CONTEXT & PEDAGOGY:
+   - Mavzu/Fan nomi: "${subjectName || 'Umumiy'}"
+   - Talabaning ushbu fanga oid konspekt va ma'lumotlari:
 """
 ${contextContent ? contextContent.substring(0, 10000) : "Foydalanuvchi hali bu fan uchun konspekt kiritmagan."}
 """
-
-Qoidalar:
-1. Eng avvalo foydalanuvchining yuqoridagi konspektlaridan kelib chiqib javob bering.
-2. Agar foydalanuvchi savoli konspektda bo'lmasa, o'zingizning umumiy bilimlaringizdan foydalanib to'g'ri tushuntiring.
-3. Chat tarixini yodda tuting va suhbatga mos javob bering.
+   - Agar konspekt mavjud bo'lsa, undan foydalaning. Agar yo'q bo'lsa, umumiy bilimlaringiz asosida javob bering.
+   - Javoblarni chiroyli Markdown formatida taqdim eting.
 `;
 
     try {
-        const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Talaba' : 'AI'}: ${h.text}`).join('\n');
-        const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${message}\nAI:`;
+        const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Student' : 'AI'}: ${h.text}`).join('\n');
+        const prompt = `Suhbat tarixi:\n${conversation}\n\nStudent: ${message}\nAI:`;
         const text = await callSelectedAIProvider(prompt, systemPrompt, false);
         return text.trim();
     } catch (e) {
