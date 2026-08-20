@@ -133,3 +133,40 @@ export function getPreviewIntervals(
         [Rating.EASY]: calculateReview(Rating.EASY, priorInterval, priorRepetitions, priorEaseFactor, baseDate).interval,
     };
 }
+
+/**
+ * Checks if a flashcard is due for review today or in the past.
+ */
+export function isDue(
+    card: { nextReviewDate?: string; nextReview?: string; dueDate?: string; repetitions?: number; repetition?: number }, 
+    now: Date = new Date()
+): boolean {
+    const reviewDate = card.nextReviewDate || card.nextReview || card.dueDate;
+    if (!reviewDate) {
+        const reps = card.repetitions ?? card.repetition ?? 0;
+        return reps > 0;
+    }
+    return new Date(reviewDate).getTime() <= now.getTime();
+}
+
+/**
+ * Checks if a flashcard is overdue (due before start of today).
+ */
+export function isOverdue(
+    card: { nextReviewDate?: string; nextReview?: string; dueDate?: string; repetitions?: number; repetition?: number }, 
+    now: Date = new Date()
+): boolean {
+    const reviewDate = card.nextReviewDate || card.nextReview || card.dueDate;
+    if (!reviewDate) return false;
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    return new Date(reviewDate).getTime() < startOfToday;
+}
+
+/**
+ * Checks if a card is brand new (never reviewed yet).
+ */
+export function isNew(card: { repetitions?: number; repetition?: number }): boolean {
+    const reps = card.repetitions ?? card.repetition ?? 0;
+    return reps === 0;
+}
+
