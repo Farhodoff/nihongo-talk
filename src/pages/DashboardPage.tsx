@@ -250,6 +250,9 @@ const DashboardPage: React.FC = () => {
                             <Link to="/roadmap" className="px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/30 text-primary text-xs font-bold transition-all flex items-center gap-1">
                                 <span>🗺️</span> Roadmap
                             </Link>
+                            <Link to="/diagnostic" className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-bold transition-all flex items-center gap-1">
+                                <span>🎯</span> Test
+                            </Link>
                             {primaryLanguage === 'ja' ? (
                                 <>
                                     <Link to="/jlpt" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">

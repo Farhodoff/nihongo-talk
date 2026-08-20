@@ -132,6 +132,15 @@ const RoadmapPage: React.FC = () => {
                                 ? `Hozirgi bosqichingiz: ${roadmap.currentLevelCode}. Maqsadingiz: ${roadmap.targetLevelCode}.` 
                                 : `Current level: ${roadmap.currentLevelCode}. Target destination: ${roadmap.targetLevelCode}.`}
                         </p>
+                        <div className="pt-1">
+                            <Link
+                                to="/diagnostic"
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs font-bold hover:bg-amber-500/25 transition-all"
+                            >
+                                <span>🎯</span>
+                                <span>{isUz ? "Diagnostik Test Topshirish" : "Take Placement Test"}</span>
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Progress Badge */}
