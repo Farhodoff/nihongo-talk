@@ -258,6 +258,10 @@ const RoadmapPage: React.FC = () => {
                                                         >
                                                             <Lock size={12} /> {isUz ? 'Qulflangan' : 'Locked'}
                                                         </button>
+                                                    ) : lesson.isContentAvailable === false ? (
+                                                        <span className="px-2.5 py-1 rounded-xl text-xs font-bold bg-secondary text-muted-foreground">
+                                                            {isUz ? 'Tez orada' : 'Coming soon'}
+                                                        </span>
                                                     ) : (
                                                         <Link
                                                             to={lesson.route}

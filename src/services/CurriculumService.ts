@@ -1,5 +1,32 @@
 import { SupportedLanguage } from '../types/lesson';
-import { CurriculumCourse, CurriculumLevelNode } from '../types/curriculum';
+import { CurriculumCourse, CurriculumLevelNode, CurriculumLessonNode } from '../types/curriculum';
+import { CurriculumLessonResolver } from './CurriculumLessonResolver';
+
+function createLessonNode(
+    id: string,
+    fallbackTitle: string,
+    fallbackDesc: string,
+    order: number,
+    estimatedMinutes: number,
+    skill: any,
+    prerequisites?: string[]
+): CurriculumLessonNode {
+    const resolved = CurriculumLessonResolver.resolveLesson(id);
+    return {
+        id,
+        title: resolved.title || fallbackTitle,
+        description: fallbackDesc,
+        order,
+        estimatedMinutes,
+        skill: resolved.skill || skill,
+        route: resolved.route,
+        sourceType: resolved.sourceType,
+        contentId: resolved.contentId,
+        isContentAvailable: resolved.isAvailable,
+        availabilityMessage: resolved.availabilityMessage,
+        prerequisites
+    };
+}
 
 export const CurriculumService = {
     /**
@@ -21,25 +48,23 @@ export const CurriculumService = {
                         description: 'To be fe\'li, salomlashish va shaxsiy ma\'lumotlar.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-a1-u1-l1',
-                                title: 'Greetings & Introductions',
-                                description: 'Present Simple: To Be (Am, Is, Are) va asosiy olmoshlar.',
-                                order: 1,
-                                estimatedMinutes: 12,
-                                skill: 'grammar',
-                                route: '/lesson/en-b2-u1-l1' // Fallback to live player
-                            },
-                            {
-                                id: 'en-a1-u1-l2',
-                                title: 'Daily Objects & Numbers',
-                                description: 'Oddiy narsa-buyumlar va 1-100 gacha sonlar.',
-                                order: 2,
-                                estimatedMinutes: 10,
-                                skill: 'vocabulary',
-                                route: '/vocabulary',
-                                prerequisites: ['en-a1-u1-l1']
-                            }
+                            createLessonNode(
+                                'en-a1-u1-l1',
+                                'Greetings & Introductions',
+                                'Present Simple: To Be (Am, Is, Are) va asosiy olmoshlar.',
+                                1,
+                                12,
+                                'grammar'
+                            ),
+                            createLessonNode(
+                                'en-a1-u1-l2',
+                                'Daily Objects & Numbers',
+                                'Oddiy narsa-buyumlar va 1-100 gacha sonlar.',
+                                2,
+                                10,
+                                'vocabulary',
+                                ['en-a1-u1-l1']
+                            )
                         ]
                     }
                 ]
@@ -58,15 +83,14 @@ export const CurriculumService = {
                         description: 'Past Simple, to\'g\'ri va noto\'g\'ri fe\'llar.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-a2-u1-l1',
-                                title: 'Talking About Yesterday',
-                                description: 'Past Simple bilan o\'tgan kunni tasvirlash.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'grammar',
-                                route: '/lesson/en-b2-u1-l1'
-                            }
+                            createLessonNode(
+                                'en-a2-u1-l1',
+                                'Talking About Yesterday',
+                                'Past Simple bilan o\'tgan kunni tasvirlash.',
+                                1,
+                                15,
+                                'grammar'
+                            )
                         ]
                     }
                 ]
@@ -85,15 +109,14 @@ export const CurriculumService = {
                         description: 'Present Perfect va Future forms.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-b1-u1-l1',
-                                title: 'Future Plans & Possibilities',
-                                description: 'Will, Going to va Present Continuous for future.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'grammar',
-                                route: '/lesson/en-b2-u1-l1'
-                            }
+                            createLessonNode(
+                                'en-b1-u1-l1',
+                                'Future Plans & Possibilities',
+                                'Will, Going to va Present Continuous for future.',
+                                1,
+                                15,
+                                'grammar'
+                            )
                         ]
                     }
                 ]
@@ -112,25 +135,23 @@ export const CurriculumService = {
                         description: 'Akademik tahlil va Inversion qoidalari.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-b2-u1-l1',
-                                title: 'Academic Learning & Inversion',
-                                description: 'Inversion strukturasi va akademik o\'rganish lug\'ati.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'grammar',
-                                route: '/lesson/en-b2-u1-l1'
-                            },
-                            {
-                                id: 'en-b2-u1-l2',
-                                title: 'Advanced Academic Vocabulary & Collocations',
-                                description: 'Academic Word List (AWL) kollokatsiyalari.',
-                                order: 2,
-                                estimatedMinutes: 15,
-                                skill: 'vocabulary',
-                                route: '/lesson/en-b2-u1-l2',
-                                prerequisites: ['en-b2-u1-l1']
-                            }
+                            createLessonNode(
+                                'en-b2-u1-l1',
+                                'Academic Learning & Inversion',
+                                'Inversion strukturasi va akademik o\'rganish lug\'ati.',
+                                1,
+                                15,
+                                'grammar'
+                            ),
+                            createLessonNode(
+                                'en-b2-u1-l2',
+                                'Advanced Academic Vocabulary & Collocations',
+                                'Academic Word List (AWL) kollokatsiyalari.',
+                                2,
+                                15,
+                                'vocabulary',
+                                ['en-b2-u1-l1']
+                            )
                         ]
                     },
                     {
@@ -140,26 +161,24 @@ export const CurriculumService = {
                         description: 'Task 1 grafiklar tahlili va Speaking Part 2.',
                         order: 2,
                         lessons: [
-                            {
-                                id: 'en-b2-u2-l1',
-                                title: 'IELTS Essay Structure & Cohesion',
-                                description: 'Four-paragraph essay formati va bog\'lovchi so\'zlar.',
-                                order: 1,
-                                estimatedMinutes: 20,
-                                skill: 'writing',
-                                route: '/ielts/writing',
-                                prerequisites: ['en-b2-u1-l2']
-                            },
-                            {
-                                id: 'en-b2-u2-l2',
-                                title: 'Speaking Examiner Simulation',
-                                description: 'Part 2 Cue Card va Part 3 tahliliy suhbat.',
-                                order: 2,
-                                estimatedMinutes: 15,
-                                skill: 'speaking',
-                                route: '/speaking-coach?lang=en',
-                                prerequisites: ['en-b2-u2-l1']
-                            }
+                            createLessonNode(
+                                'en-b2-u2-l1',
+                                'IELTS Essay Structure & Cohesion',
+                                'Four-paragraph essay formati va bog\'lovchi so\'zlar.',
+                                1,
+                                20,
+                                'writing',
+                                ['en-b2-u1-l2']
+                            ),
+                            createLessonNode(
+                                'en-b2-u2-l2',
+                                'Speaking Examiner Simulation',
+                                'Part 2 Cue Card va Part 3 tahliliy suhbat.',
+                                2,
+                                15,
+                                'speaking',
+                                ['en-b2-u2-l1']
+                            )
                         ]
                     }
                 ]
@@ -178,15 +197,14 @@ export const CurriculumService = {
                         description: 'Nozik ma\'no farqlari va C1 darajadagi idiomatik ifodalar.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-c1-u1-l1',
-                                title: 'Complex Academic Discourse',
-                                description: 'Hedge language, formal tone va argumentatsiyani rivojlantirish.',
-                                order: 1,
-                                estimatedMinutes: 20,
-                                skill: 'writing',
-                                route: '/ielts/writing'
-                            }
+                            createLessonNode(
+                                'en-c1-u1-l1',
+                                'Complex Academic Discourse',
+                                'Hedge language, formal tone va argumentatsiyani rivojlantirish.',
+                                1,
+                                20,
+                                'writing'
+                            )
                         ]
                     }
                 ]
@@ -205,15 +223,14 @@ export const CurriculumService = {
                         description: 'Yuqori darajadagi ritorika va professional suhbatlar.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'en-c2-u1-l1',
-                                title: 'Native-level Fluency & Precision',
-                                description: 'Semantik chuqurlik va uslubiy mukammallik.',
-                                order: 1,
-                                estimatedMinutes: 20,
-                                skill: 'speaking',
-                                route: '/speaking-coach?lang=en'
-                            }
+                            createLessonNode(
+                                'en-c2-u1-l1',
+                                'Native-level Fluency & Precision',
+                                'Semantik chuqurlik va uslubiy mukammallik.',
+                                1,
+                                20,
+                                'speaking'
+                            )
                         ]
                     }
                 ]
@@ -248,25 +265,23 @@ export const CurriculumService = {
                         description: 'Hiragana/Katakana va Desu/Masu strukturasi.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'ja-n5-u1-l1',
-                                title: 'Tanishuv va Ko-So-A-Do',
-                                description: 'Kore, Sore, Are olmoshlari va tanishtirish.',
-                                order: 1,
-                                estimatedMinutes: 12,
-                                skill: 'grammar',
-                                route: '/lesson/ja-n3-u1-l1'
-                            },
-                            {
-                                id: 'ja-n5-u1-l2',
-                                title: 'N5 Asosiy Kanji (Sonlar va Kunlar)',
-                                description: '一, 二, 三, 日, 月, 火 belgilari.',
-                                order: 2,
-                                estimatedMinutes: 10,
-                                skill: 'kanji',
-                                route: '/jlpt',
-                                prerequisites: ['ja-n5-u1-l1']
-                            }
+                            createLessonNode(
+                                'ja-n5-u1-l1',
+                                'Tanishuv va Ko-So-A-Do',
+                                'Kore, Sore, Are olmoshlari va tanishtirish.',
+                                1,
+                                12,
+                                'grammar'
+                            ),
+                            createLessonNode(
+                                'ja-n5-u1-l2',
+                                'N5 Asosiy Kanji (Sonlar va Kunlar)',
+                                '一, 二, 三, 日, 月, 火 belgilari.',
+                                2,
+                                10,
+                                'kanji',
+                                ['ja-n5-u1-l1']
+                            )
                         ]
                     }
                 ]
@@ -285,15 +300,14 @@ export const CurriculumService = {
                         description: 'V-te kudasai, V-te mo ii desu.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'ja-n4-u1-l1',
-                                title: 'Te-forma va Ruxsat So\'rash',
-                                description: 'Kundalik vaziyatlarda iltimos va ruxsat.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'grammar',
-                                route: '/lesson/ja-n3-u1-l1'
-                            }
+                            createLessonNode(
+                                'ja-n4-u1-l1',
+                                'Te-forma va Ruxsat So\'rash',
+                                'Kundalik vaziyatlarda iltimos va ruxsat.',
+                                1,
+                                15,
+                                'grammar'
+                            )
                         ]
                     }
                 ]
@@ -312,25 +326,23 @@ export const CurriculumService = {
                         description: 'Ni tsuite, Ni yotte grammatikasi va sayohat lug\'ati.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'ja-n3-u1-l1',
-                                title: 'Sayohat va Transport (N3 Grammatika)',
-                                description: '〜について (haqida), 〜によって (orqali) va Shinkansen so\'zlari.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'grammar',
-                                route: '/lesson/ja-n3-u1-l1'
-                            },
-                            {
-                                id: 'ja-n3-u1-l2',
-                                title: 'N3 Kanji & Sayohat Leksikasi',
-                                description: '旅, 行, 通, 空 belgilari va birikmalar.',
-                                order: 2,
-                                estimatedMinutes: 15,
-                                skill: 'kanji',
-                                route: '/lesson/ja-n3-u1-l2',
-                                prerequisites: ['ja-n3-u1-l1']
-                            }
+                            createLessonNode(
+                                'ja-n3-u1-l1',
+                                'Sayohat va Transport (N3 Grammatika)',
+                                '〜について (haqida), 〜によって (orqali) va Shinkansen so\'zlari.',
+                                1,
+                                15,
+                                'grammar'
+                            ),
+                            createLessonNode(
+                                'ja-n3-u1-l2',
+                                'N3 Kanji & Sayohat Leksikasi',
+                                '旅, 行, 通, 空 belgilari va birikmalar.',
+                                2,
+                                15,
+                                'kanji',
+                                ['ja-n3-u1-l1']
+                            )
                         ]
                     },
                     {
@@ -340,26 +352,24 @@ export const CurriculumService = {
                         description: 'Dokkai va Chokkai amaliyoti.',
                         order: 2,
                         lessons: [
-                            {
-                                id: 'ja-n3-u2-l1',
-                                title: 'N3 Dokkai Matn Tahlili',
-                                description: 'O\'rta uzunlikdagi maqola va bildirishnomalarni o\'qish.',
-                                order: 1,
-                                estimatedMinutes: 15,
-                                skill: 'reading',
-                                route: '/jlpt/reading',
-                                prerequisites: ['ja-n3-u1-l2']
-                            },
-                            {
-                                id: 'ja-n3-u2-l2',
-                                title: 'N3 Chokkai Tinglab Tushunish',
-                                description: 'Jonli vaziyatlardagi suhbatlarni tushunish.',
-                                order: 2,
-                                estimatedMinutes: 15,
-                                skill: 'listening',
-                                route: '/jlpt/listening',
-                                prerequisites: ['ja-n3-u2-l1']
-                            }
+                            createLessonNode(
+                                'ja-n3-u2-l1',
+                                'N3 Dokkai Matn Tahlili',
+                                'O\'rta uzunlikdagi maqola va bildirishnomalarni o\'qish.',
+                                1,
+                                15,
+                                'reading',
+                                ['ja-n3-u1-l2']
+                            ),
+                            createLessonNode(
+                                'ja-n3-u2-l2',
+                                'N3 Chokkai Tinglab Tushunish',
+                                'Jonli vaziyatlardagi suhbatlarni tushunish.',
+                                2,
+                                15,
+                                'listening',
+                                ['ja-n3-u2-l1']
+                            )
                         ]
                     }
                 ]
@@ -378,15 +388,14 @@ export const CurriculumService = {
                         description: 'N2 rasmiy grammatika va maqolalar.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'ja-n2-u1-l1',
-                                title: 'Rasmiy Yapon Tili & Keigo',
-                                description: 'Sonkeigo va Kenjougo amaliyoti.',
-                                order: 1,
-                                estimatedMinutes: 20,
-                                skill: 'grammar',
-                                route: '/jlpt/grammar-quiz'
-                            }
+                            createLessonNode(
+                                'ja-n2-u1-l1',
+                                'Rasmiy Yapon Tili & Keigo',
+                                'Sonkeigo va Kenjougo amaliyoti.',
+                                1,
+                                20,
+                                'grammar'
+                            )
                         ]
                     }
                 ]
@@ -405,15 +414,14 @@ export const CurriculumService = {
                         description: 'N1 darajadagi abstrakt mavzular tahlili.',
                         order: 1,
                         lessons: [
-                            {
-                                id: 'ja-n1-u1-l1',
-                                title: 'N1 Ilmiy va Ijtimoiy Matnlar',
-                                description: 'Murakkab sintaksis va klassik yapon tili elementlari.',
-                                order: 1,
-                                estimatedMinutes: 20,
-                                skill: 'reading',
-                                route: '/jlpt/reading'
-                            }
+                            createLessonNode(
+                                'ja-n1-u1-l1',
+                                'N1 Ilmiy va Ijtimoiy Matnlar',
+                                'Murakkab sintaksis va klassik yapon tili elementlari.',
+                                1,
+                                20,
+                                'reading'
+                            )
                         ]
                     }
                 ]

@@ -1,5 +1,6 @@
 import { UserLearningState } from '../types/learningOrchestrator';
 import { NextLearningAction } from '../types/nextAction';
+import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 
 export const NextActionService = {
     /**
@@ -15,6 +16,7 @@ export const NextActionService = {
             const remainingSteps = unfinished.totalSteps - unfinished.lastStepIndex;
             const estMinutes = Math.max(5, Math.round((remainingSteps / unfinished.totalSteps) * 15));
             const priorityScore = 90 + Math.min(10, Math.round(unfinished.progressPercentage / 10));
+            const resolved = CurriculumLessonResolver.resolveLesson(unfinished.lessonId, state.primaryLanguage);
 
             candidates.push({
                 type: 'resume_lesson',
@@ -31,7 +33,7 @@ export const NextActionService = {
                 estimatedMinutes: estMinutes,
                 priority: priorityScore,
                 language: state.primaryLanguage,
-                route: `/lesson/${unfinished.lessonId}`,
+                route: resolved.route,
                 lessonId: unfinished.lessonId,
                 badgeIcon: isJa ? '🚅' : '🎓',
                 metadata: {
@@ -152,6 +154,8 @@ export const NextActionService = {
                 ? (isJa ? `${state.targetLevel} darajasi bo'yicha boshlang'ich darsni boshlang.` : `Start the foundational lesson for ${state.targetLevel} level.`)
                 : (isJa ? `O'quv rejangizdagi keyingi asosiy mavzuga o'tish vaqti keldi.` : `Time to advance to the next core lesson in your curriculum.`);
 
+            const resolved = CurriculumLessonResolver.resolveLesson(state.currentPosition.lessonId, state.primaryLanguage);
+
             candidates.push({
                 type: 'start_next_lesson',
                 title,
@@ -163,7 +167,7 @@ export const NextActionService = {
                 estimatedMinutes: 15,
                 priority: 70,
                 language: state.primaryLanguage,
-                route: `/lesson/${state.currentPosition.lessonId}`,
+                route: resolved.route,
                 lessonId: state.currentPosition.lessonId,
                 badgeIcon: isJa ? '🌸' : '📚',
                 metadata: {

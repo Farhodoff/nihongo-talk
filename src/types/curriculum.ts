@@ -18,6 +18,10 @@ export interface CurriculumLessonNode {
     estimatedMinutes: number;
     skill: MasterySkill;
     route: string;
+    sourceType?: string;
+    contentId?: string;
+    isContentAvailable?: boolean;
+    availabilityMessage?: string;
     prerequisites?: string[];
 }
 

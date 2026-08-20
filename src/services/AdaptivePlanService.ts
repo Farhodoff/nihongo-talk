@@ -1,5 +1,6 @@
 import { UserLearningState } from '../types/learningOrchestrator';
 import { DailyStudyPlan, DailyPlanItem } from '../types/dailyPlan';
+import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 
 export const AdaptivePlanService = {
     /**
@@ -39,6 +40,7 @@ export const AdaptivePlanService = {
         // 2. Candidate: Unfinished Lesson (Resume)
         if (state.unfinishedLessons && state.unfinishedLessons.length > 0) {
             const unfinished = state.unfinishedLessons[0];
+            const resolved = CurriculumLessonResolver.resolveLesson(unfinished.lessonId, state.primaryLanguage);
             let lessonTime = totalMinutes <= 15 ? 10 : totalMinutes <= 30 ? 15 : 20;
             pool.push({
                 id: `lesson-unfinished-${unfinished.lessonId}`,
@@ -49,13 +51,14 @@ export const AdaptivePlanService = {
                     : `Lesson is currently ${unfinished.progressPercentage}% complete.`,
                 estimatedMinutes: lessonTime,
                 priority: 95,
-                route: `/lesson/${unfinished.lessonId}`,
+                route: resolved.route,
                 lessonId: unfinished.lessonId,
                 isCompleted: false,
                 metadata: { stepIndex: unfinished.lastStepIndex }
             });
         } else if (state.currentPosition && (!state.currentPosition.lessonId.includes('-') || state.currentPosition.lessonId.startsWith(isJa ? 'ja-' : 'en-'))) {
             // Candidate: Next Curriculum Lesson
+            const resolved = CurriculumLessonResolver.resolveLesson(state.currentPosition.lessonId, state.primaryLanguage);
             let lessonTime = totalMinutes <= 15 ? 10 : totalMinutes <= 30 ? 15 : 20;
             pool.push({
                 id: `lesson-next-${state.currentPosition.lessonId}`,
@@ -64,7 +67,7 @@ export const AdaptivePlanService = {
                 reason: isJa ? `O'quv rejangizdagi navbatdagi dars.` : `Next scheduled curriculum lesson.`,
                 estimatedMinutes: lessonTime,
                 priority: 75,
-                route: `/lesson/${state.currentPosition.lessonId}`,
+                route: resolved.route,
                 lessonId: state.currentPosition.lessonId,
                 isCompleted: false,
                 metadata: { courseId: state.currentPosition.courseId }
