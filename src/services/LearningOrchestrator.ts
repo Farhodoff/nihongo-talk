@@ -10,6 +10,7 @@ import {
 import { SupportedLanguage } from '../types/lesson';
 import { LessonService } from './LessonService';
 import { LearningSignalService } from './LearningSignalService';
+import { WeaknessEngine } from './WeaknessEngine';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { Flashcard } from '../types';
 import { isDue, isOverdue } from '../utils/srs';
@@ -325,6 +326,9 @@ export const LearningOrchestrator = {
         const reviewSummary = this.getReviewSummary(activeUserId, options?.cachedFlashcards);
         const signalsSummary = this.getLearningSignalsSummary(activeUserId);
         const recentActivity = this.getRecentLearningActivity(activeUserId);
+        const masteryProfile = WeaknessEngine.getUserMasteryProfile(activeUserId, primaryLanguage, {
+            srsRetention: reviewSummary.averageRetentionScore
+        });
 
         return {
             userId: activeUserId,
@@ -339,7 +343,8 @@ export const LearningOrchestrator = {
             unfinishedLessons,
             reviewSummary,
             signalsSummary,
-            recentActivity
+            recentActivity,
+            masteryProfile
         };
     }
 };

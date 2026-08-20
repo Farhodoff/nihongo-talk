@@ -82,8 +82,38 @@ export const NextActionService = {
             });
         }
 
-        // 3. Candidate: Weakness or Repeated Error Remediation
-        if (state.signalsSummary.recentMistakesCount >= 2) {
+        // 3. Candidate: Evidence-based Weakness Remediation (MasteryEngine & WeaknessEngine)
+        if (state.masteryProfile?.topWeaknesses && state.masteryProfile.topWeaknesses.length > 0) {
+            const topWeakness = state.masteryProfile.topWeaknesses[0];
+            let weaknessPriority = 82;
+            if (topWeakness.severity === 'high') {
+                weaknessPriority = 86;
+            } else if (topWeakness.severity === 'low') {
+                weaknessPriority = 76;
+            }
+
+            candidates.push({
+                type: 'weakness_practice',
+                title: isJa 
+                    ? `${topWeakness.skill.toUpperCase()} ko'nikmasini mustahkamlash` 
+                    : `Strengthen ${topWeakness.skill.toUpperCase()} Skills`,
+                description: isJa 
+                    ? `O'zlashtirish ko'rsatkichi: ${topWeakness.score}%. Aniq maqsadli interaktiv mashqlar.` 
+                    : `Current mastery: ${topWeakness.score}%. Targeted interactive practice.`,
+                reason: topWeakness.reason,
+                ctaLabel: isJa ? '⚡ Mashq Qilish' : '⚡ Practice Now',
+                estimatedMinutes: 10,
+                priority: weaknessPriority,
+                language: state.primaryLanguage,
+                route: topWeakness.recommendedRoute,
+                badgeIcon: '⚡',
+                metadata: {
+                    skill: topWeakness.skill,
+                    score: topWeakness.score,
+                    severity: topWeakness.severity
+                }
+            });
+        } else if (state.signalsSummary.recentMistakesCount >= 2) {
             const topic = state.signalsSummary.recentMistakeTopics[0];
             const reasonText = topic
                 ? (isJa ? `So'nggi darslarda "${topic}" mavzusida xatoliklar qayd etilgan.` : `Recent mistakes detected in "${topic}".`)

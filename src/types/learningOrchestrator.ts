@@ -1,4 +1,5 @@
 import { SupportedLanguage } from './lesson';
+import { UserMasteryProfile } from './mastery';
 
 export interface LessonPosition {
     courseId: string;
@@ -60,6 +61,7 @@ export interface UserLearningState {
     reviewSummary: SrsReviewSummary;
     signalsSummary: SignalsSummary;
     recentActivity: RecentLearningActivity;
+    masteryProfile?: UserMasteryProfile;
 }
 
 export interface OrchestratorOptions {

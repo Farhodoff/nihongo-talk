@@ -1,0 +1,240 @@
+import { SupportedLanguage } from '../types/lesson';
+import { MasterySkill, SkillMastery, UserMasteryProfile, MasteryTrend, MasteryStatus } from '../types/mastery';
+import { LearningSignalService } from './LearningSignalService';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+export interface EvidenceRecord {
+    skill: MasterySkill;
+    score: number; // 0-100
+    timestamp: string;
+    details?: string;
+}
+
+export const MasteryEngine = {
+    /**
+     * Get the authoritative list of skills for the specified language.
+     */
+    getSkillsForLanguage(language: SupportedLanguage): MasterySkill[] {
+        if (language === 'ja') {
+            return ['vocabulary', 'kanji', 'grammar', 'reading', 'listening', 'speaking'];
+        }
+        return ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'speaking'];
+    },
+
+    /**
+     * Retrieve local evidence history for a user and language.
+     */
+    getUserEvidence(userId: string = 'guest', language: SupportedLanguage = 'en'): EvidenceRecord[] {
+        const key = `study_planner_mastery_evidence_${userId}_${language}`;
+        const records = safeLocalStorage.getJSON<EvidenceRecord[]>(key, []);
+        return Array.isArray(records) ? records : [];
+    },
+
+    /**
+     * Record a new piece of skill evidence (e.g. quiz result, SRS review, AI evaluation).
+     */
+    recordEvidence(userId: string = 'guest', language: SupportedLanguage, record: EvidenceRecord): void {
+        const key = `study_planner_mastery_evidence_${userId}_${language}`;
+        const existing = this.getUserEvidence(userId, language);
+        existing.push(record);
+        // Keep the last 100 evidence points to keep storage lean
+        if (existing.length > 100) {
+            existing.splice(0, existing.length - 100);
+        }
+        safeLocalStorage.setJSON(key, existing);
+    },
+
+    /**
+     * Calculate trend from chronological evidence scores.
+     */
+    calculateTrend(evidence: EvidenceRecord[]): MasteryTrend {
+        if (evidence.length < 3) {
+            return 'stable';
+        }
+
+        const mid = Math.floor(evidence.length / 2);
+        const firstHalf = evidence.slice(0, mid);
+        const secondHalf = evidence.slice(mid);
+
+        const avg1 = firstHalf.reduce((sum, e) => sum + e.score, 0) / firstHalf.length;
+        const avg2 = secondHalf.reduce((sum, e) => sum + e.score, 0) / secondHalf.length;
+
+        const diff = avg2 - avg1;
+        if (diff >= 5) return 'improving';
+        if (diff <= -5) return 'declining';
+        return 'stable';
+    },
+
+    /**
+     * Apply time-based recency decay if inactive for more than 14 days.
+     */
+    applyRecencyDecay(baseScore: number, lastUpdatedAt?: string, now: Date = new Date()): number {
+        if (!lastUpdatedAt) return baseScore;
+        const lastTime = new Date(lastUpdatedAt).getTime();
+        const diffDays = Math.floor((now.getTime() - lastTime) / (1000 * 60 * 60 * 24));
+
+        if (diffDays > 14) {
+            // Decay by ~0.5% per day past 14 days, max decay 20%
+            const decay = Math.min(20, Math.floor((diffDays - 14) * 0.5));
+            return Math.max(10, baseScore - decay);
+        }
+
+        return baseScore;
+    },
+
+    /**
+     * Compute Mastery for a single skill.
+     */
+    computeSkillMastery(
+        skill: MasterySkill, 
+        evidence: EvidenceRecord[], 
+        language: SupportedLanguage,
+        supplementary?: { srsRetention?: number; mistakeCount?: number }
+    ): SkillMastery {
+        const isJa = language === 'ja';
+        const count = evidence.length;
+
+        if (count === 0) {
+            // Handle cold start with fallback signals if available
+            if (skill === 'vocabulary' && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
+                const srsScore = supplementary.srsRetention;
+                return {
+                    skill,
+                    score: srsScore,
+                    confidence: 30,
+                    evidenceCount: 1,
+                    trend: 'stable',
+                    status: srsScore >= 80 ? 'strong' : srsScore >= 60 ? 'learning' : 'weak',
+                    explanation: isJa 
+                        ? `SRS fleshkartalarning o'rtacha o'zlashtirish darajasi: ${srsScore}%.` 
+                        : `SRS flashcard average retention: ${srsScore}%.`
+                };
+            }
+
+            return {
+                skill,
+                score: 0,
+                confidence: 0,
+                evidenceCount: 0,
+                trend: 'stable',
+                status: 'not_started',
+                explanation: isJa 
+                    ? `Ushbu ko'nikma bo'yicha hali mashqlar bajarilmagan.` 
+                    : `No practice activity recorded for this skill yet.`
+            };
+        }
+
+        // Weighted Average of Evidence (recent evidence weighted more)
+        let totalWeight = 0;
+        let weightedSum = 0;
+        for (let i = 0; i < evidence.length; i++) {
+            const weight = 1 + (i / evidence.length); // 1.0 to 2.0
+            weightedSum += evidence[i].score * weight;
+            totalWeight += weight;
+        }
+
+        let rawScore = Math.round(weightedSum / totalWeight);
+
+        // Account for recent mistakes count penalty
+        if (supplementary?.mistakeCount && supplementary.mistakeCount > 0) {
+            rawScore = Math.max(10, rawScore - Math.min(25, supplementary.mistakeCount * 5));
+        }
+
+        const lastRecord = evidence[evidence.length - 1];
+        const finalScore = this.applyRecencyDecay(rawScore, lastRecord?.timestamp);
+        const confidence = Math.min(100, Math.round(count * 12)); // 8+ records gives ~100% confidence
+        const trend = this.calculateTrend(evidence);
+
+        let status: MasteryStatus = 'not_started';
+        if (finalScore >= 90 && confidence >= 60) {
+            status = 'mastered';
+        } else if (finalScore >= 80) {
+            status = 'strong';
+        } else if (finalScore >= 60) {
+            status = 'learning';
+        } else {
+            status = 'weak';
+        }
+
+        const explanation = isJa
+            ? `${count} ta natija asosida hisoblandi. O'rtacha ko'rsatkich: ${finalScore}%, ishonchlilik: ${confidence}%.`
+            : `Computed from ${count} evidence points. Average score: ${finalScore}%, confidence: ${confidence}%.`;
+
+        return {
+            skill,
+            score: finalScore,
+            confidence,
+            evidenceCount: count,
+            lastUpdatedAt: lastRecord?.timestamp,
+            trend,
+            status,
+            explanation
+        };
+    },
+
+    /**
+     * Generate the complete UserMasteryProfile.
+     */
+    calculateMasteryProfile(
+        userId: string = 'guest', 
+        language: SupportedLanguage = 'en',
+        supplementary?: { srsRetention?: number }
+    ): UserMasteryProfile {
+        const skillsList = this.getSkillsForLanguage(language);
+        const allEvidence = this.getUserEvidence(userId, language);
+        const signals = LearningSignalService.getSignalsForUser(userId);
+
+        // Count mistakes by skill if inferred from signals
+        const skillMistakes: Record<string, number> = {};
+        for (const sig of signals) {
+            if (sig.type === 'incorrect_answer' || sig.type === 'repeated_error') {
+                const topic = ('prompt' in sig ? (sig.prompt || '') : '').toLowerCase();
+                if (topic.includes('grammar') || topic.includes('inversion') || topic.includes('verb')) {
+                    skillMistakes['grammar'] = (skillMistakes['grammar'] || 0) + 1;
+                } else if (topic.includes('kanji')) {
+                    skillMistakes['kanji'] = (skillMistakes['kanji'] || 0) + 1;
+                } else if (topic.includes('listening')) {
+                    skillMistakes['listening'] = (skillMistakes['listening'] || 0) + 1;
+                } else if (topic.includes('reading')) {
+                    skillMistakes['reading'] = (skillMistakes['reading'] || 0) + 1;
+                } else {
+                    skillMistakes['vocabulary'] = (skillMistakes['vocabulary'] || 0) + 1;
+                }
+            }
+        }
+
+        const skills: Record<string, SkillMastery> = {};
+        let totalScoreSum = 0;
+        let totalConfidenceSum = 0;
+        let activeSkillCount = 0;
+
+        for (const skill of skillsList) {
+            const skillEvidence = allEvidence.filter(e => e.skill === skill);
+            const mastery = this.computeSkillMastery(skill, skillEvidence, language, {
+                srsRetention: supplementary?.srsRetention,
+                mistakeCount: skillMistakes[skill] || 0
+            });
+            skills[skill] = mastery;
+
+            if (mastery.evidenceCount > 0) {
+                totalScoreSum += mastery.score;
+                totalConfidenceSum += mastery.confidence;
+                activeSkillCount++;
+            }
+        }
+
+        const overallMasteryScore = activeSkillCount > 0 ? Math.round(totalScoreSum / activeSkillCount) : 0;
+        const overallConfidence = activeSkillCount > 0 ? Math.round(totalConfidenceSum / activeSkillCount) : 0;
+
+        return {
+            userId,
+            language,
+            skills,
+            topWeaknesses: [], // Will be populated by WeaknessEngine
+            topStrengths: [],  // Will be populated by WeaknessEngine
+            overallMasteryScore,
+            overallConfidence,
+            lastCalculatedAt: new Date().toISOString()
+        };
+    }
+};
