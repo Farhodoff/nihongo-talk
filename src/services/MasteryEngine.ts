@@ -10,6 +10,7 @@ export interface EvidenceRecord {
     score: number; // 0-100
     timestamp: string;
     details?: string;
+    type?: 'performance' | 'completion';
 }
 
 export const MasteryEngine = {
@@ -125,9 +126,11 @@ export const MasteryEngine = {
         supplementary?: { srsRetention?: number; mistakeCount?: number }
     ): SkillMastery {
         const isJa = language === 'ja';
-        const count = evidence.length;
+        const performanceEvidence = evidence.filter(e => e.type !== 'completion');
+        const performanceCount = performanceEvidence.length;
+        const totalCount = evidence.length;
 
-        if (count === 0) {
+        if (performanceCount === 0) {
             // Handle cold start with fallback signals if available
             // Phase 8.10: SRS retention seeds Vocabulary AND Kanji (primary JLPT deck skills)
             if ((skill === 'vocabulary' || skill === 'kanji') && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
@@ -136,7 +139,7 @@ export const MasteryEngine = {
                     skill,
                     score: srsScore,
                     confidence: 30,
-                    evidenceCount: 1,
+                    evidenceCount: totalCount || 1,
                     trend: 'stable',
                     status: srsScore >= 80 ? 'strong' : srsScore >= 60 ? 'learning' : 'weak',
                     explanation: isJa 
@@ -149,7 +152,7 @@ export const MasteryEngine = {
                 skill,
                 score: 0,
                 confidence: 0,
-                evidenceCount: 0,
+                evidenceCount: totalCount,
                 trend: 'stable',
                 status: 'not_started',
                 explanation: isJa 
@@ -158,12 +161,12 @@ export const MasteryEngine = {
             };
         }
 
-        // Weighted Average of Evidence (recent evidence weighted more)
+        // Weighted Average of Performance Evidence (recent evidence weighted more)
         let totalWeight = 0;
         let weightedSum = 0;
-        for (let i = 0; i < evidence.length; i++) {
-            const weight = 1 + (i / evidence.length); // 1.0 to 2.0
-            weightedSum += evidence[i].score * weight;
+        for (let i = 0; i < performanceEvidence.length; i++) {
+            const weight = 1 + (i / performanceEvidence.length); // 1.0 to 2.0
+            weightedSum += performanceEvidence[i].score * weight;
             totalWeight += weight;
         }
 
@@ -174,10 +177,10 @@ export const MasteryEngine = {
             rawScore = Math.max(10, rawScore - Math.min(25, supplementary.mistakeCount * 5));
         }
 
-        const lastRecord = evidence[evidence.length - 1];
+        const lastRecord = performanceEvidence[performanceEvidence.length - 1];
         const finalScore = this.applyRecencyDecay(rawScore, lastRecord?.timestamp);
-        const confidence = Math.min(100, Math.round(count * 12)); // 8+ records gives ~100% confidence
-        const trend = this.calculateTrend(evidence);
+        const confidence = Math.min(100, Math.round(totalCount * 12)); // All activity builds confidence
+        const trend = this.calculateTrend(performanceEvidence);
 
         let status: MasteryStatus = 'not_started';
         if (finalScore >= 90 && confidence >= 60) {
@@ -191,14 +194,14 @@ export const MasteryEngine = {
         }
 
         const explanation = isJa
-            ? `${count} ta natija asosida hisoblandi. O'rtacha ko'rsatkich: ${finalScore}%, ishonchlilik: ${confidence}%.`
-            : `Computed from ${count} evidence points. Average score: ${finalScore}%, confidence: ${confidence}%.`;
+            ? `${totalCount} ta natija asosida hisoblandi. Ko'rsatkich: ${finalScore}%, ishonchlilik: ${confidence}%.`
+            : `Computed from ${totalCount} evidence points. Skill score: ${finalScore}%, confidence: ${confidence}%.`;
 
         return {
             skill,
             score: finalScore,
             confidence,
-            evidenceCount: count,
+            evidenceCount: totalCount,
             lastUpdatedAt: lastRecord?.timestamp,
             trend,
             status,

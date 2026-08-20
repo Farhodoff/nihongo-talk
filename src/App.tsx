@@ -54,6 +54,7 @@ const DeveloperApiPage = lazy(() => import('./pages/DeveloperApiPage'));
 const LessonPlayerPage = lazy(() => import('./pages/LessonPlayerPage'));
 const RoadmapPage = lazy(() => import('./pages/RoadmapPage'));
 const DiagnosticPage = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })));
+const PersonalPlanPage = lazy(() => import('./pages/PersonalPlanPage').then(m => ({ default: m.PersonalPlanPage })));
 
 
 // Loading component
@@ -128,6 +129,7 @@ const App: React.FC = () => {
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
                                         <Route path="roadmap" element={<RoadmapPage />} />
+                                        <Route path="personal-plan" element={<PersonalPlanPage />} />
                                         <Route path="diagnostic" element={<DiagnosticPage />} />
                                         <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />

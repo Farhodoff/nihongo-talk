@@ -473,7 +473,29 @@ export const DiagnosticService = {
      * Get question bank for language
      */
     getBankForLanguage(language: SupportedLanguage): DiagnosticQuestion[] {
-        return language === 'ja' ? JAPANESE_DIAGNOSTIC_BANK : ENGLISH_DIAGNOSTIC_BANK;
+        const staticBank = language === 'ja' ? JAPANESE_DIAGNOSTIC_BANK : ENGLISH_DIAGNOSTIC_BANK;
+        try {
+            // Read from any prefetch cache keys in localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('study_planner_diag_prefetch_') && key.endsWith(`_${language}`)) {
+                    const raw = localStorage.getItem(key);
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) {
+                            const merged = [...staticBank];
+                            for (const q of parsed) {
+                                if (!merged.some(item => item.id === q.id)) {
+                                    merged.push(q);
+                                }
+                            }
+                            return merged;
+                        }
+                    }
+                }
+            }
+        } catch {}
+        return staticBank;
     },
 
     /**
