@@ -9,7 +9,9 @@ import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Sparkles } from 'lucide-react';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { NextActionService } from '../services/NextActionService';
+import { AdaptivePlanService } from '../services/AdaptivePlanService';
 import { NextLearningAction } from '../types/nextAction';
+import { DailyStudyPlan } from '../types/dailyPlan';
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
@@ -17,6 +19,7 @@ const DashboardPage: React.FC = () => {
     const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>([]);
     const [isAiInsightsLoading, setIsAiInsightsLoading] = useState(false);
     const [nextAction, setNextAction] = useState<NextLearningAction | null>(null);
+    const [dailyPlan, setDailyPlan] = useState<DailyStudyPlan | null>(null);
 
     // Sanalarni ajratib olish
     const todayStr = new Date().toISOString().split('T')[0];
@@ -105,7 +108,7 @@ const DashboardPage: React.FC = () => {
         return () => { isMounted = false; };
     }, [subjectsStats.length, settings.googleApiKey]);
 
-    // Load Next Best Action dynamically
+    // Load Next Best Action & Adaptive Daily Plan dynamically
     useEffect(() => {
         let isMounted = true;
         LearningOrchestrator.getUserLearningState(user?.id, { forceLanguage: primaryLanguage, cachedFlashcards: flashcards })
@@ -113,10 +116,12 @@ const DashboardPage: React.FC = () => {
                 if (isMounted) {
                     const action = NextActionService.getNextAction(state);
                     setNextAction(action);
+                    const plan = AdaptivePlanService.generateDailyPlan(state);
+                    setDailyPlan(plan);
                 }
             })
             .catch(err => {
-                console.warn('[DashboardPage] Failed to resolve NextAction:', err);
+                console.warn('[DashboardPage] Failed to resolve NextAction & DailyPlan:', err);
             });
 
         return () => { isMounted = false; };
@@ -277,6 +282,61 @@ const DashboardPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Today's Adaptive Daily Plan */}
+            {dailyPlan && dailyPlan.items.length > 0 && (
+                <div className="p-6 md:p-7 rounded-3xl glass-card border border-border space-y-4 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                            <span className="p-2.5 rounded-2xl bg-primary/10 text-primary">
+                                <Clock size={20} />
+                            </span>
+                            <div>
+                                <h3 className="text-base font-bold text-foreground flex items-center gap-2">
+                                    {language === 'en' ? "Today's Adaptive Plan" : "Bugungi Adaptiv Reja"}
+                                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
+                                        ⏱️ {dailyPlan.totalMinutes} {language === 'en' ? 'mins' : 'daqiqa'}
+                                    </span>
+                                </h3>
+                                <p className="text-xs text-muted-foreground">
+                                    {dailyPlan.summary.reason}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+                        {dailyPlan.items.map((item, idx) => (
+                            <Link
+                                key={item.id || idx}
+                                to={item.route}
+                                className="p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/60 border border-border/50 hover:border-primary/40 transition-all flex flex-col justify-between gap-3 group"
+                            >
+                                <div className="space-y-1.5">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-card border border-border text-muted-foreground">
+                                            {idx + 1}-Qadam
+                                        </span>
+                                        <span className="text-xs font-bold text-primary flex items-center gap-1">
+                                            <Clock size={12} /> {item.estimatedMinutes} daq
+                                        </span>
+                                    </div>
+                                    <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                                        {item.title}
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground line-clamp-2 leading-snug">
+                                        {item.reason}
+                                    </p>
+                                </div>
+                                <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1">
+                                    <span>{language === 'en' ? 'Start' : 'Boshlash'}</span>
+                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             <CountdownWidget />
 
