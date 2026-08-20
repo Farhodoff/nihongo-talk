@@ -355,14 +355,34 @@ Generate the JSON response matching this template:
 
         const course = CurriculumService.getCourse(goal.language);
         // Find lesson nodes matching the target level
-        const matchingLessons: any[] = [];
+        let matchingLessons: any[] = [];
+
+        const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
+        let targetLevelCode = cleanCurrent;
+        if (cleanCurrent === 'ZERO') {
+            targetLevelCode = goal.language === 'ja' ? 'N5' : 'A1';
+        }
+
         course.levels?.forEach(lvl => {
-            lvl.units?.forEach(u => {
-                u.lessons?.forEach(l => {
-                    if (l.isContentAvailable) matchingLessons.push(l);
+            if (lvl.code.toUpperCase() === targetLevelCode) {
+                lvl.units?.forEach(u => {
+                    u.lessons?.forEach(l => {
+                        if (l.isContentAvailable) matchingLessons.push(l);
+                    });
+                });
+            }
+        });
+
+        // Fallback if no lessons are found for the specific level
+        if (matchingLessons.length === 0) {
+            course.levels?.forEach(lvl => {
+                lvl.units?.forEach(u => {
+                    u.lessons?.forEach(l => {
+                        if (l.isContentAvailable) matchingLessons.push(l);
+                    });
                 });
             });
-        });
+        }
 
         const daysOfWeek: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday')[] = [
             'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'

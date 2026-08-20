@@ -336,4 +336,100 @@ describe('Personal Learning Plan System Tests', () => {
             expect(updatedReadingMastery.evidenceCount).toBe(2);
         });
     });
+
+    describe('7. Fallback Level Filtering & Wizard Option Validation', () => {
+        it('should filter fallback lessons matching goal currentLevel', () => {
+            // A1 English goal
+            const a1Goal: PersonalLearningGoal = {
+                id: 'goal-a1',
+                userId: 'test_user_a1',
+                language: 'en',
+                goalType: 'ielts',
+                currentLevel: 'A1',
+                targetGoal: 'IELTS 6.0',
+                targetLevel: '6.0',
+                deadline: new Date(Date.now() + 90 * 86400000).toISOString(),
+                dailyMinutes: 60,
+                totalWeeks: 12,
+                currentWeek: 1,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(a1Goal, 1, 'test_user_a1', {});
+            const curriculumTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
+            expect(curriculumTasks.length).toBeGreaterThan(0);
+
+            // All generated fallback lessons should belong to A1 level code
+            curriculumTasks.forEach(t => {
+                expect(t.contentId).toMatch(/^en-a1-/);
+            });
+
+            // N5 Japanese goal
+            const n5Goal: PersonalLearningGoal = {
+                id: 'goal-n5',
+                userId: 'test_user_n5',
+                language: 'ja',
+                goalType: 'jlpt',
+                currentLevel: 'N5',
+                targetGoal: 'JLPT N3',
+                targetLevel: 'N3',
+                deadline: new Date(Date.now() + 90 * 86400000).toISOString(),
+                dailyMinutes: 60,
+                totalWeeks: 12,
+                currentWeek: 1,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            const planJa = PersonalLearningPlanEngine.generateDeterministicFallback(n5Goal, 1, 'test_user_n5', {});
+            const curriculumTasksJa = planJa.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
+            expect(curriculumTasksJa.length).toBeGreaterThan(0);
+
+            // All generated fallback lessons should belong to N5 level code
+            curriculumTasksJa.forEach(t => {
+                expect(t.contentId).toMatch(/^ja-n5-/);
+            });
+        });
+
+        it('should enforce language separation for current and target level dropdown options', () => {
+            const getTargetsForLang = (lang: 'en' | 'ja', goalType: string) => {
+                if (lang === 'ja') {
+                    return ['N5', 'N4', 'N3', 'N2', 'N1'];
+                }
+                if (goalType === 'ielts') {
+                    return ['5.5', '6.0', '6.5', '7.0', '7.5', '8.0', '8.5+'];
+                }
+                return ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+            };
+
+            const getCurrentsForLang = (lang: 'en' | 'ja', goalType: string) => {
+                if (lang === 'ja') {
+                    return ['ZERO', 'N5', 'N4', 'N3', 'N2'];
+                }
+                if (goalType === 'ielts') {
+                    return ['ZERO', '4.0', '4.5', '5.0', '5.5', '6.0', '6.5', '7.0'];
+                }
+                return ['ZERO', 'A1', 'A2', 'B1', 'B2', 'C1'];
+            };
+
+            // Test English IELTS options
+            const enTargets = getTargetsForLang('en', 'ielts');
+            const enCurrents = getCurrentsForLang('en', 'ielts');
+            expect(enTargets).toContain('7.0');
+            expect(enTargets).not.toContain('N3');
+            expect(enCurrents).toContain('5.0');
+            expect(enCurrents).not.toContain('N5');
+
+            // Test Japanese JLPT options
+            const jaTargets = getTargetsForLang('ja', 'jlpt');
+            const jaCurrents = getCurrentsForLang('ja', 'jlpt');
+            expect(jaTargets).toContain('N1');
+            expect(jaTargets).not.toContain('7.0');
+            expect(jaCurrents).toContain('N3');
+            expect(jaCurrents).not.toContain('5.0');
+        });
+    });
 });

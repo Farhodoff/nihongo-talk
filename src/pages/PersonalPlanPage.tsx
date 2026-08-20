@@ -411,7 +411,7 @@ export const PersonalPlanPage: React.FC = () => {
                             <div className="space-y-2 pt-2">
                                 <label className="block text-sm font-medium text-foreground">{isUz ? "Maqsadli Daraja (Target)" : "Target Destination Level"}</label>
                                 <select
-                                    value={targetLevel}
+                                    value={targetsList.includes(targetLevel) ? targetLevel : targetsList[0] || ''}
                                     onChange={(e) => setTargetLevel(e.target.value)}
                                     className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground"
                                 >
@@ -458,7 +458,7 @@ export const PersonalPlanPage: React.FC = () => {
                                     </div>
                                     <div className="space-y-1">
                                         <select
-                                            value={currentLevel}
+                                            value={currentLevelsList.includes(currentLevel) ? currentLevel : currentLevelsList[0] || ''}
                                             onChange={(e) => {
                                                 setCurrentLevel(e.target.value);
                                                 setOverrideSource('user_override');
