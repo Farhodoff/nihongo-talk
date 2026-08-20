@@ -83,6 +83,7 @@ export const PersonalLearningPlanEngine = {
             const state = await LearningPathEngine.getLearningPath(userId, { forceLanguage: goal.language });
             const srsSummary = state.srsSummary || { dueCount: 0, overdueCount: 0 };
             const weaknesses = state.masteryProfile?.topWeaknesses.map(w => `${w.skill}: ${w.reason}`) || [];
+            const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
 
             const isJa = goal.language === 'ja';
 
@@ -97,7 +98,8 @@ CRITICAL RULES:
    - Specific lessons: /lesson/<id> (e.g. en-a1-u1-l1)
    - Specific hub: /ielts/writing, /ielts/reading-listening, /speaking-coach, /vocabulary, /study-mode, /jlpt, /jlpt/grammar-quiz, /jlpt/reading, /jlpt/listening
 5. Ensure strict isolation. An English user MUST NOT receive Japanese items/lessons (e.g. Kanji, JLPT), and a Japanese user MUST NOT receive IELTS or Murphy items.
-6. Provide concrete contentIds matching curriculum lessons where possible.`;
+6. Provide concrete contentIds matching curriculum lessons where possible.
+7. Completed Lessons Rule: Do not select any lesson in the Completed Lesson IDs list (${JSON.stringify(completedLessonIds)}) as a NEW learning task in the plan. Previously completed lessons can only be given as SRS or review tasks.`;
 
             const prompt = `Student Parameters:
 - Language Track: ${goal.language}
@@ -107,6 +109,7 @@ CRITICAL RULES:
 - Daily Available Time: ${goal.dailyMinutes} minutes
 - Current Level/Estimated Score: ${goal.currentLevel}
 - Active Weaknesses: ${JSON.stringify(weaknesses)}
+- Completed Lesson IDs: ${JSON.stringify(completedLessonIds)}
 - Spaced Repetition (SRS) Status: ${srsSummary.dueCount} cards due (${srsSummary.overdueCount} overdue)
 ${previousWeekResult ? `- Previous Week Summary: ${JSON.stringify(previousWeekResult)}` : ''}
 
@@ -182,6 +185,8 @@ Generate the JSON response matching this template:
             const raw = JSON.parse(jsonString);
             if (!raw || typeof raw !== 'object') return null;
 
+            const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
+
             const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
             const objectives = Array.isArray(raw.objectives) ? raw.objectives.map((o: any) => this.sanitizeText(o)) : ['Mashq bajarish'];
             const focusSkills = Array.isArray(raw.focusSkills) ? raw.focusSkills.map((s: any) => this.sanitizeText(s)) : ['general'];
@@ -213,18 +218,49 @@ Generate the JSON response matching this template:
 
                     dayMinutesAllocated += minutes;
 
-                    const title = this.sanitizeText(t.title || 'Dars');
-                    const taskType = this.sanitizeText(t.type || 'lesson');
-                    const contentId = t.contentId ? this.sanitizeText(t.contentId) : undefined;
+                    let actualTitle = this.sanitizeText(t.title || 'Dars');
+                    let actualType = this.sanitizeText(t.type || 'lesson');
+                    let actualContentId = t.contentId ? this.sanitizeText(t.contentId) : undefined;
                     let rawRoute = t.route ? String(t.route).trim() : '/dashboard';
+
+                    // Completed Lesson Deduplication Check (Hard Guard)
+                    if (actualType === 'lesson' && actualContentId && completedLessonIds.includes(actualContentId)) {
+                        // Find a replacement lesson at the same level and language
+                        const course = CurriculumService.getCourse(goal.language);
+                        const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
+                        let targetLevelCode = cleanCurrent === 'ZERO' ? (goal.language === 'ja' ? 'N5' : 'A1') : cleanCurrent;
+                        
+                        let replacementNode: any = null;
+                        course.levels?.forEach(lvl => {
+                            if (lvl.code.toUpperCase() === targetLevelCode) {
+                                lvl.units?.forEach(u => {
+                                    u.lessons?.forEach(l => {
+                                        if (l.isContentAvailable && !completedLessonIds.includes(l.id) && l.id !== actualContentId) {
+                                            replacementNode = l;
+                                        }
+                                    });
+                                });
+                            }
+                        });
+
+                        if (replacementNode) {
+                            actualContentId = replacementNode.id;
+                            actualTitle = replacementNode.title;
+                            rawRoute = replacementNode.route || (goal.language === 'ja' ? '/jlpt' : '/ielts');
+                        } else {
+                            // Exhausted level: Fallback to review
+                            actualType = 'review';
+                            actualTitle = `${actualTitle} (Takrorlash)`;
+                        }
+                    }
 
                     // Route Sanitation & Language isolation check
                     let resolvedRoute = rawRoute;
                     let sourceType: TaskSourceType = 'ai_generated';
 
-                    if (contentId) {
+                    if (actualContentId) {
                         try {
-                            const resolved = CurriculumLessonResolver.resolveLesson(contentId, goal.language);
+                            const resolved = CurriculumLessonResolver.resolveLesson(actualContentId, goal.language);
                             if (resolved && resolved.isAvailable) {
                                 resolvedRoute = resolved.route;
                                 sourceType = resolved.sourceType === 'lesson_player' ? 'lesson' : 'curriculum';
@@ -239,8 +275,8 @@ Generate the JSON response matching this template:
                         if (
                             resolvedRoute.includes('ielts') ||
                             resolvedRoute.includes('/lesson/en-') ||
-                            title.toLowerCase().includes('ielts') ||
-                            title.toLowerCase().includes('english')
+                            actualTitle.toLowerCase().includes('ielts') ||
+                            actualTitle.toLowerCase().includes('english')
                         ) {
                             resolvedRoute = '/jlpt';
                             sourceType = 'curriculum';
@@ -249,9 +285,9 @@ Generate the JSON response matching this template:
                         if (
                             resolvedRoute.includes('jlpt') ||
                             resolvedRoute.includes('/lesson/ja-') ||
-                            title.toLowerCase().includes('jlpt') ||
-                            title.toLowerCase().includes('kanji') ||
-                            title.toLowerCase().includes('japanese')
+                            actualTitle.toLowerCase().includes('jlpt') ||
+                            actualTitle.toLowerCase().includes('kanji') ||
+                            actualTitle.toLowerCase().includes('japanese')
                         ) {
                             resolvedRoute = '/ielts';
                             sourceType = 'curriculum';
@@ -267,15 +303,15 @@ Generate the JSON response matching this template:
 
                     validatedTasks.push({
                         id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-                        title,
-                        type: taskType,
+                        title: actualTitle,
+                        type: actualType,
                         estimatedMinutes: minutes,
                         completed: false,
                         status: 'pending',
                         sourceType,
-                        contentId,
+                        contentId: actualContentId,
                         route: resolvedRoute,
-                        skill: t.skill || (taskType as MasterySkill)
+                        skill: t.skill || (actualType as MasterySkill)
                     });
                 }
 
@@ -353,6 +389,7 @@ Generate the JSON response matching this template:
             ? ["Yapon tili asosiy leksikasi", "Kundalik sodda gaplar tuzilishi"]
             : ["English general vocabulary expansions", "Grammar structures review"];
 
+        const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
         const course = CurriculumService.getCourse(goal.language);
         // Find lesson nodes matching the target level
         let matchingLessons: any[] = [];
@@ -367,13 +404,30 @@ Generate the JSON response matching this template:
             if (lvl.code.toUpperCase() === targetLevelCode) {
                 lvl.units?.forEach(u => {
                     u.lessons?.forEach(l => {
-                        if (l.isContentAvailable) matchingLessons.push(l);
+                        if (l.isContentAvailable && !completedLessonIds.includes(l.id)) {
+                            matchingLessons.push(l);
+                        }
                     });
                 });
             }
         });
 
-        // Fallback if no lessons are found for the specific level
+        let fallbackToReview = false;
+        // Fallback: If all lessons at this level are completed, fetch them all but mark them as review!
+        if (matchingLessons.length === 0) {
+            course.levels?.forEach(lvl => {
+                if (lvl.code.toUpperCase() === targetLevelCode) {
+                    lvl.units?.forEach(u => {
+                        u.lessons?.forEach(l => {
+                            if (l.isContentAvailable) matchingLessons.push(l);
+                        });
+                    });
+                }
+            });
+            fallbackToReview = true;
+        }
+
+        // Final fallback if no lessons are found at all for this level
         if (matchingLessons.length === 0) {
             course.levels?.forEach(lvl => {
                 lvl.units?.forEach(u => {
@@ -413,8 +467,8 @@ Generate the JSON response matching this template:
 
             tasks.push({
                 id: `task-fallback-lesson-${dayName}-${Date.now()}`,
-                title: targetLesson.title,
-                type: 'lesson',
+                title: fallbackToReview ? `${targetLesson.title} (Takrorlash)` : targetLesson.title,
+                type: fallbackToReview ? 'review' : 'lesson',
                 estimatedMinutes: lessonTime,
                 completed: false,
                 status: 'pending',

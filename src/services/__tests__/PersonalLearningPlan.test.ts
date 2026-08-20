@@ -432,4 +432,221 @@ describe('Personal Learning Plan System Tests', () => {
             expect(jaCurrents).not.toContain('5.0');
         });
     });
+
+    describe('8. Completed Lesson Deduplication & Fallback Hardening', () => {
+        const sampleGoal: PersonalLearningGoal = {
+            id: 'goal-dedup-123',
+            userId: 'test_user_dedup',
+            language: 'en',
+            goalType: 'ielts',
+            currentLevel: 'A1',
+            targetGoal: 'IELTS 7.0',
+            targetLevel: '7.0',
+            deadline: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString(),
+            dailyMinutes: 60,
+            totalWeeks: 24,
+            currentWeek: 1,
+            status: 'active',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        beforeEach(() => {
+            localStorage.clear();
+        });
+
+        it('should exclude completed lessons from deterministic fallback plan', async () => {
+            // Mark a lesson as completed via LearningSignalService
+            const signal = {
+                id: 'sig-1',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal]));
+
+            // Generate fallback
+            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'test_user_dedup', {});
+            const curriculumTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
+            
+            // Should select en-a1-u1-l2 (or other uncompleted ones), not en-a1-u1-l1
+            curriculumTasks.forEach(t => {
+                expect(t.contentId).not.toBe('en-a1-u1-l1');
+            });
+        });
+
+        it('should fall back to review tasks if all lessons at current level are completed', async () => {
+            // Mark all A1 lessons completed
+            const signal1 = {
+                id: 'sig-1',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            const signal2 = {
+                id: 'sig-2',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l2',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal1, signal2]));
+
+            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'test_user_dedup', {});
+            const reviewTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'review');
+            expect(reviewTasks.length).toBeGreaterThan(0);
+            reviewTasks.forEach(t => {
+                expect(t.title).toContain('(Takrorlash)');
+            });
+        });
+
+        it('should exclude completed lessons from AI generated validated tasks using hard guard replacement', async () => {
+            // Mark a lesson as completed
+            const signal = {
+                id: 'sig-1',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal]));
+
+            // Invalid Mock AI response proposing completed lesson en-a1-u1-l1 as new lesson
+            const proposedPlanJson = JSON.stringify({
+                objectives: ['Test'],
+                focusSkills: ['grammar'],
+                days: [
+                    {
+                        day: 'monday',
+                        tasks: [
+                            {
+                                title: 'Present Simple',
+                                type: 'lesson',
+                                estimatedMinutes: 20,
+                                contentId: 'en-a1-u1-l1',
+                                route: '/lesson/en-a1-u1-l1'
+                            }
+                        ]
+                    }
+                ],
+                reasoning: 'Test reasoning',
+                expectedOutcome: 'Test outcome'
+            });
+
+            const parsed = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(proposedPlanJson, sampleGoal, 1, 'test_user_dedup');
+            expect(parsed).not.toBeNull();
+            
+            const monTasks = parsed!.days.find(d => d.day === 'monday')?.tasks || [];
+            expect(monTasks.length).toBeGreaterThan(0);
+            
+            // Should be replaced with en-a1-u1-l2 as it is uncompleted
+            expect(monTasks[0].contentId).toBe('en-a1-u1-l2');
+        });
+
+        it('should allow SRS/Review tasks to reference completed lessons', async () => {
+            const signal = {
+                id: 'sig-1',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal]));
+
+            // Mock AI response proposing completed lesson as a review or SRS activity
+            const proposedPlanJson = JSON.stringify({
+                objectives: ['Test'],
+                focusSkills: ['grammar'],
+                days: [
+                    {
+                        day: 'monday',
+                        tasks: [
+                            {
+                                title: 'Present Simple Review',
+                                type: 'review',
+                                estimatedMinutes: 15,
+                                contentId: 'en-a1-u1-l1',
+                                route: '/lesson/en-a1-u1-l1'
+                            }
+                        ]
+                    }
+                ],
+                reasoning: 'Test reasoning',
+                expectedOutcome: 'Test outcome'
+            });
+
+            const parsed = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(proposedPlanJson, sampleGoal, 1, 'test_user_dedup');
+            expect(parsed).not.toBeNull();
+            
+            const monTasks = parsed!.days.find(d => d.day === 'monday')?.tasks || [];
+            expect(monTasks.length).toBeGreaterThan(0);
+            
+            // Type review should be retained and not rejected/replaced
+            expect(monTasks[0].contentId).toBe('en-a1-u1-l1');
+            expect(monTasks[0].type).toBe('review');
+        });
+
+        it('should isolate completed lessons by language', async () => {
+            // Mark English lesson completed
+            const signalEn = {
+                id: 'sig-en',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'test_user_dedup',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signalEn]));
+
+            // Japanese N5 fallback goal
+            const jaGoal: PersonalLearningGoal = {
+                id: 'goal-ja',
+                userId: 'test_user_dedup',
+                language: 'ja',
+                goalType: 'jlpt',
+                currentLevel: 'N5',
+                targetGoal: 'JLPT N4',
+                targetLevel: 'N4',
+                deadline: new Date(Date.now() + 90 * 86400000).toISOString(),
+                dailyMinutes: 60,
+                totalWeeks: 12,
+                currentWeek: 1,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            // English completed should NOT affect ja-n5-u1-l1 matching fallback
+            const planJa = PersonalLearningPlanEngine.generateDeterministicFallback(jaGoal, 1, 'test_user_dedup', {});
+            const jaTasks = planJa.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
+            expect(jaTasks[0].contentId).toBe('ja-n5-u1-l1');
+        });
+
+        it('should isolate completed lessons by user', async () => {
+            // Mark en-a1-u1-l1 completed for User A
+            const signalUserA = {
+                id: 'sig-usera',
+                type: 'completed_lesson',
+                language: 'en',
+                lessonId: 'en-a1-u1-l1',
+                userId: 'user_a',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('study_planner_learning_signals_user_a', JSON.stringify([signalUserA]));
+
+            // Generate fallback for User B
+            const planB = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'user_b', {});
+            const bTasks = planB.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
+            
+            // Should still select en-a1-u1-l1 for User B as they did not complete it
+            expect(bTasks[0].contentId).toBe('en-a1-u1-l1');
+        });
+    });
 });

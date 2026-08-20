@@ -1,6 +1,7 @@
 import { SupportedLanguage } from '../types/lesson';
 import { PersonalLearningGoal, PlanGoalType, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
 import { supabase } from '../lib/supabase';
+import { LearningSignalService } from './LearningSignalService';
 
 const GOAL_STORAGE_PREFIX = 'study_planner_personal_goal_';
 const PLANS_STORAGE_KEY = 'study_planner_weekly_plans';
@@ -268,13 +269,50 @@ export const PersonalLearningPlanService = {
 
             // Sync background
             if (evaluation.userId && evaluation.userId !== 'guest') {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    await supabase.auth.updateUser({
-                        data: { weekly_evaluations: allEvals.filter(e => e.userId === evaluation.userId) }
-                    });
-                }
+                 const { data: { user } } = await supabase.auth.getUser();
+                 if (user) {
+                     await supabase.auth.updateUser({
+                         data: { weekly_evaluations: allEvals.filter(e => e.userId === evaluation.userId) }
+                     });
+                 }
             }
         } catch {}
+    },
+
+    /**
+     * Get list of completed lesson IDs for a specific user and language track
+     */
+    getCompletedLessonIds(userId: string = 'guest', language: SupportedLanguage): string[] {
+        const completedIds = new Set<string>();
+
+        // 1. Get completed lessons from LearningSignalService (interactive lessons)
+        try {
+            const signals = LearningSignalService.getSignalsForUser(userId);
+            signals.forEach((sig: any) => {
+                if (sig.type === 'completed_lesson' && sig.lessonId && (!language || sig.language === language)) {
+                    completedIds.add(sig.lessonId);
+                }
+            });
+        } catch (e) {
+            console.warn("[PersonalLearningPlanService] Failed to load completed signals:", e);
+        }
+
+        // 2. Get completed lessons from saved WeeklyLearningPlans (tasks checked by user in PLP checklist)
+        try {
+            const plans = this.getWeeklyPlans(userId);
+            plans.forEach(plan => {
+                plan.days.forEach(day => {
+                    day.tasks.forEach(task => {
+                        if ((task.completed || task.status === 'completed') && task.contentId && task.type === 'lesson') {
+                            completedIds.add(task.contentId);
+                        }
+                    });
+                });
+            });
+        } catch (e) {
+            console.warn("[PersonalLearningPlanService] Failed to parse completed plans:", e);
+        }
+
+        return Array.from(completedIds);
     }
 };
