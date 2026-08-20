@@ -60,6 +60,7 @@ const RoadmapPage: React.FC = () => {
     }
 
     const activeLevelData: RoadmapLevelNode | undefined = roadmap.levels.find(l => l.code === selectedLevel) || roadmap.activeLevelNode || roadmap.levels[0];
+    const nextRecommendedLesson = RoadmapService.getNextRecommendedLesson(roadmap);
 
     const getStatusBadge = (status: string, score?: number) => {
         switch (status) {
@@ -187,7 +188,13 @@ const RoadmapPage: React.FC = () => {
                                 </div>
                                 <div>
                                     <div className="text-xs font-bold line-clamp-1 opacity-90">{lvl.title}</div>
-                                    <div className="text-[11px] opacity-75">{lvl.progressPercentage}% complete</div>
+                                    <div className="text-[11px] opacity-75 mb-1.5">{lvl.progressPercentage}% {isUz ? 'bajarildi' : 'complete'}</div>
+                                    <div className={`w-full h-1.5 rounded-full overflow-hidden ${isSelected ? 'bg-white/25' : 'bg-secondary'}`}>
+                                        <div 
+                                            className={`h-full rounded-full transition-all duration-500 ${isSelected ? 'bg-white' : 'bg-primary'}`}
+                                            style={{ width: `${lvl.progressPercentage}%` }}
+                                        />
+                                    </div>
                                 </div>
                             </button>
                         );
@@ -229,11 +236,14 @@ const RoadmapPage: React.FC = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     {unit.lessons.map((lesson) => {
                                         const isLocked = lesson.status === 'locked';
+                                        const isRecommended = nextRecommendedLesson?.id === lesson.id && lesson.status !== 'completed' && !isLocked;
                                         return (
                                             <div
                                                 key={lesson.id}
                                                 className={`p-4 rounded-2xl border transition-all flex flex-col justify-between gap-4 ${
-                                                    lesson.status === 'current' || lesson.status === 'in_progress'
+                                                    isRecommended
+                                                        ? 'border-primary ring-2 ring-primary/40 bg-primary/10 shadow-md'
+                                                        : lesson.status === 'current' || lesson.status === 'in_progress'
                                                         ? 'border-primary bg-primary/5 shadow-sm'
                                                         : isLocked
                                                         ? 'border-border/40 bg-secondary/20 opacity-70'
@@ -241,10 +251,17 @@ const RoadmapPage: React.FC = () => {
                                                 }`}
                                             >
                                                 <div className="space-y-2">
-                                                    <div className="flex items-center justify-between gap-2">
-                                                        <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-secondary text-muted-foreground">
-                                                            {lesson.skill}
-                                                        </span>
+                                                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-secondary text-muted-foreground">
+                                                                {lesson.skill}
+                                                            </span>
+                                                            {isRecommended && (
+                                                                <span className="text-[11px] font-black px-2 py-0.5 rounded-md bg-primary text-primary-foreground flex items-center gap-1">
+                                                                    🎯 {isUz ? 'Tavsiya' : 'Next'}
+                                                                </span>
+                                                            )}
+                                                        </div>
                                                         {getStatusBadge(lesson.status, lesson.score)}
                                                     </div>
                                                     <h5 className="text-sm font-bold text-foreground line-clamp-1">
@@ -275,7 +292,7 @@ const RoadmapPage: React.FC = () => {
                                                         <Link
                                                             to={lesson.route}
                                                             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
-                                                                lesson.status === 'current' || lesson.status === 'in_progress'
+                                                                isRecommended || lesson.status === 'current' || lesson.status === 'in_progress'
                                                                     ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm'
                                                                     : 'bg-secondary hover:bg-secondary/80 text-foreground'
                                                             }`}

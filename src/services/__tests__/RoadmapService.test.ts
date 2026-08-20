@@ -214,4 +214,306 @@ describe('RoadmapService Unit Tests', () => {
         expect(roadmap.levels.length).toBeGreaterThan(0);
         expect(roadmap.currentLevelCode).toBeDefined();
     });
+
+    it('13. getNextRecommendedLesson should prioritize weak skill lessons', () => {
+        const state = createBaseState({
+            currentLevel: 'A1',
+            masteryProfile: {
+                userId: 'test_roadmap_user',
+                language: 'en',
+                skills: {},
+                topWeaknesses: [
+                    {
+                        skill: 'grammar',
+                        score: 40,
+                        confidence: 70,
+                        severity: 'high',
+                        reason: 'Weak grammar',
+                        recommendedRoute: '/grammar',
+                        language: 'en'
+                    }
+                ],
+                topStrengths: [],
+                overallMasteryScore: 50,
+                overallConfidence: 70,
+                lastCalculatedAt: ''
+            }
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const nextLesson = RoadmapService.getNextRecommendedLesson(roadmap);
+
+        expect(nextLesson).not.toBeNull();
+        expect(nextLesson?.status).toBe('weak');
+        expect(nextLesson?.skill).toBe('grammar');
+    });
+
+    it('14. getNextRecommendedLesson should pick in_progress lesson if no weak lesson exists', () => {
+        // Set in_progress progress for en-a1-u1-l1
+        localStorage.setItem(
+            'study_planner_lesson_progress_test_roadmap_user_en-a1-u1-l1',
+            JSON.stringify({ lessonId: 'en-a1-u1-l1', isCompleted: false, currentStepIndex: 1 })
+        );
+
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const nextLesson = RoadmapService.getNextRecommendedLesson(roadmap);
+
+        expect(nextLesson).not.toBeNull();
+        expect(nextLesson?.id).toBe('en-a1-u1-l1');
+        expect(nextLesson?.status).toBe('in_progress');
+    });
+
+    it('15. getNextRecommendedLesson should return null when all lessons are completed', () => {
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        // Manually mark all lessons in the roadmap as completed
+        roadmap.levels.forEach(lvl => {
+            lvl.units.forEach(u => {
+                u.lessons.forEach(l => {
+                    l.status = 'completed';
+                });
+            });
+        });
+
+        const nextLesson = RoadmapService.getNextRecommendedLesson(roadmap);
+        expect(nextLesson).toBeNull();
+    });
+
+    it('16. getRoadmapSummary should calculate totalCount and completedCount accurately', () => {
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.totalCount).toBe(10); // 10 English lessons
+        expect(summary.completedCount).toBe(0);
+        expect(summary.currentLevelCode).toBe('A1');
+    });
+
+    it('17. getRoadmapSummary progressPercentage should be between 0 and 100', () => {
+        const state = createBaseState({ currentLevel: 'B2' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.progressPercentage).toBeGreaterThanOrEqual(0);
+        expect(summary.progressPercentage).toBeLessThanOrEqual(100);
+    });
+
+    it('18. getRoadmapSummary should identify nextLesson correctly', () => {
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.nextLesson).not.toBeNull();
+        expect(summary.nextLesson?.id).toBe('en-a1-u1-l1');
+    });
+
+    it('19. getRoadmapSummary should detect topWeakLesson when weakness exists', () => {
+        const state = createBaseState({
+            currentLevel: 'A1',
+            masteryProfile: {
+                userId: 'test_roadmap_user',
+                language: 'en',
+                skills: {},
+                topWeaknesses: [
+                    {
+                        skill: 'grammar',
+                        score: 35,
+                        confidence: 80,
+                        severity: 'high',
+                        reason: 'Grammar issues',
+                        recommendedRoute: '/grammar',
+                        language: 'en'
+                    }
+                ],
+                topStrengths: [],
+                overallMasteryScore: 45,
+                overallConfidence: 80,
+                lastCalculatedAt: ''
+            }
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.topWeakLesson).not.toBeNull();
+        expect(summary.topWeakLesson?.skill).toBe('grammar');
+    });
+
+    it('20. getRoadmapSummary should return null for topWeakLesson when no weakness exists', () => {
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.topWeakLesson).toBeNull();
+    });
+
+    it('21. should mark uncompleted current-level lessons with met prereqs as available or current', () => {
+        const state = createBaseState({ currentLevel: 'A1' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        const a1Level = roadmap.levels.find(l => l.code === 'A1');
+        const l1 = a1Level?.units[0].lessons.find(l => l.id === 'en-a1-u1-l1');
+
+        expect(['current', 'available']).toContain(l1?.status);
+    });
+
+    it('22. Japanese N5 prerequisite chain: l2 is locked until l1 is completed', () => {
+        const state = createBaseState({
+            primaryLanguage: 'ja',
+            currentLevel: 'N5',
+            targetLevel: 'N3'
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const n5Level = roadmap.levels.find(l => l.code === 'N5');
+        const l2 = n5Level?.units[0].lessons.find(l => l.id === 'ja-n5-u1-l2');
+
+        expect(l2?.status).toBe('locked');
+        expect(l2?.lockReason).toBeDefined();
+
+        // Now complete l1
+        localStorage.setItem(
+            'study_planner_lesson_progress_test_roadmap_user_ja-n5-u1-l1',
+            JSON.stringify({ lessonId: 'ja-n5-u1-l1', isCompleted: true })
+        );
+
+        const updatedRoadmap = RoadmapService.getLearningRoadmap(state);
+        const updatedN5 = updatedRoadmap.levels.find(l => l.code === 'N5');
+        const updatedL2 = updatedN5?.units[0].lessons.find(l => l.id === 'ja-n5-u1-l2');
+
+        expect(updatedL2?.status).toBe('available');
+    });
+
+    it('23. Curriculum exhaustion handles gracefully without errors', () => {
+        const state = createBaseState({ currentLevel: 'C2' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(summary.completedCount).toBeGreaterThanOrEqual(0);
+        expect(summary.totalCount).toBe(10);
+    });
+
+    it('24. Language isolation: English roadmap never contains Japanese lessons', () => {
+        const state = createBaseState({
+            primaryLanguage: 'en',
+            enabledLanguages: ['en', 'ja']
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        for (const level of roadmap.levels) {
+            for (const unit of level.units) {
+                for (const lesson of unit.lessons) {
+                    expect(lesson.id.startsWith('ja-')).toBe(false);
+                    expect(lesson.id.startsWith('en-')).toBe(true);
+                }
+            }
+        }
+    });
+
+    it('25. User isolation: user_a progress does not affect user_b roadmap', () => {
+        // Complete lesson for user_a
+        localStorage.setItem(
+            'study_planner_lesson_progress_user_a_en-a1-u1-l1',
+            JSON.stringify({ lessonId: 'en-a1-u1-l1', isCompleted: true })
+        );
+
+        const stateUserB = createBaseState({ userId: 'user_b', currentLevel: 'A1' });
+        const roadmapB = RoadmapService.getLearningRoadmap(stateUserB);
+        const a1 = roadmapB.levels.find(l => l.code === 'A1');
+        const l1 = a1?.units[0].lessons.find(l => l.id === 'en-a1-u1-l1');
+
+        expect(l1?.status).not.toBe('completed');
+    });
+
+    it('26. Progress update: completing a lesson increases level progress', () => {
+        const stateBefore = createBaseState({ currentLevel: 'A1' });
+        const roadmapBefore = RoadmapService.getLearningRoadmap(stateBefore);
+        const a1Before = roadmapBefore.levels.find(l => l.code === 'A1');
+        const initialProgress = a1Before?.progressPercentage || 0;
+
+        // Complete a lesson
+        localStorage.setItem(
+            'study_planner_lesson_progress_test_roadmap_user_en-a1-u1-l1',
+            JSON.stringify({ lessonId: 'en-a1-u1-l1', isCompleted: true })
+        );
+
+        const roadmapAfter = RoadmapService.getLearningRoadmap(stateBefore);
+        const a1After = roadmapAfter.levels.find(l => l.code === 'A1');
+        const updatedProgress = a1After?.progressPercentage || 0;
+
+        expect(updatedProgress).toBeGreaterThan(initialProgress);
+    });
+
+    it('27. UI readiness: all lessons have title, route, and estimatedMinutes', () => {
+        const state = createBaseState({ primaryLanguage: 'ja', currentLevel: 'N3' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        for (const level of roadmap.levels) {
+            for (const unit of level.units) {
+                for (const lesson of unit.lessons) {
+                    expect(lesson.title.trim().length).toBeGreaterThan(0);
+                    expect(lesson.route).toBeDefined();
+                    expect(lesson.estimatedMinutes).toBeGreaterThan(0);
+                }
+            }
+        }
+    });
+
+    it('28. Target visualization: target level and target goal are preserved', () => {
+        const state = createBaseState({
+            currentLevel: 'B1',
+            targetLevel: 'C1',
+            targetGoal: 'IELTS 7.5'
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        expect(roadmap.currentLevelCode).toBe('B1');
+        expect(roadmap.targetLevelCode).toBe('C1');
+        expect(roadmap.targetGoal).toBe('IELTS 7.5');
+    });
+
+    it('29. In-progress step calculation: currentStepIndex calculates percentage', () => {
+        localStorage.setItem(
+            'study_planner_lesson_progress_test_roadmap_user_en-b2-u1-l1',
+            JSON.stringify({ lessonId: 'en-b2-u1-l1', isCompleted: false, currentStepIndex: 2 })
+        );
+
+        const state = createBaseState({ currentLevel: 'B2' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const b2 = roadmap.levels.find(l => l.code === 'B2');
+        const l1 = b2?.units[0].lessons.find(l => l.id === 'en-b2-u1-l1');
+
+        expect(l1?.status).toBe('in_progress');
+        expect(l1?.progressPercentage).toBe(67); // Math.round((2 / 3) * 100) = 67
+    });
+
+    it('30. Resilience: handles undefined or null masteryProfile gracefully', () => {
+        const state = createBaseState({
+            currentLevel: 'B2',
+            masteryProfile: undefined
+        });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const summary = RoadmapService.getRoadmapSummary(roadmap);
+
+        expect(roadmap).toBeDefined();
+        expect(summary.totalCount).toBe(10);
+    });
+
+    it('31. Resilience: fallback level for invalid level string', () => {
+        const state = createBaseState({ currentLevel: 'UNKNOWN_LEVEL' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        expect(roadmap.levels.length).toBeGreaterThan(0);
+        expect(roadmap.overallProgressPercentage).toBeDefined();
+    });
+
+    it('32. Prerequisite lock reason contains meaningful explanation', () => {
+        const state = createBaseState({ currentLevel: 'B2' });
+        const roadmap = RoadmapService.getLearningRoadmap(state);
+        const b2 = roadmap.levels.find(l => l.code === 'B2');
+        const l2 = b2?.units[0].lessons.find(l => l.id === 'en-b2-u1-l2');
+
+        expect(l2?.status).toBe('locked');
+        expect(l2?.lockReason).toBeDefined();
+        expect(l2?.lockReason?.length).toBeGreaterThan(5);
+    });
 });

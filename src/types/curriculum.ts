@@ -93,3 +93,17 @@ export interface LearningRoadmap {
     topWeaknesses: SkillWeakness[];
     generatedAt: string;
 }
+
+/**
+ * Aggregated roadmap summary for dashboard widget consumption.
+ * All values are pre-computed by RoadmapService.getRoadmapSummary().
+ */
+export interface RoadmapSummary {
+    completedCount: number;
+    totalCount: number;
+    progressPercentage: number;
+    currentLevelCode: string;
+    currentLevelProgress: number;
+    nextLesson: RoadmapLessonNode | null;
+    topWeakLesson: RoadmapLessonNode | null;
+}

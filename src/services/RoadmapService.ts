@@ -4,6 +4,7 @@ import {
     RoadmapLevelNode, 
     RoadmapUnitNode, 
     RoadmapLessonNode, 
+    RoadmapSummary,
     NodeStatus 
 } from '../types/curriculum';
 import { CurriculumService } from './CurriculumService';
@@ -178,6 +179,64 @@ export const RoadmapService = {
             skillMasteries: state.masteryProfile?.skills || {},
             topWeaknesses: state.masteryProfile?.topWeaknesses || [],
             generatedAt: new Date().toISOString()
+        };
+    },
+
+    /**
+     * Find the next recommended lesson from a computed roadmap.
+     * Priority: weak → in_progress → current → available.
+     */
+    getNextRecommendedLesson(roadmap: LearningRoadmap): RoadmapLessonNode | null {
+        const priorityOrder: NodeStatus[] = ['weak', 'in_progress', 'current', 'available'];
+
+        for (const targetStatus of priorityOrder) {
+            for (const level of roadmap.levels) {
+                for (const unit of level.units) {
+                    for (const lesson of unit.lessons) {
+                        if (lesson.status === targetStatus) {
+                            return lesson;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    },
+
+    /**
+     * Compute an aggregated summary DTO from a full roadmap.
+     * Used by Dashboard widget — no business logic, pure data aggregation.
+     */
+    getRoadmapSummary(roadmap: LearningRoadmap): RoadmapSummary {
+        let completedCount = 0;
+        let totalCount = 0;
+        let topWeakLesson: RoadmapLessonNode | null = null;
+
+        for (const level of roadmap.levels) {
+            for (const unit of level.units) {
+                for (const lesson of unit.lessons) {
+                    totalCount++;
+                    if (lesson.status === 'completed') {
+                        completedCount++;
+                    }
+                    if (lesson.status === 'weak' && !topWeakLesson) {
+                        topWeakLesson = lesson;
+                    }
+                }
+            }
+        }
+
+        const currentLevel = roadmap.levels.find(l => l.code === roadmap.currentLevelCode);
+
+        return {
+            completedCount,
+            totalCount,
+            progressPercentage: roadmap.overallProgressPercentage,
+            currentLevelCode: roadmap.currentLevelCode,
+            currentLevelProgress: currentLevel?.progressPercentage ?? 0,
+            nextLesson: this.getNextRecommendedLesson(roadmap),
+            topWeakLesson
         };
     }
 };

@@ -1,4 +1,4 @@
-import { CheckCircle, Loader2, ListTodo, Trophy, ArrowRight, Clock } from 'lucide-react';
+import { CheckCircle, Loader2, ListTodo, Trophy, ArrowRight, Clock, Map, Sparkles } from 'lucide-react';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CountdownWidget from '../components/CountdownWidget';
@@ -6,9 +6,11 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { calculateMasteryScore } from '../utils/analytics';
 import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
-import { Sparkles } from 'lucide-react';
 import { LearningPathEngine } from '../services/LearningPathEngine';
+import { LearningOrchestrator } from '../services/LearningOrchestrator';
+import { RoadmapService } from '../services/RoadmapService';
 import { NextBestAction, DailyLearningPlan, ProgressionState } from '../types/learningPath';
+import { RoadmapSummary } from '../types/curriculum';
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
@@ -18,6 +20,7 @@ const DashboardPage: React.FC = () => {
     const [nextAction, setNextAction] = useState<NextBestAction | null>(null);
     const [dailyPlan, setDailyPlan] = useState<DailyLearningPlan | null>(null);
     const [progression, setProgression] = useState<ProgressionState | null>(null);
+    const [roadmapSummary, setRoadmapSummary] = useState<RoadmapSummary | null>(null);
     const [loadingState, setLoadingState] = useState<'loading' | 'success' | 'error'>('loading');
     const [retryTrigger, setRetryTrigger] = useState(0);
 
@@ -113,20 +116,37 @@ const DashboardPage: React.FC = () => {
         let isMounted = true;
         setLoadingState('loading');
 
-        LearningPathEngine.getLearningPathState(user?.id || 'default-user', { forceLanguage: primaryLanguage })
+        const activeUserId = user?.id || 'default-user';
+
+        // Load learning path state
+        const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, { forceLanguage: primaryLanguage })
             .then(pathState => {
                 if (isMounted) {
                     setNextAction(pathState.nextAction);
                     setDailyPlan(pathState.todayPlan);
                     setProgression(pathState.progression);
-                    setLoadingState('success');
+                }
+            });
+
+        // Load roadmap summary (parallel, non-blocking)
+        const roadmapPromise = LearningOrchestrator.getUserLearningState(activeUserId, { forceLanguage: primaryLanguage, cachedFlashcards: flashcards })
+            .then(learningState => {
+                if (isMounted) {
+                    const rm = RoadmapService.getLearningRoadmap(learningState);
+                    setRoadmapSummary(RoadmapService.getRoadmapSummary(rm));
                 }
             })
             .catch(err => {
+                console.warn('[DashboardPage] Failed to load roadmap summary:', err);
+            });
+
+        Promise.all([pathPromise, roadmapPromise])
+            .then(() => {
+                if (isMounted) setLoadingState('success');
+            })
+            .catch(err => {
                 console.warn('[DashboardPage] Failed to resolve NextAction & DailyPlan from LearningPathEngine:', err);
-                if (isMounted) {
-                    setLoadingState('error');
-                }
+                if (isMounted) setLoadingState('error');
             });
 
         return () => { isMounted = false; };
@@ -405,6 +425,116 @@ const DashboardPage: React.FC = () => {
                                     </div>
                                 </Link>
                             ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* My Learning Roadmap Widget */}
+            {roadmapSummary && (
+                <div className="p-6 md:p-7 rounded-3xl glass-card border border-border space-y-5 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                            <span className="p-2.5 rounded-2xl bg-primary/10 text-primary">
+                                <Map size={20} />
+                            </span>
+                            <div>
+                                <h3 className="text-base font-bold text-foreground flex items-center gap-2">
+                                    {language === 'en' ? "My Learning Roadmap" : "Mening O'quv Yo'l Xaritam"}
+                                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
+                                        {roadmapSummary.currentLevelCode} {language === 'en' ? 'Level' : 'Bosqich'}
+                                    </span>
+                                </h3>
+                                <p className="text-xs text-muted-foreground">
+                                    {language === 'en'
+                                        ? `${roadmapSummary.completedCount} of ${roadmapSummary.totalCount} lessons completed (${roadmapSummary.progressPercentage}%)`
+                                        : `${roadmapSummary.totalCount} ta darsdan ${roadmapSummary.completedCount} tasi bajarildi (${roadmapSummary.progressPercentage}%)`}
+                                </p>
+                            </div>
+                        </div>
+
+                        <Link
+                            to="/roadmap"
+                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold transition-all border border-primary/20 w-fit"
+                        >
+                            <span>🗺️</span>
+                            <span>{language === 'en' ? "View Full Roadmap" : "To'liq Xaritani Ko'rish"}</span>
+                            <ArrowRight size={14} />
+                        </Link>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-semibold text-muted-foreground">
+                            <span>{language === 'en' ? 'Overall Progress' : 'Umumiy Progress'}</span>
+                            <span className="text-foreground font-bold">{roadmapSummary.progressPercentage}%</span>
+                        </div>
+                        <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-primary rounded-full transition-all duration-1000 ease-out"
+                                style={{ width: `${roadmapSummary.progressPercentage}%` }}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Next & Weak Lesson Cards */}
+                    {(roadmapSummary.nextLesson || roadmapSummary.topWeakLesson) && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            {roadmapSummary.nextLesson && (
+                                <Link
+                                    to={roadmapSummary.nextLesson.route}
+                                    className="p-4 rounded-2xl border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-all flex flex-col justify-between gap-3 group"
+                                >
+                                    <div className="space-y-1.5">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-primary/15 text-primary">
+                                                {language === 'en' ? 'Next Up' : 'Navbatdagi Dars'}
+                                            </span>
+                                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                                <Clock size={12} /> ~{roadmapSummary.nextLesson.estimatedMinutes} daq
+                                            </span>
+                                        </div>
+                                        <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                                            {roadmapSummary.nextLesson.title}
+                                        </h4>
+                                        <p className="text-xs text-muted-foreground line-clamp-1">
+                                            {roadmapSummary.nextLesson.description}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1 border-t border-primary/10">
+                                        <span>{language === 'en' ? 'Start Lesson' : 'Darsni Boshlash'}</span>
+                                        <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                </Link>
+                            )}
+
+                            {roadmapSummary.topWeakLesson && roadmapSummary.topWeakLesson.id !== roadmapSummary.nextLesson?.id && (
+                                <Link
+                                    to={roadmapSummary.topWeakLesson.route}
+                                    className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 transition-all flex flex-col justify-between gap-3 group"
+                                >
+                                    <div className="space-y-1.5">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-500">
+                                                {language === 'en' ? 'Focus Area' : "Zaif Ko'nikma"}
+                                            </span>
+                                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                                <Clock size={12} /> ~{roadmapSummary.topWeakLesson.estimatedMinutes} daq
+                                            </span>
+                                        </div>
+                                        <h4 className="text-sm font-bold text-foreground group-hover:text-rose-500 transition-colors line-clamp-1">
+                                            {roadmapSummary.topWeakLesson.title}
+                                        </h4>
+                                        <p className="text-xs text-muted-foreground line-clamp-1">
+                                            {roadmapSummary.topWeakLesson.description}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-end text-xs font-bold text-rose-500 gap-1 pt-1 border-t border-rose-500/10">
+                                        <span>{language === 'en' ? 'Practice' : 'Mashq Qilish'}</span>
+                                        <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     )}
                 </div>
