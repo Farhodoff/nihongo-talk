@@ -1,14 +1,16 @@
-import { 
-    LearningSignal, 
-    VocabularySignal, 
-    GrammarSignal, 
-    IncorrectAnswerSignal, 
-    RepeatedErrorSignal, 
-    CompletedLessonSignal 
+import type {
+    LearningSignal,
+    VocabularySignal,
+    GrammarSignal,
+    IncorrectAnswerSignal,
+    RepeatedErrorSignal,
+    CompletedLessonSignal
 } from '../types/learningSignals';
-import { Lesson, VocabItem } from '../types/lesson';
+import { Lesson, VocabItem, SupportedLanguage } from '../types/lesson';
+import { MasterySkill } from '../types/mastery';
 import { Flashcard } from '../types';
 import { FlashcardService } from './FlashcardService';
+import { MasteryEngine } from './MasteryEngine';
 import { supabase } from '../lib/supabase';
 
 const SIGNALS_STORAGE_PREFIX = 'study_planner_learning_signals_';
@@ -54,6 +56,7 @@ export const LearningSignalService = {
 
     /**
      * Record multiple learning signals in a single batch.
+     * Implements deterministic idempotency: ignores signals with IDs that already exist.
      */
     async recordSignalsBatch(signals: LearningSignal[]): Promise<void> {
         if (!signals || signals.length === 0) return;
@@ -62,8 +65,21 @@ export const LearningSignalService = {
         const key = `${SIGNALS_STORAGE_PREFIX}${userId}`;
         const current = this.getSignalsForUser(userId);
 
+        const existingIds = new Set(current.map(s => s.id).filter(Boolean));
+        const uniqueNewSignals: LearningSignal[] = [];
+
+        for (const sig of signals) {
+            if (sig.id && existingIds.has(sig.id)) {
+                continue;
+            }
+            if (sig.id) existingIds.add(sig.id);
+            uniqueNewSignals.push(sig);
+        }
+
+        if (uniqueNewSignals.length === 0) return;
+
         // Append new signals and cap to latest 300 to avoid unbounded storage growth
-        const updated = [...current, ...signals].slice(-300);
+        const updated = [...current, ...uniqueNewSignals].slice(-300);
 
         try {
             localStorage.setItem(key, JSON.stringify(updated));
@@ -267,9 +283,99 @@ export const LearningSignalService = {
         // 7. Save all emitted signals in batch
         await this.recordSignalsBatch(emittedSignals);
 
+        // 8. Record lesson mastery evidence in MasteryEngine
+        const hasGrammarRules = lesson.steps.some(s => s.type === 'learn' && s.learnData?.grammarRules && s.learnData.grammarRules.length > 0);
+        const hasVocab = lesson.steps.some(s => s.type === 'learn' && s.learnData?.vocabulary && s.learnData.vocabulary.length > 0);
+        const lessonSkill: MasterySkill = (lesson as any).skill || (hasGrammarRules ? 'grammar' : hasVocab ? 'vocabulary' : 'grammar');
+
+        MasteryEngine.recordEvidence(activeUserId, lesson.language, {
+            id: `lesson_ev_${completionSignal.id}`,
+            skill: lessonSkill,
+            score: scoreData.percentage,
+            timestamp,
+            details: `Lesson completed: ${lesson.title}`
+        });
+
         return {
             newCardsCount: createdCount,
             mistakesCount: incorrectAnswers.length
         };
+    },
+
+    /**
+     * Records a single quiz answer into both MasteryEngine and LearningSignalService with idempotency.
+     */
+    async recordQuizAnswer(
+        userId: string,
+        language: SupportedLanguage,
+        params: {
+            id?: string;
+            eventId?: string;
+            lessonId?: string;
+            questionId: string;
+            prompt: string;
+            isCorrect: boolean;
+            userAnswer?: string | number;
+            expectedAnswer?: string | number;
+            skill?: MasterySkill;
+            explanation?: string;
+            attemptCount?: number;
+            source?: string;
+        }
+    ): Promise<void> {
+        const timestamp = new Date().toISOString();
+        const activeUserId = userId || 'guest';
+        const skill = params.skill || 'grammar';
+        const eventId = params.eventId || params.id || generateUUID();
+
+        // 1. Record evidence in MasteryEngine
+        const score = params.isCorrect ? 100 : 0;
+        MasteryEngine.recordEvidence(activeUserId, language, {
+            id: `ev_quiz_${eventId}`,
+            skill,
+            score,
+            timestamp,
+            details: `Quiz answer: ${params.prompt?.slice(0, 50) || 'Question'}`
+        });
+
+        // 2. If correct, record correct_answer signal
+        if (params.isCorrect) {
+            await this.recordSignal({
+                id: eventId,
+                type: 'correct_answer',
+                language,
+                lessonId: params.lessonId || 'quiz',
+                userId: activeUserId,
+                timestamp,
+                stepId: 'quiz_step',
+                questionId: params.questionId,
+                prompt: params.prompt,
+                userAnswer: params.userAnswer ?? '',
+                expectedAnswer: params.expectedAnswer ?? '',
+                explanation: params.explanation,
+                attemptCount: params.attemptCount || 1,
+                skill,
+                source: params.source || 'quiz'
+            });
+        } else {
+            // 3. If incorrect, record incorrect_answer signal
+            await this.recordSignal({
+                id: eventId,
+                type: 'incorrect_answer',
+                language,
+                lessonId: params.lessonId || 'quiz',
+                userId: activeUserId,
+                timestamp,
+                stepId: 'quiz_step',
+                questionId: params.questionId,
+                prompt: params.prompt,
+                userAnswer: params.userAnswer ?? '',
+                expectedAnswer: params.expectedAnswer ?? '',
+                explanation: params.explanation,
+                attemptCount: params.attemptCount || 1,
+                skill,
+                source: params.source || 'quiz'
+            });
+        }
     }
 };

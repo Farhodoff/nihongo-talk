@@ -29,6 +29,39 @@ export interface ResolvedLessonContent {
 
 export const CurriculumLessonResolver = {
     /**
+     * Resolves the best target lesson content by searching for a topic title/description match.
+     */
+    resolveLessonByTopic(topicName: string, language: SupportedLanguage): ResolvedLessonContent | null {
+        if (!topicName) return null;
+        const normalizedQuery = topicName.trim().toLowerCase();
+
+        // 1. Search in IELTS Grammar Database
+        if (language === 'en') {
+            const match = IELTS_GRAMMAR_DATABASE.find(t =>
+                t.title.toLowerCase().includes(normalizedQuery) ||
+                t.category?.toLowerCase().includes(normalizedQuery) ||
+                normalizedQuery.includes(t.title.toLowerCase())
+            );
+            if (match) {
+                return this.resolveLesson(match.id, 'en');
+            }
+        }
+
+        // 2. Search in Sample Lessons (for both ja and en)
+        const sampleMatch = SAMPLE_LESSONS.find(l =>
+            l.language === language && (
+                l.title.toLowerCase().includes(normalizedQuery) ||
+                normalizedQuery.includes(l.title.toLowerCase())
+            )
+        );
+        if (sampleMatch) {
+            return this.resolveLesson(sampleMatch.id, language);
+        }
+
+        return null;
+    },
+
+    /**
      * Resolves any curriculum lesson ID to its true content source and route.
      * Prevents placeholder routing and ensures strict language & level consistency.
      */

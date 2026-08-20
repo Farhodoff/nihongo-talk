@@ -10,6 +10,7 @@ import {
 } from '../types/diagnostic';
 import { LearningSignalService } from './LearningSignalService';
 import { AdaptiveQuestionEngine } from './AdaptiveQuestionEngine';
+import { MasteryEngine } from './MasteryEngine';
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
 const DIAGNOSTIC_ADAPTIVE_PREFIX = 'study_planner_diag_adaptive_';
@@ -738,6 +739,22 @@ export const DiagnosticService = {
             localStorage.setItem(key, JSON.stringify(result));
         } catch (e) {
             console.warn('[DiagnosticService] Failed to save result:', e);
+        }
+
+        // Closed loop: Record diagnostic benchmark evidence into MasteryEngine for each evaluated skill
+        if (result.skills) {
+            const entries = Object.values(result.skills);
+            for (const entry of entries) {
+                if (entry.skill && typeof entry.score === 'number') {
+                    MasteryEngine.recordEvidence(result.userId || 'guest', result.language, {
+                        id: `diag_ev_${result.id}_${entry.skill}`,
+                        skill: entry.skill,
+                        score: entry.score,
+                        timestamp: result.completedAt || new Date().toISOString(),
+                        details: `Diagnostic benchmark score for ${entry.skill}: ${entry.score}%`
+                    });
+                }
+            }
         }
     },
 

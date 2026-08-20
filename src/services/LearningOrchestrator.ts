@@ -167,20 +167,33 @@ export const LearningOrchestrator = {
     /**
      * Aggregate Spaced Repetition (SRS) Flashcards status.
      */
-    getReviewSummary(_userId: string = 'guest', cachedFlashcards?: Flashcard[]): SrsReviewSummary {
+    getReviewSummary(_userId: string = 'guest', cachedFlashcards?: Flashcard[], language?: SupportedLanguage): SrsReviewSummary {
         let cards: Flashcard[] = cachedFlashcards || [];
 
         // If not provided in options, try reading from local cache
         if (cards.length === 0) {
             try {
-                const cached = safeLocalStorage.getJSON<Flashcard[]>('study_planner_flashcards_cache', []);
-                if (Array.isArray(cached)) {
-                    cards = cached;
+                const userKey = `study_planner_flashcards_cache_${_userId || 'guest'}`;
+                const userCached = safeLocalStorage.getJSON<Flashcard[]>(userKey, []);
+                if (Array.isArray(userCached) && userCached.length > 0) {
+                    cards = userCached;
+                } else {
+                    const genericCached = safeLocalStorage.getJSON<Flashcard[]>('study_planner_flashcards_cache', []);
+                    if (Array.isArray(genericCached)) {
+                        cards = genericCached;
+                    }
                 }
             } catch (e) {
                 console.warn('[LearningOrchestrator] Error reading flashcards cache:', e);
             }
         }
+
+        // Apply language isolation filter
+        const filterLang = language || this.getPrimaryLanguage();
+        const filteredCards = cards.filter(card => {
+            const isJa = /[\u3040-\u30ff\u4e00-\u9faf]/.test((card.front || '') + (card.back || ''));
+            return filterLang === 'ja' ? isJa : !isJa;
+        });
 
         let dueCount = 0;
         let overdueCount = 0;
@@ -188,7 +201,7 @@ export const LearningOrchestrator = {
         let learnedCount = 0;
         let totalMasterySum = 0;
 
-        for (const card of cards) {
+        for (const card of filteredCards) {
             if (isOverdue(card)) {
                 overdueCount++;
                 dueCount++;
@@ -223,10 +236,11 @@ export const LearningOrchestrator = {
     },
 
     /**
-     * Aggregate Learning Signals (mistakes, completed lessons, new vocab).
+     * Aggregate Learning Signals (mistakes, completed lessons, new vocab) with optional language filter.
      */
-    getLearningSignalsSummary(userId: string = 'guest'): SignalsSummary {
-        const signals = LearningSignalService.getSignalsForUser(userId);
+    getLearningSignalsSummary(userId: string = 'guest', language?: SupportedLanguage): SignalsSummary {
+        const rawSignals = LearningSignalService.getSignalsForUser(userId);
+        const signals = language ? rawSignals.filter(s => !s.language || s.language === language) : rawSignals;
         let recentMistakesCount = 0;
         let newVocabCount = 0;
         let completedLessonsCount = 0;
@@ -323,8 +337,8 @@ export const LearningOrchestrator = {
             }
         }
 
-        const reviewSummary = this.getReviewSummary(activeUserId, options?.cachedFlashcards);
-        const signalsSummary = this.getLearningSignalsSummary(activeUserId);
+        const reviewSummary = this.getReviewSummary(activeUserId, options?.cachedFlashcards, primaryLanguage);
+        const signalsSummary = this.getLearningSignalsSummary(activeUserId, primaryLanguage);
         const recentActivity = this.getRecentLearningActivity(activeUserId);
         const masteryProfile = WeaknessEngine.getUserMasteryProfile(activeUserId, primaryLanguage, {
             srsRetention: reviewSummary.averageRetentionScore

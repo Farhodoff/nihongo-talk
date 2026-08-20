@@ -7,19 +7,19 @@ import { useLanguage } from '../context/LanguageContext';
 import { calculateMasteryScore } from '../utils/analytics';
 import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { Sparkles } from 'lucide-react';
-import { LearningOrchestrator } from '../services/LearningOrchestrator';
-import { NextActionService } from '../services/NextActionService';
-import { AdaptivePlanService } from '../services/AdaptivePlanService';
-import { NextLearningAction } from '../types/nextAction';
-import { DailyStudyPlan } from '../types/dailyPlan';
+import { LearningPathEngine } from '../services/LearningPathEngine';
+import { NextBestAction, DailyLearningPlan, ProgressionState } from '../types/learningPath';
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
     const { language, t } = useLanguage();
     const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>([]);
     const [isAiInsightsLoading, setIsAiInsightsLoading] = useState(false);
-    const [nextAction, setNextAction] = useState<NextLearningAction | null>(null);
-    const [dailyPlan, setDailyPlan] = useState<DailyStudyPlan | null>(null);
+    const [nextAction, setNextAction] = useState<NextBestAction | null>(null);
+    const [dailyPlan, setDailyPlan] = useState<DailyLearningPlan | null>(null);
+    const [progression, setProgression] = useState<ProgressionState | null>(null);
+    const [loadingState, setLoadingState] = useState<'loading' | 'success' | 'error'>('loading');
+    const [retryTrigger, setRetryTrigger] = useState(0);
 
     // Sanalarni ajratib olish
     const todayStr = new Date().toISOString().split('T')[0];
@@ -111,26 +111,61 @@ const DashboardPage: React.FC = () => {
     // Load Next Best Action & Adaptive Daily Plan dynamically
     useEffect(() => {
         let isMounted = true;
-        LearningOrchestrator.getUserLearningState(user?.id, { forceLanguage: primaryLanguage, cachedFlashcards: flashcards })
-            .then(state => {
+        setLoadingState('loading');
+
+        LearningPathEngine.getLearningPathState(user?.id || 'default-user', { forceLanguage: primaryLanguage })
+            .then(pathState => {
                 if (isMounted) {
-                    const action = NextActionService.getNextAction(state);
-                    setNextAction(action);
-                    const plan = AdaptivePlanService.generateDailyPlan(state);
-                    setDailyPlan(plan);
+                    setNextAction(pathState.nextAction);
+                    setDailyPlan(pathState.todayPlan);
+                    setProgression(pathState.progression);
+                    setLoadingState('success');
                 }
             })
             .catch(err => {
-                console.warn('[DashboardPage] Failed to resolve NextAction & DailyPlan:', err);
+                console.warn('[DashboardPage] Failed to resolve NextAction & DailyPlan from LearningPathEngine:', err);
+                if (isMounted) {
+                    setLoadingState('error');
+                }
             });
 
         return () => { isMounted = false; };
-    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id]);
+    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger]);
+
+    const isPlanCompleted = useMemo(() => {
+        if (!dailyPlan || !dailyPlan.activities || dailyPlan.activities.length === 0) return false;
+        return dailyPlan.activities.every(activity => activity.isCompleted || activity.status === 'completed');
+    }, [dailyPlan]);
 
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" role="status" aria-label="Loading study planner dashboard..." />
+            </div>
+        );
+    }
+
+    if (loadingState === 'error') {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4 p-6 text-center max-w-md mx-auto">
+                <div className="w-16 h-16 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-2xl" aria-hidden="true">
+                    ⚠️
+                </div>
+                <h2 className="text-xl font-bold text-foreground">
+                    {language === 'en' ? 'Failed to load learning path' : "Ma'lumotlarni yuklashda muammo yuz berdi"}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                    {language === 'en'
+                        ? 'Please check your connection and try again.'
+                        : "Sessiyani yuklashda xatolik yuz berdi. Iltimos tarmoq ulanishini tekshirib qayta urining."}
+                </p>
+                <button
+                    onClick={() => setRetryTrigger(prev => prev + 1)}
+                    className="px-6 py-2.5 bg-primary text-primary-foreground font-black rounded-xl hover:bg-primary/95 transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                    aria-label="Retry loading data"
+                >
+                    {language === 'en' ? 'Retry' : 'Qayta urinish'}
+                </button>
             </div>
         );
     }
@@ -213,7 +248,7 @@ const DashboardPage: React.FC = () => {
                                     {nextAction.title}
                                 </h2>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
-                                    {nextAction.reason} {nextAction.description}
+                                    {(nextAction.reason?.description || nextAction.reason?.message || '') + ' ' + (nextAction.description || '')}
                                 </p>
                             </div>
                         ) : (
@@ -232,7 +267,7 @@ const DashboardPage: React.FC = () => {
                     <div className="flex flex-col gap-3 shrink-0 items-start lg:items-end">
                         {nextAction && (
                             <Link
-                                to={nextAction.route}
+                                to={nextAction.route || (primaryLanguage === 'ja' ? '/jlpt' : '/ielts')}
                                 className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl text-white text-sm font-black shadow-lg transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] ${
                                     primaryLanguage === 'ja'
                                         ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-600/30'
@@ -290,7 +325,7 @@ const DashboardPage: React.FC = () => {
             </div>
 
             {/* Today's Adaptive Daily Plan */}
-            {dailyPlan && dailyPlan.items.length > 0 && (
+            {dailyPlan && dailyPlan.activities && dailyPlan.activities.length > 0 && (
                 <div className="p-6 md:p-7 rounded-3xl glass-card border border-border space-y-4 shadow-sm">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2.5">
@@ -298,49 +333,145 @@ const DashboardPage: React.FC = () => {
                                 <Clock size={20} />
                             </span>
                             <div>
-                                <h3 className="text-base font-bold text-foreground flex items-center gap-2">
+                                <h3 className="text-base font-bold text-foreground flex items-center gap-2 animate-in fade-in duration-300">
                                     {language === 'en' ? "Today's Adaptive Plan" : "Bugungi Adaptiv Reja"}
                                     <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
                                         ⏱️ {dailyPlan.totalMinutes} {language === 'en' ? 'mins' : 'daqiqa'}
                                     </span>
                                 </h3>
                                 <p className="text-xs text-muted-foreground">
-                                    {dailyPlan.summary.reason}
+                                    {dailyPlan.summary?.reason || (language === 'en' ? 'Your customized route for today.' : 'Bugungi moslashtirilgan o\'quv rejangiz.')}
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
-                        {dailyPlan.items.map((item, idx) => (
-                            <Link
-                                key={item.id || idx}
-                                to={item.route}
-                                className="p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/60 border border-border/50 hover:border-primary/40 transition-all flex flex-col justify-between gap-3 group"
-                            >
-                                <div className="space-y-1.5">
-                                    <div className="flex items-center justify-between gap-2">
-                                        <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-card border border-border text-muted-foreground">
-                                            {idx + 1}-Qadam
-                                        </span>
-                                        <span className="text-xs font-bold text-primary flex items-center gap-1">
-                                            <Clock size={12} /> {item.estimatedMinutes} daq
-                                        </span>
+                    {isPlanCompleted ? (
+                        <div className="p-8 rounded-2xl bg-green-500/10 border border-green-500/30 text-center space-y-3">
+                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 text-green-600 dark:text-green-400 text-xl font-bold">
+                                🎉
+                            </div>
+                            <h4 className="text-base font-bold text-green-700 dark:text-green-400">
+                                {language === 'en' ? "Today's Plan Completed!" : "Bugungi reja bajarildi!"}
+                            </h4>
+                            <p className="text-xs text-green-600 dark:text-green-500 max-w-md mx-auto">
+                                {language === 'en'
+                                    ? "All scheduled tasks for today have been completed. Tomorrow's customized plan will be automatically generated."
+                                    : "Bugun uchun rejalashtirilgan barcha dars va takrorlashlar yakunlandi. Ertangi reja avtomatik tayyorlanadi."}
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+                            {dailyPlan.activities.map((item, idx) => (
+                                <Link
+                                    key={item.id || idx}
+                                    to={item.route || (primaryLanguage === 'ja' ? '/jlpt' : '/ielts')}
+                                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between gap-3 group relative overflow-hidden ${
+                                        item.isCompleted || item.status === 'completed'
+                                            ? 'bg-green-500/5 border-green-500/20 opacity-70 hover:opacity-90'
+                                            : 'bg-secondary/30 hover:bg-secondary/60 border-border/50 hover:border-primary/40'
+                                    }`}
+                                    aria-label={`Step ${idx + 1}: ${item.title}, ${item.estimatedMinutes} minutes, ${
+                                        item.isCompleted || item.status === 'completed' ? 'Completed' : 'Pending'
+                                    }`}
+                                >
+                                    <div className="space-y-1.5">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-card border border-border text-muted-foreground">
+                                                {idx + 1}-Qadam
+                                            </span>
+                                            {item.isCompleted || item.status === 'completed' ? (
+                                                <span className="text-xs font-bold text-green-600 flex items-center gap-1">
+                                                    ✓ {language === 'en' ? 'Done' : 'Bajarildi'}
+                                                </span>
+                                            ) : (
+                                                <span className="text-xs font-bold text-primary flex items-center gap-1">
+                                                    <Clock size={12} /> {item.estimatedMinutes} daq
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                                            {item.title}
+                                        </h4>
+                                        <p className="text-xs text-muted-foreground line-clamp-2 leading-snug">
+                                            {typeof item.reason === 'string'
+                                                ? item.reason
+                                                : (item.reason?.description || item.reason?.message || '')}
+                                        </p>
                                     </div>
-                                    <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                                        {item.title}
-                                    </h4>
-                                    <p className="text-xs text-muted-foreground line-clamp-2 leading-snug">
-                                        {item.reason}
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1">
-                                    <span>{language === 'en' ? 'Start' : 'Boshlash'}</span>
-                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </Link>
-                        ))}
+                                    <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1">
+                                        <span>{language === 'en' ? 'Start' : 'Boshlash'}</span>
+                                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* Progression Track Section */}
+            {progression && (
+                <div className="p-6 md:p-7 rounded-3xl glass-card border border-border space-y-4 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h3 className="text-base font-bold text-foreground">
+                                {language === 'en' ? "Level Progression Status" : "Daraja bo'yicha rivojlanish"}
+                            </h3>
+                            <p className="text-xs text-muted-foreground">
+                                {progression.explanation || (language === 'en' ? 'Evidence-based progression tracking.' : 'Bilim va natijalar asosida darajani oshirish.')}
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-2xl font-black text-primary">{progression.currentLevel}</span>
+                            <ArrowRight size={16} className="text-muted-foreground" />
+                            <span className="text-2xl font-black text-muted-foreground">{progression.nextLevel || 'Max'}</span>
+                        </div>
                     </div>
+
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-xs">
+                            <span className="font-semibold text-muted-foreground">Promotion Readiness:</span>
+                            <span className={`font-bold ${progression.isReadyForPromotion ? 'text-green-500' : 'text-amber-500'}`}>
+                                {progression.readinessScore || 0}% ({progression.isReadyForPromotion ? (language === 'en' ? 'Ready ✓' : 'Tayyor ✓') : (language === 'en' ? 'Not Ready' : 'Tayyor emas')})
+                            </span>
+                        </div>
+                        <div
+                            className="w-full h-3 bg-secondary rounded-full overflow-hidden"
+                            role="progressbar"
+                            aria-valuenow={progression.readinessScore || 0}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-label={`Promotion readiness percentage: ${progression.readinessScore || 0}%`}
+                        >
+                            <div
+                                className={`h-full rounded-full transition-all duration-1000 ease-out ${
+                                    progression.isReadyForPromotion ? 'bg-green-500' : 'bg-amber-500'
+                                }`}
+                                style={{ width: `${progression.readinessScore || 0}%` }}
+                            />
+                        </div>
+                    </div>
+
+                    {progression.advancementBlockers && progression.advancementBlockers.length > 0 && (
+                        <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-2">
+                            <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                                ⚠️ Blockers to {progression.nextLevel}
+                            </h4>
+                            <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                                {progression.advancementBlockers.map((blocker: string, index: number) => (
+                                    <li key={index}>{blocker}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {progression.recommendedAction && (
+                        <div className="text-xs text-muted-foreground flex items-center gap-2 bg-secondary/20 p-3 rounded-xl border border-border">
+                            <span className="text-primary font-bold">💡 Next Step:</span>
+                            <span>{progression.recommendedAction}</span>
+                        </div>
+                    )}
                 </div>
             )}
 

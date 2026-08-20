@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { FlashcardService, setLocalFlashcardCache } from '../services/FlashcardService';
 import { calculateReview, Grade } from '../utils/srs';
+import { MasteryEngine } from '../services/MasteryEngine';
+import { LearningSignalService } from '../services/LearningSignalService';
 
 export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>) => {
     const onCardReviewedRef = useRef(onCardReviewed);
@@ -135,6 +137,58 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
                 nextReviewDate: reviewResult.nextReviewDate,
             };
 
+            // Detect card language dynamically
+            const isJa = /[\u3040-\u30ff\u4e00-\u9faf]/.test((targetCard?.front || '') + (targetCard?.back || ''));
+            const language = isJa ? 'ja' : 'en';
+
+            // Detect Kanji vs Vocabulary for Japanese
+            let skill: import('../types/mastery').MasterySkill = 'vocabulary';
+            if (isJa) {
+                const frontText = targetCard?.front || '';
+                const hasKanji = /[\u4e00-\u9faf]/.test(frontText);
+                if (hasKanji && (frontText.trim().length <= 2 || targetCard?.subjectId?.includes('kanji') || (targetCard as any)?.skill === 'kanji' || targetCard?.back?.includes('KUN') || targetCard?.back?.includes('ON') || targetCard?.back?.includes('Onyomi'))) {
+                    skill = 'kanji';
+                }
+            }
+
+            const updatedCards = prev.map(c => c.id === id ? { ...c, ...updates } : c);
+
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                const activeUserId = user?.id || 'guest';
+
+                // Update local cache synchronously with latest updatedCards
+                setLocalFlashcardCache(activeUserId, updatedCards);
+
+                // Record evidence in MasteryEngine
+                const score = rating === 3 ? 100 : rating === 2 ? 80 : rating === 1 ? 60 : 0;
+                MasteryEngine.recordEvidence(activeUserId, language, {
+                    id: `srs_ev_${id}_${Date.now()}_${rating}`,
+                    skill,
+                    score,
+                    timestamp: new Date().toISOString(),
+                    details: `Flashcard review: ${targetCard?.front || ''}`
+                });
+
+                // Record signal if incorrect (Again rating)
+                if (rating === 0) {
+                    LearningSignalService.recordSignal({
+                        id: 'sig_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36),
+                        type: 'incorrect_answer',
+                        language,
+                        lessonId: 'srs_review',
+                        userId: activeUserId,
+                        timestamp: new Date().toISOString(),
+                        stepId: 'srs',
+                        questionId: id,
+                        prompt: targetCard?.front || '',
+                        userAnswer: 'again',
+                        expectedAnswer: targetCard?.back || '',
+                        attemptCount: 1,
+                        skill
+                    }).catch(() => {});
+                }
+            }).catch(() => {});
+
             FlashcardService.updateFlashcard(id, updates).catch(e => {
                 console.error("Failed to review flashcard:", e);
             });
@@ -143,7 +197,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
                 onCardReviewedRef.current(rating * 2);
             }
 
-            return prev.map(c => c.id === id ? { ...c, ...updates } : c);
+            return updatedCards;
         });
     }, []);
 

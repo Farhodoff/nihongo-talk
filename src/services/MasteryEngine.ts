@@ -4,6 +4,8 @@ import { LearningSignalService } from './LearningSignalService';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface EvidenceRecord {
+    id?: string;
+    eventId?: string;
     skill: MasterySkill;
     score: number; // 0-100
     timestamp: string;
@@ -32,12 +34,43 @@ export const MasteryEngine = {
 
     /**
      * Record a new piece of skill evidence (e.g. quiz result, SRS review, AI evaluation).
+     * Implements deterministic idempotency: if an evidence record with the same ID/eventId already exists, it is skipped.
      */
     recordEvidence(userId: string = 'guest', language: SupportedLanguage, record: EvidenceRecord): void {
         const key = `study_planner_mastery_evidence_${userId}_${language}`;
         const existing = this.getUserEvidence(userId, language);
+
+        const recId = record.id || record.eventId;
+        if (recId && existing.some(e => e.id === recId || e.eventId === recId)) {
+            return;
+        }
+
         existing.push(record);
         // Keep the last 100 evidence points to keep storage lean
+        if (existing.length > 100) {
+            existing.splice(0, existing.length - 100);
+        }
+        safeLocalStorage.setJSON(key, existing);
+    },
+
+    /**
+     * Record multiple pieces of skill evidence in batch with idempotency deduplication.
+     */
+    recordEvidenceBatch(userId: string = 'guest', language: SupportedLanguage, records: EvidenceRecord[]): void {
+        if (!records || records.length === 0) return;
+        const key = `study_planner_mastery_evidence_${userId}_${language}`;
+        const existing = this.getUserEvidence(userId, language);
+        const existingIds = new Set(existing.map(e => e.id || e.eventId).filter(Boolean));
+
+        for (const rec of records) {
+            const recId = rec.id || rec.eventId;
+            if (recId && existingIds.has(recId)) {
+                continue;
+            }
+            if (recId) existingIds.add(recId);
+            existing.push(rec);
+        }
+
         if (existing.length > 100) {
             existing.splice(0, existing.length - 100);
         }
@@ -96,7 +129,8 @@ export const MasteryEngine = {
 
         if (count === 0) {
             // Handle cold start with fallback signals if available
-            if (skill === 'vocabulary' && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
+            // Phase 8.10: SRS retention seeds Vocabulary AND Kanji (primary JLPT deck skills)
+            if ((skill === 'vocabulary' || skill === 'kanji') && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
                 const srsScore = supplementary.srsRetention;
                 return {
                     skill,
@@ -182,23 +216,29 @@ export const MasteryEngine = {
     ): UserMasteryProfile {
         const skillsList = this.getSkillsForLanguage(language);
         const allEvidence = this.getUserEvidence(userId, language);
-        const signals = LearningSignalService.getSignalsForUser(userId);
+        const allSignals = LearningSignalService.getSignalsForUser(userId);
+        const signals = allSignals.filter(s => !s.language || s.language === language);
 
         // Count mistakes by skill if inferred from signals
         const skillMistakes: Record<string, number> = {};
         for (const sig of signals) {
             if (sig.type === 'incorrect_answer' || sig.type === 'repeated_error') {
-                const topic = ('prompt' in sig ? (sig.prompt || '') : '').toLowerCase();
-                if (topic.includes('grammar') || topic.includes('inversion') || topic.includes('verb')) {
-                    skillMistakes['grammar'] = (skillMistakes['grammar'] || 0) + 1;
-                } else if (topic.includes('kanji')) {
-                    skillMistakes['kanji'] = (skillMistakes['kanji'] || 0) + 1;
-                } else if (topic.includes('listening')) {
-                    skillMistakes['listening'] = (skillMistakes['listening'] || 0) + 1;
-                } else if (topic.includes('reading')) {
-                    skillMistakes['reading'] = (skillMistakes['reading'] || 0) + 1;
+                const explicitSkill = (sig as any).skill as string | undefined;
+                if (explicitSkill && skillsList.includes(explicitSkill as MasterySkill)) {
+                    skillMistakes[explicitSkill] = (skillMistakes[explicitSkill] || 0) + 1;
                 } else {
-                    skillMistakes['vocabulary'] = (skillMistakes['vocabulary'] || 0) + 1;
+                    const topic = ('prompt' in sig ? (sig.prompt || '') : '').toLowerCase();
+                    if (topic.includes('grammar') || topic.includes('inversion') || topic.includes('verb')) {
+                        skillMistakes['grammar'] = (skillMistakes['grammar'] || 0) + 1;
+                    } else if (topic.includes('kanji')) {
+                        skillMistakes['kanji'] = (skillMistakes['kanji'] || 0) + 1;
+                    } else if (topic.includes('listening')) {
+                        skillMistakes['listening'] = (skillMistakes['listening'] || 0) + 1;
+                    } else if (topic.includes('reading')) {
+                        skillMistakes['reading'] = (skillMistakes['reading'] || 0) + 1;
+                    } else {
+                        skillMistakes['vocabulary'] = (skillMistakes['vocabulary'] || 0) + 1;
+                    }
                 }
             }
         }
