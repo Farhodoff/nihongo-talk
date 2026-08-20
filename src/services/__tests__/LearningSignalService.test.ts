@@ -6,8 +6,8 @@ import { Flashcard } from '../../types';
 
 describe('LearningSignalService', () => {
     const testUserId = 'test_user_signals_456';
-    const jaLesson = SAMPLE_LESSONS[0]; // ja-n3-u1-l1
-    const enLesson = SAMPLE_LESSONS[1]; // en-b2-u1-l1
+    const jaLesson = SAMPLE_LESSONS.find(l => l.id === 'ja-n3-u1-l1') || SAMPLE_LESSONS[0];
+    const enLesson = SAMPLE_LESSONS.find(l => l.id === 'en-b2-u1-l1') || SAMPLE_LESSONS[1];
 
     beforeEach(() => {
         localStorage.clear();

@@ -111,7 +111,7 @@ describe('GrammarService & PostgreSQL Dynamic Curriculum Tests', () => {
 
         const lessons = await GrammarService.fetchLessons('en');
         expect(lessons.length).toBe(IELTS_GRAMMAR_DATABASE.length);
-        expect(lessons[0].title).toBe('Present Simple vs. Present Continuous');
+        expect(lessons[0].title).toBe(IELTS_GRAMMAR_DATABASE[0].title);
     });
 
     it('should save user grammar progress into english_grammar_progress table', async () => {

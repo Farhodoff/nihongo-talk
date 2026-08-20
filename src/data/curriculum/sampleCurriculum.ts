@@ -160,6 +160,134 @@ export const SAMPLE_LESSONS: Lesson[] = [
     },
 
     // ==========================================
+    // 🇬🇧 ENGLISH TRACK (Elementary A1 - Murphy Unit 2)
+    // ==========================================
+    {
+        id: 'en-a1-u1-l1',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u1',
+        unitTitle: 'Unit 1: Daily Habits & Present Simple',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 1,
+        title: 'Present Simple (I do / work / live)',
+        description: 'Boshlang\'ich A1 darajadagi kundalik odatlar va Present Simple zamonining tuzilishi (Raymond Murphy Unit 2).',
+        estimatedDurationMinutes: 12,
+        icon: '☀️',
+        steps: [
+            {
+                id: 'en-a1-u1-l1-s1',
+                title: 'Yangi So\'zlar & Qoida',
+                type: 'learn',
+                estimatedMinutes: 4,
+                learnData: {
+                    title: 'Present Simple (Hozirgi oddiy zamon)',
+                    subtitle: 'Raymond Murphy: Unit 2 Asoslari',
+                    explanation: 'Present Simple har kuni takrorlanadigan odatlar, haqiqatlar va doimiy holatlar uchun ishlatiladi.',
+                    keyPoints: [
+                        'I / you / we / they uchun fe\'l o\'zgarmaydi (I work, they live).',
+                        'He / she / it uchun fe\'lga -s yoki -es qo\'shiladi (He works, she lives).',
+                        'Savol va inkorda do / does yordamchi fe\'llari ishlatiladi.'
+                    ],
+                    vocabulary: [
+                        {
+                            term: 'Habit',
+                            reading: '/ˈhæb.ɪt/',
+                            meaning: 'Odat, ko\'nikma',
+                            exampleSentence: 'Reading books is a healthy daily habit.',
+                            exampleTranslation: 'Kitob o\'qish foydali kundalik odatdir.'
+                        },
+                        {
+                            term: 'Routine',
+                            reading: '/ruːˈtiːn/',
+                            meaning: 'Kundalik tartib, rejim',
+                            exampleSentence: 'My morning routine starts at 6 AM.',
+                            exampleTranslation: 'Mening tonggi rejimim soat 6 da boshlanadi.'
+                        },
+                        {
+                            term: 'Consistently',
+                            reading: '/kənˈsɪs.tənt.li/',
+                            meaning: 'Muntazam ravishda, to\'xtovsiz',
+                            exampleSentence: 'He practices English consistently every day.',
+                            exampleTranslation: 'U har kuni muntazam ingliz tilini mashq qiladi.'
+                        }
+                    ],
+                    grammarRules: [
+                        {
+                            pattern: 'Subject + Verb(s/es)',
+                            meaning: 'Doimiy takrorlanuvchi harakat',
+                            usageNotes: 'He/she/it bilan -s qo\'shishni unutmang: He speaks, She studies.',
+                            examples: [
+                                {
+                                    sentence: 'I drink coffee every morning.',
+                                    translation: 'Men har kuni ertalab kofe ichaman.'
+                                },
+                                {
+                                    sentence: 'She teaches mathematics at a university.',
+                                    translation: 'U universitetda matematika fanidan dars beradi.'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u1-l1-s2',
+                title: 'Amaliy Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri fe\'l shaklini tanlang.',
+                    exercises: [
+                        {
+                            id: 'en-a1-ex1',
+                            type: 'multiple-choice',
+                            prompt: '"He _______ (work) in a software company." Qaysi shakl to\'g\'ri?',
+                            options: ['works', 'work', 'working', 'is work'],
+                            correctAnswer: 0,
+                            explanation: 'He/she/it uchinchi shaxs birlikda fe\'lga -s qo\'shiladi: works.'
+                        },
+                        {
+                            id: 'en-a1-ex2',
+                            type: 'multiple-choice',
+                            prompt: '"They _______ (not / live) in London." Inkor shaklini tanlang:',
+                            options: ['do not live', 'does not live', 'not live', 'are not live'],
+                            correctAnswer: 0,
+                            explanation: 'They uchun inkor shakli: do not live (don\'t live).'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u1-l1-s3',
+                title: 'Dars Testi',
+                type: 'test',
+                estimatedMinutes: 4,
+                testData: {
+                    instructions: 'Savollarga javob berib darsni yakunlang.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        {
+                            id: 'en-a1-tq1',
+                            question: 'My brother _______ English very fluently.',
+                            options: ['speaks', 'speak', 'is speak', 'speaking'],
+                            correctAnswerIndex: 0,
+                            explanation: 'My brother (he) bo\'lgani uchun: speaks.'
+                        },
+                        {
+                            id: 'en-a1-tq2',
+                            question: '_______ you go to the gym on weekends?',
+                            options: ['Do', 'Does', 'Are', 'Is'],
+                            correctAnswerIndex: 0,
+                            explanation: 'You uchun so\'roq yordamchi fe\'li: Do you...?'
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // ==========================================
     // 🇬🇧 ENGLISH TRACK (B2 / IELTS 6.5)
     // ==========================================
     {

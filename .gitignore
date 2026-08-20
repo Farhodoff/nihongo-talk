@@ -74,6 +74,7 @@ planner.pptx
 .vercel
 
 # Large PDF & RAR book files
+*.pdf
 books/*.pdf
 books/*.rar
 books/*.zip

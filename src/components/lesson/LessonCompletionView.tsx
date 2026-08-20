@@ -49,7 +49,7 @@ export const LessonCompletionView: React.FC<LessonCompletionViewProps> = ({
             {/* Title & Subtitle */}
             <div className="space-y-2">
                 <span className="text-xs font-black uppercase tracking-widest text-primary">
-                    {lesson.language === 'ja' ? '🇯🇵 JLPT N3 O\'quv Darsi' : '🇬🇧 English B2 Lesson'}
+                    {lesson.language === 'ja' ? `🇯🇵 JLPT ${lesson.level || 'N3'} O'quv Darsi` : `🇬🇧 English ${lesson.level || 'B2'} Lesson`}
                 </span>
                 <h1 className="text-3xl font-black text-foreground tracking-tight">
                     Dars Yakunlandi! 🎉
