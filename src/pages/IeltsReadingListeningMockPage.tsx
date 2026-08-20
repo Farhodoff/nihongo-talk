@@ -7,6 +7,7 @@ import {
 import { Button } from '../components/ui/Button';
 import { generateAIResponse } from '../utils/ai/aiCore';
 import { IELTS_LISTENING_EXAMS } from '../data/ielts/listening_data';
+import { IELTS_READING_EXAMS } from '../data/ielts/reading_data';
 import { HistoryService } from '../services/HistoryService';
 import { useStudyData } from '../context/StudyPlannerContext';
 
@@ -382,18 +383,30 @@ export const IeltsReadingListeningMockPage: React.FC = () => {
             setIsTimerRunning(true);
             setTimeLeft(testType === 'reading' ? 1200 : 900);
         } else if (mode === 'cambridge') {
-            // Load Section 1 of Cambridge 18 Test 1
-            const test = IELTS_LISTENING_EXAMS[0];
-            const section = test.sections[0];
-            setCurrentPassage({
-                title: section.title,
-                text: "Complete the questions while listening to the audio track.",
-                audioUrl: section.audioUrl,
-                questions: section.questions
-            });
-            setStep('test');
-            setIsTimerRunning(true);
-            setTimeLeft(900); // 15 mins
+            if (testType === 'reading') {
+                const readingTest = IELTS_READING_EXAMS[0];
+                setCurrentPassage({
+                    title: readingTest.title,
+                    text: readingTest.text,
+                    questions: readingTest.questions
+                });
+                setStep('test');
+                setIsTimerRunning(true);
+                setTimeLeft(1200); // 20 mins
+            } else {
+                // Load Section 1 of Cambridge 18 Test 1
+                const test = IELTS_LISTENING_EXAMS[0];
+                const section = test.sections[0];
+                setCurrentPassage({
+                    title: section.title,
+                    text: section.script || "Complete the questions while listening to the audio track.",
+                    audioUrl: section.audioUrl,
+                    questions: section.questions
+                });
+                setStep('test');
+                setIsTimerRunning(true);
+                setTimeLeft(900); // 15 mins
+            }
         }
     };
 

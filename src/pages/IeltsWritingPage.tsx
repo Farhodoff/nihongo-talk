@@ -11,11 +11,15 @@ import { useStudyData } from '../context/StudyPlannerContext';
 const SAMPLE_PROMPTS = {
     task1: [
         "The chart below shows the percentage of households in different income groups owning various types of consumer goods in 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
-        "The diagram shows the process of recycling plastic bottles into new products. Describe the main stages of the process."
+        "The diagram shows the process of recycling plastic bottles into new synthetic fiber products. Describe the main stages of the process.",
+        "The maps illustrate the changes that took place in the coastal town of Pentland between 1995 and 2015. Summarise the main differences.",
+        "The line graph shows the consumption of four types of meat in a European nation from 1980 to 2010. Summarise the data."
     ],
     task2: [
         "Some people believe that university education should be free for everyone, while others argue that students should pay for their higher education. Discuss both views and give your opinion.",
-        "In many countries, traditional skills and ways of life are dying out. Is this a positive or negative development?"
+        "In many countries, traditional skills and ways of life are dying out. Is this a positive or negative development?",
+        "Rapid urbanization has led to severe traffic congestion and air pollution in major metropolises. What are the primary causes of this phenomenon, and what measures can governments implement to resolve it?",
+        "Some experts argue that the increasing use of artificial intelligence in daily life brings more advantages than disadvantages. To what extent do you agree or disagree?"
     ]
 };
 
