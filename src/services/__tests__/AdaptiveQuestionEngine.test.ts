@@ -199,8 +199,10 @@ describe('AdaptiveQuestionEngine Unit Tests', () => {
     it('21. should evaluate claimed B2 user with 50% accuracy to recommended B1', () => {
         const state = AdaptiveQuestionEngine.initializeSession('u1', 'en', 'quick', 'B2', ENGLISH_DIAGNOSTIC_BANK);
         state.answers = [
-            { questionId: 'diag-en-b2-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B2', skill: 'grammar', difficulty: 'hard' },
-            { questionId: 'diag-en-b2-v1', selectedOptionIndex: 1, isCorrect: false, level: 'B2', skill: 'vocabulary', difficulty: 'hard' }
+            { questionId: 'diag-en-b2-g1', selectedOptionIndex: 1, isCorrect: false, level: 'B2', skill: 'grammar', difficulty: 'hard' },
+            { questionId: 'diag-en-b1-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'grammar', difficulty: 'medium' },
+            { questionId: 'diag-en-b2-v1', selectedOptionIndex: 1, isCorrect: false, level: 'B2', skill: 'vocabulary', difficulty: 'hard' },
+            { questionId: 'diag-en-b1-v1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'vocabulary', difficulty: 'medium' }
         ];
 
         const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, ENGLISH_DIAGNOSTIC_BANK);
@@ -212,22 +214,24 @@ describe('AdaptiveQuestionEngine Unit Tests', () => {
         const state = AdaptiveQuestionEngine.initializeSession('u1', 'en', 'quick', 'B1', ENGLISH_DIAGNOSTIC_BANK);
         state.answers = [
             { questionId: 'diag-en-b1-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'grammar', difficulty: 'medium' },
-            { questionId: 'diag-en-b1-l1', selectedOptionIndex: 0, isCorrect: false, level: 'B1', skill: 'listening', difficulty: 'medium' }
+            { questionId: 'diag-en-b1-l1', selectedOptionIndex: 0, isCorrect: false, level: 'B1', skill: 'listening', difficulty: 'medium' },
+            { questionId: 'diag-en-b2-l1', selectedOptionIndex: 0, isCorrect: false, level: 'B2', skill: 'listening', difficulty: 'hard' }
         ];
 
         const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, ENGLISH_DIAGNOSTIC_BANK);
-        expect(result.skills.listening?.status).toBe('weakness');
+        expect(result.skills.listening?.status).toBe('weak');
         expect(result.weaknesses.some(w => w.includes('LISTENING'))).toBe(true);
     });
 
     it('23. should identify strong grammar when score is high', () => {
         const state = AdaptiveQuestionEngine.initializeSession('u1', 'en', 'quick', 'B1', ENGLISH_DIAGNOSTIC_BANK);
         state.answers = [
-            { questionId: 'diag-en-b1-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'grammar', difficulty: 'medium' }
+            { questionId: 'diag-en-b1-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'grammar', difficulty: 'medium' },
+            { questionId: 'diag-en-a2-g1', selectedOptionIndex: 2, isCorrect: true, level: 'A2', skill: 'grammar', difficulty: 'easy' }
         ];
 
         const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, ENGLISH_DIAGNOSTIC_BANK);
-        expect(result.skills.grammar?.status).toBe('strength');
+        expect(result.skills.grammar?.status).toBe('strong');
         expect(result.strengths.some(s => s.includes('GRAMMAR'))).toBe(true);
     });
 
@@ -300,5 +304,34 @@ describe('AdaptiveQuestionEngine Unit Tests', () => {
 
         expect(state.isCompleted).toBe(true);
         expect(state.currentQuestionId).toBeNull();
+    });
+
+    it('31. should calculate mixed skill profile with weak skill guard capping recommended level', () => {
+        const state = AdaptiveQuestionEngine.initializeSession('u1', 'en', 'standard', 'B2', ENGLISH_DIAGNOSTIC_BANK);
+        // Simulate: Grammar B2 (adequate), Vocabulary B2 (adequate), Listening A2 (weak)
+        state.answers = [
+            { questionId: 'diag-en-b2-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B2', skill: 'grammar', difficulty: 'hard' },
+            { questionId: 'diag-en-b2-g2', selectedOptionIndex: 1, isCorrect: true, level: 'B2', skill: 'grammar', difficulty: 'hard' },
+            { questionId: 'diag-en-b2-v1', selectedOptionIndex: 0, isCorrect: true, level: 'B2', skill: 'vocabulary', difficulty: 'hard' },
+            { questionId: 'diag-en-b1-v1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'vocabulary', difficulty: 'medium' },
+            { questionId: 'diag-en-a2-l1', selectedOptionIndex: 0, isCorrect: false, level: 'A2', skill: 'listening', difficulty: 'easy' },
+            { questionId: 'diag-en-b1-l1', selectedOptionIndex: 0, isCorrect: false, level: 'B1', skill: 'listening', difficulty: 'medium' }
+        ];
+
+        const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, ENGLISH_DIAGNOSTIC_BANK);
+        expect(result.diagnosticLevel).toBe('B2');
+        // Cap recommendedStartLevel to one level below diagnostic Level (B1) because of weak listening
+        expect(result.recommendedStartLevel).toBe('B1');
+        expect(result.explanation).toContain('LISTENING');
+    });
+
+    it('32. should flag insufficient evidence if total questions for skill is less than 2', () => {
+        const state = AdaptiveQuestionEngine.initializeSession('u1', 'en', 'quick', 'B1', ENGLISH_DIAGNOSTIC_BANK);
+        state.answers = [
+            { questionId: 'diag-en-b1-g1', selectedOptionIndex: 1, isCorrect: true, level: 'B1', skill: 'grammar', difficulty: 'medium' }
+        ];
+
+        const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, ENGLISH_DIAGNOSTIC_BANK);
+        expect(result.skills.grammar?.status).toBe('insufficient');
     });
 });

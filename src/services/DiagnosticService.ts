@@ -437,14 +437,14 @@ export const DiagnosticService = {
         const firstLessonId = isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1';
 
         const skills: Partial<Record<MasterySkill, DiagnosticSkillScore>> = {
-            grammar: { skill: 'grammar', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'neutral' },
-            vocabulary: { skill: 'vocabulary', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'neutral' },
-            reading: { skill: 'reading', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'neutral' },
-            listening: { skill: 'listening', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'neutral' }
+            grammar: { skill: 'grammar', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'adequate', levelEvidence: [], reason: '' },
+            vocabulary: { skill: 'vocabulary', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'adequate', levelEvidence: [], reason: '' },
+            reading: { skill: 'reading', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'adequate', levelEvidence: [], reason: '' },
+            listening: { skill: 'listening', score: 20, confidence: 95, estimatedLevel: startLevel, totalQuestions: 0, correctCount: 0, status: 'adequate', levelEvidence: [], reason: '' }
         };
 
         if (isJa) {
-            skills.kanji = { skill: 'kanji', score: 10, confidence: 95, estimatedLevel: 'N5', totalQuestions: 0, correctCount: 0, status: 'neutral' };
+            skills.kanji = { skill: 'kanji', score: 10, confidence: 95, estimatedLevel: 'N5', totalQuestions: 0, correctCount: 0, status: 'adequate', levelEvidence: [], reason: '' };
         }
 
         const result: DiagnosticResult = {
@@ -575,7 +575,7 @@ export const DiagnosticService = {
                 estLevel = isJa ? 'N5' : 'A2';
             }
 
-            const status = accuracy >= 75 ? 'strength' : accuracy < 60 ? 'weakness' : 'neutral';
+            const status = accuracy >= 75 ? 'strong' : accuracy < 60 ? 'weak' : 'adequate';
 
             evaluatedSkills[skill] = {
                 skill,
@@ -584,12 +584,14 @@ export const DiagnosticService = {
                 estimatedLevel: estLevel,
                 totalQuestions: stat.total,
                 correctCount: stat.correct,
-                status
+                status,
+                levelEvidence: [],
+                reason: ''
             };
 
-            if (status === 'strength') {
+            if (status === 'strong') {
                 strengths.push(`${skill.toUpperCase()} (${accuracy}%)`);
-            } else if (status === 'weakness') {
+            } else if (status === 'weak') {
                 weaknesses.push(`${skill.toUpperCase()} (${accuracy}%)`);
                 LearningSignalService.recordSignal({
                     id: `diag-sig-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,

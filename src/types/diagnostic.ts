@@ -16,6 +16,13 @@ export interface DiagnosticQuestion {
     topic: string;
 }
 
+export interface LevelEvidence {
+    level: string;
+    attempts: number;
+    correct: number;
+    confidence: number; // 0 - 100
+}
+
 export interface DiagnosticSkillScore {
     skill: MasterySkill;
     score: number; // 0 - 100
@@ -23,7 +30,9 @@ export interface DiagnosticSkillScore {
     estimatedLevel: string;
     totalQuestions: number;
     correctCount: number;
-    status: 'strength' | 'weakness' | 'neutral';
+    status: 'strong' | 'adequate' | 'weak' | 'insufficient';
+    levelEvidence: LevelEvidence[];
+    reason: string;
 }
 
 export interface DiagnosticResult {
@@ -40,6 +49,7 @@ export interface DiagnosticResult {
     strengths: string[];
     weaknesses: string[];
     recommendedFirstLessonId: string;
+    explanation?: string;
     completedAt: string;
 }
 

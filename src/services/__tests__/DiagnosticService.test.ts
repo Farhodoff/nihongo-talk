@@ -126,7 +126,7 @@ describe('DiagnosticService Unit Tests', () => {
         ];
         const res = DiagnosticService.evaluateDiagnosticAnswers('u1', 'en', 'quick', 'B1', answers);
 
-        expect(res.skills.listening?.status).toBe('weakness');
+        expect(res.skills.listening?.status).toBe('weak');
         expect(res.weaknesses.some(w => w.includes('LISTENING'))).toBe(true);
     });
 

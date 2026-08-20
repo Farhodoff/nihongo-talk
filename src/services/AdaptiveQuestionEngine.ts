@@ -248,27 +248,35 @@ export const AdaptiveQuestionEngine = {
      */
     evaluateAdaptiveSession(
         state: AdaptiveDiagnosticState,
-        bank: DiagnosticQuestion[]
+        _bank: DiagnosticQuestion[]
     ): DiagnosticResult {
         const isJa = state.language === 'ja';
-        const skillStats: Record<string, { total: number; correct: number; levels: string[] }> = {};
+        const levels = this.getLevelsForLanguage(state.language);
+        const skills = this.getSkillsForLanguage(state.language);
 
-        let totalCorrect = 0;
-
-        for (const ans of state.answers) {
-            const q = bank.find(item => item.id === ans.questionId);
-            const skill = q?.skill || ans.skill;
-            const level = q?.level || ans.level;
-
-            if (!skillStats[skill]) {
-                skillStats[skill] = { total: 0, correct: 0, levels: [] };
+        // Define essential skills based on target goal / settings
+        // Default to conversation or standard if not specified
+        const goal = state.claimedLevel.includes('IELTS') ? 'IELTS' : 'Conversation';
+        
+        let essentialSkills: MasterySkill[] = [];
+        if (isJa) {
+            essentialSkills = ['kanji', 'grammar', 'vocabulary', 'reading', 'listening'];
+        } else {
+            if (goal === 'IELTS') {
+                essentialSkills = ['reading', 'listening', 'vocabulary', 'grammar'];
+            } else {
+                essentialSkills = ['listening', 'vocabulary', 'grammar'];
             }
+        }
 
-            skillStats[skill].total++;
-            if (ans.isCorrect) {
-                skillStats[skill].correct++;
-                totalCorrect++;
-                skillStats[skill].levels.push(level);
+        // Group answers by skill to build detailed placement evidence
+        const skillAnswers: Record<string, typeof state.answers> = {};
+        for (const sk of skills) {
+            skillAnswers[sk] = [];
+        }
+        for (const ans of state.answers) {
+            if (skillAnswers[ans.skill]) {
+                skillAnswers[ans.skill].push(ans);
             }
         }
 
@@ -276,91 +284,183 @@ export const AdaptiveQuestionEngine = {
         const strengths: string[] = [];
         const weaknesses: string[] = [];
 
-        for (const skillKey of Object.keys(skillStats)) {
-            const skill = skillKey as MasterySkill;
-            const stat = skillStats[skill];
-            const accuracy = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 50;
-            const confidence = Math.min(100, Math.max(50, stat.total * 25));
+        for (const sk of skills) {
+            const answers = skillAnswers[sk] || [];
+            const totalQuestions = answers.length;
+            const correctCount = answers.filter(a => a.isCorrect).length;
+            const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
-            let estLevel = isJa ? 'N5' : 'A1';
-            if (accuracy >= 80) {
-                estLevel = isJa ? 'N3' : 'B2';
-            } else if (accuracy >= 60) {
-                estLevel = isJa ? 'N4' : 'B1';
-            } else if (accuracy >= 40) {
-                estLevel = isJa ? 'N5' : 'A2';
+            // Group by level within skill to construct levelEvidence
+            const levelMap: Record<string, { attempts: number; correct: number }> = {};
+            for (const lvl of levels) {
+                levelMap[lvl] = { attempts: 0, correct: 0 };
+            }
+            for (const ans of answers) {
+                if (levelMap[ans.level]) {
+                    levelMap[ans.level].attempts++;
+                    if (ans.isCorrect) {
+                        levelMap[ans.level].correct++;
+                    }
+                }
             }
 
-            const status = accuracy >= 70 ? 'strength' : accuracy < 60 ? 'weakness' : 'neutral';
+            const levelEvidence = levels.map(lvl => {
+                const item = levelMap[lvl];
+                return {
+                    level: lvl,
+                    attempts: item.attempts,
+                    correct: item.correct,
+                    confidence: Math.min(100, item.attempts * 40)
+                };
+            });
 
-            evaluatedSkills[skill] = {
-                skill,
-                score: accuracy,
-                confidence,
-                estimatedLevel: estLevel,
-                totalQuestions: stat.total,
-                correctCount: stat.correct,
-                status
-            };
+            // Estimate skill level: find highest level with at least 50% accuracy
+            let estimatedLevel = levels[0];
+            for (let i = levels.length - 1; i >= 0; i--) {
+                const lvl = levels[i];
+                const item = levelMap[lvl];
+                if (item.attempts > 0 && (item.correct / item.attempts) >= 0.5) {
+                    estimatedLevel = lvl;
+                    break;
+                }
+            }
 
-            if (status === 'strength') {
-                strengths.push(`${skill.toUpperCase()} (${accuracy}%)`);
-            } else if (status === 'weakness') {
-                weaknesses.push(`${skill.toUpperCase()} (${accuracy}%)`);
-                // Emit learning signal for orchestration
+            // Determine skill status & confidence
+            let status: 'strong' | 'adequate' | 'weak' | 'insufficient' = 'adequate';
+            let confidence = Math.min(100, totalQuestions * 25);
+            let reason = '';
+
+            if (totalQuestions < 2) {
+                status = 'insufficient';
+                confidence = 30;
+                reason = isJa 
+                    ? "Baholash uchun ma'lumotlar yetarli emas (kamida 2 ta savol kutilgan)." 
+                    : "Insufficient evidence to evaluate skill (minimum 2 questions expected).";
+            } else if (accuracy >= 70) {
+                status = 'strong';
+                reason = isJa ? "Ushbu ko'nikma bo'yicha kuchli bilim namoyon etildi." : "Demonstrated high competence in this skill area.";
+                strengths.push(`${sk.toUpperCase()} (${accuracy}%)`);
+            } else if (accuracy >= 50) {
+                status = 'adequate';
+                reason = isJa ? "Ko'nikma darajasi yetarli darajada." : "Demonstrated adequate knowledge.";
+            } else {
+                status = 'weak';
+                reason = isJa ? "Ko'nikma ustida ko'proq ishlash tavsiya etiladi." : "Identifies as a potential focus area for study.";
+                weaknesses.push(`${sk.toUpperCase()} (${accuracy}%)`);
+
+                // Emit learning signal for weak skill
                 LearningSignalService.recordSignal({
                     id: `diag-sig-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
                     userId: state.userId,
                     language: state.language,
-                    lessonId: `diag-${skill}`,
+                    lessonId: `diag-${sk}`,
                     type: 'incorrect_answer',
                     timestamp: new Date().toISOString(),
-                    stepId: `step-diag-${skill}`,
-                    questionId: `diag-${skill}-evaluation`,
-                    prompt: `Adaptive diagnostic evaluation for ${skill}`,
+                    stepId: `step-diag-${sk}`,
+                    questionId: `diag-${sk}-evaluation`,
+                    prompt: `Adaptive diagnostic evaluation for ${sk}`,
                     userAnswer: `${accuracy}%`,
-                    expectedAnswer: '>=60%',
-                    explanation: `Adaptive score below benchmark: ${accuracy}%`,
+                    expectedAnswer: '>=50%',
+                    explanation: `Skill accuracy below benchmark: ${accuracy}%`,
                     attemptCount: 1
                 });
             }
+
+            evaluatedSkills[sk] = {
+                skill: sk,
+                score: accuracy,
+                confidence,
+                estimatedLevel,
+                totalQuestions,
+                correctCount,
+                status,
+                levelEvidence,
+                reason
+            };
         }
 
-        const overallScore = state.answers.length > 0 ? Math.round((totalCorrect / state.answers.length) * 100) : 50;
-        const overallConfidence = Math.min(95, Math.max(50, state.answers.length * 10));
+        // Calculate overall level based on skill average of adequate/strong skills
+        let overallLevelIndex = 0;
+        let validSkillCount = 0;
+        let sumIndices = 0;
 
-        let recommendedLevel = isJa ? 'N5' : 'A1';
-        let firstLessonId = isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1';
-
-        if (isJa) {
-            if (overallScore >= 80) {
-                recommendedLevel = 'N3';
-                firstLessonId = 'ja-n3-u1-l1';
-            } else if (overallScore >= 55) {
-                recommendedLevel = 'N4';
-                firstLessonId = 'ja-n4-u1-l1';
-            } else {
-                recommendedLevel = 'N5';
-                firstLessonId = 'ja-n5-u1-l1';
+        for (const sk of skills) {
+            const evalSk = evaluatedSkills[sk];
+            if (evalSk && (evalSk.status === 'adequate' || evalSk.status === 'strong')) {
+                const idx = levels.indexOf(evalSk.estimatedLevel);
+                if (idx !== -1) {
+                    sumIndices += idx;
+                    validSkillCount++;
+                }
             }
+        }
+
+        if (validSkillCount > 0) {
+            overallLevelIndex = Math.round(sumIndices / validSkillCount);
         } else {
-            if (overallScore >= 85) {
-                recommendedLevel = 'C1';
-                firstLessonId = 'en-c1-u1-l1';
-            } else if (overallScore >= 70) {
-                recommendedLevel = 'B2';
-                firstLessonId = 'en-b2-u1-l1';
-            } else if (overallScore >= 50) {
-                recommendedLevel = 'B1';
-                firstLessonId = 'en-b1-u1-l1';
-            } else if (overallScore >= 40) {
-                recommendedLevel = 'A2';
-                firstLessonId = 'en-a2-u1-l1';
-            } else {
-                recommendedLevel = 'A1';
-                firstLessonId = 'en-a1-u1-l1';
+            // Fallback to average of all skills with answers
+            let fallbackSum = 0;
+            let fallbackCount = 0;
+            for (const sk of skills) {
+                const evalSk = evaluatedSkills[sk];
+                if (evalSk && evalSk.totalQuestions > 0) {
+                    const idx = levels.indexOf(evalSk.estimatedLevel);
+                    if (idx !== -1) {
+                        fallbackSum += idx;
+                        fallbackCount++;
+                    }
+                }
+            }
+            if (fallbackCount > 0) {
+                overallLevelIndex = Math.round(fallbackSum / fallbackCount);
             }
         }
+        let diagnosticLevel = levels[overallLevelIndex] || levels[0];
+        let recommendedStartLevel = diagnosticLevel;
+
+        // Apply Weak Skill Guard for essential skills
+        let weakSkillReason = '';
+        for (const sk of essentialSkills) {
+            const evalSk = evaluatedSkills[sk];
+            if (evalSk && evalSk.status === 'weak') {
+                const weakIdx = levels.indexOf(evalSk.estimatedLevel);
+                const overallIdx = levels.indexOf(diagnosticLevel);
+                if (weakIdx !== -1 && overallIdx !== -1 && weakIdx < overallIdx) {
+                    // Cap recommended start level to 1 step below overall level to build a solid foundation
+                    const safeIdx = Math.max(0, overallIdx - 1);
+                    recommendedStartLevel = levels[safeIdx];
+                    weakSkillReason = isJa 
+                        ? `Tavsiya: ${sk.toUpperCase()} ko'nikmasi (${evalSk.estimatedLevel}) darajasi pastroq bo'lgani sababli, o'quv yo'li ${recommendedStartLevel} bosqichidan boshlanadi.`
+                        : `Note: Your recommended starting point was placed at ${recommendedStartLevel} because your ${sk.toUpperCase()} skill is currently at ${evalSk.estimatedLevel}.`;
+                    break;
+                }
+            }
+        }
+
+        // Generate recommendedFirstLessonId based on recommendedStartLevel
+        let firstLessonId = isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1';
+        if (isJa) {
+            if (recommendedStartLevel === 'N1' || recommendedStartLevel === 'N2') firstLessonId = 'ja-n3-u1-l1'; // Cap to sample content availability
+            else if (recommendedStartLevel === 'N3') firstLessonId = 'ja-n3-u1-l1';
+            else if (recommendedStartLevel === 'N4') firstLessonId = 'ja-n4-u1-l1';
+            else firstLessonId = 'ja-n5-u1-l1';
+        } else {
+            if (recommendedStartLevel === 'C1' || recommendedStartLevel === 'C2') firstLessonId = 'en-c1-u1-l1';
+            else if (recommendedStartLevel === 'B2') firstLessonId = 'en-b2-u1-l1';
+            else if (recommendedStartLevel === 'B1') firstLessonId = 'en-b1-u1-l1';
+            else if (recommendedStartLevel === 'A2') firstLessonId = 'en-a2-u1-l1';
+            else firstLessonId = 'en-a1-u1-l1';
+        }
+
+        // Formulate clear explanation
+        const detailsUz = `Sizning jami to'g'ri javoblaringiz ${overallLevelIndex + 1}-bosqich (${diagnosticLevel}) atrofida ekanligini ko'rsatmoqda. ${weakSkillReason}`;
+        const detailsEn = `Your overall performance suggests you are around ${diagnosticLevel}. ${weakSkillReason}`;
+        const explanation = isUz ? detailsUz : detailsEn;
+
+        const totalAnswersCount = state.answers.length;
+        const totalCorrectAnswers = state.answers.filter(a => a.isCorrect).length;
+        const overallScore = totalAnswersCount > 0 ? Math.round((totalCorrectAnswers / totalAnswersCount) * 100) : 0;
+        const overallConfidence = Math.min(95, Math.max(50, totalAnswersCount * 8));
 
         return {
             id: `diag-res-${Date.now()}`,
@@ -368,15 +468,18 @@ export const AdaptiveQuestionEngine = {
             language: state.language,
             mode: state.mode,
             claimedLevel: state.claimedLevel,
-            diagnosticLevel: recommendedLevel,
-            recommendedStartLevel: recommendedLevel,
+            diagnosticLevel,
+            recommendedStartLevel,
             overallConfidence,
             overallScore,
             skills: evaluatedSkills,
             strengths,
             weaknesses,
             recommendedFirstLessonId: firstLessonId,
+            explanation,
             completedAt: new Date().toISOString()
         };
     }
 };
+
+const isUz = true; // Helper for explanation localization

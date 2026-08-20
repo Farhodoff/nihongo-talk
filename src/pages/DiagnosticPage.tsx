@@ -357,6 +357,13 @@ export const DiagnosticPage: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* Explanation Text */}
+                        {result.explanation && (
+                            <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20 text-xs text-muted-foreground leading-relaxed">
+                                {result.explanation}
+                            </div>
+                        )}
+
                         {/* Skill Radar / Bars */}
                         <div className="space-y-3">
                             <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
@@ -371,7 +378,7 @@ export const DiagnosticPage: React.FC = () => {
                                                 {sk.skill}
                                             </span>
                                             <span className={`text-xs font-bold ${
-                                                sk.status === 'strength' ? 'text-emerald-500' : sk.status === 'weakness' ? 'text-rose-500' : 'text-muted-foreground'
+                                                sk.status === 'strong' ? 'text-emerald-500' : sk.status === 'weak' ? 'text-rose-500' : 'text-muted-foreground'
                                             }`}>
                                                 {sk.score}% ({sk.estimatedLevel})
                                             </span>
@@ -379,7 +386,7 @@ export const DiagnosticPage: React.FC = () => {
                                         <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
                                             <div 
                                                 className={`h-full rounded-full transition-all ${
-                                                    sk.status === 'strength' ? 'bg-emerald-500' : sk.status === 'weakness' ? 'bg-rose-500' : 'bg-primary'
+                                                    sk.status === 'strong' ? 'bg-emerald-500' : sk.status === 'weak' ? 'bg-rose-500' : 'bg-primary'
                                                 }`}
                                                 style={{ width: `${sk.score}%` }}
                                             />
