@@ -43,6 +43,35 @@ export interface DiagnosticResult {
     completedAt: string;
 }
 
+export interface AdaptiveAnswerRecord {
+    questionId: string;
+    selectedOptionIndex: number;
+    isCorrect: boolean;
+    level: string;
+    skill: MasterySkill;
+    difficulty: 'easy' | 'medium' | 'hard';
+    timeSpentSeconds?: number;
+}
+
+export interface AdaptiveDiagnosticState {
+    userId: string;
+    language: SupportedLanguage;
+    mode: DiagnosticMode;
+    claimedLevel: string;
+    currentLevel: string;
+    currentDifficulty: 'easy' | 'medium' | 'hard';
+    currentSkillFocus: MasterySkill;
+    consecutiveCorrect: number;
+    consecutiveIncorrect: number;
+    answeredCount: number;
+    maxQuestions: number;
+    currentQuestionId: string | null;
+    visitedQuestionIds: string[];
+    answers: AdaptiveAnswerRecord[];
+    isCompleted: boolean;
+    lastUpdated: string;
+}
+
 export interface DiagnosticSessionState {
     userId: string;
     language: SupportedLanguage;

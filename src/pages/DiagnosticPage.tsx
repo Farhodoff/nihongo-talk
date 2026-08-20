@@ -7,15 +7,18 @@ import {
     Clock, 
     Award, 
     ArrowRight, 
-    RotateCcw
+    RotateCcw,
+    Zap,
+    Play
 } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { DiagnosticService } from '../services/DiagnosticService';
 import { 
-    DiagnosticQuestion, 
     DiagnosticMode, 
-    DiagnosticResult 
+    DiagnosticResult,
+    AdaptiveDiagnosticState,
+    DiagnosticQuestion
 } from '../types/diagnostic';
 import { CurriculumLessonResolver } from '../services/CurriculumLessonResolver';
 
@@ -29,14 +32,14 @@ export const DiagnosticPage: React.FC = () => {
     const claimedLevel = targetLevel || (primaryLanguage === 'ja' ? 'N3' : 'B2');
     const [step, setStep] = useState<'intro' | 'testing' | 'result'>('intro');
 
-    // Testing state
-    const [questions, setQuestions] = useState<DiagnosticQuestion[]>([]);
-    const [currentQIndex, setCurrentQIndex] = useState(0);
+    // Adaptive state
+    const [adaptiveState, setAdaptiveState] = useState<AdaptiveDiagnosticState | null>(null);
+    const [currentQuestion, setCurrentQuestion] = useState<DiagnosticQuestion | null>(null);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
-    const [answers, setAnswers] = useState<{ questionId: string; selectedOptionIndex: number; isCorrect: boolean }[]>([]);
 
     // Result state
     const [result, setResult] = useState<DiagnosticResult | null>(null);
+    const [hasSavedSession, setHasSavedSession] = useState(false);
 
     // Check for previous result or existing session
     useEffect(() => {
@@ -44,14 +47,33 @@ export const DiagnosticPage: React.FC = () => {
         if (latest) {
             setResult(latest);
         }
+
+        const savedSession = DiagnosticService.getSavedAdaptiveSession(user?.id || 'guest', primaryLanguage);
+        if (savedSession && !savedSession.isCompleted && savedSession.currentQuestionId) {
+            setHasSavedSession(true);
+        }
     }, [primaryLanguage, user?.id]);
 
-    const handleStartTest = () => {
-        const qList = DiagnosticService.getQuestionsForSession(primaryLanguage, mode);
-        setQuestions(qList);
-        setCurrentQIndex(0);
+    const handleStartTest = (isResume = false) => {
+        let state: AdaptiveDiagnosticState;
+        if (isResume) {
+            const saved = DiagnosticService.getSavedAdaptiveSession(user?.id || 'guest', primaryLanguage);
+            if (saved) {
+                state = saved;
+            } else {
+                state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', primaryLanguage, mode, claimedLevel);
+            }
+        } else {
+            state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', primaryLanguage, mode, claimedLevel);
+        }
+
+        setAdaptiveState(state);
+        if (state.currentQuestionId) {
+            const bank = DiagnosticService.getBankForLanguage(primaryLanguage);
+            const q = bank.find(item => item.id === state.currentQuestionId);
+            setCurrentQuestion(q || null);
+        }
         setSelectedOption(null);
-        setAnswers([]);
         setStep('testing');
     };
 
@@ -66,35 +88,26 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     const handleNextQuestion = () => {
-        if (selectedOption === null) return;
+        if (selectedOption === null || !adaptiveState || !currentQuestion) return;
 
-        const currentQ = questions[currentQIndex];
-        const isCorrect = selectedOption === currentQ.correctAnswerIndex;
+        const updatedState = DiagnosticService.processAdaptiveAnswer(
+            adaptiveState,
+            currentQuestion.id,
+            selectedOption
+        );
 
-        const updatedAnswers = [
-            ...answers,
-            {
-                questionId: currentQ.id,
-                selectedOptionIndex: selectedOption,
-                isCorrect
-            }
-        ];
-        setAnswers(updatedAnswers);
+        setAdaptiveState(updatedState);
 
-        if (currentQIndex + 1 < questions.length) {
-            setCurrentQIndex(currentQIndex + 1);
-            setSelectedOption(null);
-        } else {
-            // Test Completed!
-            const evalResult = DiagnosticService.evaluateDiagnosticAnswers(
-                user?.id || 'guest',
-                primaryLanguage,
-                mode,
-                claimedLevel,
-                updatedAnswers
-            );
+        if (updatedState.isCompleted) {
+            // Assessment Finished!
+            const evalResult = DiagnosticService.evaluateAdaptiveSession(updatedState);
             setResult(evalResult);
             setStep('result');
+        } else if (updatedState.currentQuestionId) {
+            const bank = DiagnosticService.getBankForLanguage(primaryLanguage);
+            const nextQ = bank.find(item => item.id === updatedState.currentQuestionId);
+            setCurrentQuestion(nextQ || null);
+            setSelectedOption(null);
         }
     };
 
@@ -102,6 +115,15 @@ export const DiagnosticPage: React.FC = () => {
         if (!result) return;
         const resolved = CurriculumLessonResolver.resolveLesson(result.recommendedFirstLessonId, primaryLanguage);
         navigate(resolved.route);
+    };
+
+    const getDifficultyLabel = (diff: string) => {
+        switch (diff) {
+            case 'easy': return isUz ? '🟢 Oson' : '🟢 Easy';
+            case 'medium': return isUz ? '🟡 O\'rtacha' : '🟡 Medium';
+            case 'hard': return isUz ? '🔴 Murakkab' : '🔴 Hard';
+            default: return diff;
+        }
     };
 
     return (
@@ -113,7 +135,7 @@ export const DiagnosticPage: React.FC = () => {
                         <div className="flex items-center gap-2">
                             <span className="text-2xl">{primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}</span>
                             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-                                {primaryLanguage === 'ja' ? 'JLPT Diagnostik Test' : 'CEFR & IELTS Placement'}
+                                {primaryLanguage === 'ja' ? 'JLPT Adaptiv Diagnostika' : 'CEFR & IELTS Adaptive Placement'}
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black text-foreground">
@@ -121,10 +143,34 @@ export const DiagnosticPage: React.FC = () => {
                         </h1>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             {isUz 
-                                ? "Platforma sizning kuchli va zaif tomonlaringizni tahlil qilib, aynan sizga mos boshlang'ich nuqta va shaxsiy o'quv yo'lini shakllantiradi." 
-                                : "Our adaptive diagnostic engine evaluates your strengths and weaknesses to create a tailored curriculum starting point."}
+                                ? "Adaptiv dvigatel har bir javobingizga qarab savollar qiyinligini moslashtiradi va qisqa vaqt ichida aniq bilim darajangizni hisoblab beradi." 
+                                : "Our real-time adaptive engine adjusts question difficulty based on your answers to rapidly gauge your true CEFR / JLPT level."}
                         </p>
                     </div>
+
+                    {/* Resume Banner if available */}
+                    {hasSavedSession && (
+                        <div className="p-5 rounded-3xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                                <span className="text-2xl">⏳</span>
+                                <div>
+                                    <h4 className="text-sm font-bold text-foreground">
+                                        {isUz ? "Tugallanmagan diagnostik test mavjud" : "Unfinished Assessment Found"}
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground">
+                                        {isUz ? "Avval to'xtagan joyingizdan davom ettirishingiz mumkin." : "You can pick up right where you left off."}
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => handleStartTest(true)}
+                                className="px-5 py-2.5 rounded-2xl bg-amber-500 text-white font-bold text-xs shadow-md hover:bg-amber-600 transition-all flex items-center gap-1.5 shrink-0"
+                            >
+                                <Play size={14} />
+                                <span>{isUz ? "Davom Ettirish" : "Resume Test"}</span>
+                            </button>
+                        </div>
+                    )}
 
                     {/* Quick Zero-Level Option */}
                     <div className="p-6 rounded-3xl glass-card border border-border/80 flex flex-col sm:flex-row items-center justify-between gap-4 bg-secondary/30">
@@ -164,7 +210,7 @@ export const DiagnosticPage: React.FC = () => {
                                     <span className="text-lg font-bold">⚡ {isUz ? 'Tezkor' : 'Quick'}</span>
                                     <span className="text-xs text-muted-foreground">6 savol</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">~10 daqiqa, umumiy darajani tezkor baholash.</p>
+                                <p className="text-xs text-muted-foreground">~10 daqiqa, tezkor yo'naltirish.</p>
                             </button>
 
                             <button
@@ -177,7 +223,7 @@ export const DiagnosticPage: React.FC = () => {
                                     <span className="text-lg font-bold">🎯 {isUz ? 'Standart' : 'Standard'}</span>
                                     <span className="text-xs text-primary font-bold">Tavsiya</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">~20 daqiqa, har bir ko'nikmani aniq baholash.</p>
+                                <p className="text-xs text-muted-foreground">~12 savol, muvozanatli adaptiv tahlil.</p>
                             </button>
 
                             <button
@@ -188,17 +234,17 @@ export const DiagnosticPage: React.FC = () => {
                             >
                                 <div className="flex items-center justify-between">
                                     <span className="text-lg font-bold">🧠 {isUz ? 'Chuqur' : 'Deep'}</span>
-                                    <span className="text-xs text-muted-foreground">To'liq</span>
+                                    <span className="text-xs text-muted-foreground">20 savol</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">~35 daqiqa, to'liq ilmiy diagnostika.</p>
+                                <p className="text-xs text-muted-foreground">~30 daqiqa, maksimal aniqlikdagi diagnostika.</p>
                             </button>
                         </div>
 
                         <button
-                            onClick={handleStartTest}
+                            onClick={() => handleStartTest(false)}
                             className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2"
                         >
-                            <span>🚀 {isUz ? "Diagnostik Testni Boshlash" : "Start Placement Test"}</span>
+                            <span>🚀 {isUz ? "Adaptiv Diagnostikani Boshlash" : "Start Adaptive Placement"}</span>
                             <ArrowRight size={18} />
                         </button>
                     </div>
@@ -206,32 +252,35 @@ export const DiagnosticPage: React.FC = () => {
             )}
 
             {/* Step 2: Testing Phase */}
-            {step === 'testing' && questions.length > 0 && (
+            {step === 'testing' && adaptiveState && currentQuestion && (
                 <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-6 shadow-lg">
                     {/* Header Progress */}
                     <div className="flex items-center justify-between gap-4 pb-4 border-b border-border/60">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <span className="px-2.5 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-black uppercase tracking-wider">
-                                {questions[currentQIndex].skill}
+                                {currentQuestion.skill}
                             </span>
-                            <span className="text-xs font-bold text-muted-foreground">
-                                {questions[currentQIndex].level} • {questions[currentQIndex].topic}
+                            <span className="px-2 py-0.5 rounded-md bg-secondary text-foreground text-xs font-bold">
+                                {currentQuestion.level}
+                            </span>
+                            <span className="text-xs font-semibold text-muted-foreground">
+                                {getDifficultyLabel(adaptiveState.currentDifficulty)}
                             </span>
                         </div>
                         <span className="text-xs font-black text-foreground">
-                            {currentQIndex + 1} / {questions.length}
+                            {adaptiveState.answeredCount + 1} / {adaptiveState.maxQuestions}
                         </span>
                     </div>
 
                     {/* Question Prompt */}
                     <div className="space-y-4">
                         <h3 className="text-lg md:text-xl font-bold text-foreground leading-relaxed">
-                            {questions[currentQIndex].prompt}
+                            {currentQuestion.prompt}
                         </h3>
 
                         {/* Options */}
                         <div className="grid grid-cols-1 gap-3 pt-2">
-                            {questions[currentQIndex].options.map((opt, oIdx) => {
+                            {currentQuestion.options.map((opt, oIdx) => {
                                 const isSelected = selectedOption === oIdx;
                                 return (
                                     <button
@@ -258,7 +307,12 @@ export const DiagnosticPage: React.FC = () => {
                     </div>
 
                     {/* Next Button */}
-                    <div className="flex items-center justify-end pt-4 border-t border-border/60">
+                    <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                        <span className="text-xs text-muted-foreground flex items-center gap-1">
+                            <Zap size={12} className="text-primary" />
+                            {isUz ? "Dinamik adaptiv test" : "Dynamic adaptive evaluation"}
+                        </span>
+
                         <button
                             onClick={handleNextQuestion}
                             disabled={selectedOption === null}
@@ -268,7 +322,7 @@ export const DiagnosticPage: React.FC = () => {
                                     : 'bg-secondary text-muted-foreground cursor-not-allowed opacity-50'
                             }`}
                         >
-                            <span>{currentQIndex + 1 === questions.length ? (isUz ? 'Natijani Ko\'rish' : 'View Results') : (isUz ? 'Keyingi Savol' : 'Next Question')}</span>
+                            <span>{adaptiveState.answeredCount + 1 >= adaptiveState.maxQuestions ? (isUz ? 'Natijani Ko\'rish' : 'View Results') : (isUz ? 'Keyingi Savol' : 'Next Question')}</span>
                             <ArrowRight size={14} />
                         </button>
                     </div>
@@ -282,7 +336,7 @@ export const DiagnosticPage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/60">
                             <div className="space-y-1">
                                 <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-                                    {isUz ? 'Diagnostika Natijasi' : 'Placement Assessment Result'}
+                                    {isUz ? 'Adaptiv Diagnostika Natijasi' : 'Adaptive Placement Result'}
                                 </span>
                                 <h2 className="text-2xl md:text-3xl font-black text-foreground pt-1">
                                     {isUz ? 'Tavsiya Etilgan Bosqich:' : 'Recommended Starting Level:'} {result.recommendedStartLevel}

@@ -5,11 +5,14 @@ import {
     DiagnosticMode, 
     DiagnosticResult, 
     DiagnosticSkillScore, 
-    DiagnosticSessionState 
+    DiagnosticSessionState,
+    AdaptiveDiagnosticState 
 } from '../types/diagnostic';
 import { LearningSignalService } from './LearningSignalService';
+import { AdaptiveQuestionEngine } from './AdaptiveQuestionEngine';
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
+const DIAGNOSTIC_ADAPTIVE_PREFIX = 'study_planner_diag_adaptive_';
 const DIAGNOSTIC_RESULT_PREFIX = 'study_planner_diag_result_';
 
 export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
@@ -27,6 +30,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         topic: 'Present Simple: To Be'
     },
     {
+        id: 'diag-en-a1-g2',
+        language: 'en',
+        level: 'A1',
+        skill: 'grammar',
+        difficulty: 'medium',
+        prompt: 'Select the correct question: "_______ do you live?" — "In Tashkent."',
+        options: ['Where', 'What', 'Who', 'When'],
+        correctAnswerIndex: 0,
+        explanation: 'Joy nomini so\'rash uchun "Where" (qayerda) so\'rog\'i ishlatiladi.',
+        topic: 'Wh- Questions'
+    },
+    {
         id: 'diag-en-a1-v1',
         language: 'en',
         level: 'A1',
@@ -37,6 +52,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         correctAnswerIndex: 1,
         explanation: '"Tomorrow" ertaga (ertangi kun) degan ma\'noni bildiradi.',
         topic: 'Time & Calendar'
+    },
+    {
+        id: 'diag-en-a1-l1',
+        language: 'en',
+        level: 'A1',
+        skill: 'listening',
+        difficulty: 'easy',
+        prompt: 'Audio snippet: "Good morning! Can I get a cup of black coffee, please?" Where is the speaker?',
+        options: ['In a coffee shop', 'In a hospital', 'At the airport', 'At a car repair shop'],
+        correctAnswerIndex: 0,
+        explanation: 'Qahva buyurtma qilish qahvaxonada bo\'ladi.',
+        topic: 'Everyday Ordering'
     },
     // A2
     {
@@ -50,6 +77,30 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         correctAnswerIndex: 2,
         explanation: 'O\'tgan zamon ("two years ago") uchun "go" fe\'lining o\'tgan shakli "went" bo\'ladi.',
         topic: 'Past Simple'
+    },
+    {
+        id: 'diag-en-a2-g2',
+        language: 'en',
+        level: 'A2',
+        skill: 'grammar',
+        difficulty: 'medium',
+        prompt: 'Choose the comparative form: "This book is _______ than that one."',
+        options: ['more interesting', 'interesting', 'most interesting', 'interestinger'],
+        correctAnswerIndex: 0,
+        explanation: 'Ko\'p bo\'g\'inli sifatlar uchun taqqoslash darajasida "more" qo\'shiladi.',
+        topic: 'Comparatives'
+    },
+    {
+        id: 'diag-en-a2-v1',
+        language: 'en',
+        level: 'A2',
+        skill: 'vocabulary',
+        difficulty: 'medium',
+        prompt: 'Which word describes a person who helps patients in a hospital?',
+        options: ['Nurse', 'Pilot', 'Chef', 'Mechanic'],
+        correctAnswerIndex: 0,
+        explanation: '"Nurse" — shifoxonada bemorlarga qaraydigan hamshira.',
+        topic: 'Professions'
     },
     {
         id: 'diag-en-a2-r1',
@@ -77,6 +128,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         topic: 'Conditionals'
     },
     {
+        id: 'diag-en-b1-g2',
+        language: 'en',
+        level: 'B1',
+        skill: 'grammar',
+        difficulty: 'hard',
+        prompt: 'Select the present perfect continuous: "I _______ for this company for five years."',
+        options: ['have been working', 'am working', 'worked', 'had worked'],
+        correctAnswerIndex: 0,
+        explanation: 'Hozirgacha davom etayotgan harakat uchun "have been working" to\'g\'ri keladi.',
+        topic: 'Present Perfect Continuous'
+    },
+    {
         id: 'diag-en-b1-v1',
         language: 'en',
         level: 'B1',
@@ -87,6 +150,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         correctAnswerIndex: 1,
         explanation: '"Convenient" qulay, foydalanishga oson degani.',
         topic: 'Intermediate Vocabulary'
+    },
+    {
+        id: 'diag-en-b1-r1',
+        language: 'en',
+        level: 'B1',
+        skill: 'reading',
+        difficulty: 'medium',
+        prompt: 'Read: "Despite the bad weather, the marathon runners showed tremendous determination and finished the race." What was the runners\' attitude?',
+        options: ['They gave up immediately', 'They persevered despite difficulties', 'They complained about the rain', 'They ran slowly on purpose'],
+        correctAnswerIndex: 1,
+        explanation: '"Tremendous determination" sportchilar qiyinchilikka qaramay sabr va matonat ko\'rsatganini bildiradi.',
+        topic: 'Passage Comprehension'
     },
     {
         id: 'diag-en-b1-l1',
@@ -126,6 +201,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         topic: 'Academic Word List'
     },
     {
+        id: 'diag-en-b2-r1',
+        language: 'en',
+        level: 'B2',
+        skill: 'reading',
+        difficulty: 'hard',
+        prompt: 'Read: "The hypothesis was refuted when empirical data demonstrated a statistically insignificant correlation." What happened to the hypothesis?',
+        options: ['It was proven true', 'It was disproved by evidence', 'It was ignored', 'It became widely accepted'],
+        correctAnswerIndex: 1,
+        explanation: '"Refuted by empirical data" gipotezaning ilmiy dalillar orqali rad etilganini bildiradi.',
+        topic: 'Academic Text Interpretation'
+    },
+    {
         id: 'diag-en-b2-l1',
         language: 'en',
         level: 'B2',
@@ -149,6 +236,18 @@ export const ENGLISH_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         correctAnswerIndex: 2,
         explanation: 'Passive participle clause: "Perplexed by..." (hayratda qolgan/chalg\'igan holda).',
         topic: 'Participle Clauses'
+    },
+    {
+        id: 'diag-en-c1-v1',
+        language: 'en',
+        level: 'C1',
+        skill: 'vocabulary',
+        difficulty: 'hard',
+        prompt: 'Which word means "present, appearing, or found everywhere simultaneously"?',
+        options: ['Ubiquitous', 'Ephemeral', 'Obsolete', 'Redundant'],
+        correctAnswerIndex: 0,
+        explanation: '"Ubiquitous" — hamma joyda bir vaqtda uchraydigan, keng tarqalgan.',
+        topic: 'Advanced Vocabulary'
     }
 ];
 
@@ -178,7 +277,43 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         explanation: 'Mavzu (ega) zarrachasi: 「は」 (wa).',
         topic: 'N5 Topic Particle'
     },
+    {
+        id: 'diag-ja-n5-v1',
+        language: 'ja',
+        level: 'N5',
+        skill: 'vocabulary',
+        difficulty: 'easy',
+        prompt: '「ともだち (tomodachi)」 so\'zining ma\'nosi nima?',
+        options: ['Do\'st', 'O\'qituvchi', 'Shifokor', 'Oila'],
+        correctAnswerIndex: 0,
+        explanation: '友達 (ともだち) — do\'st, o\'rtoq.',
+        topic: 'N5 Basic Vocabulary'
+    },
+    {
+        id: 'diag-ja-n5-l1',
+        language: 'ja',
+        level: 'N5',
+        skill: 'listening',
+        difficulty: 'easy',
+        prompt: 'Audio Transcript: 「すみません、トイレはどこですか？」「あそこです。」 Suhbat qayerda nima so\'ralmoqda?',
+        options: ['Hojatxona qayerdaligi', 'Vaqt nechaligi', 'Poyezd narxi', 'Ism so\'rash'],
+        correctAnswerIndex: 0,
+        explanation: '「トイレはどこですか」 hojatxona manzilini so\'ramoqda.',
+        topic: 'N5 Daily Directions'
+    },
     // N4
+    {
+        id: 'diag-ja-n4-k1',
+        language: 'ja',
+        level: 'N4',
+        skill: 'kanji',
+        difficulty: 'medium',
+        prompt: '「駅」 kanjisining ma\'nosi va o\'qilishi qaysi?',
+        options: ['えき (eki) — Vokzal / Bekat', 'みち (michi) — Yo\'l', 'くるま (kuruma) — Mashina', 'まち (machi) — Shahar'],
+        correctAnswerIndex: 0,
+        explanation: '駅 (えき) — poyezd yoki metro bekati.',
+        topic: 'N4 Transport Kanji'
+    },
     {
         id: 'diag-ja-n4-g1',
         language: 'ja',
@@ -203,7 +338,31 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
         explanation: '案内する — yo\'l ko\'rsatish, ekskursiya qilish, tanishtirish.',
         topic: 'N4 Daily Vocabulary'
     },
+    {
+        id: 'diag-ja-n4-r1',
+        language: 'ja',
+        level: 'N4',
+        skill: 'reading',
+        difficulty: 'medium',
+        prompt: '読解: 「薬は食後に2錠飲んでください。」 Ushbu ko\'rsatma nimani bildiradi?',
+        options: ['Dori ovqatdan keyin 2 dona ichiladi', 'Dori ovqatdan oldin ichiladi', 'Dori faqat kechasi ichiladi', 'Dori ichish taqiqlanadi'],
+        correctAnswerIndex: 0,
+        explanation: '「食後に2錠」 — ovqatlangandan so\'ng 2 dona dori tabletkasi ichish.',
+        topic: 'N4 Practical Notices'
+    },
     // N3
+    {
+        id: 'diag-ja-n3-k1',
+        language: 'ja',
+        level: 'N3',
+        skill: 'kanji',
+        difficulty: 'medium',
+        prompt: '「複雑」 kanji birikmasining o\'qilishi va ma\'nosi:',
+        options: ['ふくざつ (fukuzatsu) — Murakkab', 'かんたん (kantan) — Oson', 'しんせつ (shinsetsu) — Mehribon', 'べんり (benri) — Qulay'],
+        correctAnswerIndex: 0,
+        explanation: '複雑 (ふくざつ) — chigal, murakkab.',
+        topic: 'N3 Intermediate Kanji'
+    },
     {
         id: 'diag-ja-n3-g1',
         language: 'ja',
@@ -310,16 +469,63 @@ export const DiagnosticService = {
     },
 
     /**
-     * Select questions dynamically tailored to mode and target language.
+     * Get question bank for language
+     */
+    getBankForLanguage(language: SupportedLanguage): DiagnosticQuestion[] {
+        return language === 'ja' ? JAPANESE_DIAGNOSTIC_BANK : ENGLISH_DIAGNOSTIC_BANK;
+    },
+
+    /**
+     * Legacy static questions loader (retained for backward compatibility)
      */
     getQuestionsForSession(language: SupportedLanguage, mode: DiagnosticMode = 'standard'): DiagnosticQuestion[] {
-        const bank = language === 'ja' ? JAPANESE_DIAGNOSTIC_BANK : ENGLISH_DIAGNOSTIC_BANK;
+        const bank = this.getBankForLanguage(language);
         const targetCount = mode === 'quick' ? 6 : mode === 'standard' ? 10 : bank.length;
         return bank.slice(0, targetCount);
     },
 
     /**
-     * Evaluates diagnostic answers and generates full evidence-based diagnostic profile.
+     * Initialize adaptive dynamic session
+     */
+    initializeAdaptiveSession(
+        userId: string,
+        language: SupportedLanguage,
+        mode: DiagnosticMode = 'standard',
+        claimedLevel: string = 'B1'
+    ): AdaptiveDiagnosticState {
+        const bank = this.getBankForLanguage(language);
+        const state = AdaptiveQuestionEngine.initializeSession(userId, language, mode, claimedLevel, bank);
+        this.saveAdaptiveSession(state);
+        return state;
+    },
+
+    /**
+     * Process an answer in the real-time adaptive engine
+     */
+    processAdaptiveAnswer(
+        state: AdaptiveDiagnosticState,
+        questionId: string,
+        selectedOptionIndex: number
+    ): AdaptiveDiagnosticState {
+        const bank = this.getBankForLanguage(state.language);
+        const updatedState = AdaptiveQuestionEngine.processAnswer(state, questionId, selectedOptionIndex, bank);
+        this.saveAdaptiveSession(updatedState);
+        return updatedState;
+    },
+
+    /**
+     * Evaluate completed adaptive session
+     */
+    evaluateAdaptiveSession(state: AdaptiveDiagnosticState): DiagnosticResult {
+        const bank = this.getBankForLanguage(state.language);
+        const result = AdaptiveQuestionEngine.evaluateAdaptiveSession(state, bank);
+        this.saveDiagnosticResult(result);
+        this.clearAdaptiveSession(state.userId, state.language);
+        return result;
+    },
+
+    /**
+     * Legacy evaluate method
      */
     evaluateDiagnosticAnswers(
         userId: string,
@@ -328,11 +534,10 @@ export const DiagnosticService = {
         claimedLevel: string,
         answers: { questionId: string; selectedOptionIndex: number; isCorrect: boolean }[]
     ): DiagnosticResult {
-        const bank = language === 'ja' ? JAPANESE_DIAGNOSTIC_BANK : ENGLISH_DIAGNOSTIC_BANK;
+        const bank = this.getBankForLanguage(language);
         const isJa = language === 'ja';
 
         const skillStats: Record<string, { total: number; correct: number; levels: string[] }> = {};
-
         let totalCorrect = 0;
 
         for (const ans of answers) {
@@ -355,7 +560,6 @@ export const DiagnosticService = {
         const strengths: string[] = [];
         const weaknesses: string[] = [];
 
-        // Evaluate each skill score
         for (const skillKey of Object.keys(skillStats)) {
             const skill = skillKey as MasterySkill;
             const stat = skillStats[skill];
@@ -387,7 +591,6 @@ export const DiagnosticService = {
                 strengths.push(`${skill.toUpperCase()} (${accuracy}%)`);
             } else if (status === 'weakness') {
                 weaknesses.push(`${skill.toUpperCase()} (${accuracy}%)`);
-                // Emit learning signal for immediate orchestration awareness
                 LearningSignalService.recordSignal({
                     id: `diag-sig-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
                     userId,
@@ -409,7 +612,6 @@ export const DiagnosticService = {
         const overallScore = answers.length > 0 ? Math.round((totalCorrect / answers.length) * 100) : 50;
         const overallConfidence = Math.min(95, Math.max(50, answers.length * 10));
 
-        // Determine recommendedStartLevel
         let recommendedLevel = isJa ? 'N5' : 'A1';
         let firstLessonId = isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1';
 
@@ -462,6 +664,38 @@ export const DiagnosticService = {
 
         this.saveDiagnosticResult(result);
         return result;
+    },
+
+    /**
+     * Adaptive Session Storage
+     */
+    saveAdaptiveSession(state: AdaptiveDiagnosticState): void {
+        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${state.userId || 'guest'}_${state.language}`;
+        try {
+            localStorage.setItem(key, JSON.stringify(state));
+        } catch (e) {
+            console.warn('[DiagnosticService] Failed to save adaptive session:', e);
+        }
+    },
+
+    getSavedAdaptiveSession(userId: string, language: SupportedLanguage): AdaptiveDiagnosticState | null {
+        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId || 'guest'}_${language}`;
+        try {
+            const raw = localStorage.getItem(key);
+            if (raw) return JSON.parse(raw);
+        } catch (e) {
+            console.warn('[DiagnosticService] Failed to load adaptive session:', e);
+        }
+        return null;
+    },
+
+    clearAdaptiveSession(userId: string, language: SupportedLanguage): void {
+        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId || 'guest'}_${language}`;
+        try {
+            localStorage.removeItem(key);
+        } catch (e) {
+            console.warn('[DiagnosticService] Failed to clear adaptive session:', e);
+        }
     },
 
     /**
