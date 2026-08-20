@@ -68,7 +68,7 @@ export const PRESET_DECKS: PresetDeck[] = [
         level: 'C1-C2',
         badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
         icon: '📙',
-        cardCount: 53,
+        cardCount: 76,
         isPremiumOnly: true,
         loadCards: async () => {
             const data = await import('./decks/c1_c2.json');
