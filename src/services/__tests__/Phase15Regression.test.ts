@@ -1,6 +1,7 @@
 import { LearningOrchestrator } from '../../services/LearningOrchestrator';
 import { LearningPathEngine } from '../../services/LearningPathEngine';
 import { CurriculumService } from '../../services/CurriculumService';
+import { LessonService } from '../../services/LessonService';
 
 // Mock supabase for Orchestrator
 vi.mock('../../lib/supabase', () => ({
@@ -65,6 +66,11 @@ describe('Phase 15 — Adaptive Level Progression & Access Hardening', () => {
     beforeEach(() => {
         localStorage.clear();
         vi.clearAllMocks();
+        vi.restoreAllMocks();
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
     // ----------------------------------------------------------------
@@ -178,49 +184,79 @@ describe('Phase 15 — Adaptive Level Progression & Access Hardening', () => {
         });
         const prog = LearningPathEngine.evalProgression(state, false);
         expect(prog.canAdvance).toBe(false);
-        expect(prog.advancementBlockers?.some((b: string) => b.includes('listening'))).toBe(true);
+        expect(prog.advancementBlockers?.some((b: string) => b.toLowerCase().includes('listening'))).toBe(true);
     });
 
     // ----------------------------------------------------------------
     // TEST 7: Completed prerequisite → lesson accessible
     // ----------------------------------------------------------------
     it('7. Lesson with completed prerequisite is accessible', () => {
+        vi.spyOn(LessonService, 'getLessonById').mockImplementation((id: string) => {
+            if (id === 'en-a1-u1-l1' || id === 'en-a1-u1-l2') {
+                return {
+                    id,
+                    title: id,
+                    level: 'A1',
+                    language: 'en',
+                    courseId: 'en-a1',
+                    unitId: 'en-a1-u1',
+                    unitTitle: 'Unit 1',
+                    lessonNumber: id === 'en-a1-u1-l1' ? 1 : 2,
+                    description: 'Test lesson',
+                    estimatedDurationMinutes: 10,
+                    steps: [],
+                } as any;
+            }
+            return null;
+        });
+
         // Set up a completed prerequisite
         localStorage.setItem('study_planner_lesson_progress_test-user_en-a1-u1-l1', JSON.stringify({
             isCompleted: true, quizScore: { score: 8, total: 10, percentage: 80 },
         }));
         localStorage.setItem('study_planner_current_level', 'A1');
 
-        // en-a1-u1-l2 has prerequisite en-a1-u1-l1 (if that lesson exists in curriculum)
         const prereqs = CurriculumService.getLessonPrerequisites('en-a1-u1-l2');
-        if (prereqs.length === 0) {
-            // No prerequisite data for this lesson — test passes trivially
-            expect(true).toBe(true);
-            return;
-        }
-        // If the lesson exists and has prereq en-a1-u1-l1 which is completed
+        expect(prereqs).toContain('en-a1-u1-l1');
+
         const result = LearningOrchestrator.canAccessLesson('en-a1-u1-l2', 'test-user', 'en');
-        // Should be allowed (prereq completed, same level)
-        // But may fail if lesson itself doesn't exist in LessonService
-        expect(result.allowed || result.reason === 'Lesson not found').toBe(true);
+        expect(result.allowed).toBe(true);
+        expect(result.reason).toBe('Access granted');
     });
 
     // ----------------------------------------------------------------
     // TEST 8: Missing prerequisite → lesson blocked
     // ----------------------------------------------------------------
     it('8. Lesson with incomplete prerequisite is blocked', () => {
+        vi.spyOn(LessonService, 'getLessonById').mockImplementation((id: string) => {
+            if (id === 'en-a1-u1-l1' || id === 'en-a1-u1-l2') {
+                return {
+                    id,
+                    title: id,
+                    level: 'A1',
+                    language: 'en',
+                    courseId: 'en-a1',
+                    unitId: 'en-a1-u1',
+                    unitTitle: 'Unit 1',
+                    lessonNumber: id === 'en-a1-u1-l1' ? 1 : 2,
+                    description: 'Test lesson',
+                    estimatedDurationMinutes: 10,
+                    steps: [],
+                } as any;
+            }
+            return null;
+        });
+
         localStorage.setItem('study_planner_current_level', 'A1');
         // Do NOT set prerequisite as completed
+        localStorage.removeItem('study_planner_lesson_progress_test-user_en-a1-u1-l1');
 
         const prereqs = CurriculumService.getLessonPrerequisites('en-a1-u1-l2');
-        if (prereqs.length === 0) {
-            // No prerequisite data — test passes trivially
-            expect(true).toBe(true);
-            return;
-        }
+        expect(prereqs).toContain('en-a1-u1-l1');
+
         const result = LearningOrchestrator.canAccessLesson('en-a1-u1-l2', 'test-user', 'en');
-        // Either blocked (prereq not completed) or lesson not found in LessonService
-        expect(result.allowed || result.reason === 'Lesson not found').toBe(false);
+        expect(result.allowed).toBe(false);
+        expect(result.reason).toContain('Prerequisite not completed');
     });
 
     // ----------------------------------------------------------------
