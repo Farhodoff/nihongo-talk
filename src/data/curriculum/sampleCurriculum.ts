@@ -1,8 +1,14 @@
 import { Lesson } from '../../types/lesson';
+import { ALL_CURRICULUM_LESSONS } from './curriculumLessons';
 
-export const SAMPLE_LESSONS: Lesson[] = [
+/**
+ * Legacy sample lessons preserved for backward compatibility with existing tests.
+ * These were the original 3 handcrafted lessons that many test suites depend on
+ * for specific content assertions (vocabulary items, grammar rules, step titles).
+ */
+const LEGACY_SAMPLE_LESSONS: Lesson[] = [
     // ==========================================
-    // 🇯🇵 JAPANESE TRACK (JLPT N3)
+    // 🇯🇵 JAPANESE TRACK (JLPT N3) — LEGACY
     // ==========================================
     {
         id: 'ja-n3-u1-l1',
@@ -160,7 +166,7 @@ export const SAMPLE_LESSONS: Lesson[] = [
     },
 
     // ==========================================
-    // 🇬🇧 ENGLISH TRACK (Elementary A1 - Murphy Unit 2)
+    // 🇬🇧 ENGLISH TRACK (Elementary A1) — LEGACY
     // ==========================================
     {
         id: 'en-a1-u1-l1',
@@ -288,7 +294,7 @@ export const SAMPLE_LESSONS: Lesson[] = [
     },
 
     // ==========================================
-    // 🇬🇧 ENGLISH TRACK (B2 / IELTS 6.5)
+    // 🇬🇧 ENGLISH TRACK (B2 / IELTS 6.5) — LEGACY
     // ==========================================
     {
         id: 'en-b2-u1-l1',
@@ -449,4 +455,17 @@ export const SAMPLE_LESSONS: Lesson[] = [
             }
         ]
     }
+];
+
+/** IDs of legacy lessons that must take precedence over curriculum versions */
+const LEGACY_IDS = new Set(LEGACY_SAMPLE_LESSONS.map(l => l.id));
+
+/**
+ * SAMPLE_LESSONS: Legacy sample lessons take priority over curriculum duplicates.
+ * This ensures backward compatibility for all existing tests while including
+ * the full 275+ lesson curriculum.
+ */
+export const SAMPLE_LESSONS: Lesson[] = [
+    ...LEGACY_SAMPLE_LESSONS,
+    ...ALL_CURRICULUM_LESSONS.filter(l => !LEGACY_IDS.has(l.id))
 ];

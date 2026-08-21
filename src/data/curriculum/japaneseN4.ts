@@ -1,0 +1,1475 @@
+import { Lesson } from '../../types/lesson';
+
+export const JAPANESE_N4_LESSONS: Lesson[] = [
+    // Unit 1: Te-Form, Requests & Permission
+    {
+        id: 'ja-n4-u1-l1',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u1',
+        unitTitle: 'Unit 1: Te-Form & Requests',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 1,
+        title: 'Te-Form (て形) Conjugation: Groups 1, 2, 3',
+        description: 'Fe\'llarning て-shakliga o\'tish qoidalari (Guruh 1, Guruh 2 va Guruh 3 fe\'llari).',
+        estimatedDurationMinutes: 16,
+        icon: '🔄',
+        steps: [
+            {
+                id: 'ja-n4-u1-l1-s1',
+                title: 'て-Shakl Turlanishi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Te-form Conjugation Rules',
+                    explanation: 'Yapon tili fe\'llari 3 guruhga bo\'linadi: Guruh 1 (Godan), Guruh 2 (Ichidan - eru/iru), Guruh 3 (Fukisoku: します, 来ます).',
+                    keyPoints: [
+                        'Guruh 2: 〜ます tushirilib 〜て qo\'shiladi: 食[た]べます -> 食[た]べて, 見[み]ます -> 見[み]て.',
+                        'Guruh 3: します -> して, 来[き]ます -> 来[き]て.',
+                        'Guruh 1: い・ち・り -> って (買[か]って, 待[ま]って, 帰[かえ]って); み・び・に -> んで (飲[の]んで, 呼[よ]んで, 死[し]んで); き -> いて (書[か]いて), ぎ -> いで (泳[およ]いで), し -> して (話[はな]して). Istisno: 行[い]きます -> 行[い]って.'
+                    ],
+                    vocabulary: [
+                        { term: '待[ま]ちます', reading: 'Machimasu', meaning: 'Kutmoq (Te-form: 待[ま]って)', exampleSentence: '少[すこ]し 待[ま]ってください。', exampleTranslation: 'Biroz kuting.' },
+                        { term: '書[か]きます', reading: 'Kakimasu', meaning: 'Yozmoq (Te-form: 書[か]いて)', exampleSentence: '名前[なまえ]を 書[か]いてください。', exampleTranslation: 'Ismingizni yozing.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri て-shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u1-l1-e1', type: 'multiple-choice', prompt: '「飲[の]みます (Nomimasu - ichmoq)」fe\'lining て-shakli qaysi?', options: ['飲[の]んで (Nonde)', '飲[の]みて', '飲[の]って', '飲[の]いで'], correctAnswer: 0, explanation: 'み bilan tugagan fe\'llar -> んで: 飲んで.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u1-l1-q1', question: '「行[い]きます (Ikimasu - bormoq)」fe\'lining istisno て-shakli qaysi?', options: ['行[い]って (Itte)', '行[い]いて', '行[い]んで', '行[い]ちて'], correctAnswerIndex: 0, explanation: 'Istisno: 行って (Itte).' },
+                        { id: 'ja-n4-u1-l1-q2', question: '「食[た]べます (2-guruh)」fe\'lining て-shakli:', options: ['食[た]べて (Tabete)', '食[た]べって', '食[た]べんで', '食[た]べして'], correctAnswerIndex: 0, explanation: 'Tabete.' },
+                        { id: 'ja-n4-u1-l1-q3', question: '「話[はな]します (Gapirmoq)」fe\'lining て-shakli:', options: ['話[はな]して (Hanashite)', '話[はな]して', '話[はな]んで', '話[はな]って'], correctAnswerIndex: 0, explanation: 'Hanashite.' },
+                        { id: 'ja-n4-u1-l1-q4', question: '「買[か]います (Sotib olmoq)」fe\'lining て-shakli:', options: ['買[か]って (Katte)', '買[か]いて', '買[か]いで', '買[か]して'], correctAnswerIndex: 0, explanation: 'Katte.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u1-l2',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u1',
+        unitTitle: 'Unit 1: Te-Form & Requests',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 2,
+        title: 'Polite Requests: 〜てください (Please do)',
+        description: 'Muloyim iltimos va ko\'rsatmalar berish (〜te kudasai).',
+        estimatedDurationMinutes: 14,
+        icon: '🙏',
+        steps: [
+            {
+                id: 'ja-n4-u1-l2-s1',
+                title: '〜てください Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Te-form + ください (Iltimos, ... qiling)',
+                    explanation: 'Muloyim iltimos bildirish: Fe\'lning て-shakli + ください.',
+                    keyPoints: [
+                        'ここを 見[み]てください。 (Iltimos, bu yerga qarang.)',
+                        '日本語[にほんご]で 話[はな]してください。 (Iltimos, yapon tilida gapiring.)',
+                        'もう 一度[いちど] 言[い]ってください。 (Iltimos, yana bir bor ayting.)'
+                    ],
+                    vocabulary: [
+                        { term: 'もう 一度[いちど]', reading: 'Mou ichido', meaning: 'Yana bir bor', exampleSentence: 'もう 一度[いちど] お願[ねが]いします。', exampleTranslation: 'Iltimos, yana bir marta.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri iltimos jumlasini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u1-l2-e1', type: 'multiple-choice', prompt: '«Iltimos, eshikni oching» qanday aytiladi?', options: ['ドアを 開[あ]けて ください', 'ドアを 開[あ]けます ください', 'ドアを 開[あ]けない ください', 'ドアを 開[あ]く'], correctAnswer: 0, explanation: 'Akete kudasai.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u1-l2-q1', question: '«Iltimos, biroz kuting» jumlasi qaysi?', options: ['少[すこ]し 待[ま]って ください', '少[すこ]し 待[ま]ちます', '待[ま]たないで', '待[ま]ちましょう'], correctAnswerIndex: 0, explanation: 'Matte kudasai.' },
+                        { id: 'ja-n4-u1-l2-q2', question: '「ゆっくり 話[はな]して ください」ning ma\'nosi:', options: ['Iltimos, sekinroq gapiring', 'Iltimos, tezroq gapiring', 'Gapirmang', 'Yozing'], correctAnswerIndex: 0, explanation: 'Sekinroq gapiring.' },
+                        { id: 'ja-n4-u1-l2-q3', question: '«Iltimos, pasportingizni ko\'rsating»:', options: ['パスポートを 見[み]せて ください', 'パスポートを 見[み]ます', 'パスポートが あります', 'パスポートを 出[で]ます'], correctAnswerIndex: 0, explanation: 'Misete kudasai.' },
+                        { id: 'ja-n4-u1-l2-q4', question: 'Rasmiy kishilarga buyruq bermaslik uchun «kudasai» o\'rniga yanada muloyimroq qaysi ibora ishlatiladi?', options: ['〜て いただけませんか / お願[ねが]いできますか', '〜ろ', '〜てくれ', '〜ます'], correctAnswerIndex: 0, explanation: '〜te itadakemasen ka.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u1-l3',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u1',
+        unitTitle: 'Unit 1: Te-Form & Requests',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 3,
+        title: 'Permission (〜てもいいです) & Prohibition (〜てはいけません)',
+        description: 'Ruxsat so\'rash (qilsam maylimi?) va qat\'iy taqiq (qilish taqiqlanadi).',
+        estimatedDurationMinutes: 14,
+        icon: '🚫',
+        steps: [
+            {
+                id: 'ja-n4-u1-l3-s1',
+                title: 'Ruxsat va Taqiq',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜てもいい (Ruxsat) vs 〜てはいけない (Taqiq)',
+                    explanation: '1. Ruxsat: Fe\'lning て-shakli + もいいですか ("... qilsam maylimi?"). 2. Taqiq: Fe\'lning て-shakli + はいけません ("... qilish taqiqlanadi / mumkin emas").',
+                    keyPoints: [
+                        '写真[しゃしん]を 撮[と]っても いいですか。 (Rasmga olsam maylimi?)',
+                        'ここで タバコを 吸[す]っては いけません。 (Bu yerda chekish taqiqlanadi.)'
+                    ],
+                    vocabulary: [
+                        { term: '写真[しゃしん]', reading: 'Shashin', meaning: 'Rasm / Fotosurat', exampleSentence: '写真[しゃしん]を 撮[と]ります。', exampleTranslation: 'Rasmga olaman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri shaklni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u1-l3-e1', type: 'multiple-choice', prompt: '«Kirsam maylimi?» qanday aytiladi?', options: ['入[はい]っても いいですか', '入[はい]っては いけません', '入[はい]りますか', '入[はい]らないで'], correctAnswer: 0, explanation: 'Haitte mo ii desu ka.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u1-l3-q1', question: '«Bu yerda mashina to\'xtatish taqiqlanadi» jumlasi qaysi?', options: ['ここに 車[くるま]を 止[と]めては いけません', 'ここに 車[くるま]を 止[と]めても いいです', '車[くるま]が あります', '車[くるま]を 止[と]めます'], correctAnswerIndex: 0, explanation: 'Tomete wa ikemasen (taqiq).' },
+                        { id: 'ja-n4-u1-l3-q2', question: '「テレビを 見[み]ても いいですか」— «はい、_______。»', options: ['いいですよ (Ha, ko\'rishingiz mumkin)', 'いけません', '見[み]ませんでした', '見[み]てください'], correctAnswerIndex: 0, explanation: 'Ii desu yo.' },
+                        { id: 'ja-n4-u1-l3-q3', question: '«Imtihon paytida lug\'atdan foydalanish mumkin emas»:', options: ['試験[しけん]中[ちゅう] 辞書[じしょ]を 使[つか]っては いけません', '辞書[じしょ]を 使[つか]っても いいです', '辞書[じしょ]を 使[つか]います', '辞書[じしょ]です'], correctAnswerIndex: 0, explanation: 'Tsukatte wa ikemasen.' },
+                        { id: 'ja-n4-u1-l3-q4', question: '「てはいけません」dagi «は» qanday talaffuz qilinadi?', options: ['Wa', 'Ha', 'He', 'E'], correctAnswerIndex: 0, explanation: 'Yuklama sifatida «wa» o\'qiladi.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u1-l4',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u1',
+        unitTitle: 'Unit 1: Te-Form & Requests',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 4,
+        title: 'Continuous Action & State: 〜ている (Present Continuous & Resultant State)',
+        description: 'Hozir davom etayotgan harakat (shiteru) va natijaviy holat (kekkon shiteru, sunderu).',
+        estimatedDurationMinutes: 15,
+        icon: '🔄',
+        steps: [
+            {
+                id: 'ja-n4-u1-l4-s1',
+                title: '〜ている Ikki Xil Ma\'nosi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Action in Progress vs Resultant State',
+                    explanation: '1. Jarayon (Progressive): 今[いま]、本[ほん]を 読[よ]んでいます (Hozir kitob o\'qiyapman). 2. Natijaviy doimiy holat (Resultant State): 結婚[けっこん]しています (Uylangan / Turmushga chiqqan), 住[す]んでいます (Yashaydi), 知[し]っています (Biladi).',
+                    keyPoints: [
+                        '雨[あめ]が 降[ふ]っています。 (Yomg\'ir yog\'moqda.)',
+                        'タシケントに 住[す]んでいます。 (Toshkentda yashayman - sumimasu EMAS).'
+                    ],
+                    vocabulary: [
+                        { term: '住[す]みます', reading: 'Sumimasu', meaning: 'Yashamoq (Holat: 住[す]んでいる)', exampleSentence: '東京[とうきょう]に 住[す]んでいます。', exampleTranslation: 'Tokioda yashayman.' },
+                        { term: '知[し]ります', reading: 'Shirimasu', meaning: 'Bilib olmoq (Holat: 知[し]っている)', exampleSentence: 'その人[ひと]を 知[し]っています。', exampleTranslation: 'U insonni bilaman / taniyman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri 〜ている shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u1-l4-e1', type: 'multiple-choice', prompt: '«U kishini taniysizmi?» — «Yo\'q, bilmayman (tanimayman)» inkor shakli qaysi?', options: ['いいえ、知[し]りません (Istisno: shitte imasen EMAS, shirimasen)', 'いいえ、知[し]っていません', 'いいえ、知[し]った', 'いいえ、知[し]る'], correctAnswer: 0, explanation: 'Istisno: «Bilaman» = 知っています, «Bilmayman» = 知りません.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u1-l4-q1', question: '«Toshkentda yashayman» to\'g\'ri yaponcha jumlasi qaysi?', options: ['タシケントに 住[す]んでいます', 'タシケントに 住[す]みます', 'タシケントで 住[す]む', 'タシケントへ 住[す]みました'], correctAnswerIndex: 0, explanation: 'Ni sunde imasu.' },
+                        { id: 'ja-n4-u1-l4-q2', question: '「今[いま]、何[なに]を していますか」ning ma\'nosi:', options: ['Hozir nima qilyapsiz?', 'Kecha nima qildingiz?', 'Ertaga nima qilasiz?', 'Qayerdasiz?'], correctAnswerIndex: 0, explanation: 'Hozir nima qilyapsiz?' },
+                        { id: 'ja-n4-u1-l4-q3', question: '«Uylanganman / Turmush qurganman» qanday aytiladi?', options: ['結婚[けっこん]しています', '結婚[けっこん]します', '結婚[けっこん]でした', '結婚[けっこん]'], correctAnswerIndex: 0, explanation: 'Kekkon shite imasu.' },
+                        { id: 'ja-n4-u1-l4-q4', question: '「ドアが 開[あ]いています」nimani bildiradi?', options: ['Eshik ochiq turibdi (natijaviy holat)', 'Eshikni kimdir ochyapti', 'Eshik yopiq', 'Eshik buzilgan'], correctAnswerIndex: 0, explanation: 'Eshik ochiq holatda turibdi.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u1-l5',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u1',
+        unitTitle: 'Unit 1: Te-Form & Requests',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 5,
+        title: 'Sequential Actions: 〜てから (After doing) & 〜たあとで',
+        description: 'Ketma-ket harakatlar: bir ishni qilib bo\'lgach (te kara) ikkinchisini qilish.',
+        estimatedDurationMinutes: 14,
+        icon: '⏭️',
+        steps: [
+            {
+                id: 'ja-n4-u1-l5-s1',
+                title: '〜てから Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Action 1 + てから + Action 2',
+                    explanation: 'Birinchi harakat to\'liq yakunlangandan so\'ng ikkinchi harakat boshlanishini qat\'iy bildiradi.',
+                    keyPoints: [
+                        '手[て]を 洗[あら]ってから、食[た]べます。 (Qo\'lni yuvgandan so\'ng ovqatlanaman.)',
+                        '大学[だいがく]を 卒業[そつぎょう]してから、日本[にほん]へ 行[い]きます。 (Universitetni tugatgach, Yaponiyaga boraman.)'
+                    ],
+                    vocabulary: [
+                        { term: '卒業[そつぎょう]します', reading: 'Sotsugyou shimasu', meaning: 'Bitirmoq / Tamomlamoq', exampleSentence: '大学[だいがく]を 卒業[そつぎょう]しました。', exampleTranslation: 'Universitetni bitirdim.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l5-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri bog\'lanishni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u1-l5-e1', type: 'multiple-choice', prompt: '«Ish tugagandan keyin kinoga boramiz» qanday aytiladi?', options: ['仕事[しごと]が 終[お]わってから、映画[えいが]へ 行[い]きます', '仕事[しごと]が 終[お]わるから、映画[えいが]へ 行[い]きます', '仕事[しごと]の 映画[えいが]', '仕事[しごと]へ 行[い]く'], correctAnswer: 0, explanation: 'Owatte kara (tugagach).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u1-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u1-l5-q1', question: '«Pulni kiritgandan so\'ng tugmani bosing» jumlasi qaysi?', options: ['お金[かね]を 入[い]れてから、ボタンを 押[お]してください', 'お金[かね]を 入[い]れます ボタン', 'お金[かね]が あります', 'ボタンを 押[お]してから お金[かね]'], correctAnswerIndex: 0, explanation: 'Irete kara, botan o oshite kudasai.' },
+                        { id: 'ja-n4-u1-l5-q2', question: '「〜てから」va «〜から (sabab)» farqi nima?', options: ['Fe\'lning て-shakli + から = ketma-ketlik ("qilgach"); Darak gap + から = sabab ("chunki")', 'Farqi yo\'q', 'Birinchisi savol bildiradi', 'Ikkisi ham taqiq'], correctAnswerIndex: 0, explanation: 'Te-form + kara = ketma-ketlik.' },
+                        { id: 'ja-n4-u1-l5-q3', question: '「家[うち]へ 帰[かえ]ってから、何[なに]を しますか」ning ma\'nosi:', options: ['Uyga qaytgach nima qilasiz?', 'Uyga qachon borasiz?', 'Uyda kim bor?', 'Uyga qaytmang'], correctAnswerIndex: 0, explanation: 'Uyga qaytgach nima qilasiz?' },
+                        { id: 'ja-n4-u1-l5-q4', question: '«Ta-form + あとで (ato de)» ham qaysi ma\'noda keladi?', options: ['... qilgandan so\'ng (After doing)', '... qilmasdan oldin', '... qilayotgan paytda', '... qilgisi kelganda'], correctAnswerIndex: 0, explanation: 'After doing (qilgandan keyin).' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 2: Nai-form, Experience & Comparison
+    {
+        id: 'ja-n4-u2-l1',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u2',
+        unitTitle: 'Unit 2: Nai-Form & Experience',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 1,
+        title: 'Nai-Form (ない形) & Negative Requests: 〜ないでください',
+        description: 'Fe\'llarning oddiy inkor shakli (Nai-form) va "... qilmang, iltimos" (naide kudasai).',
+        estimatedDurationMinutes: 14,
+        icon: '⛔',
+        steps: [
+            {
+                id: 'ja-n4-u2-l1-s1',
+                title: 'Nai-shakl Turlanishi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Nai-form Conjugation & 〜ないでください',
+                    explanation: '1. Guruh 2: ます tushadi + ない (食[た]べない, 見[み]ない). 2. Guruh 3: します -> しない, 来[き]ます -> こない (Konai). 3. Guruh 1: Oxirgi "i" tovushi "a" tovushiga o\'zgaradi: 書[か]きます -> 書[か]かない, 飲[の]みます -> 飲[の]まない. Istisno: 買[か]います -> 買[か]わない (wa bo\'ladi).',
+                    keyPoints: [
+                        'ここで 写真[しゃしん]を 撮[と]らないで ください。 (Iltimos, bu yerda rasmga olmang.)',
+                        '心配[しんぱい]しないで ください。 (Iltimos, xavotir olmang.)'
+                    ],
+                    vocabulary: [
+                        { term: '心配[しんぱい]します', reading: 'Shinpai shimasu', meaning: 'Xavotir olmoq', exampleSentence: '心配[しんぱい]しないで ください。', exampleTranslation: 'Xavotir olmang.' },
+                        { term: '忘[わす]れます', reading: 'Wasuremasu', meaning: 'Unutmoq', exampleSentence: '傘[かさ]を 忘[わす]れないで ください。', exampleTranslation: 'Soyaboningizni unutmang.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri inkor iltimos shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u2-l1-e1', type: 'multiple-choice', prompt: '«Iltimos, unutmang» qanday aytiladi?', options: ['忘[わす]れないで ください', '忘[わす]れて ください', '忘[わす]れません ください', '忘[わす]るな'], correctAnswer: 0, explanation: 'Wasurenaide kudasai.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u2-l1-q1', question: '「話[はな]します (gapirmoq)」fe\'lining ない-shakli qaysi?', options: ['話[はな]さない (Hanasanai)', '話[はな]しない', '話[はな]せない', '話[はな]わらい'], correctAnswerIndex: 0, explanation: 'Hanasanai.' },
+                        { id: 'ja-n4-u2-l1-q2', question: '「来[き]ます (kelmoq)」ning istisno ない-shakli:', options: ['こない (Konai)', 'きない', 'くらない', 'かない'], correctAnswerIndex: 0, explanation: 'Konai.' },
+                        { id: 'ja-n4-u2-l1-q3', question: '«Bu yerga kirmang, iltimos»:', options: ['ここに 入[はい]らないで ください', 'ここに 入[はい]って ください', '入[はい]りません', '入[はい]るな'], correctAnswerIndex: 0, explanation: 'Hairanaide kudasai.' },
+                        { id: 'ja-n4-u2-l1-q4', question: '「買[か]います」ning ない-shakli:', options: ['買[か]わない (Kawanai)', '買[か]あない', '買[か]かない', '買[か]いない'], correctAnswerIndex: 0, explanation: 'Kawanai.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u2-l2',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u2',
+        unitTitle: 'Unit 2: Nai-Form & Experience',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 2,
+        title: 'Experience: 〜たことがある (Have done before)',
+        description: 'Hayotiy tajribani ifodalash: "... qilganman / tajribam bor" (Ta-form + koto ga aru).',
+        estimatedDurationMinutes: 14,
+        icon: '🌟',
+        steps: [
+            {
+                id: 'ja-n4-u2-l2-s1',
+                title: 'Tajriba Qoidasi: 〜たことがある',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Fe\'lning Ta-shakli + ことがある',
+                    explanation: 'Hayotda hech bo\'lmasa bir marta sodir bo\'lgan tajribani bildirish: 富士山[ふじさん]に 登[のぼ]ったことが あります (Fudzi tog\'iga chiqqanman). Inkor: 一度[いちど]も ありません (Biror marta ham bo\'lmagan).',
+                    keyPoints: [
+                        '日本[にほん]へ 行[い]ったことが ありますか。 (Yaponiyaga borganmisiz?)',
+                        'いいえ、一度[いちど]も 行[い]ったことが ありません。 (Yo\'q, biror marta ham bormaganman.)'
+                    ],
+                    vocabulary: [
+                        { term: '一度[いちど]も', reading: 'Ichido mo', meaning: 'Biror marta ham (inkor bilan)', exampleSentence: '一度[いちど]も 食[た]べたことが ありません。', exampleTranslation: 'Biror marta ham yemaganman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri shaklni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u2-l2-e1', type: 'multiple-choice', prompt: '«Sushi yeb ko\'rganmisiz?» qanday aytiladi?', options: ['寿司[すし]を 食[た]べたことが ありますか', '寿司[すし]を 食[た]べますか', '寿司[すし]を 食[た]べたいですか', '寿司[すし]が ありますか'], correctAnswer: 0, explanation: 'Tabeta koto ga arimasu ka.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u2-l2-q1', question: '«Kimononi kiyib ko\'rganman» jumlasi qaysi?', options: ['着物[きもの]を 着[き]たことが あります', '着物[きもの]を 着[き]ます', '着物[きもの]を 着[き]たいです', '着物[きもの]です'], correctAnswerIndex: 0, explanation: 'Kita koto ga arimasu.' },
+                        { id: 'ja-n4-u2-l2-q2', question: '「一度[いちど]も スキーを したことが ありません」ning ma\'nosi:', options: ['Biror marta ham chang\'i uchmaganman', 'Har yili chang\'i uchaman', 'Chang\'i uchishni xohlayman', 'Chang\'i qimmat'], correctAnswerIndex: 0, explanation: 'Biror marta ham uchmaganman.' },
+                        { id: 'ja-n4-u2-l2-q3', question: 'Ta-shakl qanday hosil qilinadi?', options: ['Te-shakldagi «te» o\'rniga «ta», «de» o\'rniga «da» qo\'yish orqali (masalan itte -> itta)', 'Faqat maseni olib tashlash orqali', 'Lug\'at shakliga ta qo\'shish', 'O\'zgarmaydi'], correctAnswerIndex: 0, explanation: 'Te-shakl bilan bir xil qoidada ta/da bo\'ladi.' },
+                        { id: 'ja-n4-u2-l2-q4', question: '«Bu film ko\'rganman»:', options: ['この映画[えいが]を 見[み]たことが あります', '映画[えいが]を 見[み]ます', '映画[えいが]を 見[み]て', '映画[えいが]が あります'], correctAnswerIndex: 0, explanation: 'Mita koto ga arimasu.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u2-l3',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u2',
+        unitTitle: 'Unit 2: Nai-Form & Experience',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 3,
+        title: 'Comparison: 〜のほうが〜より & 〜の中で〜が一番',
+        description: 'Taqqoslama (A ga qaraganda B ko\'proq...) va orttirma daraja (orasida eng...).',
+        estimatedDurationMinutes: 14,
+        icon: '⚖️',
+        steps: [
+            {
+                id: 'ja-n4-u2-l3-s1',
+                title: 'Taqqoslash Qoidalari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'A のほうが B より (A, B dan ko\'ra...)',
+                    explanation: '1. Ikki narsani taqqoslash: Aのほうが Bより Sifat です (A, B dan ko\'ra sifatliroqdir). 2. Guruh ichida eng yuqori daraja: [Guruh] の中[なか]で 何[なに]/誰[だれ]が 一番[いちばん] Sifat ですか (Orasida eng ... qaysi?).',
+                    keyPoints: [
+                        '飛行機[ひこうき]のほうが 電車[でんしゃ]より 速[はや]いです。 (Samolyot poyezddan ko\'ra tezroqdir.)',
+                        '季節[きせつ]の 中[なか]で 春[はる]が 一番[いちばん] 好[す]きです。 (Fasllar orasida bahorni eng ko\'p yoqtiraman.)'
+                    ],
+                    vocabulary: [
+                        { term: '一番[いちばん]', reading: 'Ichiban', meaning: 'Eng birinchi / Eng ...', exampleSentence: 'これが 一番[いちばん] 安[やす]いです。', exampleTranslation: 'Bu eng arzoni.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri taqqoslash jumlasini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u2-l3-e1', type: 'multiple-choice', prompt: '«Qahvaga qaraganda choyni ko\'proq ichaman» jumlasi qaysi?', options: ['お茶[ちゃ]のほうが コーヒーより よく 飲[の]みます', 'コーヒーのほうが お茶[ちゃ]より 飲[の]みます', 'お茶[ちゃ]と コーヒーが 飲[の]みます', 'お茶[ちゃ]は コーヒーです'], correctAnswer: 0, explanation: 'Ocha no hou ga koohii yori...' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u2-l3-q1', question: '«Sport turlari orasida futbol eng qiziqarlisi»:', options: ['スポーツの 中[なか]で サッカーが 一番[いちばん] 面白[おもしろ]いです', 'サッカーのほうが スポーツより 面白[おもしろ]いです', 'サッカーが スポーツです', 'スポーツは サッカー'], correctAnswerIndex: 0, explanation: 'Supootsu no naka de sakkaa ga ichiban...' },
+                        { id: 'ja-n4-u2-l3-q2', question: '「日本[にほん]と ウズベキスタンと どちらが 広[ひろ]いですか」ning ma\'nosi:', options: ['Yaponiya va O\'zbekistondan qaysi biri kattaroq (kengroq)?', 'Yaponiya qayerda?', 'O\'zbekiston qanday davlat?', 'Ikkisi bir xilmi?'], correctAnswerIndex: 0, explanation: 'Dochira ga hiroi desu ka (qaysi biri kengroq?).' },
+                        { id: 'ja-n4-u2-l3-q3', question: 'Ikkita narsani taqqoslashda «qaysi biri?» so\'rog\'i qanday beriladi?', options: ['どちら (Dochira)', 'どれ (Dore)', 'どこ (Doko)', 'だれ (Dare)'], correctAnswerIndex: 0, explanation: '2 ta narsa uchun: どちら (Dochira).' },
+                        { id: 'ja-n4-u2-l3-q4', question: '«Ikkalasi ham yoqadi» javobi qaysi?', options: ['どちらも 好[す]きです', 'どちらが 好[す]きです', 'どれも 好[す]きです', '一番[いちばん] 好[す]きです'], correctAnswerIndex: 0, explanation: 'Dochira mo suki desu.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u2-l4',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u2',
+        unitTitle: 'Unit 2: Nai-Form & Experience',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 4,
+        title: 'Obligation (〜なければならない) & Non-obligation (〜なくてもいい)',
+        description: 'Majburiyat ("... qilish shart/kerak") va majburiyat yo\'qligi ("... qilmasa ham mayli").',
+        estimatedDurationMinutes: 14,
+        icon: '⚠️',
+        steps: [
+            {
+                id: 'ja-n4-u2-l4-s1',
+                title: 'Majburiyat Qoidalari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜なければならない vs 〜なくてもいい',
+                    explanation: '1. Majburiyat: Fe\'lning ない-shaklidagi "i" tushadi + ければなりません / ければいけません ("... qilish shart"). 2. Majburiy emas: ない-shaklidagi "i" tushadi + くてもいいです ("... qilmasa ham bo\'ladi").',
+                    keyPoints: [
+                        '薬[くすり]を 飲[の]まなければ なりません。 (Dori ichishim shart.)',
+                        '明日[あした]は 休[やす]みですから、早[はや]く 起[お]きなくても いいです。 (Ertaga dam olish kuni bo\'lgani uchun barvaqt turmasa ham bo\'ladi.)'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri majburiyat shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u2-l4-e1', type: 'multiple-choice', prompt: '«Bugun hisobotni yozishim shart» qanday aytiladi?', options: ['今日[きょう] レポートを 書[か]かなければ なりません', 'レポートを 書[か]かなくても いいです', 'レポートを 書[か]きます', 'レポートを 書[か]いて ください'], correctAnswer: 0, explanation: 'Kakanakereba narimasen.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u2-l4-q1', question: '«Poyabzalingizni yechmasangiz ham bo\'ladi» jumlasi qaysi?', options: ['靴[くつ]を 脱[ぬ]がなくても いいです', '靴[くつ]を 脱[ぬ]がなければ なりません', '靴[くつ]を 脱[ぬ]いで ください', '靴[くつ]を 脱[ぬ]ぎません'], correctAnswerIndex: 0, explanation: 'Nuganakutemo ii desu.' },
+                        { id: 'ja-n4-u2-l4-q2', question: 'So\'zlashuvda「〜なければならない」qanday qisqaradi?', options: ['〜なきゃ (Nakya) / 〜なくちゃ (Nakucha)', '〜ないで', '〜てもいい', '〜ます'], correctAnswerIndex: 0, explanation: 'Nakya / Nakucha.' },
+                        { id: 'ja-n4-u2-l4-q3', question: '«Pasport olib kelishim shartmi?» so\'rovi qaysi?', options: ['パスポートを 持[も]って 来[こ]なければ なりませんか', 'パスポートが ありますか', 'パスポートを 見[み]ますか', 'パスポートです'], correctAnswerIndex: 0, explanation: 'Motte konakereba narimasen ka.' },
+                        { id: 'ja-n4-u2-l4-q4', question: '「払[はら]わなくても いいです」ning ma\'nosi:', options: ['To\'lamasa ham bo\'ladi (bepul)', 'To\'lash shart', 'To\'ladim', 'To\'lay olmayman'], correctAnswerIndex: 0, explanation: 'Harawanakutemo ii desu — To\'lamasa ham bo\'ladi.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u2-l5',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u2',
+        unitTitle: 'Unit 2: Nai-Form & Experience',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 5,
+        title: 'N4 Reading: Short Public Notices & Information Retrieval',
+        description: 'E\'lonlar, muzey qoidalari va jadvallarni o\'qib kerakli ma\'lumotni topish.',
+        estimatedDurationMinutes: 15,
+        icon: '📑',
+        steps: [
+            {
+                id: 'ja-n4-u2-l5-s1',
+                title: 'E\'lon Matni',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Notice: Central Library Guidelines',
+                    explanation: '【中央[ちゅうおう] 図書館[としょかん]の 利用[りよう] 案内[あんない]】 開館[かいかん] 時間[じかん]：午前[ごぜん]9時[くじ]〜午後[ごご]7時[しちじ]（土日[どにち]は午後[ごご]5時[ごじ]まで）。 休館日[きゅうかんび]：毎週[まいしゅう] 月曜日[げつようび]。 本[ほん]は 一人[ひとり] 5冊[ごさつ]まで、2週間[にしゅうかん] 借[か]りることができます。 返却[へんきゃく]が 遅[おく]れた 場合[ばあい]、新[あたら]しい 本[ほん]を 借[か]りることができません。',
+                    keyPoints: [
+                        '土日[どにち]は 17:00 まで (Shanba-yakshanba 17:00 gacha)',
+                        '毎週[まいしゅう] 月曜日[げつようび] 休[やす]み (Har dushanba dam olish)',
+                        '5冊[ごさつ]、2週間[にしゅうかん] (5 ta kitob, 2 hafta)'
+                    ],
+                    vocabulary: [
+                        { term: '利用[りよう]', reading: 'Riyou', meaning: 'Foydalanish', exampleSentence: '図書館[としょかん]を 利用[りよう]します。', exampleTranslation: 'Kutubxonadan foydalanaman.' },
+                        { term: '返却[へんきゃく]', reading: 'Henkyaku', meaning: 'Qaytarib berish (kitobni)', exampleSentence: '本[ほん]の 返却[へんきゃく]。', exampleTranslation: 'Kitobni qaytarish.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l5-s2',
+                title: 'Tushunish Mashqi',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'E\'lon bo\'yicha to\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u2-l5-e1', type: 'multiple-choice', prompt: 'Yakshanba kuni kutubxona soat nechagacha ochiq?', options: ['午後[ごご]5時[ごじ]まで', '午後[ごご]7時[しちじ]まで', '午前[ごぜん]9時[くじ]まで', '休館日[きゅうかんび]です'], correctAnswer: 0, explanation: 'E\'londa: 土日は午後5時まで.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u2-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u2-l5-q1', question: 'Kutubxonaning dam olish kuni qachon?', options: ['毎週[まいしゅう] 月曜日[げつようび]', '毎週[まいしゅう] 日曜日[にちようび]', '毎週[まいしゅう] 水曜日[すいようび]', 'Dam olish kuni yo\'q'], correctAnswerIndex: 0, explanation: 'Har haftaning dushanbasi.' },
+                        { id: 'ja-n4-u2-l5-q2', question: 'Bir kishi ko\'pi bilan nechta kitobni qancha muddatga olishi mumkin?', options: ['5 ta kitobni 2 haftaga', '10 ta kitobni 1 oyga', '2 ta kitobni 5 kunga', '1 ta kitobni 1 yilga'], correctAnswerIndex: 0, explanation: '5冊まで、2週間.' },
+                        { id: 'ja-n4-u2-l5-q3', question: 'Kitobni o\'z vaqtida qaytarmasa nima bo\'ladi?', options: ['Yangi kitob ololmaydi', 'Jarima to\'laydi', 'Kutubxonadan haydaladi', 'Hech narsa bo\'lmaydi'], correctAnswerIndex: 0, explanation: 'Yangi kitob ololmaydi.' },
+                        { id: 'ja-n4-u2-l5-q4', question: 'JLPT N4 Dokkai bo\'limida bunday ma\'lumot qidirish topshirig\'i nima deb ataladi?', options: ['情報検索[じょうほうけんさく] (Information Retrieval)', 'Grammatika', 'Tinglash', 'Insho'], correctAnswerIndex: 0, explanation: 'Information retrieval.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 3: Potential, Giving/Receiving & N4 Kanji
+    {
+        id: 'ja-n4-u3-l1',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u3',
+        unitTitle: 'Unit 3: Potential & Giving/Receiving',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 1,
+        title: 'Potential Form: 〜ことができる vs 〜(ら)れる (Ability & Possibility)',
+        description: 'Imkoniyat shakli: bajara olmoq (dekimasu, taberareru, hanaseru).',
+        estimatedDurationMinutes: 15,
+        icon: '💪',
+        steps: [
+            {
+                id: 'ja-n4-u3-l1-s1',
+                title: 'Imkoniyat Fe\'llari (可能形)',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Potential Form (可能形)',
+                    explanation: '1. Lug\'at shakli + ことができる: 泳[およ]ぐ ことが できます. 2. Qisqa imkoniyat shakli (Kanoukei): Guruh 1 da oxirgi "u" tovushi "e" ga o\'zgaradi: 泳[およ]ぐ -> 泳[およ]げる, 話[はな]す -> 話[はな]せる, 行[い]く -> 行[い]ける. Guruh 2: 食べる -> 食べられる, 見る -> 見られる. Guruh 3: します -> できる, 来る -> こられる.',
+                    keyPoints: [
+                        'Imkoniyat fe\'lida obyekt yuklamasi を o\'rniga ko\'pincha が (ga) bo\'ladi: 日本語[にほんご]が 話[はな]せます。'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri imkoniyat shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u3-l1-e1', type: 'multiple-choice', prompt: '「書[か]きます (yozmoq)」fe\'lining imkoniyat shakli qaysi?', options: ['書[か]けます (Kakemasu - yoza olaman)', '書[か]かれます', '書[か]きます', '書[か]ける'], correctAnswer: 0, explanation: 'Kakimasu -> Kakemasu.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u3-l1-q1', question: '«Yapon tilida erkin gaplasha olaman» jumlasi qaysi?', options: ['日本語[にほんご]が 上手[じょうず]に 話[はな]せます', '日本語[にほんご]を 話[はな]します', '日本語[にほんご]が 話[はな]したい', '日本語[にほんご]です'], correctAnswerIndex: 0, explanation: 'Nihongo ga hanasemasu.' },
+                        { id: 'ja-n4-u3-l1-q2', question: '「食[た]べます (2-guruh)」ning imkoniyat shakli:', options: ['食[た]べられます (Taberareru)', '食[た]べれます (so\'zlashuv)', '食[た]べます', '食[た]べれる'], correctAnswerIndex: 0, explanation: 'Taberareru.' },
+                        { id: 'ja-n4-u3-l1-q3', question: '«Kanjini o\'qiy olmaysizmi?» so\'rovi:', options: ['漢字[かんじ]が 読[よ]めませんか', '漢字[かんじ]を 読[よ]みませんか', '漢字[かんじ]が 読[よ]みたいですか', '漢字[かんじ]を 読[よ]むな'], correctAnswerIndex: 0, explanation: 'Yomemasen ka.' },
+                        { id: 'ja-n4-u3-l1-q4', question: '「する」fe\'lining imkoniyat shakli nima bo\'ladi?', options: ['できる (Dekiru)', 'される', 'すれる', 'しられる'], correctAnswerIndex: 0, explanation: 'Dekiru.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u3-l2',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u3',
+        unitTitle: 'Unit 3: Potential & Giving/Receiving',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 2,
+        title: 'Giving & Receiving: あげる, もらう, くれる (Yarimorai)',
+        description: 'Sovg\'a va yaxshilik berish/olish munosabatlari (Ageru, Morau, Kureru).',
+        estimatedDurationMinutes: 16,
+        icon: '🎁',
+        steps: [
+            {
+                id: 'ja-n4-u3-l2-s1',
+                title: 'Yarimorai Tizimi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'あげる, もらう, くれる',
+                    explanation: '1. あげる (Ageru): Men birovga beraman / A kishi B ga beradi. 2. もらう (Morau): Men birovdan qabul qilib olaman. 3. くれる (Kureru): Birov menga (yoki mening oilamga) beradi.',
+                    keyPoints: [
+                        '私[わたし]は 友達[ともだち]に プレゼントを あげました。 (Men do\'stimga sovg\'a berdim.)',
+                        '友達[ともだち]が 私[わたし]に プレゼントを くれました。 (Do\'stim menga sovg\'a berdi.)',
+                        '私[わたし]は 先生[せんせい]に 本[ほん]を もらいました。 (Men ustozdan kitob oldim.)'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri berish/olish fe\'lini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u3-l2-e1', type: 'multiple-choice', prompt: '«Tanaka san menga qiziq kitob berdi» qanday aytiladi?', options: ['田中[たなか]さんが 私[わたし]に 面白[おもしろ]い本[ほん]を くれました', '田中[たなか]さんに 本[ほん]を あげました', '田中[たなか]さんに くれました', '本[ほん]を もらいました'], correctAnswer: 0, explanation: 'Birov menga bersa: くれました (Kuremashita).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u3-l2-q1', question: 'Birov menga biror yaxshilik qilib berganda qaysi tuzilma ishlatiladi?', options: ['〜て くれました (Te kuremashita)', '〜て あげました', '〜て ください', '〜ないで'], correctAnswerIndex: 0, explanation: '〜te kuremashita (menga qilib berdi).' },
+                        { id: 'ja-n4-u3-l2-q2', question: '«Men onamga gul sovg\'a qildim» jumlasi qaysi?', options: ['母[はは]に 花[はな]を あげました', '母[はな]が 花[はな]を くれました', '花[はな]を もらいました', '花[はな]です'], correctAnswerIndex: 0, explanation: 'Haha ni hana o agemashita.' },
+                        { id: 'ja-n4-u3-l2-q3', question: '«Do\'stimdan soat oldim (do\'stim menga sovg\'a qildi)»:', options: ['友達[ともだち]に 時計[とけい]を もらいました', '友達[ともだち]に 時計[とけい]を あげました', '時計[とけい]を 買[か]いました', '時計[とけい]です'], correctAnswerIndex: 0, explanation: 'Tomodachi ni tokei o moraimashita.' },
+                        { id: 'ja-n4-u3-l2-q4', question: '«Ustozim menga yapon tilini o\'rgatib berdilar»:', options: ['先生[せんせい]が 日本語[にほんご]を 教[おし]えて くれました', '先生[せんせい]に 教[おし]えて あげました', '先生[せんせい]を 教[おし]えました', '日本語[にほんご]です'], correctAnswerIndex: 0, explanation: 'Oshiete kuremashita.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u3-l3',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u3',
+        unitTitle: 'Unit 3: Potential & Giving/Receiving',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 3,
+        title: 'N4 Kanji 1: Daily Verbs & Actions (行, 来, 帰, 買, 見, 聞, 書, 読)',
+        description: 'N4 asosiy harakat fe\'llarining kanjilari va birikmalari.',
+        estimatedDurationMinutes: 14,
+        icon: '🈴',
+        steps: [
+            {
+                id: 'ja-n4-u3-l3-s1',
+                title: 'Harakat Kanjilari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Action Kanjis',
+                    explanation: '行 (i/kou - bormoq), 来 (ki/rai - kelmoq), 帰 (kae/ki - qaytmoq), 買 (ka/bai - sotib olmoq), 見 (mi/ken - ko\'rmoq), 聞 (ki/bun - eshitmoq), 書 (ka/sho - yozmoq), 読 (yo/doku - o\'qimoq).',
+                    vocabulary: [
+                        { term: '新聞[しんぶん]', reading: 'Shinbun', meaning: 'Gazeta (Yangi eshitilgan xabar)', exampleSentence: '新聞[しんぶん]を 読[よ]みます。', exampleTranslation: 'Gazeta o\'qiyman.' },
+                        { term: '旅行[りょこう]', reading: 'Ryokou', meaning: 'Sayohat', exampleSentence: '旅行[りょこう]に 行[い]きます。', exampleTranslation: 'Sayohatga boraman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'Iyeroglifni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u3-l3-e1', type: 'multiple-choice', prompt: '「読[よ]書[しょ] (Kitobxonlik)」so\'zidagi 読 qaysi ma\'noni bildiradi?', options: ['O\'qimoq (Yomu)', 'Yozmoq', 'Ko\'rmoq', 'Eshitmoq'], correctAnswer: 0, explanation: '読 — O\'qimoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u3-l3-q1', question: '«Kelasi yil» kanjisi qaysi?', options: ['来年[らいねん]', '今年[ことし]', '去年[きょねん]', '毎年[まいとし]'], correctAnswerIndex: 0, explanation: '来年 (Rainen).' },
+                        { id: 'ja-n4-u3-l3-q2', question: '「見学[けんがく]」so\'zining ma\'nosi:', options: ['Ekskursiya / Ko\'rib o\'rganish', 'Kitob o\'qish', 'Uyga qaytish', 'Xarid qilish'], correctAnswerIndex: 0, explanation: 'Kengaku — Ko\'rib o\'rganish.' },
+                        { id: 'ja-n4-u3-l3-q3', question: '«Sotib olmoq» kanjisi qaysi?', options: ['買', '帰', '聞', '書'], correctAnswerIndex: 0, explanation: '買 (Kau).' },
+                        { id: 'ja-n4-u3-l3-q4', question: '「図書館[としょかん]」so\'zidagi 書 nimani bildiradi?', options: ['Kitob / Yozuv (Sho)', 'Bino', 'Eshik', 'Oyna'], correctAnswerIndex: 0, explanation: 'Kitob / Yozuv.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u3-l4',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u3',
+        unitTitle: 'Unit 3: Potential & Giving/Receiving',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 4,
+        title: 'N4 Kanji 2: Society, Time & Opposites (社, 会, 駅, 店, 多, 少, 高, 安, 新, 古)',
+        description: 'Jamiyat, joylar va sifatlarning qarama-qarshi juftliklari.',
+        estimatedDurationMinutes: 14,
+        icon: '🈴',
+        steps: [
+            {
+                id: 'ja-n4-u3-l4-s1',
+                title: 'Qarama-qarshi Kanjilar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Antonyms & Places',
+                    explanation: '社 (sha - jamiyat/kompaniya), 会 (kai/a - uchrashuv), 駅 (eki - stansiya), 店 (mise/ten - do\'kon). Juftliklar: 多 (ooi - ko\'p) <-> 少 (sukunai - oz); 高 (takai - baland/qimmat) <-> 安 (yasui - arzon/osuda); 新 (atarashii - yangi) <-> 古 (furui - eski).',
+                    vocabulary: [
+                        { term: '会社[かいしゃ]', reading: 'Kaisha', meaning: 'Kompaniya / Korxona', exampleSentence: '会社[かいしゃ]に 勤[つと]めます。', exampleTranslation: 'Kompaniyada ishlayman.' },
+                        { term: '安全[あんぜん]', reading: 'Anzen', meaning: 'Xavfsiz', exampleSentence: '安全[あんぜん]な 町[まち]。', exampleTranslation: 'Xavfsiz shahar.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'Antonom iyeroglifni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u3-l4-e1', type: 'multiple-choice', prompt: '「新[あたら]しい (yangi)」kanjisining teskarisi qaysi?', options: ['古[ふる]い (eski)', '高[たか]い', '安[やす]い', '多[おお]い'], correctAnswer: 0, explanation: 'Furui (eski).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u3-l4-q1', question: '«Kompaniya xodimi» yapon kanjisida qanday yoziladi?', options: ['会社員[かいしゃいん]', '学生[がくせい]', '先生[せんせい]', '駅員[えきいん]'], correctAnswerIndex: 0, explanation: 'Kaishain.' },
+                        { id: 'ja-n4-u3-l4-q2', question: '「多[おお]い」kanjisining ma\'nosi:', options: ['Ko\'p', 'Oz', 'Katta', 'Kichik'], correctAnswerIndex: 0, explanation: 'Ooi — Ko\'p.' },
+                        { id: 'ja-n4-u3-l4-q3', question: '«Do\'kon / Magazin» kanjisi qaysi?', options: ['店', '駅', '社', '会'], correctAnswerIndex: 0, explanation: '店 (Mise).' },
+                        { id: 'ja-n4-u3-l4-q4', question: '「駅前[えきまえ]」so\'zining ma\'nosi:', options: ['Vokzal qarshisi / Vokzal oldi maydoni', 'Vokzal ichi', 'Poyezd', 'Chipta'], correctAnswerIndex: 0, explanation: 'Vokzal oldi maydoni.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u3-l5',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u3',
+        unitTitle: 'Unit 3: Potential & Giving/Receiving',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 5,
+        title: 'N4 Listening: Transit Instructions & Public Announcements',
+        description: 'Poyezdlarni almashtirish (norikae) va jamoat transporti eshittirishlarini tushunish.',
+        estimatedDurationMinutes: 15,
+        icon: '🚆',
+        steps: [
+            {
+                id: 'ja-n4-u3-l5-s1',
+                title: 'Transport E\'lonlari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Transit Dialogue: Poyezd Almashtirish',
+                    explanation: 'E\'lon:「次[つぎ]は 新宿[しんじゅく]、新宿[しんじゅく]です。中央線[ちゅうおうせん]は お乗[の]り換[か]えです。お降[お]りの 際[さい]は、足元[あしもと]に ご注意[ちゅうい]ください。」',
+                    keyPoints: [
+                        '乗[の]り換[か]え (Norikae) — Boshqa poyezd yoki liniyaga o\'tish',
+                        '足元[あしもと]に ご注意[ちゅうい] (Ashimoto ni gochuui) — Oyog\'ingiz ostiga ehtiyot bo\'ling'
+                    ],
+                    vocabulary: [
+                        { term: '乗[の]り換[か]えます', reading: 'Norikaemasu', meaning: 'Boshqa transportga o\'tirmoq / Liniya almashtirmoq', exampleSentence: '次[つぎ]の 駅[えき]で 乗[の]り換[か]えます。', exampleTranslation: 'Keyingi bekatda liniyani almashtiraman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l5-s2',
+                title: 'Eshitish Mashqi',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'E\'lon bo\'yicha to\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u3-l5-e1', type: 'multiple-choice', prompt: 'Chuuou liniyasiga chiqmoqchi bo\'lgan yo\'lovchi qaysi bekatda tushishi kerak?', options: ['Shinjuku bekatida', 'Tokio bekatida', 'Shibuya bekatida', 'Ueno bekatida'], correctAnswer: 0, explanation: 'E\'londa: Tsugi wa Shinjuku... Chuuousen wa onorikae desu.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u3-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u3-l5-q1', question: '«Keyingi bekat» yapon tilida qanday e\'lon qilinadi?', options: ['次[つぎ]は ... (Tsugi wa...)', '前[まえ]は', '後[うし]ろは', '終[お]わりは'], correctAnswerIndex: 0, explanation: 'Tsugi wa...' },
+                        { id: 'ja-n4-u3-l5-q2', question: '「ドアが 閉[し]まります、ご注意[ちゅうい]ください」ning ma\'nosi:', options: ['Eshiklar yopilmoqda, ehtiyot bo\'ling', 'Eshiklar ochildi', 'Poyezd to\'xtadi', 'Poyezd buzildi'], correctAnswerIndex: 0, explanation: 'Eshiklar yopilmoqda.' },
+                        { id: 'ja-n4-u3-l5-q3', question: '«Qaysi platformadan poyezd jo\'naydi?» so\'rog\'i qaysi?', options: ['何番線[なんばんせん]から 発車[はっしゃ]しますか', '電車[でんしゃ]は いくらですか', '駅[えき]は どこですか', '切符[きっぷ]が ありますか'], correctAnswerIndex: 0, explanation: 'Nanbansen kara hassha shimasu ka.' },
+                        { id: 'ja-n4-u3-l5-q4', question: '「急行[きゅうこう] (Kyuukou)」qanday poyezd turi?', options: ['Ekspress / Tez yurar poyezd', 'Oddiy har bekatda to\'xtaydigan poyezd', 'Yuk poyezdi', 'Eski poyezd'], correctAnswerIndex: 0, explanation: 'Tez yurar ekspress.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 4: Intention, Reason, Comparison & Planning
+    {
+        id: 'ja-n4-u4-l1',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u4',
+        unitTitle: 'Unit 4: Intentions & Reasoning',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 1,
+        title: 'Intention & Plans: 〜つもりです & 〜予定です',
+        description: 'Rejalar va qat\'iy niyatlar ("... qilish niyatidaman / rejalashtirganman").',
+        estimatedDurationMinutes: 14,
+        icon: '🎯',
+        steps: [
+            {
+                id: 'ja-n4-u4-l1-s1',
+                title: '〜つもり & 〜予定 Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜つもりです (Shaxsiy Niyat) vs 〜予定です (Rasmiy Reja)',
+                    explanation: '1. Fe\'lning oddiy shakli + つもりです (shaxsiy qat\'iy niyat): 国[くに]へ 帰[かえ]る つもりです (Vatanimga qaytish niyatidaman). 2. Fe\'lning oddiy shakli / Ot + の + 予定[よてい]です (jadval asosidagi rasmiy reja): 来週[らいしゅう] 出張[しゅっちょう]の 予定[よてい]です.',
+                    vocabulary: [
+                        { term: '予定[よてい]', reading: 'Yotei', meaning: 'Reja / Jadval', exampleSentence: '明日[あした]の 予定[よてい]。', exampleTranslation: 'Ertangi reja.' },
+                        { term: '出張[しゅっちょう]', reading: 'Shucchou', meaning: 'Xizmat safari', exampleSentence: '大阪[おおさか]へ 出張[しゅっちょう]します。', exampleTranslation: 'Osakaga xizmat safariga boraman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri niyat shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u4-l1-e1', type: 'multiple-choice', prompt: '«Kelasi yili yangi mashina sotib olish niyatidaman» qanday aytiladi?', options: ['来年[らいねん] 新[あたら]しい 車[くるま]を 買[か]う つもりです', '車[くるま]を 買[か]いました', '車[くるま]を 買[か]いたいです', '車[くるま]が あります'], correctAnswer: 0, explanation: 'Kau tsumori desu.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u4-l1-q1', question: '«Universitetga kirmaslik niyatidaman» inkor niyat jumlasi qaysi?', options: ['大学[だいがく]に 入[はい]らない つもりです', '大学[だいがく]に 入[はい]る つもりではありません', '大学[だいがく]に 入[はい]りません', '大学[だいがく]です'], correctAnswerIndex: 0, explanation: 'Hairanai tsumori desu.' },
+                        { id: 'ja-n4-u4-l1-q2', question: '«Majlis soat 14:00 da boshlanishi rejalashtirilgan»:', options: ['会議[かいぎ]は 14時[じゅうよじ]に 始[はじ]まる 予定[よてい]です', '会議[かいぎ]は 14時[じゅうよじ]に 始[はじ]まりました', '会議[かいぎ]が あります', '会議[かいぎ]です'], correctAnswerIndex: 0, explanation: 'Hajimaru yotei desu.' },
+                        { id: 'ja-n4-u4-l1-q3', question: '〜つもり dan oldin fe\'l qaysi shaklda keladi?', options: ['Oddiy lug\'at shaklida (Jisho-kei yoki Nai-kei)', 'Masu shaklida', 'Te-shaklida', 'Ta-shaklida'], correctAnswerIndex: 0, explanation: 'Jisho-kei / Nai-kei.' },
+                        { id: 'ja-n4-u4-l1-q4', question: 'Boshqa birovga yoki xo\'jayinga «〜つもりですか» deb so\'rash nima uchun noo\'rin?', options: ['Chunki bu shaxsiy niyatni tergov qilgandek eshitiladi; uning o\'rniga 〜ご予定ですか ishlatiladi', 'Chunki bu grammatik xato', 'Chunki bu faqat bolalarga aytiladi', 'Farqi yo\'q'], correctAnswerIndex: 0, explanation: 'Uncourteous tone; use yotei instead.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u4-l2',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u4',
+        unitTitle: 'Unit 4: Intentions & Reasoning',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 2,
+        title: 'Volitional Form (意向形): 〜(よ)う (Let\'s do / Intent)',
+        description: 'Fe\'lning xohish-niyat shakli (Ikoukei): birgalikda qilish va niyat qilish.',
+        estimatedDurationMinutes: 14,
+        icon: '🔥',
+        steps: [
+            {
+                id: 'ja-n4-u4-l2-s1',
+                title: 'Xohish-Niyat Fe\'llari (意向形)',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Volitional Form (意向形) & 〜ようと 思っています',
+                    explanation: '1. Guruh 1: Oxirgi "u" tovushi "ou" ga o\'zgaradi: 行[い]く -> 行[い]こう, 話[はな]す -> 話[はな]そう. 2. Guruh 2: 食べる -> 食べよう, 見る -> 見よう. 3. Guruh 3: する -> しよう, 来る -> こよう. 4. Niyat bildirish: Fe\'lning xohish shakli + と 思[おも]っています ("... qilmoqchiman / deb o\'ylayapman").',
+                    keyPoints: [
+                        '一緒[いっしょ]に 頑張[がんば]ろう！ (Qani, birga astoydil harakat qilaylik!)',
+                        '週末[しゅうまつ]、映画[えいが]を 見[み]ようと 思[おも]っています。 (Dam olish kunida kino ko\'rmoqchiman deb o\'ylayapman.)'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri xohish shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u4-l2-e1', type: 'multiple-choice', prompt: '「行[い]きます (bormoq)」fe\'lining xohish shakli (Ikoukei) qaysi?', options: ['行[い]こう (Ikou)', '行[い]よう', '行[い]きます', '行[い]け'], correctAnswer: 0, explanation: 'Ikou (qani, boraylik).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u4-l2-q1', question: '「休[やす]もう」nimani bildiradi?', options: ['Qani, dam olaylik! (So\'zlashuvdagi mashou)', 'Dam olmoqchiman', 'Dam olmang', 'Dam oldik'], correctAnswerIndex: 0, explanation: 'Yasumou — Qani, dam olaylik.' },
+                        { id: 'ja-n4-u4-l2-q2', question: '「勉強[べんきょう]しようと 思[おも]っています」ning ma\'nosi:', options: ['Dars qilmoqchiman deb o\'ylayapman', 'Dars qildim', 'Dars qilmang', 'Dars qiziq'], correctAnswerIndex: 0, explanation: 'Dars qilmoqchiman deb o\'ylayapman.' },
+                        { id: 'ja-n4-u4-l2-q3', question: '「食[た]べます (2-guruh)」ning xohish shakli:', options: ['食[た]べよう (Tabeyou)', '食[た]ぼう', '食[た]べろう', '食[た]べ'], correctAnswerIndex: 0, explanation: 'Tabeyou.' },
+                        { id: 'ja-n4-u4-l2-q4', question: '「する」fe\'lining xohish shakli:', options: ['しよう (Shiyou)', 'すよう', 'さよう', 'せよう'], correctAnswerIndex: 0, explanation: 'Shiyou.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u4-l3',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u4',
+        unitTitle: 'Unit 4: Intentions & Reasoning',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 3,
+        title: 'Reason & Cause: 〜から vs 〜ので (Subjective vs Objective Reason)',
+        description: 'Sabab ko\'rsatish: shaxsiy fikr (kara) va muloyim ob\'ektiv sabab (node).',
+        estimatedDurationMinutes: 14,
+        icon: '💡',
+        steps: [
+            {
+                id: 'ja-n4-u4-l3-s1',
+                title: 'から va ので Farqlari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜から vs 〜ので',
+                    explanation: '1. 〜から: Shaxsiy fikr, buyruq yoki taklif bilan keladi: 時間[じかん]が ありませんから、急[いそ]ぎましょう (Vaqt yo\'q, shuning uchun shoshamiz). 2. 〜ので: Ob\'ektiv, xushmuomala va uzrli sabab: 電車[でんしゃ]が 遅[おく]れたので、遅刻[ちこく]しました (Poyezd kechikkani sababli kech qoldim).',
+                    keyPoints: [
+                        'な-sifat va Ot bilan "node": 雨[あめ]なので (yomg\'ir bo\'lgani sababli), 暇[ひま]なので.'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri sabab bog\'lovchisini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u4-l3-e1', type: 'multiple-choice', prompt: '«Boshim og\'riyotgani sababli bugun erta qaytaman (muloyim iltimos)»:', options: ['頭[あたま]が 痛[いた]いので、早[はや]く 帰[かえ]ります', '頭[あたま]が 痛[いた]いですから 帰[かえ]る', '頭[あたま]が 痛[いた]い', '痛[いた]い'], correctAnswer: 0, explanation: 'Itai node (muloyim ob\'ektiv sabab).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u4-l3-q1', question: 'Xo\'jayin yoki mijozga kech qolish sababini tushuntirganda qaysi biri ko\'proq xushmuomala hisoblanadi?', options: ['〜ので (Node)', '〜から (Kara)', '〜けど', '〜し'], correctAnswerIndex: 0, explanation: '〜node (muloyim va ob\'ektiv).' },
+                        { id: 'ja-n4-u4-l3-q2', question: 'Ot bilan «node» qanday qo\'shiladi?', options: ['Ot + な + ので (Masalan: 病気[びょうき]なので)', 'Ot + の + ので', 'Ot + だ + ので', 'Ot + ので'], correctAnswerIndex: 0, explanation: 'Ot + な + node.' },
+                        { id: 'ja-n4-u4-l3-q3', question: '«Xavfli bo\'lgani uchun tegmang!» jumlasi qaysi?', options: ['危[あぶ]ないですから、触[さわ]らないで ください', '危[あぶ]ないですから、触[さわ]って', '危[あぶ]ない', '触[さわ]るな'], correctAnswerIndex: 0, explanation: 'Abunai desu kara, sawaranaide kudasai.' },
+                        { id: 'ja-n4-u4-l3-q4', question: '「用事[ようじ]が あるので、失礼[しつれい]します」ning ma\'nosi:', options: ['Zarur ishim borligi sababli, ruxsatingiz bilan ketaman', 'Ishim yo\'q', 'Kechikdim', 'Boshim og\'riyapti'], correctAnswerIndex: 0, explanation: 'Zarur ishim borligi sababli ketaman.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u4-l4',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u4',
+        unitTitle: 'Unit 4: Intentions & Reasoning',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 4,
+        title: 'N4 Conditionals: 〜たら (When / If) & 〜ば',
+        description: 'Shart ergash gaplar: "... bo\'lsa / qilgandan so\'ng" (tara) va umumiy qoida (ba).',
+        estimatedDurationMinutes: 15,
+        icon: '🔀',
+        steps: [
+            {
+                id: 'ja-n4-u4-l4-s1',
+                title: '〜たら Shart Shakli',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜たら (If / When)',
+                    explanation: 'Fe\'lning Ta-shakli + ら (tara): 1. Shart ("Agar ... bo\'lsa"): 雨[あめ]が 降[ふ]ったら、行[い]きません (Agar yomg\'ir yog\'sa, bormayman). 2. Vaqt ketma-ketligi ("Yetib borgach"): 駅[えき]に 着[つ]いたら、電話[でんわ]してください (Vokzalga yetib borgach, qo\'ng\'iroq qiling).',
+                    keyPoints: [
+                        'Sifatlar bilan: 安[やす]かったら (Arzon bo\'lsa), 暇[ひま]だったら (Bo\'sh bo\'lsang).'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri shart shaklini tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u4-l4-e1', type: 'multiple-choice', prompt: '«Agar vaqtingiz bo\'lsa, birga kofe ichaylik» qanday aytiladi?', options: ['時間[じかん]が あったら、お茶[ちゃ]を 飲[の]みましょう', '時間[じかん]が あります お茶[ちゃ]', '時間[じかん]が あるから', '時間[じかん]です'], correctAnswer: 0, explanation: 'Attara (bo\'lsa).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u4-l4-q1', question: '«Uyga yetib borgach, qo\'lingizni yuving» jumlasi qaysi?', options: ['家[うち]に 着[つ]いたら、手[て]を 洗[あら]って ください', '家[うち]に 着[つ]く 手[て]', '手[て]を 洗[あら]います', '家[うち]です'], correctAnswerIndex: 0, explanation: 'Tsukitara, te o aratte kudasai.' },
+                        { id: 'ja-n4-u4-l4-q2', question: '「安[やす]かったら、買[か]います」ning ma\'nosi:', options: ['Agar arzon bo\'lsa, sotib olaman', 'Qimmat bo\'lsa ham olaman', 'Sotib olmadim', 'Arzon emas'], correctAnswerIndex: 0, explanation: 'Yasukattara, kaimasu.' },
+                        { id: 'ja-n4-u4-l4-q3', question: '«〜ば (ba)» shart shakli ko\'proq qaysi vaziyatda ishlatiladi?', options: ['Umumiy tabiiy shart-sharoit va maslahatda (masalan: 安ければ = arzon bo\'lsa)', 'Faqat o\'tmishda', 'Faqat taqiqda', 'Faqat salomlashganda'], correctAnswerIndex: 0, explanation: 'General conditional/advice.' },
+                        { id: 'ja-n4-u4-l4-q4', question: '«Tushunmasangiz, so\'rang»:', options: ['分[わ]からなかったら、聞[き]いて ください', '分[わ]かりますから 聞[き]く', '分[わ]からない', '聞[き]かないで'], correctAnswerIndex: 0, explanation: 'Wakaranakattara, kiite kudasai.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u4-l5',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u4',
+        unitTitle: 'Unit 4: Intentions & Reasoning',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 5,
+        title: 'N4 Reading: Letters & Everyday Communications',
+        description: 'Do\'stlar va o\'qituvchilarga yozilgan xatlar va taklifnomalarni o\'qib tushunish.',
+        estimatedDurationMinutes: 15,
+        icon: '✉️',
+        steps: [
+            {
+                id: 'ja-n4-u4-l5-s1',
+                title: 'Xat Matni',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Letter: Invitation to Barbecue Party',
+                    explanation: '田中[たなか]先生[せんせい]へ。 毎日[まいにち] 暑[あつ]い 日[ひ]が 続[つづ]いて いますが、お元気[げんき]ですか。 さて、来週[らいしゅう]の 日曜日[にちようび]に 学生[がくせい]みんなで 公園[こうえん]で バーベキューを しようと 思[おも]っています。 先生[せんせい]も ぜひ 来[き]て ください。 時間[じかん]は 午前[ごぜん]11時[じゅういちじ]からです。 都合[つごう]が よかったら、金曜日[きんようび]までに お返事[へんじ]を ください。 アリより。',
+                    keyPoints: [
+                        '来週[らいしゅう]の 日曜日[にちようび] 11:00 から (Kelasi yakshanba soat 11:00 dan)',
+                        '金曜日[きんようび]までに 返事[へんじ] (Juma kunigacha javob berish)'
+                    ],
+                    vocabulary: [
+                        { term: '都合[つごう]', reading: 'Tsugou', meaning: 'Vaqt sharoiti / Qulaylik', exampleSentence: '都合[つごう]が いいです。', exampleTranslation: 'Vaqtim qulay.' },
+                        { term: '返事[へんじ]', reading: 'Henji', meaning: 'Javob', exampleSentence: 'お返事[へんじ]を ください。', exampleTranslation: 'Iltimos, javob bering.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l5-s2',
+                title: 'Tushunish Mashqi',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'Xat bo\'yicha to\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u4-l5-e1', type: 'multiple-choice', prompt: 'Barbekyu qachon va qayerda bo\'lib o\'tadi?', options: ['Kelasi yakshanba soat 11:00 da parkda', 'Juma kuni maktabda', 'Shanba kuni restoranda', 'Bugun oqshomda'], correctAnswer: 0, explanation: 'Raishuu no nichiyoubi 11:00 kouen de.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u4-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u4-l5-q1', question: 'Ustoz qachongacha javob berishlari kerak?', options: ['Juma kunigacha (金曜日までに)', 'Yakshanbagacha', 'Dushanbagacha', 'Javob shart emas'], correctAnswerIndex: 0, explanation: 'Kinyoubi made ni.' },
+                        { id: 'ja-n4-u4-l5-q2', question: 'Xatni kim yozgan?', options: ['Ali (アリ)', 'Tanaka san', 'Shifokor', 'Kutubxonachi'], correctAnswerIndex: 0, explanation: 'Ali yori.' },
+                        { id: 'ja-n4-u4-l5-q3', question: '「都合[つごう]が よかったら」nimani anglatadi?', options: ['Agar vaqtingiz to\'g\'ri kelsa / Imkoningiz bo\'lsa', 'Vaqtingiz bo\'lmasa ham', 'Kechikmasangiz', 'Pulingiz bo\'lsa'], correctAnswerIndex: 0, explanation: 'If convenient for you.' },
+                        { id: 'ja-n4-u4-l5-q4', question: 'Xat oxiridagi «〜より» nimani bildiradi?', options: ['Kim tomonidan yozilganligini (muallif nomidan so\'ng qo\'yiladi)', 'Salomlashish', 'Sana', 'Iltimos'], correctAnswerIndex: 0, explanation: 'From [Sender].' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 5: N4 Dokkai, Choukai & Capstone
+    {
+        id: 'ja-n4-u5-l1',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u5',
+        unitTitle: 'Unit 5: N4 Capstone Mastery',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 1,
+        title: 'N4 Grammar Review: Particle Combinations (には, では, とも, からの)',
+        description: 'Murakkab qo\'shma yuklamalar va ularning nozik ma\'nolari.',
+        estimatedDurationMinutes: 15,
+        icon: '🧩',
+        steps: [
+            {
+                id: 'ja-n4-u5-l1-s1',
+                title: 'Qo\'shma Yuklamalar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Combined Particles (には, では, とも)',
+                    explanation: '1. には (ni wa): ... da esa / ... uchun ("Toshkentda esa muzeylar ko\'p"). 2. では (de wa): ... da esa (joyda chegaralash). 3. とも (to mo): ... bilan ham. 4. からの (kara no): ... dan bo\'lgan (Tomodachi kara no tegami = Do\'stimdan kelgan xat).',
+                    vocabulary: [
+                        { term: '特[とく]に', reading: 'Toku ni', meaning: 'Ayniqsa / Xususan', exampleSentence: '特[とく]に 春[はる]が 好[す]きです。', exampleTranslation: 'Ayniqsa bahorni yoqtiraman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri qo\'shma yuklamani tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u5-l1-e1', type: 'multiple-choice', prompt: '«Mening shaharchamda esa poyezd yo\'q» qanday aytiladi?', options: ['私[わたし]の 町[まち]には 電車[でんしゃ]が ありません', '町[まち]を 電車[でんしゃ]', '町[まち]へ 電車[でんしゃ]', '町[まち]です'], correctAnswer: 0, explanation: 'Machi ni wa (shaharchamda esa).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u5-l1-q1', question: '「母[はは]からの プレゼント」ning ma\'nosi:', options: ['Onamdan kelgan sovg\'a', 'Onamga berilgan sovg\'a', 'Onamning do\'koni', 'Onam bilan'], correctAnswerIndex: 0, explanation: 'Present from mother.' },
+                        { id: 'ja-n4-u5-l1-q2', question: '«Bu do\'konda esa kredit karta ishlatib bo\'lmaydi»:', options: ['この店[みせ]では カードが 使[つか]えません', 'この店[みせ]には カード', 'この店[みせ]を カード', 'この店[みせ]です'], correctAnswerIndex: 0, explanation: 'Mise de wa (bu do\'konda esa).' },
+                        { id: 'ja-n4-u5-l1-q3', question: '「何時[なんじ]から 何時[なんじ]までですか」ning ma\'nosi:', options: ['Soat nechadan soat nechagacha?', 'Qayerda?', 'Necha pul?', 'Kim bilan?'], correctAnswerIndex: 0, explanation: 'From what time to what time?' },
+                        { id: 'ja-n4-u5-l1-q4', question: '«Kim bilan ham gaplashmadi» jumlasi qaysi?', options: ['誰[だれ]とも 話[はな]しませんでした', '誰[だれ]かと 話[はな]しました', '誰[だれ]でも 話[はな]す', '誰[だれ]です'], correctAnswerIndex: 0, explanation: 'Dare to mo hanashimasen deshita.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u5-l2',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u5',
+        unitTitle: 'Unit 5: N4 Capstone Mastery',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 2,
+        title: 'N4 Health & Hospital Situations (Describing Symptoms)',
+        description: 'Shifoxonada kasallik alomatlarini tushuntirish va dori qabul qilish.',
+        estimatedDurationMinutes: 14,
+        icon: '🩺',
+        steps: [
+            {
+                id: 'ja-n4-u5-l2-s1',
+                title: 'Tibbiy Muloqot',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'At the Clinic / Pharmacy',
+                    explanation: 'Shifokorga aytish: 熱[ねつ]が あります (Isitma bor), 頭[あたま]が 痛[いた]いです (Boshim og\'riyapti), お腹[なか]が 痛[いた]いです (Qornim og\'riyapti), 風邪[かぜ]を ひきました (Shamolladim).',
+                    vocabulary: [
+                        { term: '熱[ねつ]', reading: 'Netsu', meaning: 'Isitma', exampleSentence: '熱[ねつ]が 38度[さんじゅうはちど] あります。', exampleTranslation: '38 daraja isitmam bor.' },
+                        { term: '薬[くすり]', reading: 'Kusuri', meaning: 'Dori', exampleSentence: '食後[しょくご]に 薬[くすり]を 飲[の]みます。', exampleTranslation: 'Ovqatdan so\'ng dori ichaman.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u5-l2-e1', type: 'multiple-choice', prompt: '«Shamollab qoldim» yapon tilida qanday aytiladi?', options: ['風邪[かぜ]を ひきました', '風邪[かぜ]を 飲[の]みました', '風邪[かぜ]を 食[た]べました', '風邪[かぜ]です'], correctAnswer: 0, explanation: 'Kaze o hikimashita.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u5-l2-q1', question: '«Kuniga uch mahal ovqatdan keyin iching»:', options: ['1日[いちにち] 3回[さんかい] 毎食後[まいしょくご]に 飲[の]んで ください', '1日[いちにち] 1回[いっかい]', '薬[くすり]を 買[か]います', '飲[の]まないで'], correctAnswerIndex: 0, explanation: '1-nichi 3-kai maishokugo ni...' },
+                        { id: 'ja-n4-u5-l2-q2', question: 'Bemorga «Sog\'ayib keting / O\'zingizni ehtiyot qiling» deb nima deyiladi?', options: ['お大事[だいじ]に (Odaiji ni)', 'おめでとうございます', 'いただきます', 'ごちそうさま'], correctAnswerIndex: 0, explanation: 'Odaiji ni — Tezroq sog\'aying.' },
+                        { id: 'ja-n4-u5-l2-q3', question: '「頭[あたま]が ズキズキ 痛[いた]みます」ning ma\'nosi:', options: ['Boshim loqillab qattiq og\'riyapti', 'Boshim yaxshi', 'Qornim to\'ydi', 'Ko\'zim ko\'ryapti'], correctAnswerIndex: 0, explanation: 'Loqillab og\'riyapti (Zukizuki).' },
+                        { id: 'ja-n4-u5-l2-q4', question: '«Shifoxona» kanjisi qaysi?', options: ['病院[びょういん]', '大学[だいがく]', '駅[えき]', '神社[じんじゃ]'], correctAnswerIndex: 0, explanation: '病院 (Byouin).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u5-l3',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u5',
+        unitTitle: 'Unit 5: N4 Capstone Mastery',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 3,
+        title: 'N4 Choukai: Task-Based Listening & Problem Solving',
+        description: 'Vazifaga asoslangan eshitish topshiriqlari: qahramon endi nima qilishi kerakligini aniqlash.',
+        estimatedDurationMinutes: 15,
+        icon: '🎧',
+        steps: [
+            {
+                id: 'ja-n4-u5-l3-s1',
+                title: 'Vazifali Eshitish',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Task-Based Audio:「男の人は この後 まず 何をしますか」',
+                    explanation: 'JLPT N4 Choukai bo\'limining eng asosiy savol turi: Suhbatdoshlar rejani muhokama qilgandan so\'ng, erkak (yoki ayol) kishi BIRINCHI bo\'lib nima qilishi kerakligini aniqlash.',
+                    keyPoints: [
+                        'Diqqat qiling: Barcha variantlar aytib o\'tiladi, ammo «birinchi navbatda» (mazu) qilinadigani tanlanishi kerak!'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'Suhbat bo\'yicha to\'g\'ri harakatni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u5-l3-e1', type: 'multiple-choice', prompt: 'Ayol: «Kserokopiya qilishdan oldin hisobotdagi xatolarni tekshirib bering». Erkak nima qiladi?', options: ['Hisobotdagi xatolarni tekshiradi (mazu chekku suru)', 'Darhol kserokopiya qiladi', 'Choy ichadi', 'Uyga ketadi'], correctAnswer: 0, explanation: 'Avval tekshiradi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u5-l3-q1', question: '«まず (Mazu)» so\'zining ma\'nosi nima?', options: ['Birinchi navbatda / Dastlab', 'Oxirida', 'Hech qachon', 'Tezda'], correctAnswerIndex: 0, explanation: 'Mazu — Dastlab / Avval.' },
+                        { id: 'ja-n4-u5-l3-q2', question: 'Qahramon boshqa narsani rejalashtirib, keyin «やっぱり (yappari)...» desa, nima sodir bo\'ladi?', options: ['U o\'z fikrini o\'zgartirib yakuniy qarorga kelganini bildiradi', 'Poyezd kechikkanini bildiradi', 'Uxlab qolganini bildiradi', 'Hech narsa'], correctAnswerIndex: 0, explanation: 'Yappari indicates decision/shift.' },
+                        { id: 'ja-n4-u5-l3-q3', question: 'N4 Choukai bo\'limida savol varaqa ustida yozilgan bo\'ladimi yoki faqat audioda aytiladimi?', options: ['Savol va variantlar audioda ham aytiladi, ba\'zi savollarda rasmlar bo\'ladi', 'Faqat yozma bo\'ladi', 'Faqat kanji bo\'ladi', 'Hech narsa berilmaydi'], correctAnswerIndex: 0, explanation: 'Both audio & visual sheets.' },
+                        { id: 'ja-n4-u5-l3-q4', question: '«この後[あと] (Kono ato)» nimani bildiradi?', options: ['Bundan so\'ng / Shu suhbatdan keyin', 'Kecha', 'Ertalab', 'O\'tgan yili'], correctAnswerIndex: 0, explanation: 'After this.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u5-l4',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u5',
+        unitTitle: 'Unit 5: N4 Capstone Mastery',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 4,
+        title: 'JLPT N4 Mock Practice: Grammar & Dokkai',
+        description: 'JLPT N4 imtihonining to\'liq grammatik va o\'qish sinov mashg\'uloti.',
+        estimatedDurationMinutes: 16,
+        icon: '📝',
+        steps: [
+            {
+                id: 'ja-n4-u5-l4-s1',
+                title: 'N4 Imtihon Mashg\'uloti',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'N4 Comprehensive Structure',
+                    explanation: 'N4 darajasida ~300 ta kanji, ~1500 ta so\'z va murakkab grammatika (te-form, nai-form, ta-form, potential, conditionals, giving/receiving) sinovdan o\'tkaziladi.',
+                    keyPoints: [
+                        'Yulduzcha (*) savollari: Gap bo\'laklarini to\'g\'ri tartibda joylashtirib yulduzcha o\'rnidagi so\'zni topish.'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l4-s2',
+                title: 'Sinov Mashqi',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri grammatik shaklni tanlang.',
+                    exercises: [
+                        { id: 'ja-n4-u5-l4-e1', type: 'multiple-choice', prompt: '「この 漢字[かんじ]の 読[よ]み方[かた]を _______ ください。」', options: ['教[おし]えて (Oshiete)', '教[おし]えます', '教[おし]えない', '教[おし]える'], correctAnswer: 0, explanation: 'Oshiete kudasai.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u5-l4-q1', question: '「寒[さむ]く なりました」nimani bildiradi?', options: ['Sovuq bo\'lib qoldi (o\'zgarish)', 'Issiq bo\'ldi', 'Sovuq emas', 'Sovuq bo\'ladi'], correctAnswerIndex: 0, explanation: 'Samuku narimashita (o\'zgarish).' },
+                        { id: 'ja-n4-u5-l4-q2', question: '「テレビを 見[み]ながら ご飯[はん]を 食[た]べます」dagi 〜ながら nimani bildiradi?', options: ['Bir vaqtda ikkita ishni bajarish (... qilgan holda)', 'Faqat televizor ko\'rish', 'Ovqat yemaslik', 'Televizor yo\'qligi'], correctAnswerIndex: 0, explanation: 'While doing (bir vaqtda).' },
+                        { id: 'ja-n4-u5-l4-q3', question: '«Yomg\'ir yog\'ishi mumkin» ehtimol jumlasi qaysi?', options: ['雨[あめ]が 降[ふ]るかも しれません', '雨[あめ]が 降[ふ]ります', '雨[あめ]が 降[ふ]らない', '雨[あめ]です'], correctAnswerIndex: 0, explanation: 'Furu kamo shiremasen.' },
+                        { id: 'ja-n4-u5-l4-q4', question: '「部屋[へや]を 明[あか]るく します」dagi 〜くします nimani bildiradi?', options: ['Xonani yorug\' qilaman (boshqa holatga o\'zgartirish)', 'Xona qorong\'i', 'Xona yorug\' emas', 'Xona yo\'q'], correctAnswerIndex: 0, explanation: 'To make something bright.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n4-u5-l5',
+        courseId: 'japanese-n4',
+        unitId: 'ja-n4-u5',
+        unitTitle: 'Unit 5: N4 Capstone Mastery',
+        language: 'ja',
+        level: 'N4',
+        lessonNumber: 5,
+        title: 'JLPT N4 Capstone Mastery & N3 Advancement Assessment',
+        description: 'JLPT N4 darajasini to\'liq tasdiqlash va N3 o\'rta darajaga o\'tish sinovi.',
+        estimatedDurationMinutes: 18,
+        icon: '🏆',
+        steps: [
+            {
+                id: 'ja-n4-u5-l5-s1',
+                title: 'N4 Daraja Xulosasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'JLPT N4 Complete Competency Checklist',
+                    explanation: 'Tabriklaymiz! Siz N4 darajasidagi barcha grammatik shakllar, iyerogliflar, o\'qish va eshitish ko\'nikmalarini to\'liq o\'zlashtirdingiz. Siz endi oraliq N3 darajasiga (Keigo, Passive, Causative, Dokkai) tayyorsiz!',
+                    keyPoints: [
+                        'Mastery of compound sentence structures and everyday reading',
+                        'Speaking is NOT required for JLPT promotion',
+                        'Ready for Intermediate N3'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l5-s2',
+                title: 'N4 Bitiruv Mashqi',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'Bitiruv savoliga to\'g\'ri javob bering.',
+                    exercises: [
+                        { id: 'ja-n4-u5-l5-e1', type: 'multiple-choice', prompt: '「日本[にほん]へ 行[い]ったら、何[なに]を 一番[いちばん] _______ ですか。」', options: ['したい (shitai)', 'する', 'した', 'して'], correctAnswer: 0, explanation: 'Nani o ichiban shitai desu ka.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n4-u5-l5-s3',
+                title: 'N4 Yakuniy Sertifikatsiya Testi',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'N4 darajasini to\'liq tasdiqlash uchun barcha savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n4-u5-l5-q1', question: '「先生[せんせい]が 面白[おもしろ]い本[ほん]を 貸[か]して _______。」', options: ['くれました (Kuremashita)', 'あげました', 'もらいました', '貸[か]した'], correctAnswerIndex: 0, explanation: 'Kashite kuremashita (ustoz qarzga berdi).' },
+                        { id: 'ja-n4-u5-l5-q2', question: '「明日[あした]までに この仕事[しごと]を 終[お]わらせなければ _______。」', options: ['なりません (Narimasen)', 'いいです', 'なります', 'ない'], correctAnswerIndex: 0, explanation: 'Owarasenakereba narimasen.' },
+                        { id: 'ja-n4-u5-l5-q3', question: '「漢字[かんじ]を 書[か]く ことが _______。」', options: ['できます (Dekimasu)', 'します', 'あります', 'います'], correctAnswerIndex: 0, explanation: 'Kaku koto ga dekimasu.' },
+                        { id: 'ja-n4-u5-l5-q4', question: 'JLPT N4 darajasini bitiruvchisi qaysi keyingi darajaga o\'tadi?', options: ['JLPT N3 (Intermediate)', 'JLPT N1', 'A1', 'IELTS 7.0'], correctAnswerIndex: 0, explanation: 'JLPT N3.' }
+                    ]
+                }
+            }
+        ]
+    }
+];

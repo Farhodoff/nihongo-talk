@@ -114,24 +114,7 @@ export const CurriculumLessonResolver = {
      * Prevents placeholder routing and ensures strict language & level consistency.
      */
     resolveLesson(lessonId: string, fallbackLang: SupportedLanguage = 'en'): ResolvedLessonContent {
-        // 1. Direct match in LessonPlayer database (SAMPLE_LESSONS)
-        const sampleLesson = SAMPLE_LESSONS.find(l => l.id === lessonId);
-        if (sampleLesson) {
-            return {
-                lessonId: sampleLesson.id,
-                sourceType: 'lesson_player',
-                route: `/lesson/${sampleLesson.id}`,
-                contentId: sampleLesson.id,
-                title: sampleLesson.title,
-                language: sampleLesson.language,
-                level: sampleLesson.level,
-                skill: sampleLesson.language === 'ja' ? 'grammar' : 'grammar',
-                isAvailable: true,
-                availabilityMessage: "Dars to'liq interaktiv shaklda mavjud."
-            };
-        }
-
-        // 2. Direct match in Murphy IELTS Grammar Database
+        // 1. Direct match in Murphy IELTS Grammar Database (highest priority for grammar topics)
         const murphyTopic = IELTS_GRAMMAR_DATABASE.find(t => t.id === lessonId);
         if (murphyTopic) {
             const levelCode = murphyTopic.level === 'A1-A2' ? 'A1' : murphyTopic.level === 'B1-B2' ? 'B2' : 'C1';
@@ -149,64 +132,8 @@ export const CurriculumLessonResolver = {
             };
         }
 
-        // 3. Dynamic curriculum parsing
-        const parts = lessonId.split('-');
-        if (parts.length === 4 && (parts[0] === 'en' || parts[0] === 'ja')) {
-            const language = parts[0] as SupportedLanguage;
-            const level = parts[1].toUpperCase();
-
-            const staticNode = STATIC_CURRICULUM_MAP[lessonId];
-            if (staticNode) {
-                let sourceType: LessonSourceType = staticNode.sourceType || 'lesson_player';
-                let route = staticNode.route || `/lesson/${lessonId}`;
-                let contentId = staticNode.contentId || lessonId;
-                const skill = staticNode.skill;
-
-                if (!staticNode.sourceType && !staticNode.route) {
-                    if (skill === 'grammar') {
-                        sourceType = 'grammar';
-                        route = language === 'ja' ? `/jlpt/grammar-quiz?level=${level}` : `/ielts?topic=${lessonId}`;
-                    } else if (skill === 'vocabulary') {
-                        sourceType = 'vocabulary';
-                        route = language === 'ja' ? `/jlpt?tab=vocabulary&level=${level}` : '/vocabulary';
-                        contentId = level === 'A1' || level === 'A2' ? 'a1_a2' : 'b1_b2';
-                    } else if (skill === 'kanji') {
-                        sourceType = 'jlpt';
-                        route = `/jlpt?tab=kanji&level=${level}`;
-                    } else if (skill === 'reading') {
-                        sourceType = 'reading';
-                        route = language === 'ja' ? '/jlpt/reading' : '/ielts/reading-listening';
-                    } else if (skill === 'listening') {
-                        sourceType = 'listening';
-                        route = language === 'ja' ? '/jlpt/listening' : '/ielts/reading-listening';
-                    } else if (skill === 'speaking') {
-                        sourceType = 'speaking';
-                        route = `/speaking-coach?lang=${language}`;
-                    } else if (skill === 'writing') {
-                        sourceType = 'writing';
-                        route = language === 'ja' ? '/study-mode' : '/ielts/writing';
-                    }
-                }
-
-                return {
-                    lessonId,
-                    sourceType,
-                    route,
-                    contentId,
-                    title: staticNode.title,
-                    language,
-                    level,
-                    skill,
-                    isAvailable: true,
-                    availabilityMessage: `${level} darajasidagi ${skill} darsi.`
-                };
-            }
-        }
-
-
-        // 4. Known English Curriculum Nodes
+        // 2. Known English Curriculum Nodes (hardcoded routing overrides)
         if (lessonId.startsWith('en-')) {
-
             if (lessonId === 'en-a1-u1-l1') {
                 return {
                     lessonId,
@@ -335,7 +262,7 @@ export const CurriculumLessonResolver = {
             }
         }
 
-        // 4. Known Japanese Curriculum Nodes
+        // 3. Known Japanese Curriculum Nodes (hardcoded routing overrides)
         if (lessonId.startsWith('ja-')) {
             if (lessonId === 'ja-n5-u1-l1') {
                 return {
@@ -465,7 +392,78 @@ export const CurriculumLessonResolver = {
             }
         }
 
-        // 5. Safe Fallback
+        // 4. STATIC_CURRICULUM_MAP fallback
+        const parts = lessonId.split('-');
+        if (parts.length === 4 && (parts[0] === 'en' || parts[0] === 'ja')) {
+            const language = parts[0] as SupportedLanguage;
+            const level = parts[1].toUpperCase();
+
+            const staticNode = STATIC_CURRICULUM_MAP[lessonId];
+            if (staticNode) {
+                let sourceType: LessonSourceType = staticNode.sourceType || 'lesson_player';
+                let route = staticNode.route || `/lesson/${lessonId}`;
+                let contentId = staticNode.contentId || lessonId;
+                const skill = staticNode.skill;
+
+                if (!staticNode.sourceType && !staticNode.route) {
+                    if (skill === 'grammar') {
+                        sourceType = 'grammar';
+                        route = language === 'ja' ? `/jlpt/grammar-quiz?level=${level}` : `/ielts?topic=${lessonId}`;
+                    } else if (skill === 'vocabulary') {
+                        sourceType = 'vocabulary';
+                        route = language === 'ja' ? `/jlpt?tab=vocabulary&level=${level}` : '/vocabulary';
+                        contentId = level === 'A1' || level === 'A2' ? 'a1_a2' : 'b1_b2';
+                    } else if (skill === 'kanji') {
+                        sourceType = 'jlpt';
+                        route = `/jlpt?tab=kanji&level=${level}`;
+                    } else if (skill === 'reading') {
+                        sourceType = 'reading';
+                        route = language === 'ja' ? '/jlpt/reading' : '/ielts/reading-listening';
+                    } else if (skill === 'listening') {
+                        sourceType = 'listening';
+                        route = language === 'ja' ? '/jlpt/listening' : '/ielts/reading-listening';
+                    } else if (skill === 'speaking') {
+                        sourceType = 'speaking';
+                        route = `/speaking-coach?lang=${language}`;
+                    } else if (skill === 'writing') {
+                        sourceType = 'writing';
+                        route = language === 'ja' ? '/study-mode' : '/ielts/writing';
+                    }
+                }
+
+                return {
+                    lessonId,
+                    sourceType,
+                    route,
+                    contentId,
+                    title: staticNode.title,
+                    language,
+                    level,
+                    skill,
+                    isAvailable: true,
+                    availabilityMessage: `${level} darajasidagi ${skill} darsi.`
+                };
+            }
+        }
+
+        // 5. Fallback: check SAMPLE_LESSONS for any lesson with full content
+        const sampleLesson = SAMPLE_LESSONS.find(l => l.id === lessonId);
+        if (sampleLesson) {
+            return {
+                lessonId: sampleLesson.id,
+                sourceType: 'lesson_player',
+                route: `/lesson/${sampleLesson.id}`,
+                contentId: sampleLesson.id,
+                title: sampleLesson.title,
+                language: sampleLesson.language,
+                level: sampleLesson.level,
+                skill: sampleLesson.language === 'ja' ? 'grammar' : 'grammar',
+                isAvailable: true,
+                availabilityMessage: "Dars to'liq interaktiv shaklda mavjud."
+            };
+        }
+
+        // 6. Safe Fallback
         const isJa = fallbackLang === 'ja' || lessonId.startsWith('ja');
         return {
             lessonId,
