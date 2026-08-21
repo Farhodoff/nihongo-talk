@@ -1,5 +1,9 @@
 import { Lesson, UserLessonProgress, SupportedLanguage } from '../types/lesson';
 import { SAMPLE_LESSONS } from '../data/curriculum/sampleCurriculum';
+import {
+    getCurriculumLessonById,
+    getCurriculumLessonsByLanguage
+} from '../data/curriculum/curriculumLessons';
 import { supabase } from '../lib/supabase';
 
 const PROGRESS_STORAGE_PREFIX = 'study_planner_lesson_progress_';
@@ -9,14 +13,15 @@ export const LessonService = {
      * Retrieve a lesson by ID.
      */
     getLessonById(lessonId: string): Lesson | null {
-        return SAMPLE_LESSONS.find(l => l.id === lessonId) || null;
+        return getCurriculumLessonById(lessonId) || SAMPLE_LESSONS.find(l => l.id === lessonId) || null;
     },
 
     /**
      * Retrieve all lessons for a specific language track.
      */
     getLessonsForLanguage(language: SupportedLanguage): Lesson[] {
-        return SAMPLE_LESSONS.filter(l => l.language === language);
+        // Phase 19: real curriculum is the source of truth (not sample data).
+        return getCurriculumLessonsByLanguage(language);
     },
 
     /**

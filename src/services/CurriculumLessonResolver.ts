@@ -1,7 +1,31 @@
-import { SupportedLanguage } from '../types/lesson';
+import { SupportedLanguage, Lesson } from '../types/lesson';
 import { MasterySkill } from '../types/mastery';
 import { SAMPLE_LESSONS } from '../data/curriculum/sampleCurriculum';
+import { getCurriculumLessonById } from '../data/curriculum/curriculumLessons';
 import { IELTS_GRAMMAR_DATABASE } from '../data/ielts/ielts_grammar_data';
+/**
+ * Derive the primary skill of a curriculum lesson from its step content.
+ * Real curriculum lessons carry no explicit `skill` field, so we infer it
+ * from the first learn step (grammar rules → grammar, vocabulary → vocabulary).
+ */
+function deriveLessonSkill(lesson: Lesson): MasterySkill {
+    for (const step of lesson.steps) {
+        if (step.type === 'learn') {
+            if (step.learnData?.grammarRules && step.learnData.grammarRules.length > 0) {
+                return 'grammar';
+            }
+        }
+    }
+    for (const step of lesson.steps) {
+        if (step.type === 'learn') {
+            if (step.learnData?.vocabulary && step.learnData.vocabulary.length > 0) {
+                return 'vocabulary';
+            }
+        }
+    }
+    return 'grammar';
+}
+
 const STATIC_CURRICULUM_MAP: Record<string, { title: string; skill: MasterySkill; route?: string; contentId?: string; sourceType?: LessonSourceType }> = {
     // English
     'en-a1-u1-l1': { title: 'Greetings & Introductions', skill: 'grammar' },
@@ -114,6 +138,24 @@ export const CurriculumLessonResolver = {
      * Prevents placeholder routing and ensures strict language & level consistency.
      */
     resolveLesson(lessonId: string, fallbackLang: SupportedLanguage = 'en'): ResolvedLessonContent {
+        // 0. Phase 19 — real curriculum registry is the canonical content source.
+        const realLesson = getCurriculumLessonById(lessonId);
+        if (realLesson) {
+            const staticSkill = STATIC_CURRICULUM_MAP[lessonId]?.skill;
+            return {
+                lessonId: realLesson.id,
+                sourceType: 'lesson_player',
+                route: `/lesson/${realLesson.id}`,
+                contentId: realLesson.id,
+                title: realLesson.title,
+                language: realLesson.language,
+                level: realLesson.level,
+                skill: staticSkill || deriveLessonSkill(realLesson),
+                isAvailable: true,
+                availabilityMessage: "Dars to'liq interaktiv shaklda mavjud."
+            };
+        }
+
         // 1. Direct match in Murphy IELTS Grammar Database (highest priority for grammar topics)
         const murphyTopic = IELTS_GRAMMAR_DATABASE.find(t => t.id === lessonId);
         if (murphyTopic) {

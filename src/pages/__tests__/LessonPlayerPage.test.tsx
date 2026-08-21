@@ -42,11 +42,11 @@ describe('LessonPlayerPage', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/Sayohat va Transport/i)).toBeInTheDocument();
+        expect(screen.getAllByText(/Passive Voice/i).length).toBeGreaterThan(0);
         expect(screen.getAllByText(/JLPT N3/i).length).toBeGreaterThan(0);
-        expect(screen.getByText(/Yangi So'zlar & Grammatika/i)).toBeInTheDocument();
-        expect(screen.getAllByText(/旅行/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(/切符/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Passive Voice Formation/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/褒/).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/叱/).length).toBeGreaterThan(0);
     });
 
     it('renders English B2 lesson properly with academic vocabulary and Inversion grammar', () => {
@@ -58,10 +58,10 @@ describe('LessonPlayerPage', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/Academic Learning & Inversion/i)).toBeInTheDocument();
-        expect(screen.getByText(/English B2/i)).toBeInTheDocument();
-        expect(screen.getAllByText(/Perseverance/i).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(/Meticulous/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Negative Inversion/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/English B2/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Seldom/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Circumstance/i).length).toBeGreaterThan(0);
     });
 
     it('navigates from Learn to Practice step and enables checking answers', async () => {
@@ -77,12 +77,11 @@ describe('LessonPlayerPage', () => {
         const nextBtn = screen.getByRole('button', { name: /Keyingi Qadamga O'tish/i });
         fireEvent.click(nextBtn);
 
-        // Now in Practice step
-        expect(screen.getByText(/Interaktiv Mashqlar/i)).toBeInTheDocument();
-        expect(screen.getByText(/「切符」 kanjisining to'g'ri o'qilishini tanlang:/i)).toBeInTheDocument();
+        // Now in Practice step (real curriculum content)
+        expect(screen.getByText(/To'g'ri majhul nisbat shaklini tanlang/i)).toBeInTheDocument();
 
-        // Select an option
-        const optionA = screen.getByText(/きっぷ \(kippu\)/i);
+        // Select the first (correct) option
+        const optionA = screen.getByText(/誰/);
         fireEvent.click(optionA);
 
         const checkBtn = screen.getByRole('button', { name: /Javobni Tekshirish/i });

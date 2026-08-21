@@ -181,7 +181,7 @@ describe('NextActionService Unit Tests', () => {
         const action = NextActionService.getNextAction(state);
 
         expect(action.type).toBe('start_next_lesson');
-        expect(action.route).toBe('/vocabulary');
+        expect(action.route).toBe('/lesson/en-b2-u1-l2');
         expect(action.title).toContain('Advanced Writing Vocabulary');
     });
 

@@ -46,8 +46,9 @@ describe('LessonService', () => {
     it('validates lesson step types and structured payload integrity', () => {
         const lesson = LessonService.getLessonById('ja-n3-u1-l1')!;
         expect(lesson.steps[0].type).toBe('learn');
+        expect(lesson.steps[0].learnData?.explanation).toBeTruthy();
+        // Real curriculum embeds vocabulary in the learn step (grammar may be inline in explanation)
         expect(lesson.steps[0].learnData?.vocabulary?.length).toBeGreaterThan(0);
-        expect(lesson.steps[0].learnData?.grammarRules?.length).toBeGreaterThan(0);
 
         expect(lesson.steps[1].type).toBe('practice');
         expect(lesson.steps[1].practiceData?.exercises.length).toBeGreaterThan(0);

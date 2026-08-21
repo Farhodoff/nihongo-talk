@@ -207,7 +207,7 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
     it('20. dynamic curriculum resolver resolves new lessons and sets isAvailable to true', () => {
         const resolved = CurriculumLessonResolver.resolveLesson('en-b1-u1-l2');
         expect(resolved.isAvailable).toBe(true);
-        expect(resolved.title).toBe('Work & Careers');
+        expect(resolved.title).toBe('Present Perfect vs Past Simple');
         expect(resolved.skill).toBe('vocabulary');
     });
 });
