@@ -32,9 +32,9 @@ export const PersonalPlanPage: React.FC = () => {
     // Wizard States
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
     const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>('en');
-    const [selectedGoalType, setSelectedGoalType] = useState<'ielts' | 'jlpt' | 'general_en' | 'general_ja'>('ielts');
-    const [targetLevel, setTargetLevel] = useState<string>('7.0');
-    const [currentLevel, setCurrentLevel] = useState<string>('5.0');
+    const [selectedGoalType, setSelectedGoalType] = useState<'ielts' | 'jlpt' | 'general_en' | 'general_ja'>('general_en');
+    const [targetLevel, setTargetLevel] = useState<string>('A1');
+    const [currentLevel, setCurrentLevel] = useState<string>('ZERO');
     const [overrideSource, setOverrideSource] = useState<'diagnostic' | 'user_override'>('user_override');
     const [deadlineMonths, setDeadlineMonths] = useState<number>(6);
     const [dailyMinutes, setDailyMinutes] = useState<number>(60);
@@ -96,12 +96,12 @@ export const PersonalPlanPage: React.FC = () => {
         setSelectedLang(lang);
         if (lang === 'ja') {
             setSelectedGoalType('jlpt');
-            setTargetLevel('N3');
-            setCurrentLevel('N5');
+            setTargetLevel('N5');
+            setCurrentLevel('ZERO');
         } else {
-            setSelectedGoalType('ielts');
-            setTargetLevel('7.0');
-            setCurrentLevel('5.0');
+            setSelectedGoalType('general_en');
+            setTargetLevel('A1');
+            setCurrentLevel('ZERO');
         }
     };
 

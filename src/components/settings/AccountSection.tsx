@@ -10,9 +10,11 @@ import { toast } from '../../hooks/use-toast';
 import { isAdminEmail, isSuperAdmin } from '../../utils/admin';
 
 import { PersonalizedOnboardingModal } from '../onboarding/PersonalizedOnboardingModal';
+import { LearningTrackStorage } from '../../utils/storage/LearningTrackStorage';
+
 
 const AccountSection: React.FC = () => {
-    const { user, settings, resetXP, getRank } = useStudyData();
+    const { user, settings, resetXP, getRank, primaryLanguage } = useStudyData();
 
     const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
     const isCurrentSuperAdmin = isSuperAdmin(displayEmail);
@@ -24,7 +26,7 @@ const AccountSection: React.FC = () => {
         user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || ''
     );
     const [targetGoal, setTargetGoal] = useState<string>(
-        localStorage.getItem('study_planner_target_goal') || 'JLPT N3 / IELTS 7.0'
+        LearningTrackStorage.getTargetGoal(primaryLanguage)
     );
     const [isSavingName, setIsSavingName] = useState(false);
 
@@ -32,7 +34,7 @@ const AccountSection: React.FC = () => {
         setIsSavingName(true);
         try {
             localStorage.setItem('study_planner_user_name', fullName);
-            localStorage.setItem('study_planner_target_goal', targetGoal);
+            LearningTrackStorage.setTargetGoal(primaryLanguage, targetGoal);
             
             if (user) {
                 await supabase.auth.updateUser({
@@ -218,7 +220,7 @@ const AccountSection: React.FC = () => {
                 isOpen={isOnboardingOpen}
                 onClose={() => {
                     setIsOnboardingOpen(false);
-                    setTargetGoal(localStorage.getItem('study_planner_target_goal') || targetGoal);
+                    setTargetGoal(LearningTrackStorage.getTargetGoal(primaryLanguage));
                 }}
             />
 

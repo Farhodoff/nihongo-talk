@@ -87,13 +87,39 @@ export const PersonalLearningPlanEngine = {
 
             const isJa = goal.language === 'ja';
 
+            // Resolve previous week's evaluation if not passed
+            let evaluation = previousWeekResult;
+            if (!evaluation && weekNumber > 1) {
+                try {
+                    const evals = PersonalLearningPlanService.getWeeklyEvaluations(userId);
+                    evaluation = evals.find(e => e.weekNumber === weekNumber - 1);
+                } catch {}
+            }
+
+            let adjustedDailyMinutes = goal.dailyMinutes;
+            let timeNotice: string | null = null;
+            if (evaluation) {
+                const completion = evaluation.completionRate ?? 100;
+                if (completion < 50) {
+                    adjustedDailyMinutes = Math.max(15, Math.round(goal.dailyMinutes * 0.8));
+                    timeNotice = isJa
+                        ? `O'tgan haftadagi topshiriqlar kam bajarilgani uchun (completion: ${completion}%), haftalik yuklama 20% ga kamaytirildi.`
+                        : `Due to low completion last week (${completion}%), your daily study workload has been reduced by 20%.`;
+                } else if (completion === 100) {
+                    adjustedDailyMinutes = Math.min(180, Math.round(goal.dailyMinutes * 1.2));
+                    timeNotice = isJa
+                        ? `O'tgan haftadagi topshiriqlar 100% bajarilgani uchun, haftalik yuklama 20% ga oshirildi.`
+                        : `Excellent job! Since you completed 100% of your tasks, your daily study workload has been increased by 20%.`;
+                }
+            }
+
             const systemPrompt = `You are a Senior Learning Architect specializing in personalized ${isJa ? 'Japanese (JLPT/Conversational)' : 'English (IELTS/CEFR)'} instruction.
 You create a targeted study plan for exactly ONE WEEK (Day 1 to 7 / Monday to Sunday) based on student parameters.
 
 CRITICAL RULES:
 1. Output MUST be strictly valid JSON according to the schema. No markdown fences.
 2. The language of tasks, objectives, reasoning, and outcomes MUST be in Uzbek (O'zbek tilida).
-3. The total duration of all tasks in a single day MUST not exceed the user's budget of ${goal.dailyMinutes} minutes. Clamp activities to fit this total.
+3. The total duration of all tasks in a single day MUST not exceed the user's budget of ${adjustedDailyMinutes} minutes. Clamp activities to fit this total.
 4. Route validation: AI must map tasks to valid routes. Valid routes are:
    - Specific lessons: /lesson/<id> (e.g. en-a1-u1-l1)
    - Specific hub: /ielts/writing, /ielts/reading-listening, /speaking-coach, /vocabulary, /study-mode, /jlpt, /jlpt/grammar-quiz, /jlpt/reading, /jlpt/listening
@@ -106,12 +132,12 @@ CRITICAL RULES:
 - Goal Type: ${goal.goalType}
 - Target: ${goal.targetGoal} (Level: ${goal.targetLevel})
 - Preparation Week: Week ${weekNumber} of ${goal.totalWeeks}
-- Daily Available Time: ${goal.dailyMinutes} minutes
+- Daily Available Time: ${adjustedDailyMinutes} minutes
 - Current Level/Estimated Score: ${goal.currentLevel}
 - Active Weaknesses: ${JSON.stringify(weaknesses)}
 - Completed Lesson IDs: ${JSON.stringify(completedLessonIds)}
 - Spaced Repetition (SRS) Status: ${srsSummary.dueCount} cards due (${srsSummary.overdueCount} overdue)
-${previousWeekResult ? `- Previous Week Summary: ${JSON.stringify(previousWeekResult)}` : ''}
+${evaluation ? `- Previous Week Summary: ${JSON.stringify(evaluation)}` : ''}
 
 Generate the JSON response matching this template:
 {
@@ -150,20 +176,20 @@ Generate the JSON response matching this template:
                     return {
                         plan: parsed,
                         isFallback: false,
-                        noticeMessage: null
+                        noticeMessage: timeNotice
                     };
                 }
             }
 
             // Fallback Plan if AI failed or response was invalid
-            const fallbackPlan = this.generateDeterministicFallback(goal, weekNumber, userId, state);
+            const fallbackPlan = this.generateDeterministicFallback(goal, weekNumber, userId, state, evaluation);
             this.releaseLock(userId, goal.id, weekNumber);
             return {
                 plan: fallbackPlan,
                 isFallback: true,
-                noticeMessage: goal.language === 'ja'
+                noticeMessage: timeNotice || (goal.language === 'ja'
                     ? "AI rejalashtirish vaqtincha band. Siz uchun standart adaptiv dars rejasi tayyorlandi."
-                    : "AI planning is currently busy. A standard adaptive curriculum plan has been prepared for you."
+                    : "AI planning is currently busy. A standard adaptive curriculum plan has been prepared for you.")
             };
 
         } catch (e: any) {
@@ -381,7 +407,8 @@ Generate the JSON response matching this template:
         goal: PersonalLearningGoal,
         weekNumber: number,
         userId: string,
-        _state: any
+        _state: any,
+        previousEvaluation?: any
     ): WeeklyLearningPlan {
         const isJa = goal.language === 'ja';
         const focusSkills = isJa ? ['kanji', 'vocabulary', 'grammar'] : ['vocabulary', 'grammar', 'reading'];
@@ -438,6 +465,25 @@ Generate the JSON response matching this template:
             });
         }
 
+        const prevWeek = weekNumber - 1;
+        let evaluation = previousEvaluation;
+        if (!evaluation && prevWeek >= 1) {
+            try {
+                const evals = PersonalLearningPlanService.getWeeklyEvaluations(userId);
+                evaluation = evals.find(e => e.weekNumber === prevWeek);
+            } catch {}
+        }
+
+        let adjustedDailyMinutes = goal.dailyMinutes;
+        if (evaluation) {
+            const completion = evaluation.completionRate ?? 100;
+            if (completion < 50) {
+                adjustedDailyMinutes = Math.max(15, Math.round(goal.dailyMinutes * 0.8));
+            } else if (completion === 100) {
+                adjustedDailyMinutes = Math.min(180, Math.round(goal.dailyMinutes * 1.2));
+            }
+        }
+
         const daysOfWeek: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday')[] = [
             'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
         ];
@@ -446,7 +492,7 @@ Generate the JSON response matching this template:
             const tasks: WeeklyPlanTask[] = [];
 
             // 1. SRS Review (always first, capped to 15 mins)
-            let srsTime = Math.min(15, Math.max(5, Math.round(goal.dailyMinutes * 0.2)));
+            let srsTime = Math.min(15, Math.max(5, Math.round(adjustedDailyMinutes * 0.2)));
             tasks.push({
                 id: `task-fallback-srs-${dayName}-${Date.now()}`,
                 title: isJa ? "SM-2 Fleshkartalar takrorlash" : "Spaced Repetition Flashcards Review",
@@ -463,7 +509,19 @@ Generate the JSON response matching this template:
             const lessonIdx = (weekNumber * 2 + idx) % Math.max(1, matchingLessons.length);
             const targetLesson = matchingLessons[lessonIdx] || { id: isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1', title: 'Greetings' };
             const lessonRoute = targetLesson.route || (isJa ? '/jlpt' : '/ielts');
-            const lessonTime = goal.dailyMinutes - srsTime;
+            let lessonTime = adjustedDailyMinutes - srsTime;
+
+            // Weak/Strong skill adjustments
+            if (evaluation) {
+                const lessonSkill = targetLesson.skill || 'grammar';
+                if (evaluation.weakSkills?.includes(lessonSkill)) {
+                    // Weak skill: +12 mins
+                    lessonTime += 12;
+                } else if (evaluation.strongSkills?.includes(lessonSkill)) {
+                    // Strong skill: -8 mins
+                    lessonTime = Math.max(5, lessonTime - 8);
+                }
+            }
 
             tasks.push({
                 id: `task-fallback-lesson-${dayName}-${Date.now()}`,
@@ -475,7 +533,7 @@ Generate the JSON response matching this template:
                 sourceType: 'curriculum',
                 contentId: targetLesson.id,
                 route: lessonRoute,
-                skill: 'grammar'
+                skill: targetLesson.skill || 'grammar'
             });
 
             return {

@@ -18,6 +18,8 @@ import { GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, DatabaseWhiteboard, DatabaseEvent, DatabaseProfile } from '../types/supabase-types';
 import { isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+
 
 export interface Settings {
     theme: 'light' | 'dark';
@@ -258,11 +260,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     });
 
     const [targetLevel, setTargetLevel] = useState<string>(() => {
-        return safeLocalStorage.getItem('study_planner_target_level') || (primaryLanguage === 'ja' ? 'N5' : 'A1');
+        return LearningTrackStorage.getTargetLevel(primaryLanguage);
     });
 
     const [targetGoal, setTargetGoal] = useState<string>(() => {
-        return safeLocalStorage.getItem('study_planner_target_goal') || (primaryLanguage === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+');
+        return LearningTrackStorage.getTargetGoal(primaryLanguage);
     });
 
     // Combined settings for consumers
@@ -563,13 +565,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         setEnabledLanguages(prof.enabled_languages as ('en' | 'ja')[]);
                         safeLocalStorage.setJSON('study_planner_enabled_languages', prof.enabled_languages);
                     }
+                    const activeLang = (prof.primary_language || primaryLanguage) as any;
                     if (prof.target_level) {
                         setTargetLevel(prof.target_level);
-                        safeLocalStorage.setItem('study_planner_target_level', prof.target_level);
+                        LearningTrackStorage.setTargetLevel(activeLang, prof.target_level);
                     }
                     if (prof.target_goal) {
                         setTargetGoal(prof.target_goal);
-                        safeLocalStorage.setItem('study_planner_target_goal', prof.target_goal);
+                        LearningTrackStorage.setTargetGoal(activeLang, prof.target_goal);
                     }
                 }
             } catch (err) {
@@ -717,14 +720,14 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return next;
         });
 
-        const newLevel = level || (lang === 'ja' ? 'N5' : 'A1');
-        const newGoal = goal || (lang === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+');
+        const newLevel = level || LearningTrackStorage.getTargetLevel(lang);
+        const newGoal = goal || LearningTrackStorage.getTargetGoal(lang);
 
         setTargetLevel(newLevel);
-        safeLocalStorage.setItem('study_planner_target_level', newLevel);
+        LearningTrackStorage.setTargetLevel(lang, newLevel);
 
         setTargetGoal(newGoal);
-                safeLocalStorage.setItem('study_planner_target_goal', newGoal);
+        LearningTrackStorage.setTargetGoal(lang, newGoal);
 
         safeLocalStorage.setItem('study_planner_personalized_onboarded', 'true');
         window.dispatchEvent(new Event('study-track-changed'));

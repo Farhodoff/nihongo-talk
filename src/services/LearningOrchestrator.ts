@@ -12,6 +12,9 @@ import { LessonService } from './LessonService';
 import { CurriculumService } from './CurriculumService';
 import { LearningSignalService } from './LearningSignalService';
 import { WeaknessEngine } from './WeaknessEngine';
+import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { Flashcard } from '../types';
 import { isDue, isOverdue } from '../utils/srs';
@@ -42,15 +45,9 @@ export const LearningOrchestrator = {
      * Resolve user's target level and goal.
      */
     getUserTarget(primaryLang: SupportedLanguage): { targetLevel: string; targetGoal: string; currentLevel: string } {
-        // Phase 15: Foundation level is the safe default for ZERO/new users
-        const foundationLevel = primaryLang === 'ja' ? 'N5' : 'A1';
-        const defaultGoal = primaryLang === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+';
-
-        // Target level: user's aspirational goal (may be higher than current)
-        const targetLevel = safeLocalStorage.getItem('study_planner_target_level') || foundationLevel;
-        const targetGoal = safeLocalStorage.getItem('study_planner_target_goal') || defaultGoal;
-        // Current level: user's actual progress point — foundation if never set
-        const currentLevel = safeLocalStorage.getItem('study_planner_current_level') || foundationLevel;
+        const currentLevel = LearningTrackStorage.getCurrentLevel(primaryLang);
+        const targetLevel = LearningTrackStorage.getTargetLevel(primaryLang);
+        const targetGoal = LearningTrackStorage.getTargetGoal(primaryLang);
 
         return { currentLevel, targetLevel, targetGoal };
     },
@@ -397,7 +394,7 @@ export const LearningOrchestrator = {
         const oldLevel = state.currentLevel;
 
         // 1. Write current level to localStorage
-        safeLocalStorage.setItem('study_planner_current_level', newLevel);
+        LearningTrackStorage.setCurrentLevel(lang, newLevel);
         console.log(`[Orchestrator] Level promoted: ${oldLevel} -> ${newLevel}`);
 
         // 2. Fire-and-forget Supabase profile metadata sync
@@ -464,8 +461,9 @@ export const LearningOrchestrator = {
             for (const prereqId of prereqs) {
                 const prereqLesson = LessonService.getLessonById(prereqId);
                 if (!prereqLesson) continue;
+                const completedIds = PersonalLearningPlanService.getCompletedLessonIds(userId, lang);
                 const prog = LessonService.getLessonProgress(userId, prereqId);
-                const isDone = prog ? (prog.isCompleted || (prog as any).completed) : false;
+                const isDone = completedIds.includes(prereqId) || (prog ? (prog.isCompleted || (prog as any).completed) : false);
                 if (!isDone) {
                     return { allowed: false, reason: `Prerequisite not completed: ${prereqLesson.title || prereqId}`, redirectTo: '/dashboard' };
                 }

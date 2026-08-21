@@ -11,6 +11,8 @@ import {
 import { LearningSignalService } from './LearningSignalService';
 import { AdaptiveQuestionEngine } from './AdaptiveQuestionEngine';
 import { MasteryEngine } from './MasteryEngine';
+import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
 const DIAGNOSTIC_ADAPTIVE_PREFIX = 'study_planner_diag_adaptive_';
@@ -759,6 +761,9 @@ export const DiagnosticService = {
         const key = `${DIAGNOSTIC_RESULT_PREFIX}${result.userId || 'guest'}_${result.language}`;
         try {
             localStorage.setItem(key, JSON.stringify(result));
+            if (result.recommendedStartLevel) {
+                LearningTrackStorage.setCurrentLevel(result.language, result.recommendedStartLevel);
+            }
         } catch (e) {
             console.warn('[DiagnosticService] Failed to save result:', e);
         }

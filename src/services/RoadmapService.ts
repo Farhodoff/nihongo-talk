@@ -9,6 +9,8 @@ import {
 } from '../types/curriculum';
 import { CurriculumService } from './CurriculumService';
 import { LessonService } from './LessonService';
+import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+
 
 export const RoadmapService = {
     /**
@@ -64,8 +66,9 @@ export const RoadmapService = {
                             : `Complete ${currentLevelNode.code} level to unlock this lesson.`;
                     } else {
                         // Current Level logic
+                        const completedIds = PersonalLearningPlanService.getCompletedLessonIds(state.userId, state.primaryLanguage);
                         const prog = LessonService.getLessonProgress(state.userId, lesson.id);
-                        const isDone = prog ? (prog.isCompleted || (prog as any).completed) : false;
+                        const isDone = completedIds.includes(lesson.id) || (prog ? (prog.isCompleted || (prog as any).completed) : false);
 
                         if (isDone) {
                             lessonStatus = 'completed';
@@ -87,7 +90,7 @@ export const RoadmapService = {
                             if (prereqIds.length > 0) {
                                 for (const prereqId of prereqIds) {
                                     const pProg = LessonService.getLessonProgress(state.userId, prereqId);
-                                    const pDone = pProg ? (pProg.isCompleted || (pProg as any).completed) : false;
+                                    const pDone = completedIds.includes(prereqId) || (pProg ? (pProg.isCompleted || (pProg as any).completed) : false);
                                     if (!pDone) {
                                         prereqsMet = false;
                                         lockReason = isJa 
