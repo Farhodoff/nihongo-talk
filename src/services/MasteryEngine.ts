@@ -12,6 +12,55 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 /** Phase 19: canonical unified evidence record (alias of LearningEvidence). */
 export type EvidenceRecord = LearningEvidence;
 
+/**
+ * Phase 19 — Centralized, deterministic mastery configuration.
+ * All thresholds are defined here; no magic numbers are scattered in logic.
+ */
+export const MASTERY_CONFIG = {
+    /** score < weakThreshold → weak */
+    weakThreshold: 50,
+    /** score >= proficientThreshold → proficient (unless mastered) */
+    proficientThreshold: 70,
+    /** score >= masteredThreshold → mastered */
+    masteredThreshold: 85,
+    /** mastered additionally requires confidence >= this value */
+    masteredMinConfidence: 40,
+    /** max evidence records kept per user+language */
+    maxEvidenceRecords: 100,
+    /** recency decay begins after this many inactive days */
+    recencyDecayStartDays: 14,
+    /** decay % per day past the start threshold */
+    recencyDecayPerDay: 0.5,
+    /** maximum recency decay (percentage points) */
+    recencyDecayMax: 20,
+    /** score floor after penalties/decay */
+    minFloorScore: 10,
+    /** avg-score difference that marks improving/declining trend */
+    trendDelta: 5,
+    /** minimum evidence samples required to compute a trend */
+    minTrendSamples: 3,
+    /** confidence gained per evidence record */
+    confidencePerEvidence: 12,
+    /** hard confidence ceiling */
+    maxConfidence: 100,
+    /** mastery score penalty per recorded mistake */
+    mistakePenaltyPerMistake: 5,
+    /** maximum mistake penalty (percentage points) */
+    mistakePenaltyMax: 25
+};
+
+/**
+ * Map a score (+ confidence) to the canonical mastery status ladder.
+ */
+export function statusForScore(score: number, confidence: number): MasteryStatus {
+    if (score >= MASTERY_CONFIG.masteredThreshold && confidence >= MASTERY_CONFIG.masteredMinConfidence) {
+        return 'mastered';
+    }
+    if (score >= MASTERY_CONFIG.proficientThreshold) return 'proficient';
+    if (score >= MASTERY_CONFIG.weakThreshold) return 'developing';
+    return 'weak';
+}
+
 export const MasteryEngine = {
     /**
      * Get the authoritative list of skills for the specified language.
@@ -21,6 +70,26 @@ export const MasteryEngine = {
             return ['vocabulary', 'kanji', 'grammar', 'reading', 'listening', 'speaking'];
         }
         return ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'speaking'];
+    },
+
+    /**
+     * Phase 19 — Return mastery for a single skill (language-isolated).
+     */
+    getSkillMastery(
+        userId: string = 'guest',
+        language: SupportedLanguage = 'en',
+        skill: MasterySkill
+    ): SkillMastery {
+        const profile = this.calculateMasteryProfile(userId, language);
+        return profile.skills[skill] || {
+            skill,
+            score: 0,
+            confidence: 0,
+            evidenceCount: 0,
+            trend: 'stable',
+            status: 'not_started',
+            explanation: ''
+        };
     },
 
     /**
@@ -102,7 +171,7 @@ export const MasteryEngine = {
      * Calculate trend from chronological evidence scores.
      */
     calculateTrend(evidence: EvidenceRecord[]): MasteryTrend {
-        if (evidence.length < 3) {
+        if (evidence.length < MASTERY_CONFIG.minTrendSamples) {
             return 'stable';
         }
 
@@ -114,8 +183,8 @@ export const MasteryEngine = {
         const avg2 = secondHalf.reduce((sum, e) => sum + e.score, 0) / secondHalf.length;
 
         const diff = avg2 - avg1;
-        if (diff >= 5) return 'improving';
-        if (diff <= -5) return 'declining';
+        if (diff >= MASTERY_CONFIG.trendDelta) return 'improving';
+        if (diff <= -MASTERY_CONFIG.trendDelta) return 'declining';
         return 'stable';
     },
 
@@ -127,10 +196,12 @@ export const MasteryEngine = {
         const lastTime = new Date(lastUpdatedAt).getTime();
         const diffDays = Math.floor((now.getTime() - lastTime) / (1000 * 60 * 60 * 24));
 
-        if (diffDays > 14) {
-            // Decay by ~0.5% per day past 14 days, max decay 20%
-            const decay = Math.min(20, Math.floor((diffDays - 14) * 0.5));
-            return Math.max(10, baseScore - decay);
+        if (diffDays > MASTERY_CONFIG.recencyDecayStartDays) {
+            const decay = Math.min(
+                MASTERY_CONFIG.recencyDecayMax,
+                Math.floor((diffDays - MASTERY_CONFIG.recencyDecayStartDays) * MASTERY_CONFIG.recencyDecayPerDay)
+            );
+            return Math.max(MASTERY_CONFIG.minFloorScore, baseScore - decay);
         }
 
         return baseScore;
@@ -156,7 +227,7 @@ export const MasteryEngine = {
             if ((skill === 'vocabulary' || skill === 'kanji') && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
                 const srsScore = supplementary.srsRetention;
                 // Phase 19 thresholds: <50 weak, 50-69 developing, 70-84 proficient, 85+ mastered
-                const srsStatus: MasteryStatus = srsScore >= 85 ? 'mastered' : srsScore >= 70 ? 'proficient' : srsScore >= 50 ? 'developing' : 'weak';
+                const srsStatus: MasteryStatus = statusForScore(srsScore, MASTERY_CONFIG.maxConfidence);
                 return {
                     skill,
                     score: srsScore,
@@ -196,12 +267,12 @@ export const MasteryEngine = {
 
         // Account for recent mistakes count penalty
         if (supplementary?.mistakeCount && supplementary.mistakeCount > 0) {
-            rawScore = Math.max(10, rawScore - Math.min(25, supplementary.mistakeCount * 5));
+            rawScore = Math.max(MASTERY_CONFIG.minFloorScore, rawScore - Math.min(MASTERY_CONFIG.mistakePenaltyMax, supplementary.mistakeCount * MASTERY_CONFIG.mistakePenaltyPerMistake));
         }
 
         const lastRecord = performanceEvidence[performanceEvidence.length - 1];
         const finalScore = this.applyRecencyDecay(rawScore, lastRecord?.timestamp);
-        const confidence = Math.min(100, Math.round(totalCount * 12)); // All activity builds confidence
+        const confidence = Math.min(MASTERY_CONFIG.maxConfidence, Math.round(totalCount * MASTERY_CONFIG.confidencePerEvidence)); // All activity builds confidence
         const trend = this.calculateTrend(performanceEvidence);
 
         // Phase 19 canonical thresholds:
@@ -210,15 +281,7 @@ export const MasteryEngine = {
         //  70–84  → proficient
         //   85+   → mastered (requires confidence >= 40 to prevent premature promotion)
         let status: MasteryStatus = 'not_started';
-        if (finalScore >= 85 && confidence >= 40) {
-            status = 'mastered';
-        } else if (finalScore >= 70) {
-            status = 'proficient';
-        } else if (finalScore >= 50) {
-            status = 'developing';
-        } else {
-            status = 'weak';
-        }
+        status = statusForScore(finalScore, confidence);
 
         const explanation = isJa
             ? `${totalCount} ta natija asosida hisoblandi. Ko'rsatkich: ${finalScore}%, ishonchlilik: ${confidence}%.`
