@@ -23,6 +23,8 @@ const DashboardPage: React.FC = () => {
     const [roadmapSummary, setRoadmapSummary] = useState<RoadmapSummary | null>(null);
     const [loadingState, setLoadingState] = useState<'loading' | 'success' | 'error'>('loading');
     const [retryTrigger, setRetryTrigger] = useState(0);
+    const [isPromoting, setIsPromoting] = useState(false);
+
 
     // Sanalarni ajratib olish
     const todayStr = new Date().toISOString().split('T')[0];
@@ -111,8 +113,33 @@ const DashboardPage: React.FC = () => {
         return () => { isMounted = false; };
     }, [subjectsStats.length, settings.googleApiKey]);
 
+    const handleManualPromotion = async () => {
+        setIsPromoting(true);
+        try {
+            const activeUserId = user?.id || 'default-user';
+            const result = await LearningOrchestrator.promoteIfReady(activeUserId, primaryLanguage);
+            if (result.promoted) {
+                alert(language === 'en'
+                    ? `Congratulations! You have been promoted to ${result.newLevel}!`
+                    : `Tabriklaymiz! Siz ${result.newLevel} darajasiga ko'tarildingiz!`
+                );
+                window.location.reload();
+            } else {
+                alert(language === 'en'
+                    ? `Cannot promote: ${result.reason}`
+                    : `Darajani oshirib bo'lmadi: ${result.reason}`
+                );
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsPromoting(false);
+        }
+    };
+
     // Load Next Best Action & Adaptive Daily Plan dynamically
     useEffect(() => {
+
         let isMounted = true;
         setLoadingState('loading');
 
@@ -571,8 +598,29 @@ const DashboardPage: React.FC = () => {
                             <span>{progression.recommendedAction}</span>
                         </div>
                     )}
+
+                    {progression.isReadyForPromotion && progression.nextLevel && (
+                        <button
+                            onClick={handleManualPromotion}
+                            disabled={isPromoting}
+                            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl transition shadow-md hover:shadow-lg disabled:opacity-50 mt-2"
+                        >
+                            {isPromoting ? (
+                                <>
+                                    <Loader2 className="animate-spin" size={16} />
+                                    <span>{language === 'en' ? "Promoting..." : "Darajani oshirish..."}</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Trophy size={16} />
+                                    <span>{language === 'en' ? `Promote to ${progression.nextLevel}!` : `${progression.nextLevel} darajasiga ko'tarilish!`}</span>
+                                </>
+                            )}
+                        </button>
+                    )}
                 </div>
             )}
+
 
             <CountdownWidget />
 

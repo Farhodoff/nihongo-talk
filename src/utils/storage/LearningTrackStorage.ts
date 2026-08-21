@@ -1,6 +1,8 @@
 import { safeLocalStorage } from './safeLocalStorage';
 import { SupportedLanguage } from '../../types/lesson';
 
+import { supabase } from '../../lib/supabase';
+
 const CURRENT_LEVEL_KEY = 'study_planner_current_level';
 const TARGET_LEVEL_KEY = 'study_planner_target_level';
 const TARGET_GOAL_KEY = 'study_planner_target_goal';
@@ -26,6 +28,7 @@ export const LearningTrackStorage = {
         }
 
         safeLocalStorage.setItem(key, level);
+        this.triggerSupabaseSync();
     },
 
     getTargetLevel(language: SupportedLanguage): string {
@@ -46,6 +49,7 @@ export const LearningTrackStorage = {
         }
 
         safeLocalStorage.setItem(key, level);
+        this.triggerSupabaseSync();
     },
 
     getTargetGoal(language: SupportedLanguage): string {
@@ -57,6 +61,34 @@ export const LearningTrackStorage = {
     setTargetGoal(language: SupportedLanguage, goal: string): void {
         const key = `${TARGET_GOAL_KEY}_${language}`;
         safeLocalStorage.setItem(key, goal);
+        this.triggerSupabaseSync();
+    },
+
+    async triggerSupabaseSync(): Promise<void> {
+        try {
+            const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
+            if (!cachedUser?.id || cachedUser.id === 'guest') return;
+
+            const currentEn = safeLocalStorage.getItem(`${CURRENT_LEVEL_KEY}_en`) || 'A1';
+            const currentJa = safeLocalStorage.getItem(`${CURRENT_LEVEL_KEY}_ja`) || 'N5';
+            const targetEn = safeLocalStorage.getItem(`${TARGET_LEVEL_KEY}_en`) || 'A1';
+            const targetJa = safeLocalStorage.getItem(`${TARGET_LEVEL_KEY}_ja`) || 'N5';
+            const goalEn = safeLocalStorage.getItem(`${TARGET_GOAL_KEY}_en`) || 'IELTS 7.0+';
+            const goalJa = safeLocalStorage.getItem(`${TARGET_GOAL_KEY}_ja`) || 'JLPT Imtihoni';
+
+            await supabase.auth.updateUser({
+                data: {
+                    current_level_en: currentEn,
+                    current_level_ja: currentJa,
+                    target_level_en: targetEn,
+                    target_level_ja: targetJa,
+                    target_goal_en: goalEn,
+                    target_goal_ja: goalJa
+                }
+            });
+        } catch (e) {
+            console.warn('[LearningTrackStorage] Supabase metadata sync error:', e);
+        }
     },
 
     migrateSharedKeys(primaryLang: SupportedLanguage): void {

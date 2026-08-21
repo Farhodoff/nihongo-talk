@@ -12,18 +12,32 @@ export type NodeStatus =
 
 export interface CurriculumLessonNode {
     id: string;
+    language: SupportedLanguage;
+    level: string;
+    unit: string;
+    order: number;
     title: string;
     description: string;
-    order: number;
-    estimatedMinutes: number;
     skill: MasterySkill;
+    duration: number;
+    difficulty: 'beginner' | 'intermediate' | 'advanced';
     route: string;
+    prerequisites?: string[];
+    contentType: 'interactive' | 'quiz' | 'external' | 'practice';
+    examTrack?: 'IELTS' | 'JLPT';
+    source?: string;
+    tags?: string[];
+
+    // Legacy fields for backward compatibility
+    estimatedMinutes?: number;
     sourceType?: string;
     contentId?: string;
     isContentAvailable?: boolean;
     availabilityMessage?: string;
-    prerequisites?: string[];
+    isExamPrep?: boolean;
+    pathway?: 'general' | 'exam';
 }
+
 
 export interface CurriculumUnitNode {
     id: string;

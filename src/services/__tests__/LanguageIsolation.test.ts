@@ -2,6 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { LearningTrackStorage } from '../../utils/storage/LearningTrackStorage';
 import { LearningOrchestrator } from '../../services/LearningOrchestrator';
 import { DiagnosticService } from '../../services/DiagnosticService';
+import { CurriculumLessonResolver } from '../CurriculumLessonResolver';
+
 
 // Mock supabase
 vi.mock('../../lib/supabase', () => ({
@@ -193,5 +195,19 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
 
         LearningTrackStorage.setCurrentLevel('ja', 'B2');
         expect(LearningTrackStorage.getCurrentLevel('ja')).toBe('N5');
+    });
+
+    it('19. canAccessLesson prerequisite check returns missingPrerequisites', () => {
+        localStorage.setItem('study_planner_current_level_en', 'A1');
+        const result = LearningOrchestrator.canAccessLesson('en-a1-u1-l2', 'test-user', 'en');
+        expect(result.allowed).toBe(false);
+        expect(result.missingPrerequisites).toContain('en-a1-u1-l1');
+    });
+
+    it('20. dynamic curriculum resolver resolves new lessons and sets isAvailable to true', () => {
+        const resolved = CurriculumLessonResolver.resolveLesson('en-b1-u1-l2');
+        expect(resolved.isAvailable).toBe(true);
+        expect(resolved.title).toBe('Work & Careers');
+        expect(resolved.skill).toBe('vocabulary');
     });
 });

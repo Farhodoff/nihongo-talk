@@ -14,6 +14,8 @@ import { LearningSignalService } from './LearningSignalService';
 import { WeaknessEngine } from './WeaknessEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+import { CurriculumLessonResolver } from './CurriculumLessonResolver';
+
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { Flashcard } from '../types';
@@ -423,18 +425,23 @@ export const LearningOrchestrator = {
         lessonId: string,
         userId: string = 'guest',
         language?: SupportedLanguage
-    ): { allowed: boolean; reason: string; redirectTo?: string } {
+    ): { allowed: boolean; reason: string; redirectTo?: string; missingPrerequisites?: string[] } {
         const lang = language || this.getPrimaryLanguage();
 
-        // 1. Lesson must exist (LessonService already imported at module top)
-        const lesson = LessonService.getLessonById(lessonId);
-        if (!lesson) {
+        // 1. Lesson must exist (check LessonService or Curriculum resolver)
+        const sampleLesson = LessonService.getLessonById(lessonId);
+        const resolved = CurriculumLessonResolver.resolveLesson(lessonId, lang);
+
+        if (!sampleLesson && (!resolved || !resolved.isAvailable)) {
             return { allowed: false, reason: 'Lesson not found', redirectTo: '/dashboard' };
         }
 
+        const level = sampleLesson ? sampleLesson.level : resolved.level;
+        const lessonLang = sampleLesson ? sampleLesson.language : resolved.language;
+
         // 2. Language isolation enforcement (TASK 7)
-        if ((lesson.language || lang) !== lang) {
-            return { allowed: false, reason: `Language mismatch: lesson is ${(lesson.language || '?')}, user track is ${lang}`, redirectTo: '/dashboard' };
+        if (lessonLang !== lang) {
+            return { allowed: false, reason: `Language mismatch: lesson is ${lessonLang}, user track is ${lang}`, redirectTo: '/dashboard' };
         }
 
         // 3. Level eligibility check
@@ -443,30 +450,40 @@ export const LearningOrchestrator = {
             ? ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1']
             : ['ZERO', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
         const userLevelIdx = levels.indexOf(currentLevel);
-        const lessonLevelIdx = levels.indexOf(lesson.level);
+        const lessonLevelIdx = levels.indexOf(level);
+
 
         if (lessonLevelIdx < 0) {
-            return { allowed: true, reason: `Unknown lesson level "${lesson.level}", allowing access` };
+            return { allowed: true, reason: `Unknown lesson level "${level}", allowing access` };
         }
         if (userLevelIdx < 0) {
             return { allowed: true, reason: 'User level not in progression sequence, allowing access' };
         }
         if (userLevelIdx < lessonLevelIdx) {
-            return { allowed: false, reason: `Lesson requires level ${lesson.level}, currently at ${currentLevel}`, redirectTo: '/dashboard' };
+            return { allowed: false, reason: `Lesson requires level ${level}, currently at ${currentLevel}`, redirectTo: '/dashboard' };
         }
+
 
         // 4. Prerequisite completion check
         const prereqs = CurriculumService.getLessonPrerequisites(lessonId);
         if (Array.isArray(prereqs) && prereqs.length > 0) {
+            const missing: string[] = [];
             for (const prereqId of prereqs) {
-                const prereqLesson = LessonService.getLessonById(prereqId);
-                if (!prereqLesson) continue;
                 const completedIds = PersonalLearningPlanService.getCompletedLessonIds(userId, lang);
                 const prog = LessonService.getLessonProgress(userId, prereqId);
                 const isDone = completedIds.includes(prereqId) || (prog ? (prog.isCompleted || (prog as any).completed) : false);
                 if (!isDone) {
-                    return { allowed: false, reason: `Prerequisite not completed: ${prereqLesson.title || prereqId}`, redirectTo: '/dashboard' };
+                    missing.push(prereqId);
                 }
+            }
+            if (missing.length > 0) {
+                const firstMissing = LessonService.getLessonById(missing[0])?.title || missing[0];
+                return {
+                    allowed: false,
+                    reason: `Prerequisite not completed: ${firstMissing}`,
+                    redirectTo: '/dashboard',
+                    missingPrerequisites: missing
+                };
             }
         }
 

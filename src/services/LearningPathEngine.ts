@@ -53,8 +53,9 @@ export const LearningPathEngine = {
 
         // Phase 15: Auto-promote if ready (writes to localStorage, syncs to Supabase)
         // Use a local working copy to avoid mutating the caller's state object.
+        // Only auto-promote ZERO level onboarding users. Regular levels require user trigger.
         const workingState = { ...state };
-        if (progression.canAdvance && progression.nextLevel) {
+        if (progression.canAdvance && progression.nextLevel && isZeroLevel) {
             try {
                 const result = await LearningOrchestrator.promoteIfReady(workingState.userId, lang);
                 if (result.promoted) {

@@ -338,6 +338,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 safeLocalStorage.setItem('study_planner_user_email', currentUser.email);
             }
             setUser(currentUser);
+            if (currentUser && currentUser.user_metadata) {
+                const meta = currentUser.user_metadata;
+                if (meta.current_level_en) LearningTrackStorage.setCurrentLevel('en', meta.current_level_en);
+                if (meta.current_level_ja) LearningTrackStorage.setCurrentLevel('ja', meta.current_level_ja);
+                if (meta.target_level_en) LearningTrackStorage.setTargetLevel('en', meta.target_level_en);
+                if (meta.target_level_ja) LearningTrackStorage.setTargetLevel('ja', meta.target_level_ja);
+                if (meta.target_goal_en) LearningTrackStorage.setTargetGoal('en', meta.target_goal_en);
+                if (meta.target_goal_ja) LearningTrackStorage.setTargetGoal('ja', meta.target_goal_ja);
+            }
+
 
             // Sync Google Calendar
             syncGoogleEvents();

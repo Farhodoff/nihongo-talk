@@ -2,6 +2,54 @@ import { SupportedLanguage } from '../types/lesson';
 import { MasterySkill } from '../types/mastery';
 import { SAMPLE_LESSONS } from '../data/curriculum/sampleCurriculum';
 import { IELTS_GRAMMAR_DATABASE } from '../data/ielts/ielts_grammar_data';
+const STATIC_CURRICULUM_MAP: Record<string, { title: string; skill: MasterySkill; route?: string; contentId?: string; sourceType?: LessonSourceType }> = {
+    // English
+    'en-a1-u1-l1': { title: 'Greetings & Introductions', skill: 'grammar' },
+    'en-a1-u1-l2': { title: 'Daily Objects & Numbers', skill: 'vocabulary' },
+    'en-a1-u2-l1': { title: 'Family & People', skill: 'reading' },
+    'en-a1-u2-l2': { title: 'Colors & Clothes', skill: 'listening' },
+    'en-a2-u1-l1': { title: 'Talking About Yesterday', skill: 'grammar', route: '/ielts?topic=murphy_u05_past_simple', contentId: 'murphy_u05_past_simple', sourceType: 'grammar' },
+    'en-a2-u1-l2': { title: 'My Last Vacation', skill: 'vocabulary' },
+    'en-a2-u2-l1': { title: 'Shopping & Directions', skill: 'reading' },
+    'en-a2-u2-l2': { title: 'Food & Cooking', skill: 'listening' },
+    'en-b1-u1-l1': { title: 'Future Plans & Possibilities', skill: 'grammar', route: '/ielts?topic=murphy_u18_future_continuous_and_perfect', contentId: 'murphy_u18_future_continuous_and_perfect', sourceType: 'grammar' },
+    'en-b1-u1-l2': { title: 'Work & Careers', skill: 'vocabulary' },
+    'en-b1-u2-l1': { title: 'Health & Lifestyle', skill: 'reading' },
+    'en-b1-u2-l2': { title: 'Technology & Media', skill: 'listening' },
+    'en-b2-u1-l1': { title: 'Academic Learning & Inversion', skill: 'grammar' },
+    'en-b2-u1-l2': { title: 'Advanced Academic Vocabulary & Collocations', skill: 'vocabulary' },
+    'en-b2-u2-l1': { title: 'IELTS Essay Structure & Cohesion', skill: 'writing' },
+    'en-b2-u2-l2': { title: 'Speaking Examiner Simulation', skill: 'speaking' },
+    'en-c1-u1-l1': { title: 'Complex Academic Discourse', skill: 'grammar', route: '/ielts?topic=murphy_u33_inversion_structures', contentId: 'murphy_u33_inversion_structures', sourceType: 'grammar' },
+    'en-c1-u1-l2': { title: 'Advanced Idioms & Nuances', skill: 'vocabulary' },
+    'en-c1-u2-l1': { title: 'Science & Philosophy Reading', skill: 'reading' },
+    'en-c1-u2-l2': { title: 'Business & Negotiation Speaking', skill: 'speaking' },
+    'en-c2-u1-l1': { title: 'Native-level Fluency & Precision', skill: 'speaking' },
+    'en-c2-u1-l2': { title: 'Rhetoric & Persuasion', skill: 'writing' },
+    'en-c2-u2-l1': { title: 'Literary Masterpieces Analysis', skill: 'reading' },
+
+    // Japanese
+    'ja-n5-u1-l1': { title: 'Tanishuv va Ko-So-A-Do', skill: 'grammar' },
+    'ja-n5-u1-l2': { title: 'N5 Asosiy Kanji (Sonlar va Kunlar)', skill: 'kanji' },
+    'ja-n5-u2-l1': { title: 'N5 Boshlang\'ich Leksika', skill: 'vocabulary' },
+    'ja-n5-u2-l2': { title: 'N5 Sodda Matnlar', skill: 'reading' },
+    'ja-n4-u1-l1': { title: 'Te-forma va Ruxsat So\'rash', skill: 'grammar' },
+    'ja-n4-u1-l2': { title: 'N4 Kundalik Leksika', skill: 'vocabulary' },
+    'ja-n4-u2-l1': { title: 'N4 Intermediate Kanji', skill: 'kanji' },
+    'ja-n4-u2-l2': { title: 'N4 Qisqa Dialoqlar', skill: 'listening' },
+    'ja-n3-u1-l1': { title: 'Sayohat va Transport (N3 Grammatika)', skill: 'grammar' },
+    'ja-n3-u1-l2': { title: 'N3 Kanji & Sayohat Leksikasi', skill: 'kanji' },
+    'ja-n3-u2-l1': { title: 'N3 Dokkai Matn Tahlili', skill: 'reading' },
+    'ja-n3-u2-l2': { title: 'N3 Chokkai Tinglab Tushunish', skill: 'listening' },
+    'ja-n2-u1-l1': { title: 'Rasmiy Yapon Tili & Keigo', skill: 'grammar' },
+    'ja-n2-u1-l2': { title: 'N2 Gazeta Leksikasi', skill: 'vocabulary' },
+    'ja-n2-u2-l1': { title: 'N2 Murakkab Kanji', skill: 'kanji' },
+    'ja-n2-u2-l2': { title: 'N2 Ijtimoiy Matnlar', skill: 'reading' },
+    'ja-n1-u1-l1': { title: 'N1 Ilmiy va Ijtimoiy Matnlar', skill: 'reading' },
+    'ja-n1-u1-l2': { title: 'N1 Klassik Adabiyot', skill: 'reading' },
+    'ja-n1-u2-l1': { title: 'N1 Professional Leksika', skill: 'vocabulary' }
+};
+
 
 export type LessonSourceType = 
     | 'lesson_player' 
@@ -101,8 +149,64 @@ export const CurriculumLessonResolver = {
             };
         }
 
-        // 3. Known English Curriculum Nodes
+        // 3. Dynamic curriculum parsing
+        const parts = lessonId.split('-');
+        if (parts.length === 4 && (parts[0] === 'en' || parts[0] === 'ja')) {
+            const language = parts[0] as SupportedLanguage;
+            const level = parts[1].toUpperCase();
+
+            const staticNode = STATIC_CURRICULUM_MAP[lessonId];
+            if (staticNode) {
+                let sourceType: LessonSourceType = staticNode.sourceType || 'lesson_player';
+                let route = staticNode.route || `/lesson/${lessonId}`;
+                let contentId = staticNode.contentId || lessonId;
+                const skill = staticNode.skill;
+
+                if (!staticNode.sourceType && !staticNode.route) {
+                    if (skill === 'grammar') {
+                        sourceType = 'grammar';
+                        route = language === 'ja' ? `/jlpt/grammar-quiz?level=${level}` : `/ielts?topic=${lessonId}`;
+                    } else if (skill === 'vocabulary') {
+                        sourceType = 'vocabulary';
+                        route = language === 'ja' ? `/jlpt?tab=vocabulary&level=${level}` : '/vocabulary';
+                        contentId = level === 'A1' || level === 'A2' ? 'a1_a2' : 'b1_b2';
+                    } else if (skill === 'kanji') {
+                        sourceType = 'jlpt';
+                        route = `/jlpt?tab=kanji&level=${level}`;
+                    } else if (skill === 'reading') {
+                        sourceType = 'reading';
+                        route = language === 'ja' ? '/jlpt/reading' : '/ielts/reading-listening';
+                    } else if (skill === 'listening') {
+                        sourceType = 'listening';
+                        route = language === 'ja' ? '/jlpt/listening' : '/ielts/reading-listening';
+                    } else if (skill === 'speaking') {
+                        sourceType = 'speaking';
+                        route = `/speaking-coach?lang=${language}`;
+                    } else if (skill === 'writing') {
+                        sourceType = 'writing';
+                        route = language === 'ja' ? '/study-mode' : '/ielts/writing';
+                    }
+                }
+
+                return {
+                    lessonId,
+                    sourceType,
+                    route,
+                    contentId,
+                    title: staticNode.title,
+                    language,
+                    level,
+                    skill,
+                    isAvailable: true,
+                    availabilityMessage: `${level} darajasidagi ${skill} darsi.`
+                };
+            }
+        }
+
+
+        // 4. Known English Curriculum Nodes
         if (lessonId.startsWith('en-')) {
+
             if (lessonId === 'en-a1-u1-l1') {
                 return {
                     lessonId,
