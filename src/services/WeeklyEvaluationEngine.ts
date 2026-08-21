@@ -6,6 +6,51 @@ import {
 import { callSelectedAIProvider } from '../utils/ai/aiCore';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 import { LearningPathEngine } from './LearningPathEngine';
+import { MasteryEngine } from './MasteryEngine';
+import { computeMasteryImpact, resolveCategory, EvidenceCategory } from '../types/learningEvidence';
+import { SupportedLanguage } from '../types/lesson';
+
+
+/**
+ * Phase 19 (D) — compute a REAL per-skill mastery delta from actual evidence
+ * recorded in the last 7 days. Replaces the previous simulated ±5 trend delta.
+ *
+ * Each evidence record contributes its deterministic mastery impact
+ * (computeMasteryImpact). The per-skill delta is the average impact of the
+ * week's evidence, rounded and clamped to [-50, 50]. No evidence → 0.
+ */
+export function computeRealMasteryDelta(
+    userId: string,
+    language: SupportedLanguage,
+    skills: string[]
+): Record<string, number> {
+    const allEvidence = MasteryEngine.getUserEvidence(userId, language);
+    const now = Date.now();
+    const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+
+    const delta: Record<string, number> = {};
+    for (const skill of skills) {
+        const recent = allEvidence.filter(e => {
+            if (e.skill !== skill) return false;
+            const ts = new Date(e.timestamp || '').getTime();
+            return !isNaN(ts) && ts >= sevenDaysAgo;
+        });
+
+        if (recent.length === 0) {
+            delta[skill] = 0;
+            continue;
+        }
+
+        let totalImpact = 0;
+        for (const e of recent) {
+            const category: EvidenceCategory = resolveCategory(e as any);
+            totalImpact += computeMasteryImpact(e.activityType, e.score, category);
+        }
+        const avg = totalImpact / recent.length;
+        delta[skill] = Math.max(-50, Math.min(50, Math.round(avg)));
+    }
+    return delta;
+}
 
 export const WeeklyEvaluationEngine = {
     /**
@@ -47,9 +92,10 @@ export const WeeklyEvaluationEngine = {
         Object.keys(skillsProfile).forEach(skillName => {
             const mastery = skillsProfile[skillName];
             skillScores[skillName] = mastery.score;
-            // Mastery delta is simulated or calculated based on recent evidence in the last 7 days
-            masteryDelta[skillName] = mastery.trend === 'improving' ? 5 : mastery.trend === 'declining' ? -5 : 0;
         });
+
+        // Phase 19 (D): REAL mastery delta from the last 7 days of evidence.
+        Object.assign(masteryDelta, computeRealMasteryDelta(userId, goal.language, Object.keys(skillsProfile)));
 
         const srsRetention = state.reviewSummary?.averageRetentionScore || 80;
 
