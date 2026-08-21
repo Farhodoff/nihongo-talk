@@ -6,6 +6,7 @@ import { resolveNextLesson, NextLessonResult, NextLessonBucket } from './NextLes
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { LevelPromotionCandidate } from '../types/learningPath';
 import { LearningPathEngine, PROGRESSION_CONFIG } from './LearningPathEngine';
+import { DiagnosticService } from './DiagnosticService';
 
 /**
  * Unified Source of Truth for Level Progression, Promotion, and Lesson Access.
@@ -37,6 +38,15 @@ export const LearningProgressionService = {
 
     /**
      * Phase 19 — Single next-lesson decision with reason + priority bucket.
+     *
+     * Pipeline:
+     *   1. If a pending *diagnostic* candidate exists, read the latest diagnostic
+     *      result for this language and honour recommendedFirstLessonId when the
+     *      lesson is accessible in the roadmap (prevents stale-state override).
+     *   2. Otherwise fall through to the normal roadmap resolver.
+     *
+     * Language is always resolved explicitly so stale localStorage keys can
+     * never produce cross-language lesson leakage.
      */
     async getNextLessonDetail(
         userId: string = 'guest',
@@ -45,6 +55,50 @@ export const LearningProgressionService = {
         const lang = language || LearningOrchestrator.getPrimaryLanguage();
         const state = await LearningOrchestrator.getUserLearningState(userId, { forceLanguage: lang });
         const roadmap = RoadmapService.getLearningRoadmap(state);
+
+        // --- Diagnostic override ---
+        // A diagnostic candidate has requiredThreshold === 0 (set by DiagnosticService).
+        // When one is pending, route the user to the diagnostically recommended lesson
+        // so they are not sent to a stale/wrong lesson from the old level.
+        const diagnosticCandidate = LearningTrackStorage.getPromotionCandidate(lang);
+        const isDiagnosticCandidate =
+            diagnosticCandidate?.status === 'pending' &&
+            diagnosticCandidate.requiredThreshold === 0;
+
+        if (isDiagnosticCandidate) {
+            const diagResult = DiagnosticService.getLatestDiagnosticResult(userId, lang);
+            if (diagResult?.recommendedFirstLessonId) {
+                // Validate: lesson must exist in the roadmap AND belong to the correct language
+                const recommendedNode = LearningProgressionService._findLessonInRoadmap(
+                    roadmap,
+                    diagResult.recommendedFirstLessonId,
+                    lang
+                );
+                if (recommendedNode) {
+                    return {
+                        lesson: recommendedNode,
+                        bucket: 'current',
+                        reason: `Diagnostic placement: start at ${diagResult.recommendedStartLevel}`,
+                        priority: 85
+                    };
+                }
+                // If locked (candidate level not yet confirmed), resolve first accessible
+                // lesson at the candidate level instead of a locked one
+                const candidateLevelFirst = LearningProgressionService._findFirstAccessibleAtLevel(
+                    roadmap,
+                    diagnosticCandidate.candidateLevel,
+                    lang
+                );
+                if (candidateLevelFirst) {
+                    return {
+                        lesson: candidateLevelFirst,
+                        bucket: 'current',
+                        reason: `Diagnostic placement fallback: first accessible lesson at ${diagnosticCandidate.candidateLevel}`,
+                        priority: 80
+                    };
+                }
+            }
+        }
 
         return resolveNextLesson(roadmap, state.masteryProfile?.topWeaknesses || []);
     },
@@ -208,6 +262,59 @@ export const LearningProgressionService = {
             candidate.status = 'dismissed';
             LearningTrackStorage.setPromotionCandidate(lang, candidate);
         }
+    },
+
+    /**
+     * Internal: find a specific lesson node in the roadmap by ID.
+     * Returns the node only if it belongs to the expected language.
+     * This prevents cross-language lesson leakage.
+     */
+    _findLessonInRoadmap(
+        roadmap: Parameters<typeof RoadmapService.getLearningRoadmap>[0] extends any ? any : any,
+        lessonId: string,
+        expectedLanguage: SupportedLanguage
+    ): RoadmapLessonNode | null {
+        for (const level of (roadmap.levels || [])) {
+            for (const unit of (level.units || [])) {
+                for (const lesson of (unit.lessons || [])) {
+                    if (lesson.id === lessonId) {
+                        // Language guard: lesson id must start with the correct language prefix
+                        const langPrefix = expectedLanguage === 'ja' ? 'ja-' : 'en-';
+                        if (!lessonId.startsWith(langPrefix)) return null;
+                        return lesson as RoadmapLessonNode;
+                    }
+                }
+            }
+        }
+        return null;
+    },
+
+    /**
+     * Internal: find the first accessible (non-locked, non-completed) lesson node
+     * at a specific level code in the roadmap.
+     * Returns null if the level is locked or has no accessible lessons.
+     */
+    _findFirstAccessibleAtLevel(
+        roadmap: Parameters<typeof RoadmapService.getLearningRoadmap>[0] extends any ? any : any,
+        levelCode: string,
+        expectedLanguage: SupportedLanguage
+    ): RoadmapLessonNode | null {
+        const ACCESSIBLE_STATUSES = new Set(['in_progress', 'current', 'available', 'weak']);
+        const langPrefix = expectedLanguage === 'ja' ? 'ja-' : 'en-';
+        for (const level of (roadmap.levels || [])) {
+            if (level.code?.toLowerCase() !== levelCode?.toLowerCase()) continue;
+            for (const unit of (level.units || [])) {
+                for (const lesson of (unit.lessons || [])) {
+                    if (
+                        ACCESSIBLE_STATUSES.has(lesson.status) &&
+                        lesson.id?.startsWith(langPrefix)
+                    ) {
+                        return lesson as RoadmapLessonNode;
+                    }
+                }
+            }
+        }
+        return null;
     }
 };
 
