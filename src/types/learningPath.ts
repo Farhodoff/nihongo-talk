@@ -6,7 +6,7 @@ import { LessonPosition, UnfinishedLessonInfo, SrsReviewSummary, SignalsSummary 
 /**
  * Standardized, machine-readable reason codes for all learning recommendations
  */
-export type LearningReasonCode = 
+export type LearningReasonCode =
     | 'UNFINISHED_LESSON'
     | 'WEAK_SKILL'
     | 'SRS_DUE'
@@ -20,7 +20,7 @@ export type LearningReasonCode =
     | 'SKILL_BALANCE'
     | 'DIAGNOSTIC_REQUIRED';
 
-export type LearningReasonType = 
+export type LearningReasonType =
     | 'unfinished_lesson'
     | 'weak_skill'
     | 'due_srs'
@@ -57,7 +57,7 @@ export interface LearningReason {
 /**
  * Standardized Action Types for Learning Path Recommendations
  */
-export type NextActionType = 
+export type NextActionType =
     | 'continue_lesson'
     | 'resume_lesson'
     | 'remediation'
@@ -176,7 +176,7 @@ export interface ProgressionState {
     isReadyForPromotion?: boolean;
     requirements?: ProgressionRequirement[];
     advancementBlockers?: string[];
-    
+
     // Additional fields for EnglishProgressionState
     achievedEvidence?: string[];
     weakestSkill?: string;
@@ -291,3 +291,15 @@ export interface LearningPathOptions {
     skipRemediation?: boolean;
 }
 
+export interface LevelPromotionCandidate {
+    language: SupportedLanguage;
+    currentLevel: string;
+    candidateLevel: string;
+    reason: string;
+    evidenceIds: string[];
+    masteryScore: number;
+    requiredThreshold: number;
+    createdAt: string;
+    status: 'pending' | 'confirmed' | 'dismissed';
+    completedLessonsCount: number;
+}

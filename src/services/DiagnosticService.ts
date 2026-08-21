@@ -1,17 +1,18 @@
 import { SupportedLanguage } from '../types/lesson';
 import { MasterySkill } from '../types/mastery';
-import { 
-    DiagnosticQuestion, 
-    DiagnosticMode, 
-    DiagnosticResult, 
-    DiagnosticSkillScore, 
+import {
+    DiagnosticQuestion,
+    DiagnosticMode,
+    DiagnosticResult,
+    DiagnosticSkillScore,
     DiagnosticSessionState,
-    AdaptiveDiagnosticState 
+    AdaptiveDiagnosticState
 } from '../types/diagnostic';
 import { LearningSignalService } from './LearningSignalService';
 import { AdaptiveQuestionEngine } from './AdaptiveQuestionEngine';
 import { MasteryEngine } from './MasteryEngine';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+import { LevelPromotionCandidate } from '../types/learningPath';
 
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
@@ -761,8 +762,25 @@ export const DiagnosticService = {
         const key = `${DIAGNOSTIC_RESULT_PREFIX}${result.userId || 'guest'}_${result.language}`;
         try {
             localStorage.setItem(key, JSON.stringify(result));
-            if (result.recommendedStartLevel) {
-                LearningTrackStorage.setCurrentLevel(result.language, result.recommendedStartLevel);
+
+            // Phase E: Diagnostic recommendedStartLevel is only evidence/recommendation.
+            // Do NOT call setCurrentLevel directly.
+            // Instead, register a promotion candidate if it recommends a level different from current level.
+            const currentLevel = LearningTrackStorage.getCurrentLevel(result.language);
+            if (result.recommendedStartLevel && result.recommendedStartLevel !== currentLevel) {
+                const candidate: LevelPromotionCandidate = {
+                    language: result.language,
+                    currentLevel,
+                    candidateLevel: result.recommendedStartLevel,
+                    reason: `Diagnostic placement recommendation`,
+                    evidenceIds: [result.id],
+                    masteryScore: result.overallScore,
+                    requiredThreshold: 0,
+                    createdAt: new Date().toISOString(),
+                    status: 'pending',
+                    completedLessonsCount: 0
+                };
+                LearningTrackStorage.setPromotionCandidate(result.language, candidate);
             }
         } catch (e) {
             console.warn('[DiagnosticService] Failed to save result:', e);

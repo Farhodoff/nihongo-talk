@@ -1,11 +1,12 @@
 import { safeLocalStorage } from './safeLocalStorage';
 import { SupportedLanguage } from '../../types/lesson';
-
+import { LevelPromotionCandidate } from '../../types/learningPath';
 import { supabase } from '../../lib/supabase';
 
 const CURRENT_LEVEL_KEY = 'study_planner_current_level';
 const TARGET_LEVEL_KEY = 'study_planner_target_level';
 const TARGET_GOAL_KEY = 'study_planner_target_goal';
+const PROMOTION_CANDIDATE_KEY = 'study_planner_promotion_candidate';
 
 export const LearningTrackStorage = {
     getCurrentLevel(language: SupportedLanguage): string {
@@ -64,6 +65,20 @@ export const LearningTrackStorage = {
         this.triggerSupabaseSync();
     },
 
+    getPromotionCandidate(language: SupportedLanguage): LevelPromotionCandidate | null {
+        const key = `${PROMOTION_CANDIDATE_KEY}_${language}`;
+        return safeLocalStorage.getJSON<LevelPromotionCandidate | null>(key, null);
+    },
+
+    setPromotionCandidate(language: SupportedLanguage, candidate: LevelPromotionCandidate | null): void {
+        const key = `${PROMOTION_CANDIDATE_KEY}_${language}`;
+        if (candidate === null) {
+            safeLocalStorage.removeItem(key);
+        } else {
+            safeLocalStorage.setJSON(key, candidate);
+        }
+    },
+
     async triggerSupabaseSync(): Promise<void> {
         try {
             const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
@@ -90,6 +105,7 @@ export const LearningTrackStorage = {
             console.warn('[LearningTrackStorage] Supabase metadata sync error:', e);
         }
     },
+
 
     migrateSharedKeys(primaryLang: SupportedLanguage): void {
         try {

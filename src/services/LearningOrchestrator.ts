@@ -15,6 +15,7 @@ import { WeaknessEngine } from './WeaknessEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { CurriculumLessonResolver } from './CurriculumLessonResolver';
+import { LevelPromotionCandidate } from '../types/learningPath';
 
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -395,26 +396,32 @@ export const LearningOrchestrator = {
         const newLevel = progression.nextLevel;
         const oldLevel = state.currentLevel;
 
-        // 1. Write current level to localStorage
-        LearningTrackStorage.setCurrentLevel(lang, newLevel);
-        console.log(`[Orchestrator] Level promoted: ${oldLevel} -> ${newLevel}`);
+        const skills = Object.values(state.masteryProfile?.skills || {});
+        const avgMastery = skills.length > 0
+            ? Math.round(skills.reduce((sum: number, sk: any) => sum + (sk.score || 0), 0) / skills.length)
+            : 0;
 
-        // 2. Fire-and-forget Supabase profile metadata sync
-        if (userId && userId !== 'guest') {
-            try {
-                const supabase = (await import('../lib/supabase') as any).supabase;
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    await supabase.auth.updateUser({
-                        data: { current_level: newLevel, current_level_language: lang }
-                    });
-                }
-            } catch (err) {
-                console.warn('[Orchestrator] Supabase level sync failed (non-critical):', err);
-            }
-        }
+        const { PROGRESSION_CONFIG } = await import('./LearningPathEngine') as any;
+        const requiredThreshold = PROGRESSION_CONFIG.STANDARD_LEVEL_MASTERY_THRESHOLD;
 
-        return { promoted: true, oldLevel, newLevel, reason: `All requirements met for ${newLevel}` };
+        // Register the promotion candidate instead of setting confirmed level directly
+        const candidate: LevelPromotionCandidate = {
+            language: lang,
+            currentLevel: oldLevel,
+            candidateLevel: newLevel,
+            reason: progression.explanation || `Passed requirements for ${newLevel}`,
+            evidenceIds: state.unfinishedLessons.map(l => l.lessonId),
+            masteryScore: avgMastery,
+            requiredThreshold,
+            createdAt: new Date().toISOString(),
+            status: 'pending',
+            completedLessonsCount: state.completedLessonsCount
+        };
+
+        LearningTrackStorage.setPromotionCandidate(lang, candidate);
+        console.log(`[Orchestrator] Promotion candidate registered: ${oldLevel} -> ${newLevel}`);
+
+        return { promoted: false, oldLevel, newLevel, reason: `Promotion candidate registered for ${newLevel}. Confirmation required.` };
     },
 
     /**

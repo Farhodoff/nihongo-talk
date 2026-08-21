@@ -77,7 +77,7 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
         expect(LearningTrackStorage.getCurrentLevel('en')).toBe('A2');
     });
 
-    it('9. EN diagnostic does not affect JA', () => {
+    it('9. EN diagnostic does not affect JA (Phase E: candidate only)', () => {
         LearningTrackStorage.setCurrentLevel('en', 'A1');
         LearningTrackStorage.setCurrentLevel('ja', 'N5');
         DiagnosticService.saveDiagnosticResult({
@@ -96,11 +96,18 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
             recommendedFirstLessonId: 'en-a1-u1-l1',
             completedAt: new Date().toISOString()
         });
-        expect(LearningTrackStorage.getCurrentLevel('en')).toBe('B1');
+        // Phase E: diagnostic must NOT change currentLevel directly — only a candidate is created
+        expect(LearningTrackStorage.getCurrentLevel('en')).toBe('A1');
         expect(LearningTrackStorage.getCurrentLevel('ja')).toBe('N5');
+        // A promotion candidate must be stored for EN with the recommended level
+        const candidate = LearningTrackStorage.getPromotionCandidate('en');
+        expect(candidate).not.toBeNull();
+        expect(candidate?.candidateLevel).toBe('B1');
+        // JA must have no candidate
+        expect(LearningTrackStorage.getPromotionCandidate('ja')).toBeNull();
     });
 
-    it('10. JA diagnostic does not affect EN', () => {
+    it('10. JA diagnostic does not affect EN (Phase E: candidate only)', () => {
         LearningTrackStorage.setCurrentLevel('en', 'B1');
         LearningTrackStorage.setCurrentLevel('ja', 'N5');
         DiagnosticService.saveDiagnosticResult({
@@ -119,8 +126,15 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
             recommendedFirstLessonId: 'ja-n5-u1-l1',
             completedAt: new Date().toISOString()
         });
-        expect(LearningTrackStorage.getCurrentLevel('ja')).toBe('N3');
+        // Phase E: diagnostic must NOT change currentLevel directly — only a candidate is created
+        expect(LearningTrackStorage.getCurrentLevel('ja')).toBe('N5');
         expect(LearningTrackStorage.getCurrentLevel('en')).toBe('B1');
+        // A promotion candidate must be stored for JA with the recommended level
+        const candidate = LearningTrackStorage.getPromotionCandidate('ja');
+        expect(candidate).not.toBeNull();
+        expect(candidate?.candidateLevel).toBe('N3');
+        // EN must have no candidate
+        expect(LearningTrackStorage.getPromotionCandidate('en')).toBeNull();
     });
 
     it('11. default EN = A1', () => {

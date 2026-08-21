@@ -8,8 +8,9 @@ import { calculateMasteryScore } from '../utils/analytics';
 import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
 import { LearningPathEngine } from '../services/LearningPathEngine';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
+import { LearningProgressionService } from '../services/LearningProgressionService';
 import { RoadmapService } from '../services/RoadmapService';
-import { NextBestAction, DailyLearningPlan, ProgressionState } from '../types/learningPath';
+import { NextBestAction, DailyLearningPlan, ProgressionState, LevelPromotionCandidate } from '../types/learningPath';
 import { RoadmapSummary } from '../types/curriculum';
 
 const DashboardPage: React.FC = () => {
@@ -24,6 +25,7 @@ const DashboardPage: React.FC = () => {
     const [loadingState, setLoadingState] = useState<'loading' | 'success' | 'error'>('loading');
     const [retryTrigger, setRetryTrigger] = useState(0);
     const [isPromoting, setIsPromoting] = useState(false);
+    const [promotionCandidate, setPromotionCandidate] = useState<LevelPromotionCandidate | null>(null);
 
 
     // Sanalarni ajratib olish
@@ -112,18 +114,19 @@ const DashboardPage: React.FC = () => {
         }
         return () => { isMounted = false; };
     }, [subjectsStats.length, settings.googleApiKey]);
-
     const handleManualPromotion = async () => {
         setIsPromoting(true);
         try {
             const activeUserId = user?.id || 'default-user';
             const result = await LearningOrchestrator.promoteIfReady(activeUserId, primaryLanguage);
-            if (result.promoted) {
+            const candidate = LearningProgressionService.getPromotionCandidate(primaryLanguage);
+            setPromotionCandidate(candidate);
+
+            if (candidate) {
                 alert(language === 'en'
-                    ? `Congratulations! You have been promoted to ${result.newLevel}!`
-                    : `Tabriklaymiz! Siz ${result.newLevel} darajasiga ko'tarildingiz!`
+                    ? `Promotion candidate registered for ${candidate.candidateLevel}! Please confirm below.`
+                    : `${candidate.candidateLevel} darajasiga o'tish taklifi yaratildi! Iltimos, quyida tasdiqlang.`
                 );
-                window.location.reload();
             } else {
                 alert(language === 'en'
                     ? `Cannot promote: ${result.reason}`
@@ -137,21 +140,59 @@ const DashboardPage: React.FC = () => {
         }
     };
 
+    const handleConfirmCandidatePromotion = async () => {
+        setIsPromoting(true);
+        try {
+            const activeUserId = user?.id || 'default-user';
+            const result = await LearningProgressionService.confirmPromotion(activeUserId, primaryLanguage);
+            if (result.promoted) {
+                alert(language === 'en'
+                    ? `Congratulations! You have been promoted to ${result.newLevel}!`
+                    : `Tabriklaymiz! Siz ${result.newLevel} darajasiga ko'tarildingiz!`
+                );
+                setPromotionCandidate(null);
+                setRetryTrigger(prev => prev + 1);
+            } else {
+                alert(language === 'en'
+                    ? `Cannot promote: ${result.reason}`
+                    : `Darajani oshirib bo'lmadi: ${result.reason}`
+                );
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsPromoting(false);
+        }
+    };
+
+    const handleDismissCandidatePromotion = () => {
+        LearningProgressionService.dismissPromotion(primaryLanguage);
+        setPromotionCandidate(null);
+    };
+
     // Load Next Best Action & Adaptive Daily Plan dynamically
     useEffect(() => {
-
         let isMounted = true;
         setLoadingState('loading');
 
         const activeUserId = user?.id || 'default-user';
 
-        // Load learning path state
+        // Load learning path state and evaluate promotion
         const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, { forceLanguage: primaryLanguage })
-            .then(pathState => {
+            .then(async (pathState) => {
                 if (isMounted) {
                     setNextAction(pathState.nextAction);
                     setDailyPlan(pathState.todayPlan);
                     setProgression(pathState.progression);
+
+                    try {
+                        const candidate = await LearningProgressionService.evaluatePromotion(activeUserId, primaryLanguage);
+                        if (isMounted) {
+                            setPromotionCandidate(candidate);
+                        }
+                    } catch (e) {
+                        console.warn('[DashboardPage] Failed to evaluate promotion:', e);
+                    }
                 }
             });
 
@@ -178,7 +219,6 @@ const DashboardPage: React.FC = () => {
 
         return () => { isMounted = false; };
     }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger]);
-
     const isPlanCompleted = useMemo(() => {
         if (!dailyPlan || !dailyPlan.activities || dailyPlan.activities.length === 0) return false;
         return dailyPlan.activities.every(activity => activity.isCompleted || activity.status === 'completed');
@@ -599,24 +639,56 @@ const DashboardPage: React.FC = () => {
                         </div>
                     )}
 
-                    {progression.isReadyForPromotion && progression.nextLevel && (
-                        <button
-                            onClick={handleManualPromotion}
-                            disabled={isPromoting}
-                            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl transition shadow-md hover:shadow-lg disabled:opacity-50 mt-2"
-                        >
-                            {isPromoting ? (
-                                <>
-                                    <Loader2 className="animate-spin" size={16} />
-                                    <span>{language === 'en' ? "Promoting..." : "Darajani oshirish..."}</span>
-                                </>
-                            ) : (
-                                <>
-                                    <Trophy size={16} />
-                                    <span>{language === 'en' ? `Promote to ${progression.nextLevel}!` : `${progression.nextLevel} darajasiga ko'tarilish!`}</span>
-                                </>
-                            )}
-                        </button>
+                    {promotionCandidate ? (
+                        <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 space-y-3 mt-2">
+                            <h4 className="text-sm font-bold text-primary flex items-center gap-1.5">
+                                🏆 {language === 'en' ? "Promotion Candidate Available!" : "Yangi darajaga o'tish taklifi!"}
+                            </h4>
+                            <p className="text-xs text-muted-foreground">
+                                {language === 'en'
+                                    ? `You are ready to advance from ${promotionCandidate.currentLevel} to ${promotionCandidate.candidateLevel}!`
+                                    : `Siz ${promotionCandidate.currentLevel} darajasidan ${promotionCandidate.candidateLevel} darajasiga o'tishga tayyorsiz!`}
+                            </p>
+                            <p className="text-xs text-muted-foreground font-semibold italic">
+                                {language === 'en' ? `Reason: ${promotionCandidate.reason}` : `Sabab: ${promotionCandidate.reason}`}
+                            </p>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleConfirmCandidatePromotion}
+                                    disabled={isPromoting}
+                                    className="flex-1 py-2 px-3 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition shadow-sm hover:shadow-md disabled:opacity-50 flex items-center justify-center gap-1"
+                                >
+                                    {isPromoting ? <Loader2 className="animate-spin" size={14} /> : <Trophy size={14} />}
+                                    <span>{language === 'en' ? "Confirm & Advance" : "Darajaga o'tish"}</span>
+                                </button>
+                                <button
+                                    onClick={handleDismissCandidatePromotion}
+                                    className="py-2 px-3 bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold rounded-xl transition border border-border"
+                                >
+                                    {language === 'en' ? "Not Now" : "Hozir emas"}
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        progression.isReadyForPromotion && progression.nextLevel && (
+                            <button
+                                onClick={handleManualPromotion}
+                                disabled={isPromoting}
+                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl transition shadow-md hover:shadow-lg disabled:opacity-50 mt-2"
+                            >
+                                {isPromoting ? (
+                                    <>
+                                        <Loader2 className="animate-spin" size={16} />
+                                        <span>{language === 'en' ? "Promoting..." : "Darajani oshirish..."}</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Trophy size={16} />
+                                        <span>{language === 'en' ? `Request Promotion to ${progression.nextLevel}` : `${progression.nextLevel} darajasiga so'rov yuborish`}</span>
+                                    </>
+                                )}
+                            </button>
+                        )
                     )}
                 </div>
             )}
