@@ -10,6 +10,7 @@ import {
 import { CurriculumService } from './CurriculumService';
 import { LessonService } from './LessonService';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { resolveNextLesson } from './NextLessonResolver';
 
 
 export const RoadmapService = {
@@ -191,21 +192,8 @@ export const RoadmapService = {
      * Priority: weak → in_progress → current → available.
      */
     getNextRecommendedLesson(roadmap: LearningRoadmap): RoadmapLessonNode | null {
-        const priorityOrder: NodeStatus[] = ['weak', 'in_progress', 'current', 'available'];
-
-        for (const targetStatus of priorityOrder) {
-            for (const level of roadmap.levels) {
-                for (const unit of level.units) {
-                    for (const lesson of unit.lessons) {
-                        if (lesson.status === targetStatus) {
-                            return lesson;
-                        }
-                    }
-                }
-            }
-        }
-
-        return null;
+        // Phase 19: single source of truth — delegate to the shared resolver.
+        return resolveNextLesson(roadmap, roadmap.topWeaknesses || []).lesson;
     },
 
     /**

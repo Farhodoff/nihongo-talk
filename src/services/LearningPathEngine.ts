@@ -19,6 +19,7 @@ import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 import { CurriculumService } from './CurriculumService';
 import { LessonService } from './LessonService';
 import { RoadmapService } from './RoadmapService';
+import { resolveNextLesson } from './NextLessonResolver';
 
 
 export const PROGRESSION_CONFIG = {
@@ -551,7 +552,7 @@ export const LearningPathEngine = {
         const candidates: NextBestAction[] = [];
 
         const roadmap = RoadmapService.getLearningRoadmap(state);
-        const nextRecommended = RoadmapService.getNextRecommendedLesson(roadmap);
+        const nextRecommended = resolveNextLesson(roadmap, state.masteryProfile?.topWeaknesses || []).lesson;
 
         // 1. Candidate: Unfinished Lesson (Highest Priority: 95)
         if (state.unfinishedLessons && state.unfinishedLessons.length > 0) {
