@@ -1,4 +1,5 @@
 import { SupportedLanguage } from './lesson';
+import { LearningActivityType } from './learningEvidence';
 
 export type LearningSignalType = 
     | 'new_vocabulary' 
@@ -18,6 +19,8 @@ export interface BaseLearningSignal {
     timestamp: string;
     source?: string;
     skill?: string;
+    /** Phase 19: canonical activity type of this signal. */
+    activityType?: LearningActivityType;
 }
 
 export interface VocabularySignal extends BaseLearningSignal {

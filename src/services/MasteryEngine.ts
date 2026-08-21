@@ -1,17 +1,16 @@
 import { SupportedLanguage } from '../types/lesson';
 import { MasterySkill, SkillMastery, UserMasteryProfile, MasteryTrend, MasteryStatus } from '../types/mastery';
+import {
+    LearningEvidence,
+    EvidenceCategory,
+    resolveCategory,
+    computeMasteryImpact
+} from '../types/learningEvidence';
 import { LearningSignalService } from './LearningSignalService';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
-export interface EvidenceRecord {
-    id?: string;
-    eventId?: string;
-    skill: MasterySkill;
-    score: number; // 0-100
-    timestamp: string;
-    details?: string;
-    type?: 'performance' | 'completion';
-}
+/** Phase 19: canonical unified evidence record (alias of LearningEvidence). */
+export type EvidenceRecord = LearningEvidence;
 
 export const MasteryEngine = {
     /**
@@ -52,6 +51,27 @@ export const MasteryEngine = {
             existing.splice(0, existing.length - 100);
         }
         safeLocalStorage.setJSON(key, existing);
+    },
+
+    /**
+     * Phase 19 — Canonical evidence entry point.
+     * Derives category and mastery impact deterministically, then records.
+     */
+    recordEvent(
+        userId: string = 'guest',
+        language: SupportedLanguage,
+        event: LearningEvidence
+    ): void {
+        const category: EvidenceCategory = resolveCategory(event);
+        const record: LearningEvidence = {
+            ...event,
+            userId: event.userId || userId,
+            language: event.language || language,
+            category,
+            masteryImpact: event.masteryImpact ?? computeMasteryImpact(event.activityType, event.score, category),
+            type: category === 'completion' ? 'completion' : 'performance'
+        };
+        this.recordEvidence(userId, language, record);
     },
 
     /**
@@ -126,7 +146,7 @@ export const MasteryEngine = {
         supplementary?: { srsRetention?: number; mistakeCount?: number }
     ): SkillMastery {
         const isJa = language === 'ja';
-        const performanceEvidence = evidence.filter(e => e.type !== 'completion');
+        const performanceEvidence = evidence.filter(e => resolveCategory(e) !== 'completion');
         const performanceCount = performanceEvidence.length;
         const totalCount = evidence.length;
 

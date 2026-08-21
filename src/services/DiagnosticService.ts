@@ -773,12 +773,15 @@ export const DiagnosticService = {
             const entries = Object.values(result.skills);
             for (const entry of entries) {
                 if (entry.skill && typeof entry.score === 'number') {
-                    MasteryEngine.recordEvidence(result.userId || 'guest', result.language, {
+                    MasteryEngine.recordEvent(result.userId || 'guest', result.language, {
                         id: `diag_ev_${result.id}_${entry.skill}`,
+                        activityType: 'diagnostic',
                         skill: entry.skill,
                         score: entry.score,
+                        accuracy: entry.score,
                         timestamp: result.completedAt || new Date().toISOString(),
-                        details: `Diagnostic benchmark score for ${entry.skill}: ${entry.score}%`
+                        details: `Diagnostic benchmark score for ${entry.skill}: ${entry.score}%`,
+                        source: 'diagnostic'
                     });
                 }
             }

@@ -276,7 +276,8 @@ export const LearningSignalService = {
             newCardsCreated: createdCount,
             mistakesCount: incorrectAnswers.length,
             durationMinutes: lesson.estimatedDurationMinutes,
-            timestamp
+            timestamp,
+            activityType: 'lesson_completion'
         };
         emittedSignals.push(completionSignal);
 
@@ -288,12 +289,32 @@ export const LearningSignalService = {
         const hasVocab = lesson.steps.some(s => s.type === 'learn' && s.learnData?.vocabulary && s.learnData.vocabulary.length > 0);
         const lessonSkill: MasterySkill = (lesson as any).skill || (hasGrammarRules ? 'grammar' : hasVocab ? 'vocabulary' : 'grammar');
 
-        MasteryEngine.recordEvidence(activeUserId, lesson.language, {
+        // Completion evidence (checkbox — does NOT raise mastery)
+        MasteryEngine.recordEvent(activeUserId, lesson.language, {
             id: `lesson_ev_${completionSignal.id}`,
+            activityType: 'lesson_completion',
+            lessonId: lesson.id,
             skill: lessonSkill,
             score: scoreData.percentage,
+            isCompleted: true,
+            timeSpent: lesson.estimatedDurationMinutes,
             timestamp,
-            details: `Lesson completed: ${lesson.title}`
+            details: `Lesson completed: ${lesson.title}`,
+            source: 'lesson_player'
+        });
+
+        // Quiz performance evidence (the lesson's final test — DOES raise mastery)
+        MasteryEngine.recordEvent(activeUserId, lesson.language, {
+            id: `quiz_ev_${completionSignal.id}`,
+            activityType: 'quiz',
+            lessonId: lesson.id,
+            skill: lessonSkill,
+            score: scoreData.percentage,
+            accuracy: scoreData.percentage,
+            attempts: 1,
+            timestamp,
+            details: `Lesson final quiz: ${lesson.title} (${scoreData.percentage}%)`,
+            source: 'lesson_player'
         });
 
         return {
@@ -330,12 +351,17 @@ export const LearningSignalService = {
 
         // 1. Record evidence in MasteryEngine
         const score = params.isCorrect ? 100 : 0;
-        MasteryEngine.recordEvidence(activeUserId, language, {
+        MasteryEngine.recordEvent(activeUserId, language, {
             id: `ev_quiz_${eventId}`,
+            activityType: 'quiz',
+            lessonId: params.lessonId,
             skill,
             score,
+            accuracy: score,
+            attempts: params.attemptCount || 1,
             timestamp,
-            details: `Quiz answer: ${params.prompt?.slice(0, 50) || 'Question'}`
+            details: `Quiz answer: ${params.prompt?.slice(0, 50) || 'Question'}`,
+            source: params.source || 'quiz'
         });
 
         // 2. If correct, record correct_answer signal

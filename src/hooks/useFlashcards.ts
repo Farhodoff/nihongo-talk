@@ -161,12 +161,16 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
 
                 // Record evidence in MasteryEngine
                 const score = rating === 3 ? 100 : rating === 2 ? 80 : rating === 1 ? 60 : 0;
-                MasteryEngine.recordEvidence(activeUserId, language, {
+                MasteryEngine.recordEvent(activeUserId, language, {
                     id: `srs_ev_${id}_${Date.now()}_${rating}`,
+                    activityType: 'srs_review',
                     skill,
                     score,
+                    accuracy: score,
+                    attempts: 1,
                     timestamp: new Date().toISOString(),
-                    details: `Flashcard review: ${targetCard?.front || ''}`
+                    details: `Flashcard review: ${targetCard?.front || ''}`,
+                    source: 'srs'
                 });
 
                 // Record signal if incorrect (Again rating)
