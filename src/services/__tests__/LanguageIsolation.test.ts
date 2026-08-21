@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { LearningTrackStorage } from '../../utils/storage/LearningTrackStorage';
 import { LearningOrchestrator } from '../../services/LearningOrchestrator';
+import { LearningSignalService } from '../../services/LearningSignalService';
 import { DiagnosticService } from '../../services/DiagnosticService';
 import { CurriculumLessonResolver } from '../CurriculumLessonResolver';
 
@@ -223,5 +224,27 @@ describe('Phase 15.1 — Language Isolation Hardening', () => {
         expect(resolved.isAvailable).toBe(true);
         expect(resolved.title).toBe('Present Perfect vs Past Simple');
         expect(resolved.skill).toBe('vocabulary');
+    });
+
+    it('21. recent learning activity is strictly language-isolated', () => {
+        const uid = 'iso-recent-user';
+        LearningSignalService.recordSignal({
+            id: 'sig-en-1', type: 'incorrect_answer', language: 'en',
+            lessonId: 'en-a1-u1-l1', userId: uid, timestamp: new Date().toISOString(),
+            stepId: 's1', questionId: 'q1', prompt: 'p', userAnswer: 'a', expectedAnswer: 'b', attemptCount: 1,
+        });
+        LearningSignalService.recordSignal({
+            id: 'sig-ja-1', type: 'incorrect_answer', language: 'ja',
+            lessonId: 'ja-n5-u1-l1', userId: uid, timestamp: new Date().toISOString(),
+            stepId: 's1', questionId: 'q1', prompt: 'p', userAnswer: 'a', expectedAnswer: 'b', attemptCount: 1,
+        });
+
+        const enActivity = LearningOrchestrator.getRecentLearningActivity(uid, 'en');
+        const jaActivity = LearningOrchestrator.getRecentLearningActivity(uid, 'ja');
+
+        expect(enActivity.recentLessonIds).toContain('en-a1-u1-l1');
+        expect(enActivity.recentLessonIds).not.toContain('ja-n5-u1-l1');
+        expect(jaActivity.recentLessonIds).toContain('ja-n5-u1-l1');
+        expect(jaActivity.recentLessonIds).not.toContain('en-a1-u1-l1');
     });
 });

@@ -275,8 +275,11 @@ export const LearningOrchestrator = {
     /**
      * Aggregate recent learning activities and history.
      */
-    getRecentLearningActivity(userId: string = 'guest'): RecentLearningActivity {
-        const signals = LearningSignalService.getSignalsForUser(userId);
+    getRecentLearningActivity(userId: string = 'guest', language?: SupportedLanguage): RecentLearningActivity {
+        const rawSignals = LearningSignalService.getSignalsForUser(userId);
+        // Phase 19 (K): strict language isolation — recent activity must not leak
+        // cross-language signals (English activity on Japanese track and vice versa).
+        const signals = language ? rawSignals.filter(s => !s.language || s.language === language) : rawSignals;
         let lastStudyAt: string | null = null;
         let lastCompletedLessonId: string | null = null;
         const recentLessonIdSet = new Set<string>();
@@ -343,7 +346,7 @@ export const LearningOrchestrator = {
 
         const reviewSummary = this.getReviewSummary(activeUserId, options?.cachedFlashcards, primaryLanguage);
         const signalsSummary = this.getLearningSignalsSummary(activeUserId, primaryLanguage);
-        const recentActivity = this.getRecentLearningActivity(activeUserId);
+        const recentActivity = this.getRecentLearningActivity(activeUserId, primaryLanguage);
         const masteryProfile = WeaknessEngine.getUserMasteryProfile(activeUserId, primaryLanguage, {
             srsRetention: reviewSummary.averageRetentionScore
         });
