@@ -221,7 +221,7 @@ describe('Phase 8.10 — Readiness & Evidence Engine', () => {
         const profile = WeaknessEngine.getUserMasteryProfile('srs-kanji-user', 'ja', { srsRetention: 85 });
         expect(profile.skills.kanji.score).toBe(85);
         expect(profile.skills.kanji.evidenceCount).toBe(1);
-        expect(profile.skills.kanji.status).toBe('strong');
+        expect(profile.skills.kanji.status).toBe('mastered'); // SRS 85 ≥ 85 threshold → mastered
     });
 
     // ── 13. Vocabulary SRS → mastery (cold start) ──
@@ -229,7 +229,7 @@ describe('Phase 8.10 — Readiness & Evidence Engine', () => {
         const profile = WeaknessEngine.getUserMasteryProfile('srs-vocab-user', 'ja', { srsRetention: 90 });
         expect(profile.skills.vocabulary.score).toBe(90);
         expect(profile.skills.vocabulary.evidenceCount).toBe(1);
-        expect(profile.skills.vocabulary.status).toBe('strong');
+        expect(profile.skills.vocabulary.status).toBe('mastered'); // SRS 90 ≥ 85 threshold → mastered
     });
 
     // ── 14. Recent mistakes blocker ──

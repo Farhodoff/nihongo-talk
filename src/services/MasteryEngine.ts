@@ -135,13 +135,15 @@ export const MasteryEngine = {
             // Phase 8.10: SRS retention seeds Vocabulary AND Kanji (primary JLPT deck skills)
             if ((skill === 'vocabulary' || skill === 'kanji') && typeof supplementary?.srsRetention === 'number' && supplementary.srsRetention > 0) {
                 const srsScore = supplementary.srsRetention;
+                // Phase 19 thresholds: <50 weak, 50-69 developing, 70-84 proficient, 85+ mastered
+                const srsStatus: MasteryStatus = srsScore >= 85 ? 'mastered' : srsScore >= 70 ? 'proficient' : srsScore >= 50 ? 'developing' : 'weak';
                 return {
                     skill,
                     score: srsScore,
                     confidence: 30,
                     evidenceCount: totalCount || 1,
                     trend: 'stable',
-                    status: srsScore >= 80 ? 'strong' : srsScore >= 60 ? 'learning' : 'weak',
+                    status: srsStatus,
                     explanation: isJa 
                         ? `SRS fleshkartalarning o'rtacha o'zlashtirish darajasi: ${srsScore}%.` 
                         : `SRS flashcard average retention: ${srsScore}%.`
@@ -182,13 +184,18 @@ export const MasteryEngine = {
         const confidence = Math.min(100, Math.round(totalCount * 12)); // All activity builds confidence
         const trend = this.calculateTrend(performanceEvidence);
 
+        // Phase 19 canonical thresholds:
+        //   < 50  → weak
+        //  50–69  → developing
+        //  70–84  → proficient
+        //   85+   → mastered (requires confidence >= 40 to prevent premature promotion)
         let status: MasteryStatus = 'not_started';
-        if (finalScore >= 90 && confidence >= 60) {
+        if (finalScore >= 85 && confidence >= 40) {
             status = 'mastered';
-        } else if (finalScore >= 80) {
-            status = 'strong';
-        } else if (finalScore >= 60) {
-            status = 'learning';
+        } else if (finalScore >= 70) {
+            status = 'proficient';
+        } else if (finalScore >= 50) {
+            status = 'developing';
         } else {
             status = 'weak';
         }

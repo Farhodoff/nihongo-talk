@@ -11,6 +11,7 @@ import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { WeaknessEngine } from './WeaknessEngine';
 
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
 
@@ -491,6 +492,11 @@ Generate the JSON response matching this template:
         const days: WeeklyPlanDay[] = daysOfWeek.map((dayName, idx): WeeklyPlanDay => {
             const tasks: WeeklyPlanTask[] = [];
 
+            // --- Phase 19: Read weak skills from enriched mastery profile ---
+            const masteryProfile = (_state?.masteryProfile) || null;
+            const topWeaknesses = masteryProfile?.topWeaknesses || [];
+            const highSeverityWeakness = topWeaknesses.find((w: any) => w.severity === 'high');
+
             // 1. SRS Review (always first, capped to 15 mins)
             let srsTime = Math.min(15, Math.max(5, Math.round(adjustedDailyMinutes * 0.2)));
             tasks.push({
@@ -505,23 +511,33 @@ Generate the JSON response matching this template:
                 skill: 'vocabulary'
             });
 
-            // 2. Main curriculum Lesson or quiz practice
+            // 2. Main curriculum lesson or quiz practice
             const lessonIdx = (weekNumber * 2 + idx) % Math.max(1, matchingLessons.length);
             const targetLesson = matchingLessons[lessonIdx] || { id: isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1', title: 'Greetings' };
             const lessonRoute = targetLesson.route || (isJa ? '/jlpt' : '/ielts');
             let lessonTime = adjustedDailyMinutes - srsTime;
 
-            // Weak/Strong skill adjustments
+            // --- Phase 19: Adaptive skill-based time reallocation ---
+            const lessonSkill: string = targetLesson.skill || 'grammar';
             if (evaluation) {
-                const lessonSkill = targetLesson.skill || 'grammar';
+                // Use evaluation weak/strong lists as secondary signal
                 if (evaluation.weakSkills?.includes(lessonSkill)) {
-                    // Weak skill: +12 mins
-                    lessonTime += 12;
+                    lessonTime += 15; // Boost weak skill time
                 } else if (evaluation.strongSkills?.includes(lessonSkill)) {
-                    // Strong skill: -8 mins
-                    lessonTime = Math.max(5, lessonTime - 8);
+                    lessonTime = Math.max(5, lessonTime - 10); // Reduce strong skill time
+                }
+            } else if (masteryProfile) {
+                // Fall back to live mastery profile when no evaluation yet
+                const skillMastery = masteryProfile.skills?.[lessonSkill];
+                if (skillMastery && skillMastery.score < 50) {
+                    lessonTime += 15; // Boost weak skill time from live mastery
+                } else if (skillMastery && skillMastery.score >= 85) {
+                    lessonTime = Math.max(5, lessonTime - 10);
                 }
             }
+
+            // Cap lesson time to avoid exceeding daily budget
+            lessonTime = Math.min(lessonTime, adjustedDailyMinutes - srsTime);
 
             tasks.push({
                 id: `task-fallback-lesson-${dayName}-${Date.now()}`,
@@ -533,8 +549,31 @@ Generate the JSON response matching this template:
                 sourceType: 'curriculum',
                 contentId: targetLesson.id,
                 route: lessonRoute,
-                skill: targetLesson.skill || 'grammar'
+                skill: lessonSkill as MasterySkill
             });
+
+            // --- Phase 19: Inject remediation task for high-severity weak skill on alternating days ---
+            // Inject on even-indexed days (Mon, Wed, Fri, Sun) to avoid overload
+            if (highSeverityWeakness && idx % 2 === 0) {
+                const remediationRoute = WeaknessEngine.resolveRouteForSkill(
+                    highSeverityWeakness.skill,
+                    goal.language
+                );
+                const remediationTime = 10; // Fixed 10-min focused remediation burst
+                tasks.push({
+                    id: `task-remediation-${dayName}-${Date.now()}`,
+                    title: isJa
+                        ? `${highSeverityWeakness.skill.toUpperCase()} — Tez mustahkamlash (Zaif ko'nikma)`
+                        : `${highSeverityWeakness.skill.charAt(0).toUpperCase() + highSeverityWeakness.skill.slice(1)} Remediation — Targeted Practice`,
+                    type: 'practice',
+                    estimatedMinutes: remediationTime,
+                    completed: false,
+                    status: 'pending',
+                    sourceType: 'curriculum',
+                    route: remediationRoute,
+                    skill: highSeverityWeakness.skill as MasterySkill
+                });
+            }
 
             return {
                 day: dayName,

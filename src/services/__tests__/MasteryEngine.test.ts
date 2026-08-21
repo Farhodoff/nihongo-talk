@@ -43,7 +43,7 @@ describe('MasteryEngine Unit Tests', () => {
         expect(grammar.evidenceCount).toBe(2);
         expect(grammar.score).toBeGreaterThanOrEqual(80);
         expect(grammar.confidence).toBe(24); // 2 * 12
-        expect(grammar.status).toBe('strong');
+        expect(grammar.status).toBe('proficient'); // score ~85+, confidence=24 < 40 → proficient (not mastered)
     });
 
     it('5. should detect improving trend when recent scores are higher', () => {

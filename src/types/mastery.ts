@@ -11,7 +11,22 @@ export type MasterySkill =
 
 export type MasteryTrend = 'improving' | 'stable' | 'declining';
 
-export type MasteryStatus = 'not_started' | 'weak' | 'learning' | 'strong' | 'mastered';
+/**
+ * Phase 19 canonical status ladder:
+ *   not_started → weak (<50) → developing (50–69) → proficient (70–84) → mastered (85+)
+ *
+ * Legacy aliases kept for backward-compatibility with DiagnosticService / DiagnosticPage:
+ *   'learning' ≈ 'developing'
+ *   'strong'   ≈ 'proficient'
+ */
+export type MasteryStatus =
+    | 'not_started'
+    | 'weak'
+    | 'developing'   // Phase 19: 50–69 (canonical)
+    | 'proficient'   // Phase 19: 70–84 (canonical)
+    | 'mastered'     // Phase 19: 85+
+    | 'learning'     // legacy alias ≈ developing
+    | 'strong';      // legacy alias ≈ proficient
 
 export type WeaknessSeverity = 'high' | 'medium' | 'low';
 
