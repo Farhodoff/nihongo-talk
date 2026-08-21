@@ -1223,5 +1223,300 @@ export const ENGLISH_A1_LESSONS: Lesson[] = [
                 }
             }
         ]
+    },
+
+    // Unit 5: Travel, Shopping & A1 Review (Lessons 21 - 25)
+    {
+        id: 'en-a1-u5-l1',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u5',
+        unitTitle: 'Unit 5: Travel & Shopping',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 21,
+        title: 'Asking for Directions & Places in Town',
+        description: 'Shahar bo\'ylab harakatlanish: "Where is...?", "Turn left", "Go straight" va joylashuv predloglari.',
+        estimatedDurationMinutes: 12,
+        icon: '🗺️',
+        steps: [
+            {
+                id: 'en-a1-u5-l1-s1',
+                title: 'Yo\'nalish So\'rash & Predloglar',
+                type: 'learn',
+                estimatedMinutes: 4,
+                learnData: {
+                    title: 'Directions & Locations',
+                    explanation: 'Shahar bo\'ylab yo\'l so\'rash va ko\'rsatish uchun "Where is...", "next to", "opposite", "between" ishlatiladi.',
+                    keyPoints: [
+                        'Where is the library? — Kutubxona qayerda?',
+                        'Turn left / Turn right — Chapga buriling / O\'ngga buriling',
+                        'Go straight ahead — To\'g\'riga bering',
+                        'Opposite the bank — Bankning ro\'parasida'
+                    ],
+                    vocabulary: [
+                        { term: 'Library', reading: '/ˈlaɪ.brər.i/', meaning: 'Kutubxona', exampleSentence: 'The library is near the park.', exampleTranslation: 'Kutubxona parkning yonida.' },
+                        { term: 'Opposite', reading: '/ˈɒp.ə.zɪt/', meaning: 'Ro\'parasida', exampleSentence: 'The bus stop is opposite the store.', exampleTranslation: 'Avtobus bekati do\'konning ro\'parasida.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'en-a1-u5-l1-e1', type: 'multiple-choice', prompt: '"Turn left at the supermarket." ma\'nosi:', options: ['Supermarketdan chapga buriling', 'Supermarketga kiring', 'O\'ngga buriling', 'To\'g\'riga bering'], correctAnswer: 0, explanation: 'Turn left = chapga buriling.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 4,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a1-u5-l1-q1', question: 'Where _______ the nearest pharmacy?', options: ['is', 'are', 'am', 'be'], correctAnswerIndex: 0, explanation: 'Where is... (birlik ot).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a1-u5-l2',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u5',
+        unitTitle: 'Unit 5: Travel & Shopping',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 22,
+        title: 'At the Supermarket & Prices',
+        description: 'Do\'konda xarid qilish: "How much is this?", "I would like...", va pul birliklari.',
+        estimatedDurationMinutes: 12,
+        icon: '🛒',
+        steps: [
+            {
+                id: 'en-a1-u5-l2-s1',
+                title: 'Xarid Iboralari',
+                type: 'learn',
+                estimatedMinutes: 4,
+                learnData: {
+                    title: 'Shopping & Asking Prices',
+                    explanation: 'Narx so\'rash uchun "How much is...?" va "How much are...?" ishlatiladi.',
+                    keyPoints: [
+                        'How much is this shirt? — Bu ko\'ylak qancha turadi?',
+                        'How much are these apples? — Bu olmalar qancha turadi?',
+                        'I would like 1 kg of rice. — Men 1 kg guruch xohlayman.'
+                    ],
+                    vocabulary: [
+                        { term: 'Receipt', reading: '/rɪˈsiːt/', meaning: 'Kvitansiya / Chek', exampleSentence: 'Here is your receipt.', exampleTranslation: 'Mana sizning chekingiz.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'en-a1-u5-l2-e1', type: 'multiple-choice', prompt: '"How _______ is this jacket?"', options: ['much', 'many', 'long', 'old'], correctAnswer: 0, explanation: 'How much = narx so\'rash.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 4,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a1-u5-l2-q1', question: 'How much _______ these shoes?', options: ['are', 'is', 'am', 'do'], correctAnswerIndex: 0, explanation: 'These shoes (ko\'plik ot) -> are.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a1-u5-l3',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u5',
+        unitTitle: 'Unit 5: Travel & Shopping',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 23,
+        title: 'Ordering Food in a Restaurant',
+        description: 'Restoranda taom buyurtma qilish: "Can I have...?", "A table for two", va menyu so\'zlari.',
+        estimatedDurationMinutes: 12,
+        icon: '🍽️',
+        steps: [
+            {
+                id: 'en-a1-u5-l3-s1',
+                title: 'Restoran Iboralari',
+                type: 'learn',
+                estimatedMinutes: 4,
+                learnData: {
+                    title: 'Ordering Food & Drinks',
+                    explanation: 'Restoranda xushmuomalalik bilan buyurtma berish iboralari.',
+                    keyPoints: [
+                        'Can I have the menu, please? — Menyu bersangiz.',
+                        'I would like a cup of tea. — Choy so\'rayman.',
+                        'The bill, please. — Hisobni keltirsangiz.'
+                    ],
+                    vocabulary: [
+                        { term: 'Menu', reading: '/ˈmen.juː/', meaning: 'Taomnoma / Menyu', exampleSentence: 'Could we see the menu?', exampleTranslation: 'Menyuni ko\'rsak bo\'ladimi?' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'en-a1-u5-l3-e1', type: 'multiple-choice', prompt: '"Can I _______ a glass of water, please?"', options: ['have', 'has', 'having', 'had'], correctAnswer: 0, explanation: 'Can I have...?' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 4,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a1-u5-l3-q1', question: 'How do you ask for the check in a restaurant?', options: ['The bill, please.', 'Give me money.', 'Where is food?', 'I am full.'], correctAnswerIndex: 0, explanation: 'The bill, please.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a1-u5-l4',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u5',
+        unitTitle: 'Unit 5: Travel & Shopping',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 24,
+        title: 'Talking about Weather & Seasons',
+        description: 'Ob-havo va fasllar: "It is sunny/rainy/cold", "What is the weather like today?".',
+        estimatedDurationMinutes: 12,
+        icon: '🌤️',
+        steps: [
+            {
+                id: 'en-a1-u5-l4-s1',
+                title: 'Ob-havo Iboralari',
+                type: 'learn',
+                estimatedMinutes: 4,
+                learnData: {
+                    title: 'Weather & Seasons',
+                    explanation: 'Ob-havo haqida gapirganda "It is + Sifat" qo\'llaniladi (It is cold, It is raining).',
+                    keyPoints: [
+                        'What is the weather like? — Ob-havo qanday?',
+                        'It is hot and sunny. — Issiq va quyoshli.',
+                        'Spring, Summer, Autumn, Winter — Yoz, Kuz, Qish, Bahor.'
+                    ],
+                    vocabulary: [
+                        { term: 'Weather', reading: '/ˈweð.ər/', meaning: 'Ob-havo', exampleSentence: 'The weather is nice today.', exampleTranslation: 'Bugun ob-havo yaxshi.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri so\'zni tanlang.',
+                    exercises: [
+                        { id: 'en-a1-u5-l4-e1', type: 'multiple-choice', prompt: '"It is _______ outside. Take an umbrella!"', options: ['raining', 'sunny', 'hot', 'dry'], correctAnswer: 0, explanation: 'Raining = yomg\'ir yog\'moqda.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 4,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a1-u5-l4-q1', question: 'Which season comes after Summer?', options: ['Autumn', 'Spring', 'Winter', 'Monday'], correctAnswerIndex: 0, explanation: 'Summer -> Autumn (Kuz).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a1-u5-l5',
+        courseId: 'english-a1',
+        unitId: 'en-a1-u5',
+        unitTitle: 'Unit 5: Travel & Shopping',
+        language: 'en',
+        level: 'A1',
+        lessonNumber: 25,
+        title: 'A1 Comprehensive Final Assessment',
+        description: 'A1 darajasidagi barcha grammatika va leksikani umumiy tekshirish uchun yakuniy baholash imtihoni.',
+        estimatedDurationMinutes: 15,
+        icon: '🏆',
+        steps: [
+            {
+                id: 'en-a1-u5-l5-s1',
+                title: 'A1 Yakuniy Takrorlash',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'A1 Level Master Summary',
+                    explanation: 'A1 darajasida egallangan barcha asosiy mavzular: To Be, Present Simple, Can/Can\'t, Directions, Shopping, Daily Routines.',
+                    keyPoints: [
+                        'Present Simple: Everyday routines and habits',
+                        'Basic Vocabulary: Numbers, days, food, places',
+                        'Questions & Negatives: Do/Does, Is/Are'
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l5-s2',
+                title: 'A1 Yakuniy Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'A1 darajasidagi savollarni yeching.',
+                    exercises: [
+                        { id: 'en-a1-u5-l5-e1', type: 'multiple-choice', prompt: '"_______ do you live?" — "I live in Tashkent."', options: ['Where', 'What', 'When', 'Who'], correctAnswer: 0, explanation: 'Where = qayerda.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a1-u5-l5-s3',
+                title: 'A1 Level Promotion Exam',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'A2 darajasiga o\'tish uchun testni kamida 80% natija bilan topshiring.',
+                    passingScorePercentage: 80,
+                    questions: [
+                        { id: 'en-a1-u5-l5-q1', question: 'She _______ to the gym every morning.', options: ['goes', 'go', 'going', 'is go'], correctAnswerIndex: 0, explanation: 'She goes...' },
+                        { id: 'en-a1-u5-l5-q2', question: 'Where _______ your parents work?', options: ['do', 'does', 'is', 'are'], correctAnswerIndex: 0, explanation: 'Parents (they) -> do.' },
+                        { id: 'en-a1-u5-l5-q3', question: 'There is _______ apple on the table.', options: ['an', 'a', 'some', 'any'], correctAnswerIndex: 0, explanation: 'An apple.' },
+                        { id: 'en-a1-u5-l5-q4', question: 'We _______ have a car.', options: ['don\'t', 'doesn\'t', 'aren\'t', 'not'], correctAnswerIndex: 0, explanation: 'We don\'t have...' }
+                    ]
+                }
+            }
+        ]
     }
 ];
+

@@ -833,7 +833,7 @@ export const ENGLISH_B1_LESSONS: Lesson[] = [
                     passingScorePercentage: 75,
                     questions: [
                         { id: 'en-b1-u3-l4-q1', question: 'I look forward to _______ from you soon.', options: ['hearing', 'hear', 'heard', 'be heard'], correctAnswerIndex: 0, explanation: 'Look forward to + V-ing: hearing.' },
-                        { id: 'en-b1-u3-l4-q2', question: '"Could you please provide further details?" Bu nima?', options: 'Xushmuomala rasmiy so\'rov', optionsArray: ['Xushmuomala rasmiy so\'rov', 'Do\'stona hazil', 'Norozilik shikoyati', 'Xayrlashuv'], correctAnswerIndex: 0, explanation: 'Polite formal request.' },
+                        { id: 'en-b1-u3-l4-q2', question: '"Could you please provide further details?" Bu nima?', options: ['Xushmuomala rasmiy so\'rov', 'Do\'stona hazil', 'Norozilik shikoyati', 'Xayrlashuv'], correctAnswerIndex: 0, explanation: 'Polite formal request.' },
                         { id: 'en-b1-u3-l4-q3', question: 'Which opening is correct when you know the recipient\'s name?', options: ['Dear Ms. Johnson,', 'Dear Johnson,', 'Hi Ms. Johnson,', 'Dear Madam Johnson,'], correctAnswerIndex: 0, explanation: 'Dear Ms. Johnson.' },
                         { id: 'en-b1-u3-l4-q4', question: 'Choose the most formal sentence:', options: ['I would be grateful if you could send me the brochure.', 'Send me the brochure quickly.', 'Give me the info please.', 'Can you chuck me the brochure?'], correctAnswerIndex: 0, explanation: 'I would be grateful if you could...' }
                     ]

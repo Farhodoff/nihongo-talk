@@ -869,5 +869,298 @@ export const ENGLISH_C2_LESSONS: Lesson[] = [
                 }
             }
         ]
+    },
+
+    // Unit 4: Nuanced Rhetoric, Jurisprudence & Native Discourse (Lessons 16 - 20)
+    {
+        id: 'en-c2-u4-l1',
+        courseId: 'english-c2',
+        unitId: 'en-c2-u4',
+        unitTitle: 'Unit 4: Rhetoric & Legal Discourse',
+        language: 'en',
+        level: 'C2',
+        lessonNumber: 16,
+        title: 'Jurisprudence & Legalistic Terminology',
+        description: 'Huquqiy va institutsional til: "Statutory", "Jurisdiction", "Inalienable", "Subpoena".',
+        estimatedDurationMinutes: 18,
+        icon: '⚖️',
+        steps: [
+            {
+                id: 'en-c2-u4-l1-s1',
+                title: 'Huquqiy Uslub va Terminologiya',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Jurisprudence & Statutory Registers',
+                    explanation: 'Institutsional va yuridik hujjatchilikka oid oliy akademik leksika.',
+                    keyPoints: [
+                        'Inalienable rights — daxlsiz/tortib olib bo\'lmaydigan huquqlar',
+                        'Statutory obligations — qonuniy majburiyatlar',
+                        'Pursuant to Section 4 — 4-bandga muvofiq'
+                    ],
+                    vocabulary: [
+                        { term: 'Inalienable', reading: '/ɪnˈeɪ.li.ə.nə.bəl/', meaning: 'Daxlsiz, ajralmas', exampleSentence: 'Human dignity is an inalienable right.', exampleTranslation: 'Inson qadr-qimmati ajralmas huquqdir.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri yuridik iborani tanlang.',
+                    exercises: [
+                        { id: 'en-c2-u4-l1-e1', type: 'multiple-choice', prompt: '"Pursuant _______ statutory regulations, the tribunal dismissed the claim."', options: ['to', 'of', 'with', 'in'], correctAnswer: 0, explanation: 'Pursuant to = muvofiq.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-c2-u4-l1-q1', question: 'What does "statutory" mean?', options: ['Enacted, created, or required by statute or law', 'Optional', 'Illegal', 'Temporary'], correctAnswerIndex: 0, explanation: 'Enacted or required by law.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-c2-u4-l2',
+        courseId: 'english-c2',
+        unitId: 'en-c2-u4',
+        unitTitle: 'Unit 4: Rhetoric & Legal Discourse',
+        language: 'en',
+        level: 'C2',
+        lessonNumber: 17,
+        title: 'Literary Allusions & Metaphorical Nuance',
+        description: 'Adabiy ishoralar (allusions) va chuqur ko\'chma ma\'nolar: "Achilles\' heel", "Pyrrhic victory", "Pandora\'s box".',
+        estimatedDurationMinutes: 18,
+        icon: '📚',
+        steps: [
+            {
+                id: 'en-c2-u4-l2-s1',
+                title: 'Adabiy Ishoralar (Allusions)',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Classic Allusions in Elite English',
+                    explanation: 'Ingliz tili elita nutqida klassik va tarixiy ishoralarning ishlatilishi.',
+                    keyPoints: [
+                        'Pyrrhic victory — juda katta yo\'qotish evaziga erishilgan mag\'lubiyatga teng g\'alaba',
+                        'Achilles\' heel — eng nozik/zaif nuqta',
+                        'Opening a Pandora\'s box — hal etib bo\'lmas muammolar zanjirini keltirib chiqarish'
+                    ],
+                    vocabulary: [
+                        { term: 'Pyrrhic', reading: '/ˈpɪr.ɪk/', meaning: 'Pirr g\'alabasi (og\'ir yo\'qotishli)', exampleSentence: 'It was a Pyrrhic victory.', exampleTranslation: 'Bu ulkan yo\'qotishli g\'alaba edi.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'en-c2-u4-l2-e1', type: 'multiple-choice', prompt: '"Lack of cyber-security proved to be the corporation\'s _______ heel."', options: ['Achilles\'', 'Hercules\'', 'Apollo\'s', 'Zeus\''], correctAnswer: 0, explanation: 'Achilles\' heel = nozik nuqta.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-c2-u4-l2-q1', question: 'A "Pyrrhic victory" is one where:', options: ['The toll paid negates any true strategic benefit', 'The victory is quick and easy', 'Nobody wins', 'The enemy surrenders peacefully'], correctAnswerIndex: 0, explanation: 'The toll paid negates any benefit.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-c2-u4-l3',
+        courseId: 'english-c2',
+        unitId: 'en-c2-u4',
+        unitTitle: 'Unit 4: Rhetoric & Legal Discourse',
+        language: 'en',
+        level: 'C2',
+        lessonNumber: 18,
+        title: 'Diplomatic Tact, Euphemism & Ambiguity',
+        description: 'Diplomatik muloqot: evfemizmlar, vazminlik va siyosiy muloqot madaniyati.',
+        estimatedDurationMinutes: 18,
+        icon: '🕊️',
+        steps: [
+            {
+                id: 'en-c2-u4-l3-s1',
+                title: 'Diplomatik Evfemizmlar',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Diplomatic Discourse & Subtlety',
+                    explanation: 'Xalqaro diplomatiya va oliy doiralarda fikrni o\'ta bosiqlik bilan yetkazish.',
+                    keyPoints: [
+                        'Frank exchange of views — Keskin va ziddiyatli muzokara',
+                        'Economical with the truth — Haqiqatni yashirish/chalg\'itish',
+                        'Constructive ambiguity — Ikkala taraf uchun ham qulay noaniqlik'
+                    ],
+                    vocabulary: [
+                        { term: 'Euphemism', reading: '/ˈjuː.fə.mɪ.zəm/', meaning: 'Yumshatilgan so\'z (evfemizm)', exampleSentence: 'Using a euphemism for death.', exampleTranslation: 'O\'lim so\'zi o\'rniga yumshatilgan ibora ishlatish.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri diplomatik iborani tanlang.',
+                    exercises: [
+                        { id: 'en-c2-u4-l3-e1', type: 'multiple-choice', prompt: 'In diplomatic cables, a "frank exchange of views" signifies:', options: ['A heated disagreement or conflict', 'A friendly chat over coffee', 'A complete agreement', 'A silent meeting'], correctAnswer: 0, explanation: 'Frank exchange = keskin ziddiyatli muzokara.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-c2-u4-l3-q1', question: 'What is "constructive ambiguity"?', options: ['Deliberate vagueness in negotiating to allow different interpretations by opposing sides', 'A clear mistake in a treaty', 'A translation error', 'An argument'], correctAnswerIndex: 0, explanation: 'Deliberate vagueness to allow different interpretations.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-c2-u4-l4',
+        courseId: 'english-c2',
+        unitId: 'en-c2-u4',
+        unitTitle: 'Unit 4: Rhetoric & Legal Discourse',
+        language: 'en',
+        level: 'C2',
+        lessonNumber: 19,
+        title: 'Mastery of Epistemological & Philosophical Prose',
+        description: 'Falsafiy va epistemologik ilmiy matnlar tahlili: "Ontological", "Heuristic", "Hermeneutics".',
+        estimatedDurationMinutes: 18,
+        icon: '🧠',
+        steps: [
+            {
+                id: 'en-c2-u4-l4-s1',
+                title: 'Falsafiy Uslubiyat',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Epistemology & Theoretical Analysis',
+                    explanation: 'Akademiyadagi eng oliy tahliliy va falsafiy tushunchalar.',
+                    keyPoints: [
+                        'Ontological security — Borliqqa oid barqarorlik hissi',
+                        'Heuristic device — Amaliy kashfiyot vositasi',
+                        'Hermeneutic circle — Matnni qism va butunlikda talqin qilish'
+                    ],
+                    vocabulary: [
+                        { term: 'Epistemology', reading: '/ɪˌpɪs.təˈmɒl.ə.dʒi/', meaning: 'Bilmash/Gnoseologiya nazariyasi', exampleSentence: 'Epistemology studies the nature of knowledge.', exampleTranslation: 'Epistemologiya bilimning tabiatini o\'rganadi.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri falsafiy atamani tanlang.',
+                    exercises: [
+                        { id: 'en-c2-u4-l4-e1', type: 'multiple-choice', prompt: 'A practical problem-solving approach not guaranteed to be optimal is called a:', options: ['heuristic', 'syllogism', 'tautology', 'paradox'], correctAnswer: 0, explanation: 'Heuristic device.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-c2-u4-l4-q1', question: 'What does "ontological" concern?', options: ['The nature of being, existence, or reality', 'The study of insects', 'Historical dates', 'Chemical bonds'], correctAnswerIndex: 0, explanation: 'Nature of being or existence.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-c2-u4-l5',
+        courseId: 'english-c2',
+        unitId: 'en-c2-u4',
+        unitTitle: 'Unit 4: Rhetoric & Legal Discourse',
+        language: 'en',
+        level: 'C2',
+        lessonNumber: 20,
+        title: 'C2 Master Class Final Capstone Examination',
+        description: 'Ingliz tili C2 Oliy O\'zlashtirish Darajasining to\'liq va yakuniy professional baholash imtihoni.',
+        estimatedDurationMinutes: 20,
+        icon: '👑',
+        steps: [
+            {
+                id: 'en-c2-u4-l5-s1',
+                title: 'C2 Ultimate Overview',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'C2 Mastery Peak Summary',
+                    explanation: 'Congratulations! You have reached the pinnacle of English language learning (CEFR C2).',
+                    keyPoints: [
+                        'Native-level fluency across academic, legal, and literary registers',
+                        'Flawless mastery of inversion, rhetorical tropes, and diplomatic nuance',
+                        'IELTS 8.5–9.0 equivalent competence'
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l5-s2',
+                title: 'C2 Capstone Practice',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'Final Capstone practice question.',
+                    exercises: [
+                        { id: 'en-c2-u4-l5-e1', type: 'multiple-choice', prompt: '"Notwithstanding the prevailing orthodoxy, her pioneering thesis _______ established a paradigm shift in quantum mechanics."', options: ['unequivocally', 'partially', 'scarcely', 'doubtfully'], correctAnswer: 0, explanation: 'Unequivocally established a paradigm shift.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-c2-u4-l5-s3',
+                title: 'C2 Level Mastery Certification Exam',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'C2 darajasidagi yakuniy professional sertifikatlash savollari.',
+                    passingScorePercentage: 85,
+                    questions: [
+                        { id: 'en-c2-u4-l5-q1', question: 'Select the sentence that exhibits perfect C2 academic inversion and vocabulary:', options: ['Under no circumstances should the integrity of empirical data be compromised.', 'Under no circumstances the data should be compromised.', 'Under no circumstances compromised should be data.', 'In no circumstance data can be compromised.'], correctAnswerIndex: 0, explanation: 'Under no circumstances should ... be compromised.' },
+                        { id: 'en-c2-u4-l5-q2', question: 'What is the meaning of "paradigm shift"?', options: ['A fundamental change in the basic concepts and experimental practices of a scientific discipline', 'A small change in plan', 'A shift in work hours', 'A translation of text'], correctAnswerIndex: 0, explanation: 'Fundamental change in basic concepts.' },
+                        { id: 'en-c2-u4-l5-q3', question: 'Which term describes an argument that repeats the same idea in different words without adding proof?', options: ['Tautology', 'Paradox', 'Oxymoron', 'Metaphor'], correctAnswerIndex: 0, explanation: 'Tautology (takroriy mantiqsizlik).' },
+                        { id: 'en-c2-u4-l5-q4', question: 'Congratulations! You have completed the C2 English Curriculum with highest honors.', options: ['Accept Certificate', 'Review Lessons', 'Restart Course', 'Exit'], correctAnswerIndex: 0, explanation: 'Certificate awarded.' }
+                    ]
+                }
+            }
+        ]
     }
 ];
+

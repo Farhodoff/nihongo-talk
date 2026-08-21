@@ -572,5 +572,1146 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
                 }
             }
         ]
+    },
+
+    // Unit 3: N2 Advanced Grammar & Expressions (Lessons 11 - 15)
+    {
+        id: 'ja-n2-u3-l1',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u3',
+        unitTitle: 'Unit 3: N2 Advanced Grammar & Expressions',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 11,
+        title: '〜にすぎない (Nothing more than / Merely)',
+        description: 'Cheklov va kamtarinlik ifodasi: "Shunchaki ...dan iborat, xolos".',
+        estimatedDurationMinutes: 16,
+        icon: '📌',
+        steps: [
+            {
+                id: 'ja-n2-u3-l1-s1',
+                title: '〜にすぎない Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜にすぎない (Ni suginai) Usage',
+                    explanation: 'Oddiy taxmin yoki kamtarona fikr bildirishda "shunchaki ... xolos" degan ma\'noni beradi.',
+                    keyPoints: [
+                        'これは私の個人的な意見にすぎない。 (Bu shunchaki mening shaxsiy fikrim xolos.)',
+                        '単なる噂にすぎません。 (Bu shunchaki mish-mish xolos.)'
+                    ],
+                    vocabulary: [
+                        { term: '単[たん]なる', reading: 'Tannaru', meaning: 'Shunchaki / Oddiy', exampleSentence: '単なる偶然です。', exampleTranslation: 'Shunchaki tasodif xolos.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri shaklni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l1-e1', type: 'multiple-choice', prompt: '「それは 試作[しさく]段階[だんかい]の モデルに _______。」', options: ['すぎない (suginai)', 'ほかない', 'に違いない', 'かぎらない'], correctAnswer: 0, explanation: 'Ni suginai = shunchaki ... xolos.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u3-l1-q1', question: '「にすぎない」ning o\'zbek tilidagi ma\'nosi:', options: ['...dan iborat, xolos', 'Juda qiyin', 'Mumkin emas', 'Taqiqlanadi'], correctAnswerIndex: 0, explanation: 'Ni suginai = ...dan iborat xolos.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u3-l2',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u3',
+        unitTitle: 'Unit 3: N2 Advanced Grammar & Expressions',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 12,
+        title: '〜をめぐって (Surrounding / Concerning a dispute)',
+        description: 'Muammo yoki munozara atrofida bahslashish: "...atrofida / ...xususida".',
+        estimatedDurationMinutes: 16,
+        icon: '💬',
+        steps: [
+            {
+                id: 'ja-n2-u3-l2-s1',
+                title: '〜をめぐって Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜をめぐって (O megutte)',
+                    explanation: 'Biror masala, miras yoki siyosat atrofida kelishmovchilik, munozara bo\'lganda ishlatiladi.',
+                    keyPoints: [
+                        '遺産をめぐって兄弟が争っている。 (Meros atrofida aka-ukalar urishishmoqda.)',
+                        '新政策をめぐり議論が続いている。 (Yangi siyosat xususida munozara davom etmoqda.)'
+                    ],
+                    vocabulary: [
+                        { term: '議論[ぎろん]', reading: 'Giron', meaning: 'Munozara / Bahs', exampleSentence: '活発な議論が行われた。', exampleTranslation: 'Qizg\'in munozara bo\'lib o\'tdi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri gramatik iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l2-e1', type: 'multiple-choice', prompt: '「再開発[さいかいはつ]計画[けいかく]を _______ 住民[じゅうみん]の 意見[いけん]が 対立[たいりつ]している。」', options: ['めぐって (megutte)', 'について', 'にとって', 'として'], correctAnswer: 0, explanation: 'O megutte (masala atrofida).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u3-l2-q1', question: '「をめぐって」 grammatik konstruktsiyasining ishlatilish o\'rni:', options: ['Bahs, munozara yoki nizo ob\'ekti bo\'lgan masala atrofida', 'Yo\'nalish ko\'rsatganda', 'Vaqtni o\'lchaganda', 'Sabab ko\'rsatganda'], correctAnswerIndex: 0, explanation: 'Bahs/munozara ob\'ekti atrofida.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u3-l3',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u3',
+        unitTitle: 'Unit 3: N2 Advanced Grammar & Expressions',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 13,
+        title: '〜に際して (On the occasion of / Prior to)',
+        description: 'Rasmiy tadbir yoki muhim hodisa munosabati bilan: "...munosabati bilan / ...olida".',
+        estimatedDurationMinutes: 16,
+        icon: '🎉',
+        steps: [
+            {
+                id: 'ja-n2-u3-l3-s1',
+                title: '〜に際して Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜に際して (Ni saishite)',
+                    explanation: 'Shartnoma tuzish, ish boshlash, to\'y yoki tantana kabi muhim voqealar oldidan qo\'llanadigan rasmiy ibora.',
+                    keyPoints: [
+                        '契約に際して、いくつかの注意点があります。 (Shartnoma munosabati bilan bir nechta muhim nuqtalar bor.)',
+                        '利用に際しまして、規約をお読みください。 (Foydalanishdan oldin qoidalarni o\'qing.)'
+                    ],
+                    vocabulary: [
+                        { term: '規約[きやく]', reading: 'Kiyaku', meaning: 'Nizom / Qoidalar', exampleSentence: '規約に同意する。', exampleTranslation: 'Nizomga rozi bo\'lmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l3-e1', type: 'multiple-choice', prompt: '「新校舎[しんこうしゃ]の 完成[かんせい]に _______ 式典[しきてん]が 行[おこな]われた。」', options: ['際して (saishite)', '沿って', '反して', '応じて'], correctAnswer: 0, explanation: 'Ni saishite = munosabati bilan.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u3-l3-q1', question: '「に際して」 qaysi uslubga xos?', options: ['Koushi/Rasmiy va tantanali uslub', 'Ko\'cha nutqi', 'Yosh bolalar tili', 'Dialekt'], correctAnswerIndex: 0, explanation: 'Rasmiy/tantanali uslub.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u3-l4',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u3',
+        unitTitle: 'Unit 3: N2 Advanced Grammar & Expressions',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 14,
+        title: '〜っこない (No chance of / Absolutely impossible)',
+        description: 'Qat\'iy inkor va ishonchsizlik: "Aslo ... bo\'lishi mumkin emas".',
+        estimatedDurationMinutes: 16,
+        icon: '🚫',
+        steps: [
+            {
+                id: 'ja-n2-u3-l4-s1',
+                title: '〜っこない Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜っこない (Kkonai)',
+                    explanation: 'Mas-stem + っこない. Gapiruvchining shaxsiy ishonchi bo\'yicha biror narsa mutlaqo imkonsizligini ta\'kidlaydi.',
+                    keyPoints: [
+                        'こんな難しい問題、分かりっこない。 (Bunday murakkab savolni tushunish aslo imkonsiz.)',
+                        '一日で全部覚えられっこないよ。 (Bir kunda hammasini yodlab bo\'lmaydi-ku!)'
+                    ],
+                    vocabulary: [
+                        { term: '勝[か]ち目[め]', reading: 'Kachime', meaning: 'G\'alaba imkoniyati', exampleSentence: '勝ち目がない。', exampleTranslation: 'G\'alaba qozonish imkoni yo\'q.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l4-e1', type: 'multiple-choice', prompt: '「彼[かれ]が 来[き] _______ よ。もう 諦[あきら]めよう。」', options: ['っこない (kkonai)', 'に違いない', 'はずだ', 'べきだ'], correctAnswer: 0, explanation: 'Kkonai = kelishi aslo imkonsiz.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u3-l4-q1', question: '「〜っこない」 fe\'lning qaysi shakliga qo\'shiladi?', options: ['Fe\'lning Mas-o\'zagiga (Mas-stem)', 'Dictionary form', 'Te-form', 'Nai-form'], correctAnswerIndex: 0, explanation: 'Mas-stem + っこない.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u3-l5',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u3',
+        unitTitle: 'Unit 3: N2 Advanced Grammar & Expressions',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 15,
+        title: '〜にほかならない (Nothing other than / Must be precisely)',
+        description: 'Qat\'iy xulosa: "...dan boshqa narsa emas / aynan ...dir".',
+        estimatedDurationMinutes: 16,
+        icon: '🎯',
+        steps: [
+            {
+                id: 'ja-n2-u3-l5-s1',
+                title: '〜にほかならない Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜にほかならない (Ni hokaranarai)',
+                    explanation: 'Sabab yoki xulosaning yagona va haqiqiy ekanligini uzil-kesil ta\'kidlash.',
+                    keyPoints: [
+                        '彼の成功は努力の成果にほかならない。 (Mening muvaffaqiyatim mehnat mevasidan boshqa narsa emas.)',
+                        '親が叱るのは愛情からにほかならない。 (Ota-onaning urushishi sevgidan boshqa narsa emas.)'
+                    ],
+                    vocabulary: [
+                        { term: '成果[せいか]', reading: 'Seika', meaning: 'Natija / Meva', exampleSentence: '努力の成果が出た。', exampleTranslation: 'Mehnat mevasini berdi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l5-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l5-e1', type: 'multiple-choice', prompt: '「合格[ごうかく]できたのは 先生[せんせい]の 指導[しどう]の おかげ _______。」', options: ['にほかならない (nihokaranarai)', 'にすぎない', 'にあたらない', 'にかぎらない'], correctAnswer: 0, explanation: 'Ni hokaranarai = o\'qituvchi rahbarligidan boshqa narsa emas.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u3-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u3-l5-q1', question: '「にほかならない」 ning ma\'nosi:', options: ['Aynan shu sabab/narsa ekanligi (boshqasi emas)', 'Mumkin bo\'lgan narsa', 'Noma\'lum narsa', 'Juda arzon narsa'], correctAnswerIndex: 0, explanation: 'Aynan shu narsadan boshqasi emas.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 4: N2 Social Topics & Business Dokkai (Lessons 16 - 20)
+    {
+        id: 'ja-n2-u4-l1',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u4',
+        unitTitle: 'Unit 4: N2 Dokkai & Social Context',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 16,
+        title: 'Environmental & Technological Reading (環境・技術の読解)',
+        description: 'Ekologiya va texnologiyaga oid N2 uzun matnlarni tahlil qilish va muallif g\'oyasini topish.',
+        estimatedDurationMinutes: 18,
+        icon: '🌱',
+        steps: [
+            {
+                id: 'ja-n2-u4-l1-s1',
+                title: 'Ekologiya va Texnologiya Matni',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Environmental Literacy & Dokkai',
+                    explanation: 'N2 imtihonidagi "Choubun" (uzun matn) va "Chuubun" (o\'rta matn) strategiyalari.',
+                    keyPoints: [
+                        '再利用 (Sairiyou) — qayta foydalanish',
+                        '持続可能 (Jizokukanou) — barqaror (sustainable)',
+                        'Muallif ta\'kidlagan xulosa matn oxirida 「〜のではないだろうか」 bilan keladi.'
+                    ],
+                    vocabulary: [
+                        { term: '持続可能[じぞくかのう]', reading: 'Jizokukanou', meaning: 'Barqaror (sustainable)', exampleSentence: '持続可能な社会を目指す。', exampleTranslation: 'Barqaror jamiyat sari intilish.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l1-s2',
+                title: 'Dokkai Mashqi',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'Matn bo\'yicha to\'g\'ri fikrni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u4-l1-e1', type: 'multiple-choice', prompt: '「持続可能な社会」 deganda nimaga e\'tibor qaratiladi?', options: ['Kelajak avlod uchun resurslarni asrash va atrof-muhitni muhofaza qilishga', 'Faqat tez pul topishga', 'Zavodlarni ko\'paytirishga', 'Yo\'llarni kengaytirishga'], correctAnswer: 0, explanation: 'Kelajak avlod uchun atrof-muhitni asrash.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u4-l1-q1', question: 'N2 Dokkai matnlarida 「〜とは限らない」 ning vazifasi:', options: ['Umumiy qarashga nisbatan istisno ko\'rsatish', 'Buyruq berish', 'Ruxsat berish', 'Minnatdorchilik bildirish'], correctAnswerIndex: 0, explanation: 'Istisno va chegaralash.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u4-l2',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u4',
+        unitTitle: 'Unit 4: N2 Dokkai & Social Context',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 17,
+        title: '〜に先立って (Prior to / In advance of)',
+        description: 'Tadbir yoki loyiha oldidan tayyorgarlik ko\'rish: "...dan oldin / ...ga tayyorgarlik ko\'rib".',
+        estimatedDurationMinutes: 16,
+        icon: '📅',
+        steps: [
+            {
+                id: 'ja-n2-u4-l2-s1',
+                title: '〜に先立って Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜に先立って (Ni sakadatte)',
+                    explanation: 'Loyiha yoki yirik tadbir boshlanishidan oldin zarur tayyorgarlik yoki uchrashuv o\'tkazish.',
+                    keyPoints: [
+                        '開店に先立ち、関係者向けの内覧会が行われた。 (Do\'kon ochilishidan oldin taklif etilganlar uchun ko\'rgazma bo\'ldi.)',
+                        '総会に先立って、理事会が開かれた。 (Bosh assambleyadan oldin kengash yig\'ildi.)'
+                    ],
+                    vocabulary: [
+                        { term: '総会[そうかい]', reading: 'Soukai', meaning: 'Bosh assambleya / Umumiy yig\'ilish', exampleSentence: '年次総会を開催する。', exampleTranslation: 'Yillik bosh assambleyani o\'tkazmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u4-l2-e1', type: 'multiple-choice', prompt: '「映画[えいが]の 公開[こうかい]に _______、監督[かんとく]の 記者[きしゃ]会見[かいけん]が あった。」', options: ['先立って (sakadatte)', '際して', '伴って', '応じて'], correctAnswer: 0, explanation: 'Ni sakadatte = namoyishdan oldin.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u4-l2-q1', question: '「に先立って」 grammatik birikmasi fe\'lning qaysi shakli bilan ishlatiladi?', options: ['Lug\'at shakli (Dictionary form) yoki Ot (Noun)', 'Te-form', 'Nai-form', 'Ba-form'], correctAnswerIndex: 0, explanation: 'Dict-form / Noun + に先立って.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u4-l3',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u4',
+        unitTitle: 'Unit 4: N2 Dokkai & Social Context',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 18,
+        title: '〜を契機に (Triggered by / Taking the opportunity of)',
+        description: 'Katta o\'zgarishga turtki bo\'lgan hodisa: "...munosabati bilan / ...turtki bo\'lib".',
+        estimatedDurationMinutes: 16,
+        icon: '🚀',
+        steps: [
+            {
+                id: 'ja-n2-u4-l3-s1',
+                title: '〜を契機に Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜を契機に (O keiki ni)',
+                    explanation: 'Biror muhim hodisa hayotda yoki jamiyatda burilish yasaganda turtki sifatida ko\'rsatish.',
+                    keyPoints: [
+                        '病気を契機に、健康的な生活を始めた。 (Kasal bo\'lganim hayotimni sog\'lom tomonga o\'zgartirishga turtki bo\'ldi.)',
+                        '渡日を契機として、合気道を習い始めた。 (Yaponiyaga kelganim Aikidoni o\'rganishimga turtki berdi.)'
+                    ],
+                    vocabulary: [
+                        { term: '契機[けいき]', reading: 'Keiki', meaning: 'Turtki / Imkoniyat / Burilish nuqtasi', exampleSentence: '発展の契機となる。', exampleTranslation: 'Rivojlanishga turtki bo\'lmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri grammatik iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u4-l3-e1', type: 'multiple-choice', prompt: '「定年[ていねん]退職[たいしょく]を _______、写真[しゃしん]を 趣味[しゅみ]に した。」', options: ['契機に (keiki ni)', 'めぐって', 'に際して', 'ついでに'], correctAnswer: 0, explanation: 'O keiki ni = pensiyaga chiqish turtki bo\'ldi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u4-l3-q1', question: '「を契機に」 bilan 「をきっかけに」 o\'rtasidagi farq:', options: ['「を契機に」 rasmiyroq va yozma yirik o\'zgarishlarga ishlatiladi', 'Farqi yo\'q, bir xil', 'Aksincha', 'Faqat salbiy holatlarga'], correctAnswerIndex: 0, explanation: 'Keiki ni = rasmiy yozma uslub.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u4-l4',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u4',
+        unitTitle: 'Unit 4: N2 Dokkai & Social Context',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 19,
+        title: '〜を込めて (With all one\'s heart / Filled with)',
+        description: 'Hissiyot va tilaklarni bag\'ishlash: "...mehr bilan / ...tilaklar bilan".',
+        estimatedDurationMinutes: 16,
+        icon: '💖',
+        steps: [
+            {
+                id: 'ja-n2-u4-l4-s1',
+                title: '〜を込めて Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: '〜を込めて (O komete)',
+                    explanation: 'Yurakdan chiqqan tuyg\'u (mehr, tilak, duo, raxmat) bilan biror ish qilish.',
+                    keyPoints: [
+                        '感謝の気持ちを込めて、プレゼントを贈る。 (Minnetdorchilik tuyg\'usi bilan sovg\'a taqdim etmoq.)',
+                        '愛を込めて編んだセーター。 (Mehr bilan to\'qilgan sviter.)'
+                    ],
+                    vocabulary: [
+                        { term: '込[こ]める', reading: 'Komeru', meaning: 'Bag\'ishlamoq / Bag\'riga olmoq', exampleSentence: '心を込めて作りました。', exampleTranslation: 'Samimiy qalb bilan tayyorladim.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u4-l4-e1', type: 'multiple-choice', prompt: '「平和[へいわ]への 願い[ねがい]を _______、歌[うた]を 歌[うた]う。」', options: ['込めて (komete)', '通じて', 'めぐって', '応じて'], correctAnswer: 0, explanation: 'O komete = tinchlik tilagi bilan.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u4-l4-q1', question: '「心を込めて」 iborasining ma\'nosi:', options: ['Chin yurakdan / samimiy mehr bilan', 'Shoshilib', 'Majburiyatdan', 'Xafa bo\'lib'], correctAnswerIndex: 0, explanation: 'Chin yurakdan / mehr bilan.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u4-l5',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u4',
+        unitTitle: 'Unit 4: N2 Dokkai & Social Context',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 20,
+        title: 'N2 Listening Comprehension (聴解 - 即時応答 & 概要理解)',
+        description: 'JLPT N2 Chokkai tinglab tushunish ko\'nikmasi: Tezkor javob (Sokuji outou) va Asosiy g\'oya (Gaiyou rikai).',
+        estimatedDurationMinutes: 18,
+        icon: '🎧',
+        steps: [
+            {
+                id: 'ja-n2-u4-l5-s1',
+                title: 'Chokkai Strategiyasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N2 Chokkai Audio Listening',
+                    explanation: 'N2 Tinglab tushunish imtihonida dialog va mulohazalarni tezkor va aniq ilg\'ash.',
+                    keyPoints: [
+                        'Sokuji outou — Savol aytilishi bilan darhol to\'g\'ri javob reaksiyasini tanlash',
+                        'Gaiyou rikai — Butun dialog oxirida aytilgan umumiy xulosani tushunish',
+                        'Intonatsiya va so\'zlarning o\'zaro bog\'liqligi'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l5-s2',
+                title: 'Chokkai Mashqi',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'Tinglab to\'g\'ri reaksiyani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u4-l5-e1', type: 'multiple-choice', prompt: '«A: この資料、明日までにコピーしておいてくれない？» — B ning to\'g\'ri javobi:', options: ['わかりました。何部用意しましょうか。', 'いいえ、昨日しました。', '明日行きます。', 'コピー機がありません。'], correctAnswer: 0, explanation: 'Wakarimashita. Nanbu yooideshou ka (tushundim, nechta nusxa?).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u4-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u4-l5-q1', question: '«A: ちょっと手伝っていただけますか。» — B ning mos javobi:', options: ['ええ、もちろんです。何でしょうか。', '手伝いました。', '駄目です。', '知りません。'], correctAnswerIndex: 0, explanation: 'Ee, mochiron desu (albatta, xizmat?).' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 5: N2 Kanji & Advanced Vocabulary (Lessons 21 - 25)
+    {
+        id: 'ja-n2-u5-l1',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u5',
+        unitTitle: 'Unit 5: N2 Kanji & Vocabulary',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 21,
+        title: 'N2 Business Kanji (職・企・業・採)',
+        description: 'Ish va biznesga oid N2 kanjilar: 職 (ish/kasb), 企 (reja/korxona), 業 (sanoat), 採 (qabul qilish).',
+        estimatedDurationMinutes: 16,
+        icon: '🏢',
+        steps: [
+            {
+                id: 'ja-n2-u5-l1-s1',
+                title: 'Biznes Kanjilar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Kanji for Employment & Business',
+                    explanation: 'N2 darajadagi 1000 ta kanjidan biznes sohasida eng faol qism.',
+                    keyPoints: [
+                        '職業 (Shokugyou) — kasb-kor',
+                        '企業 (Kigyou) — korxona / kompaniya',
+                        '採用 (Saiyou) — ishga qabul qilish'
+                    ],
+                    vocabulary: [
+                        { term: '採用[さいよう]', reading: 'Saiyou', meaning: 'Ishga qabul qilish', exampleSentence: '新卒を採用する。', exampleTranslation: 'Bitiruvchilarni ishga olmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l1-s2',
+                title: 'Kanji Mashqi',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'Kanji o\'qilishini tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u5-l1-e1', type: 'multiple-choice', prompt: '「企業」 kanjisining o\'qilishi:', options: ['きぎょう (kigyou)', 'しぎょう', 'こうぎょう', 'さんぎょう'], correctAnswer: 0, explanation: 'Kigyou = korxona.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u5-l1-q1', question: '「職業」 so\'zining ma\'nosi:', options: ['Kasb / Hunar', 'Maktab', 'Sayohat', 'Kasalxona'], correctAnswerIndex: 0, explanation: 'Shokugyou = kasb.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u5-l2',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u5',
+        unitTitle: 'Unit 5: N2 Kanji & Vocabulary',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 22,
+        title: 'N2 Legal & Government Kanji (法・律・規・政)',
+        description: 'Qonunchilik va davlat boshqaruvi kanjilari: 法 (qonun), 律 (qoida), 規 (nizom), 政 (siyosat).',
+        estimatedDurationMinutes: 16,
+        icon: '🏛️',
+        steps: [
+            {
+                id: 'ja-n2-u5-l2-s1',
+                title: 'Qonun va Siyosat Kanjilari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Kanji for Law & Governance',
+                    explanation: 'N2 matn va yangiliklarda ko\'p uchraydigan qonunchilik kanjilari.',
+                    keyPoints: [
+                        '法律 (Houritsu) — qonun',
+                        '規則 (Kisoku) — qoida / intizom',
+                        '政府 (Seifu) — hukumat'
+                    ],
+                    vocabulary: [
+                        { term: '政府[せいふ]', reading: 'Seifu', meaning: 'Hukumat', exampleSentence: '政府の方針。', exampleTranslation: 'Hukumat yo\'nalishi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri o\'qilishni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u5-l2-e1', type: 'multiple-choice', prompt: '「法律」 kanjisining to\'g\'ri o\'qilishi:', options: ['ほうりつ (houritsu)', 'ほうりつく', 'ほりつ', 'ほうりっつ'], correctAnswer: 0, explanation: 'Houritsu = qonun.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u5-l2-q1', question: '「規則を守る」 ning ma\'nosi:', options: ['Qoidalarga rioya qilish', 'Qoidalarni buzish', 'Qoidalarni o\'chirish', 'Qoidasiz yashash'], correctAnswerIndex: 0, explanation: 'Qoidalarga rioya qilish.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u5-l3',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u5',
+        unitTitle: 'Unit 5: N2 Kanji & Vocabulary',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 23,
+        title: 'N2 Compound Verbs (〜直す, 〜直ちに, 〜終える)',
+        description: 'Qo\'shma fe\'llar: "...qaytadan qilish", "darg\'azab bo\'lish", "yakuniga yetkazish".',
+        estimatedDurationMinutes: 16,
+        icon: '🔄',
+        steps: [
+            {
+                id: 'ja-n2-u5-l3-s1',
+                title: 'N2 Qo\'shma Fe\'llar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'N2 Compound Verbs Mastery',
+                    explanation: 'Ikki fe\'lning birikishidan hosil bo\'lgan N2 murakkab harakatlar.',
+                    keyPoints: [
+                        'やり直す (Yarinaosu) — qaytadan boshqatdan qilish',
+                        '見直す (Minaosu) — qayta ko\'rib chiqish / baha berish',
+                        '直ちに (Tadachi ni) — zudlik bilan / darhol'
+                    ],
+                    vocabulary: [
+                        { term: '直[ただ]ちに', reading: 'Tadachini', meaning: 'Zudlik bilan / Darhol', exampleSentence: '直ちに報告しなさい。', exampleTranslation: 'Darhol hisobot bering.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri fe\'lni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u5-l3-e1', type: 'multiple-choice', prompt: '「間違えたので、もう一度 _______。」', options: ['やり直した (yarinaoshita)', 'やり始めた', 'やり終わった', 'やりかけた'], correctAnswer: 0, explanation: 'Yarinaoshita = qaytadan qildim.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u5-l3-q1', question: '「見直す」 ning ma\'nosi:', options: ['Qayta tekshirmoq / qayta ko\'rib chiqmoq', 'Ko\'rishni to\'xtatmoq', 'Ko\'zni yummoq', 'Ko\'ra olmaslik'], correctAnswerIndex: 0, explanation: 'Qayta ko\'rib chiqmoq.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u5-l4',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u5',
+        unitTitle: 'Unit 5: N2 Kanji & Vocabulary',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 24,
+        title: 'N2 Onomatopoeia & Mimetic Words (擬音語・擬態語)',
+        description: 'Tavsifiy taqlid so\'zlar: "Sukkiri", "Giri-giri", "Waku-waku", "Ira-ira".',
+        estimatedDurationMinutes: 16,
+        icon: '✨',
+        steps: [
+            {
+                id: 'ja-n2-u5-l4-s1',
+                title: 'Giongo & Gitaigo',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'N2 Onomatopoeic Expressions',
+                    explanation: 'Yapon tilidagi ruhiy va jismoniy holatlarni ifodalovchi taqlid so\'zlar.',
+                    keyPoints: [
+                        'すっきり (Sukkiri) — yengil tortured, tinchlanganda',
+                        'ぎりぎり (Girigiri) — zo\'rg\'a, so\'nggi sekundda',
+                        'いらいら (Iraira) — asabiylashib, g\'azablanib'
+                    ],
+                    vocabulary: [
+                        { term: 'ぎりぎり', reading: 'Girigiri', meaning: 'Zo\'rg me\'yorida / oxirgi momentda', exampleSentence: '電車にぎりぎり間に合った。', exampleTranslation: 'Poyezdga zo\'rg\'a ulgurdim.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri taqlid so\'zni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u5-l4-e1', type: 'multiple-choice', prompt: '「テストが終わって、気分が _______ した。」', options: ['すっきり (sukkiri)', 'いらいら', 'ぎりぎり', 'ぐっすり'], correctAnswer: 0, explanation: 'Sukkiri = ruhiy yengillik.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u5-l4-q1', question: '«Iraira suru» nimani bildiradi?', options: ['Asabiylashmoq / g\'azablanmoq', 'Uchib ketmoq', 'Uxlash', 'Kulmoq'], correctAnswerIndex: 0, explanation: 'Asabiylashmoq.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u5-l5',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u5',
+        unitTitle: 'Unit 5: N2 Kanji & Vocabulary',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 25,
+        title: 'N2 Vocabulary Synthesis & Synonym Practice',
+        description: 'Sinonimlar va ma\'nodosh N2 so\'zlarni moslashtirish mashg\'uloti.',
+        estimatedDurationMinutes: 16,
+        icon: '📚',
+        steps: [
+            {
+                id: 'ja-n2-u5-l5-s1',
+                title: 'N2 Sinonimlar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'N2 Synonyms & Paraphrasing',
+                    explanation: 'N2 imtihonidagi "Iikae ruiyaku" (ma\'nodosh almashtirish) bo\'limi.',
+                    keyPoints: [
+                        '抽象的 (Chuushouteki) = 具体的ではない (Aniqlikdan yiroq)',
+                        '奇妙な (Kimyou na) = 変な (G\'alati)',
+                        '断念する (Dannen suru) = 諦める (Tashlab qo\'ymoq/Umid uzmoq)'
+                    ],
+                    vocabulary: [
+                        { term: '断念[だんねん]する', reading: 'Dannen suru', meaning: 'Umid uzmoq / Voz kechmoq', exampleSentence: '計画を断念する。', exampleTranslation: 'Rejadan voz kechmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l5-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'To\'g\'ri sinonimni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u5-l5-e1', type: 'multiple-choice', prompt: '「断念した」 ning sinonimi:', options: ['諦めた (akirame ta)', '始めた', '成功した', '信じた'], correctAnswer: 0, explanation: 'Akirameta = voz kechdi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u5-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u5-l5-q1', question: '「奇妙な」 so\'zining ma\'nosi:', options: ['G\'alati / Anoyi', 'Chiroyli', 'Qimmat', 'Yangi'], correctAnswerIndex: 0, explanation: 'Hen na / G\'alati.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 6: N2 Capstone & Certification Exam (Lessons 26 - 30)
+    {
+        id: 'ja-n2-u6-l1',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u6',
+        unitTitle: 'Unit 6: N2 Final Assessment & N1 Bridge',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 26,
+        title: 'N2 Keigo Mastery (尊敬語・謙譲語の総復習)',
+        description: 'Hurmat va kamtarinlik iboralarining biznes darajasidagi to\'liq sinovidan o\'tish.',
+        estimatedDurationMinutes: 18,
+        icon: '🙇',
+        steps: [
+            {
+                id: 'ja-n2-u6-l1-s1',
+                title: 'Keigo General Mastery',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Sonkeigo & Kenjougo Review',
+                    explanation: 'N2 Keigo grammatikasida eng ko\'p adashtiriladigan fe\'llar integratsiyasi.',
+                    keyPoints: [
+                        '行く/来る -> 拝察する (xatda), お越しになる (mijozga), 伺う (o\'zi borishi)',
+                        '言われる -> おっしゃる, 言う -> 申す / 申し上げます'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l1-s2',
+                title: 'Keigo Mashqi',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri Keigo fe\'lini tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u6-l1-e1', type: 'multiple-choice', prompt: '「社長[しゃちょう]が _______。」 (Prezident kelmoqda)', options: ['お見えになりました', '伺いました', '参りました', '申しました'], correctAnswer: 0, explanation: 'Omie ni narimashita = Prezident tashrif buyurdi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u6-l1-q1', question: 'O\'zingiz haqingizda mijozga gapirganda qaysi Keigo turi ishlatiladi?', options: ['Kenjougo (Kamtarinlik)', 'Sonkeigo (Izzat)', 'Teineigo (Oddiy mas)', 'Koushi'], correctAnswerIndex: 0, explanation: 'Kenjougo (Kamtarinlik shakli).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u6-l2',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u6',
+        unitTitle: 'Unit 6: N2 Final Assessment & N1 Bridge',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 27,
+        title: 'N2 Grammar Integration (文法総合問題)',
+        description: 'JLPT N2 darajasidagi barcha 50+ grammatik qoidalarni aralash test orqali tekshirish.',
+        estimatedDurationMinutes: 18,
+        icon: '📝',
+        steps: [
+            {
+                id: 'ja-n2-u6-l2-s1',
+                title: 'Grammatika Integratsiyasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N2 Grammar Comprehensive Rules',
+                    explanation: '〜に際して, 〜を契機に, 〜ざるを得ない, 〜にほかならない kabi N2 birikmalari.',
+                    keyPoints: [
+                        'Rasmiy grammatika qo\'shimchalari',
+                        'Sub\'yektiv baho va shaxsiy qaror gramatikasi'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u6-l2-e1', type: 'multiple-choice', prompt: '「彼[かれ]の 成功[せいこう]は 努力[どりょく]の 賜物[たまもの] _______。」', options: ['にほかならない', 'っこない', 'にすぎない', 'に先立って'], correctAnswer: 0, explanation: 'Ni hokaranarai (boshqa narsa emas).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u6-l2-q1', question: '「雨[あめ]が 降[ふ]り _______。」 (Yomg\'ir yog\'ishi ehtimoldan yiroq emas/xavf bor)', options: ['かねない (kanenai)', 'かねる', 'っこない', 'にすぎない'], correctAnswerIndex: 0, explanation: 'Kanenai = salbiy xavf bor.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u6-l3',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u6',
+        unitTitle: 'Unit 6: N2 Final Assessment & N1 Bridge',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 28,
+        title: 'N2 Information Retrieval (情報検索の読解)',
+        description: 'JLPT N2 "Jouhou Kensaku" — E\'lonlar, jadval va hujjatlardan tezkor ma\'lumot qidirish.',
+        estimatedDurationMinutes: 18,
+        icon: '🔍',
+        steps: [
+            {
+                id: 'ja-n2-u6-l3-s1',
+                title: 'Ma\'lumot Izlash Dokkaisi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Information Retrieval Techniques',
+                    explanation: 'Jadval va e\'lonlardan berilgan shartga mos keladigan bandni 2 daqiqada topish.',
+                    keyPoints: [
+                        'Diqqatni faqat savoldagi shartlarga qaratish (masalan: yosh, narx, muddat)',
+                        'E\'lon tagidagi izoh (※ hamda 注) ga alohida e\'tibor bering.'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'Shartga mos keladigan variantni tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u6-l3-e1', type: 'multiple-choice', prompt: 'E\'londa 「学生割引は平日のみ適用」 deb yozilgan bo\'lsa, Shanba kuni talaba chegirma oladimi?', options: ['Chegirma ololmaydi (Faqat ish kunlari)', 'Oladi', 'Yarim narx', 'Tekin'], correctAnswer: 0, explanation: 'Faqat ish kunlari (平日のみ).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u6-l3-q1', question: '「※」 belgisining imtihon matnlaridagi ma\'nosi:', options: ['Ishora / Muhim qo\'shimcha izoh', 'Rasm', 'Xato', 'Narx'], correctAnswerIndex: 0, explanation: 'Muhim qo\'shimcha izoh.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u6-l4',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u6',
+        unitTitle: 'Unit 6: N2 Final Assessment & N1 Bridge',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 29,
+        title: 'N2 Full Simulation Mock Exam (模擬試験)',
+        description: 'JLPT N2 darajasidagi to\'liq sinov simulyatsiyasi va baholash.',
+        estimatedDurationMinutes: 20,
+        icon: '📊',
+        steps: [
+            {
+                id: 'ja-n2-u6-l4-s1',
+                title: 'N2 Sinov Imtihoni',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N2 Simulation Readiness',
+                    explanation: 'Gengo Chishiki, Dokkai va Chokkai bo\'limlarini birlashtirgan simulyatsiya.',
+                    keyPoints: [
+                        'Vaqtni to\'g\'ri taqsimlash',
+                        'N1 darajasiga o\'tish ko\'rsatkichi (75%+)'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l4-s2',
+                title: 'Simulyatsiya Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'N2 simulyatsiya savoliga javob bering.',
+                    exercises: [
+                        { id: 'ja-n2-u6-l4-e1', type: 'multiple-choice', prompt: '「社長[しゃちょう]の 方針[ほうしん]に 反[はん]して、プロジェクトを 進[すす]める わけには _______。」', options: ['いかない', 'ならない', '得ない', 'すぎない'], correctAnswer: 0, explanation: 'Wake ni wa ikanai (shaxsiy prinsiplarga zid).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n2-u6-l4-q1', question: '「〜ざるを得ない」 ning to\'g\'ri ma\'nosi:', options: ['...qilishga majbur bo\'lmoq (boshqa chora yo\'q)', 'Taqiqlanadi', 'Xohlamayman', 'Tushunmayman'], correctAnswerIndex: 0, explanation: 'Majbur bo\'lmoq.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n2-u6-l5',
+        courseId: 'jlpt-n2',
+        unitId: 'ja-n2-u6',
+        unitTitle: 'Unit 6: N2 Final Assessment & N1 Bridge',
+        language: 'ja',
+        level: 'N2',
+        lessonNumber: 30,
+        title: 'JLPT N2 Official Graduation & N1 Gate Assessment',
+        description: 'JLPT N2 darajasini rasman bitirish va JLPT N1 cho\'qqisiga o\'tish imtihoni.',
+        estimatedDurationMinutes: 20,
+        icon: '🏆',
+        steps: [
+            {
+                id: 'ja-n2-u6-l5-s1',
+                title: 'N2 Oliy Xulosa',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N2 Graduation & N1 Preparation',
+                    explanation: 'Tabriklaymiz! Siz JLPT N2 darajasini to\'liq tamomladingiz. Endi Yaponiyada oliy ta\'lim va professional ishga tayyorsiz.',
+                    keyPoints: [
+                        '1000 Kanji va 6000 Vocabulary bazasiga ega bo\'ldingiz.',
+                        'JLPT N1 darajasidagi klassik va oliy ilmiy grammatikaga tayyorsiz.'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l5-s2',
+                title: 'N2 Bitiruv Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'Bitiruv testining amaliy savoliga javob bering.',
+                    exercises: [
+                        { id: 'ja-n2-u6-l5-e1', type: 'multiple-choice', prompt: '「今後[こんご]とも 格別[かくべつ]の ご高配[こうはい]を 賜[たまわ]りますよう、_______。」', options: ['お願[ねが]い 申[もう]し上[あ]げます', 'お願[ねが]いします', '頼[たの]むよ', 'どうぞ'], correctAnswer: 0, explanation: 'Onegai moushiagemasu.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n2-u6-l5-s3',
+                title: 'JLPT N2 Final Promotion Certification Exam',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'N1 darajasiga o\'tish uchun testni kamida 80% natija bilan topshiring.',
+                    passingScorePercentage: 80,
+                    questions: [
+                        { id: 'ja-n2-u6-l5-q1', question: '「事故[じこ]の 原因[げんいん]を 究明[きゅうめい]せざるを _______。」', options: ['得[え]ない (enai)', 'いかない', 'ならない', 'かねない'], correctAnswerIndex: 0, explanation: 'Sezaru o enai.' },
+                        { id: 'ja-n2-u6-l5-q2', question: '「景気[けいき]の 変動[へんどう]に _______、生産[せいさん]計画[けいかく]を 変更[へんこう]する。」', options: ['伴[ともな]って / 応[おう]じて', 'ついて', '対[たい]して', 'とって'], correctAnswerIndex: 0, explanation: 'Oujite / Tomonatte.' },
+                        { id: 'ja-n2-u6-l5-q3', question: 'JLPT N2 darajasini tugatgandan so\'ng qaysi darajaga o\'tiladi?', options: ['JLPT N1 (Native-level Academic Mastery)', 'JLPT N3', 'CEFR A1', 'TOEFL'], correctAnswerIndex: 0, explanation: 'JLPT N1.' },
+                        { id: 'ja-n2-u6-l5-q4', question: 'Tabriklaymiz! Siz N2 sertifikatlash talablarini muvaffaqiyatli bajardingiz.', options: ['Sertifikatni Qabul Qilish', 'Darslarni Takrorlash', 'Bosh Sahifa', 'N1 Darslariga O\'tish'], correctAnswerIndex: 0, explanation: 'Sertifikat taqdim etildi.' }
+                    ]
+                }
+            }
+        ]
     }
 ];
+

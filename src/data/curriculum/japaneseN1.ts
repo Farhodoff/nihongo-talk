@@ -577,5 +577,861 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
                 }
             }
         ]
+    },
+
+    // Unit 3: N1 Classical Grammar & Literary Forms (Lessons 11 - 15)
+    {
+        id: 'ja-n1-u3-l1',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u3',
+        unitTitle: 'Unit 3: N1 Classical Grammar & Literary Forms',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 11,
+        title: '〜たる者 (As a person in the position of / Being a...)',
+        description: 'Burch va mas\'uliyat: "Ma\'lum oliy maqom egasi sifatida...".',
+        estimatedDurationMinutes: 18,
+        icon: '👑',
+        steps: [
+            {
+                id: 'ja-n1-u3-l1-s1',
+                title: '〜たる者 Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜たる者 (Taru mono)',
+                    explanation: 'Oliy mas\'uliyatli shaxs (O\'qituvchi, Davlat arbobi, Shifokor) o\'z burchiga sodiq bo\'lishi kerakligini ta\'kidlash.',
+                    keyPoints: [
+                        '指導者たる者は、常に冷静でなければならない。 (Etakchi bo\'lgan shaxs doim bosiq bo\'lishi shart.)',
+                        '医者たる者、患者の命を最優先にすべきだ。 (Shifokor bo\'lgan inson bemor hayotini birinchi o\'ringa qo\'yishi kerak.)'
+                    ],
+                    vocabulary: [
+                        { term: '指導者[しどうしゃ]', reading: 'Shidousha', meaning: 'Etakchi / Yo\'lboshchi', exampleSentence: '優れた指導者。', exampleTranslation: 'Ajoyib etakchi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u3-l1-e1', type: 'multiple-choice', prompt: '「教育者[きょういくしゃ] _______、学生[がくせい]の 模範[もはん]と なれ。」', options: ['たる者 (taru mono)', 'となると', 'にあって', 'としろ'], correctAnswer: 0, explanation: 'Taru mono = ta\'lim beruvchi shaxs sifatida.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u3-l1-q1', question: '「〜たる者」 grammatik birikmasi nimaga nisbatan qo\'llaniladi?', options: ['Ma\'lum yuksak mavqe, unvon yoki mas\'uliyatli kasb egalariga nisbatan', 'Yosh bolalarga', 'Hayvonlarga', 'Narsalarga'], correctAnswerIndex: 0, explanation: 'Mas\'uliyatli va yuksak maqom egalariga.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u3-l2',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u3',
+        unitTitle: 'Unit 3: N1 Classical Grammar & Literary Forms',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 12,
+        title: '〜に至る / 〜に至るまで (Reaching the point of / Down to)',
+        description: 'Chegara va yakuniy bosqich: "...darajasigacha yetib borish".',
+        estimatedDurationMinutes: 18,
+        icon: '📍',
+        steps: [
+            {
+                id: 'ja-n1-u3-l2-s1',
+                title: '〜に至る Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜に至る (Ni itaru)',
+                    explanation: 'Hodisalarning taraqqiyoti natijasida muayyan oliy yoki keskin bosqichga yetib kelishi.',
+                    keyPoints: [
+                        '事態がここに至っては、解散せざるを得ない。 (Vaziyat shunday darajaga yetgan ekan, tarqalishga majburmiz.)',
+                        '服装から靴に至るまで完璧だった。 (Kiyimidan tortib poyabzaligacha mukammal edi.)'
+                    ],
+                    vocabulary: [
+                        { term: '事態[じたい]', reading: 'Jitai', meaning: 'Vaziyat / Ahvol', exampleSentence: '事態が悪化する。', exampleTranslation: 'Vaziyat yomonlashadi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u3-l2-e1', type: 'multiple-choice', prompt: '「問題[もんだい]が 裁判[さいばん]に _______、事態[じたい]は 重大[じゅうだい]化した。」', options: ['至る (itaru)', '及ぶ', '沿う', '従う'], correctAnswer: 0, explanation: 'Ni itaru = sud darajasigacha yetib bordi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u3-l2-q1', question: '「に至るまで」 ning ma\'nosi:', options: ['...ga qadar / ...darajasigacha qamrab olib', '...dan boshlab', '...siz', '...dan buyon'], correctAnswerIndex: 0, explanation: '...ga qadar (hamma narsani qamrab).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u3-l3',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u3',
+        unitTitle: 'Unit 3: N1 Classical Grammar & Literary Forms',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 13,
+        title: '〜を余儀なくされる (To be forced to / Compelled to)',
+        description: 'Vaziyat taqozo etgan noiloj majburiyat: "...majburiyatida qolmoq".',
+        estimatedDurationMinutes: 18,
+        icon: '⚠️',
+        steps: [
+            {
+                id: 'ja-n1-u3-l3-s1',
+                title: '〜を余儀なくされる Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜を余儀なくされる (O yoginaku sareru)',
+                    explanation: 'Tashqi muqarrar holatlar (tabiiy ofat, urush, inqiroz) tufayli rejadan voz kechishga majbur bo\'lish.',
+                    keyPoints: [
+                        '台風のため、飛行機は欠航を余儀なくされた。 (Tayfun sababli parvoz bekor qilinishga majbur bo\'lindi.)',
+                        '資金難により、プロジェクトの変更を余儀なくされた。 (Moliyaviy qiyinchilik sabab loyiha o\'zgardi.)'
+                    ],
+                    vocabulary: [
+                        { term: '欠航[けっこう]', reading: 'Kekkou', meaning: 'Reys/parvozning bekor qilinishi', exampleSentence: '全便欠航となった。', exampleTranslation: 'Barcha reyslar bekor qilindi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n2-u3-l3-e1', type: 'multiple-choice', prompt: '「不況[ふきょう]の 影響[えいきょう]で 撤退[てったい]を _______。」', options: ['余儀なくされた (yoginaku sare ta)', 'せざるを得ない', 'にほかならない', '極めた'], correctAnswer: 0, explanation: 'O yoginaku sare ta = chekinishga majbur qilindi.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u3-l3-q1', question: '「余儀なくされる」 nima sababdan ishlatiladi?', options: ['Tashqi vaziyat sababli ixtiyorsiz majbur bo\'lganda', 'Xursandchilikdan', 'Do\'stlar taklifi bilan', 'Pul ko\'pligidan'], correctAnswerIndex: 0, explanation: 'Tashqi vaziyat sabab majbur bo\'lganda.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u3-l4',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u3',
+        unitTitle: 'Unit 3: N1 Classical Grammar & Literary Forms',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 14,
+        title: '〜が早いか (No sooner had... than / As soon as)',
+        description: 'Vaqt bo\'yicha ketma-ket dalahol sodir bo\'lgan shiddatli harakat: "...bahamanoz / ...bilan birga".',
+        estimatedDurationMinutes: 18,
+        icon: '⚡',
+        steps: [
+            {
+                id: 'ja-n1-u3-l4-s1',
+                title: '〜が早いか Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜が早いか (Ga hayai ka)',
+                    explanation: 'Birinchi harakat tugashi bilanoq ikkinchisi lahzada yuz berganda.',
+                    keyPoints: [
+                        'チャイムが鳴るが早いか、生徒たちは飛び出した。 (Qo\'ng\'iroq chalinishi bilan o\'quvchilar otilib chiqishdi.)',
+                        '部屋に入るが早いか、コートを脱ぎ捨てた。 (Xonaga kirishi bilanoq paltosini yechib tashladi.)'
+                    ],
+                    vocabulary: [
+                        { term: '飛び出す[とびだす]', reading: 'Tobidasu', meaning: 'Otilib chiqmoq', exampleSentence: '勢いよく飛び出す。', exampleTranslation: 'Shiddat bilan otilib chiqmoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri grammatik shaklni tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u3-l4-e1', type: 'multiple-choice', prompt: '「ベルが 鳴[な]るが _______、電話[でんわ]に でた。」', options: ['早いか (hayai ka)', 'や否や', 'なり', 'そばから'], correctAnswer: 0, explanation: 'Ga hayai ka = chalinishi bilan.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u3-l4-q1', question: '「〜が早いか」 grammatik shakli fe\'lning qaysi ko\'rinishiga ulqanadi?', options: ['Dictionary form (Lug\'at shakli) yoki Ta-form', 'Te-form', 'Nai-form', 'Imperative'], correctAnswerIndex: 0, explanation: 'Dict-form / Ta-form.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u3-l5',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u3',
+        unitTitle: 'Unit 3: N1 Classical Grammar & Literary Forms',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 15,
+        title: '〜まじき (Unforgivable / Must not / Unbecoming)',
+        description: 'Ahloqiy va kasbiy nuqtai nazardan aslo yo\'l qo\'yib bo\'lmaydigan harakat.',
+        estimatedDurationMinutes: 18,
+        icon: '🛑',
+        steps: [
+            {
+                id: 'ja-n1-u3-l5-s1',
+                title: '〜まじき Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜まじき (Majiki)',
+                    explanation: 'Muayyan mavqedagi inson qilishi aslo mumkin bo\'lmagan nojoiz harakat.',
+                    keyPoints: [
+                        'プロとしてあるまじき行為だ。 (Professional odam qilishi aslo mumkin bo\'lmagan xatti-harakatdir.)',
+                        '警官にあるまじき不正発言。 (Militsionerga aslo to\'g\'ri kelmaydigan nojoiz bayonot.)'
+                    ],
+                    vocabulary: [
+                        { term: '行為[こうい]', reading: 'Koui', meaning: 'Harakat / Qilmish', exampleSentence: '違法な行為。', exampleTranslation: 'Noqonuniy qilmish.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l5-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u3-l5-e1', type: 'multiple-choice', prompt: '「教師[きょうし]として ある _______ 発言[はつげん]だ。」', options: ['まじき (majiki)', 'べからざる', 'まじく', 'まじ'], correctAnswer: 0, explanation: 'Aru majiki = to\'g\'ri kelmaydigan nojoiz.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u3-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u3-l5-q1', question: '「あるまじき」 fe\'li yapon adabiyotida nimani anglatadi?', options: ['Ma\'lum kasb yoki axloq egasiga aslo yarashmaydigan yo\'l qo\'yilmas harakat', 'Judayam yaxshi ish', 'Tez bajariladigan ish', 'Oddiy gap'], correctAnswerIndex: 0, explanation: 'Yo\'l qo\'yilmas axloqsiz harakat.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 4: N1 Literary Dokkai & Philosophical Nuance (Lessons 16 - 20)
+    {
+        id: 'ja-n1-u4-l1',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u4',
+        unitTitle: 'Unit 4: N1 Philosophical & Literary Discourse',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 16,
+        title: 'N1 Critical Philosophy Reading (哲学・思想の論説文)',
+        description: 'Falsafiy va sotsiologik murakkab N1 matnlarini chuqur tahlil qilish.',
+        estimatedDurationMinutes: 20,
+        icon: '📖',
+        steps: [
+            {
+                id: 'ja-n1-u4-l1-s1',
+                title: 'Falsafiy Matn Tahlili',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N1 Philosophical Prose Analysis',
+                    explanation: 'Inson borlig\'i, estetika va sotsiologiyaga oid klassik va zamonaviy yapon esse (Zuihitsu) tahlili.',
+                    keyPoints: [
+                        '概念 (Gainen) — tushuncha/konsepsiya',
+                        '普遍的 (Fuhenteki) — universal/umumiy'
+                    ],
+                    vocabulary: [
+                        { term: '普遍的[ふへんてき]', reading: 'Fuhenteki', meaning: 'Universal / Barcha uchun umumiy', exampleSentence: '普遍的な真理。', exampleTranslation: 'Universal haqiqat.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l1-s2',
+                title: 'Dokkai Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'Matn bo\'yicha to\'g\'ri xulosani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u4-l1-e1', type: 'multiple-choice', prompt: '「普遍的価値」 deganda nima tushuniladi?', options: ['Zamon va makondan qat\'i nazar barcha insoniyat uchun umumiy bo\'lgan qadriyat', 'Faqat bitta davlatniki', 'Vaqtinchalik narsa', 'Pul'], correctAnswer: 0, explanation: 'Barcha uchun universal qadriyat.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u4-l1-q1', question: 'N1 Dokkaida muallif pozitsiyasini aniqlovchi kalit ibora:', options: ['「〜にほかならない」 / 「〜と考えられる」', '「かもしれない」', '「そうです」', '「でしょう」'], correctAnswerIndex: 0, explanation: 'Ni hokaranarai / to kangaerareru.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u4-l2',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u4',
+        unitTitle: 'Unit 4: N1 Philosophical & Literary Discourse',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 17,
+        title: '〜んがため / 〜んがために (In order to / For the purpose of)',
+        description: 'Yuksak maqsad yo\'lida harakat qilish: "...maqsadida / ...ni niyat qilib".',
+        estimatedDurationMinutes: 18,
+        icon: '🎯',
+        steps: [
+            {
+                id: 'ja-n1-u4-l2-s1',
+                title: '〜んがため Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜んがため (N ga tame)',
+                    explanation: 'Nai-stem + んがため. Yuksak g\'oya yoki niyat yo\'lida borini berib harakat qilish.',
+                    keyPoints: [
+                        '夢を叶えんがため、昼夜を問わず勉強した。 (Orzusini ushalish niyatida tunu kun o\'qidi.)',
+                        '真相を明らかにせんがため、調査を続けた。 (Haqiqatni oshkor etish niyatida surishtiruvni davom ettirdi.)'
+                    ],
+                    vocabulary: [
+                        { term: '真相[しんそう]', reading: 'Shinsou', meaning: 'Haqiqat / Asl holat', exampleSentence: '真相を究明する。', exampleTranslation: 'Haqiqatni aniqlamoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri grammatik iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u4-l2-e1', type: 'multiple-choice', prompt: '「身[み]の 清白[せいはく]を 証明[しょうめい]せ _______、最高裁[さいこうさい]に 上訴[じょうそ]した。」', options: ['んがため (n ga tame)', 'んばかり', 'ともなく', 'ことなしに'], correctAnswer: 0, explanation: 'N ga tame = isbotlash niyatida.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u4-l2-q1', question: '「する」 fe\'li 「〜んがため」 bilan birikkanda qanday shaklga o\'tadi?', options: ['「せんがため」 (Sen ga tame)', 'すんがため', 'しんがため', 'さんがため'], correctAnswerIndex: 0, explanation: 'Suru -> Sen ga tame.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u4-l3',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u4',
+        unitTitle: 'Unit 4: N1 Philosophical & Literary Discourse',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 18,
+        title: '〜をおいて (Apart from / Excluding)',
+        description: 'Tengsiz va yagona ekanligini ta\'kidlash: "...dan bo\'lak / ...dan o\'zga yo\'q".',
+        estimatedDurationMinutes: 18,
+        icon: '🌟',
+        steps: [
+            {
+                id: 'ja-n1-u4-l3-s1',
+                title: '〜をおいて Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜をおいて (O oite)',
+                    explanation: 'Ushbu inson yoki narsadan bo\'lak munosibi yo\'qligini yuksak baholash.',
+                    keyPoints: [
+                        'この仕事を任せられる人は、彼をおいて他にいない。 (Bu ishni topshirsa bo\'ladigan inson undan bo\'lak yo\'q.)',
+                        '今をおいて好機はない。 (Hozirgisidan o\'zga qulay imkoniyat bo\'lmaydi.)'
+                    ],
+                    vocabulary: [
+                        { term: '好機[こうき]', reading: 'Kouki', meaning: 'Qulay imkoniyat', exampleSentence: '絶好の好機。', exampleTranslation: 'Juda qulay imkoniyat.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri iborani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u4-l3-e1', type: 'multiple-choice', prompt: '「次期[じき] リーダーは 彼女[かのじょ] _______ 他[ほか]に いない。」', options: ['をおいて (o oite)', 'をめぐって', 'にして', 'をもって'], correctAnswer: 0, explanation: 'O oite = undan bo\'lak yo\'q.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u4-l3-q1', question: '「〜をおいて」 iborasidan keyin qanday jumla keladi?', options: ['「〜他にない」 kabi inkor va yagonalikni ta\'kidlovchi ibora', 'Katta pul', 'Eski uy', 'O\'quvchi'], correctAnswerIndex: 0, explanation: '...hoka ni nai (undan bo\'lak yo\'q).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u4-l4',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u4',
+        unitTitle: 'Unit 4: N1 Philosophical & Literary Discourse',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 19,
+        title: '〜極まる / 〜極まりない (Extremely / In the extreme)',
+        description: 'Juda yuqori darajadagi holat yoki hissiyot: "O\'ta ... / Cheksiz ...".',
+        estimatedDurationMinutes: 18,
+        icon: '🌋',
+        steps: [
+            {
+                id: 'ja-n1-u4-l4-s1',
+                title: '〜極まる Qoidasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: '〜極まる (Kiwamaru) / 〜極まりない (Kiwamarinai)',
+                    explanation: 'Salbiy yoki ijobiy holatning chekka va eng cho\'qqi darajasini ifodalash.',
+                    keyPoints: [
+                        '彼の態度は失礼極まる。 (Mening munosabati o\'ta behurmatlikning o\'zidir.)',
+                        '感概極まりない思いだ。 (Hissiyotlarim chegara bilmayapti.)'
+                    ],
+                    vocabulary: [
+                        { term: '失礼[しつれい]', reading: 'Shitsurei', meaning: 'Behurmatlik', exampleSentence: '失礼な態度。', exampleTranslation: 'Behurmat munosabat.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 6,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u4-l4-e1', type: 'multiple-choice', prompt: '「危険[きけん] _______ 行為[こうい]は 慎[つつし]むべきだ。」', options: ['極まる (kiwamaru)', 'にかぎる', 'にあたる', 'に及ぶ'], correctAnswer: 0, explanation: 'Kiwamaru = o\'ta xavfli.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u4-l4-q1', question: '「極まりない」 ning sinonimi:', options: ['これ以上ないほど〜だ (bunda ortiq bo\'lmagan darajada)', 'Kamgina', 'Biroz', 'Yo\'q'], correctAnswerIndex: 0, explanation: 'O\'ta yuqori darajada.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u4-l5',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u4',
+        unitTitle: 'Unit 4: N1 Philosophical & Literary Discourse',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 20,
+        title: 'N1 Listening Mastery (聴解 - 統合理解 & 主張理解)',
+        description: 'JLPT N1 Chokkai tinglab tushunish: Murakkab bir nechta spikerlar bahsi va muallifning yashirin g\'oyasi.',
+        estimatedDurationMinutes: 20,
+        icon: '🎧',
+        steps: [
+            {
+                id: 'ja-n1-u4-l5-s1',
+                title: 'N1 Chokkai Strategiyasi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N1 Tougou Rikai & Shuchou Rikai',
+                    explanation: 'N1 tinglab tushunish bo\'limidagi 2 ta matnni solishtirish va yashirin g\'oyalarni topish.',
+                    keyPoints: [
+                        'Tougou rikai — Ikki kishining qarama-qarshi fikrini solishtirish',
+                        'Shuchou rikai — Spikerning asl niyati va yashirin ma\'nosi'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l5-s2',
+                title: 'Chokkai Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'Tinglangan suhbat bo\'yicha to\'g\'ri xulosani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u4-l5-e1', type: 'multiple-choice', prompt: '«A: この提案、一見良さそうだがリスクが高すぎるのでは。 B: 確かに。だが挑戦しなければ現状維持すら危うい。» — B ning pozitsiyasi:', options: ['Xavf bo\'lishiga qaramay tavakkal qilib harakat qilish tarafdori', 'Qarshi', 'Qo\'rqmoqda', 'Qiziqmaydi'], correctAnswer: 0, explanation: 'Tavakkal qilib harakat qilish tarafdori.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u4-l5-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u4-l5-q1', question: 'N1 Chokkai imtihonida 「現状維持すら危うい」 ning ma\'nosi:', options: ['Hozirgi holatni saqlab qolish ham xavf ostida', 'Juda tinch', 'Zo\'r', 'Yo\'q'], correctAnswerIndex: 0, explanation: 'Hozirgi holatni saqlash ham xavf ostida.' }
+                    ]
+                }
+            }
+        ]
+    },
+
+    // Unit 5: N1 Capstone & Ultimate Mastery Exam (Lessons 21 - 25)
+    {
+        id: 'ja-n1-u5-l1',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u5',
+        unitTitle: 'Unit 5: N1 Capstone & Graduation',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 21,
+        title: 'N1 Super-Advanced Kanji (2000+ Level)',
+        description: 'JLPT N1 ning 2000 ta kanji bazasidagi eng murakkab akademik va adabiy kanjilar.',
+        estimatedDurationMinutes: 20,
+        icon: '✒️',
+        steps: [
+            {
+                id: 'ja-n1-u5-l1-s1',
+                title: 'N1 Akademik Kanjilar',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N1 Advanced Kanji & Compounds',
+                    explanation: 'Adabiyot va huquqda qo\'llanadigan oliy kanjilar.',
+                    keyPoints: [
+                        '概念 (Gainen) — tushuncha',
+                        '糾弾 (Kyuudan) — ayblash/qoralash',
+                        '変遷 (Hensen) — tarixiy evrilish'
+                    ],
+                    vocabulary: [
+                        { term: '糾弾[きゅうだん]', reading: 'Kyuudan', meaning: 'Ayblash / Qoralash', exampleSentence: '不正を糾弾する。', exampleTranslation: 'Nohaqlikni qoralash.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l1-s2',
+                title: 'Kanji Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'To\'g\'ri o\'qilishni tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u5-l1-e1', type: 'multiple-choice', prompt: '「糾弾」 kanjisining o\'qilishi:', options: ['きゅうだん (kyuudan)', 'きゅうてん', 'きょうだん', 'きゅうたん'], correctAnswer: 0, explanation: 'Kyuudan = qoralash.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u5-l1-q1', question: '「時代[じだい]の 変遷[へんせん]」 ning ma\'nosi:', options: ['Tarixiy davrlarning almashinuvi va evrilishi', 'Kunning botishi', 'Yomg\'ir yog\'ishi', 'Kompaniya ochilishi'], correctAnswerIndex: 0, explanation: 'Tarixiy evrilish.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u5-l2',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u5',
+        unitTitle: 'Unit 5: N1 Capstone & Graduation',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 22,
+        title: 'N1 Four-Character Idioms (四字熟語 Mastery)',
+        description: '4 ta kanjidan iborat yapon klassik idiomalar: "Ichi-go ichi-e", "Shin-ro ku-kurou", "Ki-ten ret-tsu".',
+        estimatedDurationMinutes: 20,
+        icon: '🀄',
+        steps: [
+            {
+                id: 'ja-n1-u5-l2-s1',
+                title: 'Yojijukugo Idiomalar',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'Classical Four-Character Idioms',
+                    explanation: 'N1 nutqi va yozuvini ziynatlovchi 4 kanjili qadimiy donolik iboralari.',
+                    keyPoints: [
+                        '一期一会 (Ichigo ichie) — Hayotdagi har bir uchrashuv yagona va takrorlanmasdir',
+                        '試行錯誤 (Shikou sakukou) — Sinov va xatolar orqali o\'rganish',
+                        '切磋琢磨 (Sessa takuma) — Bir-birini ruhiy va bilim jihatdan charxlash'
+                    ],
+                    vocabulary: [
+                        { term: '一期一会[いちごいちえ]', reading: 'Ichigo ichie', meaning: 'Takrorlanmas yagona uchrashuv', exampleSentence: '一期一会の出会いを大切にする。', exampleTranslation: 'Qadrli takrorlanmas uchrashuvni qadrlash.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l2-s2',
+                title: 'Idioma Mashqi',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'To\'g\'ri idiomani tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u5-l2-e1', type: 'multiple-choice', prompt: '「仲間[なかま]と _______ して 技術[ぎじゅつ]を 磨[みが]く。」', options: ['切磋琢磨 (sessa takuma)', '試行錯誤', '一期一会', '自暴自棄'], correctAnswer: 0, explanation: 'Sessa takuma = bir-birini charxlamoq.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u5-l2-q1', question: '「試行錯誤」 so\'zining ma\'nosi:', options: ['Sinov va xatolar orqali izlanish', 'Juda tez yugurish', 'Kofe ichish', 'Uxlash'], correctAnswerIndex: 0, explanation: 'Trial and error.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u5-l3',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u5',
+        unitTitle: 'Unit 5: N1 Capstone & Graduation',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 23,
+        title: 'N1 Full Grammar Integration & Exceptions',
+        description: 'N1 darajasidagi barcha 100+ grammatik qoidalarning kompleks sinovi.',
+        estimatedDurationMinutes: 20,
+        icon: '📚',
+        steps: [
+            {
+                id: 'ja-n1-u5-l3-s1',
+                title: 'Grammatika Sinovi',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N1 Master Grammar Review',
+                    explanation: '〜たる者, 〜に至る, 〜を余儀なくされる, 〜んがため, 〜極まる kabi barcha N1 shakllari.',
+                    keyPoints: [
+                        'Klassik grammatik qo\'shimchalar',
+                        'Literary va formal uslubiy istisnolar'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 7,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'ja-n1-u5-l3-e1', type: 'multiple-choice', prompt: '「最高[さいこう] 責任者[せきにんしゃ] _______、決断[けつだん]を くださねばならない。」', options: ['たる者', 'にあって', 'をもって', 'にして'], correctAnswer: 0, explanation: 'Taru mono (mas\'uliyatli shaxs sifatida).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 7,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'ja-n1-u5-l3-q1', question: '「〜を余儀なくされる」 ning ma\'nosi:', options: ['Majburiyatda qolmoq', 'Ruxsat bermoq', 'Xursand bo\'lmoq', 'Bekor qilmoq'], correctAnswerIndex: 0, explanation: 'Majburiyatda qolmoq.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u5-l4',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u5',
+        unitTitle: 'Unit 5: N1 Capstone & Graduation',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 24,
+        title: 'N1 Full Scale Simulation Mock Examination',
+        description: 'JLPT N1 Rasmiy Imtihonining to\'liq simulyatsiyasi va baholanishi.',
+        estimatedDurationMinutes: 22,
+        icon: '📊',
+        steps: [
+            {
+                id: 'ja-n1-u5-l4-s1',
+                title: 'N1 Sinov Imtihoni',
+                type: 'learn',
+                estimatedMinutes: 6,
+                learnData: {
+                    title: 'N1 Full Mock Readiness',
+                    explanation: 'Yapon tili bo\'yicha dunyodagi eng oliy daraja simulyatsiyasi.',
+                    keyPoints: [
+                        'Gengo Chishiki + Dokkai + Chokkai integratsiyasi',
+                        'Oliy o\'zlashtirish ko\'rsatkichi (80%+)'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l4-s2',
+                title: 'Simulyatsiya Mashqi',
+                type: 'practice',
+                estimatedMinutes: 8,
+                practiceData: {
+                    instructions: 'N1 simulyatsiya savoliga javob bering.',
+                    exercises: [
+                        { id: 'ja-n1-u5-l4-e1', type: 'multiple-choice', prompt: '「真相[しんそう]を 明[あき]らかに _______、調査[ちょうさ]を 続[つづ]けた。」', options: ['せんがため', 'んばかり', 'ともなく', 'ことなしに'], correctAnswer: 0, explanation: 'Sen ga tame = ochiqlash niyatida.' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 8,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 80,
+                    questions: [
+                        { id: 'ja-n1-u5-l4-q1', question: '「彼[かれ]を _______ 他[ほか]に この 重職[じゅうしょく]を 果[は]たせる 者[もの]は いない。」', options: ['をおいて (o oite)', 'をめぐって', 'にして', 'をもって'], correctAnswerIndex: 0, explanation: 'O oite = undan bo\'lak yo\'q.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'ja-n1-u5-l5',
+        courseId: 'jlpt-n1',
+        unitId: 'ja-n1-u5',
+        unitTitle: 'Unit 5: N1 Capstone & Graduation',
+        language: 'ja',
+        level: 'N1',
+        lessonNumber: 25,
+        title: 'JLPT N1 Grand Master Certification & Graduation Exam',
+        description: 'JLPT N1 Cho\'qqisining to\'liq va rasmiy oliy sertifikatlash va bitiruv imtihoni.',
+        estimatedDurationMinutes: 25,
+        icon: '👑',
+        steps: [
+            {
+                id: 'ja-n1-u5-l5-s1',
+                title: 'JLPT N1 Ultimate Crown Summary',
+                type: 'learn',
+                estimatedMinutes: 7,
+                learnData: {
+                    title: 'JLPT N1 Grand Master Peak',
+                    explanation: 'Tabriklaymiz! Siz Yapon tili bo\'yicha eng oliy daraja — JLPT N1 ni tamomladingiz!',
+                    keyPoints: [
+                        'Native-level academic and professional Japanese mastery',
+                        'Complete mastery of 2000+ Kanji, 10,000+ Vocabulary, and Classical Grammar',
+                        'Highest legal, academic, and professional accreditation worldwide'
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l5-s2',
+                title: 'Grand Master Capstone Practice',
+                type: 'practice',
+                estimatedMinutes: 8,
+                practiceData: {
+                    instructions: 'JLPT N1 Bitiruv savoliga javob bering.',
+                    exercises: [
+                        { id: 'ja-n1-u5-l5-e1', type: 'multiple-choice', prompt: '「いかに 時代[じだい]が 変遷[へんせん]しようと、真理[しんり]は _______。」', options: ['不変[ふへん]で ある (Fuhen de aru)', '変[か]わる', 'ない', 'でした'], correctAnswer: 0, explanation: 'Fuhen de aru (haqiqat o\'zgarmasdir).' }
+                    ]
+                }
+            },
+            {
+                id: 'ja-n1-u5-l5-s3',
+                title: 'JLPT N1 Grand Master Promotion Certification Exam',
+                type: 'test',
+                estimatedMinutes: 10,
+                testData: {
+                    instructions: 'JLPT N1 Oliy Master darajasini tasdiqlash uchun imtihonni kamida 85% bilan topshiring.',
+                    passingScorePercentage: 85,
+                    questions: [
+                        { id: 'ja-n1-u5-l5-q1', question: '「時代[じだい]の 変遷[へんせん]」dagi 変遷 nimani anglatadi?', options: ['Davrlarning almashinuvi / Tarixiy evrilish', 'Bitta kun', 'Quyosh chiqishi', 'Kitob o\'qish'], correctAnswerIndex: 0, explanation: 'Historical vicissitudes / Transitions of eras.' },
+                        { id: 'ja-n1-u5-l5-q2', question: '「真理[しんり]は 不変[ふへん]で ある」ning ma\'nosi:', options: ['Haqiqat o\'zgarmas va boqiydir', 'Haqiqat yo\'q', 'Haqiqat yolg\'ondir', 'Haqiqat yangidir'], correctAnswerIndex: 0, explanation: 'Truth is immutable.' },
+                        { id: 'ja-n1-u5-l5-q3', question: 'Yapon tili bo\'yicha JLPT tizimidagi eng yuqori oliy daraja qaysi?', options: ['JLPT N1', 'JLPT N2', 'JLPT N5', 'CEFR B2'], correctAnswerIndex: 0, explanation: 'JLPT N1.' },
+                        { id: 'ja-n1-u5-l5-q4', question: 'Tabriklaymiz! Siz Yapon Tili Bo\'yicha Barcha O\'quv Dasturini Oliy Natija Bilan Bitirdingiz.', options: ['Sertifikatni Qabul Qilish', 'Darslarni Takrorlash', 'Bosh Sahifaga Qaytish', 'Chiqish'], correctAnswerIndex: 0, explanation: 'Grand Master Certificate Awarded.' }
+                    ]
+                }
+            }
+        ]
     }
 ];
+

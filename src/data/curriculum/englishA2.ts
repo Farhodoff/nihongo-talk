@@ -1172,5 +1172,298 @@ export const ENGLISH_A2_LESSONS: Lesson[] = [
                 }
             }
         ]
+    },
+
+    // Unit 5: Socializing, Technology & A2 Mastery Review (Lessons 21 - 25)
+    {
+        id: 'en-a2-u5-l1',
+        courseId: 'english-a2',
+        unitId: 'en-a2-u5',
+        unitTitle: 'Unit 5: Socializing & Future Plans',
+        language: 'en',
+        level: 'A2',
+        lessonNumber: 21,
+        title: 'Making Invitations & Arrangements',
+        description: 'Takliflar: "Would you like to...?", "Shall we...?", "How about...?" va mos javoblar.',
+        estimatedDurationMinutes: 14,
+        icon: '✉️',
+        steps: [
+            {
+                id: 'en-a2-u5-l1-s1',
+                title: 'Taklif Iboralari',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Making & Responding to Invitations',
+                    explanation: 'Birovni biror joyga taklif qilish va rozi bo\'lish / rad etish iboralari.',
+                    keyPoints: [
+                        'Would you like to join us for dinner? — Biz bilan kechki ovqatga qo\'shilasizmi?',
+                        'I would love to, thanks! — Jon deb, rahmat!',
+                        'I am sorry, I can\'t. I am busy. — Uzr, bora olmayman. Bandman.'
+                    ],
+                    vocabulary: [
+                        { term: 'Invitation', reading: '/ˌɪn.vɪˈteɪ.ʃən/', meaning: 'Taklifnoma', exampleSentence: 'Thank you for the invitation.', exampleTranslation: 'Taklif uchun rahmat.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l1-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'en-a2-u5-l1-e1', type: 'multiple-choice', prompt: '"Would you like _______ to the movies tonight?"', options: ['to go', 'going', 'go', 'went'], correctAnswer: 0, explanation: 'Would you like + to + verb.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l1-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a2-u5-l1-q1', question: 'How about _______ football this weekend?', options: ['playing', 'to play', 'play', 'played'], correctAnswerIndex: 0, explanation: 'How about + V-ing.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a2-u5-l2',
+        courseId: 'english-a2',
+        unitId: 'en-a2-u5',
+        unitTitle: 'Unit 5: Socializing & Future Plans',
+        language: 'en',
+        level: 'A2',
+        lessonNumber: 22,
+        title: 'Technology & Digital Life Vocabulary',
+        description: 'Texnologiya va raqamli hayot: "Download", "Upload", "Password", "Social media", va fe\'llar.',
+        estimatedDurationMinutes: 14,
+        icon: '💻',
+        steps: [
+            {
+                id: 'en-a2-u5-l2-s1',
+                title: 'Raqamli So\'zlar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Digital Technology Terms',
+                    explanation: 'Komp\'yuter va smartfondan foydalanishdagi asosiy A2 iboralar.',
+                    keyPoints: [
+                        'Log in / Log out — Tizimga kirish / chiqish',
+                        'Attach a file — Fayl ilova qilish',
+                        'Click the button — Tugmani bosish'
+                    ],
+                    vocabulary: [
+                        { term: 'Password', reading: '/ˈpɑːs.wɜːd/', meaning: 'Parol', exampleSentence: 'Enter your password.', exampleTranslation: 'Parolingizni kiriting.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l2-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri so\'zni tanlang.',
+                    exercises: [
+                        { id: 'en-a2-u5-l2-e1', type: 'multiple-choice', prompt: 'Don\'t forget to _______ your document before closing.', options: ['save', 'delete', 'forget', 'lose'], correctAnswer: 0, explanation: 'Save = saqlash.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l2-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a2-u5-l2-q1', question: 'I sent you an email with an _______ file.', options: ['attached', 'attaching', 'attaches', 'attach'], correctAnswerIndex: 0, explanation: 'Attached file (ilova qilingan fayl).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a2-u5-l3',
+        courseId: 'english-a2',
+        unitId: 'en-a2-u5',
+        unitTitle: 'Unit 5: Socializing & Future Plans',
+        language: 'en',
+        level: 'A2',
+        lessonNumber: 23,
+        title: 'Describing Life Events & Biography',
+        description: 'Biografiya va hayotiy voqealar: "Be born", "Graduate", "Get a job", "Move to another city".',
+        estimatedDurationMinutes: 14,
+        icon: '📜',
+        steps: [
+            {
+                id: 'en-a2-u5-l3-s1',
+                title: 'Hayotiy Voqealar',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Life Milestones',
+                    explanation: 'O\'tmishdagi hayotiy bosqichlar va biografiyalar haqida gapirish.',
+                    keyPoints: [
+                        'He was born in 1995 in Samarkand.',
+                        'She graduated from university 3 years ago.',
+                        'They got married in 2020.'
+                    ],
+                    vocabulary: [
+                        { term: 'Graduate', reading: '/ˈɡrædʒ.u.eɪt/', meaning: 'Bitirmoq (o\'quv yurti)', exampleSentence: 'I graduated in 2022.', exampleTranslation: 'Men 2022-yilda bitirdim.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l3-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri fe\'l shaklini tanlang.',
+                    exercises: [
+                        { id: 'en-a2-u5-l3-e1', type: 'multiple-choice', prompt: '"Shakespeare _______ born in 1564."', options: ['was', 'were', 'is', 'has been'], correctAnswer: 0, explanation: 'He was born...' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l3-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a2-u5-l3-q1', question: 'When did they _______ to Tashkent?', options: ['move', 'moved', 'moving', 'moves'], correctAnswerIndex: 0, explanation: 'Did ... move (lug\'at shakli).' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a2-u5-l4',
+        courseId: 'english-a2',
+        unitId: 'en-a2-u5',
+        unitTitle: 'Unit 5: Socializing & Future Plans',
+        language: 'en',
+        level: 'A2',
+        lessonNumber: 24,
+        title: 'Giving Advice with Should & Ought To',
+        description: 'Maslahat berish: "You should see a doctor", "You shouldn\'t stay up late".',
+        estimatedDurationMinutes: 14,
+        icon: '💡',
+        steps: [
+            {
+                id: 'en-a2-u5-l4-s1',
+                title: 'Maslahat Fe\'li (Should)',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'Giving Advice (Should / Shouldn\'t)',
+                    explanation: 'Kimgadir maslahat berishda "should" qo\'llaniladi.',
+                    keyPoints: [
+                        'You should drink more water. — Ko\'proq suv ichishingiz kerak.',
+                        'You shouldn\'t eat so much junk food. — Juda ko\'p zararli taom yemasligingiz kerak.',
+                        'What should I do? — Men nima qilishim kerak?'
+                    ],
+                    vocabulary: [
+                        { term: 'Advice', reading: '/ədˈvaɪs/', meaning: 'Maslahat', exampleSentence: 'Can you give me some advice?', exampleTranslation: 'Menga biror maslahat bera olasizmi?' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l4-s2',
+                title: 'Mashq',
+                type: 'practice',
+                estimatedMinutes: 4,
+                practiceData: {
+                    instructions: 'To\'g\'ri javobni tanlang.',
+                    exercises: [
+                        { id: 'en-a2-u5-l4-e1', type: 'multiple-choice', prompt: '"You have a fever. You _______ see a doctor."', options: ['should', 'shouldn\'t', 'don\'t', 'mustn\'t to'], correctAnswer: 0, explanation: 'Should = tavsiya/maslahat.' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l4-s3',
+                title: 'Test',
+                type: 'test',
+                estimatedMinutes: 5,
+                testData: {
+                    instructions: 'Savollarga javob bering.',
+                    passingScorePercentage: 75,
+                    questions: [
+                        { id: 'en-a2-u5-l4-q1', question: 'Which sentence correctly gives negative advice?', options: ['You shouldn\'t smoke.', 'You should not to smoke.', 'You don\'t should smoke.', 'You must not smoke to.'], correctAnswerIndex: 0, explanation: 'You shouldn\'t smoke.' }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        id: 'en-a2-u5-l5',
+        courseId: 'english-a2',
+        unitId: 'en-a2-u5',
+        unitTitle: 'Unit 5: Socializing & Future Plans',
+        language: 'en',
+        level: 'A2',
+        lessonNumber: 25,
+        title: 'A2 Comprehensive Final Assessment & B1 Bridge',
+        description: 'A2 darajasining to\'liq yakuniy baholash imtihoni va B1 darajasiga o\'tish uchun tayyorgarlik.',
+        estimatedDurationMinutes: 16,
+        icon: '🎓',
+        steps: [
+            {
+                id: 'en-a2-u5-l5-s1',
+                title: 'A2 Xulosa va B1 Tayyorgarlik',
+                type: 'learn',
+                estimatedMinutes: 5,
+                learnData: {
+                    title: 'A2 Comprehensive Review',
+                    explanation: 'A2 darajadagi barcha asosiy tushunchalar: Past Simple, Continuous, Comparatives, Future (going to), Modals (have to, should).',
+                    keyPoints: [
+                        'Past vs Present comparison',
+                        'Basic connectors: because, although, so, but',
+                        'Expressing opinions and giving recommendations'
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l5-s2',
+                title: 'A2 Mashqlar',
+                type: 'practice',
+                estimatedMinutes: 5,
+                practiceData: {
+                    instructions: 'Savollarga javob bering.',
+                    exercises: [
+                        { id: 'en-a2-u5-l5-e1', type: 'multiple-choice', prompt: '"I missed the bus, _______ I walked to school."', options: ['so', 'because', 'although', 'but'], correctAnswer: 0, explanation: 'So = shuning uchun (natija).' }
+                    ]
+                }
+            },
+            {
+                id: 'en-a2-u5-l5-s3',
+                title: 'A2 Level Promotion Exam',
+                type: 'test',
+                estimatedMinutes: 6,
+                testData: {
+                    instructions: 'B1 darajasiga o\'tish uchun testni kamida 80% natija bilan topshiring.',
+                    passingScorePercentage: 80,
+                    questions: [
+                        { id: 'en-a2-u5-l5-q1', question: 'While we _______ dinner, the lights went out.', options: ['were having', 'had', 'have', 'are having'], correctAnswerIndex: 0, explanation: 'While we were having...' },
+                        { id: 'en-a2-u5-l5-q2', question: 'He is _______ taller than his brother.', options: ['much', 'more', 'many', 'very'], correctAnswerIndex: 0, explanation: 'Much taller (ancha balandroq).' },
+                        { id: 'en-a2-u5-l5-q3', question: 'You _______ clean your room before going out; mom said so.', options: ['must', 'shouldn\'t', 'don\'t have to', 'can'], correctAnswerIndex: 0, explanation: 'Must = buyruq/majburiyat.' },
+                        { id: 'en-a2-u5-l5-q4', question: 'She has decided. She _______ start a new business next year.', options: ['is going to', 'will be', 'starts', 'went to'], correctAnswerIndex: 0, explanation: 'Qaror qilingan reja: is going to.' }
+                    ]
+                }
+            }
+        ]
     }
 ];
+
