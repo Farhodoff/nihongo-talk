@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { 
     Award, BookOpen, 
     BrainCircuit, AlertCircle, ChevronRight, X 
@@ -42,6 +43,13 @@ export const LessonPlayerPage: React.FC = () => {
 
         const foundLesson = LessonService.getLessonById(lessonId);
         if (foundLesson) {
+            // Phase 15: Service-level prerequisite and access validation
+            const access = LearningOrchestrator.canAccessLesson(lessonId, user?.id || '');
+            if (!access.allowed) {
+                console.warn(`[LessonPlayer] Access denied: ${access.reason}`);
+                navigate(access.redirectTo || '/dashboard', { replace: true });
+                return;
+            }
             setLesson(foundLesson);
 
             // Load saved progress

@@ -477,65 +477,34 @@ const DashboardPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Next & Weak Lesson Cards */}
-                    {(roadmapSummary.nextLesson || roadmapSummary.topWeakLesson) && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                            {roadmapSummary.nextLesson && (
-                                <Link
-                                    to={roadmapSummary.nextLesson.route}
-                                    className="p-4 rounded-2xl border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-all flex flex-col justify-between gap-3 group"
-                                >
-                                    <div className="space-y-1.5">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-primary/15 text-primary">
-                                                {language === 'en' ? 'Next Up' : 'Navbatdagi Dars'}
-                                            </span>
-                                            <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                                <Clock size={12} /> ~{roadmapSummary.nextLesson.estimatedMinutes} daq
-                                            </span>
-                                        </div>
-                                        <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                                            {roadmapSummary.nextLesson.title}
-                                        </h4>
-                                        <p className="text-xs text-muted-foreground line-clamp-1">
-                                            {roadmapSummary.nextLesson.description}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1 border-t border-primary/10">
-                                        <span>{language === 'en' ? 'Start Lesson' : 'Darsni Boshlash'}</span>
-                                        <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </Link>
-                            )}
 
-                            {roadmapSummary.topWeakLesson && roadmapSummary.topWeakLesson.id !== roadmapSummary.nextLesson?.id && (
-                                <Link
-                                    to={roadmapSummary.topWeakLesson.route}
-                                    className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 transition-all flex flex-col justify-between gap-3 group"
-                                >
-                                    <div className="space-y-1.5">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-500">
-                                                {language === 'en' ? 'Focus Area' : "Zaif Ko'nikma"}
-                                            </span>
-                                            <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                                <Clock size={12} /> ~{roadmapSummary.topWeakLesson.estimatedMinutes} daq
-                                            </span>
-                                        </div>
-                                        <h4 className="text-sm font-bold text-foreground group-hover:text-rose-500 transition-colors line-clamp-1">
-                                            {roadmapSummary.topWeakLesson.title}
-                                        </h4>
-                                        <p className="text-xs text-muted-foreground line-clamp-1">
-                                            {roadmapSummary.topWeakLesson.description}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-end text-xs font-bold text-rose-500 gap-1 pt-1 border-t border-rose-500/10">
-                                        <span>{language === 'en' ? 'Practice' : 'Mashq Qilish'}</span>
-                                        <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </Link>
-                            )}
-                        </div>
+                    {/* Phase 15: Next lesson is shown in hero CTA above — only show weakness focus card here */}
+                    {roadmapSummary.topWeakLesson && (
+                        <Link
+                            to={roadmapSummary.topWeakLesson.route}
+                            className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 transition-all flex flex-col justify-between gap-3 group"
+                        >
+                            <div className="space-y-1.5">
+                                <div className="flex items-center justify-between gap-2">
+                                    <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-500">
+                                        {language === 'en' ? 'Focus Area' : "Zaif Ko'nikma"}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                        <Clock size={12} /> ~{roadmapSummary.topWeakLesson.estimatedMinutes} daq
+                                    </span>
+                                </div>
+                                <h4 className="text-sm font-bold text-foreground group-hover:text-rose-500 transition-colors line-clamp-1">
+                                    {roadmapSummary.topWeakLesson.title}
+                                </h4>
+                                <p className="text-xs text-muted-foreground line-clamp-1">
+                                    {roadmapSummary.topWeakLesson.description}
+                                </p>
+                            </div>
+                            <div className="flex items-center justify-end text-xs font-bold text-rose-500 gap-1 pt-1 border-t border-rose-500/10">
+                                <span>{language === 'en' ? 'Practice' : 'Mashq Qilish'}</span>
+                                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </Link>
                     )}
                 </div>
             )}

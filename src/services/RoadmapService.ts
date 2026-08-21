@@ -83,8 +83,9 @@ export const RoadmapService = {
                         } else {
                             // Check prerequisites
                             let prereqsMet = true;
-                            if (lesson.prerequisites && lesson.prerequisites.length > 0) {
-                                for (const prereqId of lesson.prerequisites) {
+                            const prereqIds = CurriculumService.getLessonPrerequisites(lesson.id);
+                            if (prereqIds.length > 0) {
+                                for (const prereqId of prereqIds) {
                                     const pProg = LessonService.getLessonProgress(state.userId, prereqId);
                                     const pDone = pProg ? (pProg.isCompleted || (pProg as any).completed) : false;
                                     if (!pDone) {

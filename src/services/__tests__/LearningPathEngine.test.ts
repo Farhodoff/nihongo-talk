@@ -320,6 +320,8 @@ describe('Phase 8.5 - LearningPathEngine SRS Integration Suite (30 Deterministic
     it('25. should generate identical outputs for identical input states', async () => {
         const state = createMockState();
         vi.spyOn(LearningOrchestrator, 'getUserLearningState').mockResolvedValue(state);
+        // Phase 15: Mock promoteIfReady to avoid side effects in determinism test
+        vi.spyOn(LearningOrchestrator, 'promoteIfReady').mockResolvedValue({ promoted: false, oldLevel: state.currentLevel, newLevel: null, reason: 'mocked' });
 
         const plan1 = await LearningPathEngine.getTodayPlan('user-test');
         const plan2 = await LearningPathEngine.getTodayPlan('user-test');

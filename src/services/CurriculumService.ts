@@ -438,6 +438,25 @@ export const CurriculumService = {
     },
 
     /**
+     * Phase 15: Get prerequisite lesson IDs for a given lesson.
+     * Returns empty array if not found or no prerequisites.
+     */
+    getLessonPrerequisites(lessonId: string): string[] {
+        for (const course of [this.getEnglishCurriculum(), this.getJapaneseCurriculum()]) {
+            for (const level of course.levels) {
+                for (const unit of level.units) {
+                    for (const lesson of unit.lessons) {
+                        if (lesson.id === lessonId) {
+                            return lesson.prerequisites || [];
+                        }
+                    }
+                }
+            }
+        }
+        return [];
+    },
+
+    /**
      * Get Course by language.
      */
     getCourse(language: SupportedLanguage): CurriculumCourse {

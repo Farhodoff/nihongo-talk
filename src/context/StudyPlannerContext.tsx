@@ -258,7 +258,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     });
 
     const [targetLevel, setTargetLevel] = useState<string>(() => {
-        return safeLocalStorage.getItem('study_planner_target_level') || (primaryLanguage === 'ja' ? 'N3' : 'B2');
+        return safeLocalStorage.getItem('study_planner_target_level') || (primaryLanguage === 'ja' ? 'N5' : 'A1');
     });
 
     const [targetGoal, setTargetGoal] = useState<string>(() => {
@@ -717,7 +717,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return next;
         });
 
-        const newLevel = level || (lang === 'ja' ? 'N3' : 'B2');
+        const newLevel = level || (lang === 'ja' ? 'N5' : 'A1');
         const newGoal = goal || (lang === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+');
 
         setTargetLevel(newLevel);

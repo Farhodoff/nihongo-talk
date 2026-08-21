@@ -37,26 +37,40 @@ export const LearningPathEngine = {
         // 2. Progression state evaluation
         const progression = this.evalProgression(state, isZeroLevel);
 
-        // 3. Reasons and candidates gathering
+        // Phase 15: Auto-promote if ready (writes to localStorage, syncs to Supabase)
+        // Use a local working copy to avoid mutating the caller's state object.
+        const workingState = { ...state };
+        if (progression.canAdvance && progression.nextLevel) {
+            try {
+                const result = await LearningOrchestrator.promoteIfReady(workingState.userId, lang);
+                if (result.promoted) {
+                    workingState.currentLevel = progression.nextLevel;
+                }
+            } catch (err) {
+                console.warn('[LearningPathEngine] Auto-promotion failed:', err);
+            }
+        }
+
+        // 3. Reasons and candidates gathering (use workingState to reflect promotion)
         const reasons: LearningReason[] = [];
-        const nextAction = this.evalNextBestAction(state, isZeroLevel, reasons, progression, options);
+        const nextAction = this.evalNextBestAction(workingState, isZeroLevel, reasons, progression, options);
 
         // 4. Skill allocations
-        const skillAllocations = this.evalSkillAllocations(state, totalMinutes);
+        const skillAllocations = this.evalSkillAllocations(workingState, totalMinutes);
 
         // 5. Daily plan assembly
-        const todayPlan = this.evalTodayPlan(state, totalMinutes, nextAction, skillAllocations, options);
+        const todayPlan = this.evalTodayPlan(workingState, totalMinutes, nextAction, skillAllocations, options);
 
         // 6. Optional detailed sub-components
-        const srsSummary = state.reviewSummary;
-        const recentSignals = state.signalsSummary;
+        const srsSummary = workingState.reviewSummary;
+        const recentSignals = workingState.signalsSummary;
 
         const lastEvaluatedAt = new Date().toISOString();
 
         return {
             userId,
             primaryLanguage: lang,
-            currentLevel: state.currentLevel,
+            currentLevel: workingState.currentLevel,
             targetLevel: state.targetLevel,
             targetGoal: state.targetGoal,
             isZeroLevel,

@@ -13,6 +13,15 @@ vi.mock('../../context/StudyPlannerContext', () => ({
     })
 }));
 
+vi.mock('../../services/LearningOrchestrator', () => ({
+    LearningOrchestrator: {
+        canAccessLesson: () => ({ allowed: true, reason: 'Access granted' }),
+        promoteIfReady: vi.fn(),
+        getPrimaryLanguage: () => 'en',
+        getUserTarget: () => ({ targetLevel: 'N3', targetGoal: '', currentLevel: 'N3' }),
+    }
+}));
+
 vi.mock('../../utils/audioTts', () => ({
     speakText: vi.fn(),
     speakJapaneseText: vi.fn()

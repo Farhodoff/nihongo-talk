@@ -151,13 +151,15 @@ describe('LearningOrchestrator Foundation Unit Tests', () => {
         expect(state.recentActivity.lastStudyAt).toBeNull();
     });
 
-    it('8. should fallback missing profile values safely', () => {
+    it('8. should fallback missing profile values to foundation levels (Phase 15)', () => {
         const target = LearningOrchestrator.getUserTarget('en');
-        expect(target.targetLevel).toBe('B2');
+        expect(target.targetLevel).toBe('A1');
+        expect(target.currentLevel).toBe('A1');
         expect(target.targetGoal).toBe('IELTS 7.0+');
 
         const targetJa = LearningOrchestrator.getUserTarget('ja');
-        expect(targetJa.targetLevel).toBe('N3');
+        expect(targetJa.targetLevel).toBe('N5');
+        expect(targetJa.currentLevel).toBe('N5');
         expect(targetJa.targetGoal).toBe('JLPT Imtihoni');
     });
 

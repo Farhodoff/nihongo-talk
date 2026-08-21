@@ -9,6 +9,7 @@ import {
 } from '../types/learningOrchestrator';
 import { SupportedLanguage } from '../types/lesson';
 import { LessonService } from './LessonService';
+import { CurriculumService } from './CurriculumService';
 import { LearningSignalService } from './LearningSignalService';
 import { WeaknessEngine } from './WeaknessEngine';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -41,12 +42,15 @@ export const LearningOrchestrator = {
      * Resolve user's target level and goal.
      */
     getUserTarget(primaryLang: SupportedLanguage): { targetLevel: string; targetGoal: string; currentLevel: string } {
-        const defaultLevel = primaryLang === 'ja' ? 'N3' : 'B2';
+        // Phase 15: Foundation level is the safe default for ZERO/new users
+        const foundationLevel = primaryLang === 'ja' ? 'N5' : 'A1';
         const defaultGoal = primaryLang === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+';
 
-        const targetLevel = safeLocalStorage.getItem('study_planner_target_level') || defaultLevel;
+        // Target level: user's aspirational goal (may be higher than current)
+        const targetLevel = safeLocalStorage.getItem('study_planner_target_level') || foundationLevel;
         const targetGoal = safeLocalStorage.getItem('study_planner_target_goal') || defaultGoal;
-        const currentLevel = safeLocalStorage.getItem('study_planner_current_level') || targetLevel;
+        // Current level: user's actual progress point — foundation if never set
+        const currentLevel = safeLocalStorage.getItem('study_planner_current_level') || foundationLevel;
 
         return { currentLevel, targetLevel, targetGoal };
     },
@@ -360,5 +364,114 @@ export const LearningOrchestrator = {
             recentActivity,
             masteryProfile
         };
+    },
+
+    /**
+     * Phase 15: Promote user to next level if all conditions are met.
+     * Writes to localStorage (study_planner_current_level) and syncs to Supabase.
+     */
+    async promoteIfReady(userId: string = 'guest', language?: SupportedLanguage): Promise<{ promoted: boolean; oldLevel: string; newLevel: string | null; reason: string }> {
+        const lang = language || this.getPrimaryLanguage();
+        const state = await this.getUserLearningState(userId, { forceLanguage: lang });
+
+        // Dynamic import to avoid circular dependency at module load time
+        const { LearningPathEngine } = await import('./LearningPathEngine') as any;
+
+        const isZeroLevel = state.completedLessonsCount === 0 &&
+            (state.currentLevel === 'A1' || state.currentLevel === 'N5');
+
+        const progression = LearningPathEngine.evalProgression(state, isZeroLevel);
+
+        if (!progression.canAdvance || !progression.nextLevel) {
+            return {
+                promoted: false,
+                oldLevel: state.currentLevel,
+                newLevel: null,
+                reason: (progression.advancementBlockers || []).length > 0
+                    ? (progression.advancementBlockers || []).join('; ')
+                    : 'Already at maximum level or no next level defined.'
+            };
+        }
+
+        const newLevel = progression.nextLevel;
+        const oldLevel = state.currentLevel;
+
+        // 1. Write current level to localStorage
+        safeLocalStorage.setItem('study_planner_current_level', newLevel);
+        console.log(`[Orchestrator] Level promoted: ${oldLevel} -> ${newLevel}`);
+
+        // 2. Fire-and-forget Supabase profile metadata sync
+        if (userId && userId !== 'guest') {
+            try {
+                const supabase = (await import('../lib/supabase') as any).supabase;
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    await supabase.auth.updateUser({
+                        data: { current_level: newLevel, current_level_language: lang }
+                    });
+                }
+            } catch (err) {
+                console.warn('[Orchestrator] Supabase level sync failed (non-critical):', err);
+            }
+        }
+
+        return { promoted: true, oldLevel, newLevel, reason: `All requirements met for ${newLevel}` };
+    },
+
+    /**
+     * Phase 15: Validate whether a user can access a specific lesson.
+     * Checks: existence, language isolation, level eligibility, prerequisites.
+     */
+    canAccessLesson(
+        lessonId: string,
+        userId: string = 'guest',
+        language?: SupportedLanguage
+    ): { allowed: boolean; reason: string; redirectTo?: string } {
+        const lang = language || this.getPrimaryLanguage();
+
+        // 1. Lesson must exist (LessonService already imported at module top)
+        const lesson = LessonService.getLessonById(lessonId);
+        if (!lesson) {
+            return { allowed: false, reason: 'Lesson not found', redirectTo: '/dashboard' };
+        }
+
+        // 2. Language isolation enforcement (TASK 7)
+        if ((lesson.language || lang) !== lang) {
+            return { allowed: false, reason: `Language mismatch: lesson is ${(lesson.language || '?')}, user track is ${lang}`, redirectTo: '/dashboard' };
+        }
+
+        // 3. Level eligibility check
+        const { currentLevel } = this.getUserTarget(lang);
+        const levels = lang === 'ja'
+            ? ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1']
+            : ['ZERO', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        const userLevelIdx = levels.indexOf(currentLevel);
+        const lessonLevelIdx = levels.indexOf(lesson.level);
+
+        if (lessonLevelIdx < 0) {
+            return { allowed: true, reason: `Unknown lesson level "${lesson.level}", allowing access` };
+        }
+        if (userLevelIdx < 0) {
+            return { allowed: true, reason: 'User level not in progression sequence, allowing access' };
+        }
+        if (userLevelIdx < lessonLevelIdx) {
+            return { allowed: false, reason: `Lesson requires level ${lesson.level}, currently at ${currentLevel}`, redirectTo: '/dashboard' };
+        }
+
+        // 4. Prerequisite completion check
+        const prereqs = CurriculumService.getLessonPrerequisites(lessonId);
+        if (Array.isArray(prereqs) && prereqs.length > 0) {
+            for (const prereqId of prereqs) {
+                const prereqLesson = LessonService.getLessonById(prereqId);
+                if (!prereqLesson) continue;
+                const prog = LessonService.getLessonProgress(userId, prereqId);
+                const isDone = prog ? (prog.isCompleted || (prog as any).completed) : false;
+                if (!isDone) {
+                    return { allowed: false, reason: `Prerequisite not completed: ${prereqLesson.title || prereqId}`, redirectTo: '/dashboard' };
+                }
+            }
+        }
+
+        return { allowed: true, reason: 'Access granted' };
     }
 };
