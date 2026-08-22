@@ -3,7 +3,7 @@ import {
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
     Mic, Crown, Brain,
-    Headphones, PenTool, Shield
+    Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -126,8 +126,6 @@ const Layout: React.FC = () => {
             { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
             { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
             { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-            { name: "Reading & Listening", path: '/ielts/reading-listening', icon: Headphones, tourId: 'nav-reading' },
-            { name: "Writing Mock", path: '/ielts/writing', icon: PenTool, tourId: 'nav-writing' },
             { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
             { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
             { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },

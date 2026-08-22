@@ -28,17 +28,10 @@ const SubjectsPage = lazy(() => import('./pages/SubjectsPage'));
 const TasksPage = lazy(() => import('./pages/TasksPage'));
 const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
 const SpeakingCoachPage = lazy(() => import('./pages/SpeakingCoachPage'));
-const IeltsWritingPage = lazy(() => import('./pages/IeltsWritingPage'));
 const IeltsHubPage = lazy(() => import('./pages/IeltsHubPage'));
 const IeltsSpeakingMockPage = lazy(() => import('./pages/IeltsSpeakingMockPage'));
-const IeltsReadingListeningMockPage = lazy(() => import('./pages/IeltsReadingListeningMockPage').then(m => ({ default: m.IeltsReadingListeningMockPage })));
 const JlptHubPage = lazy(() => import('./pages/JlptHubPage'));
-const ScenarioPickerPage = lazy(() => import('./pages/ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
 const JlptWritingPage = lazy(() => import('./pages/JlptWritingPage'));
-const JlptListeningMockPage = lazy(() => import('./pages/JlptListeningMockPage').then(m => ({ default: m.JlptListeningMockPage })));
-const JlptGrammarQuizPage = lazy(() => import('./pages/JlptGrammarQuizPage').then(m => ({ default: m.JlptGrammarQuizPage })));
-const JlptMockExamPage = lazy(() => import('./pages/JlptMockExamPage').then(m => ({ default: m.JlptMockExamPage })));
-const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => ({ default: m.JlptReadingPage })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
 const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
 const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
@@ -48,7 +41,6 @@ const DeveloperApiPage = lazy(() => import('./pages/DeveloperApiPage'));
 const LessonPlayerPage = lazy(() => import('./pages/LessonPlayerPage'));
 const RoadmapPage = lazy(() => import('./pages/RoadmapPage'));
 const DiagnosticPage = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })));
-const PersonalPlanPage = lazy(() => import('./pages/PersonalPlanPage').then(m => ({ default: m.PersonalPlanPage })));
 
 
 // Loading component
@@ -123,25 +115,25 @@ const App: React.FC = () => {
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
                                         <Route path="roadmap" element={<RoadmapPage />} />
-                                        <Route path="personal-plan" element={<PersonalPlanPage />} />
+                                        <Route path="personal-plan" element={<Navigate to="/ielts?tab=plan" replace />} />
                                         <Route path="diagnostic" element={<DiagnosticPage />} />
                                         <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
-                                        <Route path="ielts/grammar" element={<Navigate to="/ielts" replace />} />
-                                        <Route path="ielts/writing" element={<IeltsWritingPage />} />
-                                        <Route path="ielts-writing" element={<Navigate to="/ielts/writing" replace />} />
+                                        <Route path="ielts/grammar" element={<Navigate to="/ielts?tab=grammar" replace />} />
+                                        <Route path="ielts/writing" element={<Navigate to="/ielts?tab=writing" replace />} />
+                                        <Route path="ielts-writing" element={<Navigate to="/ielts?tab=writing" replace />} />
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
-                                        <Route path="ielts/reading-listening" element={<IeltsReadingListeningMockPage />} />
+                                        <Route path="ielts/reading-listening" element={<Navigate to="/ielts?tab=reading_listening" replace />} />
                                         <Route path="jlpt" element={<JlptHubPage />} />
-                                        <Route path="scenarios" element={<ScenarioPickerPage />} />
+                                        <Route path="scenarios" element={<Navigate to="/jlpt?tab=scenarios" replace />} />
                                         <Route path="jlpt-speaking" element={<Navigate to="/speaking-coach?lang=ja" replace />} />
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
-                                        <Route path="jlpt/listening" element={<JlptListeningMockPage />} />
-                                        <Route path="jlpt/grammar" element={<Navigate to="/jlpt/grammar-quiz" replace />} />
-                                        <Route path="jlpt/grammar-quiz" element={<JlptGrammarQuizPage />} />
-                                        <Route path="jlpt/reading" element={<JlptReadingPage />} />
-                                        <Route path="jlpt/mock-exam" element={<JlptMockExamPage />} />
+                                        <Route path="jlpt/listening" element={<Navigate to="/jlpt?tab=listening" replace />} />
+                                        <Route path="jlpt/grammar" element={<Navigate to="/jlpt?tab=kanji" replace />} />
+                                        <Route path="jlpt/grammar-quiz" element={<Navigate to="/jlpt?tab=kanji" replace />} />
+                                        <Route path="jlpt/reading" element={<Navigate to="/jlpt?tab=reading" replace />} />
+                                        <Route path="jlpt/mock-exam" element={<Navigate to="/jlpt?tab=mock" replace />} />
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />
