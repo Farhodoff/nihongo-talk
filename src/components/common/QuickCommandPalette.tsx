@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     Search, Home, CheckSquare, Calendar, BookOpen, Copy, 
-    Sparkles, GraduationCap, Mic, Clock, NotebookText, 
+    Sparkles, GraduationCap, Mic, Clock, 
     Users, BarChart, Settings, ArrowRight, X, Compass, Brain, Code2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -36,7 +36,6 @@ const COMMANDS: CommandItem[] = [
 
     // Fokus & Hamjamiyat
     { id: 'focus', title: 'Fokus Taymer (Pomodoro) ⏱️', description: 'Diqqatni jamlash va tanaffus', category: 'Fokus & Hamjamiyat', path: '/focus', icon: Clock, keywords: ['pomodoro', 'timer', 'vaqt', 'diqqat'] },
-    { id: 'notes', title: 'Qaydlar & Konspektlar 📝', description: 'Mavzular bo\'yicha xulosalar', category: 'Fokus & Hamjamiyat', path: '/notes', icon: NotebookText, keywords: ['konspekt', 'qayd', 'notepad', 'yozuvlar'] },
     { id: 'community', title: 'Hamjamiyat & O\'quv Xonalari 👥', description: 'Boshqalar bilan birga o\'rganish', category: 'Fokus & Hamjamiyat', path: '/community', icon: Users, keywords: ['chat', 'study room', 'jamoa', 'xona'] },
     { id: 'progress', title: 'Natijalar & Tahlil 📊', description: 'O\'rganish grafigi va samaradorlik', category: 'Fokus & Hamjamiyat', path: '/progress', icon: BarChart, keywords: ['statistika', 'grafik', 'samaradorlik', 'analytics'] },
     { id: 'developers', title: 'Dasturchilar & Ochiq API 💻', description: 'Tashqi loyihalar uchun REST API va SDK', category: 'Boshqaruv', path: '/developers', icon: Code2, keywords: ['api', 'sdk', 'developer', 'dasturchi', 'rest', 'curl', 'token'] },

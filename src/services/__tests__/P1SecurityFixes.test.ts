@@ -80,7 +80,7 @@ describe('P1 migration (20260825000000_p1_security_fixes.sql)', () => {
 
 describe('client-side P1 fixes', () => {
     it('mermaid runs with securityLevel strict (no loose HTML injection)', () => {
-        const src = readProject('src/pages/AIAssistantPage.tsx');
+        const src = readProject('src/components/MermaidViewer.tsx');
         expect(src).toContain("securityLevel: 'strict'");
         expect(src).not.toContain("securityLevel: 'loose'");
     });

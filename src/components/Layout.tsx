@@ -82,7 +82,6 @@ const Layout: React.FC = () => {
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
             '/speaking-coach',
-            '/ai',
             '/room',
             '/focus',
             '/ielts/speaking-mock',

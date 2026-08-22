@@ -14,15 +14,12 @@ import { Toaster } from './components/ui/toaster';
 
 import { OnboardingTour } from './components/OnboardingTour';
 
-const AIAssistantPage = lazy(() => import('./pages/AIAssistantPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 const DecksPage = lazy(() => import('./pages/DecksPage'));
 const FlashcardForm = lazy(() => import('./pages/FlashcardForm'));
 const FocusPage = lazy(() => import('./pages/FocusPage'));
-const NoteEditorPage = lazy(() => import('./pages/NoteEditorPage'));
-const NotesPage = lazy(() => import('./pages/NotesPage'));
 const ProgressPage = lazy(() => import('./pages/ProgressPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const StudyModePage = lazy(() => import('./pages/StudyModePage'));
@@ -43,7 +40,6 @@ const JlptListeningMockPage = lazy(() => import('./pages/JlptListeningMockPage')
 const JlptGrammarQuizPage = lazy(() => import('./pages/JlptGrammarQuizPage').then(m => ({ default: m.JlptGrammarQuizPage })));
 const JlptMockExamPage = lazy(() => import('./pages/JlptMockExamPage').then(m => ({ default: m.JlptMockExamPage })));
 const JlptReadingPage = lazy(() => import('./pages/JlptReadingPage').then(m => ({ default: m.JlptReadingPage })));
-const CVCreatorTab = lazy(() => import('./components/CVCreator/CVCreatorTab').then(m => ({ default: m.CVCreatorTab })));
 const VocabularyBuilderPage = lazy(() => import('./pages/VocabularyBuilderPage').then(m => ({ default: m.VocabularyBuilderPage })));
 const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
 const ExamsManager = lazy(() => import('./pages/admin/ExamsManager'));
@@ -154,9 +150,9 @@ const App: React.FC = () => {
                                         <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
                                         <Route path="tasks" element={<TasksPage />} />
                                         <Route path="focus" element={<FocusPage />} />
-                                        <Route path="notes" element={<NotesPage />} />
-                                        <Route path="notes/:id" element={<NoteEditorPage />} />
-                                        <Route path="ai" element={<AIAssistantPage />} />
+                                        <Route path="notes" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="notes/:id" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="ai" element={<Navigate to="/dashboard" replace />} />
                                         <Route path="flashcards" element={<DecksPage />} />
                                         <Route path="deck" element={<Navigate to="/flashcards" replace />} />
                                         <Route path="decks" element={<Navigate to="/flashcards" replace />} />
@@ -168,7 +164,7 @@ const App: React.FC = () => {
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />
-                                        <Route path="cv-creator" element={<CVCreatorTab />} />
+                                        <Route path="cv-creator" element={<Navigate to="/dashboard" replace />} />
                                         <Route path="vocabulary" element={<VocabularyBuilderPage />} />
                                         <Route path="pricing" element={<PricingPage />} />
                                         <Route path="leaderboard" element={<Navigate to="/community?tab=leaderboard" replace />} />

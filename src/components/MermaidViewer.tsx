@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import mermaid from 'mermaid';
 
+mermaid.initialize({
+    startOnLoad: false,
+    theme: 'default',
+    securityLevel: 'strict',
+    fontFamily: 'Inter, sans-serif'
+});
+
 interface MermaidViewerProps {
     chart: string;
 }

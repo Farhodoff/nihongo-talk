@@ -46,13 +46,6 @@ const TOUR_STEPS: TourStep[] = [
         path: "/focus"
     },
     {
-        title: "AI Imtihon va Sinovlar 🧠",
-        content: "Konspektlaringiz va fanlaringiz asosida sun'iy intellekt yordamida avtomatik test savollarini yaratib, o'z bilimingizni sinab ko'ring.",
-        target: "[data-tour=\"nav-ai-exam\"]",
-        placement: "right",
-        path: "/ai"
-    },
-    {
         title: "Guruhdoshlar va Hamkorlik 📹",
         content: "Native WebRTC video aloqa, ekran ulashish va hamkorlikda doskada chizish xonalarini yaratib, jamoaviy dars qiling.",
         target: "[data-tour=\"nav-community\"]",
