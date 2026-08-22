@@ -1,17 +1,11 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award, Languages, Compass, Trash2 } from 'lucide-react';
+import React, { Suspense, lazy } from 'react';
+import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Languages, Compass, Volume2, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { generateAlgorithmicJlptPlan } from '../utils/curriculum/jlptAlgorithmicPlanner';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { toast } from '../hooks/use-toast';
-import { supabase } from '../lib/supabase';
-import { toDeterministicUUID } from '../utils/uuid';
 import { useSEO } from '../hooks/useSEO';
 
-const JlptOnboardingModal = lazy(() => import('../components/jlpt/JlptOnboardingModal').then(m => ({ default: m.JlptOnboardingModal })));
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
-
 
 export const JlptHubPage: React.FC = () => {
     useSEO({
@@ -22,86 +16,7 @@ export const JlptHubPage: React.FC = () => {
     });
 
     const navigate = useNavigate();
-    const [isQuizOpen, setIsQuizOpen] = useState(false);
     const { flashcards, settings, updateSettings } = useStudyData();
-
-    const [userPlanData, setUserPlanData] = useState<{
-        finalGoalTitle?: string;
-        currentLevel?: string;
-        targetLevel?: string;
-        durationDays?: number;
-        dailyMinutes?: number;
-        generatedPlan?: {
-            headline: string;
-            summary: string;
-            dailyPlan?: any[];
-        };
-    } | null>(null);
-
-    const handleCancelPlan = async () => {
-        if (window.confirm("Haqiqatan ham joriy o'quv rejangiz va maqsadingizni bekor qilmoqchimisiz?")) {
-            localStorage.removeItem('study_planner_jlpt_user_target');
-            setUserPlanData(null);
-            try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user?.id) {
-                    const uuid = toDeterministicUUID(`target_${user.id}_jlpt`);
-                    await supabase.from('user_targets').delete().eq('id', uuid);
-                }
-                await supabase.auth.updateUser({ data: { jlpt_user_target: null } });
-            } catch (e) {}
-            toast({
-                title: '🗑️ Reja bekor qilindi',
-                description: 'Joriy rejangiz o\'chirildi. Yangi reja tuzishingiz mumkin.'
-            });
-        }
-    };
-
-    useEffect(() => {
-        const loadPlan = async () => {
-            let parsed = null;
-            const saved = localStorage.getItem('study_planner_jlpt_user_target');
-            if (saved) {
-                try { parsed = JSON.parse(saved); } catch (e) {}
-            }
-
-            // Load from user_targets DB table + user_metadata fallback
-            if (!parsed) {
-                try {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (user?.id) {
-                        const { data: dbTarget, error: dbErr } = await supabase
-                            .from('user_targets')
-                            .select('*')
-                            .eq('user_id', user.id)
-                            .eq('target_type', 'jlpt')
-                            .maybeSingle();
-
-                        if (!dbErr && dbTarget?.details) {
-                            parsed = dbTarget.details;
-                            localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
-                        } else if (user.user_metadata?.jlpt_user_target) {
-                            parsed = user.user_metadata.jlpt_user_target;
-                            localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
-                        }
-                    }
-                } catch (e) {}
-            }
-
-            if (parsed) {
-                if (parsed.generatedPlan && (!parsed.generatedPlan.dailyPlan || parsed.generatedPlan.dailyPlan.length === 0)) {
-                    parsed.generatedPlan.dailyPlan = generateAlgorithmicJlptPlan(
-                        parsed.currentLevel || 'N5',
-                        parsed.targetLevel || 'N3',
-                        parsed.durationDays || 30
-                    );
-                    localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
-                }
-                setUserPlanData(parsed);
-            }
-        };
-        loadPlan();
-    }, []);
 
     const jlptCards = flashcards.filter(f => f.front.includes('[N') || f.front.includes('漢字') || f.front.includes('語彙'));
 
@@ -155,158 +70,43 @@ export const JlptHubPage: React.FC = () => {
 
                         {/* Primary Plan Creator CTA */}
                         <button
-                            onClick={() => setIsQuizOpen(true)}
-                            className="px-6 py-3 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/25 transition-all flex items-center gap-2 active:scale-95"
+                            onClick={() => navigate('/personal-plan')}
+                            className="px-5 py-2.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-rose-500/25 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                         >
-                            <Target size={18} />
-                            <span>{userPlanData ? "Maqsadni Yangilash" : "Shaxsiy Reja Tuzish"}</span>
+                            <Target size={16} />
+                            <span>Shaxsiy Rejam</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* Target Roadmap Banner (Active User Plan) */}
-            {userPlanData && (
-                <div className="bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                        <Award size={180} />
+            {/* Direct Link to Central Personal Learning Plan */}
+            <div className="bg-gradient-to-r from-rose-950/80 via-slate-900 to-purple-950/80 p-5 md:p-6 rounded-3xl border border-rose-500/20 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-white">
+                <div className="flex items-center gap-3.5">
+                    <div className="p-3 bg-rose-500/20 rounded-2xl text-rose-300 border border-rose-500/30 shrink-0">
+                        <Target size={24} />
                     </div>
-
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                        <div className="lg:col-span-8 space-y-3">
-                            <div className="flex flex-wrap items-center gap-2">
-                                <div className="inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30">
-                                    <Flame size={14} />
-                                    <span>{userPlanData.durationDays || 90}-Kunlik Yapon Tili Challenge</span>
-                                </div>
-                                <button
-                                    onClick={handleCancelPlan}
-                                    className="inline-flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold px-3 py-1 rounded-full border border-rose-500/30 transition-colors"
-                                    title="Maqsadni bekor qilish va o'chirish"
-                                >
-                                    <Trash2 size={13} />
-                                    <span>Rejani Bekor Qilish</span>
-                                </button>
-                            </div>
-                            <h2 className="text-2xl font-black">
-                                {userPlanData.generatedPlan?.headline || userPlanData.finalGoalTitle || `${userPlanData.currentLevel} ➔ ${userPlanData.targetLevel}`}
-                            </h2>
-                            <p className="text-sm text-slate-300 leading-relaxed">
-                                {userPlanData.generatedPlan?.summary || "Yapon tilini samarali o'zlashtirish va imtihonlarni topshirish uchun sun'iy intellekt tomonidan shakllantirilgan dars jadvali."}
-                            </p>
-                        </div>
-
-                        <div className="lg:col-span-4 flex items-center justify-around lg:justify-end gap-6 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
-                            <div className="text-center">
-                                <span className="text-xs text-slate-400 font-medium uppercase block">Boshlang'ich</span>
-                                <span className="text-xl font-extrabold text-slate-300">
-                                    {userPlanData.currentLevel === '0' ? "🌱 0 Level" : userPlanData.currentLevel}
-                                </span>
-                            </div>
-                            <ArrowRight size={20} className="text-rose-400" />
-                            <div className="text-center">
-                                <span className="text-xs text-amber-400 font-bold uppercase block">Maqsad</span>
-                                <span className="text-3xl font-black text-amber-400">{userPlanData.targetLevel}</span>
-                            </div>
-                        </div>
+                    <div>
+                        <h2 className="text-base md:text-lg font-black text-white flex items-center gap-2">
+                            <span>JLPT Shaxsiy Rejangiz & Darslar</span>
+                            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                AI Adaptive
+                            </span>
+                        </h2>
+                        <p className="text-xs text-slate-300 mt-0.5">
+                            Kunlik va haftalik vazifalar, Speaking, Kanji, Fleshkartalar va Mock imtihonlar taqsimoti
+                        </p>
                     </div>
                 </div>
-            )}
 
-            {/* AI Generated Study Plan (Roadmap) */}
-            {userPlanData && (userPlanData as any).generatedPlan?.dailyPlan && (userPlanData as any).generatedPlan.dailyPlan.length > 0 && (
-                <div className="bg-card p-6 md:p-8 rounded-3xl border border-border shadow-sm">
-                    <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                        <FileText className="text-rose-500" /> AI Kunlik Dars Rejasi (Yo'l Xaritasi)
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {(userPlanData as any).generatedPlan.dailyPlan.map((dayPlan: any, idx: number) => (
-                            <div key={idx} className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/20">
-                                <div className="flex items-start justify-between mb-3">
-                                    <h4 className="font-bold text-foreground">
-                                        <span className="text-rose-500 mr-1">Kun {dayPlan.day}:</span> {dayPlan.title}
-                                    </h4>
-                                    <span className="text-[10px] font-bold px-2 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-lg whitespace-nowrap ml-2">
-                                        {dayPlan.focusArea || dayPlan.focusSkill}
-                                    </span>
-                                </div>
-                                <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-muted-foreground">
-                                    {dayPlan.tasks.map((t: string, i: number) => <li key={i}>{t}</li>)}
-                                </ul>
-
-                                {/* Daily Kanji List */}
-                                {dayPlan.kanjiList && dayPlan.kanjiList.length > 0 && (
-                                    <div className="mt-3 pt-3 border-t border-rose-500/20">
-                                        <span className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1 mb-2">
-                                            ⛩️ Bugungi Kanji ({dayPlan.kanjiList.length} ta):
-                                        </span>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {dayPlan.kanjiList.map((k: any, kIdx: number) => (
-                                                <span 
-                                                    key={kIdx} 
-                                                    title={`On: ${k.onyomi || '-'} | Kun: ${k.kunyomi || '-'}`}
-                                                    className="px-2 py-1 bg-rose-500/10 text-rose-700 dark:text-rose-300 text-xs font-bold rounded-lg border border-rose-500/20"
-                                                >
-                                                    <strong className="text-sm font-black mr-1">{k.kanji}</strong> ({k.meaning})
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Daily Vocabulary List */}
-                                {dayPlan.vocabularyList && dayPlan.vocabularyList.length > 0 && (
-                                    <div className="mt-3 pt-2 border-t border-rose-500/10">
-                                        <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 mb-2">
-                                            📖 Bugungi Lug'at ({dayPlan.vocabularyList.length} ta):
-                                        </span>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {dayPlan.vocabularyList.map((v: any, vIdx: number) => (
-                                                <span 
-                                                    key={vIdx} 
-                                                    className="px-2 py-1 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-lg border border-indigo-500/20"
-                                                >
-                                                    {v.word} {v.reading ? `<${v.reading}>` : ''} <span className="font-normal opacity-80">({v.meaning})</span>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Daily Grammar Notes */}
-                                {dayPlan.grammarNotes && dayPlan.grammarNotes.length > 0 && (
-                                    <div className="mt-3 pt-2 border-t border-rose-500/10">
-                                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1.5">
-                                            📝 Grammatika Qoidasi:
-                                        </span>
-                                        <div className="space-y-1">
-                                            {dayPlan.grammarNotes.map((g: any, gIdx: number) => (
-                                                <div key={gIdx} className="text-xs text-muted-foreground bg-emerald-500/5 p-2 rounded-lg border border-emerald-500/10">
-                                                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{g.rule}:</span> {g.explanation}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="mt-4 pt-3 border-t border-rose-500/20 flex items-center gap-1.5 text-xs text-rose-500 font-semibold">
-                                    <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    {(userPlanData as any).generatedPlan.recommendedTips && (userPlanData as any).generatedPlan.recommendedTips.length > 0 && (
-                        <div className="mt-6 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20">
-                            <h4 className="font-bold text-amber-600 dark:text-amber-500 mb-3 flex items-center gap-2">
-                                <Award size={18} className="text-amber-500" /> AI Tavsiyalari
-                            </h4>
-                            <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-amber-700 dark:text-amber-400/90">
-                                {(userPlanData as any).generatedPlan.recommendedTips.map((tip: string, i: number) => <li key={i}>{tip}</li>)}
-                            </ul>
-                        </div>
-                    )}
-                </div>
-            )}
+                <button
+                    onClick={() => navigate('/personal-plan')}
+                    className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                >
+                    <span>Shaxsiy Rejamga O'tish</span>
+                    <ArrowRight size={14} />
+                </button>
+            </div>
 
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -499,17 +299,6 @@ export const JlptHubPage: React.FC = () => {
                 <div>
                     <JlptGrammarKanjiMaster />
                 </div>
-
-                {isQuizOpen && (
-                    <JlptOnboardingModal
-                        isOpen={isQuizOpen}
-                        onClose={() => setIsQuizOpen(false)}
-                        onPlanCreated={() => {
-                            const saved = localStorage.getItem('study_planner_jlpt_user_target');
-                            if (saved) setUserPlanData(JSON.parse(saved));
-                        }}
-                    />
-                )}
             </Suspense>
         </div>
     );

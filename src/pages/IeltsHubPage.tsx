@@ -1,21 +1,13 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame, Trash2, RefreshCw } from 'lucide-react';
+import React, { useState, Suspense, lazy } from 'react';
+import { Target, Mic, BookOpen, ArrowRight, GraduationCap, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
 import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
-import { IeltsStudyPlanResult } from '../utils/ai';
-import { toast } from '../hooks/use-toast';
-import { supabase } from '../lib/supabase';
-import { toDeterministicUUID } from '../utils/uuid';
-import { useStudyData } from '../context/StudyPlannerContext';
-import { analyzeAndRebalanceSchedule } from '../utils/ai/weeklyRebalancer';
 import { useSEO } from '../hooks/useSEO';
 
-const IeltsOnboardingModal = lazy(() => import('../components/ielts/IeltsOnboardingModal').then(m => ({ default: m.IeltsOnboardingModal })));
 const DailyReflectionModal = lazy(() => import('../components/ielts/DailyReflectionModal').then(m => ({ default: m.DailyReflectionModal })));
 const IeltsGrammarMaster = lazy(() => import('../components/ielts/IeltsGrammarMaster'));
 const VocabularyGenerator = lazy(() => import('../components/ielts/VocabularyGenerator').then(m => ({ default: m.VocabularyGenerator })));
-
 
 export const IeltsHubPage: React.FC = () => {
     useSEO({
@@ -26,143 +18,7 @@ export const IeltsHubPage: React.FC = () => {
     });
 
     const navigate = useNavigate();
-    const { tasks } = useStudyData();
-    const [isQuizOpen, setIsQuizOpen] = useState(false);
     const [isReflectionOpen, setIsReflectionOpen] = useState(false);
-    const [userPlanData, setUserPlanData] = useState<{
-        currentBand: number;
-        targetBand: number;
-        durationDays: number;
-        generatedPlan: IeltsStudyPlanResult;
-    } | null>(null);
-
-    const { flashcards } = useStudyData();
-    const [isRebalancing, setIsRebalancing] = useState(false);
-
-    const handleRebalancePlan = async () => {
-        setIsRebalancing(true);
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            const result = await analyzeAndRebalanceSchedule(user?.id || '', tasks, flashcards, 'IELTS');
-            if (result.success) {
-                toast({
-                    title: '🪄 Reja Optimizatsiya Qilindi!',
-                    description: result.message
-                });
-            } else {
-                toast({ variant: 'destructive', title: '⚠️ Xatolik', description: result.message });
-            }
-        } catch (e) {
-            toast({ variant: 'destructive', title: '❌ Xatolik', description: 'Rejani optimallashtirishda xato bo\'ldi.' });
-        } finally {
-            setIsRebalancing(false);
-        }
-    };
-
-    const handleCancelPlan = async () => {
-        if (window.confirm("Haqiqatan ham joriy IELTS o'quv rejangizni bekor qilmoqchimisiz?")) {
-            localStorage.removeItem('study_planner_ielts_user_target');
-            setUserPlanData(null);
-            try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user?.id) {
-                    const uuid = toDeterministicUUID(`target_${user.id}_ielts`);
-                    await supabase.from('user_targets').delete().eq('id', uuid);
-                }
-                await supabase.auth.updateUser({ data: { ielts_user_target: null } });
-            } catch (e) {}
-            toast({
-                title: '🗑️ Reja bekor qilindi',
-                description: 'Joriy IELTS rejangiz o\'chirildi.'
-            });
-        }
-    };
-
-    useEffect(() => {
-        const loadPlan = async () => {
-            let plan = null;
-            const saved = localStorage.getItem('study_planner_ielts_user_target');
-            if (saved) {
-                try { plan = JSON.parse(saved); } catch (e) {}
-            }
-
-            // Load from Supabase user_targets table + metadata fallback
-            if (!plan) {
-                try {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (user?.id) {
-                        const { data: dbTarget, error: dbErr } = await supabase
-                            .from('user_targets')
-                            .select('*')
-                            .eq('user_id', user.id)
-                            .eq('target_type', 'ielts')
-                            .maybeSingle();
-
-                        if (!dbErr && dbTarget?.details) {
-                            plan = dbTarget.details;
-                            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
-                        } else if (user.user_metadata?.ielts_user_target) {
-                            plan = user.user_metadata.ielts_user_target;
-                            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
-                        }
-                    }
-                } catch (e) {}
-            }
-
-            // Auto-reconstruct IELTS plan if tasks exist in DB from previous creation
-            if (!plan && tasks && tasks.length > 0) {
-                const ieltsTasks = tasks.filter(t => t.title.includes('[IELTS') || t.title.toLowerCase().includes('ielts'));
-                if (ieltsTasks.length > 0) {
-                    const dayMap = new Map<number, string[]>();
-                    ieltsTasks.forEach(t => {
-                        const match = t.title.match(/\[IELTS Day (\d+)\]\s*(.*)/i);
-                        const dayNum = match ? parseInt(match[1], 10) : 1;
-                        const taskContent = match ? match[2] : t.title;
-                        if (!dayMap.has(dayNum)) dayMap.set(dayNum, []);
-                        dayMap.get(dayNum)!.push(taskContent);
-                    });
-
-                    const reconstructedDailyPlan = Array.from(dayMap.entries()).map(([day, taskList]) => ({
-                        day,
-                        focusSkill: day % 4 === 1 ? 'Reading & Vocabulary' : day % 4 === 2 ? 'Listening & Shadowing' : day % 4 === 3 ? 'Writing Essay Structure' : 'Speaking Examiner Practice',
-                        tasks: taskList,
-                        estimatedMinutes: 60
-                    })).sort((a, b) => a.day - b.day);
-
-                    plan = {
-                        currentBand: 6.0,
-                        targetBand: 7.5,
-                        durationDays: reconstructedDailyPlan.length || 30,
-                        weakSkill: 'Writing & Speaking',
-                        createdAt: new Date().toISOString(),
-                        generatedPlan: {
-                            headline: "Tiklangan IELTS Intensiv Dars Rejasi",
-                            summary: "Bazada saqlangan vazifalaringiz asosida avtomatik tiklangan IELTS dars jadvali",
-                            targetBand: 7.5,
-                            estimatedHoursPerDay: 1.5,
-                            dailyPlan: reconstructedDailyPlan.length > 0 ? reconstructedDailyPlan : [
-                                { day: 1, focusSkill: 'Reading & Vocabulary', tasks: ieltsTasks.slice(0, 3).map(t => t.title), estimatedMinutes: 60 }
-                            ],
-                            keyMilestones: [
-                                { day: 7, milestone: "1-haftalik Listening & Reading diagnostic mock test" },
-                                { day: 15, milestone: "Task 2 Essay va Speaking Part 2 intensiv nazorati" },
-                                { day: 30, milestone: "Barcha 4 ta modul bo'yicha Full Mock Test" }
-                            ],
-                            recommendedTools: ["IELTS Hub", "AI Speaking Coach", "Vocabulary Decks"]
-                        }
-                    };
-
-                    localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
-                    supabase.auth.updateUser({ data: { ielts_user_target: plan } }).catch(() => {});
-                }
-            }
-
-            if (plan) {
-                setUserPlanData(plan);
-            }
-        };
-        loadPlan();
-    }, [tasks]);
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16">
@@ -183,155 +39,34 @@ export const IeltsHubPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Target & Roadmap Banner */}
-            {userPlanData ? (
-                <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 md:p-8 rounded-3xl text-white shadow-xl mb-8 border border-indigo-500/20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                        <Award size={180} />
+            {/* Direct Link to Central Personal Learning Plan */}
+            <div className="bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 p-5 md:p-6 rounded-3xl border border-indigo-500/20 shadow-xl mb-8 flex flex-col md:flex-row items-center justify-between gap-4 text-white">
+                <div className="flex items-center gap-3.5">
+                    <div className="p-3 bg-indigo-500/20 rounded-2xl text-indigo-300 border border-indigo-500/30 shrink-0">
+                        <Target size={24} />
                     </div>
-
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                        <div className="lg:col-span-8 space-y-3">
-                            <div className="flex flex-wrap items-center gap-2">
-                                <div className="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30">
-                                    <Target size={14} />
-                                    <span>30-Day IELTS Challenge</span>
-                                </div>
-                                <button
-                                    onClick={handleRebalancePlan}
-                                    disabled={isRebalancing}
-                                    className="inline-flex items-center gap-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/30 transition-colors disabled:opacity-50"
-                                    title="AI bilan haftalik rejani qayta optimallashtirish"
-                                >
-                                    <RefreshCw size={13} className={isRebalancing ? 'animate-spin' : ''} />
-                                    <span>{isRebalancing ? 'Optimizatsiya...' : 'Haftalik Rejani Optimizatsiya Qilish 🪄'}</span>
-                                </button>
-                                <button
-                                    onClick={handleCancelPlan}
-                                    className="inline-flex items-center gap-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full border border-indigo-500/30 transition-colors"
-                                    title="IELTS rejasini bekor qilish"
-                                >
-                                    <Trash2 size={13} />
-                                    <span>Rejani Bekor Qilish</span>
-                                </button>
-                            </div>
-                            <h2 className="text-2xl font-black">{userPlanData.generatedPlan.headline}</h2>
-                            <p className="text-sm text-slate-300 leading-relaxed">{userPlanData.generatedPlan.summary}</p>
-                        </div>
-
-                        <div className="lg:col-span-4 flex items-center justify-around lg:justify-end gap-6 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
-                            <div className="text-center">
-                                <span className="text-xs text-slate-400 font-medium uppercase block">Joriy Ball</span>
-                                <span className="text-2xl font-extrabold text-slate-300">
-                                    {userPlanData.currentBand === 0 ? "🌱 0 (Noldan)" : userPlanData.currentBand.toFixed(1)}
-                                </span>
-                            </div>
-                            <ArrowRight size={24} className="text-indigo-400" />
-                            <div className="text-center">
-                                <span className="text-xs text-amber-400 font-bold uppercase block">Maqsad</span>
-                                <span className="text-4xl font-black text-amber-400">{userPlanData.targetBand.toFixed(1)}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 p-6 md:p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/40 mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="space-y-2">
-                        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400">
-                            <Flame size={16} />
-                            <span>ielts.gg formatidagi AI Study Plan</span>
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                            Maqsadli IELTS Ballingiz Uchun Shaxsiy Dars Rejangiz Yo'qmi?
-                        </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xl">
-                            4 ta oddiy savolga javob bering, AI sizning zaif nuqtalaringizga moslangan 30 kunlik intensiv dars va vazifalar jadvalini yaratib beradi.
+                    <div>
+                        <h2 className="text-base md:text-lg font-black text-white flex items-center gap-2">
+                            <span>IELTS Shaxsiy Rejangiz & Darslar</span>
+                            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                AI Adaptive
+                            </span>
+                        </h2>
+                        <p className="text-xs text-slate-300 mt-0.5">
+                            Kunlik va haftalik vazifalar, Speaking, Lug'at va Mock imtihonlar taqsimotini boshqarish
                         </p>
                     </div>
-                    <button
-                        onClick={() => setIsQuizOpen(true)}
-                        className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl shadow-lg shadow-indigo-500/25 transition-all whitespace-nowrap"
-                    >
-                        Reja Tuzishni Boshlash 🎯
-                    </button>
                 </div>
-            )}
 
-            {/* AI Generated Study Plan (Roadmap) */}
-            {userPlanData?.generatedPlan?.dailyPlan && userPlanData.generatedPlan.dailyPlan.length > 0 && (
-                <div className="mb-8 bg-white dark:bg-[#1f2937] p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                        <FileText className="text-indigo-500" /> AI Kunlik Dars Rejasi (Yo'l Xaritasi)
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {userPlanData.generatedPlan.dailyPlan.map((dayPlan, idx) => (
-                            <div key={idx} className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
-                                <div className="flex items-start justify-between mb-3">
-                                    <h4 className="font-bold text-indigo-900 dark:text-indigo-100">
-                                        <span className="text-indigo-500 mr-1">Kun {dayPlan.day}:</span> {dayPlan.title}
-                                    </h4>
-                                    <span className="text-[10px] font-bold px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 rounded-lg whitespace-nowrap ml-2">
-                                        {dayPlan.focusSkill}
-                                    </span>
-                                </div>
-                                <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
-                                    {dayPlan.tasks.map((t, i) => <li key={i}>{t}</li>)}
-                                </ul>
+                <button
+                    onClick={() => navigate('/personal-plan')}
+                    className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                >
+                    <span>Shaxsiy Rejamga O'tish</span>
+                    <ArrowRight size={14} />
+                </button>
+            </div>
 
-                                {/* Daily Vocabulary Target List */}
-                                {dayPlan.vocabularyList && dayPlan.vocabularyList.length > 0 && (
-                                    <div className="mt-3 pt-3 border-t border-indigo-100 dark:border-indigo-900/30">
-                                        <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-1 mb-2">
-                                            📖 Bugungi Lug'at ({dayPlan.vocabularyList.length} ta so'z):
-                                        </span>
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {dayPlan.vocabularyList.map((v, vIdx) => (
-                                                <span 
-                                                    key={vIdx} 
-                                                    title={v.example ? `Misol: ${v.example}` : v.meaning}
-                                                    className="px-2 py-1 bg-indigo-100/70 dark:bg-indigo-900/40 text-indigo-900 dark:text-indigo-200 text-xs font-bold rounded-lg border border-indigo-200/50 dark:border-indigo-800/50"
-                                                >
-                                                    {v.word} <span className="font-normal opacity-80">({v.meaning})</span>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Daily Grammar Notes */}
-                                {dayPlan.grammarNotes && dayPlan.grammarNotes.length > 0 && (
-                                    <div className="mt-3 pt-2 border-t border-indigo-100/60 dark:border-indigo-900/20">
-                                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1.5">
-                                            📝 Grammatika Qoidasi:
-                                        </span>
-                                        <div className="space-y-1">
-                                            {dayPlan.grammarNotes.map((g, gIdx) => (
-                                                <div key={gIdx} className="text-xs text-gray-700 dark:text-gray-300 bg-emerald-500/5 p-2 rounded-lg border border-emerald-500/10">
-                                                    <span className="font-bold text-emerald-700 dark:text-emerald-300">{g.rule}:</span> {g.explanation}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="mt-4 pt-3 border-t border-indigo-100 dark:border-indigo-900/30 flex items-center gap-1.5 text-xs text-indigo-400 font-semibold">
-                                    <Target size={14} /> Vaqt maqsadi: {dayPlan.pomodoroTargetMinutes} min
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    {userPlanData.generatedPlan.recommendedTips && userPlanData.generatedPlan.recommendedTips.length > 0 && (
-                        <div className="mt-6 p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30">
-                            <h4 className="font-bold text-amber-900 dark:text-amber-100 mb-3 flex items-center gap-2">
-                                <Award size={18} className="text-amber-500" /> AI Tavsiyalari
-                            </h4>
-                            <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-amber-800 dark:text-amber-200/80">
-                                {userPlanData.generatedPlan.recommendedTips.map((tip, i) => <li key={i}>{tip}</li>)}
-                            </ul>
-                        </div>
-                    )}
-                </div>
-            )}
 
             {/* Daily Target Hub */}
             <div className="mb-8">
@@ -484,17 +219,6 @@ export const IeltsHubPage: React.FC = () => {
 
             {/* Lazy Modals */}
             <Suspense fallback={null}>
-                {isQuizOpen && (
-                    <IeltsOnboardingModal
-                        isOpen={isQuizOpen}
-                        onClose={() => setIsQuizOpen(false)}
-                        onPlanCreated={() => {
-                            const saved = localStorage.getItem('study_planner_ielts_user_target');
-                            if (saved) setUserPlanData(JSON.parse(saved));
-                        }}
-                    />
-                )}
-
                 {isReflectionOpen && (
                     <DailyReflectionModal
                         isOpen={isReflectionOpen}
