@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
 import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
@@ -25,6 +25,7 @@ import { CoachSettingsModal } from '../components/speaking/CoachSettingsModal';
 import { CoachProModal } from '../components/speaking/CoachProModal';
 import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
 import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
+import { playConversationChime } from '../utils/audioChime';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -155,6 +156,14 @@ const SpeakingCoachPage: React.FC = () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
+    // Hands-Free Full-Duplex Voice Mode state
+    const [isHandsFree, setIsHandsFree] = useState(true);
+    const isHandsFreeRef = useRef(true);
+    useEffect(() => { isHandsFreeRef.current = isHandsFree; }, [isHandsFree]);
+
+    const isSpeakingRef = useRef(isSpeaking);
+    useEffect(() => { isSpeakingRef.current = isSpeaking; }, [isSpeaking]);
+
     // TTS Hook
     const { speakText, stopSpeaking } = useTTS({
         language,
@@ -164,6 +173,14 @@ const SpeakingCoachPage: React.FC = () => {
         onSpeakEnd: () => {
             setIsSpeaking(false);
             isProcessingRef.current = false;
+            // Full-Duplex Auto-Resume Listening
+            if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
+                setTimeout(() => {
+                    if (isLiveSessionRef.current && isHandsFreeRef.current && !isSpeakingRef.current && !isProcessingRef.current) {
+                        startListening();
+                    }
+                }, 300);
+            }
         },
     });
 
@@ -191,7 +208,23 @@ const SpeakingCoachPage: React.FC = () => {
         onResumeListening: () => {},
     });
 
+    const handleBargeIn = useCallback(() => {
+        if (isSpeaking) {
+            playConversationChime('barge_in');
+            stopSpeaking();
+            setIsSpeaking(false);
+            isProcessingRef.current = false;
+            setTimeout(() => {
+                startListening();
+            }, 100);
+        }
+    }, [isSpeaking, stopSpeaking, startListening]);
+
     const toggleMic = () => {
+        if (isSpeaking) {
+            handleBargeIn();
+            return;
+        }
         if (isListening) {
             if (recognitionRef.current) {
                 try { recognitionRef.current.stop(); } catch (e) {}
@@ -684,6 +717,9 @@ const SpeakingCoachPage: React.FC = () => {
                                 errors={liveErrors}
                                 activeCefrLevel="B2"
                                 activeJlptLevel={language === 'ja' ? 'N3' : undefined}
+                                isHandsFree={isHandsFree}
+                                onToggleHandsFree={() => setIsHandsFree(prev => !prev)}
+                                onBargeIn={handleBargeIn}
                                 onToggleRecording={toggleMic}
                                 onCommitNow={commitSpeechNow}
                             />
@@ -721,6 +757,9 @@ const SpeakingCoachPage: React.FC = () => {
                 onClearHistory={() => setChatHistory([])}
                 formatTimer={formatTimer}
                 onForceStartListening={toggleMic}
+                isHandsFree={isHandsFree}
+                onToggleHandsFree={() => setIsHandsFree(prev => !prev)}
+                onBargeIn={handleBargeIn}
             />
 
             {/* SETTINGS MODAL */}

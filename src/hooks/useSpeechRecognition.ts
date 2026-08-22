@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { validateSpeechInput } from '../utils/ai';
+import { playConversationChime } from '../utils/audioChime';
 
 interface UseSpeechRecognitionOptions {
     language: 'en' | 'ja';
@@ -87,6 +88,7 @@ export const useSpeechRecognition = ({
         const text = transcriptBufferRef.current.trim();
         if (!text) return;
 
+        playConversationChime('commit');
         if (silenceTimerRef.current) {
             clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = null;
@@ -160,6 +162,7 @@ export const useSpeechRecognition = ({
             }
             setIsListening(true);
             setError(null);
+            playConversationChime('listen_start');
         };
 
         recognition.onspeechstart = () => {

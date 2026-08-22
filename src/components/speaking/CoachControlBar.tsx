@@ -15,6 +15,9 @@ interface CoachControlBarProps {
     onClearHistory: () => void;
     formatTimer: (sec: number) => string;
     onForceStartListening?: () => void;
+    isHandsFree?: boolean;
+    onToggleHandsFree?: () => void;
+    onBargeIn?: () => void;
 }
 
 export const CoachControlBar: React.FC<CoachControlBarProps> = ({
@@ -30,12 +33,15 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
     onClearHistory,
     formatTimer,
     onForceStartListening,
+    isHandsFree = true,
+    onToggleHandsFree,
+    onBargeIn,
 }) => {
     const getStatusInfo = () => {
-        if (isSpeaking) return { label: 'AI Gapirmoqda', color: 'text-blue-400', pulseColor: 'bg-blue-500' };
+        if (isSpeaking) return { label: 'AI Gapirmoqda (To\'xtatish uchun bosing)', color: 'text-blue-400', pulseColor: 'bg-blue-500' };
         if (isThinking) return { label: "O'ylamoqda...", color: 'text-purple-400', pulseColor: 'bg-purple-500' };
-        if (isListening) return { label: 'Eshitmoqda', color: 'text-emerald-400', pulseColor: 'bg-emerald-500' };
-        return { label: 'Tayyor (Gapirish uchun mikrofonga bosing)', color: 'text-amber-400', pulseColor: 'bg-amber-500' };
+        if (isListening) return { label: 'Eshitmoqda (Siz gapiryapsiz)', color: 'text-emerald-400', pulseColor: 'bg-emerald-500' };
+        return { label: isHandsFree ? 'Uzluksiz muloqotga tayyor' : 'Tayyor (Gapirish uchun mikrofonga bosing)', color: 'text-amber-400', pulseColor: 'bg-amber-500' };
     };
     const status = getStatusInfo();
 
@@ -49,10 +55,14 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                         <div className="flex items-center justify-between mb-1.5">
                             <div
                                 onClick={() => {
-                                    if (onForceStartListening) onForceStartListening();
+                                    if (isSpeaking && onBargeIn) {
+                                        onBargeIn();
+                                    } else if (onForceStartListening) {
+                                        onForceStartListening();
+                                    }
                                 }}
                                 className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-                                title="Gapirish uchun bosish"
+                                title={isSpeaking ? "AI gapirishini to'xtatish" : "Gapirish uchun bosish"}
                             >
                                 <span className={`w-2.5 h-2.5 rounded-full ${status.pulseColor} animate-pulse`} />
                                 <span className={`text-[11px] font-bold uppercase tracking-wider ${status.color}`}>
@@ -85,6 +95,25 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                             <div className="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
                                 <MessageCircle size={14} className="shrink-0 text-indigo-400" />
                                 <span>{chatHistoryLength} ta xabar</span>
+                                {isHandsFree ? (
+                                    <button
+                                        type="button"
+                                        onClick={onToggleHandsFree}
+                                        className="hidden sm:inline text-emerald-400 font-bold text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors"
+                                        title="Hands-free rejimini o'chirish"
+                                    >
+                                        ⚡ Hands-free
+                                    </button>
+                                ) : onToggleHandsFree ? (
+                                    <button
+                                        type="button"
+                                        onClick={onToggleHandsFree}
+                                        className="hidden sm:inline text-slate-400 font-medium text-[10px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors"
+                                        title="Hands-free rejimini yoqish"
+                                    >
+                                        🖐️ Qo'lda
+                                    </button>
+                                ) : null}
                             </div>
                         )}
                     </div>
@@ -102,30 +131,38 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                             </button>
                         )}
 
-                        {/* Mute Mic Toggle / Force Start */}
+                        {/* Mute Mic Toggle / Force Start / Barge-in */}
                         {isLiveSession && (
                             <button
                                 onClick={() => {
-                                    if (isMuted) {
-                                        setIsMuted(false);
-                                    }
-                                    if (onForceStartListening) {
-                                        onForceStartListening();
+                                    if (isSpeaking && onBargeIn) {
+                                        onBargeIn();
+                                    } else {
+                                        if (isMuted) {
+                                            setIsMuted(false);
+                                        }
+                                        if (onForceStartListening) {
+                                            onForceStartListening();
+                                        }
                                     }
                                 }}
                                 className={`p-2.5 rounded-xl transition-all flex items-center gap-1.5 ${
                                     isMuted 
                                     ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/25' 
+                                    : isSpeaking
+                                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 animate-pulse'
                                     : isListening
                                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                                     : 'bg-indigo-600 text-white shadow-md hover:bg-indigo-500 animate-bounce'
                                 }`}
-                                title={isMuted ? "Mikrofonni yoqish" : "Gapirish (Mikrofonni faollashtirish)"}
+                                title={isSpeaking ? "AI ni to'xtatish va gapirish" : isMuted ? "Mikrofonni yoqish" : "Gapirish (Mikrofonni faollashtirish)"}
                             >
                                 {isMuted ? <MicOff size={16} /> : <Mic size={16} className={isListening ? "animate-pulse text-emerald-400" : ""} />}
-                                {!isListening && !isMuted && !isSpeaking && !isThinking && (
+                                {isSpeaking ? (
+                                    <span className="text-[11px] font-bold text-cyan-300">TO'XTATISH</span>
+                                ) : !isListening && !isMuted && !isThinking ? (
                                     <span className="text-[11px] font-bold">GAPIRISH</span>
-                                )}
+                                ) : null}
                             </button>
                         )}
 

@@ -17,8 +17,11 @@ interface RealtimeVoiceOverlayProps {
     errors: ErrorTag[];
     activeCefrLevel?: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
     activeJlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
+    isHandsFree?: boolean;
     onToggleRecording: () => void;
     onCommitNow?: () => void;
+    onBargeIn?: () => void;
+    onToggleHandsFree?: () => void;
 }
 
 export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
@@ -28,7 +31,10 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     errors,
     activeCefrLevel = 'B2',
     activeJlptLevel,
+    isHandsFree = true,
     onCommitNow,
+    onBargeIn,
+    onToggleHandsFree,
 }) => {
     const getBadgeStyle = (level: string) => {
         switch (level) {
@@ -86,14 +92,47 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
                                 </span>
                             )}
                         </div>
-                        <p className="text-[10px] text-slate-400 font-medium">
-                            {isRecording ? 'Tezkor adaptiv tahlil rejimida' : 'Jonli ovozli muloqot rejimida'}
+                        <p className="text-[10px] text-slate-400 font-medium flex items-center gap-1.5">
+                            {isAiSpeaking ? 'Gapirish uchun to\'xtatishingiz mumkin' : isRecording ? 'Tezkor adaptiv tahlil rejimida' : 'Jonli ovozli muloqot rejimida'}
+                            {isHandsFree && (
+                                <span className="text-emerald-400 font-bold text-[9px] px-1 py-0.2 rounded bg-emerald-500/10 border border-emerald-500/20">
+                                    ⚡ Hands-free
+                                </span>
+                            )}
                         </p>
                     </div>
                 </div>
 
-                {/* Right: Level Badges & Micro-error Count */}
+                {/* Right: Level Badges, Hands-Free Toggle & Barge-in */}
                 <div className="flex items-center gap-2">
+                    {/* Barge-in Stop Button if AI is speaking */}
+                    {isAiSpeaking && onBargeIn && (
+                        <button
+                            type="button"
+                            onClick={onBargeIn}
+                            className="px-2.5 py-1 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-[11px] font-bold flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-md active:scale-95"
+                            title="AI gapirishini to'xtatish va so'zlash"
+                        >
+                            <Zap size={12} className="text-cyan-300 animate-pulse" />
+                            <span>To'xtatish</span>
+                        </button>
+                    )}
+
+                    {onToggleHandsFree && (
+                        <button
+                            type="button"
+                            onClick={onToggleHandsFree}
+                            className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-xl text-[10px] font-bold border transition-all ${
+                                isHandsFree 
+                                    ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300' 
+                                    : 'bg-slate-800 border-slate-700 text-slate-400'
+                            }`}
+                            title="Hands-free avtomatik suhbat rejimini yoqish/o'chirish"
+                        >
+                            <span>Hands-free: {isHandsFree ? 'ON' : 'OFF'}</span>
+                        </button>
+                    )}
+
                     {errors.length > 0 && (
                         <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold">
                             <AlertCircle size={13} />
