@@ -6,16 +6,56 @@ import { LearningPathEngine } from '../LearningPathEngine';
 import { LearningOrchestrator } from '../LearningOrchestrator';
 import { DiagnosticService } from '../DiagnosticService';
 import { LessonService } from '../LessonService';
-import { setLocalFlashcardCache } from '../FlashcardService';
+import { FlashcardService, getLocalFlashcardCache, setLocalFlashcardCache } from '../FlashcardService';
 import { Lesson } from '../../types/lesson';
 import { Flashcard } from '../../types';
 
+// Mock Supabase to prevent unhandled background rejections / teardown console logs
+vi.mock('../../lib/supabase', () => {
+    const chainable = {
+        select: vi.fn().mockReturnThis(),
+        insert: vi.fn().mockResolvedValue({ data: null, error: null }),
+        upsert: vi.fn().mockResolvedValue({ data: null, error: null }),
+        update: vi.fn().mockResolvedValue({ data: null, error: null }),
+        delete: vi.fn().mockResolvedValue({ data: null, error: null }),
+        eq: vi.fn().mockReturnThis(),
+        is: vi.fn().mockReturnThis(),
+        in: vi.fn().mockReturnThis(),
+        order: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockReturnThis(),
+        single: vi.fn().mockResolvedValue({ data: null, error: null }),
+        maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
+    };
+    return {
+        supabase: {
+            auth: {
+                getUser: vi.fn().mockResolvedValue({ data: { user: { id: '00000000-0000-4000-8000-000000000001' } }, error: null }),
+                updateUser: vi.fn().mockResolvedValue({ error: null })
+            },
+            from: vi.fn(() => chainable)
+        }
+    };
+});
+
 describe('Phase 8.11 — Real-Time Closed Loop Learning', () => {
-    const testUserId = 'test-closed-loop-user-' + Math.random().toString(36).substring(2, 7);
+    const testUserId = '00000000-0000-4000-8000-000000000001';
 
     beforeEach(() => {
         localStorage.clear();
         vi.clearAllMocks();
+        vi.spyOn(FlashcardService, 'addFlashcardsBatch').mockImplementation(async (userId, cards) => {
+            const current = getLocalFlashcardCache(userId);
+            const created = cards.map(c => ({
+                ...c,
+                id: c.id || `card_${Math.random().toString(36).substring(2, 9)}`,
+                userId
+            }));
+            setLocalFlashcardCache(userId, [...current, ...created]);
+            return created;
+        });
+        vi.spyOn(FlashcardService, 'fetchFlashcards').mockImplementation(async (userId) => {
+            return getLocalFlashcardCache(userId);
+        });
     });
 
     const mockLessonJa: Lesson = {
