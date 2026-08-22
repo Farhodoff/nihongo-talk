@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { registerSW } from 'virtual:pwa-register';
 import { initErrorTracking } from './lib/errorTracking';
+import { installConsoleShield } from './lib/consoleFilter';
 
 import './index.css';
+
+// Xavfsiz konsol filtri va Cookie tozalagichni faollashtirish
+installConsoleShield();
 
 // Sentry / Error tracking tizimini ishga tushirish
 initErrorTracking();
