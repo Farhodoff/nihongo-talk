@@ -66,12 +66,22 @@ export default async function handler(req, res) {
       if (!u.chat_id) continue;
 
       // 1. Fetch user's pending tasks
-      const { data: tasks } = await supabase
+      let { data: tasks } = await supabase
         .from('tasks')
-        .select('*')
+        .select('title, status, completed')
         .eq('user_id', u.user_id)
-        .eq('completed', false)
-        .limit(3);
+        .neq('status', 'done')
+        .limit(5);
+
+      if (!tasks || tasks.length === 0) {
+        const { data: fallbackTasks } = await supabase
+          .from('tasks')
+          .select('title, status, completed')
+          .eq('user_id', u.user_id)
+          .eq('completed', false)
+          .limit(5);
+        tasks = fallbackTasks || [];
+      }
 
       // 2. Fetch subscription status
       const { data: sub } = await supabase

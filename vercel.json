@@ -9,6 +9,12 @@
         { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
         { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
     ],
+    "crons": [
+        {
+            "path": "/api/telegram/notify-daily",
+            "schedule": "0 3 * * *"
+        }
+    ],
     "headers": [
         {
             "source": "/(.*)",
