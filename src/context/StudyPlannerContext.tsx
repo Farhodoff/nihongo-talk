@@ -246,7 +246,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         syncGoogleEvents
     } = useEvents(appSettings.notificationsEnabled);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(() => {
+        // Only show loading on cold start if there is absolutely no cached user
+        const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+        return !cachedUser;
+    });
     const [user, setUser] = useState<User | null>(() => {
         return safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
     });
@@ -279,7 +283,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Global Data Fetcher and Synchronizer
     const fetchData = useCallback(async () => {
-        setLoading(true);
+        // Non-blocking background revalidation (Stale-While-Revalidate)
         try {
             if (typeof navigator !== 'undefined' && !navigator.onLine) {
                 const localSession = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);

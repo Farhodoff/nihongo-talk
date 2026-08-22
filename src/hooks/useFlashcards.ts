@@ -12,7 +12,22 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         onCardReviewedRef.current = onCardReviewed;
     }, [onCardReviewed]);
 
-    const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+    const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
+        try {
+            const userKey = 'study_planner_flashcards_cache_99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
+            const rawUser = localStorage.getItem(userKey);
+            if (rawUser) {
+                const parsed = JSON.parse(rawUser);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            }
+            const rawGeneric = localStorage.getItem('study_planner_flashcards_cache_guest');
+            if (rawGeneric) {
+                const parsed = JSON.parse(rawGeneric);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            }
+        } catch {}
+        return [];
+    });
 
     const addFlashcard = useCallback(async (cardData: Partial<Flashcard>) => {
         let activeUserId = 'local_user';

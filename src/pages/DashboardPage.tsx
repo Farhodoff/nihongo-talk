@@ -1,11 +1,11 @@
-import { CheckCircle, Loader2, ListTodo, Trophy, ArrowRight, Clock, Map, Sparkles } from 'lucide-react';
+import { CheckCircle, ListTodo, Trophy, ArrowRight, Clock, Map, Sparkles, Loader2 } from 'lucide-react';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CountdownWidget from '../components/CountdownWidget';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { calculateMasteryScore } from '../utils/analytics';
-import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { LearningPathEngine } from '../services/LearningPathEngine';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { LearningProgressionService } from '../services/LearningProgressionService';
@@ -14,19 +14,25 @@ import { NextBestAction, DailyLearningPlan, ProgressionState, LevelPromotionCand
 import { RoadmapSummary } from '../types/curriculum';
 
 const DashboardPage: React.FC = () => {
-    const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, settings, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
+    const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
     const { language, t } = useLanguage();
-    const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>([]);
-    const [isAiInsightsLoading, setIsAiInsightsLoading] = useState(false);
-    const [nextAction, setNextAction] = useState<NextBestAction | null>(null);
-    const [dailyPlan, setDailyPlan] = useState<DailyLearningPlan | null>(null);
-    const [progression, setProgression] = useState<ProgressionState | null>(null);
-    const [roadmapSummary, setRoadmapSummary] = useState<RoadmapSummary | null>(null);
+    const cachedStateKey = `study_planner_cached_dashboard_${primaryLanguage}`;
+    const initialCached = useMemo(() => {
+        return safeLocalStorage.getJSON<any>(cachedStateKey, null);
+    }, [cachedStateKey]);
+
+    const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>(() => {
+        return safeLocalStorage.getJSON<any>('study_planner_cached_insights', []);
+    });
+    const isAiInsightsLoading = false;
+    const [nextAction, setNextAction] = useState<NextBestAction | null>(() => initialCached?.nextAction || null);
+    const [dailyPlan, setDailyPlan] = useState<DailyLearningPlan | null>(() => initialCached?.dailyPlan || null);
+    const [progression, setProgression] = useState<ProgressionState | null>(() => initialCached?.progression || null);
+    const [roadmapSummary, setRoadmapSummary] = useState<RoadmapSummary | null>(() => initialCached?.roadmapSummary || null);
     const [loadingState, setLoadingState] = useState<'loading' | 'success' | 'error'>('loading');
     const [retryTrigger, setRetryTrigger] = useState(0);
     const [isPromoting, setIsPromoting] = useState(false);
     const [promotionCandidate, setPromotionCandidate] = useState<LevelPromotionCandidate | null>(null);
-
 
     // Sanalarni ajratib olish
     const todayStr = new Date().toISOString().split('T')[0];
@@ -98,22 +104,28 @@ const DashboardPage: React.FC = () => {
     }, [subjects, sessions, tasks, flashcards]);
 
     useEffect(() => {
-        let isMounted = true;
-        if (subjectsStats.length > 0 && aiInsights.length === 0 && !isAiInsightsLoading && isAIKeyConfigured()) {
-            setIsAiInsightsLoading(true);
-            generateStudyInsight(subjectsStats, settings.googleApiKey)
-                .then(insights => {
-                    if (isMounted && insights && insights.length > 0) {
-                        setAiInsights(insights);
+        if (subjectsStats.length > 0 && aiInsights.length === 0) {
+            const cached = safeLocalStorage.getJSON<{ subject: string; advice: string }[]>('study_planner_cached_insights', []);
+            if (cached && cached.length > 0) {
+                setAiInsights(cached);
+            } else {
+                const firstSubject = subjectsStats[0]?.name || (primaryLanguage === 'ja' ? 'JLPT Yapon tili' : 'IELTS');
+                const defaultInsights = [
+                    {
+                        subject: firstSubject,
+                        advice: "Kunlik intizom: 25 daqiqa Pomodoro fokus vaqti ajratib, asosiy mavzularni mustahkamlang."
+                    },
+                    {
+                        subject: "Fleshkartalar & Takrorlash",
+                        advice: "Anki SM-2 algoritmi bo'yicha bugungi dars kartochkalarini ko'zdan kechirib, bilimlarni mustahkamlang."
                     }
-                })
-                .catch(() => {})
-                .finally(() => {
-                    if (isMounted) setIsAiInsightsLoading(false);
-                });
+                ];
+                setAiInsights(defaultInsights);
+                safeLocalStorage.setJSON('study_planner_cached_insights', defaultInsights);
+            }
         }
-        return () => { isMounted = false; };
-    }, [subjectsStats.length, settings.googleApiKey]);
+    }, [subjectsStats.length, primaryLanguage]);
+
     const handleManualPromotion = async () => {
         setIsPromoting(true);
         try {
@@ -170,20 +182,26 @@ const DashboardPage: React.FC = () => {
         setPromotionCandidate(null);
     };
 
-    // Load Next Best Action & Adaptive Daily Plan dynamically
+    // Load Next Best Action & Adaptive Daily Plan dynamically in background
     useEffect(() => {
         let isMounted = true;
         setLoadingState('loading');
-
         const activeUserId = user?.id || 'default-user';
 
-        // Load learning path state and evaluate promotion
+        // Background load of learning path state
         const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, { forceLanguage: primaryLanguage })
             .then(async (pathState) => {
                 if (isMounted) {
                     setNextAction(pathState.nextAction);
                     setDailyPlan(pathState.todayPlan);
                     setProgression(pathState.progression);
+
+                    // Update cache for next instant load
+                    safeLocalStorage.setJSON(cachedStateKey, {
+                        nextAction: pathState.nextAction,
+                        dailyPlan: pathState.todayPlan,
+                        progression: pathState.progression,
+                    });
 
                     try {
                         const candidate = await LearningProgressionService.evaluatePromotion(activeUserId, primaryLanguage);
@@ -201,7 +219,8 @@ const DashboardPage: React.FC = () => {
             .then(learningState => {
                 if (isMounted) {
                     const rm = RoadmapService.getLearningRoadmap(learningState);
-                    setRoadmapSummary(RoadmapService.getRoadmapSummary(rm));
+                    const sum = RoadmapService.getRoadmapSummary(rm);
+                    setRoadmapSummary(sum);
                 }
             })
             .catch(err => {
@@ -213,12 +232,13 @@ const DashboardPage: React.FC = () => {
                 if (isMounted) setLoadingState('success');
             })
             .catch(err => {
-                console.warn('[DashboardPage] Failed to resolve NextAction & DailyPlan from LearningPathEngine:', err);
+                console.warn('[DashboardPage] Background path sync:', err);
                 if (isMounted) setLoadingState('error');
             });
 
         return () => { isMounted = false; };
-    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger]);
+    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger, cachedStateKey]);
+
     const isPlanCompleted = useMemo(() => {
         if (!dailyPlan || !dailyPlan.activities || dailyPlan.activities.length === 0) return false;
         return dailyPlan.activities.every(activity => activity.isCompleted || activity.status === 'completed');
@@ -247,7 +267,10 @@ const DashboardPage: React.FC = () => {
                         : "Sessiyani yuklashda xatolik yuz berdi. Iltimos tarmoq ulanishini tekshirib qayta urining."}
                 </p>
                 <button
-                    onClick={() => setRetryTrigger(prev => prev + 1)}
+                    onClick={() => {
+                        setLoadingState('loading');
+                        setRetryTrigger(prev => prev + 1);
+                    }}
                     className="px-6 py-2.5 bg-primary text-primary-foreground font-black rounded-xl hover:bg-primary/95 transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98]"
                     aria-label="Retry loading data"
                 >
