@@ -140,29 +140,22 @@ export default defineConfig({
                         if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router-dom/')) {
                             return 'vendor';
                         }
-                        if (id.includes('@google/generative-ai')) {
-                            return 'ai-gemini';
-                        }
+                        // ESLATMA (perf, 2026-08-22): tldraw / recharts / react-markdown /
+                        // @google/generative-ai uchun manualChunks O'CHIRILDI.
+                        // Vite 8 (rolldown) funksiya-form manualChunks bilan bu
+                        // guruhlarni entry facade'ga statik import qilib qo'yardi ->
+                        // har sahifa yuklanishida ~2.5MB modulepreload. Bu kutubxonalar
+                        // faqat lazy pagelar orqali ishlatiladi — rolldown'ning
+                        // avtomatik code-splitting'i ularni async shared chunklarga
+                        // joylaydi (dastlabki holatdagidek).
                         if (id.includes('cytoscape')) {
                             return 'cytoscape';
                         }
                         if (id.includes('katex')) {
                             return 'katex';
                         }
-                        if (id.includes('recharts')) {
-                            return 'charts';
-                        }
-                        if (id.includes('tldraw') || id.includes('@tldraw')) {
-                            return 'tldraw';
-                        }
-                        if (id.includes('react-big-calendar')) {
-                            return 'calendar';
-                        }
                         if (id.includes('lucide-react')) {
                             return 'icons';
-                        }
-                        if (id.includes('react-markdown')) {
-                            return 'markdown';
                         }
                         if (id.includes('@supabase')) {
                             return 'supabase';
