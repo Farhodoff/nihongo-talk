@@ -28,10 +28,16 @@ REVOKE ALL ON TABLE private.edge_auth_tokens FROM anon, authenticated;
 CREATE EXTENSION IF NOT EXISTS pg_cron WITH SCHEMA extensions;
 CREATE EXTENSION IF NOT EXISTS pg_net WITH SCHEMA extensions;
 
--- 2. Eskisini o'chirish (agar mavjud bo'lsa)
+-- 2. Barcha eski/dublikat daily joblarni o'chirish (faqat BITTASI qoladi)
 DO $$
+DECLARE
+    old_job RECORD;
 BEGIN
-    PERFORM cron.unschedule('daily-notifications-job');
+    FOR old_job IN SELECT jobid, jobname FROM cron.job WHERE jobname ILIKE '%daily%'
+    LOOP
+        RAISE NOTICE 'unscheduling old job: %', old_job.jobname;
+        PERFORM cron.unschedule(old_job.jobid);
+    END LOOP;
 EXCEPTION
     WHEN OTHERS THEN
         NULL;
@@ -55,3 +61,6 @@ SELECT cron.schedule(
         ) as request_id;
     $$
 );
+
+-- 4. Yakuniy holatni ko'rish (faqat bitta active job qolishi kerak)
+SELECT jobid, jobname, schedule, active FROM cron.job WHERE jobname ILIKE '%daily%';
