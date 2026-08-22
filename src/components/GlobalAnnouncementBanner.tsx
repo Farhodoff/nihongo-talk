@@ -55,7 +55,7 @@ export const GlobalAnnouncementBanner: React.FC = () => {
 
                 <div className="flex items-center gap-3 shrink-0">
                     <button
-                        onClick={() => navigate('/decks')}
+                        onClick={() => navigate('/flashcards')}
                         className="hidden sm:flex items-center gap-1 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-lg text-white font-extrabold transition-all"
                     >
                         Ko'rish <ArrowRight size={12} />

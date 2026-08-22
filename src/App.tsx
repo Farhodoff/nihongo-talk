@@ -134,7 +134,7 @@ const App: React.FC = () => {
                                         <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
                                         <Route path="ielts" element={<IeltsHubPage />} />
-                                        <Route path="ielts/grammar" element={<IeltsHubPage />} />
+                                        <Route path="ielts/grammar" element={<Navigate to="/ielts" replace />} />
                                         <Route path="ielts/writing" element={<IeltsWritingPage />} />
                                         <Route path="ielts-writing" element={<Navigate to="/ielts/writing" replace />} />
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
@@ -144,7 +144,7 @@ const App: React.FC = () => {
                                         <Route path="jlpt-speaking" element={<Navigate to="/speaking-coach?lang=ja" replace />} />
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="jlpt/listening" element={<JlptListeningMockPage />} />
-                                        <Route path="jlpt/grammar" element={<JlptGrammarQuizPage />} />
+                                        <Route path="jlpt/grammar" element={<Navigate to="/jlpt/grammar-quiz" replace />} />
                                         <Route path="jlpt/grammar-quiz" element={<JlptGrammarQuizPage />} />
                                         <Route path="jlpt/reading" element={<JlptReadingPage />} />
                                         <Route path="jlpt/mock-exam" element={<JlptMockExamPage />} />
@@ -158,11 +158,13 @@ const App: React.FC = () => {
                                         <Route path="notes/:id" element={<NoteEditorPage />} />
                                         <Route path="ai" element={<AIAssistantPage />} />
                                         <Route path="flashcards" element={<DecksPage />} />
-                                        <Route path="deck" element={<DecksPage />} />
-                                        <Route path="decks" element={<DecksPage />} />
-                                        <Route path="deck/:id" element={<DecksPage />} />
-                                        <Route path="decks/:id" element={<DecksPage />} />
+                                        <Route path="deck" element={<Navigate to="/flashcards" replace />} />
+                                        <Route path="decks" element={<Navigate to="/flashcards" replace />} />
+                                        <Route path="deck/:id" element={<Navigate to="/flashcards" replace />} />
+                                        <Route path="decks/:id" element={<Navigate to="/flashcards" replace />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />
+                                        <Route path="study-mode" element={<StudyModePage />} />
+                                        <Route path="study-mode/:subjectId" element={<StudyModePage />} />
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />

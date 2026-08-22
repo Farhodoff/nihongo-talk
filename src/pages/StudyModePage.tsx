@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Copy, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
@@ -10,7 +10,7 @@ import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 
 const StudyModePage: React.FC = () => {
-    const { subjectId } = useParams<{ subjectId: string }>();
+    const { subjectId } = useParams<{ subjectId?: string }>();
     const navigate = useNavigate();
 
     const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } = useStudyData();
@@ -38,16 +38,23 @@ const StudyModePage: React.FC = () => {
     const currentSubject = subjects.find(s => s.id === subjectId);
 
     useEffect(() => {
-        if (subjectId && flashcards.length > 0 && !isQueueInitialized) {
-            const due = flashcards.filter((c: Flashcard) =>
-                c.subjectId === subjectId && new Date(c.nextReviewDate) <= new Date()
-            );
-            // If no due cards, show all cards in subject for revision
-            const targetSet = due.length > 0 ? due : flashcards.filter((c: Flashcard) => c.subjectId === subjectId);
+        if (flashcards.length > 0 && !isQueueInitialized) {
+            let targetSet: Flashcard[] = [];
+            if (subjectId) {
+                const subjectCards = flashcards.filter((c: Flashcard) => c.subjectId === subjectId);
+                const due = subjectCards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
+                targetSet = due.length > 0 ? due : subjectCards;
+            } else {
+                // Global study mode across all decks / subjects
+                const due = flashcards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
+                targetSet = due.length > 0 ? due : flashcards;
+            }
             setQueue([...targetSet].sort(() => Math.random() - 0.5).slice(0, 20));
             setIsQueueInitialized(true);
+        } else if (flashcards.length === 0 && !loading && !isQueueInitialized) {
+            setIsQueueInitialized(true);
         }
-    }, [subjectId, flashcards, isQueueInitialized]);
+    }, [subjectId, flashcards, isQueueInitialized, loading]);
 
     const currentCard = queue[currentCardIndex];
 
@@ -141,7 +148,25 @@ const StudyModePage: React.FC = () => {
 
     if (loading) return <div className="flex justify-center p-20"><Loader2 className="animate-spin text-primary" /></div>;
 
-    if (isFinished || (queue.length === 0 && !loading)) {
+    if (!loading && flashcards.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
+                <div className="p-4 bg-primary/10 rounded-full text-primary mb-4">
+                    <Copy size={48} className="text-primary" />
+                </div>
+                <h2 className="text-2xl font-black mb-2 text-foreground">Fleshkartalar topilmadi</h2>
+                <p className="text-muted-foreground text-sm max-w-md mb-6">
+                    O'rganishni boshlash uchun avval lug'at to'plamlaridan karta qo'shing yoki yangi fleshkarta yarating.
+                </p>
+                <div className="flex items-center gap-3">
+                    <Button onClick={() => navigate('/vocabulary')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">Lug'atga o'tish</Button>
+                    <Button onClick={() => navigate('/flashcards')} className="px-6 py-2.5 font-bold rounded-xl">To'plamlarni ko'rish</Button>
+                </div>
+            </div>
+        );
+    }
+
+    if (isFinished || (queue.length === 0 && !loading && isQueueInitialized)) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
                 <div className="p-4 bg-emerald-500/10 rounded-full text-emerald-500 mb-4">

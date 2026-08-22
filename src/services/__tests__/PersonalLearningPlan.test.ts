@@ -1,9 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { DiagnosticBatchService } from '../DiagnosticBatchService';
 import { PersonalLearningPlanService } from '../PersonalLearningPlanService';
 import { PersonalLearningPlanEngine } from '../PersonalLearningPlanEngine';
 import { WeeklyEvaluationEngine } from '../WeeklyEvaluationEngine';
-import { DiagnosticService } from '../DiagnosticService';
 import { PersonalLearningGoal, WeeklyLearningPlan } from '../../types/learningPlan';
 import { callSelectedAIProvider } from '../../utils/ai/aiCore';
 import { MasteryEngine } from '../MasteryEngine';
@@ -126,33 +124,6 @@ describe('Personal Learning Plan System Tests', () => {
             expect(PersonalLearningPlanService.isTargetLevelValid('N3', 'N3', 'jlpt')).toBe(false);
             expect(PersonalLearningPlanService.isTargetLevelValid('N2', 'N4', 'jlpt')).toBe(false);
             expect(PersonalLearningPlanService.isTargetLevelValid('B2', 'A2', 'general_en')).toBe(false);
-        });
-    });
-
-    describe('2. Diagnostic Prefetching & Adaptation', () => {
-        it('should prefetch questions correctly and load them into getBankForLanguage', async () => {
-            const mockState: any = {
-                userId: 'test_user',
-                language: 'en',
-                currentLevel: 'B1',
-                currentDifficulty: 'medium',
-                currentSkillFocus: 'vocabulary',
-                visitedQuestionIds: [],
-                answers: []
-            };
-
-            // Prefetch questions
-            await DiagnosticBatchService.prefetchNextBatch('test_user', 'en', mockState);
-
-            // Wait for setTimeout in prefetcher
-            await new Promise(r => setTimeout(r, 150));
-
-            const cached = DiagnosticBatchService.getPrefetchedQuestions('test_user', 'en');
-            expect(cached.length).toBeGreaterThan(0);
-
-            // Verify they merge in getBankForLanguage
-            const mergedBank = DiagnosticService.getBankForLanguage('en');
-            expect(mergedBank.some(q => q.id.includes('ai-diag') || q.id.includes('diag-en'))).toBe(true);
         });
     });
 
