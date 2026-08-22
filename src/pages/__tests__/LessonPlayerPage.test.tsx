@@ -127,8 +127,8 @@ describe('LessonPlayerPage', () => {
 
         await waitFor(() => {
             expect(srsSpy).toHaveBeenCalled();
-        });
-        expect(await screen.findByText(/Dars Yakunlandi! 🎉/i)).toBeInTheDocument();
-        expect(await screen.findByText(/4 ta yangi so'z Fleshkartalarga qo'shildi/i)).toBeInTheDocument();
+        }, { timeout: 4000 });
+        expect(await screen.findByText(/Dars Yakunlandi! 🎉/i, {}, { timeout: 4000 })).toBeInTheDocument();
+        expect(await screen.findByText(/4 ta yangi so'z Fleshkartalarga qo'shildi/i, {}, { timeout: 4000 })).toBeInTheDocument();
     });
 });

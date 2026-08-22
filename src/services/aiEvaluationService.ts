@@ -1,5 +1,4 @@
-import { callDeepSeek } from '../utils/deepseek';
-import { getAIConfig } from '../utils/ai/aiConfig';
+import { callSelectedAIProvider } from '../utils/ai/aiCore';
 
 export interface AiEvaluationResult {
   score: number;
@@ -20,7 +19,12 @@ const parseAiResponse = (content: string): AiEvaluationResult => {
   cleaned = cleaned.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
 
   try {
-    return JSON.parse(cleaned) as AiEvaluationResult;
+    const parsed = JSON.parse(cleaned);
+    return {
+      score: typeof parsed.score === 'number' ? parsed.score : 0,
+      feedback: parsed.feedback || cleaned,
+      criteriaScores: parsed.criteriaScores || {}
+    };
   } catch {
     console.error('Failed to parse AI response as JSON:', cleaned);
     return {
@@ -53,18 +57,10 @@ export const aiEvaluationService = {
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Response:\n${userResponse}`;
 
     try {
-      const config = getAIConfig();
-      const content = await callDeepSeek(
-        userMessage,
-        config.deepseekKey || null,
-        systemPrompt,
-        true,
-        config.deepseekModel,
-        config.deepseekThinkingMode
-      );
+      const content = await callSelectedAIProvider(userMessage, systemPrompt, true);
 
       if (!content) {
-        throw new Error('DeepSeek javob bermadi.');
+        throw new Error('AI provayderi javob bermadi.');
       }
 
       return parseAiResponse(content);
@@ -97,18 +93,10 @@ export const aiEvaluationService = {
     const userMessage = `Prompt/Question:\n${promptText}\n\nUser Spoken Transcript:\n${transcript}`;
 
     try {
-      const config = getAIConfig();
-      const content = await callDeepSeek(
-        userMessage,
-        config.deepseekKey || null,
-        systemPrompt,
-        true,
-        config.deepseekModel,
-        config.deepseekThinkingMode
-      );
+      const content = await callSelectedAIProvider(userMessage, systemPrompt, true);
 
       if (!content) {
-        throw new Error('DeepSeek javob bermadi.');
+        throw new Error('AI provayderi javob bermadi.');
       }
 
       return parseAiResponse(content);
@@ -118,3 +106,4 @@ export const aiEvaluationService = {
     }
   }
 };
+

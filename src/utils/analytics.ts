@@ -65,3 +65,8 @@ export const getSubjectAnalytics = (subjects: Subject[], flashcards: Flashcard[]
         };
     }).sort((a, b) => a.masteryScore - b.masteryScore); // Ascending: Weakest first
 };
+
+// Re-export realAnalytics for unified imports
+export { calculateRealMetrics } from './realAnalytics';
+export type { RealPerformanceMetrics } from './realAnalytics';
+
