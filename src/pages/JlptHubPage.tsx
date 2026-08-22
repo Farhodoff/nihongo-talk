@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Flame, Volume2, Award, Languages, Compass, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateAlgorithmicJlptPlan } from '../utils/curriculum/jlptAlgorithmicPlanner';
-import { JlptOnboardingModal } from '../components/jlpt/JlptOnboardingModal';
-import { JlptGrammarKanjiMaster } from '../components/jlpt/JlptGrammarKanjiMaster';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
 import { useSEO } from '../hooks/useSEO';
+
+const JlptOnboardingModal = lazy(() => import('../components/jlpt/JlptOnboardingModal').then(m => ({ default: m.JlptOnboardingModal })));
+const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
+const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
+
 
 export const JlptHubPage: React.FC = () => {
     useSEO({
@@ -488,25 +490,27 @@ export const JlptHubPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Kanji Canvas Practice Section */}
-            <div>
-                <KanjiCanvasPractice />
-            </div>
+            {/* Kanji Canvas Practice Section & Library */}
+            <Suspense fallback={<div className="p-8 flex justify-center"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
+                <div>
+                    <KanjiCanvasPractice />
+                </div>
 
-            {/* JLPT Grammar & Kanji Master Library */}
-            <div>
-                <JlptGrammarKanjiMaster />
-            </div>
+                <div>
+                    <JlptGrammarKanjiMaster />
+                </div>
 
-            {/* Onboarding Modal */}
-            <JlptOnboardingModal
-                isOpen={isQuizOpen}
-                onClose={() => setIsQuizOpen(false)}
-                onPlanCreated={() => {
-                    const saved = localStorage.getItem('study_planner_jlpt_user_target');
-                    if (saved) setUserPlanData(JSON.parse(saved));
-                }}
-            />
+                {isQuizOpen && (
+                    <JlptOnboardingModal
+                        isOpen={isQuizOpen}
+                        onClose={() => setIsQuizOpen(false)}
+                        onPlanCreated={() => {
+                            const saved = localStorage.getItem('study_planner_jlpt_user_target');
+                            if (saved) setUserPlanData(JSON.parse(saved));
+                        }}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 };

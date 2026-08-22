@@ -660,3 +660,6 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         </div>
     );
 };
+
+export default JlptGrammarKanjiMaster;
+

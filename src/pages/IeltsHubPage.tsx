@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Award, Target, FileText, Mic, BookOpen, ArrowRight, GraduationCap, Flame, Trash2, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { IeltsOnboardingModal } from '../components/ielts/IeltsOnboardingModal';
 import { RealWeaknessTracker } from '../components/ielts/RealWeaknessTracker';
 import { DailyTargetHub } from '../components/ielts/DailyTargetHub';
-import { DailyReflectionModal } from '../components/ielts/DailyReflectionModal';
-import { IeltsGrammarMaster } from '../components/ielts/IeltsGrammarMaster';
 import { IeltsStudyPlanResult } from '../utils/ai';
-import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { analyzeAndRebalanceSchedule } from '../utils/ai/weeklyRebalancer';
 import { useSEO } from '../hooks/useSEO';
+
+const IeltsOnboardingModal = lazy(() => import('../components/ielts/IeltsOnboardingModal').then(m => ({ default: m.IeltsOnboardingModal })));
+const DailyReflectionModal = lazy(() => import('../components/ielts/DailyReflectionModal').then(m => ({ default: m.DailyReflectionModal })));
+const IeltsGrammarMaster = lazy(() => import('../components/ielts/IeltsGrammarMaster'));
+const VocabularyGenerator = lazy(() => import('../components/ielts/VocabularyGenerator').then(m => ({ default: m.VocabularyGenerator })));
+
 
 export const IeltsHubPage: React.FC = () => {
     useSEO({
@@ -341,15 +343,16 @@ export const IeltsHubPage: React.FC = () => {
                 <RealWeaknessTracker />
             </div>
 
-            {/* AI Vocabulary Generator Section */}
-            <div className="mb-8">
-                <VocabularyGenerator />
-            </div>
+            {/* AI Vocabulary Generator & Grammar Master Section */}
+            <Suspense fallback={<div className="p-8 flex justify-center"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
+                <div className="mb-8">
+                    <VocabularyGenerator />
+                </div>
 
-            {/* IELTS English Grammar Master Section (A1 to C1) */}
-            <div className="mb-8">
-                <IeltsGrammarMaster />
-            </div>
+                <div className="mb-8">
+                    <IeltsGrammarMaster />
+                </div>
+            </Suspense>
 
             {/* Core Tools Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -479,21 +482,26 @@ export const IeltsHubPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Onboarding Modal */}
-            <IeltsOnboardingModal
-                isOpen={isQuizOpen}
-                onClose={() => setIsQuizOpen(false)}
-                onPlanCreated={() => {
-                    const saved = localStorage.getItem('study_planner_ielts_user_target');
-                    if (saved) setUserPlanData(JSON.parse(saved));
-                }}
-            />
+            {/* Lazy Modals */}
+            <Suspense fallback={null}>
+                {isQuizOpen && (
+                    <IeltsOnboardingModal
+                        isOpen={isQuizOpen}
+                        onClose={() => setIsQuizOpen(false)}
+                        onPlanCreated={() => {
+                            const saved = localStorage.getItem('study_planner_ielts_user_target');
+                            if (saved) setUserPlanData(JSON.parse(saved));
+                        }}
+                    />
+                )}
 
-            {/* Daily Active Recall Reflection Modal */}
-            <DailyReflectionModal
-                isOpen={isReflectionOpen}
-                onClose={() => setIsReflectionOpen(false)}
-            />
+                {isReflectionOpen && (
+                    <DailyReflectionModal
+                        isOpen={isReflectionOpen}
+                        onClose={() => setIsReflectionOpen(false)}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 };

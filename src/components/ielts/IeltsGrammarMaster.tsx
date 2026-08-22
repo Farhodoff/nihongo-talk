@@ -493,3 +493,6 @@ export const IeltsGrammarMaster: React.FC = () => {
         </div>
     );
 };
+
+export default IeltsGrammarMaster;
+
