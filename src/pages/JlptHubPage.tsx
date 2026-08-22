@@ -1,11 +1,15 @@
 import React, { Suspense, lazy } from 'react';
-import { Target, FileText, Mic, BookOpen, Sparkles, ArrowRight, Languages, Compass, Volume2, Award } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Target, FileText, BookOpen, Sparkles, ArrowRight, Languages, Compass, Headphones, GraduationCap } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSEO } from '../hooks/useSEO';
 
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
+const ScenarioPickerPage = lazy(() => import('./ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
+const JlptReadingPage = lazy(() => import('./JlptReadingPage').then(m => ({ default: m.JlptReadingPage })));
+const JlptListeningMockPage = lazy(() => import('./JlptListeningMockPage').then(m => ({ default: m.JlptListeningMockPage })));
+const JlptMockExamPage = lazy(() => import('./JlptMockExamPage').then(m => ({ default: m.JlptMockExamPage })));
 
 export const JlptHubPage: React.FC = () => {
     useSEO({
@@ -16,9 +20,14 @@ export const JlptHubPage: React.FC = () => {
     });
 
     const navigate = useNavigate();
-    const { flashcards, settings, updateSettings } = useStudyData();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { settings, updateSettings } = useStudyData();
 
-    const jlptCards = flashcards.filter(f => f.front.includes('[N') || f.front.includes('漢字') || f.front.includes('語彙'));
+    const activeTab = searchParams.get('tab') || 'kanji';
+
+    const handleTabChange = (tab: string) => {
+        setSearchParams({ tab });
+    };
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 pb-16">
@@ -36,7 +45,7 @@ export const JlptHubPage: React.FC = () => {
                             Yapon Tili Master Hub
                         </h1>
                         <p className="text-sm text-slate-300 leading-relaxed">
-                            Kaiwa (会話) muloqot, Mensetsu suhbat, Sakubun insho hamda N5–N1 Kanji bilimlarini AI yordamida chuqurlashtiring.
+                            Kanji, Grammatika, Dokkai, Choukai, Dialog senariylari va 180 ballik rasmiy JLPT mock imtihonlari bitta markazda.
                         </p>
                     </div>
 
@@ -108,197 +117,109 @@ export const JlptHubPage: React.FC = () => {
                 </button>
             </div>
 
-            {/* Core Tools Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Conversation Scenarios Card */}
-                <div
-                    onClick={() => navigate('/scenarios')}
-                    className="group bg-gradient-to-br from-indigo-900/10 via-purple-900/5 to-transparent hover:bg-indigo-500/[0.04] p-6 rounded-3xl border border-indigo-500/30 hover:border-indigo-500/60 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+            {/* Unified JLPT Skill Navigation Tabs */}
+            <div className="flex flex-wrap items-center gap-2 p-1.5 bg-muted/40 border border-border/80 rounded-2xl w-fit">
+                <button
+                    onClick={() => handleTabChange('kanji')}
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                        activeTab === 'kanji'
+                            ? 'bg-rose-600 text-white shadow-md'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
                 >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Compass size={24} />
-                        </div>
-                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-indigo-500/10 text-indigo-500 text-[10px] font-extrabold rounded-full border border-indigo-500/20 mb-2">
-                            ✨ YANGI MANZIL
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-indigo-500 transition-colors">
-                            Yaponcha Dialog va Scenarios
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            Restoran, shopping, o'zini tanishtirish va boshqa rolli muloqot mashqlari + ovozni yozib talaffuzni baholash.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-indigo-500">
-                        <span>Ssenariylarni Tanlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
+                    <BookOpen size={16} /> ⛩️ Kanji & Grammatika
+                </button>
 
-                {/* Kaiwa AI Speaking Coach */}
-                <div
-                    onClick={() => navigate('/jlpt-speaking')}
-                    className="group bg-card hover:bg-rose-500/[0.02] p-6 rounded-3xl border border-border hover:border-rose-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                <button
+                    onClick={() => handleTabChange('scenarios')}
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                        activeTab === 'scenarios'
+                            ? 'bg-indigo-600 text-white shadow-md'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
                 >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Mic size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-rose-500 transition-colors">
-                            Kaiwa AI Speaking Coach
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            Yaponiyalik AI O'qituvchi bilan jonli audiomuloqot (Romaji va Furigana qo'llab-quvvatlanadi).
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-rose-500">
-                        <span>Boshlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
+                    <Compass size={16} /> 🎌 Dialog Senariylar
+                </button>
 
-                {/* Sakubun Writing Evaluator */}
-                <div
-                    onClick={() => navigate('/jlpt-writing')}
-                    className="group bg-card hover:bg-amber-500/[0.02] p-6 rounded-3xl border border-border hover:border-amber-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                <button
+                    onClick={() => handleTabChange('reading')}
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                        activeTab === 'reading'
+                            ? 'bg-emerald-600 text-white shadow-md'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
                 >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <FileText size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-amber-500 transition-colors">
-                            Sakubun (作文) Insho Tekshiruvi
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            Yaponcha insho va matnlaringizni Desu/Masu va Kanji qoidalariga ko'ra tekshirish.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-amber-500">
-                        <span>Boshlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
+                    <FileText size={16} /> 📖 Dokkai (O'qish)
+                </button>
 
-                {/* JLPT Grammar Quiz */}
-                <div
-                    onClick={() => navigate('/jlpt/grammar')}
-                    className="group bg-card hover:bg-indigo-500/[0.02] p-6 rounded-3xl border border-border hover:border-indigo-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                <button
+                    onClick={() => handleTabChange('listening')}
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                        activeTab === 'listening'
+                            ? 'bg-purple-600 text-white shadow-md'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
                 >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Compass size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-indigo-500 transition-colors">
-                            Bunpou (文法) Grammar Quiz
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            N5–N1 darajalari bo'yicha grammatika qoliplari va predloglarni interaktiv testlar yordamida tekshirish.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-indigo-500">
-                        <span>Testni Boshlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
+                    <Headphones size={16} /> 🎧 Choukai (Tinglash)
+                </button>
 
-                {/* JLPT Reading (Dokkai) */}
-                <div
-                    onClick={() => navigate('/jlpt/reading')}
-                    className="group bg-card hover:bg-emerald-500/[0.02] p-6 rounded-3xl border border-border hover:border-emerald-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                <button
+                    onClick={() => handleTabChange('mock')}
+                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                        activeTab === 'mock'
+                            ? 'bg-amber-600 text-white shadow-md'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
                 >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <BookOpen size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-emerald-500 transition-colors">
-                            Dokkai (読解) Reading Master
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            N5–N1 darajasidagi taymerli yaponcha o'qish matnlari va savollarga javob berish mashqi.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-emerald-500">
-                        <span>O'qishni Boshlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
-
-                {/* JLPT Listening Mock */}
-                <div
-                    onClick={() => navigate('/jlpt/listening')}
-                    className="group bg-card hover:bg-purple-500/[0.02] p-6 rounded-3xl border border-border hover:border-purple-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
-                >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Volume2 size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-purple-500 transition-colors">
-                            Choukai (聴解) Listening Mock
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            N5–N1 Yapon tili tinglab tushunish mock imtihonlari va skript tahlili.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-purple-500">
-                        <span>Mashq qilish</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
-
-                {/* Kanji Flashcards */}
-                <div
-                    onClick={() => navigate('/flashcards')}
-                    className="group bg-card hover:bg-rose-500/[0.02] p-6 rounded-3xl border border-border hover:border-rose-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
-                >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <BookOpen size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-rose-500 transition-colors">
-                            Kanji (漢字) & Vocab Decks
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            N5–N1 Kanji va so'zlarni SM-2 takrorlash algoritmi orqali yodlash ({jlptCards.length} ta kartochka).
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-rose-500">
-                        <span>Kartochkalarni ko'rish</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
-
-                {/* JLPT Mock Exam */}
-                <div
-                    onClick={() => navigate('/jlpt/mock-exam')}
-                    className="group bg-gradient-to-br from-rose-500/10 via-amber-500/5 to-purple-500/10 p-6 rounded-3xl border border-rose-500/30 shadow-md hover:shadow-2xl transition-all cursor-pointer flex flex-col justify-between"
-                >
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Award size={24} />
-                        </div>
-                        <h3 className="text-lg font-extrabold text-foreground mb-1 group-hover:text-rose-500 transition-colors">
-                            JLPT Full Mock Exam
-                        </h3>
-                        <p className="text-xs text-muted-foreground leading-relaxed">
-                            Barcha bo'limlardan iborat to'liq 180 ballik rasmiy JLPT darajasidagi mock imtihoni.
-                        </p>
-                    </div>
-                    <div className="mt-6 flex items-center justify-between text-xs font-bold text-rose-500">
-                        <span>Imtihonni Boshlash</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
-                </div>
+                    <GraduationCap size={16} /> 🏆 JLPT Mock Exam
+                </button>
             </div>
 
-            {/* Kanji Canvas Practice Section & Library */}
-            <Suspense fallback={<div className="p-8 flex justify-center"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
-                <div>
-                    <KanjiCanvasPractice />
+            {/* Tab Views */}
+            <Suspense fallback={
+                <div className="p-12 flex items-center justify-center">
+                    <div className="w-8 h-8 border-3 border-rose-500 border-t-transparent rounded-full animate-spin" />
                 </div>
+            }>
+                {/* Tab 1: Kanji Canvas & Bunpou Grammar Master */}
+                {activeTab === 'kanji' && (
+                    <div className="space-y-8 animate-in fade-in">
+                        <div>
+                            <KanjiCanvasPractice />
+                        </div>
+                        <div>
+                            <JlptGrammarKanjiMaster />
+                        </div>
+                    </div>
+                )}
 
-                <div>
-                    <JlptGrammarKanjiMaster />
-                </div>
+                {/* Tab 2: Conversation Scenarios & Kaiwa Dialogue */}
+                {activeTab === 'scenarios' && (
+                    <div className="animate-in fade-in">
+                        <ScenarioPickerPage />
+                    </div>
+                )}
+
+                {/* Tab 3: Dokkai (Reading) */}
+                {activeTab === 'reading' && (
+                    <div className="animate-in fade-in">
+                        <JlptReadingPage />
+                    </div>
+                )}
+
+                {/* Tab 4: Choukai (Listening) */}
+                {activeTab === 'listening' && (
+                    <div className="animate-in fade-in">
+                        <JlptListeningMockPage />
+                    </div>
+                )}
+
+                {/* Tab 5: Full Mock Exam */}
+                {activeTab === 'mock' && (
+                    <div className="animate-in fade-in">
+                        <JlptMockExamPage />
+                    </div>
+                )}
             </Suspense>
         </div>
     );

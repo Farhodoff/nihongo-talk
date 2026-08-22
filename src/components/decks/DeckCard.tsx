@@ -12,6 +12,7 @@ interface DeckCardProps {
     onToggleArchive?: () => void;
     onDelete?: () => void;
     onAIGenerate: () => void;
+    onStudy?: () => void;
     onPopulatePreset?: () => void;
     onExploreFolders?: () => void;
 }
@@ -55,6 +56,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
     onToggleArchive,
     onDelete,
     onAIGenerate, 
+    onStudy,
     onPopulatePreset,
     onExploreFolders 
 }) => {
@@ -130,14 +132,24 @@ const DeckCard: React.FC<DeckCardProps> = ({
                     </Button>
                 ) : (
                     <div className="pt-2 flex gap-2">
-                        <Link to={`/flashcards/study/${subject.id}`} className="flex-1">
+                        {onStudy ? (
                             <Button 
-                                className="w-full flex justify-center items-center gap-2 font-bold text-xs" 
+                                onClick={onStudy}
+                                className="flex-1 flex justify-center items-center gap-2 font-bold text-xs" 
                                 disabled={cardCount === 0}
                             >
                                 <Play size={15} /> {dueCount > 0 ? "O'rganish" : "Qayta Ko'rib Chiqish"}
                             </Button>
-                        </Link>
+                        ) : (
+                            <Link to={`/flashcards?study=${subject.id}`} className="flex-1">
+                                <Button 
+                                    className="w-full flex justify-center items-center gap-2 font-bold text-xs" 
+                                    disabled={cardCount === 0}
+                                >
+                                    <Play size={15} /> {dueCount > 0 ? "O'rganish" : "Qayta Ko'rib Chiqish"}
+                                </Button>
+                            </Link>
+                        )}
                         {onExploreFolders && (
                             <Button
                                 variant="secondary"

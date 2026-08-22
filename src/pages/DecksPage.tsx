@@ -1,8 +1,9 @@
 import { Book, Plus, Sparkles, Upload, Library, Layers, FileText, ShieldAlert, Archive, ArchiveRestore, Trash2, CheckSquare, Square, FolderCheck, FolderArchive } from 'lucide-react';
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import AIGeneratorModal from '../components/AIGeneratorModal';
 import DeckCard from '../components/decks/DeckCard';
+import { FlashcardStudySession } from '../components/decks/FlashcardStudySession';
 import ImportModal from '../components/decks/ImportModal';
 import { PresetDeckCard } from '../components/decks/PresetDeckCard';
 import { StandaloneDeckCard, StandaloneDeckGroup } from '../components/decks/StandaloneDeckCard';
@@ -27,6 +28,16 @@ const DecksPage: React.FC = () => {
     const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch, primaryLanguage } = useStudyData();
     const { t } = useLanguage();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const studyQueryParam = searchParams.get('study');
+    const [activeStudySubjectId, setActiveStudySubjectId] = useState<string | null>(studyQueryParam);
+
+    useEffect(() => {
+        if (studyQueryParam) {
+            setActiveStudySubjectId(studyQueryParam);
+        }
+    }, [studyQueryParam]);
 
     const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
     const [subTab, setSubTab] = useState<'active' | 'archived'>('active');
@@ -612,6 +623,7 @@ const DecksPage: React.FC = () => {
                                         }
                                     }}
                                     onAIGenerate={() => setAiSubjectId(subject.id)}
+                                    onStudy={() => setActiveStudySubjectId(subject.id)}
                                     onPopulatePreset={matchingPreset ? () => handleImportPresetDeck(matchingPreset) : undefined}
                                     onExploreFolders={matchingPreset ? () => handleOpenDeckExplorer(matchingPreset) : undefined}
                                 />
@@ -898,6 +910,16 @@ const DecksPage: React.FC = () => {
                 onClose={() => setIsDocGeneratorOpen(false)}
                 subjects={subjects}
             />
+
+            {activeStudySubjectId && (
+                <FlashcardStudySession
+                    subjectId={activeStudySubjectId}
+                    onClose={() => {
+                        setActiveStudySubjectId(null);
+                        setSearchParams({});
+                    }}
+                />
+            )}
         </div>
     );
 };

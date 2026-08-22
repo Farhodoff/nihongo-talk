@@ -2,8 +2,8 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { 
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    GraduationCap, Mic, Crown, Brain,
-    Headphones, PenTool, FileText, Shield
+    Mic, Crown, Brain,
+    Headphones, PenTool, Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -111,14 +111,10 @@ const Layout: React.FC = () => {
         if (primaryLanguage === 'ja') {
             return [
                 { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: "Kanji O'rganish", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-                { name: "Grammatika Quiz", path: '/jlpt/grammar-quiz', icon: Sparkles, tourId: 'nav-grammar' },
-                { name: "Reading (O'qish)", path: '/jlpt/reading', icon: FileText, tourId: 'nav-reading' },
-                { name: "Listening (Tinglash)", path: '/jlpt/listening', icon: Headphones, tourId: 'nav-listening' },
-                { name: "Speaking & Senariylar", path: '/scenarios', icon: Mic, tourId: 'nav-speaking' },
-                { name: 'JLPT Mock Exam', path: '/jlpt/mock-exam', icon: GraduationCap, tourId: 'nav-mock' },
+                { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+                { name: "Speaking & Senariylar", path: '/jlpt?tab=scenarios', icon: Mic, tourId: 'nav-speaking' },
                 { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
                 { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
                 { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
                 { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
@@ -128,13 +124,12 @@ const Layout: React.FC = () => {
         // Default: English ('en')
         return [
             { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: "Grammatika & Darslar", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+            { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+            { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
             { name: "Reading & Listening", path: '/ielts/reading-listening', icon: Headphones, tourId: 'nav-reading' },
             { name: "Writing Mock", path: '/ielts/writing', icon: PenTool, tourId: 'nav-writing' },
-            { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-            { name: 'Speaking Mock Exam', path: '/ielts/speaking-mock', icon: GraduationCap, tourId: 'nav-mock' },
             { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-            { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+            { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
             { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
             { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
             { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
