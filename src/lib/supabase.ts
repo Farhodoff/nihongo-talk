@@ -57,6 +57,9 @@ const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxR
         try {
             return await fetch(input, init);
         } catch (err: any) {
+            // Aborted requests must never be retried: the signal stays aborted,
+            // so every retry rejects instantly and spams "AbortError" rejections.
+            if (err?.name === 'AbortError') throw err;
             const isLast = attempt === maxRetries;
             if (isLast) throw err;
             await new Promise(resolve => setTimeout(resolve, 200 * Math.pow(2, attempt)));
@@ -67,10 +70,10 @@ const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxR
 
 // Custom fetch wrapper that handles network offline/AdBlocker/Connection Reset fetch errors gracefully
 const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
-    const urlStr = typeof input === 'string' 
-        ? input 
-        : input instanceof URL 
-            ? input.toString() 
+    const urlStr = typeof input === 'string'
+        ? input
+        : input instanceof URL
+            ? input.toString()
             : (input as Request)?.url || '';
 
     // Prevent sending malformed undefined/null queries to Supabase
@@ -83,6 +86,15 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
                 headers: { 'Content-Type': 'application/json' }
             }
         );
+    }
+
+    // Already-aborted signals go straight to the fallback path — fetching with a
+    // dead signal only produces an immediate AbortError rejection.
+    const isAuth = urlStr.includes('/auth/v1');
+    if (init?.signal?.aborted) {
+        return isAuth
+            ? new Response(JSON.stringify({ error: 'Request aborted' }), { status: 503, headers: { 'Content-Type': 'application/json' } })
+            : new Response(JSON.stringify([]), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
 
     await acquireSlot();
