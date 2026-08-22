@@ -389,7 +389,20 @@ const AdminDashboardPage: React.FC = () => {
         const { error } = await supabase
             .from('user_subscriptions')
             .upsert({ id: userId, tier: newTier, valid_until: validUntil || null, updated_at: new Date().toISOString() });
-        if (!error) setSubscriptions(s => s.map(x => x.id === userId ? { ...x, tier: newTier as any, valid_until: validUntil } : x));
+        if (!error) {
+            setSubscriptions(s => s.map(x => x.id === userId ? { ...x, tier: newTier as any, valid_until: validUntil } : x));
+            toast({
+                title: '✅ Obuna muvaffaqiyatli berildi',
+                description: `Foydalanuvchiga ${newTier.toUpperCase()} tarifi ${months ? `${months} oyga` : 'cheksiz'} faollashtirildi.`
+            });
+        } else {
+            console.error("Set tier error:", error);
+            toast({
+                variant: 'destructive',
+                title: '❌ Obuna berishda xatolik',
+                description: error.message || 'Ma\'lumotlar bazasiga yozishda xatolik yuz berdi.'
+            });
+        }
     };
 
     const setUserTierDays = async (userId: string, newTier: string, days: number) => {
@@ -401,11 +414,22 @@ const AdminDashboardPage: React.FC = () => {
             .upsert({ id: userId, tier: newTier, valid_until: validUntil, updated_at: new Date().toISOString() });
         if (!error) {
             setSubscriptions(s => s.map(x => x.id === userId ? { ...x, tier: newTier as any, valid_until: validUntil } : x));
+            toast({
+                title: '🎁 Sinov tarifi faollashtirildi',
+                description: `Foydalanuvchiga ${days} kunlik ${newTier.toUpperCase()} sinov muddati berildi.`
+            });
             await UserNotificationService.sendNotification({
                 user_id: userId,
-                title: '🎁 3 Kunlik Bepul Premium Trial!',
-                message: 'Sizga 3 kunlik bepul Premium tarif taqdim etildi! Barcha imkoniyatlarni sinab ko\'ring 🚀',
+                title: `🎁 ${days} Kunlik Bepul Premium Trial!`,
+                message: `Sizga ${days} kunlik bepul Premium tarif taqdim etildi! Barcha imkoniyatlarni sinab ko'ring 🚀`,
                 type: 'promo'
+            });
+        } else {
+            console.error("Set tier trial error:", error);
+            toast({
+                variant: 'destructive',
+                title: '❌ Sinov muddati berishda xatolik',
+                description: error.message || 'Ma\'lumotlar bazasiga yozishda xatolik yuz berdi.'
             });
         }
     };

@@ -7,28 +7,38 @@ vi.mock('../../lib/supabase', () => ({
         from: vi.fn(() => ({
             select: vi.fn(() => ({
                 eq: vi.fn(() => ({
+                    maybeSingle: vi.fn().mockResolvedValue({
+                        data: {
+                            id: 'user_123',
+                            tier: 'pro',
+                            ai_credits: 50,
+                            last_reset_date: '2026-07-26',
+                            trial_start_date: '2026-07-25',
+                            valid_until: null
+                        },
+                        error: null
+                    }),
                     single: vi.fn().mockResolvedValue({
                         data: {
                             id: 'user_123',
                             tier: 'pro',
                             ai_credits: 50,
                             last_reset_date: '2026-07-26',
-                            trial_start_date: '2026-07-25'
+                            trial_start_date: '2026-07-25',
+                            valid_until: null
                         },
                         error: null
                     })
                 }))
             })),
+            insert: vi.fn().mockResolvedValue({ error: null }),
             update: vi.fn(() => ({
                 eq: vi.fn().mockResolvedValue({ error: null })
             }))
         })),
         channel: vi.fn(() => ({
             on: vi.fn().mockReturnThis(),
-            subscribe: vi.fn().mockImplementation((cb) => {
-                if (cb) cb('SUBSCRIBED');
-                return { unsubscribe: vi.fn() };
-            })
+            subscribe: vi.fn().mockReturnValue({ unsubscribe: vi.fn() })
         })),
         removeChannel: vi.fn()
     }
