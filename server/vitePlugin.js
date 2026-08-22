@@ -238,6 +238,30 @@ export function telegramApiPlugin() {
                         } catch {}
                     }
 
+                    // POST /api/telegram/webhook (Public Telegram updates)
+                    if (pathname.includes('webhook')) {
+                        const handler = (await import('../api/telegram/webhook.js')).default;
+                        const mockRes = {
+                            setHeader: (k, v) => res.setHeader(k, v),
+                            status: (s) => { res.statusCode = s; return mockRes; },
+                            json: (d) => sendJson(res.statusCode || 200, d),
+                            end: () => res.end()
+                        };
+                        return await handler({ ...req, body }, mockRes);
+                    }
+
+                    // POST /api/telegram/notify-daily (Cron / Scheduled notifications)
+                    if (pathname.includes('notify-daily')) {
+                        const handler = (await import('../api/telegram/notify-daily.js')).default;
+                        const mockRes = {
+                            setHeader: (k, v) => res.setHeader(k, v),
+                            status: (s) => { res.statusCode = s; return mockRes; },
+                            json: (d) => sendJson(res.statusCode || 200, d),
+                            end: () => res.end()
+                        };
+                        return await handler({ ...req, body }, mockRes);
+                    }
+
                     if (!isValidUuid(userId)) {
                         return sendJson(400, { error: 'Invalid or missing user ID / authentication token' });
                     }
