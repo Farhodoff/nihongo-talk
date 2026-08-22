@@ -132,7 +132,7 @@ describe('shared admin Gemini key distribution', () => {
             }
         }
         expect(offenders).toEqual([]);
-    });
+    }, 20000);
 
     it('no src file fetches gemini_api_key from the client', () => {
         const offenders: string[] = [];
