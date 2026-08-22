@@ -23,6 +23,23 @@ export interface UseSpeechRecognitionReturn {
     setError: React.Dispatch<React.SetStateAction<string | null>>;
     isSupported: boolean;
     startListening: () => void;
+    commitSpeechNow: () => void;
+}
+
+/**
+ * Checks if transcript ends with terminal punctuation or sentence-ending grammar pattern
+ */
+function isSentenceTerminal(text: string, lang: 'en' | 'ja'): boolean {
+    const trimmed = text.trim();
+    if (!trimmed) return false;
+
+    if (lang === 'ja') {
+        return /[。！？\n]$/.test(trimmed) ||
+            /(です|ます|した|でした|ません|ね|よ|か|よね|でしょうか|とおもいます|とおもいました|だ|だった|んだ)$/.test(trimmed);
+    }
+
+    return /[.!?\n]$/.test(trimmed) ||
+        /\b(right|please|thank you|thanks|you know|so yeah)$/i.test(trimmed);
 }
 
 export const useSpeechRecognition = ({
@@ -64,6 +81,26 @@ export const useSpeechRecognition = ({
     const onResumeListeningRef = useRef(onResumeListening);
     useEffect(() => { onValidSpeechRef.current = onValidSpeech; }, [onValidSpeech]);
     useEffect(() => { onResumeListeningRef.current = onResumeListening; }, [onResumeListening]);
+
+    const commitSpeechNow = useCallback(() => {
+        if (isProcessingRef.current || isSpeakingRef.current || isThinkingRef.current) return;
+        const text = transcriptBufferRef.current.trim();
+        if (!text) return;
+
+        if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current);
+            silenceTimerRef.current = null;
+        }
+
+        isSilenceTimeoutRef.current = true;
+        if (recognitionRef.current) {
+            try {
+                recognitionRef.current.stop();
+            } catch (e) {
+                console.debug('Recognition stop failed:', e);
+            }
+        }
+    }, [isProcessingRef]);
 
     const startListening = useCallback(() => {
         if (!isLiveSessionRef.current || isMutedRef.current) return;
@@ -163,7 +200,12 @@ export const useSpeechRecognition = ({
                 lastSpeechTimeRef.current = Date.now();
             }
 
-            // 3-SECOND STRICT SILENCE TIMEOUT
+            // LOW-LATENCY ADAPTIVE SILENCE TIMEOUT
+            // If the user ends the sentence with terminal words/punctuation, submit faster (1200ms)
+            // If mid-clause, wait 1800ms for natural pauses
+            const isTerminal = isSentenceTerminal(cleanText, languageRef.current);
+            const silenceThreshold = isTerminal ? 1200 : 1800;
+
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {
                 if (isLiveSessionRef.current && !isProcessingRef.current && transcriptBufferRef.current.trim().length > 0) {
@@ -172,7 +214,7 @@ export const useSpeechRecognition = ({
                         console.debug('Recognition stop failed:', e);
                     }
                 }
-            }, 3000);
+            }, silenceThreshold);
         };
 
         recognition.onerror = (event: any) => {
@@ -191,8 +233,8 @@ export const useSpeechRecognition = ({
             const duration = speechStartTimeRef.current > 0 ? Date.now() - speechStartTimeRef.current : 0;
             const silenceElapsed = lastSpeechTimeRef.current > 0 ? Date.now() - lastSpeechTimeRef.current : 0;
 
-            // Trigger submission ONLY if 3-second silence timeout expired or explicit user stop with >= 2.8s pause
-            if (isSilenceTimeoutRef.current || silenceElapsed >= 2800) {
+            // Trigger submission if silence timeout triggered or user paused >= 1200ms
+            if (isSilenceTimeoutRef.current || silenceElapsed >= 1200) {
                 if (silenceTimerRef.current) {
                     clearTimeout(silenceTimerRef.current);
                     silenceTimerRef.current = null;
@@ -250,5 +292,6 @@ export const useSpeechRecognition = ({
         setError,
         isSupported,
         startListening,
+        commitSpeechNow,
     };
 };

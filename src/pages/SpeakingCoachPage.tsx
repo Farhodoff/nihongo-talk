@@ -5,6 +5,7 @@ import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSessio
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
+import { MasteryEngine } from '../services/MasteryEngine';
 import { isAdminEmail } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import SessionReportModal from '../components/speaking/SessionReportModal';
@@ -176,6 +177,7 @@ const SpeakingCoachPage: React.FC = () => {
         error,
         setError,
         startListening,
+        commitSpeechNow,
     } = useSpeechRecognition({
         language,
         isLiveSessionRef,
@@ -270,19 +272,48 @@ const SpeakingCoachPage: React.FC = () => {
             };
             const finalHistory = [...updatedHistory, aiMsg];
             
-            // Record structured micro-error for real-time live overlay
+            // Record structured micro-error for real-time live overlay & persist immediately to ErrorVault/MasteryEngine
             if (structured.correction && structured.correction.hasError && structured.correction.corrected) {
-                setLiveErrors(prev => [{
+                const errorTag: ErrorTag = {
                     id: Math.random().toString(36).substring(2, 9),
-                    type: 'grammar' as const,
-                    originalText: structured.correction?.original || '',
+                    type: 'grammar',
+                    originalText: structured.correction?.original || text,
                     correction: structured.correction?.corrected || '',
                     explanation: structured.correction?.explanation || ''
-                }, ...prev].slice(0, 10));
+                };
+                setLiveErrors(prev => [errorTag, ...prev].slice(0, 10));
+
+                ErrorVaultService.logErrors([{
+                    verbatim: structured.correction.original || text,
+                    correction: structured.correction.corrected,
+                    explanation: structured.correction.explanation || '',
+                    category: 'grammar',
+                    language: languageRef.current
+                }]);
+
+                const activeUserId = user?.id || 'default-user';
+                MasteryEngine.recordEvidence(activeUserId, languageRef.current, {
+                    id: `ev_spk_err_${Date.now()}`,
+                    skill: 'speaking',
+                    timestamp: new Date().toISOString(),
+                    score: 40,
+                    activityType: 'speaking',
+                    details: `Speaking error corrected: ${structured.correction.corrected}`
+                });
             } else {
                 const extractedErrs = parseMicroErrors(structured.rawText || structured.reply);
                 if (extractedErrs.length > 0) {
                     setLiveErrors(prev => [...extractedErrs, ...prev].slice(0, 10));
+                } else {
+                    const activeUserId = user?.id || 'default-user';
+                    MasteryEngine.recordEvidence(activeUserId, languageRef.current, {
+                        id: `ev_spk_turn_${Date.now()}`,
+                        skill: 'speaking',
+                        timestamp: new Date().toISOString(),
+                        score: 90,
+                        activityType: 'speaking',
+                        details: `Clean speaking turn with ${personaRef.current} persona`
+                    });
                 }
             }
 
@@ -654,6 +685,7 @@ const SpeakingCoachPage: React.FC = () => {
                                 activeCefrLevel="B2"
                                 activeJlptLevel={language === 'ja' ? 'N3' : undefined}
                                 onToggleRecording={toggleMic}
+                                onCommitNow={commitSpeechNow}
                             />
                         )}
                         <CoachChatArea 
