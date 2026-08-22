@@ -11,11 +11,12 @@
 | `/calendar` | CalendarPage | Kalendar ko'rinishi |
 | `/settings` | SettingsPage | Sozlamalar sahifasi |
 
-### Maqsadlar va Vazifalar
-
+### Maqsadlar va Reja
 | Marshrut | Komponent | Tavsif |
 |----------|-----------|--------|
-| `/goals` | GoalsPage | Maqsadlar ro'yxati |
+| `/personal-plan` | PersonalPlanPage | Shaxsiy AI o'quv rejasi va maqsadlar markazi |
+| `/goals` | Navigate to `/personal-plan` | Canonical yo'naltirish |
+| `/plan` | Navigate to `/personal-plan` | Canonical yo'naltirish |
 | `/tasks` | TasksPage | Vazifalar boshqaruvi |
 | `/subjects` | SubjectsPage | Fanlar ro'yxati |
 | `/subjects/:id` | SubjectDetailPage | Fan tafsilotlari |

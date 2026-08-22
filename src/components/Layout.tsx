@@ -195,6 +195,7 @@ const Layout: React.FC = () => {
             <NavLink
                 to="/personal-plan"
                 onClick={onClick}
+                data-tour="nav-personal-plan"
                 className={({ isActive }) =>
                     `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
                         ? 'bg-primary/10 text-primary font-bold shadow-xs'

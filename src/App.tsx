@@ -21,7 +21,6 @@ const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 const DecksPage = lazy(() => import('./pages/DecksPage'));
 const FlashcardForm = lazy(() => import('./pages/FlashcardForm'));
 const FocusPage = lazy(() => import('./pages/FocusPage'));
-const GoalsPage = lazy(() => import('./pages/GoalsPage'));
 const NoteEditorPage = lazy(() => import('./pages/NoteEditorPage'));
 const NotesPage = lazy(() => import('./pages/NotesPage'));
 const ProgressPage = lazy(() => import('./pages/ProgressPage'));
@@ -151,7 +150,8 @@ const App: React.FC = () => {
                                         <Route path="calendar" element={<CalendarPage />} />
                                         <Route path="subjects" element={<SubjectsPage />} />
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />
-                                        <Route path="goals" element={<GoalsPage />} />
+                                        <Route path="plan" element={<Navigate to="/personal-plan" replace />} />
+                                        <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
                                         <Route path="tasks" element={<TasksPage />} />
                                         <Route path="focus" element={<FocusPage />} />
                                         <Route path="notes" element={<NotesPage />} />

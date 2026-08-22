@@ -152,10 +152,28 @@ describe('Phase 1 — Route Integrity & StudyMode Global Entry Tests', () => {
                     <Route path="ielts" element={<div data-testid="canonical-ielts">IELTS Canonical</div>} />
                     <Route path="jlpt/grammar" element={<Navigate to="/jlpt/grammar-quiz" replace />} />
                     <Route path="jlpt/grammar-quiz" element={<div data-testid="canonical-jlpt-quiz">JLPT Quiz Canonical</div>} />
+                    <Route path="personal-plan" element={<div data-testid="canonical-personal-plan">Personal Plan Canonical</div>} />
+                    <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
+                    <Route path="plan" element={<Navigate to="/personal-plan" replace />} />
                 </Routes>
             </MemoryRouter>
         );
 
         expect(screen.getByTestId('canonical-flashcards')).toBeInTheDocument();
     });
+
+    it('6. /goals and /plan redirect to /personal-plan canonical hub', () => {
+        render(
+            <MemoryRouter initialEntries={['/goals']}>
+                <Routes>
+                    <Route path="personal-plan" element={<div data-testid="canonical-personal-plan">Personal Plan Canonical</div>} />
+                    <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
+                    <Route path="plan" element={<Navigate to="/personal-plan" replace />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        expect(screen.getByTestId('canonical-personal-plan')).toBeInTheDocument();
+    });
 });
+

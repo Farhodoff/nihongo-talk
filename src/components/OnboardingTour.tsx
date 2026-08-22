@@ -25,11 +25,11 @@ const TOUR_STEPS: TourStep[] = [
         path: "/dashboard"
     },
     {
-        title: "Katta Maqsadlar Qo'yish 🎯",
-        content: "O'quv maqsadlaringizni kiriting, ularga erishish muddatlarini belgilang va yutuqlaringizni vizual diagrammalarda kuzatib boring.",
-        target: "[data-tour=\"nav-goals\"]",
+        title: "Shaxsiy O'quv Rejasi va Maqsadlar 🎯",
+        content: "O'quv maqsadlaringizni belgilang, muddatlarni ko'rsating va sun'iy intellekt asosida haftalik shaxsiy rejangizni shakllantiring.",
+        target: "[data-tour=\"nav-personal-plan\"]",
         placement: "right",
-        path: "/goals"
+        path: "/personal-plan"
     },
     {
         title: "Vazifalar va To-Do 📝",
