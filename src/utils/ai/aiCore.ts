@@ -1,4 +1,4 @@
-import { getAIConfig, parseAIError, callGeminiFallback } from './aiConfig';
+import { getAIConfig, parseAIError } from './aiConfig';
 import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
 import { trackAITelemetry } from '../../lib/errorTracking';
@@ -10,7 +10,7 @@ export interface ChatMessage {
 
 /**
  * Universal AI Dispatcher that routes prompt execution based on user's active provider selection in Settings.
- * Supports: 'ollama' (Local Ollama), 'gemini' (Google Gemini), and 'deepseek' (DeepSeek).
+ * Supports: 'deepseek' (DeepSeek - Primary) and 'ollama' (Local Ollama).
  */
 export const callSelectedAIProvider = async (
     prompt: string,
@@ -29,19 +29,8 @@ export const callSelectedAIProvider = async (
                 return text.trim();
             }
         } catch (err: any) {
-            console.warn("[AI Fallback] Ollama failed in callSelectedAIProvider, attempting fallback to DeepSeek/Gemini:", err);
+            console.warn("[AI Fallback] Ollama failed in callSelectedAIProvider, falling back to DeepSeek:", err);
             trackAITelemetry({ provider: 'ollama', durationMs: Date.now() - startTime, success: false, error: err?.message });
-        }
-    } else if (config.provider === 'gemini') {
-        try {
-            const text = await callGeminiFallback(prompt, systemPrompt);
-            if (text && text.trim()) {
-                trackAITelemetry({ provider: 'gemini', durationMs: Date.now() - startTime, success: true });
-                return text.trim();
-            }
-        } catch (err: any) {
-            console.warn("[AI Dispatcher] Gemini execution failed, attempting fallback to DeepSeek:", err);
-            trackAITelemetry({ provider: 'gemini', durationMs: Date.now() - startTime, success: false, error: err?.message });
         }
     }
 

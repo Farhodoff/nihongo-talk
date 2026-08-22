@@ -157,9 +157,9 @@ const SpeakingCoachPage: React.FC = () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
-    // Hands-Free Full-Duplex Voice Mode state
-    const [isHandsFree, setIsHandsFree] = useState(true);
-    const isHandsFreeRef = useRef(true);
+    // Voice Mode: Click-to-Talk (default: user presses to speak) & optional Hands-Free
+    const [isHandsFree, setIsHandsFree] = useState(false);
+    const isHandsFreeRef = useRef(false);
     useEffect(() => { isHandsFreeRef.current = isHandsFree; }, [isHandsFree]);
 
     const isSpeakingRef = useRef(isSpeaking);
@@ -172,17 +172,24 @@ const SpeakingCoachPage: React.FC = () => {
         language,
         isLiveSessionRef,
         isProcessingRef,
-        onSpeakStart: () => setIsSpeaking(true),
+        onSpeakStart: () => {
+            setIsSpeaking(true);
+            if (recognitionRef.current) {
+                try { recognitionRef.current.abort(); } catch {}
+            }
+            transcriptBufferRef.current = '';
+            setCurrentTranscript('');
+        },
         onSpeakEnd: () => {
             setIsSpeaking(false);
             isProcessingRef.current = false;
-            // Full-Duplex Auto-Resume Listening with echo dampening buffer
+            // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
             if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
                 setTimeout(() => {
                     if (isLiveSessionRef.current && isHandsFreeRef.current && !isSpeakingRef.current && !isProcessingRef.current) {
                         startListening();
                     }
-                }, 750);
+                }, 1000);
             }
         },
     });

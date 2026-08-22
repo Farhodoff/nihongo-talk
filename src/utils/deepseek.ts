@@ -1,5 +1,5 @@
-import { callGeminiFallback } from './ai/aiConfig';
 import { supabase } from '../lib/supabase';
+import { safeStorage } from './safeStorage';
 
 export const callDeepSeek = async (
     prompt: string,
@@ -36,11 +36,18 @@ export const callDeepSeek = async (
     }
 
     if (!validApiKey || !validApiKey.startsWith('sk-')) {
-        const storedUserKey = typeof localStorage !== 'undefined'
-            ? localStorage.getItem('study_planner_deepseek_api_key')
-            : null;
-        if (storedUserKey && storedUserKey.startsWith('sk-')) {
-            validApiKey = storedUserKey;
+        const savedSettings = safeStorage.getItem<Record<string, any>>('study_planner_ai_settings');
+        if (savedSettings?.deepseekApiKey && typeof savedSettings.deepseekApiKey === 'string' && savedSettings.deepseekApiKey.startsWith('sk-')) {
+            validApiKey = savedSettings.deepseekApiKey;
+        } else if (savedSettings?.coachApiKey && typeof savedSettings.coachApiKey === 'string' && savedSettings.coachApiKey.startsWith('sk-')) {
+            validApiKey = savedSettings.coachApiKey;
+        } else {
+            const storedUserKey = typeof localStorage !== 'undefined'
+                ? localStorage.getItem('study_planner_deepseek_api_key')
+                : null;
+            if (storedUserKey && storedUserKey.startsWith('sk-')) {
+                validApiKey = storedUserKey;
+            }
         }
     }
 
@@ -60,13 +67,16 @@ export const callDeepSeek = async (
                 const data = await directResponse.json();
                 const text = data.choices?.[0]?.message?.content || '';
                 if (text) return text;
+            } else {
+                const errJson = await directResponse.json().catch(() => ({}));
+                console.warn('[DeepSeek Direct BYOK] Status non-200:', directResponse.status, errJson);
             }
         } catch (directErr) {
             console.warn('[DeepSeek Direct BYOK] Call failed, attempting proxy fallback:', directErr);
         }
     }
 
-    // 2. Try serverless proxy /api/deepseek with Supabase auth token or client key
+    // 2. Try serverless proxy /api/deepseek with Supabase auth token or custom key header
     try {
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -76,9 +86,13 @@ export const callDeepSeek = async (
             headers['X-Custom-Key'] = validApiKey;
         }
 
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.access_token) {
-            headers['Authorization'] = `Bearer ${session.access_token}`;
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.access_token) {
+                headers['Authorization'] = `Bearer ${session.access_token}`;
+            }
+        } catch {
+            // Guest or offline
         }
 
         const response = await fetch('/api/deepseek', {
@@ -95,16 +109,16 @@ export const callDeepSeek = async (
         } else {
             const errData = await response.json().catch(() => ({}));
             console.warn('[DeepSeek Proxy] Serverless proxy returned non-200:', response.status, errData);
+            if (errData?.message) {
+                throw new Error(errData.message);
+            }
         }
-    } catch (proxyErr) {
+    } catch (proxyErr: any) {
         console.warn('[DeepSeek Proxy] Error calling serverless proxy:', proxyErr);
+        if (proxyErr?.message && !proxyErr.message.includes('fetch')) {
+            throw proxyErr;
+        }
     }
 
-    // 3. Fallback to Gemini if configured
-    try {
-        return await callGeminiFallback(prompt, systemPrompt);
-    } catch (fallbackErr) {
-        console.error('[Gemini Fallback Failed]:', fallbackErr);
-        throw new Error("AI xizmatiga ulanib bo'lmadi. Iltimos Sozlamalar bo'limida API kalitingizni tekshiring.");
-    }
+    throw new Error("DeepSeek AI xizmatiga ulanib bo'lmadi. Iltimos Sozlamalar bo'limida API kalitingizni tekshiring yoki Vercel Environment Variables-da DEEPSEEK_API_KEY mavjudligini ta'minlang.");
 };

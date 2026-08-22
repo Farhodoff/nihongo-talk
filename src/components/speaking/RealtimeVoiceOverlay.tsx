@@ -31,7 +31,7 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     errors,
     activeCefrLevel = 'B2',
     activeJlptLevel,
-    isHandsFree = true,
+    isHandsFree = false,
     onCommitNow,
     onBargeIn,
     onToggleHandsFree,

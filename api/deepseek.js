@@ -38,7 +38,7 @@ export default async function handler(req) {
 
   const token = getBearerToken(req);
   const customKey = req.headers.get('X-Custom-Key');
-  const serverKey = process.env.DEEPSEEK_API_KEY;
+  const serverKey = process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY || process.env.DEEPSEEK_KEY || process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY;
 
   let effectiveApiKey = null;
   let authenticatedUserId = null;
@@ -49,57 +49,49 @@ export default async function handler(req) {
   } else if (token && token.startsWith('sk-')) {
     effectiveApiKey = token;
   } else {
-    // 2. Otherwise verify user's Supabase JWT access token
-    const { user, error: authError } = await verifyAuth(req);    if (authError || !user) {
-      return new Response(JSON.stringify({
-        error: 'Unauthorized',
-        message: 'Foydalanuvchi tizimga kirmagan yoki shaxsiy API kalit kiritilmagan.',
-        details: authError,
-      }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      });
+    // 2. Try to verify user's Supabase JWT access token
+    const { user } = await verifyAuth(req);
+    if (user && user.id) {
+      authenticatedUserId = user.id;
+
+      // Rate limit check for shared server key
+      const rateCheck = await checkRateLimit(req, authenticatedUserId);
+      if (!rateCheck.allowed) {
+        return new Response(JSON.stringify({
+          error: 'Too Many Requests',
+          message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+          retryAfter: rateCheck.retryAfter,
+        }), {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Retry-After': String(rateCheck.retryAfter),
+          },
+        });
+      }
+
+      // Daily quota check
+      const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
+      if (!quotaCheck.allowed) {
+        return new Response(JSON.stringify({
+          error: 'Quota Exceeded',
+          message: quotaCheck.reason,
+        }), {
+          status: 403,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+      }
     }
 
-    authenticatedUserId = user.id;
-
-    // Rate limit check for shared server key (Distributed / In-Memory)
-    const rateCheck = await checkRateLimit(req, authenticatedUserId);
-    if (!rateCheck.allowed) {
-      return new Response(JSON.stringify({
-        error: 'Too Many Requests',
-        message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
-        retryAfter: rateCheck.retryAfter,
-      }), {
-        status: 429,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Retry-After': String(rateCheck.retryAfter),
-        },
-      });
-    }
-
-    // Daily quota & Request size check
-    const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
-    if (!quotaCheck.allowed) {
-      return new Response(JSON.stringify({
-        error: 'Quota Exceeded',
-        message: quotaCheck.reason,
-      }), {
-        status: 403,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-    }
-
-    // 3. User is authenticated, use server-side configured API key
+    // 3. Check server-side configured API key
     if (!serverKey) {
       return new Response(JSON.stringify({
         error: 'Service Unavailable',
-        message: 'Serverda DeepSeek API kaliti sozlanmagan. Iltimos Sozlamalar bo\'limida o\'z API kalitingizni kiriting.',
+        message: 'Serverda DeepSeek API kaliti (DEEPSEEK_API_KEY) sozlanmagan. Iltimos Vercel Environment Variables bo\'limida DEEPSEEK_API_KEY ni kiriting yoki Sozlamalar bo\'limida shaxsiy kalitingizni kiriting.',
       }), {
         status: 503,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },

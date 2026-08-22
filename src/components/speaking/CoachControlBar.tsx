@@ -33,7 +33,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
     onClearHistory,
     formatTimer,
     onForceStartListening,
-    isHandsFree = true,
+    isHandsFree = false,
     onToggleHandsFree,
     onBargeIn,
 }) => {
