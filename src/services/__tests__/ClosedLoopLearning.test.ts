@@ -45,10 +45,16 @@ describe('Phase 8.11 — Real-Time Closed Loop Learning', () => {
         vi.clearAllMocks();
         vi.spyOn(FlashcardService, 'addFlashcardsBatch').mockImplementation(async (userId, cards) => {
             const current = getLocalFlashcardCache(userId);
-            const created = cards.map(c => ({
-                ...c,
+            const created: Flashcard[] = cards.map(c => ({
                 id: c.id || `card_${Math.random().toString(36).substring(2, 9)}`,
-                userId
+                subjectId: c.subjectId || 'default-subject',
+                front: c.front || '',
+                back: c.back || '',
+                nextReviewDate: c.nextReviewDate || new Date().toISOString(),
+                interval: c.interval ?? 1,
+                easeFactor: c.easeFactor ?? 2.5,
+                repetitions: c.repetitions ?? 0,
+                ...(c.deletedAt ? { deletedAt: c.deletedAt } : {})
             }));
             setLocalFlashcardCache(userId, [...current, ...created]);
             return created;
