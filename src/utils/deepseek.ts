@@ -44,6 +44,28 @@ export const callDeepSeek = async (
         }
     }
 
+    // 1. If user provided a valid direct DeepSeek key (BYOK), call API directly first
+    if (validApiKey && validApiKey.startsWith('sk-')) {
+        try {
+            const directResponse = await fetch('https://api.deepseek.com/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${validApiKey}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (directResponse.ok) {
+                const data = await directResponse.json();
+                const text = data.choices?.[0]?.message?.content || '';
+                if (text) return text;
+            }
+        } catch (directErr) {
+            console.warn('[DeepSeek Direct BYOK] Call failed, attempting proxy fallback:', directErr);
+        }
+    }
+
     // 2. Try serverless proxy /api/deepseek with Supabase auth token or client key
     try {
         const headers: Record<string, string> = {
@@ -62,6 +84,7 @@ export const callDeepSeek = async (
         const response = await fetch('/api/deepseek', {
             method: 'POST',
             headers,
+            credentials: 'omit', // Avoid HTTP 494 Request Header Too Large from cookies
             body: JSON.stringify(payload),
         });
 
@@ -69,6 +92,9 @@ export const callDeepSeek = async (
             const data = await response.json();
             const text = data.choices?.[0]?.message?.content || '';
             if (text) return text;
+        } else {
+            const errData = await response.json().catch(() => ({}));
+            console.warn('[DeepSeek Proxy] Serverless proxy returned non-200:', response.status, errData);
         }
     } catch (proxyErr) {
         console.warn('[DeepSeek Proxy] Error calling serverless proxy:', proxyErr);

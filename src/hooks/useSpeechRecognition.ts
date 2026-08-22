@@ -74,8 +74,39 @@ export const useSpeechRecognition = ({
     const isSpeakingRef = useRef(isSpeaking);
     const isThinkingRef = useRef(isThinking);
     const isMutedRef = useRef(isMuted);
-    useEffect(() => { isSpeakingRef.current = isSpeaking; }, [isSpeaking]);
-    useEffect(() => { isThinkingRef.current = isThinking; }, [isThinking]);
+
+    useEffect(() => {
+        isSpeakingRef.current = isSpeaking;
+        if (isSpeaking) {
+            if (silenceTimerRef.current) {
+                clearTimeout(silenceTimerRef.current);
+                silenceTimerRef.current = null;
+            }
+            transcriptBufferRef.current = '';
+            setCurrentTranscript('');
+            if (recognitionRef.current) {
+                try { recognitionRef.current.abort(); } catch {}
+            }
+            setIsListening(false);
+        }
+    }, [isSpeaking]);
+
+    useEffect(() => {
+        isThinkingRef.current = isThinking;
+        if (isThinking) {
+            if (silenceTimerRef.current) {
+                clearTimeout(silenceTimerRef.current);
+                silenceTimerRef.current = null;
+            }
+            transcriptBufferRef.current = '';
+            setCurrentTranscript('');
+            if (recognitionRef.current) {
+                try { recognitionRef.current.abort(); } catch {}
+            }
+            setIsListening(false);
+        }
+    }, [isThinking]);
+
     useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
 
     const onValidSpeechRef = useRef(onValidSpeech);
@@ -105,7 +136,7 @@ export const useSpeechRecognition = ({
     }, [isProcessingRef]);
 
     const startListening = useCallback(() => {
-        if (!isLiveSessionRef.current || isMutedRef.current) return;
+        if (!isLiveSessionRef.current || isMutedRef.current || isSpeakingRef.current || isThinkingRef.current) return;
 
         // Reset processing flags to unblock microphone
         isProcessingRef.current = false;
@@ -118,7 +149,7 @@ export const useSpeechRecognition = ({
         // Ensure browser mic permission is requested
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-                if (recognitionRef.current && isLiveSessionRef.current) {
+                if (recognitionRef.current && isLiveSessionRef.current && !isSpeakingRef.current && !isThinkingRef.current) {
                     try {
                         recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                         recognitionRef.current.start();
@@ -129,7 +160,7 @@ export const useSpeechRecognition = ({
             }).catch(() => {
                 setError('Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.');
             });
-        } else if (recognitionRef.current) {
+        } else if (recognitionRef.current && !isSpeakingRef.current && !isThinkingRef.current) {
             try {
                 recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                 recognitionRef.current.start();
@@ -157,15 +188,22 @@ export const useSpeechRecognition = ({
         recognitionRef.current = recognition;
 
         recognition.onstart = () => {
-            if (!speechStartTimeRef.current) {
-                speechStartTimeRef.current = Date.now();
+            if (isSpeakingRef.current || isThinkingRef.current) {
+                try { recognition.abort(); } catch {}
+                setIsListening(false);
+                return;
             }
+            transcriptBufferRef.current = '';
+            setCurrentTranscript('');
+            speechStartTimeRef.current = Date.now();
+            lastSpeechTimeRef.current = Date.now();
             setIsListening(true);
             setError(null);
             playConversationChime('listen_start');
         };
 
         recognition.onspeechstart = () => {
+            if (isSpeakingRef.current || isThinkingRef.current) return;
             if (!speechStartTimeRef.current) {
                 speechStartTimeRef.current = Date.now();
             }
@@ -173,6 +211,7 @@ export const useSpeechRecognition = ({
         };
 
         recognition.onsoundstart = () => {
+            if (isSpeakingRef.current || isThinkingRef.current) return;
             if (!speechStartTimeRef.current) {
                 speechStartTimeRef.current = Date.now();
             }
@@ -180,7 +219,10 @@ export const useSpeechRecognition = ({
         };
 
         recognition.onresult = (event: any) => {
-            if (isProcessingRef.current || isSpeakingRef.current || isThinkingRef.current) return;
+            if (isProcessingRef.current || isSpeakingRef.current || isThinkingRef.current || isMutedRef.current) {
+                transcriptBufferRef.current = '';
+                return;
+            }
             if (!speechStartTimeRef.current) {
                 speechStartTimeRef.current = Date.now();
             }

@@ -116,6 +116,9 @@ function createMockRes() {
 describe('Telegram Webhook & Notifications End-to-End Suite', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        process.env.TELEGRAM_BOT_TOKEN = '123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ';
+        process.env.SERVICE_ROLE = 'mock-service-role-key';
+        process.env.VITE_SUPABASE_URL = 'https://qmuimxnknxwarvnkpnlo.supabase.co';
         // Mock global fetch for Telegram API
         global.fetch = vi.fn().mockResolvedValue({
             ok: true,

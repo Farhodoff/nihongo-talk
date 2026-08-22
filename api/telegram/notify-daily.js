@@ -2,7 +2,6 @@ import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qmuimxnknxwarvnkpnlo.supabase.co';
 const SERVICE_ROLE = process.env.SERVICE_ROLE || process.env.SUPABASE_SERVICE_ROLE_KEY;
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CRON_SECRET = process.env.CRON_SECRET;
 
 function escapeHTML(str) {
@@ -14,13 +13,14 @@ function escapeHTML(str) {
 }
 
 async function sendTelegramMessage(chatId, text) {
-  if (!BOT_TOKEN) return { ok: false, error: 'No bot token' };
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  if (!botToken) return { ok: false, error: 'No bot token' };
   const body = {
     chat_id: chatId,
     text,
     parse_mode: 'HTML'
   };
-  const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),

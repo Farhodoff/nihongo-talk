@@ -26,6 +26,7 @@ import { CoachProModal } from '../components/speaking/CoachProModal';
 import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
 import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
 import { playConversationChime } from '../utils/audioChime';
+import { isAcousticEcho } from '../utils/echoFilter';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -164,6 +165,8 @@ const SpeakingCoachPage: React.FC = () => {
     const isSpeakingRef = useRef(isSpeaking);
     useEffect(() => { isSpeakingRef.current = isSpeaking; }, [isSpeaking]);
 
+    const lastCoachSpokenTextRef = useRef<string>('');
+
     // TTS Hook
     const { speakText, stopSpeaking } = useTTS({
         language,
@@ -173,13 +176,13 @@ const SpeakingCoachPage: React.FC = () => {
         onSpeakEnd: () => {
             setIsSpeaking(false);
             isProcessingRef.current = false;
-            // Full-Duplex Auto-Resume Listening
+            // Full-Duplex Auto-Resume Listening with echo dampening buffer
             if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
                 setTimeout(() => {
                     if (isLiveSessionRef.current && isHandsFreeRef.current && !isSpeakingRef.current && !isProcessingRef.current) {
                         startListening();
                     }
-                }, 300);
+                }, 750);
             }
         },
     });
@@ -271,6 +274,22 @@ const SpeakingCoachPage: React.FC = () => {
 
     const handleSendUserText = async (text: string) => {
         if (!text || isProcessingRef.current) return;
+
+        // Acoustic Echo Suppression: Discard microphone loopback of coach's own audio
+        if (isAcousticEcho(text, lastCoachSpokenTextRef.current)) {
+            console.warn('[SpeakingCoach] Discarded acoustic speaker echo loopback:', text);
+            isProcessingRef.current = false;
+            setIsThinking(false);
+            setCurrentTranscript('');
+            transcriptBufferRef.current = '';
+            if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
+                setTimeout(() => {
+                    startListening();
+                }, 500);
+            }
+            return;
+        }
+
         isProcessingRef.current = true;
         setIsThinking(true);
         setError(null);
@@ -355,7 +374,9 @@ const SpeakingCoachPage: React.FC = () => {
 
             setIsThinking(false);
             // STRICT TTS: Speak ONLY canonical Japanese/English TTS text (never Romaji or visual notes)
-            speakText(structured.ttsText || extractSpeechAudioText(structured.reply));
+            const speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
+            lastCoachSpokenTextRef.current = speechToPlay;
+            speakText(speechToPlay);
         } catch (err: any) {
             console.error("Coach response error:", err);
             let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';
@@ -419,7 +440,9 @@ const SpeakingCoachPage: React.FC = () => {
         setChatHistory(initHistory);
         chatHistoryRef.current = initHistory;
 
-        speakText(extractSpeechAudioText(greeting));
+        const speechAudio = extractSpeechAudioText(greeting);
+        lastCoachSpokenTextRef.current = speechAudio;
+        speakText(speechAudio);
     };
 
     const endSession = async () => {
