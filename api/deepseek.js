@@ -50,8 +50,7 @@ export default async function handler(req) {
     effectiveApiKey = token;
   } else {
     // 2. Otherwise verify user's Supabase JWT access token
-    const { user, error: authError } = await verifyAuth(req);
-    if (authError || !user) {
+    const { user, error: authError } = await verifyAuth(req);    if (authError || !user) {
       return new Response(JSON.stringify({
         error: 'Unauthorized',
         message: 'Foydalanuvchi tizimga kirmagan yoki shaxsiy API kalit kiritilmagan.',
@@ -110,6 +109,32 @@ export default async function handler(req) {
   }
 
   try {
+    // SECURITY: BYOK requests are not JWT-authenticated; apply IP-based rate
+    // limiting so this path cannot be used as an unthrottled anonymous relay.
+    if (!authenticatedUserId) {
+      const byokRate = await checkRateLimit(req, null);
+      if (!byokRate.allowed) {
+        return new Response(JSON.stringify({
+          error: 'Too Many Requests',
+          message: `So'rovlar tezligi oshdi. Iltimos ${byokRate.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+          retryAfter: byokRate.retryAfter,
+        }), {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Retry-After': String(byokRate.retryAfter),
+          },
+        });
+      }
+    }
+
+    // SECURITY: clamp cost-relevant params regardless of auth path — the
+    // payload is client-controlled and may be billed to the server key.
+    if (payload && typeof payload === 'object' && typeof payload.max_tokens === 'number') {
+      payload.max_tokens = Math.min(Math.max(Math.floor(payload.max_tokens), 1), 4096);
+    }
+
     const response = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
       headers: {

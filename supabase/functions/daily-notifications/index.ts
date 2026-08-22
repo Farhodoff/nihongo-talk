@@ -2,10 +2,12 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 // @ts-expect-error: Deno imports
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { getSupabaseSecretKey } from '../_shared/secretKey.ts';
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
-const SUPABASE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+// Supabase Secret key (sb_secret_...) — trusted cron/server bearer sifatida ham ishlatiladi
+const SUPABASE_KEY = getSupabaseSecretKey();
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -50,6 +52,43 @@ serve(async (req: Request) => {
     try {
         const url = new URL(req.url);
         const debugTime = url.searchParams.get('time');
+
+        // SECURITY: this function messages every linked Telegram user.
+        // Only the service role (cron) or an admin may invoke it. The
+        // ?time= debug parameter is gated behind this auth as well.
+        const authHeader = req.headers.get('Authorization') || '';
+        const token = authHeader.replace('Bearer ', '').trim();
+        const jsonHeaders = { 'Content-Type': 'application/json' };
+
+        if (!token) {
+            return new Response(JSON.stringify({ error: 'Missing Authorization header' }), {
+                status: 401,
+                headers: jsonHeaders,
+            });
+        }
+
+        if (token !== SUPABASE_KEY) {
+            const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+            if (authError || !user) {
+                return new Response(JSON.stringify({ error: 'Invalid token' }), {
+                    status: 401,
+                    headers: jsonHeaders,
+                });
+            }
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('role, email')
+                .eq('id', user.id)
+                .maybeSingle();
+            const isAdmin = profile &&
+                (profile.role === 'admin' || profile.role === 'superadmin' || profile.email === 'fsoyilov@gmail.com');
+            if (!isAdmin) {
+                return new Response(JSON.stringify({ error: 'Forbidden: admin only' }), {
+                    status: 403,
+                    headers: jsonHeaders,
+                });
+            }
+        }
 
         // 1. Get current time in Uzbekistan Time (UTC+5)
         const timeFormatter = new Intl.DateTimeFormat('en-US', {

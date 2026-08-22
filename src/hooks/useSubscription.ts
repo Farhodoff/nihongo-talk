@@ -89,37 +89,15 @@ export const useSubscription = () => {
           }
         : subscription;
 
-    const upgradeTier = async (newTier: 'pro' | 'premium') => {
-        const credits = newTier === 'premium' ? 9999 : 500;
-        setSubscription(prev => ({
-            tier: newTier,
-            ai_credits: credits,
-            last_reset_date: new Date().toISOString(),
-            trial_start_date: prev?.trial_start_date || new Date().toISOString()
-        }));
-
-        if (user) {
-            try {
-                await supabase
-                    .from('user_subscriptions')
-                    .upsert({
-                        id: user.id,
-                        tier: newTier,
-                        ai_credits: credits,
-                        last_reset_date: new Date().toISOString()
-                    });
-            } catch (err) {
-                console.warn('Subscription upsert error:', err);
-            }
-        }
-    };
+    // NOTE: client-side tier upgrades were removed — user_subscriptions.tier is
+    // admin-only server-side now (20260825 migration). Premium grants go
+    // through the admin dashboard.
 
     return {
         subscription: effectiveSubscription,
         adminApiKey,
         loading,
         decrementCredit,
-        upgradeTier,
         isPro: isUserAdmin || subscription?.tier === 'pro' || subscription?.tier === 'premium',
         hasCredits: isUserAdmin || (subscription?.ai_credits || 0) > 0,
         isAdmin: isUserAdmin

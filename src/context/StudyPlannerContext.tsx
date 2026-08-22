@@ -721,25 +721,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (!user) return;
 
         try {
+            // SECURITY: API keys are never persisted to the profiles table
+            // (column is world-readable) — they live in localStorage only.
             await supabase.from('profiles').update({
                 theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
                 notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
-                google_api_key: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
                 updated_at: new Date().toISOString()
             }).eq('id', user.id);
 
+            // SECURITY: API keys are never written into auth user_metadata —
+            // metadata is embedded in every session JWT. Non-secret settings
+            // only; keys are read from localStorage (aiConfig primary path).
             await supabase.auth.updateUser({
                 data: {
                     ai_settings: {
-                        googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : appSettings.googleApiKey,
                         aiModel: updates.aiModel !== undefined ? updates.aiModel : appSettings.aiModel,
-                        deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : appSettings.deepseekApiKey,
                         deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : appSettings.deepseekModel,
                         deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : appSettings.deepseekThinkingMode,
                         ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : appSettings.ollamaUrl,
                         ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : appSettings.ollamaModel,
-                        coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : appSettings.coachAiModel,
-                        coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : appSettings.coachApiKey
+                        coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : appSettings.coachAiModel
                     },
                     daily_goal: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : appSettings.dailyStudyGoalMinutes,
                     show_furigana: updates.showFurigana !== undefined ? updates.showFurigana : appSettings.showFurigana,

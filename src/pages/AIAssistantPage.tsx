@@ -30,7 +30,9 @@ const SpeechRecognition = (window as any).SpeechRecognition || (window as any).w
 mermaid.initialize({
     startOnLoad: false,
     theme: 'dark',
-    securityLevel: 'loose',
+    // SECURITY: 'strict' sanitizes HTML in diagram labels; 'loose' allowed
+    // arbitrary HTML injection into the app DOM via AI-generated diagrams.
+    securityLevel: 'strict',
     mindmap: { padding: 15 }
 });
 

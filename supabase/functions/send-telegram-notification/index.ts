@@ -2,10 +2,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 // @ts-expect-error: Deno imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
+import { getSupabaseSecretKey } from '../_shared/secretKey.ts';
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
-const SUPABASE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+// Supabase Secret key (sb_secret_...) — legacy SUPABASE_SERVICE_ROLE_KEY emas.
+// Admin JWT yo'li bilan birga trusted server-to-server bearer solishtirishda ham ishlatiladi.
+const SUPABASE_KEY = getSupabaseSecretKey();
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',

@@ -4,6 +4,7 @@ import { SessionAnalysisReport } from '../../utils/ai';
 import { ErrorVaultService } from '../../services/ErrorVaultService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
+import { escapeHtml } from '../../utils/escapeHtml';
 
 interface SessionReportModalProps {
     isOpen: boolean;
@@ -375,11 +376,14 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                 onClick={() => {
                                     const printWindow = window.open('', '_blank');
                                     if (!printWindow) return;
+                                    // SECURITY: every interpolation is user/AI-controlled text and is
+                                    // escaped — the popup runs on the app origin.
+                                    const eT = escapeHtml(personaTitle);
                                     const reportHtml = `
                                         <!DOCTYPE html>
                                         <html>
                                         <head>
-                                            <title>Speaking Coach Tahlil Hisoboti - ${personaTitle}</title>
+                                            <title>Speaking Coach Tahlil Hisoboti - ${eT}</title>
                                             <style>
                                                 body { font-family: system-ui, -apple-system, sans-serif; padding: 40px; color: #111827; background: #fff; }
                                                 h1 { color: #4f46e5; font-size: 24px; margin-bottom: 4px; }
@@ -396,7 +400,7 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                         </head>
                                         <body>
                                             <h1>🎙 Speaking Coach — Suhbat Tahlil Hisoboti</h1>
-                                            <div class="subtitle">Ssenariy: <strong>${personaTitle}</strong> | Sana: ${new Date().toLocaleDateString('uz-UZ')}</div>
+                                            <div class="subtitle">Ssenariy: <strong>${eT}</strong> | Sana: ${new Date().toLocaleDateString('uz-UZ')}</div>
 
                                             <div class="score-card">
                                                 <div>Fluency / Band Bali</div>
@@ -405,24 +409,24 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                             </div>
 
                                             <div class="section-title">💡 Umumiy Xulosa</div>
-                                            <div class="box">${report.overall_feedback}</div>
+                                            <div class="box">${escapeHtml(report.overall_feedback)}</div>
 
                                             <div class="section-title">✅ Kuchli Jihatlar</div>
                                             <ul class="item-list">
-                                                ${report.strengths.map(s => `<li>${s}</li>`).join('')}
+                                                ${report.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
                                             </ul>
 
                                             <div class="section-title">🎯 Rivojlantirish Kerak Bo'lgan Jihatlar</div>
                                             <ul class="item-list">
-                                                ${report.areas_to_improve.map(a => `<li>${a}</li>`).join('')}
+                                                ${report.areas_to_improve.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
                                             </ul>
 
                                             ${report.grammar_corrections.length > 0 ? `
                                                 <div class="section-title">📚 Grammatik Xatolar & Tuzatishlar</div>
                                                 ${report.grammar_corrections.map(g => `
                                                     <div class="box">
-                                                        <div><span class="red">❌ ${g.original}</span> ➔ <span class="green">✅ ${g.corrected}</span></div>
-                                                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">💡 ${g.explanation}</div>
+                                                        <div><span class="red">❌ ${escapeHtml(g.original)}</span> ➔ <span class="green">✅ ${escapeHtml(g.corrected)}</span></div>
+                                                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">💡 ${escapeHtml(g.explanation)}</div>
                                                     </div>
                                                 `).join('')}
                                             ` : ''}
@@ -431,8 +435,8 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                                                 <div class="section-title">✨ Band 8+ Lug'at Tavsiyalari</div>
                                                 ${report.better_vocabulary.map(v => `
                                                     <div class="box">
-                                                        <div>Oddiy: ${v.original} ➔ <strong style="color: #7c3aed;">✨ ${v.suggested}</strong></div>
-                                                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${v.context}</div>
+                                                        <div>Oddiy: ${escapeHtml(v.original)} ➔ <strong style="color: #7c3aed;">✨ ${escapeHtml(v.suggested)}</strong></div>
+                                                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${escapeHtml(v.context)}</div>
                                                     </div>
                                                 `).join('')}
                                             ` : ''}

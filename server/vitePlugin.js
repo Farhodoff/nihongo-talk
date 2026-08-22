@@ -225,7 +225,9 @@ export function telegramApiPlugin() {
 
                 try {
                     const { pathname } = url;
-                    let userId = body.userId;
+                    // SECURITY (dev): identity comes from the verified JWT only —
+                    // body.userId is never trusted (mirrors the prod endpoints).
+                    let userId = null;
 
                     const authHeader = req.headers['authorization'] || req.headers['Authorization'];
                     if (authHeader && authHeader.startsWith('Bearer ')) {

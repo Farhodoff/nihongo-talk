@@ -2,6 +2,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 // @ts-expect-error: Deno imports
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.7"
+import { getSupabaseSecretKey } from '../_shared/secretKey.ts'
 
 declare const Deno: { env: { get(key: string): string | undefined } };
 
@@ -19,9 +20,10 @@ serve(async (req: Request) => {
   try {
     const { session_id } = await req.json()
 
-    // Service Role kalitlari (Faqat serverda!)
+    // Supabase Secret key (faqat serverda! legacy service_role emas).
+    // User JWT autentifikatsiyasi alohida — quyidagi auth.getUser bilan ishlaydi.
     const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? ''
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? Deno.env.get('SERVICE_ROLE_KEY') ?? ''
+    const supabaseServiceKey = getSupabaseSecretKey()
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
