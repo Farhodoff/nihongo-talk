@@ -8,6 +8,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { KanjiCanvasPractice } from '../components/jlpt/KanjiCanvasPractice';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 import { useSEO } from '../hooks/useSEO';
 
 export const JlptHubPage: React.FC = () => {
@@ -27,9 +28,11 @@ export const JlptHubPage: React.FC = () => {
         currentLevel?: string;
         targetLevel?: string;
         durationDays?: number;
+        dailyMinutes?: number;
         generatedPlan?: {
             headline: string;
             summary: string;
+            dailyPlan?: any[];
         };
     } | null>(null);
 
@@ -38,6 +41,11 @@ export const JlptHubPage: React.FC = () => {
             localStorage.removeItem('study_planner_jlpt_user_target');
             setUserPlanData(null);
             try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.id) {
+                    const uuid = toDeterministicUUID(`target_${user.id}_jlpt`);
+                    await supabase.from('user_targets').delete().eq('id', uuid);
+                }
                 await supabase.auth.updateUser({ data: { jlpt_user_target: null } });
             } catch (e) {}
             toast({
@@ -55,12 +63,25 @@ export const JlptHubPage: React.FC = () => {
                 try { parsed = JSON.parse(saved); } catch (e) {}
             }
 
+            // Load from user_targets DB table + user_metadata fallback
             if (!parsed) {
                 try {
                     const { data: { user } } = await supabase.auth.getUser();
-                    if (user?.user_metadata?.jlpt_user_target) {
-                        parsed = user.user_metadata.jlpt_user_target;
-                        localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
+                    if (user?.id) {
+                        const { data: dbTarget, error: dbErr } = await supabase
+                            .from('user_targets')
+                            .select('*')
+                            .eq('user_id', user.id)
+                            .eq('target_type', 'jlpt')
+                            .maybeSingle();
+
+                        if (!dbErr && dbTarget?.details) {
+                            parsed = dbTarget.details;
+                            localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
+                        } else if (user.user_metadata?.jlpt_user_target) {
+                            parsed = user.user_metadata.jlpt_user_target;
+                            localStorage.setItem('study_planner_jlpt_user_target', JSON.stringify(parsed));
+                        }
                     }
                 } catch (e) {}
             }

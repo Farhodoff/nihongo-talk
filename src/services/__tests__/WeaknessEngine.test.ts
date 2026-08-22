@@ -112,7 +112,25 @@ describe('WeaknessEngine Unit Tests', () => {
         expect(profile.topStrengths.length).toBe(0);
     });
 
-    it('10. should ensure primary language isolation in weakness routing', () => {
+    it('10. should not create weakness from completion-only evidence', () => {
+        MasteryEngine.recordEvent(userId, 'en', {
+            id: 'completion_only_ev',
+            userId,
+            language: 'en',
+            lessonId: 'lesson_completion_only',
+            activityType: 'lesson_completion',
+            category: 'completion',
+            skill: 'grammar',
+            score: 100,
+            timestamp: new Date().toISOString()
+        });
+
+        const profile = WeaknessEngine.getUserMasteryProfile(userId, 'en');
+        expect(profile.skills.grammar.status).toBe('not_started');
+        expect(profile.topWeaknesses).toHaveLength(0);
+    });
+
+    it('11. should ensure primary language isolation in weakness routing', () => {
         MasteryEngine.recordEvidence(userId, 'ja', { skill: 'listening', score: 45, timestamp: new Date().toISOString() });
         const profile = WeaknessEngine.getUserMasteryProfile(userId, 'ja');
 

@@ -36,33 +36,11 @@ export const callDeepSeek = async (
     }
 
     if (!validApiKey || !validApiKey.startsWith('sk-')) {
-        const storedAdminKey = typeof localStorage !== 'undefined'
-            ? localStorage.getItem('study_planner_admin_deepseek_api_key') || localStorage.getItem('study_planner_deepseek_api_key')
+        const storedUserKey = typeof localStorage !== 'undefined'
+            ? localStorage.getItem('study_planner_deepseek_api_key')
             : null;
-        if (storedAdminKey && storedAdminKey.startsWith('sk-')) {
-            validApiKey = storedAdminKey;
-        }
-    }
-
-    // 1. If user provided a direct DeepSeek key, use direct REST API fetch
-    if (validApiKey && validApiKey.startsWith('sk-')) {
-        try {
-            const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${validApiKey}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const text = data.choices?.[0]?.message?.content || '';
-                if (text) return text;
-            }
-        } catch (directErr: any) {
-            console.warn('[DeepSeek] Direct REST call failed. Attempting proxy / fallback:', directErr?.message || directErr);
+        if (storedUserKey && storedUserKey.startsWith('sk-')) {
+            validApiKey = storedUserKey;
         }
     }
 

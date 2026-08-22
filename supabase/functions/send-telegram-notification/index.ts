@@ -12,6 +12,24 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Mirrors public.is_admin() from the database (profiles.role OR owner email).
+async function isAuthorizedAdmin(supabase: any, token: string): Promise<boolean> {
+  // Server-to-server (cron) calls pass the service role key as the bearer.
+  if (token === SUPABASE_KEY) return true;
+
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) return false;
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role, email')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!profile) return false;
+  return profile.role === 'admin' || profile.role === 'superadmin' || profile.email === 'fsoyilov@gmail.com';
+}
+
 serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -19,7 +37,26 @@ serve(async (req: Request) => {
   }
 
   try {
+    // SECURITY: previously the body userId was trusted with no caller
+    // authentication, letting anyone message any user's Telegram chat.
+    const authHeader = req.headers.get('Authorization') || '';
+    const token = authHeader.replace('Bearer ', '').trim();
+    if (!token) {
+      return new Response(JSON.stringify({ error: 'Missing Authorization header' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      });
+    }
+
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    if (!(await isAuthorizedAdmin(supabase, token))) {
+      return new Response(JSON.stringify({ error: 'Forbidden: admin only' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 403,
+      });
+    }
+
     const { userId, message } = await req.json();
 
     if (!userId || !message) {

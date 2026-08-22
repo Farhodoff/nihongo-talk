@@ -14,6 +14,7 @@ export interface SpeakingErrorItem {
 const STORAGE_KEY = 'study_planner_error_vault';
 
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 
 export class ErrorVaultService {
     /**
@@ -31,12 +32,41 @@ export class ErrorVaultService {
     }
 
     /**
-     * Syncs error vault from Supabase DB on initialization
+     * Syncs error vault from Supabase speaking_errors DB table on initialization
      */
     public static async syncFromDB(): Promise<SpeakingErrorItem[]> {
         try {
             const localErrors = this.getErrors();
             const { data: { user } } = await supabase.auth.getUser();
+            if (!user?.id) return localErrors;
+
+            // 1. Fetch from speaking_errors table
+            const { data: dbRows, error } = await supabase
+                .from('speaking_errors')
+                .select('*')
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: false })
+                .limit(100);
+
+            if (!error && dbRows && dbRows.length > 0) {
+                const mappedFromDB: SpeakingErrorItem[] = dbRows.map(r => ({
+                    id: r.id,
+                    verbatim: r.verbatim,
+                    correction: r.correction,
+                    explanation: r.explanation || '',
+                    category: (r.category || 'grammar') as any,
+                    language: (r.language || 'en') as any,
+                    timestamp: r.created_at || new Date().toISOString(),
+                    timesReviewed: r.times_reviewed || 0
+                }));
+
+                const dbIds = new Set(mappedFromDB.map(e => e.id));
+                const merged = [...mappedFromDB, ...localErrors.filter(e => !dbIds.has(e.id))].slice(0, 100);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+                return merged;
+            }
+
+            // 2. Backward compatibility fallback in user_metadata
             if (user?.user_metadata?.error_vault) {
                 const dbErrors = user.user_metadata.error_vault as SpeakingErrorItem[];
                 const dbIds = new Set(dbErrors.map(e => e.id));
@@ -69,12 +99,30 @@ export class ErrorVaultService {
             console.error('Error saving to error vault:', e);
         }
 
-        // Sync to Supabase Auth user_metadata (DB)
+        // Asynchronously sync to Supabase speaking_errors table
         supabase.auth.getUser().then(({ data: { user } }) => {
             if (user) {
+                const payloads = newItems.map(item => ({
+                    id: toDeterministicUUID(item.id),
+                    user_id: user.id,
+                    language: item.language,
+                    verbatim: item.verbatim,
+                    correction: item.correction,
+                    explanation: item.explanation,
+                    category: item.category,
+                    times_reviewed: item.timesReviewed,
+                    created_at: item.timestamp,
+                    updated_at: new Date().toISOString()
+                }));
+
+                supabase.from('speaking_errors').upsert(payloads).then(({ error }) => {
+                    if (error) console.warn('[ErrorVaultService] DB upsert error:', error);
+                });
+
+                // Also update user_metadata for fallback
                 supabase.auth.updateUser({
                     data: { error_vault: updated }
-                }).catch(err => console.warn('Failed to sync error vault to DB:', err));
+                }).catch(err => console.warn('Failed to sync error vault to metadata:', err));
             }
         });
 

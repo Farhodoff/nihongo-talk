@@ -7,6 +7,7 @@ import { calculateCefrFeasibility } from '../../utils/cefrCalculator';
 import { Task, Flashcard, StudyNote } from '../../types';
 import { PlacementTestModal } from '../ui/PlacementTestModal';
 import { supabase } from '../../lib/supabase';
+import { toDeterministicUUID } from '../../utils/uuid';
 
 interface IeltsOnboardingModalProps {
     isOpen: boolean;
@@ -76,8 +77,20 @@ export const IeltsOnboardingModal: React.FC<IeltsOnboardingModalProps> = ({
             // Save to localStorage
             localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(targetObj));
 
-            // Save to Supabase DB user_metadata so cache clear never loses the plan
+            // Save to Supabase DB user_targets table (and user_metadata fallback)
             try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.id) {
+                    const uuid = toDeterministicUUID(`target_${user.id}_ielts`);
+                    await supabase.from('user_targets').upsert({
+                        id: uuid,
+                        user_id: user.id,
+                        target_type: 'ielts',
+                        target_score: String(targetBand),
+                        details: targetObj,
+                        updated_at: new Date().toISOString()
+                    });
+                }
                 await supabase.auth.updateUser({
                     data: { ielts_user_target: targetObj }
                 });

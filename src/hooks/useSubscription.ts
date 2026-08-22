@@ -13,7 +13,9 @@ export interface UserSubscription {
 export const useSubscription = () => {
     const { user } = useStudyData();
     const [subscription, setSubscription] = useState<UserSubscription | null>(null);
-    const [adminApiKey, setAdminApiKey] = useState<string | null>(null);
+    // SECURITY (P0): the shared admin Gemini key is never fetched to the client
+    // anymore. Kept in the return surface as always-null for existing consumers.
+    const adminApiKey: string | null = null;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -40,22 +42,12 @@ export const useSubscription = () => {
                     });
                 }
 
-                // AI kalitlarni o'qish (faqat auth o'tganlarga beriladi, RLS orqali)
-                const { data: appSettings, error: keyError } = await supabase
-                    .from('app_settings')
-                    .select('gemini_api_key, deepseek_api_key')
-                    .eq('id', 1)
-                    .single();
-
-                if (!keyError && appSettings) {
-                    if (appSettings.gemini_api_key) {
-                        setAdminApiKey(appSettings.gemini_api_key);
-                        localStorage.setItem('study_planner_admin_api_key', appSettings.gemini_api_key);
-                    }
-                    if (appSettings.deepseek_api_key) {
-                        localStorage.setItem('study_planner_admin_deepseek_api_key', appSettings.deepseek_api_key);
-                    }
-                }
+                // SECURITY (P0): the shared Gemini key is no longer shipped to
+                // clients. It must stay server-side in app_settings only.
+                // Purge any copy left in this browser by older versions.
+                try {
+                    localStorage.removeItem('study_planner_admin_api_key');
+                } catch {}
             } catch (error) {
                 console.error("Subscription fetch error:", error);
             } finally {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 
 export type MasteryStatus = 'unlearned' | 'learned' | 'hard' | 'mastered';
 
@@ -19,11 +20,33 @@ export const useJlptMastery = () => {
         }
     });
 
-    // Load from DB on mount
+    // Load from DB (jlpt_item_mastery table + user_metadata fallback) on mount
     useEffect(() => {
         const fetchDbMastery = async () => {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
+                if (!user?.id) return;
+
+                // 1. Fetch from jlpt_item_mastery table
+                const { data: dbRows, error: dbErr } = await supabase
+                    .from('jlpt_item_mastery')
+                    .select('*')
+                    .eq('user_id', user.id);
+
+                if (!dbErr && dbRows && dbRows.length > 0) {
+                    const dbMap: MasteryRecord = {};
+                    dbRows.forEach(r => {
+                        dbMap[r.item_id] = r.mastery_status as MasteryStatus;
+                    });
+                    setRecords(prev => {
+                        const merged = { ...prev, ...dbMap };
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+                        return merged;
+                    });
+                    return;
+                }
+
+                // 2. Metadata fallback
                 if (user?.user_metadata?.jlpt_mastery) {
                     const dbRecords = user.user_metadata.jlpt_mastery as MasteryRecord;
                     setRecords(prev => {
@@ -51,12 +74,24 @@ export const useJlptMastery = () => {
                 console.error('Failed to save JLPT mastery status to localStorage:', e);
             }
 
-            // Sync to DB
+            // Sync to Supabase DB (jlpt_item_mastery table)
             supabase.auth.getUser().then(({ data: { user } }) => {
                 if (user) {
+                    const uuid = toDeterministicUUID(`jlpt_${user.id}_${itemId}`);
+                    supabase.from('jlpt_item_mastery').upsert({
+                        id: uuid,
+                        user_id: user.id,
+                        item_id: itemId,
+                        mastery_status: status,
+                        updated_at: new Date().toISOString()
+                    }).then(({ error }) => {
+                        if (error) console.warn('[useJlptMastery] DB upsert error:', error);
+                    });
+
+                    // Fallback to user_metadata
                     supabase.auth.updateUser({
                         data: { jlpt_mastery: updated }
-                    }).catch(err => console.warn('Failed to sync JLPT mastery to DB:', err));
+                    }).catch(err => console.warn('Failed to sync JLPT mastery to metadata:', err));
                 }
             });
 

@@ -15,7 +15,6 @@ import { WeaknessEngine } from './WeaknessEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { CurriculumLessonResolver } from './CurriculumLessonResolver';
-import { LevelPromotionCandidate } from '../types/learningPath';
 
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -373,58 +372,40 @@ export const LearningOrchestrator = {
      * Phase 15: Promote user to next level if all conditions are met.
      * Writes to localStorage (study_planner_current_level) and syncs to Supabase.
      */
-    async promoteIfReady(userId: string = 'guest', language?: SupportedLanguage): Promise<{ promoted: boolean; oldLevel: string; newLevel: string | null; reason: string }> {
+    /**
+     * Phase 15 / Compatibility wrapper:
+     * Promotion decisions are owned by LearningProgressionService.
+     *
+     * This method is kept for backward compatibility with existing callers/tests,
+     * but it MUST NOT contain independent promotion logic.
+     */
+    async promoteIfReady(
+        userId: string = 'guest',
+        language?: SupportedLanguage
+    ): Promise<{ promoted: boolean; oldLevel: string; newLevel: string | null; reason: string }> {
         const lang = language || this.getPrimaryLanguage();
-        const state = await this.getUserLearningState(userId, { forceLanguage: lang });
 
-        // Dynamic import to avoid circular dependency at module load time
-        const { LearningPathEngine } = await import('./LearningPathEngine') as any;
+        const { LearningProgressionService } = await import('./LearningProgressionService');
 
-        const isZeroLevel = state.completedLessonsCount === 0 &&
-            (state.currentLevel === 'A1' || state.currentLevel === 'N5');
+        const candidate = await LearningProgressionService.evaluatePromotion(userId, lang);
 
-        const progression = LearningPathEngine.evalProgression(state, isZeroLevel);
-
-        if (!progression.canAdvance || !progression.nextLevel) {
+        if (candidate) {
             return {
                 promoted: false,
-                oldLevel: state.currentLevel,
-                newLevel: null,
-                reason: (progression.advancementBlockers || []).length > 0
-                    ? (progression.advancementBlockers || []).join('; ')
-                    : 'Already at maximum level or no next level defined.'
+                oldLevel: candidate.currentLevel,
+                newLevel: candidate.candidateLevel,
+                reason: `Promotion candidate registered for ${candidate.candidateLevel}. Confirmation required.`
             };
         }
 
-        const newLevel = progression.nextLevel;
-        const oldLevel = state.currentLevel;
+        const oldLevel = LearningProgressionService.getCurrentLevel(userId, lang);
 
-        const skills = Object.values(state.masteryProfile?.skills || {});
-        const avgMastery = skills.length > 0
-            ? Math.round(skills.reduce((sum: number, sk: any) => sum + (sk.score || 0), 0) / skills.length)
-            : 0;
-
-        const { PROGRESSION_CONFIG } = await import('./LearningPathEngine') as any;
-        const requiredThreshold = PROGRESSION_CONFIG.STANDARD_LEVEL_MASTERY_THRESHOLD;
-
-        // Register the promotion candidate instead of setting confirmed level directly
-        const candidate: LevelPromotionCandidate = {
-            language: lang,
-            currentLevel: oldLevel,
-            candidateLevel: newLevel,
-            reason: progression.explanation || `Passed requirements for ${newLevel}`,
-            evidenceIds: state.unfinishedLessons.map(l => l.lessonId),
-            masteryScore: avgMastery,
-            requiredThreshold,
-            createdAt: new Date().toISOString(),
-            status: 'pending',
-            completedLessonsCount: state.completedLessonsCount
+        return {
+            promoted: false,
+            oldLevel,
+            newLevel: null,
+            reason: 'No promotion candidate available.'
         };
-
-        LearningTrackStorage.setPromotionCandidate(lang, candidate);
-        console.log(`[Orchestrator] Promotion candidate registered: ${oldLevel} -> ${newLevel}`);
-
-        return { promoted: false, oldLevel, newLevel, reason: `Promotion candidate registered for ${newLevel}. Confirmation required.` };
     },
 
     /**

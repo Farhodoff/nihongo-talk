@@ -287,15 +287,15 @@ const AdminDashboardPage: React.FC = () => {
 
             const { data: appSettings } = await supabase
                 .from('app_settings')
-                .select('*')
+                .select('id, gemini_api_key')
                 .eq('id', 1)
                 .single();
             if (appSettings) {
                 setGeminiApiKey(appSettings.gemini_api_key || '');
-                setDeepseekApiKey(appSettings.deepseek_api_key || '');
+                setDeepseekApiKey(localStorage.getItem('study_planner_deepseek_api_key') || '');
             } else {
-                setGeminiApiKey(localStorage.getItem('study_planner_admin_api_key') || '');
-                setDeepseekApiKey(localStorage.getItem('study_planner_admin_deepseek_api_key') || '');
+                setGeminiApiKey('');
+                setDeepseekApiKey(localStorage.getItem('study_planner_deepseek_api_key') || '');
             }
 
             let statsData: any[] = [];
@@ -429,30 +429,28 @@ const AdminDashboardPage: React.FC = () => {
                 setDeepseekApiKey('');
             }
 
-            // 1. Immediately persist to localStorage & safeStorage for instant availability
+            // 1. Immediately persist for instant availability.
+            // SECURITY (P0): the shared key is NOT stored in localStorage anymore
+            // ('study_planner_admin_api_key' is retired); the admin's own browser
+            // uses the regular BYOK settings path, all others use the server key
+            // exclusively server-side.
             if (effectiveGemini) {
-                safeStorage.setItem('study_planner_admin_api_key', effectiveGemini);
+                safeStorage.removeItem('study_planner_admin_api_key');
                 updateSettings({ googleApiKey: effectiveGemini });
             }
             if (effectiveDeepseek) {
-                safeStorage.setItem('study_planner_admin_deepseek_api_key', effectiveDeepseek);
                 safeStorage.setItem('study_planner_deepseek_api_key', effectiveDeepseek);
                 updateSettings({ deepseekApiKey: effectiveDeepseek, aiModel: 'deepseek' });
             }
 
-            // 2. Persist to Supabase DB (app_settings) with schema fallback
+            // 2. Persist to Supabase DB (app_settings) - ONLY Gemini key goes to DB.
+            // DeepSeek API key is stored only on the server as an environment variable (DEEPSEEK_API_KEY).
             const updatePayload: Record<string, any> = { id: 1 };
             if (effectiveGemini) updatePayload.gemini_api_key = effectiveGemini;
-            if (effectiveDeepseek) updatePayload.deepseek_api_key = effectiveDeepseek;
 
             try {
-                const { error } = await supabase.from('app_settings').upsert(updatePayload);
-                if (error && error.message?.includes('column')) {
-                    // Fallback if deepseek_api_key column does not exist in schema
-                    await supabase.from('app_settings').upsert({
-                        id: 1,
-                        gemini_api_key: effectiveGemini || effectiveDeepseek
-                    });
+                if (effectiveGemini) {
+                    await supabase.from('app_settings').upsert(updatePayload);
                 }
             } catch (dbErr) {
                 console.warn('DB upsert app_settings warning (saved to local fallback):', dbErr);

@@ -9,6 +9,7 @@ import { LearningPathEngine } from './LearningPathEngine';
 import { MasteryEngine } from './MasteryEngine';
 import { computeMasteryImpact, resolveCategory, EvidenceCategory } from '../types/learningEvidence';
 import { SupportedLanguage } from '../types/lesson';
+import { toDeterministicUUID } from '../utils/uuid';
 
 
 /**
@@ -99,7 +100,8 @@ export const WeeklyEvaluationEngine = {
 
         const srsRetention = state.reviewSummary?.averageRetentionScore || 80;
 
-        const evaluationId = `eval-${plan.id}-${Date.now()}`;
+        const { generateUUID } = await import('../utils/uuid');
+        const evaluationId = generateUUID();
 
         // 3. Dynamic feedback from AI
         const prompt = `Act as an expert EdTech evaluation engine. Evaluate the student's study week performance:
@@ -174,7 +176,7 @@ Output ONLY the text feedback in Uzbek, no markdown fences.`;
 
         // Increment currentWeek on the goal
         const activeGoal = PersonalLearningPlanService.getActiveGoal(userId);
-        if (activeGoal && activeGoal.id === goal.id) {
+        if (activeGoal && (activeGoal.id === goal.id || toDeterministicUUID(activeGoal.id) === toDeterministicUUID(goal.id))) {
             const updatedGoal: PersonalLearningGoal = {
                 ...activeGoal,
                 currentWeek: activeGoal.currentWeek + 1,

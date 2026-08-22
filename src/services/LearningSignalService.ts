@@ -29,6 +29,74 @@ function normalizeTerm(str: string): string {
         .replace(/[\s()[\]（）]/g, '');
 }
 
+function stablePart(value: string | number | undefined): string {
+    return String(value ?? '')
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9faf]+/gi, '_')
+        .replace(/^_+|_+$/g, '')
+        .slice(0, 80) || 'unknown';
+}
+
+function clampPercentage(scoreData: { score: number; total: number; percentage?: number }): number {
+    if (typeof scoreData.percentage === 'number' && Number.isFinite(scoreData.percentage)) {
+        return Math.max(0, Math.min(100, Math.round(scoreData.percentage)));
+    }
+    if (Number.isFinite(scoreData.score) && Number.isFinite(scoreData.total) && scoreData.total > 0) {
+        return Math.max(0, Math.min(100, Math.round((scoreData.score / scoreData.total) * 100)));
+    }
+    return 0;
+}
+
+function inferSkillFromText(text: string, language: SupportedLanguage): MasterySkill | null {
+    const lower = text.toLowerCase();
+    if (language === 'ja' && (lower.includes('kanji') || /[\u4e00-\u9faf]/.test(text))) return 'kanji';
+    if (lower.includes('grammar') || lower.includes('grammatika') || lower.includes('verb') || lower.includes('tense') || lower.includes('pattern')) return 'grammar';
+    if (lower.includes('listen') || lower.includes('audio')) return 'listening';
+    if (lower.includes('read') || lower.includes('passage')) return 'reading';
+    if (lower.includes('speak') || lower.includes('interview')) return 'speaking';
+    if (language === 'en' && (lower.includes('writ') || lower.includes('essay'))) return 'writing';
+    if (lower.includes('vocab') || lower.includes('word') || lower.includes('term')) return 'vocabulary';
+    return null;
+}
+
+function resolveLessonSkills(lesson: Lesson): MasterySkill[] {
+    const skills = new Set<MasterySkill>();
+    const validSkills: MasterySkill[] = lesson.language === 'ja'
+        ? ['vocabulary', 'kanji', 'grammar', 'reading', 'listening', 'speaking']
+        : ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'speaking'];
+
+    const explicitSkill = (lesson as any).skill as MasterySkill | undefined;
+    if (explicitSkill && validSkills.includes(explicitSkill)) skills.add(explicitSkill);
+
+    for (const step of lesson.steps || []) {
+        if (step.learnData?.vocabulary?.length) skills.add('vocabulary');
+        if (lesson.language === 'ja' && step.learnData?.vocabulary?.some(v => /[\u4e00-\u9faf]/.test(v.term || '') || /[\u4e00-\u9faf]/.test(v.exampleSentence || ''))) {
+            skills.add('kanji');
+        }
+        if (step.learnData?.grammarRules?.length) skills.add('grammar');
+        const text = [step.title, step.practiceData?.instructions, step.testData?.instructions].filter(Boolean).join(' ');
+        const inferred = inferSkillFromText(text, lesson.language);
+        if (inferred && validSkills.includes(inferred)) skills.add(inferred);
+    }
+
+    const lessonText = [lesson.title, lesson.description, lesson.unitTitle].join(' ');
+    const inferred = inferSkillFromText(lessonText, lesson.language);
+    if (inferred && validSkills.includes(inferred)) skills.add(inferred);
+
+    if (skills.size === 0) skills.add('grammar');
+    return Array.from(skills);
+}
+
+function resolveSignalSkill(signal: IncorrectAnswerSignal, fallback: MasterySkill, language: SupportedLanguage): MasterySkill {
+    const explicitSkill = signal.skill as MasterySkill | undefined;
+    const validSkills: MasterySkill[] = language === 'ja'
+        ? ['vocabulary', 'kanji', 'grammar', 'reading', 'listening', 'speaking']
+        : ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'speaking'];
+    if (explicitSkill && validSkills.includes(explicitSkill)) return explicitSkill;
+    return inferSkillFromText(`${signal.prompt} ${signal.explanation || ''}`, language) || fallback;
+}
+
 export const LearningSignalService = {
     /**
      * Get all recorded learning signals for a user.
@@ -61,43 +129,51 @@ export const LearningSignalService = {
     async recordSignalsBatch(signals: LearningSignal[]): Promise<void> {
         if (!signals || signals.length === 0) return;
 
-        const userId = signals[0].userId || 'guest';
-        const key = `${SIGNALS_STORAGE_PREFIX}${userId}`;
-        const current = this.getSignalsForUser(userId);
-
-        const existingIds = new Set(current.map(s => s.id).filter(Boolean));
-        const uniqueNewSignals: LearningSignal[] = [];
-
+        const grouped = new Map<string, LearningSignal[]>();
         for (const sig of signals) {
-            if (sig.id && existingIds.has(sig.id)) {
+            if (!sig || !sig.id || !sig.userId || !sig.language || !sig.lessonId || !sig.timestamp) {
+                console.warn('[LearningSignalService] Rejected invalid learning signal.');
                 continue;
             }
-            if (sig.id) existingIds.add(sig.id);
-            uniqueNewSignals.push(sig);
+            const list = grouped.get(sig.userId) || [];
+            list.push(sig);
+            grouped.set(sig.userId, list);
         }
 
-        if (uniqueNewSignals.length === 0) return;
+        for (const [userId, userSignals] of grouped.entries()) {
+            const key = `${SIGNALS_STORAGE_PREFIX}${userId || 'guest'}`;
+            const current = this.getSignalsForUser(userId);
+            const existingIds = new Set(current.map(s => s.id).filter(Boolean));
+            const uniqueNewSignals: LearningSignal[] = [];
 
-        // Append new signals and cap to latest 300 to avoid unbounded storage growth
-        const updated = [...current, ...uniqueNewSignals].slice(-300);
+            for (const sig of userSignals) {
+                if (sig.userId !== userId) continue;
+                if (existingIds.has(sig.id)) continue;
+                existingIds.add(sig.id);
+                uniqueNewSignals.push(sig);
+            }
 
-        try {
-            localStorage.setItem(key, JSON.stringify(updated));
-        } catch (e) {
-            console.error('[LearningSignalService] Failed to save signals to localStorage:', e);
-        }
+            if (uniqueNewSignals.length === 0) continue;
 
-        // Sync to Supabase in background
-        if (userId && userId !== 'guest') {
+            const updated = [...current, ...uniqueNewSignals].slice(-300);
+
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    await supabase.auth.updateUser({
-                        data: { learning_signals: updated.slice(-100) }
-                    });
+                localStorage.setItem(key, JSON.stringify(updated));
+            } catch (e) {
+                console.error('[LearningSignalService] Failed to save signals to localStorage:', e);
+            }
+
+            if (userId && userId !== 'guest') {
+                try {
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user && user.id === userId) {
+                        await supabase.auth.updateUser({
+                            data: { learning_signals: updated.slice(-100) }
+                        });
+                    }
+                } catch (err) {
+                    console.warn('[LearningSignalService] Background sync to Supabase failed:', err);
                 }
-            } catch (err) {
-                console.warn('[LearningSignalService] Background sync to Supabase failed:', err);
             }
         }
     },
@@ -186,7 +262,7 @@ export const LearningSignalService = {
 
                 // Create vocabulary signal
                 const vocabSignal: VocabularySignal = {
-                    id: generateUUID(),
+                    id: `vocab_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${stablePart(v.term)}`,
                     type: 'new_vocabulary',
                     language: lesson.language,
                     lessonId: lesson.id,
@@ -218,7 +294,7 @@ export const LearningSignalService = {
             if (step.type === 'learn' && step.learnData?.grammarRules) {
                 step.learnData.grammarRules.forEach(rule => {
                     const grammarSignal: GrammarSignal = {
-                        id: generateUUID(),
+                        id: `grammar_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${stablePart(rule.pattern)}`,
                         type: 'grammar_pattern',
                         language: lesson.language,
                         lessonId: lesson.id,
@@ -233,6 +309,9 @@ export const LearningSignalService = {
             }
         });
 
+        const lessonSkills = resolveLessonSkills(lesson);
+        const primaryLessonSkill = lessonSkills[0] || 'grammar';
+
         // 5. Check for repeated errors (questions failed >= 2 times)
         const errorCountByQuestion: Record<string, { count: number; prompt: string }> = {};
         incorrectAnswers.forEach(err => {
@@ -245,7 +324,7 @@ export const LearningSignalService = {
         Object.entries(errorCountByQuestion).forEach(([qId, data]) => {
             if (data.count >= 2) {
                 const repeatedSignal: RepeatedErrorSignal = {
-                    id: generateUUID(),
+                    id: `repeated_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${stablePart(qId)}`,
                     type: 'repeated_error',
                     language: lesson.language,
                     lessonId: lesson.id,
@@ -253,28 +332,39 @@ export const LearningSignalService = {
                     questionId: qId,
                     errorCount: data.count,
                     prompt: data.prompt,
+                    skill: inferSkillFromText(data.prompt, lesson.language) || primaryLessonSkill,
                     timestamp
                 };
                 emittedSignals.push(repeatedSignal);
             }
         });
 
-        // Add the incorrect answer signals
-        emittedSignals.push(...incorrectAnswers);
+        const normalizedIncorrectAnswers = incorrectAnswers.map((err, index) => ({
+            ...err,
+            id: err.id || `incorrect_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${stablePart(err.questionId)}_${index}`,
+            userId: activeUserId,
+            language: lesson.language,
+            lessonId: lesson.id,
+            skill: resolveSignalSkill(err, primaryLessonSkill, lesson.language),
+            timestamp: err.timestamp || timestamp
+        }));
+
+        // Add the incorrect answer signals after enforcing user/language/lesson isolation.
+        emittedSignals.push(...normalizedIncorrectAnswers);
 
         // 6. Record CompletedLessonSignal
         const completionSignal: CompletedLessonSignal = {
-            id: generateUUID(),
+            id: `completed_${stablePart(activeUserId)}_${stablePart(lesson.id)}`,
             type: 'completed_lesson',
             language: lesson.language,
             lessonId: lesson.id,
             userId: activeUserId,
             level: lesson.level,
-            score: scoreData.score,
-            total: scoreData.total,
-            percentage: scoreData.percentage,
+            score: Number.isFinite(scoreData.score) ? scoreData.score : 0,
+            total: Number.isFinite(scoreData.total) && scoreData.total > 0 ? scoreData.total : 1,
+            percentage: clampPercentage(scoreData),
             newCardsCreated: createdCount,
-            mistakesCount: incorrectAnswers.length,
+            mistakesCount: normalizedIncorrectAnswers.length,
             durationMinutes: lesson.estimatedDurationMinutes,
             timestamp,
             activityType: 'lesson_completion'
@@ -285,41 +375,48 @@ export const LearningSignalService = {
         await this.recordSignalsBatch(emittedSignals);
 
         // 8. Record lesson mastery evidence in MasteryEngine
-        const hasGrammarRules = lesson.steps.some(s => s.type === 'learn' && s.learnData?.grammarRules && s.learnData.grammarRules.length > 0);
-        const hasVocab = lesson.steps.some(s => s.type === 'learn' && s.learnData?.vocabulary && s.learnData.vocabulary.length > 0);
-        const lessonSkill: MasterySkill = (lesson as any).skill || (hasGrammarRules ? 'grammar' : hasVocab ? 'vocabulary' : 'grammar');
+        const finalPercentage = clampPercentage(scoreData);
 
-        // Completion evidence (checkbox — does NOT raise mastery)
-        MasteryEngine.recordEvent(activeUserId, lesson.language, {
-            id: `lesson_ev_${completionSignal.id}`,
-            activityType: 'lesson_completion',
-            lessonId: lesson.id,
-            skill: lessonSkill,
-            score: scoreData.percentage,
-            isCompleted: true,
-            timeSpent: lesson.estimatedDurationMinutes,
-            timestamp,
-            details: `Lesson completed: ${lesson.title}`,
-            source: 'lesson_player'
-        });
+        for (const lessonSkill of lessonSkills) {
+            // Completion evidence (checkbox — does NOT raise mastery). Stable upsert prevents duplicate completions inflating evidence.
+            MasteryEngine.upsertEvidence(activeUserId, lesson.language, {
+                id: `lesson_completion_ev_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${lessonSkill}`,
+                userId: activeUserId,
+                language: lesson.language,
+                activityType: 'lesson_completion',
+                category: 'completion',
+                lessonId: lesson.id,
+                skill: lessonSkill,
+                score: finalPercentage,
+                isCompleted: true,
+                timeSpent: lesson.estimatedDurationMinutes,
+                timestamp,
+                completedAt: timestamp,
+                details: `Lesson completed: ${lesson.title}`,
+                source: 'lesson_player'
+            });
 
-        // Quiz performance evidence (the lesson's final test — DOES raise mastery)
-        MasteryEngine.recordEvent(activeUserId, lesson.language, {
-            id: `quiz_ev_${completionSignal.id}`,
-            activityType: 'quiz',
-            lessonId: lesson.id,
-            skill: lessonSkill,
-            score: scoreData.percentage,
-            accuracy: scoreData.percentage,
-            attempts: 1,
-            timestamp,
-            details: `Lesson final quiz: ${lesson.title} (${scoreData.percentage}%)`,
-            source: 'lesson_player'
-        });
+            // Quiz/result evidence is the only lesson completion evidence that raises mastery.
+            MasteryEngine.upsertEvidence(activeUserId, lesson.language, {
+                id: `lesson_result_ev_${stablePart(activeUserId)}_${stablePart(lesson.id)}_${lessonSkill}`,
+                userId: activeUserId,
+                language: lesson.language,
+                activityType: 'quiz',
+                category: 'performance',
+                lessonId: lesson.id,
+                skill: lessonSkill,
+                score: finalPercentage,
+                accuracy: finalPercentage,
+                attempts: 1,
+                timestamp,
+                details: `Lesson final result: ${lesson.title} (${finalPercentage}%)`,
+                source: 'lesson_player'
+            });
+        }
 
         return {
             newCardsCount: createdCount,
-            mistakesCount: incorrectAnswers.length
+            mistakesCount: normalizedIncorrectAnswers.length
         };
     },
 

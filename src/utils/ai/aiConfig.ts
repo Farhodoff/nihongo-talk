@@ -70,11 +70,10 @@ export const getAIConfig = () => {
     }
 
     if (!deepseekKey && typeof localStorage !== 'undefined') {
-        deepseekKey = localStorage.getItem('study_planner_admin_deepseek_api_key') || localStorage.getItem('study_planner_deepseek_api_key') || '';
+        deepseekKey = localStorage.getItem('study_planner_deepseek_api_key') || '';
     }
-    if (!geminiKey && typeof localStorage !== 'undefined') {
-        geminiKey = localStorage.getItem('study_planner_admin_api_key') || '';
-    }
+    // SECURITY (P0): the shared admin Gemini key is no longer distributed to
+    // clients — only the user's own key from study_planner_ai_settings is used.
 
     // Sukut bo'yicha DeepSeek asosiy model qilinadi
     if (!saved || !coachAiModel) {
@@ -105,25 +104,9 @@ export const isAIKeyConfigured = (): boolean => {
     if (config.provider === 'ollama') return true; 
     if (config.provider === 'gemini' && config.geminiKey) return true;
 
-    // 2. Admin obunasi bormi? (Pro yoki Kreditlar)
-    const subStr = localStorage.getItem('study_planner_subscription');
-    if (subStr) {
-        try {
-            const sub = JSON.parse(subStr);
-            const isPro = sub.tier === 'pro' || sub.tier === 'premium';
-            
-            const trialDays = 7;
-            const isTrialValid = sub.trial_start_date ? 
-                (new Date().getTime() - new Date(sub.trial_start_date).getTime()) / (1000 * 3600 * 24) <= trialDays
-                : false; // Agar trial start date yo'q bo'lsa trial invalid deb hisoblaymiz (faqat Pro/Premium yoki haqiqiy trial ishlaydi)
-                
-            if (sub.adminApiKey && (isPro || (isTrialValid && sub.ai_credits > 0))) {
-                return true;
-            }
-        } catch (e) {
-            console.error("Failed to parse subscription", e);
-        }
-    }
+    // SECURITY (P0): subscription JSON no longer grants AI access by itself —
+    // the shared admin Gemini key is not distributed to clients anymore.
+    // Gemini requires the user's own key; DeepSeek/Ollama go through backends.
 
     return false;
 };
@@ -148,23 +131,8 @@ export const getGeminiAPIKeys = (userKey?: string): string[] => {
         if (config.geminiKey && typeof config.geminiKey === 'string' && !config.geminiKey.trim().startsWith('sk-')) {
             candidateStrings.push(config.geminiKey);
         }
-
-        const directAdminKey = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_admin_api_key') : null;
-        if (directAdminKey && typeof directAdminKey === 'string' && !directAdminKey.trim().startsWith('sk-')) {
-            candidateStrings.push(directAdminKey);
-        }
-
-        const subStr = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_subscription') : null;
-        if (subStr) {
-            try {
-                const sub = JSON.parse(subStr);
-                if (sub.adminApiKey && typeof sub.adminApiKey === 'string' && !sub.adminApiKey.trim().startsWith('sk-')) {
-                    candidateStrings.push(sub.adminApiKey);
-                }
-            } catch (e) {
-                console.error("Failed to parse subscription", e);
-            }
-        }
+        // SECURITY (P0): 'study_planner_admin_api_key' and
+        // subscription.adminApiKey are intentionally no longer key sources.
     }
 
     const rawKeys = candidateStrings.flatMap(str => str.split(/[\s,;\n]+/));

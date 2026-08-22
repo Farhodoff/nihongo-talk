@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { 
@@ -28,6 +28,7 @@ export const LessonPlayerPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [sessionErrors, setSessionErrors] = useState<IncorrectAnswerSignal[]>([]);
     const [srsSummary, setSrsSummary] = useState<{ newCardsCount: number; mistakesCount: number }>({ newCardsCount: 0, mistakesCount: 0 });
+    const completionInFlightRef = useRef(false);
 
     useSEO({
         title: lesson ? `${lesson.title} - Dars Mashg'uloti` : "O'quv Darsi - Kaizen AI",
@@ -166,31 +167,38 @@ export const LessonPlayerPage: React.FC = () => {
         score: { score: number; total: number; percentage: number },
         mistakes: IncorrectAnswerSignal[] = sessionErrors
     ) => {
-        if (!lesson) return;
+        if (!lesson || completionInFlightRef.current) return;
+        completionInFlightRef.current = true;
+
+        const activeUserId = user?.id || 'guest';
+        const existingProgress = LessonService.getLessonProgress(activeUserId, lesson.id);
+        const alreadyCompleted = !!existingProgress?.isCompleted;
+
         setQuizResult(score);
         setIsLessonCompleted(true);
 
         // Award XP
         try {
-            if (awardXP) {
+            if (!alreadyCompleted && awardXP) {
                 await awardXP(50);
             }
         } catch (e) {}
 
-        // Persist lesson completion
-        await LessonService.completeLesson(user?.id || '', lesson.id, score);
-
-        // Process automated SRS ingestion and learning signals
         try {
+            // Persist lesson completion first, then emit canonical learning signals/mastery evidence.
+            await LessonService.completeLesson(activeUserId, lesson.id, score);
+
             const summary = await LearningSignalService.processLessonCompletion(
-                user?.id || '',
+                activeUserId,
                 lesson,
                 score,
                 mistakes
             );
             setSrsSummary(summary);
         } catch (err) {
-            console.error('[LessonPlayerPage] Failed to process SRS ingestion:', err);
+            console.error('[LessonPlayerPage] Failed to complete lesson mastery pipeline:', err);
+        } finally {
+            completionInFlightRef.current = false;
         }
     };
 

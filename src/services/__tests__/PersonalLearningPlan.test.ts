@@ -8,6 +8,34 @@ import { PersonalLearningGoal, WeeklyLearningPlan } from '../../types/learningPl
 import { callSelectedAIProvider } from '../../utils/ai/aiCore';
 import { MasteryEngine } from '../MasteryEngine';
 
+// Mock Supabase to run tests offline/independently
+let lastUpsertedId = 'goal-test-uuid';
+const chainableMock = {
+    select: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockImplementation(async () => ({ data: { id: lastUpsertedId }, error: null })),
+    single: vi.fn().mockImplementation(async () => ({ data: { id: lastUpsertedId }, error: null })),
+    upsert: vi.fn().mockImplementation((payload) => {
+        if (payload && payload.id) {
+            lastUpsertedId = payload.id;
+        }
+        return chainableMock;
+    }),
+    delete: vi.fn().mockReturnThis()
+};
+
+vi.mock('../../lib/supabase', () => {
+    return {
+        supabase: {
+            auth: {
+                getUser: vi.fn().mockResolvedValue({ data: { user: { id: 'test-user' } }, error: null }),
+                updateUser: vi.fn().mockResolvedValue({ error: null })
+            },
+            from: vi.fn(() => chainableMock)
+        }
+    };
+});
+
 // Mock AI Core to avoid hitting actual endpoints during tests
 vi.mock('../../utils/ai/aiCore', () => ({
     callSelectedAIProvider: vi.fn(async (prompt: string) => {

@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { LearningSignalService } from '../LearningSignalService';
 import { FlashcardService } from '../FlashcardService';
+import { MasteryEngine } from '../MasteryEngine';
+import { WeaknessEngine } from '../WeaknessEngine';
 import { SAMPLE_LESSONS } from '../../data/curriculum/sampleCurriculum';
 import { Flashcard } from '../../types';
 
@@ -196,6 +198,79 @@ describe('LearningSignalService', () => {
         expect(repeatedSignals.length).toBe(1);
         expect(repeatedSignals[0].questionId).toBe('q_inversion_1');
         expect(repeatedSignals[0].errorCount).toBe(2);
+    });
+
+    it('records lesson result as canonical mastery evidence and updates weaknesses', async () => {
+        vi.spyOn(FlashcardService, 'fetchFlashcards').mockResolvedValue([]);
+        vi.spyOn(FlashcardService, 'addFlashcardsBatch').mockResolvedValue([]);
+
+        await LearningSignalService.processLessonCompletion(
+            testUserId,
+            enLesson,
+            { score: 1, total: 4, percentage: 25 },
+            []
+        );
+
+        const evidence = MasteryEngine.getUserEvidence(testUserId, enLesson.language);
+        const performanceEvidence = evidence.filter(e => e.lessonId === enLesson.id && e.category === 'performance');
+        const completionEvidence = evidence.filter(e => e.lessonId === enLesson.id && e.category === 'completion');
+
+        expect(performanceEvidence.length).toBeGreaterThan(0);
+        expect(completionEvidence.length).toBeGreaterThan(0);
+        expect(performanceEvidence.every(e => e.userId === testUserId && e.language === enLesson.language)).toBe(true);
+
+        const profile = WeaknessEngine.getUserMasteryProfile(testUserId, enLesson.language);
+        expect(profile.topWeaknesses.length).toBeGreaterThan(0);
+        expect(profile.topWeaknesses.every(w => w.language === enLesson.language)).toBe(true);
+    });
+
+    it('does not duplicate mastery evidence when the same lesson completion is processed twice', async () => {
+        vi.spyOn(FlashcardService, 'fetchFlashcards').mockResolvedValue([]);
+        vi.spyOn(FlashcardService, 'addFlashcardsBatch').mockResolvedValue([]);
+
+        await LearningSignalService.processLessonCompletion(testUserId, jaLesson, { score: 4, total: 4, percentage: 100 }, []);
+        const firstEvidenceCount = MasteryEngine.getUserEvidence(testUserId, jaLesson.language).length;
+        const firstSignalCount = LearningSignalService.getSignalsForUser(testUserId).length;
+
+        await LearningSignalService.processLessonCompletion(testUserId, jaLesson, { score: 2, total: 4, percentage: 50 }, []);
+        const secondEvidence = MasteryEngine.getUserEvidence(testUserId, jaLesson.language);
+        const secondSignals = LearningSignalService.getSignalsForUser(testUserId);
+
+        expect(secondEvidence.length).toBe(firstEvidenceCount);
+        expect(secondSignals.length).toBe(firstSignalCount);
+        expect(secondEvidence.filter(e => e.id?.startsWith('lesson_result_ev_')).every(e => e.score === 50)).toBe(true);
+    });
+
+    it('rejects cross-user or cross-language mastery evidence from lesson pipeline inputs', async () => {
+        vi.spyOn(FlashcardService, 'fetchFlashcards').mockResolvedValue([]);
+        vi.spyOn(FlashcardService, 'addFlashcardsBatch').mockResolvedValue([]);
+
+        await LearningSignalService.processLessonCompletion(
+            testUserId,
+            jaLesson,
+            { score: 2, total: 4, percentage: 50 },
+            [{
+                id: 'foreign_error',
+                type: 'incorrect_answer',
+                language: 'en',
+                lessonId: 'foreign_lesson',
+                userId: 'other_user',
+                stepId: 'foreign_step',
+                questionId: 'foreign_question',
+                prompt: 'Wrong grammar answer',
+                userAnswer: 'x',
+                expectedAnswer: 'y',
+                attemptCount: 1,
+                timestamp: new Date().toISOString()
+            }]
+        );
+
+        const signals = LearningSignalService.getSignalsForUser(testUserId);
+        const normalizedError = signals.find(s => s.id === 'foreign_error');
+        expect(normalizedError?.userId).toBe(testUserId);
+        expect(normalizedError?.language).toBe(jaLesson.language);
+        expect(normalizedError?.lessonId).toBe(jaLesson.id);
+        expect(MasteryEngine.getUserEvidence('other_user', 'en')).toHaveLength(0);
     });
 
     it('caps stored signals in localStorage to avoid storage exhaustion', async () => {

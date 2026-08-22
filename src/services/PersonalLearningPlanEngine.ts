@@ -12,6 +12,7 @@ import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 import { WeaknessEngine } from './WeaknessEngine';
+import { generateUUID } from '../utils/uuid';
 
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
 
@@ -378,7 +379,7 @@ Generate the JSON response matching this template:
             const endDay = new Date(startDay.getTime() + 6 * 86400000);
 
             return {
-                id: `weekplan-${goal.id}-${weekNumber}-${Date.now()}`,
+                id: generateUUID(),
                 goalId: goal.id,
                 userId,
                 weekNumber,
@@ -592,7 +593,7 @@ Generate the JSON response matching this template:
         const endDay = new Date(startDay.getTime() + 6 * 86400000);
 
         return {
-            id: `weekplan-fallback-${goal.id}-${weekNumber}-${Date.now()}`,
+            id: generateUUID(),
             goalId: goal.id,
             userId,
             weekNumber,

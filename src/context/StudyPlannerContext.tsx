@@ -19,6 +19,10 @@ import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, Data
 import { isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
+import { MasteryEngine } from '../services/MasteryEngine';
+import { DiagnosticService } from '../services/DiagnosticService';
+import { LessonService } from '../services/LessonService';
+import { ErrorVaultService } from '../services/ErrorVaultService';
 
 
 export interface Settings {
@@ -366,6 +370,37 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 setFlashcards(fetchedCards);
             } catch (e: any) {
                 console.warn("Flashcards sync warning:", e?.message || e);
+            }
+
+            // Sync Mastery Evidence
+            try {
+                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').then(() => {});
+                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').then(() => {});
+            } catch (e: any) {
+                console.warn("Mastery sync warning:", e?.message || e);
+            }
+
+            // Sync Diagnostic Sessions & Results from DB
+            try {
+                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').then(() => {});
+                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').then(() => {});
+            } catch (e: any) {
+                console.warn("Diagnostic sync warning:", e?.message || e);
+            }
+
+            // Sync Lesson Progress from DB
+            try {
+                LessonService.syncLessonProgressFromDB(currentUser.id, 'en').then(() => {});
+                LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').then(() => {});
+            } catch (e: any) {
+                console.warn("Lesson progress sync warning:", e?.message || e);
+            }
+
+            // Sync Error Vault from DB
+            try {
+                ErrorVaultService.syncFromDB().then(() => {});
+            } catch (e: any) {
+                console.warn("Error Vault sync warning:", e?.message || e);
             }
 
             // Parallel fetch for remaining entities

@@ -13,6 +13,8 @@ import { AdaptiveQuestionEngine } from './AdaptiveQuestionEngine';
 import { MasteryEngine } from './MasteryEngine';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { LevelPromotionCandidate } from '../types/learningPath';
+import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
@@ -698,11 +700,30 @@ export const DiagnosticService = {
      * Adaptive Session Storage
      */
     saveAdaptiveSession(state: AdaptiveDiagnosticState): void {
-        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${state.userId || 'guest'}_${state.language}`;
+        const activeUserId = state.userId || 'guest';
+        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${activeUserId}_${state.language}`;
         try {
             localStorage.setItem(key, JSON.stringify(state));
         } catch (e) {
             console.warn('[DiagnosticService] Failed to save adaptive session:', e);
+        }
+
+        if (supabase?.from && activeUserId && activeUserId !== 'guest') {
+            const uuid = toDeterministicUUID(`adaptive_session_${activeUserId}_${state.language}`);
+            const promise = supabase.from('diagnostic_sessions').upsert({
+                id: uuid,
+                user_id: activeUserId,
+                language: state.language,
+                current_step: state.answeredCount || 0,
+                answers: { state, mode: 'adaptive' },
+                status: 'in_progress',
+                updated_at: new Date().toISOString()
+            });
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) console.warn('[DiagnosticService] DB adaptive session save error:', error);
+                });
+            }
         }
     },
 
@@ -718,11 +739,22 @@ export const DiagnosticService = {
     },
 
     clearAdaptiveSession(userId: string, language: SupportedLanguage): void {
-        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId || 'guest'}_${language}`;
+        const activeUserId = userId || 'guest';
+        const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${activeUserId}_${language}`;
         try {
             localStorage.removeItem(key);
         } catch (e) {
             console.warn('[DiagnosticService] Failed to clear adaptive session:', e);
+        }
+
+        if (supabase?.from && activeUserId && activeUserId !== 'guest') {
+            const uuid = toDeterministicUUID(`adaptive_session_${activeUserId}_${language}`);
+            const promise = supabase.from('diagnostic_sessions').delete().eq('id', uuid);
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) console.warn('[DiagnosticService] DB adaptive session delete error:', error);
+                });
+            }
         }
     },
 
@@ -730,11 +762,31 @@ export const DiagnosticService = {
      * Session Storage & Resume methods
      */
     saveSession(session: DiagnosticSessionState): void {
-        const key = `${DIAGNOSTIC_SESSION_PREFIX}${session.userId}_${session.language}`;
+        const activeUserId = session.userId || 'guest';
+        const key = `${DIAGNOSTIC_SESSION_PREFIX}${activeUserId}_${session.language}`;
         try {
             localStorage.setItem(key, JSON.stringify(session));
         } catch (e) {
             console.warn('[DiagnosticService] Failed to save session:', e);
+        }
+
+        if (supabase?.from && activeUserId && activeUserId !== 'guest') {
+            const uuid = toDeterministicUUID(`standard_session_${activeUserId}_${session.language}`);
+            const promise = supabase.from('diagnostic_sessions').upsert({
+                id: uuid,
+                user_id: activeUserId,
+                language: session.language,
+                current_step: session.currentQuestionIndex || 0,
+                answers: { session, mode: 'standard' },
+                start_time: session.lastUpdated || new Date().toISOString(),
+                status: 'in_progress',
+                updated_at: new Date().toISOString()
+            });
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) console.warn('[DiagnosticService] DB session save error:', error);
+                });
+            }
         }
     },
 
@@ -750,16 +802,28 @@ export const DiagnosticService = {
     },
 
     clearSession(userId: string, language: SupportedLanguage): void {
-        const key = `${DIAGNOSTIC_SESSION_PREFIX}${userId || 'guest'}_${language}`;
+        const activeUserId = userId || 'guest';
+        const key = `${DIAGNOSTIC_SESSION_PREFIX}${activeUserId}_${language}`;
         try {
             localStorage.removeItem(key);
         } catch (e) {
             console.warn('[DiagnosticService] Failed to clear session:', e);
         }
+
+        if (supabase?.from && activeUserId && activeUserId !== 'guest') {
+            const uuid = toDeterministicUUID(`standard_session_${activeUserId}_${language}`);
+            const promise = supabase.from('diagnostic_sessions').delete().eq('id', uuid);
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) console.warn('[DiagnosticService] DB session delete error:', error);
+                });
+            }
+        }
     },
 
     saveDiagnosticResult(result: DiagnosticResult): void {
-        const key = `${DIAGNOSTIC_RESULT_PREFIX}${result.userId || 'guest'}_${result.language}`;
+        const activeUserId = result.userId || 'guest';
+        const key = `${DIAGNOSTIC_RESULT_PREFIX}${activeUserId}_${result.language}`;
         try {
             localStorage.setItem(key, JSON.stringify(result));
 
@@ -790,8 +854,8 @@ export const DiagnosticService = {
         if (result.skills) {
             const entries = Object.values(result.skills);
             for (const entry of entries) {
-                if (entry.skill && typeof entry.score === 'number') {
-                    MasteryEngine.recordEvent(result.userId || 'guest', result.language, {
+                if (entry && entry.skill && typeof entry.score === 'number') {
+                    MasteryEngine.recordEvent(activeUserId, result.language, {
                         id: `diag_ev_${result.id}_${entry.skill}`,
                         activityType: 'diagnostic',
                         skill: entry.skill,
@@ -802,6 +866,28 @@ export const DiagnosticService = {
                         source: 'diagnostic'
                     });
                 }
+            }
+        }
+
+        // Asynchronous write to Supabase diagnostic_results table
+        if (supabase?.from && activeUserId && activeUserId !== 'guest') {
+            const uuid = toDeterministicUUID(result.id || `diag_res_${activeUserId}_${result.language}`);
+            const promise = supabase.from('diagnostic_results').upsert({
+                id: uuid,
+                user_id: activeUserId,
+                language: result.language,
+                estimated_level: result.diagnosticLevel || result.recommendedStartLevel || 'A1',
+                score: result.overallScore || 0,
+                confidence: result.overallConfidence || 0,
+                weaknesses: result.weaknesses || [],
+                strengths: result.strengths || [],
+                breakdown: result.skills || {},
+                updated_at: new Date().toISOString()
+            });
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) console.warn('[DiagnosticService] DB diagnostic result save error:', error);
+                });
             }
         }
     },
@@ -815,5 +901,70 @@ export const DiagnosticService = {
             console.warn('[DiagnosticService] Failed to load result:', e);
         }
         return null;
+    },
+
+    /**
+     * Synchronize Diagnostic Result and Session from Supabase DB to local cache.
+     */
+    async syncDiagnosticFromDB(userId: string, language: SupportedLanguage): Promise<void> {
+        if (!supabase?.from || !userId || userId === 'guest') return;
+
+        try {
+            // 1. Sync Result
+            const { data: dbResult, error: resErr } = await supabase
+                .from('diagnostic_results')
+                .select('*')
+                .eq('user_id', userId)
+                .eq('language', language)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (!resErr && dbResult) {
+                const resKey = `${DIAGNOSTIC_RESULT_PREFIX}${userId}_${language}`;
+                const mappedResult: DiagnosticResult = {
+                    id: dbResult.id,
+                    userId: dbResult.user_id,
+                    language: dbResult.language as SupportedLanguage,
+                    mode: 'standard',
+                    claimedLevel: dbResult.estimated_level || 'A1',
+                    diagnosticLevel: dbResult.estimated_level || 'A1',
+                    recommendedStartLevel: dbResult.estimated_level || 'A1',
+                    overallScore: Number(dbResult.score),
+                    overallConfidence: Number(dbResult.confidence || 0),
+                    weaknesses: Array.isArray(dbResult.weaknesses) ? dbResult.weaknesses : [],
+                    strengths: Array.isArray(dbResult.strengths) ? dbResult.strengths : [],
+                    skills: dbResult.breakdown || {},
+                    recommendedFirstLessonId: '',
+                    completedAt: dbResult.created_at
+                };
+                localStorage.setItem(resKey, JSON.stringify(mappedResult));
+            }
+
+            // 2. Sync Active Session
+            const { data: dbSession, error: sessErr } = await supabase
+                .from('diagnostic_sessions')
+                .select('*')
+                .eq('user_id', userId)
+                .eq('language', language)
+                .eq('status', 'in_progress')
+                .order('updated_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (!sessErr && dbSession && dbSession.answers) {
+                const answersData = dbSession.answers as any;
+                if (answersData.mode === 'adaptive' && answersData.state) {
+                    const adaptiveKey = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId}_${language}`;
+                    localStorage.setItem(adaptiveKey, JSON.stringify(answersData.state));
+                } else if (answersData.mode === 'standard' && answersData.session) {
+                    const sessionKey = `${DIAGNOSTIC_SESSION_PREFIX}${userId}_${language}`;
+                    localStorage.setItem(sessionKey, JSON.stringify(answersData.session));
+                }
+            }
+        } catch (e) {
+            console.warn('[DiagnosticService] DB sync error:', e);
+        }
     }
 };
+

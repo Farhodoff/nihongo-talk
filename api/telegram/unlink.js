@@ -17,14 +17,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // SECURITY: userId must come from the verified JWT only. Never accept a
+  // body-supplied userId — it allowed acting on arbitrary users' accounts.
   const { user, error: authError } = await verifyAuth(req);
-  let userId = user?.id;
-  if (!userId && req.body?.userId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(req.body.userId)) {
-    userId = req.body.userId;
-  }
+  const userId = user?.id;
 
   if (!userId) {
-    return res.status(401).json({ error: 'Unauthorized', details: authError });
+    return res.status(401).json({ error: 'Unauthorized', details: authError || 'Authentication required' });
   }
 
   try {

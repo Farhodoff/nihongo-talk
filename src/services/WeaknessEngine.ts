@@ -87,7 +87,8 @@ export const WeaknessEngine = {
         const skills = Object.values(profile.skills);
 
         for (const mastery of skills) {
-            if (mastery.evidenceCount > 0 && (mastery.score < 75 || mastery.trend === 'declining')) {
+            // Completion-only evidence intentionally keeps status as not_started; it should not create a weakness.
+            if (mastery.status !== 'not_started' && mastery.evidenceCount > 0 && (mastery.score < 75 || mastery.trend === 'declining')) {
                 const severity = this.evaluateSeverity(mastery);
                 const reason = this.formatReason(mastery, profile.language);
                 const recommendedRoute = this.resolveRouteForSkill(mastery.skill, profile.language);

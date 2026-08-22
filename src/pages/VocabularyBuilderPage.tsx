@@ -5,6 +5,7 @@ import { speakText } from '../utils/audioTts';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { FuriganaText } from '../components/jlpt/FuriganaText';
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 
 export interface VocabWordDetails {
     word: string;
@@ -62,21 +63,46 @@ export const VocabularyBuilderPage: React.FC = () => {
             console.error(e);
         }
 
-        // Load from Supabase DB
+        // Load from Supabase DB (user_saved_vocabulary table + metadata fallback)
         const fetchDbVocab = async () => {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
-                if (user?.user_metadata) {
-                    if (user.user_metadata.vocab_history) {
-                        const dbH = user.user_metadata.vocab_history;
-                        setHistory(dbH);
-                        localStorage.setItem('study_planner_vocab_history', JSON.stringify(dbH));
-                    }
-                    if (user.user_metadata.vocab_saved) {
-                        const dbS = user.user_metadata.vocab_saved;
-                        setSavedWords(dbS);
-                        localStorage.setItem('study_planner_vocab_saved', JSON.stringify(dbS));
-                    }
+                if (!user?.id) return;
+
+                // 1. Fetch saved words from user_saved_vocabulary table
+                const { data: dbSavedRows, error: dbErr } = await supabase
+                    .from('user_saved_vocabulary')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false });
+
+                if (!dbErr && dbSavedRows && dbSavedRows.length > 0) {
+                    const mappedSaved: VocabWordDetails[] = dbSavedRows.map(r => ({
+                        word: r.term,
+                        language: (r.language || 'en') as 'en' | 'ja',
+                        reading: r.reading || undefined,
+                        furigana: r.reading || undefined,
+                        level: 'B2',
+                        partOfSpeech: '',
+                        uzbekTranslation: r.meaning,
+                        definition: r.meaning,
+                        synonyms: [],
+                        collocations: [],
+                        examples: r.example_sentence ? [{ sentence: r.example_sentence, translation: r.example_translation || '' }] : []
+                    }));
+                    setSavedWords(mappedSaved);
+                    localStorage.setItem('study_planner_vocab_saved', JSON.stringify(mappedSaved));
+                } else if (user.user_metadata?.vocab_saved) {
+                    // Fallback to user_metadata
+                    const dbS = user.user_metadata.vocab_saved;
+                    setSavedWords(dbS);
+                    localStorage.setItem('study_planner_vocab_saved', JSON.stringify(dbS));
+                }
+
+                if (user.user_metadata?.vocab_history) {
+                    const dbH = user.user_metadata.vocab_history;
+                    setHistory(dbH);
+                    localStorage.setItem('study_planner_vocab_history', JSON.stringify(dbH));
                 }
             } catch (err) {
                 console.warn('Failed to fetch DB vocab state:', err);
@@ -162,8 +188,34 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
         try {
             localStorage.setItem('study_planner_vocab_saved', JSON.stringify(updated));
         } catch (e) { console.warn(e); }
+
         supabase.auth.getUser().then(({ data: { user } }) => {
             if (user) {
+                const uuid = toDeterministicUUID(`vocab_${user.id}_${wordObj.word.toLowerCase()}`);
+                if (!isSaved) {
+                    // Insert into user_saved_vocabulary table
+                    supabase.from('user_saved_vocabulary').upsert({
+                        id: uuid,
+                        user_id: user.id,
+                        language: wordObj.language || 'en',
+                        term: wordObj.word,
+                        reading: wordObj.furigana || wordObj.phonetic || null,
+                        meaning: wordObj.uzbekTranslation || wordObj.definition,
+                        example_sentence: wordObj.examples?.[0]?.sentence || null,
+                        example_translation: wordObj.examples?.[0]?.translation || null,
+                        is_saved: true,
+                        updated_at: new Date().toISOString()
+                    }).then(({ error }) => {
+                        if (error) console.warn('[VocabularyBuilderPage] DB upsert error:', error);
+                    });
+                } else {
+                    // Delete from user_saved_vocabulary table
+                    supabase.from('user_saved_vocabulary').delete().eq('id', uuid).then(({ error }) => {
+                        if (error) console.warn('[VocabularyBuilderPage] DB delete error:', error);
+                    });
+                }
+
+                // Fallback metadata update
                 supabase.auth.updateUser({ data: { vocab_saved: updated } }).catch(err => console.warn(err));
             }
         });

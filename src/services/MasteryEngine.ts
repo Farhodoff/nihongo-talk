@@ -4,10 +4,13 @@ import {
     LearningEvidence,
     EvidenceCategory,
     resolveCategory,
-    computeMasteryImpact
+    computeMasteryImpact,
+    LearningActivityType
 } from '../types/learningEvidence';
 import { LearningSignalService } from './LearningSignalService';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { supabase } from '../lib/supabase';
+import { toDeterministicUUID, generateUUID } from '../utils/uuid';
 
 /** Phase 19: canonical unified evidence record (alias of LearningEvidence). */
 export type EvidenceRecord = LearningEvidence;
@@ -61,6 +64,44 @@ export function statusForScore(score: number, confidence: number): MasteryStatus
     return 'weak';
 }
 
+function clampScore(score: number): number {
+    if (!Number.isFinite(score)) return 0;
+    return Math.max(0, Math.min(100, Math.round(score)));
+}
+
+function normalizeEvidence(
+    userId: string,
+    language: SupportedLanguage,
+    record: EvidenceRecord,
+    skillsList: MasterySkill[]
+): EvidenceRecord | null {
+    if (!record || !record.skill || !record.timestamp) return null;
+    if (!skillsList.includes(record.skill)) return null;
+
+    const recordUserId = record.userId || userId || 'guest';
+    const recordLanguage = record.language || language;
+
+    // Never let evidence written through one user/language bucket mutate another user's or language's mastery.
+    if (recordUserId !== (userId || 'guest') || recordLanguage !== language) return null;
+
+    const category = resolveCategory(record);
+    const score = clampScore(record.score);
+
+    return {
+        ...record,
+        userId: recordUserId,
+        language: recordLanguage,
+        score,
+        accuracy: typeof record.accuracy === 'number' ? clampScore(record.accuracy) : undefined,
+        attempts: typeof record.attempts === 'number' && Number.isFinite(record.attempts)
+            ? Math.max(1, Math.round(record.attempts))
+            : record.attempts,
+        category,
+        type: category,
+        masteryImpact: computeMasteryImpact(record.activityType, score, category)
+    };
+}
+
 export const MasteryEngine = {
     /**
      * Get the authoritative list of skills for the specified language.
@@ -106,20 +147,79 @@ export const MasteryEngine = {
      * Implements deterministic idempotency: if an evidence record with the same ID/eventId already exists, it is skipped.
      */
     recordEvidence(userId: string = 'guest', language: SupportedLanguage, record: EvidenceRecord): void {
-        const key = `study_planner_mastery_evidence_${userId}_${language}`;
-        const existing = this.getUserEvidence(userId, language);
+        this.recordEvidenceInternal(userId, language, record, false);
+    },
 
-        const recId = record.id || record.eventId;
-        if (recId && existing.some(e => e.id === recId || e.eventId === recId)) {
+    /**
+     * Record evidence by stable ID, replacing the previous record with the same ID.
+     * Used for lesson completion/result evidence where repeating a lesson must not inflate mastery,
+     * but the latest valid result should be reflected.
+     */
+    upsertEvidence(userId: string = 'guest', language: SupportedLanguage, record: EvidenceRecord): void {
+        this.recordEvidenceInternal(userId, language, record, true);
+    },
+
+    recordEvidenceInternal(userId: string = 'guest', language: SupportedLanguage, record: EvidenceRecord, replaceExisting: boolean): void {
+        const activeUserId = userId || 'guest';
+        const key = `study_planner_mastery_evidence_${activeUserId}_${language}`;
+        const existing = this.getUserEvidence(activeUserId, language);
+        const skillsList = this.getSkillsForLanguage(language);
+        const normalized = normalizeEvidence(activeUserId, language, record, skillsList);
+
+        if (!normalized) {
+            console.warn('[MasteryEngine] Rejected invalid or cross-scope mastery evidence.');
             return;
         }
 
-        existing.push(record);
-        // Keep the last 100 evidence points to keep storage lean
-        if (existing.length > 100) {
-            existing.splice(0, existing.length - 100);
+        const recId = normalized.id || normalized.eventId;
+        const existingIndex = recId
+            ? existing.findIndex(e => e.id === recId || e.eventId === recId)
+            : -1;
+
+        if (existingIndex >= 0) {
+            if (replaceExisting) {
+                existing[existingIndex] = normalized;
+            }
+            // Default deterministic idempotency: duplicate IDs are skipped.
+            if (!replaceExisting) return;
+        } else {
+            existing.push(normalized);
+        }
+
+        if (existing.length > MASTERY_CONFIG.maxEvidenceRecords) {
+            existing.splice(0, existing.length - MASTERY_CONFIG.maxEvidenceRecords);
         }
         safeLocalStorage.setJSON(key, existing);
+
+        // Async write to Supabase
+        if (activeUserId && activeUserId !== 'guest') {
+            const rawId = normalized.id || normalized.eventId || generateUUID();
+            const uuid = toDeterministicUUID(rawId);
+            const promise = supabase.from('mastery_evidence').upsert({
+                id: uuid,
+                user_id: activeUserId,
+                language: language,
+                skill: normalized.skill,
+                activity_type: normalized.activityType || 'quiz',
+                lesson_id: normalized.lessonId || null,
+                score: normalized.score,
+                accuracy: normalized.accuracy ?? null,
+                attempts: normalized.attempts ?? null,
+                timestamp: normalized.timestamp,
+                mastery_impact: normalized.masteryImpact ?? 0,
+                category: resolveCategory(normalized),
+                source: normalized.source || null,
+                details: normalized.details || null,
+                metadata: normalized.metadata || {}
+            });
+            if (promise && typeof promise.then === 'function') {
+                promise.then(({ error }) => {
+                    if (error) {
+                        console.warn('[MasteryEngine] Failed to write evidence to Supabase:', error);
+                    }
+                });
+            }
+        }
     },
 
     /**
@@ -148,23 +248,9 @@ export const MasteryEngine = {
      */
     recordEvidenceBatch(userId: string = 'guest', language: SupportedLanguage, records: EvidenceRecord[]): void {
         if (!records || records.length === 0) return;
-        const key = `study_planner_mastery_evidence_${userId}_${language}`;
-        const existing = this.getUserEvidence(userId, language);
-        const existingIds = new Set(existing.map(e => e.id || e.eventId).filter(Boolean));
-
         for (const rec of records) {
-            const recId = rec.id || rec.eventId;
-            if (recId && existingIds.has(recId)) {
-                continue;
-            }
-            if (recId) existingIds.add(recId);
-            existing.push(rec);
+            this.recordEvidence(userId, language, rec);
         }
-
-        if (existing.length > 100) {
-            existing.splice(0, existing.length - 100);
-        }
-        safeLocalStorage.setJSON(key, existing);
     },
 
     /**
@@ -308,9 +394,10 @@ export const MasteryEngine = {
         supplementary?: { srsRetention?: number }
     ): UserMasteryProfile {
         const skillsList = this.getSkillsForLanguage(language);
-        const allEvidence = this.getUserEvidence(userId, language);
+        const allEvidence = this.getUserEvidence(userId, language)
+            .filter(e => (e.userId || userId) === userId && (e.language || language) === language);
         const allSignals = LearningSignalService.getSignalsForUser(userId);
-        const signals = allSignals.filter(s => !s.language || s.language === language);
+        const signals = allSignals.filter(s => s.userId === userId && s.language === language);
 
         // Count mistakes by skill if inferred from signals
         const skillMistakes: Record<string, number> = {};
@@ -369,5 +456,132 @@ export const MasteryEngine = {
             overallConfidence,
             lastCalculatedAt: new Date().toISOString()
         };
+    },
+
+    /**
+     * Synchronize mastery evidence records from Supabase database.
+     * Performs a one-time migration if database is empty but local storage has evidence data.
+     */
+    async syncEvidenceFromDB(userId: string, language: SupportedLanguage): Promise<void> {
+        if (!userId || userId === 'guest') return;
+
+        try {
+            // 1. Fetch from Supabase DB
+            const { data: dbEvidence, error } = await supabase
+                .from('mastery_evidence')
+                .select('*')
+                .eq('user_id', userId)
+                .eq('language', language);
+
+            if (error) {
+                console.warn('[MasteryEngine] Failed to fetch evidence from DB:', error);
+                return;
+            }
+
+            // 2. Read legacy localStorage cache
+            const cacheKey = `study_planner_mastery_evidence_${userId}_${language}`;
+            const localEvidence = safeLocalStorage.getJSON<EvidenceRecord[]>(cacheKey, []);
+
+            // 3. If DB is empty, migrate local data to DB
+            if ((!dbEvidence || dbEvidence.length === 0) && localEvidence.length > 0) {
+                console.log('[MasteryEngine] DB is empty. Migrating legacy local evidence to DB...');
+                const dbPayloads = localEvidence.map(item => {
+                    const rawId = item.id || item.eventId || generateUUID();
+                    const uuid = toDeterministicUUID(rawId);
+                    return {
+                        id: uuid,
+                        user_id: userId,
+                        language: language,
+                        skill: item.skill,
+                        activity_type: item.activityType || 'quiz',
+                        lesson_id: item.lessonId || null,
+                        score: item.score,
+                        accuracy: item.accuracy ?? null,
+                        attempts: item.attempts ?? null,
+                        timestamp: item.timestamp,
+                        mastery_impact: item.masteryImpact ?? 0,
+                        category: resolveCategory(item),
+                        source: item.source || null,
+                        details: item.details || null,
+                        metadata: item.metadata || {}
+                    };
+                });
+
+                const { error: insertError } = await supabase
+                    .from('mastery_evidence')
+                    .insert(dbPayloads);
+
+                if (insertError) {
+                    console.error('[MasteryEngine] Migration to DB failed:', insertError);
+                } else {
+                    console.log('[MasteryEngine] Migration of legacy local evidence complete.');
+                }
+                return;
+            }
+
+            // 4. Map DB evidence back to Client EvidenceRecord format
+            const mappedDbEvidence: EvidenceRecord[] = (dbEvidence || []).map(row => ({
+                id: row.id,
+                eventId: row.id,
+                userId: row.user_id,
+                language: row.language as SupportedLanguage,
+                skill: row.skill as MasterySkill,
+                lessonId: row.lesson_id || undefined,
+                activityType: row.activity_type as LearningActivityType,
+                score: Number(row.score),
+                accuracy: row.accuracy !== null ? Number(row.accuracy) : undefined,
+                attempts: row.attempts !== null ? Number(row.attempts) : undefined,
+                timestamp: row.timestamp,
+                masteryImpact: Number(row.mastery_impact),
+                category: row.category as EvidenceCategory,
+                source: row.source || undefined,
+                details: row.details || undefined,
+                metadata: row.metadata || undefined,
+                type: row.category === 'completion' ? 'completion' : 'performance'
+            }));
+
+            // 5. Merge DB and local data to prevent duplicate IDs
+            const mergedMap = new Map<string, EvidenceRecord>();
+            for (const item of mappedDbEvidence) {
+                const itemKey = item.id || item.eventId;
+                if (itemKey) mergedMap.set(itemKey, item);
+            }
+            for (const item of localEvidence) {
+                const itemKey = item.id || item.eventId;
+                if (itemKey && !mergedMap.has(itemKey)) {
+                    mergedMap.set(itemKey, item);
+                    const rawId = item.id || item.eventId || generateUUID();
+                    const uuid = toDeterministicUUID(rawId);
+                    const promise = supabase.from('mastery_evidence').insert({
+                        id: uuid,
+                        user_id: userId,
+                        language: language,
+                        skill: item.skill,
+                        activity_type: item.activityType || 'quiz',
+                        lesson_id: item.lessonId || null,
+                        score: item.score,
+                        accuracy: item.accuracy ?? null,
+                        attempts: item.attempts ?? null,
+                        timestamp: item.timestamp,
+                        mastery_impact: item.masteryImpact ?? 0,
+                        category: resolveCategory(item),
+                        source: item.source || null,
+                        details: item.details || null,
+                        metadata: item.metadata || {}
+                    });
+                    if (promise && typeof promise.then === 'function') {
+                        promise.then(() => {});
+                    }
+                }
+            }
+
+            const finalMerged = Array.from(mergedMap.values())
+                .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+                .slice(-MASTERY_CONFIG.maxEvidenceRecords);
+
+            safeLocalStorage.setJSON(cacheKey, finalMerged);
+        } catch (e) {
+            console.warn('[MasteryEngine] Sync error:', e);
+        }
     }
 };

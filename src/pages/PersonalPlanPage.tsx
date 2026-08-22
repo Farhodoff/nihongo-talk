@@ -18,10 +18,11 @@ import { toast } from '../hooks/use-toast';
 import { PersonalLearningPlanService, FeasibilityResult } from '../services/PersonalLearningPlanService';
 import { PersonalLearningPlanEngine } from '../services/PersonalLearningPlanEngine';
 import { WeeklyEvaluationEngine } from '../services/WeeklyEvaluationEngine';
-import { DiagnosticService } from '../services/DiagnosticService';
+import { LearningProgressionService } from '../services/LearningProgressionService';
 import { LearningSignalService } from '../services/LearningSignalService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { PersonalLearningGoal, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
+import { generateUUID } from '../utils/uuid';
 
 export const PersonalPlanPage: React.FC = () => {
     const { user } = useStudyData();
@@ -35,7 +36,6 @@ export const PersonalPlanPage: React.FC = () => {
     const [selectedGoalType, setSelectedGoalType] = useState<'ielts' | 'jlpt' | 'general_en' | 'general_ja'>('general_en');
     const [targetLevel, setTargetLevel] = useState<string>('A1');
     const [currentLevel, setCurrentLevel] = useState<string>('ZERO');
-    const [overrideSource, setOverrideSource] = useState<'diagnostic' | 'user_override'>('user_override');
     const [deadlineMonths, setDeadlineMonths] = useState<number>(6);
     const [dailyMinutes, setDailyMinutes] = useState<number>(60);
 
@@ -48,25 +48,54 @@ export const PersonalPlanPage: React.FC = () => {
     const [weeklyEvals, setWeeklyEvals] = useState<WeeklyEvaluation[]>([]);
     const [expandedDay, setExpandedDay] = useState<string>('monday');
     const [evaluating, setEvaluating] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     // Initial load
     useEffect(() => {
-        const userId = user?.id || 'guest';
-        const goal = PersonalLearningPlanService.getActiveGoal(userId);
-        if (goal) {
-            setActiveGoal(goal);
-            const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id);
-            if (plan) setCurrentPlan(plan);
-            const evals = PersonalLearningPlanService.getWeeklyEvaluations(userId);
-            setWeeklyEvals(evals);
-        }
+        let isMounted = true;
+        const loadPlanData = async () => {
+            const userId = user?.id || 'guest';
+            setLoading(true);
+            try {
+                // Fetch active goal (with localStorage migration check)
+                const goal = await PersonalLearningPlanService.fetchActiveGoalFromServer(userId);
+                if (!isMounted) return;
 
-        // Check if user has just completed a diagnostic result
-        const latestDiag = DiagnosticService.getLatestDiagnosticResult(userId, selectedLang);
-        if (latestDiag) {
-            setCurrentLevel(latestDiag.recommendedStartLevel);
-            setOverrideSource('diagnostic');
-        }
+                if (goal) {
+                    setActiveGoal(goal);
+
+                    // Fetch plans & evaluations
+                    await PersonalLearningPlanService.fetchWeeklyPlansFromServer(userId);
+                    if (!isMounted) return;
+                    const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id);
+                    if (plan) setCurrentPlan(plan);
+
+                    await PersonalLearningPlanService.fetchWeeklyEvaluationsFromServer(userId);
+                    if (!isMounted) return;
+                    setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
+                } else {
+                    setActiveGoal(null);
+                    setCurrentPlan(null);
+                    setWeeklyEvals([]);
+                }
+            } catch (err) {
+                console.error('[PersonalPlanPage] Error loading plan data:', err);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+
+        loadPlanData();
+
+        const confirmedLevel = LearningProgressionService.getCurrentLevel(
+            user?.id || 'guest',
+            selectedLang
+        );
+        setCurrentLevel(confirmedLevel);
+
+        return () => {
+            isMounted = false;
+        };
     }, [user?.id, selectedLang]);
 
     // Available target options
@@ -150,7 +179,7 @@ export const PersonalPlanPage: React.FC = () => {
         const totalWeeks = deadlineMonths * 4;
 
         const newGoal: PersonalLearningGoal = {
-            id: `goal-${Date.now()}`,
+            id: generateUUID(),
             userId,
             language: selectedLang,
             goalType: selectedGoalType,
@@ -289,17 +318,31 @@ export const PersonalPlanPage: React.FC = () => {
     };
 
     // Reset whole plan (restart wizard)
-    const handleResetPlan = () => {
+    const handleResetPlan = async () => {
         if (window.confirm(isUz ? "Haqiqatan ham rejangizni o'chirishni va boshidan boshlashni xohlaysizmi?" : "Are you sure you want to delete this plan and start over?")) {
             const userId = user?.id || 'guest';
-            localStorage.removeItem('study_planner_personal_goal_' + userId);
-            localStorage.removeItem('study_planner_weekly_plans');
-            localStorage.removeItem('study_planner_weekly_evaluations');
-            setActiveGoal(null);
-            setCurrentPlan(null);
-            setStep(1);
+            try {
+                await PersonalLearningPlanService.resetPlan(userId);
+                setActiveGoal(null);
+                setCurrentPlan(null);
+                setStep(1);
+                toast({ title: 'Plan reset', description: isUz ? "Reja to'liq o'chirildi." : "Plan has been successfully reset." });
+            } catch (err: any) {
+                console.error(err);
+                toast({ variant: 'destructive', title: 'Xatolik', description: err.message || 'Plan o\'chirishda xatolik yuz berdi.' });
+            }
         }
     };
+
+    // Rendering initial loading spinner
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+                <Loader2 className="w-10 h-10 text-primary animate-spin" />
+                <p className="text-gray-500 font-medium">{isUz ? 'Reja yuklanmoqda...' : 'Loading plan data...'}</p>
+            </div>
+        );
+    }
 
     // Rendering loading indicator
     if (generationStep) {
@@ -431,12 +474,6 @@ export const PersonalPlanPage: React.FC = () => {
                         <div className="space-y-6">
                             <h3 className="text-lg font-bold text-foreground">{isUz ? '3-Bosqich: Joriy darajangizni aniqlang' : 'Step 3: Establish Starting Level'}</h3>
 
-                            {overrideSource === 'diagnostic' && (
-                                <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-2">
-                                    <span>🎯</span>
-                                    <span>{isUz ? `Oxirgi adaptiv test natijangiz aniqlandi: Daraja - ${currentLevel}` : `Latest diagnostic score resolved: Level - ${currentLevel}`}</span>
-                                </div>
-                            )}
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="p-6 rounded-3xl glass-card border border-border space-y-3 flex flex-col justify-between">
@@ -461,8 +498,7 @@ export const PersonalPlanPage: React.FC = () => {
                                             value={currentLevelsList.includes(currentLevel) ? currentLevel : currentLevelsList[0] || ''}
                                             onChange={(e) => {
                                                 setCurrentLevel(e.target.value);
-                                                setOverrideSource('user_override');
-                                            }}
+                                                                                    }}
                                             className="w-full px-3 py-2 rounded-xl border border-border bg-background/50 text-foreground text-xs"
                                         >
                                             {currentLevelsList.map(cl => <option key={cl} value={cl}>{cl}</option>)}

@@ -21,6 +21,7 @@ import { CVCreatorTab } from '../components/CVCreator/CVCreatorTab';
 import { HistoryService } from '../services/HistoryService';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 
 import { isAdminEmail } from '../utils/admin';
 
@@ -256,6 +257,25 @@ const AIAssistantPage: React.FC = () => {
                 const history = existing ? JSON.parse(existing) : [];
                 history.unshift(newResult);
                 localStorage.setItem('study_planner_exam_history', JSON.stringify(history));
+
+                // Save to quiz_history Supabase DB table
+                supabase.auth.getUser().then(({ data: { user } }) => {
+                    if (user?.id) {
+                        const uuid = toDeterministicUUID(`quiz_${user.id}_${newResult.id}`);
+                        supabase.from('quiz_history').insert({
+                            id: uuid,
+                            user_id: user.id,
+                            subject_id: selectedSubjectId || null,
+                            subject_name: subjectName,
+                            score: correctCount,
+                            total_questions: questions.length,
+                            xp_earned: points,
+                            timestamp: new Date().toISOString()
+                        }).then(({ error }) => {
+                            if (error) console.warn('[AIAssistantPage] DB quiz_history insert error:', error);
+                        });
+                    }
+                });
             } catch (e) {
                 console.error("Failed to save exam history", e);
             }

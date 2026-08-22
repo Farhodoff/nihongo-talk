@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
-    BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight, ChevronDown,
+    BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    GraduationCap, Mic, Crown, Folder, Brain,
-    Headphones, PenTool, FileText, Target, Shield
+    GraduationCap, Mic, Crown, Brain,
+    Headphones, PenTool, FileText, Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -22,15 +22,11 @@ import { QuickCommandPalette } from './common/QuickCommandPalette';
 
 import { PersonalizedOnboardingModal } from './onboarding/PersonalizedOnboardingModal';
 
-interface NavGroup {
-    category: string;
-    icon?: React.ComponentType<any>;
-    items: {
-        name: string;
-        path: string;
-        icon: React.ComponentType<any>;
-        tourId: string;
-    }[];
+interface NavItem {
+    name: string;
+    path: string;
+    icon: React.ComponentType<any>;
+    tourId: string;
 }
 
 const Layout: React.FC = () => {
@@ -95,20 +91,6 @@ const Layout: React.FC = () => {
         return fullScreenPaths.some(p => location.pathname.startsWith(p));
     }, [location.pathname]);
 
-    // Accordion / Collapsible Group State
-    const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>(() => {
-        const saved = localStorage.getItem('study_planner_collapsed_groups');
-        return saved ? JSON.parse(saved) : {};
-    });
-
-    const toggleGroup = (category: string) => {
-        setCollapsedGroups(prev => {
-            const next = { ...prev, [category]: !prev[category] };
-            localStorage.setItem('study_planner_collapsed_groups', JSON.stringify(next));
-            return next;
-        });
-    };
-
     // Personalized Onboarding First-Visit Trigger (DB-synchronized across devices)
     const [showOnboarding, setShowOnboarding] = useState(false);
 
@@ -126,75 +108,37 @@ const Layout: React.FC = () => {
         }
     }, [loading, primaryLanguage, targetLevel]);
 
-    const navGroups: NavGroup[] = useMemo(() => {
+    const navItems: NavItem[] = useMemo(() => {
         if (primaryLanguage === 'ja') {
             return [
-                {
-                    category: "O'RGANISH (LEARN)",
-                    icon: BookOpen,
-                    items: [
-                        { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-                        { name: "Kanji O'rganish", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-                        { name: "Grammatika Quiz", path: '/jlpt/grammar-quiz', icon: Sparkles, tourId: 'nav-grammar' },
-                        { name: "Reading (O'qish)", path: '/jlpt/reading', icon: FileText, tourId: 'nav-reading' },
-                        { name: "Listening (Tinglash)", path: '/jlpt/listening', icon: Headphones, tourId: 'nav-listening' },
-                        { name: "Speaking & Senariylar", path: '/scenarios', icon: Mic, tourId: 'nav-speaking' },
-                    ]
-                },
-                {
-                    category: 'TARGET (JLPT)',
-                    icon: Target,
-                    items: [
-                        { name: 'JLPT Hub (Level)', path: '/jlpt', icon: GraduationCap, tourId: 'nav-jlpt' },
-                        { name: 'JLPT Mock Exam', path: '/jlpt/mock-exam', icon: Sparkles, tourId: 'nav-mock' },
-                    ]
-                },
-                {
-                    category: 'ASBOBLAR (TOOLS)',
-                    icon: CheckSquare,
-                    items: [
-                        { name: 'Tasks', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                        { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                        { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                        { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                        { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
-                    ]
-                }
+                { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+                { name: "Kanji O'rganish", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+                { name: "Grammatika Quiz", path: '/jlpt/grammar-quiz', icon: Sparkles, tourId: 'nav-grammar' },
+                { name: "Reading (O'qish)", path: '/jlpt/reading', icon: FileText, tourId: 'nav-reading' },
+                { name: "Listening (Tinglash)", path: '/jlpt/listening', icon: Headphones, tourId: 'nav-listening' },
+                { name: "Speaking & Senariylar", path: '/scenarios', icon: Mic, tourId: 'nav-speaking' },
+                { name: 'JLPT Mock Exam', path: '/jlpt/mock-exam', icon: GraduationCap, tourId: 'nav-mock' },
+                { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+                { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
             ];
         }
 
         // Default: English ('en')
         return [
-            {
-                category: "O'RGANISH (LEARN)",
-                icon: BookOpen,
-                items: [
-                    { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-                    { name: "Grammatika", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-                    { name: "Reading & Listening", path: '/ielts/reading-listening', icon: Headphones, tourId: 'nav-reading' },
-                    { name: "Writing Mock", path: '/ielts/writing', icon: PenTool, tourId: 'nav-writing' },
-                    { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                ]
-            },
-            {
-                category: 'TARGET (IELTS)',
-                icon: Target,
-                items: [
-                    { name: 'IELTS Hub (Band)', path: '/ielts', icon: GraduationCap, tourId: 'nav-ielts' },
-                    { name: 'Speaking Mock Exam', path: '/ielts/speaking-mock', icon: Sparkles, tourId: 'nav-mock' },
-                ]
-            },
-            {
-                category: 'ASBOBLAR (TOOLS)',
-                icon: CheckSquare,
-                items: [
-                    { name: 'Tasks', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
-                    { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                    { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                    { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                    { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
-                ]
-            }
+            { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+            { name: "Grammatika & Darslar", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+            { name: "Reading & Listening", path: '/ielts/reading-listening', icon: Headphones, tourId: 'nav-reading' },
+            { name: "Writing Mock", path: '/ielts/writing', icon: PenTool, tourId: 'nav-writing' },
+            { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+            { name: 'Speaking Mock Exam', path: '/ielts/speaking-mock', icon: GraduationCap, tourId: 'nav-mock' },
+            { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
+            { name: 'Fleshkartalar', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+            { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+            { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
     }, [primaryLanguage]);
 
@@ -205,16 +149,16 @@ const Layout: React.FC = () => {
     };
 
     const getPageTitle = () => {
-        for (const group of navGroups) {
-            const found = group.items.find(item => item.path === location.pathname);
-            if (found) return found.name;
-        }
+        const found = navItems.find(item => item.path === location.pathname);
+        if (found) return found.name;
+        if (location.pathname === '/dashboard') return t('nav.dashboard') || 'Dashboard';
+        if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
         return 'Kaizen AI';
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-3">
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-1">
             {/* Standalone Dashboard Link */}
             <NavLink
                 to="/dashboard"
@@ -278,77 +222,43 @@ const Layout: React.FC = () => {
                 )}
             </NavLink>
 
-            {navGroups.map((group) => {
-                const isGroupCollapsed = !!collapsedGroups[group.category];
-                const GroupIcon = group.icon || Folder;
+            {/* Separator Line */}
+            <div className="my-1.5 border-t border-border/50" />
 
-                return (
-                    <div key={group.category} className="space-y-1">
-                        {!isCollapsed ? (
-                            <button
-                                onClick={() => toggleGroup(group.category)}
-                                className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/40 select-none group"
-                            >
-                                <span className="flex items-center gap-1.5">
-                                    <GroupIcon size={13} className="text-primary/80" />
-                                    {group.category}
-                                </span>
-                                <div className="text-muted-foreground/60 group-hover:text-foreground transition-transform">
-                                    {isGroupCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
-                                </div>
-                            </button>
-                        ) : (
-                            <div className="h-px bg-border/50 my-2" />
-                        )}
-
-                        <AnimatePresence initial={false}>
-                            {(!isGroupCollapsed || isCollapsed) && (
+            {/* Direct Flat Menu Items */}
+            {navItems.map((item) => (
+                <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={onClick}
+                    data-tour={item.tourId}
+                    className={({ isActive }) =>
+                        `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                            ? 'bg-primary/10 text-primary font-bold shadow-xs'
+                            : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                        }`
+                    }
+                    title={isCollapsed ? item.name : ''}
+                >
+                    {({ isActive }) => (
+                        <>
+                            {isActive && (
                                 <motion.div
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="space-y-0.5 overflow-hidden"
-                                >
-                                    {group.items.map((item) => (
-                                        <NavLink
-                                            key={item.path}
-                                            to={item.path}
-                                            onClick={onClick}
-                                            data-tour={item.tourId}
-                                            className={({ isActive }) =>
-                                                `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                                                    ? 'bg-primary/10 text-primary font-bold shadow-xs'
-                                                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                                                }`
-                                            }
-                                            title={isCollapsed ? item.name : ''}
-                                        >
-                                            {({ isActive }) => (
-                                                <>
-                                                    {isActive && (
-                                                        <motion.div
-                                                            layoutId="activeNavIndicator"
-                                                            className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
-                                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                                        />
-                                                    )}
-                                                    <item.icon 
-                                                        size={18} 
-                                                        className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
-                                                        strokeWidth={isActive ? 2.5 : 2}
-                                                    />
-                                                    {!isCollapsed && <span className="truncate">{item.name}</span>}
-                                                </>
-                                            )}
-                                        </NavLink>
-                                    ))}
-                                </motion.div>
+                                    layoutId="activeNavIndicator"
+                                    className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                />
                             )}
-                        </AnimatePresence>
-                    </div>
-                );
-            })}
+                            <item.icon
+                                size={18}
+                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
+                                strokeWidth={isActive ? 2.5 : 2}
+                            />
+                            {!isCollapsed && <span className="truncate">{item.name}</span>}
+                        </>
+                    )}
+                </NavLink>
+            ))}
         </div>
     );
 

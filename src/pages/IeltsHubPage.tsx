@@ -10,6 +10,7 @@ import { IeltsStudyPlanResult } from '../utils/ai';
 import { VocabularyGenerator } from '../components/ielts/VocabularyGenerator';
 import { toast } from '../hooks/use-toast';
 import { supabase } from '../lib/supabase';
+import { toDeterministicUUID } from '../utils/uuid';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { analyzeAndRebalanceSchedule } from '../utils/ai/weeklyRebalancer';
 import { useSEO } from '../hooks/useSEO';
@@ -61,6 +62,11 @@ export const IeltsHubPage: React.FC = () => {
             localStorage.removeItem('study_planner_ielts_user_target');
             setUserPlanData(null);
             try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user?.id) {
+                    const uuid = toDeterministicUUID(`target_${user.id}_ielts`);
+                    await supabase.from('user_targets').delete().eq('id', uuid);
+                }
                 await supabase.auth.updateUser({ data: { ielts_user_target: null } });
             } catch (e) {}
             toast({
@@ -78,12 +84,25 @@ export const IeltsHubPage: React.FC = () => {
                 try { plan = JSON.parse(saved); } catch (e) {}
             }
 
+            // Load from Supabase user_targets table + metadata fallback
             if (!plan) {
                 try {
                     const { data: { user } } = await supabase.auth.getUser();
-                    if (user?.user_metadata?.ielts_user_target) {
-                        plan = user.user_metadata.ielts_user_target;
-                        localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
+                    if (user?.id) {
+                        const { data: dbTarget, error: dbErr } = await supabase
+                            .from('user_targets')
+                            .select('*')
+                            .eq('user_id', user.id)
+                            .eq('target_type', 'ielts')
+                            .maybeSingle();
+
+                        if (!dbErr && dbTarget?.details) {
+                            plan = dbTarget.details;
+                            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
+                        } else if (user.user_metadata?.ielts_user_target) {
+                            plan = user.user_metadata.ielts_user_target;
+                            localStorage.setItem('study_planner_ielts_user_target', JSON.stringify(plan));
+                        }
                     }
                 } catch (e) {}
             }
