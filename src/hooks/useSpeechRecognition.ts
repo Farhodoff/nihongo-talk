@@ -218,8 +218,7 @@ export const useSpeechRecognition = ({
         };
 
         recognition.onresult = (event: any) => {
-            if (isProcessingRef.current || isSpeakingRef.current || isThinkingRef.current || isMutedRef.current) {
-                transcriptBufferRef.current = '';
+            if (isMutedRef.current) {
                 return;
             }
             if (!speechStartTimeRef.current) {

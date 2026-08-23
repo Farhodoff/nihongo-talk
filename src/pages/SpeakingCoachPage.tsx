@@ -283,11 +283,12 @@ const SpeakingCoachPage: React.FC = () => {
     };
 
     const handleSendUserText = async (text: string) => {
-        if (!text || isProcessingRef.current) return;
+        const cleanText = (text || '').trim();
+        if (!cleanText || cleanText.length < 2) return;
 
         // Acoustic Echo Suppression: Discard microphone loopback of coach's own audio
-        if (isAcousticEcho(text, lastCoachSpokenTextRef.current)) {
-            console.warn('[SpeakingCoach] Discarded acoustic speaker echo loopback:', text);
+        if (isAcousticEcho(cleanText, lastCoachSpokenTextRef.current)) {
+            console.warn('[SpeakingCoach] Discarded acoustic speaker echo loopback:', cleanText);
             isProcessingRef.current = false;
             setIsThinking(false);
             setCurrentTranscript('');
@@ -305,9 +306,10 @@ const SpeakingCoachPage: React.FC = () => {
         setError(null);
 
         stopSpeaking();
+        setIsSpeaking(false);
 
         const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const userMsg: CoachChatMessage = { role: 'user', content: text, timestamp: timeStr };
+        const userMsg: CoachChatMessage = { role: 'user', content: cleanText, timestamp: timeStr };
         const updatedHistory = [...chatHistoryRef.current, userMsg];
         
         setChatHistory(updatedHistory);
@@ -315,7 +317,7 @@ const SpeakingCoachPage: React.FC = () => {
 
         try {
             const structured = await converseWithCoachStructured(
-                text,
+                cleanText,
                 updatedHistory.map(h => ({ role: h.role, content: h.content })),
                 languageRef.current,
                 personaRef.current,
@@ -339,14 +341,14 @@ const SpeakingCoachPage: React.FC = () => {
                 const errorTag: ErrorTag = {
                     id: Math.random().toString(36).substring(2, 9),
                     type: 'grammar',
-                    originalText: structured.correction?.original || text,
+                    originalText: structured.correction?.original || cleanText,
                     correction: structured.correction?.corrected || '',
                     explanation: structured.correction?.explanation || ''
                 };
                 setLiveErrors(prev => [errorTag, ...prev].slice(0, 10));
 
                 ErrorVaultService.logErrors([{
-                    verbatim: structured.correction.original || text,
+                    verbatim: structured.correction.original || cleanText,
                     correction: structured.correction.corrected,
                     explanation: structured.correction.explanation || '',
                     category: 'grammar',
@@ -383,6 +385,8 @@ const SpeakingCoachPage: React.FC = () => {
             chatHistoryRef.current = finalHistory;
 
             setIsThinking(false);
+            isProcessingRef.current = false;
+
             // STRICT TTS: Speak ONLY canonical Japanese/English TTS text (never Romaji or visual notes)
             const speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
             lastCoachSpokenTextRef.current = speechToPlay;
