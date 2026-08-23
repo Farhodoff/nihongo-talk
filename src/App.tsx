@@ -44,6 +44,7 @@ const RoadmapPage = lazyWithRetry(() => import('./pages/RoadmapPage'));
 const DiagnosticPage = lazyWithRetry(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })));
 const PersonalPlanPage = lazyWithRetry(() => import('./pages/PersonalPlanPage').then(m => ({ default: m.PersonalPlanPage })));
 const StudyModePage = lazyWithRetry(() => import('./pages/StudyModePage'));
+const ScenarioPickerPage = lazyWithRetry(() => import('./pages/ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
 
 
 // Loading component
@@ -129,7 +130,7 @@ const App: React.FC = () => {
                                         <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
                                         <Route path="ielts/reading-listening" element={<Navigate to="/ielts?tab=reading_listening" replace />} />
                                         <Route path="jlpt" element={<JlptHubPage />} />
-                                        <Route path="scenarios" element={<Navigate to="/jlpt?tab=scenarios" replace />} />
+                                        <Route path="scenarios" element={<ScenarioPickerPage />} />
                                         <Route path="jlpt-speaking" element={<Navigate to="/speaking-coach?lang=ja" replace />} />
                                         <Route path="jlpt-writing" element={<JlptWritingPage />} />
                                         <Route path="jlpt/listening" element={<Navigate to="/jlpt?tab=listening" replace />} />

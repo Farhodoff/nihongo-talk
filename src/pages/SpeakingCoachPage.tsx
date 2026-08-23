@@ -74,7 +74,8 @@ const SpeakingCoachPage: React.FC = () => {
                 const found = scenarios.find(s => s.id === scenarioId);
                 if (found) {
                     setActiveScenario(found);
-                    setLanguage('ja');
+                    const sLang = found.language || (found.title_en ? 'en' : 'ja');
+                    setLanguage(sLang);
                 }
             });
         } else {

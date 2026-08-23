@@ -194,10 +194,24 @@ export const converseWithCoachStructured = async (
     let personaPrompt = '';
 
     if (scenario) {
-        personaPrompt = `IDENTITY: あなたは【${scenario.title_ja} (${scenario.title_uz})】の会話シナリオに登場するネイティブキャラクターです。
+        const isJa = (scenario.language || (scenario.title_en ? 'en' : 'ja')) === 'ja';
+        const scenarioTitle = isJa
+            ? `${scenario.title_ja || scenario.title_uz} (${scenario.title_uz})`
+            : `${scenario.title_en || scenario.title_uz} (${scenario.title_uz})`;
+        const difficultyLabel = isJa ? `JLPT ${scenario.difficulty}` : `CEFR / ${scenario.difficulty}`;
+
+        if (isJa) {
+            personaPrompt = `IDENTITY: あなたは【${scenarioTitle}】の会話シナリオに登場するネイティブキャラクターです。
            ROLE CONTEXT: ${scenario.context_prompt}
-           TARGET DIFFICULTY: JLPT ${scenario.difficulty}
+           TARGET DIFFICULTY: ${difficultyLabel}
            KEY PHRASES TO ENCOURAGE: ${scenario.key_phrases.join(', ')}`;
+        } else {
+            personaPrompt = `IDENTITY: You are an authentic roleplay character for the scenario: "${scenarioTitle}".
+           ROLE CONTEXT: ${scenario.context_prompt}
+           TARGET DIFFICULTY: ${difficultyLabel}
+           KEY PHRASES TO ENCOURAGE & TEST: ${scenario.key_phrases.join(', ')}
+           INSTRUCTION: Strictly stay in character, respond naturally, ask realistic follow-up questions, and evaluate user's responses.`;
+        }
     } else if (language === 'ja') {
         switch (persona) {
             case 'keigo':
