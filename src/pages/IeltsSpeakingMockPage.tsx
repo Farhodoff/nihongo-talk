@@ -7,13 +7,15 @@ import { speakText } from '../utils/audioTts';
 import { CAMBRIDGE_IELTS_TOPICS, IeltsSpeakingTopic } from '../data/ieltsSpeakingTopics';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { HistoryService } from '../services/HistoryService';
+import { MasteryEngine } from '../services/MasteryEngine';
+import { LearningSignalService } from '../services/LearningSignalService';
 import { toast } from '../hooks/use-toast';
 
 const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
 export const IeltsSpeakingMockPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP, addSession } = useStudyData();
+    const { awardXP, addSession, user } = useStudyData();
 
     // Topic Selection
     const [selectedTopic, setSelectedTopic] = useState<IeltsSpeakingTopic>(() => {
@@ -196,6 +198,31 @@ export const IeltsSpeakingMockPage: React.FC = () => {
                     totalQuestions: 90,
                     bandScore: evalReport.overallBand
                 });
+
+                const activeUserId = user?.id || 'guest';
+                MasteryEngine.recordEvidence(activeUserId, 'en', {
+                    id: `ielts_speaking_${Date.now()}`,
+                    skill: 'speaking',
+                    score: Math.min(100, Math.round((evalReport.overallBand / 9.0) * 100)),
+                    timestamp: new Date().toISOString(),
+                    details: `IELTS Speaking Mock Band: ${evalReport.overallBand}`,
+                    type: 'performance'
+                });
+
+                LearningSignalService.recordSignal({
+                    id: `sig_speaking_${Date.now()}`,
+                    type: 'completed_lesson',
+                    language: 'en',
+                    userId: activeUserId,
+                    timestamp: new Date().toISOString(),
+                    lessonId: 'ielts_speaking_mock',
+                    level: 'C1',
+                    score: Math.round(evalReport.overallBand),
+                    total: 9,
+                    percentage: Math.min(100, Math.round((evalReport.overallBand / 9.0) * 100)),
+                    newCardsCreated: 0,
+                    mistakesCount: 0
+                }).catch(() => {});
             } catch (e) {
                 console.warn('Failed to save IELTS speaking mock exam history:', e);
             }

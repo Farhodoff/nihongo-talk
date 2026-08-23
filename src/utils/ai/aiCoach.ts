@@ -1,5 +1,4 @@
-import { getAIConfig, parseAIError } from './aiConfig';
-import { callOllama } from '../ollama';
+import { parseAIError } from './aiConfig';
 import { callSelectedAIProvider } from './aiCore';
 import { ErrorVaultService } from '../../services/ErrorVaultService';
 import { ConversationScenario } from '../../components/speaking/scenarioTypes';
@@ -33,20 +32,7 @@ export const analyzeSpeech = async (
     `;
 
     try {
-        const config = getAIConfig();
-        const fullPrompt = prompt;
-
-        if (config.provider === 'ollama') {
-            try {
-                const text = await callOllama(fullPrompt);
-                const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-                return JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in analyzeSpeech, falling back to DeepSeek:", err);
-            }
-        }
-
-        const text = await callSelectedAIProvider(fullPrompt, undefined, true);
+        const text = await callSelectedAIProvider(prompt, undefined, true);
         const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
         return JSON.parse(cleanedText);
     } catch (error: any) {
@@ -332,17 +318,6 @@ You MUST respond with a VALID JSON object matching this schema exactly:
     `;
 
     try {
-        const config = getAIConfig();
-        
-        if (config.coachAiModel === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                if (response) return parseCoachResponse(response, language);
-            } catch (err: any) {
-                console.warn("[AI Fallback] Ollama failed in converseWithCoach, falling back to DeepSeek:", err);
-            }
-        }
-        
         const dsResult = await callSelectedAIProvider(prompt, undefined, true);
         if (dsResult) {
             return parseCoachResponse(dsResult, language);
@@ -502,26 +477,9 @@ export const analyzeSpeakingSession = async (
     `;
 
     try {
-        const config = getAIConfig();
-        const provider = config.coachAiModel || config.provider || 'deepseek';
-
-        let data: any = null;
-
-        if (provider === 'ollama') {
-            try {
-                const response = await callOllama(prompt);
-                const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-                data = JSON.parse(cleanedText);
-            } catch (err) {
-                console.warn("[AI Fallback] Ollama failed in analyzeSpeakingSession, falling back to DeepSeek:", err);
-            }
-        }
-
-        if (!data) {
-            const response = await callSelectedAIProvider(prompt, undefined, true);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            data = JSON.parse(cleanedText);
-        }
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const data = JSON.parse(cleanedText);
 
         const lexical = typeof data.lexical_score === 'number' ? data.lexical_score : 7.0;
         const grammar = typeof data.grammar_score === 'number' ? data.grammar_score : 7.0;

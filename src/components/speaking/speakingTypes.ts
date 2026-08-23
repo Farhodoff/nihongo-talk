@@ -1,4 +1,5 @@
 import { PERSONAS_BY_LANG, CoachPersona } from './PersonaSelector';
+import React from 'react';
 
 export type { CoachPersona };
 export { PERSONAS_BY_LANG };
@@ -15,19 +16,30 @@ export interface CoachVocabularyItem {
     reading?: string;
     meaning: string;
     example?: string;
+    partOfSpeech?: string;
+    level?: string;
 }
 
 export interface CoachChatMessage {
     role: 'user' | 'assistant';
     content: string;
     timestamp?: string;
-    translation?: string;
-    isTranslating?: boolean;
-    showTranslation?: boolean;
-    isEditing?: boolean;
     romaji?: string;
+    translation?: string;
+    showTranslation?: boolean;
+    isTranslating?: boolean;
+    isEditing?: boolean;
     ttsText?: string;
     correction?: CoachCorrection | null;
     vocabulary?: CoachVocabularyItem[];
 }
 
+export interface CoachPersonaItem {
+    name: string;
+    icon: React.ComponentType<{ size?: number; className?: string }> | any;
+    color: string;
+    gradientBg?: string;
+    desc?: string;
+    badge?: string;
+    emoji?: string;
+}

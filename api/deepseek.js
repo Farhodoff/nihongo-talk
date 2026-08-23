@@ -1,4 +1,4 @@
-import { verifyAuth, getBearerToken } from './_auth.js';
+import { verifyAuth } from './_auth.js';
 import { checkRateLimit } from './_rateLimit.js';
 import { checkDailyQuota } from './_quota.js';
 
@@ -9,27 +9,25 @@ export const config = {
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Custom-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     return res.status(204).end();
   }
 
-  // Diagnostic GET route: allows verifying if Vercel has loaded the DEEPSEEK_API_KEY
+  // Diagnostic GET route: allows checking AI gateway availability
   if (req.method === 'GET') {
-    const rawServerKey =
-      process.env.DEEPSEEK_API_KEY ||
-      process.env.VITE_DEEPSEEK_API_KEY ||
-      process.env.DEEPSEEK_KEY ||
-      process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY ||
-      process.env.DEEP_SEEK_API_KEY;
+    const rawServerKey = process.env.DEEPSEEK_API_KEY;
     const isConfigured = Boolean(rawServerKey && rawServerKey.trim().length > 10);
     return res.status(200).json({
       status: 'active',
-      service: 'DeepSeek Proxy (Node.js Serverless)',
-      serverKeyConfigured: isConfigured,
-      keyPrefix: isConfigured ? rawServerKey.trim().substring(0, 6) + '...' : 'NONE',
-      hint: isConfigured ? 'Server key is ready and loaded.' : 'DEEPSEEK_API_KEY is missing in Vercel Environment Variables.'
+      service: 'DeepSeek Gateway',
+      available: isConfigured,
+      provider: 'DeepSeek',
+      model: 'deepseek-chat',
+      hint: isConfigured
+        ? 'DeepSeek AI gateway is active and configured.'
+        : 'DEEPSEEK_API_KEY is missing in server environment variables.'
     });
   }
 
@@ -47,84 +45,82 @@ export default async function handler(req, res) {
   }
 
   const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
-  const token = getBearerToken(req);
-  const customKey = req.headers ? (req.headers['x-custom-key'] || req.headers['X-Custom-Key']) : null;
 
-  // Support standard and common variant names for DeepSeek API Key
-  const rawServerKey =
-    process.env.DEEPSEEK_API_KEY ||
-    process.env.VITE_DEEPSEEK_API_KEY ||
-    process.env.DEEPSEEK_KEY ||
-    process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY ||
-    process.env.DEEP_SEEK_API_KEY;
+  // Server-only single source of truth for DeepSeek API Key
+  const rawServerKey = process.env.DEEPSEEK_API_KEY;
   const serverKey = rawServerKey ? rawServerKey.trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '') : null;
 
-  let effectiveApiKey = null;
+  if (!serverKey) {
+    return res.status(503).json({
+      error: {
+        code: 'AI_NOT_CONFIGURED',
+        message: 'AI service is temporarily unavailable.',
+      },
+    });
+  }
+
+  const effectiveApiKey = serverKey;
   let authenticatedUserId = null;
 
-  // 1. If user provided a direct DeepSeek key (BYOK: sk-...)
-  if (customKey && typeof customKey === 'string' && customKey.startsWith('sk-')) {
-    effectiveApiKey = customKey;
-  } else if (token && token.startsWith('sk-')) {
-    effectiveApiKey = token;
-  } else {
-    // 2. Try to verify user's Supabase JWT access token
-    const { user } = await verifyAuth(req);
-    if (user && user.id) {
-      authenticatedUserId = user.id;
+  // Verify optional Supabase user for rate-limiting and quota tracking
+  const { user } = await verifyAuth(req);
+  if (user && user.id) {
+    authenticatedUserId = user.id;
 
-      // Rate limit check for shared server key
-      const rateCheck = await checkRateLimit(req, authenticatedUserId);
-      if (!rateCheck.allowed) {
-        res.setHeader('Retry-After', String(rateCheck.retryAfter));
-        return res.status(429).json({
-          error: 'Too Many Requests',
-          message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
-          retryAfter: rateCheck.retryAfter,
-        });
-      }
-
-      // Daily quota check
-      const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
-      if (!quotaCheck.allowed) {
-        return res.status(403).json({
-          error: 'Quota Exceeded',
-          message: quotaCheck.reason,
-        });
-      }
-    }
-
-    // 3. Check server-side configured API key
-    if (!serverKey) {
-      return res.status(503).json({
-        error: 'Service Unavailable',
-        message: 'Serverda DeepSeek API kaliti (DEEPSEEK_API_KEY) sozlanmagan. Iltimos Vercel Environment Variables bo\'limida DEEPSEEK_API_KEY ni kiriting yoki Sozlamalar bo\'limida shaxsiy kalitingizni kiriting.',
+    const rateCheck = await checkRateLimit(req, authenticatedUserId);
+    if (!rateCheck.allowed) {
+      res.setHeader('Retry-After', String(rateCheck.retryAfter));
+      return res.status(429).json({
+        error: 'Too Many Requests',
+        message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        retryAfter: rateCheck.retryAfter,
       });
     }
-    effectiveApiKey = serverKey;
+
+    const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
+    if (!quotaCheck.allowed) {
+      return res.status(403).json({
+        error: 'Quota Exceeded',
+        message: quotaCheck.reason,
+      });
+    }
+  } else {
+    // Anonymous / Guest IP rate limit
+    const ipRate = await checkRateLimit(req, null);
+    if (!ipRate.allowed) {
+      res.setHeader('Retry-After', String(ipRate.retryAfter));
+      return res.status(429).json({
+        error: 'Too Many Requests',
+        message: `So'rovlar tezligi oshdi. Iltimos ${ipRate.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        retryAfter: ipRate.retryAfter,
+      });
+    }
   }
 
   try {
-    // SECURITY: BYOK requests are not JWT-authenticated; apply IP-based rate
-    // limiting so this path cannot be used as an unthrottled anonymous relay.
-    if (!authenticatedUserId) {
-      const byokRate = await checkRateLimit(req, null);
-      if (!byokRate.allowed) {
-        res.setHeader('Retry-After', String(byokRate.retryAfter));
-        return res.status(429).json({
-          error: 'Too Many Requests',
-          message: `So'rovlar tezligi oshdi. Iltimos ${byokRate.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
-          retryAfter: byokRate.retryAfter,
-        });
-      }
-    }
-
-    // SECURITY: clamp cost-relevant params regardless of auth path — the
-    // payload is client-controlled and may be billed to the server key.
+    // SECURITY & BUFFER PROTECTION: clamp cost-relevant and payload size parameters
     if (payload && typeof payload === 'object') {
+      if (Array.isArray(payload.messages)) {
+        const rawMessages = payload.messages;
+        const systemMessages = rawMessages.filter(m => m && m.role === 'system');
+        const nonSystemMessages = rawMessages.filter(m => m && m.role !== 'system');
+
+        // Keep last 20 conversational turns to avoid buffer bloat
+        const trimmedNonSystem = nonSystemMessages.slice(-20).map(msg => ({
+          role: msg.role === 'assistant' ? 'assistant' : 'user',
+          content: typeof msg.content === 'string' ? msg.content : String(msg.content || '')
+        }));
+
+        payload.messages = [...systemMessages.slice(0, 2), ...trimmedNonSystem];
+      }
+
       if (typeof payload.max_tokens === 'number') {
         payload.max_tokens = Math.min(Math.max(Math.floor(payload.max_tokens), 1), 4096);
       }
+      if (typeof payload.temperature === 'number') {
+        payload.temperature = Math.min(Math.max(payload.temperature, 0), 2);
+      }
+
       // JSON Mode compatibility: DeepSeek-R1 (deepseek-reasoner) does not support response_format.
       // Automatically fall back model to deepseek-chat when response_format is json_object.
       if (payload.response_format && payload.response_format.type === 'json_object') {
@@ -135,7 +131,7 @@ export default async function handler(req, res) {
       }
     }
 
-    const cleanAuthKey = (effectiveApiKey || '').trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '');
+    const cleanAuthKey = effectiveApiKey.trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '');
 
     const response = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
@@ -156,7 +152,7 @@ export default async function handler(req, res) {
 
     return res.status(response.status).json(resJson);
   } catch (error) {
-    console.error('DeepSeek API proxy error:', error);
-    return res.status(500).json({ error: 'Internal Server Error', message: error?.message });
+    console.error('DeepSeek API proxy network error');
+    return res.status(500).json({ error: 'Internal Server Error', message: 'Network error connecting to AI provider' });
   }
 }

@@ -1,8 +1,7 @@
 /// <reference types="vite/client" />
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { safeStorage } from "../safeStorage";
 
-export type AIProvider = 'ollama' | 'gemini' | 'deepseek';
+export type AIProvider = 'deepseek';
 
 // Persistent cache to prevent duplicate requests across page reloads
 const CACHE_PREFIX = 'study_planner_ai_cache_';
@@ -36,152 +35,29 @@ export const aiCache = {
     }
 };
 
+/**
+ * Returns single DeepSeek AI configuration.
+ * All requests route through /api/deepseek backend gateway.
+ */
 export const getAIConfig = () => {
-    const saved = safeStorage.getItem<Record<string, any>>('study_planner_ai_settings');
-    let aiModel: AIProvider = 'deepseek';
-    let deepseekKey = '';
-    let geminiKey = '';
-
-    let deepseekModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
-    let deepseekThinkingMode = false;
-    let coachAiModel: AIProvider | undefined;
-    let coachApiKey: string | undefined;
-
-    if (saved) {
-        try {
-            if (saved.aiModel) aiModel = saved.aiModel;
-            if (saved.deepseekApiKey) deepseekKey = saved.deepseekApiKey;
-            if (saved.googleApiKey) geminiKey = saved.googleApiKey;
-            if (saved.deepseekModel) {
-                if (saved.deepseekModel === 'deepseek-chat') {
-                    deepseekModel = 'deepseek-v4-flash';
-                } else if (saved.deepseekModel === 'deepseek-reasoner') {
-                    deepseekModel = 'deepseek-v4-pro';
-                } else {
-                    deepseekModel = saved.deepseekModel;
-                }
-            }
-            if (saved.deepseekThinkingMode !== undefined) deepseekThinkingMode = saved.deepseekThinkingMode;
-            if (saved.coachAiModel) coachAiModel = saved.coachAiModel;
-            if (saved.coachApiKey) coachApiKey = saved.coachApiKey;
-        } catch (e) {
-            console.error("Failed to parse ai settings from storage", e);
-        }
-    }
-
-    if (!deepseekKey && typeof localStorage !== 'undefined') {
-        deepseekKey = localStorage.getItem('study_planner_deepseek_api_key') || '';
-    }
-    // SECURITY (P0): the shared admin Gemini key is no longer distributed to
-    // clients — only the user's own key from study_planner_ai_settings is used.
-
-    // Sukut bo'yicha DeepSeek asosiy model qilinadi
-    if (!saved || !coachAiModel) {
-        coachAiModel = 'deepseek';
-    }
-    if (!saved || !aiModel) {
-        aiModel = 'deepseek';
-    }
-
     return {
-        provider: aiModel as AIProvider,
-        geminiKey,
-        deepseekKey,
-        deepseekModel,
-        deepseekThinkingMode,
-        coachAiModel: coachAiModel || aiModel as AIProvider,
-        coachApiKey
+        provider: 'deepseek' as AIProvider,
+        deepseekModel: 'deepseek-chat' as const,
+        deepseekThinkingMode: false,
+        coachAiModel: 'deepseek' as AIProvider,
     };
 };
 
 /**
- * Checks if the user has configured a valid AI API key for their selected provider.
- * Returns true if ready to use AI, false if key is missing.
+ * Checks if AI service is configured on platform.
+ * Always true on client because server handles the central DEEPSEEK_API_KEY.
  */
 export const isAIKeyConfigured = (): boolean => {
-    const config = getAIConfig();
-    if (config.provider === 'deepseek') return true; // DeepSeek serverless backend (/api/deepseek) is always configured
-    if (config.provider === 'ollama') return true; 
-    if (config.provider === 'gemini' && config.geminiKey) return true;
-
-    // SECURITY (P0): subscription JSON no longer grants AI access by itself —
-    // the shared admin Gemini key is not distributed to clients anymore.
-    // Gemini requires the user's own key; DeepSeek/Ollama go through backends.
-
-    return false;
+    return true;
 };
-
 
 export const getAIProvider = async (): Promise<AIProvider> => {
-    const config = getAIConfig();
-    return config.provider || 'deepseek';
-};
-
-let keyRotationIndex = 0;
-const disabledKeysMap = new Map<string, number>();
-let lastUsedKey = '';
-
-export const getGeminiAPIKeys = (userKey?: string): string[] => {
-    const candidateStrings: string[] = [];
-
-    if (userKey && typeof userKey === 'string' && userKey.trim() && !userKey.trim().startsWith('sk-')) {
-        candidateStrings.push(userKey);
-    } else {
-        const config = getAIConfig();
-        if (config.geminiKey && typeof config.geminiKey === 'string' && !config.geminiKey.trim().startsWith('sk-')) {
-            candidateStrings.push(config.geminiKey);
-        }
-        // SECURITY (P0): 'study_planner_admin_api_key' and
-        // subscription.adminApiKey are intentionally no longer key sources.
-    }
-
-    const rawKeys = candidateStrings.flatMap(str => str.split(/[\s,;\n]+/));
-    const cleanedKeys = rawKeys
-        .map(k => k.trim())
-        .filter(k => k.length > 10 && !k.startsWith('sk-'));
-
-    const uniqueKeys: string[] = [];
-    for (const key of cleanedKeys) {
-        if (!uniqueKeys.includes(key)) {
-            uniqueKeys.push(key);
-        }
-    }
-
-    if (uniqueKeys.length === 0) {
-        throw new Error("Google Gemini API kaliti sozlanmagan. Iltimos Sozlamalar bo'limida o'z API kalitingizni kiriting.");
-    }
-
-    return uniqueKeys;
-};
-
-export const markKeyRateLimited = (key: string) => {
-    if (!key) return;
-    console.warn(`Marking Gemini API Key on 45s cooldown due to rate limit: ${key.substring(0, 8)}...`);
-    disabledKeysMap.set(key, Date.now() + 45000);
-};
-
-export const clearDisabledKeysMap = () => {
-    disabledKeysMap.clear();
-};
-
-export const getGenAI = (userKey?: string): GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string } => {
-    const keys = getGeminiAPIKeys(userKey);
-    const now = Date.now();
-
-    const validKeys = keys.filter(k => {
-        const disabledUntil = disabledKeysMap.get(k);
-        if (disabledUntil && now < disabledUntil) {
-            return false;
-        }
-        return true;
-    });
-
-    const pool = validKeys.length > 0 ? validKeys : keys;
-    keyRotationIndex = (keyRotationIndex + 1) % pool.length;
-    const selectedKey = pool[keyRotationIndex];
-    lastUsedKey = selectedKey;
-    const instance = new GoogleGenerativeAI(selectedKey);
-    return Object.assign(instance, { instance, key: selectedKey });
+    return 'deepseek';
 };
 
 /**
@@ -208,139 +84,29 @@ export const parseAIError = (error: unknown): string => {
     const err = error as { message?: string; status?: number };
     const msg = (err?.message || '').toLowerCase();
 
-    // Quota / Rate limit tugagan
-    if (msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') || msg.includes('resource_exhausted') || msg.includes('15 rpm')) {
-        if (msg.includes('freetier') || msg.includes('free_tier')) {
-            return '⏳ Bepul AI limit bugunlik tugagan. Ertaga qayta urinib ko\'ring yoki Google AI Studio\'da pullik rejaga o\'ting (aistudio.google.com → Settings → Billing).';
-        }
-        return "⏳ Bepul AI so'rovlar limiti vaqtincha to'ldi (Google Gemini limit 15 so'rov/daq). 1 daqiqa kuting yoki Sozlamalar bo'limida o'zingizning bepul API kalitingizni kiriting (aistudio.google.com).";
+    if (msg.includes('503') || msg.includes('ai_unavailable') || msg.includes('unavailable')) {
+        return "AI xizmati vaqtincha mavjud emas. Iltimos keyinroq qayta urinib ko'ring.";
     }
 
-    // Backend proxy error / missing API key
-    if (msg.includes('missing api key') || msg.includes('backend proxy error')) {
-        return '🔑 AI API kaliti kiritilmagan. Sozlamalardan o\'zingizning API kalitingizni kiriting yoki AI provayderni Gemini ga o\'tkazing.';
+    if (msg.includes('429') || msg.includes('rate limit') || msg.includes('too many requests') || msg.includes('quota')) {
+        return "AI so'rovlar limiti va tezligi oshdi (429 rate limit). Iltimos bir necha soniyadan so'ng qayta urinib ko'ring.";
     }
 
-    // API kalit noto'g'ri
-    if (msg.includes('api key not valid') || msg.includes('api_key_invalid')) {
-        return '🔑 API kalit noto\'g\'ri yoki yaroqsiz. Iltimos, Sozlamalar bo\'limida kalitingizni tekshiring va yangi kalit kiriting.';
+    if (msg.includes('404') || msg.includes('not found')) {
+        return "AI model topilmadi yoki xizmat vaqtincha mavjud emas. Iltimos qayta urinib ko'ring.";
     }
 
-    // Model topilmadi / invalid model
-    if (msg.includes('not found') || msg.includes('404')) {
-        return '⚠️ AI model topilmadi (404 xatosi). API kalitingiz yaroqsiz bo\'lishi mumkin yoki tanlangan AI modeli endi mavjud emas. Sozlamalardan to\'g\'rilang.';
+    if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('net::') || msg.includes('connection refused')) {
+        return "Internet aloqasi yo'q yoki server javob bermayapti. Internet ulanishingizni tekshiring.";
     }
 
-    // Internet / tarmoq xatoligi
-    if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('net::')) {
-        return '🌐 Internet aloqasi yo\'q yoki server javob bermayapti. Internet ulanishingizni tekshiring.';
+    if (msg.includes('494') || msg.includes('431') || msg.includes('header too large') || msg.includes('cookie')) {
+        return "Brauzer xotirasi sarlavhalari to'ldi (HTTP 494). Iltimos sahifani yangilang (Ctrl+F5 / Cmd+Shift+R) va qayta urinib ko'ring.";
     }
 
-    // Umumiy xatolik
     const sanitizedMsg = msg
         .replace(/(aizasy[a-z0-9_-]{33})/gi, 'AIzaSy[REDACTED]')
         .replace(/(sk-[a-z0-9_-]{20,})/gi, 'sk-[REDACTED]')
         .replace(/(bearer\s+[a-z0-9._-]+)/gi, 'Bearer [REDACTED]');
-    return `❌ AI xatoligi yuz berdi: ${sanitizedMsg.substring(0, 150)}`;
-};
-
-import { supabase } from '../../lib/supabase';
-
-const decrementCredit = async () => {
-    try {
-        const subStr = localStorage.getItem('study_planner_subscription');
-        if (!subStr) return;
-        
-        const sub = JSON.parse(subStr);
-        // Faqat admin kalitidan foydalanyotgan va "free" tarifidagilar uchun kredit ayiriladi
-        if (sub.tier === 'free' && sub.ai_credits > 0) {
-            const newCredits = sub.ai_credits - 1;
-            sub.ai_credits = newCredits;
-            localStorage.setItem('study_planner_subscription', JSON.stringify(sub));
-            
-            const { data } = await supabase.auth.getSession();
-            if (data?.session?.user) {
-                await supabase.from('user_subscriptions').update({ ai_credits: newCredits }).eq('id', data.session.user.id);
-            }
-        }
-    } catch(e) {
-        console.error("Kredit ayirishda xatolik:", e);
-    }
-};
-
-export const requestWithRetry = async <T>(
-    operation: (genAI?: GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string }) => Promise<T>,
-    retries: number = 2,
-    delay: number = 1000,
-    userKey?: string
-): Promise<T> => {
-    let currentGenAI: (GoogleGenerativeAI & { instance: GoogleGenerativeAI; key: string }) | undefined;
-    try {
-        currentGenAI = getGenAI(userKey);
-    } catch (e) {
-        // Safe fallback if non-Gemini provider or key missing
-    }
-
-    try {
-        const result = await operation(currentGenAI);
-        decrementCredit().catch(e => console.error("Kredit ayirishda xatolik:", e)); // Non-blocking
-        return result;
-    } catch (error: unknown) {
-        // Handle rate limit (429) or quota / 15 RPM / RESOURCE_EXHAUSTED issues
-        const err = error as { message?: string; status?: number };
-        const msg = (err?.message || JSON.stringify(error) || '').toLowerCase();
-        const status = err?.status;
-        const isRateLimit = status === 429 || 
-                            msg.includes('429') || 
-                            msg.includes('resource_exhausted') || 
-                            msg.includes('quota') || 
-                            msg.includes('rate limit') || 
-                            msg.includes('15 rpm') ||
-                            msg.includes('too many requests');
-
-        if (isRateLimit) {
-            const keyToDisable = currentGenAI?.key || lastUsedKey;
-            if (keyToDisable) {
-                markKeyRateLimited(keyToDisable);
-            }
-
-            // Agar barcha kalitlar rate-limitga tushgan bo'lsa, retry qilib o'tirishdan foyda yo'q
-            const keys = getGeminiAPIKeys(userKey);
-            const validKeys = keys.filter(k => {
-                const disabledUntil = disabledKeysMap.get(k);
-                return !disabledUntil || Date.now() >= disabledUntil;
-            });
-
-            if (validKeys.length === 0) {
-                throw new Error("RATE_LIMIT: ⏳ Bepul AI so'rovlar limiti vaqtincha to'ldi (Google Gemini limit 15 so'rov/daq). Iltimos, 1 daqiqa kuting.");
-            }
-
-            if (retries > 0) {
-                console.warn(`AI Rate limit hit. Retrying with a different key... (${retries} retries left)`);
-                await new Promise(resolve => setTimeout(resolve, delay));
-                return requestWithRetry(operation, retries - 1, delay, userKey);
-            }
-        }
-
-        // Agar bu maxsus RATE_LIMIT xatosi bo'lsa, uni asl holida qaytaramiz (fallback uchun)
-        if (msg.includes('rate_limit:')) {
-            throw error;
-        }
-
-        // Barcha retrylar tugagandan keyin tushunarli xato berish
-        throw new Error(parseAIError(error));
-    }
-};
-
-/**
- * Fallback AI execution using Google Gemini model
- */
-export const callGeminiFallback = async (prompt: string, systemPrompt?: string): Promise<string> => {
-    return requestWithRetry(async (genAI) => {
-        if (!genAI) throw new Error("Gemini AI instance unavailable");
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
-        const result = await model.generateContent(fullPrompt);
-        return result.response.text();
-    });
+    return `AI xatoligi yuz berdi: ${sanitizedMsg.substring(0, 150)}`;
 };

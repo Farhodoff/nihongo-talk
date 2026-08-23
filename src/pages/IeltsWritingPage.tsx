@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History, Clock, Timer } from 'lucide-react';
-import { evaluateIeltsEssay, IeltsEssayEvaluationReport, isAIKeyConfigured } from '../utils/ai';
+import { evaluateIeltsEssay, IeltsEssayEvaluationReport } from '../utils/ai';
 import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
+import { MasteryEngine } from '../services/MasteryEngine';
+import { LearningSignalService } from '../services/LearningSignalService';
 import { SvgLineChart } from '../components/ui/SvgCharts';
 import { useSubscription } from '../hooks/useSubscription';
 import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
@@ -25,8 +27,8 @@ const SAMPLE_PROMPTS = {
 
 const IeltsWritingPage: React.FC = () => {
     const { subscription } = useSubscription();
-    const { awardXP } = useStudyData();
-    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium' || isAIKeyConfigured();
+    const { awardXP, user } = useStudyData();
+    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium';
 
     const [taskType, setTaskType] = useState<'task1' | 'task2'>('task2');
     const [promptQuestion, setPromptQuestion] = useState(SAMPLE_PROMPTS.task2[0]);
@@ -128,6 +130,32 @@ const IeltsWritingPage: React.FC = () => {
                 },
                 feedback: res.taskResponseFeedback
             });
+
+            // Record Mastery Evidence and Learning Signal
+            const activeUserId = user?.id || 'guest';
+            MasteryEngine.recordEvidence(activeUserId, 'en', {
+                id: `ielts_writing_${Date.now()}`,
+                skill: 'writing',
+                score: Math.min(100, Math.round((res.overallBand / 9.0) * 100)),
+                timestamp: new Date().toISOString(),
+                details: `IELTS Writing ${taskType.toUpperCase()} Band: ${res.overallBand}`,
+                type: 'performance'
+            });
+
+            LearningSignalService.recordSignal({
+                id: `sig_writing_${Date.now()}`,
+                type: 'completed_lesson',
+                language: 'en',
+                userId: activeUserId,
+                timestamp: new Date().toISOString(),
+                lessonId: `ielts_writing_${taskType}`,
+                level: 'C1',
+                score: Math.round(res.overallBand),
+                total: 9,
+                percentage: Math.min(100, Math.round((res.overallBand / 9.0) * 100)),
+                newCardsCreated: 0,
+                mistakesCount: 0
+            }).catch(() => {});
 
             // Award XP
             try {

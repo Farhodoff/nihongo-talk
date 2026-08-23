@@ -356,14 +356,18 @@ export const PersonalLearningPlanService = {
                 if (Array.isArray(parsed)) allPlans = parsed;
             }
 
-            allPlans = allPlans.map(p => {
-                if (p.goalId === plan.goalId && p.weekNumber === plan.weekNumber && p.status === 'active') {
-                    return { ...p, status: 'archived' };
-                }
-                return p;
-            });
-
-            allPlans.push(plan);
+            const existingIndex = allPlans.findIndex(p => p.id === plan.id);
+            if (existingIndex !== -1) {
+                allPlans[existingIndex] = plan;
+            } else {
+                allPlans = allPlans.map(p => {
+                    if (p.goalId === plan.goalId && p.weekNumber === plan.weekNumber && p.status === 'active') {
+                        return { ...p, status: 'archived' };
+                    }
+                    return p;
+                });
+                allPlans.push(plan);
+            }
             localStorage.setItem(PLANS_STORAGE_KEY, JSON.stringify(allPlans));
         } catch {}
 

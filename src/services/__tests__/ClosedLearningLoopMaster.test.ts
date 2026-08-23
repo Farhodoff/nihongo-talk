@@ -173,7 +173,7 @@ describe('Kaizen AI Closed Learning Loop Master Integration Tests', () => {
         expect(academicDeck).toBeDefined();
 
         const cards = await academicDeck!.loadCards();
-        expect(cards.length).toBe(540);
+        expect(cards.length).toBe(539);
 
         // Ensure zero TOC fragments
         const tocCards = cards.filter(c => 

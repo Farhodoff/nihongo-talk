@@ -34,7 +34,7 @@ export const WeaknessEngine = {
                 case 'listening':
                     return '/ielts/reading-listening';
                 case 'grammar':
-                    return '/vocabulary';
+                    return '/ielts/reading-listening';
                 case 'vocabulary':
                 default:
                     return '/vocabulary';

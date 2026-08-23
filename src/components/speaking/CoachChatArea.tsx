@@ -1,12 +1,12 @@
 import React from 'react';
-import { CoachChatMessage, CoachVocabularyItem } from './speakingTypes';
-import { Check, Copy, Volume2, Mic, Plus } from 'lucide-react';
+import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
+import { Check, Copy, Volume2, Mic, Plus, Sparkles } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
 
 interface CoachChatAreaProps {
     chatHistory: CoachChatMessage[];
     isLiveSession: boolean;
-    currentPersona: any;
+    currentPersona: CoachPersonaItem;
     currentTranscript: string;
     isListening: boolean;
     isThinking: boolean;
@@ -34,12 +34,12 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
     setChatHistory,
     onAddVocabulary,
 }) => {
-    const ActivePersonaIcon = currentPersona.icon;
+    const ActivePersonaIcon = currentPersona?.icon || Sparkles;
 
     if (chatHistory.length === 0 && !isLiveSession) return null;
 
     return (
-        <div 
+        <div
             ref={chatContainerRef}
             className="flex-1 overflow-y-auto space-y-3 py-3 px-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
         >
@@ -51,28 +51,26 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             <ActivePersonaIcon size={14} className="text-white" />
                         </div>
                     )}
-                    
+
                     <div className="group relative max-w-[85%] sm:max-w-[75%] md:max-w-[70%] transition-all">
                         {/* Message Bubble */}
-                        <div className={`p-3 sm:p-3.5 rounded-2xl shadow-sm ${
-                            msg.role === 'user' 
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-md shadow-indigo-500/15' 
-                            : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-gray-100 rounded-tl-md border border-gray-200/60 dark:border-gray-700/60 shadow-lg'
-                        }`}>
-                            {/* Timestamp */}
-                            <div className={`flex items-center gap-1.5 mb-1.5 text-[10px] font-semibold ${
-                                msg.role === 'user' ? 'text-white/60' : 'text-gray-400 dark:text-gray-500'
+                        <div className={`p-3 sm:p-3.5 rounded-2xl shadow-sm ${msg.role === 'user'
+                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-md shadow-indigo-500/15'
+                                : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-gray-100 rounded-tl-md border border-gray-200/60 dark:border-gray-700/60 shadow-lg'
                             }`}>
+                            {/* Timestamp */}
+                            <div className={`flex items-center gap-1.5 mb-1.5 text-[10px] font-semibold ${msg.role === 'user' ? 'text-white/60' : 'text-gray-400 dark:text-gray-500'
+                                }`}>
                                 <span>{msg.role === 'user' ? 'Siz' : currentPersona.name}</span>
                                 <span>•</span>
                                 <span>{msg.timestamp}</span>
                             </div>
-                            
+
                             <p className="text-xs sm:text-sm leading-relaxed font-medium whitespace-pre-wrap">
                                 {msg.content}
                             </p>
 
-                            {/* Romaji Reading Aid (UI Only) */}
+                            {/* Romaji Reading Aid */}
                             {msg.role === 'assistant' && msg.romaji && (
                                 <p className="text-[11px] font-mono text-gray-500 dark:text-gray-400 mt-1 italic leading-tight">
                                     {msg.romaji}
@@ -144,7 +142,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                                         <div className="p-2.5 sm:p-3 bg-indigo-50/90 dark:bg-indigo-950/50 border border-indigo-200/60 dark:border-indigo-800/40 rounded-xl text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed font-medium animate-in fade-in">
                                             <div className="flex justify-between items-center mb-1 font-bold text-[11px] text-indigo-600 dark:text-indigo-400">
                                                 <span className="flex items-center gap-1">🇺🇿 O'zbekcha tarjimasi:</span>
-                                                <button 
+                                                <button
                                                     onClick={() => setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: false } : m))}
                                                     className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-[10px]"
                                                 >
@@ -158,7 +156,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             )}
                         </div>
 
-                        {/* Action Buttons - Floating */}
+                        {/* Action Buttons */}
                         <div className={`flex items-center gap-0.5 mt-1 ${msg.role === 'user' ? 'justify-end' : 'justify-start ml-0'} opacity-0 group-hover:opacity-100 transition-opacity`}>
                             <button
                                 onClick={() => copyToClipboard(msg.content, idx)}
@@ -206,14 +204,14 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                         <div className="flex items-center gap-3">
                             <div className="flex items-end gap-[3px] h-4">
                                 {[0, 1, 2, 3, 4].map(i => (
-                                    <div 
+                                    <div
                                         key={i}
                                         className={`w-[3px] rounded-full bg-gradient-to-t ${currentPersona.color} animate-bounce`}
-                                        style={{ 
-                                            animationDelay: `${i * 120}ms`, 
+                                        style={{
+                                            animationDelay: `${i * 120}ms`,
                                             animationDuration: '0.8s',
                                             height: `${[60, 100, 40, 80, 50][i]}%`
-                                        }} 
+                                        }}
                                     />
                                 ))}
                             </div>
@@ -227,3 +225,5 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
         </div>
     );
 };
+
+export default CoachChatArea;

@@ -2,6 +2,7 @@ import { Bell, HelpCircle, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'l
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
+import AIProviderSection from './AIProviderSection';
 
 interface Settings {
     theme: 'light' | 'dark';
@@ -31,6 +32,9 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
 
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
+            {/* AI Provider & Engine Status */}
+            <AIProviderSection />
+
             {/* Dedicated Learning Focus & Languages Manager */}
             <div id="learning-focus" className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">

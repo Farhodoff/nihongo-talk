@@ -170,7 +170,8 @@ export const FlashcardService = {
 
             try {
                 const autoSeededCards: Partial<Flashcard>[] = [];
-                for (const deck of PRESET_DECKS) {
+                const englishPresetDecks = PRESET_DECKS.filter(d => d.language === 'en');
+                for (const deck of englishPresetDecks) {
                     const cards = await deck.loadCards();
                     if (cards && cards.length > 0) {
                         cards.slice(0, 50).forEach(c => {

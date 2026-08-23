@@ -34,7 +34,7 @@ export default async function handler(req) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Kaizen-Key, X-Custom-Key',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       },
     });
   }
@@ -57,30 +57,22 @@ export default async function handler(req) {
     });
   }
 
-  const token = getBearerToken(req);
-  const customKey = req.headers.get('X-Custom-Key') || req.headers.get('X-Kaizen-Key');
   const serverKey = process.env.DEEPSEEK_API_KEY;
+  if (!serverKey) {
+    return new Response(JSON.stringify({
+      error: 'AI_UNAVAILABLE',
+      message: 'Serverda DeepSeek API kaliti sozlanmagan.',
+    }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    });
+  }
 
-  let effectiveApiKey = null;
+  const effectiveApiKey = serverKey;
   let authenticatedUserId = null;
 
-  if (customKey && customKey.startsWith('sk-')) {
-    effectiveApiKey = customKey;
-  } else if (token && token.startsWith('sk-')) {
-    effectiveApiKey = token;
-  } else {
-    const { user, error: authError } = await verifyAuth(req);
-    if (authError || !user) {
-      return new Response(JSON.stringify({
-        error: 'Unauthorized',
-        message: 'Foydalanuvchi tizimga kirmagan yoki shaxsiy API kalit kiritilmagan.',
-        details: authError,
-      }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      });
-    }
-
+  const { user, error: authError } = await verifyAuth(req);
+  if (user && user.id) {
     authenticatedUserId = user.id;
 
     // Rate limiting for shared server API key
@@ -114,17 +106,23 @@ export default async function handler(req) {
         },
       });
     }
-
-    if (!serverKey) {
+  } else {
+    // Guest IP rate limit
+    const ipRate = await checkRateLimit(req, null);
+    if (!ipRate.allowed) {
       return new Response(JSON.stringify({
-        error: 'Service Unavailable',
-        message: 'Serverda DeepSeek API kaliti sozlanmagan.',
+        error: 'Too Many Requests',
+        message: `So'rovlar tezligi oshdi. Iltimos ${ipRate.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
+        retryAfter: ipRate.retryAfter,
       }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Retry-After': String(ipRate.retryAfter),
+        },
       });
     }
-    effectiveApiKey = serverKey;
   }
 
   const { essay, topic = 'General IELTS Task', taskType = 'task2' } = body;

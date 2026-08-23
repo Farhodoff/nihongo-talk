@@ -2,7 +2,7 @@ import { Bot, Loader2, Save, Sparkles, X } from 'lucide-react';
 import React, { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateFlashcardsWithAI, isAIKeyConfigured, parseAIError } from '../utils/ai';
+import { generateFlashcardsWithAI, parseAIError } from '../utils/ai';
 import { toast } from '../hooks/use-toast';
 
 interface AIGeneratorModalProps {
@@ -12,7 +12,7 @@ interface AIGeneratorModalProps {
 }
 
 const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, subjectId: propSubjectId }) => {
-    const { importFlashcards, settings, subjects, addSubject } = useStudyData();
+    const { importFlashcards, subjects, addSubject } = useStudyData();
     const [topic, setTopic] = useState('');
     const [subjectId, setSubjectId] = useState(propSubjectId || '');
     const [count, setCount] = useState(5);
@@ -24,10 +24,6 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
     if (!isOpen) return null;
 
     const handleGenerate = async () => {
-        if (!isAIKeyConfigured()) {
-            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'AI funksiyalar uchun API kalit kerak. Sozlamalar → AI bo\'limida kiriting.' });
-            return;
-        }
         if (!topic.trim()) return;
         if (!subjectId) {
             toast({ variant: 'destructive', title: 'Fan tanlanmagan', description: 'Iltimos, avval fanni tanlang!' });
@@ -35,7 +31,7 @@ const AIGeneratorModal: React.FC<AIGeneratorModalProps> = ({ isOpen, onClose, su
         }
         setIsLoading(true);
         try {
-            const cards = await generateFlashcardsWithAI(topic, count, settings.googleApiKey);
+            const cards = await generateFlashcardsWithAI(topic, count);
             setGeneratedCards(cards);
             setStep('preview');
         } catch (error: any) {

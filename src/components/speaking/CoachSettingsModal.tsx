@@ -1,28 +1,17 @@
 import React from 'react';
-import { Cpu, X } from 'lucide-react';
-import { AIProvider } from '../../utils/ai';
+import { Cpu, ShieldCheck, X } from 'lucide-react';
 
 interface CoachSettingsModalProps {
     isOpen: boolean;
     onClose: () => void;
-    coachAiModel: AIProvider;
-    setCoachAiModel: (m: AIProvider) => void;
-    coachApiKey: string;
-    setCoachApiKey: (key: string) => void;
-    isAdmin: boolean;
+    isAdmin?: boolean;
     userEmail?: string;
-    onSave: () => void;
+    onSave?: () => void;
 }
 
 export const CoachSettingsModal: React.FC<CoachSettingsModalProps> = ({
     isOpen,
     onClose,
-    coachAiModel,
-    setCoachAiModel,
-    coachApiKey,
-    setCoachApiKey,
-    isAdmin,
-    onSave,
 }) => {
     if (!isOpen) return null;
 
@@ -35,7 +24,7 @@ export const CoachSettingsModal: React.FC<CoachSettingsModalProps> = ({
                         <div className="p-2 bg-indigo-500/10 rounded-xl">
                             <Cpu size={18} className="text-indigo-500" />
                         </div>
-                        Coach AI Sozlamalari
+                        Coach AI Engine
                     </h3>
                     <button onClick={onClose} className="p-2 rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
                         <X size={18} />
@@ -43,48 +32,18 @@ export const CoachSettingsModal: React.FC<CoachSettingsModalProps> = ({
                 </div>
                 
                 <div className="p-6 space-y-5 text-sm">
-                    <div className="p-3.5 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200/60 dark:border-indigo-800/40 rounded-2xl text-indigo-700 dark:text-indigo-300 text-xs leading-relaxed">
-                        💡 <strong>Alohida Token Rejimi:</strong> Speaking Coach uchun Gemini kabi tezkor model va alohida kalit o'rnatishingiz mumkin.
-                    </div>
-
-                    <div>
-                        <label className="block font-bold text-gray-700 dark:text-gray-300 mb-2 text-xs">
-                            AI Model (Coach uchun)
-                        </label>
-                        <select
-                            value={coachAiModel}
-                            onChange={(e) => setCoachAiModel(e.target.value as AIProvider)}
-                            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                        >
-                            <option value="deepseek">DeepSeek (Tavsiya etiladi)</option>
-                            <option value="gemini">Google Gemini</option>
-                            <option value="ollama">Ollama (Local)</option>
-                        </select>
-                    </div>
-
-                    {isAdmin && (
+                    <div className="p-4 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200/60 dark:border-indigo-800/40 rounded-2xl text-indigo-700 dark:text-indigo-300 text-xs leading-relaxed flex items-start gap-3">
+                        <ShieldCheck size={20} className="shrink-0 text-indigo-500 mt-0.5" />
                         <div>
-                            <label className="block font-bold text-gray-700 dark:text-gray-300 mb-2 text-xs">
-                                Coach uchun Alohida API Key (Admin Only)
-                            </label>
-                            <input
-                                type="password"
-                                value={coachApiKey}
-                                onChange={(e) => setCoachApiKey(e.target.value)}
-                                placeholder="AI Studio'dan olingan kalit..."
-                                className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                            />
-                            <p className="text-[11px] text-gray-400 mt-1.5">
-                                Bo'sh qoldirsangiz, ilovaning umumiy API kaliti ishlatiladi.
-                            </p>
+                            <strong>DeepSeek AI Core:</strong> Speaking Coach to‘g‘ridan-to‘g‘ri markaziy DeepSeek V3/R1 neyrotarmog‘i orqali ishlaydi. Hech qanday shaxsiy API kalit talab etilmaydi.
                         </div>
-                    )}
+                    </div>
 
                     <button
-                        onClick={onSave}
+                        onClick={onClose}
                         className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all hover:shadow-xl active:scale-[0.98]"
                     >
-                        Sozlamalarni Saqlash
+                        Tushunarli
                     </button>
                 </div>
             </div>

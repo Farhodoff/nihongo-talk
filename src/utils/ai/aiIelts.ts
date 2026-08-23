@@ -1,4 +1,4 @@
-import { getAIConfig } from './aiConfig';
+import { parseAIError } from './aiConfig';
 import { callSelectedAIProvider } from './aiCore';
 import { generateAlgorithmicIeltsPlan } from '../curriculum/ieltsAlgorithmicPlanner';
 
@@ -135,50 +135,10 @@ export const generateIeltsStudyPlan = async (
             dailyPlan: finalDailyPlan,
             recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
         };
-    } catch (dsErr) {
-        console.warn("AI study plan generation failed, using fallback plan:", dsErr);
+    } catch (dsErr: any) {
+        console.error("AI study plan generation failed:", dsErr);
+        throw new Error(parseAIError(dsErr));
     }
-
-    // 3. Fallback: Call backend proxy /api/ai
-    try {
-        const res = await fetch('/api/ai', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt, jsonMode: true })
-        });
-        if (res.ok) {
-            const data = await res.json();
-            const rawText = data.text || data.reply || '';
-            const cleanedText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
-            const parsed = JSON.parse(cleanedText);
-            const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-            const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
-                ? enrichIeltsPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
-                : algorithmicDailyPlan;
-            return {
-                headline: parsed.headline || parsed.title || `${durationDays} Kunlik IELTS Rejasi`,
-                summary: parsed.summary || "IELTS tayyorgarligi uchun intensiv reja.",
-                dailyPlan: finalDailyPlan,
-                recommendedTips: parsed.recommendedTips || parsed.recommended_tips || parsed.tips || []
-            };
-        }
-    } catch (proxyErr) {
-        console.warn("Backend proxy study plan failed, using fallback roadmap...", proxyErr);
-    }
-
-    // 4. Default fallback plan if all network AI calls fail
-    return {
-        headline: isZeroLevel ? `🌱 0 Level -> Band ${targetBand} 3-Bosqichli Yo'l Xaritasi` : `${durationDays} Kunlik Band ${targetBand} IELTS Rejasi`,
-        summary: isZeroLevel 
-            ? "Noldan boshlab IELTS 7.0+ darajasiga erishish uchun 3 bosqichli poydevoriy dars rejasi."
-            : `Hozirgi Band ${currentBand} darajangizdan Band ${targetBand} ga yetish uchun intensiv kunlik reja.`,
-        dailyPlan: algorithmicDailyPlan,
-        recommendedTips: [
-            "Kuniga kamida 45-60 daqiqa diqqat bilan shug'ullaning.",
-            "Yangi o'rgangan so'zlaringizni darhol gap ichida qo'llang.",
-            "Writing va Speaking javoblaringizni AI Coach orqali tekshirtiring."
-        ]
-    };
 };
 
 export interface IeltsEssayEvaluationReport {
@@ -347,59 +307,29 @@ export const evaluateIeltsSpeakingFullMock = async (
       }
     `;
 
-    const config = getAIConfig();
-    if (config.provider === 'deepseek' || config.deepseekKey) {
-        try {
-            const response = await callSelectedAIProvider(prompt, undefined, true);
-            const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-            const parsed = JSON.parse(cleanedText);
-            return {
-                overallBand: parsed.overallBand || 6.5,
-                fluencyScore: parsed.fluencyScore || 6.5,
-                lexicalResourceScore: parsed.lexicalResourceScore || 6.5,
-                grammarScore: parsed.grammarScore || 6.5,
-                pronunciationScore: parsed.pronunciationScore || 6.5,
-                fluencyFeedback: parsed.fluencyFeedback || "Fluency tahlili.",
-                lexicalResourceFeedback: parsed.lexicalResourceFeedback || "Lug'at tahlili.",
-                grammarFeedback: parsed.grammarFeedback || "Grammatika tahlili.",
-                pronunciationFeedback: parsed.pronunciationFeedback || "Talaffuz tahlili.",
-                strengths: parsed.strengths || [],
-                weaknesses: parsed.weaknesses || [],
-                grammarErrors: parsed.grammarErrors || [],
-                advancedVocabSuggestions: parsed.advancedVocabSuggestions || [],
-                modelAnswers: parsed.modelAnswers || [],
-                improvementTips: parsed.improvementTips || []
-            };
-        } catch (dsErr) {
-            console.warn("DeepSeek speaking mock evaluation failed:", dsErr);
-        }
+    try {
+        const response = await callSelectedAIProvider(prompt, undefined, true);
+        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
+        const parsed = JSON.parse(cleanedText);
+        return {
+            overallBand: parsed.overallBand || 6.5,
+            fluencyScore: parsed.fluencyScore || 6.5,
+            lexicalResourceScore: parsed.lexicalResourceScore || 6.5,
+            grammarScore: parsed.grammarScore || 6.5,
+            pronunciationScore: parsed.pronunciationScore || 6.5,
+            fluencyFeedback: parsed.fluencyFeedback || "Fluency tahlili.",
+            lexicalResourceFeedback: parsed.lexicalResourceFeedback || "Lug'at tahlili.",
+            grammarFeedback: parsed.grammarFeedback || "Grammatika tahlili.",
+            pronunciationFeedback: parsed.pronunciationFeedback || "Talaffuz tahlili.",
+            strengths: parsed.strengths || [],
+            weaknesses: parsed.weaknesses || [],
+            grammarErrors: parsed.grammarErrors || [],
+            advancedVocabSuggestions: parsed.advancedVocabSuggestions || [],
+            modelAnswers: parsed.modelAnswers || [],
+            improvementTips: parsed.improvementTips || []
+        };
+    } catch (dsErr: any) {
+        console.error("DeepSeek speaking mock evaluation error:", dsErr);
+        throw new Error(parseAIError(dsErr));
     }
-
-    // Default fallback mock report
-    return {
-        overallBand: 7.0,
-        fluencyScore: 7.0,
-        lexicalResourceScore: 7.5,
-        grammarScore: 6.5,
-        pronunciationScore: 7.0,
-        fluencyFeedback: "Nutqiz uzluksiz va mantiqan ketma-ket joylashgan. Pauzalar kam uchraydi.",
-        lexicalResourceFeedback: "Academic so'zlar va collocations to'g'ri ishlatilgan.",
-        grammarFeedback: "Murakkab gap strukturalarida ba'zi kichik artikl va zamon moslashuvi xatolari bor.",
-        pronunciationFeedback: "Talaffuz tushunarli, intonatsiya va urg'ular to'g'ri qo'yilgan.",
-        strengths: ["Ravon va ishonchli gapirish", "Boy lug'at zaxirasi"],
-        weaknesses: ["Kichik grammatik xatolar"],
-        grammarErrors: [
-            { original: "I am study computer science since 2 years", corrected: "I have been studying computer science for 2 years", explanation: "Vaqt davomiyligi uchun Present Perfect Continuous ishlatiladi." }
-        ],
-        advancedVocabSuggestions: [
-            { original: "important", band8Alternative: "vital / indispensable" }
-        ],
-        modelAnswers: [
-            { part: "Part 2", question: "Describe a memorable journey...", band8Response: "One of the most memorable journeys I have ever undertaken was..." }
-        ],
-        improvementTips: [
-            "Part 2 da gapirayotganda barcha bullet-pointlarga teng vaqt ajrating.",
-            "Part 3 da berilgan analitik savollarga 'Point, Reason, Example' usulida javob bering."
-        ]
-    };
 };

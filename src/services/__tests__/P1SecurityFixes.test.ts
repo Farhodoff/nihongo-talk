@@ -133,10 +133,10 @@ describe('daily-notifications edge function auth gate', () => {
     });
 });
 
-describe('api/deepseek.js BYOK hardening', () => {
-    it('applies IP rate limiting to the non-JWT BYOK path', () => {
+describe('api/deepseek.js rate limit hardening', () => {
+    it('applies IP rate limiting to guest/anonymous paths', () => {
         const src = readProject('api/deepseek.js');
-        expect(src).toMatch(/if \(!authenticatedUserId\)\s*\{\s*const byokRate = await checkRateLimit\(req, null\)/);
+        expect(src).toMatch(/const ipRate = await checkRateLimit\(req, null\)/);
     });
 
     it('clamps client-controlled max_tokens', () => {

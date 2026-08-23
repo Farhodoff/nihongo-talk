@@ -25,12 +25,13 @@ export const ensureIeltsSubjectAndDecks = async (
 
     if (!subjectId) return null;
 
-    // Filter relevant preset decks based on levels
-    let selectedDecks = PRESET_DECKS;
+    // Strict Language Isolation: Only English preset decks for IELTS
+    const englishDecks = PRESET_DECKS.filter(d => d.language === 'en');
+    let selectedDecks = englishDecks;
     if (currentBand === 0 || currentBand <= 5.0) {
-        selectedDecks = PRESET_DECKS.filter(d => d.level === 'A1-A2' || d.level === 'B1-B2');
+        selectedDecks = englishDecks.filter(d => d.level === 'A1-A2' || d.level === 'B1-B2');
     } else if (targetBand >= 7.0) {
-        selectedDecks = PRESET_DECKS.filter(d => d.level === 'B1-B2' || d.level === 'C1-C2' || d.id.includes('collocation'));
+        selectedDecks = englishDecks.filter(d => d.level === 'B1-B2' || d.level === 'C1-C2' || d.id.includes('collocation'));
     }
 
     // Populate preset flashcards into the IELTS Subject

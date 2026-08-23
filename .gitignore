@@ -82,3 +82,5 @@ books/**/*.pdf
 books/**/*.rar
 books/**/*.zip
 supabase/.temp/
+.env*
+src/data/decks/backups/

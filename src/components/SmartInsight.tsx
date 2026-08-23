@@ -2,29 +2,24 @@ import { Brain, Lightbulb, Loader2, Sparkles } from 'lucide-react';
 import React, { useState, memo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { generateStudyInsight, isAIKeyConfigured } from '../utils/ai';
+import { generateStudyInsight } from '../utils/ai';
 import { Button } from './ui/Button';
-import { StudySession, Subject } from '../types';
+import { StudySession, Subject, Task } from '../types';
 import { toast } from '../hooks/use-toast';
 
 interface SmartInsightContentProps {
     sessions: StudySession[];
     subjects: Subject[];
-    googleApiKey?: string;
+    tasks: Task[];
 }
 
-const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions, subjects, googleApiKey }) => {
+const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions, subjects, tasks }) => {
     const [insight, setInsight] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const handleAnalyze = useCallback(async () => {
-        if (!isAIKeyConfigured()) {
-            toast({ variant: 'destructive', title: 'API Kalit Kerak', description: 'Iltimos, avval Sozlamalar sahifasida AI API kalitini kiriting.' });
-            return;
-        }
-
-        if (sessions.length < 5) {
-            toast({ variant: 'destructive', title: 'Sessiyalar kam', description: "Tahlil uchun kamida 5 ta o'qish sessiyasi kerak. Ko'proq shug'ullaning! 📚" });
+        if (sessions.length < 3 && tasks.length < 3) {
+            toast({ variant: 'destructive', title: 'Ma\'lumotlar kam', description: "Tahlil uchun kamida 3 ta dars yoki o'qish sessiyasi kerak. Ko'proq shug'ullaning! 📚" });
             return;
         }
 
@@ -34,27 +29,31 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                 const subjectSessions = sessions.filter(sess => sess.subjectId === s.id);
                 const hours = subjectSessions.reduce((acc, sess) => acc + sess.duration, 0) / 60;
                 const mood = subjectSessions.length > 0 ? subjectSessions.reduce((acc, sess) => acc + (sess.moodAfter || sess.moodBefore || 3), 0) / subjectSessions.length : 3;
+                const subjectTasks = tasks.filter(t => t.subjectId === s.id);
+                const completedTasks = subjectTasks.filter(t => t.completed);
+                const progress = subjectTasks.length > 0 ? Math.round((completedTasks.length / subjectTasks.length) * 100) : 0;
+
                 return {
                     name: s.name,
                     subject: s.name,
                     hours,
                     mood,
-                    pendingTasks: 0,
+                    pendingTasks: subjectTasks.length - completedTasks.length,
                     masteryScore: 0,
-                    progress: 50,
-                    mastery: 0
+                    progress,
+                    mastery: progress
                 };
             });
-            const result = await generateStudyInsight(stats, googleApiKey);
+            const result = await generateStudyInsight(stats);
             const mdInsight = result.map(r => `### ${r.subject}\n${r.advice}`).join('\n\n');
             setInsight(mdInsight || "Hozircha yetarli ma'lumot yo'q.");
         } catch (error: unknown) {
             console.error('AI Insight Error:', error);
-            toast({ variant: 'destructive', title: 'Xatolik', description: "Tahlil qilishda xatolik: " + ((error as Error).message || "Noma'lum xato") });
+            toast({ variant: 'destructive', title: 'AI Xizmati', description: ((error as Error).message || "AI xizmatida xatolik yuz berdi.") });
         } finally {
             setLoading(false);
         }
-    }, [sessions, subjects, googleApiKey]);
+    }, [sessions, subjects, tasks]);
 
     return (
         <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-[2.5rem] p-8 text-white shadow-2xl mb-8 relative overflow-hidden border border-white/10">
@@ -121,13 +120,13 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
 });
 
 const SmartInsight: React.FC = () => {
-    const { sessions, subjects, settings } = useStudyData();
+    const { sessions, subjects, tasks } = useStudyData();
     
     return (
         <SmartInsightContent 
             sessions={sessions} 
             subjects={subjects} 
-            googleApiKey={settings.googleApiKey} 
+            tasks={tasks}
         />
     );
 };

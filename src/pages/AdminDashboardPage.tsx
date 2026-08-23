@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
 import {
-    Users, Key, Loader2, Save, CheckCircle2,
+    Users, Loader2, CheckCircle2,
     MessageSquare, Send, X, Crown,
     Zap, Star, RefreshCw, MoreVertical, Home, Activity, BookOpen,
-    Megaphone, Wand2, Search, Mic, MessageSquareText, Sparkles
+    Megaphone, Wand2, Search, Mic, MessageSquareText, Cpu
 } from 'lucide-react';
-import { safeStorage } from '../utils/safeStorage';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { isAdminEmail, isSuperAdmin, grantAdminRole, revokeAdminRole } from '../utils/admin';
@@ -192,14 +191,10 @@ const initialSubscriptions: UserSubscription[] = REAL_PROFILES_ALL.map((p: any) 
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 const AdminDashboardPage: React.FC = () => {
-    const { user, updateSettings } = useStudyData();
+    const { user } = useStudyData();
     const navigate = useNavigate();
     const [subscriptions, setSubscriptions] = useState<UserSubscription[]>(initialSubscriptions);
     const [loading, setLoading] = useState(false);
-    const [geminiApiKey, setGeminiApiKey] = useState('');
-    const [deepseekApiKey, setDeepseekApiKey] = useState('');
-    const [savingKey, setSavingKey] = useState(false);
-    const [keySaved, setKeySaved] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
     const [dailyStats, setDailyStats] = useState<any[]>([]);
     const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
@@ -282,19 +277,6 @@ const AdminDashboardPage: React.FC = () => {
             });
 
             setSubscriptions(mappedUsers);
-
-            const { data: appSettings } = await supabase
-                .from('app_settings')
-                .select('id, gemini_api_key')
-                .eq('id', 1)
-                .single();
-            if (appSettings) {
-                setGeminiApiKey(appSettings.gemini_api_key || '');
-                setDeepseekApiKey(localStorage.getItem('study_planner_deepseek_api_key') || '');
-            } else {
-                setGeminiApiKey('');
-                setDeepseekApiKey(localStorage.getItem('study_planner_deepseek_api_key') || '');
-            }
 
             let statsData: any[] = [];
             const { data: stats, error: statsErr } = await supabase
@@ -429,63 +411,6 @@ const AdminDashboardPage: React.FC = () => {
                 title: '❌ Sinov muddati berishda xatolik',
                 description: error.message || 'Ma\'lumotlar bazasiga yozishda xatolik yuz berdi.'
             });
-        }
-    };
-
-    const handleSaveApiKey = async () => {
-        setSavingKey(true);
-        try {
-            let effectiveGemini = geminiApiKey.trim();
-            let effectiveDeepseek = deepseekApiKey.trim();
-
-            // Auto-detect swapped keys
-            if (effectiveGemini.startsWith('sk-') && !effectiveDeepseek) {
-                effectiveDeepseek = effectiveGemini;
-                effectiveGemini = '';
-                setDeepseekApiKey(effectiveDeepseek);
-                setGeminiApiKey('');
-            } else if (effectiveDeepseek.startsWith('AIza') && !effectiveGemini) {
-                effectiveGemini = effectiveDeepseek;
-                effectiveDeepseek = '';
-                setGeminiApiKey(effectiveGemini);
-                setDeepseekApiKey('');
-            }
-
-            // 1. Immediately persist for instant availability.
-            // SECURITY (P0): the shared key is NOT stored in localStorage anymore
-            // ('study_planner_admin_api_key' is retired); the admin's own browser
-            // uses the regular BYOK settings path, all others use the server key
-            // exclusively server-side.
-            if (effectiveGemini) {
-                safeStorage.removeItem('study_planner_admin_api_key');
-                updateSettings({ googleApiKey: effectiveGemini });
-            }
-            if (effectiveDeepseek) {
-                safeStorage.setItem('study_planner_deepseek_api_key', effectiveDeepseek);
-                updateSettings({ deepseekApiKey: effectiveDeepseek, aiModel: 'deepseek' });
-            }
-
-            // 2. Persist to Supabase DB (app_settings) - ONLY Gemini key goes to DB.
-            // DeepSeek API key is stored only on the server as an environment variable (DEEPSEEK_API_KEY).
-            const updatePayload: Record<string, any> = { id: 1 };
-            if (effectiveGemini) updatePayload.gemini_api_key = effectiveGemini;
-
-            try {
-                if (effectiveGemini) {
-                    await supabase.from('app_settings').upsert(updatePayload);
-                }
-            } catch (dbErr) {
-                console.warn('DB upsert app_settings warning (saved to local fallback):', dbErr);
-            }
-
-            setKeySaved(true);
-            setTimeout(() => setKeySaved(false), 2500);
-        } catch (e) {
-            console.error('API key save error:', e);
-            setKeySaved(true);
-            setTimeout(() => setKeySaved(false), 2500);
-        } finally {
-            setSavingKey(false);
         }
     };
 
@@ -814,55 +739,34 @@ const AdminDashboardPage: React.FC = () => {
                         />
                     </div>
 
-                    {/* Global AI API Keys Management */}
+                    {/* Kaizen AI Gateway Status */}
                     <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <Key size={16} className="text-primary" />
+                                <Cpu size={16} className="text-primary" />
                                 <div>
-                                    <h2 className="font-bold text-sm text-foreground">Global AI API Kalitlari</h2>
-                                    <p className="text-[11px] text-muted-foreground">Barcha foydalanuvchilar va AI Coach uchun kalitlar</p>
+                                    <h2 className="font-bold text-sm text-foreground">Kaizen AI Gateway Status</h2>
+                                    <p className="text-[11px] text-muted-foreground">Server-side markaziy DeepSeek arxitekturasi</p>
                                 </div>
                             </div>
-                            <Button onClick={handleSaveApiKey} disabled={savingKey} className="text-xs px-4 h-8 gap-1.5">
-                                {savingKey ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : keySaved ? <CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> : <Save className="w-3.5 h-3.5" />}
-                                {keySaved ? 'Saqlandi!' : 'Barchasini Saqlash'}
-                            </Button>
+                            <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                Active & Monitored
+                            </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                            {/* DeepSeek Key */}
-                            <div className="space-y-1">
-                                <label className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-                                    <Sparkles size={13} className="text-indigo-400" />
-                                    DeepSeek API Kaliti (sk-...)
-                                    <span className="text-[10px] bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded font-normal">Tavsiya etiladi</span>
-                                </label>
-                                <input
-                                    type="password"
-                                    value={deepseekApiKey}
-                                    onChange={e => setDeepseekApiKey(e.target.value)}
-                                    placeholder="sk-... DeepSeek API kalitini kiriting"
-                                    className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-indigo-500"
-                                />
-                                <p className="text-[10px] text-muted-foreground">Platform.deepseek.com dan olingan kalit. Barcha AI so'rovlar uchun ishlaydi.</p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 text-xs">
+                            <div className="p-3 bg-muted rounded-xl border border-border">
+                                <span className="text-muted-foreground block text-[11px]">AI Provider</span>
+                                <span className="font-bold text-foreground">DeepSeek (V3 / R1)</span>
                             </div>
-
-                            {/* Gemini Key */}
-                            <div className="space-y-1">
-                                <label className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-                                    <Key size={13} className="text-amber-400" />
-                                    Google Gemini API Kaliti (AIza...)
-                                    <span className="text-[10px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-normal">Zaxira / Multimodal</span>
-                                </label>
-                                <input
-                                    type="password"
-                                    value={geminiApiKey}
-                                    onChange={e => setGeminiApiKey(e.target.value)}
-                                    placeholder="AIza... Gemini API kalitini kiriting"
-                                    className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-amber-500"
-                                />
-                                <p className="text-[10px] text-muted-foreground">Aistudio.google.com dan olingan kalit.</p>
+                            <div className="p-3 bg-muted rounded-xl border border-border">
+                                <span className="text-muted-foreground block text-[11px]">Default Model</span>
+                                <span className="font-bold text-foreground">deepseek-chat</span>
+                            </div>
+                            <div className="p-3 bg-muted rounded-xl border border-border">
+                                <span className="text-muted-foreground block text-[11px]">Key Security</span>
+                                <span className="font-bold text-foreground">process.env.DEEPSEEK_API_KEY</span>
                             </div>
                         </div>
                     </div>

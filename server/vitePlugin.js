@@ -59,6 +59,9 @@ export function telegramApiPlugin() {
             }
 
             const supabase = createClient(supabaseUrl, serviceRole);
+            if (env.DEEPSEEK_API_KEY) {
+                process.env.DEEPSEEK_API_KEY = env.DEEPSEEK_API_KEY;
+            }
             console.log('✅ Telegram API plugin loaded (SERVICE_ROLE found)');
 
             server.middlewares.use(async (req, res, next) => {
@@ -188,6 +191,38 @@ export function telegramApiPlugin() {
                         res.end(JSON.stringify({ success: false, error: 'Invalid payload' }));
                     }
                     return;
+                }
+
+                // Handle /api/deepseek
+                if (pathname === '/api/deepseek') {
+                    try {
+                        const deepseekHandler = (await import('../api/deepseek.js')).default;
+                        let payload = {};
+                        if (req.method === 'POST') {
+                            const chunks = [];
+                            for await (const chunk of req) chunks.push(chunk);
+                            const raw = Buffer.concat(chunks).toString();
+                            if (raw) payload = JSON.parse(raw);
+                        }
+                        const mockRes = {
+                            setHeader: (k, v) => res.setHeader(k, v),
+                            status: (s) => {
+                                res.statusCode = s;
+                                return mockRes;
+                            },
+                            json: (d) => {
+                                res.setHeader('Content-Type', 'application/json');
+                                res.end(JSON.stringify(d));
+                            },
+                            end: () => res.end()
+                        };
+                        return await deepseekHandler({ ...req, body: payload, method: req.method }, mockRes);
+                    } catch (e) {
+                        res.statusCode = 500;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.end(JSON.stringify({ error: 'Internal Server Error', message: e.message }));
+                        return;
+                    }
                 }
 
                 if (!url.pathname.startsWith('/api/telegram')) {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send, Play, AlertTriangle } from 'lucide-react';
 import { Button } from './ui/Button';
-import { callDeepSeek } from '../utils/deepseek';
-import { useStudyData } from '../context/StudyPlannerContext';
+import { callAI } from '../utils/ai';
 import { useNavigate } from 'react-router-dom';
 
 interface AIUstozModalProps {
@@ -19,7 +18,6 @@ interface Message {
 }
 
 const AIUstozModal: React.FC<AIUstozModalProps> = ({ isOpen, onClose, studiedMinutes, goalMinutes }) => {
-    const { settings } = useStudyData();
     const navigate = useNavigate();
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
@@ -45,7 +43,7 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
     const startConversation = async () => {
         setIsLoading(true);
         try {
-            const reply = await callDeepSeek("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", settings.deepseekApiKey || '', systemPrompt, false, settings.deepseekModel || 'deepseek-chat', settings.deepseekThinkingMode || false);
+            const reply = await callAI("Salom ustoz. Men hozir dars qilmayapman, ilovaga kirdim.", systemPrompt, false);
             setMessages([{ id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (e: any) {
             setMessages([{ id: Date.now().toString(), role: 'model', text: "Nimadir xato ketdi. Lekin baribir dars qilishing kerak!" }]);
@@ -65,11 +63,11 @@ O'zbek tilida yozing. Gaplaringiz qisqa, ta'sirli va biroz qattiqqo'l bo'lsin. H
             const conversation = messages.map(m => `${m.role === 'user' ? 'Talaba' : 'Ustoz'}: ${m.text}`).join('\n');
             const prompt = `Suhbat tarixi:\n${conversation}\n\nTalaba: ${input}\nUstoz:`;
             
-            const reply = await callDeepSeek(prompt, settings.deepseekApiKey || '', systemPrompt, false, settings.deepseekModel || 'deepseek-chat', settings.deepseekThinkingMode || false);
+            const reply = await callAI(prompt, systemPrompt, false);
             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: reply }]);
         } catch (error: any) {
              console.error("AI Ustoz error:", error);
-             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Bahonalarni yig'ishtirib darsni boshla! (Yoki Sozlamalardan DeepSeek API kalitini kiriting)" }]);
+             setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Bahonalarni yig'ishtirib darsni boshla! Vaqtingni zoya ketkazma." }]);
         } finally {
             setIsLoading(false);
         }

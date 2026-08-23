@@ -1,4 +1,5 @@
 import { callSelectedAIProvider } from './aiCore';
+import { parseAIError } from './aiConfig';
 import { generateAlgorithmicJlptPlan } from '../curriculum/jlptAlgorithmicPlanner';
 
 export interface JlptStudyPlanDay {
@@ -122,18 +123,8 @@ export const generateJlptStudyPlan = async (
             ],
             dailyPlan: finalDailyPlan
         };
-    } catch (err) {
-        console.warn("AI JLPT Plan Generation failed, using algorithmic fallback:", err);
+    } catch (err: any) {
+        console.error("AI JLPT Plan Generation error:", err);
+        throw new Error(parseAIError(err));
     }
-
-    return {
-        headline: `${targetLevel} Darajasiga Rejalashtirilgan Dastur 🎌`,
-        summary: `${currentLevel} darajadan ${targetLevel} darajaga yetish uchun shakllantirilgan ${durationDays} kunlik amaliy dars rejasi.`,
-        recommendedTips: [
-            "Fleshkartalar bo'limidan har kuni yangi so'zlarni takrorlang.",
-            "Eshitish qobiliyatini oshirish uchun NHK News Easy va audiolar eshiting.",
-            "Grammatika qoidalarini amaliyotda jumlalar tuzib qo'llang."
-        ],
-        dailyPlan: algorithmicDailyPlan
-    };
 };

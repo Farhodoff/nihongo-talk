@@ -163,7 +163,7 @@ describe('WeaknessEngine — severity classification and routes', () => {
         expect(WeaknessEngine.resolveRouteForSkill('speaking', 'en')).toBe('/speaking-coach?lang=en');
         expect(WeaknessEngine.resolveRouteForSkill('writing', 'en')).toBe('/ielts/writing');
         expect(WeaknessEngine.resolveRouteForSkill('reading', 'en')).toBe('/ielts/reading-listening');
-        expect(WeaknessEngine.resolveRouteForSkill('grammar', 'en')).toBe('/vocabulary');
+        expect(WeaknessEngine.resolveRouteForSkill('grammar', 'en')).toBe('/ielts/reading-listening');
         expect(WeaknessEngine.resolveRouteForSkill('vocabulary', 'en')).toBe('/vocabulary');
     });
 

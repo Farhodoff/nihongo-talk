@@ -1,7 +1,6 @@
-import { getAIConfig, parseAIError } from './aiConfig';
-import { callOllama } from '../ollama';
 import { callDeepSeek } from '../deepseek';
 import { trackAITelemetry } from '../../lib/errorTracking';
+import { parseAIError } from './aiConfig';
 
 export interface ChatMessage {
     role: 'user' | 'model';
@@ -9,48 +8,34 @@ export interface ChatMessage {
 }
 
 /**
- * Universal AI Dispatcher that routes prompt execution based on user's active provider selection in Settings.
- * Supports: 'deepseek' (DeepSeek - Primary) and 'ollama' (Local Ollama).
+ * Universal AI Dispatcher for Kaizen AI Platform.
+ * Single Provider: DeepSeek via Secure Serverless Gateway (/api/deepseek).
  */
-export const callSelectedAIProvider = async (
+export const callAI = async (
     prompt: string,
     systemPrompt?: string,
     isJson: boolean = false
 ): Promise<string> => {
-    const config = getAIConfig();
     const startTime = Date.now();
-
-    if (config.provider === 'ollama') {
-        try {
-            const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
-            const text = await callOllama(fullPrompt);
-            if (text && text.trim()) {
-                trackAITelemetry({ provider: 'ollama', durationMs: Date.now() - startTime, success: true });
-                return text.trim();
-            }
-        } catch (err: any) {
-            console.warn("[AI Fallback] Ollama failed in callSelectedAIProvider, falling back to DeepSeek:", err);
-            trackAITelemetry({ provider: 'ollama', durationMs: Date.now() - startTime, success: false, error: err?.message });
-        }
-    }
-
-    // Default / DeepSeek provider
     try {
         const result = await callDeepSeek(
             prompt,
-            config.deepseekKey || '',
             systemPrompt,
+            undefined,
             isJson,
-            config.deepseekModel,
-            config.deepseekThinkingMode
+            'deepseek-chat',
+            false
         );
-        trackAITelemetry({ provider: 'deepseek', model: config.deepseekModel, durationMs: Date.now() - startTime, success: true });
+        trackAITelemetry({ provider: 'deepseek', model: 'deepseek-chat', durationMs: Date.now() - startTime, success: true });
         return result;
     } catch (err: any) {
-        trackAITelemetry({ provider: 'deepseek', model: config.deepseekModel, durationMs: Date.now() - startTime, success: false, error: err?.message });
+        trackAITelemetry({ provider: 'deepseek', model: 'deepseek-chat', durationMs: Date.now() - startTime, success: false, error: err?.message });
         throw err;
     }
 };
+
+export const callSelectedAIProvider = callAI;
+export const callDeepSeekAI = callAI;
 
 /**
  * Detects user intent to provide accurate, helpful assistance without hallucinations.
@@ -111,7 +96,7 @@ ${contextContent ? contextContent.substring(0, 10000) : "Foydalanuvchi hali bu f
     try {
         const conversation = history.slice(-5).map(h => `${h.role === 'user' ? 'Student' : 'AI'}: ${h.text}`).join('\n');
         const prompt = `Suhbat tarixi:\n${conversation}\n\nStudent: ${message}\nAI:`;
-        const text = await callSelectedAIProvider(prompt, systemPrompt, false);
+        const text = await callAI(prompt, systemPrompt, false);
         return text.trim();
     } catch (e) {
         console.error("AI Chat Error", e);
@@ -134,7 +119,7 @@ export const generateAIResponse = async (
             }
         });
 
-        const response = await callSelectedAIProvider(prompt, systemPrompt || undefined, false);
+        const response = await callAI(prompt, systemPrompt || undefined, false);
         return response || '';
     } catch (error) {
         console.error("AI Error:", error);
@@ -178,7 +163,7 @@ export const generateAiTutorExplanations = async (
     `;
 
     try {
-        const text = await callSelectedAIProvider(prompt, undefined, true);
+        const text = await callAI(prompt, undefined, true);
         const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(cleanedText);
     } catch (err) {

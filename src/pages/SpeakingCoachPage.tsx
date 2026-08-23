@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
-import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, AIProvider, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
+import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
@@ -111,11 +111,9 @@ const SpeakingCoachPage: React.FC = () => {
     const [showProModal, setShowProModal] = useState(false);
     const [proModalReason, setProModalReason] = useState('');
 
-    const { user, settings, updateSettings, addCoachSession, addFlashcardsBatch } = useStudyData();
+    const { user, addCoachSession, addFlashcardsBatch } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-    const [coachAiModel, setCoachAiModel] = useState<AIProvider>((settings.coachAiModel as AIProvider) || 'deepseek');
-    const [coachApiKey, setCoachApiKey] = useState(settings.coachApiKey || '');
 
     const activeScenarioRef = useRef(activeScenario);
     const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -421,7 +419,7 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
-    const startSession = (topicTitle?: string) => {
+    const startSession = (topicTitle?: unknown) => {
         setIsLiveSession(true);
         isLiveSessionRef.current = true;
         setCurrentTranscript('');
@@ -430,14 +428,18 @@ const SpeakingCoachPage: React.FC = () => {
         // Start voice recorder for student self-audio recording
         voiceRecorder.startRecording();
 
+        const cleanTopic = typeof topicTitle === 'string' && topicTitle.trim().length > 0 && !topicTitle.includes('[object')
+            ? topicTitle.trim()
+            : undefined;
+
         let greeting = getInitialGreeting(language, persona);
         if (activeScenario) {
             greeting = activeScenario.opening_line_ja;
-        } else if (topicTitle) {
+        } else if (cleanTopic) {
             if (language === 'ja') {
-                greeting = `こんにちは！「${topicTitle}」ですね。準備ができたら話しかけてください！`;
+                greeting = `こんにちは！「${cleanTopic}」ですね。準備ができたら話しかけてください！`;
             } else {
-                greeting = `Hello! Let's practice with "${topicTitle}". Feel free to speak whenever you are ready!`;
+                greeting = `Hello! Let's practice with "${cleanTopic}". Feel free to speak whenever you are ready!`;
             }
         }
 
@@ -614,12 +616,6 @@ const SpeakingCoachPage: React.FC = () => {
         setTimeout(() => setCopiedIndex(null), 2000);
     };
 
-    const handleSaveSettings = () => {
-        updateSettings({ coachAiModel, coachApiKey });
-        setIsSettingsOpen(false);
-        toast({ title: '✅ Coach Sozlamalari Saqlandi', description: 'AI model va API kalit muvaffaqiyatli saqlandi.' });
-    };
-
     useEffect(() => {
         if (!isAdmin && language === 'ja' && persona === 'interview') {
             setPersona('casual');
@@ -730,7 +726,7 @@ const SpeakingCoachPage: React.FC = () => {
                             isThinking={isThinking}
                             isListening={isListening}
                             promptSuggestions={PROMPT_SUGGESTIONS}
-                            onStartSession={startSession}
+                            onStartSession={() => startSession()}
                             onPromptClick={handlePromptClick}
                         />
                         <div className="max-w-2xl mx-auto pb-8">
@@ -796,12 +792,6 @@ const SpeakingCoachPage: React.FC = () => {
             <CoachSettingsModal 
                 isOpen={isSettingsOpen}
                 onClose={() => setIsSettingsOpen(false)}
-                coachAiModel={coachAiModel}
-                setCoachAiModel={setCoachAiModel}
-                coachApiKey={coachApiKey}
-                setCoachApiKey={setCoachApiKey}
-                isAdmin={isAdmin}
-                onSave={handleSaveSettings}
             />
 
             {/* SESSION REPORT MODAL */}

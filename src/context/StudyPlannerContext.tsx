@@ -32,16 +32,11 @@ export interface Settings {
     level: number;
     currentStreak: number;
     lastActivityDate: string | null;
-    googleApiKey?: string;
-    aiModel?: 'gemini' | 'deepseek' | 'ollama';
-    deepseekApiKey?: string;
-    deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+    aiModel?: 'deepseek';
+    deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
     deepseekThinkingMode?: boolean;
-    ollamaUrl?: string;
-    ollamaModel?: string;
     dailyStudyGoalMinutes: number;
-    coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
-    coachApiKey?: string;
+    coachAiModel?: 'deepseek';
     showFurigana: boolean;
     showRomaji: boolean;
 }
@@ -190,46 +185,34 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [appSettings, setAppSettings] = useState<{
         theme: 'light' | 'dark';
         notificationsEnabled: boolean;
-        googleApiKey?: string;
-        aiModel?: 'gemini' | 'deepseek' | 'ollama';
-        deepseekApiKey?: string;
-        deepseekModel?: 'deepseek-v4-flash' | 'deepseek-v4-pro';
+        aiModel?: 'deepseek';
+        deepseekModel?: 'deepseek-chat' | 'deepseek-reasoner';
         deepseekThinkingMode?: boolean;
-        ollamaUrl?: string;
-        ollamaModel?: string;
         dailyStudyGoalMinutes: number;
-        coachAiModel?: 'gemini' | 'deepseek' | 'ollama';
-        coachApiKey?: string;
+        coachAiModel?: 'deepseek';
         showFurigana: boolean;
         showRomaji: boolean;
     }>(() => {
         const savedAiSettings = safeLocalStorage.getJSON<Record<string, any>>('study_planner_ai_settings', {});
         const savedGoal = safeLocalStorage.getItem('study_planner_daily_goal');
         
-        let dsModel: 'deepseek-v4-flash' | 'deepseek-v4-pro' = 'deepseek-v4-flash';
+        let dsModel: 'deepseek-chat' | 'deepseek-reasoner' = 'deepseek-chat';
         if (savedAiSettings.deepseekModel) {
-            if (savedAiSettings.deepseekModel === 'deepseek-chat') {
-                dsModel = 'deepseek-v4-flash';
-            } else if (savedAiSettings.deepseekModel === 'deepseek-reasoner') {
-                dsModel = 'deepseek-v4-pro';
+            if (savedAiSettings.deepseekModel === 'deepseek-reasoner' || savedAiSettings.deepseekModel === 'deepseek-v4-pro') {
+                dsModel = 'deepseek-reasoner';
             } else {
-                dsModel = savedAiSettings.deepseekModel;
+                dsModel = 'deepseek-chat';
             }
         }
 
         return {
             theme: 'dark',
             notificationsEnabled: true,
-            googleApiKey: savedAiSettings.googleApiKey,
-            aiModel: savedAiSettings.aiModel || 'deepseek',
-            deepseekApiKey: savedAiSettings.deepseekApiKey || '',
+            aiModel: 'deepseek',
             deepseekModel: dsModel,
-            deepseekThinkingMode: savedAiSettings.deepseekThinkingMode,
-            ollamaUrl: savedAiSettings.ollamaUrl,
-            ollamaModel: savedAiSettings.ollamaModel,
+            deepseekThinkingMode: Boolean(savedAiSettings.deepseekThinkingMode),
             dailyStudyGoalMinutes: savedGoal ? parseInt(savedGoal, 10) : 240,
-            coachAiModel: savedAiSettings.coachAiModel || 'deepseek',
-            coachApiKey: savedAiSettings.coachApiKey || '',
+            coachAiModel: 'deepseek',
             showFurigana: safeLocalStorage.getItem('study_planner_show_furigana') !== 'false',
             showRomaji: safeLocalStorage.getItem('study_planner_show_romaji') === 'true',
         };
@@ -669,30 +652,20 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 ...prev,
                 theme: updates.theme !== undefined ? updates.theme : prev.theme,
                 notificationsEnabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : prev.notificationsEnabled,
-                googleApiKey: updates.googleApiKey !== undefined ? updates.googleApiKey : prev.googleApiKey,
-                aiModel: updates.aiModel !== undefined ? updates.aiModel : prev.aiModel,
-                deepseekApiKey: updates.deepseekApiKey !== undefined ? updates.deepseekApiKey : prev.deepseekApiKey,
+                aiModel: 'deepseek' as const,
                 deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : prev.deepseekModel,
                 deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : prev.deepseekThinkingMode,
-                ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : prev.ollamaUrl,
-                ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : prev.ollamaModel,
                 dailyStudyGoalMinutes: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : prev.dailyStudyGoalMinutes,
-                coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : prev.coachAiModel,
-                coachApiKey: updates.coachApiKey !== undefined ? updates.coachApiKey : prev.coachApiKey,
+                coachAiModel: 'deepseek' as const,
                 showFurigana: updates.showFurigana !== undefined ? updates.showFurigana : prev.showFurigana,
                 showRomaji: updates.showRomaji !== undefined ? updates.showRomaji : prev.showRomaji,
             };
 
             safeLocalStorage.setJSON('study_planner_ai_settings', {
-                googleApiKey: newState.googleApiKey,
-                aiModel: newState.aiModel,
-                deepseekApiKey: newState.deepseekApiKey,
+                aiModel: 'deepseek',
                 deepseekModel: newState.deepseekModel,
                 deepseekThinkingMode: newState.deepseekThinkingMode,
-                ollamaUrl: newState.ollamaUrl,
-                ollamaModel: newState.ollamaModel,
-                coachAiModel: newState.coachAiModel,
-                coachApiKey: newState.coachApiKey
+                coachAiModel: 'deepseek'
             });
 
             safeLocalStorage.setItem('study_planner_daily_goal', newState.dailyStudyGoalMinutes.toString());
@@ -706,26 +679,19 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (!user) return;
 
         try {
-            // SECURITY: API keys are never persisted to the profiles table
-            // (column is world-readable) — they live in localStorage only.
             await supabase.from('profiles').update({
                 theme: updates.theme !== undefined ? updates.theme : appSettings.theme,
                 notifications_enabled: updates.notificationsEnabled !== undefined ? updates.notificationsEnabled : appSettings.notificationsEnabled,
                 updated_at: new Date().toISOString()
             }).eq('id', user.id);
 
-            // SECURITY: API keys are never written into auth user_metadata —
-            // metadata is embedded in every session JWT. Non-secret settings
-            // only; keys are read from localStorage (aiConfig primary path).
             await supabase.auth.updateUser({
                 data: {
                     ai_settings: {
-                        aiModel: updates.aiModel !== undefined ? updates.aiModel : appSettings.aiModel,
+                        aiModel: 'deepseek',
                         deepseekModel: updates.deepseekModel !== undefined ? updates.deepseekModel : appSettings.deepseekModel,
                         deepseekThinkingMode: updates.deepseekThinkingMode !== undefined ? updates.deepseekThinkingMode : appSettings.deepseekThinkingMode,
-                        ollamaUrl: updates.ollamaUrl !== undefined ? updates.ollamaUrl : appSettings.ollamaUrl,
-                        ollamaModel: updates.ollamaModel !== undefined ? updates.ollamaModel : appSettings.ollamaModel,
-                        coachAiModel: updates.coachAiModel !== undefined ? updates.coachAiModel : appSettings.coachAiModel
+                        coachAiModel: 'deepseek'
                     },
                     daily_goal: updates.dailyStudyGoalMinutes !== undefined ? updates.dailyStudyGoalMinutes : appSettings.dailyStudyGoalMinutes,
                     show_furigana: updates.showFurigana !== undefined ? updates.showFurigana : appSettings.showFurigana,

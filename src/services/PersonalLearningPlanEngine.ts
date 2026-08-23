@@ -163,14 +163,28 @@ Generate the JSON response matching this template:
   "expectedOutcome": "Hafta yakunida kutilayotgan natija..."
 }`;
 
-            // A personal plan is an AI-backed product promise. Do not disguise an
-            // unavailable provider as a personalized plan; the caller surfaces the
-            // provider error and leaves the existing plan untouched.
+            let cleanJson = '';
+            let parsed: WeeklyLearningPlan | null = null;
+
+            // 1. Initial AI call (re-throws immediately on network/HTTP provider error)
             const aiResponse = await callSelectedAIProvider(prompt, systemPrompt, true);
-            const cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
+            cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+            parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
+
+            // 2. Controlled 1-time retry if JSON output was malformed
             if (!parsed) {
-                throw new Error("AI reja formatini tasdiqlab bo'lmadi. Iltimos qayta urinib ko'ring.");
+                try {
+                    const retryPrompt = `${prompt}\n\nIMPORTANT: Return ONLY a valid JSON object matching the requested schema. Ensure all 7 days (monday to sunday) are present.`;
+                    const retryResponse = await callSelectedAIProvider(retryPrompt, systemPrompt, true);
+                    cleanJson = retryResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+                    parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
+                } catch (retryErr: any) {
+                    console.error('[PersonalLearningPlanEngine] Retry generation attempt error:', retryErr?.message);
+                }
+            }
+
+            if (!parsed) {
+                throw new Error("AI_UNAVAILABLE: AI reja formati noto'g'ri qaytdi yoki AI xizmati vaqtincha mavjud emas.");
             }
 
             this.releaseLock(userId, goal.id, weekNumber);
@@ -198,7 +212,7 @@ Generate the JSON response matching this template:
     ): WeeklyLearningPlan | null {
         try {
             const raw = JSON.parse(jsonString);
-            if (!raw || typeof raw !== 'object') return null;
+            if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
 
             const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
 
