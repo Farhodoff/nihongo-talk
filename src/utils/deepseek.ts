@@ -93,14 +93,14 @@ export const callDeepSeek = async (
         return `AI_ERROR: AI xizmatida xatolik yuz berdi (HTTP ${status}). Iltimos qayta urinib ko'ring.`;
     };
 
-    // 1. Primary: Route via Supabase Edge Function ('deepseek-')
+    // 1. Primary: Route via Supabase Edge Function ('deepseek')
     try {
-        let { data, error } = await supabase.functions.invoke('deepseek-', {
+        let { data, error } = await supabase.functions.invoke('deepseek', {
             body: payload,
         });
 
         if (error && ((error as any)?.context?.status === 404 || (error as any)?.message?.includes('not found') || (error as any)?.message?.includes('Failed to send'))) {
-            const fallbackResult = await supabase.functions.invoke('deepseek', {
+            const fallbackResult = await supabase.functions.invoke('deepseek-', {
                 body: payload,
             });
             if (fallbackResult.data || !fallbackResult.error) {
