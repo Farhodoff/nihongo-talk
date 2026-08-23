@@ -119,6 +119,7 @@ export const callDeepSeek = async (
 
     // 2. Secondary / Production Gateway: Route via POST /api/deepseek
     try {
+        purgeOversizedCookies();
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
         };
@@ -132,13 +133,25 @@ export const callDeepSeek = async (
             // Guest or offline
         }
 
-        const response = await fetch('/api/deepseek', {
+        let response = await fetch('/api/deepseek', {
             method: 'POST',
             headers,
             credentials: 'omit',
             body: JSON.stringify(payload),
             signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
         });
+
+        // HTTP 494 (Request Header Too Large) automatic recovery
+        if (response.status === 494 || response.status === 431) {
+            purgeOversizedCookies();
+            response = await fetch('/api/deepseek', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'omit',
+                body: JSON.stringify(payload),
+                signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
+            });
+        }
 
         if (response.ok) {
             const data = await response.json();

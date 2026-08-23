@@ -62,7 +62,7 @@ function isBenignNetworkNoise(args: any[]): boolean {
 }
 
 /**
- * Clears accumulated or oversized browser cookies to avoid HTTP 494
+ * Clears accumulated or oversized browser cookies to avoid HTTP 494 (Request Header Too Large)
  */
 export function purgeOversizedCookies(): void {
     if (typeof document === 'undefined') return;
@@ -70,10 +70,12 @@ export function purgeOversizedCookies(): void {
         const cookies = document.cookie.split(';');
         for (const cookie of cookies) {
             const eqPos = cookie.indexOf('=');
-            const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
-            // If cookie value is unusually large (> 2048 bytes), purge it
-            if (cookie.length > 2048 && !name.startsWith('sb-')) {
+            const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim();
+            if (name) {
                 document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+                if (typeof window !== 'undefined' && window.location?.hostname) {
+                    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
+                }
             }
         }
     } catch {
