@@ -1,0 +1,58 @@
+{
+  "source": "src/data/decks/academic.json",
+  "totalCards": 1201,
+  "acceptedCards": 1195,
+  "rejectedCards": 6,
+  "dummyExamplesRemoved": 1139,
+  "rejectedByReason": {
+    "contents-or-index": 1,
+    "table-of-contents-navigation": 4,
+    "broken-encoding": 1
+  },
+  "samples": [
+    {
+      "index": 0,
+      "front": "Contents",
+      "flags": [
+        "contents-or-index"
+      ]
+    },
+    {
+      "index": 2,
+      "front": "Verbs\twith",
+      "flags": [
+        "table-of-contents-navigation"
+      ]
+    },
+    {
+      "index": 9,
+      "front": "This means",
+      "flags": [
+        "broken-encoding"
+      ]
+    },
+    {
+      "index": 10,
+      "front": "Have",
+      "flags": [
+        "table-of-contents-navigation"
+      ]
+    },
+    {
+      "index": 14,
+      "front": "Past simple",
+      "flags": [
+        "table-of-contents-navigation"
+      ]
+    },
+    {
+      "index": 43,
+      "front": "Edition",
+      "flags": [
+        "table-of-contents-navigation"
+      ]
+    }
+  ],
+  "mode": "apply",
+  "backup": "src/data/decks/backups/academic.2026-08-23T14-00-53-716Z.json"
+}
