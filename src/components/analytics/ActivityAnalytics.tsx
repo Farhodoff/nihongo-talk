@@ -45,11 +45,11 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
     }, [sessions]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* 1. Weekly Activity */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Haftalik Faoliyat (Soatlar)</h3>
-                <div className="h-64 w-full" style={{ minHeight: '256px' }}>
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4">Haftalik Faoliyat (Soatlar)</h3>
+                <div className="h-64 w-full" style={{ minHeight: '240px' }}>
                     <SvgBarChart
                         data={weeklyData}
                         xKey="name"
@@ -61,9 +61,9 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
             </div>
 
             {/* 2. Hourly Productivity */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Unumli Soatlar (Jami Daqiqalar)</h3>
-                <div className="h-64 w-full" style={{ minHeight: '256px' }}>
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4">Unumli Soatlar (Jami Daqiqalar)</h3>
+                <div className="h-64 w-full" style={{ minHeight: '240px' }}>
                     <SvgLineChart
                         data={hourlyData}
                         xKey="name"

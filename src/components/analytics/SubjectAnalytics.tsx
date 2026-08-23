@@ -64,11 +64,11 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
     }, [subjects, sessions]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Subject Mood Analysis */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <Smile size={20} className="text-yellow-500" /> Fanlar bo'yicha O'rtacha Kayfiyat
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4 flex items-center gap-2">
+                    <Smile size={16} className="text-yellow-500" /> Fanlar bo'yicha O'rtacha Kayfiyat
                 </h3>
                 <div className="h-64 w-full">
                     <SvgBarChart
@@ -79,13 +79,13 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
                         unit="ball"
                     />
                 </div>
-                <p className="text-xs text-center text-gray-400 mt-2">Shkala: 1 (Yomon) - 5 (Zo'r)</p>
+                <p className="text-[11px] text-center text-muted-foreground mt-2">Shkala: 1 (Yomon) - 5 (A'lo)</p>
             </div>
 
             {/* Subject Mastery */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <TrendingUp size={20} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4 flex items-center gap-2">
+                    <TrendingUp size={16} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
                 </h3>
                 <div className="h-64 w-full">
                     <SvgBarChart
@@ -99,8 +99,8 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
             </div>
 
             {/* Subject Distribution */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-2">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fanlar bo'yicha Jami Vaqt (Daqiqalar)</h3>
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border lg:col-span-2">
+                <h3 className="text-sm font-extrabold text-foreground mb-4">Fanlar bo'yicha Jami Vaqt Taqsimoti (Daqiqalar)</h3>
                 <div className="h-64 w-full flex items-center justify-center">
                     <SvgPieChart
                         data={subjectDistributionData}

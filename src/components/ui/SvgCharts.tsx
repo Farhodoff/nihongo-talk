@@ -36,7 +36,6 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
     const chartWidth = viewBoxWidth - padding.left - padding.right;
     const chartHeight = viewBoxHeight - padding.top - padding.bottom;
 
-    // Calculate max value across all series
     const maxValue = useMemo(() => {
         let max = 0;
         data.forEach(item => {
@@ -48,11 +47,20 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
         return max === 0 ? 10 : Math.ceil(max * 1.15);
     }, [data, series]);
 
-    // Grid ticks
     const yTicks = [0, 0.25, 0.5, 0.75, 1].map(pct => Math.round(pct * maxValue * 10) / 10);
 
-    const groupWidth = chartWidth / (data.length || 1);
-    const barWidth = Math.min(28, (groupWidth * 0.7) / (series.length || 1));
+    const groupWidth = data.length > 0 ? chartWidth / data.length : chartWidth;
+    const barWidth = Math.min(32, Math.max(6, (groupWidth * 0.65) / (series.length || 1)));
+
+    const labelInterval = useMemo(() => Math.max(1, Math.ceil(data.length / 8)), [data.length]);
+
+    if (!data || data.length === 0) {
+        return (
+            <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground" style={{ minHeight: height }}>
+                Ma'lumot mavjud emas
+            </div>
+        );
+    }
 
     return (
         <div className="w-full h-full relative select-none">
@@ -79,7 +87,7 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
                                     x={padding.left - 8}
                                     y={y + 3}
                                     textAnchor="end"
-                                    className="text-[10px] fill-slate-400 font-medium"
+                                    className="text-[10px] fill-slate-400 dark:fill-slate-500 font-medium"
                                 >
                                     {tick}
                                 </text>
@@ -91,6 +99,7 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
                 {data.map((item, groupIdx) => {
                     const groupX = padding.left + groupIdx * groupWidth + (groupWidth - series.length * barWidth) / 2;
                     const isHovered = hoveredIndex === groupIdx;
+                    const showLabel = data.length <= 8 || groupIdx % labelInterval === 0 || groupIdx === data.length - 1;
 
                     return (
                         <g
@@ -99,7 +108,7 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
                             onMouseLeave={() => setHoveredIndex(null)}
                             className="cursor-pointer"
                         >
-                            {/* Hover background column */}
+                            {/* Hover highlight column */}
                             <rect
                                 x={padding.left + groupIdx * groupWidth}
                                 y={padding.top}
@@ -107,7 +116,7 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
                                 height={chartHeight}
                                 fill={isHovered ? 'currentColor' : 'transparent'}
                                 fillOpacity={0.04}
-                                rx={8}
+                                rx={6}
                             />
 
                             {/* Bars in group */}
@@ -128,23 +137,25 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
                                         rx={4}
                                         className="transition-all duration-300"
                                         style={{
-                                            filter: isHovered ? 'brightness(1.1)' : 'none',
+                                            filter: isHovered ? 'brightness(1.15)' : 'none',
                                         }}
                                     />
                                 );
                             })}
 
-                            {/* X-Axis Label */}
-                            <text
-                                x={padding.left + groupIdx * groupWidth + groupWidth / 2}
-                                y={padding.top + chartHeight + 18}
-                                textAnchor="middle"
-                                className={`text-[11px] font-bold ${
-                                    isHovered ? 'fill-indigo-600 dark:fill-indigo-400' : 'fill-slate-400'
-                                }`}
-                            >
-                                {item[xKey]}
-                            </text>
+                            {/* X-Axis Label with smart thinning */}
+                            {showLabel && (
+                                <text
+                                    x={padding.left + groupIdx * groupWidth + groupWidth / 2}
+                                    y={padding.top + chartHeight + 18}
+                                    textAnchor="middle"
+                                    className={`text-[11px] font-bold ${
+                                        isHovered ? 'fill-indigo-600 dark:fill-indigo-400' : 'fill-slate-500 dark:fill-slate-400'
+                                    }`}
+                                >
+                                    {item[xKey]}
+                                </text>
+                            )}
                         </g>
                     );
                 })}
@@ -153,12 +164,12 @@ export const SvgBarChart: React.FC<SvgBarChartProps> = ({
             {/* Interactive Floating Tooltip */}
             {hoveredIndex !== null && data[hoveredIndex] && (
                 <div
-                    className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-900/90 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xl border border-slate-700 pointer-events-none flex items-center gap-3 animate-in fade-in zoom-in-95 duration-150 z-20"
+                    className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-900/95 text-white backdrop-blur-md px-3.5 py-1.5 rounded-xl text-xs font-semibold shadow-xl border border-slate-700 pointer-events-none flex items-center gap-3 animate-in fade-in zoom-in-95 duration-150 z-20"
                 >
                     <span className="font-bold text-indigo-400">{data[hoveredIndex][xKey]}:</span>
                     {series.map((s, idx) => (
-                        <span key={idx} className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.fill || '#6366f1' }} />
+                        <span key={idx} className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.fill || '#6366f1' }} />
                             <span>
                                 {data[hoveredIndex][s.dataKey]} {unit}
                             </span>
@@ -230,6 +241,16 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
         return padding.top + chartHeight - (value / (maxValue || 1)) * chartHeight;
     };
 
+    const labelInterval = useMemo(() => Math.max(1, Math.ceil(data.length / 8)), [data.length]);
+
+    if (!data || data.length === 0) {
+        return (
+            <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground" style={{ minHeight: height }}>
+                Ma'lumot mavjud emas
+            </div>
+        );
+    }
+
     return (
         <div className="w-full h-full relative select-none">
             <svg
@@ -240,7 +261,7 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                 <defs>
                     {series.map((s, idx) => (
                         <linearGradient key={idx} id={`gradient-${s.dataKey}`} x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={s.stroke || '#6366f1'} stopOpacity={0.4} />
+                            <stop offset="0%" stopColor={s.stroke || '#6366f1'} stopOpacity={0.35} />
                             <stop offset="100%" stopColor={s.stroke || '#6366f1'} stopOpacity={0.0} />
                         </linearGradient>
                     ))}
@@ -265,7 +286,7 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                                     x={padding.left - 8}
                                     y={y + 3}
                                     textAnchor="end"
-                                    className="text-[10px] fill-slate-400 font-medium"
+                                    className="text-[10px] fill-slate-400 dark:fill-slate-500 font-medium"
                                 >
                                     {tick}
                                 </text>
@@ -309,10 +330,10 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                                         key={i}
                                         cx={cx}
                                         cy={cy}
-                                        r={isHovered ? 6 : 4}
+                                        r={isHovered ? 6 : (data.length > 20 ? 2 : 4)}
                                         fill={s.stroke || '#6366f1'}
                                         stroke="#ffffff"
-                                        strokeWidth={2}
+                                        strokeWidth={1.5}
                                         className="transition-all duration-200 cursor-pointer"
                                     />
                                 );
@@ -325,7 +346,8 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                 {data.map((item, i) => {
                     const x = getX(i);
                     const isHovered = hoveredIndex === i;
-                    const stepWidth = chartWidth / (data.length || 1);
+                    const stepWidth = data.length > 1 ? chartWidth / (data.length - 1) : chartWidth;
+                    const showLabel = data.length <= 8 || i % labelInterval === 0 || i === data.length - 1;
 
                     return (
                         <g key={i}>
@@ -340,7 +362,7 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                                 onMouseLeave={() => setHoveredIndex(null)}
                                 className="cursor-pointer"
                             />
-                            {/* Hover line */}
+                            {/* Hover vertical line */}
                             {isHovered && (
                                 <line
                                     x1={x}
@@ -352,16 +374,18 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
                                     strokeDasharray="3 3"
                                 />
                             )}
-                            <text
-                                x={x}
-                                y={padding.top + chartHeight + 18}
-                                textAnchor="middle"
-                                className={`text-[11px] font-bold ${
-                                    isHovered ? 'fill-indigo-600 dark:fill-indigo-400' : 'fill-slate-400'
-                                }`}
-                            >
-                                {item[xKey]}
-                            </text>
+                            {showLabel && (
+                                <text
+                                    x={x}
+                                    y={padding.top + chartHeight + 18}
+                                    textAnchor="middle"
+                                    className={`text-[11px] font-bold ${
+                                        isHovered ? 'fill-indigo-600 dark:fill-indigo-400' : 'fill-slate-500 dark:fill-slate-400'
+                                    }`}
+                                >
+                                    {item[xKey]}
+                                </text>
+                            )}
                         </g>
                     );
                 })}
@@ -370,12 +394,12 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
             {/* Tooltip */}
             {hoveredIndex !== null && data[hoveredIndex] && (
                 <div
-                    className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-900/90 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xl border border-slate-700 pointer-events-none flex items-center gap-3 animate-in fade-in zoom-in-95 duration-150 z-20"
+                    className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-900/95 text-white backdrop-blur-md px-3.5 py-1.5 rounded-xl text-xs font-semibold shadow-xl border border-slate-700 pointer-events-none flex items-center gap-3 animate-in fade-in zoom-in-95 duration-150 z-20"
                 >
                     <span className="font-bold text-indigo-400">{data[hoveredIndex][xKey]}:</span>
                     {series.map((s, idx) => (
-                        <span key={idx} className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.stroke || '#6366f1' }} />
+                        <span key={idx} className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.stroke || '#6366f1' }} />
                             <span>
                                 {data[hoveredIndex][s.dataKey]} {unit}
                             </span>
@@ -413,12 +437,12 @@ export const SvgPieChart: React.FC<SvgPieChartProps> = ({
 
     const size = height;
     const center = size / 2;
-    const outerR = center * 0.85;
+    const outerR = center * 0.82;
     const innerR = outerR * innerRadius;
 
     // Build slices
     const slices = useMemo(() => {
-        let accumulatedAngle = -Math.PI / 2; // start from top
+        let accumulatedAngle = -Math.PI / 2;
         return data.map(item => {
             const fraction = total === 0 ? 0 : item.value / total;
             const angle = fraction * Math.PI * 2;
@@ -453,10 +477,18 @@ export const SvgPieChart: React.FC<SvgPieChartProps> = ({
         });
     }, [data, total, center, outerR, innerR, innerRadius]);
 
+    if (!data || data.length === 0 || total === 0) {
+        return (
+            <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground" style={{ minHeight: height }}>
+                Ma'lumot mavjud emas
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full h-full">
             {/* SVG Donut */}
-            <div className="relative" style={{ width: size, height: size }}>
+            <div className="relative shrink-0" style={{ width: size, height: size }}>
                 <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full overflow-visible">
                     {slices.map((slice, i) => {
                         const isHovered = hoveredIndex === i;
@@ -471,7 +503,7 @@ export const SvgPieChart: React.FC<SvgPieChartProps> = ({
                                 style={{
                                     transform: isHovered ? 'scale(1.05)' : 'scale(1)',
                                     transformOrigin: `${center}px ${center}px`,
-                                    filter: isHovered ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' : 'none',
+                                    filter: isHovered ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.25))' : 'none',
                                 }}
                             />
                         );
@@ -496,12 +528,14 @@ export const SvgPieChart: React.FC<SvgPieChartProps> = ({
                         key={i}
                         onMouseEnter={() => setHoveredIndex(i)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className={`flex items-center justify-between p-1.5 rounded-xl cursor-pointer transition-all ${
-                            hoveredIndex === i ? 'bg-secondary font-bold scale-105' : 'text-muted-foreground'
+                        className={`flex items-center justify-between p-2 rounded-xl cursor-pointer transition-all border ${
+                            hoveredIndex === i
+                                ? 'bg-secondary font-bold scale-105 border-border shadow-sm'
+                                : 'text-muted-foreground border-transparent hover:bg-muted/40'
                         }`}
                     >
                         <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: slice.color }} />
+                            <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: slice.color }} />
                             <span className="text-xs font-semibold text-foreground">{slice.name}</span>
                         </div>
                         <span className="text-xs font-mono font-bold text-muted-foreground ml-3">
@@ -536,7 +570,7 @@ export const SvgRadarChart: React.FC<SvgRadarChartProps> = ({
 }) => {
     const size = height;
     const center = size / 2;
-    const radius = center * 0.62;
+    const radius = center * 0.60;
     const totalSides = data.length || 4;
 
     const angleStep = (Math.PI * 2) / totalSides;
@@ -636,7 +670,7 @@ export const SvgRadarChart: React.FC<SvgRadarChartProps> = ({
                                 x={labelX}
                                 y={labelY + 4}
                                 textAnchor="middle"
-                                className="text-[10px] font-bold fill-slate-400"
+                                className="text-[10px] font-bold fill-slate-500 dark:fill-slate-400"
                             >
                                 {item.subject} ({item.score})
                             </text>

@@ -56,11 +56,11 @@ const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = memo(({ flashcards
     }, [flashcards]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Daily Reviews */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <TrendingUp size={20} className="text-purple-500" /> Kunlik Fleshkartalar
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4 flex items-center gap-2">
+                    <TrendingUp size={16} className="text-purple-500" /> Kunlik Fleshkartalar Takrori
                 </h3>
                 <div className="h-64 w-full">
                     <SvgBarChart
@@ -71,32 +71,18 @@ const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = memo(({ flashcards
                         unit="ta karta"
                     />
                 </div>
-                <p className="text-xs text-center text-gray-400 mt-2">Oxirgi 7 kunda ko'rib chiqilgan kartalar</p>
+                <p className="text-[11px] text-center text-muted-foreground mt-2">Oxirgi 7 kunda ko'rib chiqilgan kartalar</p>
             </div>
 
             {/* Status Distribution */}
-            <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fleshkartalar Holati</h3>
+            <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
+                <h3 className="text-sm font-extrabold text-foreground mb-4">Fleshkartalar O'zlashtirish Holati</h3>
                 <div className="h-64 w-full flex items-center justify-center">
                     <SvgPieChart
                         data={statusData}
                         height={220}
                         innerRadius={0.55}
                     />
-                </div>
-                <div className="grid grid-cols-3 gap-2 mt-4 text-xs text-center">
-                    <div>
-                        <div className="w-3 h-3 rounded-full bg-green-500 mx-auto mb-1"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Yodlangan (10+)</p>
-                    </div>
-                    <div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500 mx-auto mb-1"></div>
-                        <p className="text-gray-600 dark:text-gray-400">O'rganilmoqda (3-9)</p>
-                    </div>
-                    <div>
-                        <div className="w-3 h-3 rounded-full bg-red-500 mx-auto mb-1"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Yangi (&lt;3)</p>
-                    </div>
                 </div>
             </div>
         </div>
