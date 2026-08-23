@@ -21,7 +21,7 @@ export const IeltsHubPage: React.FC = () => {
     });
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const activeTab = searchParams.get('tab') || 'plan';
+    const activeTab = searchParams.get('tab') || 'grammar';
 
     const [isReflectionOpen, setIsReflectionOpen] = useState(false);
 
@@ -42,10 +42,18 @@ export const IeltsHubPage: React.FC = () => {
                             <span>IELTS MASTER SUITE & ACADEMY</span>
                         </div>
                         <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">
-                            IELTS Master Hub
+                            {activeTab === 'plan'
+                                ? "IELTS Shaxsiy Rejangiz"
+                                : activeTab === 'writing'
+                                    ? "IELTS Writing Mock & Examiner"
+                                    : activeTab === 'reading_listening'
+                                        ? "IELTS Reading & Listening Mock"
+                                        : "IELTS Band 7.5 Grammatika Akademiyasi"}
                         </h1>
                         <p className="text-sm text-slate-300 leading-relaxed">
-                            Shaxsiy AI o'quv rejangiz, Band 7.5 Grammatika Akademiyasi, Reading/Listening va Writing mock imtihonlari yagona markazda.
+                            {activeTab === 'plan'
+                                ? "Sizning maqsadli Band ballingiz uchun adaptiv kunlik va haftalik vazifalar taqsimoti."
+                                : "Band 7.5+ Grammatika Akademiyasi, Reading/Listening va Writing mock imtihonlari yagona markazda."}
                         </p>
                     </div>
                 </div>

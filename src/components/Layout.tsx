@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { 
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
-    Mic, Crown, Brain,
+    Mic, Crown, Brain, Target,
     Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -110,6 +110,7 @@ const Layout: React.FC = () => {
     const navItems: NavItem[] = useMemo(() => {
         if (primaryLanguage === 'ja') {
             return [
+                { name: "Shaxsiy Rejam", path: '/personal-plan', icon: Target, tourId: 'nav-personal-plan' },
                 { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
                 { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
                 { name: "Speaking & Senariylar", path: '/jlpt?tab=scenarios', icon: Mic, tourId: 'nav-speaking' },
@@ -123,6 +124,7 @@ const Layout: React.FC = () => {
 
         // Default: English ('en')
         return [
+            { name: "Shaxsiy Rejam", path: '/personal-plan', icon: Target, tourId: 'nav-personal-plan' },
             { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
             { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
             { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
