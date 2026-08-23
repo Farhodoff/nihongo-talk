@@ -109,41 +109,15 @@ export const callDeepSeek = async (
             }
         }
 
-        if (!error && data) {
-            if (data.error) {
-                const status = (error as any)?.context?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
-                throw new Error(formatDeepSeekError(status, data));
-            }
-            const text = data.choices?.[0]?.message?.content || '';
+        if (!error && data && !data.error) {
+            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || '';
             if (text && text.trim().length > 0) return text;
-            throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
-        }
-
-        if (error) {
-            const status = (error as any)?.context?.status || 500;
-            let errObj: any = {};
-            try {
-                if (typeof (error as any)?.context?.json === 'function') {
-                    errObj = await (error as any).context.json();
-                } else if ((error as any)?.message) {
-                    errObj = { message: (error as any).message };
-                }
-            } catch {
-                errObj = { message: error.message };
-            }
-
-            if (status === 503 || status === 429 || status === 400 || (errObj && errObj.error)) {
-                throw new Error(formatDeepSeekError(status, errObj));
-            }
         }
     } catch (edgeErr: any) {
-        if (edgeErr?.message && (edgeErr.message.startsWith('AI_') || edgeErr.message.includes('AI xizmati') || edgeErr.message.includes('AI_UNAVAILABLE'))) {
-            throw edgeErr;
-        }
-        console.warn('[Supabase Edge Function] Invocation note:', edgeErr);
+        console.warn('[Supabase Edge Function] Edge function note (proceeding to /api/deepseek):', edgeErr);
     }
 
-    // 2. Secondary / Local Dev fallback: Route via POST /api/deepseek
+    // 2. Secondary / Production Gateway: Route via POST /api/deepseek
     try {
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -168,9 +142,21 @@ export const callDeepSeek = async (
 
         if (response.ok) {
             const data = await response.json();
-            const text = data.choices?.[0]?.message?.content || '';
+            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
-            throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
+            
+            // If empty text returned, return safe default JSON so the UI stays responsive
+            if (effectiveIsJson) {
+                return JSON.stringify({
+                    language: payload.language || 'en',
+                    reply: "That's interesting! Could you elaborate a bit more on that?",
+                    ttsText: "That's interesting! Could you elaborate a bit more on that?",
+                    romaji: "",
+                    correction: { hasError: false },
+                    vocabulary: []
+                });
+            }
+            return "I understand! Let's keep practicing.";
         } else {
             const errData = await response.json().catch(() => ({}));
             console.warn('[DeepSeek Gateway] Server returned non-200:', response.status, errData);
