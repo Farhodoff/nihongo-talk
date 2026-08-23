@@ -83,8 +83,12 @@ const App: React.FC = () => {
 
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_OUT') {
+                setSession(null);
+            } else if (session) {
+                setSession(session);
+            }
         });
 
         const handleStorageAuth = (e: StorageEvent) => {

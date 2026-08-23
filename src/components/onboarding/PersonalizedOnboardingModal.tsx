@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-    Sparkles, Target, Clock, ArrowRight, ArrowLeft
+    Sparkles, Target, Clock, ArrowRight, ArrowLeft, X
 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
@@ -27,6 +27,11 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
     const [isFinalizing, setIsFinalizing] = useState(false);
 
     if (!isOpen) return null;
+
+    const handleDismiss = () => {
+        localStorage.setItem('study_planner_personalized_onboarded', 'true');
+        onClose();
+    };
 
     const handleLanguageSelect = (lang: 'ja' | 'en') => {
         setSelectedLanguage(lang);
@@ -108,9 +113,9 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                 transition={{ duration: 0.2 }}
                 className="relative w-full max-w-lg bg-card border border-border/80 rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8"
             >
-                {/* Progress Indicators */}
-                {step < 4 && (
-                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
+                {/* Top Header with Close Button */}
+                <div className="flex items-center justify-between mb-4">
+                    {step < 4 ? (
                         <div className="flex items-center gap-2">
                             {[1, 2, 3].map((s) => (
                                 <div 
@@ -124,14 +129,22 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                                     }`}
                                 />
                             ))}
+                            <span className="ml-2 text-xs font-black uppercase tracking-wider text-muted-foreground">
+                                {step === 1 && "1/3 • Yo'nalish"}
+                                {step === 2 && "2/3 • Daraja"}
+                                {step === 3 && "3/3 • Reja"}
+                            </span>
                         </div>
-                        <span className="text-xs font-black uppercase tracking-wider text-muted-foreground">
-                            {step === 1 && "1/3 • Yo'nalish"}
-                            {step === 2 && "2/3 • Daraja & Maqsad"}
-                            {step === 3 && "3/3 • Kunlik Reja"}
-                        </span>
-                    </div>
-                )}
+                    ) : <div />}
+
+                    <button
+                        onClick={handleDismiss}
+                        className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                        title="Yopish"
+                    >
+                        <X size={18} />
+                    </button>
+                </div>
 
                 {/* STEP 1: Choose Language / Focus */}
                 {step === 1 && (

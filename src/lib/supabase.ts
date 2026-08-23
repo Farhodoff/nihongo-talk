@@ -103,14 +103,8 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     } catch (err: unknown) {
         const isAuth = urlStr.includes('/auth/v1');
         if (isAuth) {
-            return new Response(
-                JSON.stringify({ error: 'Network connection reset or offline' }),
-                {
-                    status: 503,
-                    statusText: 'Service Unavailable',
-                    headers: { 'Content-Type': 'application/json' }
-                }
-            );
+            // Rethrow so Supabase Auth client keeps the cached session instead of wiping it
+            throw err;
         }
 
         // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
