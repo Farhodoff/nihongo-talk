@@ -403,6 +403,24 @@ export const PersonalLearningPlanService = {
         }
     },
 
+    /** Mark a plan task complete from the learning module that performed it. */
+    async completePlanTask(userId: string, planId: string, taskId: string): Promise<WeeklyLearningPlan | null> {
+        const plan = this.getWeeklyPlans(userId).find(candidate => candidate.id === planId);
+        if (!plan) return null;
+
+        const updatedPlan: WeeklyLearningPlan = {
+            ...plan,
+            days: plan.days.map(day => ({
+                ...day,
+                tasks: day.tasks.map(task => task.id === taskId
+                    ? { ...task, completed: true, status: 'completed' }
+                    : task)
+            }))
+        };
+        await this.saveWeeklyPlan(updatedPlan);
+        return updatedPlan;
+    },
+
     /**
      * Retrieve all weekly evaluations from cache
      */

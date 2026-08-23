@@ -38,7 +38,9 @@ export default async function handler(req) {
 
   const token = getBearerToken(req);
   const customKey = req.headers.get('X-Custom-Key');
-  const serverKey = process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY || process.env.DEEPSEEK_KEY || process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY;
+  // Keep the shared provider credential server-only. VITE_/NEXT_PUBLIC_ values
+  // are client-visible build-time variables and must never be accepted here.
+  const serverKey = process.env.DEEPSEEK_API_KEY;
 
   let effectiveApiKey = null;
   let authenticatedUserId = null;

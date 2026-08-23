@@ -21,9 +21,6 @@ const DashboardPage: React.FC = () => {
         return safeLocalStorage.getJSON<any>(cachedStateKey, null);
     }, [cachedStateKey]);
 
-    const [aiInsights, setAiInsights] = useState<{ subject: string; advice: string }[]>(() => {
-        return safeLocalStorage.getJSON<any>('study_planner_cached_insights', []);
-    });
     const isAiInsightsLoading = false;
     const [nextAction, setNextAction] = useState<NextBestAction | null>(() => initialCached?.nextAction || null);
     const [dailyPlan, setDailyPlan] = useState<DailyLearningPlan | null>(() => initialCached?.dailyPlan || null);
@@ -110,8 +107,8 @@ const DashboardPage: React.FC = () => {
             const totalMood = sessionsWithMood.reduce((acc, curr) => acc + (curr.moodAfter || curr.moodBefore || 3), 0);
             const avgMood = sessionsWithMood.length > 0 ? Number((totalMood / sessionsWithMood.length).toFixed(1)) : 3;
 
-            const subjectTasks = tasks.filter(t => t.subjectId === subject.id && t.status !== 'done');
-            const pendingTasks = subjectTasks.length;
+            const allSubjectTasks = tasks.filter(t => t.subjectId === subject.id);
+            const pendingTasks = allSubjectTasks.filter(t => t.status !== 'done').length;
 
             const subjectCards = flashcards.filter(c => c.subjectId === subject.id);
             const masteryScore = calculateMasteryScore(subjectCards);
@@ -124,33 +121,31 @@ const DashboardPage: React.FC = () => {
                 pendingTasks,
                 masteryScore,
                 mastery: masteryScore,
-                progress: 50,
+                progress: allSubjectTasks.length > 0
+                    ? Math.round(((allSubjectTasks.length - pendingTasks) / allSubjectTasks.length) * 100)
+                    : masteryScore,
             };
         });
     }, [subjects, sessions, tasks, flashcards]);
 
-    useEffect(() => {
-        if (subjectsStats.length > 0 && aiInsights.length === 0) {
-            const cached = safeLocalStorage.getJSON<{ subject: string; advice: string }[]>('study_planner_cached_insights', []);
-            if (cached && cached.length > 0) {
-                setAiInsights(cached);
-            } else {
-                const firstSubject = subjectsStats[0]?.name || (primaryLanguage === 'ja' ? 'JLPT Yapon tili' : 'IELTS');
-                const defaultInsights = [
-                    {
-                        subject: firstSubject,
-                        advice: "Kunlik intizom: 25 daqiqa Pomodoro fokus vaqti ajratib, asosiy mavzularni mustahkamlang."
-                    },
-                    {
-                        subject: "Fleshkartalar & Takrorlash",
-                        advice: "Anki SM-2 algoritmi bo'yicha bugungi dars kartochkalarini ko'zdan kechirib, bilimlarni mustahkamlang."
-                    }
-                ];
-                setAiInsights(defaultInsights);
-                safeLocalStorage.setJSON('study_planner_cached_insights', defaultInsights);
-            }
+    const aiInsights = useMemo(() => {
+        const insights: { subject: string; advice: string }[] = [];
+        const dueCards = flashcards.filter(card => new Date(card.nextReviewDate) <= new Date()).length;
+        if (dueCards > 0) {
+            insights.push({
+                subject: "Fleshkartalar & Takrorlash",
+                advice: `Bugun ${dueCards} ta takrorlash muddati kelgan karta bor. Ularni SRS orqali yakunlang.`
+            });
         }
-    }, [subjectsStats.length, primaryLanguage]);
+        const mostUrgent = [...subjectsStats].sort((a, b) => b.pendingTasks - a.pendingTasks)[0];
+        if (mostUrgent?.pendingTasks > 0) {
+            insights.push({
+                subject: mostUrgent.name,
+                advice: `${mostUrgent.pendingTasks} ta ochiq vazifa qolgan; shu fan bo'yicha progress ${mostUrgent.progress}%.`
+            });
+        }
+        return insights;
+    }, [flashcards, subjectsStats]);
 
     const handleManualPromotion = async () => {
         setIsPromoting(true);

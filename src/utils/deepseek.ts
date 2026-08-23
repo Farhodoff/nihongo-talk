@@ -51,6 +51,29 @@ export const callDeepSeek = async (
         }
     }
 
+    // Helper to format DeepSeek errors cleanly
+    const formatDeepSeekError = (status: number, errObj: any): string => {
+        const rawMsg = errObj?.error?.message || errObj?.message || (typeof errObj?.error === 'string' ? errObj.error : null) || '';
+        const lower = rawMsg.toLowerCase();
+
+        if (status === 401 || lower.includes('authentication') || lower.includes('invalid api key')) {
+            return "DeepSeek API kaliti noto'g'ri (401 Authentication Error). Iltimos platform.deepseek.com orqali to'g'ri API kalit oling.";
+        }
+        if (status === 402 || lower.includes('insufficient') || lower.includes('balance') || errObj?.error?.code === 'insufficient_balance') {
+            return "DeepSeek hisobingizda mablag' tugagan (402 Insufficient Balance). platform.deepseek.com orqali 'Top up' qilib hisobingizni to'ldiring.";
+        }
+        if (status === 429 || lower.includes('rate limit') || lower.includes('too many requests')) {
+            return "DeepSeek so'rovlar limiti oshdi (429 Rate Limit). Iltimos bir necha soniyadan so'ng qayta urinib ko'ring.";
+        }
+        if (status === 503) {
+            return rawMsg || "Serverda DeepSeek API kaliti sozlanmagan. Iltimos Vercel Environment Variables-da DEEPSEEK_API_KEY qo'shib, Redeploy qiling.";
+        }
+        if (rawMsg) {
+            return `DeepSeek xatosi (${status}): ${rawMsg}`;
+        }
+        return `DeepSeek xatosi (HTTP ${status}). Iltimos sozlamalarni tekshiring.`;
+    };
+
     // 1. If user provided a valid direct DeepSeek key (BYOK), call API directly first
     if (validApiKey && validApiKey.startsWith('sk-')) {
         try {
@@ -70,8 +93,15 @@ export const callDeepSeek = async (
             } else {
                 const errJson = await directResponse.json().catch(() => ({}));
                 console.warn('[DeepSeek Direct BYOK] Status non-200:', directResponse.status, errJson);
+                // If direct BYOK fails with authentication or balance error, throw immediately with exact diagnostic
+                if (directResponse.status === 401 || directResponse.status === 402) {
+                    throw new Error(formatDeepSeekError(directResponse.status, errJson));
+                }
             }
-        } catch (directErr) {
+        } catch (directErr: any) {
+            if (directErr?.message && (directErr.message.includes('401') || directErr.message.includes('402') || directErr.message.includes('Insufficient'))) {
+                throw directErr;
+            }
             console.warn('[DeepSeek Direct BYOK] Call failed, attempting proxy fallback:', directErr);
         }
     }
@@ -109,9 +139,7 @@ export const callDeepSeek = async (
         } else {
             const errData = await response.json().catch(() => ({}));
             console.warn('[DeepSeek Proxy] Serverless proxy returned non-200:', response.status, errData);
-            if (errData?.message) {
-                throw new Error(errData.message);
-            }
+            throw new Error(formatDeepSeekError(response.status, errData));
         }
     } catch (proxyErr: any) {
         console.warn('[DeepSeek Proxy] Error calling serverless proxy:', proxyErr);

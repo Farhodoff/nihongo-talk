@@ -54,7 +54,7 @@ export const PRESET_DECKS: PresetDeck[] = [
         level: 'B1-B2',
         badgeColor: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20',
         icon: '📈',
-        cardCount: 1201,
+        cardCount: 540,
         isPremiumOnly: false,
         loadCards: async () => {
             const data = await import('./decks/academic.json');

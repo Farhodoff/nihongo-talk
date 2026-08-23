@@ -156,14 +156,10 @@ describe('Personal Learning Plan System Tests', () => {
             expect(monTasks[0].estimatedMinutes).toBeLessThanOrEqual(sampleGoal.dailyMinutes);
         });
 
-        it('should generate a deterministic fallback plan if AI response fails', async () => {
-            // Force mock to throw
+        it('surfaces an AI provider failure instead of creating a hidden fallback plan', async () => {
             vi.mocked(callSelectedAIProvider).mockRejectedValueOnce(new Error('Rate limited'));
-
-            const result = await PersonalLearningPlanEngine.generateWeeklyPlan('test_user', sampleGoal, 1);
-            expect(result.isFallback).toBe(true);
-            expect(result.noticeMessage).toBeDefined();
-            expect(result.plan.days.length).toBe(7);
+            await expect(PersonalLearningPlanEngine.generateWeeklyPlan('test_user', sampleGoal, 1))
+                .rejects.toThrow('Rate limited');
         });
 
         it('should prevent concurrent generation with idempotency lock', async () => {
@@ -173,6 +169,24 @@ describe('Personal Learning Plan System Tests', () => {
 
             const duplicateLock = PersonalLearningPlanEngine.acquireLock('test_user', sampleGoal.id, 1);
             expect(duplicateLock).toBe(false); // Locked!
+        });
+    });
+
+    describe('Plan task completion', () => {
+        it('persists completion from a learning module without changing other tasks', async () => {
+            const plan: WeeklyLearningPlan = {
+                id: 'srs-plan', goalId: 'goal-123', userId: 'test_user', weekNumber: 1,
+                startDate: '2026-08-20', endDate: '2026-08-27', objectives: [], focusSkills: [],
+                reasoning: '', expectedOutcome: '', aiGenerated: true, version: 1, status: 'active', createdAt: new Date().toISOString(),
+                days: [{ day: 'monday', tasks: [
+                    { id: 'srs-task', title: 'SRS', type: 'srs', estimatedMinutes: 10, completed: false, status: 'pending', sourceType: 'srs', route: '/study-mode' },
+                    { id: 'lesson-task', title: 'Lesson', type: 'lesson', estimatedMinutes: 20, completed: false, status: 'pending', sourceType: 'curriculum', route: '/ielts' }
+                ] }]
+            };
+            await PersonalLearningPlanService.saveWeeklyPlan(plan);
+            const updated = await PersonalLearningPlanService.completePlanTask('test_user', 'srs-plan', 'srs-task');
+            expect(updated?.days[0].tasks[0]).toMatchObject({ completed: true, status: 'completed' });
+            expect(updated?.days[0].tasks[1]).toMatchObject({ completed: false, status: 'pending' });
         });
     });
 

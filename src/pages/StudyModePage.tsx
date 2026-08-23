@@ -1,6 +1,6 @@
 import { ArrowLeft, CheckCircle2, Copy, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
 import React, { useEffect, useState, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isAdminEmail } from '../utils/admin';
@@ -8,10 +8,12 @@ import { Flashcard } from '../types';
 import { Rating, Grade, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
+import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId?: string }>();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
@@ -24,6 +26,8 @@ const StudyModePage: React.FC = () => {
     const [totalXpEarned, setTotalXpEarned] = useState(0);
     const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
     const [isQueueInitialized, setIsQueueInitialized] = useState(false);
+    const [planTaskCompleted, setPlanTaskCompleted] = useState(false);
+    const planTask = (location.state as { personalPlanTask?: { planId: string; taskId: string } } | null)?.personalPlanTask;
 
     // Study Mode: 'srs' | 'type'
     const [studyMode, setStudyMode] = useState<'srs' | 'type'>('srs');
@@ -57,6 +61,35 @@ const StudyModePage: React.FC = () => {
     }, [subjectId, flashcards, isQueueInitialized, loading]);
 
     const currentCard = queue[currentCardIndex];
+
+    const completeLinkedPlanTask = async () => {
+        if (planTaskCompleted) return;
+        const userId = user?.id || 'guest';
+        if (planTask?.planId && planTask?.taskId) {
+            const updated = await PersonalLearningPlanService.completePlanTask(userId, planTask.planId, planTask.taskId);
+            if (updated) setPlanTaskCompleted(true);
+            return;
+        }
+        // Auto-detect active plan's today SRS task if not passed explicitly in location.state
+        try {
+            const activeGoal = PersonalLearningPlanService.getActiveGoal(userId);
+            if (activeGoal) {
+                const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, activeGoal.id);
+                if (plan) {
+                    const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                    const todayName = daysOfWeek[new Date().getDay()];
+                    const todayDay = plan.days.find(d => d.day.toLowerCase() === todayName);
+                    const srsTask = todayDay?.tasks.find(t => (t.type === 'srs' || t.sourceType === 'srs') && !t.completed);
+                    if (srsTask) {
+                        await PersonalLearningPlanService.completePlanTask(userId, plan.id, srsTask.id);
+                        setPlanTaskCompleted(true);
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('Could not auto-complete today SRS task in plan:', e);
+        }
+    };
 
     const isJapanese = useMemo(() => {
         if (!currentCard && !currentSubject) return false;
@@ -137,6 +170,7 @@ const StudyModePage: React.FC = () => {
                 setIsFlipped(false);
                 setCurrentCardIndex(prev => prev + 1);
             } else {
+                await completeLinkedPlanTask();
                 setIsFinished(true);
             }
         } catch (err) {

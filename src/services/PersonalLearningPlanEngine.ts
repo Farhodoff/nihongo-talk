@@ -67,7 +67,7 @@ export const PersonalLearningPlanEngine = {
     },
 
     /**
-     * Generates a 7-day personalized weekly plan using AI, with automatic schema validation and fallback planning.
+ * Generates a 7-day personalized weekly plan using the configured AI provider.
      */
     async generateWeeklyPlan(
         userId: string,
@@ -163,35 +163,21 @@ Generate the JSON response matching this template:
   "expectedOutcome": "Hafta yakunida kutilayotgan natija..."
 }`;
 
-            let aiResponse: string | null = null;
-            try {
-                aiResponse = await callSelectedAIProvider(prompt, systemPrompt, true);
-            } catch (err) {
-                console.warn('[AI Plan Gen] Network or rate limit failure, running fallback:', err);
+            // A personal plan is an AI-backed product promise. Do not disguise an
+            // unavailable provider as a personalized plan; the caller surfaces the
+            // provider error and leaves the existing plan untouched.
+            const aiResponse = await callSelectedAIProvider(prompt, systemPrompt, true);
+            const cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+            const parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
+            if (!parsed) {
+                throw new Error("AI reja formatini tasdiqlab bo'lmadi. Iltimos qayta urinib ko'ring.");
             }
 
-            if (aiResponse) {
-                const cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                const parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId);
-                if (parsed) {
-                    this.releaseLock(userId, goal.id, weekNumber);
-                    return {
-                        plan: parsed,
-                        isFallback: false,
-                        noticeMessage: timeNotice
-                    };
-                }
-            }
-
-            // Fallback Plan if AI failed or response was invalid
-            const fallbackPlan = this.generateDeterministicFallback(goal, weekNumber, userId, state, evaluation);
             this.releaseLock(userId, goal.id, weekNumber);
             return {
-                plan: fallbackPlan,
-                isFallback: true,
-                noticeMessage: timeNotice || (goal.language === 'ja'
-                    ? "AI rejalashtirish vaqtincha band. Siz uchun standart adaptiv dars rejasi tayyorlandi."
-                    : "AI planning is currently busy. A standard adaptive curriculum plan has been prepared for you.")
+                plan: parsed,
+                isFallback: false,
+                noticeMessage: timeNotice
             };
 
         } catch (e: any) {
@@ -207,7 +193,8 @@ Generate the JSON response matching this template:
         jsonString: string,
         goal: PersonalLearningGoal,
         weekNumber: number,
-        userId: string
+        userId: string,
+        dailyMinutesBudget: number = goal.dailyMinutes
     ): WeeklyLearningPlan | null {
         try {
             const raw = JSON.parse(jsonString);
@@ -235,8 +222,8 @@ Generate the JSON response matching this template:
                     if (minutes > 60) minutes = 60;
 
                     // Respect daily study minutes budget
-                    if (dayMinutesAllocated + minutes > goal.dailyMinutes) {
-                        const remaining = goal.dailyMinutes - dayMinutesAllocated;
+                    if (dayMinutesAllocated + minutes > dailyMinutesBudget) {
+                        const remaining = dailyMinutesBudget - dayMinutesAllocated;
                         if (remaining >= 5) {
                             minutes = remaining;
                         } else {
@@ -350,7 +337,7 @@ Generate the JSON response matching this template:
                         id: `task-fallback-${Date.now()}`,
                         title: goal.language === 'ja' ? 'Kundalik dars va takrorlash' : 'Daily practice and review',
                         type: 'lesson',
-                        estimatedMinutes: goal.dailyMinutes,
+                        estimatedMinutes: dailyMinutesBudget,
                         completed: false,
                         status: 'pending',
                         sourceType: 'curriculum',
@@ -467,6 +454,20 @@ Generate the JSON response matching this template:
             });
         }
 
+        // Dynamic lesson ranking: Prioritize weak skills and ambitious target tracks
+        const masteryProfile = (_state?.masteryProfile) || null;
+        const topWeaknesses = masteryProfile?.topWeaknesses || [];
+        const highSeverityWeakness = topWeaknesses.find((w: any) => w.severity === 'high');
+        const weakSkillNames = topWeaknesses.map((w: any) => w.skill);
+
+        if (weakSkillNames.length > 0) {
+            matchingLessons.sort((a, b) => {
+                const aIsWeak = weakSkillNames.includes(a.skill) ? -1 : 1;
+                const bIsWeak = weakSkillNames.includes(b.skill) ? -1 : 1;
+                return aIsWeak - bIsWeak;
+            });
+        }
+
         const prevWeek = weekNumber - 1;
         let evaluation = previousEvaluation;
         if (!evaluation && prevWeek >= 1) {
@@ -490,16 +491,14 @@ Generate the JSON response matching this template:
             'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
         ];
 
+        // Multi-task allocation strategy for intensive budgets (>= 90 min)
+        const isIntensive = adjustedDailyMinutes >= 90;
+
         const days: WeeklyPlanDay[] = daysOfWeek.map((dayName, idx): WeeklyPlanDay => {
             const tasks: WeeklyPlanTask[] = [];
 
-            // --- Phase 19: Read weak skills from enriched mastery profile ---
-            const masteryProfile = (_state?.masteryProfile) || null;
-            const topWeaknesses = masteryProfile?.topWeaknesses || [];
-            const highSeverityWeakness = topWeaknesses.find((w: any) => w.severity === 'high');
-
             // 1. SRS Review (always first, capped to 15 mins)
-            let srsTime = Math.min(15, Math.max(5, Math.round(adjustedDailyMinutes * 0.2)));
+            const srsTime = Math.min(15, Math.max(5, Math.round(adjustedDailyMinutes * 0.15)));
             tasks.push({
                 id: `task-fallback-srs-${dayName}-${Date.now()}`,
                 title: isJa ? "SM-2 Fleshkartalar takrorlash" : "Spaced Repetition Flashcards Review",
@@ -512,55 +511,19 @@ Generate the JSON response matching this template:
                 skill: 'vocabulary'
             });
 
-            // 2. Main curriculum lesson or quiz practice
-            const lessonIdx = (weekNumber * 2 + idx) % Math.max(1, matchingLessons.length);
-            const targetLesson = matchingLessons[lessonIdx] || { id: isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1', title: 'Greetings' };
-            const lessonRoute = targetLesson.route || (isJa ? '/jlpt' : '/ielts');
-            let lessonTime = adjustedDailyMinutes - srsTime;
+            // Calculate remaining budget
+            let remainingBudget = adjustedDailyMinutes - srsTime;
 
-            // --- Phase 19: Adaptive skill-based time reallocation ---
-            const lessonSkill: string = targetLesson.skill || 'grammar';
-            if (evaluation) {
-                // Use evaluation weak/strong lists as secondary signal
-                if (evaluation.weakSkills?.includes(lessonSkill)) {
-                    lessonTime += 15; // Boost weak skill time
-                } else if (evaluation.strongSkills?.includes(lessonSkill)) {
-                    lessonTime = Math.max(5, lessonTime - 10); // Reduce strong skill time
-                }
-            } else if (masteryProfile) {
-                // Fall back to live mastery profile when no evaluation yet
-                const skillMastery = masteryProfile.skills?.[lessonSkill];
-                if (skillMastery && skillMastery.score < 50) {
-                    lessonTime += 15; // Boost weak skill time from live mastery
-                } else if (skillMastery && skillMastery.score >= 85) {
-                    lessonTime = Math.max(5, lessonTime - 10);
-                }
-            }
+            // 2. Remediation Task for high-severity weakness on alternating days
+            let remediationTime = 0;
+            if (highSeverityWeakness && idx % 2 === 0 && remainingBudget >= 35) {
+                remediationTime = Math.min(15, Math.round(remainingBudget * 0.25));
+                remainingBudget -= remediationTime;
 
-            // Cap lesson time to avoid exceeding daily budget
-            lessonTime = Math.min(lessonTime, adjustedDailyMinutes - srsTime);
-
-            tasks.push({
-                id: `task-fallback-lesson-${dayName}-${Date.now()}`,
-                title: fallbackToReview ? `${targetLesson.title} (Takrorlash)` : targetLesson.title,
-                type: fallbackToReview ? 'review' : 'lesson',
-                estimatedMinutes: lessonTime,
-                completed: false,
-                status: 'pending',
-                sourceType: 'curriculum',
-                contentId: targetLesson.id,
-                route: lessonRoute,
-                skill: lessonSkill as MasterySkill
-            });
-
-            // --- Phase 19: Inject remediation task for high-severity weak skill on alternating days ---
-            // Inject on even-indexed days (Mon, Wed, Fri, Sun) to avoid overload
-            if (highSeverityWeakness && idx % 2 === 0) {
                 const remediationRoute = WeaknessEngine.resolveRouteForSkill(
                     highSeverityWeakness.skill,
                     goal.language
                 );
-                const remediationTime = 10; // Fixed 10-min focused remediation burst
                 tasks.push({
                     id: `task-remediation-${dayName}-${Date.now()}`,
                     title: isJa
@@ -573,6 +536,61 @@ Generate the JSON response matching this template:
                     sourceType: 'curriculum',
                     route: remediationRoute,
                     skill: highSeverityWeakness.skill as MasterySkill
+                });
+            }
+
+            // 3. Primary Core Lesson
+            const primaryLessonIdx = (weekNumber * 2 + idx) % Math.max(1, matchingLessons.length);
+            const targetLesson = matchingLessons[primaryLessonIdx] || { id: isJa ? 'ja-n5-u1-l1' : 'en-a1-u1-l1', title: 'Greetings' };
+            const lessonRoute = targetLesson.route || (isJa ? '/jlpt' : '/ielts');
+            const lessonSkill: string = targetLesson.skill || 'grammar';
+
+            if (isIntensive && remainingBudget >= 60) {
+                // Split into core lesson + secondary application practice
+                const primaryLessonTime = Math.round(remainingBudget * 0.55);
+                const secondaryPracticeTime = remainingBudget - primaryLessonTime;
+
+                tasks.push({
+                    id: `task-fallback-lesson-${dayName}-${Date.now()}`,
+                    title: fallbackToReview ? `${targetLesson.title} (Nazariya & Tahlil)` : targetLesson.title,
+                    type: fallbackToReview ? 'review' : 'lesson',
+                    estimatedMinutes: primaryLessonTime,
+                    completed: false,
+                    status: 'pending',
+                    sourceType: 'curriculum',
+                    contentId: targetLesson.id,
+                    route: lessonRoute,
+                    skill: lessonSkill as MasterySkill
+                });
+
+                // Secondary practice lesson
+                const secondaryLessonIdx = (primaryLessonIdx + 1) % Math.max(1, matchingLessons.length);
+                const secondaryLesson = matchingLessons[secondaryLessonIdx] || targetLesson;
+                tasks.push({
+                    id: `task-fallback-practice-${dayName}-${Date.now()}`,
+                    title: `${secondaryLesson.title} — Amaliy Mashq & Imtihon Texnikasi`,
+                    type: 'practice',
+                    estimatedMinutes: secondaryPracticeTime,
+                    completed: false,
+                    status: 'pending',
+                    sourceType: 'curriculum',
+                    contentId: secondaryLesson.id,
+                    route: secondaryLesson.route || lessonRoute,
+                    skill: (secondaryLesson.skill || 'reading') as MasterySkill
+                });
+            } else {
+                // Standard single lesson consuming exact remaining budget
+                tasks.push({
+                    id: `task-fallback-lesson-${dayName}-${Date.now()}`,
+                    title: fallbackToReview ? `${targetLesson.title} (Takrorlash)` : targetLesson.title,
+                    type: fallbackToReview ? 'review' : 'lesson',
+                    estimatedMinutes: remainingBudget,
+                    completed: false,
+                    status: 'pending',
+                    sourceType: 'curriculum',
+                    contentId: targetLesson.id,
+                    route: lessonRoute,
+                    skill: lessonSkill as MasterySkill
                 });
             }
 

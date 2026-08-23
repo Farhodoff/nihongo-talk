@@ -21,6 +21,7 @@ import {
     DiagnosticQuestion
 } from '../types/diagnostic';
 import { CurriculumLessonResolver } from '../services/CurriculumLessonResolver';
+import { MasteryEngine } from '../services/MasteryEngine';
 
 export const DiagnosticPage: React.FC = () => {
     const { primaryLanguage, targetLevel, user } = useStudyData();
@@ -40,6 +41,21 @@ export const DiagnosticPage: React.FC = () => {
     // Result state
     const [result, setResult] = useState<DiagnosticResult | null>(null);
     const [hasSavedSession, setHasSavedSession] = useState(false);
+
+    const recordDiagnosticEvidence = (diagnostic: DiagnosticResult) => {
+        const activeUserId = user?.id || 'guest';
+        Object.values(diagnostic.skills).forEach(skill => {
+            if (!skill || skill.totalQuestions === 0) return;
+            MasteryEngine.recordEvidence(activeUserId, diagnostic.language, {
+                id: `diagnostic_${diagnostic.id}_${skill.skill}`,
+                skill: skill.skill,
+                score: skill.score,
+                timestamp: diagnostic.completedAt,
+                details: `Diagnostic ${diagnostic.mode}: ${skill.correctCount}/${skill.totalQuestions}`,
+                type: 'performance'
+            });
+        });
+    };
 
     // Check for previous result or existing session
     useEffect(() => {
@@ -79,6 +95,7 @@ export const DiagnosticPage: React.FC = () => {
 
     const handleZeroLevelStart = () => {
         const res = DiagnosticService.getZeroLevelResult(user?.id || 'guest', primaryLanguage);
+        recordDiagnosticEvidence(res);
         setResult(res);
         setStep('result');
     };
@@ -101,6 +118,7 @@ export const DiagnosticPage: React.FC = () => {
         if (updatedState.isCompleted) {
             // Assessment Finished!
             const evalResult = DiagnosticService.evaluateAdaptiveSession(updatedState);
+            recordDiagnosticEvidence(evalResult);
             setResult(evalResult);
             setStep('result');
         } else if (updatedState.currentQuestionId) {

@@ -262,7 +262,7 @@ export const PersonalPlanPage: React.FC = () => {
                             // Dynamic signals and mastery registration
                             if (nextCompleted) {
                                 // Record learning evidence
-                                MasteryEngine.recordEvidence(userId, selectedLang, {
+                                MasteryEngine.recordEvidence(userId, activeGoal?.language || selectedLang, {
                                     id: `plan_task_${taskId}_${Date.now()}`,
                                     skill: t.skill || 'grammar',
                                     score: 100,
@@ -275,7 +275,7 @@ export const PersonalPlanPage: React.FC = () => {
                                 LearningSignalService.recordSignal({
                                     id: `sig_task_${taskId}_${Date.now()}`,
                                     type: 'completed_lesson',
-                                    language: selectedLang,
+                                    language: activeGoal?.language || selectedLang,
                                     userId,
                                     timestamp: new Date().toISOString(),
                                     lessonId: t.contentId || 'custom_plan_task',
@@ -800,7 +800,9 @@ export const PersonalPlanPage: React.FC = () => {
 
                                                                 {/* Direct navigation action button */}
                                                                 <button
-                                                                    onClick={() => navigate(task.route)}
+                                                                    onClick={() => navigate(task.route, {
+                                                                        state: { personalPlanTask: { planId: currentPlan.id, taskId: task.id } }
+                                                                    })}
                                                                     className="px-3.5 py-1.5 bg-primary/10 text-primary hover:bg-primary/20 text-xs font-black rounded-xl transition-all flex items-center gap-1"
                                                                 >
                                                                     <Play size={10} />
