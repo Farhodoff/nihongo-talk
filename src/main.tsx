@@ -16,6 +16,13 @@ initErrorTracking();
 // PWA service worker-ni ro'yxatdan o'tkazish
 registerSW({ immediate: true });
 
+// Yangi deploydan keyin keshdagi eski chunklar 404 berganda avtomatik yangilash
+window.addEventListener('vite:preloadError', (event) => {
+    event.preventDefault();
+    console.warn('[Vite] Dynamic import preload error detected. Reloading page for latest assets...');
+    window.location.reload();
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <App />
