@@ -87,7 +87,43 @@ export const callDeepSeek = async (
         return `AI_ERROR: AI xizmatida xatolik yuz berdi (HTTP ${status}). Iltimos qayta urinib ko'ring.`;
     };
 
-    // Route strictly via Serverless Gateway POST /api/deepseek
+    // 1. Primary: Route via Supabase Edge Function (Deno Serverless Gateway)
+    try {
+        const { data, error } = await supabase.functions.invoke('deepseek', {
+            body: payload,
+        });
+
+        if (!error && data) {
+            const text = data.choices?.[0]?.message?.content || '';
+            if (text && text.trim().length > 0) return text;
+            throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
+        }
+
+        if (error) {
+            const status = (error as any)?.context?.status || 500;
+            let errObj: any = {};
+            try {
+                if (typeof (error as any)?.context?.json === 'function') {
+                    errObj = await (error as any).context.json();
+                } else if ((error as any)?.message) {
+                    errObj = { message: (error as any).message };
+                }
+            } catch {
+                errObj = { message: error.message };
+            }
+
+            if (status === 503 || status === 429 || status === 400 || (errObj && errObj.error)) {
+                throw new Error(formatDeepSeekError(status, errObj));
+            }
+        }
+    } catch (edgeErr: any) {
+        if (edgeErr?.message && (edgeErr.message.startsWith('AI_') || edgeErr.message.includes('AI xizmati') || edgeErr.message.includes('AI_UNAVAILABLE'))) {
+            throw edgeErr;
+        }
+        console.warn('[Supabase Edge Function] Invocation note:', edgeErr);
+    }
+
+    // 2. Secondary / Local Dev fallback: Route via POST /api/deepseek
     try {
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
