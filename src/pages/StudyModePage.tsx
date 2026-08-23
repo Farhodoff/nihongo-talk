@@ -158,9 +158,10 @@ const StudyModePage: React.FC = () => {
                 <p className="text-muted-foreground text-sm max-w-md mb-6">
                     O'rganishni boshlash uchun avval lug'at to'plamlaridan karta qo'shing yoki yangi fleshkarta yarating.
                 </p>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center justify-center gap-3">
                     <Button onClick={() => navigate('/vocabulary')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">Lug'atga o'tish</Button>
-                    <Button onClick={() => navigate('/flashcards')} className="px-6 py-2.5 font-bold rounded-xl">To'plamlarni ko'rish</Button>
+                    <Button onClick={() => navigate('/flashcards')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">To'plamlarni ko'rish</Button>
+                    <Button onClick={() => navigate(-1)} className="px-6 py-2.5 font-bold rounded-xl">Rejaga qaytish</Button>
                 </div>
             </div>
         );
@@ -177,7 +178,10 @@ const StudyModePage: React.FC = () => {
                     Barcha kartochkalar SuperMemo SM-2 algoritmi bo'yicha takrorlandi. Keyingi takrorlash sanasi avtomatik belgilandi.
                 </p>
                 {totalXpEarned > 0 && <p className="text-primary font-extrabold text-lg mb-6">+{totalXpEarned} XP to'pladingiz</p>}
-                <Button onClick={() => navigate('/flashcards')} className="px-8 py-3 font-bold rounded-xl">Orqaga Qaytish</Button>
+                <div className="flex items-center gap-3">
+                    <Button onClick={() => navigate('/vocabulary')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">Lug'atga o'tish</Button>
+                    <Button onClick={() => navigate(-1)} className="px-8 py-3 font-bold rounded-xl">Rejaga Qaytish</Button>
+                </div>
             </div>
         );
     }
@@ -201,7 +205,7 @@ const StudyModePage: React.FC = () => {
             )}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <button onClick={() => navigate('/flashcards')} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
+                    <button onClick={() => navigate(-1)} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all" title="Orqaga">
                         <ArrowLeft size={20} />
                     </button>
                     {/* Mode selector */}

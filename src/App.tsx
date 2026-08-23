@@ -42,6 +42,7 @@ const LessonPlayerPage = lazy(() => import('./pages/LessonPlayerPage'));
 const RoadmapPage = lazy(() => import('./pages/RoadmapPage'));
 const DiagnosticPage = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })));
 const PersonalPlanPage = lazy(() => import('./pages/PersonalPlanPage').then(m => ({ default: m.PersonalPlanPage })));
+const StudyModePage = lazy(() => import('./pages/StudyModePage'));
 
 
 // Loading component
@@ -151,9 +152,9 @@ const App: React.FC = () => {
                                         <Route path="deck/:id" element={<Navigate to="/flashcards" replace />} />
                                         <Route path="decks/:id" element={<Navigate to="/flashcards" replace />} />
                                         <Route path="flashcards/new" element={<FlashcardForm />} />
-                                        <Route path="study-mode" element={<Navigate to="/flashcards" replace />} />
-                                        <Route path="study-mode/:subjectId" element={<Navigate to="/flashcards" replace />} />
-                                        <Route path="flashcards/study/:subjectId" element={<Navigate to="/flashcards" replace />} />
+                                        <Route path="study-mode" element={<StudyModePage />} />
+                                        <Route path="study-mode/:subjectId" element={<StudyModePage />} />
+                                        <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                                         <Route path="progress" element={<ProgressPage />} />
                                         <Route path="community" element={<CommunityPage />} />
                                         <Route path="cv-creator" element={<Navigate to="/dashboard" replace />} />
