@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-    BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
-    XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from 'recharts';
+import { SvgBarChart, SvgLineChart, SvgPieChart } from '../ui/SvgCharts';
 import { Sparkles, RefreshCw, BarChart2 } from 'lucide-react';
 import { generateAIResponse } from '../../utils/ai/aiCore';
 
@@ -68,15 +65,20 @@ Rules:
 - For pie charts: single dataset, labels and data arrays must match in length
 - For bar/line: 2-4 datasets, 5-8 labels (years, countries, categories)
 - Keep numbers realistic (not all round numbers)
-- Title should be a complete English sentence like on a real IELTS paper`;
+- Use standard Uzbek/English context where relevant`;
 
         try {
             const raw = await generateAIResponse([
                 { role: 'system', content: 'Return only valid JSON, no markdown.' },
                 { role: 'user', content: prompt }
             ]);
-            const cleaned = raw.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed: Task1ChartData = JSON.parse(cleaned);
+            const clean = raw.replace(/```json\n?/g, '').replace(/```/g, '').trim();
+            const parsed: Task1ChartData = JSON.parse(clean);
+
+            if (!parsed.type || !parsed.title || !parsed.labels || !parsed.datasets) {
+                throw new Error('Invalid chart JSON format');
+            }
+
             setChartData(parsed);
 
             // Build IELTS prompt text for the writing textarea
@@ -98,26 +100,15 @@ Rules:
         const { type, labels, datasets, unit } = chartData;
 
         if (type === 'pie' && datasets[0]) {
+            const pieData = labels.map((l, i) => ({
+                name: l,
+                value: datasets[0].data[i] || 0,
+                color: datasets[0]?.color || CHART_COLORS[i % CHART_COLORS.length]
+            }));
             return (
-                <ResponsiveContainer width="100%" height={260}>
-                    <PieChart>
-                        <Pie
-                            data={labels.map((l, i) => ({ name: l, value: datasets[0].data[i] }))}
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={100}
-                            dataKey="value"
-                            label={({ name, value }) => `${name}: ${value}${unit || '%'}`}
-                            labelLine={false}
-                        >
-                            {labels.map((_, i) => (
-                                <Cell key={i} fill={datasets[0]?.color || CHART_COLORS[i % CHART_COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip formatter={(v) => `${v}${unit || ''}`} />
-                        <Legend />
-                    </PieChart>
-                </ResponsiveContainer>
+                <div className="w-full h-64 flex items-center justify-center">
+                    <SvgPieChart data={pieData} height={220} innerRadius={0.5} />
+                </div>
             );
         }
 
@@ -127,21 +118,16 @@ Rules:
                 datasets.forEach(ds => { obj[ds.label] = ds.data[i] ?? 0; });
                 return obj;
             });
+            const series = datasets.map((ds, i) => ({
+                dataKey: ds.label,
+                stroke: ds.color || CHART_COLORS[i % CHART_COLORS.length],
+                name: ds.label
+            }));
+
             return (
-                <ResponsiveContainer width="100%" height={260}>
-                    <LineChart data={lineData}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                        <XAxis dataKey="label" stroke="var(--muted-foreground)" fontSize={10} />
-                        <YAxis stroke="var(--muted-foreground)" fontSize={10} tickFormatter={v => `${v}${unit || ''}`} />
-                        <Tooltip formatter={(v) => `${v}${unit || ''}`} />
-                        <Legend />
-                        {datasets.map((ds, i) => (
-                            <Line key={i} type="monotone" dataKey={ds.label}
-                                stroke={ds.color || CHART_COLORS[i % CHART_COLORS.length]}
-                                strokeWidth={2.5} dot={{ r: 4 }} />
-                        ))}
-                    </LineChart>
-                </ResponsiveContainer>
+                <div className="w-full h-64">
+                    <SvgLineChart data={lineData} xKey="label" series={series} height={240} unit={unit} />
+                </div>
             );
         }
 
@@ -151,21 +137,16 @@ Rules:
             datasets.forEach(ds => { obj[ds.label] = ds.data[i] ?? 0; });
             return obj;
         });
+        const barSeries = datasets.map((ds, i) => ({
+            dataKey: ds.label,
+            fill: ds.color || CHART_COLORS[i % CHART_COLORS.length],
+            name: ds.label
+        }));
+
         return (
-            <ResponsiveContainer width="100%" height={260}>
-                <BarChart data={barData}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                    <XAxis dataKey="label" stroke="var(--muted-foreground)" fontSize={10} />
-                    <YAxis stroke="var(--muted-foreground)" fontSize={10} tickFormatter={v => `${v}${unit || ''}`} />
-                    <Tooltip formatter={(v) => `${v}${unit || ''}`} />
-                    <Legend />
-                    {datasets.map((ds, i) => (
-                        <Bar key={i} dataKey={ds.label}
-                            fill={ds.color || CHART_COLORS[i % CHART_COLORS.length]}
-                            radius={[4, 4, 0, 0]} />
-                    ))}
-                </BarChart>
-            </ResponsiveContainer>
+            <div className="w-full h-64">
+                <SvgBarChart data={barData} xKey="label" series={barSeries} height={240} unit={unit} />
+            </div>
         );
     };
 

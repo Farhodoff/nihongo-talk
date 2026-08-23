@@ -15,9 +15,7 @@ import { UserNotificationService } from '../services/UserNotificationService';
 import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
 import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
 import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
-import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
-} from 'recharts';
+import { SvgLineChart } from '../components/ui/SvgCharts';
 import { toast } from '../hooks/use-toast';
 
 interface UserSubscription {
@@ -670,60 +668,27 @@ const AdminDashboardPage: React.FC = () => {
                         </div>
 
                         <div className="h-56 w-full">
-                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={180}>
-                                <AreaChart data={dailyStats} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                                    <defs>
-                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2}/>
-                                            <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0}/>
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148, 163, 184, 0.15)" />
-                                    <XAxis
-                                        dataKey="activity_date"
-                                        tickLine={false}
-                                        axisLine={false}
-                                        tickFormatter={(val) => {
-                                            if (!val) return '';
-                                            try {
-                                                const d = new Date(val);
-                                                const day = d.getDate();
-                                                const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'];
-                                                return `${day}-${months[d.getMonth()]}`;
-                                            } catch {
-                                                return val;
-                                            }
-                                        }}
-                                        tick={{ fill: '#94a3b8', fontSize: 10 }}
-                                    />
-                                    <YAxis tickLine={false} axisLine={false} tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                                    <Tooltip
-                                        formatter={(value: any) => [
-                                            chartMode === 'dau' ? `${value} ta faol talaba` : `${Math.round(Number(value) / 60)} soat (${value} daqiqa)`,
-                                            chartMode === 'dau' ? 'Kunlik faollar' : "O'qish vaqti"
-                                        ]}
-                                        labelFormatter={(label) => {
-                                            if (!label) return '';
-                                            try {
-                                                const d = new Date(label);
-                                                const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'];
-                                                return `${d.getDate()}-${months[d.getMonth()]}, ${d.getFullYear()}`;
-                                            } catch {
-                                                return label;
-                                            }
-                                        }}
-                                        contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#fff', fontSize: '12px' }}
-                                    />
-                                    <Area
-                                        type="monotone"
-                                        dataKey={chartMode === 'dau' ? 'active_users' : 'total_duration_minutes'}
-                                        stroke="#6366f1"
-                                        strokeWidth={2}
-                                        fillOpacity={1}
-                                        fill="url(#colorValue)"
-                                    />
-                                </AreaChart>
-                            </ResponsiveContainer>
+                            <SvgLineChart
+                                data={dailyStats.map(s => {
+                                    const d = new Date(s.activity_date);
+                                    const day = d.getDate();
+                                    const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'];
+                                    return {
+                                        ...s,
+                                        dateFormatted: `${day}-${months[d.getMonth()] || ''}`
+                                    };
+                                })}
+                                xKey="dateFormatted"
+                                series={[{
+                                    dataKey: chartMode === 'dau' ? 'active_users' : 'total_duration_minutes',
+                                    stroke: '#6366f1',
+                                    fill: '#6366f1',
+                                    name: chartMode === 'dau' ? 'Faol talabalar' : "O'qish daqiqalari"
+                                }]}
+                                height={220}
+                                showArea={true}
+                                unit={chartMode === 'dau' ? 'ta' : 'daq'}
+                            />
                         </div>
                     </div>
 

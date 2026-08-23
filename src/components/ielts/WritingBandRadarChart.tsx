@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from 'recharts';
+import { SvgRadarChart } from '../ui/SvgCharts';
 import { Sparkles, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
 import { IeltsEssayEvaluationReport } from '../../utils/ai';
 
@@ -39,25 +39,8 @@ export const WritingBandRadarChart: React.FC<WritingBandRadarChartProps> = ({ re
                         <Sparkles size={16} className="text-indigo-500" />
                         IELTS mezonlari bo'yicha Radar Grafikasi
                     </h4>
-                    <div className="w-full h-[240px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
-                                <PolarGrid stroke="#6366f1" strokeDasharray="3 3" opacity={0.3} />
-                                <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 'bold' }} />
-                                <PolarRadiusAxis angle={30} domain={[0, 9]} tick={{ fontSize: 10 }} />
-                                <Radar name="Band Score" dataKey="score" stroke="#6366f1" fill="#818cf8" fillOpacity={0.4} />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: '#1e293b',
-                                        borderColor: '#475569',
-                                        borderRadius: '0.75rem',
-                                        color: '#fff',
-                                        fontSize: '12px',
-                                        fontWeight: 'bold'
-                                    }}
-                                />
-                            </RadarChart>
-                        </ResponsiveContainer>
+                    <div className="w-full h-[240px] flex items-center justify-center">
+                        <SvgRadarChart data={radarData} height={240} color="#6366f1" />
                     </div>
                 </div>
 

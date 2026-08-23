@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HistoryService, SpeakingSessionItem } from '../../services/HistoryService';
-import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { SvgBarChart, SvgLineChart } from '../ui/SvgCharts';
 import { History, Mic, Clock, MessageSquare, Zap, BarChart2 } from 'lucide-react';
 
 export const CoachProgressDashboard: React.FC = () => {
@@ -156,27 +156,26 @@ export const CoachProgressDashboard: React.FC = () => {
                             {activeTab === 'score' ? "O'sish Dinamikasi (Fluency & Pronunciation)" : "Kunlik O'qish Daqiqalari (Study Duration)"}
                         </h4>
                         <div className="h-48 w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                {activeTab === 'score' ? (
-                                    <LineChart data={chartData}>
-                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                                        <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                        <YAxis domain={[4.0, 9.0]} ticks={[4.0, 5.5, 7.0, 8.5, 9.0]} stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                        <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
-                                        <Legend wrapperStyle={{ fontSize: 9 }} />
-                                        <Line type="monotone" dataKey="Fluency" stroke="#6366f1" strokeWidth={2.5} dot={{ r: 3 }} />
-                                        <Line type="monotone" dataKey="Pronunciation" stroke="#f43f5e" strokeWidth={2.5} dot={{ r: 3 }} />
-                                    </LineChart>
-                                ) : (
-                                    <BarChart data={chartData}>
-                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                                        <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                        <YAxis stroke="var(--muted-foreground)" fontSize={9} tickLine={false} />
-                                        <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
-                                        <Bar dataKey="DurationMins" fill="#6366f1" radius={[4, 4, 0, 0]} name="Daqiqalar" />
-                                    </BarChart>
-                                )}
-                            </ResponsiveContainer>
+                            {activeTab === 'score' ? (
+                                <SvgLineChart
+                                    data={chartData}
+                                    xKey="date"
+                                    series={[
+                                        { dataKey: 'Fluency', stroke: '#6366f1', name: 'Fluency' },
+                                        { dataKey: 'Pronunciation', stroke: '#f43f5e', name: 'Pronunciation' },
+                                    ]}
+                                    height={180}
+                                    unit="ball"
+                                />
+                            ) : (
+                                <SvgBarChart
+                                    data={chartData}
+                                    xKey="date"
+                                    series={[{ dataKey: 'DurationMins', fill: '#6366f1', name: 'Daqiqalar' }]}
+                                    height={180}
+                                    unit="daq"
+                                />
+                            )}
                         </div>
                     </div>
 

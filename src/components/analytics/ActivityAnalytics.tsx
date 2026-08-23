@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react';
-import { Bar, CartesianGrid, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { SvgBarChart, SvgLineChart } from '../ui/SvgCharts';
 import { StudySession } from '../../types';
 
 interface ActivityAnalyticsProps {
@@ -50,31 +50,28 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
             <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Haftalik Faoliyat (Soatlar)</h3>
                 <div className="h-64 w-full" style={{ minHeight: '256px' }}>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <ReBarChart data={weeklyData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
-                            <Bar dataKey="hours" fill="#6366f1" radius={[6, 6, 0, 0]} />
-                        </ReBarChart>
-                    </ResponsiveContainer>
+                    <SvgBarChart
+                        data={weeklyData}
+                        xKey="name"
+                        series={[{ dataKey: 'hours', fill: '#6366f1' }]}
+                        height={240}
+                        unit="soat"
+                    />
                 </div>
             </div>
 
             {/* 2. Hourly Productivity */}
             <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Unumli Soatlar (Jami Daqiqalar)</h3>
-                <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <ReBarChart data={hourlyData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} interval={3} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <Tooltip cursor={{ fill: 'transparent' }} />
-                            <Bar dataKey="minutes" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
-                        </ReBarChart>
-                    </ResponsiveContainer>
+                <div className="h-64 w-full" style={{ minHeight: '256px' }}>
+                    <SvgLineChart
+                        data={hourlyData}
+                        xKey="name"
+                        series={[{ dataKey: 'minutes', stroke: '#8b5cf6' }]}
+                        height={240}
+                        showArea={true}
+                        unit="daq"
+                    />
                 </div>
             </div>
         </div>

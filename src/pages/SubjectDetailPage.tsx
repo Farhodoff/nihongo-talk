@@ -7,7 +7,6 @@ import { ProgressBar } from '../components/ui/ProgressBar';
 import SubjectNotes from '../components/SubjectNotes';
 import { Suspense, lazy } from 'react';
 const Whiteboard = lazy(() => import('../components/Whiteboard'));
-import WhiteboardList from '../components/WhiteboardList';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { calculateMasteryScore } from '../utils/analytics';
 
@@ -16,7 +15,6 @@ const SubjectDetailPage: React.FC = () => {
     const navigate = useNavigate();
     const { subjects, tasks, toggleTask, deleteSubject, flashcards } = useStudyData();
     const [activeTab, setActiveTab] = useState<'tasks' | 'resources' | 'notes' | 'whiteboard'>('tasks');
-    const [selectedWhiteboardId, setSelectedWhiteboardId] = useState<string | null>(null);
 
     const subject = subjects.find(s => s.id === id);
     if (!subject) {
@@ -150,24 +148,9 @@ const SubjectDetailPage: React.FC = () => {
 
             {activeTab === 'whiteboard' && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {selectedWhiteboardId ? (
-                        <div className="space-y-4">
-                            <button
-                                onClick={() => setSelectedWhiteboardId(null)}
-                                className="mb-4 text-blue-500 hover:text-blue-700 font-medium flex items-center gap-2"
-                            >
-                                ← Ortga qaytish
-                            </button>
-                            <Suspense fallback={<div className="h-full flex items-center justify-center p-8 bg-gray-50 rounded-xl"><div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div></div>}>
-                                <Whiteboard whiteboardId={selectedWhiteboardId} />
-                            </Suspense>
-                        </div>
-                    ) : (
-                        <WhiteboardList
-                            subjectId={subject.id}
-                            onSelect={(id) => setSelectedWhiteboardId(id)}
-                        />
-                    )}
+                    <Suspense fallback={<div className="h-full flex items-center justify-center p-8 bg-gray-50 rounded-xl"><div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div></div>}>
+                        <Whiteboard whiteboardId={subject.id} />
+                    </Suspense>
                 </div>
             )}
         </div>

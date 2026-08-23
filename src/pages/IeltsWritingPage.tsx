@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History, Clock, Timer } from 'lucide-react';
 import { evaluateIeltsEssay, IeltsEssayEvaluationReport, isAIKeyConfigured } from '../utils/ai';
 import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { SvgLineChart } from '../components/ui/SvgCharts';
 import { useSubscription } from '../hooks/useSubscription';
 import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
 import { WritingBandRadarChart } from '../components/ielts/WritingBandRadarChart';
@@ -267,15 +267,14 @@ const IeltsWritingPage: React.FC = () => {
                         Writing Progression Dinamikasi (Band Score Tarixi)
                     </h3>
                     <div className="h-44 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={chartData}>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                                <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
-                                <YAxis domain={[4.0, 9.0]} ticks={[4.0, 5.0, 6.0, 7.0, 8.0, 9.0]} stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
-                                <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
-                                <Line type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
-                            </LineChart>
-                        </ResponsiveContainer>
+                        <SvgLineChart
+                            data={chartData}
+                            xKey="date"
+                            series={[{ dataKey: 'score', stroke: '#6366f1', fill: '#6366f1' }]}
+                            height={160}
+                            showArea={true}
+                            unit="band"
+                        />
                     </div>
                 </div>
             )}

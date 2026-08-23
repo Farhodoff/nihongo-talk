@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react';
-import { Bar, CartesianGrid, Cell, Legend, Pie, PieChart, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { SvgBarChart, SvgPieChart } from '../ui/SvgCharts';
 import { Smile, TrendingUp } from 'lucide-react';
 import { Subject, StudySession, Flashcard } from '../../types';
 import { calculateMasteryScore } from '../../utils/analytics';
@@ -56,7 +56,7 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
                 data.push({
                     name: subject.name,
                     value: totalMinutes,
-                    color: subject.color
+                    color: subject.color || '#6366f1'
                 });
             }
         });
@@ -71,19 +71,13 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
                     <Smile size={20} className="text-yellow-500" /> Fanlar bo'yicha O'rtacha Kayfiyat
                 </h3>
                 <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <ReBarChart data={subjectMoodData} layout="vertical">
-                            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
-                            <XAxis type="number" domain={[0, 5]} hide />
-                            <YAxis dataKey="name" type="category" width={100} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} />
-                            <Tooltip cursor={{ fill: 'transparent' }} />
-                            <Bar dataKey="mood" radius={[0, 4, 4, 0]} barSize={20}>
-                                {subjectMoodData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Bar>
-                        </ReBarChart>
-                    </ResponsiveContainer>
+                    <SvgBarChart
+                        data={subjectMoodData}
+                        xKey="name"
+                        series={[{ dataKey: 'mood', fill: '#f59e0b' }]}
+                        height={240}
+                        unit="ball"
+                    />
                 </div>
                 <p className="text-xs text-center text-gray-400 mt-2">Shkala: 1 (Yomon) - 5 (Zo'r)</p>
             </div>
@@ -94,45 +88,25 @@ const SubjectAnalytics: React.FC<SubjectAnalyticsProps> = memo(({ subjects, sess
                     <TrendingUp size={20} className="text-indigo-500" /> Fanlar O'zlashtirish Darajasi (%)
                 </h3>
                 <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <ReBarChart data={subjectMasteryData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} domain={[0, 100]} />
-                            <Tooltip cursor={{ fill: 'transparent' }} />
-                            <Bar dataKey="score" radius={[6, 6, 0, 0]}>
-                                {subjectMasteryData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Bar>
-                        </ReBarChart>
-                    </ResponsiveContainer>
+                    <SvgBarChart
+                        data={subjectMasteryData}
+                        xKey="name"
+                        series={[{ dataKey: 'score', fill: '#6366f1' }]}
+                        height={240}
+                        unit="%"
+                    />
                 </div>
             </div>
 
             {/* Subject Distribution */}
             <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-2">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fanlar bo'yicha Jami Vaqt</h3>
-                <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <PieChart>
-                            <Pie
-                                data={subjectDistributionData}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={60}
-                                outerRadius={80}
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {subjectDistributionData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </ResponsiveContainer>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fanlar bo'yicha Jami Vaqt (Daqiqalar)</h3>
+                <div className="h-64 w-full flex items-center justify-center">
+                    <SvgPieChart
+                        data={subjectDistributionData}
+                        height={220}
+                        innerRadius={0.55}
+                    />
                 </div>
             </div>
         </div>

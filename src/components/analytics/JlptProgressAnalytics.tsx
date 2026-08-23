@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HistoryService, MockExamItem, SpeakingSessionItem } from '../../services/HistoryService';
 import { Sparkles, Trophy, Flame, BookOpen, Volume2, History, Award } from 'lucide-react';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { SvgLineChart } from '../ui/SvgCharts';
 
 export const JlptProgressAnalytics: React.FC = () => {
     const [jlptExams, setJlptExams] = useState<MockExamItem[]>([]);
@@ -113,15 +113,14 @@ export const JlptProgressAnalytics: React.FC = () => {
                         JLPT Imtihon Natijalari Dinamikasi (180 ballik shkala)
                     </h4>
                     <div className="h-44 w-full pt-2">
-                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={150}>
-                            <LineChart data={chartData}>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
-                                <XAxis dataKey="date" stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
-                                <YAxis domain={[0, 180]} ticks={[0, 50, 100, 140, 180]} stroke="var(--muted-foreground)" fontSize={10} tickLine={false} />
-                                <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }} />
-                                <Line type="monotone" dataKey="score" stroke="#f43f5e" strokeWidth={3} activeDot={{ r: 6 }} dot={{ r: 4 }} />
-                            </LineChart>
-                        </ResponsiveContainer>
+                        <SvgLineChart
+                            data={chartData}
+                            xKey="date"
+                            series={[{ dataKey: 'score', stroke: '#f43f5e', fill: '#f43f5e' }]}
+                            height={160}
+                            showArea={true}
+                            unit="ball"
+                        />
                     </div>
                 </div>
             ) : (

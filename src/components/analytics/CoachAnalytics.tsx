@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { SvgLineChart } from '../ui/SvgCharts';
 import { CoachSession } from '../../types';
 import { Bot, MessageSquare, TrendingUp } from 'lucide-react';
 
@@ -57,23 +57,18 @@ const CoachAnalytics: React.FC<CoachAnalyticsProps> = memo(({ sessions }) => {
                 {/* Chart Section */}
                 <div className="lg:col-span-2">
                     <div className="h-72 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} vertical={false} />
-                                <XAxis dataKey="name" stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
-                                <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} domain={[0, 100]} />
-                                <Tooltip
-                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                    labelStyle={{ fontWeight: 'bold', color: '#1f2937', marginBottom: '4px' }}
-                                    cursor={{ stroke: '#6366f1', strokeWidth: 1, strokeDasharray: '3 3' }}
-                                />
-                                <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                                <Line type="monotone" dataKey="Fluency" stroke="#6366f1" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                                <Line type="monotone" dataKey="Vocabulary" stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} />
-                                <Line type="monotone" dataKey="Grammar" stroke="#f59e0b" strokeWidth={3} dot={{ r: 4 }} />
-                                <Line type="monotone" dataKey="Pronunciation" stroke="#ec4899" strokeWidth={3} dot={{ r: 4 }} />
-                            </LineChart>
-                        </ResponsiveContainer>
+                        <SvgLineChart
+                            data={chartData}
+                            xKey="name"
+                            series={[
+                                { dataKey: 'Fluency', stroke: '#6366f1', name: 'Fluency' },
+                                { dataKey: 'Vocabulary', stroke: '#10b981', name: 'Vocabulary' },
+                                { dataKey: 'Grammar', stroke: '#f59e0b', name: 'Grammar' },
+                                { dataKey: 'Pronunciation', stroke: '#ec4899', name: 'Pronunciation' },
+                            ]}
+                            height={270}
+                            unit="ball"
+                        />
                     </div>
                 </div>
 

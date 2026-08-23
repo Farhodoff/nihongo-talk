@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react';
-import { Bar, CartesianGrid, Cell, Legend, Pie, PieChart, BarChart as ReBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { SvgBarChart, SvgPieChart } from '../ui/SvgCharts';
 import { TrendingUp } from 'lucide-react';
 import { Flashcard } from '../../types';
 
@@ -63,15 +63,13 @@ const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = memo(({ flashcards
                     <TrendingUp size={20} className="text-purple-500" /> Kunlik Fleshkartalar
                 </h3>
                 <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <ReBarChart data={dailyReviewsData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                            <Tooltip cursor={{ fill: 'transparent' }} />
-                            <Bar dataKey="cards" fill="#a855f7" radius={[6, 6, 0, 0]} />
-                        </ReBarChart>
-                    </ResponsiveContainer>
+                    <SvgBarChart
+                        data={dailyReviewsData}
+                        xKey="name"
+                        series={[{ dataKey: 'cards', fill: '#a855f7' }]}
+                        height={240}
+                        unit="ta karta"
+                    />
                 </div>
                 <p className="text-xs text-center text-gray-400 mt-2">Oxirgi 7 kunda ko'rib chiqilgan kartalar</p>
             </div>
@@ -79,26 +77,12 @@ const FlashcardAnalytics: React.FC<FlashcardAnalyticsProps> = memo(({ flashcards
             {/* Status Distribution */}
             <div className="bg-white dark:bg-[#1f2937] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Fleshkartalar Holati</h3>
-                <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                        <PieChart>
-                            <Pie
-                                data={statusData}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={50}
-                                outerRadius={80}
-                                paddingAngle={8}
-                                dataKey="value"
-                            >
-                                {statusData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </ResponsiveContainer>
+                <div className="h-64 w-full flex items-center justify-center">
+                    <SvgPieChart
+                        data={statusData}
+                        height={220}
+                        innerRadius={0.55}
+                    />
                 </div>
                 <div className="grid grid-cols-3 gap-2 mt-4 text-xs text-center">
                     <div>
