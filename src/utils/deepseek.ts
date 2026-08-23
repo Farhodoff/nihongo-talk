@@ -81,6 +81,12 @@ export const callDeepSeek = async (
             purgeOversizedCookies();
             return "AI_UNAVAILABLE: Brauzer xotirasi sarlavhalari to'ldi (HTTP 494). Kesh avtomatik tozalandi, iltimos sahifani yangilab qayta urinib ko'ring.";
         }
+        if (lower.includes('balance') || lower.includes('insufficient')) {
+            return "AI_UNAVAILABLE: DeepSeek hisobingizda mablag' (balans) tugagan. Iltimos DeepSeek hisobini to'ldiring.";
+        }
+        if (lower.includes('invalid api key') || lower.includes('authentication') || lower.includes('unauthorized')) {
+            return "AI_UNAVAILABLE: DeepSeek API kaliti noto'g'ri sozlangan. Iltimos kalitni tekshiring.";
+        }
         if (rawMsg) {
             return `AI_ERROR (${status}): ${rawMsg}`;
         }
@@ -104,6 +110,10 @@ export const callDeepSeek = async (
         }
 
         if (!error && data) {
+            if (data.error) {
+                const status = (error as any)?.context?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
+                throw new Error(formatDeepSeekError(status, data));
+            }
             const text = data.choices?.[0]?.message?.content || '';
             if (text && text.trim().length > 0) return text;
             throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
