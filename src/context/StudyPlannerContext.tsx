@@ -357,59 +357,33 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
 
-            // Sync Google Calendar
+            // Non-blocking background syncs
             syncGoogleEvents();
+            MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
+            MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
+            DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
+            DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
+            LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
+            LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
+            ErrorVaultService.syncFromDB().catch(() => {});
 
-            // Sync Tasks
+            // Parallel fetch for ALL entities (Tasks, Flashcards, Subjects, Goals, Notes, etc.)
             try {
-                const fetchedTasks = await TaskService.fetchTasks(currentUser.id);
-                setTasks(fetchedTasks);
-            } catch (e: any) {
-                console.warn("Tasks sync warning:", e?.message || e);
-            }
-
-            // Sync Flashcards
-            try {
-                const fetchedCards = await FlashcardService.fetchFlashcards(currentUser.id);
-                setFlashcards(fetchedCards);
-            } catch (e: any) {
-                console.warn("Flashcards sync warning:", e?.message || e);
-            }
-
-            // Sync Mastery Evidence
-            try {
-                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').then(() => {});
-                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').then(() => {});
-            } catch (e: any) {
-                console.warn("Mastery sync warning:", e?.message || e);
-            }
-
-            // Sync Diagnostic Sessions & Results from DB
-            try {
-                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').then(() => {});
-                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').then(() => {});
-            } catch (e: any) {
-                console.warn("Diagnostic sync warning:", e?.message || e);
-            }
-
-            // Sync Lesson Progress from DB
-            try {
-                LessonService.syncLessonProgressFromDB(currentUser.id, 'en').then(() => {});
-                LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').then(() => {});
-            } catch (e: any) {
-                console.warn("Lesson progress sync warning:", e?.message || e);
-            }
-
-            // Sync Error Vault from DB
-            try {
-                ErrorVaultService.syncFromDB().then(() => {});
-            } catch (e: any) {
-                console.warn("Error Vault sync warning:", e?.message || e);
-            }
-
-            // Parallel fetch for remaining entities
-            try {
-                const [subjectsSettled, goalsSettled, notesSettled, sessionsSettled, studyNotesSettled, whiteboardsSettled, eventsSettled, profileSettled, coachSessionsSettled] = await Promise.allSettled([
+                const [
+                    tasksSettled,
+                    flashcardsSettled,
+                    subjectsSettled,
+                    goalsSettled,
+                    notesSettled,
+                    sessionsSettled,
+                    studyNotesSettled,
+                    whiteboardsSettled,
+                    eventsSettled,
+                    profileSettled,
+                    coachSessionsSettled
+                ] = await Promise.allSettled([
+                    TaskService.fetchTasks(currentUser.id),
+                    FlashcardService.fetchFlashcards(currentUser.id),
                     supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                     supabase.from('goals').select('*').eq('user_id', currentUser.id),
                     supabase.from('notes').select('*').eq('user_id', currentUser.id),
@@ -420,6 +394,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
                     supabase.from('speaking_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
+
+                if (tasksSettled.status === 'fulfilled' && tasksSettled.value) {
+                    setTasks(tasksSettled.value);
+                }
+                if (flashcardsSettled.status === 'fulfilled' && flashcardsSettled.value) {
+                    setFlashcards(flashcardsSettled.value);
+                }
 
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
                 const goalsRes = goalsSettled.status === 'fulfilled' ? goalsSettled.value : null;

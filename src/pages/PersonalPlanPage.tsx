@@ -43,40 +43,62 @@ export const PersonalPlanPage: React.FC = () => {
     const [generationStep, setGenerationStep] = useState<string | null>(null);
 
     // Active plan states
-    const [activeGoal, setActiveGoal] = useState<PersonalLearningGoal | null>(null);
-    const [currentPlan, setCurrentPlan] = useState<WeeklyLearningPlan | null>(null);
-    const [weeklyEvals, setWeeklyEvals] = useState<WeeklyEvaluation[]>([]);
+    const [activeGoal, setActiveGoal] = useState<PersonalLearningGoal | null>(() => {
+        const userId = user?.id || 'guest';
+        return PersonalLearningPlanService.getActiveGoal(userId);
+    });
+    const [currentPlan, setCurrentPlan] = useState<WeeklyLearningPlan | null>(() => {
+        const userId = user?.id || 'guest';
+        const goal = PersonalLearningPlanService.getActiveGoal(userId);
+        return goal ? PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id) : null;
+    });
+    const [weeklyEvals, setWeeklyEvals] = useState<WeeklyEvaluation[]>(() => {
+        const userId = user?.id || 'guest';
+        return PersonalLearningPlanService.getWeeklyEvaluations(userId);
+    });
     const [expandedDay, setExpandedDay] = useState<string>('monday');
     const [evaluating, setEvaluating] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    // Initial load
+    // Initial load & background sync with server
     useEffect(() => {
         let isMounted = true;
         const loadPlanData = async () => {
             const userId = user?.id || 'guest';
-            setLoading(true);
             try {
-                // Fetch active goal (with localStorage migration check)
-                const goal = await PersonalLearningPlanService.fetchActiveGoalFromServer(userId);
+                // Fetch active goal (with localStorage migration check and 3s timeout)
+                const goalPromise = PersonalLearningPlanService.fetchActiveGoalFromServer(userId);
+                const timeoutPromise = new Promise<null>((resolve) => setTimeout(() => resolve(null), 3000));
+                const goal = await Promise.race([goalPromise, timeoutPromise]) || PersonalLearningPlanService.getActiveGoal(userId);
+                
                 if (!isMounted) return;
 
                 if (goal) {
                     setActiveGoal(goal);
 
-                    // Fetch plans & evaluations
-                    await PersonalLearningPlanService.fetchWeeklyPlansFromServer(userId);
+                    // Fetch plans & evaluations in parallel
+                    await Promise.allSettled([
+                        PersonalLearningPlanService.fetchWeeklyPlansFromServer(userId),
+                        PersonalLearningPlanService.fetchWeeklyEvaluationsFromServer(userId)
+                    ]);
                     if (!isMounted) return;
+                    
                     const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id);
                     if (plan) setCurrentPlan(plan);
-
-                    await PersonalLearningPlanService.fetchWeeklyEvaluationsFromServer(userId);
-                    if (!isMounted) return;
                     setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
                 } else {
-                    setActiveGoal(null);
-                    setCurrentPlan(null);
-                    setWeeklyEvals([]);
+                    // Check local cache once more before resetting
+                    const localCached = PersonalLearningPlanService.getActiveGoal(userId);
+                    if (localCached) {
+                        setActiveGoal(localCached);
+                        const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, localCached.id);
+                        if (plan) setCurrentPlan(plan);
+                        setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
+                    } else {
+                        setActiveGoal(null);
+                        setCurrentPlan(null);
+                        setWeeklyEvals([]);
+                    }
                 }
             } catch (err) {
                 console.error('[PersonalPlanPage] Error loading plan data:', err);
