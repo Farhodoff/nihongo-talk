@@ -352,12 +352,24 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 ErrorVaultService.syncFromDB().catch(() => {});
             }, 300);
 
-            // Parallel fetch for ALL entities (Tasks, Flashcards, Subjects, Goals, Notes, etc.)
+            // Staggered fetch in 2 smooth batches to prevent HTTP/2 connection resets
             try {
+                // Batch 1: Core learning data
+                const [tasksSettled, flashcardsSettled, subjectsSettled] = await Promise.allSettled([
+                    TaskService.fetchTasks(currentUser.id),
+                    FlashcardService.fetchFlashcards(currentUser.id),
+                    supabase.from('subjects').select('*').eq('user_id', currentUser.id),
+                ]);
+
+                if (tasksSettled.status === 'fulfilled' && tasksSettled.value) {
+                    setTasks(tasksSettled.value);
+                }
+                if (flashcardsSettled.status === 'fulfilled' && flashcardsSettled.value) {
+                    setFlashcards(flashcardsSettled.value);
+                }
+
+                // Batch 2: Secondary workspace data
                 const [
-                    tasksSettled,
-                    flashcardsSettled,
-                    subjectsSettled,
                     goalsSettled,
                     notesSettled,
                     sessionsSettled,
@@ -367,9 +379,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     profileSettled,
                     coachSessionsSettled
                 ] = await Promise.allSettled([
-                    TaskService.fetchTasks(currentUser.id),
-                    FlashcardService.fetchFlashcards(currentUser.id),
-                    supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                     supabase.from('goals').select('*').eq('user_id', currentUser.id),
                     supabase.from('notes').select('*').eq('user_id', currentUser.id),
                     supabase.from('study_sessions').select('*').eq('user_id', currentUser.id),
@@ -379,13 +388,6 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
                     supabase.from('speaking_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
-
-                if (tasksSettled.status === 'fulfilled' && tasksSettled.value) {
-                    setTasks(tasksSettled.value);
-                }
-                if (flashcardsSettled.status === 'fulfilled' && flashcardsSettled.value) {
-                    setFlashcards(flashcardsSettled.value);
-                }
 
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
                 const goalsRes = goalsSettled.status === 'fulfilled' ? goalsSettled.value : null;

@@ -4,10 +4,15 @@ import { supabase } from '../lib/supabase';
 
 const CUSTOM_SCENARIOS_KEY = 'kaizen_custom_scenarios';
 const SCENARIO_HISTORY_KEY = 'kaizen_scenario_history';
+let _cachedScenarios: ConversationScenario[] | null = null;
 
 export class ScenarioService {
     // 1. Get all scenarios (Default + Custom Admin Scenarios)
     static async getScenarios(): Promise<ConversationScenario[]> {
+        if (_cachedScenarios && _cachedScenarios.length > 0) {
+            return _cachedScenarios;
+        }
+
         let customScenarios: ConversationScenario[] = [];
         try {
             const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
@@ -53,11 +58,13 @@ export class ScenarioService {
             // Table might not exist yet; gracefully fallback
         }
 
-        return [...DEFAULT_SCENARIOS, ...customScenarios];
+        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios];
+        return _cachedScenarios;
     }
 
     // 2. Add or Update Custom Scenario (Admin)
     static async saveScenario(scenario: ConversationScenario): Promise<void> {
+        _cachedScenarios = null;
         let customScenarios: ConversationScenario[] = [];
         try {
             const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
@@ -102,6 +109,7 @@ export class ScenarioService {
 
     // 3. Delete Custom Scenario (Admin)
     static async deleteScenario(id: string): Promise<void> {
+        _cachedScenarios = null;
         let customScenarios: ConversationScenario[] = [];
         try {
             const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
