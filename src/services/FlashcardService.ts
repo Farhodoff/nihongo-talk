@@ -224,23 +224,21 @@ export const FlashcardService = {
 
 
         try {
-            let { data, error } = await supabase
-                .from('flashcards')
-                .upsert(dbCard)
-                .select()
-                .single();
+            const upsertOp = supabase.from('flashcards').upsert(dbCard);
+            let { data, error } = typeof (upsertOp as any)?.select === 'function'
+                ? await (upsertOp as any).select().single()
+                : await upsertOp;
 
             if (error) {
                 // If foreign key error or UUID syntax error on subject_id, retry with subject_id = null
                 if (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id')) {
-                    const { data: retryData, error: retryError } = await supabase
-                        .from('flashcards')
-                        .upsert({ ...dbCard, subject_id: null })
-                        .select()
-                        .single();
+                    const retryOp = supabase.from('flashcards').upsert({ ...dbCard, subject_id: null });
+                    const retry = typeof (retryOp as any)?.select === 'function'
+                        ? await (retryOp as any).select().single()
+                        : await retryOp;
                     
-                    if (!retryError && retryData) {
-                        data = retryData;
+                    if (!retry.error && retry.data) {
+                        data = retry.data;
                         error = null;
                     }
                 }
@@ -306,15 +304,18 @@ export const FlashcardService = {
 
             for (let i = 0; i < tempCards.length; i += chunkSize) {
                 let chunk = tempCards.slice(i, i + chunkSize);
-                let { data, error } = await supabase
-                    .from('flashcards')
-                    .upsert(chunk, { ignoreDuplicates: true })
-                    .select();
+                const upsertOp = supabase.from('flashcards').upsert(chunk, { ignoreDuplicates: true });
+                let { data, error } = typeof (upsertOp as any)?.select === 'function'
+                    ? await (upsertOp as any).select()
+                    : await upsertOp;
 
                 // If error due to subject_id foreign key constraint (23503) or invalid UUID (22P02), retry with subject_id = null
                 if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
                     const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
-                    const retry = await supabase.from('flashcards').upsert(sanitizedChunk, { ignoreDuplicates: true }).select();
+                    const retryOp = supabase.from('flashcards').upsert(sanitizedChunk, { ignoreDuplicates: true });
+                    const retry = typeof (retryOp as any)?.select === 'function'
+                        ? await (retryOp as any).select()
+                        : await retryOp;
                     data = retry.data;
                     error = retry.error;
                 }

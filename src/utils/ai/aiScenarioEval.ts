@@ -68,7 +68,7 @@ export const evaluateScenarioSession = async ({
         return {
             id: `sec-${Date.now()}`,
             scenario_id: scenario.id,
-            scenario_title: scenario.title_ja,
+            scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
             pronunciation_score,
             fluency_score,
             grammar_score,
@@ -93,7 +93,7 @@ export const evaluateScenarioSession = async ({
         return {
             id: `sec-${Date.now()}`,
             scenario_id: scenario.id,
-            scenario_title: scenario.title_ja,
+            scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
             pronunciation_score: 80,
             fluency_score: 75,
             grammar_score: 82,

@@ -52,9 +52,10 @@ describe('REAL PRODUCT UX & JAPANESE LEARNING QUALITY SUITE', () => {
             expect(levels.has('N2')).toBe(true);
             expect(levels.has('N1')).toBe(true);
 
-            DEFAULT_SCENARIOS.forEach(s => {
+            const jaScenarios = DEFAULT_SCENARIOS.filter(s => (s.language || (s.title_en ? 'en' : 'ja')) === 'ja');
+            jaScenarios.forEach(s => {
                 expect(s.title_ja).toBeDefined();
-                expect(s.opening_line_ja.length).toBeGreaterThan(5);
+                expect((s.opening_line_ja || '').length).toBeGreaterThan(5);
                 expect(s.key_phrases.length).toBeGreaterThan(0);
                 expect(s.context_prompt.length).toBeGreaterThan(20);
             });

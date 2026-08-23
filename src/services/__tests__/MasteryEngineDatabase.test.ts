@@ -114,7 +114,7 @@ describe('MasteryEngine Database Persistence', () => {
             }
             return chainableMock;
         });
-        mockInsert.mockResolvedValue({ error: null });
+        mockUpsert.mockResolvedValue({ error: null });
 
         // Add legacy data in localStorage
         const cacheKey = `study_planner_mastery_evidence_${testUserId}_en`;
@@ -131,8 +131,8 @@ describe('MasteryEngine Database Persistence', () => {
 
         await MasteryEngine.syncEvidenceFromDB(testUserId, 'en');
 
-        // Verify it selected and then inserted
+        // Verify it selected and then upserted
         expect(supabase.from).toHaveBeenCalledWith('mastery_evidence');
-        expect(mockInsert).toHaveBeenCalled();
+        expect(mockUpsert).toHaveBeenCalled();
     });
 });

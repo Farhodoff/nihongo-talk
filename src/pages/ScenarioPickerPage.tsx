@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ConversationScenario, ScenarioSessionResult } from '../components/speaking/scenarioTypes';
 import { ScenarioService } from '../services/ScenarioService';
-import { Sparkles, Play, Award, History, ArrowLeft, Plus } from 'lucide-react';
+import { Sparkles, Play, Award, History, ArrowLeft, Plus, Globe } from 'lucide-react';
 import { isAdminEmail } from '../utils/admin';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 export const ScenarioPickerPage: React.FC = () => {
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { user } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
 
+    const initialLang = (searchParams.get('lang') === 'en' ? 'en' : 'ja') as 'en' | 'ja';
+    const [activeLang, setActiveLang] = useState<'en' | 'ja'>(initialLang);
     const [scenarios, setScenarios] = useState<ConversationScenario[]>([]);
     const [history, setHistory] = useState<ScenarioSessionResult[]>([]);
-    const [selectedLevel, setSelectedLevel] = useState<'all' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('all');
+    const [selectedLevel, setSelectedLevel] = useState<string>('all');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -32,13 +35,28 @@ export const ScenarioPickerPage: React.FC = () => {
         loadData();
     }, []);
 
+    const handleLangChange = (lang: 'en' | 'ja') => {
+        setActiveLang(lang);
+        setSelectedLevel('all');
+        setSearchParams({ lang });
+    };
+
+    const langScenarios = scenarios.filter(s => {
+        const sLang = s.language || (s.title_en ? 'en' : 'ja');
+        return sLang === activeLang;
+    });
+
     const filteredScenarios = selectedLevel === 'all'
-        ? scenarios
-        : scenarios.filter(s => s.difficulty === selectedLevel);
+        ? langScenarios
+        : langScenarios.filter(s => s.difficulty === selectedLevel);
 
     const handleSelectScenario = (scenario: ConversationScenario) => {
-        navigate(`/speaking-coach?lang=ja&scenario=${scenario.id}`);
+        const lang = scenario.language || (scenario.title_en ? 'en' : 'ja');
+        navigate(`/speaking-coach?lang=${lang}&scenario=${scenario.id}`);
     };
+
+    const jaLevels = ['all', 'N5', 'N4', 'N3', 'N2', 'N1'] as const;
+    const enLevels = ['all', 'A2', 'B1', 'B2', 'C1', 'IELTS'] as const;
 
     return (
         <div className="max-w-6xl mx-auto p-4 md:p-6 space-y-8 animate-in fade-in">
@@ -50,40 +68,68 @@ export const ScenarioPickerPage: React.FC = () => {
                     <div className="space-y-3">
                         <div className="flex items-center gap-2">
                             <button
-                                onClick={() => navigate('/jlpt')}
+                                onClick={() => navigate(activeLang === 'ja' ? '/jlpt' : '/dashboard')}
                                 className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white backdrop-blur-md transition-all"
                             >
                                 <ArrowLeft size={16} />
                             </button>
-                            <span className="text-xs font-bold px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30">
-                                🎌 Japanese Conversation Scenarios
+                            <span className="text-xs font-bold px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30 flex items-center gap-1.5">
+                                <Globe size={12} />
+                                {activeLang === 'ja' ? '🎌 Japanese Conversation Scenarios' : '🇬🇧 English Conversation Scenarios'}
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                            Yaponcha Dialog va Rolli Muloqot Hubi
+                            {activeLang === 'ja' ? 'Yaponcha Dialog va Rolli Muloqot Hubi' : 'Inglizcha Real Hayotiy Rolli Muloqot Hubi'}
                         </h1>
                         <p className="text-xs md:text-sm text-gray-300 max-w-xl leading-relaxed">
-                            Restoran, xarid qilish, o'zini tanishtirish kabi real yapon hayoti ssenariylarini tanlang.
-                            AI Coach bilan gaplashib, talaffuzingiz va grammatikangizni baholang!
+                            {activeLang === 'ja'
+                                ? "Restoran, xarid qilish, o'zini tanishtirish va biznes intervyu kabi real yapon hayoti ssenariylarini tanlang. AI Coach bilan gaplashib, talaffuz va grammatikani baholang!"
+                                : "AQSH/Buyuk Britaniya vizasi, IT ish intervyusi, aeroport va IELTS Speaking kabi real hayotiy vaziyatlar. AI murabbiy bilan jonli muloqot qiling!"}
                         </p>
                     </div>
 
-                    {isAdmin && (
-                        <button
-                            onClick={() => navigate('/admin')}
-                            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-bold flex items-center gap-2 shadow-lg transition-all self-start md:self-auto"
-                        >
-                            <Plus size={16} />
-                            <span>Scenario Qo'shish (Admin)</span>
-                        </button>
-                    )}
+                    <div className="flex items-center gap-3">
+                        {/* Language Selector in Header */}
+                        <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10 backdrop-blur-md">
+                            <button
+                                onClick={() => handleLangChange('en')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                    activeLang === 'en'
+                                        ? 'bg-indigo-600 text-white shadow'
+                                        : 'text-gray-300 hover:text-white'
+                                }`}
+                            >
+                                🇬🇧 English
+                            </button>
+                            <button
+                                onClick={() => handleLangChange('ja')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                    activeLang === 'ja'
+                                        ? 'bg-indigo-600 text-white shadow'
+                                        : 'text-gray-300 hover:text-white'
+                                }`}
+                            >
+                                🎌 日本語
+                            </button>
+                        </div>
+
+                        {isAdmin && (
+                            <button
+                                onClick={() => navigate('/admin')}
+                                className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-bold flex items-center gap-2 shadow-lg transition-all self-start md:self-auto"
+                            >
+                                <Plus size={16} />
+                                <span>Scenario Qo'shish</span>
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* Level Filter Tabs */}
             <div className="flex items-center justify-between gap-4 overflow-x-auto pb-2 border-b border-border">
                 <div className="flex items-center gap-2">
-                    {(['all', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map(lvl => (
+                    {(activeLang === 'ja' ? jaLevels : enLevels).map(lvl => (
                         <button
                             key={lvl}
                             onClick={() => setSelectedLevel(lvl)}
@@ -93,14 +139,14 @@ export const ScenarioPickerPage: React.FC = () => {
                                     : 'bg-card text-muted-foreground border-border hover:bg-muted'
                             }`}
                         >
-                            {lvl === 'all' ? 'Barchasi' : `JLPT ${lvl}`}
+                            {lvl === 'all' ? 'Barchasi' : activeLang === 'ja' ? `JLPT ${lvl}` : `CEFR / ${lvl}`}
                         </button>
                     ))}
                 </div>
 
-                <div className="text-xs text-muted-foreground font-medium flex items-center gap-1">
+                <div className="text-xs text-muted-foreground font-medium flex items-center gap-1 shrink-0">
                     <Sparkles size={14} className="text-amber-500" />
-                    <span>{filteredScenarios.length} ta ssenariy mavjud</span>
+                    <span>{filteredScenarios.length} ta ssenariy</span>
                 </div>
             </div>
 
@@ -114,6 +160,9 @@ export const ScenarioPickerPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {filteredScenarios.map(scenario => {
                         const lastSession = history.find(h => h.scenario_id === scenario.id);
+                        const title = activeLang === 'en'
+                            ? (scenario.title_en || scenario.title_uz)
+                            : (scenario.title_ja || scenario.title_uz);
 
                         return (
                             <div
@@ -126,16 +175,16 @@ export const ScenarioPickerPage: React.FC = () => {
                                             {scenario.emoji}
                                         </div>
                                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold border ${
-                                            scenario.difficulty === 'N5' || scenario.difficulty === 'N4'
+                                            scenario.difficulty === 'N5' || scenario.difficulty === 'N4' || scenario.difficulty === 'A1' || scenario.difficulty === 'A2'
                                                 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                                                 : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'
                                         }`}>
-                                            JLPT {scenario.difficulty}
+                                            {activeLang === 'ja' ? 'JLPT ' : ''}{scenario.difficulty}
                                         </span>
                                     </div>
 
                                     <h3 className="text-base font-black text-foreground group-hover:text-indigo-500 transition-colors">
-                                        {scenario.title_ja}
+                                        {title}
                                     </h3>
                                     <p className="text-xs font-semibold text-muted-foreground mt-0.5">
                                         {scenario.title_uz}
@@ -162,57 +211,33 @@ export const ScenarioPickerPage: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="mt-5 pt-3 border-t border-border/40 flex items-center justify-between">
+                                <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between gap-3">
                                     {lastSession ? (
-                                        <div className="flex items-center gap-1.5 text-xs text-emerald-500 font-bold">
-                                            <Award size={14} />
-                                            <span>O'rtacha: {lastSession.overall_score}/100</span>
+                                        <div className="flex items-center gap-2 text-xs">
+                                            <Award size={16} className="text-amber-500" />
+                                            <div>
+                                                <span className="font-bold text-foreground">{lastSession.overall_score}%</span>
+                                                <span className="text-muted-foreground text-[10px] ml-1">oxirgi natija</span>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <span className="text-[11px] text-muted-foreground">Boshlanmagan</span>
+                                        <div className="text-[11px] text-muted-foreground flex items-center gap-1">
+                                            <History size={12} />
+                                            <span>Boshlanmagan</span>
+                                        </div>
                                     )}
 
                                     <button
                                         onClick={() => handleSelectScenario(scenario)}
-                                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-500/20 group-hover:px-5 transition-all"
+                                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:shadow-indigo-500/25 transition-all group-hover:scale-105"
                                     >
-                                        <Play size={13} fill="currentColor" />
+                                        <Play size={14} className="fill-white" />
                                         <span>Boshlash</span>
                                     </button>
                                 </div>
                             </div>
                         );
                     })}
-                </div>
-            )}
-
-            {/* History Section */}
-            {history.length > 0 && (
-                <div className="bg-card border border-border/80 rounded-3xl p-6 shadow-sm space-y-4">
-                    <div className="flex items-center gap-2 border-b border-border pb-3">
-                        <History size={18} className="text-indigo-500" />
-                        <h3 className="text-sm font-extrabold text-foreground">Scenario O'rganish Tarixi</h3>
-                    </div>
-
-                    <div className="divide-y divide-border/40">
-                        {history.slice(0, 5).map(item => (
-                            <div key={item.id} className="py-3 flex items-center justify-between text-xs">
-                                <div>
-                                    <h4 className="font-extrabold text-foreground">{item.scenario_title}</h4>
-                                    <span className="text-[10px] text-muted-foreground">
-                                        {new Date(item.created_at).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center gap-4">
-                                    <div className="text-right">
-                                        <span className="font-mono text-indigo-500 font-bold">{item.overall_score}/100</span>
-                                        <p className="text-[10px] text-muted-foreground">Pronunciation: {item.pronunciation_score}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             )}
         </div>

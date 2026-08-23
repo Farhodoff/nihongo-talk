@@ -24,13 +24,16 @@ export class ScenarioService {
             if (!error && data && data.length > 0) {
                 const dbScenarios: ConversationScenario[] = data.map(item => ({
                     id: item.id,
+                    language: item.language || (item.title_en ? 'en' : 'ja'),
                     title_ja: item.title_ja,
+                    title_en: item.title_en,
                     title_uz: item.title_uz,
                     emoji: item.emoji || '🗣️',
-                    difficulty: item.difficulty || 'N4',
+                    difficulty: item.difficulty || 'B1',
                     category: item.category || 'daily',
                     description_uz: item.description_uz || '',
                     opening_line_ja: item.opening_line_ja,
+                    opening_line_en: item.opening_line_en,
                     context_prompt: item.context_prompt,
                     key_phrases: Array.isArray(item.key_phrases) ? item.key_phrases : [],
                     is_custom: true,
@@ -78,13 +81,16 @@ export class ScenarioService {
         try {
             await supabase.from('scenarios').upsert({
                 id: scenario.id,
-                title_ja: scenario.title_ja,
+                language: scenario.language || 'en',
+                title_ja: scenario.title_ja || null,
+                title_en: scenario.title_en || null,
                 title_uz: scenario.title_uz,
                 emoji: scenario.emoji,
                 difficulty: scenario.difficulty,
                 category: scenario.category,
                 description_uz: scenario.description_uz,
-                opening_line_ja: scenario.opening_line_ja,
+                opening_line_ja: scenario.opening_line_ja || null,
+                opening_line_en: scenario.opening_line_en || null,
                 context_prompt: scenario.context_prompt,
                 key_phrases: scenario.key_phrases,
                 updated_at: new Date().toISOString()

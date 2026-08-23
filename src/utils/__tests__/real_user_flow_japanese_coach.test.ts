@@ -91,7 +91,7 @@ describe('REAL USER JOURNEY AUDIT: JAPANESE AI COACH (18-STEP E2E TRACE)', () =>
 
         const result = await converseWithCoachStructured(
             '醤油ラーメンを一つお願いします',
-            [{ role: 'assistant', content: restaurantScenario.opening_line_ja }],
+            [{ role: 'assistant', content: restaurantScenario.opening_line_ja || '' }],
             'ja',
             'roast',
             undefined,

@@ -1,12 +1,15 @@
 export interface ConversationScenario {
     id: string;
-    title_ja: string;        // e.g. "レストラン"
-    title_uz: string;        // e.g. "Restoran"
-    emoji: string;           // e.g. "🍣"
-    difficulty: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
-    category: 'daily' | 'business' | 'travel' | 'social';
+    language?: 'en' | 'ja';
+    title_ja?: string;        // e.g. "レストラン"
+    title_en?: string;        // e.g. "US Embassy Visa Interview"
+    title_uz: string;        // e.g. "Restoran" / "AQSH elchixonasi viza suhbati"
+    emoji: string;           // e.g. "🍣" / "🇺🇸"
+    difficulty: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | 'IELTS';
+    category: 'daily' | 'business' | 'travel' | 'social' | 'academic';
     description_uz: string;  // e.g. "Restoranda ovqat buyurtma qilish va to'lov qilish suhbati"
-    opening_line_ja: string; // Coach initial message
+    opening_line_ja?: string; // Coach initial message in Japanese
+    opening_line_en?: string; // Coach initial message in English
     context_prompt: string;  // Prompt for AI system instruction
     key_phrases: string[];   // Expected key vocabulary/phrases
     is_custom?: boolean;     // Created by admin

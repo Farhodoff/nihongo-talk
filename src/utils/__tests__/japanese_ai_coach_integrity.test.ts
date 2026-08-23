@@ -199,7 +199,7 @@ describe('JAPANESE AI COACH & SYSTEM INTEGRITY SUITE', () => {
         expect(result.language).toBe('ja');
         expect(result.reply).toContain('いらっしゃいませ');
         expect(callSelectedAIProvider).toHaveBeenCalledWith(
-            expect.stringContaining(ramenScenario.title_ja),
+            expect.stringContaining(ramenScenario.title_ja || ramenScenario.title_uz),
             undefined,
             true
         );

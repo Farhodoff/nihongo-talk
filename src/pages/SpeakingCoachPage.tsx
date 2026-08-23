@@ -434,7 +434,10 @@ const SpeakingCoachPage: React.FC = () => {
 
         let greeting = getInitialGreeting(language, persona);
         if (activeScenario) {
-            greeting = activeScenario.opening_line_ja;
+            greeting = (language === 'en' ? activeScenario.opening_line_en : activeScenario.opening_line_ja)
+                || activeScenario.opening_line_en
+                || activeScenario.opening_line_ja
+                || "Hello! Let's start our conversation practice.";
         } else if (cleanTopic) {
             if (language === 'ja') {
                 greeting = `こんにちは！「${cleanTopic}」ですね。準備ができたら話しかけてください！`;
@@ -669,7 +672,7 @@ const SpeakingCoachPage: React.FC = () => {
                 activeScenario={activeScenario}
             />
 
-            {/* Active Japanese Scenario Banner */}
+            {/* Active Conversation Scenario Banner */}
             {activeScenario && (
                 <div className="mx-3 md:mx-5 mt-1.5 p-3 bg-gradient-to-r from-indigo-950/90 via-purple-950/90 to-slate-900/90 border border-indigo-500/30 rounded-2xl text-white shadow-lg backdrop-blur-md flex items-center justify-between gap-4 z-10 animate-in fade-in shrink-0">
                     <div className="flex items-center gap-3 min-w-0">
@@ -679,10 +682,10 @@ const SpeakingCoachPage: React.FC = () => {
                         <div className="min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-xs font-black text-white tracking-tight truncate">
-                                    {activeScenario.title_ja} ({activeScenario.title_uz})
+                                    {(activeScenario.language === 'en' ? activeScenario.title_en : activeScenario.title_ja) || activeScenario.title_en || activeScenario.title_ja} ({activeScenario.title_uz})
                                 </span>
                                 <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-500/30 text-indigo-200 border border-indigo-500/40">
-                                    JLPT {activeScenario.difficulty}
+                                    {activeScenario.language === 'en' ? 'CEFR / ' : 'JLPT '}{activeScenario.difficulty}
                                 </span>
                             </div>
                             <p className="text-[11px] text-gray-300 truncate mt-0.5">
@@ -693,7 +696,7 @@ const SpeakingCoachPage: React.FC = () => {
 
                     <button
                         onClick={() => {
-                            setSearchParams({ lang: 'ja' });
+                            setSearchParams({ lang: language });
                         }}
                         className="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-gray-200 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1 shrink-0"
                         title="Ssenariydan chiqish"
