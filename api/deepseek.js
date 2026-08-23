@@ -2,20 +2,13 @@ import { verifyAuth, getBearerToken } from './_auth.js';
 import { checkRateLimit } from './_rateLimit.js';
 import { checkDailyQuota } from './_quota.js';
 
-export const config = {
-  runtime: 'edge',
-};
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Custom-Key');
 
-export default async function handler(req) {
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Custom-Key',
-      },
-    });
+    return res.status(204).end();
   }
 
   // Diagnostic GET route: allows verifying if Vercel has loaded the DEEPSEEK_API_KEY
@@ -27,38 +20,32 @@ export default async function handler(req) {
       process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY ||
       process.env.DEEP_SEEK_API_KEY;
     const isConfigured = Boolean(rawServerKey && rawServerKey.trim().length > 10);
-    return new Response(JSON.stringify({
+    return res.status(200).json({
       status: 'active',
-      service: 'DeepSeek Proxy',
+      service: 'DeepSeek Proxy (Node.js Serverless)',
       serverKeyConfigured: isConfigured,
       keyPrefix: isConfigured ? rawServerKey.trim().substring(0, 6) + '...' : 'NONE',
       hint: isConfigured ? 'Server key is ready and loaded.' : 'DEEPSEEK_API_KEY is missing in Vercel Environment Variables.'
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const rawBody = await req.text().catch(() => '');
-  let payload;
-  try {
-    payload = JSON.parse(rawBody || '{}');
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON payload' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+  let payload = req.body || {};
+  if (typeof payload === 'string') {
+    try {
+      payload = JSON.parse(payload);
+    } catch {
+      return res.status(400).json({ error: 'Invalid JSON payload' });
+    }
   }
 
+  const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
   const token = getBearerToken(req);
-  const customKey = req.headers.get('X-Custom-Key');
+  const customKey = req.headers ? (req.headers['x-custom-key'] || req.headers['X-Custom-Key']) : null;
+
   // Support standard and common variant names for DeepSeek API Key
   const rawServerKey =
     process.env.DEEPSEEK_API_KEY ||
@@ -72,7 +59,7 @@ export default async function handler(req) {
   let authenticatedUserId = null;
 
   // 1. If user provided a direct DeepSeek key (BYOK: sk-...)
-  if (customKey && customKey.startsWith('sk-')) {
+  if (customKey && typeof customKey === 'string' && customKey.startsWith('sk-')) {
     effectiveApiKey = customKey;
   } else if (token && token.startsWith('sk-')) {
     effectiveApiKey = token;
@@ -85,44 +72,29 @@ export default async function handler(req) {
       // Rate limit check for shared server key
       const rateCheck = await checkRateLimit(req, authenticatedUserId);
       if (!rateCheck.allowed) {
-        return new Response(JSON.stringify({
+        res.setHeader('Retry-After', String(rateCheck.retryAfter));
+        return res.status(429).json({
           error: 'Too Many Requests',
           message: `AI so'rovlar tezligi oshdi. Iltimos ${rateCheck.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
           retryAfter: rateCheck.retryAfter,
-        }), {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Retry-After': String(rateCheck.retryAfter),
-          },
         });
       }
 
       // Daily quota check
       const quotaCheck = await checkDailyQuota(authenticatedUserId, user.role, rawBody);
       if (!quotaCheck.allowed) {
-        return new Response(JSON.stringify({
+        return res.status(403).json({
           error: 'Quota Exceeded',
           message: quotaCheck.reason,
-        }), {
-          status: 403,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
         });
       }
     }
 
     // 3. Check server-side configured API key
     if (!serverKey) {
-      return new Response(JSON.stringify({
+      return res.status(503).json({
         error: 'Service Unavailable',
         message: 'Serverda DeepSeek API kaliti (DEEPSEEK_API_KEY) sozlanmagan. Iltimos Vercel Environment Variables bo\'limida DEEPSEEK_API_KEY ni kiriting yoki Sozlamalar bo\'limida shaxsiy kalitingizni kiriting.',
-      }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });
     }
     effectiveApiKey = serverKey;
@@ -134,17 +106,11 @@ export default async function handler(req) {
     if (!authenticatedUserId) {
       const byokRate = await checkRateLimit(req, null);
       if (!byokRate.allowed) {
-        return new Response(JSON.stringify({
+        res.setHeader('Retry-After', String(byokRate.retryAfter));
+        return res.status(429).json({
           error: 'Too Many Requests',
           message: `So'rovlar tezligi oshdi. Iltimos ${byokRate.retryAfter} soniyadan so'ng qayta urinib ko'ring.`,
           retryAfter: byokRate.retryAfter,
-        }), {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Retry-After': String(byokRate.retryAfter),
-          },
         });
       }
     }
@@ -176,21 +142,17 @@ export default async function handler(req) {
       body: JSON.stringify(payload),
     });
 
-    const contentType = response.headers.get('content-type') || 'application/json';
     const resText = await response.text();
+    let resJson;
+    try {
+      resJson = JSON.parse(resText);
+    } catch {
+      resJson = { raw: resText };
+    }
 
-    return new Response(resText, {
-      status: response.status,
-      headers: {
-        'Content-Type': contentType,
-        'Access-Control-Allow-Origin': '*',
-      },
-    });
+    return res.status(response.status).json(resJson);
   } catch (error) {
     console.error('DeepSeek API proxy error:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error', message: error?.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+    return res.status(500).json({ error: 'Internal Server Error', message: error?.message });
   }
 }
