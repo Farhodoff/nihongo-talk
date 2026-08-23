@@ -179,7 +179,13 @@ const App: React.FC = () => {
                                         <Route path="admin/exams" element={<ExamsManager />} />
                                         <Route path="admin/exams/:id" element={<QuestionEditor />} />
                                         <Route path="exams/:id" element={<ExamTake />} />
+                                        <Route path="auth" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="login" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="*" element={<Navigate to="/dashboard" replace />} />
                                     </Route>
+                                    <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
+                                    <Route path="/login" element={<Navigate to="/dashboard" replace />} />
+                                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
                                 </Routes>
                             </Suspense>
                             <GlobalAudioPlayer />
