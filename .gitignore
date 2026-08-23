@@ -81,4 +81,4 @@ books/*.zip
 books/**/*.pdf
 books/**/*.rar
 books/**/*.zip
-
+supabase/.temp/
