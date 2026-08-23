@@ -92,6 +92,7 @@ export const callDeepSeek = async (
                     'Authorization': `Bearer ${validApiKey}`,
                 },
                 body: JSON.stringify(payload),
+                signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
             });
 
             if (directResponse.ok) {
@@ -138,6 +139,7 @@ export const callDeepSeek = async (
             headers,
             credentials: 'omit', // Avoid HTTP 494 Request Header Too Large from cookies
             body: JSON.stringify(payload),
+            signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
         });
 
         if (response.ok) {

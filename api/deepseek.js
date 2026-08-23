@@ -2,6 +2,10 @@ import { verifyAuth, getBearerToken } from './_auth.js';
 import { checkRateLimit } from './_rateLimit.js';
 import { checkDailyQuota } from './_quota.js';
 
+export const config = {
+  maxDuration: 60,
+};
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
