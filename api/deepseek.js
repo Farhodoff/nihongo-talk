@@ -12,9 +12,30 @@ export default async function handler(req) {
       status: 204,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Custom-Key',
       },
+    });
+  }
+
+  // Diagnostic GET route: allows verifying if Vercel has loaded the DEEPSEEK_API_KEY
+  if (req.method === 'GET') {
+    const rawServerKey =
+      process.env.DEEPSEEK_API_KEY ||
+      process.env.VITE_DEEPSEEK_API_KEY ||
+      process.env.DEEPSEEK_KEY ||
+      process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY ||
+      process.env.DEEP_SEEK_API_KEY;
+    const isConfigured = Boolean(rawServerKey && rawServerKey.trim().length > 10);
+    return new Response(JSON.stringify({
+      status: 'active',
+      service: 'DeepSeek Proxy',
+      serverKeyConfigured: isConfigured,
+      keyPrefix: isConfigured ? rawServerKey.trim().substring(0, 6) + '...' : 'NONE',
+      hint: isConfigured ? 'Server key is ready and loaded.' : 'DEEPSEEK_API_KEY is missing in Vercel Environment Variables.'
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
@@ -38,9 +59,14 @@ export default async function handler(req) {
 
   const token = getBearerToken(req);
   const customKey = req.headers.get('X-Custom-Key');
-  // Keep the shared provider credential server-only. VITE_/NEXT_PUBLIC_ values
-  // are client-visible build-time variables and must never be accepted here.
-  const serverKey = process.env.DEEPSEEK_API_KEY;
+  // Support standard and common variant names for DeepSeek API Key
+  const rawServerKey =
+    process.env.DEEPSEEK_API_KEY ||
+    process.env.VITE_DEEPSEEK_API_KEY ||
+    process.env.DEEPSEEK_KEY ||
+    process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY ||
+    process.env.DEEP_SEEK_API_KEY;
+  const serverKey = rawServerKey ? rawServerKey.trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '') : null;
 
   let effectiveApiKey = null;
   let authenticatedUserId = null;
@@ -125,21 +151,35 @@ export default async function handler(req) {
 
     // SECURITY: clamp cost-relevant params regardless of auth path — the
     // payload is client-controlled and may be billed to the server key.
-    if (payload && typeof payload === 'object' && typeof payload.max_tokens === 'number') {
-      payload.max_tokens = Math.min(Math.max(Math.floor(payload.max_tokens), 1), 4096);
+    if (payload && typeof payload === 'object') {
+      if (typeof payload.max_tokens === 'number') {
+        payload.max_tokens = Math.min(Math.max(Math.floor(payload.max_tokens), 1), 4096);
+      }
+      // JSON Mode compatibility: DeepSeek-R1 (deepseek-reasoner) does not support response_format.
+      // Automatically fall back model to deepseek-chat when response_format is json_object.
+      if (payload.response_format && payload.response_format.type === 'json_object') {
+        payload.model = 'deepseek-chat';
+      }
+      if (!payload.model || !['deepseek-chat', 'deepseek-reasoner'].includes(payload.model)) {
+        payload.model = 'deepseek-chat';
+      }
     }
+
+    const cleanAuthKey = (effectiveApiKey || '').trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '');
 
     const response = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${effectiveApiKey}`,
+        'Authorization': `Bearer ${cleanAuthKey}`,
       },
       body: JSON.stringify(payload),
     });
 
     const contentType = response.headers.get('content-type') || 'application/json';
-    return new Response(response.body, {
+    const resText = await response.text();
+
+    return new Response(resText, {
       status: response.status,
       headers: {
         'Content-Type': contentType,

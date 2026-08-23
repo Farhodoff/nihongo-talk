@@ -10,7 +10,7 @@ export const callDeepSeek = async (
     thinkingEnabled: boolean = false
 ): Promise<string> => {
     let actualModel = 'deepseek-chat';
-    if (modelName === 'deepseek-reasoner' || modelName === 'deepseek-v4-pro' || modelName.includes('pro') || modelName.includes('reasoner') || thinkingEnabled) {
+    if (!isJson && (modelName === 'deepseek-reasoner' || modelName === 'deepseek-v4-pro' || modelName.includes('pro') || modelName.includes('reasoner') || thinkingEnabled)) {
         actualModel = 'deepseek-reasoner';
     }
 
@@ -26,6 +26,7 @@ export const callDeepSeek = async (
     };
 
     if (isJson) {
+        payload.model = 'deepseek-chat';
         payload.response_format = { type: "json_object" };
     }
 
