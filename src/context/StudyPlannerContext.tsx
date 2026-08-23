@@ -340,15 +340,17 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
 
-            // Non-blocking background syncs
-            syncGoogleEvents();
-            MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
-            MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
-            DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
-            DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
-            LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
-            LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
-            ErrorVaultService.syncFromDB().catch(() => {});
+            // Non-blocking background syncs (staggered to prevent HTTP/2 connection congestion)
+            setTimeout(() => {
+                syncGoogleEvents();
+                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
+                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
+                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
+                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
+                LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
+                LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
+                ErrorVaultService.syncFromDB().catch(() => {});
+            }, 300);
 
             // Parallel fetch for ALL entities (Tasks, Flashcards, Subjects, Goals, Notes, etc.)
             try {
