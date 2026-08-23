@@ -43,17 +43,15 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
                     />
                 ) : (
                     <>
-                        {/* Outer glow rings */}
-                        <div className={`absolute inset-0 rounded-full bg-gradient-to-tr ${currentPersona.color} opacity-20 blur-2xl scale-150 animate-pulse`} />
-                        <div className={`absolute inset-0 rounded-full border-2 border-indigo-400/20 scale-[1.4] animate-ping`} style={{ animationDuration: '3s' }} />
-                        <div className={`absolute inset-0 rounded-full border border-purple-400/15 scale-[1.7] animate-ping`} style={{ animationDuration: '4s' }} />
+                        {/* Outer glow rings (fixed bounds, zero overflow jitter) */}
+                        <div className={`absolute -inset-4 rounded-full bg-gradient-to-tr ${currentPersona.color} opacity-20 blur-xl animate-pulse pointer-events-none`} />
+                        <div className="absolute -inset-2 rounded-full border border-indigo-400/20 pointer-events-none" />
                         
                         {/* Main orb */}
-                        <div className={`relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-tr ${currentPersona.color} p-[3px] shadow-2xl transition-transform duration-500 group-hover:scale-110`}>
+                        <div className={`relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-tr ${currentPersona.color} p-[3px] shadow-2xl transition-transform duration-300 group-hover:scale-105`}>
                             <div className="w-full h-full bg-gray-950 rounded-full flex flex-col items-center justify-center relative overflow-hidden">
                                 {/* Inner animated gradient */}
-                                <div className="absolute inset-0 animate-spin" style={{ background: 'conic-gradient(from 0deg, rgba(99,102,241,0.3), transparent 40%, rgba(168,85,247,0.3), transparent 80%)', animationDuration: '8s' }} />
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_70%)]" />
+                                <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_70%)]" />
                                 
                                 <ActivePersonaIcon size={32} className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.5)] relative z-10" />
                                 <span className="mt-1.5 text-[9px] font-extrabold tracking-[0.2em] text-indigo-300/80 uppercase relative z-10">

@@ -47,17 +47,19 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 const SpeakingCoachPage: React.FC = () => {
     const { primaryLanguage } = useStudyData();
     const [searchParams, setSearchParams] = useSearchParams();
-    const initialLang = searchParams.get('lang') === 'ja' ? 'ja' : searchParams.get('lang') === 'en' ? 'en' : (primaryLanguage || 'en');
+    const urlLang = searchParams.get('lang');
+    const scenarioIdParam = searchParams.get('scenario');
+
+    const initialLang: 'en' | 'ja' = urlLang === 'ja' ? 'ja' : urlLang === 'en' ? 'en' : (primaryLanguage === 'ja' ? 'ja' : 'en');
     const [language, setLanguage] = useState<'en' | 'ja'>(initialLang);
 
     useEffect(() => {
-        const langParam = searchParams.get('lang');
-        if (langParam === 'ja' || langParam === 'en') {
-            setLanguage(langParam);
-        } else if (primaryLanguage) {
-            setLanguage(primaryLanguage);
+        if (urlLang === 'ja' || urlLang === 'en') {
+            setLanguage(prev => prev !== urlLang ? urlLang : prev);
+        } else if (primaryLanguage === 'ja' || primaryLanguage === 'en') {
+            setLanguage(prev => prev !== primaryLanguage ? primaryLanguage : prev);
         }
-    }, [searchParams, primaryLanguage]);
+    }, [urlLang, primaryLanguage]);
 
     // Scenario & Voice Recorder state
     const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(null);
@@ -68,20 +70,22 @@ const SpeakingCoachPage: React.FC = () => {
     const voiceRecorder = useVoiceRecorder();
 
     useEffect(() => {
-        const scenarioId = searchParams.get('scenario');
-        if (scenarioId) {
+        if (scenarioIdParam) {
+            if (activeScenarioRef.current?.id === scenarioIdParam) return;
             ScenarioService.getScenarios().then(scenarios => {
-                const found = scenarios.find(s => s.id === scenarioId);
+                const found = scenarios.find(s => s.id === scenarioIdParam);
                 if (found) {
                     setActiveScenario(found);
                     const sLang = found.language || (found.title_en ? 'en' : 'ja');
-                    setLanguage(sLang);
+                    setLanguage(prev => prev !== sLang ? sLang : prev);
                 }
+            }).catch(err => {
+                console.error("Scenario load error:", err);
             });
         } else {
-            setActiveScenario(null);
+            setActiveScenario(prev => prev !== null ? null : prev);
         }
-    }, [searchParams]);
+    }, [scenarioIdParam]);
 
 
     const handleLanguageChange = (newLang: 'en' | 'ja') => {
