@@ -18,6 +18,7 @@ export type LearningReasonCode =
     | 'TARGET_EXAM'
     | 'LOW_MASTERY'
     | 'SKILL_BALANCE'
+    | 'PERSONAL_PLAN_TARGET'
     | 'DIAGNOSTIC_REQUIRED';
 
 export type LearningReasonType =
@@ -31,6 +32,7 @@ export type LearningReasonType =
     | 'progression_advancement'
     | 'zero_level_foundation'
     | 'exam_preparation'
+    | 'goal_alignment'
     | LearningReasonCode;
 
 export interface LearningReasonEvidence {

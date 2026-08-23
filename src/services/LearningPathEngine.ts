@@ -20,6 +20,7 @@ import { CurriculumService } from './CurriculumService';
 import { LessonService } from './LessonService';
 import { RoadmapService } from './RoadmapService';
 import { resolveNextLesson } from './NextLessonResolver';
+import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 
 
 export const PROGRESSION_CONFIG = {
@@ -537,6 +538,51 @@ export const LearningPathEngine = {
     ): NextBestAction {
         const isJa = state.primaryLanguage === 'ja';
         const candidates: NextBestAction[] = [];
+
+        // 0. Candidate: Active Personal Learning Plan Task (Top Priority: 98)
+        try {
+            const activeGoal = PersonalLearningPlanService.getActiveGoal(state.userId);
+            if (activeGoal && activeGoal.status === 'active' && (!activeGoal.language || activeGoal.language === state.primaryLanguage)) {
+                const plan = PersonalLearningPlanService.getLatestWeeklyPlan(state.userId, activeGoal.id);
+                if (plan && plan.days && plan.days.length > 0) {
+                    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                    const todayName = dayNames[new Date().getDay()];
+                    const todayDayObj = plan.days.find(d => d.day.toLowerCase() === todayName) || plan.days[0];
+                    const pendingPlanTask = todayDayObj?.tasks?.find(t => !t.completed && t.status !== 'completed');
+                    if (pendingPlanTask) {
+                        const reason: LearningReason = {
+                            code: 'PERSONAL_PLAN_TARGET',
+                            type: 'goal_alignment',
+                            title: isJa ? '🎯 Shaxsiy Reja Vazifasi' : '🎯 Personal Plan Task',
+                            description: isJa 
+                                ? `Bugungi rejangiz: ${pendingPlanTask.title} (${pendingPlanTask.estimatedMinutes || 20} daq)` 
+                                : `Today's scheduled plan task: ${pendingPlanTask.title} (${pendingPlanTask.estimatedMinutes || 20} min)`,
+                            evidence: { priority: 'high' },
+                            priority: 98
+                        };
+                        reasons.push(reason);
+
+                        candidates.push({
+                            type: 'continue_lesson',
+                            contentId: pendingPlanTask.contentId || pendingPlanTask.id,
+                            lessonId: pendingPlanTask.contentId || pendingPlanTask.id,
+                            route: pendingPlanTask.route || (pendingPlanTask.contentId ? `/lesson/${pendingPlanTask.contentId}` : '/personal-plan'),
+                            language: state.primaryLanguage,
+                            skill: (pendingPlanTask.skill as any) || 'grammar',
+                            title: isJa ? `🎯 ${pendingPlanTask.title}` : `🎯 ${pendingPlanTask.title}`,
+                            description: isJa ? `Bugungi kunlik reja vazifasi.` : `Today's scheduled personal plan activity.`,
+                            estimatedMinutes: pendingPlanTask.estimatedMinutes || 20,
+                            priority: 98,
+                            reason,
+                            ctaLabel: isJa ? '🎯 Rejani boshlash' : '🎯 Start Plan Task',
+                            badgeIcon: '🎯'
+                        });
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('[LearningPathEngine] Failed to evaluate personal plan next action candidate:', e);
+        }
 
         const roadmap = RoadmapService.getLearningRoadmap(state);
         const nextRecommended = resolveNextLesson(roadmap, state.masteryProfile?.topWeaknesses || []).lesson;

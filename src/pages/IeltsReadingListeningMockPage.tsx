@@ -10,6 +10,7 @@ import { IELTS_LISTENING_EXAMS } from '../data/ielts/listening_data';
 import { IELTS_READING_EXAMS } from '../data/ielts/reading_data';
 import { HistoryService } from '../services/HistoryService';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { MasteryEngine } from '../services/MasteryEngine';
 
 interface Question {
     id: number;
@@ -29,7 +30,7 @@ interface PassageData {
 
 export const IeltsReadingListeningMockPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP } = useStudyData();
+    const { awardXP, user } = useStudyData();
     const [testType, setTestType] = useState<'reading' | 'listening'>('reading');
     const [step, setStep] = useState<'intro' | 'test' | 'report'>('intro');
 
@@ -441,13 +442,23 @@ export const IeltsReadingListeningMockPage: React.FC = () => {
         // Calculate band score
         const band = getBandScore(correctCount, currentPassage.questions.length);
 
-        // Save Attempt to History
+        // Save Attempt to History and record Mastery Evidence
         try {
             await HistoryService.saveMockExam({
                 examType: testType === 'reading' ? 'ielts_reading' : 'ielts_listening',
                 score: correctCount,
                 totalQuestions: currentPassage.questions.length,
                 bandScore: band
+            });
+
+            const activeUserId = user?.id || 'guest';
+            MasteryEngine.recordEvidence(activeUserId, 'en', {
+                id: `ielts_${testType}_${Date.now()}`,
+                skill: testType === 'reading' ? 'reading' : 'listening',
+                score: Math.min(100, Math.round((band / 9.0) * 100)),
+                timestamp: new Date().toISOString(),
+                details: `IELTS ${testType.toUpperCase()} Band: ${band} (${correctCount}/${currentPassage.questions.length})`,
+                type: 'performance'
             });
         } catch (err) {
             console.error("Failed to save mock test score history:", err);

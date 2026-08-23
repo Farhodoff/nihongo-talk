@@ -8,6 +8,8 @@ import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
 import SoundMixer from '../components/focus/SoundMixer';
 import { LocalTour, LocalTourStep } from '../components/LocalTour';
+import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
+import { LearningSignalService } from '../services/LearningSignalService';
 
 const FOCUS_TOUR_STEPS: LocalTourStep[] = [
     {
@@ -31,7 +33,7 @@ const FOCUS_TOUR_STEPS: LocalTourStep[] = [
 ];
 
 const FocusPage: React.FC = () => {
-    const { subjects, addSession, awardXP, tasks, updateTaskStatus } = useStudyData();
+    const { subjects, addSession, awardXP, tasks, updateTaskStatus, user, primaryLanguage } = useStudyData();
     const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setCustomTime, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
     const { t } = useLanguage();
 
@@ -124,6 +126,26 @@ const FocusPage: React.FC = () => {
 
         // Dynamic XP Award: 10 XP per minute completed
         await awardXP(activeDurationMins * 10);
+
+        // Sync with Personal Learning Plan & Learning Signals
+        const activeUserId = user?.id || 'guest';
+        const activeGoal = PersonalLearningPlanService.getActiveGoal(activeUserId);
+        if (activeGoal && activeGoal.status === 'active') {
+            LearningSignalService.recordSignal({
+                id: `focus_session_${Date.now()}`,
+                type: 'completed_lesson',
+                language: activeGoal.language || primaryLanguage || 'en',
+                userId: activeUserId,
+                timestamp: new Date().toISOString(),
+                lessonId: focusState.selectedTaskId || 'focus_pomodoro',
+                level: activeGoal.currentLevel || 'A1',
+                score: activeDurationMins,
+                total: activeGoal.dailyMinutes || 45,
+                percentage: Math.min(100, Math.round((activeDurationMins / (activeGoal.dailyMinutes || 45)) * 100)),
+                newCardsCreated: 0,
+                mistakesCount: 0
+            }).catch(() => {});
+        }
 
         if (taskCompleted) setFocusTask(null);
     };

@@ -129,6 +129,41 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
             if (completed && onTaskCompletedRef.current) {
                 await onTaskCompletedRef.current(50);
             }
+
+            // Bidirectional sync with Personal Learning Plan
+            if (id.startsWith('plan_task_') || id.includes('plan_')) {
+                const cleanTaskId = id.replace('plan_task_', '');
+                // Check all cached plans for this task
+                const rawPlans = localStorage.getItem('study_planner_weekly_plans');
+                if (rawPlans) {
+                    try {
+                        const parsedPlans = JSON.parse(rawPlans);
+                        if (Array.isArray(parsedPlans)) {
+                            let modified = false;
+                            const updatedPlans = parsedPlans.map(plan => {
+                                const dayMatch = plan.days?.some((d: any) => d.tasks?.some((t: any) => t.id === cleanTaskId || t.id === id));
+                                if (!dayMatch) return plan;
+                                modified = true;
+                                return {
+                                    ...plan,
+                                    days: plan.days.map((d: any) => ({
+                                        ...d,
+                                        tasks: d.tasks.map((t: any) => {
+                                            if (t.id === cleanTaskId || t.id === id) {
+                                                return { ...t, completed, status: completed ? 'completed' : 'pending' };
+                                            }
+                                            return t;
+                                        })
+                                    }))
+                                };
+                            });
+                            if (modified) {
+                                localStorage.setItem('study_planner_weekly_plans', JSON.stringify(updatedPlans));
+                            }
+                        }
+                    } catch {}
+                }
+            }
         } catch (error) {
             console.error("Failed to update task status:", error);
         }

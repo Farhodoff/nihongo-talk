@@ -8,6 +8,8 @@ import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
 import { evaluateMockExamSession, ExamDiagnosticReport, ExamQuestionAnswer } from '../utils/ai/examEvaluator';
 import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
+import { MasteryEngine } from '../services/MasteryEngine';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 interface ExamQuestion {
     id: number;
@@ -66,6 +68,7 @@ const MOCK_EXAM_QUESTIONS: { [key: string]: ExamQuestion[] } = {
 
 export const JlptMockExamPage: React.FC = () => {
     const navigate = useNavigate();
+    const { user } = useStudyData();
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
 
@@ -171,6 +174,17 @@ export const JlptMockExamPage: React.FC = () => {
                 level: level,
                 score: finalScorePoints,
                 totalQuestions: totalQ
+            });
+
+            // Register evidence for JLPT Level Progression
+            const activeUserId = user?.id || 'guest';
+            MasteryEngine.recordEvidence(activeUserId, 'ja', {
+                id: `jlpt_mock_${level}_${Date.now()}`,
+                skill: 'reading',
+                score: Math.min(100, Math.round((finalScorePoints / 180) * 100)),
+                timestamp: new Date().toISOString(),
+                details: `JLPT ${level} Mock Simulation score: ${finalScorePoints}/180 (${correctCount}/${totalQ} to'g'ri javob)`,
+                type: 'performance'
             });
         } catch (e) {
             console.error(e);
