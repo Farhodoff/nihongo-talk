@@ -226,25 +226,20 @@ export const FlashcardService = {
         try {
             let { data, error } = await supabase
                 .from('flashcards')
-                .insert(dbCard)
+                .upsert(dbCard)
                 .select()
                 .single();
 
             if (error) {
-                console.error('[addFlashcard] ❌ Supabase INSERT error:', error.message, error.code, error.details);
-                
                 // If foreign key error or UUID syntax error on subject_id, retry with subject_id = null
                 if (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id')) {
-                    console.warn('[addFlashcard] Foreign key / UUID error on subject_id, retrying with subject_id = null...');
                     const { data: retryData, error: retryError } = await supabase
                         .from('flashcards')
-                        .insert({ ...dbCard, subject_id: null })
+                        .upsert({ ...dbCard, subject_id: null })
                         .select()
                         .single();
                     
-                    if (retryError) {
-                        console.error('[addFlashcard] ❌ Retry also failed:', retryError.message);
-                    } else if (retryData) {
+                    if (!retryError && retryData) {
                         data = retryData;
                         error = null;
                     }
@@ -313,14 +308,13 @@ export const FlashcardService = {
                 let chunk = tempCards.slice(i, i + chunkSize);
                 let { data, error } = await supabase
                     .from('flashcards')
-                    .insert(chunk)
+                    .upsert(chunk, { ignoreDuplicates: true })
                     .select();
 
                 // If error due to subject_id foreign key constraint (23503) or invalid UUID (22P02), retry with subject_id = null
                 if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
-                    console.warn('[addFlashcardsBatch] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
                     const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
-                    const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
+                    const retry = await supabase.from('flashcards').upsert(sanitizedChunk, { ignoreDuplicates: true }).select();
                     data = retry.data;
                     error = retry.error;
                 }
@@ -433,13 +427,12 @@ export const FlashcardService = {
 
         for (let i = 0; i < dbCards.length; i += chunkSize) {
             let chunk = dbCards.slice(i, i + chunkSize);
-            let { data, error } = await supabase.from('flashcards').insert(chunk).select();
+            let { data, error } = await supabase.from('flashcards').upsert(chunk, { ignoreDuplicates: true }).select();
 
             // Retry without subject_id if foreign key or UUID syntax error occurs
             if (error && (error.code === '23503' || error.code === '22P02' || error.message?.includes('subject_id'))) {
-                console.warn('[importFlashcards] Foreign key / UUID error on subject_id, retrying chunk without subject_id:', error.message);
                 const sanitizedChunk = chunk.map(c => ({ ...c, subject_id: null }));
-                const retry = await supabase.from('flashcards').insert(sanitizedChunk).select();
+                const retry = await supabase.from('flashcards').upsert(sanitizedChunk, { ignoreDuplicates: true }).select();
                 data = retry.data;
                 error = retry.error;
             }
