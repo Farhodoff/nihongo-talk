@@ -58,9 +58,35 @@ const DashboardPage: React.FC = () => {
     const todayPendingTasks = todayTasks.filter(t => t.status !== 'done');
     const todayCompletedCount = todayTasks.filter(t => t.status === 'done').length;
     
-    const progressPercentage = todayTasks.length > 0 
-        ? Math.round((todayCompletedCount / todayTasks.length) * 100) 
+    // Unified Daily Progress (Calendar Tasks + Daily Plan Activities)
+    const todayPlanActivities = dailyPlan?.activities || [];
+    const totalDailyPlanCount = todayPlanActivities.length;
+    const completedDailyPlanCount = todayPlanActivities.filter(a => a.isCompleted || a.status === 'completed').length;
+    const pendingDailyPlanCount = totalDailyPlanCount - completedDailyPlanCount;
+
+    const totalTodayItems = todayTasks.length + totalDailyPlanCount;
+    const totalCompletedItems = todayCompletedCount + completedDailyPlanCount;
+    const totalPendingItems = todayPendingTasks.length + pendingDailyPlanCount;
+
+    const progressPercentage = totalTodayItems > 0 
+        ? Math.round((totalCompletedItems / totalTodayItems) * 100) 
         : 0;
+
+    const greetingSubtitle = useMemo(() => {
+        if (totalTodayItems === 0) {
+            return language === 'en' 
+                ? "Ready to start today's study journey? 🚀" 
+                : "Bugungi o'quv rejangizni boshlang 🚀";
+        }
+        if (totalPendingItems === 0) {
+            return language === 'en'
+                ? "Great job! All of today's tasks and lessons are completed 🎉"
+                : "Ajoyib! Bugungi barcha dars va vazifalar bajarildi 🎉";
+        }
+        return language === 'en'
+            ? `You have ${totalPendingItems} activities scheduled for today`
+            : `Bugun sizda ${totalPendingItems} ta dars va vazifa rejalashtirilgan`;
+    }, [language, totalTodayItems, totalPendingItems]);
 
     const greeting = useMemo(() => {
         const hour = new Date().getHours();
@@ -289,10 +315,7 @@ const DashboardPage: React.FC = () => {
                         {greeting}, <span className="text-gradient">Farhod</span> 👋
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
-                        {todayPendingTasks.length > 0
-                            ? (language === 'en' ? `You have ${todayPendingTasks.length} tasks scheduled for today` : `Bugun sizda ${todayPendingTasks.length} ta bajarilishi kerak bo'lgan vazifa bor`)
-                            : (language === 'en' ? "Great job! All of today's tasks are completed 🎉" : "Ajoyib! Bugungi barcha vazifalar bajarildi 🎉")
-                        }
+                        {greetingSubtitle}
                     </p>
                 </div>
                 
@@ -358,7 +381,7 @@ const DashboardPage: React.FC = () => {
                                     {nextAction.title}
                                 </h2>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
-                                    {(nextAction.reason?.description || nextAction.reason?.message || '') + ' ' + (nextAction.description || '')}
+                                    {nextAction.description || nextAction.reason?.description || nextAction.reason?.message || ''}
                                 </p>
                             </div>
                         ) : (
