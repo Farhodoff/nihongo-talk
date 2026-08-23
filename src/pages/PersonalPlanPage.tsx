@@ -548,14 +548,54 @@ export const PersonalPlanPage: React.FC = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="block text-xs font-bold text-foreground uppercase tracking-wider">{isUz ? "Kunlik dars vaqti (daqiqa)" : "Daily Minutes Budget"}</label>
-                                    <input
-                                        type="number"
-                                        value={dailyMinutes}
-                                        onChange={(e) => setDailyMinutes(Math.max(15, Number(e.target.value)))}
-                                        min={15} max={300}
-                                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground text-sm"
-                                    />
+                                    <div className="flex items-center justify-between">
+                                        <label className="block text-xs font-bold text-foreground uppercase tracking-wider">{isUz ? "Kunlik dars vaqti (daqiqa)" : "Daily Minutes Budget"}</label>
+                                        <span className="text-xs text-primary font-bold">{dailyMinutes || 0} daq / kun</span>
+                                    </div>
+                                    <div className="relative">
+                                        <input
+                                            type="number"
+                                            value={dailyMinutes === 0 ? '' : dailyMinutes}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                if (val === '') {
+                                                    setDailyMinutes(0);
+                                                } else {
+                                                    const num = parseInt(val, 10);
+                                                    if (!isNaN(num)) {
+                                                        setDailyMinutes(num);
+                                                    }
+                                                }
+                                            }}
+                                            onBlur={() => {
+                                                if (!dailyMinutes || dailyMinutes < 10) setDailyMinutes(15);
+                                                if (dailyMinutes > 480) setDailyMinutes(480);
+                                            }}
+                                            placeholder="Masalan: 45"
+                                            min={10} max={480}
+                                            className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground text-sm font-medium focus:ring-2 focus:ring-primary focus:outline-none"
+                                        />
+                                        <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-semibold">
+                                            daqiqa
+                                        </span>
+                                    </div>
+                                    {/* Quick Preset Buttons */}
+                                    <div className="flex flex-wrap gap-1.5 pt-1">
+                                        {[15, 30, 45, 60, 90, 120].map((preset) => (
+                                            <button
+                                                key={preset}
+                                                type="button"
+                                                onClick={() => setDailyMinutes(preset)}
+                                                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border ${
+                                                    dailyMinutes === preset
+                                                        ? 'bg-primary text-primary-foreground border-primary'
+                                                        : 'bg-secondary/50 hover:bg-secondary border-border text-muted-foreground'
+                                                }`}
+                                            >
+                                                {preset} daq
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 

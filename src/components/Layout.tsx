@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
-    Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, Sparkles, 
+    Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, 
     Mic, Crown, Brain, Target,
     Shield
 } from 'lucide-react';
@@ -181,38 +181,6 @@ const Layout: React.FC = () => {
                             strokeWidth={isActive ? 2.5 : 2}
                         />
                         {!isCollapsed && <span className="truncate">{t('nav.dashboard') || 'Dashboard'}</span>}
-                    </>
-                )}
-            </NavLink>
-
-            {/* Standalone Personal Plan Link */}
-            <NavLink
-                to="/personal-plan"
-                onClick={onClick}
-                data-tour="nav-personal-plan"
-                className={({ isActive }) =>
-                    `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                        ? 'bg-primary/10 text-primary font-bold shadow-xs'
-                        : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                    }`
-                }
-                title={isCollapsed ? 'Shaxsiy Rejam' : ''}
-            >
-                {({ isActive }) => (
-                    <>
-                        {isActive && (
-                            <motion.div
-                                layoutId="activeNavIndicator"
-                                className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            />
-                        )}
-                        <Sparkles
-                            size={18}
-                            className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
-                            strokeWidth={isActive ? 2.5 : 2}
-                        />
-                        {!isCollapsed && <span className="truncate">Shaxsiy Rejam</span>}
                     </>
                 )}
             </NavLink>
