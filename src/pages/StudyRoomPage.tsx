@@ -1,7 +1,6 @@
 import { ArrowLeft, VideoOff, Users, PenTool, Loader2, Mic, MicOff, Video, Monitor, MonitorOff, Minimize2, Share2, Check } from 'lucide-react';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { Editor } from 'tldraw';
 const RoomWhiteboard = React.lazy(() => import('../components/study-room/RoomWhiteboard'));
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
@@ -86,7 +85,7 @@ const StudyRoomPage: React.FC = () => {
     const [connectedPeers, setConnectedPeers] = useState<number>(1);
 
     // Whiteboard Ref & States
-    const editorRef = useRef<Editor | null>(null);
+    const editorRef = useRef<any>(null);
 
     // Refs for closure access in channel event listeners without triggering re-renders
     const pomodoroStateRef = useRef({ timeLeft, isRunning, mode: pomodoroMode });
@@ -411,23 +410,6 @@ const StudyRoomPage: React.FC = () => {
                         }
                     });
 
-                    if (editorRef.current) {
-                        try {
-                            import('tldraw').then(({ getSnapshot }) => {
-                                const snapshot = getSnapshot(editorRef.current!.store);
-                                ch.send({
-                                    type: 'broadcast',
-                                    event: 'whiteboard_state_response',
-                                    payload: {
-                                        snapshot,
-                                        targetId: data.requesterId
-                                    }
-                                });
-                            });
-                        } catch (e) {
-                            console.error('Error generating whiteboard state response:', e);
-                        }
-                    }
                 }
             })
             .on('broadcast', { event: 'pomodoro_state_response' }, ({ payload }) => {
@@ -436,45 +418,6 @@ const StudyRoomPage: React.FC = () => {
                     setTimeLeft(data.timeLeft);
                     setIsRunning(data.isRunning);
                     setPomodoroMode(data.mode);
-                }
-            })
-            .on('broadcast', { event: 'whiteboard_state_update' }, ({ payload }) => {
-                const data = payload as { senderId: string; changes: any };
-                if (data.senderId !== clientIdRef.current && editorRef.current) {
-                    try {
-                        editorRef.current.store.mergeRemoteChanges(() => {
-                            const { added, updated, removed } = data.changes;
-                            if (added) {
-                                editorRef.current!.store.put(Object.values(added));
-                            }
-                            if (updated) {
-                                const toPut = [];
-                                for (const val of Object.values(updated) as any[]) {
-                                    if (Array.isArray(val) && val.length === 2) {
-                                        toPut.push(val[1]);
-                                    }
-                                }
-                                editorRef.current!.store.put(toPut);
-                            }
-                            if (removed) {
-                                editorRef.current!.store.remove(Object.keys(removed) as any);
-                            }
-                        });
-                    } catch (e) {
-                        console.error('Error loading whiteboard changes:', e);
-                    }
-                }
-            })
-            .on('broadcast', { event: 'whiteboard_state_response' }, ({ payload }) => {
-                const data = payload as { targetId: string; snapshot: any };
-                if (data.targetId === clientIdRef.current && editorRef.current) {
-                    try {
-                        import('tldraw').then(({ loadSnapshot }) => {
-                            loadSnapshot(editorRef.current!.store, data.snapshot);
-                        });
-                    } catch (e) {
-                        console.error('Error loading whiteboard state response:', e);
-                    }
                 }
             })
             .on('broadcast', { event: 'webrtc_offer' }, async ({ payload }) => {
@@ -694,31 +637,9 @@ const StudyRoomPage: React.FC = () => {
     }
 
     // Whiteboard Mount Handler
-    const handleWhiteboardMount = (editor: Editor) => {
-        editorRef.current = editor;
-
-        const cleanup = editor.store.listen((entry: any) => {
-            if (entry.source !== 'user') return;
-
-            try {
-                channelRef.current?.send({
-                    type: 'broadcast',
-                    event: 'whiteboard_state_update',
-                    payload: { changes: entry.changes, senderId: clientIdRef.current }
-                });
-            } catch (e) {
-                console.error('Error broadcasting whiteboard changes:', e);
-            }
-        }, { source: 'user', scope: 'document' });
-
-        // Request state again after whiteboard is mounted to get current drawings
-        channelRef.current?.send({
-            type: 'broadcast',
-            event: 'request_state',
-            payload: { requesterId: clientIdRef.current }
-        });
-
-        return cleanup;
+    const handleWhiteboardMount = (canvas: HTMLCanvasElement | null) => {
+        editorRef.current = canvas;
+        return () => {};
     };
 
     return (

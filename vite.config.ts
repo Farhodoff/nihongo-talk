@@ -148,9 +148,6 @@ export default defineConfig({
                         // faqat lazy pagelar orqali ishlatiladi — rolldown'ning
                         // avtomatik code-splitting'i ularni async shared chunklarga
                         // joylaydi (dastlabki holatdagidek).
-                        if (id.includes('cytoscape')) {
-                            return 'cytoscape';
-                        }
                         if (id.includes('katex')) {
                             return 'katex';
                         }

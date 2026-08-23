@@ -79,10 +79,10 @@ describe('P1 migration (20260825000000_p1_security_fixes.sql)', () => {
 });
 
 describe('client-side P1 fixes', () => {
-    it('mermaid runs with securityLevel strict (no loose HTML injection)', () => {
-        const src = readProject('src/components/MermaidViewer.tsx');
-        expect(src).toContain("securityLevel: 'strict'");
-        expect(src).not.toContain("securityLevel: 'loose'");
+    it('third-party diagram engines are fully decommissioned to prevent HTML injection and bloat', () => {
+        const pkg = readProject('package.json');
+        expect(pkg).not.toContain('"mermaid"');
+        expect(pkg).not.toContain('"tldraw"');
     });
 
     it('StudyPlannerContext never writes API keys to profiles or auth metadata', () => {
