@@ -509,7 +509,7 @@ export const MasteryEngine = {
 
                 const { error: insertError } = await supabase
                     .from('mastery_evidence')
-                    .insert(dbPayloads);
+                    .upsert(dbPayloads, { onConflict: 'id', ignoreDuplicates: true });
 
                 if (insertError) {
                     console.error('[MasteryEngine] Migration to DB failed:', insertError);
@@ -540,7 +540,7 @@ export const MasteryEngine = {
                 type: row.category === 'completion' ? 'completion' : 'performance'
             }));
 
-            // 5. Merge DB and local data to prevent duplicate IDs
+            // 5. Merge DB and Local records
             const mergedMap = new Map<string, EvidenceRecord>();
             for (const item of mappedDbEvidence) {
                 const itemKey = item.id || item.eventId;
@@ -552,7 +552,7 @@ export const MasteryEngine = {
                     mergedMap.set(itemKey, item);
                     const rawId = item.id || item.eventId || generateUUID();
                     const uuid = toDeterministicUUID(rawId);
-                    const promise = supabase.from('mastery_evidence').insert({
+                    const promise = supabase.from('mastery_evidence').upsert({
                         id: uuid,
                         user_id: userId,
                         language: language,
@@ -568,7 +568,7 @@ export const MasteryEngine = {
                         source: item.source || null,
                         details: item.details || null,
                         metadata: item.metadata || {}
-                    });
+                    }, { onConflict: 'id', ignoreDuplicates: true });
                     if (promise && typeof promise.then === 'function') {
                         promise.then(() => {});
                     }
