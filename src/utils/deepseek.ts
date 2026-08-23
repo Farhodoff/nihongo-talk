@@ -37,6 +37,13 @@ export const callDeepSeek = async (
     }
 
     if (!validApiKey || !validApiKey.startsWith('sk-')) {
+        const envKey = (import.meta as any).env?.VITE_DEEPSEEK_API_KEY || (import.meta as any).env?.DEEPSEEK_API_KEY;
+        if (envKey && typeof envKey === 'string' && envKey.trim().startsWith('sk-')) {
+            validApiKey = envKey.trim();
+        }
+    }
+
+    if (!validApiKey || !validApiKey.startsWith('sk-')) {
         const savedSettings = safeStorage.getItem<Record<string, any>>('study_planner_ai_settings');
         if (savedSettings?.deepseekApiKey && typeof savedSettings.deepseekApiKey === 'string' && savedSettings.deepseekApiKey.startsWith('sk-')) {
             validApiKey = savedSettings.deepseekApiKey;
