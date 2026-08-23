@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { validateSpeechInput } from '../utils/ai';
 import { playConversationChime } from '../utils/audioChime';
 
 interface UseSpeechRecognitionOptions {
@@ -275,11 +274,7 @@ export const useSpeechRecognition = ({
             setIsListening(false);
             
             const spokenText = transcriptBufferRef.current.trim();
-            const duration = speechStartTimeRef.current > 0 ? Date.now() - speechStartTimeRef.current : 0;
-            const silenceElapsed = lastSpeechTimeRef.current > 0 ? Date.now() - lastSpeechTimeRef.current : 0;
-
-            // Trigger submission if silence timeout triggered or user paused >= 1200ms
-            if (isSilenceTimeoutRef.current || silenceElapsed >= 1200) {
+            if (spokenText.length >= 2) {
                 if (silenceTimerRef.current) {
                     clearTimeout(silenceTimerRef.current);
                     silenceTimerRef.current = null;
@@ -288,16 +283,12 @@ export const useSpeechRecognition = ({
                 speechStartTimeRef.current = 0;
                 lastSpeechTimeRef.current = 0;
 
-                const isValid = validateSpeechInput(spokenText, duration);
-
                 // Always clear buffers upon submission
                 transcriptBufferRef.current = '';
                 setCurrentTranscript('');
 
                 if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
-                    if (isValid) {
-                        onValidSpeechRef.current(spokenText);
-                    }
+                    onValidSpeechRef.current(spokenText);
                 }
             } else if (
                 isLiveSessionRef.current && 
@@ -306,8 +297,8 @@ export const useSpeechRecognition = ({
                 !isSpeakingRef.current && 
                 !isThinkingRef.current
             ) {
-                // Chrome's SpeechRecognition engine stopped prematurely after a brief pause mid-sentence.
-                // Restart recognition seamlessly to let the user finish speaking without truncating!
+                // Chrome's SpeechRecognition engine stopped prematurely without speech.
+                // Keep listening active so user can speak whenever ready.
                 try {
                     recognition.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
                     recognition.start();
