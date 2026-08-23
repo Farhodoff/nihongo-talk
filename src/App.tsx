@@ -66,10 +66,17 @@ const App: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        // Safety timeout: Never leave the UI stuck on "Yuklanmoqda..."
+        const safetyTimer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
         supabase.auth.getSession().then(({ data: { session } }) => {
+            clearTimeout(safetyTimer);
             setSession(session);
             setIsLoading(false);
         }).catch((err) => {
+            clearTimeout(safetyTimer);
             console.warn("Session check aborted/failed:", err);
             setIsLoading(false);
         });
@@ -89,6 +96,7 @@ const App: React.FC = () => {
         window.addEventListener('storage', handleStorageAuth);
 
         return () => {
+            clearTimeout(safetyTimer);
             subscription.unsubscribe();
             window.removeEventListener('storage', handleStorageAuth);
         };
