@@ -111,22 +111,42 @@ export const parseCoachResponse = (raw: string, fallbackLang: 'en' | 'ja' = 'ja'
         if (parsed && typeof parsed === 'object') {
             let lang: 'en' | 'ja' = parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
             let reply = typeof parsed.reply === 'string' ? parsed.reply.trim() : '';
-            let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
-            let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
 
-            // Enforce language integrity: Japanese mode must NEVER output English text
-            if (fallbackLang === 'ja') {
-                lang = 'ja';
-                const containsJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(reply);
-                if (!reply || !containsJapanese) {
-                    reply = 'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？';
-                    ttsText = 'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？';
-                    romaji = 'Hai, yoku wakarimashita! Tsuzukete nihongo de ohanashi shimashou. Saikin wa dou desu ka?';
+            // Search other possible keys if reply was not present
+            if (!reply) {
+                const candidates = [
+                    parsed.response, parsed.message, parsed.content, parsed.text,
+                    parsed.japanese, parsed.conversation, parsed.dialogue, parsed.answer
+                ];
+                for (const cand of candidates) {
+                    if (typeof cand === 'string' && cand.trim().length > 0) {
+                        reply = cand.trim();
+                        break;
+                    }
                 }
             }
 
-            if (!reply) reply = ttsText || (lang === 'ja' ? 'はい、続けましょう！' : "Let's continue!");
+            // If still empty, look for ANY string in the object values
+            if (!reply && fallbackLang === 'ja') {
+                for (const val of Object.values(parsed)) {
+                    if (typeof val === 'string' && /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(val)) {
+                        reply = val.trim();
+                        break;
+                    }
+                }
+            }
+
+            if (!reply) {
+                reply = raw.trim();
+            }
+
+            let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
             if (!ttsText) ttsText = extractSpeechAudioText(reply);
+
+            let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
+            if (!romaji && parsed.reading && typeof parsed.reading === 'string' && /[a-zA-Z]/.test(parsed.reading)) {
+                romaji = parsed.reading.trim();
+            }
 
             if (lang === 'ja') {
                 ttsText = cleanJapaneseTTS(ttsText);
