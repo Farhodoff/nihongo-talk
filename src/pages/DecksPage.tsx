@@ -17,7 +17,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck, PresetSubDeck } from '../data/presetDecks';
 import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
 import { toast } from '../hooks/use-toast';
@@ -29,6 +29,7 @@ const DecksPage: React.FC = () => {
     const { t } = useLanguage();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+    const isSuper = isSuperAdmin(user?.email);
 
     const studyQueryParam = searchParams.get('study');
     const [activeStudySubjectId, setActiveStudySubjectId] = useState<string | null>(studyQueryParam);
@@ -401,6 +402,13 @@ const DecksPage: React.FC = () => {
         }
     };
 
+    const visiblePresetDecks = useMemo(() => {
+        if (!isSuper) {
+            return PRESET_DECKS.filter(d => d.level.startsWith('JLPT'));
+        }
+        return PRESET_DECKS;
+    }, [isSuper]);
+
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
             {/* Header Area */}
@@ -524,7 +532,7 @@ const DecksPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Library size={16} className="text-amber-500" /> {t('flashcards.library')} ({PRESET_DECKS.length})
+                    <Library size={16} className="text-amber-500" /> {t('flashcards.library')} ({visiblePresetDecks.length})
                 </button>
             </div>
 
@@ -729,66 +737,77 @@ const DecksPage: React.FC = () => {
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div>
                                     <h3 className="text-xl font-bold text-foreground">
-                                        Standart Darajalar Kutubxonasi
+                                        {isSuper ? "Standart Darajalar Kutubxonasi" : "JLPT Darajalar Kutubxonasi"}
                                     </h3>
                                     <p className="text-xs text-muted-foreground">
-                                        JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami
+                                        {isSuper 
+                                            ? "JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami" 
+                                            : "JLPT N5–N1 uchun tayyor 100 tadan bo'lingan jildlar to'plami"}
                                     </p>
                                 </div>
                                 
-                                {/* Filter Chips */}
-                                <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-xl self-start sm:self-center">
-                                    <button
-                                        type="button"
-                                        onClick={() => setLibraryFilter('primary')}
-                                        className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
-                                            libraryFilter === 'primary'
-                                                ? 'bg-primary text-primary-foreground shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        ⭐ Asosiy ({primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'})
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setLibraryFilter('ja')}
-                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                                            libraryFilter === 'ja'
-                                                ? 'bg-rose-600 text-white shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        🇯🇵 JLPT
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setLibraryFilter('en')}
-                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                                            libraryFilter === 'en'
-                                                ? 'bg-indigo-600 text-white shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        🇬🇧 IELTS
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setLibraryFilter('all')}
-                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                                            libraryFilter === 'all'
-                                                ? 'bg-background text-foreground shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        Barchasi
-                                    </button>
-                                </div>
+                                {/* Filter Chips (Multi-language only for Super Admin) */}
+                                {isSuper ? (
+                                    <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-xl self-start sm:self-center">
+                                        <button
+                                            type="button"
+                                            onClick={() => setLibraryFilter('primary')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
+                                                libraryFilter === 'primary'
+                                                    ? 'bg-primary text-primary-foreground shadow-xs'
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            ⭐ Asosiy ({primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'})
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setLibraryFilter('ja')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                                libraryFilter === 'ja'
+                                                    ? 'bg-rose-600 text-white shadow-xs'
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            🇯🇵 JLPT
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setLibraryFilter('en')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                                libraryFilter === 'en'
+                                                    ? 'bg-indigo-600 text-white shadow-xs'
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            🇬🇧 IELTS
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setLibraryFilter('all')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                                libraryFilter === 'all'
+                                                    ? 'bg-background text-foreground shadow-xs'
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                        >
+                                            Barchasi
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-1.5 p-1 bg-rose-500/10 border border-rose-500/20 rounded-xl">
+                                        <span className="px-3 py-1 rounded-lg text-xs font-black text-rose-500 flex items-center gap-1">
+                                            🇯🇵 JLPT N5 – N1
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {[...PRESET_DECKS]
+                            {[...visiblePresetDecks]
                                 .filter(deck => {
                                     const isJa = deck.level.startsWith('JLPT');
+                                    if (!isSuper) return isJa;
                                     if (libraryFilter === 'primary') {
                                         return primaryLanguage === 'ja' ? isJa : !isJa;
                                     }
@@ -799,13 +818,8 @@ const DecksPage: React.FC = () => {
                                 .sort((a, b) => {
                                     const aIsJa = a.level.startsWith('JLPT');
                                     const bIsJa = b.level.startsWith('JLPT');
-                                    if (primaryLanguage === 'ja') {
-                                        if (aIsJa && !bIsJa) return -1;
-                                        if (!aIsJa && bIsJa) return 1;
-                                    } else {
-                                        if (!aIsJa && bIsJa) return -1;
-                                        if (aIsJa && !bIsJa) return 1;
-                                    }
+                                    if (aIsJa && !bIsJa) return -1;
+                                    if (!aIsJa && bIsJa) return 1;
                                     return 0;
                                 }).map(deck => {
                                 const matchingSubject = findMatchingSubject(deck);

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ConversationScenario, ScenarioSessionResult } from '../components/speaking/scenarioTypes';
 import { ScenarioService } from '../services/ScenarioService';
 import { Sparkles, Play, Award, History, ArrowLeft, Plus, Globe } from 'lucide-react';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { useStudyData } from '../context/StudyPlannerContext';
 
 export const ScenarioPickerPage: React.FC = () => {
@@ -11,8 +11,9 @@ export const ScenarioPickerPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { user } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
+    const isSuper = isSuperAdmin(user?.email);
 
-    const initialLang = (searchParams.get('lang') === 'en' ? 'en' : 'ja') as 'en' | 'ja';
+    const initialLang = (isSuper && searchParams.get('lang') === 'en' ? 'en' : 'ja') as 'en' | 'ja';
     const [activeLang, setActiveLang] = useState<'en' | 'ja'>(initialLang);
     const [scenarios, setScenarios] = useState<ConversationScenario[]>(() => ScenarioService.getImmediateScenarios());
     const [history, setHistory] = useState<ScenarioSessionResult[]>(() => ScenarioService.getImmediateHistory());
@@ -92,29 +93,31 @@ export const ScenarioPickerPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        {/* Language Selector in Header */}
-                        <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10 backdrop-blur-md">
-                            <button
-                                onClick={() => handleLangChange('en')}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                                    activeLang === 'en'
-                                        ? 'bg-indigo-600 text-white shadow'
-                                        : 'text-gray-300 hover:text-white'
-                                }`}
-                            >
-                                🇬🇧 English
-                            </button>
-                            <button
-                                onClick={() => handleLangChange('ja')}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                                    activeLang === 'ja'
-                                        ? 'bg-indigo-600 text-white shadow'
-                                        : 'text-gray-300 hover:text-white'
-                                }`}
-                            >
-                                🎌 日本語
-                            </button>
-                        </div>
+                        {/* Language Selector in Header (Super Admin Only) */}
+                        {isSuper && (
+                            <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10 backdrop-blur-md">
+                                <button
+                                    onClick={() => handleLangChange('en')}
+                                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                        activeLang === 'en'
+                                            ? 'bg-indigo-600 text-white shadow'
+                                            : 'text-gray-300 hover:text-white'
+                                    }`}
+                                >
+                                    🇬🇧 English
+                                </button>
+                                <button
+                                    onClick={() => handleLangChange('ja')}
+                                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                        activeLang === 'ja'
+                                            ? 'bg-indigo-600 text-white shadow'
+                                            : 'text-gray-300 hover:text-white'
+                                    }`}
+                                >
+                                    🎌 日本語
+                                </button>
+                            </div>
+                        )}
 
                         {isAdmin && (
                             <button

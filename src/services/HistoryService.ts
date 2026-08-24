@@ -51,6 +51,10 @@ function handleTableError(tableName: string, error: any) {
     }
 }
 
+const getStorageKey = (prefix: string, userId?: string | null): string => {
+    return `${prefix}:${userId || 'anon'}`;
+};
+
 export class HistoryService {
     static clearMissingTablesCache() {
         missingTables.clear();
@@ -63,10 +67,12 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
+        let userId: string | null = null;
         if (!isTableDisabled('ielts_writing_history')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    userId = user.id;
                     const { error } = await supabase.from('ielts_writing_history').insert({
                         user_id: user.id,
                         task_type: newItem.taskType,
@@ -84,51 +90,62 @@ export class HistoryService {
             }
         }
 
-        const local = localStorage.getItem('study_planner_ielts_writing_history');
-        const list: WritingHistoryItem[] = local ? JSON.parse(local) : [];
+        const scopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
+        const rawLocal = localStorage.getItem('study_planner_ielts_writing_history') || (userId ? localStorage.getItem(scopedKey) : null);
+        const list: WritingHistoryItem[] = rawLocal ? JSON.parse(rawLocal) : [];
         list.unshift(newItem);
         localStorage.setItem('study_planner_ielts_writing_history', JSON.stringify(list.slice(0, 50)));
+        if (userId) {
+            localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+        }
 
         return newItem;
     }
 
     static async getWritingHistory(): Promise<WritingHistoryItem[]> {
+        let userId: string | null = null;
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            userId = user?.id || null;
+        } catch {}
+
+        const scopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
+
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
-            const local = localStorage.getItem('study_planner_ielts_writing_history');
+            const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_ielts_writing_history')) : localStorage.getItem('study_planner_ielts_writing_history');
             return local ? JSON.parse(local) : [];
         }
 
-        if (!isTableDisabled('ielts_writing_history')) {
+        if (!isTableDisabled('ielts_writing_history') && userId) {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    const { data, error } = await supabase
-                        .from('ielts_writing_history')
-                        .select('*')
-                        .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(100);
-                    if (!error && data) {
-                        return data.map((item: any) => ({
-                            id: item.id || item.user_id,
-                            taskType: item.task_type,
-                            prompt: item.prompt,
-                            essay: item.essay,
-                            score: item.score,
-                            criteriaBreakdown: item.criteria,
-                            feedback: item.feedback,
-                            createdAt: item.created_at
-                        }));
-                    } else if (error) {
-                        handleTableError('ielts_writing_history', error);
-                    }
+                const { data, error } = await supabase
+                    .from('ielts_writing_history')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false })
+                    .limit(100);
+                if (!error && data) {
+                    const mapped = data.map((item: any) => ({
+                        id: item.id || item.user_id,
+                        taskType: item.task_type,
+                        prompt: item.prompt,
+                        essay: item.essay,
+                        score: item.score,
+                        criteriaBreakdown: item.criteria,
+                        feedback: item.feedback,
+                        createdAt: item.created_at
+                    }));
+                    localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+                    return mapped;
+                } else if (error) {
+                    handleTableError('ielts_writing_history', error);
                 }
             } catch (e) {
                 handleTableError('ielts_writing_history', e);
             }
         }
 
-        const local = localStorage.getItem('study_planner_ielts_writing_history');
+        const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_ielts_writing_history')) : localStorage.getItem('study_planner_ielts_writing_history');
         return local ? JSON.parse(local) : [];
     }
 
@@ -140,10 +157,12 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
+        let userId: string | null = null;
         if (!isTableDisabled('speaking_coach_sessions')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    userId = user.id;
                     const { error } = await supabase.from('speaking_coach_sessions').insert({
                         user_id: user.id,
                         language: newItem.language,
@@ -162,52 +181,63 @@ export class HistoryService {
             }
         }
 
-        const local = localStorage.getItem('study_planner_speaking_coach_sessions');
-        const list: SpeakingSessionItem[] = local ? JSON.parse(local) : [];
+        const scopedKey = getStorageKey('study_planner_speaking_coach_sessions', userId);
+        const rawLocal = localStorage.getItem('study_planner_speaking_coach_sessions') || (userId ? localStorage.getItem(scopedKey) : null);
+        const list: SpeakingSessionItem[] = rawLocal ? JSON.parse(rawLocal) : [];
         list.unshift(newItem);
         localStorage.setItem('study_planner_speaking_coach_sessions', JSON.stringify(list.slice(0, 50)));
+        if (userId) {
+            localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+        }
 
         return newItem;
     }
 
     static async getSpeakingHistory(): Promise<SpeakingSessionItem[]> {
+        let userId: string | null = null;
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            userId = user?.id || null;
+        } catch {}
+
+        const scopedKey = getStorageKey('study_planner_speaking_coach_sessions', userId);
+
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
-            const local = localStorage.getItem('study_planner_speaking_coach_sessions');
+            const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_speaking_coach_sessions')) : localStorage.getItem('study_planner_speaking_coach_sessions');
             return local ? JSON.parse(local) : [];
         }
 
-        if (!isTableDisabled('speaking_coach_sessions')) {
+        if (!isTableDisabled('speaking_coach_sessions') && userId) {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    const { data, error } = await supabase
-                        .from('speaking_coach_sessions')
-                        .select('*')
-                        .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(100);
-                    if (!error && data) {
-                        return data.map((item: any) => ({
-                            id: item.id || item.user_id,
-                            language: item.language,
-                            persona: item.persona,
-                            durationSeconds: item.duration_seconds,
-                            fluencyScore: item.fluency_score,
-                            pronunciationScore: item.pronunciation_score,
-                            transcript: item.transcript,
-                            feedback: item.feedback,
-                            createdAt: item.created_at
-                        }));
-                    } else if (error) {
-                        handleTableError('speaking_coach_sessions', error);
-                    }
+                const { data, error } = await supabase
+                    .from('speaking_coach_sessions')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false })
+                    .limit(100);
+                if (!error && data) {
+                    const mapped = data.map((item: any) => ({
+                        id: item.id || item.user_id,
+                        language: item.language,
+                        persona: item.persona,
+                        durationSeconds: item.duration_seconds,
+                        fluencyScore: item.fluency_score,
+                        pronunciationScore: item.pronunciation_score,
+                        transcript: item.transcript,
+                        feedback: item.feedback,
+                        createdAt: item.created_at
+                    }));
+                    localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+                    return mapped;
+                } else if (error) {
+                    handleTableError('speaking_coach_sessions', error);
                 }
             } catch (e) {
                 handleTableError('speaking_coach_sessions', e);
             }
         }
 
-        const local = localStorage.getItem('study_planner_speaking_coach_sessions');
+        const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_speaking_coach_sessions')) : localStorage.getItem('study_planner_speaking_coach_sessions');
         return local ? JSON.parse(local) : [];
     }
 
@@ -219,10 +249,12 @@ export class HistoryService {
             createdAt: new Date().toISOString()
         };
 
+        let userId: string | null = null;
         if (!isTableDisabled('mock_exams_history')) {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    userId = user.id;
                     const { error } = await supabase.from('mock_exams_history').insert({
                         user_id: user.id,
                         exam_type: newItem.examType,
@@ -239,50 +271,61 @@ export class HistoryService {
             }
         }
 
-        const local = localStorage.getItem('study_planner_mock_exams_history');
-        const list: MockExamItem[] = local ? JSON.parse(local) : [];
+        const scopedKey = getStorageKey('study_planner_mock_exams_history', userId);
+        const rawLocal = localStorage.getItem('study_planner_mock_exams_history') || (userId ? localStorage.getItem(scopedKey) : null);
+        const list: MockExamItem[] = rawLocal ? JSON.parse(rawLocal) : [];
         list.unshift(newItem);
         localStorage.setItem('study_planner_mock_exams_history', JSON.stringify(list.slice(0, 50)));
+        if (userId) {
+            localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+        }
 
         return newItem;
     }
 
     static async getMockExamsHistory(): Promise<MockExamItem[]> {
+        let userId: string | null = null;
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            userId = user?.id || null;
+        } catch {}
+
+        const scopedKey = getStorageKey('study_planner_mock_exams_history', userId);
+
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
-            const local = localStorage.getItem('study_planner_mock_exams_history');
+            const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_mock_exams_history')) : localStorage.getItem('study_planner_mock_exams_history');
             return local ? JSON.parse(local) : [];
         }
 
-        if (!isTableDisabled('mock_exams_history')) {
+        if (!isTableDisabled('mock_exams_history') && userId) {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    const { data, error } = await supabase
-                        .from('mock_exams_history')
-                        .select('*')
-                        .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(100);
-                    if (!error && data) {
-                        return data.map((item: any) => ({
-                            id: item.id || item.user_id,
-                            examType: item.exam_type,
-                            level: item.level,
-                            score: item.score,
-                            totalQuestions: item.total_questions,
-                            bandScore: item.band_score,
-                            createdAt: item.created_at
-                        }));
-                    } else if (error) {
-                        handleTableError('mock_exams_history', error);
-                    }
+                const { data, error } = await supabase
+                    .from('mock_exams_history')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false })
+                    .limit(100);
+                if (!error && data) {
+                    const mapped = data.map((item: any) => ({
+                        id: item.id || item.user_id,
+                        examType: item.exam_type,
+                        level: item.level,
+                        score: item.score,
+                        totalQuestions: item.total_questions,
+                        bandScore: item.band_score,
+                        createdAt: item.created_at
+                    }));
+                    localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+                    return mapped;
+                } else if (error) {
+                    handleTableError('mock_exams_history', error);
                 }
             } catch (e) {
                 handleTableError('mock_exams_history', e);
             }
         }
 
-        const local = localStorage.getItem('study_planner_mock_exams_history');
+        const local = userId ? (localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_mock_exams_history')) : localStorage.getItem('study_planner_mock_exams_history');
         return local ? JSON.parse(local) : [];
     }
 }

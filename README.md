@@ -1,4 +1,4 @@
-# 🚀 Study Planner & AI Mastery Platform
+# 🎌 Study Planner & AI Japanese Mastery Platform (日本語学習プラットフォーム)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -7,162 +7,149 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4+-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Database_%26_Auth-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 
-A comprehensive, full-stack learning management, language coaching, and productivity application. Built to empower students preparing for **IELTS (Band 5.0 - 9.0)** and **JLPT (N5 - N1 / 0-Level Beginners)** with AI-driven study planning, Anki SM-2 spaced repetition, real-time audio coaching, and collaborative whiteboards.
+A full-stack, AI-powered **Japanese Language (JLPT N5 – N1 & 0-Level Beginners)** learning and mastery platform. Designed to take learners from absolute zero (Hiragana/Katakana) to JLPT N1 native fluency with real-time AI Voice Coaching, Anki SM-2 Spaced Repetition Flashcards, Interactive Kanji Canvas, Full Mock Exams, and Adaptive Study Roadmaps.
 
 ---
 
 ## 🇺🇿 O'zbekcha Qisqacha Sharh (Uzbek Summary)
 
-**Study Planner** — O'quvchilar va mutaxassislarga IELTS va Yapon tili (JLPT) imtihonlariga noldan boshlab tayyorlanishda yordam beradigan eng zamonaviy platforma.
+**Study Planner** — Yapon tilini noldan boshlab **JLPT N5 dan N1 gacha** mukammal o'rganish va imtihonlarga 100% tayyorlanish uchun mo'ljallangan yagona AI platforma.
 
 ### ✨ Asosiy Imkoniyatlar:
-- 🎓 **IELTS & JLPT Hub:** 1 yoshdan 12 oygacha bo'lgan dars rejasi kalkulyatori va **`0 Level (Noldan)`** boshlovchilar rejimi.
-- ⚡ **Anki SM-2 Fleshkartalar:** 1,646 ta A1-A2, 1,201 ta B1-B2 va 388+ C1-C2 so'zlarini 1 soniyada yuklaydigan super-tezkor bulk batch tizimi.
-- 🎙️ **AI Speaking & Voice Coach:** Ovozli muloqot, real-vaqtda talaffuz xatolarini tuzatish (IELTS Examiner, Strict Roast, Sabrli Tutor va IT Intervyu personalari).
-- 📦 **Dynamic JSON Chunking:** JS bundle hajmini 1MB dan 1.6KB gacha tushirgan dynamic `import()` arxitekturasi.
-- 🎨 **Interaktiv O'quv Xonasi:** P2P video muloqot, WebRTC va `tldraw` yordamida real-vaqtdagi umumiy doska (Whiteboard).
+- 🎌 **JLPT Master Hub (N5–N1 & 0-Level):** Kanji chizish kanvasi, Furigana qo'llab-quvvatlovi, interaktiv grammatika quizlari, tinglab tushunish (Choukai) va to'liq JLPT Mock imtihonlari.
+- 🎙️ **Real-Time AI Yapon Tili Speaking Coach:** DeepSeek Reasoner va Gemini AI bilan ovozli suhbat, jonli talaffuz tahlili, grammatik xatolarni darhol to'g'rilash (Sabrli Sensei, Qattiqqo'l Murabbiy, Kafe/Arubaito, Biznes Keigo va Kundalik Muloqot).
+- ⚡ **Anki SM-2 Yaponcha Fleshkartalar:** JLPT N5–N1 uchun 5,000 dan ortiq tayyor kartochkalar, 100 tadan bo'lingan qulay jildlar va 1 soniyada yuklanuvchi bulk batch import tizimi.
+- 🧠 **Smart Vocabulary Builder:** Kanji, Furigana, ma'no va misol gaplarni AI orqali avtomatik tahlil qilish va bir tugma bilan fleshkartaga aylantirish.
+- 🗺️ **Adaptiv O'quv Rejasi (Roadmap):** 1 oydan 12 oygacha bo'lgan JLPT imtihon kalkulyatori, kunlik eng muhim qadam (Next Best Action) va kuchsiz tomonlarni bartaraf etish.
+- 👥 **Interaktiv O'quv Xonasi (Study Room):** WebRTC orqali P2P video muloqot, Pomodoro taymeri va umumiy `tldraw` doskasi.
+- 🛡️ **100% Real Production Ma'lumotlar:** Hech qanday fake/mock data yo'q — barcha mashg'ulotlar, audio muloqotlar va natijalar real Supabase bazasiga saqlanadi.
 
 ---
 
 ## 🇯🇵 日本語の概要 (Japanese Overview)
 
-「Study Planner」は、IELTS・JLPT（N5〜N1・初学者0レベル）の合格を目指す学習者のためのフルスタック学習管理・AIコーチングプラットフォームです。
+「Study Planner」は、日本語能力試験（**JLPT N5〜N1**）および初学者（0レベル）の日本語習得を支援するフルスタックAI学習プラットフォームです。
 
-- **AI会話コーチ (Voice AI Coach):** 音声認識とAIを活用した日本語・英語のリアルタイム面接・会話シミュレーター。
-- **SM-2暗記カードシステム (Anki Flashcards):** 3,000語以上の語彙を瞬時にロードする超高速バルクバッチインポート機能。
-- **リアルタイム学習ルーム (Study Room):** WebRTCビデオ通話および `tldraw` 共有ホワイトボード。
-
----
-
-## ✨ Key Features
-
-### 🎓 1. IELTS & JLPT Smart Onboarding & Calculator
-- **Dynamic 1-12 Month Slider:** Interactive plan duration selector with quick preset pills (`1 Oy`, `2 Oy`, `3 Oy`, `4 Oy ⭐`, `6 Oy`, `12 Oy`).
-- **Complete Beginner Support:** **`🌱 0 Level (Noldan)`** mode tailored for users starting Japanese or English from scratch.
-- **Feasibility Engine:** Real-time calculation of required daily study hours based on CEFR & JLPT target hours.
-
-### ⚡ 2. Anki SM-2 Spaced Repetition & High-Performance Deck Library
-- **Pre-Loaded Standard Preset Decks:**
-  - 🌱 **A1-A2 Starter Vocabulary:** 1,646 flashcards
-  - 📈 **B1-B2 Pre-IELTS Academic Vocab:** 1,201 flashcards
-  - 📙 **C1-C2 Master IELTS Collocations:** 388+ flashcards
-- **Supercharged Batch Import:** `addFlashcardsBatch` chunked at 200 items/query, saving 1,600+ cards in < 1 second.
-- **1-Click Card Population:** Instant "To'plam Kartochkalarini Yuklash" action button directly on deck cards.
-
-### 🎙️ 3. Real-Time AI Speaking & Voice Coach
-- **Multi-Persona AI Examiners:**
-  - 🌶️ *Strict Roast Coach* (harsh feedback)
-  - 🌿 *Sabrli Tutor* (gentle explanation)
-  - 🎓 *IELTS Examiner* (standard band 9 score assessment)
-  - 💼 *Tech Interviewer* (IT job interview prep)
-  - ✈️ *Travel & Airport* & ☕ *Casual Friend*
-- **Speech Tech:** Powered by Web Speech API, Google Audio TTS, and Live Ambient Sphere audio visualization.
-
-### 👥 4. Real-Time Collaboration & Whiteboard (Study Room)
-- **WebRTC P2P Video/Audio:** Multi-user study rooms with screen sharing.
-- **Synchronized Whiteboard:** Integrated `tldraw` infinite canvas canvas for collaborative mind mapping.
-- **Shared Pomodoro:** Group focus timer with synchronous state.
+- **AI会話コーチ (Kaizen Voice AI Coach):** 音声認識（STT）と音声合成（TTS）を活用し、自然な日本語会話・文法修正・発音フィードバックをリアルタイムで提供。
+- **漢字・文法マスター (Kanji & Grammar Hub):** 書き順キャンバス、ふりがな表示、聴解オーディオ、模擬試験（Mock Exam）を完全網羅。
+- **SM-2暗記カード (Anki Spaced Repetition):** JLPT各レベル対応の5,000語以上の語彙を瞬時にロードする高速バッチシステム。
+- **リアルタイム自習室 (Study Room):** WebRTCビデオ通話および共有ホワイトボード（`tldraw`）によるグループ学習。
 
 ---
 
-## 🛠️ Technology Stack & Performance
+## 🌟 Core Feature Matrix (Asosiy Modullar)
+
+### 1. 🎌 JLPT Master Hub
+- **Hiragana & Katakana 0-Level**: Yapon alifbosini noldan o'rganuvchilar uchun interaktiv kartochkalar va talaffuz audiolari.
+- **Kanji Canvas & Stroke Practice**: Kanji yozishni to'g'ri tartibda mashq qilish uchun interaktiv chizish doskasi.
+- **Furigana Engine**: Barcha matnlar va misollarda kanji ustida o'qilishini (hiragana) avtomatik ko'rsatish.
+- **Bunpo & Dokkai**: Har bir daraja bo'yicha tuzilgan grammatika qoidalari va o'qish mashqlari.
+- **Full JLPT Mock Exams**: N5, N4, N3, N2, N1 uchun rasmiy formatdagi vaqt bilan cheklangan imtihonlar.
+
+### 2. 🎙️ Kaizen AI Speaking & Voice Coach
+- **Haqiqiy Jonli Audio Suhbat**: Web Speech API va DeepSeek Reasoner orqali suhbat qurish.
+- **Yaponcha Personalar**:
+  - 🌸 *Sabrli Sensei (Yasashii)* — tushunarsiz joylarni xushmuomalalik bilan tushuntiruvchi o'qituvchi.
+  - ⚡ *Qattiqqo'l Murabbiy (Kibishii)* — xatolarni darhol to'xtatib to'g'rilovchi murabbiy.
+  - 🍜 *Arubaito & Kafe* — Yaponiyadagi restoran va do'konlarda muloqot mashqi.
+  - 💼 *Biznes & Keigo* — yapon kompaniyalarida ish intervyulari va rasmiy til amaliyoti.
+  - 🚆 *Sayohat & Poezd* — vokzal, mehmonxona va ko'chada yo'l so'rash senariylari.
+- **Real-Time Metrikalar**: Fluency, Grammar, Vocabulary va Pronunciation ballari hamda sessiya yakunidagi batafsil AI hisoboti.
+
+### 3. ⚡ Anki SM-2 Flashcards & Decks Library
+- **Tayyor Standart JLPT To'plamlari**:
+  - 🇯🇵 **JLPT N5 Boshlang'ich So'zlar:** 100 tadan bo'lingan 7+ jild
+  - 🇯🇵 **JLPT N4 O'rta-Boshlang'ich So'zlar:** 100 tadan bo'lingan 8+ jild
+  - 🇯🇵 **JLPT N3 O'rta Daraja Lug'ati:** 100 tadan bo'lingan 18+ jild
+  - 🇯🇵 **JLPT N2 Yuqori-O'rta Daraja Lug'ati:** 100 tadan bo'lingan 25+ jild
+  - 🇯🇵 **JLPT N1 Mukammal Daraja Lug'ati:** 100 tadan bo'lingan 30+ jild
+- **Supercharged Batch Import**: 1,000+ ta kartochkani 1 soniyadan kamroq vaqt ichida bazaga saqlash.
+
+### 4. 🗺️ Personalized Roadmap & Next Best Action
+- **Dynamic 1–12 Month Plan**: Imtihongacha qolgan vaqtga qarab kunlik o'qish soatlarini hisoblab beruvchi kalkulyator.
+- **Next Best Action Hero**: Har kuni tizimga kirganda o'quvchining eng kuchsiz tomoni va navbatdagi eng muhim darsini tavsiya etuvchi aqlli banner.
+- **Evidence-Based Progression**: Testlar, fleshkartalar va speaking sessiyalaridan to'plangan real dalillar asosida darajani oshirish.
+
+---
+
+## 🛠️ Technology Stack
 
 | Layer | Technologies |
 | :--- | :--- |
-| **Frontend** | React 18 (Vite), TypeScript (Strict), Tailwind CSS, Framer Motion, Lucide Icons |
-| **Backend & Auth** | Supabase (PostgreSQL, Row Level Security, Realtime Channels) |
-| **AI Core** | DeepSeek API (Reasoner / Chat) / Google Gemini 2.0 Flash / Ollama Local LLMs |
-| **State & Routing** | React Context API, React Router v6, PWA Service Worker (VitePWA) |
-| **Performance** | Dynamic `import()` deck JSON chunking, Lazy-loaded page routes |
+| **Frontend** | React 18 (Vite), TypeScript (Strict), Tailwind CSS, Lucide Icons |
+| **Backend & Database** | Supabase (PostgreSQL, Row Level Security, Realtime WebSockets) |
+| **AI Architecture** | DeepSeek API (Reasoner / Chat) / Google Gemini 2.0 / Audio STT & TTS |
+| **PWA & Offline** | VitePWA, Service Workers, IndexedDB, Safe LocalStorage Isolation |
+| **Collaboration** | WebRTC P2P Video/Audio Mesh, `tldraw` Infinite Canvas |
 
 ---
 
-## 📂 Project File Structure
+## 📂 Project Structure
 
 ```
 study_planner/
-├── .github/              # Issue templates, PR workflows & CI configs
-├── api/                  # Serverless API routes (DeepSeek CORS proxy, streaming)
-├── app/                  # Application runtime entry & core wrappers
-├── books/                # Academic curriculum source PDFs (Oxford 3000, Cambridge)
-├── constants/            # Global constants, room configs, & study constants
-├── docs/                 # Security, encryption & architectural documentations
-├── hooks/                # Custom React hooks (useFocusTimer, useSubscription, useFlashcards)
-├── public/               # Static assets, PWA icons & manifest.webmanifest
-├── scripts/              # Python & Node automation scripts (PDF parsing, dynamic JSON splitting)
-├── src/                  # Main Frontend Source Code
-│   ├── components/       # UI Components (decks, speaking, jlpt, ielts, whiteboard, pwa)
-│   ├── context/          # React Context State Providers (StudyPlannerContext, FocusTimerContext)
-│   ├── data/             # Preset Decks & Curriculum (decks/starter.json, academic.json, c1_c2.json)
-│   ├── hooks/            # Dedicated UI & data fetching hooks
-│   ├── i18n/             # Multi-language translation dictionaries (Uzbek, English, Japanese)
-│   ├── pages/            # 27+ Lazy-loaded Page views (IeltsHub, JlptHub, SpeakingCoach, Decks)
-│   ├── services/         # Supabase & Export/Import Data Services
+├── api/                  # Serverless API routes (DeepSeek AI proxy, Webhooks)
+├── public/               # Static PWA assets, icons, manifest.webmanifest
+├── src/
+│   ├── components/       # UI Components (jlpt, speaking, decks, whiteboard, settings)
+│   ├── context/          # React State Providers (StudyPlannerContext, LanguageContext)
+│   ├── data/             # Preset JLPT Decks & Curriculum (jlpt_n5, n4, n3, n2, n1)
+│   ├── hooks/            # Custom Hooks (useStudyData, useGamification, useTasks)
+│   ├── pages/            # 25+ Responsive Application Pages (JlptHub, SpeakingCoach, Decks, Dashboard)
+│   ├── services/         # Supabase Services (ScenarioService, HistoryService, FlashcardService)
 │   ├── types/            # TypeScript Interface & Type Definitions
-│   └── utils/            # SM-2 Spaced Repetition engine, AI helpers, IELTS & JLPT Calculators
-├── supabase/             # PostgreSQL database migrations, RLS policies & SQL schema
-├── .env.example          # Environment variables template
-├── components.json       # Shadcn UI configuration
-├── tailwind.config.js    # Custom Tailwind styling & design system config
-├── tsconfig.json         # Strict TypeScript compiler options
-├── vercel.json           # Vercel deployment & rewrite rules
-└── vite.config.ts        # Vite build, PWA SW & Code-splitting configuration
+│   └── utils/            # SM-2 Spaced Repetition, AI Engines, Audio TTS, Admin Guards
+├── supabase/             # PostgreSQL database migrations & RLS security policies
+└── vite.config.ts        # Vite build, PWA & Code-splitting configuration
 ```
 
 ---
 
-## ⚙️ Architecture Optimizations
+## 🚀 Getting Started (O'rnatish va Ishga Tushirish)
 
-```
-src/data/presetDecks.ts (1.68 KB lightweight loader)
-   ├── dynamic import() ──> src/data/decks/starter.json (1,646 cards)
-   ├── dynamic import() ──> src/data/decks/academic.json (1,201 cards)
-   └── dynamic import() ──> src/data/decks/c1_c2.json (388+ cards)
-```
-
-- **Dynamic JSON Chunking:** Reduced main JavaScript bundle size by **99.5%** for preset deck definitions by isolating raw cards into dynamic JSON chunks.
-- **Sub-Component Refactoring:** Extracted modular widgets (`PersonaSelector`, `AudioVisualizer`, `SessionReportModal`) to optimize memory footprint and React re-renders.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
+### 1. Loyihani yuklab oling
 ```bash
 git clone https://github.com/Farhodoff/study_planner.git
 cd study_planner
 ```
 
-### 2. Install dependencies
+### 2. Bog'liqliklarni o'rnating
 ```bash
 npm install
 ```
 
-### 3. Configure environment variables
-Create a `.env` file in the project root:
+### 3. Muhit o'zgaruvchilarini sozlang
+`.env` faylini yarating va quyidagi kalitlarni kiriting:
 ```env
 # Frontend Client (Public Anon Key)
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# Backend Serverless Environment Variables (Never use VITE_ prefix for secrets!)
+# Backend Serverless Environment Variables
 DEEPSEEK_API_KEY=your_deepseek_api_key
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
 SERVICE_ROLE=your_supabase_service_role_key
 ```
 
-### 4. Run development server
+### 4. Dasturni ishga tushiring
 ```bash
 npm run dev
 ```
 
-### 5. Typecheck & Production Build
+### 5. Testlarni tekshirish va Build qilish
 ```bash
-npm run typecheck && npm run build
+# Barcha 1,100+ testlarni ishga tushirish
+npm test -- --run
+
+# TypeScript turlarini tekshirish
+npm run typecheck
+
+# Production build yaratish
+npm run build
 ```
 
 ---
 
-## 📄 License
+## 📄 Litsenziya
 
-Distributed under the MIT License. See `LICENSE` for details.
+Loyiha [MIT License](LICENSE) asosida tarqatiladi.

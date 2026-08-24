@@ -6,6 +6,7 @@ import {
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { isSuperAdmin } from '../../utils/admin';
 
 interface PersonalizedOnboardingModalProps {
     isOpen: boolean;
@@ -16,13 +17,14 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
     isOpen,
     onClose
 }) => {
-    const { updateSettings, subjects, addSubject, addFlashcardsBatch, setPrimaryFocus } = useStudyData();
+    const { user, updateSettings, subjects, addSubject, addFlashcardsBatch, setPrimaryFocus } = useStudyData();
     const navigate = useNavigate();
+    const isSuper = isSuperAdmin(user?.email);
 
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-    const [selectedLanguage, setSelectedLanguage] = useState<'ja' | 'en'>('en');
-    const [selectedLevel, setSelectedLevel] = useState<string>('B2');
-    const [selectedGoal, setSelectedGoal] = useState<string>('🎯 IELTS Imtihoni (Band 7+)');
+    const [selectedLanguage, setSelectedLanguage] = useState<'ja' | 'en'>('ja');
+    const [selectedLevel, setSelectedLevel] = useState<string>('N3');
+    const [selectedGoal, setSelectedGoal] = useState<string>('🎯 JLPT Imtihoni (N5-N1)');
     const [selectedGoalMinutes, setSelectedGoalMinutes] = useState<number>(30);
     const [isFinalizing, setIsFinalizing] = useState(false);
 
@@ -37,7 +39,7 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
         setSelectedLanguage(lang);
         if (lang === 'ja') {
             setSelectedLevel('N3');
-            setSelectedGoal('🎯 JLPT Imtihoni (N3-N1)');
+            setSelectedGoal('🎯 JLPT Imtihoni (N5-N1)');
         } else {
             setSelectedLevel('B2');
             setSelectedGoal('🎯 IELTS Imtihoni (Band 7+)');
@@ -162,32 +164,34 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                         </div>
 
                         <div className="grid grid-cols-1 gap-3.5">
-                            <button
-                                onClick={() => handleLanguageSelect('en')}
-                                className="w-full p-5 rounded-2xl border-2 border-border hover:border-indigo-500 bg-background hover:bg-indigo-500/5 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
-                            >
-                                <span className="text-4xl p-2.5 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:scale-105 transition-transform">🇬🇧</span>
-                                <div className="flex-1">
-                                    <div className="font-extrabold text-base text-foreground flex items-center justify-between">
-                                        <span>Ingliz Tili (IELTS Track)</span>
-                                        <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Band 6.0 – 8.5</span>
+                            {isSuper && (
+                                <button
+                                    onClick={() => handleLanguageSelect('en')}
+                                    className="w-full p-5 rounded-2xl border-2 border-border hover:border-indigo-500 bg-background hover:bg-indigo-500/5 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
+                                >
+                                    <span className="text-4xl p-2.5 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:scale-105 transition-transform">🇬🇧</span>
+                                    <div className="flex-1">
+                                        <div className="font-extrabold text-base text-foreground flex items-center justify-between">
+                                            <span>Ingliz Tili (IELTS Track)</span>
+                                            <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Super Admin Preview</span>
+                                        </div>
+                                        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                                            IELTS Examiner Speaking, Writing baholash, Reading/Listening testlari va Anki lug'at
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                                        IELTS Examiner Speaking, Writing baholash, Reading/Listening testlari va Anki lug'at
-                                    </p>
-                                </div>
-                                <ArrowRight size={20} className="text-muted-foreground group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
-                            </button>
+                                    <ArrowRight size={20} className="text-muted-foreground group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                                </button>
+                            )}
 
                             <button
                                 onClick={() => handleLanguageSelect('ja')}
-                                className="w-full p-5 rounded-2xl border-2 border-border hover:border-rose-500 bg-background hover:bg-rose-500/5 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
+                                className="w-full p-5 rounded-2xl border-2 border-rose-500/80 hover:border-rose-500 bg-rose-950/10 hover:bg-rose-500/10 text-left flex items-center gap-4 transition-all group shadow-sm hover:shadow-md"
                             >
                                 <span className="text-4xl p-2.5 rounded-2xl bg-rose-500/10 text-rose-400 group-hover:scale-105 transition-transform">🇯🇵</span>
                                 <div className="flex-1">
                                     <div className="font-extrabold text-base text-foreground flex items-center justify-between">
                                         <span>Yapon Tili (JLPT Track)</span>
-                                        <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">N5 – N1</span>
+                                        <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">★ ASOSIY FOKUS • N5 – N1</span>
                                     </div>
                                     <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
                                         Kanji eslash, Grammatika testi, AI Yaponcha suhbat senariylari va Minna no Nihongo

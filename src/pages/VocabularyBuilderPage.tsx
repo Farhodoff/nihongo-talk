@@ -6,6 +6,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { FuriganaText } from '../components/jlpt/FuriganaText';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
+import { isSuperAdmin } from '../utils/admin';
 
 export interface VocabWordDetails {
     word: string;
@@ -22,7 +23,8 @@ export interface VocabWordDetails {
 }
 
 export const VocabularyBuilderPage: React.FC = () => {
-    const { subjects, addFlashcard, primaryLanguage } = useStudyData();
+    const { user, subjects, addFlashcard, primaryLanguage } = useStudyData();
+    const isSuper = isSuperAdmin(user?.email);
 
     const [query, setQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
@@ -35,7 +37,7 @@ export const VocabularyBuilderPage: React.FC = () => {
     const [history, setHistory] = useState<VocabWordDetails[]>([]);
     const [savedWords, setSavedWords] = useState<VocabWordDetails[]>([]);
 
-    const SAMPLE_WORDS = primaryLanguage === 'ja' ? [
+    const SAMPLE_WORDS = (!isSuper || primaryLanguage === 'ja') ? [
         { label: '勉強[べんきょう] (N5)', query: '勉強' },
         { label: '維持[いじ] (N2)', query: '維持' },
         { label: '習慣[しゅうかん] (N3)', query: '習慣' },
@@ -252,7 +254,9 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             Smart Vocabulary Builder 🧠
                         </h1>
                         <p className="text-xs text-muted-foreground">
-                            IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing.
+                            {isSuper 
+                                ? "IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing."
+                                : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing."}
                         </p>
                     </div>
                 </div>

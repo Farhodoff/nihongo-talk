@@ -23,18 +23,20 @@ import { LearningSignalService } from '../services/LearningSignalService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { PersonalLearningGoal, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
 import { generateUUID } from '../utils/uuid';
+import { isSuperAdmin } from '../utils/admin';
 
 export const PersonalPlanPage: React.FC = () => {
     const { user } = useStudyData();
     const { language } = useLanguage();
+    const isSuper = isSuperAdmin(user?.email);
     const isUz = language !== 'en';
     const navigate = useNavigate();
 
     // Wizard States
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-    const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>('en');
-    const [selectedGoalType, setSelectedGoalType] = useState<'ielts' | 'jlpt' | 'general_en' | 'general_ja'>('general_en');
-    const [targetLevel, setTargetLevel] = useState<string>('A1');
+    const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>(isSuper ? 'en' : 'ja');
+    const [selectedGoalType, setSelectedGoalType] = useState<'ielts' | 'jlpt' | 'general_en' | 'general_ja'>(isSuper ? 'ielts' : 'jlpt');
+    const [targetLevel, setTargetLevel] = useState<string>(isSuper ? '7.0' : 'N3');
     const [currentLevel, setCurrentLevel] = useState<string>('ZERO');
     const [deadlineMonths, setDeadlineMonths] = useState<number>(6);
     const [dailyMinutes, setDailyMinutes] = useState<number>(60);
@@ -424,24 +426,28 @@ export const PersonalPlanPage: React.FC = () => {
                     {step === 1 && (
                         <div className="space-y-6">
                             <h3 className="text-lg font-bold text-foreground">{isUz ? '1-Bosqich: Tilni tanlang' : 'Step 1: Select Language'}</h3>
-                            <div className="grid grid-cols-2 gap-4">
-                                <button
-                                    onClick={() => handleLangSelect('en')}
-                                    className={`p-6 rounded-3xl border text-center transition-all ${
-                                        selectedLang === 'en' ? 'bg-primary/10 border-primary shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-primary/50'
-                                    }`}
-                                >
-                                    <span className="text-3xl block mb-2">🇬🇧</span>
-                                    <span className="font-bold text-base block text-foreground">Ingliz Tili</span>
-                                </button>
+                            <div className={`grid ${isSuper ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
+                                {isSuper && (
+                                    <button
+                                        onClick={() => handleLangSelect('en')}
+                                        className={`p-6 rounded-3xl border text-center transition-all ${
+                                            selectedLang === 'en' ? 'bg-primary/10 border-primary shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-primary/50'
+                                        }`}
+                                    >
+                                        <span className="text-3xl block mb-2">🇬🇧</span>
+                                        <span className="font-bold text-base block text-foreground">Ingliz Tili</span>
+                                        <span className="text-[10px] font-black uppercase text-indigo-400 block mt-1">Super Admin Preview</span>
+                                    </button>
+                                )}
                                 <button
                                     onClick={() => handleLangSelect('ja')}
                                     className={`p-6 rounded-3xl border text-center transition-all ${
-                                        selectedLang === 'ja' ? 'bg-primary/10 border-primary shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-primary/50'
+                                        selectedLang === 'ja' ? 'bg-rose-500/10 border-rose-500 shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-rose-500/50'
                                     }`}
                                 >
                                     <span className="text-3xl block mb-2">🇯🇵</span>
-                                    <span className="font-bold text-base block text-foreground">Yapon Tili</span>
+                                    <span className="font-bold text-base block text-foreground">Yapon Tili (JLPT)</span>
+                                    <span className="text-[10px] font-black uppercase text-rose-500 block mt-1">★ ASOSIY FOKUS • N5 – N1</span>
                                 </button>
                             </div>
                             <div className="flex justify-end pt-4">

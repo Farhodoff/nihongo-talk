@@ -28,31 +28,6 @@ interface UserSubscription {
     valid_until?: string;
 }
 
-// Full 21 real registered users list from Supabase DB
-const REAL_PROFILES_ALL = [
-    { id: '3153e276-d72f-4f7c-9cb9-738c22125b73', email: 'olimjonmurod42@gmail.com', full_name: 'Murodjon', tier: 'free', created_at: '2026-04-28T03:25:52.693Z' },
-    { id: 'e8f1b6dd-7740-4f1d-b627-d2620beb8743', email: 'fsoyilovv@gmail.com', full_name: 'Farhod Soyilov', tier: 'free', created_at: '2026-04-22T09:03:13.610Z' },
-    { id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721', email: 'fsoyilov@gmail.com', full_name: 'soyilov', tier: 'premium', created_at: '2026-08-01T09:43:02.481Z' },
-    { id: '9c8e113d-75fe-456c-aa2b-bf059736a629', email: 'dilshodbekusmonov712@gmail.com', full_name: 'Dilshodbek Usmonov', tier: 'free', created_at: '2026-08-03T16:13:46.515Z' },
-    { id: 'b173e27e-01e8-43d1-8a3d-b373e4b71e12', email: 'oblakulov.shohruh707@gmail.com', full_name: 'Shohruh Oblakulov', tier: 'free', created_at: '2026-07-20T16:58:01.706Z' },
-    { id: '92d9dfb1-8e93-47f9-b6f2-c2e40a9de0bf', email: 'jorabekmirzayev9@gmail.com', full_name: 'Mirzayev Jo\'rabek', tier: 'free', created_at: '2026-05-06T10:23:12.614Z' },
-    { id: 'f76d6c68-bfee-4b5b-91a5-c96a774ec544', email: 'ssoyilov7700@gmail.com', full_name: 'Sardor', tier: 'free', created_at: '2026-07-27T10:25:47.035Z' },
-    { id: 'f2012408-c512-4c16-a984-3639ca8ea516', email: 'norqulovashaxina80@gmail.com', full_name: 'Shahina', tier: 'free', created_at: '2026-07-24T16:37:05.684Z' },
-    { id: '2e395f64-4b64-43be-8ce8-a9fc46ca9634', email: 'olimovogabek889@gmail.com', full_name: 'Ogabek', tier: 'free', created_at: '2026-06-03T13:45:25.807Z' },
-    { id: 'f33bded2-e41f-4bf2-935f-2d3f9546b232', email: 'geminiai199323@gmail.com', full_name: 'Gemini AI', tier: 'free', created_at: '2026-03-25T12:25:07.542Z' },
-    { id: '5ef8a391-b523-420c-8c9e-d33ed742759e', email: 'seawsfdsgbaedf@gmail.com', full_name: 'ggfddrgbvcde', tier: 'free', created_at: '2026-07-25T20:01:42.934Z' },
-    { id: '90e7922f-64d2-4f9a-b522-34a52e24cdd2', email: 'shahzodaobloqulova099@gmail.com', full_name: 'oblakulov shohruh', tier: 'free', created_at: '2026-07-20T17:26:35.961Z' },
-    { id: 'd767f465-4da1-4cef-81da-6b6c6066aadd', email: 'testuser11@gmail.com', full_name: 'test', tier: 'free', created_at: '2026-06-23T04:37:50.113Z' },
-    { id: '9489263a-b23c-47d9-a0d5-157c78547e35', email: 'soyilovfarhod157@gmail.com', full_name: 'test user 1', tier: 'free', created_at: '2026-06-23T04:41:04.307Z' },
-    { id: '4bcd845a-61f9-4565-8ca8-c8289dbcafc8', email: '220075f@jdu.uz', full_name: 'personal', tier: 'free', created_at: '2026-02-15T16:03:43.331Z' },
-    { id: 'e8c4f1e6-d12c-4e9c-a9f3-41cf492b9a54', email: 'dilshodbekusmonov204@gmail.com', full_name: 'Dilshodbek Usmonov', tier: 'free', created_at: '2026-06-23T09:29:02.306Z' },
-    { id: '89d2d404-f610-4ccf-8ecd-1bea6510ee0a', email: 'telefonaccaunt46@gmail.com', full_name: 'Murodjon', tier: 'free', created_at: '2026-04-22T09:00:12.095Z' },
-    { id: '02d66fab-68a0-45a6-9493-4984c14eb677', email: 'ibodullayev.dev@gmail.com', full_name: 'ibodullayev.dev', tier: 'free', created_at: '2026-05-10T12:00:00.000Z' },
-    { id: '4b91e127-139d-4ece-8480-bff8d7dda14c', email: 'oblakulov006@gmail.com', full_name: 'Oblakulov shohruh', tier: 'free', created_at: '2026-07-23T09:59:06.369Z' },
-    { id: '0ddb46de-b612-42bf-b013-9aeab3d20188', email: 'pdhanush6363@gmail.com', full_name: 'Dhan', tier: 'free', created_at: '2026-06-01T10:00:00.000Z' },
-    { id: '8545b7e4-9b85-4a19-a001-45a6f0823844', email: '220194m@jdu.uz', full_name: 'Murodjon (JDU)', tier: 'free', created_at: '2026-05-15T08:00:00.000Z' }
-];
-
 // ─── Action Dropdown Menu ───────────────────────────────────────────────────
 interface DropdownMenuProps {
     sub: UserSubscription;
@@ -178,23 +153,12 @@ const TierBadge: React.FC<{ tier: string }> = ({ tier }) => {
     );
 };
 
-// Initial complete registered users list
-const initialSubscriptions: UserSubscription[] = REAL_PROFILES_ALL.map((p: any) => ({
-    id: p.id,
-    email: p.email,
-    full_name: p.full_name,
-    tier: (p.tier || (p.email === 'fsoyilov@gmail.com' ? 'premium' : 'free')) as any,
-    ai_credits: p.email === 'fsoyilov@gmail.com' ? 9999 : 100,
-    last_reset_date: new Date().toISOString(),
-    created_at: p.created_at
-}));
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 const AdminDashboardPage: React.FC = () => {
     const { user } = useStudyData();
     const navigate = useNavigate();
-    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>(initialSubscriptions);
-    const [loading, setLoading] = useState(false);
+    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>([]);
+    const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [dailyStats, setDailyStats] = useState<any[]>([]);
     const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
@@ -237,40 +201,28 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [subsSettled, profilesSettled] = await Promise.allSettled([
+            const [subsSettled, profilesSettled, speakingSettled, studySessionsSettled] = await Promise.allSettled([
                 supabase.from('user_subscriptions').select('*'),
-                supabase.from('profiles').select('*').order('created_at', { ascending: false })
+                supabase.from('profiles').select('*').order('created_at', { ascending: false }),
+                supabase.from('speaking_sessions').select('id, user_id, duration_seconds, overall_score, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(500)
             ]);
 
             const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
             const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
+            const dbSpeaking = (speakingSettled.status === 'fulfilled' && Array.isArray(speakingSettled.value.data)) ? speakingSettled.value.data : [];
+            const dbStudySessions = (studySessionsSettled.status === 'fulfilled' && Array.isArray(studySessionsSettled.value.data)) ? studySessionsSettled.value.data : [];
 
-            // Merge DB profiles with complete 21 registered real profiles list
-            const profileMap = new Map<string, any>();
-            REAL_PROFILES_ALL.forEach(p => profileMap.set(p.id, { ...p }));
-            dbProfiles.forEach((p: any) => {
-                if (p.id) {
-                    const existing = profileMap.get(p.id);
-                    profileMap.set(p.id, {
-                        ...existing,
-                        ...p,
-                        email: p.email || existing?.email || p.full_name || 'user@planner.app',
-                        full_name: p.full_name || existing?.full_name || 'Talaba'
-                    });
-                }
-            });
-
-            const allProfiles = Array.from(profileMap.values());
-
-            const mappedUsers: UserSubscription[] = allProfiles.map((p: any) => {
+            // 1. Map 100% real registered users from Supabase DB
+            const mappedUsers: UserSubscription[] = dbProfiles.map((p: any) => {
                 const existingSub = dbSubs.find((s: any) => s.user_id === p.id || s.id === p.id);
                 return {
-                    id: existingSub?.id || p.id,
-                    email: p.email || p.full_name || 'user@planner.app',
-                    full_name: p.full_name,
-                    tier: (existingSub?.tier || p.tier || (p.email === 'fsoyilov@gmail.com' ? 'premium' : 'free')) as any,
+                    id: p.id,
+                    email: p.email || 'user@planner.app',
+                    full_name: p.full_name || '',
+                    tier: (existingSub?.tier || (p.role === 'admin' || p.role === 'superadmin' ? 'premium' : 'free')) as any,
                     ai_credits: existingSub?.ai_credits ?? (p.email === 'fsoyilov@gmail.com' ? 9999 : 100),
-                    last_reset_date: existingSub?.last_reset_date || new Date().toISOString(),
+                    last_reset_date: existingSub?.last_reset_date || p.created_at || new Date().toISOString(),
                     valid_until: existingSub?.valid_until,
                     created_at: p.created_at || new Date().toISOString()
                 };
@@ -278,31 +230,45 @@ const AdminDashboardPage: React.FC = () => {
 
             setSubscriptions(mappedUsers);
 
-            let statsData: any[] = [];
-            const { data: stats, error: statsErr } = await supabase
-                .from('admin_daily_stats')
-                .select('*')
-                .order('activity_date', { ascending: true })
-                .limit(30);
+            // 2. Aggregate 100% real daily stats from speaking_sessions and study_sessions
+            const dateMap = new Map<string, { activity_date: string; activeUsers: Set<string>; total_duration_minutes: number; total_sessions: number }>();
 
-            if (!statsErr && stats && stats.length > 0) {
-                statsData = stats;
-            } else {
-                const now = new Date();
-                statsData = Array.from({ length: 14 }).map((_, i) => {
-                    const d = new Date(now);
-                    d.setDate(d.getDate() - (13 - i));
-                    const dateStr = d.toISOString().split('T')[0];
-                    return {
+            const processRecord = (created_at: string, durationMin: number, userId?: string) => {
+                if (!created_at) return;
+                const dateStr = created_at.split('T')[0];
+                if (!dateMap.has(dateStr)) {
+                    dateMap.set(dateStr, {
                         activity_date: dateStr,
-                        active_users: 12 + (i % 7),
-                        total_duration_minutes: 420 + (i * 35),
-                        total_sessions: 25 + (i * 2)
-                    };
-                });
-            }
+                        activeUsers: new Set<string>(),
+                        total_duration_minutes: 0,
+                        total_sessions: 0
+                    });
+                }
+                const entry = dateMap.get(dateStr)!;
+                if (userId) entry.activeUsers.add(userId);
+                entry.total_duration_minutes += Math.round(durationMin);
+                entry.total_sessions += 1;
+            };
 
-            setDailyStats(statsData);
+            dbSpeaking.forEach((s: any) => {
+                processRecord(s.created_at, (s.duration_seconds || 0) / 60, s.user_id);
+            });
+
+            dbStudySessions.forEach((s: any) => {
+                processRecord(s.created_at, s.duration || 0, s.user_id);
+            });
+
+            const sortedStats = Array.from(dateMap.values())
+                .sort((a, b) => a.activity_date.localeCompare(b.activity_date))
+                .slice(-14)
+                .map(entry => ({
+                    activity_date: entry.activity_date,
+                    active_users: entry.activeUsers.size,
+                    total_duration_minutes: entry.total_duration_minutes,
+                    total_sessions: entry.total_sessions
+                }));
+
+            setDailyStats(sortedStats);
         } catch (err) {
             console.error('fetchAdminData error:', err);
         }
@@ -592,28 +558,35 @@ const AdminDashboardPage: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="h-56 w-full">
-                            <SvgLineChart
-                                data={dailyStats.map(s => {
-                                    const d = new Date(s.activity_date);
-                                    const day = d.getDate();
-                                    const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'];
-                                    return {
-                                        ...s,
-                                        dateFormatted: `${day}-${months[d.getMonth()] || ''}`
-                                    };
-                                })}
-                                xKey="dateFormatted"
-                                series={[{
-                                    dataKey: chartMode === 'dau' ? 'active_users' : 'total_duration_minutes',
-                                    stroke: '#6366f1',
-                                    fill: '#6366f1',
-                                    name: chartMode === 'dau' ? 'Faol talabalar' : "O'qish daqiqalari"
-                                }]}
-                                height={220}
-                                showArea={true}
-                                unit={chartMode === 'dau' ? 'ta' : 'daq'}
-                            />
+                        <div className="h-56 w-full flex items-center justify-center">
+                            {dailyStats.length === 0 ? (
+                                <div className="text-center py-10">
+                                    <Activity className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" />
+                                    <p className="text-xs font-semibold text-muted-foreground">Hozircha o'qish faolliklari qayd etilmagan</p>
+                                </div>
+                            ) : (
+                                <SvgLineChart
+                                    data={dailyStats.map(s => {
+                                        const d = new Date(s.activity_date);
+                                        const day = d.getDate();
+                                        const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'];
+                                        return {
+                                            ...s,
+                                            dateFormatted: `${day}-${months[d.getMonth()] || ''}`
+                                        };
+                                    })}
+                                    xKey="dateFormatted"
+                                    series={[{
+                                        dataKey: chartMode === 'dau' ? 'active_users' : 'total_duration_minutes',
+                                        stroke: '#6366f1',
+                                        fill: '#6366f1',
+                                        name: chartMode === 'dau' ? 'Faol talabalar' : "O'qish daqiqalari"
+                                    }]}
+                                    height={220}
+                                    showArea={true}
+                                    unit={chartMode === 'dau' ? 'ta' : 'daq'}
+                                />
+                            )}
                         </div>
                     </div>
 

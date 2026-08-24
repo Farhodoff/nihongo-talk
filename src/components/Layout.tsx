@@ -12,7 +12,7 @@ import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -44,6 +44,7 @@ const Layout: React.FC = () => {
     const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus, loading } = useStudyData();
     const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
     const isAdmin = isAdminEmail(displayEmail);
+    const isSuper = isSuperAdmin(displayEmail);
 
     // Global Keyboard Shortcuts (Cmd/Ctrl+K, F, T, D)
     useEffect(() => {
@@ -108,12 +109,13 @@ const Layout: React.FC = () => {
     }, [loading, primaryLanguage, targetLevel]);
 
     const navItems: NavItem[] = useMemo(() => {
-        if (primaryLanguage === 'ja') {
+        // Super Admin can switch to English (IELTS) track for development
+        if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-                { name: "Scenarios", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
-                { name: "Speaking Coach", path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
+                { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+                { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+                { name: "Scenarios", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
+                { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
                 { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
                 { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
                 { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
@@ -122,19 +124,19 @@ const Layout: React.FC = () => {
             ];
         }
 
-        // Default: English ('en')
+        // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-            { name: "Scenarios", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
-            { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+            { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+            { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+            { name: "Scenarios", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
+            { name: "Speaking Coach", path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
             { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
             { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
             { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
             { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
             { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
-    }, [primaryLanguage]);
+    }, [primaryLanguage, isSuper]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -294,8 +296,8 @@ const Layout: React.FC = () => {
                     </Button>
                 </div>
 
-                {/* Secondary Focus Quick Switcher (Only when 2 languages enabled) */}
-                {enabledLanguages.length > 1 && (
+                {/* Secondary Focus Quick Switcher (Only for Super Admin when 2 languages enabled) */}
+                {isSuper && enabledLanguages.length > 1 && (
                     <div className={`px-3 pt-2 pb-1 ${isCollapsed ? 'flex justify-center px-1' : ''}`}>
                         {!isCollapsed ? (
                             <div className={`px-2.5 py-1.5 rounded-xl border flex items-center justify-between transition-all ${

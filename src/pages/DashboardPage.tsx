@@ -12,11 +12,14 @@ import { LearningProgressionService } from '../services/LearningProgressionServi
 import { RoadmapService } from '../services/RoadmapService';
 import { NextBestAction, DailyLearningPlan, ProgressionState, LevelPromotionCandidate } from '../types/learningPath';
 import { RoadmapSummary } from '../types/curriculum';
+import { isSuperAdmin } from '../utils/admin';
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
     const { language, t } = useLanguage();
-    const cachedStateKey = `study_planner_cached_dashboard_${primaryLanguage}`;
+    const isSuper = isSuperAdmin(user?.email);
+    const isJaTrack = !isSuper || primaryLanguage === 'ja';
+    const cachedStateKey = `study_planner_cached_dashboard_${isJaTrack ? 'ja' : 'en'}`;
     const initialCached = useMemo(() => {
         return safeLocalStorage.getJSON<any>(cachedStateKey, null);
     }, [cachedStateKey]);
@@ -341,19 +344,19 @@ const DashboardPage: React.FC = () => {
                     : 'border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-card to-card'
             }`}>
                 <div className={`absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none ${
-                    primaryLanguage === 'ja' ? 'bg-rose-500/15' : 'bg-indigo-500/15'
+                    isJaTrack ? 'bg-rose-500/15' : 'bg-indigo-500/15'
                 }`} />
 
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
                     <div className="space-y-3 max-w-2xl">
                         <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-2xl">{primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}</span>
+                            <span className="text-2xl">{isJaTrack ? '🇯🇵' : '🇬🇧'}</span>
                             <span className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border ${
-                                primaryLanguage === 'ja'
+                                isJaTrack
                                     ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
                                     : 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
                             }`}>
-                                {primaryLanguage === 'ja' ? `JLPT ${targetLevel}` : `IELTS (${targetLevel})`} Focus Mode
+                                {isJaTrack ? `JLPT ${targetLevel || 'N3'}` : `IELTS (${targetLevel || 'B2'})`} Focus Mode
                             </span>
                             <span className="text-xs text-muted-foreground font-medium">
                                 • {targetGoal}
@@ -382,10 +385,10 @@ const DashboardPage: React.FC = () => {
                         ) : (
                             <div>
                                 <h3 className="text-xl font-bold text-foreground">
-                                    {primaryLanguage === 'ja' ? "Bugungi Yapon Tili Mashg'ulotlari" : "Bugungi IELTS & Akademik Ingliz Tili"}
+                                    {isJaTrack ? "Bugungi Yapon Tili Mashg'ulotlari" : "Bugungi IELTS & Akademik Ingliz Tili"}
                                 </h3>
                                 <p className="text-xs text-muted-foreground">
-                                    {primaryLanguage === 'ja' ? "Har kuni 20 ta yangi Kanji, grammatika va AI muloqot." : "Speaking Examiner, Writing tahlili va Oxford Academic lug'at."}
+                                    {isJaTrack ? "Har kuni 20 ta yangi Kanji, grammatika va AI muloqot." : "Speaking Examiner, Writing tahlili va Oxford Academic lug'at."}
                                 </p>
                             </div>
                         )}
@@ -395,9 +398,9 @@ const DashboardPage: React.FC = () => {
                     <div className="flex flex-col gap-3 shrink-0 items-start lg:items-end">
                         {nextAction && (
                             <Link
-                                to={nextAction.route || (primaryLanguage === 'ja' ? '/jlpt' : '/ielts')}
+                                to={nextAction.route || (isJaTrack ? '/jlpt' : '/ielts')}
                                 className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl text-white text-sm font-black shadow-lg transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] ${
-                                    primaryLanguage === 'ja'
+                                    isJaTrack
                                         ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-600/30'
                                         : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/30'
                                 }`}
@@ -416,7 +419,7 @@ const DashboardPage: React.FC = () => {
                             <Link to="/diagnostic" className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-bold transition-all flex items-center gap-1">
                                 <span>🎯</span> Test
                             </Link>
-                            {primaryLanguage === 'ja' ? (
+                            {isJaTrack ? (
                                 <>
                                     <Link to="/jlpt" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">
                                         <span>🈶</span> Kanji

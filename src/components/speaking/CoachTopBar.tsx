@@ -16,6 +16,7 @@ interface CoachTopBarProps {
     setTargetBand: (band: any) => void;
     isPaidUser: boolean;
     isAdmin: boolean;
+    isSuperAdmin?: boolean;
     onOpenProModal: (reason: string) => void;
     onOpenSettings: () => void;
     formatTimer: (sec: number) => string;
@@ -36,6 +37,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     setTargetBand,
     isPaidUser,
     isAdmin,
+    isSuperAdmin: isSuper,
     onOpenProModal,
     onOpenSettings,
     formatTimer,
@@ -89,17 +91,19 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             <div className="flex items-center gap-1.5 shrink-0 ml-auto sm:ml-0">
                 {/* Language Switcher Pill */}
                 <div className="flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl p-0.5 sm:p-1 rounded-xl border border-gray-200/50 dark:border-gray-700/50">
-                    <button
-                        onClick={() => handleLanguageChange('en')}
-                        disabled={isLiveSession}
-                        className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all ${
-                            language === 'en'
-                            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
-                            : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
-                        }`}
-                    >
-                        🇬🇧 EN
-                    </button>
+                    {isSuper && (
+                        <button
+                            onClick={() => handleLanguageChange('en')}
+                            disabled={isLiveSession}
+                            className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all ${
+                                language === 'en'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
+                                : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
+                            }`}
+                        >
+                            🇬🇧 EN
+                        </button>
+                    )}
                     <button
                         onClick={() => handleLanguageChange('ja')}
                         disabled={isLiveSession}

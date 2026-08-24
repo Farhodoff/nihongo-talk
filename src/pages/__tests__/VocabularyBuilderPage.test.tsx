@@ -16,6 +16,8 @@ vi.mock('../../lib/supabase', () => ({
 
 vi.mock('../../context/StudyPlannerContext', () => ({
     useStudyData: () => ({
+        user: { email: 'fsoyilov@gmail.com' },
+        primaryLanguage: 'en',
         subjects: [{ id: 'subj-1', name: 'English C1' }],
         addFlashcard: mockAddFlashcard
     })

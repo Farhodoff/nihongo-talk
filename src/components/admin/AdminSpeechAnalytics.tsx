@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { ScenarioService } from '../../services/ScenarioService';
 import { Mic, Search, RefreshCw, Award, Clock, User, Calendar, TrendingUp, MessageSquareText, X, FileText } from 'lucide-react';
 
 export interface SpeakingSessionRecord {
@@ -45,6 +44,17 @@ export const AdminSpeechAnalytics: React.FC = () => {
         let list: SpeakingSessionRecord[] = [];
 
         try {
+            // Fetch profiles to map user_id -> email for clean display
+            const { data: profileData } = await supabase
+                .from('profiles')
+                .select('id, email, full_name');
+            const profileMap = new Map<string, string>();
+            if (profileData) {
+                profileData.forEach(p => {
+                    if (p.id) profileMap.set(p.id, p.email || p.full_name || 'Student');
+                });
+            }
+
             // 1. Fetch primary speaking_sessions table with transcript JSONB
             const { data: speakData, error: speakErr } = await supabase
                 .from('speaking_sessions')
@@ -54,24 +64,20 @@ export const AdminSpeechAnalytics: React.FC = () => {
             if (!speakErr && speakData && speakData.length > 0) {
                 list = speakData.map(item => ({
                     id: item.id,
-                    user_email: item.user_email || 'Student',
+                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
                     persona_title: item.persona_title || item.topic || 'Speaking Muloqot',
                     fluency_score: item.fluency_score || 0,
                     pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
-                    grammar_score: item.grammar_score || 75,
-                    vocabulary_score: item.vocabulary_score || 75,
-                    duration_seconds: item.duration_seconds || 60,
+                    grammar_score: item.grammar_score || 0,
+                    vocabulary_score: item.vocabulary_score || 0,
+                    duration_seconds: item.duration_seconds || 0,
                     feedback: item.feedback || item.ai_feedback || '',
                     transcript: item.transcript || [],
                     created_at: item.created_at || new Date().toISOString()
                 }));
             }
-        } catch (err) {
-            console.warn('Supabase speaking_sessions fetch notice:', err);
-        }
 
-        try {
-            // 2. Legacy fallback from coach_sessions
+            // 2. Legacy fallback from coach_sessions if needed
             const { data: legacyData, error: legacyErr } = await supabase
                 .from('coach_sessions')
                 .select('*')
@@ -82,13 +88,13 @@ export const AdminSpeechAnalytics: React.FC = () => {
                     if (!list.some(l => l.id === item.id)) {
                         list.push({
                             id: item.id,
-                            user_email: item.user_email || 'Student',
+                            user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
                             persona_title: item.persona_title || 'Yaponcha Muloqot',
                             fluency_score: item.fluency_score || 0,
                             pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
-                            grammar_score: item.grammar_score || 75,
-                            vocabulary_score: item.vocabulary_score || 75,
-                            duration_seconds: item.duration_seconds || 60,
+                            grammar_score: item.grammar_score || 0,
+                            vocabulary_score: item.vocabulary_score || 0,
+                            duration_seconds: item.duration_seconds || 0,
                             feedback: item.feedback || '',
                             created_at: item.created_at || new Date().toISOString()
                         });
@@ -96,31 +102,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             }
         } catch (err) {
-            console.warn('Supabase coach_sessions fetch notice:', err);
-        }
-
-        // 3. Fetch local scenario history records
-        try {
-            const scenarioHistory = await ScenarioService.getScenarioHistory();
-            for (const item of scenarioHistory) {
-                if (!list.some(l => l.id === item.id)) {
-                    list.push({
-                        id: item.id,
-                        user_email: 'Student (Local)',
-                        persona_title: item.scenario_title,
-                        fluency_score: item.fluency_score,
-                        pronunciation_score: item.pronunciation_score,
-                        grammar_score: item.grammar_score,
-                        vocabulary_score: item.vocabulary_score,
-                        duration_seconds: item.duration_seconds,
-                        feedback: item.ai_feedback,
-                        transcript: item.transcript || [],
-                        created_at: item.created_at
-                    });
-                }
-            }
-        } catch (e) {
-            console.error(e);
+            console.warn('Supabase speech analytics fetch notice:', err);
         }
 
         // Sort descending by created_at

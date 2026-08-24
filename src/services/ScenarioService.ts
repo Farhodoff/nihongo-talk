@@ -3,8 +3,12 @@ import { DEFAULT_SCENARIOS } from '../data/defaultScenarios';
 import { supabase } from '../lib/supabase';
 
 const CUSTOM_SCENARIOS_KEY = 'kaizen_custom_scenarios';
-const SCENARIO_HISTORY_KEY = 'kaizen_scenario_history';
+const SCENARIO_HISTORY_PREFIX = 'kaizen_scenario_history:';
 let _cachedScenarios: ConversationScenario[] | null = null;
+
+const getHistoryKey = (userId?: string | null): string => {
+    return `${SCENARIO_HISTORY_PREFIX}${userId || 'anon'}`;
+};
 
 export class ScenarioService {
     // 0. Synchronous instant getters for 0ms initial render (stale-while-revalidate)
@@ -25,9 +29,11 @@ export class ScenarioService {
         return _cachedScenarios;
     }
 
-    static getImmediateHistory(): ScenarioSessionResult[] {
+    static getImmediateHistory(userId?: string | null): ScenarioSessionResult[] {
         try {
-            const local = typeof window !== 'undefined' ? localStorage.getItem(SCENARIO_HISTORY_KEY) : null;
+            if (typeof window === 'undefined') return [];
+            const key = getHistoryKey(userId);
+            const local = localStorage.getItem(key) || (userId ? localStorage.getItem('kaizen_scenario_history') : null);
             if (local) {
                 return JSON.parse(local);
             }
@@ -158,26 +164,40 @@ export class ScenarioService {
     }
 
     // 4. Save Session Evaluation Result
-    static async saveSessionResult(result: ScenarioSessionResult): Promise<void> {
+    static async saveSessionResult(result: ScenarioSessionResult, explicitUserId?: string | null): Promise<void> {
+        let userId = explicitUserId || null;
+        let userEmail = 'guest@kaizen.ai';
+
+        try {
+            if (!userId) {
+                const { data: userData } = await supabase.auth.getUser();
+                userId = userData?.user?.id || null;
+                userEmail = userData?.user?.email || 'guest@kaizen.ai';
+            }
+        } catch {
+            // guest
+        }
+
+        const key = getHistoryKey(userId);
         let history: ScenarioSessionResult[] = [];
         try {
-            const local = localStorage.getItem(SCENARIO_HISTORY_KEY);
-            if (local) {
-                history = JSON.parse(local);
+            if (typeof window !== 'undefined') {
+                const local = localStorage.getItem(key);
+                if (local) {
+                    history = JSON.parse(local);
+                }
             }
         } catch (e) {
             console.error(e);
         }
 
         history.unshift(result);
-        localStorage.setItem(SCENARIO_HISTORY_KEY, JSON.stringify(history.slice(0, 50)));
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+        }
 
         // Sync to Supabase speaking_sessions & coach_sessions tables
         try {
-            const { data: userData } = await supabase.auth.getUser();
-            const userId = userData?.user?.id || null;
-            const userEmail = userData?.user?.email || 'guest@kaizen.ai';
-
             // 1. Primary insertion into speaking_sessions (with transcript)
             const { error: insertErr } = await supabase.from('speaking_sessions').insert({
                 user_id: userId,
@@ -222,26 +242,35 @@ export class ScenarioService {
     }
 
     // 5. Get Learning History
-    static async getScenarioHistory(): Promise<ScenarioSessionResult[]> {
-        const history = ScenarioService.getImmediateHistory();
+    static async getScenarioHistory(explicitUserId?: string | null): Promise<ScenarioSessionResult[]> {
+        let userId = explicitUserId || null;
 
         try {
-            let userId: string | null | undefined = null;
-            if (typeof supabase.auth?.getSession === 'function') {
-                const { data: sessionData } = await supabase.auth.getSession();
-                userId = sessionData?.session?.user?.id;
+            if (!userId) {
+                if (typeof supabase.auth?.getSession === 'function') {
+                    const { data: sessionData } = await supabase.auth.getSession();
+                    userId = sessionData?.session?.user?.id || null;
+                }
+                if (!userId && typeof supabase.auth?.getUser === 'function') {
+                    const { data: userData } = await supabase.auth.getUser();
+                    userId = userData?.user?.id || null;
+                }
             }
-            if (!userId && typeof supabase.auth?.getUser === 'function') {
-                const { data: userData } = await supabase.auth.getUser();
-                userId = userData?.user?.id;
-            }
-            if (userId) {
+        } catch {
+            // guest
+        }
+
+        const history = ScenarioService.getImmediateHistory(userId);
+
+        if (userId) {
+            try {
                 const { data, error } = await supabase
                     .from('speaking_sessions')
                     .select('*')
                     .eq('user_id', userId)
                     .order('created_at', { ascending: false })
                     .limit(50);
+
                 if (!error && data && data.length > 0) {
                     const dbHistory: ScenarioSessionResult[] = data.map(item => ({
                         id: item.id || `sc_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
@@ -253,7 +282,7 @@ export class ScenarioService {
                         vocabulary_score: item.vocabulary_score || 0,
                         grammar_score: item.grammar_score || 0,
                         pronunciation_score: item.pronunciation_score || 0,
-                        ai_feedback: item.feedback || '',
+                        ai_feedback: item.feedback || item.ai_feedback || '',
                         key_phrases_used: Array.isArray(item.key_phrases_used) ? item.key_phrases_used : [],
                         key_phrases_missed: Array.isArray(item.key_phrases_missed) ? item.key_phrases_missed : [],
                         transcript: item.transcript || [],
@@ -261,12 +290,14 @@ export class ScenarioService {
                     }));
                     const dbTimes = new Set(dbHistory.map(h => h.created_at));
                     const merged = [...dbHistory, ...history.filter(h => !dbTimes.has(h.created_at))].slice(0, 50);
-                    localStorage.setItem(SCENARIO_HISTORY_KEY, JSON.stringify(merged));
+                    if (typeof window !== 'undefined') {
+                        localStorage.setItem(getHistoryKey(userId), JSON.stringify(merged));
+                    }
                     return merged;
                 }
+            } catch (e) {
+                console.warn('Scenario history fetch from DB notice:', e);
             }
-        } catch (e) {
-            console.warn('Scenario history fetch from DB notice:', e);
         }
 
         return history;

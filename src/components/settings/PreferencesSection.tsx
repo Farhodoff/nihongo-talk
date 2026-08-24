@@ -2,6 +2,7 @@ import { Bell, HelpCircle, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'l
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
+import { isSuperAdmin } from '../../utils/admin';
 import AIProviderSection from './AIProviderSection';
 
 interface Settings {
@@ -21,6 +22,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     onToggleNotifications
 }) => {
     const { 
+        user,
         primaryLanguage, 
         enabledLanguages, 
         targetLevel, 
@@ -29,6 +31,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
         addSecondaryLanguage, 
         removeSecondaryLanguage 
     } = useStudyData();
+
+    const isSuper = isSuperAdmin(user?.email);
 
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
@@ -44,12 +48,12 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             O'quv Yo'nalishi & Tillari (Learning Focus)
                         </h3>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                            Asosiy til menyu, o'quv rejalari va tavsiyalarni boshqaradi. Ikkilamchi tillar ma'lumotlaringizni o'chirmasdan saqlanadi.
+                            Asosiy til menyu, o'quv rejalari va tavsiyalarni boshqaradi.
                         </p>
                     </div>
                     
-                    {/* Add Secondary Language Action */}
-                    {enabledLanguages.length < 2 && (
+                    {/* Add Secondary Language Action (Super Admin Only) */}
+                    {isSuper && enabledLanguages.length < 2 && (
                         <button
                             type="button"
                             onClick={async () => {
@@ -127,8 +131,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                         </div>
                     </div>
 
-                    {/* 2. ADDITIONAL (SECONDARY) LANGUAGES */}
-                    {enabledLanguages.filter(l => l !== primaryLanguage).map(secLang => (
+                    {/* 2. ADDITIONAL (SECONDARY) LANGUAGES (Super Admin Only) */}
+                    {isSuper && enabledLanguages.filter(l => l !== primaryLanguage).map(secLang => (
                         <div 
                             key={secLang}
                             className="p-5 rounded-2xl border border-border bg-background/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:bg-muted/40"

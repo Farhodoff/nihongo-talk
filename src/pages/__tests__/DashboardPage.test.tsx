@@ -18,7 +18,7 @@ const mockUseStudyData = {
     primaryLanguage: 'en',
     targetLevel: 'B2',
     targetGoal: 'General English',
-    user: { id: 'test-user' }
+    user: { id: 'test-user', email: 'fsoyilov@gmail.com' }
 };
 
 vi.mock('../../context/StudyPlannerContext', () => ({

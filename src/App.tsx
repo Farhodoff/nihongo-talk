@@ -47,6 +47,17 @@ const StudyModePage = lazyWithRetry(() => import('./pages/StudyModePage'));
 const ScenarioPickerPage = lazyWithRetry(() => import('./pages/ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
 
 
+import { isSuperAdmin } from './utils/admin';
+import { useStudyData } from './context/StudyPlannerContext';
+
+const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user } = useStudyData();
+    if (!isSuperAdmin(user?.email)) {
+        return <Navigate to="/jlpt" replace />;
+    }
+    return <>{children}</>;
+};
+
 // Loading component
 const PageLoader = () => (
     <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -135,12 +146,12 @@ const App: React.FC = () => {
                                         <Route path="diagnostic" element={<DiagnosticPage />} />
                                         <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                                         <Route path="speaking-coach" element={<SpeakingCoachPage />} />
-                                        <Route path="ielts" element={<IeltsHubPage />} />
-                                        <Route path="ielts/grammar" element={<Navigate to="/ielts?tab=grammar" replace />} />
-                                        <Route path="ielts/writing" element={<Navigate to="/ielts?tab=writing" replace />} />
-                                        <Route path="ielts-writing" element={<Navigate to="/ielts?tab=writing" replace />} />
-                                        <Route path="ielts/speaking-mock" element={<IeltsSpeakingMockPage />} />
-                                        <Route path="ielts/reading-listening" element={<Navigate to="/ielts?tab=reading_listening" replace />} />
+                                        <Route path="ielts" element={<SuperAdminRoute><IeltsHubPage /></SuperAdminRoute>} />
+                                        <Route path="ielts/grammar" element={<SuperAdminRoute><Navigate to="/ielts?tab=grammar" replace /></SuperAdminRoute>} />
+                                        <Route path="ielts/writing" element={<SuperAdminRoute><Navigate to="/ielts?tab=writing" replace /></SuperAdminRoute>} />
+                                        <Route path="ielts-writing" element={<SuperAdminRoute><Navigate to="/ielts?tab=writing" replace /></SuperAdminRoute>} />
+                                        <Route path="ielts/speaking-mock" element={<SuperAdminRoute><IeltsSpeakingMockPage /></SuperAdminRoute>} />
+                                        <Route path="ielts/reading-listening" element={<SuperAdminRoute><Navigate to="/ielts?tab=reading_listening" replace /></SuperAdminRoute>} />
                                         <Route path="jlpt" element={<JlptHubPage />} />
                                         <Route path="scenarios" element={<ScenarioPickerPage />} />
                                         <Route path="jlpt-speaking" element={<Navigate to="/speaking-coach?lang=ja" replace />} />

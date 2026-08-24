@@ -6,7 +6,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
 import { MasteryEngine } from '../services/MasteryEngine';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 import { PERSONAS_BY_LANG, CoachPersona, CoachChatMessage } from '../components/speaking/speakingTypes';
@@ -47,19 +47,27 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 const SpeakingCoachPage: React.FC = () => {
     const { primaryLanguage } = useStudyData();
     const [searchParams, setSearchParams] = useSearchParams();
+    const { user, addCoachSession, addFlashcardsBatch } = useStudyData();
+    const isAdmin = isAdminEmail(user?.email);
+    const isSuper = isSuperAdmin(user?.email);
+
     const urlLang = searchParams.get('lang');
     const scenarioIdParam = searchParams.get('scenario');
 
-    const initialLang: 'en' | 'ja' = urlLang === 'ja' ? 'ja' : urlLang === 'en' ? 'en' : (primaryLanguage === 'ja' ? 'ja' : 'en');
+    const initialLang: 'en' | 'ja' = (isSuper && urlLang === 'en') ? 'en' : 'ja';
     const [language, setLanguage] = useState<'en' | 'ja'>(initialLang);
 
     useEffect(() => {
+        if (!isSuper) {
+            setLanguage('ja');
+            return;
+        }
         if (urlLang === 'ja' || urlLang === 'en') {
             setLanguage(prev => prev !== urlLang ? urlLang : prev);
         } else if (primaryLanguage === 'ja' || primaryLanguage === 'en') {
             setLanguage(prev => prev !== primaryLanguage ? primaryLanguage : prev);
         }
-    }, [urlLang, primaryLanguage]);
+    }, [urlLang, primaryLanguage, isSuper]);
 
     // Scenario & Voice Recorder state
     const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(null);
@@ -116,8 +124,6 @@ const SpeakingCoachPage: React.FC = () => {
     const [showProModal, setShowProModal] = useState(false);
     const [proModalReason, setProModalReason] = useState('');
 
-    const { user, addCoachSession, addFlashcardsBatch } = useStudyData();
-    const isAdmin = isAdminEmail(user?.email);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const activeScenarioRef = useRef(activeScenario);
@@ -672,6 +678,7 @@ const SpeakingCoachPage: React.FC = () => {
                 setTargetBand={setTargetBand}
                 isPaidUser={isPaidUser}
                 isAdmin={isAdmin}
+                isSuperAdmin={isSuper}
                 onOpenProModal={(reason) => {
                     setProModalReason(reason);
                     setShowProModal(true);
