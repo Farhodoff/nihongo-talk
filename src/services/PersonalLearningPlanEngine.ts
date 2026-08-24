@@ -151,71 +151,150 @@ export const PersonalLearningPlanEngine = {
                 ? ['/jlpt', '/jlpt/grammar-quiz', '/jlpt/reading', '/jlpt/listening', '/scenarios', '/study-mode']
                 : ['/ielts?tab=grammar', '/scenarios', '/speaking-coach', '/ielts?tab=reading_listening', '/ielts?tab=writing', '/vocabulary', '/study-mode'];
 
+            const strongSkills = state.masteryProfile?.topStrengths.map(s => s.skill) || [];
             const weaknessesWithSeverity = state.masteryProfile?.topWeaknesses.map(w => ({
                 skill: w.skill,
                 severity: w.severity || 'medium',
                 reason: w.reason
             })) || [];
 
-            const systemPrompt = `You are Kaizen AI's adaptive weekly learning planner.
+            const systemPrompt = `You are Kaizen AI’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
 
-Return ONLY valid JSON. No markdown.
+Your job is to create one realistic, personalized 7-day study plan using only the student data and valid learning routes provided below.
 
-You must create exactly 7 days: monday through sunday.
-Every task must include: title, type, skill, estimatedMinutes, route.
-Use Uzbek for title, reasoning, and expectedOutcome.
+Return ONLY one valid JSON object. Do not use Markdown, explanations outside JSON, comments, or code fences.
 
-DECISION RULES:
-- Daily total must be <= DAILY_MINUTES.
-- If DAILY_MINUTES < 30: create exactly 2 tasks.
-- If DAILY_MINUTES is 30–59: create 2–3 tasks.
-- If DAILY_MINUTES >= 60: create 3 tasks.
-- Never create an SRS-only day.
-- SRS route is always /study-mode, and SRS gets 5–20 minutes based on DUE_CARDS.
-- Allocate the remaining time to the weakest skills first.
-- A high-severity weak skill must appear at least 3 times in the week.
-- A medium-severity weak skill must appear at least 2 times.
-- Include speaking, reading/listening, writing, and grammar across the week when the time budget permits.
-- Use only routes from ALLOWED_ROUTES and only valid contentIds from AVAILABLE_CONTENT.
-- Higher target score and shorter deadline require more exam practice, writing, speaking, and mock tasks.
-- Do not invent lesson IDs.`;
+LANGUAGE:
+- All task titles, objectives, reasoning, and expectedOutcome MUST be in Uzbek.
+- Keep lesson IDs, routes, and skill enum values exactly as provided.
 
-            const prompt = `Student Parameters:
-- Language Track: ${goal.language}
-- Goal Type: ${goal.goalType}
-- Target: ${goal.targetGoal} (Target Level: ${goal.targetLevel})
-- Preparation Week: Week ${weekNumber} of ${goal.totalWeeks} (Weeks Remaining: ${Math.max(1, goal.totalWeeks - weekNumber + 1)})
-- DAILY_MINUTES: ${adjustedDailyMinutes}
-- DUE_CARDS: ${srsSummary.dueCount} (Overdue: ${srsSummary.overdueCount})
-- Current Level: ${goal.currentLevel}
-- WEAKNESSES: ${JSON.stringify(weaknessesWithSeverity)}
-- COMPLETED_LESSONS: ${JSON.stringify(completedLessonIds)}
-- ALLOWED_ROUTES: ${JSON.stringify(allowedRoutes)}
-- AVAILABLE_CONTENT: ${JSON.stringify(availableContent.slice(0, 15))}
-${evaluation ? `- PREVIOUS_WEEK_RESULT: ${JSON.stringify(evaluation)}` : ''}
+NON-NEGOTIABLE RULES:
 
-Generate JSON matching this exact schema:
+1. Generate exactly 7 days in this order:
+monday, tuesday, wednesday, thursday, friday, saturday, sunday.
+
+2. Every task MUST contain:
+- title
+- type
+- skill
+- estimatedMinutes
+- route
+- contentId only when a real available content ID is supplied
+
+3. A day’s total estimatedMinutes MUST NOT exceed DAILY_MINUTES.
+
+4. Never generate an SRS-only day.
+- DAILY_MINUTES below 30: exactly 2 tasks per day.
+- DAILY_MINUTES from 30 to 59: 2 or 3 tasks per day.
+- DAILY_MINUTES 60 or higher: 3 tasks per day.
+- If the daily time is too limited, rotate skills across the week instead of forcing all skills into every day.
+
+5. SRS:
+- Use type "srs", skill "vocabulary", route "/study-mode".
+- Include SRS only when DUE_CARDS is greater than 0.
+- Give SRS 5–20 minutes depending on DUE_CARDS and OVERDUE_CARDS.
+- Higher overdue count means higher SRS priority.
+
+6. Adaptation:
+- High-severity weak skills must appear at least 3 times during the week.
+- Medium-severity weak skills must appear at least 2 times.
+- Strong skills should receive less time, but must not disappear completely if they are relevant to the user’s exam goal.
+- Use diagnostic, mock, SRS, and previous-week evidence as the highest-priority signals.
+
+7. Goal intensity:
+- A higher target score and shorter remaining deadline require more exam-oriented practice.
+- IELTS target 7.0+ must include speaking, writing, reading/listening, and mock/exam practice across the week when DAILY_MINUTES permits.
+- JLPT plans must balance grammar, vocabulary, kanji, reading, and listening according to level and weakness.
+- Do not give beginner material to an advanced learner unless it is explicitly a review/remediation task.
+
+8. Content safety:
+- Use only routes from ALLOWED_ROUTES.
+- Use a contentId only from AVAILABLE_CONTENT_IDS.
+- Never invent content IDs, lessons, books, modules, or routes.
+- Never mix English and Japanese content.
+- Never assign a completed lesson as a new lesson. It may only appear as review.
+
+9. Quality:
+- Tasks must be concrete and actionable, not generic.
+- Bad: "English practice"
+- Good: "Past Simple: irregular verbs bo‘yicha 15 savollik mashq"
+- Do not repeat the same task title on consecutive days unless it is SRS.
+
+OUTPUT JSON SCHEMA:
+
 {
-  "objectives": ["Haftalik maqsad 1", "Haftalik maqsad 2"],
-  "focusSkills": ["grammar", "speaking", "vocabulary"],
+  "objectives": ["string", "string"],
+  "focusSkills": ["grammar", "vocabulary"],
   "days": [
     {
       "day": "monday",
       "tasks": [
         {
-          "title": "Unit 1: am / is / are — Darak gaplar qoidasi",
-          "type": "lesson",
-          "skill": "grammar",
-          "estimatedMinutes": 30,
-          "contentId": "murphy_u01_am_is_are",
-          "route": "/ielts?tab=grammar"
+          "title": "string in Uzbek",
+          "type": "lesson | grammar | vocabulary | srs | speaking | reading | listening | writing | practice | mock_test | review",
+          "skill": "grammar | vocabulary | reading | listening | speaking | writing | kanji",
+          "estimatedMinutes": 20,
+          "contentId": "only if included in AVAILABLE_CONTENT_IDS",
+          "route": "one route from ALLOWED_ROUTES"
         }
       ]
     }
   ],
-  "reasoning": "Tushuntirish (O'zbek tilida)...",
-  "expectedOutcome": "Kutilayotgan natija (O'zbek tilida)..."
+  "reasoning": "Talabaning natijalari va zaif ko‘nikmalariga asoslangan qisqa o‘zbekcha izoh.",
+  "expectedOutcome": "Hafta oxirida o‘lchab bo‘ladigan o‘zbekcha natija."
 }`;
+
+            const prompt = `Create the adaptive weekly plan using this source-of-truth student profile.
+
+Student Parameters:
+LANGUAGE_TRACK: ${goal.language}
+GOAL_TYPE: ${goal.goalType}
+CURRENT_LEVEL: ${goal.currentLevel}
+CURRENT_ESTIMATED_SCORE: ${goal.currentLevel || 'A1'}
+TARGET_GOAL: ${goal.targetGoal}
+TARGET_LEVEL: ${goal.targetLevel}
+TARGET_SCORE: ${goal.targetLevel || goal.targetGoal}
+DEADLINE: ${goal.deadline || 'Flexible'}
+REMAINING_WEEKS: ${Math.max(1, goal.totalWeeks - weekNumber + 1)}
+CURRENT_WEEK: ${weekNumber}
+DAILY_MINUTES: ${adjustedDailyMinutes}
+
+DIAGNOSTIC_RESULT:
+${JSON.stringify((state as any)?.diagnosticSummary || (state as any)?.diagnosticLevel || 'Barcha diagnostik savollar topshirilgan')}
+
+LATEST_MOCK_RESULTS:
+${JSON.stringify((state as any)?.recentMockScores || 'Oxirgi mock test natijasi mavjud emas')}
+
+ACTIVE_WEAKNESSES:
+${JSON.stringify(weaknessesWithSeverity)}
+
+STRONG_SKILLS:
+${JSON.stringify(strongSkills)}
+
+PREVIOUS_WEEK_EVALUATION:
+${JSON.stringify(evaluation || 'Birinchi hafta (oldingi evaluation mavjud emas)')}
+
+SRS_STATE:
+- DUE_CARDS: ${srsSummary.dueCount}
+- OVERDUE_CARDS: ${srsSummary.overdueCount}
+- RETENTION: ${(state as any)?.reviewSummary?.averageRetentionScore || 80}%
+
+COMPLETED_LESSON_IDS:
+${JSON.stringify(completedLessonIds)}
+
+AVAILABLE_CONTENT_IDS:
+${JSON.stringify(availableContent.map(c => c.id))}
+
+ALLOWED_ROUTES:
+${JSON.stringify(allowedRoutes)}
+
+Before returning JSON, verify:
+- all 7 days exist;
+- every day fits DAILY_MINUTES;
+- no SRS-only day exists;
+- weak skills receive required priority;
+- no invalid route or invented contentId exists;
+- English and Japanese content are never mixed.`;
 
             let cleanJson = '';
             let parsed: WeeklyLearningPlan | null = null;
