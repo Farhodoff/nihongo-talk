@@ -16,9 +16,9 @@ const isValidUrl = (url?: string) => {
 const supabaseUrl = isValidUrl(rawUrl) ? rawUrl! : 'https://qmuimxnknxwarvnkpnlo.supabase.co';
 
 // Clean and validate Supabase Anon Key (never expose or use SERVICE_ROLE in client bundle)
-let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key') ? rawKey : '';
+let supabaseAnonKey = (rawKey && rawKey !== 'your_supabase_anon_key' && rawKey !== 'placeholder-anon-key') ? rawKey : '';
 if (!supabaseAnonKey) {
-    supabaseAnonKey = 'placeholder-anon-key';
+    supabaseAnonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 }
 
 if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
