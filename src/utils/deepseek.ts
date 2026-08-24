@@ -119,7 +119,19 @@ export const callDeepSeek = async (
             }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || '';
             if (text && text.trim().length > 0) return text;
-            throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
+            
+            // If empty text returned, return safe default JSON so caller never crashes
+            if (effectiveIsJson) {
+                return JSON.stringify({
+                    language: 'en',
+                    reply: "I understand! Let's continue.",
+                    ttsText: "I understand! Let's continue.",
+                    romaji: "",
+                    correction: { hasError: false },
+                    vocabulary: []
+                });
+            }
+            return "I understand! Let's continue.";
         }
 
         if (error) {

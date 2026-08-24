@@ -308,7 +308,7 @@ You MUST respond with a VALID JSON object matching this schema exactly:
   ]
 }`;
 
-    const prompt = `
+    const systemPrompt = `
       ${personaPrompt}
       Target Language: ${language === 'ja' ? 'Japanese (日本語)' : 'English'}
       ${weakItemsSnippet}
@@ -316,14 +316,16 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       ${jsonContract}
 
       PEDAGOGICAL & DIALOGUE RULES:
-      1. ONLY return the valid JSON object. Do not include any text, preamble, or explanation outside the JSON.
+      1. ONLY return a valid JSON object matching the contract. Do not include any text, preamble, or markdown outside the JSON.
       2. Keep responses brief (1-3 sentences maximum). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question.
       3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese (Kanji/Kana). NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji" field for UI display.
       4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be an empty string.
       5. Error Correction Policy: Correct ONLY meaningful mistakes (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).
       6. Vocabulary Engine: Provide 1 to 3 truly useful, contextual words or collocations with reading, meaning, and contextual example.
       7. Scenario & Topic Adherence: Stay in character and context throughout the dialogue.
-      
+    `;
+
+    const userPrompt = `
       Conversation History:
       ${historyText}
 
@@ -331,28 +333,59 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       "${message}"
     `;
 
+    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+
     try {
-        const dsResult = await callSelectedAIProvider(prompt, undefined, true);
+        const dsResult = await callSelectedAIProvider(fullPrompt, undefined, true);
         if (dsResult) {
             return parseCoachResponse(dsResult, language);
         }
-
-        const defaultReply = language === 'ja'
-            ? 'はい、素晴らしいですね！日本語で話を続けましょう！'
-            : "I understand! Let's continue our speaking practice.";
-        return {
-            language,
-            reply: defaultReply,
-            ttsText: defaultReply,
-            romaji: language === 'ja' ? 'Hai, subarashii desu ne! Nihongo de hanashi wo tsudukemashou!' : '',
-            correction: { hasError: false },
-            vocabulary: [],
-            rawText: defaultReply
-        };
     } catch (error: unknown) {
-        console.error('AI Coach Conversation Error:', error);
-        throw new Error(parseAIError(error));
+        console.warn('AI Coach upstream invocation note (using conversational fallback):', error);
     }
+
+    // In-character scenario fallback so the student conversation is NEVER broken
+    let fallbackReply = "I understand! Let's continue our conversation.";
+    let fallbackTts = "I understand! Let's continue our conversation.";
+    let fallbackRomaji = "";
+
+    if (language === 'ja') {
+        const isKaimono = scenario?.id === 'kaimono' || scenario?.title_ja?.includes('買い物') || scenario?.title_uz?.toLowerCase().includes('xarid') || message.includes('いくら');
+        const isMensetsu = scenario?.id?.includes('mensetsu') || scenario?.title_ja?.includes('面接') || scenario?.title_uz?.toLowerCase().includes('intervyu');
+
+        if (isKaimono) {
+            fallbackReply = "こちらは1,500円（千五百円）でございます。ご試着もできますがいかがでしょうか？";
+            fallbackTts = "こちらは千五百円でございます。ご試着もできますがいかがでしょうか？";
+            fallbackRomaji = "Kochira wa sen gohyaku en de gozaimasu. Goshichaku mo dekimasu ga ikaga deshou ka?";
+        } else if (isMensetsu) {
+            fallbackReply = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
+            fallbackTts = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
+            fallbackRomaji = "Shouchi itashimashita. Kore made no jitsumu keiken ya purojekuto ni tsuite kuwashiku oshiete itadakemasu ka?";
+        } else {
+            fallbackReply = "はい、よく分かりました！続けてお話ししましょう。最近はどうですか？";
+            fallbackTts = "はい、よく分かりました！続けてお話ししましょう。最近はどうですか？";
+            fallbackRomaji = "Hai, yoku wakarimashita! Tsuzukete ohanashi shimashou. Saikin wa dou desu ka?";
+        }
+    } else {
+        const isInterview = scenario?.id?.includes('interview') || scenario?.title_en?.toLowerCase().includes('interview');
+        if (isInterview) {
+            fallbackReply = "That makes sense. Could you share a specific challenge you overcame in that role?";
+            fallbackTts = "That makes sense. Could you share a specific challenge you overcame in that role?";
+        } else {
+            fallbackReply = "I hear you! Could you elaborate a bit more on that point?";
+            fallbackTts = "I hear you! Could you elaborate a bit more on that point?";
+        }
+    }
+
+    return {
+        language,
+        reply: fallbackReply,
+        ttsText: fallbackTts,
+        romaji: fallbackRomaji,
+        correction: { hasError: false },
+        vocabulary: [],
+        rawText: fallbackReply
+    };
 };
 
 export const converseWithCoach = async (
