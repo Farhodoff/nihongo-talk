@@ -23,6 +23,7 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { DiagnosticService } from '../services/DiagnosticService';
 import { LessonService } from '../services/LessonService';
 import { ErrorVaultService } from '../services/ErrorVaultService';
+import { isSuperAdmin } from '../utils/admin';
 
 
 export interface Settings {
@@ -238,13 +239,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
     });
 
-    // Learning Focus State
+    // Learning Focus State - Defaults to 100% Japanese ('ja') for all public users
     const [primaryLanguage, setPrimaryLanguage] = useState<'en' | 'ja'>(() => {
+        const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+        const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        if (!isSuperAdmin(email)) {
+            safeLocalStorage.setItem('study_planner_primary_language', 'ja');
+            safeLocalStorage.setItem('study_planner_study_track', 'ja');
+            return 'ja';
+        }
         const saved = safeLocalStorage.getItem('study_planner_primary_language') || safeLocalStorage.getItem('study_planner_study_track');
-        return (saved === 'ja' || saved === 'en') ? saved : 'en';
+        return (saved === 'ja' || saved === 'en') ? saved : 'ja';
     });
 
     const [enabledLanguages, setEnabledLanguages] = useState<('en' | 'ja')[]>(() => {
+        const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
+        const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        if (!isSuperAdmin(email)) {
+            return ['ja'];
+        }
         const saved = safeLocalStorage.getJSON<('en' | 'ja')[] | null>('study_planner_enabled_languages', null);
         if (Array.isArray(saved) && saved.length > 0) return saved;
         return [primaryLanguage];
@@ -257,6 +270,26 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const [targetGoal, setTargetGoal] = useState<string>(() => {
         return LearningTrackStorage.getTargetGoal(primaryLanguage);
     });
+
+    // Enforce 100% Japanese track for non-super-admins
+    useEffect(() => {
+        if (!isSuperAdmin(user?.email)) {
+            if (primaryLanguage !== 'ja') {
+                setPrimaryLanguage('ja');
+                safeLocalStorage.setItem('study_planner_primary_language', 'ja');
+                safeLocalStorage.setItem('study_planner_study_track', 'ja');
+            }
+            setEnabledLanguages(['ja']);
+            const currentJaTarget = LearningTrackStorage.getTargetLevel('ja');
+            if (targetLevel !== currentJaTarget) {
+                setTargetLevel(currentJaTarget);
+            }
+            const currentJaGoal = LearningTrackStorage.getTargetGoal('ja');
+            if (targetGoal !== currentJaGoal) {
+                setTargetGoal(currentJaGoal);
+            }
+        }
+    }, [user?.email, primaryLanguage, targetLevel, targetGoal]);
 
     // Combined settings for consumers
     const settings: Settings = {
@@ -709,26 +742,27 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Learning Focus Actions
     const setPrimaryFocus = useCallback(async (lang: 'en' | 'ja', level?: string, goal?: string) => {
-        setPrimaryLanguage(lang);
-        safeLocalStorage.setItem('study_planner_primary_language', lang);
-        safeLocalStorage.setItem('study_planner_study_track', lang);
+        const allowedLang = (!isSuperAdmin(user?.email)) ? 'ja' : lang;
+        setPrimaryLanguage(allowedLang);
+        safeLocalStorage.setItem('study_planner_primary_language', allowedLang);
+        safeLocalStorage.setItem('study_planner_study_track', allowedLang);
 
         let currentEnabled: ('en' | 'ja')[] = [];
         setEnabledLanguages(prev => {
-            const next = prev.includes(lang) ? prev : [lang, ...prev];
+            const next = prev.includes(allowedLang) ? prev : [allowedLang, ...prev];
             currentEnabled = next;
             safeLocalStorage.setJSON('study_planner_enabled_languages', next);
             return next;
         });
 
-        const newLevel = level || LearningTrackStorage.getTargetLevel(lang);
-        const newGoal = goal || LearningTrackStorage.getTargetGoal(lang);
+        const newLevel = level || LearningTrackStorage.getTargetLevel(allowedLang);
+        const newGoal = goal || LearningTrackStorage.getTargetGoal(allowedLang);
 
         setTargetLevel(newLevel);
-        LearningTrackStorage.setTargetLevel(lang, newLevel);
+        LearningTrackStorage.setTargetLevel(allowedLang, newLevel);
 
         setTargetGoal(newGoal);
-        LearningTrackStorage.setTargetGoal(lang, newGoal);
+        LearningTrackStorage.setTargetGoal(allowedLang, newGoal);
 
         safeLocalStorage.setItem('study_planner_personalized_onboarded', 'true');
         window.dispatchEvent(new Event('study-track-changed'));

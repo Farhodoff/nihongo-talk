@@ -11,8 +11,18 @@ const PROMOTION_CANDIDATE_KEY = 'study_planner_promotion_candidate';
 export const LearningTrackStorage = {
     getCurrentLevel(language: SupportedLanguage): string {
         this.migrateSharedKeys(language);
-        const defaultLevel = language === 'ja' ? 'N5' : 'A1';
-        return safeLocalStorage.getItem(`${CURRENT_LEVEL_KEY}_${language}`) || defaultLevel;
+        if (language === 'ja') {
+            const val = safeLocalStorage.getItem(`${CURRENT_LEVEL_KEY}_ja`);
+            if (val && ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1'].includes(val.toUpperCase())) {
+                return val.toUpperCase();
+            }
+            return 'N5';
+        }
+        const val = safeLocalStorage.getItem(`${CURRENT_LEVEL_KEY}_en`);
+        if (val && (['ZERO', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(val.toUpperCase()) || val.includes('.'))) {
+            return val.toUpperCase();
+        }
+        return 'A1';
     },
 
     setCurrentLevel(language: SupportedLanguage, level: string): void {
@@ -34,8 +44,18 @@ export const LearningTrackStorage = {
 
     getTargetLevel(language: SupportedLanguage): string {
         this.migrateSharedKeys(language);
-        const defaultLevel = language === 'ja' ? 'N5' : 'A1';
-        return safeLocalStorage.getItem(`${TARGET_LEVEL_KEY}_${language}`) || defaultLevel;
+        if (language === 'ja') {
+            const val = safeLocalStorage.getItem(`${TARGET_LEVEL_KEY}_ja`);
+            if (val && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(val.toUpperCase())) {
+                return val.toUpperCase();
+            }
+            return 'N5';
+        }
+        const val = safeLocalStorage.getItem(`${TARGET_LEVEL_KEY}_en`);
+        if (val && (['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(val.toUpperCase()) || val.includes('.'))) {
+            return val.toUpperCase();
+        }
+        return 'A1';
     },
 
     setTargetLevel(language: SupportedLanguage, level: string): void {
@@ -55,8 +75,15 @@ export const LearningTrackStorage = {
 
     getTargetGoal(language: SupportedLanguage): string {
         this.migrateSharedKeys(language);
-        const defaultGoal = language === 'ja' ? 'JLPT Imtihoni' : 'IELTS 7.0+';
-        return safeLocalStorage.getItem(`${TARGET_GOAL_KEY}_${language}`) || defaultGoal;
+        if (language === 'ja') {
+            const val = safeLocalStorage.getItem(`${TARGET_GOAL_KEY}_ja`);
+            if (val && !val.includes('IELTS') && !val.includes('English') && !val.includes('A1') && !val.includes('B2')) {
+                return val;
+            }
+            return 'JLPT Imtihoni';
+        }
+        const val = safeLocalStorage.getItem(`${TARGET_GOAL_KEY}_en`);
+        return val || 'IELTS 7.0+';
     },
 
     setTargetGoal(language: SupportedLanguage, goal: string): void {

@@ -212,8 +212,10 @@ const DashboardPage: React.FC = () => {
         setLoadingState('loading');
         const activeUserId = user?.id || 'default-user';
 
+        const effectiveTrack = isJaTrack ? 'ja' : 'en';
+
         // Background load of learning path state
-        const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, { forceLanguage: primaryLanguage })
+        const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, { forceLanguage: effectiveTrack })
             .then(async (pathState) => {
                 if (isMounted) {
                     setNextAction(pathState.nextAction);
@@ -228,7 +230,7 @@ const DashboardPage: React.FC = () => {
                     });
 
                     try {
-                        const candidate = await LearningProgressionService.evaluatePromotion(activeUserId, primaryLanguage);
+                        const candidate = await LearningProgressionService.evaluatePromotion(activeUserId, effectiveTrack);
                         if (isMounted) {
                             setPromotionCandidate(candidate);
                         }
@@ -239,7 +241,7 @@ const DashboardPage: React.FC = () => {
             });
 
         // Load roadmap summary (parallel, non-blocking)
-        const roadmapPromise = LearningOrchestrator.getUserLearningState(activeUserId, { forceLanguage: primaryLanguage, cachedFlashcards: flashcards })
+        const roadmapPromise = LearningOrchestrator.getUserLearningState(activeUserId, { forceLanguage: effectiveTrack, cachedFlashcards: flashcards })
             .then(learningState => {
                 if (isMounted) {
                     const rm = RoadmapService.getLearningRoadmap(learningState);
@@ -261,12 +263,29 @@ const DashboardPage: React.FC = () => {
             });
 
         return () => { isMounted = false; };
-    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger, cachedStateKey]);
+    }, [isJaTrack, primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id, retryTrigger, cachedStateKey]);
 
     const isPlanCompleted = useMemo(() => {
         if (!dailyPlan || !dailyPlan.activities || dailyPlan.activities.length === 0) return false;
         return dailyPlan.activities.every(activity => activity.isCompleted || activity.status === 'completed');
     }, [dailyPlan]);
+
+    const effectiveTargetLevel = useMemo(() => {
+        if (isJaTrack) {
+            return ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1'].includes(targetLevel?.toUpperCase()) ? targetLevel.toUpperCase() : 'N3';
+        }
+        return targetLevel || 'B2';
+    }, [isJaTrack, targetLevel]);
+
+    const effectiveTargetGoal = useMemo(() => {
+        if (isJaTrack) {
+            if (!targetGoal || targetGoal.includes('IELTS') || targetGoal.includes('English') || targetGoal.includes('A1') || targetGoal.includes('B2')) {
+                return 'JLPT Imtihoni';
+            }
+            return targetGoal;
+        }
+        return targetGoal || 'IELTS 7.0+';
+    }, [isJaTrack, targetGoal]);
 
     if (loading) {
         return (
@@ -356,10 +375,10 @@ const DashboardPage: React.FC = () => {
                                     ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
                                     : 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
                             }`}>
-                                {isJaTrack ? `JLPT ${targetLevel || 'N3'}` : `IELTS (${targetLevel || 'B2'})`} Focus Mode
+                                {isJaTrack ? `JLPT ${effectiveTargetLevel}` : `IELTS (${effectiveTargetLevel})`} Focus Mode
                             </span>
                             <span className="text-xs text-muted-foreground font-medium">
-                                • {targetGoal}
+                                • {effectiveTargetGoal}
                             </span>
                         </div>
 

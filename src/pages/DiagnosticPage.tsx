@@ -22,15 +22,18 @@ import {
 } from '../types/diagnostic';
 import { CurriculumLessonResolver } from '../services/CurriculumLessonResolver';
 import { MasteryEngine } from '../services/MasteryEngine';
+import { isSuperAdmin } from '../utils/admin';
 
 export const DiagnosticPage: React.FC = () => {
     const { primaryLanguage, targetLevel, user } = useStudyData();
+    const isSuper = isSuperAdmin(user?.email);
+    const effectiveLang = isSuper ? primaryLanguage : 'ja';
     const { language } = useLanguage();
     const isUz = language !== 'en';
     const navigate = useNavigate();
 
     const [mode, setMode] = useState<DiagnosticMode>('standard');
-    const claimedLevel = targetLevel || (primaryLanguage === 'ja' ? 'N3' : 'B2');
+    const claimedLevel = targetLevel || (effectiveLang === 'ja' ? 'N3' : 'B2');
     const [step, setStep] = useState<'intro' | 'testing' | 'result'>('intro');
 
     // Adaptive state
@@ -73,19 +76,19 @@ export const DiagnosticPage: React.FC = () => {
     const handleStartTest = (isResume = false) => {
         let state: AdaptiveDiagnosticState;
         if (isResume) {
-            const saved = DiagnosticService.getSavedAdaptiveSession(user?.id || 'guest', primaryLanguage);
+            const saved = DiagnosticService.getSavedAdaptiveSession(user?.id || 'guest', effectiveLang);
             if (saved) {
                 state = saved;
             } else {
-                state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', primaryLanguage, mode, claimedLevel);
+                state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', effectiveLang, mode, claimedLevel);
             }
         } else {
-            state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', primaryLanguage, mode, claimedLevel);
+            state = DiagnosticService.initializeAdaptiveSession(user?.id || 'guest', effectiveLang, mode, claimedLevel);
         }
 
         setAdaptiveState(state);
         if (state.currentQuestionId) {
-            const bank = DiagnosticService.getBankForLanguage(primaryLanguage);
+            const bank = DiagnosticService.getBankForLanguage(effectiveLang);
             const q = bank.find(item => item.id === state.currentQuestionId);
             setCurrentQuestion(q || null);
         }
@@ -94,7 +97,7 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     const handleZeroLevelStart = () => {
-        const res = DiagnosticService.getZeroLevelResult(user?.id || 'guest', primaryLanguage);
+        const res = DiagnosticService.getZeroLevelResult(user?.id || 'guest', effectiveLang);
         recordDiagnosticEvidence(res);
         setResult(res);
         setStep('result');

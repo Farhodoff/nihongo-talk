@@ -288,6 +288,7 @@ describe('Phase 8.8 — Dashboard Page Render & UX Hardening Tests', () => {
     // 18. Japanese user -> Japanese Hero CTA
     it('18. should show Japanese flags and badge markers when Japanese is selected', async () => {
         mockUseStudyData.primaryLanguage = 'ja';
+        mockUseStudyData.targetLevel = 'N3';
         const jaState = {
             ...mockEngineState,
             primaryLanguage: 'ja',
@@ -299,7 +300,7 @@ describe('Phase 8.8 — Dashboard Page Render & UX Hardening Tests', () => {
         vi.spyOn(LearningPathEngine, 'getLearningPathState').mockResolvedValue(jaState as any);
         await renderDashboard();
         expect(screen.getByText('🇯🇵')).toBeInTheDocument();
-        expect(screen.getByText('JLPT B2 Focus Mode')).toBeInTheDocument();
+        expect(screen.getByText('JLPT N3 Focus Mode')).toBeInTheDocument();
     });
 
     // 19. Zero-level English -> foundation action

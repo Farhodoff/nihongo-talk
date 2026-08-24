@@ -18,9 +18,12 @@ import { useLanguage } from '../context/LanguageContext';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { RoadmapService } from '../services/RoadmapService';
 import { LearningRoadmap, RoadmapLevelNode, RoadmapLessonNode } from '../types/curriculum';
+import { isSuperAdmin } from '../utils/admin';
 
 const RoadmapPage: React.FC = () => {
     const { primaryLanguage, targetLevel, targetGoal, flashcards, user } = useStudyData();
+    const isSuper = isSuperAdmin(user?.email);
+    const effectiveLang = isSuper ? primaryLanguage : 'ja';
     const { language } = useLanguage();
     const isUz = language !== 'en';
 
@@ -33,7 +36,7 @@ const RoadmapPage: React.FC = () => {
         let isMounted = true;
         setLoading(true);
 
-        LearningOrchestrator.getUserLearningState(user?.id, { forceLanguage: primaryLanguage, cachedFlashcards: flashcards })
+        LearningOrchestrator.getUserLearningState(user?.id, { forceLanguage: effectiveLang, cachedFlashcards: flashcards })
             .then(state => {
                 if (isMounted) {
                     const rm = RoadmapService.getLearningRoadmap(state);
@@ -49,7 +52,7 @@ const RoadmapPage: React.FC = () => {
             });
 
         return () => { isMounted = false; };
-    }, [primaryLanguage, targetLevel, targetGoal, flashcards.length, user?.id]);
+    }, [effectiveLang, targetLevel, targetGoal, flashcards.length, user?.id]);
 
     if (loading || !roadmap) {
         return (
