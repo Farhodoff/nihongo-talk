@@ -1075,5 +1075,173 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
                 "explanation": "'The [Noun] of...' strukturasida rasmiy ot shakli 'introduction' talab qilinadi."
             }
         ]
+    },
+    {
+        "id": "murphy_u37_inverted_conditionals",
+        "level": "C1",
+        "title": "Unit 37: Inverted Conditionals (Had we acted..., Were governments to...)",
+        "category": "Advanced Academic Conditionals",
+        "structure": "Had + S + V3, S + would have + V3 | Were + S + to + V1, S + would + V1 | Should + S + V1, S + will + V1",
+        "uzbekMeaning": "Inversiyalashgan shart gaplar ('If' siz yuqori akademik shart tuzilmalari)",
+        "explanation": "IELTS Band 8.0+ Task 2 essaylarida 'If' so'zini tushirib qoldirib, inversiya orqali fikr ifodalash Grammatical Range and Accuracy (GRA) mezonini maksimal darajaga ko'taradi.",
+        "ieltsRelevance": "IELTS Writing Task 2 va Speaking Part 3 da gipotetik va o'tmishdagi yechimlarni ifodalashda qo'llaniladi.",
+        "academicExamples": [
+            {
+                "sentence": "Had policymakers instituted early carbon taxation, global warming trajectories would have been significantly curtailed.",
+                "translation": "Agar qonun chiqaruvchilar uglerod solig'ini erta joriy qilganlarida, global isish sur'atlari sezilarli darajada qisqargan bo'lardi.",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "Were municipal authorities to subsidize electric public transport, metropolitan congestion would drop markedly.",
+                "translation": "Agar shahar hokimiyati elektr jamoat transportini subsidiyalaganda edi, shahar tirbandligi keskin kamaygan bo'lardi.",
+                "context": "Task 2"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "If had we invested more in education, poverty would decrease.",
+                "correct": "Had we invested more in education, poverty would have decreased.",
+                "explanation": "Inversiyada 'if' ishlatilmaydi, to'g'ridan-to'g'ri 'Had + Subject + V3' keladi."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "_______ the government allocate greater funding to green infrastructure, urban air quality would improve drastically.",
+                "options": [
+                    "Were",
+                    "Had",
+                    "Should",
+                    "If were"
+                ],
+                "correctAnswer": "Were",
+                "explanation": "2-shart maylining inversiyasida 'Were + Subject + to + Verb' yoki 'Were + Subject + Verb' qo'llaniladi."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u38_impersonal_reporting_passives",
+        "level": "C1",
+        "title": "Unit 38: Impersonal Reporting Passives (It is contended that..., X is estimated to...)",
+        "category": "Academic Hedging & Objectivity",
+        "structure": "It is + V3 (argued / maintained / contended / estimated / demonstrated) + that + Clause | Subject + is/are + V3 (believed / acknowledged) + to + V1",
+        "uzbekMeaning": "Xolis ilmiy fikr bildirish (Olimlar tomonidan ta'kidlanishicha..., deb hisoblanadi)",
+        "explanation": "Akademik inshoda shaxsiy fikrni subyektiv ('I think') emas, balki xolis va ishonchli akademik uslubda ifodalash uchun qo'llaniladi.",
+        "ieltsRelevance": "IELTS Writing Task 2 muqaddimasida va argumentlarni xolis keltirishda Band 8.0+ darajali vosita hisoblanadi.",
+        "academicExamples": [
+            {
+                "sentence": "It is widely contended that automation will displace low-skilled manual laborers over the coming decade.",
+                "translation": "Kelgusi o'n yil ichida avtomatlashtirish past malakali ishchilarni siqib chiqarishi keng ta'kidlanadi.",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "Renewable energy technologies are estimated to satisfy over half of global electricity demand by 2040.",
+                "translation": "Qayta tiklanadigan energiya texnologiyalari 2040-yilga kelib global elektr energiyasiga bo'lgan talabning yarmidan ko'pini qondirishi taxmin qilinmoqda.",
+                "context": "Task 1"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "I think people believe that money brings happiness.",
+                "correct": "It is widely believed that financial security contributes significantly to overall well-being.",
+                "explanation": "Akademik inshoda 'I think' o'rniga 'It is widely believed that...' xolis strukturasi ma'qul."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "It is widely _______ that early childhood bilingualism strengthens neuroplasticity.",
+                "options": [
+                    "acknowledged",
+                    "acknowledge",
+                    "acknowledging",
+                    "acknowledgement"
+                ],
+                "correctAnswer": "acknowledged",
+                "explanation": "'It is + V3 (past participle) + that' passiv ifodasida 'acknowledged' to'g'ri keladi."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u39_advanced_concession",
+        "level": "C1",
+        "title": "Unit 39: Advanced Concession & Contrast (Notwithstanding..., Albeit..., Despite)",
+        "category": "Cohesion & Complex Argumentation",
+        "structure": "Notwithstanding + Noun Phrase, Clause | Adj + though/as + Subject + is, Clause | Albeit + Adjective",
+        "uzbekMeaning": "Yuqori darajadagi qarshilik va yon berish birikmalari (Garchi... bo'lsa-da, Shunga qaramay)",
+        "explanation": "Oddiy 'Although/But' o'rniga 'Notwithstanding', 'Albeit', 'Adjective + though it may be' kabi tuzilmalarni qo'llash insho ravonligini Band 8.5 darajaga olib chiqadi.",
+        "ieltsRelevance": "IELTS Task 2 da ikki xil qarama-qarshi nuqtai nazarni muhokama qilishda (Discuss both views) hal qiluvchi ahamiyatga ega.",
+        "academicExamples": [
+            {
+                "sentence": "Notwithstanding the initial capital expenditure, space exploration yields invaluable meteorological advancements.",
+                "translation": "Dastlabki yirik xarajatlarga qaramay, fazoni o'rganish meteorologiyada bebaho yutuqlarni taqdim etadi.",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "The policy was approved, albeit with substantial modifications proposed by the opposition.",
+                "translation": "Siyosat ma'qullandi, garchi muxolifat tomonidan taklif qilingan jiddiy o'zgartirishlar bilan bo'lsa ham.",
+                "context": "Task 2"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "Although despite the high costs, the plan succeeded.",
+                "correct": "Notwithstanding the high costs, the plan succeeded.",
+                "explanation": "'Although' va 'despite' birgalikda ishlatilmaydi; uning o'rniga bitta 'Notwithstanding + noun' yetarli."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "_______ the substantial economic benefits of tourism, environmental degradation remains a pressing concern.",
+                "options": [
+                    "Notwithstanding",
+                    "Although",
+                    "Whereas",
+                    "While"
+                ],
+                "correctAnswer": "Notwithstanding",
+                "explanation": "Ot birikmasi ('the substantial economic benefits') oldidan 'Notwithstanding' (yoki 'Despite') keladi."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u40_subjunctive_mood",
+        "level": "C1",
+        "title": "Unit 40: Subjunctive Mood & Formal Mandates (It is imperative that... be done)",
+        "category": "Formal Policy & Solution Proposals",
+        "structure": "It is essential / imperative / crucial / vital + that + Subject + [Base Verb / be + V3]",
+        "uzbekMeaning": "Subyuktiv mayl (Rasmiy yechimlar: ...qilinishi o'ta muhim/shart)",
+        "explanation": "Davlat va jamiyat yechimlarini taklif qilishda grammatik fe'l asosi (base form) o'zgarmaydi: 'It is imperative that the government implement (not implements) new legislation'.",
+        "ieltsRelevance": "Task 2 insholarining Problem-Solution yoki Recommendation qismlarida eng nufuzli sintaksis hisoblanadi.",
+        "academicExamples": [
+            {
+                "sentence": "It is imperative that international organizations mandate stricter environmental auditing protocols.",
+                "translation": "Xalqaro tashkilotlar qat'iyroq ekologik audit protokollarini majburiy qilib qo'yishi shart.",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "Scholars recommend that educational curricula be updated to reflect artificial intelligence proficiencies.",
+                "translation": "Olimlar sun'iy intellekt ko'nikmalarini aks ettirish uchun o'quv dasturlarining yangilanishini tavsiya etadilar.",
+                "context": "Task 2"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "It is vital that every citizen pays taxes.",
+                "correct": "It is vital that every citizen pay taxes.",
+                "explanation": "Subyuktiv maylda 'that' dan keyingi fe'l 3-shaxsda ham 's' qo'shimchasini olmaydi (Base form: pay)."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "It is essential that every applicant _______ the prerequisite qualifications before enrolling.",
+                "options": [
+                    "satisfy",
+                    "satisfies",
+                    "satisfied",
+                    "is satisfying"
+                ],
+                "correctAnswer": "satisfy",
+                "explanation": "'It is essential that...' subyuktiv formulasida fe'l asosi (satisfy) hech qanday qo'shimchasiz keladi."
+            }
+        ]
     }
 ];

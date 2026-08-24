@@ -282,7 +282,11 @@ export const PersonalLearningPlanService = {
      */
     getLatestWeeklyPlan(userId: string = 'guest', goalId: string): WeeklyLearningPlan | null {
         const dbGoalId = toDeterministicUUID(goalId);
-        const plans = this.getWeeklyPlans(userId).filter(p => toDeterministicUUID(p.goalId) === dbGoalId);
+        const allUserPlans = this.getWeeklyPlans(userId);
+        let plans = allUserPlans.filter(p => toDeterministicUUID(p.goalId) === dbGoalId || p.goalId === goalId);
+        if (plans.length === 0 && allUserPlans.length > 0) {
+            plans = [...allUserPlans];
+        }
         if (plans.length === 0) return null;
 
         plans.sort((a, b) => {

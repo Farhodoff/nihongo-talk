@@ -122,10 +122,12 @@ export const IeltsHubPage: React.FC = () => {
                 {/* Tab 2: Band 7.5 Grammar Academy & Vocab Tools */}
                 {activeTab === 'grammar' && (
                     <div className="space-y-8 animate-in fade-in">
-                        <DailyTargetHub onOpenReflection={() => setIsReflectionOpen(true)} />
-                        <RealWeaknessTracker />
-                        <VocabularyGenerator />
                         <IeltsGrammarMaster />
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <RealWeaknessTracker />
+                            <VocabularyGenerator />
+                        </div>
+                        <DailyTargetHub onOpenReflection={() => setIsReflectionOpen(true)} />
                     </div>
                 )}
 

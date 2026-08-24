@@ -16,7 +16,7 @@ export const IeltsGrammarMaster: React.FC = () => {
     const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
     const { topics, isLoading, error, refetch } = useGrammarLessons('en');
 
-    const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1-A2' | 'B1-B2' | 'C1'>('ALL');
+    const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1-A2' | 'B1-B2' | 'C1'>('C1');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedTopic, setSelectedTopic] = useState<IeltsGrammarTopic | null>(null);
     
@@ -29,11 +29,16 @@ export const IeltsGrammarMaster: React.FC = () => {
     // Sync selected topic when topics load
     useEffect(() => {
         if (topics.length > 0) {
-            if (!selectedTopic || !topics.some(t => t.id === selectedTopic.id)) {
+            const currentFiltered = topics.filter(t => selectedLevel === 'ALL' || t.level === selectedLevel);
+            if (currentFiltered.length > 0) {
+                if (!selectedTopic || !currentFiltered.some(t => t.id === selectedTopic.id)) {
+                    setSelectedTopic(currentFiltered[0]);
+                }
+            } else if (!selectedTopic) {
                 setSelectedTopic(topics[0]);
             }
         }
-    }, [topics, selectedTopic]);
+    }, [topics, selectedLevel, selectedTopic]);
 
     useEffect(() => {
         const loadMastery = async () => {
@@ -207,20 +212,47 @@ export const IeltsGrammarMaster: React.FC = () => {
                 </div>
 
                 {/* Level Tabs */}
-                <div className="flex items-center gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl">
-                    {(['ALL', 'A1-A2', 'B1-B2', 'C1'] as const).map(lvl => (
-                        <button
-                            key={lvl}
-                            onClick={() => setSelectedLevel(lvl)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                                selectedLevel === lvl 
-                                    ? 'bg-indigo-600 text-white shadow-md' 
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                            }`}
-                        >
-                            {lvl === 'ALL' ? 'Barchasi' : lvl}
-                        </button>
-                    ))}
+                <div className="flex items-center gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl flex-wrap">
+                    <button
+                        onClick={() => setSelectedLevel('C1')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            selectedLevel === 'C1' 
+                                ? 'bg-indigo-600 text-white shadow-md' 
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        🏆 Band 7.5 - 9.0 (C1)
+                    </button>
+                    <button
+                        onClick={() => setSelectedLevel('B1-B2')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            selectedLevel === 'B1-B2' 
+                                ? 'bg-indigo-600 text-white shadow-md' 
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        ⚡ Band 6.5 - 7.0 (B1-B2)
+                    </button>
+                    <button
+                        onClick={() => setSelectedLevel('A1-A2')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            selectedLevel === 'A1-A2' 
+                                ? 'bg-indigo-600 text-white shadow-md' 
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        🌱 Foundation (A1-A2)
+                    </button>
+                    <button
+                        onClick={() => setSelectedLevel('ALL')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            selectedLevel === 'ALL' 
+                                ? 'bg-indigo-600 text-white shadow-md' 
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        🌐 Barchasi
+                    </button>
                 </div>
             </div>
 

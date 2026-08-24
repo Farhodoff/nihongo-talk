@@ -83,17 +83,33 @@ export const PersonalPlanPage: React.FC = () => {
                     ]);
                     if (!isMounted) return;
                     
-                    const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id);
-                    if (plan) setCurrentPlan(plan);
-                    setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
+                    let plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, goal.id);
+                    if (!plan) {
+                        try {
+                            const genResult = await PersonalLearningPlanEngine.generateWeeklyPlan(userId, goal, goal.currentWeek || 1);
+                            plan = genResult.plan;
+                            await PersonalLearningPlanService.saveWeeklyPlan(plan);
+                        } catch (genErr) {
+                            console.warn('[PersonalPlanPage] Auto plan generation notice:', genErr);
+                        }
+                    }
+                    if (plan && isMounted) setCurrentPlan(plan);
+                    if (isMounted) setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
                 } else {
                     // Check local cache once more before resetting
                     const localCached = PersonalLearningPlanService.getActiveGoal(userId);
                     if (localCached) {
                         setActiveGoal(localCached);
-                        const plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, localCached.id);
-                        if (plan) setCurrentPlan(plan);
-                        setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
+                        let plan = PersonalLearningPlanService.getLatestWeeklyPlan(userId, localCached.id);
+                        if (!plan) {
+                            try {
+                                const genResult = await PersonalLearningPlanEngine.generateWeeklyPlan(userId, localCached, localCached.currentWeek || 1);
+                                plan = genResult.plan;
+                                await PersonalLearningPlanService.saveWeeklyPlan(plan);
+                            } catch {}
+                        }
+                        if (plan && isMounted) setCurrentPlan(plan);
+                        if (isMounted) setWeeklyEvals(PersonalLearningPlanService.getWeeklyEvaluations(userId));
                     } else {
                         setActiveGoal(null);
                         setCurrentPlan(null);
@@ -848,10 +864,35 @@ export const PersonalPlanPage: React.FC = () => {
                             </div>
                         ) : (
                             <div className="p-8 text-center glass-card border border-border rounded-3xl space-y-4">
-                                <AlertTriangle className="mx-auto text-amber-500" size={32} />
-                                <h3 className="text-base font-bold text-foreground">Haftalik reja topilmadi</h3>
-                                <p className="text-xs text-muted-foreground">Tizimda xatolik yuz bergan ko'rinadi. Iltimos shaxsiy rejangizni qaytadan yarating.</p>
-                                <button onClick={handleResetPlan} className="px-5 py-2 bg-primary text-primary-foreground rounded-xl font-bold text-xs">Qayta yaratish</button>
+                                <Sparkles className="mx-auto text-primary" size={32} />
+                                <h3 className="text-base font-bold text-foreground">Haftalik reja tayyorlanmoqda</h3>
+                                <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                                    {activeGoal?.currentWeek || 1}-haftaning adaptiv darslar jadvalini yuklash yoki yangi reja yaratish uchun bosing.
+                                </p>
+                                <div className="flex justify-center gap-3 pt-2">
+                                    <button
+                                        onClick={async () => {
+                                            if (!activeGoal) return;
+                                            setLoading(true);
+                                            const userId = user?.id || 'guest';
+                                            try {
+                                                const genResult = await PersonalLearningPlanEngine.generateWeeklyPlan(userId, activeGoal, activeGoal.currentWeek || 1);
+                                                await PersonalLearningPlanService.saveWeeklyPlan(genResult.plan);
+                                                setCurrentPlan(genResult.plan);
+                                                toast({ title: "Reja tayyor", description: "Haftalik dars jadvali muvaffaqiyatli yaratildi!" });
+                                            } catch (err: any) {
+                                                toast({ variant: 'destructive', title: "Xatolik", description: err.message || 'Reja generatsiyasida xatolik' });
+                                            } finally {
+                                                setLoading(false);
+                                            }
+                                        }}
+                                        disabled={loading}
+                                        className="px-6 py-2.5 bg-primary text-primary-foreground rounded-2xl font-bold text-xs shadow-md flex items-center gap-2 hover:opacity-90 transition-all"
+                                    >
+                                        {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+                                        <span>Haftalik Jadvalni Yaratish</span>
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>
