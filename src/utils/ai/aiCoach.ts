@@ -357,10 +357,8 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       "${message}"
     `;
 
-    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-
     try {
-        const dsResult = await callSelectedAIProvider(fullPrompt, undefined, true);
+        const dsResult = await callSelectedAIProvider(userPrompt, systemPrompt, true);
         if (dsResult) {
             return parseCoachResponse(dsResult, language);
         }
