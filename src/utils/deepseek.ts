@@ -94,11 +94,13 @@ export const callDeepSeek = async (
     };
 
     // 1. Primary: Route via Supabase Edge Function ('deepseek')
+    // DEEPSEEK_API_KEY is stored as a Supabase Edge Function secret — this is the MAIN path.
     try {
         let { data, error } = await supabase.functions.invoke('deepseek', {
             body: payload,
         });
 
+        // If Edge Function itself is not deployed (404), try alternate name
         if (error && ((error as any)?.context?.status === 404 || (error as any)?.message?.includes('not found') || (error as any)?.message?.includes('Failed to send'))) {
             const fallbackResult = await supabase.functions.invoke('deepseek-', {
                 body: payload,
@@ -109,12 +111,42 @@ export const callDeepSeek = async (
             }
         }
 
-        if (!error && data && !data.error) {
+        if (!error && data) {
+            // Edge Function returned data — check for API-level errors
+            if (data.error) {
+                const status = (data as any)?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
+                throw new Error(formatDeepSeekError(status, data));
+            }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || '';
             if (text && text.trim().length > 0) return text;
+            throw new Error("AI_INVALID_RESPONSE: AI javobi bo'sh qaytdi.");
+        }
+
+        if (error) {
+            const status = (error as any)?.context?.status || 500;
+            let errObj: any = {};
+            try {
+                if (typeof (error as any)?.context?.json === 'function') {
+                    errObj = await (error as any).context.json();
+                } else if ((error as any)?.message) {
+                    errObj = { message: (error as any).message };
+                }
+            } catch {
+                errObj = { message: error.message };
+            }
+
+            // Rate limit, quota, balance, auth errors — throw immediately, don't fall through
+            if (status === 503 || status === 429 || status === 400 || status === 402 || (errObj && errObj.error)) {
+                throw new Error(formatDeepSeekError(status, errObj));
+            }
+            // Other errors (5xx, network) — fall through to /api/deepseek backup
         }
     } catch (edgeErr: any) {
-        console.warn('[Supabase Edge Function] Edge function note (proceeding to /api/deepseek):', edgeErr);
+        // If it's a known AI error (rate limit, quota, config), throw it to the user
+        if (edgeErr?.message && (edgeErr.message.startsWith('AI_') || edgeErr.message.includes('AI xizmati') || edgeErr.message.includes('AI_UNAVAILABLE'))) {
+            throw edgeErr;
+        }
+        console.warn('[Supabase Edge Function] Edge function unreachable, trying /api/deepseek:', edgeErr?.message);
     }
 
     // 2. Secondary / Production Gateway: Route via POST /api/deepseek
