@@ -25,8 +25,8 @@ describe('IELTS English Grammar & Academic Curriculum Hardening Tests', () => {
     });
 
     it('should correctly filter topics by CEFR / IELTS band level', () => {
-        const a1Topics = IELTS_GRAMMAR_DATABASE.filter(t => t.level === 'A1-A2');
-        const b1Topics = IELTS_GRAMMAR_DATABASE.filter(t => t.level === 'B1-B2');
+        const a1Topics = IELTS_GRAMMAR_DATABASE.filter(t => t.level === 'A1' || t.level === 'A1-A2');
+        const b1Topics = IELTS_GRAMMAR_DATABASE.filter(t => t.level === 'B1' || t.level === 'B2' || t.level === 'B1-B2');
         const c1Topics = IELTS_GRAMMAR_DATABASE.filter(t => t.level === 'C1');
 
         expect(a1Topics.length).toBeGreaterThan(0);

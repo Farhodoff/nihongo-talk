@@ -1,6 +1,6 @@
 export interface IeltsGrammarTopic {
     id: string;
-    level: 'A1-A2' | 'B1-B2' | 'C1';
+    level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'A1-A2' | 'B1-B2';
     title: string;
     category: string;
     structure: string;
@@ -26,1410 +26,1127 @@ export interface IeltsGrammarTopic {
 }
 
 export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
+    // ==========================================
+    // RAYMOND MURPHY: ESSENTIAL GRAMMAR IN USE (A1 FOUNDATION)
+    // ==========================================
     {
-        "id": "murphy_u00a_am_is_are",
-        "level": "A1-A2",
-        "title": "Unit 1: am / is / are (To Be — Darak Gaplar)",
-        "category": "Essential To Be (A1 Foundation)",
-        "structure": "I am (I'm) | He / She / It is (He's / She's / It's) | We / You / They are (We're / You're / They're)",
-        "uzbekMeaning": "To Be fe'li — bo'lmoq / hisoblanmoq (Ism, yosh, kasb, millat va sifatlarni aytish)",
-        "explanation": "Essential Grammar in Use qoidasi: Ingliz tilida har bir to'liq gapda albatta fe'l bo'lishi shart. O'zbek tilida 'Men talabaman' deyilganda fe'l sezilmaydi, ammo ingliz tilida 'I am a student' deb 'am' fe'li qo'yilishi shart. To Be fe'li kishining kasbi (She is a doctor), yoshi (I am 24 years old), his-tuyg'usi (He is happy), millati (They are Uzbek) va joylashuvini (We are at home) bildiradi.",
-        "ieltsRelevance": "Speaking Part 1 da o'zingizni, oilangizni, kasbingizni va yashash joyingizni tanishtirishning eng muhim poydevoridir.",
-        "academicExamples": [
+        id: "murphy_u01_am_is_are",
+        level: "A1",
+        title: "Unit 1: am / is / are (To Be — Darak Gaplar)",
+        category: "Essential To Be (A1 Foundation)",
+        structure: "I am (I'm) | He / She / It is (He's / She's / It's) | We / You / They are (We're / You're / They're)",
+        uzbekMeaning: "To Be fe'li — bo'lmoq / hisoblanmoq (Ism, yosh, kasb, millat va sifatlarni aytish)",
+        explanation: "Essential Grammar in Use 1-qoidasi: Ingliz tilida har bir to'liq gapda albatta fe'l bo'lishi shart. O'zbek tilida 'Men talabaman' deyilganda fe'l sezilmaydi, ammo ingliz tilida 'I am a student' deb 'am' fe'li qo'yilishi shart. To Be fe'li kishining kasbi (She is a doctor), yoshi (I am 24 years old), his-tuyg'usi (He is happy), millati (They are Uzbek) va joylashuvini (We are at home) bildiradi.",
+        ieltsRelevance: "Speaking Part 1 da o'zingizni, oilangizni, kasbingizni va yashash joyingizni tanishtirishning eng muhim poydevoridir.",
+        academicExamples: [
             {
-                "sentence": "I am a university student majoring in computer science.",
-                "translation": "Men axborot texnologiyalari yo'nalishida tahsil olayotgan universitet talabasiman.",
-                "context": "Speaking"
+                sentence: "I am a university student majoring in computer science.",
+                translation: "Men axborot texnologiyalari yo'nalishida tahsil olayotgan universitet talabasiman.",
+                context: "Speaking"
             },
             {
-                "sentence": "English is a global language of international communication.",
-                "translation": "Ingliz tili xalqaro muloqotning global tili hisoblanadi.",
-                "context": "Task 2"
+                sentence: "English is a global language of international communication.",
+                translation: "Ingliz tili xalqaro muloqotning global tili hisoblanadi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I student from Uzbekistan.",
-                "correct": "I am a student from Uzbekistan.",
-                "explanation": "Ingliz tilida ega va ot o'rtasida 'to be' fe'li (am) tushirib qoldirilmaydi."
+                incorrect: "I student from Uzbekistan.",
+                correct: "I am a student from Uzbekistan.",
+                explanation: "Ingliz tilida ega va ot o'rtasida 'to be' fe'li (am) tushirib qoldirilmaydi."
             },
             {
-                "incorrect": "He are very tired today.",
-                "correct": "He is very tired today.",
-                "explanation": "He, She, It olmoshlari bilan 'is' ishlatiladi ('are' emas)."
+                incorrect: "He are very tired today.",
+                correct: "He is very tired today.",
+                explanation: "He, She, It olmoshlari bilan 'is' ishlatiladi ('are' emas)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "My brother _______ 25 years old and he _______ an architect.",
-                "options": [
-                    "is / is",
-                    "am / is",
-                    "are / is",
-                    "is / are"
-                ],
-                "correctAnswer": "is / is",
-                "explanation": "'My brother' 3-shaxs birlik (he) bo'lgani sababli ikkala o'rinda ham 'is' ishlatiladi."
+                question: "My brother _______ 25 years old and he _______ an architect.",
+                options: ["is / is", "am / is", "are / is", "is / are"],
+                correctAnswer: "is / is",
+                explanation: "'My brother' 3-shaxs birlik (he) bo'lgani sababli ikkala o'rinda ham 'is' ishlatiladi."
             },
             {
-                "question": "Choose the grammatically correct sentence:",
-                "options": [
+                question: "Choose the grammatically correct sentence:",
+                options: [
                     "They are from London and they are teachers.",
                     "They from London and they teachers.",
                     "They is from London and they are teachers.",
                     "They are from London and they is teachers."
                 ],
-                "correctAnswer": "They are from London and they are teachers.",
-                "explanation": "'They' ko'plik olmoshi bo'lgani sababli 'are' to'g'ri bog'lovchi hisoblanadi."
+                correctAnswer: "They are from London and they are teachers.",
+                explanation: "'They' ko'plik olmoshi bo'lgani sababli 'are' to'g'ri bog'lovchi hisoblanadi."
             }
         ]
     },
     {
-        "id": "murphy_u00b_am_is_are_questions",
-        "level": "A1-A2",
-        "title": "Unit 2: am / is / are (Savollar va Inkor Shakllari)",
-        "category": "Essential To Be (A1 Foundation)",
-        "structure": "Inkor: S + am/is/are + not | Savol: Am/Is/Are + Subject + ...? | Qisqa javob: Yes, I am. / No, he isn't.",
-        "uzbekMeaning": "To Be da inkor va savol tuzish (Siz talabamisiz? — Ha / Yo'q, men charchamadim)",
-        "explanation": "Essential Grammar in Use qoidasi: Savol tuzishda 'am/is/are' egadan oldinga o'tadi: 'Is your father a doctor?' / 'Are you tired?'. Maxsus so'roq so'zlari (What, Where, Who, Why, How) gapning eng boshida keladi: 'Where are you from?'. Inkor shaklida esa 'not' qo'shiladi: 'I am not interested in politics' / 'The weather isn't cold today'.",
-        "ieltsRelevance": "Speaking intervyusida imtihon oluvchining savollariga aniq va to'g'ri grammatik javob qaytarish uchun kerak.",
-        "academicExamples": [
+        id: "murphy_u02_am_is_are_questions",
+        level: "A1",
+        title: "Unit 2: am / is / are (Savollar va Inkor Shakllari)",
+        category: "Essential To Be (A1 Foundation)",
+        structure: "Inkor: S + am/is/are + not | Savol: Am/Is/Are + Subject + ...? | Qisqa javob: Yes, I am. / No, he isn't.",
+        uzbekMeaning: "To Be da inkor va savol tuzish (Siz talabamisiz? — Ha / Yo'q, men charchamadim)",
+        explanation: "Essential Grammar in Use 2-qoidasi: Savol tuzishda 'am/is/are' egadan oldinga o'tadi: 'Is your father a doctor?' / 'Are you tired?'. Maxsus so'roq so'zlari (What, Where, Who, Why, How) gapning eng boshida keladi: 'Where are you from?'. Inkor shaklida esa 'not' qo'shiladi: 'I am not interested in politics' / 'The weather isn't cold today'.",
+        ieltsRelevance: "Speaking intervyusida imtihon oluvchining savollariga aniq va to'g'ri grammatik javob qaytarish uchun kerak.",
+        academicExamples: [
             {
-                "sentence": "Why is higher education essential in the modern era?",
-                "translation": "Nima uchun zamonaviy davrda oliy ta'lim muhim hisoblanadi?",
-                "context": "Task 2"
+                sentence: "Why is higher education essential in the modern era?",
+                translation: "Nima uchun zamonaviy davrda oliy ta'lim muhim hisoblanadi?",
+                context: "Task 2"
             },
             {
-                "sentence": "Are online courses more effective than traditional classrooms?",
-                "translation": "Onlayn kurslar an'anaviy darsxonalardan samaraliroqmi?",
-                "context": "Speaking"
+                sentence: "Are online courses more effective than traditional classrooms?",
+                translation: "Onlayn kurslar an'anaviy darsxonalardan samaraliroqmi?",
+                context: "Speaking"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Where you are from?",
-                "correct": "Where are you from?",
-                "explanation": "Maxsus savollarda 'Where' dan keyin darhol 'are' yordamchi fe'li keladi."
+                incorrect: "Where you are from?",
+                correct: "Where are you from?",
+                explanation: "Maxsus savollarda 'Where' dan keyin darhol 'are' yordamchi fe'li keladi."
             },
             {
-                "incorrect": "No, I'm not agree.",
-                "correct": "No, I don't agree. / I am not ready.",
-                "explanation": "'Agree' (rozi bo'lmoq) bu harakat fe'li, shuning uchun 'don't agree' deyiladi; sifatlar bilan esa 'I am not' ishlatiladi."
+                incorrect: "No, I'm not agree.",
+                correct: "No, I don't agree. / I am not ready.",
+                explanation: "'Agree' (rozi bo'lmoq) bu harakat fe'li, shuning uchun 'don't agree' deyiladi; sifatlar bilan esa 'I am not' ishlatiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ your parents at home right now?",
-                "options": [
-                    "Are",
-                    "Is",
-                    "Do",
-                    "Does"
-                ],
-                "correctAnswer": "Are",
-                "explanation": "'Your parents' (ota-onangiz) ko'plikda bo'lgani sababli savolda 'Are' oldinga chiqadi."
+                question: "_______ your parents at home right now?",
+                options: ["Are", "Is", "Do", "Does"],
+                correctAnswer: "Are",
+                explanation: "'Your parents' (ota-onangiz) ko'plikda bo'lgani sababli savolda 'Are' oldinga chiqadi."
             }
         ]
     },
     {
-        "id": "murphy_u00c_there_is_there_are",
-        "level": "A1-A2",
-        "title": "Unit 3: there is / there are (Mavjudlik va Borlik)",
-        "category": "Essential Sentences (A1 Foundation)",
-        "structure": "Birlik: There is a/an + Noun | Ko'plik: There are + Nouns | Inkor: There isn't / There aren't",
-        "uzbekMeaning": "Biror joyda nimadir borligini aytish (Shaharda katta bog' bor / Maktabda 500 ta o'quvchi bor)",
-        "explanation": "Essential Grammar in Use qoidasi: 'There is/are' birinchi marta biror narsaning borligini yoki mavjudligini bildirish uchun ishlatiladi. Birlikdagi sanaladigan otlar oldidan 'There is a book on the table', ko'plikdagi otlar uchun 'There are many students in the library' deyiladi.",
-        "ieltsRelevance": "Writing Task 1 grafiklarida ('There was a significant increase...') va Task 2 insholarida ('There are several compelling reasons why...') eng ko'p ishlatiladigan struktura.",
-        "academicExamples": [
+        id: "murphy_u03_present_continuous",
+        level: "A1",
+        title: "Unit 3: I am doing (Present Continuous — Hozirgi Davomli Zamon)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "S + am/is/are + V-ing | S + am/is/are + not + V-ing | Am/Is/Are + S + V-ing?",
+        uzbekMeaning: "Ayni paytda sodir bo'layotgan yoki vaqtinchalik harakatlar (Men yozyapman, U ishlayapti)",
+        explanation: "Essential Grammar in Use 3-qoidasi: Present Continuous ayni gapirilayotgan paytda boshlangan va hali tugallanmagan harakatlar (I am studying right now) uchun ishlatiladi. Fe'lga -ing qo'shilish qoidalari: run -> running (oxirgi undosh ikkilanadi), write -> writing ('e' tushib qoladi), lie -> lying ('ie' -> 'y').",
+        ieltsRelevance: "Speaking Part 1 da ayni paytdagi mashg'ulotlaringizni aytishda va Writing Task 1/2 da davom etayotgan o'zgarishlarni ifodalashda qo'llaniladi.",
+        academicExamples: [
             {
-                "sentence": "There is a striking disparity between urban and rural income levels.",
-                "translation": "Shahar va qishloq daromadlari darajasi o'rtasida keskin farq bor.",
-                "context": "Task 1"
+                sentence: "Global temperatures are rising at an alarming pace.",
+                translation: "Global harorat xavotirli sur'atda ko'tarilmoqda.",
+                context: "Task 2"
             },
             {
-                "sentence": "There are numerous environmental benefits associated with renewable energy.",
-                "translation": "Qayta tiklanadigan energiya bilan bog'liq ko'plab ekologik foydalar mavjud.",
-                "context": "Task 2"
+                sentence: "At present, I am preparing for the IELTS examination to study overseas.",
+                translation: "Ayni paytda chet elda o'qish uchun IELTS imtihoniga tayyorlanyapman.",
+                context: "Speaking"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "In my city have many parks.",
-                "correct": "There are many parks in my city.",
-                "explanation": "O'zbek tilidagi '...da bor' iborasini ingliz tilida 'have' bilan emas, 'There is / There are' bilan ifodalanadi."
+                incorrect: "Look! The bus comes.",
+                correct: "Look! The bus is coming.",
+                explanation: "Ayni paytda ko'z o'ngingizda sodir bo'layotgan harakat uchun Present Continuous ishlatiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ twenty-four hours in a day, and _______ a lot of work to complete.",
-                "options": [
-                    "There are / there is",
-                    "There is / there are",
-                    "There are / there are",
-                    "There is / there is"
-                ],
-                "correctAnswer": "There are / there is",
-                "explanation": "'Twenty-four hours' ko'plik (there are), 'work' sanalmaydigan ot (there is)."
+                question: "Please be quiet. I _______ to concentrate on this essay.",
+                options: ["am trying", "try", "have tried", "was trying"],
+                correctAnswer: "am trying",
+                explanation: "Ayni paytda davom etayotgan harakat: 'I am trying' (harakat qilayapman)."
             }
         ]
     },
     {
-        "id": "murphy_u00d_have_got",
-        "level": "A1-A2",
-        "title": "Unit 4: have / have got (Egalik Ifodalash)",
-        "category": "Essential Verbs (A1 Foundation)",
-        "structure": "I / We / You / They have got (have) | He / She / It has got (has) | Inkor: haven't got / hasn't got",
-        "uzbekMeaning": "Menda bor / Unda bor (Mening oilam bor / Uning mashinasi yo'q)",
-        "explanation": "Essential Grammar in Use qoidasi: Egalikni (I've got a smartphone), qarindoshlik aloqalarini (She has got two brothers) va salomatlik holatini (I've got a headache) aytishda qo'llaniladi. I/We/You/They bilan 'have got', He/She/It bilan 'has got' ishlatiladi.",
-        "ieltsRelevance": "Speaking Part 1 da o'z mulkingiz, oilangiz va kundalik holatlaringiz haqida tabiiy gapirish vositasi.",
-        "academicExamples": [
+        id: "murphy_u04_present_continuous_questions",
+        level: "A1",
+        title: "Unit 4: Are you doing? (Present Continuous Savollari)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "Am/Is/Are + Subject + V-ing? | Question Word (What/Where/Why) + am/is/are + Subject + V-ing?",
+        uzbekMeaning: "Hozirgi davomli zamonda savollar (Nima qilyapsan? Qayerga ketyapti?)",
+        explanation: "Essential Grammar in Use 4-qoidasi: So'roq shaklida yordamchi fe'l (am/is/are) egadan oldinga o'tadi: 'Are you feeling okay?' / 'What are you reading?'. Qisqa javoblar: 'Yes, I am' / 'No, I am not'.",
+        ieltsRelevance: "Speaking muloqotida suhbatdosh bilan savol-javob qilishda muhim.",
+        academicExamples: [
             {
-                "sentence": "Governments have an imperative responsibility to protect public infrastructure.",
-                "translation": "Hukumatlar jamoat infratuzilmasini himoya qilish bo'yicha qat'iy mas'uliyatga ega.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "I have got extensive practical experience in digital marketing.",
-                "translation": "Menda raqamli marketing sohasida katta amaliy tajriba bor.",
-                "context": "Speaking"
+                sentence: "What strategies are leading educational institutions currently implementing?",
+                translation: "Yetakchi ta'lim muassasalari ayni paytda qanday strategiyalarni amalga oshirmoqda?",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "She have got two cars.",
-                "correct": "She has got two cars. / She has two cars.",
-                "explanation": "3-shaxs birlik (he/she/it) bilan doim 'has got' keladi."
+                incorrect: "What you are doing tonight?",
+                correct: "What are you doing tonight?",
+                explanation: "Savolda 'What' dan keyin 'are' yordamchi fe'li egadan oldinga chiqadi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Sarah _______ a new laptop, but she _______ a printer.",
-                "options": [
-                    "has got / hasn't got",
-                    "have got / haven't got",
-                    "has got / haven't got",
-                    "have got / hasn't got"
-                ],
-                "correctAnswer": "has got / hasn't got",
-                "explanation": "Sarah (She) uchun darak shaklda 'has got', inkorda 'hasn't got' to'g'ri keladi."
+                question: "Why _______ everyone _______ at that strange painting?",
+                options: ["is / looking", "are / look", "do / look", "is / look"],
+                correctAnswer: "is / looking",
+                explanation: "'Everyone' grammatik jihatdan birlik (is) hisoblanadi: 'Why is everyone looking...'."
             }
         ]
     },
     {
-        "id": "murphy_u01_present_continuous",
-        "level": "A1-A2",
-        "title": "Unit 1: Present Continuous (I am doing)",
-        "category": "Present Tenses",
-        "structure": "S + am/is/are + V-ing | S + am/is/are + not + V-ing | Am/Is/Are + S + V-ing?",
-        "uzbekMeaning": "Hozirgi davomli zamon (Ayni paytda sodir bo'layotgan yoki vaqtinchalik harakatlar)",
-        "explanation": "Present Continuous ayni gapirilayotgan paytda boshlangan va hali tugallanmagan harakatlar (I am working now) hamda hozirgi davrda ro'y berayotgan vaqtinchalik o'zgarishlar va trendlar (Prices are rising) uchun ishlatiladi.",
-        "ieltsRelevance": "Speaking Part 1 da ayni paytdagi mashg'ulotlaringizni aytishda va Writing Task 1/2 da davom etayotgan zamonaviy trendlarni ifodalashda qo'llaniladi.",
-        "academicExamples": [
+        id: "murphy_u05_present_simple",
+        level: "A1",
+        title: "Unit 5: I do / work / like etc. (Present Simple — Hozirgi Oddiy Zamon)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "I / We / You / They + V1 | He / She / It + V1(s/es)",
+        uzbekMeaning: "Doimiy takrorlanuvchi ish-harakatlar, odatlar va umumiy haqiqatlar",
+        explanation: "Essential Grammar in Use 5-qoidasi: Present Simple har kuni yoki doimiy ravishda takrorlanadigan ishlar (I drink tea every morning) va umumiy tabiat haqiqatlari (The Earth goes around the Sun) uchun ishlatiladi. He/She/It olmoshlarida fe'lga -s/-es qo'shiladi: pass -> passes, watch -> watches, study -> studies.",
+        ieltsRelevance: "Writing Task 1 diagramma va jadvallarni tanishtirishda (The chart shows...) hamda Task 2 da umumiy qonuniyatlarni yozishda asosiy vosita.",
+        academicExamples: [
             {
-                "sentence": "Global temperatures are rising at an alarming pace.",
-                "translation": "Global harorat xavotirli sur'atda ko'tarilmoqda.",
-                "context": "Task 2"
+                sentence: "The line graph illustrates fluctuations in consumer spending over a decade.",
+                translation: "Chiziqli grafik o'n yil davomida iste'molchilar xarajatlaridagi tebranishlarni tasvirlaydi.",
+                context: "Task 1"
             },
             {
-                "sentence": "At present, I am preparing for the IELTS examination to study overseas.",
-                "translation": "Ayni paytda chet elda o'qish uchun IELTS imtihoniga tayyorlanyapman.",
-                "context": "Speaking"
+                sentence: "Regular physical exercise promotes cardiovascular longevity.",
+                translation: "Muntazam jismoniy mashqlar yurak-qon tomir salomatligini yaxshilaydi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Look! The bus comes.",
-                "correct": "Look! The bus is coming.",
-                "explanation": "Ayni paytda ko'z o'ngingizda sodir bo'layotgan harakat uchun Present Continuous ishlatiladi."
+                incorrect: "My brother live in London.",
+                correct: "My brother lives in London.",
+                explanation: "'My brother' (he) bo'lgani uchun fe'lga -s qo'shiladi: 'lives'."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Please be quiet. I _______ to concentrate on this essay.",
-                "options": [
-                    "am trying",
-                    "try",
-                    "have tried",
-                    "was trying"
-                ],
-                "correctAnswer": "am trying",
-                "explanation": "Ayni paytda davom etayotgan harakat: 'I am trying' (harakat qilayapman)."
+                question: "The provided table _______ statistical data regarding renewable energy adoption.",
+                options: ["provides", "is providing", "provided", "has provided"],
+                correctAnswer: "provides",
+                explanation: "Akademik Task 1 kirish gaplarida fe'l doim Present Simple da (The table provides...) bo'ladi."
             }
         ]
     },
     {
-        "id": "murphy_u02_present_simple",
-        "level": "A1-A2",
-        "title": "Unit 2: Present Simple (I do / work / like)",
-        "category": "Present Tenses",
-        "structure": "S + V(s/es) | S + do/does not + V | Do/Does + S + V?",
-        "uzbekMeaning": "Hozirgi oddiy zamon (Doimiy odatlar, qonuniyatlar va umumiy haqiqatlar)",
-        "explanation": "Present Simple doimiy takrorlanuvchi harakatlar, ilmiy qonuniyatlar, jadvallar va umumiy faktlarni ifodalash uchun ishlatiladi (The sun rises in the east). Uchinchi shaxs birlikda (he/she/it) fe'lga -s/-es qo'shiladi.",
-        "ieltsRelevance": "Writing Task 1 diagramma va jadvallarni tanishtirishda (The chart shows...) hamda Task 2 da umumiy hayotiy haqiqatlarni bayon qilishda asosiy vosita.",
-        "academicExamples": [
+        id: "murphy_u06_present_simple_negative",
+        level: "A1",
+        title: "Unit 6: I don't ... (Present Simple Inkor Shakli)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "I / We / You / They + don't (do not) + V1 | He / She / It + doesn't (does not) + V1",
+        uzbekMeaning: "Hozirgi oddiy zamonda inkor (Men qilmayman, U yoqtirmaydi)",
+        explanation: "Essential Grammar in Use 6-qoidasi: Present Simple inkorida 'don't' yoki 'doesn't' yordamchi fe'llari qo'yiladi. MUHIM: 'doesn't' ishlatilganda asosiy fe'ldan -s/-es qo'shimchasi tushib qoladi (He doesn't like, NOT he doesn't likes).",
+        ieltsRelevance: "Speaking va Writingda o'zingiz yoki jamiyat qilmaydigan narsalarni to'g'ri ifodalash uchun.",
+        academicExamples: [
             {
-                "sentence": "The bar chart illustrates the demographic distribution across five regions.",
-                "translation": "Ustunli diagramma beshta mintaqadagi demografik taqsimotni tasvirlaydi.",
-                "context": "Task 1"
-            },
-            {
-                "sentence": "Regular physical exercise promotes cardiovascular health.",
-                "translation": "Muntazam jismoniy mashqlar yurak-qon tomir salomatligini yaxshilaydi.",
-                "context": "Task 2"
+                sentence: "Many underdeveloped regions do not possess adequate healthcare facilities.",
+                translation: "Ko'plab rivojlanayotgan hududlar yetarli tibbiy muassasalarga ega emas.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The diagram is showing the data for 2020.",
-                "correct": "The diagram shows / illustrates the data for 2020.",
-                "explanation": "Grafikning ma'lumot berishi doimiy fakt bo'lgani uchun Present Simple ma'qul."
+                incorrect: "He doesn't works on weekends.",
+                correct: "He doesn't work on weekends.",
+                explanation: "'doesn't' dan keyin fe'l asosi (work) qo'shimchasiz keladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "The provided table _______ statistical data regarding renewable energy adoption.",
-                "options": [
-                    "provides",
-                    "is providing",
-                    "provided",
-                    "has provided"
-                ],
-                "correctAnswer": "provides",
-                "explanation": "Akademik Task 1 kirish gaplarida fe'l doim Present Simple da (The table provides...) bo'ladi."
+                question: "She _______ coffee because it _______ her sleep.",
+                options: ["doesn't drink / disrupts", "don't drink / disrupts", "doesn't drinks / disrupt", "doesn't drink / disrupt"],
+                correctAnswer: "doesn't drink / disrupts",
+                explanation: "Inkorda 'doesn't drink', ikkinchi qismda darak 3-shaxs birlik 'disrupts'."
             }
         ]
     },
     {
-        "id": "murphy_u03_present_continuous_vs_simple_1",
-        "level": "A1-A2",
-        "title": "Unit 3: Present Continuous and Present Simple 1",
-        "category": "Present Tenses",
-        "structure": "Continuous: S + am/is/are + V-ing (Temporary) vs. Simple: S + V(s/es) (Permanent)",
-        "uzbekMeaning": "Vaqtinchalik holat (Continuous) va Doimiy qonuniyat (Simple) taqqoslanishi",
-        "explanation": "Doimiy haqiqat yoki muntazam odat uchun Present Simple: 'I live in Tashkent'. Vaqtinchalik yoki aynan shu davrda sodir bo'layotgan vaziyat uchun Present Continuous: 'I am living with my friend until I find an apartment'.",
-        "ieltsRelevance": "IELTS Speaking va Writingda vaqtinchalik hodisalar bilan doimiy holatlarni to'g'ri farqlash grammatik aniqlik (GRA) balini ta'minlaydi.",
-        "academicExamples": [
+        id: "murphy_u07_present_simple_questions",
+        level: "A1",
+        title: "Unit 7: Do you ... ? (Present Simple Savollari)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "Do + I/we/you/they + V1? | Does + he/she/it + V1? | Qisqa javob: Yes, I do. / No, he doesn't.",
+        uzbekMeaning: "Hozirgi oddiy zamonda savol berish (Siz inglizcha gapirasizmi? U qayerda yashaydi?)",
+        explanation: "Essential Grammar in Use 7-qoidasi: Savol tuzishda gap boshiga 'Do' yoki 'Does' chiqadi: 'Do you play tennis?' / 'Does Sarah speak Spanish?'. Maxsus so'roq so'zlar: 'Where do your parents live?' / 'What does this word mean?'.",
+        ieltsRelevance: "Speaking Part 3 da savollarni to'g'ri tushunish va javob berishda kerak.",
+        academicExamples: [
             {
-                "sentence": "Most citizens pay taxes, but currently many are protesting against the new policy.",
-                "translation": "Ko'pchilik fuqarolar soliq to'laydi, ammo hozirda ko'pchilik yangi siyosatga qarshi norozilik bildirmoqda.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "The river flows into the sea.",
-                "translation": "Daryo dengizga quyiladi (doimiy tabiat qonuni).",
-                "context": "Task 1"
+                sentence: "How does socioeconomic inequality affect academic attainment?",
+                translation: "Ijtimoiy-iqtisodiy tengsizlik akademik muvaffaqiyatga qanday ta'sir qiladi?",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I am working in a bank every day.",
-                "correct": "I work in a bank every day.",
-                "explanation": "Har kuni takrorlanuvchi doimiy ish faoliyati uchun Present Simple ishlatiladi."
+                incorrect: "Does he lives in Samarkand?",
+                correct: "Does he live in Samarkand?",
+                explanation: "'Does' bo'lgani sababli asosiy fe'lda -s qo'shimchasi bo'lmaydi (live)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "The Earth _______ around the Sun, but today scientists _______ its atmospheric changes.",
-                "options": [
-                    "revolves / are observing",
-                    "is revolving / observe",
-                    "revolves / observe",
-                    "is revolving / are observing"
-                ],
-                "correctAnswer": "revolves / are observing",
-                "explanation": "Yerning aylanishi doimiy fakt (revolves), bugungi kuzatuv esa ayni paytdagi faoliyat (are observing)."
+                question: "What time _______ the morning lecture _______?",
+                options: ["does / start", "do / start", "is / start", "does / starts"],
+                correctAnswer: "does / start",
+                explanation: "'The morning lecture' (it) uchun 'does ... start' to'g'ri bo'ladi."
             }
         ]
     },
     {
-        "id": "murphy_u04_stative_verbs",
-        "level": "A1-A2",
-        "title": "Unit 4: Present Continuous and Simple 2 (Stative Verbs)",
-        "category": "Present Tenses",
-        "structure": "Stative Verbs (know, believe, understand, belong, consist, depend) ➔ ONLY Simple forms",
-        "uzbekMeaning": "Holat fe'llari (Davomli zamonlarda ishlatilmaydigan fe'llar)",
-        "explanation": "Fikr, his-tuyg'u, egalik va idrokni ifodalovchi fe'llar (know, understand, believe, love, hate, depend, belong, consist) harakat emas, holatni bildirgani uchun odatda Continuous shaklida ishlatilmaydi.",
-        "ieltsRelevance": "Akademik tilda 'I am believing' yoki 'This is depending on' kabi xatolar darhol nomaqbul xato sifatida baholanadi.",
-        "academicExamples": [
+        id: "murphy_u08_present_continuous_vs_simple",
+        level: "A1",
+        title: "Unit 8: I am doing and I do (Continuous va Simple Taqqoslash & Statik Fe'llar)",
+        category: "Present Tenses (A1 Foundation)",
+        structure: "Continuous (am/is/are + V-ing) = Hozir/Vaqtinchalik vs. Simple (V/Vs) = Doimiy/Odat",
+        uzbekMeaning: "Hozirgi davomli va Hozirgi oddiy zamon farqi hamda Statik fe'llar",
+        explanation: "Essential Grammar in Use 8-qoidasi: Doimiy odat uchun: 'I live in Tashkent' (Men Toshkentda yashayman). Vaqtinchalik holat uchun: 'I am living with my cousin this week'. MUHIM: Statik fe'llar (like, love, hate, want, know, understand, remember, depend, believe) davomli zamonda (-ing) ishlatilmaydi: 'I understand' (NOT I am understanding).",
+        ieltsRelevance: "IELTS Speaking va Writingda vaqtinchalik hodisalar bilan doimiy holatlarni to'g'ri farqlash grammatik aniqlik (GRA) balini ta'minlaydi.",
+        academicExamples: [
             {
-                "sentence": "The economic outcome depends heavily on foreign investment.",
-                "translation": "Iqtisodiy natija ko'p jihatdan xorijiy investitsiyalarga bog'liq bo'ladi.",
-                "context": "Task 2"
+                sentence: "The economic outcome depends heavily on international trade agreements.",
+                translation: "Iqtisodiy natija xalqaro savdo bitimlariga jiddiy bog'liq bo'ladi.",
+                context: "Task 2"
             },
             {
-                "sentence": "Educators understand the psychological impact of digital learning.",
-                "translation": "Pedagoglar raqamli ta'limning psixologik ta'sirini tushunadilar.",
-                "context": "Task 2"
+                sentence: "Water boils at 100 degrees Celsius, but right now the water in this pot is not boiling.",
+                translation: "Suv 100 darajada qaynaydi (doimiy qonun), lekin ayni paytda bu qozondagi suv qaynamayapti.",
+                context: "Task 1"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The success is depending on team cooperation.",
-                "correct": "The success depends on team cooperation.",
-                "explanation": "'Depend' holat fe'li bo'lgani sababli Continuous da ishlatilmaydi."
+                incorrect: "I am knowing the correct answer.",
+                correct: "I know the correct answer.",
+                explanation: "'Know' statik fe'l bo'lgani uchun continuous da ishlatilmaydi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Modern research _______ that early childhood education has lasting benefits.",
-                "options": [
-                    "indicates",
-                    "is indicating",
-                    "are indicating",
-                    "indicate"
-                ],
-                "correctAnswer": "indicates",
-                "explanation": "'Indicate' (ko'rsatmoq/anglatmoq) ilmiy xulosalarda Present Simple birlikda keladi."
+                question: "Listen! Somebody _______ the guitar, but I _______ who it is.",
+                options: ["is playing / don't know", "plays / don't know", "is playing / am not knowing", "plays / am not knowing"],
+                correctAnswer: "is playing / don't know",
+                explanation: "Birinchi harakat ayni paytda (is playing), 'know' esa statik fe'l (don't know)."
             }
         ]
     },
     {
-        "id": "murphy_u05_past_simple",
-        "level": "A1-A2",
-        "title": "Unit 5: Past Simple (I did / worked / went)",
-        "category": "Past Tenses",
-        "structure": "S + V2/V-ed | S + did not + V1 | Did + S + V1?",
-        "uzbekMeaning": "O'tgan oddiy zamon (O'tgan zamonda aniq vaqtda sodir bo'lib tugagan harakat)",
-        "explanation": "Past Simple o'tmishda sodir bo'lgan va bugungi kunga bog'lanmagan, aniq vaqt ko'rsatkichlari (yesterday, in 2010, two years ago) bilan ishlatiladigan zamondir.",
-        "ieltsRelevance": "Writing Task 1 da tarixiy yillar (masalan, 1990–2010 yillar statistikasi) berilganda butun hisobot Past Simple da yoziladi.",
-        "academicExamples": [
+        id: "murphy_u09_have_have_got",
+        level: "A1",
+        title: "Unit 9: I have ... / I've got ... (Egalik Ifodalash)",
+        category: "Essential Verbs (A1 Foundation)",
+        structure: "I/We/You/They have got (have) | He/She/It has got (has) | Inkor: haven't got / hasn't got",
+        uzbekMeaning: "Menda bor / Unda bor (Mening oilam bor / Uning mashinasi yo'q)",
+        explanation: "Essential Grammar in Use 9-qoidasi: Mulk, qarindoshlik va salomatlik holatlarini aytishda: 'I've got a smartphone' / 'She has got two brothers' / 'I've got a headache'. Britaniya inglizchasida 'have got', Amerika inglizchasida 'have' keng qo'llanadi.",
+        ieltsRelevance: "Speaking Part 1 da o'z mulkingiz, oilangiz va kundalik holatlaringiz haqida tabiiy gapirish vositasi.",
+        academicExamples: [
             {
-                "sentence": "Between 2000 and 2010, the unemployment rate dropped significantly.",
-                "translation": "2000 va 2010 yillar oralig'ida ishsizlik darajasi sezilarli darajada pasaydi.",
-                "context": "Task 1"
-            },
-            {
-                "sentence": "The government established the national health service in 1948.",
-                "translation": "Hukumat 1948 yilda milliy sog'liqni saqlash xizmatini tashkil qildi.",
-                "context": "Task 2"
+                sentence: "Governments have an imperative responsibility to safeguard public infrastructure.",
+                translation: "Hukumatlar jamoat infratuzilmasini himoya qilish bo'yicha qat'iy mas'uliyatga ega.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "In 2015, the population has increased to 5 million.",
-                "correct": "In 2015, the population increased to 5 million.",
-                "explanation": "Aniq o'tgan yil (In 2015) bilan Present Perfect emas, Past Simple ishlatiladi."
+                incorrect: "She have got two cars.",
+                correct: "She has got two cars. / She has two cars.",
+                explanation: "3-shaxs birlik (he/she/it) bilan doim 'has got' keladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "In 1995, sales of personal computers _______ by over 40 percent.",
-                "options": [
-                    "grew",
-                    "have grown",
-                    "are growing",
-                    "grow"
-                ],
-                "correctAnswer": "grew",
-                "explanation": "1995 yil aniq o'tmish davri bo'lgani uchun fe'lning 2-shakli (grew) tanlanadi."
+                question: "Sarah _______ a new laptop, but she _______ a printer.",
+                options: ["has got / hasn't got", "have got / haven't got", "has got / haven't got", "have got / hasn't got"],
+                correctAnswer: "has got / hasn't got",
+                explanation: "Sarah (She) uchun darak shaklda 'has got', inkorda 'hasn't got' to'g'ri keladi."
             }
         ]
     },
     {
-        "id": "murphy_u06_past_continuous",
-        "level": "A1-A2",
-        "title": "Unit 6: Past Continuous (I was doing)",
-        "category": "Past Tenses",
-        "structure": "S + was/were + V-ing | S + was/were + not + V-ing | Was/Were + S + V-ing?",
-        "uzbekMeaning": "O'tgan davomli zamon (O'tmishda ma'lum bir vaqt oralig'ida davom etayotgan harakat)",
-        "explanation": "Past Continuous o'tgan zamondagi ma'lum bir nuqtada jarayonda bo'lgan harakatlarni yoki bir harakat davom etayotganda boshqa qisqa harakat uni kesib o'tganini (While I was studying, the phone rang) ifodalaydi.",
-        "ieltsRelevance": "Speaking Part 2 hikoya qilishda (Storytelling / Past experiences) foni yaratishda juda qo'l keladi.",
-        "academicExamples": [
+        id: "murphy_u10_was_were",
+        level: "A1",
+        title: "Unit 10: was / were (To Be ning O'tgan Zamoni)",
+        category: "Past Tenses (A1 Foundation)",
+        structure: "I / He / She / It was | We / You / They were | Inkor: wasn't / weren't | Savol: Was/Were + S + ...?",
+        uzbekMeaning: "O'tgan zamonda bo'lgan edi (Kecha men uyda edim / Ular charchagan edilar)",
+        explanation: "Essential Grammar in Use 10-qoidasi: 'am/is' ning o'tgan zamoni 'was', 'are' ning o'tgan zamoni 'were'. O'tgan zamondagi holat, sifat, kasb va joylashuvni ifodalaydi: 'Yesterday I was sick' / 'They were at the cinema last night'.",
+        ieltsRelevance: "Speaking Part 2 o'tmish xotiralarini aytishda va Writing Task 1 o'tgan yilgi ma'lumotlarni yozishda kerak.",
+        academicExamples: [
             {
-                "sentence": "While the economy was recovering, inflation remained a persistent threat.",
-                "translation": "Iqtisodiyot tiklanayotgan bir paytda, inflyatsiya doimiy xavf bo'lib qoldi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "I was working as an intern when I first encountered this methodology.",
-                "translation": "Ushbu metodikaga birinchi marta duch kelganimda amaliyotchi bo'lib ishlayotgan edim.",
-                "context": "Speaking"
+                sentence: "In 1990, the literacy rate in developing nations was exceptionally low.",
+                translation: "1990 yilda rivojlanayotgan mamlakatlarda savodxonlik darajasi favqulodda past edi.",
+                context: "Task 1"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "When I arrived, they discussed the budget.",
-                "correct": "When I arrived, they were discussing the budget.",
-                "explanation": "Men yetib borgan paytimda ular byudjetni muhokama qilish jarayonida edilar (davomli harakat)."
+                incorrect: "We was very surprised by the announcement.",
+                correct: "We were very surprised by the announcement.",
+                explanation: "'We' olmoshi bilan 'were' ishlatiladi ('was' emas)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "While the researchers _______ the clinical trial, an unexpected side effect occurred.",
-                "options": [
-                    "were conducting",
-                    "conducted",
-                    "have conducted",
-                    "are conducting"
-                ],
-                "correctAnswer": "were conducting",
-                "explanation": "While birikmasi bilan o'tgan zamonda davom etayotgan jarayon: 'were conducting'."
+                question: "Where _______ you yesterday at 5 PM? I _______ looking for you.",
+                options: ["were / was", "was / were", "were / were", "was / was"],
+                correctAnswer: "were / was",
+                explanation: "'You' bilan 'were', 'I' bilan 'was' to'g'ri keladi."
             }
         ]
     },
     {
-        "id": "murphy_u07_present_perfect_1",
-        "level": "B1-B2",
-        "title": "Unit 7: Present Perfect 1 (I have done)",
-        "category": "Present Perfect",
-        "structure": "S + have/has + V3/ed | S + have/has not + V3/ed | Have/Has + S + V3/ed?",
-        "uzbekMeaning": "Hozirgi tugallangan zamon (Natijasi hozirgi kunda ko'rinib turgan o'tgan harakat)",
-        "explanation": "Present Perfect o'tmishda boshlangan yoki sodir bo'lgan, ammo natijasi va ta'siri hozirgi paytda muhim bo'lgan harakatlarni ifodalaydi: 'I have lost my passport' (demak hozir menda pasport yo'q).",
-        "ieltsRelevance": "Task 2 muqaddima qismida zamonaviy dunyoda yuz bergan ulkan o'zgarishlarni kiritishda (e.g. Technology has transformed society) juda samarali.",
-        "academicExamples": [
+        id: "murphy_u11_past_simple_regular_irregular",
+        level: "A1",
+        title: "Unit 11: worked / got / went etc. (Past Simple — O'tgan Oddiy Zamon)",
+        category: "Past Tenses (A1 Foundation)",
+        structure: "To'g'ri fe'llar: V + -ed (worked, cleaned) | Noto'g'ri fe'llar: V2 (went, saw, bought)",
+        uzbekMeaning: "O'tgan zamonda aniq vaqtda sodir bo'lib tugagan harakat",
+        explanation: "Essential Grammar in Use 11-qoidasi: Past Simple o'tmishda sodir bo'lgan va butunlay tugagan harakatlar uchun ishlatiladi. To'g'ri fe'llarga -ed qo'shiladi: work -> worked, live -> lived, study -> studied. Noto'g'ri fe'llar maxsus 2-shaklga ega: go -> went, see -> saw, buy -> bought, have -> had.",
+        ieltsRelevance: "Writing Task 1 da o'tgan yillardagi grafik o'zgarishlarni yozishning asosi (e.g. Sales increased rapidly in 2010).",
+        academicExamples: [
             {
-                "sentence": "Technological advancements have transformed the global labour market.",
-                "translation": "Texnologik yutuqlar global mehnat bozorini tubdan o'zgartirdi (natijasi bugun mavjud).",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Several countries have introduced stringent plastic bans.",
-                "translation": "Bir qancha davlatlar qat'iy plastik taqiqlarini joriy qildilar.",
-                "context": "Task 2"
+                sentence: "Between 2000 and 2015, renewable energy investments increased significantly.",
+                translation: "2000 va 2015 yillar oralig'ida qayta tiklanadigan energiya investitsiyalari sezilarli darajada oshdi.",
+                context: "Task 1"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "In 2000, scientists have discovered a new cure.",
-                "correct": "In 2000, scientists discovered a new cure.",
-                "explanation": "Aniq o'tgan vaqt (In 2000) bilan Present Perfect ishlatilmaydi."
+                incorrect: "Yesterday I goed to the supermarket.",
+                correct: "Yesterday I went to the supermarket.",
+                explanation: "'Go' noto'g'ri fe'l bo'lgani sababli uning 2-shakli 'went' bo'ladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Urbanization _______ unprecedented environmental challenges in major metropolises.",
-                "options": [
-                    "has created",
-                    "created in 1990",
-                    "is creating yesterday",
-                    "had create"
-                ],
-                "correctAnswer": "has created",
-                "explanation": "Natijasi bugun ham yaqqol sezilib turgan umumiy o'zgarish uchun Present Perfect: 'has created'."
+                question: "The company _______ its first international branch in 2012.",
+                options: ["established", "establishes", "is establishing", "has established"],
+                correctAnswer: "established",
+                explanation: "2012 yil aniq o'tgan davr bo'lgani sababli fe'lning 2-shakli (established) tanlanadi."
             }
         ]
     },
     {
-        "id": "murphy_u08_present_perfect_2_markers",
-        "level": "B1-B2",
-        "title": "Unit 8: Present Perfect 2 (just, already, yet, ever, never)",
-        "category": "Present Perfect",
-        "structure": "have/has + just / already + V3 | haven't/hasn't + V3 + yet | Have you ever + V3?",
-        "uzbekMeaning": "Present Perfect vaqt ko'rsatkichlari (Hozirgina, allaqachon, hali, hech qachon)",
-        "explanation": "Just (hozirgina), Already (kutilgandan oldinroq, allaqachon), Yet (inkor va so'roqda: hali/haliyam), Ever (hayotiy tajribada: biror marta), Never (hech qachon) signallari bilan ishlatiladi.",
-        "ieltsRelevance": "IELTS Speaking Part 1 va Part 3 da shaxsiy hayotiy tajribalarni tushuntirishda xatosiz nutqni ta'minlaydi.",
-        "academicExamples": [
+        id: "murphy_u12_past_simple_negative_questions",
+        level: "A1",
+        title: "Unit 12: I didn't ... Did you ... ? (Past Simple Inkor va Savol)",
+        category: "Past Tenses (A1 Foundation)",
+        structure: "Inkor: S + didn't (did not) + V1 | Savol: Did + Subject + V1? | Qisqa javob: Yes, I did. / No, I didn't.",
+        uzbekMeaning: "O'tgan oddiy zamonda inkor va savol (Men bormadim / Siz ko'rdingizmi?)",
+        explanation: "Essential Grammar in Use 12-qoidasi: Past Simple ning inkori va so'rog'ida 'did / didn't' ishlatiladi. MUHIM: 'did' yoki 'didn't' kelganda asosiy fe'l 1-shaklga (V1) qaytadi: 'I didn't go' (NOT I didn't went) / 'Did you see Sarah?' (NOT Did you saw).",
+        ieltsRelevance: "Speaking intervyusida o'tmishdagi voqealar haqida to'g'ri savol-javob qilishda muhim.",
+        academicExamples: [
             {
-                "sentence": "Many institutions have already adopted automated grading systems.",
-                "translation": "Ko'plab muassasalar allaqachon avtomatlashtirilgan baholash tizimlarini qabul qilib bo'lgan.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Developing nations have not yet achieved complete vaccine equity.",
-                "translation": "Rivojlanayotgan davlatlar hali to'liq vaksina tengligiga erishgani yo'q.",
-                "context": "Task 2"
+                sentence: "The municipal council did not allocate sufficient funding for suburban transport.",
+                translation: "Shahar kengashi shahar atrofi transporti uchun yetarli mablag' ajratmadi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I didn't finish my homework yet.",
-                "correct": "I haven't finished my homework yet.",
-                "explanation": "'Yet' signali ingliz grammatikasida Present Perfect ni talab qiladi."
+                incorrect: "Did you went to the conference yesterday?",
+                correct: "Did you go to the conference yesterday?",
+                explanation: "'Did' yordamchi fe'lidan keyin asosiy fe'lning 1-shakli (go) keladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Although policies were enacted, authorities _______ fully resolved the traffic congestion issue.",
-                "options": [
-                    "have not yet",
-                    "did not yet",
-                    "are not already",
-                    "will not yet"
-                ],
-                "correctAnswer": "have not yet",
-                "explanation": "Hali to'liq hal qilinmagan o'tgan harakat natijasi: 'have not yet'."
+                question: "Why _______ you _______ the assignment on time?",
+                options: ["didn't / submit", "didn't / submitted", "weren't / submit", "don't / submitted"],
+                correctAnswer: "didn't / submit",
+                explanation: "'didn't' dan keyin asosiy fe'l asosi (submit) keladi."
             }
         ]
     },
     {
-        "id": "murphy_u09_present_perfect_continuous",
-        "level": "B1-B2",
-        "title": "Unit 9: Present Perfect Continuous (I have been doing)",
-        "category": "Present Perfect",
-        "structure": "S + have/has been + V-ing | Have/Has + S + been + V-ing?",
-        "uzbekMeaning": "Hozirgi tugallangan davomli zamon (O'tmishda boshlanib, hozirgacha davom etayotgan jarayon)",
-        "explanation": "Harakat o'tmishda boshlangan va hozirgacha to'xtovsiz davom etmoqda: 'It has been raining for two hours'. Shuningdek, yaqindagina to'xtagan, ammo alomati ko'rinib turgan harakatlar uchun: 'You are out of breath. Have you been running?'.",
-        "ieltsRelevance": "Speaking va Writingda o'quv yoki kasbiy faoliyat davomiyligini ko'rsatishda (I have been studying English for 3 years) juda muhim.",
-        "academicExamples": [
+        id: "murphy_u13_past_continuous",
+        level: "A1",
+        title: "Unit 13: I was doing (Past Continuous — O'tgan Davomli Zamon)",
+        category: "Past Tenses (A1 Foundation)",
+        structure: "S + was/were + V-ing | S + was/were + not + V-ing | Was/Were + S + V-ing?",
+        uzbekMeaning: "O'tmishda ma'lum bir vaqt oralig'ida davom etayotgan jarayon",
+        explanation: "Essential Grammar in Use 13-qoidasi: O'tmishdagi aniq bir vaqtda (masalan, kecha soat 4 da) jarayonda bo'lgan harakatlar uchun ishlatiladi: 'At 4 o'clock yesterday, I was playing tennis' (soat 4 dan oldin boshlaganman va hali o'ynayotgan edim).",
+        ieltsRelevance: "Speaking Part 2 hikoyalarda foni va vaziyatni tasvirlashda qo'llaniladi.",
+        academicExamples: [
             {
-                "sentence": "Economists have been debating the impact of artificial intelligence on employment for over a decade.",
-                "translation": "Iqtisodchilar o'n yildan ortiq vaqt davomida sun'iy intellektning bandlikka ta'sirini muhokama qilib kelishmoqda.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "I have been learning Japanese for six months to prepare for the JLPT.",
-                "translation": "JLPT ga tayyorgarlik ko'rish uchun olti oydan beri yapon tilini o'rganib kelyapman.",
-                "context": "Speaking"
+                sentence: "While the economy was recovering, inflation remained a persistent threat.",
+                translation: "Iqtisodiyot tiklanayotgan bir paytda, inflyatsiya doimiy xavf bo'lib qoldi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I am studying here since 2020.",
-                "correct": "I have been studying here since 2020.",
-                "explanation": "'Since 2020' kabi vaqt davomiyligi ko'rsatkichlari bilan Present Continuous emas, Present Perfect Continuous ishlatiladi."
+                incorrect: "Yesterday at 8 PM I watched TV.",
+                correct: "Yesterday at 8 PM I was watching TV.",
+                explanation: "Aniq vaqt nuqtasida jarayonda bo'lgan harakat uchun Past Continuous ishlatiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Scientists _______ climatic fluctuations in the Arctic region for several decades.",
-                "options": [
-                    "have been monitoring",
-                    "are monitoring since",
-                    "monitored since",
-                    "were monitoring"
-                ],
-                "correctAnswer": "have been monitoring",
-                "explanation": "O'n yillardan beri davom etib kelayotgan ilmiy jarayon: 'have been monitoring'."
+                question: "What _______ you _______ when the earthquake struck?",
+                options: ["were / doing", "was / doing", "did / do", "are / doing"],
+                correctAnswer: "were / doing",
+                explanation: "Zilzila yuz bergan daqiqada nima bilan mashg'ul edingiz (were doing)."
             }
         ]
     },
     {
-        "id": "murphy_u11_for_and_since",
-        "level": "B1-B2",
-        "title": "Unit 11: For and Since / When and How Long",
-        "category": "Present Perfect",
-        "structure": "For + Duration (for 5 years, for 2 hours) | Since + Starting point (since 2010, since Monday)",
-        "uzbekMeaning": "For (davomida) va Since (dan beri) qo'llanilishi",
-        "explanation": "For vaqt oralig'ini (davomiyligini) bildiradi (for ten years, for a long time). Since esa harakat boshlangan aniq vaqt nuqtasini bildiradi (since 2015, since I was a child).",
-        "ieltsRelevance": "Task 1 da dinamik o'zgarishlarni va Speakingda o'z tajribangizni tasvirlashda xatolarga yo'l qo'ymaslikni ta'minlaydi.",
-        "academicExamples": [
+        id: "murphy_u14_past_continuous_and_simple",
+        level: "A1",
+        title: "Unit 14: I was doing and I did (Past Continuous va Past Simple Kesishuvi)",
+        category: "Past Tenses (A1 Foundation)",
+        structure: "Davomli jarayon (was/were + V-ing) + WHEN/WHILE + Qisqa harakat (Past Simple V2)",
+        uzbekMeaning: "Bir harakat davom etayotganda ikkinchi to'satdan harakatning ro'y berishi",
+        explanation: "Essential Grammar in Use 14-qoidasi: O'tmishda bir uzun jarayon davom etayotgan paytda kutilmaganda boshqa qisqa harakat sodir bo'lsa: 'I was walking home when it began to rain' (Uyga ketayotgan edim, yomg'ir yog'ib ketdi). Uzun fon harakat -> Past Continuous, qisqa kesuvchi harakat -> Past Simple.",
+        ieltsRelevance: "Speaking Part 2 da shaxsiy sarguzasht va tajribalarni jonli hikoya qilish vositasi.",
+        academicExamples: [
             {
-                "sentence": "Renewable energy investments have increased steadily since 2005.",
-                "translation": "Qayta tiklanuvchi energiya investitsiyalari 2005 yildan beri barqaror o'sib kelmoqda.",
-                "context": "Task 1"
-            },
-            {
-                "sentence": "The policy has been in effect for more than a quarter of a century.",
-                "translation": "Ushbu siyosat chorak asrdan ortiq vaqt davomida amalda bo'lib kelmoqda.",
-                "context": "Task 2"
+                sentence: "Researchers were conducting field surveys when the unexpected breakthrough occurred.",
+                translation: "Tadqiqotchilar dala tadqiqotlarini olib borayotganlarida kutilmagan ilmiy kashfiyot yuz berdi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I have known him since three years.",
-                "correct": "I have known him for three years.",
-                "explanation": "Vaqt davomiyligi (three years) bilan 'for' ishlatiladi. Aniq boshlanish nuqtasi bilan 'since'."
+                incorrect: "While I walked down the street, I was meeting an old friend.",
+                correct: "While I was walking down the street, I met an old friend.",
+                explanation: "Ko'chada yurish uzun jarayon (was walking), do'stni uchratish esa qisqa hodisa (met)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Carbon emissions in the manufacturing sector have surged _______ the onset of the industrial revolution.",
-                "options": [
-                    "since",
-                    "for",
-                    "during",
-                    "from"
-                ],
-                "correctAnswer": "since",
-                "explanation": "Sanoat inqilobi boshlangan nuqtadan buyon: 'since the onset'."
+                question: "The phone rang while I _______ a shower.",
+                options: ["was taking", "took", "have taken", "am taking"],
+                correctAnswer: "was taking",
+                explanation: "'While' dan keyin o'tmishdagi davomli jarayon: 'was taking'."
             }
         ]
     },
     {
-        "id": "murphy_u13_past_perfect",
-        "level": "B1-B2",
-        "title": "Unit 13: Past Perfect (I had done / seen)",
-        "category": "Past Tenses",
-        "structure": "S + had + V3/ed | S + had not + V3/ed | Had + S + V3/ed?",
-        "uzbekMeaning": "O'tgan tugallangan zamon (O'tgan zamondagi boshqa bir harakatdan oldin ro'y bergan harakat)",
-        "explanation": "O'tgan zamonda ikkita harakat sodir bo'lganida, birinchi (oldingi) harakat uchun Past Perfect (had done), ikkinchi (keyingi) harakat uchun Past Simple (did) ishlatiladi: 'When we arrived, the train had already left'.",
-        "ieltsRelevance": "Tarixiy hodisalar sabab-oqibatini yoki Reading matnlaridagi ketma-ketlikni to'g'ri tahlil qilishda zarur.",
-        "academicExamples": [
+        id: "murphy_u15_present_perfect_1",
+        level: "A1",
+        title: "Unit 15: I have done (Present Perfect 1 — Hozirgi Tugallangan Zamon)",
+        category: "Present Perfect (A1 Foundation)",
+        structure: "I / We / You / They + have + V3/ed | He / She / It + has + V3/ed | Inkor: haven't / hasn't + V3",
+        uzbekMeaning: "Natijasi hozirgi kunda ko'rinib turgan yoki muhim bo'lgan o'tgan harakat",
+        explanation: "Essential Grammar in Use 15-qoidasi: Present Perfect o'tmishda sodir bo'lgan, lekin natijasi ayni hozirgi daqiqada muhim bo'lgan ish-harakatlar uchun ishlatiladi: 'I have lost my key' (= hozir menda kalit yo'q, uyga kirolmayapman). Fe'lning 3-shakli (Past Participle) ishlatiladi: clean -> cleaned, lose -> lost, see -> seen, write -> written.",
+        ieltsRelevance: "Writing Task 2 kirish qismida jamiyatdagi yangi o'zgarishlarni kiritishda (e.g. Technology has revolutionized learning).",
+        academicExamples: [
             {
-                "sentence": "By the time the government intervened, the local currency had depreciated by 30 percent.",
-                "translation": "Hukumat aralashgunga qadar milliy valyuta 30 foizga qadrsizlanib bo'lgan edi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Before the pandemic struck, the tourism sector had experienced unprecedented growth.",
-                "translation": "Pandemiya boshlanishidan oldin turizm sohasi misli ko'rilmagan o'sishni boshdan kechirgan edi.",
-                "context": "Task 1"
+                sentence: "Technological advancements have transformed modern communication systems.",
+                translation: "Texnologik yutuqlar zamonaviy aloqa tizimlarini tubdan o'zgartirdi (natijasi bugun mavjud).",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "When I arrived, the meeting already started.",
-                "correct": "When I arrived, the meeting had already started.",
-                "explanation": "Men kelishimdan oldinroq majlis boshlanib bo'lgani uchun 'had already started' to'g'ri."
+                incorrect: "I have lost my keys yesterday.",
+                correct: "I lost my keys yesterday. / I have lost my keys.",
+                explanation: "'Yesterday' kabi aniq o'tgan vaqt bilan Present Perfect ishlatilmaydi; u faqat natija hozir muhim bo'lganda qo'llanadi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "By 2010, the company _______ its entire manufacturing infrastructure abroad.",
-                "options": [
-                    "had relocated",
-                    "has relocated",
-                    "relocates",
-                    "was relocating"
-                ],
-                "correctAnswer": "had relocated",
-                "explanation": "'By 2010' (2010 yilga kelib tugallangan ish) bilan Past Perfect: 'had relocated'."
+                question: "Look! Somebody _______ the window. It's wide open.",
+                options: ["has broken", "broke", "is breaking", "breaks"],
+                correctAnswer: "has broken",
+                explanation: "Oyna singan va natijasi hozir ko'rinib turibdi (has broken)."
             }
         ]
     },
     {
-        "id": "murphy_u15_used_to",
-        "level": "B1-B2",
-        "title": "Unit 15: Used to (do)",
-        "category": "Past Tenses",
-        "structure": "S + used to + V1 | S + didn't use to + V1 | Did + S + use to + V1?",
-        "uzbekMeaning": "Ilgari qilardi (O'tmishda doimiy odat bo'lgan, ammo hozir to'xtagan harakatlar)",
-        "explanation": "'Used to' o'tmishda muntazam qilingan, lekin hozirgi kunda qilinmaydigan odatlar va o'tmishdagi holatlar uchun ishlatiladi: 'I used to play tennis a lot, but I don't play now'.",
-        "ieltsRelevance": "Speaking Part 1/2 da o'tmishdagi bolalik va hozirgi hayotingizni taqqoslashda juda qulay.",
-        "academicExamples": [
+        id: "murphy_u16_present_perfect_just_already_yet",
+        level: "A1",
+        title: "Unit 16: I've just ... I've already ... I haven't ... yet (Present Perfect 2)",
+        category: "Present Perfect (A1 Foundation)",
+        structure: "Just = hozirgina | Already = allaqachon (have/has va V3 o'rtasida) | Yet = hali (gap oxirida inkor va so'roqda)",
+        uzbekMeaning: "Hozirgina, allaqachon va hali so'zlarining Present Perfect dagi o'rni",
+        explanation: "Essential Grammar in Use 16-qoidasi: 1) 'just' = qisqa vaqt oldin: 'I've just arrived'. 2) 'already' = kutilgandan erta yoki allaqachon: 'I've already finished my work'. 3) 'yet' = hali/haliyam (inkor va so'roq gaplarning eng oxirida keladi): 'Have you finished yet?' / 'I haven't eaten yet'.",
+        ieltsRelevance: "Speaking va Writingda o'z ishlaringizning holatini tabiiy ifodalash.",
+        academicExamples: [
             {
-                "sentence": "People used to rely on print media for daily news, whereas digital platforms now dominate.",
-                "translation": "Odamlar ilgari kundalik yangiliklar uchun bosma nashrlarga tayanar edilar, holbuki hozirda raqamli platformalar ustunlik qiladi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "I used to live in a rural village before moving to the capital city.",
-                "translation": "Poytaxtga ko'chib o'tishdan oldin qishloqda yashar edim.",
-                "context": "Speaking"
+                sentence: "Several European nations have already achieved substantial reductions in greenhouse emissions.",
+                translation: "Bir qator Yevropa davlatlari issiqxona gazlari emissiyasini qisqartirishda allaqachon salmoqli natijalarga erishdilar.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "I use to go there last year.",
-                "correct": "I used to go there last year.",
-                "explanation": "O'tmish odatlari uchun 'used to' (d harfi bilan) yoziladi."
+                incorrect: "I didn't finish my homework yet.",
+                correct: "I haven't finished my homework yet.",
+                explanation: "'Yet' so'zi bilan Present Perfect (haven't finished) ishlatiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Centuries ago, societies _______ barter systems rather than monetary currencies.",
-                "options": [
-                    "used to utilize",
-                    "are used to utilize",
-                    "use to utilize",
-                    "used to utilizing"
-                ],
-                "correctAnswer": "used to utilize",
-                "explanation": "O'tmishdagi doimiy qonuniyat: 'used to utilize' (used to + V1)."
+                question: "Don't forget to pay the electricity bill. — I _______ it.",
+                options: ["have already paid", "already paid", "have yet paid", "paid already"],
+                correctAnswer: "have already paid",
+                explanation: "'Alla qachon to'lab bo'ldim' ma'nosida 'have already paid' to'g'ri keladi."
             }
         ]
     },
     {
-        "id": "murphy_u18_future_continuous_and_perfect",
-        "level": "B1-B2",
-        "title": "Unit 18: Future Continuous & Future Perfect",
-        "category": "Future Forms",
-        "structure": "Future Continuous: will be + V-ing | Future Perfect: will have + V3",
-        "uzbekMeaning": "Kelasi davomli (will be doing) va Kelasi tugallangan (will have done) zamonlar",
-        "explanation": "Future Continuous kelajakdagi ma'lum bir paytda davom etayotgan harakat (This time tomorrow, I will be flying to London). Future Perfect esa kelajakdagi ma'lum bir muddatgacha tugallanib bo'ladigan natija (By 2030, scientists will have discovered new energy sources).",
-        "ieltsRelevance": "Writing Task 1 prognoz grafiklarida (Projections up to 2050) Band 7+ grammatik murakkablikni ko'rsatish uchun eng zo'r konstruksiya.",
-        "academicExamples": [
+        id: "murphy_u17_present_perfect_have_you_ever",
+        level: "A1",
+        title: "Unit 17: Have you ever ... ? (Present Perfect 3 — Hayotiy Tajriba)",
+        category: "Present Perfect (A1 Foundation)",
+        structure: "Have you ever + V3? | I have never + V3 | Ever = umringizda / biror marta | Never = hech qachon",
+        uzbekMeaning: "Hayotiy tajribalar haqida so'rash va aytish (Siz biror marta Londonda bo'lganmisiz?)",
+        explanation: "Essential Grammar in Use 17-qoidasi: Insonning butun hayoti davomidagi tajribalari haqida gapirganda: 'Have you ever been to Japan?' (Hayotingizda biror marta Yaponiyada bo'lganmisiz?). Javobda: 'Yes, twice' / 'No, I have never been there'.",
+        ieltsRelevance: "Speaking Part 1 ning eng mashhur savollari (Have you ever traveled abroad / played an instrument?).",
+        academicExamples: [
             {
-                "sentence": "By 2050, the global population will have exceeded nine billion people.",
-                "translation": "2050 yilga kelib, yer yuzi aholisi to'qqiz milliard kishidan oshib bo'ladi.",
-                "context": "Task 1"
-            },
-            {
-                "sentence": "In the coming decades, most households will be utilizing renewable solar power.",
-                "translation": "Kelgusi o'n yilliklarda aksariyat xonadonlar qayta tiklanuvchi quyosh energiyasidan foydalanayotgan bo'ladi.",
-                "context": "Task 2"
+                sentence: "I have never witnessed such remarkable academic enthusiasm among students.",
+                translation: "Men talabalar orasida hech qachon bunday ajoyib akademik ishtiyoqni ko'rmaganman.",
+                context: "Speaking"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "By next year, I will finish my master's degree.",
-                "correct": "By next year, I will have finished my master's degree.",
-                "explanation": "'By + kelajak vaqt' bilan Future Perfect (will have finished) ishlatiladi."
+                incorrect: "Have you ever went to Paris?",
+                correct: "Have you ever been to Paris?",
+                explanation: "Biror joyga borib kelganlik tajribasi haqida 'been to' ishlatiladi ('went' emas)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "According to official projections, the city _______ its carbon neutrality targets by 2040.",
-                "options": [
-                    "will have achieved",
-                    "will be achieve",
-                    "has achieved",
-                    "would achieve"
-                ],
-                "correctAnswer": "will have achieved",
-                "explanation": "'By 2040' kelasi muddatiga qadar yakunlanadigan natija: 'will have achieved'."
+                question: "_______ you ever _______ an exotic musical instrument?",
+                options: ["Have / played", "Did / play", "Were / playing", "Do / play"],
+                correctAnswer: "Have / played",
+                explanation: "Hayotiy tajriba haqida so'rash: 'Have you ever played...?'."
             }
         ]
     },
     {
-        "id": "murphy_u20_modals_deduction",
-        "level": "B1-B2",
-        "title": "Unit 20: Modals of Deduction (Must, Can't, Could, Might)",
-        "category": "Modals",
-        "structure": "Must + V1 (99% ishonch) | Can't + V1 (99% inkor) | Might/May/Could + V1 (50% ehtimol)",
-        "uzbekMeaning": "Mantiqiy xulosa va ehtimollik modal fe'llari",
-        "explanation": "Biror holatga qat'iy mantiqiy amin bo'lsangiz: 'He has worked 14 hours today, he must be exhausted'. Mutlaqo imkonsiz deb hisoblasangiz: 'It can't be true'. Ehtimollik bo'lsa: 'It might rain later'.",
-        "ieltsRelevance": "IELTS Writing Task 2 da mutlaq fikr bildirmasdan, akademik muloyimlik (Academic Hedging) bilan ehtimollik bildirishda zarur.",
-        "academicExamples": [
+        id: "murphy_u18_present_perfect_how_long",
+        level: "A1",
+        title: "Unit 18: How long have you ... ? (Present Perfect 4 — Davomiylik)",
+        category: "Present Perfect (A1 Foundation)",
+        structure: "How long + have/has + Subject + V3/been? | S + have/has lived/worked/been + for/since ...",
+        uzbekMeaning: "Qancha vaqtdan beri davom etayotganini so'rash va aytish (Qanchadan beri shu yerda yashaysiz?)",
+        explanation: "Essential Grammar in Use 18-qoidasi: O'tmishda boshlanib hozirgacha davom etayotgan holatlar uchun Present Simple emas, balki Present Perfect ishlatiladi: 'I have lived in London for two years' (= Men 2 yildan beri Londonda yashayman, hozir ham u yerdaman).",
+        ieltsRelevance: "Speaking Part 1 da 'How long have you been studying English?' savoliga benuqson javob berish kaliti.",
+        academicExamples: [
             {
-                "sentence": "Implementing strict regulations might discourage small enterprise growth.",
-                "translation": "Qat'iy qoidalarni joriy etish kichik biznes o'sishini sekinlashtirishi ehtimoldan xoli emas.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Given the substantial data, the proposed hypothesis must be valid.",
-                "translation": "Keltirilgan salmoqli dalillarga ko'ra, ilgari surilgan gipoteza to'g'ri bo'lishi aniq.",
-                "context": "Task 2"
+                sentence: "I have been interested in international economics since my high school years.",
+                translation: "Men yuqori sinf yillarimdan beri xalqaro iqtisodiyotga qiziqib kelaman.",
+                context: "Speaking"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "It must not be true (imkonsiz ma'nosida).",
-                "correct": "It cannot be true.",
-                "explanation": "Mantiqiy 'imkoni yo'q' xulosasi uchun 'must not' emas, 'can't / cannot' ishlatiladi."
+                incorrect: "I know him since 2018.",
+                correct: "I have known him since 2018.",
+                explanation: "'Since' bilan boshlangan davomiylik uchun Present Perfect (have known) talab qilinadi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Excessive smartphone usage among adolescents _______ lead to diminished academic focus.",
-                "options": [
-                    "can",
-                    "must to",
-                    "should to",
-                    "is able"
-                ],
-                "correctAnswer": "can",
-                "explanation": "Umumiy ehtimollik va nazariy imkoniyat uchun 'can' modal fe'li to'g'ri."
+                question: "How long _______ you _______ in this academic department?",
+                options: ["have / worked", "do / work", "are / working", "did / work"],
+                correctAnswer: "have / worked",
+                explanation: "'Qanchadan beri ishlayapsiz?' ma'nosida 'How long have you worked' to'g'ri."
             }
         ]
     },
     {
-        "id": "murphy_u23_conditionals_first_and_second",
-        "level": "B1-B2",
-        "title": "Unit 23: Conditionals (Real vs. Unreal Hypotheses)",
-        "category": "Conditionals",
-        "structure": "1st: If + Present Simple, will + V1 | 2nd: If + Past Simple, would + V1",
-        "uzbekMeaning": "Shart ergash gaplar: Real (1-shart) va Gipoteza/Noaniq (2-shart)",
-        "explanation": "1-shart gap kelajakda amalga oshishi mumkin bo'lgan real shart: 'If taxes increase, consumption will drop'. 2-shart gap esa hozirgi yoki kelajakdagi nohaqiqiy, faraziy vaziyatlar: 'If governments invested more in green tech, pollution would decrease'.",
-        "ieltsRelevance": "Taklif qilinayotgan islohotlarning oqibatlarini muhokama qilishda Band 7.5+ murakkab gap strukturasini beradi.",
-        "academicExamples": [
+        id: "murphy_u19_for_since_ago",
+        level: "A1",
+        title: "Unit 19: for / since / ago (Vaqt Ko'rsatkichlari Farqi)",
+        category: "Time Expressions (A1 Foundation)",
+        structure: "FOR + Vaqt oralig'i (for 3 days, for 5 years) | SINCE + Boshlangan aniq nuqta (since Monday, since 2015) | AGO = oldin (Past Simple bilan)",
+        uzbekMeaning: "...davomida (for), ...dan beri (since), ...oldin (ago) so'zlarining to'g'ri ishlatilishi",
+        explanation: "Essential Grammar in Use 19-qoidasi: 1) 'FOR' — muddat vaqt oralig'i: for two hours, for ten years. 2) 'SINCE' — ish-harakat boshlangan aniq vaqt nuqtasi: since 9 o'clock, since 2010. 3) 'AGO' — o'tmishda ...oldin (faqat Past Simple bilan): 'He left ten minutes ago'.",
+        ieltsRelevance: "Writing Task 1 va Speakingda vaqt ko'rsatkichlarini chalkashtirmasdan aniq qo'llash.",
+        academicExamples: [
             {
-                "sentence": "If governments subsidize public transport, private car dependency will decline.",
-                "translation": "Agar hukumatlar jamoat transportini subsidiyalasa, xususiy mashinalarga qaramlik kamayadi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "If individuals were more conscious of waste, landfill crises would diminish.",
-                "translation": "Agar fuqarolar chiqindilar bo'yicha ko'proq ongli bo'lganlarida edi, chiqindixonalar inqirozi ancha kamaygan bo'lardi.",
-                "context": "Task 2"
+                sentence: "Global renewable energy capacity has grown exponentially since 2010.",
+                translation: "Global qayta tiklanadigan energiya quvvati 2010 yildan beri eksponentsial ravishda o'sdi.",
+                context: "Task 1"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "If I will have time, I will help you.",
-                "correct": "If I have time, I will help you.",
-                "explanation": "'If' qismida 'will' ishlatilmaydi, Present Simple qo'yiladi."
+                incorrect: "I have lived here since three years.",
+                correct: "I have lived here for three years. / ...since 2021.",
+                explanation: "'Three years' bu vaqt davomiyligi bo'lgani uchun 'for' ishlatiladi ('since' emas)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "If authorities _______ stricter penalties for deforestation, biodiversity loss would decelerate.",
-                "options": [
-                    "imposed",
-                    "impose",
-                    "will impose",
-                    "have imposed"
-                ],
-                "correctAnswer": "imposed",
-                "explanation": "Natija qismida 'would decelerate' (2-shart) bo'lgani uchun If qismida Past Simple ('imposed') keladi."
+                question: "They have been married _______ twenty years, having met thirty years _______.",
+                options: ["for / ago", "since / ago", "for / since", "since / for"],
+                correctAnswer: "for / ago",
+                explanation: "Muddat oralig'iga 'for twenty years', o'tmishdagi nuqtaga 'thirty years ago'."
             }
         ]
     },
     {
-        "id": "murphy_u25_third_conditional",
-        "level": "B1-B2",
-        "title": "Unit 25: Third Conditional (Unreal Past)",
-        "category": "Conditionals",
-        "structure": "If + had + V3, would have + V3 | Had + S + V3, would have + V3",
-        "uzbekMeaning": "3-shart ergash gap (O'tmishda bo'lib o'tgan nohaqiqiy, afsusli vaziyatlar)",
-        "explanation": "O'tmishda sodir bo'lmagan shart va uning o'tmishdagi ehtimoliy natijasi: 'If they had taken precautions, the accident would not have occurred'.",
-        "ieltsRelevance": "Tarixiy xatolar va ularning oldini olish mumkin bo'lgan natijalarni akademik tahlil qilishda eng yuqori darajali qoida.",
-        "academicExamples": [
+        id: "murphy_u20_present_perfect_vs_past_simple",
+        level: "A1",
+        title: "Unit 20: I have done and I did (Present Perfect va Past Simple Taqqoslash)",
+        category: "Tense Contrast (A1 Foundation)",
+        structure: "Past Simple: Aniq o'tgan vaqt (yesterday, in 2018, last week) vs. Present Perfect: Noma'lum vaqt / Bugungacha bo'lgan davr (today, recently, this week)",
+        uzbekMeaning: "O'tgan oddiy zamon va Hozirgi tugallangan zamonning aniq farqlari",
+        explanation: "Essential Grammar in Use 20-qoidasi: Agar vaqt tugagan bo'lsa (yesterday, last year, in 2005) -> Past Simple: 'I finished my essay yesterday'. Agar vaqt davri hali tugamagan bo'lsa (today, this week) yoki natija hozir muhim bo'lsa -> Present Perfect: 'I have written three essays this week'.",
+        ieltsRelevance: "IELTS Writing Task 1 va 2 da eng ko'p ball yo'qotiladigan zamonlar to'qnashuvi.",
+        academicExamples: [
             {
-                "sentence": "Had early warnings been heeded, the catastrophic flood damage would have been averted.",
-                "translation": "Agar dastlabki ogohlantirishlarga e'tibor qaratilganida edi, falokatli toshqin zararlarining oldi olingan bo'lardi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "If the team had secured sufficient funding, the clinical study would have continued.",
-                "translation": "Agar jamoa yetarli moliyalashtirishga erishganida edi, klinik tadqiqot davom etgan bo'lardi.",
-                "context": "Task 2"
+                sentence: "In 2005, the government launched the initiative, and since then it has benefited millions.",
+                translation: "2005 yilda hukumat tashabbusni boshladi (Past Simple) va o'shandan beri u millionlab odamlarga foyda keltirdi (Present Perfect).",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "If I would have known, I would have told you.",
-                "correct": "If I had known, I would have told you.",
-                "explanation": "If qismida 'would have' qo'yilmaydi, 'had + V3' ishlatiladi."
+                incorrect: "I have seen that movie last night.",
+                correct: "I saw that movie last night.",
+                explanation: "'Last night' aniq o'tgan vaqt bo'lgani uchun faqat Past Simple (saw) ishlatiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "If the financial regulators _______ the vulnerability sooner, the banking collapse would have been mitigated.",
-                "options": [
-                    "had identified",
-                    "identified",
-                    "would identify",
-                    "have identified"
-                ],
-                "correctAnswer": "had identified",
-                "explanation": "3-shart gapning If qismida Past Perfect: 'had identified'."
+                question: "Shakespeare _______ many world-famous plays, but contemporary writers _______ new genres.",
+                options: ["wrote / have developed", "has written / developed", "wrote / developed", "has written / have developed"],
+                correctAnswer: "wrote / have developed",
+                explanation: "Shekspir hayoti o'tmishda tugagan (wrote), zamonaviy yozuvchilar esa hozir ham rivojlantirmoqda (have developed)."
             }
         ]
     },
     {
-        "id": "murphy_u26_passive_voice",
-        "level": "B1-B2",
-        "title": "Unit 26: Passive Voice (Is done / Was done / Has been done)",
-        "category": "Passive Voice",
-        "structure": "Object + to be (zamonga mos) + V3 (+ by Agent)",
-        "uzbekMeaning": "Majhul nisbat (Harakat kim tomonidan qilingani emas, harakatning o'zi muhim bo'lganda)",
-        "explanation": "Akademik va ilmiy yozuvda subyektiv 'I / We / People' o'rniga obyektiv Passivedan foydalaniladi: 'The experiment was conducted under controlled conditions'.",
-        "ieltsRelevance": "Writing Task 1 Process diagrammalarida (ishlab chiqarish bosqichlari) va Task 2 ning ilmiy ohangida 100% talab qilinadi.",
-        "academicExamples": [
+        id: "murphy_u36_there_is_there_are",
+        level: "A1",
+        title: "Unit 36: there is / there are (Mavjudlik va Borlik)",
+        category: "Essential Sentences (A1 Foundation)",
+        structure: "Birlik: There is a/an + Noun | Ko'plik: There are + Nouns | Inkor: There isn't / There aren't",
+        uzbekMeaning: "Biror joyda nimadir borligini aytish (Shaharda katta bog' bor / Maktabda 500 ta o'quvchi bor)",
+        explanation: "Essential Grammar in Use 36-qoidasi: 'There is/are' birinchi marta biror narsaning borligini yoki mavjudligini bildirish uchun ishlatiladi. Birlikdagi sanaladigan otlar oldidan 'There is a book on the table', ko'plikdagi otlar uchun 'There are many students in the library' deyiladi.",
+        ieltsRelevance: "Writing Task 1 grafiklarida ('There was a significant increase...') va Task 2 insholarida ('There are several compelling reasons why...') eng ko'p ishlatiladigan struktura.",
+        academicExamples: [
             {
-                "sentence": "In the final stage, the purified water is distributed to residential networks.",
-                "translation": "Yakuniy bosqichda tozalangan suv turar-joy tarmoqlariga taqsimlanadi.",
-                "context": "Task 1"
+                sentence: "There is a striking disparity between urban and rural income levels.",
+                translation: "Shahar va qishloq daromadlari darajasi o'rtasida keskin farq bor.",
+                context: "Task 1"
             },
             {
-                "sentence": "Significant resources have been allocated to infrastructure modernization.",
-                "translation": "Infratuzilmani modernizatsiya qilish uchun salmoqli resurslar ajratildi.",
-                "context": "Task 2"
+                sentence: "There are numerous environmental benefits associated with renewable energy.",
+                translation: "Qayta tiklanadigan energiya bilan bog'liq ko'plab ekologik foydalar mavjud.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The tea leaves are pick by hand.",
-                "correct": "The tea leaves are picked by hand.",
-                "explanation": "Majhul nisbatda fe'l har doim 3-shaklda (V3/ed) bo'lishi shart."
+                incorrect: "In my city have many parks.",
+                correct: "There are many parks in my city.",
+                explanation: "O'zbek tilidagi '...da bor' iborasini ingliz tilida 'have' bilan emas, 'There is / There are' bilan ifodalanadi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "In the factory, raw materials _______ into intermediate components before final assembly.",
-                "options": [
-                    "are transformed",
-                    "transform",
-                    "are transforming",
-                    "have transformed"
-                ],
-                "correctAnswer": "are transformed",
-                "explanation": "Jarayon diagrammasida harakat obyekt ustida bajariladi: 'are transformed' (aylantiriladi)."
+                question: "_______ twenty-four hours in a day, and _______ a lot of work to complete.",
+                options: ["There are / there is", "There is / there are", "There are / there are", "There is / there is"],
+                correctAnswer: "There are / there is",
+                explanation: "'Twenty-four hours' ko'plik (there are), 'work' sanalmaydigan ot (there is)."
+            }
+        ]
+    },
+
+    // ==========================================
+    // RAYMOND MURPHY: ESSENTIAL GRAMMAR IN USE (A2 & B1-B2 MASTERY)
+    // ==========================================
+    {
+        id: "murphy_u21_passive_voice_1",
+        level: "A2",
+        title: "Unit 21: is done / was done (Passive Voice 1 — Majhul Nisbat)",
+        category: "Passive Voice (A2-B1)",
+        structure: "Present: S + am/is/are + V3 | Past: S + was/were + V3",
+        uzbekMeaning: "Majhul nisbat (Ish-harakat kim tomonidan emas, kim/nima ustida bajarilgani muhim bo'lganda)",
+        explanation: "Ish-harakatni bajaruvchi shaxs noma'lum, ahamiyatsiz yoki barchaga ma'lum bo'lganda: 'This house was built in 1965' / 'English is spoken all over the world'.",
+        ieltsRelevance: "Writing Task 1 jarayonlar (Process diagrams) va ilmiy Task 2 insholarida xolislikni ta'minlaydi.",
+        academicExamples: [
+            {
+                sentence: "Over 500 million tonnes of plastic are manufactured globally each year.",
+                translation: "Har yili dunyo bo'ylab 500 million tonnadan ortiq plastik ishlab chiqariladi.",
+                context: "Task 1"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "The novel wrote in 1920.",
+                correct: "The novel was written in 1920.",
+                explanation: "Roman o'zi yozmagan, yozilgan (was written)."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "The research findings _______ in a prestigious medical journal last month.",
+                options: ["were published", "published", "are published", "have published"],
+                correctAnswer: "were published",
+                explanation: "O'tgan oyda (last month) majhul nisbat: 'were published'."
             }
         ]
     },
     {
-        "id": "murphy_u28_reported_speech",
-        "level": "B1-B2",
-        "title": "Unit 28: Reported Speech (He stated that...)",
-        "category": "Clauses & Connectors",
-        "structure": "Direct ➔ Reported (Present ➔ Past, Past ➔ Past Perfect, Will ➔ Would)",
-        "uzbekMeaning": "O'zlashtirma gap (Boshqalarning fikrini akademik ifodalash)",
-        "explanation": "Boshqa manbalar yoki olimlarning fikrlarini keltirishda zamonlar bir pog'ona orqaga suriladi (Backshift): 'He said: I study online' ➔ 'He stated that he studied online'.",
-        "ieltsRelevance": "Reading tahlillarida va Writingda tadqiqotchilar fikrini sitata qilishda qo'llaniladi.",
-        "academicExamples": [
+        id: "murphy_u25_used_to",
+        level: "A2",
+        title: "Unit 25: I used to ... (O'tmishdagi Doimiy Odatlar)",
+        category: "Modal Structures (A2)",
+        structure: "S + used to + V1 | Inkor: S + didn't use to + V1 | Savol: Did + S + use to + V1?",
+        uzbekMeaning: "Ilgari qilardim (lekin hozir qilmayman) yoki ilgari shunday edi",
+        explanation: "O'tmishda muntazam qilingan, lekin hozir butunlay to'xtagan odatlar va holatlar uchun: 'I used to live in a small village, but now I live in Tashkent'.",
+        ieltsRelevance: "Speaking Part 1 va Part 2 da bolalik yoki o'tmishdagi odatlarni hozirgi kun bilan taqqoslashda yuqori baholanadi.",
+        academicExamples: [
             {
-                "sentence": "Scholars argued that economic disparity had intensified during the globalization wave.",
-                "translation": "Olimlar globallashuv to'lqinida iqtisodiy tafovut kuchayganini ta'kidladilar.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Participants reported that flexible working arrangements enhanced their productivity.",
-                "translation": "Ishtirokchilar moslashuvchan ish tartibi ularning mehnat unumdorligini oshirganini ma'lum qildilar.",
-                "context": "Task 2"
+                sentence: "Urban populations used to rely primarily on local agricultural produce.",
+                translation: "Shahar aholisi ilgari asosan mahalliy qishloq xo'jaligi mahsulotlariga tayanar edi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The researcher said that he will publish the report.",
-                "correct": "The researcher said that he would publish the report.",
-                "explanation": "O'tgan zamondagi 'said' dan keyin 'will' 'would' ga aylanadi."
+                incorrect: "I use to play soccer when I was a child.",
+                correct: "I used to play soccer when I was a child.",
+                explanation: "O'tgan zamon odati uchun 'used to' (-d bilan) yoziladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "The survey respondents confirmed that they _______ substantial benefits from remote education.",
-                "options": [
-                    "had derived",
-                    "have derive",
-                    "will derive",
-                    "are deriving"
-                ],
-                "correctAnswer": "had derived",
-                "explanation": "O'tgan zamon o'zlashtirma gapida zamon orqaga suriladi: 'had derived'."
+                question: "This metropolitan district _______ very quiet before the industrial expansion.",
+                options: ["used to be", "is used to", "use to be", "was used to"],
+                correctAnswer: "used to be",
+                explanation: "'Ilgari juda sokin bo'lar edi' ma'nosida 'used to be' to'g'ri."
+            }
+        ]
+    },
+
+    {
+        id: "murphy_u38_first_second_conditionals",
+        level: "B1",
+        title: "Unit 25: Conditionals 1 & 2 (If I study..., If I had...)",
+        category: "Conditionals (B1 Intermediate)",
+        structure: "1st: If + Present Simple, S + will + V1 | 2nd: If + Past Simple, S + would + V1",
+        uzbekMeaning: "Haqiqiy kelajak sharti (1-shart) va Tasavvuriy noaniq shart (2-shart)",
+        explanation: "1-shart mayli kelajakda amalga oshishi mumkin bo'lgan real imkoniyatlar uchun: 'If it rains, I will stay home'. 2-shart mayli esa hozirgi yoki kelajakdagi real bo'lmagan, tasavvuriy vaziyatlar uchun: 'If I had a million dollars, I would travel the world'.",
+        ieltsRelevance: "Speaking Part 3 va Writing Task 2 da turli xil ehtimollik va taxminlarni ifodalashda juda muhim.",
+        academicExamples: [
+            {
+                sentence: "If governments subsidize green transport, urban congestion will decline.",
+                translation: "Agar hukumatlar yashil transportni subsidiyalasa, shahar tirbandligi kamayadi.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "If I will win the lottery, I would buy a house.",
+                correct: "If I won the lottery, I would buy a house.",
+                explanation: "'If' qismida 'will' yoki 'would' ishlatilmaydi; 2-shartda 'If + Past Simple' keladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "If renewable energy prices continue to fall, more industries _______ clean power.",
+                options: ["will adopt", "would adopt", "adopted", "adopt"],
+                correctAnswer: "will adopt",
+                explanation: "1-shart maylining asosiy qismida 'will + V1' ishlatiladi."
             }
         ]
     },
     {
-        "id": "murphy_u29_relative_clauses",
-        "level": "B1-B2",
-        "title": "Unit 29: Relative Clauses (Who, Which, That, Whose, Where)",
-        "category": "Clauses & Connectors",
-        "structure": "Defining: The person who... / The system which... | Non-defining: X, which..., is Y",
-        "uzbekMeaning": "Aniqlik kirituvchi bog'lovchili gaplar (Kimki, Qaysiki, Qayerdaki)",
-        "explanation": "Oddiy sodda gaplarni birlashtirib, bitta murakkab gap (Complex Sentence) hosil qilish: 'Students study abroad. They gain international perspectives' ➔ 'Students who study abroad gain international perspectives'.",
-        "ieltsRelevance": "IELTS GRA mezonida 7.0+ ball olishning eng asosiy talabi murakkab gaplar (Complex sentences) tuzishdir.",
-        "academicExamples": [
+        id: "murphy_u40_relative_clauses",
+        level: "B2",
+        title: "Unit 30: Relative Clauses (who, which, that, whose)",
+        category: "Complex Clauses (B2 Upper-Intermediate)",
+        structure: "Defining: Noun + who/which/that + Clause | Non-defining: Noun, which/who + Clause,",
+        uzbekMeaning: "Nisbiy aniqlovchi gaplar (Kimki..., Qaysiki... deb ma'lumot beruvchi bog'lovchilar)",
+        explanation: "Odamlar uchun 'who/that', narsa va buyumlar uchun 'which/that', egalik uchun 'whose' qo'llaniladi: 'The woman who lives next door is a doctor'.",
+        ieltsRelevance: "Murakkab gaplar tuzishda (Complex Sentence Formation) IELTS Writing GRA mezonida 7.0+ ball kafolati.",
+        academicExamples: [
             {
-                "sentence": "Nations that prioritize research and innovation consistently outperform competitors.",
-                "translation": "Tadqiqot va innovatsiyalarni ustuvor deb biladigan davlatlar doimiy ravishda raqobatchilaridan ustun turadi.",
-                "context": "Task 2"
+                sentence: "Individuals who maintain active lifestyles exhibit lower rates of chronic disease.",
+                translation: "Faol hayot tarzini saqlaydigan insonlar kamroq surunkali kasalliklarga chalinadilar.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "The report who was published yesterday is important.",
+                correct: "The report which was published yesterday is important.",
+                explanation: "Buyumlar va hisobotlar uchun 'who' emas, 'which' yoki 'that' ishlatiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Scholars _______ research focuses on environmental sustainability received international awards.",
+                options: ["whose", "who", "which", "whom"],
+                correctAnswer: "whose",
+                explanation: "Egalik ma'nosida (tadqiqoti ekologiyaga qaratilgan olimlar) 'whose' qo'llaniladi."
+            }
+        ]
+    },
+
+    // ==========================================
+    // ADVANCED ACADEMIC GRAMMAR (C1 BAND 7.5 - 9.0 ACADEMY)
+    // ==========================================
+    {
+        id: "murphy_u33_inversion_emphasis",
+        level: "C1",
+        title: "Unit 33: Inversion for Emphasis (Not only did..., Seldom have...)",
+        category: "Advanced Inversion (C1 Academy)",
+        structure: "Negative Adverbial (Not only / Seldom / Rarely / Under no circumstances) + Auxiliary + Subject + Main Verb",
+        uzbekMeaning: "Inversiya orqali urg'u berish (Nafaqat..., balki... / Kamdan-kam hollarda...)",
+        explanation: "IELTS Band 8.0+ darajasida akademik inshoning ta'sirchanligini oshirish uchun inkor birikmalari gap boshiga chiqariladi va yordamchi fe'l egadan oldinga o'tadi.",
+        ieltsRelevance: "IELTS Writing Task 2 argumentatsiyasida Grammatical Range and Accuracy mezonini maksimal qilish.",
+        academicExamples: [
+            {
+                sentence: "Not only does renewable energy curtail greenhouse emissions, but it also creates sustainable employment.",
+                translation: "Qayta tiklanadigan energiya nafaqat issiqxona gazlarini qisqartiradi, balki barqaror ish o'rinlarini ham yaratadi.",
+                context: "Task 2"
             },
             {
-                "sentence": "Solar energy, which is completely inexhaustible, offers a viable alternative to coal.",
-                "translation": "Quyosh energiyasi — butunlay tuganmas manba bo'lib, ko'mirga munosib muqobil hisoblanadi.",
-                "context": "Task 2"
+                sentence: "Seldom have technological breakthroughs disrupted society as rapidly as artificial intelligence.",
+                translation: "Kamdan-kam texnologik kashfiyotlar jamiyatni sun'iy intellekt kabi tez o'zgartirgan.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The students which study hard succeed.",
-                "correct": "The students who / that study hard succeed.",
-                "explanation": "Insonlar uchun 'which' emas, 'who' yoki 'that' ishlatiladi."
+                incorrect: "Not only renewable energy reduces pollution, but it also saves costs.",
+                correct: "Not only does renewable energy reduce pollution, but it also saves costs.",
+                explanation: "'Not only' gap boshida kelganda darhol 'does' yordamchi fe'li egadan oldinga o'tishi shart."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Individuals _______ possess multilingual capabilities frequently secure competitive career opportunities.",
-                "options": [
-                    "who",
-                    "which",
-                    "whose",
-                    "whom"
-                ],
-                "correctAnswer": "who",
-                "explanation": "Insonlar (Individuals) uchun ega vazifasidagi bog'lovchi: 'who'."
+                question: "Rarely _______ such rapid transformation in consumer behavior.",
+                options: ["have economists observed", "economists have observed", "economists observed", "have observed economists"],
+                correctAnswer: "have economists observed",
+                explanation: "'Rarely' bilan boshlangan inversiyada 'have' yordamchi fe'li egadan ('economists') oldinga chiqadi."
             }
         ]
     },
     {
-        "id": "murphy_u30_articles",
-        "level": "B1-B2",
-        "title": "Unit 30: Definite & Indefinite Articles (A, An, The, Zero Article)",
-        "category": "Articles & Nouns",
-        "structure": "a/an + singular countable | the + specific/unique | Ø + plural/uncountable in general",
-        "uzbekMeaning": "Artikllar: Aniq (The), Noaniq (A/An) va Nolinchi artikl",
-        "explanation": "IELTS Writing da artikl xatolari eng ko'p uchraydigan va GRA balini 6.0 dan tushiradigan omildir. Umumiy ma'nodagi sanalmaydigan otlarga (education, society, pollution) 'the' qo'yilmaydi.",
-        "ieltsRelevance": "Writing Task 1 va Task 2 da to'g'ri ilmiy til uslubini ta'minlaydi.",
-        "academicExamples": [
+        id: "murphy_u34_participle_clauses",
+        level: "C1",
+        title: "Unit 34: Participle Clauses (Active & Passive Reduction)",
+        category: "Complex Sentence Synthesis (C1 Academy)",
+        structure: "Active: Having + V3, Subject + Verb | Passive: Driven by / Convinced of + Noun, Subject + Verb",
+        uzbekMeaning: "Sifatdoshli gap birikmalari (Qisqartirilgan murakkab ergash gaplar)",
+        explanation: "Ikkita gapni bitta ravon akademik gapga birlashtirish: 'Because governments recognized the crisis, they acted' -> 'Recognizing the crisis, governments acted'.",
+        ieltsRelevance: "Task 2 insholarining kirish va xulosa qismlarida professional akademik stil yaratadi.",
+        academicExamples: [
             {
-                "sentence": "Education plays a vital role in the socio-economic advancement of society.",
-                "translation": "Ta'lim jamiyatning ijtimoiy-iqtisodiy yuksalishida muhim rol o'ynaydi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "The proliferation of digital gadgets has altered domestic life.",
-                "translation": "Raqamli qurilmalarning keng tarqalishi maishiy hayotni o'zgartirdi.",
-                "context": "Task 2"
+                sentence: "Having analyzed the statistical discrepancies, economists proposed comprehensive tax reforms.",
+                translation: "Statistik tafovutlarni tahlil qilib chiqqach, iqtisodchilar keng qamrovli soliq islohotlarini taklif qildilar.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "The society should invest in the education.",
-                "correct": "Society should invest in education.",
-                "explanation": "Umumiy ma'nodagi 'society' va 'education' artiklsiz ishlatiladi."
+                incorrect: "Walking into the room, the test papers were distributed by the teacher.",
+                correct: "Walking into the room, the teacher distributed the test papers.",
+                explanation: "Sifatdoshli birikmaning egasi asosiy gapning egasi bilan bir xil bo'lishi shart (Dangling modifier xatosi)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Government funding is indispensable for _______ expansion of renewable infrastructure.",
-                "options": [
-                    "the",
-                    "a",
-                    "an",
-                    "Ø (no article)"
-                ],
-                "correctAnswer": "the",
-                "explanation": "'...of renewable infrastructure' aniqlovchisi borligi uchun 'the expansion' shakli to'g'ri."
+                question: "_______ by escalating fossil fuel costs, automotive corporations accelerated electric vehicle production.",
+                options: ["Compelled", "Compelling", "Having compelled", "Compel"],
+                correctAnswer: "Compelled",
+                explanation: "Majhul sifatdosh (Passiv) 'Compelled by...' (majbur qilingan holda) to'g'ri keladi."
             }
         ]
     },
     {
-        "id": "murphy_u32_conjunctions_contrast",
-        "level": "B1-B2",
-        "title": "Unit 32: Conjunctions & Contrast Linkers (Although, Despite, However, Whereas)",
-        "category": "Clauses & Connectors",
-        "structure": "Although/Even though + Clause | Despite/In spite of + Noun/V-ing | Whereas/While + Clause",
-        "uzbekMeaning": "Zidlovchi va bog'lovchi akademik vositalar (Garchi, Shunga qaramay, Holbuki)",
-        "explanation": "Ikkita qarama-qarshi fikrni bog'lash: Although + ega + fe'l ('Although electric cars are costly, they reduce emissions'). Despite + ot ('Despite the high cost, electric cars are popular').",
-        "ieltsRelevance": "IELTS Coherence & Cohesion (CC) balini 8.0 ga ko'taruvchi eng muhim leksik bog'lamalar.",
-        "academicExamples": [
+        id: "murphy_u35_cleft_sentences",
+        level: "C1",
+        title: "Unit 35: Cleft Sentences (What concerns scholars is..., It is X that...)",
+        category: "Focus & Cohesion (C1 Academy)",
+        structure: "What + Clause + is/was + Noun/Clause | It is/was + Focus + that + Clause",
+        uzbekMeaning: "Ajratuvchi ta'kid gaplar (Olimlarni tashvishga solayotgan narsa bu... / Aynan X sababli...)",
+        explanation: "Fikrning eng muhim qismini ajratib ko'rsatish uchun gapni ikkiga bo'lish (clefting): 'It is government intervention that will reverse environmental degradation'.",
+        ieltsRelevance: "Task 2 ning asosiy argument nuqtasini ta'kidlashda eng kuchli Band 8.5+ sintaktik qurol.",
+        academicExamples: [
             {
-                "sentence": "Although online education offers unprecedented flexibility, it can diminish face-to-face interaction.",
-                "translation": "Onlayn ta'lim misli ko'rilmagan moslashuvchanlikni taqdim etsa-da, u jonli muloqotni kamaytirishi mumkin.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Despite substantial investments, the public transport network remained underdeveloped.",
-                "translation": "Salmoqli investitsiyalarga qaramasdan, jamoat transporti tarmog'i yetarlicha rivojlanmay qoldi.",
-                "context": "Task 2"
+                sentence: "What distinguishes successful economies is their continuous investment in human capital.",
+                translation: "Muvaffaqiyatli iqtisodiyotlarni ajratib turadigan jihat bu ularning inson kapitaliga doimiy investitsiya kiritishidir.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Although it was raining, but we went out.",
-                "correct": "Although it was raining, we went out.",
-                "explanation": "'Although' bor gapda 'but' ortiqcha va xato hisoblanadi."
+                incorrect: "What we need it is strict regulation.",
+                correct: "What we need is strict regulation.",
+                explanation: "'What we need' iborasidan keyin ortiqcha 'it' olmoshi qo'yilmaydi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ extensive public awareness campaigns, obesity rates continued an upward trajectory.",
-                "options": [
-                    "Despite",
-                    "Although",
-                    "Even though",
-                    "Whereas"
-                ],
-                "correctAnswer": "Despite",
-                "explanation": "Ot birikmasi ('extensive public awareness campaigns') oldidan 'Despite' yoki 'In spite of' keladi."
+                question: "It is through comprehensive early education _______ long-term social mobility is achieved.",
+                options: ["that", "which", "what", "where"],
+                correctAnswer: "that",
+                explanation: "'It is [Focus] that [Clause]' cleft strukturasida bog'lovchi 'that' bo'ladi."
             }
         ]
     },
     {
-        "id": "murphy_u33_inversion_structures",
-        "level": "C1",
-        "title": "Unit 33: Inversion for Emphasis (Not only did..., Seldom have...)",
-        "category": "Advanced Sentence Variety",
-        "structure": "Negative Adverb (Not only, Seldom, Rarely, Never) + Auxiliary Verb + Subject + Main Verb",
-        "uzbekMeaning": "Inversiya (Urg'u berish uchun fe'l va eganing o'rnini almashtirish)",
-        "explanation": "Band 8.0+ essaylarda urg'u berish uchun inversiya ishlatiladi: 'Not only does tourism boost the economy, but it also fosters cultural understanding'.",
-        "ieltsRelevance": "Examiner darhol sizning C1 grammatikaga egaligingizni payqaydi va GRA balini 8.0+ ga ko'taradi.",
-        "academicExamples": [
+        id: "murphy_u36_academic_nominalisation",
+        level: "C1",
+        title: "Unit 36: Academic Nominalisation (Transforming Verbs into Nouns)",
+        category: "Academic Register (C1 Academy)",
+        structure: "Verb/Adjective Clause -> Formal Noun Phrase (e.g., 'Because populations migrate' -> 'The migration of populations')",
+        uzbekMeaning: "Akademik nominalizatsiya (Oddiy fe'llarni yuqori ilmiy ot birikmalariga aylantirish)",
+        explanation: "Akademik ingliz tilining eng muhim belgisi — otlashuv (Nominalisation). Oddiy so'zlashuv gaplarini rasmiy ilmiy ot birikmalariga aylantirish: 'Factories pollute water rapidly' -> 'The rapid contamination of water resources by industrial facilities'.",
+        ieltsRelevance: "IELTS Writing Task 2 da Lexical Resource va GRA ballarini Band 8.0+ darajaga chiqarishning eng asosiy usuli.",
+        academicExamples: [
             {
-                "sentence": "Not only does higher education enhance employment prospects, but it also develops critical thinking.",
-                "translation": "Oliy ta'lim nafaqat ishga joylashish imkoniyatlarini oshiradi, balki tanqidiy fikrlashni ham rivojlantiradi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Seldom do developing nations possess sufficient capital to fund megaprojects independently.",
-                "translation": "Rivojlanayotgan davlatlar kamdan-kam hollarda megloyihalarni mustaqil moliyalashtirish uchun yetarli kapitalga ega bo'ladi.",
-                "context": "Task 2"
+                sentence: "The rapid proliferation of digital infrastructure has fundamentally transformed commerce.",
+                translation: "Raqamli infratuzilmaning tez kengayishi savdo-sotiqni tubdan o'zgartirdi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Not only technology improves communication, but it also creates jobs.",
-                "correct": "Not only does technology improve communication, but it also creates jobs.",
-                "explanation": "'Not only' bilan boshlanganda eganing oldiga yordamchi fe'l (does) o'tadi."
+                incorrect: "Because people are consuming more energy, climate changes.",
+                correct: "The escalating consumption of energy directly exacerbates climate change.",
+                explanation: "Oddiy sabab gap o'rniga nominalizatsiya qilingan ega ('The escalating consumption...') qo'llash tavsiya etiladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "Not only _______ greenhouse gas emissions, but it also reduces reliance on fossil fuels.",
-                "options": [
-                    "does renewable energy decrease",
-                    "renewable energy decreases",
-                    "is renewable energy decreasing",
-                    "decreased renewable energy"
-                ],
-                "correctAnswer": "does renewable energy decrease",
-                "explanation": "Inversiyada: Not only + yordamchi fe'l (does) + ega (renewable energy) + asosiy fe'l (decrease)."
+                question: "The _______ of digital healthcare platforms has streamlined patient consultations.",
+                options: ["introduction", "introduce", "introducing", "introductory"],
+                correctAnswer: "introduction",
+                explanation: "'The [Noun] of...' strukturasida rasmiy ot shakli 'introduction' talab qilinadi."
             }
         ]
     },
     {
-        "id": "murphy_u34_participle_clauses",
-        "level": "C1",
-        "title": "Unit 34: Participle Clauses (Active & Passive Reduction)",
-        "category": "Advanced Sentence Variety",
-        "structure": "Having + V3 (After doing) | V-ing (While doing) | V3 / Being + V3 (Passive cause/result)",
-        "uzbekMeaning": "Sifatdoshli qisqartma gaplar (Having analyzed..., Driven by...)",
-        "explanation": "Ikkita gapni qisqartirib, bitta akademik ixcham gapga aylantirish: 'Because students faced high tuition fees, they took loans' ➔ 'Facing exorbitant tuition fees, students resorted to loans'.",
-        "ieltsRelevance": "IELTS Academic Writing da professional uslub va yuqori lug'at zichligini ta'minlaydi.",
-        "academicExamples": [
+        id: "murphy_u37_inverted_conditionals",
+        level: "C1",
+        title: "Unit 37: Inverted Conditionals (Had we acted..., Were governments to...)",
+        category: "Advanced Conditionals (C1 Academy)",
+        structure: "Had + S + V3, S + would have + V3 | Were + S + to + V1, S + would + V1 | Should + S + V1, S + will + V1",
+        uzbekMeaning: "Inversiyalashgan shart gaplar ('If' siz yuqori akademik shart tuzilmalari)",
+        explanation: "IELTS Band 8.0+ Task 2 essaylarida 'If' so'zini tushirib qoldirib, inversiya orqali fikr ifodalash Grammatical Range and Accuracy (GRA) mezonini maksimal darajaga ko'taradi.",
+        ieltsRelevance: "IELTS Writing Task 2 va Speaking Part 3 da gipotetik va o'tmishdagi yechimlarni ifodalashda qo'llaniladi.",
+        academicExamples: [
             {
-                "sentence": "Having analyzed the longitudinal data, researchers identified a direct link between diet and cognition.",
-                "translation": "Uzoq muddatli ma'lumotlarni tahlil qilgach, tadqiqotchilar ovqatlanish va aqliy faoliyat o'rtasida to'g'ridan-to'g'ri bog'liqlikni aniqladilar.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Exposed to excessive screen time from an early age, children are more susceptible to attention deficits.",
-                "translation": "Yoshligidan haddan tashqari ko'p ekran vaqtiga duchor bo'lgan bolalar diqqat yetishmovchiligiga ko'proq moyil bo'ladilar.",
-                "context": "Task 2"
+                sentence: "Had policymakers instituted early carbon taxation, global warming trajectories would have been significantly curtailed.",
+                translation: "Agar qonun chiqaruvchilar uglerod solig'ini erta joriy qilganlarida, global isish sur'atlari sezilarli darajada qisqargan bo'lardi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Having finish the research, the conclusion was clear.",
-                "correct": "Having finished the research, scientists reached a clear conclusion.",
-                "explanation": "Sifatdosh qisqartmada asosiy eganing harakati mos kelishi kerak (Dangling modifier xatosidan saqlaning)."
+                incorrect: "If had we invested more in education, poverty would decrease.",
+                correct: "Had we invested more in education, poverty would have decreased.",
+                explanation: "Inversiyada 'if' ishlatilmaydi, to'g'ridan-to'g'ri 'Had + Subject + V3' keladi."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ by intense market competition, companies are forced to innovate continuously.",
-                "options": [
-                    "Driven",
-                    "Driving",
-                    "Having driven",
-                    "Drive"
-                ],
-                "correctAnswer": "Driven",
-                "explanation": "Kompaniyalar bozor raqobati tomonidan majburlangani (majhul sabab) uchun o'tgan zamon sifatdoshi 'Driven by...' ishlatiladi."
+                question: "_______ the government allocate greater funding to green infrastructure, urban air quality would improve drastically.",
+                options: ["Were", "Had", "Should", "If were"],
+                correctAnswer: "Were",
+                explanation: "2-shart maylining inversiyasida 'Were + Subject + to + Verb' qo'llaniladi."
             }
         ]
     },
     {
-        "id": "murphy_u35_cleft_sentences",
-        "level": "C1",
-        "title": "Unit 35: Cleft Sentences (What concerns scholars is..., It is X that...)",
-        "category": "Advanced Focus & Emphasis",
-        "structure": "What + Clause + is/was + Noun/Clause | It is/was + Emphasized Element + that/who + Rest",
-        "uzbekMeaning": "Ajratilgan urg'u gaplar (Olimlarni tashvishga solayotgan narsa bu...)",
-        "explanation": "Fikrga chuqur urg'u berish uchun: 'Governments should regulate AI, not tech firms' ➔ 'It is governments, rather than tech conglomerates, that must regulate artificial intelligence'.",
-        "ieltsRelevance": "Task 2 xulosasida yoki asosiy argumentni xarakterlashda Band 8.5 darajali taassurot qoldiradi.",
-        "academicExamples": [
+        id: "murphy_u38_impersonal_reporting_passives",
+        level: "C1",
+        title: "Unit 38: Impersonal Reporting Passives (It is contended that..., X is estimated to...)",
+        category: "Academic Hedging (C1 Academy)",
+        structure: "It is + V3 (argued / maintained / contended / estimated) + that + Clause | Subject + is/are + V3 + to + V1",
+        uzbekMeaning: "Xolis ilmiy fikr bildirish (Olimlar tomonidan ta'kidlanishicha..., deb hisoblanadi)",
+        explanation: "Akademik inshoda shaxsiy fikrni subyektiv ('I think') emas, balki xolis va ishonchli akademik uslubda ifodalash uchun qo'llaniladi.",
+        ieltsRelevance: "IELTS Writing Task 2 muqaddimasida va argumentlarni xolis keltirishda Band 8.0+ darajali vosita.",
+        academicExamples: [
             {
-                "sentence": "What distinguishes successful students is their capacity for self-directed learning.",
-                "translation": "Muvaffaqiyatli talabalarni ajratib turadigan narsa — ularning mustaqil o'rganish qobiliyatidir.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "It was the rapid expansion of industrialization that catalyzed widespread urbanization.",
-                "translation": "Aynan sanoatlashuvning tez sur'atlarda kengayishi keng ko'lamli urbanizatsiyani tezlashtirdi.",
-                "context": "Task 2"
+                sentence: "It is widely contended that automation will displace low-skilled manual laborers over the coming decade.",
+                translation: "Kelgusi o'n yil ichida avtomatlashtirish past malakali ishchilarni siqib chiqarishi keng ta'kidlanadi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "What is important it is discipline.",
-                "correct": "What is important is discipline.",
-                "explanation": "What gapidan keyin ortiqcha 'it' qo'yilmaydi."
+                incorrect: "I think people believe that money brings happiness.",
+                correct: "It is widely believed that financial security contributes significantly to overall well-being.",
+                explanation: "Akademik inshoda 'I think' o'rniga 'It is widely believed that...' xolis strukturasi ma'qul."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ requires urgent intervention is the escalating rate of youth unemployment.",
-                "options": [
-                    "What",
-                    "That",
-                    "Which",
-                    "It"
-                ],
-                "correctAnswer": "What",
-                "explanation": "Urg'u beruvchi 'What-cleft' gap: 'What requires urgent intervention is...' (Shoshilinch aralashuvni talab qiladigan narsa bu...)."
+                question: "It is widely _______ that early childhood bilingualism strengthens neuroplasticity.",
+                options: ["acknowledged", "acknowledge", "acknowledging", "acknowledgement"],
+                correctAnswer: "acknowledged",
+                explanation: "'It is + V3 (past participle) + that' passiv ifodasida 'acknowledged' to'g'ri keladi."
             }
         ]
     },
     {
-        "id": "murphy_u36_academic_nominalisation",
-        "level": "C1",
-        "title": "Unit 36: Academic Nominalisation (Transforming Verbs into Academic Nouns)",
-        "category": "Academic Style & Tone",
-        "structure": "Verb/Adj Phrase ➔ Formal Noun Phrase (e.g. destroy ➔ destruction, poor ➔ poverty)",
-        "uzbekMeaning": "Akademik Nominalizatsiya (Fe'llarni ilmiy otlarga aylantirish)",
-        "explanation": "So'zlashuv tilidagi fe'llar o'rniga rasmiy ot birikmalaridan foydalanish: 'Factories pollute the rivers and this destroys fish' ➔ 'Industrial water contamination leads to the decimation of aquatic life'.",
-        "ieltsRelevance": "Band 8.0+ Lexical Resource va GRA uchun eng muhim ko'nikma.",
-        "academicExamples": [
+        id: "murphy_u39_advanced_concession",
+        level: "C1",
+        title: "Unit 39: Advanced Concession & Contrast (Notwithstanding..., Albeit...)",
+        category: "Complex Argumentation (C1 Academy)",
+        structure: "Notwithstanding + Noun Phrase, Clause | Adj + though/as + Subject + is, Clause | Albeit + Adjective",
+        uzbekMeaning: "Yuqori darajadagi qarshilik va yon berish birikmalari (Garchi... bo'lsa-da, Shunga qaramay)",
+        explanation: "Oddiy 'Although/But' o'rniga 'Notwithstanding', 'Albeit', 'Adjective + though it may be' kabi tuzilmalarni qo'llash insho ravonligini Band 8.5 darajaga olib chiqadi.",
+        ieltsRelevance: "IELTS Task 2 da ikki xil qarama-qarshi nuqtai nazarni muhokama qilishda (Discuss both views) hal qiluvchi ahamiyatga ega.",
+        academicExamples: [
             {
-                "sentence": "The implementation of stricter environmental laws resulted in a measurable reduction of carbon emissions.",
-                "translation": "Qat'iyroq ekologik qonunlarning joriy etilishi uglerod chiqindilarining sezilarli darajada kamayishiga olib keldi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "The rapid proliferation of smartphones has fundamentally altered interpersonal communication.",
-                "translation": "Smartfonlarning tez tarqalishi shaxslararo muloqotni tubdan o'zgartirdi.",
-                "context": "Task 2"
+                sentence: "Notwithstanding the initial capital expenditure, space exploration yields invaluable meteorological advancements.",
+                translation: "Dastlabki yirik xarajatlarga qaramay, fazoni o'rganish meteorologiyada bebaho yutuqlarni taqdim etadi.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "Because factories pollute water, it is bad.",
-                "correct": "Industrial water pollution poses severe ecological hazards.",
-                "explanation": "Akademik inshoda oddiy sabab gap o'rniga nominalizatsiya qilingan ega qo'llash tavsiya etiladi."
+                incorrect: "Although despite the high costs, the plan succeeded.",
+                correct: "Notwithstanding the high costs, the plan succeeded.",
+                explanation: "'Although' va 'despite' birgalikda ishlatilmaydi; uning o'rniga bitta 'Notwithstanding + noun' yetarli."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "The _______ of digital healthcare platforms has streamlined patient consultations.",
-                "options": [
-                    "introduction",
-                    "introduce",
-                    "introducing",
-                    "introductory"
-                ],
-                "correctAnswer": "introduction",
-                "explanation": "'The [Noun] of...' strukturasida rasmiy ot shakli 'introduction' talab qilinadi."
+                question: "_______ the substantial economic benefits of tourism, environmental degradation remains a pressing concern.",
+                options: ["Notwithstanding", "Although", "Whereas", "While"],
+                correctAnswer: "Notwithstanding",
+                explanation: "Ot birikmasi ('the substantial economic benefits') oldidan 'Notwithstanding' keladi."
             }
         ]
     },
     {
-        "id": "murphy_u37_inverted_conditionals",
-        "level": "C1",
-        "title": "Unit 37: Inverted Conditionals (Had we acted..., Were governments to...)",
-        "category": "Advanced Academic Conditionals",
-        "structure": "Had + S + V3, S + would have + V3 | Were + S + to + V1, S + would + V1 | Should + S + V1, S + will + V1",
-        "uzbekMeaning": "Inversiyalashgan shart gaplar ('If' siz yuqori akademik shart tuzilmalari)",
-        "explanation": "IELTS Band 8.0+ Task 2 essaylarida 'If' so'zini tushirib qoldirib, inversiya orqali fikr ifodalash Grammatical Range and Accuracy (GRA) mezonini maksimal darajaga ko'taradi.",
-        "ieltsRelevance": "IELTS Writing Task 2 va Speaking Part 3 da gipotetik va o'tmishdagi yechimlarni ifodalashda qo'llaniladi.",
-        "academicExamples": [
+        id: "murphy_u40_subjunctive_mood",
+        level: "C1",
+        title: "Unit 40: Subjunctive Mood & Formal Mandates (It is imperative that... be done)",
+        category: "Formal Proposals (C1 Academy)",
+        structure: "It is essential / imperative / crucial / vital + that + Subject + [Base Verb / be + V3]",
+        uzbekMeaning: "Subyuktiv mayl (Rasmiy yechimlar: ...qilinishi o'ta muhim/shart)",
+        explanation: "Davlat va jamiyat yechimlarini taklif qilishda grammatik fe'l asosi (base form) o'zgarmaydi: 'It is imperative that the government implement new legislation'.",
+        ieltsRelevance: "Task 2 insholarining Problem-Solution yoki Recommendation qismlarida eng nufuzli sintaksis hisoblanadi.",
+        academicExamples: [
             {
-                "sentence": "Had policymakers instituted early carbon taxation, global warming trajectories would have been significantly curtailed.",
-                "translation": "Agar qonun chiqaruvchilar uglerod solig'ini erta joriy qilganlarida, global isish sur'atlari sezilarli darajada qisqargan bo'lardi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Were municipal authorities to subsidize electric public transport, metropolitan congestion would drop markedly.",
-                "translation": "Agar shahar hokimiyati elektr jamoat transportini subsidiyalaganda edi, shahar tirbandligi keskin kamaygan bo'lardi.",
-                "context": "Task 2"
+                sentence: "It is imperative that international organizations mandate stricter environmental auditing protocols.",
+                translation: "Xalqaro tashkilotlar qat'iyroq ekologik audit protokollarini majburiy qilib qo'yishi shart.",
+                context: "Task 2"
             }
         ],
-        "commonMistakes": [
+        commonMistakes: [
             {
-                "incorrect": "If had we invested more in education, poverty would decrease.",
-                "correct": "Had we invested more in education, poverty would have decreased.",
-                "explanation": "Inversiyada 'if' ishlatilmaydi, to'g'ridan-to'g'ri 'Had + Subject + V3' keladi."
+                incorrect: "It is vital that every citizen pays taxes.",
+                correct: "It is vital that every citizen pay taxes.",
+                explanation: "Subyuktiv maylda 'that' dan keyingi fe'l 3-shaxsda ham 's' qo'shimchasini olmaydi (Base form: pay)."
             }
         ],
-        "quizQuestions": [
+        quizQuestions: [
             {
-                "question": "_______ the government allocate greater funding to green infrastructure, urban air quality would improve drastically.",
-                "options": [
-                    "Were",
-                    "Had",
-                    "Should",
-                    "If were"
-                ],
-                "correctAnswer": "Were",
-                "explanation": "2-shart maylining inversiyasida 'Were + Subject + to + Verb' yoki 'Were + Subject + Verb' qo'llaniladi."
-            }
-        ]
-    },
-    {
-        "id": "murphy_u38_impersonal_reporting_passives",
-        "level": "C1",
-        "title": "Unit 38: Impersonal Reporting Passives (It is contended that..., X is estimated to...)",
-        "category": "Academic Hedging & Objectivity",
-        "structure": "It is + V3 (argued / maintained / contended / estimated / demonstrated) + that + Clause | Subject + is/are + V3 (believed / acknowledged) + to + V1",
-        "uzbekMeaning": "Xolis ilmiy fikr bildirish (Olimlar tomonidan ta'kidlanishicha..., deb hisoblanadi)",
-        "explanation": "Akademik inshoda shaxsiy fikrni subyektiv ('I think') emas, balki xolis va ishonchli akademik uslubda ifodalash uchun qo'llaniladi.",
-        "ieltsRelevance": "IELTS Writing Task 2 muqaddimasida va argumentlarni xolis keltirishda Band 8.0+ darajali vosita hisoblanadi.",
-        "academicExamples": [
-            {
-                "sentence": "It is widely contended that automation will displace low-skilled manual laborers over the coming decade.",
-                "translation": "Kelgusi o'n yil ichida avtomatlashtirish past malakali ishchilarni siqib chiqarishi keng ta'kidlanadi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Renewable energy technologies are estimated to satisfy over half of global electricity demand by 2040.",
-                "translation": "Qayta tiklanadigan energiya texnologiyalari 2040-yilga kelib global elektr energiyasiga bo'lgan talabning yarmidan ko'pini qondirishi taxmin qilinmoqda.",
-                "context": "Task 1"
-            }
-        ],
-        "commonMistakes": [
-            {
-                "incorrect": "I think people believe that money brings happiness.",
-                "correct": "It is widely believed that financial security contributes significantly to overall well-being.",
-                "explanation": "Akademik inshoda 'I think' o'rniga 'It is widely believed that...' xolis strukturasi ma'qul."
-            }
-        ],
-        "quizQuestions": [
-            {
-                "question": "It is widely _______ that early childhood bilingualism strengthens neuroplasticity.",
-                "options": [
-                    "acknowledged",
-                    "acknowledge",
-                    "acknowledging",
-                    "acknowledgement"
-                ],
-                "correctAnswer": "acknowledged",
-                "explanation": "'It is + V3 (past participle) + that' passiv ifodasida 'acknowledged' to'g'ri keladi."
-            }
-        ]
-    },
-    {
-        "id": "murphy_u39_advanced_concession",
-        "level": "C1",
-        "title": "Unit 39: Advanced Concession & Contrast (Notwithstanding..., Albeit..., Despite)",
-        "category": "Cohesion & Complex Argumentation",
-        "structure": "Notwithstanding + Noun Phrase, Clause | Adj + though/as + Subject + is, Clause | Albeit + Adjective",
-        "uzbekMeaning": "Yuqori darajadagi qarshilik va yon berish birikmalari (Garchi... bo'lsa-da, Shunga qaramay)",
-        "explanation": "Oddiy 'Although/But' o'rniga 'Notwithstanding', 'Albeit', 'Adjective + though it may be' kabi tuzilmalarni qo'llash insho ravonligini Band 8.5 darajaga olib chiqadi.",
-        "ieltsRelevance": "IELTS Task 2 da ikki xil qarama-qarshi nuqtai nazarni muhokama qilishda (Discuss both views) hal qiluvchi ahamiyatga ega.",
-        "academicExamples": [
-            {
-                "sentence": "Notwithstanding the initial capital expenditure, space exploration yields invaluable meteorological advancements.",
-                "translation": "Dastlabki yirik xarajatlarga qaramay, fazoni o'rganish meteorologiyada bebaho yutuqlarni taqdim etadi.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "The policy was approved, albeit with substantial modifications proposed by the opposition.",
-                "translation": "Siyosat ma'qullandi, garchi muxolifat tomonidan taklif qilingan jiddiy o'zgartirishlar bilan bo'lsa ham.",
-                "context": "Task 2"
-            }
-        ],
-        "commonMistakes": [
-            {
-                "incorrect": "Although despite the high costs, the plan succeeded.",
-                "correct": "Notwithstanding the high costs, the plan succeeded.",
-                "explanation": "'Although' va 'despite' birgalikda ishlatilmaydi; uning o'rniga bitta 'Notwithstanding + noun' yetarli."
-            }
-        ],
-        "quizQuestions": [
-            {
-                "question": "_______ the substantial economic benefits of tourism, environmental degradation remains a pressing concern.",
-                "options": [
-                    "Notwithstanding",
-                    "Although",
-                    "Whereas",
-                    "While"
-                ],
-                "correctAnswer": "Notwithstanding",
-                "explanation": "Ot birikmasi ('the substantial economic benefits') oldidan 'Notwithstanding' (yoki 'Despite') keladi."
-            }
-        ]
-    },
-    {
-        "id": "murphy_u40_subjunctive_mood",
-        "level": "C1",
-        "title": "Unit 40: Subjunctive Mood & Formal Mandates (It is imperative that... be done)",
-        "category": "Formal Policy & Solution Proposals",
-        "structure": "It is essential / imperative / crucial / vital + that + Subject + [Base Verb / be + V3]",
-        "uzbekMeaning": "Subyuktiv mayl (Rasmiy yechimlar: ...qilinishi o'ta muhim/shart)",
-        "explanation": "Davlat va jamiyat yechimlarini taklif qilishda grammatik fe'l asosi (base form) o'zgarmaydi: 'It is imperative that the government implement (not implements) new legislation'.",
-        "ieltsRelevance": "Task 2 insholarining Problem-Solution yoki Recommendation qismlarida eng nufuzli sintaksis hisoblanadi.",
-        "academicExamples": [
-            {
-                "sentence": "It is imperative that international organizations mandate stricter environmental auditing protocols.",
-                "translation": "Xalqaro tashkilotlar qat'iyroq ekologik audit protokollarini majburiy qilib qo'yishi shart.",
-                "context": "Task 2"
-            },
-            {
-                "sentence": "Scholars recommend that educational curricula be updated to reflect artificial intelligence proficiencies.",
-                "translation": "Olimlar sun'iy intellekt ko'nikmalarini aks ettirish uchun o'quv dasturlarining yangilanishini tavsiya etadilar.",
-                "context": "Task 2"
-            }
-        ],
-        "commonMistakes": [
-            {
-                "incorrect": "It is vital that every citizen pays taxes.",
-                "correct": "It is vital that every citizen pay taxes.",
-                "explanation": "Subyuktiv maylda 'that' dan keyingi fe'l 3-shaxsda ham 's' qo'shimchasini olmaydi (Base form: pay)."
-            }
-        ],
-        "quizQuestions": [
-            {
-                "question": "It is essential that every applicant _______ the prerequisite qualifications before enrolling.",
-                "options": [
-                    "satisfy",
-                    "satisfies",
-                    "satisfied",
-                    "is satisfying"
-                ],
-                "correctAnswer": "satisfy",
-                "explanation": "'It is essential that...' subyuktiv formulasida fe'l asosi (satisfy) hech qanday qo'shimchasiz keladi."
+                question: "It is essential that every applicant _______ the prerequisite qualifications before enrolling.",
+                options: ["satisfy", "satisfies", "satisfied", "is satisfying"],
+                correctAnswer: "satisfy",
+                explanation: "'It is essential that...' subyuktiv formulasida fe'l asosi (satisfy) hech qanday qo'shimchasiz keladi."
             }
         ]
     }

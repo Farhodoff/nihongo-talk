@@ -1,530 +1,570 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-    CheckCircle2, AlertCircle, Sparkles, 
-    Search, PlusCircle, BookCheck, Loader2, RefreshCw
+    BookOpen, Sparkles, Search, Volume2, CheckCircle2, 
+    Flame, Plus, Check, ArrowRight, BookCheck
 } from 'lucide-react';
-import { IeltsGrammarTopic } from '../../data/ielts/ielts_grammar_data';
+import { IeltsGrammarTopic, IELTS_GRAMMAR_DATABASE } from '../../data/ielts/ielts_grammar_data';
 import { useGrammarLessons } from '../../hooks/useGrammarLessons';
+import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
-import { HistoryService } from '../../services/HistoryService';
-import { supabase } from '../../lib/supabase';
+import { useEnglishGrammarMastery, GrammarMasteryStatus } from '../../hooks/useEnglishGrammarMastery';
 import { toast } from '../../hooks/use-toast';
 
-import { GrammarService } from '../../services/GrammarService';
-
 export const IeltsGrammarMaster: React.FC = () => {
-    const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
-    const { topics, isLoading, error, refetch } = useGrammarLessons('en');
+    const { addFlashcardsBatch, awardXP, subjects, addSession } = useStudyData();
+    const { topics: rawTopics } = useGrammarLessons('en');
+    const { getItemStatus, setItemStatus, getStatsForLevel } = useEnglishGrammarMastery();
 
-    const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1-A2' | 'B1-B2' | 'C1'>('C1');
+    const [activeTab, setActiveTab] = useState<'grammar' | 'quiz'>('grammar');
+    const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1'>('A1');
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedTopic, setSelectedTopic] = useState<IeltsGrammarTopic | null>(null);
-    
-    // Quiz state
-    const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
-    const [quizSubmitted, setQuizSubmitted] = useState(false);
-    const [isSavingCards, setIsSavingCards] = useState(false);
-    const [masteredTopics, setMasteredTopics] = useState<Set<string>>(new Set());
+    const [statusFilter, setStatusFilter] = useState<'ALL' | GrammarMasteryStatus>('ALL');
 
-    // Sync selected topic when topics load
-    useEffect(() => {
-        if (topics.length > 0) {
-            const currentFiltered = topics.filter(t => selectedLevel === 'ALL' || t.level === selectedLevel);
-            if (currentFiltered.length > 0) {
-                if (!selectedTopic || !currentFiltered.some(t => t.id === selectedTopic.id)) {
-                    setSelectedTopic(currentFiltered[0]);
+    // Saved Flashcard Items Notification State
+    const [savedCardIds, setSavedCardIds] = useState<string[]>([]);
+
+    // Use local comprehensive database if hook is still loading or for instant response
+    const topics: IeltsGrammarTopic[] = rawTopics.length > 0 ? rawTopics : IELTS_GRAMMAR_DATABASE;
+
+    // Direct Export to Flashcards
+    const handleExportToFlashcard = async (topic: IeltsGrammarTopic) => {
+        const subjectId = subjects.find(s => s.name.toLowerCase().includes('english') || s.name.toLowerCase().includes('ielts'))?.id || subjects[0]?.id || '';
+        
+        const frontText = `[${topic.level} English Grammar] ${topic.title}\n\n📐 Formula:\n${topic.structure}`;
+        const backText = `🇺🇿 Ma'nosi: ${topic.uzbekMeaning}\n\n💡 Qoida:\n${topic.explanation}\n\n📑 Misol:\n${topic.academicExamples[0]?.sentence || ''}\n(${topic.academicExamples[0]?.translation || ''})`;
+
+        try {
+            await addFlashcardsBatch([
+                {
+                    subjectId,
+                    front: frontText,
+                    back: backText,
+                    interval: 1,
+                    repetitions: 0,
+                    easeFactor: 2.5
                 }
-            } else if (!selectedTopic) {
-                setSelectedTopic(topics[0]);
-            }
-        }
-    }, [topics, selectedLevel, selectedTopic]);
-
-    useEffect(() => {
-        const loadMastery = async () => {
-            const local = localStorage.getItem('study_planner_ielts_grammar_mastery');
-            if (local) {
-                try {
-                    setMasteredTopics(new Set(JSON.parse(local)));
-                } catch (e) {}
-            }
-            try {
-                // 1. Load from public.english_grammar_progress DB table
-                const dbProgress = await GrammarService.getUserProgress();
-                const masteredFromDb = Object.values(dbProgress).filter(p => p.completed).map(p => p.lessonSlug);
-
-                // 2. Load from auth metadata
-                const { data: { user } } = await supabase.auth.getUser();
-                const metaMastery = user?.user_metadata?.ielts_grammar_mastery || [];
-
-                const combined = new Set<string>([...masteredFromDb, ...metaMastery]);
-                if (combined.size > 0) {
-                    setMasteredTopics(combined);
-                    localStorage.setItem('study_planner_ielts_grammar_mastery', JSON.stringify(Array.from(combined)));
-                }
-            } catch (e) {}
-        };
-        loadMastery();
-    }, []);
-
-    const filteredTopics = topics.filter(t => {
-        const matchesLevel = selectedLevel === 'ALL' || t.level === selectedLevel;
-        const matchesSearch = t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                              t.uzbekMeaning.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                              t.category.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesLevel && matchesSearch;
-    });
-
-    const handleSelectTopic = (topic: IeltsGrammarTopic) => {
-        setSelectedTopic(topic);
-        setSelectedAnswers({});
-        setQuizSubmitted(false);
-    };
-
-    const handleAnswerSelect = (qIdx: number, option: string) => {
-        if (quizSubmitted) return;
-        setSelectedAnswers(prev => ({ ...prev, [qIdx]: option }));
-    };
-
-    const handleQuizSubmit = async () => {
-        if (quizSubmitted || !selectedTopic) return;
-        setQuizSubmitted(true);
-
-        const totalQ = selectedTopic.quizQuestions.length;
-        let correct = 0;
-        selectedTopic.quizQuestions.forEach((q, idx) => {
-            if (selectedAnswers[idx] === q.correctAnswer) {
-                correct++;
-            }
-        });
-
-        // Award XP
-        if (correct > 0) {
-            await awardXP(correct * 25);
-        }
-
-        // Record study session duration in public.study_sessions
-        if (addSession) {
-            try {
-                let ieltsSub = subjects.find(s => s.name.toLowerCase().includes('ielts'));
-                await addSession({
-                    duration: 5,
-                    type: 'focus',
-                    completed: true,
-                    subjectId: ieltsSub?.id || undefined,
-                    startTime: new Date().toISOString()
-                });
-            } catch (e) {}
-        }
-
-        // Save exam history
-        try {
-            await HistoryService.saveMockExam({
-                examType: 'ielts_reading',
-                level: selectedTopic.level,
-                score: correct,
-                totalQuestions: totalQ,
-                bandScore: (correct / totalQ) * 9.0
-            });
-        } catch (e) {}
-
-        // Save progress to public.english_grammar_progress DB
-        try {
-            await GrammarService.saveUserProgress(
-                selectedTopic.id,
-                correct === totalQ,
-                correct,
-                totalQ
-            );
-        } catch (e) {}
-
-        // Mark as mastered if 100%
-        if (correct === totalQ) {
-            const nextSet = new Set(masteredTopics).add(selectedTopic.id);
-            setMasteredTopics(nextSet);
-            const arr = Array.from(nextSet);
-            localStorage.setItem('study_planner_ielts_grammar_mastery', JSON.stringify(arr));
-            try {
-                await supabase.auth.updateUser({
-                    data: { ielts_grammar_mastery: arr }
-                });
-            } catch (e) {}
+            ]);
+            setSavedCardIds(prev => [...prev, topic.id]);
             toast({
-                title: '🎉 Tabriklaymiz!',
-                description: `${selectedTopic.title} mavzusi to'liq o'zlashtirildi (+${correct * 25} XP)!`
-            });
-        }
-    };
-
-    const handleConvertMistakesToFlashcards = async () => {
-        if (!selectedTopic) return;
-        setIsSavingCards(true);
-        try {
-            let ieltsSub = subjects.find(s => s.name.toLowerCase().includes('ielts'));
-            let subId = ieltsSub ? ieltsSub.id : '';
-
-            if (!subId) {
-                const newSub = await addSubject({
-                    name: 'IELTS Academic Master',
-                    color: '#6366f1',
-                    icon: '🎯'
-                });
-                if (newSub?.id) subId = newSub.id;
-            }
-
-            const cardsToCreate = selectedTopic.quizQuestions.map(q => ({
-                subjectId: subId || undefined,
-                front: `[IELTS ${selectedTopic.level}] ${q.question}`,
-                back: `To'g'ri javob: ${q.correctAnswer}\n\nQoida: ${selectedTopic.structure}\n\nIzoh: ${q.explanation}`,
-                example: selectedTopic.academicExamples[0]?.sentence || selectedTopic.uzbekMeaning,
-                interval: 1,
-                repetitions: 0,
-                easeFactor: 2.5
-            }));
-
-            await addFlashcardsBatch(cardsToCreate);
-            toast({
-                title: '⚡ Fleshkartalar Yaratildi!',
-                description: `${cardsToCreate.length} ta savol Anki SM-2 SRS takrorlash tizimiga qo'shildi.`
+                title: '⚡ Fleshkarta Yaratildi!',
+                description: `"${topic.title}" Anki SM-2 takrorlash tizimingizga qo'shildi.`
             });
         } catch (e) {
-            toast({ variant: 'destructive', title: 'Xatolik', description: 'Kartochkalarni yaratishda xato bo\'ldi.' });
-        } finally {
-            setIsSavingCards(false);
+            toast({ variant: 'destructive', title: 'Xatolik', description: 'Fleshkartani saqlashda xato yuz berdi.' });
         }
+    };
+
+    // Filter Topics
+    const filteredTopics = topics.filter(item => {
+        const matchesLevel = selectedLevel === 'ALL' || 
+            item.level === selectedLevel || 
+            (selectedLevel === 'A1' && item.level === 'A1-A2') ||
+            (selectedLevel === 'A2' && item.level === 'A1-A2') ||
+            (selectedLevel === 'B1' && item.level === 'B1-B2') ||
+            (selectedLevel === 'B2' && item.level === 'B1-B2');
+
+        const matchesQuery = !searchQuery.trim() || 
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            item.uzbekMeaning.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.explanation.toLowerCase().includes(searchQuery.toLowerCase());
+
+        const itemStatus = getItemStatus(item.id);
+        const matchesStatus = statusFilter === 'ALL' || itemStatus === statusFilter;
+
+        return matchesLevel && matchesQuery && matchesStatus;
+    });
+
+    // Level Stats for Progress Bar
+    const currentLevelItems = selectedLevel === 'ALL' 
+        ? topics 
+        : topics.filter(i => i.level === selectedLevel || (selectedLevel === 'A1' && i.level === 'A1-A2'));
+    const levelStats = getStatsForLevel(currentLevelItems);
+
+    // Quiz State
+    const [quizIndex, setQuizIndex] = useState(0);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [score, setScore] = useState(0);
+    const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+    const [missedQuestions, setMissedQuestions] = useState<{ topic: IeltsGrammarTopic; q: any }[]>([]);
+
+    // Compile all questions from currently selected level
+    const allQuizPool = currentLevelItems.flatMap(topic => 
+        topic.quizQuestions.map(q => ({ topic, q }))
+    );
+
+    const handleAnswerQuiz = (option: string) => {
+        if (selectedOption !== null) return;
+        setSelectedOption(option);
+        const currentItem = allQuizPool[quizIndex];
+        if (!currentItem) return;
+
+        if (option === currentItem.q.correctAnswer) {
+            setScore(prev => prev + 1);
+            setItemStatus(currentItem.topic.id, 'mastered');
+        } else {
+            setMissedQuestions(prev => [...prev, currentItem]);
+            setItemStatus(currentItem.topic.id, 'hard');
+        }
+    };
+
+    const handleNextQuiz = async () => {
+        setSelectedOption(null);
+        if (quizIndex + 1 < allQuizPool.length) {
+            setQuizIndex(prev => prev + 1);
+        } else {
+            setIsQuizCompleted(true);
+            if (awardXP && score > 0) {
+                await awardXP(score * 25);
+            }
+            if (addSession) {
+                try {
+                    let engSub = subjects.find(s => s.name.toLowerCase().includes('english') || s.name.toLowerCase().includes('ielts'));
+                    await addSession({
+                        duration: Math.max(3, Math.round(allQuizPool.length * 1.5)),
+                        type: 'focus',
+                        completed: true,
+                        subjectId: engSub?.id || undefined,
+                        startTime: new Date().toISOString()
+                    });
+                } catch (e) {}
+            }
+        }
+    };
+
+    const resetQuiz = () => {
+        setQuizIndex(0);
+        setSelectedOption(null);
+        setScore(0);
+        setIsQuizCompleted(false);
+        setMissedQuestions([]);
     };
 
     return (
-        <div className="bg-white dark:bg-[#1f2937] p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm space-y-6">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-5">
-                <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-full text-xs font-bold mb-2">
-                        <BookCheck size={14} />
-                        <span>IELTS Band 7.5+ Grammatika Akademiyasi</span>
+        <div className="space-y-6">
+            {/* Header Banner (Japanese Grammar Hub style) */}
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 p-6 md:p-8 border border-blue-800/40 shadow-2xl">
+                <div className="absolute -right-12 -top-12 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -left-12 -bottom-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-semibold mb-3">
+                            <Sparkles className="w-3.5 h-3.5" /> Rasmiy Darsliklar & Imtihonlar Bazasi
+                        </div>
+                        <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+                            📚 English Grammar Master (Raymond Murphy)
+                        </h1>
+                        <p className="text-slate-300 text-sm mt-1 max-w-2xl leading-relaxed">
+                            A1 dan C1 gacha bo'lgan rasmiy Murphy darsliklari bazasi. Grammatik formulalar, audio talaffuzlar, amaliy misollar va Anki Flashcards eksporti!
+                        </p>
                     </div>
-                    <h2 className="text-2xl font-black text-gray-900 dark:text-white">
-                        IELTS English Grammar & Academic Structure Master 📚
-                    </h2>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        A1 dan C1 gacha bo'lgan rasmiy IELTS grammatik qoidalari, Task 1/2 ilmiy misollari va interaktiv testlar.
-                    </p>
-                </div>
 
-                {/* Level Tabs */}
-                <div className="flex items-center gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl flex-wrap">
-                    <button
-                        onClick={() => setSelectedLevel('C1')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            selectedLevel === 'C1' 
-                                ? 'bg-indigo-600 text-white shadow-md' 
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        }`}
-                    >
-                        🏆 Band 7.5 - 9.0 (C1)
-                    </button>
-                    <button
-                        onClick={() => setSelectedLevel('B1-B2')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            selectedLevel === 'B1-B2' 
-                                ? 'bg-indigo-600 text-white shadow-md' 
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        }`}
-                    >
-                        ⚡ Band 6.5 - 7.0 (B1-B2)
-                    </button>
-                    <button
-                        onClick={() => setSelectedLevel('A1-A2')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            selectedLevel === 'A1-A2' 
-                                ? 'bg-indigo-600 text-white shadow-md' 
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        }`}
-                    >
-                        🌱 Foundation (A1-A2)
-                    </button>
-                    <button
-                        onClick={() => setSelectedLevel('ALL')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            selectedLevel === 'ALL' 
-                                ? 'bg-indigo-600 text-white shadow-md' 
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        }`}
-                    >
-                        🌐 Barchasi
-                    </button>
-                </div>
-            </div>
-
-            {/* Search Input */}
-            <div className="relative">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Grammatik qoida yoki o'zbekcha ma'nosi bo'yicha qidirish (masalan: Inversion, Passive, Artikllar)..."
-                    className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/60 rounded-2xl text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-            </div>
-
-            {/* Loading & Error Indicators */}
-            {isLoading && (
-                <div className="p-8 text-center bg-gray-50 dark:bg-gray-800/30 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-3">
-                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-600" />
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Grammatika darslari PostgreSQL bazasidan yuklanmoqda...</p>
-                </div>
-            )}
-
-            {error && !isLoading && (
-                <div className="p-6 bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900 rounded-3xl flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
-                        <p className="text-xs text-rose-700 dark:text-rose-300">{error}</p>
-                    </div>
-                    <button
-                        onClick={() => refetch()}
-                        className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow"
-                    >
-                        <RefreshCw size={14} /> Qayta yuklash
-                    </button>
-                </div>
-            )}
-
-            {/* Content Layout */}
-            {!isLoading && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                    {/* Left Sidebar: Topics List */}
-                    <div className="lg:col-span-4 space-y-2 max-h-[600px] overflow-y-auto pr-1">
-                        {filteredTopics.length === 0 ? (
-                            <div className="p-6 text-center bg-gray-50 dark:bg-gray-800/40 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700 text-xs text-gray-400">
-                                Mos keluvchi grammatika mavzusi topilmadi.
+                    {/* Quick Stats Widget */}
+                    <div className="flex items-center gap-3 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-800 shadow-lg">
+                        <div className="p-3 rounded-xl bg-amber-500/20 text-amber-400">
+                            <Flame className="w-6 h-6" />
+                        </div>
+                        <div>
+                            <div className="text-xs text-slate-400 font-medium">Baza hajmi</div>
+                            <div className="text-lg font-black text-white flex items-center gap-1.5">
+                                <span>{topics.length} Qoida / Unit</span>
                             </div>
-                        ) : (
-                            filteredTopics.map(t => {
-                                const isSelected = selectedTopic?.id === t.id;
-                                const isMastered = masteredTopics.has(t.id);
+                        </div>
+                    </div>
+                </div>
 
+                {/* Sub-Tabs Bar */}
+                <div className="flex items-center gap-2 mt-6 border-t border-slate-800/80 pt-4 overflow-x-auto">
+                    <button
+                        onClick={() => setActiveTab('grammar')}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                            activeTab === 'grammar'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
+                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                        }`}
+                    >
+                        <BookOpen className="w-4 h-4" />
+                        📖 Grammatika ({topics.length})
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            setActiveTab('quiz');
+                            resetQuiz();
+                        }}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                            activeTab === 'quiz'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
+                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                        }`}
+                    >
+                        <Flame className="w-4 h-4 text-amber-400" />
+                        ⚡ AI Test Generator ({allQuizPool.length} Savol)
+                    </button>
+                </div>
+            </div>
+
+            {/* Level & Search Controls (Matching user screenshot 4) */}
+            {activeTab === 'grammar' && (
+                <div className="bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        {/* Level Pills */}
+                        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                            {(['BARCHASI', 'A1', 'A2', 'B1', 'B2', 'C1'] as const).map(lvl => {
+                                const levelKey = lvl === 'BARCHASI' ? 'ALL' : lvl;
+                                const isSelected = selectedLevel === levelKey;
                                 return (
                                     <button
-                                        key={t.id}
-                                        onClick={() => handleSelectTopic(t)}
-                                        className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
-                                            isSelected 
-                                                ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-700 shadow-sm' 
-                                                : 'bg-white dark:bg-gray-800/40 border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
+                                        key={lvl}
+                                        onClick={() => setSelectedLevel(levelKey)}
+                                        className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                            isSelected
+                                                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-105'
+                                                : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200'
                                         }`}
                                     >
-                                        <div className="space-y-1">
-                                            <div className="flex items-center gap-2">
-                                                <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                                                    t.level === 'C1' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300' :
-                                                    t.level === 'B1-B2' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' :
-                                                    'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
-                                                }`}>
-                                                    {t.level}
-                                                </span>
-                                                <span className="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">
-                                                    {t.title}
-                                                </span>
-                                            </div>
-                                            <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
-                                                {t.uzbekMeaning}
-                                            </p>
-                                        </div>
-
-                                        {isMastered && (
-                                            <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-1" />
-                                        )}
+                                        {lvl}
                                     </button>
                                 );
-                            })
-                        )}
+                            })}
+                        </div>
+
+                        {/* Search Bar */}
+                        <div className="relative flex-1 max-w-md">
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Grammatika, qoida yoki uzbekcha izlash..."
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition"
+                            />
+                        </div>
                     </div>
 
-                    {/* Right Area: Selected Topic Details & Quiz */}
-                    <div className="lg:col-span-8 space-y-6 bg-gray-50/50 dark:bg-gray-800/30 p-6 rounded-3xl border border-gray-100 dark:border-gray-800">
-                    {selectedTopic ? (
-                        <>
-                            {/* Topic Title & Formula Banner */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-                                        {selectedTopic.category} • {selectedTopic.level}
-                                    </span>
-                                    <span className="text-xs text-muted-foreground bg-muted px-2.5 py-1 rounded-lg font-medium">
-                                        🎯 {selectedTopic.ieltsRelevance}
-                                    </span>
+                    {/* Mastery Filter & Progress Bar */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+                        {/* Status Filter buttons */}
+                        <div className="flex items-center gap-2 text-xs flex-wrap">
+                            <span className="text-slate-400 font-medium mr-1">Holat:</span>
+                            {(['ALL', 'mastered', 'learned', 'hard', 'unlearned'] as const).map(st => (
+                                <button
+                                    key={st}
+                                    onClick={() => setStatusFilter(st)}
+                                    className={`px-2.5 py-1 rounded-lg font-medium transition ${
+                                        statusFilter === st
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                    }`}
+                                >
+                                    {st === 'ALL' ? 'Barchasi' : st === 'mastered' ? 'Mustahkamlandi' : st === 'learned' ? 'O\'rganildi' : st === 'hard' ? 'Qiyin' : 'Yangi'}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Progress Bar Widget */}
+                        <div className="flex items-center gap-3">
+                            <div className="text-xs text-slate-400">
+                                Progress ({selectedLevel}): <span className="font-bold text-emerald-400">{levelStats.progressPercent}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
+                            </div>
+                            <div className="w-32 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                                <div
+                                    className="h-full bg-gradient-to-r from-emerald-500 to-indigo-500 transition-all duration-500"
+                                    style={{ width: `${levelStats.progressPercent}%` }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* TAB 1: GRAMMAR UNITS LIST */}
+            {activeTab === 'grammar' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {filteredTopics.length === 0 ? (
+                        <div className="col-span-2 p-12 text-center bg-slate-900/60 rounded-3xl border border-dashed border-slate-800 text-slate-400 space-y-3">
+                            <BookCheck className="w-8 h-8 mx-auto text-slate-600" />
+                            <p className="text-sm font-semibold">Mos keluvchi grammatika mavzusi topilmadi.</p>
+                            <button 
+                                onClick={() => { setSelectedLevel('ALL'); setStatusFilter('ALL'); setSearchQuery(''); }}
+                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition"
+                            >
+                                Filtrlarni tozalash
+                            </button>
+                        </div>
+                    ) : (
+                        filteredTopics.map(topic => {
+                            const status = getItemStatus(topic.id);
+                            const isExported = savedCardIds.includes(topic.id);
+
+                            return (
+                                <div
+                                    key={topic.id}
+                                    className="group relative bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-300 shadow-lg flex flex-col justify-between space-y-4"
+                                >
+                                    <div>
+                                        {/* Header Row: Level Badge, Category, Audio & Flashcards */}
+                                        <div className="flex items-center justify-between gap-2 mb-3">
+                                            <div className="flex items-center gap-2">
+                                                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${
+                                                    topic.level.startsWith('A') ? 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300' :
+                                                    topic.level.startsWith('B') ? 'bg-blue-500/20 border-blue-500/30 text-blue-300' :
+                                                    'bg-purple-500/20 border-purple-500/30 text-purple-300'
+                                                }`}>
+                                                    {topic.level} Foundation
+                                                </span>
+                                                <span className="text-[11px] font-semibold text-slate-400">
+                                                    {topic.category}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center gap-1.5">
+                                                <button
+                                                    onClick={() => speakText(topic.title.replace(/Unit \d+:\s*/, ''), 'en-US')}
+                                                    className="p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 text-slate-400 hover:text-indigo-300 transition"
+                                                    title="Inglizcha talaffuz"
+                                                >
+                                                    <Volume2 className="w-4 h-4" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleExportToFlashcard(topic)}
+                                                    className={`p-2 rounded-xl border transition ${
+                                                        isExported
+                                                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                                            : 'bg-slate-800/80 hover:bg-amber-600/30 text-slate-400 hover:text-amber-300 border-slate-800'
+                                                    }`}
+                                                    title="Fleshkartaga saqlash"
+                                                >
+                                                    {isExported ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Unit Title & Uzbek meaning */}
+                                        <h3 className="text-lg font-black text-white tracking-tight group-hover:text-indigo-300 transition mb-1">
+                                            {topic.title}
+                                        </h3>
+                                        <p className="text-xs font-semibold text-indigo-400/90 mb-3">
+                                            🇺🇿 {topic.uzbekMeaning}
+                                        </p>
+
+                                        {/* Formula / Structure Box */}
+                                        <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 mb-3 space-y-1">
+                                            <div className="text-[10px] font-bold uppercase tracking-wider text-rose-400">
+                                                📐 Grammatik Formula & Struktura:
+                                            </div>
+                                            <code className="text-xs font-mono text-amber-300 block break-words">
+                                                {topic.structure}
+                                            </code>
+                                        </div>
+
+                                        {/* Explanation Box */}
+                                        <div className="text-xs text-slate-300 leading-relaxed mb-3 space-y-1 bg-slate-950/40 p-3 rounded-xl border border-slate-800/40">
+                                            <span className="font-bold text-slate-200 block text-[11px]">
+                                                💡 Murphy Qoidasi:
+                                            </span>
+                                            <p>{topic.explanation}</p>
+                                        </div>
+
+                                        {/* Example Sentences with individual Audio */}
+                                        <div className="space-y-2 mb-3">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                                                📑 Amaliy Misollar (Hayotiy & Akademik):
+                                            </span>
+                                            {topic.academicExamples.map((ex, idx) => (
+                                                <div key={idx} className="bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/60 space-y-1">
+                                                    <div className="text-xs font-semibold text-slate-100 flex items-center justify-between gap-2">
+                                                        <span>"{ex.sentence}"</span>
+                                                        <button
+                                                            onClick={() => speakText(ex.sentence, 'en-US')}
+                                                            className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-indigo-300 shrink-0"
+                                                            title="O'qib berish"
+                                                        >
+                                                            <Volume2 className="w-3.5 h-3.5" />
+                                                        </button>
+                                                    </div>
+                                                    <p className="text-[11px] text-slate-400 pl-2 border-l-2 border-indigo-500">
+                                                        {ex.translation}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Common Mistakes Box */}
+                                        {topic.commonMistakes.length > 0 && (
+                                            <div className="space-y-1 mb-3">
+                                                {topic.commonMistakes.map((m, idx) => (
+                                                    <div key={idx} className="p-2.5 bg-rose-950/30 border border-rose-900/40 rounded-xl space-y-1 text-xs">
+                                                        <div className="text-rose-400 line-through">❌ {m.incorrect}</div>
+                                                        <div className="text-emerald-400 font-bold">✅ {m.correct}</div>
+                                                        <div className="text-[10px] text-slate-400">{m.explanation}</div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Bottom Row: Status Toggles */}
+                                    <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                                        <span className="text-[10px] text-slate-500 font-medium">Holat:</span>
+                                        <div className="flex items-center gap-1">
+                                            {(['unlearned', 'hard', 'learned', 'mastered'] as const).map(st => (
+                                                <button
+                                                    key={st}
+                                                    onClick={() => setItemStatus(topic.id, st)}
+                                                    className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition ${
+                                                        status === st
+                                                            ? (st === 'mastered' ? 'bg-emerald-600 text-white' :
+                                                               st === 'learned' ? 'bg-blue-600 text-white' :
+                                                               st === 'hard' ? 'bg-amber-600 text-white' : 'bg-slate-700 text-white')
+                                                            : 'bg-slate-950 text-slate-500 hover:text-slate-300 border border-slate-800'
+                                                    }`}
+                                                >
+                                                    {st === 'mastered' ? 'Mustahkamlandi' : st === 'learned' ? 'O\'rganildi' : st === 'hard' ? 'Qiyin' : 'Yangi'}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 className="text-xl font-black text-gray-900 dark:text-white">
-                                    {selectedTopic.title}
-                                </h3>
-                                <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 p-3 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
-                                    🇺🇿 {selectedTopic.uzbekMeaning}
+                            );
+                        })
+                    )}
+                </div>
+            )}
+
+            {/* TAB 2: AI / PRACTICE QUIZ GENERATOR */}
+            {activeTab === 'quiz' && (
+                <div className="max-w-2xl mx-auto bg-slate-900/90 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+                    {!isQuizCompleted && allQuizPool.length > 0 ? (
+                        <>
+                            {/* Quiz Header & Progress */}
+                            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                                <div>
+                                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
+                                        Savol {quizIndex + 1} / {allQuizPool.length}
+                                    </span>
+                                    <h3 className="text-sm font-black text-white mt-0.5">
+                                        {allQuizPool[quizIndex]?.topic.title}
+                                    </h3>
+                                </div>
+                                <div className="text-right">
+                                    <span className="text-xs text-slate-400">To'plangan ball</span>
+                                    <div className="text-lg font-black text-emerald-400">{score} / {allQuizPool.length}</div>
+                                </div>
+                            </div>
+
+                            {/* Question Text */}
+                            <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 text-base font-bold text-white leading-relaxed">
+                                {allQuizPool[quizIndex]?.q.question}
+                            </div>
+
+                            {/* Options */}
+                            <div className="grid grid-cols-1 gap-2.5">
+                                {allQuizPool[quizIndex]?.q.options.map((opt: string, idx: number) => {
+                                    const isSelected = selectedOption === opt;
+                                    const isCorrect = opt === allQuizPool[quizIndex]?.q.correctAnswer;
+                                    
+                                    let btnClass = "bg-slate-950/70 hover:bg-slate-800 border-slate-800 text-slate-200";
+                                    if (selectedOption !== null) {
+                                        if (isCorrect) {
+                                            btnClass = "bg-emerald-950/80 border-emerald-500 text-emerald-300 font-bold";
+                                        } else if (isSelected && !isCorrect) {
+                                            btnClass = "bg-rose-950/80 border-rose-500 text-rose-300";
+                                        } else {
+                                            btnClass = "bg-slate-950/40 border-slate-900 text-slate-500 opacity-50";
+                                        }
+                                    }
+
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleAnswerQuiz(opt)}
+                                            disabled={selectedOption !== null}
+                                            className={`w-full text-left p-3.5 rounded-xl border text-xs font-medium transition flex items-center justify-between ${btnClass}`}
+                                        >
+                                            <span>{opt}</span>
+                                            {selectedOption !== null && isCorrect && <CheckCircle2 size={16} className="text-emerald-400" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Answer Explanation & Next Button */}
+                            {selectedOption !== null && (
+                                <div className="space-y-4 pt-2 animate-in fade-in">
+                                    <div className="p-3 bg-indigo-950/40 rounded-xl border border-indigo-900/40 text-xs text-indigo-300">
+                                        💡 <strong>Tushuntirish:</strong> {allQuizPool[quizIndex]?.q.explanation}
+                                    </div>
+                                    <button
+                                        onClick={handleNextQuiz}
+                                        className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition"
+                                    >
+                                        <span>Keyingi Savol</span>
+                                        <ArrowRight size={14} />
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    ) : isQuizCompleted ? (
+                        <div className="text-center space-y-6 py-6">
+                            <div className="inline-flex p-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                <Sparkles className="w-10 h-10" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-white">Test Yakunlandi! 🎉</h3>
+                                <p className="text-sm text-slate-300 mt-1">
+                                    Siz {allQuizPool.length} ta savoldan <strong>{score}</strong> tasiga to'g'ri javob berdingiz ({Math.round((score / allQuizPool.length) * 100)}%).
                                 </p>
                             </div>
 
-                            {/* Formula / Structure */}
-                            <div className="p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 space-y-1">
-                                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
-                                    📐 Grammatik Formula & Struktura:
-                                </span>
-                                <code className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 block break-words">
-                                    {selectedTopic.structure}
-                                </code>
+                            <div className="flex flex-wrap justify-center gap-3">
+                                {missedQuestions.length > 0 && (
+                                    <button
+                                        onClick={async () => {
+                                            const subjectId = subjects.find(s => s.name.toLowerCase().includes('english') || s.name.toLowerCase().includes('ielts'))?.id || subjects[0]?.id || '';
+                                            const cards = missedQuestions.map(m => ({
+                                                subjectId,
+                                                front: `[${m.topic.level} Grammar Practice] ${m.topic.title}\n\n❓ ${m.q.question}`,
+                                                back: `✅ To'g'ri javob: ${m.q.correctAnswer}\n\n💡 Izoh: ${m.q.explanation}\n\n📐 Formula: ${m.topic.structure}`,
+                                                interval: 1,
+                                                repetitions: 0,
+                                                easeFactor: 2.5
+                                            }));
+                                            await addFlashcardsBatch(cards);
+                                            toast({
+                                                title: '🎴 Fleshkartalar Saqlandi!',
+                                                description: `${cards.length} ta xato qilingan savol takrorlash tizimiga qo'shildi.`
+                                            });
+                                        }}
+                                        className="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition shadow"
+                                    >
+                                        Xatolarni Fleshkartaga Saqlash ({missedQuestions.length})
+                                    </button>
+                                )}
+                                <button
+                                    onClick={resetQuiz}
+                                    className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow"
+                                >
+                                    Qayta topshirish
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('grammar')}
+                                    className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition"
+                                >
+                                    Darslarga qaytish
+                                </button>
                             </div>
-
-                            {/* Explanation */}
-                            <div className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed space-y-2">
-                                <span className="font-bold text-gray-900 dark:text-white block text-sm">
-                                    💡 Qoida Izohi:
-                                </span>
-                                <p>{selectedTopic.explanation}</p>
-                            </div>
-
-                            {/* Academic Examples from IELTS */}
-                            <div className="space-y-2">
-                                <span className="font-bold text-gray-900 dark:text-white block text-xs uppercase tracking-wider">
-                                    📑 IELTS Task 1 / Task 2 dan Ilmiy Misollar:
-                                </span>
-                                <div className="space-y-2">
-                                    {selectedTopic.academicExamples.map((ex, idx) => (
-                                        <div key={idx} className="p-3 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 space-y-1">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-md">
-                                                    {ex.context}
-                                                </span>
-                                                <span className="text-xs font-bold text-gray-900 dark:text-white">
-                                                    "{ex.sentence}"
-                                                </span>
-                                            </div>
-                                            <p className="text-[11px] text-gray-500 dark:text-gray-400 pl-2 border-l-2 border-indigo-400">
-                                                Tarjimasi: {ex.translation}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Common Mistakes */}
-                            {selectedTopic.commonMistakes.length > 0 && (
-                                <div className="space-y-2">
-                                    <span className="font-bold text-rose-600 dark:text-rose-400 block text-xs uppercase tracking-wider flex items-center gap-1.5">
-                                        <AlertCircle size={14} /> Eng Ko'p Uchraydigan Xato (Common Mistake):
-                                    </span>
-                                    {selectedTopic.commonMistakes.map((m, idx) => (
-                                        <div key={idx} className="p-3 bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-2xl space-y-1 text-xs">
-                                            <div className="text-rose-600 dark:text-rose-400 line-through">❌ {m.incorrect}</div>
-                                            <div className="text-emerald-600 dark:text-emerald-400 font-bold">✅ {m.correct}</div>
-                                            <div className="text-[11px] text-gray-600 dark:text-gray-400 pt-1 border-t border-rose-200/40">{m.explanation}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Interactive Mini-Quiz */}
-                            <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <h4 className="text-sm font-black text-gray-900 dark:text-white flex items-center gap-1.5">
-                                        <Sparkles size={16} className="text-amber-500" />
-                                        <span>Amaliy Mini-Test (Knowledge Check)</span>
-                                    </h4>
-                                    <span className="text-xs text-amber-500 font-bold">
-                                        +25 XP har bir to'g'ri javobga
-                                    </span>
-                                </div>
-
-                                {selectedTopic.quizQuestions.map((q, qIdx) => {
-                                    const userChoice = selectedAnswers[qIdx];
-                                    const isCorrect = userChoice === q.correctAnswer;
-
-                                    return (
-                                        <div key={qIdx} className="p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 space-y-3">
-                                            <p className="text-xs font-bold text-gray-900 dark:text-white">
-                                                {qIdx + 1}. {q.question}
-                                            </p>
-
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                {q.options.map((opt, optIdx) => {
-                                                    let btnClass = "border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300";
-                                                    
-                                                    if (quizSubmitted) {
-                                                        if (opt === q.correctAnswer) {
-                                                            btnClass = "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-bold";
-                                                        } else if (userChoice === opt) {
-                                                            btnClass = "border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-bold";
-                                                        }
-                                                    } else if (userChoice === opt) {
-                                                        btnClass = "border-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold";
-                                                    }
-
-                                                    return (
-                                                        <button
-                                                            key={optIdx}
-                                                            onClick={() => handleAnswerSelect(qIdx, opt)}
-                                                            className={`p-2.5 rounded-xl border text-left text-xs transition-all ${btnClass}`}
-                                                        >
-                                                            {opt}
-                                                        </button>
-                                                    );
-                                                })}
-                                            </div>
-
-                                            {quizSubmitted && (
-                                                <div className={`p-2.5 rounded-xl text-xs ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300' : 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300'}`}>
-                                                    <span className="font-bold">{isCorrect ? '✅ To\'g\'ri!' : '❌ Xato!'}</span> {q.explanation}
-                                                </div>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-
-                                {/* Actions Bar */}
-                                <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                                    {!quizSubmitted ? (
-                                        <button
-                                            onClick={handleQuizSubmit}
-                                            disabled={Object.keys(selectedAnswers).length < selectedTopic.quizQuestions.length}
-                                            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white text-xs font-bold rounded-2xl shadow-md transition-all"
-                                        >
-                                            Javoblarni Tekshirish 🎯
-                                        </button>
-                                    ) : (
-                                        <div className="flex flex-wrap items-center gap-3 w-full justify-between">
-                                            <button
-                                                onClick={handleConvertMistakesToFlashcards}
-                                                disabled={isSavingCards}
-                                                className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-bold rounded-2xl shadow-md flex items-center gap-1.5 transition-all"
-                                            >
-                                                <PlusCircle size={15} />
-                                                <span>Fleshkartaga Aylantirish (Anki SRS)</span>
-                                            </button>
-
-                                            <button
-                                                onClick={() => {
-                                                    setSelectedAnswers({});
-                                                    setQuizSubmitted(false);
-                                                }}
-                                                className="px-4 py-2.5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-bold rounded-2xl hover:bg-gray-300 transition-all"
-                                            >
-                                                Qayta Topshirish 🔄
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </>
+                        </div>
                     ) : (
-                        <div className="py-20 text-center text-gray-400">
-                            Mavzuni tanlang
+                        <div className="p-8 text-center text-slate-400 text-xs">
+                            Ushbu darajada test savollari topilmadi.
                         </div>
                     )}
                 </div>
-            </div>
             )}
         </div>
     );
 };
 
 export default IeltsGrammarMaster;
-
