@@ -109,10 +109,21 @@ export const parseCoachResponse = (raw: string, fallbackLang: 'en' | 'ja' = 'ja'
 
         const parsed = JSON.parse(cleaned);
         if (parsed && typeof parsed === 'object') {
-            const lang: 'en' | 'ja' = parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
+            let lang: 'en' | 'ja' = parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
             let reply = typeof parsed.reply === 'string' ? parsed.reply.trim() : '';
             let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
             let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
+
+            // Enforce language integrity: Japanese mode must NEVER output English text
+            if (fallbackLang === 'ja') {
+                lang = 'ja';
+                const containsJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(reply);
+                if (!reply || !containsJapanese) {
+                    reply = 'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？';
+                    ttsText = 'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？';
+                    romaji = 'Hai, yoku wakarimashita! Tsuzukete nihongo de ohanashi shimashou. Saikin wa dou desu ka?';
+                }
+            }
 
             if (!reply) reply = ttsText || (lang === 'ja' ? 'はい、続けましょう！' : "Let's continue!");
             if (!ttsText) ttsText = extractSpeechAudioText(reply);
@@ -345,8 +356,8 @@ You MUST respond with a VALID JSON object matching this schema exactly:
     }
 
     // In-character scenario fallback so the student conversation is NEVER broken
-    let fallbackReply = "I understand! Let's continue our conversation.";
-    let fallbackTts = "I understand! Let's continue our conversation.";
+    let fallbackReply = "";
+    let fallbackTts = "";
     let fallbackRomaji = "";
 
     if (language === 'ja') {
@@ -361,10 +372,14 @@ You MUST respond with a VALID JSON object matching this schema exactly:
             fallbackReply = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
             fallbackTts = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
             fallbackRomaji = "Shouchi itashimashita. Kore made no jitsumu keiken ya purojekuto ni tsuite kuwashiku oshiete itadakemasu ka?";
+        } else if (persona === 'roast') {
+            fallbackReply = "何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？";
+            fallbackTts = "何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？";
+            fallbackRomaji = "Nani o motamota shite iru no desu ka! Enryo sezu ni, motto jishin o motte nihongo de hanashite kudasai! Saikin no benkyou wa dou desu ka?";
         } else {
-            fallbackReply = "はい、よく分かりました！続けてお話ししましょう。最近はどうですか？";
-            fallbackTts = "はい、よく分かりました！続けてお話ししましょう。最近はどうですか？";
-            fallbackRomaji = "Hai, yoku wakarimashita! Tsuzukete ohanashi shimashou. Saikin wa dou desu ka?";
+            fallbackReply = "はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？";
+            fallbackTts = "はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？";
+            fallbackRomaji = "Hai, yoku wakarimashita! Tsuzukete nihongo de ohanashi shimashou. Saikin wa dou desu ka?";
         }
     } else {
         const isInterview = scenario?.id?.includes('interview') || scenario?.title_en?.toLowerCase().includes('interview');

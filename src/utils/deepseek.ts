@@ -120,18 +120,8 @@ export const callDeepSeek = async (
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || '';
             if (text && text.trim().length > 0) return text;
             
-            // If empty text returned, return safe default JSON so caller never crashes
-            if (effectiveIsJson) {
-                return JSON.stringify({
-                    language: 'en',
-                    reply: "I understand! Let's continue.",
-                    ttsText: "I understand! Let's continue.",
-                    romaji: "",
-                    correction: { hasError: false },
-                    vocabulary: []
-                });
-            }
-            return "I understand! Let's continue.";
+            // If Edge Function returned empty body without error, fall through to /api/deepseek
+            console.warn('[Supabase Edge Function] Edge function returned empty content, falling back to /api/deepseek');
         }
 
         if (error) {
@@ -202,18 +192,7 @@ export const callDeepSeek = async (
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
             
-            // If empty text returned, return safe default JSON so the UI stays responsive
-            if (effectiveIsJson) {
-                return JSON.stringify({
-                    language: payload.language || 'en',
-                    reply: "That's interesting! Could you elaborate a bit more on that?",
-                    ttsText: "That's interesting! Could you elaborate a bit more on that?",
-                    romaji: "",
-                    correction: { hasError: false },
-                    vocabulary: []
-                });
-            }
-            return "I understand! Let's keep practicing.";
+            throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
         } else {
             const errData = await response.json().catch(() => ({}));
             console.warn('[DeepSeek Gateway] Server returned non-200:', response.status, errData);
