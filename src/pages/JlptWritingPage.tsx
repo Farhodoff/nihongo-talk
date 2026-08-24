@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Sparkles, Send, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { generateAIResponse } from '../utils/ai';
+import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { toast } from '../hooks/use-toast';
 export const JlptWritingPage: React.FC = () => {
@@ -39,9 +39,14 @@ export const JlptWritingPage: React.FC = () => {
             }
             `;
 
-            const rawRes = await generateAIResponse([{ role: 'user', content: prompt }]);
-            const cleaned = rawRes.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed = JSON.parse(cleaned);
+            const rawRes = await generateAIResponse([{ role: 'user', content: prompt }], { isJson: true });
+            const parsed = extractJsonFromAiResponse<{
+                score?: number;
+                kanjiRating?: string;
+                grammarFeedback?: string;
+                correctedText?: string;
+                suggestions?: string[];
+            }>(rawRes);
 
             setResult({
                 score: parsed.score || 85,

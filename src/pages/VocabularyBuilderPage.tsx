@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Sparkles, BookOpen, Volume2, Plus, Check, Bookmark, History, Trash2, ArrowRight } from 'lucide-react';
-import { generateAIResponse } from '../utils/ai/aiCore';
+import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { speakText } from '../utils/audioTts';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { FuriganaText } from '../components/jlpt/FuriganaText';
@@ -149,11 +149,11 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
         try {
             const raw = await generateAIResponse([
-                { role: 'system', content: 'Return only valid JSON.' },
+                { role: 'system', content: 'You are a dictionary JSON API provider. Return ONLY raw valid JSON object without markdown fences.' },
                 { role: 'user', content: prompt }
-            ]);
-            const cleaned = raw.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed: VocabWordDetails = JSON.parse(cleaned);
+            ], { isJson: true });
+            
+            const parsed = extractJsonFromAiResponse<VocabWordDetails>(raw);
 
             setCurrentResult(parsed);
 

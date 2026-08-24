@@ -104,13 +104,63 @@ ${contextContent ? contextContent.substring(0, 10000) : "Foydalanuvchi hali bu f
     }
 };
 
+/**
+ * Safely extract JSON from any raw AI response (handling markdown fences, conversational prefix/suffix)
+ */
+export function extractJsonFromAiResponse<T = any>(raw: string): T {
+    if (!raw || typeof raw !== 'string') {
+        throw new Error("Bo'sh AI javobi.");
+    }
+    
+    let cleaned = raw.trim();
+    // Remove markdown code fences if present
+    if (cleaned.includes('```')) {
+        const match = cleaned.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (match && match[1]) {
+            cleaned = match[1].trim();
+        }
+    }
+    
+    // Find the boundary of first { or [ to matching last } or ]
+    const firstBrace = cleaned.indexOf('{');
+    const firstBracket = cleaned.indexOf('[');
+    
+    let startIndex = -1;
+    let isObject = false;
+    
+    if (firstBrace !== -1 && (firstBracket === -1 || firstBrace < firstBracket)) {
+        startIndex = firstBrace;
+        isObject = true;
+    } else if (firstBracket !== -1) {
+        startIndex = firstBracket;
+        isObject = false;
+    }
+    
+    if (startIndex !== -1) {
+        const lastIndex = isObject ? cleaned.lastIndexOf('}') : cleaned.lastIndexOf(']');
+        if (lastIndex !== -1 && lastIndex > startIndex) {
+            cleaned = cleaned.substring(startIndex, lastIndex + 1);
+        }
+    }
+    
+    return JSON.parse(cleaned);
+}
+
 export const generateAIResponse = async (
     messages: { role: 'system' | 'user'; content: string }[],
-    _userKey?: string | null
+    optionsOrUserKey?: boolean | string | null | { isJson?: boolean; modelName?: string }
 ): Promise<string> => {
     try {
         let prompt = "";
         let systemPrompt = "";
+        let isJson = false;
+
+        if (typeof optionsOrUserKey === 'boolean') {
+            isJson = optionsOrUserKey;
+        } else if (optionsOrUserKey && typeof optionsOrUserKey === 'object') {
+            isJson = Boolean(optionsOrUserKey.isJson);
+        }
+
         messages.forEach(m => {
             if (m.role === 'system') {
                 systemPrompt += m.content + "\n";
@@ -119,7 +169,22 @@ export const generateAIResponse = async (
             }
         });
 
-        const response = await callAI(prompt, systemPrompt || undefined, false);
+        // Automatically detect if JSON output is requested in messages
+        if (!isJson) {
+            const combined = (systemPrompt + prompt).toLowerCase();
+            if (
+                combined.includes('json') ||
+                combined.includes('valid json') ||
+                combined.includes('json object') ||
+                combined.includes('json format') ||
+                combined.includes('json response') ||
+                combined.includes('structure:')
+            ) {
+                isJson = true;
+            }
+        }
+
+        const response = await callAI(prompt, systemPrompt || undefined, isJson);
         return response || '';
     } catch (error) {
         console.error("AI Error:", error);
@@ -164,8 +229,7 @@ export const generateAiTutorExplanations = async (
 
     try {
         const text = await callAI(prompt, undefined, true);
-        const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        return JSON.parse(cleanedText);
+        return extractJsonFromAiResponse<AiTutorExplanation[]>(text);
     } catch (err) {
         console.error("AI Tutor Explanations Error:", err);
         return wrongAnswers.map(wa => ({

@@ -5,7 +5,7 @@ import {
     CheckCircle2, RefreshCw, XCircle, ChevronRight, Plus, Check 
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { generateAIResponse } from '../utils/ai/aiCore';
+import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { JLPT_GRAMMAR_QUESTIONS, JlptGrammarQuestion } from '../data/jlpt/grammar_data';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useJlptMastery } from '../hooks/useJlptMastery';
@@ -75,9 +75,8 @@ export const JlptGrammarQuizPage: React.FC = () => {
             const rawResponse = await generateAIResponse([
                 { role: 'system', content: 'You are a JSON only provider.' },
                 { role: 'user', content: prompt }
-            ]);
-            const cleanJson = rawResponse.replace(/```json/g, "").replace(/```/g, "").trim();
-            const data: JlptGrammarQuestion[] = JSON.parse(cleanJson);
+            ], { isJson: true });
+            const data = extractJsonFromAiResponse<JlptGrammarQuestion[]>(rawResponse);
             
             if (Array.isArray(data) && data.length > 0) {
                 // Ensure IDs are present

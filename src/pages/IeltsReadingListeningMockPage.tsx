@@ -5,7 +5,7 @@ import {
     Play, Pause, RotateCcw, Sparkles, AlertCircle, RefreshCw, BarChart2 
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { generateAIResponse } from '../utils/ai/aiCore';
+import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { IELTS_LISTENING_EXAMS } from '../data/ielts/listening_data';
 import { IELTS_READING_EXAMS } from '../data/ielts/reading_data';
 import { HistoryService } from '../services/HistoryService';
@@ -289,9 +289,8 @@ export const IeltsReadingListeningMockPage: React.FC = () => {
             const rawResponse = await generateAIResponse([
                 { role: 'system', content: 'You are a JSON only provider.' },
                 { role: 'user', content: prompt }
-            ]);
-            const cleanJson = rawResponse.replace(/```json/g, "").replace(/```/g, "").trim();
-            const data: PassageData = JSON.parse(cleanJson);
+            ], { isJson: true });
+            const data = extractJsonFromAiResponse<PassageData>(rawResponse);
             
             if (data.title && data.text && Array.isArray(data.questions)) {
                 setCurrentPassage({

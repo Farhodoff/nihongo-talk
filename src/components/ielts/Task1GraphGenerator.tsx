@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SvgBarChart, SvgLineChart, SvgPieChart } from '../ui/SvgCharts';
 import { Sparkles, RefreshCw, BarChart2 } from 'lucide-react';
-import { generateAIResponse } from '../../utils/ai/aiCore';
+import { generateAIResponse, extractJsonFromAiResponse } from '../../utils/ai/aiCore';
 
 interface ChartDataset {
     label: string;
@@ -71,9 +71,8 @@ Rules:
             const raw = await generateAIResponse([
                 { role: 'system', content: 'Return only valid JSON, no markdown.' },
                 { role: 'user', content: prompt }
-            ]);
-            const clean = raw.replace(/```json\n?/g, '').replace(/```/g, '').trim();
-            const parsed: Task1ChartData = JSON.parse(clean);
+            ], { isJson: true });
+            const parsed = extractJsonFromAiResponse<Task1ChartData>(raw);
 
             if (!parsed.type || !parsed.title || !parsed.labels || !parsed.datasets) {
                 throw new Error('Invalid chart JSON format');

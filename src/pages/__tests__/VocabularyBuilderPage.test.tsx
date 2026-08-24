@@ -21,9 +21,13 @@ vi.mock('../../context/StudyPlannerContext', () => ({
     })
 }));
 
-vi.mock('../../utils/ai/aiCore', () => ({
-    generateAIResponse: vi.fn()
-}));
+vi.mock('../../utils/ai/aiCore', async () => {
+    const actual = await vi.importActual<any>('../../utils/ai/aiCore');
+    return {
+        ...actual,
+        generateAIResponse: vi.fn()
+    };
+});
 
 describe('VocabularyBuilderPage Component', () => {
     beforeEach(() => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrainCircuit, X, CheckCircle2, Sparkles, Send, Award } from 'lucide-react';
-import { generateAIResponse } from '../../utils/ai';
+import { generateAIResponse, extractJsonFromAiResponse } from '../../utils/ai/aiCore';
 import { supabase } from '../../lib/supabase';
 import { useStudyData } from '../../context/StudyPlannerContext';
 
@@ -39,9 +39,12 @@ export const DailyReflectionModal: React.FC<DailyReflectionModalProps> = ({ isOp
             }
             `;
 
-            const rawRes = await generateAIResponse([{ role: 'user', content: prompt }]);
-            const cleaned = rawRes.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed = JSON.parse(cleaned);
+            const rawRes = await generateAIResponse([{ role: 'user', content: prompt }], { isJson: true });
+            const parsed = extractJsonFromAiResponse<{
+                masteryScore?: number;
+                feedback?: string;
+                strengths?: string[];
+            }>(rawRes);
 
             setEvaluationResult({
                 masteryScore: parsed.masteryScore || 85,

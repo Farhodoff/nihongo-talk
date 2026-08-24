@@ -3,9 +3,13 @@ import { describe, expect, it, vi } from 'vitest';
 import Task1GraphGenerator from './Task1GraphGenerator';
 import { generateAIResponse } from '../../utils/ai/aiCore';
 
-vi.mock('../../utils/ai/aiCore', () => ({
-    generateAIResponse: vi.fn()
-}));
+vi.mock('../../utils/ai/aiCore', async () => {
+    const actual = await vi.importActual<any>('../../utils/ai/aiCore');
+    return {
+        ...actual,
+        generateAIResponse: vi.fn()
+    };
+});
 
 (globalThis as any).ResizeObserver = class ResizeObserver {
     observe() {}

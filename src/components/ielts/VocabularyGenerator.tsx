@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, RefreshCw, AlertCircle, CheckCircle2, BookOpen, Plus, PlusCircle } from 'lucide-react';
-import { generateAIResponse } from '../../utils/ai/aiCore';
+import { generateAIResponse, extractJsonFromAiResponse } from '../../utils/ai/aiCore';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { Button } from '../ui/Button';
 
@@ -54,9 +54,8 @@ export const VocabularyGenerator: React.FC = () => {
             const rawResponse = await generateAIResponse([
                 { role: 'system', content: 'You are a JSON only provider.' },
                 { role: 'user', content: prompt }
-            ]);
-            const cleanJson = rawResponse.replace(/```json/g, "").replace(/```/g, "").trim();
-            const data: GeneratedWord[] = JSON.parse(cleanJson);
+            ], { isJson: true });
+            const data = extractJsonFromAiResponse<GeneratedWord[]>(rawResponse);
             
             if (Array.isArray(data) && data.length > 0) {
                 setWords(data);
