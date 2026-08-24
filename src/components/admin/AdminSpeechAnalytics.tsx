@@ -55,13 +55,13 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 list = speakData.map(item => ({
                     id: item.id,
                     user_email: item.user_email || 'Student',
-                    persona_title: item.persona_title || 'Yaponcha Muloqot',
+                    persona_title: item.persona_title || item.topic || 'Speaking Muloqot',
                     fluency_score: item.fluency_score || 0,
                     pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
                     grammar_score: item.grammar_score || 75,
                     vocabulary_score: item.vocabulary_score || 75,
                     duration_seconds: item.duration_seconds || 60,
-                    feedback: item.feedback || '',
+                    feedback: item.feedback || item.ai_feedback || '',
                     transcript: item.transcript || [],
                     created_at: item.created_at || new Date().toISOString()
                 }));

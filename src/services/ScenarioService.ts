@@ -179,9 +179,11 @@ export class ScenarioService {
             const userEmail = userData?.user?.email || 'guest@kaizen.ai';
 
             // 1. Primary insertion into speaking_sessions (with transcript)
-            await supabase.from('speaking_sessions').insert({
+            const { error: insertErr } = await supabase.from('speaking_sessions').insert({
                 user_id: userId,
                 user_email: userEmail,
+                language: (result as any).language || 'en',
+                topic: result.scenario_title,
                 scenario_id: result.scenario_id,
                 persona_title: result.scenario_title,
                 fluency_score: result.fluency_score,
@@ -191,9 +193,14 @@ export class ScenarioService {
                 overall_score: result.overall_score,
                 duration_seconds: result.duration_seconds,
                 feedback: result.ai_feedback,
+                ai_feedback: result.ai_feedback,
                 transcript: result.transcript || [],
                 created_at: result.created_at
             });
+
+            if (insertErr) {
+                console.warn('[ScenarioService] speaking_sessions DB insert notice:', insertErr.message);
+            }
 
             // 2. Legacy table fallback insertion
             if (userId) {
