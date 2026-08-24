@@ -14,25 +14,28 @@ export const ScenarioPickerPage: React.FC = () => {
 
     const initialLang = (searchParams.get('lang') === 'en' ? 'en' : 'ja') as 'en' | 'ja';
     const [activeLang, setActiveLang] = useState<'en' | 'ja'>(initialLang);
-    const [scenarios, setScenarios] = useState<ConversationScenario[]>([]);
-    const [history, setHistory] = useState<ScenarioSessionResult[]>([]);
+    const [scenarios, setScenarios] = useState<ConversationScenario[]>(() => ScenarioService.getImmediateScenarios());
+    const [history, setHistory] = useState<ScenarioSessionResult[]>(() => ScenarioService.getImmediateHistory());
     const [selectedLevel, setSelectedLevel] = useState<string>('all');
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        let isMounted = true;
         const loadData = async () => {
             try {
                 const list = await ScenarioService.getScenarios();
                 const hist = await ScenarioService.getScenarioHistory();
-                setScenarios(list);
-                setHistory(hist);
+                if (isMounted) {
+                    setScenarios(list);
+                    setHistory(hist);
+                }
             } catch (err) {
-                console.error(err);
-            } finally {
-                setIsLoading(false);
+                console.debug('Scenario background revalidation note:', err);
             }
         };
         loadData();
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const handleLangChange = (lang: 'en' | 'ja') => {
@@ -79,12 +82,12 @@ export const ScenarioPickerPage: React.FC = () => {
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                            {activeLang === 'ja' ? 'Yaponcha Dialog va Rolli Muloqot Hubi' : 'Inglizcha Real Hayotiy Rolli Muloqot Hubi'}
+                            {activeLang === 'ja' ? 'Jonli Yaponcha Muloqot Ssenariylari' : 'Real-World English Conversation Scenarios'}
                         </h1>
                         <p className="text-xs md:text-sm text-gray-300 max-w-xl leading-relaxed">
                             {activeLang === 'ja'
-                                ? "Restoran, xarid qilish, o'zini tanishtirish va biznes intervyu kabi real yapon hayoti ssenariylarini tanlang. AI Coach bilan gaplashib, talaffuz va grammatikani baholang!"
-                                : "AQSH/Buyuk Britaniya vizasi, IT ish intervyusi, aeroport va IELTS Speaking kabi real hayotiy vaziyatlar. AI murabbiy bilan jonli muloqot qiling!"}
+                                ? "Restoran, xarid qilish, tanishuv va ish intervyusi kabi real hayotiy ssenariylarda AI murabbiy bilan erkin muloqot qiling."
+                                : "AQSH vizasi, IT ish intervyusi, aeroport va IELTS Speaking kabi real vaziyatlarda jonli ovozli muloqot qiling."}
                         </p>
                     </div>
 
@@ -151,7 +154,7 @@ export const ScenarioPickerPage: React.FC = () => {
             </div>
 
             {/* Scenarios Grid */}
-            {isLoading ? (
+            {scenarios.length === 0 ? (
                 <div className="py-12 text-center text-muted-foreground">
                     <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-indigo-600 border-t-transparent mb-2" />
                     <p className="text-xs">Ssenariylar yuklanmoqda...</p>

@@ -7,15 +7,41 @@ const SCENARIO_HISTORY_KEY = 'kaizen_scenario_history';
 let _cachedScenarios: ConversationScenario[] | null = null;
 
 export class ScenarioService {
-    // 1. Get all scenarios (Default + Custom Admin Scenarios)
-    static async getScenarios(): Promise<ConversationScenario[]> {
+    // 0. Synchronous instant getters for 0ms initial render (stale-while-revalidate)
+    static getImmediateScenarios(): ConversationScenario[] {
         if (_cachedScenarios && _cachedScenarios.length > 0) {
             return _cachedScenarios;
         }
-
         let customScenarios: ConversationScenario[] = [];
         try {
-            const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+            const local = typeof window !== 'undefined' ? localStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
+            if (local) {
+                customScenarios = JSON.parse(local);
+            }
+        } catch {
+            // ignore
+        }
+        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios];
+        return _cachedScenarios;
+    }
+
+    static getImmediateHistory(): ScenarioSessionResult[] {
+        try {
+            const local = typeof window !== 'undefined' ? localStorage.getItem(SCENARIO_HISTORY_KEY) : null;
+            if (local) {
+                return JSON.parse(local);
+            }
+        } catch {
+            // ignore
+        }
+        return [];
+    }
+
+    // 1. Get all scenarios (Default + Custom Admin Scenarios)
+    static async getScenarios(): Promise<ConversationScenario[]> {
+        let customScenarios: ConversationScenario[] = [];
+        try {
+            const local = typeof window !== 'undefined' ? localStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
             if (local) {
                 customScenarios = JSON.parse(local);
             }
@@ -53,6 +79,7 @@ export class ScenarioService {
                     }
                 }
                 customScenarios = merged;
+                localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
             }
         } catch (e) {
             // Table might not exist yet; gracefully fallback
@@ -189,19 +216,18 @@ export class ScenarioService {
 
     // 5. Get Learning History
     static async getScenarioHistory(): Promise<ScenarioSessionResult[]> {
-        let history: ScenarioSessionResult[] = [];
-        try {
-            const local = localStorage.getItem(SCENARIO_HISTORY_KEY);
-            if (local) {
-                history = JSON.parse(local);
-            }
-        } catch (e) {
-            console.error(e);
-        }
+        const history = ScenarioService.getImmediateHistory();
 
         try {
-            const { data: userData } = await supabase.auth.getUser();
-            const userId = userData?.user?.id;
+            let userId: string | null | undefined = null;
+            if (typeof supabase.auth?.getSession === 'function') {
+                const { data: sessionData } = await supabase.auth.getSession();
+                userId = sessionData?.session?.user?.id;
+            }
+            if (!userId && typeof supabase.auth?.getUser === 'function') {
+                const { data: userData } = await supabase.auth.getUser();
+                userId = userData?.user?.id;
+            }
             if (userId) {
                 const { data, error } = await supabase
                     .from('speaking_sessions')
