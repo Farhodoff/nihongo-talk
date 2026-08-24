@@ -115,19 +115,25 @@ export const PersonalLearningPlanEngine = {
                 }
             }
 
-            const systemPrompt = `You are a Senior Learning Architect specializing in personalized ${isJa ? 'Japanese (JLPT/Conversational)' : 'English (IELTS/CEFR)'} instruction.
-You create a targeted study plan for exactly ONE WEEK (Day 1 to 7 / Monday to Sunday) based on student parameters.
+            const systemPrompt = `You are a Senior Learning Architect specializing in personalized ${isJa ? 'Japanese (JLPT/Conversational)' : 'English (IELTS/CEFR/Murphy)'} instruction.
+You create a rigorous, multi-skill study plan for exactly ONE WEEK (Day 1 to 7 / Monday to Sunday) based on student parameters.
 
 CRITICAL RULES:
 1. Output MUST be strictly valid JSON according to the schema. No markdown fences.
 2. The language of tasks, objectives, reasoning, and outcomes MUST be in Uzbek (O'zbek tilida).
 3. The total duration of all tasks in a single day MUST not exceed the user's budget of ${adjustedDailyMinutes} minutes. Clamp activities to fit this total.
-4. Route validation: AI must map tasks to valid routes. Valid routes are:
+4. Multi-Skill Requirement: NEVER create a day with only flashcards. Each day MUST include a balanced mix of skills based on the user's daily time budget:
+   - 📖 Grammatika (Murphy qoidalari & formulalar) -> route: '/ielts?tab=grammar' or '/lesson/<id>'
+   - 🗣️ Speaking (AI Murabbiy bilan real ssenariy muloqoti) -> route: '/scenarios' or '/speaking-coach'
+   - 🎧 Listening & Reading (Amaliy testlar va dialoglar) -> route: '/ielts?tab=reading_listening' or '/jlpt/reading'
+   - 🎴 Lug'at (SRS Fleshkarta takrorlash) -> route: '/vocabulary'
+   - ✍️ Writing / Mashqlar -> route: '/ielts?tab=writing'
+5. Route validation: Valid routes are:
    - Specific lessons: /lesson/<id> (e.g. en-a1-u1-l1)
-   - Specific hub: /ielts/writing, /ielts/reading-listening, /speaking-coach, /vocabulary, /study-mode, /jlpt, /jlpt/grammar-quiz, /jlpt/reading, /jlpt/listening
-5. Ensure strict isolation. An English user MUST NOT receive Japanese items/lessons (e.g. Kanji, JLPT), and a Japanese user MUST NOT receive IELTS or Murphy items.
-6. Provide concrete contentIds matching curriculum lessons where possible.
-7. Completed Lessons Rule: Do not select any lesson in the Completed Lesson IDs list (${JSON.stringify(completedLessonIds)}) as a NEW learning task in the plan. Previously completed lessons can only be given as SRS or review tasks.`;
+   - Specific hubs: /ielts?tab=grammar, /scenarios, /speaking-coach, /ielts?tab=reading_listening, /ielts?tab=writing, /vocabulary, /study-mode, /jlpt, /jlpt/grammar-quiz, /jlpt/reading, /jlpt/listening
+6. Ensure strict isolation. An English user MUST NOT receive Japanese items/lessons (e.g. Kanji, JLPT), and a Japanese user MUST NOT receive IELTS or Murphy items.
+7. Provide concrete contentIds matching curriculum lessons where possible.
+8. Completed Lessons Rule: Do not select any lesson in the Completed Lesson IDs list (${JSON.stringify(completedLessonIds)}) as a NEW learning task in the plan. Previously completed lessons can only be given as SRS or review tasks.`;
 
             const prompt = `Student Parameters:
 - Language Track: ${goal.language}
@@ -566,7 +572,7 @@ Generate the JSON response matching this template:
 
                 tasks.push({
                     id: `task-fallback-lesson-${dayName}-${Date.now()}`,
-                    title: fallbackToReview ? `${targetLesson.title} (Nazariya & Tahlil)` : targetLesson.title,
+                    title: fallbackToReview ? `${targetLesson.title} (Takrorlash)` : targetLesson.title,
                     type: fallbackToReview ? 'review' : 'lesson',
                     estimatedMinutes: primaryLessonTime,
                     completed: false,
