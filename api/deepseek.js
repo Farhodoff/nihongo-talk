@@ -50,13 +50,31 @@ export default async function handler(req, res) {
   const rawServerKey = process.env.DEEPSEEK_API_KEY;
   const serverKey = rawServerKey ? rawServerKey.trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '') : null;
 
+  // If DEEPSEEK_API_KEY is not directly in Vercel env, forward server-to-server to Supabase Edge Function
   if (!serverKey) {
-    return res.status(503).json({
-      error: {
-        code: 'AI_NOT_CONFIGURED',
-        message: 'AI service is temporarily unavailable.',
-      },
-    });
+    try {
+      const edgeUrl = 'https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1/deepseek';
+      const anonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+      const edgeRes = await fetch(edgeUrl, {
+        method: 'POST',
+        headers: {
+          'apikey': anonKey,
+          'Authorization': `Bearer ${anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      const edgeData = await edgeRes.json();
+      return res.status(edgeRes.status).json(edgeData);
+    } catch (edgeProxyErr) {
+      console.error('Failed to proxy to Supabase Edge Function from Vercel:', edgeProxyErr);
+      return res.status(503).json({
+        error: {
+          code: 'AI_NOT_CONFIGURED',
+          message: 'AI xizmati vaqtincha mavjud emas.',
+        },
+      });
+    }
   }
 
   const effectiveApiKey = serverKey;
