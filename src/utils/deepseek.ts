@@ -98,38 +98,16 @@ export const callDeepSeek = async (
 
     // 1. Direct HTTPS to Supabase Edge Function (Primary, High-Reliability Gateway)
     try {
-        let authHeader = `Bearer ${anonKey}`;
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.access_token && session.expires_at && (session.expires_at * 1000 > Date.now())) {
-                authHeader = `Bearer ${session.access_token}`;
-            }
-        } catch {}
-
-        let response = await fetch(directUrl, {
+        const response = await fetch(directUrl, {
             method: 'POST',
             headers: {
                 'apikey': anonKey,
-                'Authorization': authHeader,
+                'Authorization': `Bearer ${anonKey}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload),
             signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
         });
-
-        // If 401/403 on stale user session token, retry with clean publishable anon key
-        if (response.status === 401 || response.status === 403) {
-            response = await fetch(directUrl, {
-                method: 'POST',
-                headers: {
-                    'apikey': anonKey,
-                    'Authorization': `Bearer ${anonKey}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload),
-                signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
-            });
-        }
 
         if (response.ok) {
             const data = await response.json();
@@ -142,10 +120,14 @@ export const callDeepSeek = async (
             throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
         } else {
             const errData = await response.json().catch(() => ({}));
-            throw new Error(formatDeepSeekError(response.status, errData));
+            const errMsg = formatDeepSeekError(response.status, errData);
+            if (response.status === 429 || response.status === 503 || response.status === 402) {
+                throw new Error(errMsg);
+            }
+            console.warn('[DeepSeek Edge Direct] Server returned non-200, trying SDK invoke fallback:', response.status);
         }
     } catch (directErr: any) {
-        if (directErr?.message && (directErr.message.startsWith('AI_') || directErr.message.includes('AI xizmati') || directErr.message.includes('AI_RATE_LIMITED'))) {
+        if (directErr?.message && (directErr.message.includes('AI_RATE_LIMITED') || directErr.message.includes('balans'))) {
             throw directErr;
         }
         console.warn('[DeepSeek Edge Direct] Notice, trying supabase.functions.invoke fallback:', directErr?.message);
@@ -166,12 +148,33 @@ export const callDeepSeek = async (
             if (text && text.trim().length > 0) return text;
         }
         if (error) {
-            throw new Error(formatDeepSeekError(500, error));
+            console.warn('[DeepSeek SDK] SDK invocation returned error, trying /api/deepseek proxy:', error.message);
         }
     } catch (sdkErr: any) {
-        if (sdkErr?.message && (sdkErr.message.startsWith('AI_') || sdkErr.message.includes('AI xizmati') || sdkErr.message.includes('AI_UNAVAILABLE'))) {
+        if (sdkErr?.message && (sdkErr.message.includes('AI_RATE_LIMITED') || sdkErr.message.includes('balans'))) {
             throw sdkErr;
         }
+        console.warn('[DeepSeek SDK] Error, trying /api/deepseek:', sdkErr?.message);
+    }
+
+    // 3. Tertiary Serverless /api/deepseek Fallback
+    try {
+        purgeOversizedCookies();
+        const response = await fetch('/api/deepseek', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'omit',
+            body: JSON.stringify(payload),
+            signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
+            if (text && text.trim().length > 0) return text;
+        }
+    } catch (apiErr: any) {
+        console.warn('[DeepSeek Proxy /api/deepseek] Error:', apiErr?.message);
     }
 
     throw new Error("AI_UNAVAILABLE: AI xizmatiga ulanib bo'lmadi (Tarmoq xatosi). Iltimos internet aloqasini tekshiring va qayta urinib ko'ring.");
