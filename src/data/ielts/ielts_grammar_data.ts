@@ -26,45 +26,52 @@ export interface IeltsGrammarTopic {
 }
 
 export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
-    // ==========================================
-    // RAYMOND MURPHY: ESSENTIAL GRAMMAR IN USE (A1 FOUNDATION)
-    // ==========================================
+    // =========================================================================
+    // RAYMOND MURPHY: ESSENTIAL GRAMMAR IN USE — COMPLETE A1 ELEMENTARY MASTERY
+    // =========================================================================
+
+    // --- SECTION 1: TO BE & ESSENTIAL SENTENCES ---
     {
         id: "murphy_u01_am_is_are",
         level: "A1",
         title: "Unit 1: am / is / are (To Be — Darak Gaplar)",
-        category: "Essential To Be (A1 Foundation)",
-        structure: "I am (I'm) | He / She / It is (He's / She's / It's) | We / You / They are (We're / You're / They're)",
+        category: "Essential To Be (A1)",
+        structure: "I am (I'm) | He/She/It is (He's/She's/It's) | We/You/They are (We're/You're/They're)",
         uzbekMeaning: "To Be fe'li — bo'lmoq / hisoblanmoq (Ism, yosh, kasb, millat va sifatlarni aytish)",
-        explanation: "Essential Grammar in Use 1-qoidasi: Ingliz tilida har bir to'liq gapda albatta fe'l bo'lishi shart. O'zbek tilida 'Men talabaman' deyilganda fe'l sezilmaydi, ammo ingliz tilida 'I am a student' deb 'am' fe'li qo'yilishi shart. To Be fe'li kishining kasbi (She is a doctor), yoshi (I am 24 years old), his-tuyg'usi (He is happy), millati (They are Uzbek) va joylashuvini (We are at home) bildiradi.",
-        ieltsRelevance: "Speaking Part 1 da o'zingizni, oilangizni, kasbingizni va yashash joyingizni tanishtirishning eng muhim poydevoridir.",
+        explanation: "Essential Grammar in Use 1-qoidasi: Ingliz tilida har bir to'liq gapda albatta fe'l bo'lishi shart. O'zbek tilida 'Men talabaman' deyilganda harakat sezilmaydi, ammo ingliz tilida 'I am a student' deb 'am' bog'lovchi fe'li qo'yilishi majburiydir. To Be fe'li kishining kasbi (She is a doctor), yoshi (I am 24 years old), his-tuyg'usi (He is very happy), millati (They are Uzbek) va joylashuvini (We are at home) bildirishda qo'llanadi.",
+        ieltsRelevance: "Speaking Part 1 da o'zingizni, oilangizni, mutaxassisligingizni va yashash shahringizni tanishtirishning eng asosiy poydevoridir.",
         academicExamples: [
             {
-                sentence: "I am a university student majoring in computer science.",
-                translation: "Men axborot texnologiyalari yo'nalishida tahsil olayotgan universitet talabasiman.",
+                sentence: "I am a university student majoring in software engineering.",
+                translation: "Men dasturiy muhandislik yo'nalishida tahsil olayotgan universitet talabasiman.",
                 context: "Speaking"
             },
             {
-                sentence: "English is a global language of international communication.",
-                translation: "Ingliz tili xalqaro muloqotning global tili hisoblanadi.",
+                sentence: "English is a global language of international communication and science.",
+                translation: "Ingliz tili xalqaro muloqot va ilm-fanning global tili hisoblanadi.",
                 context: "Task 2"
+            },
+            {
+                sentence: "My hometown is Samarkand, which is famous for its ancient architectural monuments.",
+                translation: "Mening ona shahrim Samarqand bo'lib, u o'zining qadimiy me'moriy obidalari bilan mashhurdir.",
+                context: "Speaking"
             }
         ],
         commonMistakes: [
             {
                 incorrect: "I student from Uzbekistan.",
                 correct: "I am a student from Uzbekistan.",
-                explanation: "Ingliz tilida ega va ot o'rtasida 'to be' fe'li (am) tushirib qoldirilmaydi."
+                explanation: "Ingliz tilida ega va ot o'rtasida 'to be' fe'li (am) hech qachon tushirib qoldirilmaydi."
             },
             {
                 incorrect: "He are very tired today.",
                 correct: "He is very tired today.",
-                explanation: "He, She, It olmoshlari bilan 'is' ishlatiladi ('are' emas)."
+                explanation: "He, She, It 3-shaxs birlik olmoshlari bilan 'is' ishlatiladi ('are' emas)."
             }
         ],
         quizQuestions: [
             {
-                question: "My brother _______ 25 years old and he _______ an architect.",
+                question: "My brother _______ 25 years old and he _______ an architect in London.",
                 options: ["is / is", "am / is", "are / is", "is / are"],
                 correctAnswer: "is / is",
                 explanation: "'My brother' 3-shaxs birlik (he) bo'lgani sababli ikkala o'rinda ham 'is' ishlatiladi."
@@ -86,20 +93,20 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
         id: "murphy_u02_am_is_are_questions",
         level: "A1",
         title: "Unit 2: am / is / are (Savollar va Inkor Shakllari)",
-        category: "Essential To Be (A1 Foundation)",
+        category: "Essential To Be (A1)",
         structure: "Inkor: S + am/is/are + not | Savol: Am/Is/Are + Subject + ...? | Qisqa javob: Yes, I am. / No, he isn't.",
         uzbekMeaning: "To Be da inkor va savol tuzish (Siz talabamisiz? — Ha / Yo'q, men charchamadim)",
-        explanation: "Essential Grammar in Use 2-qoidasi: Savol tuzishda 'am/is/are' egadan oldinga o'tadi: 'Is your father a doctor?' / 'Are you tired?'. Maxsus so'roq so'zlari (What, Where, Who, Why, How) gapning eng boshida keladi: 'Where are you from?'. Inkor shaklida esa 'not' qo'shiladi: 'I am not interested in politics' / 'The weather isn't cold today'.",
+        explanation: "Essential Grammar in Use 2-qoidasi: Savol tuzishda 'am/is/are' egadan oldinga o'tadi: 'Is your father a doctor?' / 'Are you tired?'. Maxsus so'roq so'zlari (What, Where, Who, Why, How) gapning eng boshida keladi: 'Where are you from?' / 'How old is your brother?'. Inkor shaklida esa 'not' qo'shiladi: 'I am not interested in politics' / 'The weather isn't cold today'. Qisqa javobda faqat to be ishlatiladi: 'Yes, I am' (NOT Yes, I'm).",
         ieltsRelevance: "Speaking intervyusida imtihon oluvchining savollariga aniq va to'g'ri grammatik javob qaytarish uchun kerak.",
         academicExamples: [
             {
-                sentence: "Why is higher education essential in the modern era?",
-                translation: "Nima uchun zamonaviy davrda oliy ta'lim muhim hisoblanadi?",
+                sentence: "Why is quality education essential for national economic development?",
+                translation: "Nima uchun sifatli ta'lim milliy iqtisodiy rivojlanish uchun o'ta muhim hisoblanadi?",
                 context: "Task 2"
             },
             {
-                sentence: "Are online courses more effective than traditional classrooms?",
-                translation: "Onlayn kurslar an'anaviy darsxonalardan samaraliroqmi?",
+                sentence: "Are online learning platforms more flexible than traditional classrooms?",
+                translation: "Onlayn ta'lim platformalari an'anaviy darsxonalardan ko'ra moslashuvchanroqmi?",
                 context: "Speaking"
             }
         ],
@@ -107,11 +114,11 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             {
                 incorrect: "Where you are from?",
                 correct: "Where are you from?",
-                explanation: "Maxsus savollarda 'Where' dan keyin darhol 'are' yordamchi fe'li keladi."
+                explanation: "Maxsus savollarda 'Where' dan keyin darhol 'are' yordamchi fe'li egadan oldinga chiqadi."
             },
             {
-                incorrect: "No, I'm not agree.",
-                correct: "No, I don't agree. / I am not ready.",
+                incorrect: "No, I'm not agree with this statement.",
+                correct: "No, I don't agree with this statement. / I am not ready.",
                 explanation: "'Agree' (rozi bo'lmoq) bu harakat fe'li, shuning uchun 'don't agree' deyiladi; sifatlar bilan esa 'I am not' ishlatiladi."
             }
         ],
@@ -121,14 +128,91 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
                 options: ["Are", "Is", "Do", "Does"],
                 correctAnswer: "Are",
                 explanation: "'Your parents' (ota-onangiz) ko'plikda bo'lgani sababli savolda 'Are' oldinga chiqadi."
+            },
+            {
+                question: "'Is it cold outside?' — 'No, _______.'",
+                options: ["it isn't", "it not", "it doesn't", "is not"],
+                correctAnswer: "it isn't",
+                explanation: "To Be so'rog'iga qisqa inkor javobi: 'No, it isn't' yoki 'No, it's not'."
             }
         ]
     },
     {
+        id: "murphy_u36_there_is_there_are",
+        level: "A1",
+        title: "Unit 3: there is / there are (Mavjudlik va Borlik)",
+        category: "Essential Sentences (A1)",
+        structure: "Birlik: There is a/an + Noun | Ko'plik: There are + Nouns | Inkor: There isn't / There aren't",
+        uzbekMeaning: "Biror joyda nimadir borligini aytish (Shaharda katta bog' bor / Maktabda 500 ta o'quvchi bor)",
+        explanation: "Essential Grammar in Use 36-qoidasi: 'There is/are' biror joyda biror narsaning borligini yoki mavjudligini birinchi marta aytishda ishlatiladi. Birlikdagi sanaladigan otlar oldidan 'There is a book on the table', ko'plikdagi otlar uchun 'There are many students in the library' deyiladi. Sanalmaydigan otlar (water, money, pollution) bilan doim 'There is' keladi: 'There is too much noise'.",
+        ieltsRelevance: "Writing Task 1 grafiklarida ('There was a significant increase...') va Task 2 insholarida ('There are several compelling reasons why...') eng ko'p ishlatiladigan struktura.",
+        academicExamples: [
+            {
+                sentence: "There is a striking disparity between urban and rural income levels.",
+                translation: "Shahar va qishloq daromadlari darajasi o'rtasida keskin farq bor.",
+                context: "Task 1"
+            },
+            {
+                sentence: "There are numerous environmental benefits associated with renewable energy.",
+                translation: "Qayta tiklanadigan energiya bilan bog'liq ko'plab ekologik foydalar mavjud.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "In my city have many historical monuments.",
+                correct: "There are many historical monuments in my city.",
+                explanation: "O'zbek tilidagi '...da bor' iborasini ingliz tilida 'have' bilan emas, 'There is / There are' bilan ifodalanadi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "_______ twenty-four hours in a day, and _______ a lot of work to complete.",
+                options: ["There are / there is", "There is / there are", "There are / there are", "There is / there is"],
+                correctAnswer: "There are / there is",
+                explanation: "'Twenty-four hours' ko'plik (there are), 'work' sanalmaydigan ot (there is)."
+            }
+        ]
+    },
+    {
+        id: "murphy_u38_it_pronoun",
+        level: "A1",
+        title: "Unit 4: It ... (Vaqt, Ob-havo, Masofa va Holat)",
+        category: "Essential Sentences (A1)",
+        structure: "It is + Time (It's 10:30) | It is + Weather (It's raining / It's cold) | It is + Distance (It's 5 km to...)",
+        uzbekMeaning: "Egasi aniq bo'lmagan gaplarda 'It' dan foydalanish (Soat 10 bo'ldi / Yomg'ir yoqyapti / Uzoq)",
+        explanation: "Essential Grammar in Use 38-qoidasi: Ingliz tilida egani bo'sh qoldirish mumkin emas. Shuning uchun vaqtni aytganda (It is 8 o'clock), sanani aytganda (It is Monday), ob-havoni aytganda (It is sunny / It is snowing) va masofani aytganda (It is 10 miles to the airport) 'It' soxta egasi (dummy subject) qo'yiladi.",
+        ieltsRelevance: "Writing va Speakingda vaziyat, vaqt va masofani to'g'ri kiritish uchun asosiy sintaksis.",
+        academicExamples: [
+            {
+                sentence: "It is crucial to acknowledge the long-term consequences of deforestation.",
+                translation: "O'rmonlarning kesilishi keltirib chiqaradigan uzoq muddatli oqibatlarni tan olish o'ta muhimdir.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "Is raining today.",
+                correct: "It is raining today.",
+                explanation: "Ingliz tilida ob-havo gaplarida 'It' egasi tushirib qoldirilmaydi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "_______ late now, and _______ a long way to walk home.",
+                options: ["It is / it is", "There is / it is", "It is / there is", "There is / there is"],
+                correctAnswer: "It is / it is",
+                explanation: "Vaqt (It is late) va masofa (it is a long way) uchun 'It is' ishlatiladi."
+            }
+        ]
+    },
+
+    // --- SECTION 2: PRESENT TENSES (CONTINUOUS & SIMPLE) ---
+    {
         id: "murphy_u03_present_continuous",
         level: "A1",
-        title: "Unit 3: I am doing (Present Continuous — Hozirgi Davomli Zamon)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 5: I am doing (Present Continuous — Hozirgi Davomli Zamon)",
+        category: "Present Tenses (A1)",
         structure: "S + am/is/are + V-ing | S + am/is/are + not + V-ing | Am/Is/Are + S + V-ing?",
         uzbekMeaning: "Ayni paytda sodir bo'layotgan yoki vaqtinchalik harakatlar (Men yozyapman, U ishlayapti)",
         explanation: "Essential Grammar in Use 3-qoidasi: Present Continuous ayni gapirilayotgan paytda boshlangan va hali tugallanmagan harakatlar (I am studying right now) uchun ishlatiladi. Fe'lga -ing qo'shilish qoidalari: run -> running (oxirgi undosh ikkilanadi), write -> writing ('e' tushib qoladi), lie -> lying ('ie' -> 'y').",
@@ -164,11 +248,11 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u04_present_continuous_questions",
         level: "A1",
-        title: "Unit 4: Are you doing? (Present Continuous Savollari)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 6: Are you doing? (Present Continuous Savollari)",
+        category: "Present Tenses (A1)",
         structure: "Am/Is/Are + Subject + V-ing? | Question Word (What/Where/Why) + am/is/are + Subject + V-ing?",
         uzbekMeaning: "Hozirgi davomli zamonda savollar (Nima qilyapsan? Qayerga ketyapti?)",
-        explanation: "Essential Grammar in Use 4-qoidasi: So'roq shaklida yordamchi fe'l (am/is/are) egadan oldinga o'tadi: 'Are you feeling okay?' / 'What are you reading?'. Qisqa javoblar: 'Yes, I am' / 'No, I am not'.",
+        explanation: "Essential Grammar in Use 4-qoidasi: So'roq shaklida yordamchi fe'l (am/is/are) egadan oldinga o'tadi: 'Are you feeling okay?' / 'What are you reading?'. Qisqa javoblar: 'Yes, I am' / 'No, I am not'. Maxsus so'roq so'zlari eng oldinda keladi: 'Where is she going?'.",
         ieltsRelevance: "Speaking muloqotida suhbatdosh bilan savol-javob qilishda muhim.",
         academicExamples: [
             {
@@ -196,8 +280,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u05_present_simple",
         level: "A1",
-        title: "Unit 5: I do / work / like etc. (Present Simple — Hozirgi Oddiy Zamon)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 7: I do / work / like etc. (Present Simple — Hozirgi Oddiy Zamon)",
+        category: "Present Tenses (A1)",
         structure: "I / We / You / They + V1 | He / She / It + V1(s/es)",
         uzbekMeaning: "Doimiy takrorlanuvchi ish-harakatlar, odatlar va umumiy haqiqatlar",
         explanation: "Essential Grammar in Use 5-qoidasi: Present Simple har kuni yoki doimiy ravishda takrorlanadigan ishlar (I drink tea every morning) va umumiy tabiat haqiqatlari (The Earth goes around the Sun) uchun ishlatiladi. He/She/It olmoshlarida fe'lga -s/-es qo'shiladi: pass -> passes, watch -> watches, study -> studies.",
@@ -233,8 +317,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u06_present_simple_negative",
         level: "A1",
-        title: "Unit 6: I don't ... (Present Simple Inkor Shakli)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 8: I don't ... (Present Simple Inkor Shakli)",
+        category: "Present Tenses (A1)",
         structure: "I / We / You / They + don't (do not) + V1 | He / She / It + doesn't (does not) + V1",
         uzbekMeaning: "Hozirgi oddiy zamonda inkor (Men qilmayman, U yoqtirmaydi)",
         explanation: "Essential Grammar in Use 6-qoidasi: Present Simple inkorida 'don't' yoki 'doesn't' yordamchi fe'llari qo'yiladi. MUHIM: 'doesn't' ishlatilganda asosiy fe'ldan -s/-es qo'shimchasi tushib qoladi (He doesn't like, NOT he doesn't likes).",
@@ -265,8 +349,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u07_present_simple_questions",
         level: "A1",
-        title: "Unit 7: Do you ... ? (Present Simple Savollari)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 9: Do you ... ? (Present Simple Savollari)",
+        category: "Present Tenses (A1)",
         structure: "Do + I/we/you/they + V1? | Does + he/she/it + V1? | Qisqa javob: Yes, I do. / No, he doesn't.",
         uzbekMeaning: "Hozirgi oddiy zamonda savol berish (Siz inglizcha gapirasizmi? U qayerda yashaydi?)",
         explanation: "Essential Grammar in Use 7-qoidasi: Savol tuzishda gap boshiga 'Do' yoki 'Does' chiqadi: 'Do you play tennis?' / 'Does Sarah speak Spanish?'. Maxsus so'roq so'zlar: 'Where do your parents live?' / 'What does this word mean?'.",
@@ -297,8 +381,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u08_present_continuous_vs_simple",
         level: "A1",
-        title: "Unit 8: I am doing and I do (Continuous va Simple Taqqoslash & Statik Fe'llar)",
-        category: "Present Tenses (A1 Foundation)",
+        title: "Unit 10: I am doing and I do (Continuous va Simple Taqqoslash & Statik Fe'llar)",
+        category: "Present Tenses (A1)",
         structure: "Continuous (am/is/are + V-ing) = Hozir/Vaqtinchalik vs. Simple (V/Vs) = Doimiy/Odat",
         uzbekMeaning: "Hozirgi davomli va Hozirgi oddiy zamon farqi hamda Statik fe'llar",
         explanation: "Essential Grammar in Use 8-qoidasi: Doimiy odat uchun: 'I live in Tashkent' (Men Toshkentda yashayman). Vaqtinchalik holat uchun: 'I am living with my cousin this week'. MUHIM: Statik fe'llar (like, love, hate, want, know, understand, remember, depend, believe) davomli zamonda (-ing) ishlatilmaydi: 'I understand' (NOT I am understanding).",
@@ -334,8 +418,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u09_have_have_got",
         level: "A1",
-        title: "Unit 9: I have ... / I've got ... (Egalik Ifodalash)",
-        category: "Essential Verbs (A1 Foundation)",
+        title: "Unit 11: I have ... / I've got ... (Egalik Ifodalash)",
+        category: "Essential Verbs (A1)",
         structure: "I/We/You/They have got (have) | He/She/It has got (has) | Inkor: haven't got / hasn't got",
         uzbekMeaning: "Menda bor / Unda bor (Mening oilam bor / Uning mashinasi yo'q)",
         explanation: "Essential Grammar in Use 9-qoidasi: Mulk, qarindoshlik va salomatlik holatlarini aytishda: 'I've got a smartphone' / 'She has got two brothers' / 'I've got a headache'. Britaniya inglizchasida 'have got', Amerika inglizchasida 'have' keng qo'llanadi.",
@@ -363,11 +447,13 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             }
         ]
     },
+
+    // --- SECTION 3: PAST TENSES ---
     {
         id: "murphy_u10_was_were",
         level: "A1",
-        title: "Unit 10: was / were (To Be ning O'tgan Zamoni)",
-        category: "Past Tenses (A1 Foundation)",
+        title: "Unit 12: was / were (To Be ning O'tgan Zamoni)",
+        category: "Past Tenses (A1)",
         structure: "I / He / She / It was | We / You / They were | Inkor: wasn't / weren't | Savol: Was/Were + S + ...?",
         uzbekMeaning: "O'tgan zamonda bo'lgan edi (Kecha men uyda edim / Ular charchagan edilar)",
         explanation: "Essential Grammar in Use 10-qoidasi: 'am/is' ning o'tgan zamoni 'was', 'are' ning o'tgan zamoni 'were'. O'tgan zamondagi holat, sifat, kasb va joylashuvni ifodalaydi: 'Yesterday I was sick' / 'They were at the cinema last night'.",
@@ -398,11 +484,11 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u11_past_simple_regular_irregular",
         level: "A1",
-        title: "Unit 11: worked / got / went etc. (Past Simple — O'tgan Oddiy Zamon)",
-        category: "Past Tenses (A1 Foundation)",
+        title: "Unit 13: worked / got / went etc. (Past Simple — O'tgan Oddiy Zamon)",
+        category: "Past Tenses (A1)",
         structure: "To'g'ri fe'llar: V + -ed (worked, cleaned) | Noto'g'ri fe'llar: V2 (went, saw, bought)",
         uzbekMeaning: "O'tgan zamonda aniq vaqtda sodir bo'lib tugagan harakat",
-        explanation: "Essential Grammar in Use 11-qoidasi: Past Simple o'tmishda sodir bo'lgan va butunlay tugagan harakatlar uchun ishlatiladi. To'g'ri fe'llarga -ed qo'shiladi: work -> worked, live -> lived, study -> studied. Noto'g'ri fe'llar maxsus 2-shaklga ega: go -> went, see -> saw, buy -> bought, have -> had.",
+        explanation: "Essential Grammar in Use 11-qoidasi: Past Simple o'tmishda sodir bo'lgan va butunlay tugagan harakatlar uchun ishlatiladi. To'g'ri fe'llarga -ed qo'shiladi: work -> worked, live -> lived, study -> studied. Noto'g'ri fe'llar maxsus 2-shaklga ega: go -> went, see -> saw, buy -> bought, have -> had, take -> took.",
         ieltsRelevance: "Writing Task 1 da o'tgan yillardagi grafik o'zgarishlarni yozishning asosi (e.g. Sales increased rapidly in 2010).",
         academicExamples: [
             {
@@ -430,8 +516,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u12_past_simple_negative_questions",
         level: "A1",
-        title: "Unit 12: I didn't ... Did you ... ? (Past Simple Inkor va Savol)",
-        category: "Past Tenses (A1 Foundation)",
+        title: "Unit 14: I didn't ... Did you ... ? (Past Simple Inkor va Savol)",
+        category: "Past Tenses (A1)",
         structure: "Inkor: S + didn't (did not) + V1 | Savol: Did + Subject + V1? | Qisqa javob: Yes, I did. / No, I didn't.",
         uzbekMeaning: "O'tgan oddiy zamonda inkor va savol (Men bormadim / Siz ko'rdingizmi?)",
         explanation: "Essential Grammar in Use 12-qoidasi: Past Simple ning inkori va so'rog'ida 'did / didn't' ishlatiladi. MUHIM: 'did' yoki 'didn't' kelganda asosiy fe'l 1-shaklga (V1) qaytadi: 'I didn't go' (NOT I didn't went) / 'Did you see Sarah?' (NOT Did you saw).",
@@ -462,8 +548,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u13_past_continuous",
         level: "A1",
-        title: "Unit 13: I was doing (Past Continuous — O'tgan Davomli Zamon)",
-        category: "Past Tenses (A1 Foundation)",
+        title: "Unit 15: I was doing (Past Continuous — O'tgan Davomli Zamon)",
+        category: "Past Tenses (A1)",
         structure: "S + was/were + V-ing | S + was/were + not + V-ing | Was/Were + S + V-ing?",
         uzbekMeaning: "O'tmishda ma'lum bir vaqt oralig'ida davom etayotgan jarayon",
         explanation: "Essential Grammar in Use 13-qoidasi: O'tmishdagi aniq bir vaqtda (masalan, kecha soat 4 da) jarayonda bo'lgan harakatlar uchun ishlatiladi: 'At 4 o'clock yesterday, I was playing tennis' (soat 4 dan oldin boshlaganman va hali o'ynayotgan edim).",
@@ -494,8 +580,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u14_past_continuous_and_simple",
         level: "A1",
-        title: "Unit 14: I was doing and I did (Past Continuous va Past Simple Kesishuvi)",
-        category: "Past Tenses (A1 Foundation)",
+        title: "Unit 16: I was doing and I did (Past Continuous va Past Simple Kesishuvi)",
+        category: "Past Tenses (A1)",
         structure: "Davomli jarayon (was/were + V-ing) + WHEN/WHILE + Qisqa harakat (Past Simple V2)",
         uzbekMeaning: "Bir harakat davom etayotganda ikkinchi to'satdan harakatning ro'y berishi",
         explanation: "Essential Grammar in Use 14-qoidasi: O'tmishda bir uzun jarayon davom etayotgan paytda kutilmaganda boshqa qisqa harakat sodir bo'lsa: 'I was walking home when it began to rain' (Uyga ketayotgan edim, yomg'ir yog'ib ketdi). Uzun fon harakat -> Past Continuous, qisqa kesuvchi harakat -> Past Simple.",
@@ -523,11 +609,13 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             }
         ]
     },
+
+    // --- SECTION 4: PRESENT PERFECT ---
     {
         id: "murphy_u15_present_perfect_1",
         level: "A1",
-        title: "Unit 15: I have done (Present Perfect 1 — Hozirgi Tugallangan Zamon)",
-        category: "Present Perfect (A1 Foundation)",
+        title: "Unit 17: I have done (Present Perfect 1 — Hozirgi Tugallangan Zamon)",
+        category: "Present Perfect (A1)",
         structure: "I / We / You / They + have + V3/ed | He / She / It + has + V3/ed | Inkor: haven't / hasn't + V3",
         uzbekMeaning: "Natijasi hozirgi kunda ko'rinib turgan yoki muhim bo'lgan o'tgan harakat",
         explanation: "Essential Grammar in Use 15-qoidasi: Present Perfect o'tmishda sodir bo'lgan, lekin natijasi ayni hozirgi daqiqada muhim bo'lgan ish-harakatlar uchun ishlatiladi: 'I have lost my key' (= hozir menda kalit yo'q, uyga kirolmayapman). Fe'lning 3-shakli (Past Participle) ishlatiladi: clean -> cleaned, lose -> lost, see -> seen, write -> written.",
@@ -558,8 +646,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u16_present_perfect_just_already_yet",
         level: "A1",
-        title: "Unit 16: I've just ... I've already ... I haven't ... yet (Present Perfect 2)",
-        category: "Present Perfect (A1 Foundation)",
+        title: "Unit 18: I've just ... I've already ... I haven't ... yet (Present Perfect 2)",
+        category: "Present Perfect (A1)",
         structure: "Just = hozirgina | Already = allaqachon (have/has va V3 o'rtasida) | Yet = hali (gap oxirida inkor va so'roqda)",
         uzbekMeaning: "Hozirgina, allaqachon va hali so'zlarining Present Perfect dagi o'rni",
         explanation: "Essential Grammar in Use 16-qoidasi: 1) 'just' = qisqa vaqt oldin: 'I've just arrived'. 2) 'already' = kutilgandan erta yoki allaqachon: 'I've already finished my work'. 3) 'yet' = hali/haliyam (inkor va so'roq gaplarning eng oxirida keladi): 'Have you finished yet?' / 'I haven't eaten yet'.",
@@ -590,8 +678,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u17_present_perfect_have_you_ever",
         level: "A1",
-        title: "Unit 17: Have you ever ... ? (Present Perfect 3 — Hayotiy Tajriba)",
-        category: "Present Perfect (A1 Foundation)",
+        title: "Unit 19: Have you ever ... ? (Present Perfect 3 — Hayotiy Tajriba)",
+        category: "Present Perfect (A1)",
         structure: "Have you ever + V3? | I have never + V3 | Ever = umringizda / biror marta | Never = hech qachon",
         uzbekMeaning: "Hayotiy tajribalar haqida so'rash va aytish (Siz biror marta Londonda bo'lganmisiz?)",
         explanation: "Essential Grammar in Use 17-qoidasi: Insonning butun hayoti davomidagi tajribalari haqida gapirganda: 'Have you ever been to Japan?' (Hayotingizda biror marta Yaponiyada bo'lganmisiz?). Javobda: 'Yes, twice' / 'No, I have never been there'.",
@@ -622,8 +710,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u18_present_perfect_how_long",
         level: "A1",
-        title: "Unit 18: How long have you ... ? (Present Perfect 4 — Davomiylik)",
-        category: "Present Perfect (A1 Foundation)",
+        title: "Unit 20: How long have you ... ? (Present Perfect 4 — Davomiylik)",
+        category: "Present Perfect (A1)",
         structure: "How long + have/has + Subject + V3/been? | S + have/has lived/worked/been + for/since ...",
         uzbekMeaning: "Qancha vaqtdan beri davom etayotganini so'rash va aytish (Qanchadan beri shu yerda yashaysiz?)",
         explanation: "Essential Grammar in Use 18-qoidasi: O'tmishda boshlanib hozirgacha davom etayotgan holatlar uchun Present Simple emas, balki Present Perfect ishlatiladi: 'I have lived in London for two years' (= Men 2 yildan beri Londonda yashayman, hozir ham u yerdaman).",
@@ -654,8 +742,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u19_for_since_ago",
         level: "A1",
-        title: "Unit 19: for / since / ago (Vaqt Ko'rsatkichlari Farqi)",
-        category: "Time Expressions (A1 Foundation)",
+        title: "Unit 21: for / since / ago (Vaqt Ko'rsatkichlari Farqi)",
+        category: "Time Expressions (A1)",
         structure: "FOR + Vaqt oralig'i (for 3 days, for 5 years) | SINCE + Boshlangan aniq nuqta (since Monday, since 2015) | AGO = oldin (Past Simple bilan)",
         uzbekMeaning: "...davomida (for), ...dan beri (since), ...oldin (ago) so'zlarining to'g'ri ishlatilishi",
         explanation: "Essential Grammar in Use 19-qoidasi: 1) 'FOR' — muddat vaqt oralig'i: for two hours, for ten years. 2) 'SINCE' — ish-harakat boshlangan aniq vaqt nuqtasi: since 9 o'clock, since 2010. 3) 'AGO' — o'tmishda ...oldin (faqat Past Simple bilan): 'He left ten minutes ago'.",
@@ -686,8 +774,8 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
         id: "murphy_u20_present_perfect_vs_past_simple",
         level: "A1",
-        title: "Unit 20: I have done and I did (Present Perfect va Past Simple Taqqoslash)",
-        category: "Tense Contrast (A1 Foundation)",
+        title: "Unit 22: I have done and I did (Present Perfect va Past Simple Taqqoslash)",
+        category: "Tense Contrast (A1)",
         structure: "Past Simple: Aniq o'tgan vaqt (yesterday, in 2018, last week) vs. Present Perfect: Noma'lum vaqt / Bugungacha bo'lgan davr (today, recently, this week)",
         uzbekMeaning: "O'tgan oddiy zamon va Hozirgi tugallangan zamonning aniq farqlari",
         explanation: "Essential Grammar in Use 20-qoidasi: Agar vaqt tugagan bo'lsa (yesterday, last year, in 2005) -> Past Simple: 'I finished my essay yesterday'. Agar vaqt davri hali tugamagan bo'lsa (today, this week) yoki natija hozir muhim bo'lsa -> Present Perfect: 'I have written three essays this week'.",
@@ -715,47 +803,432 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             }
         ]
     },
+
+    // --- SECTION 5: MODALS & BASIC SENTENCE EXPANSION (A1) ---
     {
-        id: "murphy_u36_there_is_there_are",
+        id: "murphy_u31_can_could",
         level: "A1",
-        title: "Unit 36: there is / there are (Mavjudlik va Borlik)",
-        category: "Essential Sentences (A1 Foundation)",
-        structure: "Birlik: There is a/an + Noun | Ko'plik: There are + Nouns | Inkor: There isn't / There aren't",
-        uzbekMeaning: "Biror joyda nimadir borligini aytish (Shaharda katta bog' bor / Maktabda 500 ta o'quvchi bor)",
-        explanation: "Essential Grammar in Use 36-qoidasi: 'There is/are' birinchi marta biror narsaning borligini yoki mavjudligini bildirish uchun ishlatiladi. Birlikdagi sanaladigan otlar oldidan 'There is a book on the table', ko'plikdagi otlar uchun 'There are many students in the library' deyiladi.",
-        ieltsRelevance: "Writing Task 1 grafiklarida ('There was a significant increase...') va Task 2 insholarida ('There are several compelling reasons why...') eng ko'p ishlatiladigan struktura.",
+        title: "Unit 23: can / could (Qobiliyat va Iltimoslar)",
+        category: "Modal Verbs (A1)",
+        structure: "S + can + V1 (Hozirgi qobiliyat) | S + could + V1 (O'tgan qobiliyat) | Can/Could you + V1? (Iltimos)",
+        uzbekMeaning: "Qo'ldan kelmoq, qila olmoq va xushmuomala iltimos qilish",
+        explanation: "Essential Grammar in Use 31-qoidasi: Hozirgi qobiliyat: 'I can speak three languages' / 'Can you swim?'. O'tgan zamondagi qobiliyat: 'When I was young, I could run very fast'. Xushmuomalalik bilan iltimos qilish: 'Could you please open the door?'. Inkor shakli: cannot (can't) va couldn't.",
+        ieltsRelevance: "Speaking Part 1 va 2 da o'z ko'nikmalaringiz va imkoniyatlaringizni erkin aytish vositasi.",
         academicExamples: [
             {
-                sentence: "There is a striking disparity between urban and rural income levels.",
-                translation: "Shahar va qishloq daromadlari darajasi o'rtasida keskin farq bor.",
-                context: "Task 1"
-            },
-            {
-                sentence: "There are numerous environmental benefits associated with renewable energy.",
-                translation: "Qayta tiklanadigan energiya bilan bog'liq ko'plab ekologik foydalar mavjud.",
+                sentence: "Advanced technologies can dramatically enhance diagnostic precision in healthcare.",
+                translation: "Ilg'or texnologiyalar sog'liqni saqlashda diagnostika aniqligini keskin oshira oladi.",
                 context: "Task 2"
             }
         ],
         commonMistakes: [
             {
-                incorrect: "In my city have many parks.",
-                correct: "There are many parks in my city.",
-                explanation: "O'zbek tilidagi '...da bor' iborasini ingliz tilida 'have' bilan emas, 'There is / There are' bilan ifodalanadi."
+                incorrect: "I can to play the piano.",
+                correct: "I can play the piano.",
+                explanation: "'Can' modal fe'lidan keyin 'to' zarrachasi qo'yilmaydi (to'g'ridan-to'g'ri fe'l asosi V1 keladi)."
             }
         ],
         quizQuestions: [
             {
-                question: "_______ twenty-four hours in a day, and _______ a lot of work to complete.",
-                options: ["There are / there is", "There is / there are", "There are / there are", "There is / there is"],
-                correctAnswer: "There are / there is",
-                explanation: "'Twenty-four hours' ko'plik (there are), 'work' sanalmaydigan ot (there is)."
+                question: "She _______ speak English fluently now, but three years ago she _______ barely introduce herself.",
+                options: ["can / could", "could / can", "can / can", "could / could"],
+                correctAnswer: "can / could",
+                explanation: "Hozirgi qobiliyatga 'can', 3 yil oldingi o'tmish qobiliyatiga 'could'."
+            }
+        ]
+    },
+    {
+        id: "murphy_u33_should",
+        level: "A1",
+        title: "Unit 24: should (Maslahat va Tavsiya)",
+        category: "Modal Verbs (A1)",
+        structure: "S + should + V1 (Qilish tavsiya etiladi) | S + shouldn't + V1 (Qilmaslik kerak)",
+        uzbekMeaning: "...qilishingiz kerak, maslahat beraman (Siz dam olishingiz kerak)",
+        explanation: "Essential Grammar in Use 33-qoidasi: Biror narsani qilish to'g'ri, foydali yoki oqilona deb hisoblanganda maslahat berish uchun ishlatiladi: 'You look exhausted. You should go to sleep' / 'You shouldn't eat so much junk food'.",
+        ieltsRelevance: "IELTS Writing Task 2 yechimlar qismida davlat va insonlarga tavsiyalar berishda qo'llanadi.",
+        academicExamples: [
+            {
+                sentence: "Governments should allocate more resources to public healthcare and education.",
+                translation: "Hukumatlar sog'liqni saqlash va ta'lim sohalariga ko'proq mablag' ajratishlari kerak.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "You should to see a specialist.",
+                correct: "You should see a specialist.",
+                explanation: "'Should' modal fe'lidan keyin 'to' ishlatilmaydi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Students _______ review grammar rules regularly to avoid systematic errors.",
+                options: ["should", "should to", "ought", "must to"],
+                correctAnswer: "should",
+                explanation: "Tavsiya bildirishda 'should + V1' to'g'ri formuladir."
+            }
+        ]
+    },
+    {
+        id: "murphy_u34_have_to",
+        level: "A1",
+        title: "Unit 25: I have to ... (Majburiyat va Shartlik)",
+        category: "Modal Verbs (A1)",
+        structure: "I/We/You/They have to + V1 | He/She/It has to + V1 | Inkor: don't/doesn't have to + V1",
+        uzbekMeaning: "Majbur bo'lmoq / Shart bo'lmoq (Men erta turishim shart)",
+        explanation: "Essential Grammar in Use 34-qoidasi: Qonun-qoidalar yoki tashqi vaziyat taqozosi bilan biror narsani bajarish majburiy bo'lganda: 'I have to get up at 7 AM for work' / 'In Britain, you have to drive on the left'. Inkorida 'don't have to' = 'qilish shart emas, ixtiyoriy' ma'nosini bildiradi.",
+        ieltsRelevance: "Speaking va Writingda qonuniy majburiyatlar va shartlarni ifodalash.",
+        academicExamples: [
+            {
+                sentence: "Applicants have to submit certified academic transcripts before enrollment.",
+                translation: "Abituriyentlar qabuldan oldin tasdiqlangan akademik diplomlarni topshirishlari shart.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "She have to work on Saturdays.",
+                correct: "She has to work on Saturdays.",
+                explanation: "'She' 3-shaxs birlik uchun 'has to' qo'llaniladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Tomorrow is Sunday, so I _______ wake up early.",
+                options: ["don't have to", "mustn't", "haven't to", "am not having to"],
+                correctAnswer: "don't have to",
+                explanation: "Ertaga yakshanba, shuning uchun erta turishim shart emas (ixtiyoriy: don't have to)."
+            }
+        ]
+    },
+    {
+        id: "murphy_u35_would_like",
+        level: "A1",
+        title: "Unit 26: Would you like ... ? / I'd like ... (Xushmuomala Taklif va Istak)",
+        category: "Polite Expressions (A1)",
+        structure: "Would you like + Noun / to + V1? | I would like (I'd like) + Noun / to + V1",
+        uzbekMeaning: "Xohlarmidingiz? / Istagan bo'lardim (Restoranda, mehmonda va rasmiy muloqotda)",
+        explanation: "Essential Grammar in Use 35-qoidasi: 'Do you want...?' ga qaraganda ancha xushmuomala va odobli shakl: 'Would you like some tea?' / 'I'd like a cup of coffee, please' / 'Would you like to come to the party tonight?'.",
+        ieltsRelevance: "Speaking Part 1 va Part 2 da kelajakdagi orzu va niyatlaringizni xushmuomala aytish.",
+        academicExamples: [
+            {
+                sentence: "I would like to pursue a postgraduate master's degree in sustainable urban planning.",
+                translation: "Men barqaror shaharsozlik yo'nalishida magistratura darajasida o'qishni istagan bo'lardim.",
+                context: "Speaking"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "I would like go to London.",
+                correct: "I would like to go to London.",
+                explanation: "'Would like' dan keyin fe'l kelsa 'to' zarrachasi (to go) qo'yiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "'_______ a cup of tea?' — 'Yes, please. I'd love one.'",
+                options: ["Would you like", "Do you like", "Are you liking", "Will you like"],
+                correctAnswer: "Would you like",
+                explanation: "Xushmuomala taklif bildirishda 'Would you like...' formulasi qo'llaniladi."
             }
         ]
     },
 
-    // ==========================================
-    // RAYMOND MURPHY: ESSENTIAL GRAMMAR IN USE (A2 & B1-B2 MASTERY)
-    // ==========================================
+    // --- SECTION 6: PRONOUNS, NOUNS & ARTICLES (A1) ---
+    {
+        id: "murphy_u58_pronouns",
+        level: "A1",
+        title: "Unit 27: I/me, he/him, they/them etc. (Kishilik va To'ldiruvchi Olmoshlar)",
+        category: "Pronouns & Nouns (A1)",
+        structure: "Ega: I / He / She / It / We / You / They ➔ To'ldiruvchi: me / him / her / it / us / you / them",
+        uzbekMeaning: "Meni/Menga (me), Uni/Unga (him/her), Ularni/Ularga (them)",
+        explanation: "Essential Grammar in Use 58-qoidasi: Fe'ldan oldin ega olmoshlari (I know Tom), fe'ldan yoki predlogdan keyin to'ldiruvchi olmoshlar (Tom knows me / Listen to him / Look at them) ishlatiladi.",
+        ieltsRelevance: "Gapda olmoshlarni chalkashtirmasdan to'g'ri bog'lash va takroriylikni yo'qotish.",
+        academicExamples: [
+            {
+                sentence: "The university offered them comprehensive academic scholarships.",
+                translation: "Universitet ularga to'liq akademik stipendiyalarni taqdim etdi.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "Please give the book to I.",
+                correct: "Please give the book to me.",
+                explanation: "Predlogdan ('to') keyin to'ldiruvchi olmosh 'me' keladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Do you know that professor? Yes, I work with _______ on research projects.",
+                options: ["him", "he", "his", "himself"],
+                correctAnswer: "him",
+                explanation: "'with' predlogidan keyin to'ldiruvchi olmosh 'him' qo'yiladi."
+            }
+        ]
+    },
+    {
+        id: "murphy_u59_possessives",
+        level: "A1",
+        title: "Unit 28: my/his/their & mine/yours (Egalik Sifatlari va Olmoshlari)",
+        category: "Pronouns & Nouns (A1)",
+        structure: "Egalik sifati (+ Ot): my car / his book | Mustaqil egalik olmoshi: mine / yours / his / hers / ours / theirs",
+        uzbekMeaning: "Mening/Meningki (my/mine), Uning/Uningki (his/hers), Ularning/Ularniki (their/theirs)",
+        explanation: "Essential Grammar in Use 59-60 qoidasi: Agar orqasidan ot kelsa: 'This is my bag'. Agar ot aytilmasa: 'This bag is mine' / 'It's not your pen, it's hers'.",
+        ieltsRelevance: "Speakingda mulk va shaxsiy munosabatlarni aniq ifodalash.",
+        academicExamples: [
+            {
+                sentence: "Each nation must fulfill its international environmental commitments.",
+                translation: "Har bir davlat o'zining xalqaro ekologik majburiyatlarini bajarishi shart.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "This laptop is my.",
+                correct: "This laptop is mine. / This is my laptop.",
+                explanation: "Ot bo'lmaganda 'mine' mustaqil egalik olmoshi ishlatiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Is this notebook _______ or is it _______?",
+                options: ["yours / mine", "your / my", "yours / my", "your / mine"],
+                correctAnswer: "yours / mine",
+                explanation: "Ot qo'llanilmagani uchun mustaqil 'yours' va 'mine' shakllari tanlanadi."
+            }
+        ]
+    },
+    {
+        id: "murphy_u64_a_an_the",
+        level: "A1",
+        title: "Unit 29: a / an va the (Artikllar Asoslari)",
+        category: "Articles & Nouns (A1)",
+        structure: "A + Undosh tovush (a car, a university) | AN + Unli tovush (an apple, an hour) | THE + Aniq/Yagona narsa (the sun, the world)",
+        uzbekMeaning: "Noaniq (a/an) va Aniq (the) artikllarning asosiy qo'llanilishi",
+        explanation: "Essential Grammar in Use 64-68 qoidasi: 1) Biror narsa haqida birinchi marta gapirganda yoki u har qanday bittasi bo'lsa: 'I bought a laptop'. 2) Agar suhbatdoshga qaysi biri ekanligi aniq bo'lsa yoki dunyoda yagona bo'lsa: 'The laptop is very fast' / 'The earth revolves around the sun'.",
+        ieltsRelevance: "IELTS Writingda eng ko'p ball olib qo'yadigan mayda xatoliklar artikllardan kelib chiqadi.",
+        academicExamples: [
+            {
+                sentence: "The internet has created an unprecedented platform for global knowledge exchange.",
+                translation: "Internet global bilim almashinuvi uchun misli ko'rilmagan platforma yaratdi.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "I waited for a hour at the station.",
+                correct: "I waited for an hour at the station.",
+                explanation: "'Hour' so'zining 'h' harfi o'qilmaydi, tovush unli (/aʊər/) bo'lgani uchun 'an hour' deyiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "She is _______ university student and lives in _______ center of the city.",
+                options: ["a / the", "an / the", "a / a", "an / a"],
+                correctAnswer: "a / the",
+                explanation: "'University' (/juː.../) undosh tovush bilan boshlangani uchun 'a university', shahar markazi aniq bo'lgani uchun 'the center'."
+            }
+        ]
+    },
+    {
+        id: "murphy_u73_this_that_these_those",
+        level: "A1",
+        title: "Unit 30: this / that / these / those (Ko'rsatish Olmoshlari)",
+        category: "Articles & Nouns (A1)",
+        structure: "Yaqin: This (birlik) / These (ko'plik) | Uzoq: That (birlik) / Those (ko'plik)",
+        uzbekMeaning: "Bu / Bular (This/These) va Anavi / Anavilar (That/Those)",
+        explanation: "Essential Grammar in Use 73-qoidasi: Fazoda yoki vaqtda yaqin bo'lgan birlik narsa uchun 'this picture', ko'plik uchun 'these pictures'. Uzoq bo'lgan birlik uchun 'that car', ko'plik uchun 'those cars' ishlatiladi.",
+        ieltsRelevance: "Writing Task 1 da grafik ko'rsatkichlarini taqqoslashda va ko'rsatishda qo'llanadi.",
+        academicExamples: [
+            {
+                sentence: "These statistical figures highlight a clear upward trajectory in clean energy adoption.",
+                translation: "Ushbu statistik raqamlar toza energiyani o'zlashtirishdagi aniq o'sish traektoriyasini ko'rsatadi.",
+                context: "Task 1"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "This people are waiting in line.",
+                correct: "These people are waiting in line.",
+                explanation: "'People' ko'plik ot bo'lgani sababli 'these' ko'rsatish olmoshi ishlatiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Do you remember _______ wonderful summer vacation we had in Italy?",
+                options: ["that", "this", "these", "those"],
+                correctAnswer: "that",
+                explanation: "O'tmishdagi uzoq xotirani ko'rsatishda birlik 'that' to'g'ri keladi."
+            }
+        ]
+    },
+
+    // --- SECTION 7: ADJECTIVES, ADVERBS & PREPOSITIONS (A1) ---
+    {
+        id: "murphy_u86_comparatives",
+        level: "A1",
+        title: "Unit 31: old/older, expensive / more expensive (Sifat Darajalari — Qiyosiy)",
+        category: "Adjectives & Adverbs (A1)",
+        structure: "Qisqa sifat: Adj + -er + THAN (faster than, cheaper than) | Uzun sifat: MORE + Adj + THAN (more expensive than)",
+        uzbekMeaning: "...roq, nisbatan ...roq (Bu mashina anavisidan tezroq / Qimmatroq)",
+        explanation: "Essential Grammar in Use 86-87 qoidasi: 1-2 bo'g'inli qisqa sifatlarga '-er' qo'shiladi: fast -> faster, cheap -> cheaper, easy -> easier. 3 va undan ko'p bo'g'inli uzun sifatlar oldiga 'more' qo'yiladi: more expensive, more interesting. Noto'g'ri sifatlar: good -> better, bad -> worse, far -> further.",
+        ieltsRelevance: "Writing Task 1 grafiklarida ikki yoki undan ortiq ko'rsatkichlarni taqqoslashning 100% zaruriy qoidasi.",
+        academicExamples: [
+            {
+                sentence: "Solar power generation became significantly cheaper than fossil fuels by 2020.",
+                translation: "Quyosh energiyasini ishlab chiqarish 2020 yilga kelib qazilma yoqilg'ilardan sezilarli darajada arzonroq bo'ldi.",
+                context: "Task 1"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "This method is more easier than the previous one.",
+                correct: "This method is easier than the previous one.",
+                explanation: "Qisqa sifatlarda bir vaqtning o'zida 'more' va '-er' qo'llanilmaydi (faqat 'easier')."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "Living in a rural area is often _______ and _______ than residing in a metropolis.",
+                options: ["cheaper / quieter", "more cheap / more quiet", "cheaper / more quiet", "more cheaper / quieter"],
+                correctAnswer: "cheaper / quieter",
+                explanation: "Qisqa sifatlar 'cheap' va 'quiet' qiyosiy darajada 'cheaper' va 'quieter' bo'ladi."
+            }
+        ]
+    },
+    {
+        id: "murphy_u89_superlatives",
+        level: "A1",
+        title: "Unit 32: the oldest / the most expensive (Sifat Darajalari — Orttirma)",
+        category: "Adjectives & Adverbs (A1)",
+        structure: "THE + Adj + -est (the fastest, the cheapest) | THE MOST + Adj (the most expensive, the most popular)",
+        uzbekMeaning: "Eng ... (Eng tezi, Eng qimmati, Eng mashhuri)",
+        explanation: "Essential Grammar in Use 89-qoidasi: Guruh ichida eng yuqori darajani aytganda orttirma daraja ishlatiladi va doim 'THE' artikli qo'yiladi: the highest, the most significant. Noto'g'ri sifatlar: good -> the best, bad -> the worst.",
+        ieltsRelevance: "Writing Task 1 da eng yuqori (peak) nuqtalarni bayon qilishda asosiy vosita.",
+        academicExamples: [
+            {
+                sentence: "The manufacturing sector recorded the highest volume of employment in 2018.",
+                translation: "Ishlab chiqarish sektori 2018 yilda bandlikning eng yuqori hajmini qayd etdi.",
+                context: "Task 1"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "It was most difficult exam of my life.",
+                correct: "It was the most difficult exam of my life.",
+                explanation: "Orttirma daraja oldidan doim 'the' artikli qo'yilishi shart ('the most difficult')."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "What is _______ mountain in the world?",
+                options: ["the highest", "highest", "the most high", "the most highest"],
+                correctAnswer: "the highest",
+                explanation: "'High' qisqa sifati orttirma darajada 'the highest' bo'ladi."
+            }
+        ]
+    },
+    {
+        id: "murphy_u96_prepositions_time",
+        level: "A1",
+        title: "Unit 33: at 8 o'clock, on Monday, in April (Vaqt Predloglari: at, on, in)",
+        category: "Prepositions (A1)",
+        structure: "AT + Aniq soat/bayram (at 5 PM, at midnight, at weekend) | ON + Kunlar/Sanalar (on Monday, on 15th May) | IN + Oylar/Yillar/Fasllar (in 2020, in summer, in April)",
+        uzbekMeaning: "...da vaqt predloglarining to'g'ri ishlatilishi",
+        explanation: "Essential Grammar in Use 96-qoidasi: 1) 'AT' — aniq soat vaqtlari (at 8:30), tun (at night), dam olish kunlari (at the weekend). 2) 'ON' — haftaning kunlari (on Friday), aniq sanalar (on 1st September). 3) 'IN' — uzun vaqt oraliqlari: oylar (in June), yillar (in 2025), fasllar (in winter), asrlar (in the 21st century).",
+        ieltsRelevance: "Task 1 da sanalar va yillarni kiritishda xato qilmaslikning asosi.",
+        academicExamples: [
+            {
+                sentence: "The global initiative was officially inaugurated in 2015 on World Environment Day.",
+                translation: "Global tashabbus 2015 yilda (in 2015) Butunjahon atrof-muhit kunida (on World Environment Day) rasman boshlandi.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "The conference will start in Monday at 9 AM.",
+                correct: "The conference will start on Monday at 9 AM.",
+                explanation: "Hafta kunlari uchun 'in' emas, 'on' predlogi ishlatiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "The academic semester begins _______ September _______ Monday morning.",
+                options: ["in / on", "on / in", "at / on", "in / at"],
+                correctAnswer: "in / on",
+                explanation: "Oy nomi uchun 'in September', hafta kuni uchun 'on Monday morning'."
+            }
+        ]
+    },
+    {
+        id: "murphy_u99_prepositions_place",
+        level: "A1",
+        title: "Unit 34: in / at / on (Joy Predloglari)",
+        category: "Prepositions (A1)",
+        structure: "IN + Ichida/Shahar/Mamlakat (in a room, in London, in Uzbekistan) | AT + Aniq nuqta/Bino (at the bus stop, at home, at work) | ON + Sirtida/Ko'chada (on the table, on the wall, on Oxford Street)",
+        uzbekMeaning: "Joy va makon predloglari (...ichida, ...da, ...ustida)",
+        explanation: "Essential Grammar in Use 99-qoidasi: 1) 'IN' — 3D bo'shliq yoki chegaralangan hudud: in a garden, in a box, in France. 2) 'AT' — aniq nuqta yoki faoliyat joyi: at the station, at the door, at school. 3) 'ON' — tekislik ustida: on the floor, on the ceiling, on the left.",
+        ieltsRelevance: "Speaking Part 1 da o'z joylashuvingiz va bino-inshootlarni to'g'ri tasvirlash.",
+        academicExamples: [
+            {
+                sentence: "The primary headquarters are located in Geneva on the shores of Lake Geneva.",
+                translation: "Asosiy bosh qarorgoh Jenevada (in Geneva) Jeneva ko'li bo'yida (on the shores) joylashgan.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "I am studying in university at Tashkent.",
+                correct: "I am studying at university in Tashkent.",
+                explanation: "Universitet faoliyat joyi sifatida 'at university', shahar hududi esa 'in Tashkent'."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "We arrived _______ the airport and waited _______ the departure lounge.",
+                options: ["at / in", "in / on", "on / at", "at / at"],
+                correctAnswer: "at / in",
+                explanation: "Aeroport nuqtasi 'at the airport', zalning ichi esa 'in the lounge'."
+            }
+        ]
+    },
+    {
+        id: "murphy_u109_conjunctions",
+        level: "A1",
+        title: "Unit 35: and, but, or, so, because (Asosiy Bog'lovchilar)",
+        category: "Sentence Builders (A1)",
+        structure: "AND (qo'shimcha) | BUT (qarama-qarshilik) | OR (tanlov) | SO (natija) | BECAUSE (sabab)",
+        uzbekMeaning: "Va (and), Ammo (but), Yoki (or), Shuning uchun (so), Chunki (because)",
+        explanation: "Essential Grammar in Use 109-qoidasi: Ikkita oddiy gapni bitta mazmunli qo'shma gapga bog'lash: 'I was tired, so I went to bed early' (Natija) / 'I went to bed early because I was tired' (Sabab) / 'He worked hard, but he failed' (Zidlik).",
+        ieltsRelevance: "Oddiy gaplardan qo'shma murakkab gaplar (Compound Sentences) yasashning poydevori.",
+        academicExamples: [
+            {
+                sentence: "Public transit investment is vital because it curtails emissions and reduces traffic jams.",
+                translation: "Jamoat transporti investitsiyasi juda muhim, chunki u chiqindilarni kamaytiradi va tirbandliklarni qisqartiradi.",
+                context: "Task 2"
+            }
+        ],
+        commonMistakes: [
+            {
+                incorrect: "Because it was raining, so we stayed inside.",
+                correct: "Because it was raining, we stayed inside. / It was raining, so we stayed inside.",
+                explanation: "'Because' va 'so' bir gapda birgalikda ishlatilmaydi; faqat bittasi qo'yiladi."
+            }
+        ],
+        quizQuestions: [
+            {
+                question: "The experiment was complex, _______ the research team persevered _______ they believed in the hypothesis.",
+                options: ["but / because", "so / but", "and / so", "because / but"],
+                correctAnswer: "but / because",
+                explanation: "Birinchi bog'lovchi zidlik (but), ikkinchisi sabab (because)."
+            }
+        ]
+    },
+
+    // =========================================================================
+    // UPPER LEVELS: A2, B1, B2 & C1 (BAND 7.5 - 9.0 ACADEMY)
+    // =========================================================================
     {
         id: "murphy_u21_passive_voice_1",
         level: "A2",
@@ -788,39 +1261,6 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             }
         ]
     },
-    {
-        id: "murphy_u25_used_to",
-        level: "A2",
-        title: "Unit 25: I used to ... (O'tmishdagi Doimiy Odatlar)",
-        category: "Modal Structures (A2)",
-        structure: "S + used to + V1 | Inkor: S + didn't use to + V1 | Savol: Did + S + use to + V1?",
-        uzbekMeaning: "Ilgari qilardim (lekin hozir qilmayman) yoki ilgari shunday edi",
-        explanation: "O'tmishda muntazam qilingan, lekin hozir butunlay to'xtagan odatlar va holatlar uchun: 'I used to live in a small village, but now I live in Tashkent'.",
-        ieltsRelevance: "Speaking Part 1 va Part 2 da bolalik yoki o'tmishdagi odatlarni hozirgi kun bilan taqqoslashda yuqori baholanadi.",
-        academicExamples: [
-            {
-                sentence: "Urban populations used to rely primarily on local agricultural produce.",
-                translation: "Shahar aholisi ilgari asosan mahalliy qishloq xo'jaligi mahsulotlariga tayanar edi.",
-                context: "Task 2"
-            }
-        ],
-        commonMistakes: [
-            {
-                incorrect: "I use to play soccer when I was a child.",
-                correct: "I used to play soccer when I was a child.",
-                explanation: "O'tgan zamon odati uchun 'used to' (-d bilan) yoziladi."
-            }
-        ],
-        quizQuestions: [
-            {
-                question: "This metropolitan district _______ very quiet before the industrial expansion.",
-                options: ["used to be", "is used to", "use to be", "was used to"],
-                correctAnswer: "used to be",
-                explanation: "'Ilgari juda sokin bo'lar edi' ma'nosida 'used to be' to'g'ri."
-            }
-        ]
-    },
-
     {
         id: "murphy_u38_first_second_conditionals",
         level: "B1",
@@ -885,10 +1325,6 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             }
         ]
     },
-
-    // ==========================================
-    // ADVANCED ACADEMIC GRAMMAR (C1 BAND 7.5 - 9.0 ACADEMY)
-    // ==========================================
     {
         id: "murphy_u33_inversion_emphasis",
         level: "C1",
@@ -902,11 +1338,6 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
             {
                 sentence: "Not only does renewable energy curtail greenhouse emissions, but it also creates sustainable employment.",
                 translation: "Qayta tiklanadigan energiya nafaqat issiqxona gazlarini qisqartiradi, balki barqaror ish o'rinlarini ham yaratadi.",
-                context: "Task 2"
-            },
-            {
-                sentence: "Seldom have technological breakthroughs disrupted society as rapidly as artificial intelligence.",
-                translation: "Kamdan-kam texnologik kashfiyotlar jamiyatni sun'iy intellekt kabi tez o'zgartirgan.",
                 context: "Task 2"
             }
         ],
@@ -995,9 +1426,9 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
         level: "C1",
         title: "Unit 36: Academic Nominalisation (Transforming Verbs into Nouns)",
         category: "Academic Register (C1 Academy)",
-        structure: "Verb/Adjective Clause -> Formal Noun Phrase (e.g., 'Because populations migrate' -> 'The migration of populations')",
+        structure: "Verb/Adjective Clause -> Formal Noun Phrase",
         uzbekMeaning: "Akademik nominalizatsiya (Oddiy fe'llarni yuqori ilmiy ot birikmalariga aylantirish)",
-        explanation: "Akademik ingliz tilining eng muhim belgisi — otlashuv (Nominalisation). Oddiy so'zlashuv gaplarini rasmiy ilmiy ot birikmalariga aylantirish: 'Factories pollute water rapidly' -> 'The rapid contamination of water resources by industrial facilities'.",
+        explanation: "Akademik ingliz tilining eng muhim belgisi — otlashuv (Nominalisation). Oddiy so'zlashuv gaplarini rasmiy ilmiy ot birikmalariga aylantirish: 'The rapid contamination of water resources'.",
         ieltsRelevance: "IELTS Writing Task 2 da Lexical Resource va GRA ballarini Band 8.0+ darajaga chiqarishning eng asosiy usuli.",
         academicExamples: [
             {
@@ -1027,7 +1458,7 @@ export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
         level: "C1",
         title: "Unit 37: Inverted Conditionals (Had we acted..., Were governments to...)",
         category: "Advanced Conditionals (C1 Academy)",
-        structure: "Had + S + V3, S + would have + V3 | Were + S + to + V1, S + would + V1 | Should + S + V1, S + will + V1",
+        structure: "Had + S + V3, S + would have + V3 | Were + S + to + V1, S + would + V1",
         uzbekMeaning: "Inversiyalashgan shart gaplar ('If' siz yuqori akademik shart tuzilmalari)",
         explanation: "IELTS Band 8.0+ Task 2 essaylarida 'If' so'zini tushirib qoldirib, inversiya orqali fikr ifodalash Grammatical Range and Accuracy (GRA) mezonini maksimal darajaga ko'taradi.",
         ieltsRelevance: "IELTS Writing Task 2 va Speaking Part 3 da gipotetik va o'tmishdagi yechimlarni ifodalashda qo'llaniladi.",
