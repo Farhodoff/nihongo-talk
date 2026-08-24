@@ -36,8 +36,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
 
     return (
         <div className="bg-card rounded-2xl border border-border p-6 md:p-8 space-y-8 animate-in fade-in duration-200">
-            {/* AI Provider & Engine Status */}
-            <AIProviderSection />
+            {/* AI Provider & Engine Status (Super Admin Only) */}
+            {isSuper && <AIProviderSection />}
 
             {/* Dedicated Learning Focus & Languages Manager */}
             <div id="learning-focus" className="space-y-6">
