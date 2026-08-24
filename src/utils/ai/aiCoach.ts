@@ -132,16 +132,29 @@ export const parseCoachResponse = (raw: string, fallbackLang: 'en' | 'ja' = 'ja'
                 ttsText = cleanJapaneseTTS(ttsText);
             }
 
-            const correction: CoachCorrection = parsed.correction && typeof parsed.correction === 'object' ? {
-                hasError: Boolean(parsed.correction.hasError),
-                original: parsed.correction.original || '',
-                corrected: parsed.correction.corrected || '',
-                explanation: parsed.correction.explanation || ''
-            } : { hasError: false };
+            let correction: CoachCorrection = { hasError: false };
+            if (parsed.correction && typeof parsed.correction === 'object') {
+                if (Array.isArray(parsed.correction.errors) && parsed.correction.errors.length > 0) {
+                    const firstErr = parsed.correction.errors[0];
+                    correction = {
+                        hasError: true,
+                        original: firstErr.original || '',
+                        corrected: firstErr.corrected || '',
+                        explanation: firstErr.explanation || ''
+                    };
+                } else {
+                    correction = {
+                        hasError: Boolean(parsed.correction.hasError),
+                        original: parsed.correction.original || '',
+                        corrected: parsed.correction.corrected || '',
+                        explanation: parsed.correction.explanation || ''
+                    };
+                }
+            }
 
             const vocabulary: CoachVocabularyItem[] = Array.isArray(parsed.vocabulary) ? parsed.vocabulary.map((v: any) => ({
                 word: String(v.word || ''),
-                reading: String(v.reading || ''),
+                reading: String(v.reading || v.romaji || ''),
                 meaning: String(v.meaning || ''),
                 example: String(v.example || '')
             })).filter((v: CoachVocabularyItem) => v.word.trim().length > 0) : [];

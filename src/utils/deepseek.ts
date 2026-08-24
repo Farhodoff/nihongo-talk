@@ -93,68 +93,50 @@ export const callDeepSeek = async (
         return `AI_ERROR: AI xizmatida xatolik yuz berdi (HTTP ${status}). Iltimos qayta urinib ko'ring.`;
     };
 
-    // 1. Primary: Route via Supabase Edge Function ('deepseek')
+    const directUrl = 'https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1/deepseek';
+    const anonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+
+    // 1. Direct HTTPS to Supabase Edge Function (Primary, High-Reliability Gateway)
     try {
-        let { data, error } = await supabase.functions.invoke('deepseek', {
-            body: payload,
-        });
-
-        // If Edge Function returns 404 or alternate name needed
-        if (error && ((error as any)?.context?.status === 404 || (error as any)?.message?.includes('not found'))) {
-            const fallbackResult = await supabase.functions.invoke('deepseek-', {
-                body: payload,
-            });
-            if (fallbackResult.data || !fallbackResult.error) {
-                data = fallbackResult.data;
-                error = fallbackResult.error;
-            }
-        }
-
-        if (!error && data) {
-            if (data.error) {
-                const status = (data as any)?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
-                throw new Error(formatDeepSeekError(status, data));
-            }
-            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
-            if (text && text.trim().length > 0) return text;
-        }
-
-        if (error) {
-            console.warn('[Supabase Edge Function] Invoke notice, trying direct endpoint fetch:', error);
-        }
-    } catch (edgeErr: any) {
-        if (edgeErr?.message && (edgeErr.message.startsWith('AI_') || edgeErr.message.includes('AI xizmati') || edgeErr.message.includes('AI_RATE_LIMITED') || edgeErr.message.includes('Quota'))) {
-            throw edgeErr;
-        }
-        console.warn('[Supabase Edge Function] Catch notice, attempting direct endpoint fetch:', edgeErr?.message);
-    }
-
-    // 2. Direct Supabase Edge Endpoint Fetch (Bypasses client wrapper quirks)
-    try {
-        const directUrl = 'https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1/deepseek';
-        const anonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
-        
-        let token = anonKey;
+        let authHeader = `Bearer ${anonKey}`;
         try {
             const { data: { session } } = await supabase.auth.getSession();
-            if (session?.access_token) {
-                token = session.access_token;
+            if (session?.access_token && session.expires_at && (session.expires_at * 1000 > Date.now())) {
+                authHeader = `Bearer ${session.access_token}`;
             }
         } catch {}
 
-        const response = await fetch(directUrl, {
+        let response = await fetch(directUrl, {
             method: 'POST',
             headers: {
                 'apikey': anonKey,
-                'Authorization': `Bearer ${token}`,
+                'Authorization': authHeader,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload),
             signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
         });
 
+        // If 401/403 on stale user session token, retry with clean publishable anon key
+        if (response.status === 401 || response.status === 403) {
+            response = await fetch(directUrl, {
+                method: 'POST',
+                headers: {
+                    'apikey': anonKey,
+                    'Authorization': `Bearer ${anonKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+                signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
+            });
+        }
+
         if (response.ok) {
             const data = await response.json();
+            if (data.error) {
+                const status = (data as any)?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
+                throw new Error(formatDeepSeekError(status, data));
+            }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
             throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
@@ -166,6 +148,31 @@ export const callDeepSeek = async (
         if (directErr?.message && (directErr.message.startsWith('AI_') || directErr.message.includes('AI xizmati') || directErr.message.includes('AI_RATE_LIMITED'))) {
             throw directErr;
         }
-        throw new Error("AI_UNAVAILABLE: AI xizmatiga ulanib bo'lmadi (Tarmoq xatosi). Iltimos internet aloqasini tekshiring va qayta urinib ko'ring.");
+        console.warn('[DeepSeek Edge Direct] Notice, trying supabase.functions.invoke fallback:', directErr?.message);
     }
+
+    // 2. Secondary Supabase SDK Fallback
+    try {
+        const { data, error } = await supabase.functions.invoke('deepseek', {
+            body: payload,
+        });
+
+        if (!error && data) {
+            if (data.error) {
+                const status = (data as any)?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
+                throw new Error(formatDeepSeekError(status, data));
+            }
+            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
+            if (text && text.trim().length > 0) return text;
+        }
+        if (error) {
+            throw new Error(formatDeepSeekError(500, error));
+        }
+    } catch (sdkErr: any) {
+        if (sdkErr?.message && (sdkErr.message.startsWith('AI_') || sdkErr.message.includes('AI xizmati') || sdkErr.message.includes('AI_UNAVAILABLE'))) {
+            throw sdkErr;
+        }
+    }
+
+    throw new Error("AI_UNAVAILABLE: AI xizmatiga ulanib bo'lmadi (Tarmoq xatosi). Iltimos internet aloqasini tekshiring va qayta urinib ko'ring.");
 };
