@@ -84,7 +84,6 @@ export const PersonalLearningPlanEngine = {
             // Get user current mastery, weaknesses, and SRS state from orchestrator / engines
             const state = await LearningPathEngine.getLearningPath(userId, { forceLanguage: goal.language });
             const srsSummary = state.srsSummary || { dueCount: 0, overdueCount: 0 };
-            const weaknesses = state.masteryProfile?.topWeaknesses.map(w => `${w.skill}: ${w.reason}`) || [];
             const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
 
             const isJa = goal.language === 'ja';
@@ -115,58 +114,107 @@ export const PersonalLearningPlanEngine = {
                 }
             }
 
-            const systemPrompt = `You are a Senior Learning Architect specializing in personalized ${isJa ? 'Japanese (JLPT/Conversational)' : 'English (IELTS/CEFR/Murphy)'} instruction.
-You create a rigorous, multi-skill study plan for exactly ONE WEEK (Day 1 to 7 / Monday to Sunday) based on student parameters.
+            // Build available content catalog for the current language and level
+            const course = CurriculumService.getCourse(goal.language);
+            const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
+            const targetLevelCode = cleanCurrent === 'ZERO' ? (isJa ? 'N5' : 'A1') : cleanCurrent;
+            const availableContent: { id: string; title: string; skill: string }[] = [];
 
-CRITICAL RULES:
-1. Output MUST be strictly valid JSON according to the schema. No markdown fences.
-2. The language of tasks, objectives, reasoning, and outcomes MUST be in Uzbek (O'zbek tilida).
-3. The total duration of all tasks in a single day MUST not exceed the user's budget of ${adjustedDailyMinutes} minutes. Clamp activities to fit this total.
-4. Multi-Skill Requirement: NEVER create a day with only flashcards. Each day MUST include a balanced mix of skills based on the user's daily time budget:
-   - 📖 Grammatika (Murphy qoidalari & formulalar) -> route: '/ielts?tab=grammar' or '/lesson/<id>'
-   - 🗣️ Speaking (AI Murabbiy bilan real ssenariy muloqoti) -> route: '/scenarios' or '/speaking-coach'
-   - 🎧 Listening & Reading (Amaliy testlar va dialoglar) -> route: '/ielts?tab=reading_listening' or '/jlpt/reading'
-   - 🎴 Lug'at (SRS Fleshkarta takrorlash) -> route: '/vocabulary'
-   - ✍️ Writing / Mashqlar -> route: '/ielts?tab=writing'
-5. Route validation: Valid routes are:
-   - Specific lessons: /lesson/<id> (e.g. en-a1-u1-l1)
-   - Specific hubs: /ielts?tab=grammar, /scenarios, /speaking-coach, /ielts?tab=reading_listening, /ielts?tab=writing, /vocabulary, /study-mode, /jlpt, /jlpt/grammar-quiz, /jlpt/reading, /jlpt/listening
-6. Ensure strict isolation. An English user MUST NOT receive Japanese items/lessons (e.g. Kanji, JLPT), and a Japanese user MUST NOT receive IELTS or Murphy items.
-7. Provide concrete contentIds matching curriculum lessons where possible.
-8. Completed Lessons Rule: Do not select any lesson in the Completed Lesson IDs list (${JSON.stringify(completedLessonIds)}) as a NEW learning task in the plan. Previously completed lessons can only be given as SRS or review tasks.`;
+            course.levels?.forEach(lvl => {
+                if (lvl.code.toUpperCase() === targetLevelCode || lvl.code.toUpperCase().includes(targetLevelCode)) {
+                    lvl.units?.forEach(u => {
+                        u.lessons?.forEach(l => {
+                            if (l.isContentAvailable && !completedLessonIds.includes(l.id)) {
+                                availableContent.push({ id: l.id, title: l.title, skill: l.skill || 'grammar' });
+                            }
+                        });
+                    });
+                }
+            });
+
+            // If English track, also include Murphy A1 Unit IDs
+            if (!isJa) {
+                availableContent.push(
+                    { id: 'murphy_u01_am_is_are', title: 'Unit 1: am / is / are', skill: 'grammar' },
+                    { id: 'murphy_u02_am_is_are_questions', title: 'Unit 2: am / is / are questions', skill: 'grammar' },
+                    { id: 'murphy_u03_present_continuous', title: 'Unit 3: Present Continuous', skill: 'grammar' },
+                    { id: 'murphy_u05_present_simple', title: 'Unit 5: Present Simple', skill: 'grammar' },
+                    { id: 'murphy_u10_was_were', title: 'Unit 10: was / were', skill: 'grammar' },
+                    { id: 'murphy_u11_past_simple_regular_irregular', title: 'Unit 11: Past Simple', skill: 'grammar' },
+                    { id: 'murphy_u15_present_perfect_1', title: 'Unit 15: Present Perfect', skill: 'grammar' },
+                    { id: 'murphy_u31_can_could', title: 'Unit 23: can / could', skill: 'speaking' },
+                    { id: 'murphy_u36_there_is_there_are', title: 'Unit 3: there is / there are', skill: 'grammar' }
+                );
+            }
+
+            const allowedRoutes = isJa
+                ? ['/jlpt', '/jlpt/grammar-quiz', '/jlpt/reading', '/jlpt/listening', '/scenarios', '/study-mode']
+                : ['/ielts?tab=grammar', '/scenarios', '/speaking-coach', '/ielts?tab=reading_listening', '/ielts?tab=writing', '/vocabulary', '/study-mode'];
+
+            const weaknessesWithSeverity = state.masteryProfile?.topWeaknesses.map(w => ({
+                skill: w.skill,
+                severity: w.severity || 'medium',
+                reason: w.reason
+            })) || [];
+
+            const systemPrompt = `You are Kaizen AI's adaptive weekly learning planner.
+
+Return ONLY valid JSON. No markdown.
+
+You must create exactly 7 days: monday through sunday.
+Every task must include: title, type, skill, estimatedMinutes, route.
+Use Uzbek for title, reasoning, and expectedOutcome.
+
+DECISION RULES:
+- Daily total must be <= DAILY_MINUTES.
+- If DAILY_MINUTES < 30: create exactly 2 tasks.
+- If DAILY_MINUTES is 30–59: create 2–3 tasks.
+- If DAILY_MINUTES >= 60: create 3 tasks.
+- Never create an SRS-only day.
+- SRS route is always /study-mode, and SRS gets 5–20 minutes based on DUE_CARDS.
+- Allocate the remaining time to the weakest skills first.
+- A high-severity weak skill must appear at least 3 times in the week.
+- A medium-severity weak skill must appear at least 2 times.
+- Include speaking, reading/listening, writing, and grammar across the week when the time budget permits.
+- Use only routes from ALLOWED_ROUTES and only valid contentIds from AVAILABLE_CONTENT.
+- Higher target score and shorter deadline require more exam practice, writing, speaking, and mock tasks.
+- Do not invent lesson IDs.`;
 
             const prompt = `Student Parameters:
 - Language Track: ${goal.language}
 - Goal Type: ${goal.goalType}
-- Target: ${goal.targetGoal} (Level: ${goal.targetLevel})
-- Preparation Week: Week ${weekNumber} of ${goal.totalWeeks}
-- Daily Available Time: ${adjustedDailyMinutes} minutes
-- Current Level/Estimated Score: ${goal.currentLevel}
-- Active Weaknesses: ${JSON.stringify(weaknesses)}
-- Completed Lesson IDs: ${JSON.stringify(completedLessonIds)}
-- Spaced Repetition (SRS) Status: ${srsSummary.dueCount} cards due (${srsSummary.overdueCount} overdue)
-${evaluation ? `- Previous Week Summary: ${JSON.stringify(evaluation)}` : ''}
+- Target: ${goal.targetGoal} (Target Level: ${goal.targetLevel})
+- Preparation Week: Week ${weekNumber} of ${goal.totalWeeks} (Weeks Remaining: ${Math.max(1, goal.totalWeeks - weekNumber + 1)})
+- DAILY_MINUTES: ${adjustedDailyMinutes}
+- DUE_CARDS: ${srsSummary.dueCount} (Overdue: ${srsSummary.overdueCount})
+- Current Level: ${goal.currentLevel}
+- WEAKNESSES: ${JSON.stringify(weaknessesWithSeverity)}
+- COMPLETED_LESSONS: ${JSON.stringify(completedLessonIds)}
+- ALLOWED_ROUTES: ${JSON.stringify(allowedRoutes)}
+- AVAILABLE_CONTENT: ${JSON.stringify(availableContent.slice(0, 15))}
+${evaluation ? `- PREVIOUS_WEEK_RESULT: ${JSON.stringify(evaluation)}` : ''}
 
-Generate the JSON response matching this template:
+Generate JSON matching this exact schema:
 {
   "objectives": ["Haftalik maqsad 1", "Haftalik maqsad 2"],
-  "focusSkills": ["vocabulary", "grammar"],
+  "focusSkills": ["grammar", "speaking", "vocabulary"],
   "days": [
     {
       "day": "monday",
       "tasks": [
         {
-          "title": "Present Simple & Greetings",
-          "type": "grammar",
-          "estimatedMinutes": 20,
-          "contentId": "en-a1-u1-l1",
-          "route": "/lesson/en-a1-u1-l1"
+          "title": "Unit 1: am / is / are — Darak gaplar qoidasi",
+          "type": "lesson",
+          "skill": "grammar",
+          "estimatedMinutes": 30,
+          "contentId": "murphy_u01_am_is_are",
+          "route": "/ielts?tab=grammar"
         }
       ]
     }
   ],
-  "reasoning": "Tushuntirish va rejalashtirish asosi...",
-  "expectedOutcome": "Hafta yakunida kutilayotgan natija..."
+  "reasoning": "Tushuntirish (O'zbek tilida)...",
+  "expectedOutcome": "Kutilayotgan natija (O'zbek tilida)..."
 }`;
 
             let cleanJson = '';
@@ -177,15 +225,25 @@ Generate the JSON response matching this template:
             cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
             parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
 
-            // 2. Controlled 1-time retry if JSON output was malformed
+            // 2. Controlled 1-time targeted "repair JSON" retry if plan was rejected by validator
             if (!parsed) {
                 try {
-                    const retryPrompt = `${prompt}\n\nIMPORTANT: Return ONLY a valid JSON object matching the requested schema. Ensure all 7 days (monday to sunday) are present.`;
-                    const retryResponse = await callSelectedAIProvider(retryPrompt, systemPrompt, true);
+                    const repairPrompt = `The previous JSON response was REJECTED by the validator.
+Ensure:
+1. All 7 days (monday, tuesday, wednesday, thursday, friday, saturday, sunday) are present.
+2. NO day contains ONLY SRS tasks.
+3. Daily total minutes must be <= ${adjustedDailyMinutes}.
+4. All tasks include title, type, skill, estimatedMinutes, and valid route from ALLOWED_ROUTES.
+5. Return ONLY a valid JSON object matching the requested schema. No markdown fences.
+
+Original Student Profile:
+${prompt}`;
+
+                    const retryResponse = await callSelectedAIProvider(repairPrompt, systemPrompt, true);
                     cleanJson = retryResponse.replace(/```json/g, '').replace(/```/g, '').trim();
                     parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
                 } catch (retryErr: any) {
-                    console.error('[PersonalLearningPlanEngine] Retry generation attempt error:', retryErr?.message);
+                    console.error('[PersonalLearningPlanEngine] Repair generation attempt error:', retryErr?.message);
                 }
             }
 
