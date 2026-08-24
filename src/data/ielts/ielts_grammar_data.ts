@@ -27,6 +27,195 @@ export interface IeltsGrammarTopic {
 
 export const IELTS_GRAMMAR_DATABASE: IeltsGrammarTopic[] = [
     {
+        "id": "murphy_u00a_am_is_are",
+        "level": "A1-A2",
+        "title": "Unit 1: am / is / are (To Be — Darak Gaplar)",
+        "category": "Essential To Be (A1 Foundation)",
+        "structure": "I am (I'm) | He / She / It is (He's / She's / It's) | We / You / They are (We're / You're / They're)",
+        "uzbekMeaning": "To Be fe'li — bo'lmoq / hisoblanmoq (Ism, yosh, kasb, millat va sifatlarni aytish)",
+        "explanation": "Essential Grammar in Use qoidasi: Ingliz tilida har bir to'liq gapda albatta fe'l bo'lishi shart. O'zbek tilida 'Men talabaman' deyilganda fe'l sezilmaydi, ammo ingliz tilida 'I am a student' deb 'am' fe'li qo'yilishi shart. To Be fe'li kishining kasbi (She is a doctor), yoshi (I am 24 years old), his-tuyg'usi (He is happy), millati (They are Uzbek) va joylashuvini (We are at home) bildiradi.",
+        "ieltsRelevance": "Speaking Part 1 da o'zingizni, oilangizni, kasbingizni va yashash joyingizni tanishtirishning eng muhim poydevoridir.",
+        "academicExamples": [
+            {
+                "sentence": "I am a university student majoring in computer science.",
+                "translation": "Men axborot texnologiyalari yo'nalishida tahsil olayotgan universitet talabasiman.",
+                "context": "Speaking"
+            },
+            {
+                "sentence": "English is a global language of international communication.",
+                "translation": "Ingliz tili xalqaro muloqotning global tili hisoblanadi.",
+                "context": "Task 2"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "I student from Uzbekistan.",
+                "correct": "I am a student from Uzbekistan.",
+                "explanation": "Ingliz tilida ega va ot o'rtasida 'to be' fe'li (am) tushirib qoldirilmaydi."
+            },
+            {
+                "incorrect": "He are very tired today.",
+                "correct": "He is very tired today.",
+                "explanation": "He, She, It olmoshlari bilan 'is' ishlatiladi ('are' emas)."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "My brother _______ 25 years old and he _______ an architect.",
+                "options": [
+                    "is / is",
+                    "am / is",
+                    "are / is",
+                    "is / are"
+                ],
+                "correctAnswer": "is / is",
+                "explanation": "'My brother' 3-shaxs birlik (he) bo'lgani sababli ikkala o'rinda ham 'is' ishlatiladi."
+            },
+            {
+                "question": "Choose the grammatically correct sentence:",
+                "options": [
+                    "They are from London and they are teachers.",
+                    "They from London and they teachers.",
+                    "They is from London and they are teachers.",
+                    "They are from London and they is teachers."
+                ],
+                "correctAnswer": "They are from London and they are teachers.",
+                "explanation": "'They' ko'plik olmoshi bo'lgani sababli 'are' to'g'ri bog'lovchi hisoblanadi."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u00b_am_is_are_questions",
+        "level": "A1-A2",
+        "title": "Unit 2: am / is / are (Savollar va Inkor Shakllari)",
+        "category": "Essential To Be (A1 Foundation)",
+        "structure": "Inkor: S + am/is/are + not | Savol: Am/Is/Are + Subject + ...? | Qisqa javob: Yes, I am. / No, he isn't.",
+        "uzbekMeaning": "To Be da inkor va savol tuzish (Siz talabamisiz? — Ha / Yo'q, men charchamadim)",
+        "explanation": "Essential Grammar in Use qoidasi: Savol tuzishda 'am/is/are' egadan oldinga o'tadi: 'Is your father a doctor?' / 'Are you tired?'. Maxsus so'roq so'zlari (What, Where, Who, Why, How) gapning eng boshida keladi: 'Where are you from?'. Inkor shaklida esa 'not' qo'shiladi: 'I am not interested in politics' / 'The weather isn't cold today'.",
+        "ieltsRelevance": "Speaking intervyusida imtihon oluvchining savollariga aniq va to'g'ri grammatik javob qaytarish uchun kerak.",
+        "academicExamples": [
+            {
+                "sentence": "Why is higher education essential in the modern era?",
+                "translation": "Nima uchun zamonaviy davrda oliy ta'lim muhim hisoblanadi?",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "Are online courses more effective than traditional classrooms?",
+                "translation": "Onlayn kurslar an'anaviy darsxonalardan samaraliroqmi?",
+                "context": "Speaking"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "Where you are from?",
+                "correct": "Where are you from?",
+                "explanation": "Maxsus savollarda 'Where' dan keyin darhol 'are' yordamchi fe'li keladi."
+            },
+            {
+                "incorrect": "No, I'm not agree.",
+                "correct": "No, I don't agree. / I am not ready.",
+                "explanation": "'Agree' (rozi bo'lmoq) bu harakat fe'li, shuning uchun 'don't agree' deyiladi; sifatlar bilan esa 'I am not' ishlatiladi."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "_______ your parents at home right now?",
+                "options": [
+                    "Are",
+                    "Is",
+                    "Do",
+                    "Does"
+                ],
+                "correctAnswer": "Are",
+                "explanation": "'Your parents' (ota-onangiz) ko'plikda bo'lgani sababli savolda 'Are' oldinga chiqadi."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u00c_there_is_there_are",
+        "level": "A1-A2",
+        "title": "Unit 3: there is / there are (Mavjudlik va Borlik)",
+        "category": "Essential Sentences (A1 Foundation)",
+        "structure": "Birlik: There is a/an + Noun | Ko'plik: There are + Nouns | Inkor: There isn't / There aren't",
+        "uzbekMeaning": "Biror joyda nimadir borligini aytish (Shaharda katta bog' bor / Maktabda 500 ta o'quvchi bor)",
+        "explanation": "Essential Grammar in Use qoidasi: 'There is/are' birinchi marta biror narsaning borligini yoki mavjudligini bildirish uchun ishlatiladi. Birlikdagi sanaladigan otlar oldidan 'There is a book on the table', ko'plikdagi otlar uchun 'There are many students in the library' deyiladi.",
+        "ieltsRelevance": "Writing Task 1 grafiklarida ('There was a significant increase...') va Task 2 insholarida ('There are several compelling reasons why...') eng ko'p ishlatiladigan struktura.",
+        "academicExamples": [
+            {
+                "sentence": "There is a striking disparity between urban and rural income levels.",
+                "translation": "Shahar va qishloq daromadlari darajasi o'rtasida keskin farq bor.",
+                "context": "Task 1"
+            },
+            {
+                "sentence": "There are numerous environmental benefits associated with renewable energy.",
+                "translation": "Qayta tiklanadigan energiya bilan bog'liq ko'plab ekologik foydalar mavjud.",
+                "context": "Task 2"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "In my city have many parks.",
+                "correct": "There are many parks in my city.",
+                "explanation": "O'zbek tilidagi '...da bor' iborasini ingliz tilida 'have' bilan emas, 'There is / There are' bilan ifodalanadi."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "_______ twenty-four hours in a day, and _______ a lot of work to complete.",
+                "options": [
+                    "There are / there is",
+                    "There is / there are",
+                    "There are / there are",
+                    "There is / there is"
+                ],
+                "correctAnswer": "There are / there is",
+                "explanation": "'Twenty-four hours' ko'plik (there are), 'work' sanalmaydigan ot (there is)."
+            }
+        ]
+    },
+    {
+        "id": "murphy_u00d_have_got",
+        "level": "A1-A2",
+        "title": "Unit 4: have / have got (Egalik Ifodalash)",
+        "category": "Essential Verbs (A1 Foundation)",
+        "structure": "I / We / You / They have got (have) | He / She / It has got (has) | Inkor: haven't got / hasn't got",
+        "uzbekMeaning": "Menda bor / Unda bor (Mening oilam bor / Uning mashinasi yo'q)",
+        "explanation": "Essential Grammar in Use qoidasi: Egalikni (I've got a smartphone), qarindoshlik aloqalarini (She has got two brothers) va salomatlik holatini (I've got a headache) aytishda qo'llaniladi. I/We/You/They bilan 'have got', He/She/It bilan 'has got' ishlatiladi.",
+        "ieltsRelevance": "Speaking Part 1 da o'z mulkingiz, oilangiz va kundalik holatlaringiz haqida tabiiy gapirish vositasi.",
+        "academicExamples": [
+            {
+                "sentence": "Governments have an imperative responsibility to protect public infrastructure.",
+                "translation": "Hukumatlar jamoat infratuzilmasini himoya qilish bo'yicha qat'iy mas'uliyatga ega.",
+                "context": "Task 2"
+            },
+            {
+                "sentence": "I have got extensive practical experience in digital marketing.",
+                "translation": "Menda raqamli marketing sohasida katta amaliy tajriba bor.",
+                "context": "Speaking"
+            }
+        ],
+        "commonMistakes": [
+            {
+                "incorrect": "She have got two cars.",
+                "correct": "She has got two cars. / She has two cars.",
+                "explanation": "3-shaxs birlik (he/she/it) bilan doim 'has got' keladi."
+            }
+        ],
+        "quizQuestions": [
+            {
+                "question": "Sarah _______ a new laptop, but she _______ a printer.",
+                "options": [
+                    "has got / hasn't got",
+                    "have got / haven't got",
+                    "has got / haven't got",
+                    "have got / hasn't got"
+                ],
+                "correctAnswer": "has got / hasn't got",
+                "explanation": "Sarah (She) uchun darak shaklda 'has got', inkorda 'hasn't got' to'g'ri keladi."
+            }
+        ]
+    },
+    {
         "id": "murphy_u01_present_continuous",
         "level": "A1-A2",
         "title": "Unit 1: Present Continuous (I am doing)",
