@@ -82,7 +82,7 @@ export const ScenarioPickerPage: React.FC = () => {
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                            {activeLang === 'ja' ? 'Jonli Yaponcha Muloqot Ssenariylari' : 'Real-World English Conversation Scenarios'}
+                            {activeLang === 'ja' ? 'Japanese Scenarios (Muloqot Ssenariylari)' : 'English Scenarios (Real-World Conversation)'}
                         </h1>
                         <p className="text-xs md:text-sm text-gray-300 max-w-xl leading-relaxed">
                             {activeLang === 'ja'

@@ -112,7 +112,7 @@ const Layout: React.FC = () => {
             return [
                 { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
                 { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-                { name: "Ssenariylar (Scenarios)", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
+                { name: "Scenarios", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
                 { name: "Speaking Coach", path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
                 { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
                 { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
@@ -126,7 +126,7 @@ const Layout: React.FC = () => {
         return [
             { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
             { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-            { name: "Ssenariylar (Scenarios)", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
+            { name: "Scenarios", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
             { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
             { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
             { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
@@ -145,7 +145,7 @@ const Layout: React.FC = () => {
     const getPageTitle = () => {
         const found = navItems.find(item => item.path === location.pathname);
         if (found) return found.name;
-        if (location.pathname.startsWith('/scenarios')) return 'Ssenariylar • Scenarios Hub';
+        if (location.pathname.startsWith('/scenarios')) return 'Scenarios';
         if (location.pathname.startsWith('/speaking-coach')) return 'Speaking Examiner & Coach';
         if (location.pathname === '/dashboard') return t('nav.dashboard') || 'Dashboard';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
