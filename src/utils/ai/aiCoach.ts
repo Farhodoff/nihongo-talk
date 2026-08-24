@@ -359,6 +359,7 @@ You MUST respond with a VALID JSON object matching this schema exactly:
     let fallbackReply = "";
     let fallbackTts = "";
     let fallbackRomaji = "";
+    let fallbackVocab: CoachVocabularyItem[] = [];
 
     if (language === 'ja') {
         const isKaimono = scenario?.id === 'kaimono' || scenario?.title_ja?.includes('買い物') || scenario?.title_uz?.toLowerCase().includes('xarid') || message.includes('いくら');
@@ -368,27 +369,49 @@ You MUST respond with a VALID JSON object matching this schema exactly:
             fallbackReply = "こちらは1,500円（千五百円）でございます。ご試着もできますがいかがでしょうか？";
             fallbackTts = "こちらは千五百円でございます。ご試着もできますがいかがでしょうか？";
             fallbackRomaji = "Kochira wa sen gohyaku en de gozaimasu. Goshichaku mo dekimasu ga ikaga deshou ka?";
+            fallbackVocab = [
+                { word: "試着", reading: "しちゃく", meaning: "kiyib ko'rish, o'lchab ko'rish", example: "試着してもいいですか？" },
+                { word: "値段", reading: "ねだん", meaning: "narx, baho", example: "この値段は安いです。" }
+            ];
         } else if (isMensetsu) {
             fallbackReply = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
             fallbackTts = "承知いたしました。これまでの実務経験やプロジェクトについて詳しく教えていただけますか？";
             fallbackRomaji = "Shouchi itashimashita. Kore made no jitsumu keiken ya purojekuto ni tsuite kuwashiku oshiete itadakemasu ka?";
+            fallbackVocab = [
+                { word: "経験", reading: "けいけん", meaning: "tajriba, mahorat", example: "実務経験があります。" },
+                { word: "承知", reading: "しょうち", meaning: "tushundim, ma'qul", example: "承知いたしました。" }
+            ];
         } else if (persona === 'roast') {
             fallbackReply = "何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？";
             fallbackTts = "何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？";
             fallbackRomaji = "Nani o motamota shite iru no desu ka! Enryo sezu ni, motto jishin o motte nihongo de hanashite kudasai! Saikin no benkyou wa dou desu ka?";
+            fallbackVocab = [
+                { word: "遠慮", reading: "えんりょ", meaning: "tortinish, iymanib turish", example: "遠慮しないでください。" },
+                { word: "自信", reading: "じしん", meaning: "o'ziga ishonch", example: "自信を持って話しましょう。" }
+            ];
         } else {
             fallbackReply = "はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？";
             fallbackTts = "はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？";
             fallbackRomaji = "Hai, yoku wakarimashita! Tsuzukete nihongo de ohanashi shimashou. Saikin wa dou desu ka?";
+            fallbackVocab = [
+                { word: "続ける", reading: "つづける", meaning: "davom ettirmoq", example: "勉強を続けます。" },
+                { word: "最近", reading: "さいきん", meaning: "yaqinda, so'nggi paytlarda", example: "最近忙しいです。" }
+            ];
         }
     } else {
         const isInterview = scenario?.id?.includes('interview') || scenario?.title_en?.toLowerCase().includes('interview');
         if (isInterview) {
             fallbackReply = "That makes sense. Could you share a specific challenge you overcame in that role?";
             fallbackTts = "That makes sense. Could you share a specific challenge you overcame in that role?";
+            fallbackVocab = [
+                { word: "challenge", reading: "", meaning: "qiyinchilik, sinov", example: "I overcame a big challenge." }
+            ];
         } else {
             fallbackReply = "I hear you! Could you elaborate a bit more on that point?";
             fallbackTts = "I hear you! Could you elaborate a bit more on that point?";
+            fallbackVocab = [
+                { word: "elaborate", reading: "", meaning: "batafsil tushuntirmoq", example: "Please elaborate on this topic." }
+            ];
         }
     }
 
@@ -398,7 +421,7 @@ You MUST respond with a VALID JSON object matching this schema exactly:
         ttsText: fallbackTts,
         romaji: fallbackRomaji,
         correction: { hasError: false },
-        vocabulary: [],
+        vocabulary: fallbackVocab,
         rawText: fallbackReply
     };
 };
@@ -591,22 +614,59 @@ export const analyzeSpeakingSession = async (
 };
 
 export const translateTextToUzbek = async (text: string): Promise<string> => {
+    if (!text || typeof text !== 'string' || !text.trim()) return '';
+
+    const cleanInput = text.trim();
+
+    // 1. Instant dictionary lookup for standard coach greetings & phrases
+    const knownPhrases: Record<string, string> = {
+        'こんにちは！鬼先生です。遠慮せずに日本語で話してください！': 'Salom! Men Oni-senseiman (Qattiqqo\'l ustoz). Tortinmasdan yapon tilida gapiring!',
+        'こんにちは！日本語の先生です。いつでもお話ししてくださいね。': 'Salom! Men yapon tili o\'qituvchisiman. Istalgan vaqtda gaplashishingiz mumkin.',
+        'こんにちは！JLPTスピーキングの練習を始めましょう！': 'Salom! Keling, JLPT Speaking mashqini boshlaymiz!',
+        'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。': 'Assalomu alaykum. Bugungi IT intervyuni men olib boraman. O\'zingizni tanishtiring.',
+        'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？': 'Xush kelibsiz! Narita aeroportiga xush kelibsiz. Qanday yordam bera olaman?',
+        'やあ！元気？今日は何について話そうか！': 'Salom! Qalaysan? Bugun nima haqida gaplashamiz!',
+        '何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？': 'Nega ikkilanib turibsiz! Tortinmasdan, o\'zingizga ko\'proq ishonch bilan yapon tilida gapiring! So\'nggi paytlarda o\'qishingiz qanday ketmoqda?',
+        '何をもたもたしているのですか！遠慮せずに、もっとしっかり日本語で話してください！最近の勉強はどうですか？': 'Nega ikkilanib turibsiz! Tortinmasdan, dadilroq yapon tilida gapiring! O\'qishingiz qanday ketmoqda?',
+        'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？': 'Ha, juda yaxshi tushundim! Yapon tilida gaplashishda davom etaylik. So\'nggi paytlarda ishlaringiz qanday?'
+    };
+
+    if (knownPhrases[cleanInput]) {
+        return knownPhrases[cleanInput];
+    }
+
+    const isJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(cleanInput);
+
     const prompt = `
-      Translate the following text into clear, natural Uzbek (O'zbek tili).
-      Return ONLY the Uzbek translation without explanations, markdown, or quotation marks.
+      Translate the following ${isJapanese ? 'Japanese' : 'English'} text into natural, fluent Uzbek (O'zbek tili).
+      
+      STRICT REQUIREMENTS:
+      1. Return ONLY the translated Uzbek text.
+      2. Do NOT return the original ${isJapanese ? 'Japanese' : 'English'} text.
+      3. Do NOT add quotes, markdown, explanations, or Romanization.
+      4. Ensure natural Uzbek phrasing with correct suffixes (-da, -ga, -ni, -dan).
 
       Text to translate:
-      "${text}"
+      "${cleanInput}"
     `;
 
     try {
-        const dsResult = await callSelectedAIProvider(prompt, undefined, false);
-        if (dsResult) return dsResult.trim().replace(/^["']|["']$/g, '');
-        return text;
+        const dsResult = await callSelectedAIProvider(
+            prompt,
+            "You are an expert real-time translator from Japanese and English to Uzbek. Translate accurately into Uzbek. Output only the pure Uzbek translation.",
+            false
+        );
+        if (dsResult && dsResult.trim().length > 0) {
+            const clean = dsResult.trim().replace(/^["']|["']$/g, '').replace(/```/g, '').trim();
+            if (clean !== cleanInput && !/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean)) {
+                return clean;
+            }
+        }
     } catch (err) {
         console.error("Translation Error:", err);
-        return text;
     }
+
+    return cleanInput;
 };
 
 /**
