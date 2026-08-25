@@ -74,9 +74,10 @@ export const AdminSpeechAnalytics: React.FC = () => {
             } catch {}
 
             // 2. Fetch primary speaking_sessions table with transcript JSONB (parallel fetch)
-            const [speakRes, coachSessionsRes, legacyRes] = await Promise.allSettled([
-                supabase.from('speaking_sessions').select('id, user_id, user_email, persona_title, topic, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, ai_feedback, transcript, created_at').order('created_at', { ascending: false }).limit(200),
-                supabase.from('speaking_coach_sessions').select('id, user_id, persona_title, persona, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, transcript, created_at').order('created_at', { ascending: false }).limit(200),
+            const [speakRes, coachSessionsRes, aiCoachRes, legacyRes] = await Promise.allSettled([
+                supabase.from('speaking_sessions').select('id, user_id, user_email, persona_title, topic, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, ai_feedback, transcript, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('speaking_coach_sessions').select('id, user_id, persona_title, persona, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, transcript, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('ai_coach_sessions').select('id, user_id, persona_title, fluency_score, pronunciation_score, grammar_score, vocabulary_score, feedback, created_at').order('created_at', { ascending: false }).limit(200),
                 supabase.from('coach_sessions').select('id, user_id, user_email, persona_title, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, created_at').order('created_at', { ascending: false }).limit(100)
             ]);
 
@@ -121,7 +122,29 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             }
 
-            // 4. Merge legacy coach_sessions
+            // 4. Merge ai_coach_sessions
+            const aiCoachData = aiCoachRes.status === 'fulfilled' ? aiCoachRes.value.data : null;
+            if (aiCoachData && aiCoachData.length > 0) {
+                for (const item of aiCoachData as any[]) {
+                    if (!list.some(l => l.id === item.id)) {
+                        list.push({
+                            id: item.id,
+                            user_email: (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
+                            persona_title: item.persona_title || 'AI Coach Muloqot',
+                            fluency_score: Number(item.fluency_score) || 0,
+                            pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
+                            grammar_score: Number(item.grammar_score) || 0,
+                            vocabulary_score: Number(item.vocabulary_score) || 0,
+                            duration_seconds: 120,
+                            feedback: item.feedback || '',
+                            transcript: [],
+                            created_at: item.created_at || new Date().toISOString()
+                        });
+                    }
+                }
+            }
+
+            // 5. Merge legacy coach_sessions
             const legacyData = legacyRes.status === 'fulfilled' ? legacyRes.value.data : null;
             if (legacyData && legacyData.length > 0) {
                 for (const item of legacyData as any[]) {

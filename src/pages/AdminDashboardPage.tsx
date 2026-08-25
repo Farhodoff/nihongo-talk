@@ -244,18 +244,20 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, studySessionsSettled] = await Promise.allSettled([
-                supabase.from('profiles').select('id, email, full_name, role, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('user_subscriptions').select('id, user_id, email, tier, ai_credits, valid_until, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('speaking_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('speaking_coach_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(300)
+            const [profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, aiCoachSettled, studySessionsSettled] = await Promise.allSettled([
+                supabase.from('profiles').select('id, email, full_name, role, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('user_subscriptions').select('id, user_id, email, tier, ai_credits, valid_until, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('speaking_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('speaking_coach_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('ai_coach_sessions').select('id, user_id, created_at').order('created_at', { ascending: false }).limit(500),
+                supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(500)
             ]);
 
             const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
             const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
             const dbSpeaking = (speakingSettled.status === 'fulfilled' && Array.isArray(speakingSettled.value.data)) ? speakingSettled.value.data : [];
             const dbCoachSpeaking = (coachSpeakingSettled.status === 'fulfilled' && Array.isArray(coachSpeakingSettled.value.data)) ? coachSpeakingSettled.value.data : [];
+            const dbAiCoach = (aiCoachSettled.status === 'fulfilled' && Array.isArray(aiCoachSettled.value.data)) ? aiCoachSettled.value.data : [];
             const dbStudySessions = (studySessionsSettled.status === 'fulfilled' && Array.isArray(studySessionsSettled.value.data)) ? studySessionsSettled.value.data : [];
 
             // 1. Map 100% real registered users from Supabase DB (merge profiles + subscriptions)
@@ -345,6 +347,10 @@ const AdminDashboardPage: React.FC = () => {
             });
 
             dbCoachSpeaking.forEach((s: any) => {
+                processRecord(s.created_at, (s.duration_seconds || 120) / 60, s.user_id);
+            });
+
+            dbAiCoach.forEach((s: any) => {
                 processRecord(s.created_at, (s.duration_seconds || 120) / 60, s.user_id);
             });
 
