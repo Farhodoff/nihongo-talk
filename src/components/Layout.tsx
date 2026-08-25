@@ -112,27 +112,27 @@ const Layout: React.FC = () => {
         // Super Admin can switch to English (IELTS) track for development
         if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: "Lug'at & Vocab", path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-                { name: "Scenarios", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
-                { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+                { name: 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
+                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+                { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: "Lug'at & Vocab", path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-            { name: "Scenarios", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
-            { name: "Speaking Coach", path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
-            { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-            { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-            { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-            { name: 'Hamjamiyat', path: '/community', icon: Users, tourId: 'nav-community' },
+            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
+            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
+            { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+            { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+            { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
     }, [primaryLanguage, isSuper]);
 
