@@ -62,57 +62,57 @@ export const PERSONAS_BY_LANG: Record<'en' | 'ja', Record<CoachPersona, { name: 
     },
     ja: {
         roast: {
-            name: "厳格な先生 (Qattiqqo'l Sensei)",
+            name: "厳格な先生 (げんかくな せんせい)",
             icon: Flame,
             color: 'from-red-500 to-rose-600',
             gradientBg: 'from-red-500/20 via-rose-500/10 to-transparent',
-            desc: 'Keigo va yapon tili xatolarini zudlik bilan tuzatadi',
-            badge: '🔥 厳格 (Qattiqqo\'l)',
+            desc: 'けいごや にほんごの まちがいを すぐに なおします',
+            badge: '🔥 厳格 (スパルタ)',
             emoji: '🔥'
         },
         gentle: {
-            name: '優しいチューター (Sabrli Sensei)',
+            name: '優しいチューター (やさしい せんせい)',
             icon: Sparkles,
             color: 'from-emerald-400 to-teal-600',
             gradientBg: 'from-emerald-500/20 via-teal-500/10 to-transparent',
-            desc: 'Boshlovchilar uchun muloyim va tushunarli muloqot',
-            badge: '🌸 優しい (Muloyim)',
+            desc: 'しょしんしゃにも やさしく ていねいに おしえます',
+            badge: '🌸 優しい (ていねい)',
             emoji: '🌸'
         },
         ielts: {
-            name: 'JLPT 会話試験官 (JLPT Examiner)',
+            name: 'JLPT 会話試験官 (かいわ しけんかん)',
             icon: GraduationCap,
             color: 'from-blue-500 to-indigo-600',
             gradientBg: 'from-blue-500/20 via-indigo-500/10 to-transparent',
-            desc: 'JLPT N5-N1 darajasidagi og\'zaki suhbat imtihoni',
-            badge: '🎌 面接 (JLPT Imtihonchi)',
+            desc: 'JLPT N5〜N1レベルの かいわしけん れんしゅう',
+            badge: '🎌 JLPT 面接 (めんせつ)',
             emoji: '🎌'
         },
         interview: {
-            name: '面接官 (Job Interviewer)',
+            name: '面接官 (めんせつかん)',
             icon: Briefcase,
             color: 'from-purple-500 to-violet-700',
             gradientBg: 'from-purple-500/20 via-violet-500/10 to-transparent',
-            desc: 'Yaponiyada ishga kirish (Syukatsu) suhbati mashqi',
-            badge: '💼 就活 (Intervyuer)',
+            desc: 'にほんの しゅうしょく・めんせつ れんしゅう',
+            badge: '💼 就活 (めんせつ)',
             emoji: '💼'
         },
         travel: {
-            name: '旅行ガイド (Travel Coach)',
+            name: '旅行ガイド (りょこう ガイド)',
             icon: Compass,
             color: 'from-cyan-500 to-blue-600',
             gradientBg: 'from-cyan-500/20 via-blue-500/10 to-transparent',
-            desc: 'Tokio, aeroport va restoranlarda yaponcha muloqot',
-            badge: '🗼 旅行 (Sayohat)',
+            desc: 'りょこう、ホテル、レストランで つかう にほんご',
+            badge: '🗼 旅行 (りょこう)',
             emoji: '🗼'
         },
         casual: {
-            name: '日常会話の友達 (Casual Friend)',
+            name: '日常会話の友達 (ともだち)',
             icon: Coffee,
             color: 'from-amber-500 to-orange-600',
             gradientBg: 'from-amber-500/20 via-orange-500/10 to-transparent',
-            desc: 'Do\'stona va erkin uslubdagi yaponcha suhbat',
-            badge: '🍵 友達 (Do\'st)',
+            desc: 'ともだちとの たのしい フランクな かいわ',
+            badge: '🍵 友達 (ともだち)',
             emoji: '🍵'
         }
     }

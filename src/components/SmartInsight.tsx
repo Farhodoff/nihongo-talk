@@ -6,6 +6,7 @@ import { generateStudyInsight } from '../utils/ai';
 import { Button } from './ui/Button';
 import { StudySession, Subject, Task } from '../types';
 import { toast } from '../hooks/use-toast';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SmartInsightContentProps {
     sessions: StudySession[];
@@ -14,6 +15,7 @@ interface SmartInsightContentProps {
 }
 
 const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions, subjects, tasks }) => {
+    const { language } = useLanguage();
     const [insight, setInsight] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -68,10 +70,12 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                     <div>
                         <h2 className="text-3xl font-bold flex items-center gap-3">
                             <Sparkles className="text-yellow-300 animate-pulse" size={28} />
-                            AI Aqlli Tahlil
+                            {language === 'ja' ? 'AI スマートぶんせき' : 'AI Aqlli Tahlil'}
                         </h2>
                         <p className="text-indigo-100 mt-2 text-lg max-w-xl leading-relaxed">
-                            Sun'iy intellekt sizning o'qish odatlaringizni o'rganib, samaradorlikni oshirish bo'yicha shaxsiy maslahatlar beradi.
+                            {language === 'ja'
+                                ? 'AIが あなたのがくしゅうを ぶんせきして、アドバイスを します。'
+                                : "Sun'iy intellekt sizning o'qish odatlaringizni o'rganib, samaradorlikni oshirish bo'yicha shaxsiy maslahatlar beradi."}
                         </p>
                     </div>
                     {!insight && (
@@ -82,10 +86,10 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                         >
                             {loading ? (
                                 <span className="flex items-center gap-2">
-                                    <Loader2 className="animate-spin" /> Tahlil qilinmoqda...
+                                    <Loader2 className="animate-spin" /> {language === 'ja' ? 'ぶんせきちゅう...' : 'Tahlil qilinmoqda...'}
                                 </span>
                             ) : (
-                                '🔍 Tahlilni Boshlash'
+                                language === 'ja' ? '🔍 ぶんせきを スタート' : '🔍 Tahlilni Boshlash'
                             )}
                         </Button>
                     )}
@@ -109,7 +113,7 @@ const SmartInsightContent: React.FC<SmartInsightContentProps> = memo(({ sessions
                                 variant="ghost"
                                 className="text-indigo-200 hover:text-white hover:bg-white/10"
                             >
-                                Yopish
+                                {language === 'ja' ? 'とじる' : 'Yopish'}
                             </Button>
                         </div>
                     </div>

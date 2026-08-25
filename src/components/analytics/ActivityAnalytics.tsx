@@ -1,15 +1,20 @@
 import React, { useMemo, memo } from 'react';
 import { SvgBarChart, SvgLineChart } from '../ui/SvgCharts';
 import { StudySession } from '../../types';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ActivityAnalyticsProps {
     sessions: StudySession[];
 }
 
 const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) => {
+    const { language } = useLanguage();
+
     // 1. Weekly Activity Data
     const weeklyData = useMemo(() => {
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const days = language === 'ja' 
+            ? ['日', '月', '火', '水', '木', '金', '土']
+            : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         const data = days.map(day => ({ name: day, hours: 0 }));
 
         const now = new Date();
@@ -26,7 +31,7 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
 
         // Round hours
         return data.map(d => ({ ...d, hours: Number(d.hours.toFixed(1)) }));
-    }, [sessions]);
+    }, [sessions, language]);
 
     // 2. Hourly Productivity Data
     const hourlyData = useMemo(() => {
@@ -48,21 +53,25 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* 1. Weekly Activity */}
             <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
-                <h3 className="text-sm font-extrabold text-foreground mb-4">Haftalik Faoliyat (Soatlar)</h3>
+                <h3 className="text-sm font-extrabold text-foreground mb-4">
+                    {language === 'ja' ? 'しゅうかん がくしゅう（じかん）' : (language === 'en' ? 'Weekly Activity (Hours)' : 'Haftalik Faoliyat (Soatlar)')}
+                </h3>
                 <div className="h-64 w-full" style={{ minHeight: '240px' }}>
                     <SvgBarChart
                         data={weeklyData}
                         xKey="name"
                         series={[{ dataKey: 'hours', fill: '#6366f1' }]}
                         height={240}
-                        unit="soat"
+                        unit={language === 'ja' ? 'じかん' : (language === 'en' ? 'hrs' : 'soat')}
                     />
                 </div>
             </div>
 
             {/* 2. Hourly Productivity */}
             <div className="bg-card p-6 rounded-3xl shadow-sm border border-border">
-                <h3 className="text-sm font-extrabold text-foreground mb-4">Unumli Soatlar (Jami Daqiqalar)</h3>
+                <h3 className="text-sm font-extrabold text-foreground mb-4">
+                    {language === 'ja' ? 'しゅうちゅうじかん（ふん）' : (language === 'en' ? 'Productive Hours (Total Minutes)' : 'Unumli Soatlar (Jami Daqiqalar)')}
+                </h3>
                 <div className="h-64 w-full" style={{ minHeight: '240px' }}>
                     <SvgLineChart
                         data={hourlyData}
@@ -70,7 +79,7 @@ const ActivityAnalytics: React.FC<ActivityAnalyticsProps> = memo(({ sessions }) 
                         series={[{ dataKey: 'minutes', stroke: '#8b5cf6' }]}
                         height={240}
                         showArea={true}
-                        unit="daq"
+                        unit={language === 'ja' ? 'ふん' : (language === 'en' ? 'mins' : 'daq')}
                     />
                 </div>
             </div>

@@ -393,10 +393,10 @@ const DashboardPage: React.FC = () => {
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-bold uppercase tracking-wider text-amber-500 flex items-center gap-1">
                                         <Sparkles size={14} className="animate-pulse" />
-                                        Hozirgi Eng Muhim Qadam
+                                        {language === 'ja' ? 'いま いちばん たいせつな ステップ' : 'Hozirgi Eng Muhim Qadam'}
                                     </span>
                                     <span className="text-xs px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground font-medium">
-                                        ⏱️ ~{nextAction.estimatedMinutes} daqiqa
+                                        ⏱️ ~{nextAction.estimatedMinutes} {language === 'ja' ? 'ふん' : 'daqiqa'}
                                     </span>
                                 </div>
                                 <h2 className="text-2xl font-black text-foreground tracking-tight">
@@ -409,10 +409,14 @@ const DashboardPage: React.FC = () => {
                         ) : (
                             <div>
                                 <h3 className="text-xl font-bold text-foreground">
-                                    {isJaTrack ? "Bugungi Yapon Tili Mashg'ulotlari" : "Bugungi IELTS & Akademik Ingliz Tili"}
+                                    {isJaTrack 
+                                        ? (language === 'ja' ? 'きょうの にほんご レッスン' : "Bugungi Yapon Tili Mashg'ulotlari") 
+                                        : (language === 'ja' ? 'きょうの えいご レッスン' : "Bugungi IELTS & Akademik Ingliz Tili")}
                                 </h3>
                                 <p className="text-xs text-muted-foreground">
-                                    {isJaTrack ? "Har kuni 20 ta yangi Kanji, grammatika va AI muloqot." : "Speaking Examiner, Writing tahlili va Oxford Academic lug'at."}
+                                    {isJaTrack 
+                                        ? (language === 'ja' ? 'まいにち 20この かんじ、ぶんぽう、AI かいわ。' : "Har kuni 20 ta yangi Kanji, grammatika va AI muloqot.") 
+                                        : "Speaking Examiner, Writing tahlili va Oxford Academic lug'at."}
                                 </p>
                             </div>
                         )}
@@ -438,24 +442,24 @@ const DashboardPage: React.FC = () => {
                         {/* Compact Secondary Quick Links */}
                         <div className="flex flex-wrap items-center gap-2">
                             <Link to="/roadmap" className="px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/30 text-primary text-xs font-bold transition-all flex items-center gap-1">
-                                <span>🗺️</span> Roadmap
+                                <span>🗺️</span> {language === 'ja' ? 'ロードマップ' : 'Roadmap'}
                             </Link>
                             <Link to="/diagnostic" className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-bold transition-all flex items-center gap-1">
-                                <span>🎯</span> Test
+                                <span>🎯</span> {language === 'ja' ? 'テスト' : 'Test'}
                             </Link>
                             {isJaTrack ? (
                                 <>
                                     <Link to="/jlpt" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">
-                                        <span>🈶</span> Kanji
+                                        <span>🈶</span> {language === 'ja' ? 'かんじ' : 'Kanji'}
                                     </Link>
                                     <Link to="/jlpt/grammar-quiz" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">
-                                        <span>📖</span> Grammatika
+                                        <span>📖</span> {language === 'ja' ? 'ぶんぽう' : 'Grammatika'}
                                     </Link>
                                     <Link to="/speaking-coach?lang=ja" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">
-                                        <span>🗣️</span> AI Suhbat
+                                        <span>🗣️</span> {language === 'ja' ? 'AI かいわ' : 'AI Suhbat'}
                                     </Link>
                                     <Link to="/jlpt/mock-exam" className="px-3 py-1.5 rounded-xl bg-card border border-border hover:border-rose-500/40 text-foreground text-xs font-semibold transition-all">
-                                        <span>🎌</span> Mock
+                                        <span>🎌</span> {language === 'ja' ? 'モック' : 'Mock'}
                                     </Link>
                                 </>
                             ) : (
@@ -489,13 +493,13 @@ const DashboardPage: React.FC = () => {
                             </span>
                             <div>
                                 <h3 className="text-base font-bold text-foreground flex items-center gap-2 animate-in fade-in duration-300">
-                                    {language === 'en' ? "Today's Adaptive Plan" : "Bugungi Adaptiv Reja"}
+                                    {language === 'ja' ? 'きょうの がくしゅうプラン' : (language === 'en' ? "Today's Adaptive Plan" : "Bugungi Adaptiv Reja")}
                                     <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
-                                        ⏱️ {dailyPlan.totalMinutes} {language === 'en' ? 'mins' : 'daqiqa'}
+                                        ⏱️ {dailyPlan.totalMinutes} {language === 'ja' ? 'ふん' : (language === 'en' ? 'mins' : 'daqiqa')}
                                     </span>
                                 </h3>
                                 <p className="text-xs text-muted-foreground">
-                                    {dailyPlan.summary?.reason || (language === 'en' ? 'Your customized route for today.' : 'Bugungi moslashtirilgan o\'quv rejangiz.')}
+                                    {dailyPlan.summary?.reason || (language === 'ja' ? 'きょうの あなた専用 がくしゅうプラン' : (language === 'en' ? 'Your customized route for today.' : "Bugungi moslashtirilgan o'quv rejangiz."))}
                                 </p>
                             </div>
                         </div>
@@ -507,12 +511,14 @@ const DashboardPage: React.FC = () => {
                                 🎉
                             </div>
                             <h4 className="text-base font-bold text-green-700 dark:text-green-400">
-                                {language === 'en' ? "Today's Plan Completed!" : "Bugungi reja bajarildi!"}
+                                {language === 'ja' ? 'きょうの プランを かんりょうしました！' : (language === 'en' ? "Today's Plan Completed!" : "Bugungi reja bajarildi!")}
                             </h4>
                             <p className="text-xs text-green-600 dark:text-green-500 max-w-md mx-auto">
-                                {language === 'en'
-                                    ? "All scheduled tasks for today have been completed. Tomorrow's customized plan will be automatically generated."
-                                    : "Bugun uchun rejalashtirilgan barcha dars va takrorlashlar yakunlandi. Ertangi reja avtomatik tayyorlanadi."}
+                                {language === 'ja'
+                                    ? 'きょうの レッスンと ふくしゅうは すべて おわりました。あしたの プランも じどうで さくせいされます。'
+                                    : (language === 'en'
+                                        ? "All scheduled tasks for today have been completed. Tomorrow's customized plan will be automatically generated."
+                                        : "Bugun uchun rejalashtirilgan barcha dars va takrorlashlar yakunlandi. Ertangi reja avtomatik tayyorlanadi.")}
                             </p>
                         </div>
                     ) : (
@@ -533,15 +539,15 @@ const DashboardPage: React.FC = () => {
                                     <div className="space-y-1.5">
                                         <div className="flex items-center justify-between gap-2">
                                             <span className="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-card border border-border text-muted-foreground">
-                                                {idx + 1}-Qadam
+                                                {idx + 1}-{language === 'ja' ? 'ステップ' : 'Qadam'}
                                             </span>
                                             {item.isCompleted || item.status === 'completed' ? (
                                                 <span className="text-xs font-bold text-green-600 flex items-center gap-1">
-                                                    ✓ {language === 'en' ? 'Done' : 'Bajarildi'}
+                                                    ✓ {language === 'ja' ? 'かんりょう' : (language === 'en' ? 'Done' : 'Bajarildi')}
                                                 </span>
                                             ) : (
                                                 <span className="text-xs font-bold text-primary flex items-center gap-1">
-                                                    <Clock size={12} /> {item.estimatedMinutes} daq
+                                                    <Clock size={12} /> {item.estimatedMinutes} {language === 'ja' ? 'ふん' : (language === 'en' ? 'min' : 'daq')}
                                                 </span>
                                             )}
                                         </div>
@@ -555,7 +561,7 @@ const DashboardPage: React.FC = () => {
                                         </p>
                                     </div>
                                     <div className="flex items-center justify-end text-xs font-bold text-primary gap-1 pt-1">
-                                        <span>{language === 'en' ? 'Start' : 'Boshlash'}</span>
+                                        <span>{language === 'ja' ? 'スタート' : (language === 'en' ? 'Start' : 'Boshlash')}</span>
                                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </Link>
@@ -575,15 +581,17 @@ const DashboardPage: React.FC = () => {
                             </span>
                             <div>
                                 <h3 className="text-base font-bold text-foreground flex items-center gap-2">
-                                    {language === 'en' ? "My Learning Roadmap" : "Mening O'quv Yo'l Xaritam"}
+                                    {language === 'ja' ? 'がくしゅう ロードマップ' : (language === 'en' ? "My Learning Roadmap" : "Mening O'quv Yo'l Xaritam")}
                                     <span className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
-                                        {roadmapSummary.currentLevelCode} {language === 'en' ? 'Level' : 'Bosqich'}
+                                        {roadmapSummary.currentLevelCode} {language === 'ja' ? 'レベル' : (language === 'en' ? 'Level' : 'Bosqich')}
                                     </span>
                                 </h3>
                                 <p className="text-xs text-muted-foreground">
-                                    {language === 'en'
-                                        ? `${roadmapSummary.completedCount} of ${roadmapSummary.totalCount} lessons completed (${roadmapSummary.progressPercentage}%)`
-                                        : `${roadmapSummary.totalCount} ta darsdan ${roadmapSummary.completedCount} tasi bajarildi (${roadmapSummary.progressPercentage}%)`}
+                                    {language === 'ja'
+                                        ? `${roadmapSummary.totalCount}レッスンちゅう ${roadmapSummary.completedCount}こ かんりょう (${roadmapSummary.progressPercentage}%)`
+                                        : (language === 'en'
+                                            ? `${roadmapSummary.completedCount} of ${roadmapSummary.totalCount} lessons completed (${roadmapSummary.progressPercentage}%)`
+                                            : `${roadmapSummary.totalCount} ta darsdan ${roadmapSummary.completedCount} tasi bajarildi (${roadmapSummary.progressPercentage}%)`)}
                                 </p>
                             </div>
                         </div>
@@ -593,7 +601,7 @@ const DashboardPage: React.FC = () => {
                             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold transition-all border border-primary/20 w-fit"
                         >
                             <span>🗺️</span>
-                            <span>{language === 'en' ? "View Full Roadmap" : "To'liq Xaritani Ko'rish"}</span>
+                            <span>{language === 'ja' ? 'ロードマップを みる' : (language === 'en' ? "View Full Roadmap" : "To'liq Xaritani Ko'rish")}</span>
                             <ArrowRight size={14} />
                         </Link>
                     </div>
@@ -601,7 +609,7 @@ const DashboardPage: React.FC = () => {
                     {/* Progress Bar */}
                     <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold text-muted-foreground">
-                            <span>{language === 'en' ? 'Overall Progress' : 'Umumiy Progress'}</span>
+                            <span>{language === 'ja' ? 'ぜんたいの しんちょく' : (language === 'en' ? 'Overall Progress' : 'Umumiy Progress')}</span>
                             <span className="text-foreground font-bold">{roadmapSummary.progressPercentage}%</span>
                         </div>
                         <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden">
@@ -622,10 +630,10 @@ const DashboardPage: React.FC = () => {
                             <div className="space-y-1.5">
                                 <div className="flex items-center justify-between gap-2">
                                     <span className="text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-500">
-                                        {language === 'en' ? 'Focus Area' : "Zaif Ko'nikma"}
+                                        {language === 'ja' ? 'にがてな ぶんや' : (language === 'en' ? 'Focus Area' : "Zaif Ko'nikma")}
                                     </span>
                                     <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                        <Clock size={12} /> ~{roadmapSummary.topWeakLesson.estimatedMinutes} daq
+                                        <Clock size={12} /> ~{roadmapSummary.topWeakLesson.estimatedMinutes} {language === 'ja' ? 'ふん' : (language === 'en' ? 'min' : 'daq')}
                                     </span>
                                 </div>
                                 <h4 className="text-sm font-bold text-foreground group-hover:text-rose-500 transition-colors line-clamp-1">
@@ -636,7 +644,7 @@ const DashboardPage: React.FC = () => {
                                 </p>
                             </div>
                             <div className="flex items-center justify-end text-xs font-bold text-rose-500 gap-1 pt-1 border-t border-rose-500/10">
-                                <span>{language === 'en' ? 'Practice' : 'Mashq Qilish'}</span>
+                                <span>{language === 'ja' ? 'れんしゅうする' : (language === 'en' ? 'Practice' : 'Mashq Qilish')}</span>
                                 <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
                             </div>
                         </Link>
@@ -650,10 +658,10 @@ const DashboardPage: React.FC = () => {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 className="text-base font-bold text-foreground">
-                                {language === 'en' ? "Level Progression Status" : "Daraja bo'yicha rivojlanish"}
+                                {language === 'ja' ? 'レベルの せいちょう' : (language === 'en' ? "Level Progression Status" : "Daraja bo'yicha rivojlanish")}
                             </h3>
                             <p className="text-xs text-muted-foreground">
-                                {progression.explanation || (language === 'en' ? 'Evidence-based progression tracking.' : 'Bilim va natijalar asosida darajani oshirish.')}
+                                {progression.explanation || (language === 'ja' ? 'せいせきに もとづく レベルの しんちょく。' : (language === 'en' ? 'Evidence-based progression tracking.' : 'Bilim va natijalar asosida darajani oshirish.'))}
                             </p>
                         </div>
                         <div className="flex items-center gap-2">
@@ -665,9 +673,11 @@ const DashboardPage: React.FC = () => {
 
                     <div className="space-y-3">
                         <div className="flex justify-between items-center text-xs">
-                            <span className="font-semibold text-muted-foreground">Promotion Readiness:</span>
+                            <span className="font-semibold text-muted-foreground">{language === 'ja' ? 'レベルアップ じゅんび:' : 'Promotion Readiness:'}</span>
                             <span className={`font-bold ${progression.isReadyForPromotion ? 'text-green-500' : 'text-amber-500'}`}>
-                                {progression.readinessScore || 0}% ({progression.isReadyForPromotion ? (language === 'en' ? 'Ready ✓' : 'Tayyor ✓') : (language === 'en' ? 'Not Ready' : 'Tayyor emas')})
+                                {progression.readinessScore || 0}% ({progression.isReadyForPromotion 
+                                    ? (language === 'ja' ? 'じゅんび OK ✓' : (language === 'en' ? 'Ready ✓' : 'Tayyor ✓')) 
+                                    : (language === 'ja' ? 'まだ じゅんびちゅう' : (language === 'en' ? 'Not Ready' : 'Tayyor emas'))})
                             </span>
                         </div>
                         <div
@@ -690,7 +700,7 @@ const DashboardPage: React.FC = () => {
                     {progression.advancementBlockers && progression.advancementBlockers.length > 0 && (
                         <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-2">
                             <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                                ⚠️ Blockers to {progression.nextLevel}
+                                {language === 'ja' ? `⚠️ ${progression.nextLevel}への じょうけん` : `⚠️ Blockers to ${progression.nextLevel}`}
                             </h4>
                             <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
                                 {progression.advancementBlockers.map((blocker: string, index: number) => (
@@ -702,7 +712,7 @@ const DashboardPage: React.FC = () => {
 
                     {progression.recommendedAction && (
                         <div className="text-xs text-muted-foreground flex items-center gap-2 bg-secondary/20 p-3 rounded-xl border border-border">
-                            <span className="text-primary font-bold">💡 Next Step:</span>
+                            <span className="text-primary font-bold">{language === 'ja' ? '💡 つぎのステップ:' : '💡 Next Step:'}</span>
                             <span>{progression.recommendedAction}</span>
                         </div>
                     )}
@@ -710,15 +720,17 @@ const DashboardPage: React.FC = () => {
                     {promotionCandidate ? (
                         <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 space-y-3 mt-2">
                             <h4 className="text-sm font-bold text-primary flex items-center gap-1.5">
-                                🏆 {language === 'en' ? "Promotion Candidate Available!" : "Yangi darajaga o'tish taklifi!"}
+                                🏆 {language === 'ja' ? 'レベルアップの チャンス！' : (language === 'en' ? "Promotion Candidate Available!" : "Yangi darajaga o'tish taklifi!")}
                             </h4>
                             <p className="text-xs text-muted-foreground">
-                                {language === 'en'
-                                    ? `You are ready to advance from ${promotionCandidate.currentLevel} to ${promotionCandidate.candidateLevel}!`
-                                    : `Siz ${promotionCandidate.currentLevel} darajasidan ${promotionCandidate.candidateLevel} darajasiga o'tishga tayyorsiz!`}
+                                {language === 'ja'
+                                    ? `${promotionCandidate.currentLevel} から ${promotionCandidate.candidateLevel} へ レベルアップできます！`
+                                    : (language === 'en'
+                                        ? `You are ready to advance from ${promotionCandidate.currentLevel} to ${promotionCandidate.candidateLevel}!`
+                                        : `Siz ${promotionCandidate.currentLevel} darajasidan ${promotionCandidate.candidateLevel} darajasiga o'tishga tayyorsiz!`)}
                             </p>
                             <p className="text-xs text-muted-foreground font-semibold italic">
-                                {language === 'en' ? `Reason: ${promotionCandidate.reason}` : `Sabab: ${promotionCandidate.reason}`}
+                                {language === 'ja' ? `りゆう: ${promotionCandidate.reason}` : (language === 'en' ? `Reason: ${promotionCandidate.reason}` : `Sabab: ${promotionCandidate.reason}`)}
                             </p>
                             <div className="flex gap-2">
                                 <button
@@ -727,13 +739,13 @@ const DashboardPage: React.FC = () => {
                                     className="flex-1 py-2 px-3 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition shadow-sm hover:shadow-md disabled:opacity-50 flex items-center justify-center gap-1"
                                 >
                                     {isPromoting ? <Loader2 className="animate-spin" size={14} /> : <Trophy size={14} />}
-                                    <span>{language === 'en' ? "Confirm & Advance" : "Darajaga o'tish"}</span>
+                                    <span>{language === 'ja' ? 'レベルアップする' : (language === 'en' ? "Confirm & Advance" : "Darajaga o'tish")}</span>
                                 </button>
                                 <button
                                     onClick={handleDismissCandidatePromotion}
                                     className="py-2 px-3 bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold rounded-xl transition border border-border"
                                 >
-                                    {language === 'en' ? "Not Now" : "Hozir emas"}
+                                    {language === 'ja' ? 'あとで' : (language === 'en' ? "Not Now" : "Hozir emas")}
                                 </button>
                             </div>
                         </div>
@@ -747,12 +759,12 @@ const DashboardPage: React.FC = () => {
                                 {isPromoting ? (
                                     <>
                                         <Loader2 className="animate-spin" size={16} />
-                                        <span>{language === 'en' ? "Promoting..." : "Darajani oshirish..."}</span>
+                                        <span>{language === 'ja' ? 'レベルアップちゅう...' : (language === 'en' ? "Promoting..." : "Darajani oshirish...")}</span>
                                     </>
                                 ) : (
                                     <>
                                         <Trophy size={16} />
-                                        <span>{language === 'en' ? `Request Promotion to ${progression.nextLevel}` : `${progression.nextLevel} darajasiga so'rov yuborish`}</span>
+                                        <span>{language === 'ja' ? `${progression.nextLevel}へ レベルアップを しんせい` : (language === 'en' ? `Request Promotion to ${progression.nextLevel}` : `${progression.nextLevel} darajasiga so'rov yuborish`)}</span>
                                     </>
                                 )}
                             </button>
@@ -791,7 +803,7 @@ const DashboardPage: React.FC = () => {
                                             <button
                                                 onClick={() => updateTaskStatus(task.id, 'done')}
                                                 className="text-muted-foreground/50 hover:text-green-500 transition-colors"
-                                                title="Bajarildi deb belgilash"
+                                                title={language === 'ja' ? 'かんりょう' : 'Bajarildi deb belgilash'}
                                             >
                                                 <CheckCircle size={26} />
                                             </button>
@@ -801,7 +813,7 @@ const DashboardPage: React.FC = () => {
                                                 </span>
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                                        <Clock size={12} /> Bugun
+                                                        <Clock size={12} /> {language === 'ja' ? 'きょう' : 'Bugun'}
                                                     </span>
                                                     {task.subjectId && subjects.find(s => s.id === task.subjectId) && (
                                                         <span 
@@ -821,12 +833,14 @@ const DashboardPage: React.FC = () => {
                                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/10 text-green-500 mb-4">
                                         <Trophy size={32} />
                                     </div>
-                                    <h3 className="text-lg font-medium text-foreground mb-2">Bugungi vazifalar yo'q! 🎉</h3>
+                                    <h3 className="text-lg font-medium text-foreground mb-2">
+                                        {language === 'ja' ? 'きょうの タスクは ありません！🎉' : "Bugungi vazifalar yo'q! 🎉"}
+                                    </h3>
                                     <p className="text-muted-foreground max-w-sm mx-auto mb-6">
-                                        Bugun uchun rejalashtirilgan vazifalar mavjud emas yoki hammasi bajarilgan.
+                                        {language === 'ja' ? 'きょうの よていは すべて かんりょうしました。' : "Bugun uchun rejalashtirilgan vazifalar mavjud emas yoki hammasi bajarilgan."}
                                     </p>
                                     <Link to="/tasks" className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
-                                        Yangi vazifa qo'shish
+                                        {language === 'ja' ? 'あたらしく タスクを ついか' : "Yangi vazifa qo'shish"}
                                     </Link>
                                 </div>
                             )}
@@ -839,46 +853,48 @@ const DashboardPage: React.FC = () => {
                             <div className="flex items-center justify-between">
                                 <h2 className="text-xl font-semibold text-red-600 dark:text-red-400 flex items-center gap-2">
                                     <Clock className="animate-pulse" size={24} />
-                                    O'tib ketgan vazifalar
+                                    {language === 'ja' ? 'きげんぎれの タスク' : "O'tib ketgan vazifalar"}
                                 </h2>
                                 <span className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold rounded-full">
-                                    {overdueTasks.length} ta
+                                    {overdueTasks.length} {language === 'ja' ? 'こ' : 'ta'}
                                 </span>
                             </div>
                             <div className="grid gap-3">
-                                {overdueTasks.map(task => (
-                                    <div 
-                                        key={task.id} 
-                                        className="group p-4 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/30 flex justify-between items-center transition-all duration-200"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <button
-                                                onClick={() => updateTaskStatus(task.id, 'done')}
-                                                className="text-red-300 dark:text-red-800 hover:text-green-500 transition-colors"
-                                            >
-                                                <CheckCircle size={26} />
-                                            </button>
-                                            <div className="flex flex-col">
-                                                <span className="text-gray-900 dark:text-white font-medium">
-                                                    {task.title}
-                                                </span>
-                                                <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-xs text-red-500 font-medium flex items-center gap-1">
-                                                        <Clock size={12} /> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Muddat o\'tib ketgan'}
+                                <div className="space-y-2">
+                                    {overdueTasks.map(task => (
+                                        <div 
+                                            key={task.id} 
+                                            className="group p-4 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/30 flex justify-between items-center transition-all duration-200"
+                                        >
+                                            <div className="flex items-center gap-4">
+                                                <button
+                                                    onClick={() => updateTaskStatus(task.id, 'done')}
+                                                    className="text-red-300 dark:text-red-800 hover:text-green-500 transition-colors"
+                                                >
+                                                    <CheckCircle size={26} />
+                                                </button>
+                                                <div className="flex flex-col">
+                                                    <span className="text-gray-900 dark:text-white font-medium">
+                                                        {task.title}
                                                     </span>
-                                                    {task.subjectId && subjects.find(s => s.id === task.subjectId) && (
-                                                        <span 
-                                                            className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm opacity-90"
-                                                            style={{ backgroundColor: subjects.find(s => s.id === task.subjectId)?.color || '#6366f1' }}
-                                                        >
-                                                            {subjects.find(s => s.id === task.subjectId)?.name}
+                                                    <div className="flex items-center gap-2 mt-1">
+                                                        <span className="text-xs text-red-500 font-medium flex items-center gap-1">
+                                                            <Clock size={12} /> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : (language === 'ja' ? 'きげんぎれ' : 'Muddat o\'tib ketgan')}
                                                         </span>
-                                                    )}
+                                                        {task.subjectId && subjects.find(s => s.id === task.subjectId) && (
+                                                            <span 
+                                                                className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm opacity-90"
+                                                                style={{ backgroundColor: subjects.find(s => s.id === task.subjectId)?.color || '#6366f1' }}
+                                                            >
+                                                                {subjects.find(s => s.id === task.subjectId)?.name}
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     )}
@@ -889,13 +905,13 @@ const DashboardPage: React.FC = () => {
                     <div className="glass-card rounded-[2rem] p-6 flex flex-col space-y-4">
                         <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
                             <Sparkles size={22} className="text-primary animate-pulse" />
-                            AI Aqlli Panel
+                            {language === 'ja' ? 'AI スマートパネル' : 'AI Aqlli Panel'}
                         </h2>
                         
                         {isAiInsightsLoading ? (
                             <div className="flex flex-col items-center justify-center py-12 space-y-3">
                                 <Loader2 className="w-8 h-8 text-primary animate-spin" />
-                                <p className="text-xs text-muted-foreground">AI maslahatlar tayyorlanmoqda...</p>
+                                <p className="text-xs text-muted-foreground">{language === 'ja' ? 'AI アドバイスを じゅんびちゅう...' : 'AI maslahatlar tayyorlanmoqda...'}</p>
                             </div>
                         ) : aiInsights.length > 0 ? (
                             <div className="space-y-4">
@@ -912,7 +928,7 @@ const DashboardPage: React.FC = () => {
                             </div>
                         ) : (
                             <div className="text-center py-12 text-muted-foreground text-sm">
-                                Shaxsiy maslahatlar olish uchun fanlar ostida dars sessiyalari va flashcardlarni yakunlang. 📈
+                                {language === 'ja' ? 'レッスンや フラッシュカードを ふくしゅうして、アドバイスを うけとりましょう。📈' : "Shaxsiy maslahatlar olish uchun fanlar ostida dars sessiyalari va flashcardlarni yakunlang. 📈"}
                             </div>
                         )}
                     </div>

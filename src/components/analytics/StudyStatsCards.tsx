@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Clock, Flame, CheckCircle2 } from 'lucide-react';
-
+import { useLanguage } from '../../context/LanguageContext';
 
 interface StudyStatsCardsProps {
     totalHours: string;
@@ -9,6 +9,8 @@ interface StudyStatsCardsProps {
 }
 
 const StudyStatsCards: React.FC<StudyStatsCardsProps> = memo(({ totalHours, completedTasks, currentStreak }) => {
+    const { language } = useLanguage();
+
     return (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
@@ -17,8 +19,12 @@ const StudyStatsCards: React.FC<StudyStatsCardsProps> = memo(({ totalHours, comp
                         <Clock size={20} />
                     </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{totalHours}s</h3>
-                <p className="text-sm text-gray-500">Jami O'qish Vaqti</p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {totalHours}{language === 'ja' ? 'じかん' : (language === 'en' ? 'h' : 's')}
+                </h3>
+                <p className="text-sm text-gray-500">
+                    {language === 'ja' ? 'がくしゅうじかん' : (language === 'en' ? 'Total Study Time' : "Jami O'qish Vaqti")}
+                </p>
             </div>
             <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div className="flex justify-between items-start mb-2">
@@ -27,7 +33,9 @@ const StudyStatsCards: React.FC<StudyStatsCardsProps> = memo(({ totalHours, comp
                     </div>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{completedTasks}</h3>
-                <p className="text-sm text-gray-500">Bajarilgan Vazifalar</p>
+                <p className="text-sm text-gray-500">
+                    {language === 'ja' ? 'かんりょうした タスク' : (language === 'en' ? 'Completed Tasks' : 'Bajarilgan Vazifalar')}
+                </p>
             </div>
             <div className="bg-white dark:bg-[#1f2937] p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div className="flex justify-between items-start mb-2">
@@ -35,8 +43,12 @@ const StudyStatsCards: React.FC<StudyStatsCardsProps> = memo(({ totalHours, comp
                         <Flame size={20} />
                     </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{currentStreak} Kun</h3>
-                <p className="text-sm text-gray-500">Joriy Streak</p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {currentStreak} {language === 'ja' ? 'にち' : (language === 'en' ? 'Days' : 'Kun')}
+                </h3>
+                <p className="text-sm text-gray-500">
+                    {language === 'ja' ? 'れんぞく がくしゅう' : (language === 'en' ? 'Current Streak' : 'Joriy Streak')}
+                </p>
             </div>
         </div>
     );

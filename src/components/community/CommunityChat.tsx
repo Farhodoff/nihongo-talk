@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { Send, Loader2, ChevronDown, Smile, MoreHorizontal, Clock } from 'lucide-react';
 import { format, isToday, isYesterday } from 'date-fns';
 import { User } from '@supabase/supabase-js';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ChatMessage {
     id: string;
@@ -16,6 +17,7 @@ interface ChatMessage {
 }
 
 const CommunityChat: React.FC = () => {
+    const { language } = useLanguage();
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [chatError, setChatError] = useState<string | null>(null);
@@ -326,14 +328,20 @@ const CommunityChat: React.FC = () => {
                             <Send size={24} className="-rotate-12" />
                         </div>
                         <div>
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">Umumiy Chat</h3>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
+                                {language === 'ja' ? 'みんなの チャット' : (language === 'en' ? 'Community Chat' : 'Umumiy Chat')}
+                            </h3>
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-1">
                                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                    <span className="text-xs text-green-600 dark:text-green-400 font-bold uppercase tracking-wider">Online</span>
+                                    <span className="text-xs text-green-600 dark:text-green-400 font-bold uppercase tracking-wider">
+                                        {language === 'ja' ? 'オンライン' : 'Online'}
+                                    </span>
                                 </div>
                                 <span className="w-1 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></span>
-                                <span className="text-xs text-gray-500 font-medium">Faol Hamjamiyat</span>
+                                <span className="text-xs text-gray-500 font-medium">
+                                    {language === 'ja' ? 'アクティブな なかまたち' : 'Faol Hamjamiyat'}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -415,7 +423,7 @@ const CommunityChat: React.FC = () => {
                                     handleSendMessage(e);
                                 }
                             }}
-                            placeholder="Xabar yozing..."
+                            placeholder={language === 'ja' ? 'メッセージを にゅうりょく...' : (language === 'en' ? 'Type a message...' : "Xabar yozing...")}
                             disabled={isSending || !!chatError}
                             className="w-full pl-6 pr-14 py-4 rounded-[1.5rem] border-2 border-gray-50 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 focus:bg-white dark:focus:bg-gray-800 transition-all disabled:opacity-50 resize-none max-h-40 min-h-[60px] text-[15px] shadow-inner"
                             rows={1}

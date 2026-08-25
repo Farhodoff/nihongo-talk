@@ -130,7 +130,9 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                         <>
                             <div className="fixed inset-0 z-40" onClick={() => setShowPersonaSelector(false)} />
                             <div className="absolute right-0 top-full mt-2 z-50 w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-2xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Persona tanlang</div>
+                                <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                                    {language === 'ja' ? 'パートナーを えらぶ' : 'Persona tanlang'}
+                                </div>
                                 {(Object.keys(PERSONAS) as CoachPersona[])
                                     .filter(pKey => !(pKey === 'interview' && language === 'ja' && !isAdmin))
                                     .map(pKey => {

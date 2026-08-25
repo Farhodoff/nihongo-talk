@@ -3,6 +3,7 @@ import { ArrowRight, Loader2, Plus, Video, X, Trash2, Globe, Lock, Share2, Check
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../hooks/use-toast';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface StudyRoom {
     id: string;
@@ -23,6 +24,7 @@ const ROOMS = [
 
 const RoomList: React.FC = () => {
     const navigate = useNavigate();
+    const { language } = useLanguage();
     const [currentUserId, setCurrentUserId] = useState<string | null>(null);
     const [customRooms, setCustomRooms] = useState<StudyRoom[]>([]);
     const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
@@ -297,15 +299,19 @@ const RoomList: React.FC = () => {
                         <Video size={28} />
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">O'quv Xonalari</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Jonli muloqot va hamkorlikda o'qish xonalari</p>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                            {language === 'ja' ? 'オンライン じしゅうしつ' : "O'quv Xonalari"}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {language === 'ja' ? 'みんなと いっしょに べんきょうする へや' : "Jonli muloqot va hamkorlikda o'qish xonalari"}
+                        </p>
                     </div>
                 </div>
                 <button
                     onClick={() => setShowCreateRoomModal(true)}
                     className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-2xl font-bold shadow-sm border border-gray-100 dark:border-gray-700 transition-all active:scale-95"
                 >
-                    <Plus size={20} /> Xona Yaratish
+                    <Plus size={20} /> {language === 'ja' ? 'へやを つくる' : 'Xona Yaratish'}
                 </button>
             </div>
 
@@ -318,7 +324,9 @@ const RoomList: React.FC = () => {
                             <div className="w-14 h-14 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
                                 <Video size={32} />
                             </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full">Asosiy</span>
+                            <span className="text-[10px] font-bold uppercase tracking-widest bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full">
+                                {language === 'ja' ? 'メイン' : 'Asosiy'}
+                            </span>
                         </div>
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">{room.name}</h3>
                         <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed mb-8 h-12 overflow-hidden">{room.desc}</p>
@@ -326,7 +334,7 @@ const RoomList: React.FC = () => {
                             className="w-full bg-gray-900 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 group/btn" 
                             onClick={() => navigate(`/room/${room.id}`)}
                         >
-                            Kirish <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+                            {language === 'ja' ? 'はいる' : 'Kirish'} <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
                         </button>
                     </div>
                 ))}

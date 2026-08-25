@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useCallback, useRef } from 'react';
 import { StudySession } from '../../types';
 import { format, eachDayOfInterval, startOfYear, endOfYear } from 'date-fns';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ActivityHeatmapProps {
     sessions: StudySession[];
@@ -30,6 +31,16 @@ const WEEKDAY_NAMES_UZ: Record<number, string> = {
     6: 'Shanba',
 };
 
+const WEEKDAY_NAMES_JA: Record<number, string> = {
+    0: '日曜日',
+    1: '月曜日',
+    2: '火曜日',
+    3: '水曜日',
+    4: '木曜日',
+    5: '金曜日',
+    6: '土曜日',
+};
+
 const MONTH_NAMES_UZ: Record<number, string> = {
     0: 'Yanvar',
     1: 'Fevral',
@@ -45,7 +56,23 @@ const MONTH_NAMES_UZ: Record<number, string> = {
     11: 'Dekabr',
 };
 
+const MONTH_NAMES_JA: Record<number, string> = {
+    0: '1がつ',
+    1: '2がつ',
+    2: '3がつ',
+    3: '4がつ',
+    4: '5がつ',
+    5: '6がつ',
+    6: '7がつ',
+    7: '8がつ',
+    8: '9がつ',
+    9: '10がつ',
+    10: '11がつ',
+    11: '12がつ',
+};
+
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
+    const { language } = useLanguage();
     // 2026 yil to'liq: January - December
     const year2026 = new Date(2026, 0, 1); // January 1, 2026
     const startDate = startOfYear(year2026);
@@ -158,16 +185,16 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
 
     // Format tooltip text
     const formatTooltipText = (day: HeatmapDay): { activity: string; date: string } => {
-        const dayOfWeek = WEEKDAY_NAMES_UZ[day.date.getDay()];
-        const monthName = MONTH_NAMES_UZ[day.date.getMonth()];
+        const dayOfWeek = language === 'ja' ? WEEKDAY_NAMES_JA[day.date.getDay()] : WEEKDAY_NAMES_UZ[day.date.getDay()];
+        const monthName = language === 'ja' ? MONTH_NAMES_JA[day.date.getMonth()] : MONTH_NAMES_UZ[day.date.getMonth()];
         const dayNum = day.date.getDate();
         const year = day.date.getFullYear();
 
         const activity = day.minutes > 0
-            ? `${day.minutes} daqiqa o'qish`
-            : `Faollik yo'q`;
+            ? (language === 'ja' ? `${day.minutes}ふん がくしゅう` : `${day.minutes} daqiqa o'qish`)
+            : (language === 'ja' ? `がくしゅう なし` : `Faollik yo'q`);
 
-        const date = `${dayOfWeek}, ${monthName} ${dayNum}, ${year}`;
+        const date = language === 'ja' ? `${year}ねん ${monthName} ${dayNum}にち (${dayOfWeek})` : `${dayOfWeek}, ${monthName} ${dayNum}, ${year}`;
 
         return { activity, date };
     };
@@ -179,11 +206,13 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
         <div ref={containerRef} className="bg-[#0d1117] p-8 rounded-[24px] border border-white/10 mb-8 overflow-hidden font-sans relative">
             <div className="flex items-center justify-between mb-10">
                 <div>
-                    <h3 className="text-2xl font-bold text-white tracking-tight">O'quv Faolligi</h3>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">
+                        {language === 'ja' ? 'がくしゅうの きろく' : (language === 'en' ? 'Study Activity' : "O'quv Faolligi")}
+                    </h3>
                     <p className="text-xs text-gray-500 mt-1">{yearRange}</p>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span className="opacity-60">Kam</span>
+                    <span className="opacity-60">{language === 'ja' ? 'すくない' : (language === 'en' ? 'Less' : 'Kam')}</span>
                     <div className="flex gap-[4px]">
                         <div className="w-[12px] h-[12px] rounded-[3px] bg-[#161b22] border border-white/10" title="0 daqiqa"></div>
                         <div className="w-[12px] h-[12px] rounded-[3px] bg-[#0e4429]" title="<30 daqiqa"></div>
@@ -191,7 +220,7 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ sessions }) => {
                         <div className="w-[12px] h-[12px] rounded-[3px] bg-[#26a641]" title="<120 daqiqa"></div>
                         <div className="w-[12px] h-[12px] rounded-[3px] bg-[#39d353] shadow-[0_0_10px_rgba(57,211,83,0.5)]" title="≥120 daqiqa"></div>
                     </div>
-                    <span className="opacity-60">Ko'p</span>
+                    <span className="opacity-60">{language === 'ja' ? 'おおい' : (language === 'en' ? 'More' : "Ko'p")}</span>
                 </div>
             </div>
 

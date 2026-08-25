@@ -10,6 +10,7 @@ import { evaluateMockExamSession, ExamDiagnosticReport, ExamQuestionAnswer } fro
 import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ExamQuestion {
     id: number;
@@ -69,6 +70,7 @@ const MOCK_EXAM_QUESTIONS: { [key: string]: ExamQuestion[] } = {
 export const JlptMockExamPage: React.FC = () => {
     const navigate = useNavigate();
     const { user } = useStudyData();
+    const { language } = useLanguage();
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
 
@@ -207,7 +209,7 @@ export const JlptMockExamPage: React.FC = () => {
                     <ArrowLeft size={20} />
                 </button>
                 <span className="px-3 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold text-xs rounded-full border border-rose-500/20">
-                    🎌 JLPT Official Mock Simulator (模擬試験)
+                    🎌 {language === 'ja' ? 'JLPT こうしき もぎしけん' : 'JLPT Official Mock Simulator (模擬試験)'}
                 </span>
             </div>
 
@@ -218,9 +220,13 @@ export const JlptMockExamPage: React.FC = () => {
                         <Award size={32} />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black text-foreground">JLPT Full Simulation Exam</h2>
+                        <h2 className="text-2xl font-black text-foreground">
+                            {language === 'ja' ? 'JLPT ほんばん もぎしけん' : 'JLPT Full Simulation Exam'}
+                        </h2>
                         <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                            Lug'at/Grammatika (言語知識), O'qish (読解) va Tinglash (聴解) bo'limlaridan iborat rasmiy imtihon simulyatori. 180 ballik reyting tizimi.
+                            {language === 'ja' 
+                                ? 'げんごちしき（たんご・ぶんぽう）、どっかい、ちょうかいの ほんばん もぎしけん。180てん まんてん。' 
+                                : "Lug'at/Grammatika (言語知識), O'qish (読解) va Tinglash (聴解) bo'limlaridan iborat rasmiy imtihon simulyatori. 180 ballik reyting tizimi."}
                         </p>
                     </div>
 
@@ -245,7 +251,7 @@ export const JlptMockExamPage: React.FC = () => {
                         onClick={handleStartExam}
                         className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20"
                     >
-                        Mock Imtihonni Boshlash 🚀
+                        {language === 'ja' ? 'もぎしけんを スタート 🚀' : 'Mock Imtihonni Boshlash 🚀'}
                     </Button>
                 </div>
             )}

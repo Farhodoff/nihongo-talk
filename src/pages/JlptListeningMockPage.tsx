@@ -8,10 +8,12 @@ import { Button } from '../components/ui/Button';
 import { JLPT_LISTENING_QUESTIONS, JlptListeningQuestion } from '../data/jlpt/listening_data';
 import { HistoryService } from '../services/HistoryService';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const JlptListeningMockPage: React.FC = () => {
     const navigate = useNavigate();
     const { awardXP, addSession } = useStudyData();
+    const { language } = useLanguage();
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
     const [step, setStep] = useState<'intro' | 'test' | 'report'>('intro');
 
@@ -252,7 +254,7 @@ export const JlptListeningMockPage: React.FC = () => {
                     <ArrowLeft size={20} />
                 </button>
                 <span className="px-3 py-1 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold text-xs rounded-full border border-rose-500/20">
-                    🎌 JLPT Listening Practice (聴解)
+                    🎌 {language === 'ja' ? 'JLPT ちょうかい（きく）れんしゅう' : 'JLPT Listening Practice (聴解)'}
                 </span>
             </div>
 
@@ -263,9 +265,13 @@ export const JlptListeningMockPage: React.FC = () => {
                         <Volume2 size={32} />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black text-foreground">JLPT Choukail (聴解) Practice</h2>
+                        <h2 className="text-2xl font-black text-foreground">
+                            {language === 'ja' ? 'JLPT ちょうかい（きく）れんしゅう' : 'JLPT Choukail (聴解) Practice'}
+                        </h2>
                         <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                            N5 dan N1 gacha bo'lgan darajalar bo'yicha Yapon tili tinglab tushunish mashqlari.
+                            {language === 'ja'
+                                ? 'N5からN1までの ちょうかい れんしゅうもんだい。'
+                                : "N5 dan N1 gacha bo'lgan darajalar bo'yicha Yapon tili tinglab tushunish mashqlari."}
                         </p>
                     </div>
 
@@ -290,7 +296,7 @@ export const JlptListeningMockPage: React.FC = () => {
                         onClick={handleStartTest}
                         className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-rose-500/20"
                     >
-                        Imtihonni Boshlash 🎌
+                        {language === 'ja' ? 'れんしゅうを スタート 🎌' : 'Imtihonni Boshlash 🎌'}
                     </Button>
                 </div>
             )}
