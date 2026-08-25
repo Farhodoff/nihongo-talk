@@ -82,17 +82,9 @@ const SettingsPage: React.FC = () => {
                                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs border border-indigo-400/40">
                                         🛡️ ADMIN
                                     </span>
-                                ) : subscription?.tier === 'premium' ? (
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs">
-                                        PREMIUM VIP
-                                    </span>
-                                ) : subscription?.tier === 'pro' ? (
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-white shadow-xs">
-                                        PRO A'ZO
-                                    </span>
                                 ) : (
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-muted text-muted-foreground border border-border">
-                                        TRIAL / FREE
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                                        🎓 O'QUVCHI
                                     </span>
                                 )}
                             </div>

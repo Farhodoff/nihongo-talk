@@ -35,17 +35,39 @@ const AuthPage: React.FC = () => {
                 });
                 if (error) throw error;
             } else {
-                const { error } = await supabase.auth.signUp({
+                const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
+                        emailRedirectTo: window.location.origin,
                         data: {
                             full_name: fullName,
-                            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${fullName}`,
+                            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(fullName || email)}`,
                         },
                     },
                 });
-                if (error) throw error;
+                if (signUpError) throw signUpError;
+
+                // Agar Supabase auto-confirm yoqilgan bo'lsa yoki sessiya qaytsa, to'g'ridan-to'g'ri tizimga kiramiz
+                if (signUpData?.session) {
+                    window.location.href = '/';
+                    return;
+                }
+
+                // Avtomatik kirishga urinish
+                try {
+                    const { data: loginData, error: loginErr } = await supabase.auth.signInWithPassword({
+                        email,
+                        password,
+                    });
+                    if (!loginErr && loginData?.session) {
+                        window.location.href = '/';
+                        return;
+                    }
+                } catch {
+                    // Supabase email confirm kutilayotgan holat
+                }
+
                 setIsRegistered(true);
             }
         } catch (error: unknown) {
