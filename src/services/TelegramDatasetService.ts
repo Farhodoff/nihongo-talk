@@ -260,4 +260,35 @@ export class TelegramDatasetService {
             return { success: false, message: err.message || 'Hujjatni yuborishda xatolik' };
         }
     }
+
+    /**
+     * Start background timer checking if 22:00 has arrived today
+     */
+    static startDaily22PmScheduler(): void {
+        if (typeof window === 'undefined') return;
+
+        const checkAndDispatch = async () => {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const todayStr = now.toISOString().split('T')[0];
+            const lastDispatched = localStorage.getItem('kaizen_telegram_last_dispatched_date');
+
+            // Agar kechki soat 22:00 (yoki keyinroq) bo'lsa va bugun hali yuborilmagan bo'lsa
+            if (currentHour >= 22 && lastDispatched !== todayStr) {
+                try {
+                    const result = await TelegramDatasetService.sendDailyReportToTelegram();
+                    if (result.success) {
+                        localStorage.setItem('kaizen_telegram_last_dispatched_date', todayStr);
+                        console.log('✅ Kaizen Daily 22:00 Telegram Telemetry Dispatched Successfully');
+                    }
+                } catch (e) {
+                    console.warn('Auto 22:00 dispatch warning:', e);
+                }
+            }
+        };
+
+        // Check on boot and every 15 minutes
+        checkAndDispatch();
+        setInterval(checkAndDispatch, 15 * 60 * 1000);
+    }
 }
