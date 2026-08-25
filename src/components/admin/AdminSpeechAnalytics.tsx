@@ -33,21 +33,31 @@ export interface UserSpeechAggregation {
 }
 
 export const AdminSpeechAnalytics: React.FC = () => {
-    const [sessions, setSessions] = useState<SpeakingSessionRecord[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // Instant SWR initial state from localStorage cache
+    const [sessions, setSessions] = useState<SpeakingSessionRecord[]>(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const cached = localStorage.getItem('study_planner_admin_speech_sessions_cache');
+                if (cached) return JSON.parse(cached);
+            } catch {}
+        }
+        return [];
+    });
+    const [isLoading, setIsLoading] = useState(() => sessions.length === 0);
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<'users' | 'history'>('users');
     const [selectedTranscriptSession, setSelectedTranscriptSession] = useState<SpeakingSessionRecord | null>(null);
 
     const fetchSessions = async () => {
-        setIsLoading(true);
+        if (sessions.length === 0) setIsLoading(true);
         let list: SpeakingSessionRecord[] = [];
 
         try {
             // 1. Fetch profiles to map user_id -> email / full_name for clean display
             const { data: profileData } = await supabase
                 .from('profiles')
-                .select('id, email, full_name');
+                .select('id, email, full_name')
+                .limit(300);
             const profileMap = new Map<string, string>();
             if (profileData) {
                 profileData.forEach(p => {
@@ -63,14 +73,16 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             } catch {}
 
-            // 2. Fetch primary speaking_sessions table with transcript JSONB
-            const { data: speakData, error: speakErr } = await supabase
-                .from('speaking_sessions')
-                .select('*')
-                .order('created_at', { ascending: false });
+            // 2. Fetch primary speaking_sessions table with transcript JSONB (parallel fetch)
+            const [speakRes, coachSessionsRes, legacyRes] = await Promise.allSettled([
+                supabase.from('speaking_sessions').select('id, user_id, user_email, persona_title, topic, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, ai_feedback, transcript, created_at').order('created_at', { ascending: false }).limit(200),
+                supabase.from('speaking_coach_sessions').select('id, user_id, persona_title, persona, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, transcript, created_at').order('created_at', { ascending: false }).limit(200),
+                supabase.from('coach_sessions').select('id, user_id, user_email, persona_title, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, created_at').order('created_at', { ascending: false }).limit(100)
+            ]);
 
-            if (!speakErr && speakData && speakData.length > 0) {
-                speakData.forEach(item => {
+            const speakData = speakRes.status === 'fulfilled' ? speakRes.value.data : null;
+            if (speakData && speakData.length > 0) {
+                speakData.forEach((item: any) => {
                     list.push({
                         id: item.id,
                         user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
@@ -87,14 +99,10 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 });
             }
 
-            // 3. Fetch speaking_coach_sessions (standard table used by Speaking Coach)
-            const { data: coachSessionsData, error: coachSessionsErr } = await supabase
-                .from('speaking_coach_sessions')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (!coachSessionsErr && coachSessionsData && coachSessionsData.length > 0) {
-                for (const item of coachSessionsData) {
+            // 3. Merge speaking_coach_sessions
+            const coachSessionsData = coachSessionsRes.status === 'fulfilled' ? coachSessionsRes.value.data : null;
+            if (coachSessionsData && coachSessionsData.length > 0) {
+                for (const item of coachSessionsData as any[]) {
                     if (!list.some(l => l.id === item.id)) {
                         list.push({
                             id: item.id,
@@ -113,14 +121,10 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             }
 
-            // 4. Fetch legacy coach_sessions if present
-            const { data: legacyData, error: legacyErr } = await supabase
-                .from('coach_sessions')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (!legacyErr && legacyData && legacyData.length > 0) {
-                for (const item of legacyData) {
+            // 4. Merge legacy coach_sessions
+            const legacyData = legacyRes.status === 'fulfilled' ? legacyRes.value.data : null;
+            if (legacyData && legacyData.length > 0) {
+                for (const item of legacyData as any[]) {
                     if (!list.some(l => l.id === item.id)) {
                         list.push({
                             id: item.id,
@@ -209,6 +213,11 @@ export const AdminSpeechAnalytics: React.FC = () => {
         // Sort descending by created_at
         list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
         setSessions(list);
+        if (typeof window !== 'undefined' && list.length > 0) {
+            try {
+                localStorage.setItem('study_planner_admin_speech_sessions_cache', JSON.stringify(list.slice(0, 100)));
+            } catch {}
+        }
         setIsLoading(false);
     };
 

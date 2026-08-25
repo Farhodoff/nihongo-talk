@@ -25,9 +25,9 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
     console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
-// Lightweight concurrency queue to prevent HTTP/2 stream multiplexing resets
+// High-performance concurrency queue to prevent excessive socket flooding while allowing instant parallel queries
 let activeRequests = 0;
-const MAX_CONCURRENT = 3;
+const MAX_CONCURRENT = 10;
 const requestQueue: Array<() => void> = [];
 
 const acquireSlot = async (): Promise<void> => {
@@ -51,18 +51,17 @@ const releaseSlot = () => {
     }
 };
 
-// Helper to retry fetch on transient connection resets / network drops
+// Helper to retry fetch on transient connection resets / network drops with minimal latency
 const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxRetries = 2): Promise<Response> => {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
             return await fetch(input, init);
         } catch (err: any) {
-            // Aborted requests must never be retried: the signal stays aborted,
-            // so every retry rejects instantly and spams "AbortError" rejections.
+            // Aborted requests must never be retried
             if (err?.name === 'AbortError') throw err;
             const isLast = attempt === maxRetries;
             if (isLast) throw err;
-            await new Promise(resolve => setTimeout(resolve, 200 * Math.pow(2, attempt)));
+            await new Promise(resolve => setTimeout(resolve, 100 * Math.pow(2, attempt)));
         }
     }
     throw new Error('Fetch failed after retries');

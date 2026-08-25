@@ -158,10 +158,28 @@ const TierBadge: React.FC<{ tier: string }> = ({ tier }) => {
 const AdminDashboardPage: React.FC = () => {
     const { user } = useStudyData();
     const navigate = useNavigate();
-    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // Instant SWR initial state from localStorage cache to eliminate initial blank spinner
+    const [subscriptions, setSubscriptions] = useState<UserSubscription[]>(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const cached = localStorage.getItem('study_planner_admin_users_cache');
+                if (cached) return JSON.parse(cached);
+            } catch {}
+        }
+        return [];
+    });
+    const [dailyStats, setDailyStats] = useState<any[]>(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const cached = localStorage.getItem('study_planner_admin_stats_cache');
+                if (cached) return JSON.parse(cached);
+            } catch {}
+        }
+        return [];
+    });
+    const [loading, setLoading] = useState(() => subscriptions.length === 0);
     const [refreshing, setRefreshing] = useState(false);
-    const [dailyStats, setDailyStats] = useState<any[]>([]);
     const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
     const [userSearchQuery, setUserSearchQuery] = useState('');
     const [activeSection, setActiveSection] = useState<'users' | 'speech' | 'scenarios'>('users');
@@ -227,11 +245,11 @@ const AdminDashboardPage: React.FC = () => {
     const fetchAdminData = async () => {
         try {
             const [profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, studySessionsSettled] = await Promise.allSettled([
-                supabase.from('profiles').select('*').order('created_at', { ascending: false }),
-                supabase.from('user_subscriptions').select('*').order('created_at', { ascending: false }),
-                supabase.from('speaking_sessions').select('id, user_id, duration_seconds, overall_score, created_at').order('created_at', { ascending: false }).limit(500),
-                supabase.from('speaking_coach_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(500),
-                supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(500)
+                supabase.from('profiles').select('id, email, full_name, role, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('user_subscriptions').select('id, user_id, email, tier, ai_credits, valid_until, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('speaking_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('speaking_coach_sessions').select('id, user_id, duration_seconds, created_at').order('created_at', { ascending: false }).limit(300),
+                supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(300)
             ]);
 
             const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
@@ -294,7 +312,13 @@ const AdminDashboardPage: React.FC = () => {
                 }
             } catch {}
 
-            setSubscriptions(Array.from(userMap.values()));
+            const usersList = Array.from(userMap.values());
+            setSubscriptions(usersList);
+            if (typeof window !== 'undefined' && usersList.length > 0) {
+                try {
+                    localStorage.setItem('study_planner_admin_users_cache', JSON.stringify(usersList.slice(0, 100)));
+                } catch {}
+            }
 
             // 2. Aggregate 100% real daily stats from speaking_sessions, speaking_coach_sessions and study_sessions
             const dateMap = new Map<string, { activity_date: string; activeUsers: Set<string>; total_duration_minutes: number; total_sessions: number }>();
@@ -339,6 +363,11 @@ const AdminDashboardPage: React.FC = () => {
                 }));
 
             setDailyStats(sortedStats);
+            if (typeof window !== 'undefined' && sortedStats.length > 0) {
+                try {
+                    localStorage.setItem('study_planner_admin_stats_cache', JSON.stringify(sortedStats));
+                } catch {}
+            }
         } catch (err) {
             console.error('fetchAdminData error:', err);
         }
