@@ -44,7 +44,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
         let list: SpeakingSessionRecord[] = [];
 
         try {
-            // Fetch profiles to map user_id -> email for clean display
+            // 1. Fetch profiles to map user_id -> email / full_name for clean display
             const { data: profileData } = await supabase
                 .from('profiles')
                 .select('id, email, full_name');
@@ -55,29 +55,65 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 });
             }
 
-            // 1. Fetch primary speaking_sessions table with transcript JSONB
+            // Also check current authenticated user
+            try {
+                const { data: authData } = await supabase.auth.getUser();
+                if (authData?.user?.id && authData?.user?.email) {
+                    profileMap.set(authData.user.id, authData.user.email);
+                }
+            } catch {}
+
+            // 2. Fetch primary speaking_sessions table with transcript JSONB
             const { data: speakData, error: speakErr } = await supabase
                 .from('speaking_sessions')
                 .select('*')
                 .order('created_at', { ascending: false });
 
             if (!speakErr && speakData && speakData.length > 0) {
-                list = speakData.map(item => ({
-                    id: item.id,
-                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
-                    persona_title: item.persona_title || item.topic || 'Speaking Muloqot',
-                    fluency_score: item.fluency_score || 0,
-                    pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
-                    grammar_score: item.grammar_score || 0,
-                    vocabulary_score: item.vocabulary_score || 0,
-                    duration_seconds: item.duration_seconds || 0,
-                    feedback: item.feedback || item.ai_feedback || '',
-                    transcript: item.transcript || [],
-                    created_at: item.created_at || new Date().toISOString()
-                }));
+                speakData.forEach(item => {
+                    list.push({
+                        id: item.id,
+                        user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
+                        persona_title: item.persona_title || item.topic || 'Speaking Muloqot',
+                        fluency_score: Number(item.fluency_score) || 0,
+                        pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
+                        grammar_score: Number(item.grammar_score) || 0,
+                        vocabulary_score: Number(item.vocabulary_score) || 0,
+                        duration_seconds: Number(item.duration_seconds) || 0,
+                        feedback: item.feedback || item.ai_feedback || '',
+                        transcript: item.transcript || [],
+                        created_at: item.created_at || new Date().toISOString()
+                    });
+                });
             }
 
-            // 2. Legacy fallback from coach_sessions if needed
+            // 3. Fetch speaking_coach_sessions (standard table used by Speaking Coach)
+            const { data: coachSessionsData, error: coachSessionsErr } = await supabase
+                .from('speaking_coach_sessions')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (!coachSessionsErr && coachSessionsData && coachSessionsData.length > 0) {
+                for (const item of coachSessionsData) {
+                    if (!list.some(l => l.id === item.id)) {
+                        list.push({
+                            id: item.id,
+                            user_email: (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
+                            persona_title: item.persona_title || item.persona || 'Speaking Muloqot',
+                            fluency_score: Number(item.fluency_score) || 0,
+                            pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
+                            grammar_score: Number(item.grammar_score) || 0,
+                            vocabulary_score: Number(item.vocabulary_score) || 0,
+                            duration_seconds: Number(item.duration_seconds) || 120,
+                            feedback: item.feedback || '',
+                            transcript: item.transcript || [],
+                            created_at: item.created_at || new Date().toISOString()
+                        });
+                    }
+                }
+            }
+
+            // 4. Fetch legacy coach_sessions if present
             const { data: legacyData, error: legacyErr } = await supabase
                 .from('coach_sessions')
                 .select('*')
@@ -90,15 +126,80 @@ export const AdminSpeechAnalytics: React.FC = () => {
                             id: item.id,
                             user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
                             persona_title: item.persona_title || 'Yaponcha Muloqot',
-                            fluency_score: item.fluency_score || 0,
-                            pronunciation_score: item.pronunciation_score || item.fluency_score || 0,
-                            grammar_score: item.grammar_score || 0,
-                            vocabulary_score: item.vocabulary_score || 0,
-                            duration_seconds: item.duration_seconds || 0,
+                            fluency_score: Number(item.fluency_score) || 0,
+                            pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
+                            grammar_score: Number(item.grammar_score) || 0,
+                            vocabulary_score: Number(item.vocabulary_score) || 0,
+                            duration_seconds: Number(item.duration_seconds) || 0,
                             feedback: item.feedback || '',
                             created_at: item.created_at || new Date().toISOString()
                         });
                     }
+                }
+            }
+
+            // 5. Scan LocalStorage for any local speech sessions & auto-sync to DB
+            if (typeof window !== 'undefined') {
+                try {
+                    const localCoachRaw = localStorage.getItem('study_planner_speaking_coach_sessions');
+                    if (localCoachRaw) {
+                        const parsedCoach = JSON.parse(localCoachRaw);
+                        if (Array.isArray(parsedCoach)) {
+                            for (const item of parsedCoach) {
+                                const sessionId = item.id || `local-coach-${item.createdAt || item.created_at || Date.now()}`;
+                                if (!list.some(l => l.id === sessionId)) {
+                                    list.push({
+                                        id: sessionId,
+                                        user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Siz (Admin / Local)',
+                                        persona_title: item.personaTitle || item.persona || 'Speaking Muloqot',
+                                        fluency_score: Number(item.fluencyScore || item.fluency_score) || 0,
+                                        pronunciation_score: Number(item.pronunciationScore || item.pronunciation_score) || 0,
+                                        grammar_score: Number(item.grammarScore || item.grammar_score) || 0,
+                                        vocabulary_score: Number(item.vocabularyScore || item.vocabulary_score) || 0,
+                                        duration_seconds: Number(item.durationSeconds || item.duration_seconds) || 120,
+                                        feedback: item.feedback || '',
+                                        transcript: item.transcript || [],
+                                        created_at: item.createdAt || item.created_at || new Date().toISOString()
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    // Scan scoped scenario and speaking history keys
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const k = localStorage.key(i);
+                        if (k && (k.startsWith('study_planner_scenario_history_') || k.startsWith('study_planner_speaking_history_') || k.startsWith('study_planner_speaking_coach_sessions_'))) {
+                            try {
+                                const raw = localStorage.getItem(k);
+                                if (raw) {
+                                    const parsed = JSON.parse(raw);
+                                    if (Array.isArray(parsed)) {
+                                        for (const item of parsed) {
+                                            const scId = item.id || `local-sc-${item.created_at || item.createdAt || Date.now()}`;
+                                            if (!list.some(l => l.id === scId)) {
+                                                list.push({
+                                                    id: scId,
+                                                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Siz (Admin / Local)',
+                                                    persona_title: item.scenario_title || item.persona_title || 'Ssenariy Muloqot',
+                                                    fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
+                                                    pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || 0,
+                                                    grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
+                                                    vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                                                    duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 120,
+                                                    feedback: item.ai_feedback || item.feedback || '',
+                                                    transcript: item.transcript || [],
+                                                    created_at: item.created_at || item.createdAt || new Date().toISOString()
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            } catch {}
+                        }
+                    }
+                } catch (localErr) {
+                    console.warn('Local storage speech scan notice:', localErr);
                 }
             }
         } catch (err) {

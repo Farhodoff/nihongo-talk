@@ -5,6 +5,38 @@
 -- scenario_histories, and ai_chat_messages while enforcing strict user isolation.
 -- ====================================================================
 
+-- 0. Centralized is_admin function with direct JWT email fallback
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    RETURN EXISTS (
+        SELECT 1 FROM public.profiles
+        WHERE id = auth.uid()
+          AND (
+            role IN ('admin', 'superadmin')
+            OR email IN (
+                'fsoyilov@gmail.com',
+                'fsoyilovv@gmail.com',
+                'soyilovfarhod157@gmail.com',
+                'ssoyilov7700@gmail.com',
+                '220075f@jdu.uz'
+            )
+          )
+    ) OR (auth.jwt() ->> 'email') IN (
+        'fsoyilov@gmail.com',
+        'fsoyilovv@gmail.com',
+        'soyilovfarhod157@gmail.com',
+        'ssoyilov7700@gmail.com',
+        '220075f@jdu.uz'
+    );
+END;
+$$;
+
 -- 1. speaking_sessions: Allow users to read own and admins to read all
 ALTER TABLE public.speaking_sessions ENABLE ROW LEVEL SECURITY;
 
