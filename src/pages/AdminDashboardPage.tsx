@@ -254,13 +254,30 @@ const AdminDashboardPage: React.FC = () => {
                 supabase.from('study_sessions').select('*').limit(500)
             ]);
 
-            const rpcUsers = (rpcSettled.status === 'fulfilled' && Array.isArray(rpcSettled.value.data)) ? rpcSettled.value.data : [];
-            const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
-            const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
-            const dbSpeaking = (speakingSettled.status === 'fulfilled' && Array.isArray(speakingSettled.value.data)) ? speakingSettled.value.data : [];
-            const dbCoachSpeaking = (coachSpeakingSettled.status === 'fulfilled' && Array.isArray(coachSpeakingSettled.value.data)) ? coachSpeakingSettled.value.data : [];
-            const dbAiCoach = (aiCoachSettled.status === 'fulfilled' && Array.isArray(aiCoachSettled.value.data)) ? aiCoachSettled.value.data : [];
-            const dbStudySessions = (studySessionsSettled.status === 'fulfilled' && Array.isArray(studySessionsSettled.value.data)) ? studySessionsSettled.value.data : [];
+            // Debug: log each query result
+            const rpcResult = rpcSettled.status === 'fulfilled' ? rpcSettled.value : null;
+            const profilesResult = profilesSettled.status === 'fulfilled' ? profilesSettled.value : null;
+            const subsResult = subsSettled.status === 'fulfilled' ? subsSettled.value : null;
+            const speakingResult = speakingSettled.status === 'fulfilled' ? speakingSettled.value : null;
+            const coachResult = coachSpeakingSettled.status === 'fulfilled' ? coachSpeakingSettled.value : null;
+            const aiCoachResult = aiCoachSettled.status === 'fulfilled' ? aiCoachSettled.value : null;
+            const studyResult = studySessionsSettled.status === 'fulfilled' ? studySessionsSettled.value : null;
+
+            console.log('[Admin] RPC get_admin_all_users:', rpcResult?.data?.length ?? 0, 'rows, error:', rpcResult?.error?.message || 'none');
+            console.log('[Admin] profiles:', profilesResult?.data?.length ?? 0, 'rows, error:', profilesResult?.error?.message || 'none');
+            console.log('[Admin] user_subscriptions:', subsResult?.data?.length ?? 0, 'rows, error:', subsResult?.error?.message || 'none');
+            console.log('[Admin] speaking_sessions:', speakingResult?.data?.length ?? 0, 'rows, error:', speakingResult?.error?.message || 'none');
+            console.log('[Admin] speaking_coach_sessions:', coachResult?.data?.length ?? 0, 'rows, error:', coachResult?.error?.message || 'none');
+            console.log('[Admin] ai_coach_sessions:', aiCoachResult?.data?.length ?? 0, 'rows, error:', aiCoachResult?.error?.message || 'none');
+            console.log('[Admin] study_sessions:', studyResult?.data?.length ?? 0, 'rows, error:', studyResult?.error?.message || 'none');
+
+            const rpcUsers = Array.isArray(rpcResult?.data) ? rpcResult!.data : [];
+            const dbProfiles = Array.isArray(profilesResult?.data) ? profilesResult!.data : [];
+            const dbSubs = Array.isArray(subsResult?.data) ? subsResult!.data : [];
+            const dbSpeaking = Array.isArray(speakingResult?.data) ? speakingResult!.data : [];
+            const dbCoachSpeaking = Array.isArray(coachResult?.data) ? coachResult!.data : [];
+            const dbAiCoach = Array.isArray(aiCoachResult?.data) ? aiCoachResult!.data : [];
+            const dbStudySessions = Array.isArray(studyResult?.data) ? studyResult!.data : [];
 
             // 1. Map registered users from Supabase DB (merge RPC + profiles + subscriptions)
             const userMap = new Map<string, UserSubscription>();
@@ -282,7 +299,7 @@ const AdminDashboardPage: React.FC = () => {
             
             dbProfiles.forEach((p: any) => {
                 const uid = p.id || p.user_id;
-                if (uid) {
+                if (uid && !userMap.has(uid)) {
                     userMap.set(uid, {
                         id: uid,
                         email: p.email || (p.full_name ? `${p.full_name.toLowerCase().replace(/\s+/g, '')}@kaizen.ai` : 'student@kaizen.ai'),
@@ -358,6 +375,7 @@ const AdminDashboardPage: React.FC = () => {
             }
 
             const usersList = Array.from(userMap.values());
+            console.log('[Admin] Final userMap size:', usersList.length);
             setSubscriptions(usersList);
             if (typeof window !== 'undefined' && usersList.length > 0) {
                 try {
@@ -365,7 +383,7 @@ const AdminDashboardPage: React.FC = () => {
                 } catch {}
             }
 
-            // 2. Aggregate daily stats from speaking_sessions, speaking_coach_sessions and study_sessions + local storage
+            // 2. Aggregate daily stats from DB sessions + local storage
             const dateMap = new Map<string, { activity_date: string; activeUsers: Set<string>; total_duration_minutes: number; total_sessions: number }>();
 
             const processRecord = (created_at?: string, durationMin?: number, userId?: string) => {
@@ -406,16 +424,26 @@ const AdminDashboardPage: React.FC = () => {
                 try {
                     for (let i = 0; i < localStorage.length; i++) {
                         const k = localStorage.key(i);
-                        if (k && (k.includes('scenario_history') || k.includes('speaking') || k.includes('study_sessions') || k.includes('focus_history') || k.includes('pomodoro'))) {
+                        if (k && (k.includes('scenario_history') || k.includes('speaking') || k.includes('study_sessions') || k.includes('focus_history') || k.includes('pomodoro') || k.includes('coach'))) {
                             const raw = localStorage.getItem(k);
                             if (raw) {
                                 try {
                                     const parsed = JSON.parse(raw);
                                     if (Array.isArray(parsed)) {
                                         parsed.forEach((item: any) => {
-                                            const itemDate = item.created_at || item.createdAt || item.start_time || item.date;
+                                            const itemDate = item.created_at || item.createdAt || item.start_time || item.date || item.timestamp;
                                             const itemDur = (item.duration_seconds || item.durationSeconds) ? (item.duration_seconds || item.durationSeconds) / 60 : (item.duration || 2);
-                                            processRecord(itemDate, itemDur, item.user_id || 'self');
+                                            processRecord(itemDate, itemDur, item.user_id || currentUid);
+                                        });
+                                    } else if (typeof parsed === 'object' && parsed !== null) {
+                                        // Handle object-based storage (e.g. {sessions: [...]} or history objects with date keys)
+                                        const possibleArrays = Object.values(parsed).filter(v => Array.isArray(v));
+                                        possibleArrays.forEach((arr: any) => {
+                                            arr.forEach((item: any) => {
+                                                const itemDate = item.created_at || item.createdAt || item.start_time || item.date || item.timestamp;
+                                                const itemDur = (item.duration_seconds || item.durationSeconds) ? (item.duration_seconds || item.durationSeconds) / 60 : (item.duration || 2);
+                                                processRecord(itemDate, itemDur, item.user_id || currentUid);
+                                            });
                                         });
                                     }
                                 } catch {}
@@ -424,6 +452,8 @@ const AdminDashboardPage: React.FC = () => {
                     }
                 } catch {}
             }
+
+            console.log('[Admin] dateMap entries:', dateMap.size, 'total sessions:', Array.from(dateMap.values()).reduce((s, d) => s + d.total_sessions, 0));
 
             const sortedStats = Array.from(dateMap.values())
                 .sort((a, b) => a.activity_date.localeCompare(b.activity_date))
