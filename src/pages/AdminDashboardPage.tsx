@@ -301,29 +301,44 @@ const AdminDashboardPage: React.FC = () => {
                 }
             });
 
-            // Ensure current user is in mappedUsers
-            try {
-                const { data: authData } = await supabase.auth.getUser();
-                if (authData?.user) {
-                    const existing = userMap.get(authData.user.id);
-                    if (existing) {
-                        existing.email = authData.user.email || existing.email;
-                        if (authData.user.email === 'fsoyilov@gmail.com') {
-                            existing.tier = 'premium';
-                        }
-                    } else {
-                        userMap.set(authData.user.id, {
-                            id: authData.user.id,
-                            email: authData.user.email || 'fsoyilov@gmail.com',
-                            full_name: authData.user.user_metadata?.full_name || 'Admin',
-                            tier: 'premium',
-                            ai_credits: 99999,
-                            last_reset_date: new Date().toISOString(),
-                            created_at: authData.user.created_at || new Date().toISOString()
-                        });
-                    }
+            const currentUid = user?.id || 'admin-root';
+            const currentEmail = user?.email || 'fsoyilov@gmail.com';
+            const currentName = (user as any)?.user_metadata?.full_name || (user as any)?.full_name || 'Farhod (Admin)';
+            
+            [...dbSpeaking, ...dbCoachSpeaking, ...dbStudySessions, ...dbAiCoach].forEach((s: any) => {
+                const uid = s.user_id;
+                if (uid && !userMap.has(uid)) {
+                    const isCurrentUser = uid === currentUid;
+                    const email = isCurrentUser ? currentEmail : (s.user_email || `user-${uid.slice(0, 6)}@kaizen.ai`);
+                    userMap.set(uid, {
+                        id: uid,
+                        email: email || 'student@kaizen.ai',
+                        full_name: isCurrentUser ? currentName : '',
+                        tier: (email === 'fsoyilov@gmail.com' || isCurrentUser ? 'premium' : 'free') as any,
+                        ai_credits: 99999,
+                        last_reset_date: s.created_at || new Date().toISOString(),
+                        created_at: s.created_at || new Date().toISOString()
+                    });
                 }
-            } catch {}
+            });
+
+            // Ensure current admin user is ALWAYS in userMap
+            if (!userMap.has(currentUid)) {
+                userMap.set(currentUid, {
+                    id: currentUid,
+                    email: currentEmail,
+                    full_name: currentName,
+                    tier: 'premium',
+                    ai_credits: 99999,
+                    last_reset_date: new Date().toISOString(),
+                    created_at: new Date().toISOString()
+                });
+            } else {
+                const adminEntry = userMap.get(currentUid)!;
+                if (currentEmail) adminEntry.email = currentEmail;
+                adminEntry.tier = 'premium';
+                if (currentName && !adminEntry.full_name) adminEntry.full_name = currentName;
+            }
 
             const usersList = Array.from(userMap.values());
             setSubscriptions(usersList);
