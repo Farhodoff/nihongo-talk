@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
-    BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
+    BarChart, BookOpen, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, 
     Mic, Brain, Sparkles,
     Shield
@@ -116,7 +116,6 @@ const Layout: React.FC = () => {
                 { name: "IELTS Master Hub", path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
                 { name: "Scenarios", path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
                 { name: "Speaking Examiner", path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
                 { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
                 { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
                 { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
@@ -130,7 +129,6 @@ const Layout: React.FC = () => {
             { name: "JLPT Master Hub", path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
             { name: "Scenarios", path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
             { name: "Speaking Coach", path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
-            { name: 'Tasks (Vazifalar)', path: '/tasks', icon: CheckSquare, tourId: 'nav-tasks' },
             { name: 'Fleshkartalar (SRS)', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
             { name: 'Fokus & Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
             { name: 'Progress & Tahlil', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
@@ -409,9 +407,9 @@ const Layout: React.FC = () => {
             <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
                 {[
                     { name: 'Dashboard', path: '/dashboard', icon: Home },
+                    { name: 'Speaking', path: '/speaking-coach', icon: Mic },
                     { name: 'Fleshkarta', path: '/flashcards', icon: Copy },
                     { name: 'Fokus', path: '/focus', icon: Clock },
-                    { name: 'Vazifalar', path: '/tasks', icon: CheckSquare },
                 ].map(item => (
                     <NavLink
                         key={item.path}
