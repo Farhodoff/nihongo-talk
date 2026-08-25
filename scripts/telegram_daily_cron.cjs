@@ -6,10 +6,10 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const BOT_TOKEN = process.env.TELEGRAM_DATASET_BOT_TOKEN || '8680127674:AAFXqzGfgzq9tBuvH2s3-3DQtwocy1yUH2Q';
-const CHAT_ID = process.env.TELEGRAM_DATASET_CHAT_ID ? Number(process.env.TELEGRAM_DATASET_CHAT_ID) : -5567549174;
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://qmuimxnknxwarvnkpnlo.supabase.co';
-const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+const BOT_TOKEN = process.env.TELEGRAM_DATASET_BOT_TOKEN || process.env.VITE_TELEGRAM_DATASET_BOT_TOKEN || '';
+const CHAT_ID = process.env.TELEGRAM_DATASET_CHAT_ID || process.env.VITE_TELEGRAM_DATASET_CHAT_ID || '';
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || '';
+const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || '';
 
 function getTashkentDate() {
     const now = new Date();

@@ -9,10 +9,6 @@ import { supabase } from '../lib/supabase';
 const TELEGRAM_VAULT_TOKEN_KEY = 'kaizen_telegram_dataset_bot_token';
 const TELEGRAM_VAULT_CHAT_ID_KEY = 'kaizen_telegram_dataset_chat_id';
 
-// Default configuration provided by Super Admin
-const DEFAULT_BOT_TOKEN = '8680127674:AAFXqzGfgzq9tBuvH2s3-3DQtwocy1yUH2Q';
-const DEFAULT_CHAT_ID = '-5567549174';
-
 export interface DailySpeechSummary {
     date: string;
     totalSessions: number;
@@ -34,17 +30,22 @@ export interface DailySpeechSummary {
 
 export class TelegramDatasetService {
     static getStoredConfig(): { botToken: string; chatId: string } {
-        if (typeof window === 'undefined') return { botToken: DEFAULT_BOT_TOKEN, chatId: DEFAULT_CHAT_ID };
+        if (typeof window === 'undefined') {
+            return {
+                botToken: (import.meta as any).env?.VITE_TELEGRAM_DATASET_BOT_TOKEN || '',
+                chatId: (import.meta as any).env?.VITE_TELEGRAM_DATASET_CHAT_ID || ''
+            };
+        }
         return {
-            botToken: localStorage.getItem(TELEGRAM_VAULT_TOKEN_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_BOT_TOKEN || DEFAULT_BOT_TOKEN,
-            chatId: localStorage.getItem(TELEGRAM_VAULT_CHAT_ID_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_CHAT_ID || DEFAULT_CHAT_ID
+            botToken: localStorage.getItem(TELEGRAM_VAULT_TOKEN_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_BOT_TOKEN || '',
+            chatId: localStorage.getItem(TELEGRAM_VAULT_CHAT_ID_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_CHAT_ID || ''
         };
     }
 
     static saveConfig(botToken: string, chatId: string): void {
         if (typeof window === 'undefined') return;
-        localStorage.setItem(TELEGRAM_VAULT_TOKEN_KEY, botToken.trim() || DEFAULT_BOT_TOKEN);
-        localStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, chatId.trim() || DEFAULT_CHAT_ID);
+        localStorage.setItem(TELEGRAM_VAULT_TOKEN_KEY, botToken.trim());
+        localStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, chatId.trim());
     }
 
     /**
