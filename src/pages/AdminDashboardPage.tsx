@@ -304,7 +304,7 @@ const AdminDashboardPage: React.FC = () => {
                 if (authData?.user && !userMap.has(authData.user.id)) {
                     userMap.set(authData.user.id, {
                         id: authData.user.id,
-                        email: authData.user.email || 'admin@kaizen.ai',
+                        email: authData.user.email || 'fsoyilov@gmail.com',
                         full_name: authData.user.user_metadata?.full_name || 'Admin',
                         tier: 'premium',
                         ai_credits: 99999,

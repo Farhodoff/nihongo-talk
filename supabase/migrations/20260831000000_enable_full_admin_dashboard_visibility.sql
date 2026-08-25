@@ -15,9 +15,9 @@ DECLARE
     current_user_email TEXT;
     current_user_role TEXT;
 BEGIN
-    -- Check direct JWT email
+    -- Check direct JWT email (strictly fsoyilov@gmail.com)
     current_user_email := COALESCE(auth.jwt() ->> 'email', '');
-    IF current_user_email = 'fsoyilov@gmail.com' OR current_user_email = 'admin@kaizen.ai' THEN
+    IF current_user_email = 'fsoyilov@gmail.com' THEN
         RETURN true;
     END IF;
 
@@ -30,7 +30,7 @@ BEGIN
     -- Check if user profile email is admin email
     IF EXISTS (
         SELECT 1 FROM public.profiles
-        WHERE id = auth.uid() AND (email = 'fsoyilov@gmail.com' OR email = 'admin@kaizen.ai')
+        WHERE id = auth.uid() AND email = 'fsoyilov@gmail.com'
     ) THEN
         RETURN true;
     END IF;
