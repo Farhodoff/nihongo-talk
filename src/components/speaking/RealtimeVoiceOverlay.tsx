@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, Sparkles, AlertCircle, CheckCircle2, Flame, Volume2, Zap } from 'lucide-react';
+import { Mic, Sparkles, AlertCircle, CheckCircle2, Volume2, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface ErrorTag {
@@ -29,24 +29,11 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     isAiSpeaking,
     transcript,
     errors,
-    activeCefrLevel = 'B2',
-    activeJlptLevel,
     isHandsFree = false,
     onCommitNow,
     onBargeIn,
     onToggleHandsFree,
 }) => {
-    const getBadgeStyle = (level: string) => {
-        switch (level) {
-            case 'C2': case 'C1': case 'N1':
-                return 'from-rose-500 to-purple-600 text-white shadow-rose-500/20';
-            case 'B2': case 'B1': case 'N2': case 'N3':
-                return 'from-indigo-500 to-cyan-500 text-white shadow-indigo-500/20';
-            default:
-                return 'from-emerald-500 to-teal-500 text-white shadow-emerald-500/20';
-        }
-    };
-
     const getCategoryBadge = (type: string) => {
         switch (type) {
             case 'vocabulary':
@@ -139,18 +126,6 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
                             <span>{errors.length} maslahat</span>
                         </div>
                     )}
-                    
-                    {activeJlptLevel && (
-                        <div className={`px-2.5 py-1 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeJlptLevel)} font-black text-[11px] shadow-sm flex items-center gap-1`}>
-                            <Flame size={12} />
-                            <span>JLPT {activeJlptLevel}</span>
-                        </div>
-                    )}
-
-                    <div className={`px-2.5 py-1 rounded-xl bg-gradient-to-r ${getBadgeStyle(activeCefrLevel)} font-black text-[11px] shadow-sm flex items-center gap-1`}>
-                        <Sparkles size={12} />
-                        <span>CEFR {activeCefrLevel}</span>
-                    </div>
                 </div>
             </div>
 

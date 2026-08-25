@@ -1,6 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Check, GraduationCap, Settings as SettingsIcon } from 'lucide-react';
+import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
 
 interface CoachTopBarProps {
     language: 'en' | 'ja';
@@ -41,6 +42,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     formatTimer,
     activeScenario
 }) => {
+    const navigate = useNavigate();
     const PERSONAS = PERSONAS_BY_LANG[language];
     const currentPersona = PERSONAS[persona];
     const ActivePersonaIcon = currentPersona.icon;
@@ -55,8 +57,16 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
 
     return (
         <div className="relative z-10 px-3 md:px-5 pt-3 pb-2 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap flex-shrink-0">
-            {/* Left: Title + Status */}
+            {/* Left: Exit/Back button + Title + Status */}
             <div className="flex items-center gap-2.5 min-w-0">
+                <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="p-2 sm:p-2.5 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-foreground hover:bg-white dark:hover:bg-gray-800 transition-all shadow-xs shrink-0"
+                    title="Chiqish / Orqaga"
+                >
+                    <ArrowLeft size={17} />
+                </button>
                 <div className={`relative p-2 sm:p-2.5 bg-gradient-to-tr ${currentPersona.color} text-white rounded-2xl shadow-lg flex items-center justify-center shrink-0`}>
                     {activeScenario ? (
                         <span className="text-lg">{activeScenario.emoji}</span>
