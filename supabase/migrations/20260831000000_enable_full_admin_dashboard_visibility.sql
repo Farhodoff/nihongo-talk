@@ -69,13 +69,13 @@ CREATE POLICY "Users and admins update profiles" ON public.profiles
     FOR UPDATE TO authenticated
     USING (auth.uid() = id OR public.is_admin());
 
--- 4. USER_SUBSCRIPTIONS: Enable Admin SELECT and ALL
+-- 4. USER_SUBSCRIPTIONS: Admin o'qish va boshqaruv ruxsati
 ALTER TABLE public.user_subscriptions ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Users can view own subscription" ON public.user_subscriptions;
 DROP POLICY IF EXISTS "Owner or admin read subscription" ON public.user_subscriptions;
 CREATE POLICY "Owner or admin read subscription" ON public.user_subscriptions
     FOR SELECT TO authenticated
-    USING (auth.uid() = id OR auth.uid() = user_id OR public.is_admin());
+    USING (auth.uid() = id OR public.is_admin());
 
 DROP POLICY IF EXISTS "Admin manage all subscriptions" ON public.user_subscriptions;
 CREATE POLICY "Admin manage all subscriptions" ON public.user_subscriptions
