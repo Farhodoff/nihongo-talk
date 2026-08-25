@@ -7,6 +7,7 @@ import { FuriganaText } from '../components/jlpt/FuriganaText';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
 import { isSuperAdmin } from '../utils/admin';
+import { useLanguage } from '../context/LanguageContext';
 
 export interface VocabWordDetails {
     word: string;
@@ -24,6 +25,7 @@ export interface VocabWordDetails {
 
 export const VocabularyBuilderPage: React.FC = () => {
     const { user, subjects, addFlashcard, primaryLanguage } = useStudyData();
+    const { language } = useLanguage();
     const isSuper = isSuperAdmin(user?.email);
 
     const [query, setQuery] = useState('');
@@ -251,12 +253,14 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                     </div>
                     <div>
                         <h1 className="text-2xl md:text-3xl font-extrabold text-foreground">
-                            Smart Vocabulary Builder 🧠
+                            {language === 'ja' ? 'AI単語帳・辞書ビルダー 🧠' : 'Smart Vocabulary Builder 🧠'}
                         </h1>
                         <p className="text-xs text-muted-foreground">
-                            {isSuper 
-                                ? "IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing."
-                                : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing."}
+                            {language === 'ja'
+                                ? 'JLPT・英語の単語をリアルタイムでAI分析。意味・例文・類語・コロケーションを瞬時に学習できます。'
+                                : (isSuper 
+                                    ? "IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing."
+                                    : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing.")}
                         </p>
                     </div>
                 </div>
@@ -269,7 +273,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             activeTab === 'search' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
                         }`}
                     >
-                        <Search size={14} /> Qidiruv
+                        <Search size={14} /> {language === 'ja' ? '検索' : 'Qidiruv'}
                     </button>
                     <button
                         onClick={() => setActiveTab('saved')}
@@ -277,7 +281,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             activeTab === 'saved' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
                         }`}
                     >
-                        <Bookmark size={14} /> Saqlanganlar ({savedWords.length})
+                        <Bookmark size={14} /> {language === 'ja' ? `保存済み (${savedWords.length})` : `Saqlanganlar (${savedWords.length})`}
                     </button>
                     <button
                         onClick={() => setActiveTab('history')}
@@ -285,7 +289,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             activeTab === 'history' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
                         }`}
                     >
-                        <History size={14} /> Tarix
+                        <History size={14} /> {language === 'ja' ? '履歴' : 'Tarix'}
                     </button>
                 </div>
             </div>
@@ -303,7 +307,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                     value={query}
                                     onChange={e => setQuery(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    placeholder="So'z kiritib Enter bosing (masalan: resilient, paramount, 勉強, 維持)..."
+                                    placeholder={language === 'ja' ? '単語を入力してEnter（例: 勉強, 維持, 習慣, resilient, paramount）...' : "So'z kiritib Enter bosing (masalan: resilient, paramount, 勉強, 維持)..."}
                                     className="w-full pl-11 pr-4 py-3.5 bg-muted/40 border border-border rounded-2xl text-sm font-medium text-foreground focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
                                 />
                             </div>
@@ -313,13 +317,13 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                 className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-2xl shadow-md transition-all disabled:opacity-50 flex items-center gap-2 shrink-0"
                             >
                                 {isSearching ? <Sparkles size={16} className="animate-spin" /> : <Search size={16} />}
-                                <span>{isSearching ? "Tahlil qilinmoqda..." : "AI Tahlil 🚀"}</span>
+                                <span>{isSearching ? (language === 'ja' ? "分析中..." : "Tahlil qilinmoqda...") : (language === 'ja' ? "AI分析 🚀" : "AI Tahlil 🚀")}</span>
                             </button>
                         </div>
 
                         {/* Sample topics */}
                         <div className="flex flex-wrap items-center gap-2 pt-1">
-                            <span className="text-[10px] font-bold text-muted-foreground">Namunalar:</span>
+                            <span className="text-[10px] font-bold text-muted-foreground">{language === 'ja' ? 'おすすめ単語:' : 'Namunalar:'}</span>
                             {SAMPLE_WORDS.map((w, idx) => (
                                 <button
                                     key={idx}

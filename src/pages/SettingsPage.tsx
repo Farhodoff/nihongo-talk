@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useSubscription } from '../hooks/useSubscription';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
@@ -17,6 +18,7 @@ import AdminDashboardPage from './AdminDashboardPage';
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, user, getRank } = useStudyData();
     const { subscription } = useSubscription();
+    const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('profile');
 
     const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
@@ -24,13 +26,13 @@ const SettingsPage: React.FC = () => {
     const isCurrentAdmin = isAdminEmail(displayEmail);
 
     const tabs = [
-        { id: 'profile', label: 'Profil & Hisob', icon: User },
-        { id: 'preferences', label: "O'quv Yo'nalishi & Tizim", icon: Sliders },
+        { id: 'profile', label: language === 'ja' ? 'プロフィール・アカウント' : 'Profil & Hisob', icon: User },
+        { id: 'preferences', label: language === 'ja' ? '学習設定・システム' : "O'quv Yo'nalishi & Tizim", icon: Sliders },
     ];
 
     // Admin bo'lsa Admin tab qo'shamiz
     if (isCurrentAdmin) {
-        tabs.push({ id: 'admin', label: 'Admin Panel', icon: Shield });
+        tabs.push({ id: 'admin', label: language === 'ja' ? '管理者パネル' : 'Admin Panel', icon: Shield });
     }
 
     const toggleNotifications = async () => {
@@ -38,13 +40,13 @@ const SettingsPage: React.FC = () => {
             const granted = await requestNotificationPermission();
             if (granted) {
                 updateSettings({ notificationsEnabled: true });
-                toast({ title: '🔔 Bildirishnomalar yoqildi' });
+                toast({ title: language === 'ja' ? '🔔 通知が有効になりました' : '🔔 Bildirishnomalar yoqildi' });
             } else {
-                toast({ variant: 'destructive', title: '❌ Ruxsat rad etildi' });
+                toast({ variant: 'destructive', title: language === 'ja' ? '❌ 許可が拒否されました' : '❌ Ruxsat rad etildi' });
             }
         } else {
             updateSettings({ notificationsEnabled: false });
-            toast({ title: '🔕 Bildirishnomalar o\'chirildi' });
+            toast({ title: language === 'ja' ? '🔕 通知が無効になりました' : "🔕 Bildirishnomalar o'chirildi" });
         }
     };
 
@@ -84,7 +86,7 @@ const SettingsPage: React.FC = () => {
                                     </span>
                                 ) : (
                                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                                        🎓 O'QUVCHI
+                                        {language === 'ja' ? '🎓 学習者' : "🎓 O'QUVCHI"}
                                     </span>
                                 )}
                             </div>
@@ -100,17 +102,17 @@ const SettingsPage: React.FC = () => {
                         <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
                             <div className="flex items-center justify-center gap-1 text-orange-500 mb-0.5">
                                 <Flame size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">Streak</span>
+                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? '連続日数' : 'Streak'}</span>
                             </div>
                             <span className="text-base font-black text-foreground tabular-nums">
-                                {settings.currentStreak || 0} <span className="text-[11px] font-medium text-muted-foreground">kun</span>
+                                {settings.currentStreak || 0} <span className="text-[11px] font-medium text-muted-foreground">{language === 'ja' ? '日' : 'kun'}</span>
                             </span>
                         </div>
 
                         <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
                             <div className="flex items-center justify-center gap-1 text-primary mb-0.5">
                                 <Award size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">Daraja</span>
+                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? 'ランク' : 'Daraja'}</span>
                             </div>
                             <span className="text-base font-black text-foreground tabular-nums">
                                 {settings.level || 1} <span className="text-[11px] font-medium text-muted-foreground">{rankTitle}</span>
@@ -120,20 +122,20 @@ const SettingsPage: React.FC = () => {
                         <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
                             <div className="flex items-center justify-center gap-1 text-indigo-500 mb-0.5">
                                 <Clock size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">Maqsad</span>
+                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? '目標時間' : 'Maqsad'}</span>
                             </div>
                             <span className="text-base font-black text-foreground tabular-nums">
-                                {Math.floor((settings.dailyStudyGoalMinutes || 240) / 60)} <span className="text-[11px] font-medium text-muted-foreground">s/kun</span>
+                                {Math.floor((settings.dailyStudyGoalMinutes || 240) / 60)} <span className="text-[11px] font-medium text-muted-foreground">{language === 'ja' ? '時間/日' : 's/kun'}</span>
                             </span>
                         </div>
 
                         <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
                             <div className="flex items-center justify-center gap-1 text-emerald-500 mb-0.5">
                                 <Sparkles size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">AI Kredit</span>
+                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? 'AIクレジット' : 'AI Kredit'}</span>
                             </div>
                             <span className="text-base font-black text-foreground tabular-nums">
-                                {(subscription?.tier === 'pro' || subscription?.tier === 'premium') ? 'Cheksiz' : `${subscription?.ai_credits || 0} ta`}
+                                {(subscription?.tier === 'pro' || subscription?.tier === 'premium') ? (language === 'ja' ? '無制限' : 'Cheksiz') : `${subscription?.ai_credits || 0} ta`}
                             </span>
                         </div>
                     </div>

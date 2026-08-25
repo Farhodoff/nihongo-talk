@@ -2,6 +2,8 @@ import React from 'react';
 import { Play } from 'lucide-react';
 import { LiveAmbientSphere } from './LiveAmbientSphere';
 
+import { useLanguage } from '../../context/LanguageContext';
+
 interface PromptSuggestion {
     title: string;
     text: string;
@@ -30,6 +32,7 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
     onPromptClick,
 }) => {
     const ActivePersonaIcon = currentPersona.icon;
+    const { language } = useLanguage();
 
     return (
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4 overflow-y-auto scrollbar-hide py-6">
@@ -55,7 +58,7 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
                                 
                                 <ActivePersonaIcon size={32} className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.5)] relative z-10" />
                                 <span className="mt-1.5 text-[9px] font-extrabold tracking-[0.2em] text-indigo-300/80 uppercase relative z-10">
-                                    Boshlash
+                                    {language === 'ja' ? '開始' : 'Boshlash'}
                                 </span>
                             </div>
                         </div>

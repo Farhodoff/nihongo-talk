@@ -26,7 +26,7 @@ import SubjectForm from '../components/subjects/SubjectForm';
 
 const DecksPage: React.FC = () => {
     const { user, subjects, flashcards, importFlashcards, addSubject, updateSubject, deleteSubject, addFlashcardsBatch, primaryLanguage } = useStudyData();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const isSuper = isSuperAdmin(user?.email);
@@ -417,9 +417,9 @@ const DecksPage: React.FC = () => {
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-2">
                         <Layers size={14} /> ANKI SM-2 ENGINE ⚡
                     </div>
-                    <h2 className="text-3xl font-black text-foreground tracking-tight">Fleshkartalar & Lug'at</h2>
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">{t('flashcards.title')}</h2>
                     <p className="text-muted-foreground text-xs md:text-sm mt-1 max-w-2xl leading-relaxed">
-                        Anki SM-2 algoritmi, Audio TTS va tayyor to'plamlar bilan lug'at boyligingizni oshiring.
+                        {t('flashcards.subtitle')}
                     </p>
                 </div>
 
@@ -429,13 +429,13 @@ const DecksPage: React.FC = () => {
                         onClick={() => setIsAddSubjectOpen(true)}
                         className="font-extrabold shadow-md rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 text-xs"
                     >
-                        <Plus size={16} className="mr-1.5" /> + Fan Qo'shish
+                        <Plus size={16} className="mr-1.5" /> {t('flashcards.createDeck')}
                     </Button>
 
                     {/* Primary Button */}
                     <Link to="/flashcards/new">
                         <Button className="font-extrabold shadow-md rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 text-xs">
-                            <Plus size={16} className="mr-1.5" /> Qo'lda Qo'shish
+                            <Plus size={16} className="mr-1.5" /> {t('flashcards.addManual')}
                         </Button>
                     </Link>
 
@@ -444,28 +444,28 @@ const DecksPage: React.FC = () => {
                         <button
                             onClick={() => setIsDocGeneratorOpen(true)}
                             className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl shadow-sm transition-all"
-                            title="Konspekt yoki matndan Q&A va test fleshkartalari tuzish"
+                            title={language === 'ja' ? 'ノートや文章からQ&A・フラッシュカードを生成' : "Konspekt yoki matndan Q&A va test fleshkartalari tuzish"}
                         >
-                            <Sparkles size={15} /> AI Konspekt & Quiz
+                            <Sparkles size={15} /> {language === 'ja' ? 'AIノート要約' : 'AI Konspekt & Quiz'}
                         </button>
                         <button
                             onClick={() => setAiSubjectId('global')}
                             className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-primary hover:bg-background rounded-xl transition-all"
-                            title="AI bilan kartochka yaratish"
+                            title={language === 'ja' ? 'AIでカードを自動生成' : "AI bilan kartochka yaratish"}
                         >
-                            <Book size={15} /> AI Generator
+                            <Book size={15} /> {language === 'ja' ? 'AI自動生成' : 'AI Generator'}
                         </button>
                         <button
                             onClick={() => setIsExtractModalOpen(true)}
                             className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:bg-background rounded-xl transition-all"
-                            title="Matndan lug'at ajratib olish"
+                            title={language === 'ja' ? '文章から単語を抽出' : "Matndan lug'at ajratib olish"}
                         >
-                            <FileText size={15} /> Extractor
+                            <FileText size={15} /> {language === 'ja' ? '単語抽出' : 'Extractor'}
                         </button>
                         <button
                             onClick={() => setImportModalOpen(true)}
                             className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-muted-foreground hover:text-foreground hover:bg-background rounded-xl transition-all"
-                            title="JSON formatida fayl yuklash"
+                            title={language === 'ja' ? 'JSONファイルをインポート' : "JSON formatida fayl yuklash"}
                         >
                             <Upload size={15} /> Import
                         </button>

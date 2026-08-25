@@ -16,7 +16,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 const ProgressPage: React.FC = () => {
     const { sessions, subjects, tasks, settings, flashcards, coachSessions, loading } = useStudyData();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [activeTab, setActiveTab] = useState<'overview' | 'language' | 'subjects'>('overview');
     const [isShareOpen, setIsShareOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const ProgressPage: React.FC = () => {
                     }`}
                 >
                     <BarChart3 size={15} />
-                    <span>Umumiy Faoliyat & Vaqt</span>
+                    <span>{language === 'ja' ? '総合アクティビティ・時間' : 'Umumiy Faoliyat & Vaqt'}</span>
                 </button>
                 <button
                     onClick={() => setActiveTab('language')}
@@ -84,7 +84,7 @@ const ProgressPage: React.FC = () => {
                     }`}
                 >
                     <Globe2 size={15} />
-                    <span>Til, JLPT & Speaking</span>
+                    <span>{language === 'ja' ? '言語・JLPT・スピーキング' : 'Til, JLPT & Speaking'}</span>
                 </button>
                 <button
                     onClick={() => setActiveTab('subjects')}
@@ -95,7 +95,7 @@ const ProgressPage: React.FC = () => {
                     }`}
                 >
                     <BookOpen size={15} />
-                    <span>Fanlar & Fleshkartalar</span>
+                    <span>{language === 'ja' ? '科目・フラッシュカード' : 'Fanlar & Fleshkartalar'}</span>
                 </button>
             </div>
 

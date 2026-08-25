@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Target, FileText, BookOpen, Sparkles, ArrowRight, Languages, Compass, Headphones, GraduationCap } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../hooks/useSEO';
 
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
@@ -22,6 +23,7 @@ export const JlptHubPage: React.FC = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const { settings, updateSettings } = useStudyData();
+    const { language } = useLanguage();
 
     const activeTab = searchParams.get('tab') || 'kanji';
 
@@ -42,10 +44,12 @@ export const JlptHubPage: React.FC = () => {
                             <span>JLPT & KAIWA JAPANESE MASTER</span>
                         </div>
                         <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">
-                            Yapon Tili Master Hub
+                            {language === 'ja' ? '日本語マスターハブ' : 'Yapon Tili Master Hub'}
                         </h1>
                         <p className="text-sm text-slate-300 leading-relaxed">
-                            Kanji, Grammatika, Dokkai, Choukai, Dialog senariylari va 180 ballik rasmiy JLPT mock imtihonlari bitta markazda.
+                            {language === 'ja' 
+                                ? '漢字・文法・読解・聴解・会話シチュエーション・JLPT模擬試験の総合学習センター。' 
+                                : "Kanji, Grammatika, Dokkai, Choukai, Dialog senariylari va 180 ballik rasmiy JLPT mock imtihonlari bitta markazda."}
                         </p>
                     </div>
 
@@ -83,7 +87,7 @@ export const JlptHubPage: React.FC = () => {
                             className="px-5 py-2.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-rose-500/25 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                         >
                             <Target size={16} />
-                            <span>Shaxsiy Rejam</span>
+                            <span>{language === 'ja' ? '学習プラン' : 'Shaxsiy Rejam'}</span>
                         </button>
                     </div>
                 </div>
@@ -97,13 +101,15 @@ export const JlptHubPage: React.FC = () => {
                     </div>
                     <div>
                         <h2 className="text-base md:text-lg font-black text-white flex items-center gap-2">
-                            <span>JLPT Shaxsiy Rejangiz & Darslar</span>
+                            <span>{language === 'ja' ? 'JLPT個別学習プラン・レッスン' : 'JLPT Shaxsiy Rejangiz & Darslar'}</span>
                             <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                                 AI Adaptive
                             </span>
                         </h2>
                         <p className="text-xs text-slate-300 mt-0.5">
-                            Kunlik va haftalik vazifalar, Speaking, Kanji, Fleshkartalar va Mock imtihonlar taqsimoti
+                            {language === 'ja' 
+                                ? '毎日のタスク、スピーキング、漢字、単語帳、模擬試験の自動スケジュール' 
+                                : 'Kunlik va haftalik vazifalar, Speaking, Kanji, Fleshkartalar va Mock imtihonlar taqsimoti'}
                         </p>
                     </div>
                 </div>
@@ -112,7 +118,7 @@ export const JlptHubPage: React.FC = () => {
                     onClick={() => navigate('/personal-plan')}
                     className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
                 >
-                    <span>Shaxsiy Rejamga O'tish</span>
+                    <span>{language === 'ja' ? '学習プランを開く' : "Shaxsiy Rejamga O'tish"}</span>
                     <ArrowRight size={14} />
                 </button>
             </div>
@@ -127,7 +133,7 @@ export const JlptHubPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <BookOpen size={16} /> ⛩️ Kanji & Grammatika
+                    <BookOpen size={16} /> {language === 'ja' ? '⛩️ 漢字・文法' : '⛩️ Kanji & Grammatika'}
                 </button>
 
                 <button
@@ -138,7 +144,7 @@ export const JlptHubPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Compass size={16} /> 🎌 Dialog Senariylar
+                    <Compass size={16} /> {language === 'ja' ? '🎌 会話シチュエーション' : '🎌 Dialog Senariylar'}
                 </button>
 
                 <button
@@ -149,7 +155,7 @@ export const JlptHubPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <FileText size={16} /> 📖 Dokkai (O'qish)
+                    <FileText size={16} /> {language === 'ja' ? '📖 読解トレーニング' : "📖 Dokkai (O'qish)"}
                 </button>
 
                 <button
@@ -160,7 +166,7 @@ export const JlptHubPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Headphones size={16} /> 🎧 Choukai (Tinglash)
+                    <Headphones size={16} /> {language === 'ja' ? '🎧 聴解トレーニング' : '🎧 Choukai (Tinglash)'}
                 </button>
 
                 <button
@@ -171,7 +177,7 @@ export const JlptHubPage: React.FC = () => {
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <GraduationCap size={16} /> 🏆 JLPT Mock Exam
+                    <GraduationCap size={16} /> {language === 'ja' ? '🏆 JLPT模擬試験' : '🏆 JLPT Mock Exam'}
                 </button>
             </div>
 

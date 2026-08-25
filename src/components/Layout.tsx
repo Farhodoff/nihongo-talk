@@ -253,7 +253,7 @@ const Layout: React.FC = () => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none mb-1">
-                            {focusState.mode === 'focus' ? 'Fokus' : 'Tanaffus'}
+                            {focusState.mode === 'focus' ? (language === 'ja' ? '集中' : 'Fokus') : (language === 'ja' ? '休憩' : 'Tanaffus')}
                         </span>
                         <span className="text-lg font-mono font-bold text-foreground leading-none tabular-nums">
                             {formatTime(focusState.timeLeft)}

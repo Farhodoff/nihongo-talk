@@ -35,7 +35,7 @@ const FOCUS_TOUR_STEPS: LocalTourStep[] = [
 const FocusPage: React.FC = () => {
     const { subjects, addSession, awardXP, tasks, updateTaskStatus, user, primaryLanguage } = useStudyData();
     const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setCustomTime, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
 
     // Mood State
     const [moodBefore, setMoodBefore] = useState<number | null>(null);
@@ -164,7 +164,7 @@ const FocusPage: React.FC = () => {
             {/* Task Selector (New) */}
             <div className="w-full max-w-sm mb-6" data-tour="focus-task-selector">
                 <label className="block text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest text-center">
-                    Hozir nima ustida ishlayapsiz?
+                    {language === 'ja' ? '現在取り組んでいるタスク' : 'Hozir nima ustida ishlayapsiz?'}
                 </label>
                 <div className="relative">
                     <select
@@ -173,7 +173,7 @@ const FocusPage: React.FC = () => {
                         className="w-full pl-4 pr-10 py-3 bg-background border border-border rounded-2xl shadow-sm text-foreground outline-none focus:ring-2 focus:ring-primary appearance-none transition-all glass-card"
                         disabled={focusState.isActive}
                     >
-                        <option value="">Shunchaki fokuslanish...</option>
+                        <option value="">{language === 'ja' ? 'フリー集中セッション...' : 'Shunchaki fokuslanish...'}</option>
                         {pendingTasks.map(task => (
                             <option key={task.id} value={task.id}>{task.title}</option>
                         ))}
@@ -203,19 +203,25 @@ const FocusPage: React.FC = () => {
             {/* Mode & Deep Work Duration Switcher */}
             <div className="flex flex-col items-center gap-3 mb-8">
                 <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50" data-tour="focus-mode-switcher">
-                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Fokus</button>
-                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Qisqa</button>
-                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Uzun</button>
+                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                        {language === 'ja' ? '集中' : 'Fokus'}
+                    </button>
+                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                        {language === 'ja' ? '小休憩' : 'Qisqa'}
+                    </button>
+                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                        {language === 'ja' ? '大休憩' : 'Uzun'}
+                    </button>
                 </div>
 
                 {/* Deep Work Custom Duration Presets */}
                 {focusState.mode === 'focus' && (
                     <div className="flex items-center gap-2 flex-wrap justify-center animate-in fade-in">
                         {[
-                            { mins: 25, label: '⚡ 25m Standard' },
-                            { mins: 60, label: '📚 60m (1 Soat)' },
-                            { mins: 90, label: '🎓 90m (1.5 Soat)' },
-                            { mins: 120, label: '🚀 120m (2 Soat)' }
+                            { mins: 25, label: language === 'ja' ? '⚡ 25分（標準）' : '⚡ 25m Standard' },
+                            { mins: 60, label: language === 'ja' ? '📚 60分（1時間）' : '📚 60m (1 Soat)' },
+                            { mins: 90, label: language === 'ja' ? '🎓 90分（1.5時間）' : '🎓 90m (1.5 Soat)' },
+                            { mins: 120, label: language === 'ja' ? '🚀 120分（2時間）' : '🚀 120m (2 Soat)' }
                         ].map((p) => (
                             <button
                                 key={p.mins}
@@ -242,7 +248,7 @@ const FocusPage: React.FC = () => {
                         onChange={(e) => setFocusSubject(e.target.value)}
                         className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none text-center appearance-none backdrop-blur-sm"
                     >
-                        <option value="">Umumiy O'qish</option>
+                        <option value="">{language === 'ja' ? '一般学習' : "Umumiy O'qish"}</option>
                         {subjects.filter(s => !s.isArchived).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                     </select>
                 </div>

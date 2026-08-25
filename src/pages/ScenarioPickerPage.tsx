@@ -5,11 +5,13 @@ import { ScenarioService } from '../services/ScenarioService';
 import { Sparkles, Play, Award, History, ArrowLeft, Plus, Globe } from 'lucide-react';
 import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ScenarioPickerPage: React.FC = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const { user } = useStudyData();
+    const { language } = useLanguage();
     const isAdmin = isAdminEmail(user?.email);
     const isSuper = isSuperAdmin(user?.email);
 
@@ -79,15 +81,21 @@ export const ScenarioPickerPage: React.FC = () => {
                             </button>
                             <span className="text-xs font-bold px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30 flex items-center gap-1.5">
                                 <Globe size={12} />
-                                {activeLang === 'ja' ? '🎌 Japanese Conversation Scenarios' : '🇬🇧 English Conversation Scenarios'}
+                                {activeLang === 'ja' 
+                                    ? (language === 'ja' ? '🎌 日本語シチュエーション会話' : '🎌 Japanese Conversation Scenarios') 
+                                    : '🇬🇧 English Conversation Scenarios'}
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                            {activeLang === 'ja' ? 'Japanese Scenarios (Muloqot Ssenariylari)' : 'English Scenarios (Real-World Conversation)'}
+                            {activeLang === 'ja' 
+                                ? (language === 'ja' ? 'シチュエーション会話練習' : 'Japanese Scenarios (Muloqot Ssenariylari)') 
+                                : 'English Scenarios (Real-World Conversation)'}
                         </h1>
                         <p className="text-xs md:text-sm text-gray-300 max-w-xl leading-relaxed">
                             {activeLang === 'ja'
-                                ? "Restoran, xarid qilish, tanishuv va ish intervyusi kabi real hayotiy ssenariylarda AI murabbiy bilan erkin muloqot qiling."
+                                ? (language === 'ja' 
+                                    ? "レストラン、ショッピング、自己紹介、面接など、リアルな場面でAIと自由に会話練習をしましょう。" 
+                                    : "Restoran, xarid qilish, tanishuv va ish intervyusi kabi real hayotiy ssenariylarda AI murabbiy bilan erkin muloqot qiling.")
                                 : "AQSH vizasi, IT ish intervyusi, aeroport va IELTS Speaking kabi real vaziyatlarda jonli ovozli muloqot qiling."}
                         </p>
                     </div>
@@ -125,7 +133,7 @@ export const ScenarioPickerPage: React.FC = () => {
                                 className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-bold flex items-center gap-2 shadow-lg transition-all self-start md:self-auto"
                             >
                                 <Plus size={16} />
-                                <span>Scenario Qo'shish</span>
+                                <span>{language === 'ja' ? 'シナリオ作成' : "Scenario Qo'shish"}</span>
                             </button>
                         )}
                     </div>
@@ -145,14 +153,16 @@ export const ScenarioPickerPage: React.FC = () => {
                                     : 'bg-card text-muted-foreground border-border hover:bg-muted'
                             }`}
                         >
-                            {lvl === 'all' ? 'Barchasi' : activeLang === 'ja' ? `JLPT ${lvl}` : `CEFR / ${lvl}`}
+                            {lvl === 'all' 
+                                ? (language === 'ja' ? 'すべて' : 'Barchasi') 
+                                : activeLang === 'ja' ? `JLPT ${lvl}` : `CEFR / ${lvl}`}
                         </button>
                     ))}
                 </div>
 
                 <div className="text-xs text-muted-foreground font-medium flex items-center gap-1 shrink-0">
                     <Sparkles size={14} className="text-amber-500" />
-                    <span>{filteredScenarios.length} ta ssenariy</span>
+                    <span>{language === 'ja' ? `${filteredScenarios.length} 件のシナリオ` : `${filteredScenarios.length} ta ssenariy`}</span>
                 </div>
             </div>
 
@@ -160,7 +170,7 @@ export const ScenarioPickerPage: React.FC = () => {
             {scenarios.length === 0 ? (
                 <div className="py-12 text-center text-muted-foreground">
                     <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-indigo-600 border-t-transparent mb-2" />
-                    <p className="text-xs">Ssenariylar yuklanmoqda...</p>
+                    <p className="text-xs">{language === 'ja' ? 'シナリオを読み込み中...' : 'Ssenariylar yuklanmoqda...'}</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -10,7 +10,7 @@ import RoomList from '../components/community/RoomList';
 type Tab = 'leaderboard' | 'rooms' | 'chat';
 
 const CommunityPage: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [searchParams, setSearchParams] = useSearchParams();
     const initialTab = (searchParams.get('tab') as Tab) || 'leaderboard';
     const [activeTab, setActiveTab] = useState<Tab>(initialTab);
@@ -50,12 +50,14 @@ const CommunityPage: React.FC = () => {
             {/* Header */}
             <div className="flex items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">Hamjamiyat</h2>
-                    <p className="text-xs text-muted-foreground mt-0.5 font-medium">Ulaning, bellashing va birga o'rganing</p>
+                    <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">{t('community.title')}</h2>
+                    <p className="text-xs text-muted-foreground mt-0.5 font-medium">
+                        {language === 'ja' ? '仲間と繋がり、競い合い、共に学びましょう' : "Ulaning, bellashing va birga o'rganing"}
+                    </p>
                 </div>
                 <div className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center shadow-sm shrink-0">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full mr-1.5 animate-pulse"></span>
-                    {onlineCount} onlayn
+                    {language === 'ja' ? `${onlineCount} 人オンライン` : `${onlineCount} onlayn`}
                 </div>
             </div>
 
