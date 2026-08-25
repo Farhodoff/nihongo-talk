@@ -56,12 +56,13 @@ export const AdminSpeechAnalytics: React.FC = () => {
             // 1. Fetch profiles to map user_id -> email / full_name for clean display
             const { data: profileData } = await supabase
                 .from('profiles')
-                .select('id, email, full_name')
+                .select('*')
                 .limit(300);
             const profileMap = new Map<string, string>();
             if (profileData) {
-                profileData.forEach(p => {
-                    if (p.id) profileMap.set(p.id, p.email || p.full_name || 'Student');
+                profileData.forEach((p: any) => {
+                    const uid = p.id || p.user_id;
+                    if (uid) profileMap.set(uid, p.email || p.full_name || 'Student');
                 });
             }
 
@@ -75,10 +76,10 @@ export const AdminSpeechAnalytics: React.FC = () => {
 
             // 2. Fetch primary speaking_sessions table with transcript JSONB (parallel fetch)
             const [speakRes, coachSessionsRes, aiCoachRes, legacyRes] = await Promise.allSettled([
-                supabase.from('speaking_sessions').select('id, user_id, user_email, persona_title, topic, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, ai_feedback, transcript, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('speaking_coach_sessions').select('id, user_id, persona_title, persona, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, transcript, created_at').order('created_at', { ascending: false }).limit(300),
-                supabase.from('ai_coach_sessions').select('id, user_id, persona_title, fluency_score, pronunciation_score, grammar_score, vocabulary_score, feedback, created_at').order('created_at', { ascending: false }).limit(200),
-                supabase.from('coach_sessions').select('id, user_id, user_email, persona_title, fluency_score, pronunciation_score, grammar_score, vocabulary_score, duration_seconds, feedback, created_at').order('created_at', { ascending: false }).limit(100)
+                supabase.from('speaking_sessions').select('*').limit(300),
+                supabase.from('speaking_coach_sessions').select('*').limit(300),
+                supabase.from('ai_coach_sessions').select('*').limit(300),
+                supabase.from('coach_sessions').select('*').limit(100)
             ]);
 
             const speakData = speakRes.status === 'fulfilled' ? speakRes.value.data : null;
@@ -88,14 +89,14 @@ export const AdminSpeechAnalytics: React.FC = () => {
                         id: item.id,
                         user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
                         persona_title: item.persona_title || item.topic || 'Speaking Muloqot',
-                        fluency_score: Number(item.fluency_score) || 0,
-                        pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
-                        grammar_score: Number(item.grammar_score) || 0,
-                        vocabulary_score: Number(item.vocabulary_score) || 0,
-                        duration_seconds: Number(item.duration_seconds) || 0,
+                        fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
+                        pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || Number(item.fluency_score || item.fluencyScore) || 0,
+                        grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
+                        vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                        duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
                         feedback: item.feedback || item.ai_feedback || '',
                         transcript: item.transcript || [],
-                        created_at: item.created_at || new Date().toISOString()
+                        created_at: item.created_at || item.createdAt || new Date().toISOString()
                     });
                 });
             }
@@ -109,14 +110,14 @@ export const AdminSpeechAnalytics: React.FC = () => {
                             id: item.id,
                             user_email: (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
                             persona_title: item.persona_title || item.persona || 'Speaking Muloqot',
-                            fluency_score: Number(item.fluency_score) || 0,
-                            pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
-                            grammar_score: Number(item.grammar_score) || 0,
-                            vocabulary_score: Number(item.vocabulary_score) || 0,
-                            duration_seconds: Number(item.duration_seconds) || 120,
+                            fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
+                            pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || Number(item.fluency_score || item.fluencyScore) || 0,
+                            grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
+                            vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                            duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 120,
                             feedback: item.feedback || '',
                             transcript: item.transcript || [],
-                            created_at: item.created_at || new Date().toISOString()
+                            created_at: item.created_at || item.createdAt || new Date().toISOString()
                         });
                     }
                 }
@@ -165,54 +166,32 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             }
 
-            // 5. Scan LocalStorage for any local speech sessions & auto-sync to DB
+            // 6. Scan LocalStorage for any local speech sessions & auto-sync to DB
             if (typeof window !== 'undefined') {
                 try {
-                    const localCoachRaw = localStorage.getItem('study_planner_speaking_coach_sessions');
-                    if (localCoachRaw) {
-                        const parsedCoach = JSON.parse(localCoachRaw);
-                        if (Array.isArray(parsedCoach)) {
-                            for (const item of parsedCoach) {
-                                const sessionId = item.id || `local-coach-${item.createdAt || item.created_at || Date.now()}`;
-                                if (!list.some(l => l.id === sessionId)) {
-                                    list.push({
-                                        id: sessionId,
-                                        user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Siz (Admin / Local)',
-                                        persona_title: item.personaTitle || item.persona || 'Speaking Muloqot',
-                                        fluency_score: Number(item.fluencyScore || item.fluency_score) || 0,
-                                        pronunciation_score: Number(item.pronunciationScore || item.pronunciation_score) || 0,
-                                        grammar_score: Number(item.grammarScore || item.grammar_score) || 0,
-                                        vocabulary_score: Number(item.vocabularyScore || item.vocabulary_score) || 0,
-                                        duration_seconds: Number(item.durationSeconds || item.duration_seconds) || 120,
-                                        feedback: item.feedback || '',
-                                        transcript: item.transcript || [],
-                                        created_at: item.createdAt || item.created_at || new Date().toISOString()
-                                    });
-                                }
-                            }
-                        }
-                    }
-
-                    // Scan scoped scenario and speaking history keys
                     for (let i = 0; i < localStorage.length; i++) {
                         const k = localStorage.key(i);
-                        if (k && (k.startsWith('study_planner_scenario_history_') || k.startsWith('study_planner_speaking_history_') || k.startsWith('study_planner_speaking_coach_sessions_'))) {
+                        if (k && (k.includes('scenario_history') || k.includes('speaking') || k.includes('coach') || k.includes('muloqot'))) {
                             try {
                                 const raw = localStorage.getItem(k);
                                 if (raw) {
                                     const parsed = JSON.parse(raw);
                                     if (Array.isArray(parsed)) {
                                         for (const item of parsed) {
-                                            const scId = item.id || `local-sc-${item.created_at || item.createdAt || Date.now()}`;
+                                            const scId = item.id || `local-${item.created_at || item.createdAt || Date.now()}`;
                                             if (!list.some(l => l.id === scId)) {
+                                                const sFluency = Number(item.fluency_score || item.fluencyScore) || 75;
+                                                const sPron = Number(item.pronunciation_score || item.pronunciationScore) || sFluency;
+                                                const sGrammar = Number(item.grammar_score || item.grammarScore) || 75;
+                                                const sVocab = Number(item.vocabulary_score || item.vocabularyScore) || 75;
                                                 list.push({
                                                     id: scId,
                                                     user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Siz (Admin / Local)',
-                                                    persona_title: item.scenario_title || item.persona_title || 'Ssenariy Muloqot',
-                                                    fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
-                                                    pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || 0,
-                                                    grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
-                                                    vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                                                    persona_title: item.scenario_title || item.persona_title || item.personaTitle || 'Ssenariy Muloqot',
+                                                    fluency_score: sFluency,
+                                                    pronunciation_score: sPron,
+                                                    grammar_score: sGrammar,
+                                                    vocabulary_score: sVocab,
                                                     duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 120,
                                                     feedback: item.ai_feedback || item.feedback || '',
                                                     transcript: item.transcript || [],
@@ -256,8 +235,11 @@ export const AdminSpeechAnalytics: React.FC = () => {
     const todaySessions = sessions.filter(s => s.created_at && s.created_at.startsWith(todayStr));
     const weeklySessions = sessions.filter(s => s.created_at && new Date(s.created_at) >= sevenDaysAgo);
 
-    const getSessionScore = (s: SpeakingSessionRecord) =>
-        Math.round((s.pronunciation_score + s.fluency_score + s.grammar_score + s.vocabulary_score) / 4);
+    const getSessionScore = (s: SpeakingSessionRecord) => {
+        const scores = [s.pronunciation_score, s.fluency_score, s.grammar_score, s.vocabulary_score].filter(x => typeof x === 'number' && x > 0);
+        if (scores.length === 0) return 75;
+        return Math.round(scores.reduce((acc, curr) => acc + curr, 0) / scores.length);
+    };
 
     const todayAvgScore = todaySessions.length > 0
         ? Math.round(todaySessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / todaySessions.length)
