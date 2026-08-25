@@ -25,6 +25,7 @@ import { CoachProgressDashboard } from '../components/speaking/CoachProgressDash
 import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
 import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
+import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -291,12 +292,24 @@ const SpeakingCoachPage: React.FC = () => {
     const handleAddVocabToFlashcards = async (vocab: CoachVocabularyItem): Promise<boolean> => {
         try {
             const isJa = language === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(vocab.word);
+            const activeLang = isJa ? 'ja' : 'en';
             const front = isJa
                 ? `${vocab.word}${vocab.reading ? ` (${vocab.reading})` : ''}`
                 : vocab.word;
             const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}`;
 
-            // Resolve proper subject ID from user's subjects list
+            // 1. Direct PostgreSQL DB Persist into `speaking_vocabularies`
+            const userId = user?.id || 'local_user';
+            const personaName = PERSONAS_BY_LANG[activeLang]?.[persona]?.name;
+            const scenarioName = activeScenario ? (activeScenario.title_uz || activeScenario.title_en || activeScenario.title_ja) : undefined;
+            await SpeakingVocabularyService.saveVocabulary(
+                userId,
+                vocab,
+                activeLang,
+                personaName || scenarioName || 'AI Speaking Coach'
+            );
+
+            // 2. Resolve proper subject ID and sync to `flashcards` table (Anki SM-2)
             const matchedSubject = (subjects || []).find(s =>
                 isJa
                     ? (s.name.toLowerCase().includes('japan') || s.name.toLowerCase().includes('jlpt') || s.name.toLowerCase().includes('yapon') || s.name.toLowerCase().includes('nihongo'))
@@ -304,23 +317,15 @@ const SpeakingCoachPage: React.FC = () => {
             );
             const targetSubjectId = matchedSubject?.id || (subjects?.[0]?.id) || undefined;
 
-            const created = await addFlashcardsBatch([{
+            await addFlashcardsBatch([{
                 front,
                 back,
                 subjectId: targetSubjectId
             }]);
 
-            if (created.length === 0) {
-                toast({
-                    title: 'ℹ️ Mavjud Fleshkarta',
-                    description: `"${vocab.word}" so'zi fleshkartalaringizda allaqachon mavjud.`
-                });
-                return true;
-            }
-
             toast({
-                title: '🎴 Fleshkarta Qo\'shildi!',
-                description: `"${vocab.word}" Anki SM-2 Fleshkartalariga saqlandi.`
+                title: '🎴 So\'z Saqlandi!',
+                description: `"${vocab.word}" so'zlar bazasi (DB) va Fleshkartalaringizga muvaffaqiyatli saqlandi.`
             });
             return true;
         } catch (err) {
@@ -328,7 +333,7 @@ const SpeakingCoachPage: React.FC = () => {
             toast({
                 variant: 'destructive',
                 title: 'Xatolik',
-                description: 'Fleshkartaga saqlashda xatolik yuz berdi.'
+                description: 'So\'zni saqlashda xatolik yuz berdi.'
             });
             return false;
         }

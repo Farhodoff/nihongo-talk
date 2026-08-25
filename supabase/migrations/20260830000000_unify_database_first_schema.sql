@@ -202,3 +202,59 @@ CREATE POLICY "Users delete own learning goals"
     USING (auth.uid() = user_id OR public.is_admin());
 
 CREATE INDEX IF NOT EXISTS idx_learning_goals_user_lang ON public.learning_goals(user_id, language);
+
+
+-- ====================================================================
+-- 6. speaking_vocabularies: AI Coach & Scenario Vocabulary Vault
+-- ====================================================================
+CREATE TABLE IF NOT EXISTS public.speaking_vocabularies (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    word TEXT NOT NULL,
+    reading TEXT,
+    meaning TEXT NOT NULL,
+    example TEXT,
+    language TEXT DEFAULT 'ja',
+    session_id UUID,
+    topic TEXT,
+    mastery_level INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS word TEXT;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS reading TEXT;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS meaning TEXT;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS example TEXT;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS language TEXT DEFAULT 'ja';
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS session_id UUID;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS topic TEXT;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS mastery_level INTEGER DEFAULT 0;
+ALTER TABLE public.speaking_vocabularies ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT now();
+
+ALTER TABLE public.speaking_vocabularies ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users and admins read speaking vocabularies" ON public.speaking_vocabularies;
+DROP POLICY IF EXISTS "Users create own speaking vocabularies" ON public.speaking_vocabularies;
+DROP POLICY IF EXISTS "Users update own speaking vocabularies" ON public.speaking_vocabularies;
+DROP POLICY IF EXISTS "Users delete own speaking vocabularies" ON public.speaking_vocabularies;
+
+CREATE POLICY "Users and admins read speaking vocabularies" 
+    ON public.speaking_vocabularies FOR SELECT TO authenticated 
+    USING (auth.uid() = user_id OR public.is_admin());
+
+CREATE POLICY "Users create own speaking vocabularies" 
+    ON public.speaking_vocabularies FOR INSERT TO authenticated 
+    WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users update own speaking vocabularies" 
+    ON public.speaking_vocabularies FOR UPDATE TO authenticated 
+    USING (auth.uid() = user_id OR public.is_admin());
+
+CREATE POLICY "Users delete own speaking vocabularies" 
+    ON public.speaking_vocabularies FOR DELETE TO authenticated 
+    USING (auth.uid() = user_id OR public.is_admin());
+
+CREATE INDEX IF NOT EXISTS idx_speaking_vocab_user_lang ON public.speaking_vocabularies(user_id, language, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_speaking_vocab_word ON public.speaking_vocabularies(user_id, word);
+
