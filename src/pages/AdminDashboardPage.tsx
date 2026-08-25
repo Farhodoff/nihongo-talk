@@ -5,7 +5,7 @@ import {
     Users, Loader2, CheckCircle2,
     MessageSquare, Send, X, Crown,
     Zap, Star, RefreshCw, MoreVertical, Home, Activity, BookOpen,
-    Megaphone, Wand2, Search, Mic, MessageSquareText, Cpu
+    Megaphone, Wand2, Search, Mic, MessageSquareText, Cpu, Clock
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -317,11 +317,15 @@ const AdminDashboardPage: React.FC = () => {
         setRefreshing(false);
     };
 
-    // Stats
+    // Stats & Real User Activity
     const totalUsers = subscriptions.length;
-    const premiumCount = subscriptions.filter(s => s.tier === 'premium').length;
-    const proCount = subscriptions.filter(s => s.tier === 'pro').length;
-    const freeCount = subscriptions.filter(s => s.tier === 'free').length;
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStat = dailyStats.find(s => s.activity_date === todayStr);
+    const activeTodayCount = todayStat?.active_users || 0;
+    const totalSessionsCount = dailyStats.reduce((sum, d) => sum + (d.total_sessions || 0), 0);
+    const totalDurationMinutes = dailyStats.reduce((sum, d) => sum + (d.total_duration_minutes || 0), 0);
+    const totalDurationHours = Math.floor(totalDurationMinutes / 60);
+    const remainingMinutes = totalDurationMinutes % 60;
 
     // Filter users by search
     const filteredSubscriptions = userSearchQuery.trim()
@@ -500,7 +504,7 @@ const AdminDashboardPage: React.FC = () => {
                         activeSection === 'users' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Users size={14} /> Foydalanuvchilar & Obunalar ({totalUsers})
+                    <Users size={14} /> Foydalanuvchilar & Faollik ({totalUsers})
                 </button>
                 <button
                     onClick={() => setActiveSection('speech')}
@@ -520,10 +524,10 @@ const AdminDashboardPage: React.FC = () => {
                 </button>
             </div>
 
-            {/* TAB 1: USERS & SUBSCRIPTIONS */}
+            {/* TAB 1: USERS & ACTIVITY */}
             {activeSection === 'users' && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                    {/* Stats Cards Grid */}
+                    {/* Stats Cards Grid - User Engagement & Activity */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold shrink-0">
@@ -531,37 +535,39 @@ const AdminDashboardPage: React.FC = () => {
                             </div>
                             <div>
                                 <div className="text-xl font-black text-foreground">{totalUsers}</div>
-                                <div className="text-[11px] font-semibold text-muted-foreground">Jami foydalanuvchilar</div>
+                                <div className="text-[11px] font-semibold text-muted-foreground">Jami Foydalanuvchilar</div>
+                            </div>
+                        </div>
+
+                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold shrink-0">
+                                <Activity size={18} />
+                            </div>
+                            <div>
+                                <div className="text-xl font-black text-foreground">{activeTodayCount} nafar</div>
+                                <div className="text-[11px] font-semibold text-muted-foreground">Bugun Faol O'quvchilar</div>
                             </div>
                         </div>
 
                         <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold shrink-0">
-                                <Crown size={18} />
+                                <CheckCircle2 size={18} />
                             </div>
                             <div>
-                                <div className="text-xl font-black text-foreground">{premiumCount}</div>
-                                <div className="text-[11px] font-semibold text-muted-foreground">Premium</div>
+                                <div className="text-xl font-black text-foreground">{totalSessionsCount} ta</div>
+                                <div className="text-[11px] font-semibold text-muted-foreground">Bajarilgan Mashg'ulotlar</div>
                             </div>
                         </div>
 
                         <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold shrink-0">
-                                <Zap size={18} />
+                                <Clock size={18} />
                             </div>
                             <div>
-                                <div className="text-xl font-black text-foreground">{proCount}</div>
-                                <div className="text-[11px] font-semibold text-muted-foreground">Pro</div>
-                            </div>
-                        </div>
-
-                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-muted text-muted-foreground flex items-center justify-center font-bold shrink-0">
-                                <Star size={18} />
-                            </div>
-                            <div>
-                                <div className="text-xl font-black text-foreground">{freeCount}</div>
-                                <div className="text-[11px] font-semibold text-muted-foreground">Bepul (Free)</div>
+                                <div className="text-xl font-black text-foreground">
+                                    {totalDurationHours > 0 ? `${totalDurationHours}s ${remainingMinutes}d` : `${totalDurationMinutes} daqiqa`}
+                                </div>
+                                <div className="text-[11px] font-semibold text-muted-foreground">Jami O'rganish Vaqti</div>
                             </div>
                         </div>
                     </div>
