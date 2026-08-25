@@ -5,7 +5,7 @@
 -- scenario_histories, and ai_chat_messages while enforcing strict user isolation.
 -- ====================================================================
 
--- 0. Centralized is_admin function with direct JWT email fallback
+-- 0. Centralized is_admin function with direct JWT email fallback (strictly fsoyilov@gmail.com)
 CREATE OR REPLACE FUNCTION public.is_admin()
 RETURNS BOOLEAN
 LANGUAGE plpgsql
@@ -14,25 +14,13 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN
-    RETURN EXISTS (
-        SELECT 1 FROM public.profiles
-        WHERE id = auth.uid()
-          AND (
-            role IN ('admin', 'superadmin')
-            OR email IN (
-                'fsoyilov@gmail.com',
-                'fsoyilovv@gmail.com',
-                'soyilovfarhod157@gmail.com',
-                'ssoyilov7700@gmail.com',
-                '220075f@jdu.uz'
-            )
-          )
-    ) OR (auth.jwt() ->> 'email') IN (
-        'fsoyilov@gmail.com',
-        'fsoyilovv@gmail.com',
-        'soyilovfarhod157@gmail.com',
-        'ssoyilov7700@gmail.com',
-        '220075f@jdu.uz'
+    RETURN (
+        (auth.jwt() ->> 'email') = 'fsoyilov@gmail.com'
+        OR EXISTS (
+            SELECT 1 FROM public.profiles
+            WHERE id = auth.uid()
+              AND email = 'fsoyilov@gmail.com'
+        )
     );
 END;
 $$;

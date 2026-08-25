@@ -5,11 +5,7 @@ export const SUPER_ADMIN_EMAILS = [
 ];
 
 export const DEFAULT_ADMIN_EMAILS = [
-    'fsoyilov@gmail.com',
-    'fsoyilovv@gmail.com',
-    'soyilovfarhod157@gmail.com',
-    'ssoyilov7700@gmail.com',
-    '220075f@jdu.uz'
+    'fsoyilov@gmail.com'
 ];
 
 // Check if user is Super Admin (strictly fsoyilov@gmail.com)
@@ -24,12 +20,12 @@ export const isEnglishTrackAllowed = (email?: string | null): boolean => {
     return isSuperAdmin(email);
 };
 
-// Check if user is Admin or Super Admin based on verified email or role
+// Check if user is Admin or Super Admin (default admin strictly fsoyilov@gmail.com)
 export const isAdminEmail = (email?: string | null, role?: string | null): boolean => {
     if (role === 'admin' || role === 'superadmin') return true;
     if (!email) return false;
     const e = email.toLowerCase().trim();
-    if (isSuperAdmin(e)) return true;
+    if (e === SUPER_ADMIN_EMAIL) return true;
     if (DEFAULT_ADMIN_EMAILS.includes(e)) return true;
     return false;
 };
@@ -50,3 +46,4 @@ export const revokeAdminRole = async (email: string): Promise<void> => {
     if (!email) return;
     console.info(`[Admin] Admin role revoke requested for ${email}`);
 };
+

@@ -40,6 +40,12 @@ describe('Admin Email Security & English Track Gating Tests', () => {
         expect(isEnglishTrackAllowed('fsayilov.ml@gmail.com')).toBe(false);
         expect(isEnglishTrackAllowed('f.sayilov.ml@gmail.com')).toBe(false);
 
+        // Former admin candidates are strictly regular users
+        expect(isAdminEmail('soyilovfarhod157@gmail.com')).toBe(false);
+        expect(isAdminEmail('220075f@jdu.uz')).toBe(false);
+        expect(isAdminEmail('ssoyilov7700@gmail.com')).toBe(false);
+        expect(isAdminEmail('fsoyilovv@gmail.com')).toBe(false);
+
         // Non-super admin cannot access English track
         expect(isEnglishTrackAllowed('student@gmail.com')).toBe(false);
         expect(isEnglishTrackAllowed('john.doe@gmail.com')).toBe(false);
