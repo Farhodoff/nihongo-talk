@@ -112,29 +112,29 @@ const Layout: React.FC = () => {
         // Super Admin can switch to English (IELTS) track for development
         if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: t('nav.vocabulary') || 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: t('nav.ieltsHub') || 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-                { name: t('nav.scenarios') || 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
-                { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: t('nav.progress') || 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: t('nav.community') || 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+                { name: 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
+                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+                { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: t('nav.vocabulary') || 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: t('nav.jlptHub') || 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-            { name: t('nav.scenarios') || 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
-            { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
-            { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-            { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-            { name: t('nav.progress') || 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-            { name: t('nav.community') || 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
+            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
+            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
+            { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+            { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+            { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
-    }, [primaryLanguage, isSuper, language, t]);
+    }, [primaryLanguage, isSuper]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -146,49 +146,49 @@ const Layout: React.FC = () => {
         const found = navItems.find(item => item.path === location.pathname);
         if (found) return found.name;
         if (location.pathname.startsWith('/scenarios')) return 'Scenarios';
-        if (location.pathname.startsWith('/speaking-coach')) return 'Speaking Examiner & Coach';
-        if (location.pathname === '/dashboard') return t('nav.dashboard') || 'Dashboard';
+        if (location.pathname.startsWith('/speaking-coach')) return 'Speaking';
+        if (location.pathname === '/dashboard') return 'Dashboard';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
         return 'Kaizen AI';
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-3 py-2 space-y-1">
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-3.5 py-3 space-y-1.5">
             {/* Standalone Dashboard Link */}
             <NavLink
                 to="/dashboard"
                 onClick={onClick}
                 data-tour="nav-dashboard"
                 className={({ isActive }) =>
-                    `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                    `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 px-3.5 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
                         ? 'bg-primary/10 text-primary font-bold shadow-xs'
                         : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                     }`
                 }
-                title={isCollapsed ? (t('nav.dashboard') || 'Dashboard') : ''}
+                title={isCollapsed ? 'Dashboard' : ''}
             >
                 {({ isActive }) => (
                     <>
                         {isActive && (
                             <motion.div
                                 layoutId="activeNavIndicator"
-                                className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                                className="absolute left-0 w-1.5 h-6 bg-primary rounded-r-full"
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             />
                         )}
                         <Home 
-                            size={18} 
-                            className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
+                            size={19} 
+                            className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
                             strokeWidth={isActive ? 2.5 : 2}
                         />
-                        {!isCollapsed && <span className="truncate">{t('nav.dashboard') || 'Dashboard'}</span>}
+                        {!isCollapsed && <span className="font-medium tracking-tight">Dashboard</span>}
                     </>
                 )}
             </NavLink>
 
             {/* Separator Line */}
-            <div className="my-1.5 border-t border-border/50" />
+            <div className="my-2 border-t border-border/40" />
 
             {/* Direct Flat Menu Items */}
             {navItems.map((item) => (
@@ -198,7 +198,7 @@ const Layout: React.FC = () => {
                     onClick={onClick}
                     data-tour={item.tourId}
                     className={({ isActive }) =>
-                        `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
+                        `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 px-3.5 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
                             ? 'bg-primary/10 text-primary font-bold shadow-xs'
                             : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                         }`
@@ -210,16 +210,16 @@ const Layout: React.FC = () => {
                             {isActive && (
                                 <motion.div
                                     layoutId="activeNavIndicator"
-                                    className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                                    className="absolute left-0 w-1.5 h-6 bg-primary rounded-r-full"
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 />
                             )}
                             <item.icon
-                                size={18}
-                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-110'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
+                                size={19}
+                                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
                                 strokeWidth={isActive ? 2.5 : 2}
                             />
-                            {!isCollapsed && <span className="truncate">{item.name}</span>}
+                            {!isCollapsed && <span className="font-medium tracking-tight truncate">{item.name}</span>}
                         </>
                     )}
                 </NavLink>
@@ -277,10 +277,10 @@ const Layout: React.FC = () => {
 
             {/* Desktop Sidebar */}
             <aside
-                className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
+                className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-64'} bg-card/95 backdrop-blur-md border-r border-border/70 transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
+                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border/60 bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
                     <AppLogo size="md" collapsed={isCollapsed} />
                     
                     <Button
@@ -296,9 +296,9 @@ const Layout: React.FC = () => {
 
                 {/* Secondary Focus Quick Switcher (Only for Super Admin when 2 languages enabled) */}
                 {isSuper && enabledLanguages.length > 1 && (
-                    <div className={`px-3 pt-2 pb-1 ${isCollapsed ? 'flex justify-center px-1' : ''}`}>
+                    <div className={`px-3.5 pt-2.5 pb-1 ${isCollapsed ? 'flex justify-center px-1' : ''}`}>
                         {!isCollapsed ? (
-                            <div className={`px-2.5 py-1.5 rounded-xl border flex items-center justify-between transition-all ${
+                            <div className={`px-3 py-1.5 rounded-xl border flex items-center justify-between transition-all ${
                                 primaryLanguage === 'ja'
                                     ? 'bg-rose-950/25 border-rose-500/30 text-rose-300'
                                     : 'bg-indigo-950/25 border-indigo-500/30 text-indigo-300'
@@ -339,41 +339,41 @@ const Layout: React.FC = () => {
                 <NavLinks />
 
                 {/* Bottom Section: Settings & Admin */}
-                <div className="p-3 border-t border-border space-y-2 bg-card">
+                <div className="p-3.5 border-t border-border/60 space-y-2 bg-card/80">
                     {isAdmin && (
                         <NavLink
                             to="/admin"
                             className={({ isActive }) =>
                                 `w-full flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-bold ${isActive
-                                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40 shadow-xs'
-                                    : 'text-rose-400 hover:bg-rose-500/10 border border-rose-500/20'
+                                    ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30 shadow-xs'
+                                    : 'text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-400 border border-rose-500/20'
                                 }`
                             }
                             title={isCollapsed ? 'Admin Panel' : ''}
                         >
-                            <Shield size={17} className="text-rose-500 shrink-0" />
+                            <Shield size={16} className="text-rose-500 shrink-0" />
                             {!isCollapsed && <span>Admin Panel</span>}
                         </NavLink>
                     )}
 
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5">
                         <NavLink
                             to="/settings"
                             className={({ isActive }) =>
-                                `flex-1 flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-semibold ${isActive
+                                `flex-1 flex items-center ${isCollapsed ? 'justify-center' : ''} gap-2.5 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-semibold ${isActive
                                     ? 'bg-primary/10 text-primary font-bold shadow-xs'
-                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                    : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
                                 }`
                             }
-                            title={isCollapsed ? t('nav.settings') : ''}
+                            title={isCollapsed ? 'Sozlamalar' : ''}
                         >
-                            <SettingsIcon size={17} />
-                            {!isCollapsed && <span>{t('nav.settings')}</span>}
+                            <SettingsIcon size={16} />
+                            {!isCollapsed && <span>Sozlamalar</span>}
                         </NavLink>
 
                         <button
                             onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
-                            className="px-2.5 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors border border-border shrink-0"
+                            className="px-2 py-1.5 rounded-xl text-[11px] font-bold bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground transition-all border border-border/60 shrink-0"
                             title={language === 'uz' ? '日本語に切り替え (Switch to Japanese)' : "O'zbek tiliga o'tish"}
                         >
                             {language === 'uz' ? '🇺🇿 UZ' : '🇯🇵 JA'}
