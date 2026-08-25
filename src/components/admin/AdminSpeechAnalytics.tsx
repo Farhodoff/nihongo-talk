@@ -53,16 +53,25 @@ export const AdminSpeechAnalytics: React.FC = () => {
         let list: SpeakingSessionRecord[] = [];
 
         try {
-            // 1. Fetch profiles to map user_id -> email / full_name for clean display
-            const { data: profileData } = await supabase
-                .from('profiles')
-                .select('*')
-                .limit(300);
+            // 1. Fetch profiles & all users to map user_id -> email / full_name for clean display
+            const [profileRes, rpcUsersRes] = await Promise.allSettled([
+                supabase.from('profiles').select('*').limit(300),
+                supabase.rpc('get_admin_all_users')
+            ]);
             const profileMap = new Map<string, string>();
+            
+            const profileData = profileRes.status === 'fulfilled' ? profileRes.value.data : null;
             if (profileData) {
                 profileData.forEach((p: any) => {
                     const uid = p.id || p.user_id;
                     if (uid) profileMap.set(uid, p.email || p.full_name || 'Student');
+                });
+            }
+
+            const rpcData = rpcUsersRes.status === 'fulfilled' ? rpcUsersRes.value.data : null;
+            if (Array.isArray(rpcData)) {
+                rpcData.forEach((u: any) => {
+                    if (u.id) profileMap.set(u.id, u.email || u.full_name || 'Student');
                 });
             }
 

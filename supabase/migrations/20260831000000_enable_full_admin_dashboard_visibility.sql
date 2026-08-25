@@ -155,7 +155,47 @@ CREATE POLICY "Users and admins read speaking vocabularies" ON public.speaking_v
     FOR SELECT TO authenticated
     USING (auth.uid() = user_id OR public.is_admin());
 
--- 10. Grant SELECT on all required public tables to authenticated and service_role
+-- 10. RPC Funksiyasi: Super Admin barcha auth.users foydalanuvchilarini to'liq olishi uchun
+CREATE OR REPLACE FUNCTION public.get_admin_all_users()
+RETURNS TABLE (
+    id UUID,
+    email TEXT,
+    full_name TEXT,
+    role TEXT,
+    tier TEXT,
+    ai_credits INT,
+    created_at TIMESTAMPTZ,
+    last_sign_in_at TIMESTAMPTZ
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, auth
+AS $$
+BEGIN
+    IF NOT public.is_admin() THEN
+        RAISE EXCEPTION 'Access denied. Super Admin role required.';
+    END IF;
+
+    RETURN QUERY
+    SELECT 
+        u.id,
+        u.email::TEXT,
+        COALESCE(p.full_name, u.raw_user_meta_data->>'full_name', split_part(u.email, '@', 1))::TEXT AS full_name,
+        COALESCE(p.role, CASE WHEN u.email = 'fsoyilov@gmail.com' THEN 'superadmin' ELSE 'user' END)::TEXT AS role,
+        COALESCE(s.tier, CASE WHEN u.email = 'fsoyilov@gmail.com' THEN 'premium' ELSE 'free' END)::TEXT AS tier,
+        COALESCE(s.ai_credits, 99999)::INT AS ai_credits,
+        u.created_at,
+        u.last_sign_in_at
+    FROM auth.users u
+    LEFT JOIN public.profiles p ON p.id = u.id
+    LEFT JOIN public.user_subscriptions s ON s.id = u.id
+    ORDER BY u.created_at DESC;
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION public.get_admin_all_users() TO authenticated;
+
+-- 11. Grant SELECT on all required public tables to authenticated and service_role
 GRANT SELECT ON public.profiles TO authenticated;
 GRANT SELECT ON public.user_subscriptions TO authenticated;
 GRANT SELECT ON public.study_sessions TO authenticated;

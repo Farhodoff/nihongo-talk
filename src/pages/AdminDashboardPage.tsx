@@ -244,7 +244,8 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, aiCoachSettled, studySessionsSettled] = await Promise.allSettled([
+            const [rpcSettled, profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, aiCoachSettled, studySessionsSettled] = await Promise.allSettled([
+                supabase.rpc('get_admin_all_users'),
                 supabase.from('profiles').select('*').limit(500),
                 supabase.from('user_subscriptions').select('*').limit(500),
                 supabase.from('speaking_sessions').select('*').limit(500),
@@ -253,6 +254,7 @@ const AdminDashboardPage: React.FC = () => {
                 supabase.from('study_sessions').select('*').limit(500)
             ]);
 
+            const rpcUsers = (rpcSettled.status === 'fulfilled' && Array.isArray(rpcSettled.value.data)) ? rpcSettled.value.data : [];
             const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
             const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
             const dbSpeaking = (speakingSettled.status === 'fulfilled' && Array.isArray(speakingSettled.value.data)) ? speakingSettled.value.data : [];
@@ -260,8 +262,23 @@ const AdminDashboardPage: React.FC = () => {
             const dbAiCoach = (aiCoachSettled.status === 'fulfilled' && Array.isArray(aiCoachSettled.value.data)) ? aiCoachSettled.value.data : [];
             const dbStudySessions = (studySessionsSettled.status === 'fulfilled' && Array.isArray(studySessionsSettled.value.data)) ? studySessionsSettled.value.data : [];
 
-            // 1. Map registered users from Supabase DB (merge profiles + subscriptions)
+            // 1. Map registered users from Supabase DB (merge RPC + profiles + subscriptions)
             const userMap = new Map<string, UserSubscription>();
+
+            rpcUsers.forEach((u: any) => {
+                if (u.id) {
+                    userMap.set(u.id, {
+                        id: u.id,
+                        email: u.email || 'student@kaizen.ai',
+                        full_name: u.full_name || '',
+                        tier: (u.role === 'admin' || u.role === 'superadmin' || u.email === 'fsoyilov@gmail.com' ? 'premium' : (u.tier || 'free')) as any,
+                        ai_credits: u.ai_credits ?? 99999,
+                        last_reset_date: u.created_at || new Date().toISOString(),
+                        valid_until: undefined,
+                        created_at: u.created_at || new Date().toISOString()
+                    });
+                }
+            });
             
             dbProfiles.forEach((p: any) => {
                 const uid = p.id || p.user_id;
