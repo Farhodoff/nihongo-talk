@@ -374,18 +374,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
 
-            // Non-blocking background syncs & automatic LocalStorage to DB migration
-            setTimeout(() => {
-                syncGoogleEvents();
-                DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
-                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
-                MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
-                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
-                DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
-                LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
-                LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
-                ErrorVaultService.syncFromDB().catch(() => {});
-            }, 300);
+            // Non-blocking background syncs & automatic LocalStorage to DB migration (sequenced smoothly to eliminate socket congestion)
+            setTimeout(async () => {
+                try {
+                    syncGoogleEvents();
+                    await DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
+                    await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
+                    await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
+                    await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
+                    await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
+                    await LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
+                    await LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
+                    await ErrorVaultService.syncFromDB().catch(() => {});
+                } catch (bgErr) {
+                    console.debug('[StudyPlannerContext] Background sync notice:', bgErr);
+                }
+            }, 1500);
 
             // Staggered fetch in 2 smooth batches to prevent HTTP/2 connection resets
             try {
@@ -403,7 +407,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     setFlashcards(flashcardsSettled.value);
                 }
 
-                // Batch 2: Secondary workspace data
+                // Batch 2: Secondary workspace data (staggered by 150ms)
+                await new Promise(r => setTimeout(r, 150));
+
                 const [
                     goalsSettled,
                     notesSettled,
@@ -420,7 +426,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('study_notes').select('*').eq('user_id', currentUser.id),
                     supabase.from('whiteboards').select('id, subject_id, user_id, title, updated_at').eq('user_id', currentUser.id),
                     supabase.from('events').select('*').eq('user_id', currentUser.id),
-                    supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle(),
+                    supabase.from('profiles').select('*').eq('id', currentUser.id).limit(1),
                     supabase.from('speaking_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
 
@@ -597,8 +603,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
 
                 // Profile & Gamification sync
-                if (profileRes?.data) {
-                    const prof = profileRes.data as DatabaseProfile;
+                const rawProf = profileRes?.data;
+                const prof = Array.isArray(rawProf) ? rawProf[0] : (rawProf as DatabaseProfile | null);
+                if (prof) {
                     setGamificationState(prev => ({
                         ...prev,
                         totalXp: prof.total_xp || prev.totalXp,

@@ -25,9 +25,9 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
     console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
-// High-performance concurrency queue to prevent excessive socket flooding while allowing instant parallel queries
+// High-performance concurrency queue to prevent HTTP/2 socket flooding and connection resets
 let activeRequests = 0;
-const MAX_CONCURRENT = 10;
+const MAX_CONCURRENT = 4;
 const requestQueue: Array<() => void> = [];
 
 const acquireSlot = async (): Promise<void> => {
@@ -51,7 +51,10 @@ const releaseSlot = () => {
     }
 };
 
-// Helper to retry fetch on transient connection resets / network drops with minimal latency
+// In-flight GET request deduplication map to prevent redundant concurrent fetches to the same endpoint
+const inFlightGetMap = new Map<string, Promise<Response>>();
+
+// Helper to retry fetch on transient connection resets / network drops with minimal latency and jitter
 const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxRetries = 2): Promise<Response> => {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
@@ -61,7 +64,8 @@ const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxR
             if (err?.name === 'AbortError') throw err;
             const isLast = attempt === maxRetries;
             if (isLast) throw err;
-            await new Promise(resolve => setTimeout(resolve, 100 * Math.pow(2, attempt)));
+            const delay = 120 * Math.pow(2, attempt) + Math.floor(Math.random() * 50);
+            await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
     throw new Error('Fetch failed after retries');
@@ -96,31 +100,66 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
             : new Response(JSON.stringify([]), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
 
-    await acquireSlot();
-    try {
-        return await fetchWithRetry(input, init, 2);
-    } catch (err: unknown) {
-        const isAuth = urlStr.includes('/auth/v1');
-        if (isAuth) {
-            // Rethrow so Supabase Auth client keeps the cached session instead of wiping it
-            throw err;
+    const method = (init?.method || 'GET').toUpperCase();
+    const isGet = method === 'GET' || method === 'HEAD';
+
+    // In-flight GET deduplication: If an identical GET query is already running, share the response
+    const authHeader = (init?.headers as any)?.Authorization || (init?.headers as any)?.apikey || '';
+    const dedupeKey = isGet ? `${urlStr}::${authHeader}` : '';
+
+    if (isGet && inFlightGetMap.has(dedupeKey)) {
+        try {
+            const existingRes = await inFlightGetMap.get(dedupeKey)!;
+            return existingRes.clone();
+        } catch {
+            // If in-flight failed, proceed to try fresh
+            inFlightGetMap.delete(dedupeKey);
         }
-
-        // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
-        const isPostOrPatch = init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT';
-        const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
-
-        return new Response(
-            fallbackBody,
-            {
-                status: 200,
-                statusText: 'OK',
-                headers: { 'Content-Type': 'application/json' }
-            }
-        );
-    } finally {
-        releaseSlot();
     }
+
+    const executeFetch = async (): Promise<Response> => {
+        await acquireSlot();
+        try {
+            return await fetchWithRetry(input, init, 2);
+        } catch (err: unknown) {
+            if (isAuth) {
+                // If it's auth/v1/user check failing due to network reset, return 200 fallback session or rethrow
+                // so Supabase Auth client keeps the cached session instead of wiping it
+                throw err;
+            }
+
+            // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
+            const isPostOrPatch = init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT';
+            const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
+
+            return new Response(
+                fallbackBody,
+                {
+                    status: 200,
+                    statusText: 'OK',
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+        } finally {
+            releaseSlot();
+        }
+    };
+
+    if (isGet) {
+        const fetchPromise = executeFetch();
+        inFlightGetMap.set(dedupeKey, fetchPromise);
+        try {
+            const res = await fetchPromise;
+            return res.clone();
+        } finally {
+            // Clean up from dedupe map after brief window
+            setTimeout(() => {
+                inFlightGetMap.delete(dedupeKey);
+            }, 50);
+        }
+    }
+
+    return executeFetch();
 };
 
 export const supabase = createClient(
