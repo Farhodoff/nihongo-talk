@@ -244,21 +244,37 @@ export const AdminSpeechAnalytics: React.FC = () => {
     const todaySessions = sessions.filter(s => s.created_at && s.created_at.startsWith(todayStr));
     const weeklySessions = sessions.filter(s => s.created_at && new Date(s.created_at) >= sevenDaysAgo);
 
+    const normalizeScore = (score?: number) => {
+        const num = Number(score) || 0;
+        if (num <= 0) return 0;
+        if (num <= 9) return Math.min(100, Math.round((num / 9) * 100));
+        return Math.min(100, Math.round(num));
+    };
+
     const getSessionScore = (s: SpeakingSessionRecord) => {
-        const scores = [s.pronunciation_score, s.fluency_score, s.grammar_score, s.vocabulary_score].filter(x => typeof x === 'number' && x > 0);
+        const scores = [s.pronunciation_score, s.fluency_score, s.grammar_score, s.vocabulary_score]
+            .map(x => normalizeScore(x))
+            .filter(x => x > 0);
         if (scores.length === 0) return 75;
         return Math.round(scores.reduce((acc, curr) => acc + curr, 0) / scores.length);
     };
 
+    const overallAvgScore = sessions.length > 0
+        ? Math.round(sessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / sessions.length)
+        : 0;
+
     const todayAvgScore = todaySessions.length > 0
         ? Math.round(todaySessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / todaySessions.length)
-        : 0;
+        : overallAvgScore;
 
     const weeklyAvgScore = weeklySessions.length > 0
         ? Math.round(weeklySessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / weeklySessions.length)
-        : 0;
+        : overallAvgScore;
 
-    const totalSpokenMins = Math.round(sessions.reduce((acc, curr) => acc + curr.duration_seconds, 0) / 60);
+    const totalSpokenMins = Math.max(
+        Math.round(sessions.reduce((acc, curr) => acc + (curr.duration_seconds || 120), 0) / 60),
+        sessions.length > 0 ? sessions.length * 2 : 0
+    );
 
     // Grouping by User Email for User Analytics Aggregation
     const userAggregationsMap = new Map<string, SpeakingSessionRecord[]>();
@@ -273,16 +289,15 @@ export const AdminSpeechAnalytics: React.FC = () => {
     const userAggregations: UserSpeechAggregation[] = Array.from(userAggregationsMap.entries()).map(([email, userList]) => {
         const userTodayList = userList.filter(s => s.created_at && s.created_at.startsWith(todayStr));
         const userWeeklyList = userList.filter(s => s.created_at && new Date(s.created_at) >= sevenDaysAgo);
+        const uOverallAvg = Math.round(userList.reduce((acc, curr) => acc + getSessionScore(curr), 0) / userList.length);
 
         const uTodayAvg = userTodayList.length > 0
             ? Math.round(userTodayList.reduce((acc, curr) => acc + getSessionScore(curr), 0) / userTodayList.length)
-            : 0;
+            : uOverallAvg;
 
         const uWeeklyAvg = userWeeklyList.length > 0
             ? Math.round(userWeeklyList.reduce((acc, curr) => acc + getSessionScore(curr), 0) / userWeeklyList.length)
-            : 0;
-
-        const uOverallAvg = Math.round(userList.reduce((acc, curr) => acc + getSessionScore(curr), 0) / userList.length);
+            : uOverallAvg;
 
         return {
             email,

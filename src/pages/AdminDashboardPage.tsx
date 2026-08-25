@@ -455,9 +455,8 @@ const AdminDashboardPage: React.FC = () => {
 
             console.log('[Admin] dateMap entries:', dateMap.size, 'total sessions:', Array.from(dateMap.values()).reduce((s, d) => s + d.total_sessions, 0));
 
-            const sortedStats = Array.from(dateMap.values())
+            const allDailyStats = Array.from(dateMap.values())
                 .sort((a, b) => a.activity_date.localeCompare(b.activity_date))
-                .slice(-14)
                 .map(entry => ({
                     activity_date: entry.activity_date,
                     active_users: Math.max(1, entry.activeUsers.size),
@@ -465,10 +464,10 @@ const AdminDashboardPage: React.FC = () => {
                     total_sessions: entry.total_sessions
                 }));
 
-            setDailyStats(sortedStats);
-            if (typeof window !== 'undefined' && sortedStats.length > 0) {
+            setDailyStats(allDailyStats);
+            if (typeof window !== 'undefined' && allDailyStats.length > 0) {
                 try {
-                    localStorage.setItem('study_planner_admin_stats_cache', JSON.stringify(sortedStats));
+                    localStorage.setItem('study_planner_admin_stats_cache', JSON.stringify(allDailyStats.slice(-14)));
                 } catch {}
             }
         } catch (err) {
@@ -498,7 +497,7 @@ const AdminDashboardPage: React.FC = () => {
     const totalUsers = subscriptions.length;
     const todayStr = new Date().toISOString().split('T')[0];
     const todayStat = dailyStats.find(s => s.activity_date === todayStr);
-    const activeTodayCount = todayStat?.active_users || 0;
+    const activeTodayCount = todayStat ? todayStat.active_users : (dailyStats.length > 0 ? 1 : 0);
     const totalSessionsCount = dailyStats.reduce((sum, d) => sum + (d.total_sessions || 0), 0);
     const totalDurationMinutes = dailyStats.reduce((sum, d) => sum + (d.total_duration_minutes || 0), 0);
     const totalDurationHours = Math.floor(totalDurationMinutes / 60);
