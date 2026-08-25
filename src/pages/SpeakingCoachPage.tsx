@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
-import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, translateTextToUzbek, isAIKeyConfigured, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
+import { converseWithCoachStructured, CoachVocabularyItem, analyzeSpeakingSession, SessionAnalysisReport, translateTextToUzbek, parseMicroErrors, extractSpeechAudioText } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { useSubscription } from '../hooks/useSubscription';
 import { ErrorVaultService } from '../services/ErrorVaultService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { isAdminEmail, isSuperAdmin } from '../utils/admin';
@@ -119,8 +118,8 @@ const SpeakingCoachPage: React.FC = () => {
     const [isReportLoading, setIsReportLoading] = useState(false);
     const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
 
-    const { subscription } = useSubscription();
-    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium' || isAIKeyConfigured();
+    // Open access for all users during the growth phase
+    const isPaidUser = true;
     const [showProModal, setShowProModal] = useState(false);
     const [proModalReason, setProModalReason] = useState('');
 

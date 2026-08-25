@@ -97,12 +97,12 @@ export const PRESET_DECKS: PresetDeck[] = [
     {
         id: 'deck_jlpt_n4',
         title: '🎌 JLPT N4 Master Deck (Shin Kanzen)',
-        description: "Shin Kanzen Master Grammar, Reading va Listening N4 darsliklaridan 6,655 ta so'z va iboralar.",
+        description: "Shin Kanzen Master va Minna no Nihongo darsliklaridan 114 ta asosiy so'z va iboralar.",
         language: 'ja',
         level: 'JLPT N4',
         badgeColor: 'bg-rose-500/10 text-rose-600 border-rose-500/20',
         icon: '🎌',
-        cardCount: 6655,
+        cardCount: 114,
         isPremiumOnly: false,
         loadCards: async () => {
             const data = await import('./decks/jlpt_n4.json');
@@ -125,14 +125,29 @@ export const PRESET_DECKS: PresetDeck[] = [
         }
     },
     {
+        id: 'deck_jlpt_n2',
+        title: '🗾 JLPT N2 Master Deck (Shin Kanzen & Sou Matome)',
+        description: "Shin Kanzen Master va Sou Matome N2 darsliklaridan 10 ta muhim o'rta-yuqori darajadagi so'zlar.",
+        language: 'ja',
+        level: 'JLPT N2',
+        badgeColor: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20',
+        icon: '🗾',
+        cardCount: 10,
+        isPremiumOnly: false,
+        loadCards: async () => {
+            const data = await import('./decks/jlpt_n2.json');
+            return data.default as PresetCard[];
+        }
+    },
+    {
         id: 'deck_jlpt_n1',
         title: '👑 JLPT N1 Master Deck (Shin Kanzen & Sou Matome)',
-        description: "N1 Shin Kanzen & Sou Matome Grammar, Kanji, Vocab, Reading darsliklaridan 18 ta so'zlar.",
+        description: "N1 Shin Kanzen & Sou Matome darsliklaridan 55 ta oliy darajadagi akademik va adabiy so'zlar.",
         language: 'ja',
         level: 'JLPT N1',
         badgeColor: 'bg-red-500/10 text-red-600 border-red-500/20',
         icon: '👑',
-        cardCount: 18,
+        cardCount: 55,
         isPremiumOnly: true,
         loadCards: async () => {
             const data = await import('./decks/jlpt_n1.json');

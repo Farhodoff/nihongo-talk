@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw, Sparkles } from 'lucide-react';
 import { TestQuestion } from '../../types/lesson';
+import { FuriganaText } from '../jlpt/FuriganaText';
 
 export interface MissedQuestionInfo {
     questionId: string;
@@ -31,9 +32,31 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
     const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
     const [currentIdx, setCurrentIdx] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
+    const [attemptSeed, setAttemptSeed] = useState(0);
 
-    const currentQuestion = questions[currentIdx];
-    const totalQuestions = questions.length;
+    // Shuffle options for each question dynamically per attempt
+    const activeQuestions = useMemo(() => {
+        return questions.map(q => {
+            if (!q.options || q.options.length < 2) return q;
+            const correctOptionText = q.options[q.correctAnswerIndex];
+            
+            const shuffled = [...q.options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            const newCorrectIdx = shuffled.indexOf(correctOptionText);
+
+            return {
+                ...q,
+                options: shuffled,
+                correctAnswerIndex: newCorrectIdx >= 0 ? newCorrectIdx : q.correctAnswerIndex
+            };
+        });
+    }, [questions, attemptSeed]);
+
+    const currentQuestion = activeQuestions[currentIdx];
+    const totalQuestions = activeQuestions.length;
     const answeredCount = Object.keys(selectedAnswers).length;
 
     const handleSelectOption = (optionIdx: number) => {
@@ -48,7 +71,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
         let correctCount = 0;
         const missedQuestions: MissedQuestionInfo[] = [];
 
-        questions.forEach((q, idx) => {
+        activeQuestions.forEach((q, idx) => {
             if (selectedAnswers[idx] === q.correctAnswerIndex) {
                 correctCount++;
             } else {
@@ -76,11 +99,12 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
         setSelectedAnswers({});
         setCurrentIdx(0);
         setIsCompleted(false);
+        setAttemptSeed(prev => prev + 1);
     };
 
     let score = 0;
     if (isCompleted) {
-        questions.forEach((q, idx) => {
+        activeQuestions.forEach((q, idx) => {
             if (selectedAnswers[idx] === q.correctAnswerIndex) {
                 score++;
             }
@@ -113,7 +137,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                 /* Active Question Card */
                 <div className="p-6 rounded-3xl bg-card border border-border shadow-sm space-y-6">
                     <div className="text-base md:text-lg font-bold text-foreground leading-snug">
-                        {currentQuestion.question}
+                        <FuriganaText text={currentQuestion.question} />
                     </div>
 
                     <div className="space-y-2.5">
@@ -135,7 +159,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                                         }`}>
                                             {String.fromCharCode(65 + optIdx)}
                                         </span>
-                                        <span>{opt}</span>
+                                        <span><FuriganaText text={opt} /></span>
                                     </div>
                                     {isSelected && <CheckCircle2 size={18} className="text-primary shrink-0" />}
                                 </button>
@@ -206,7 +230,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                             Savollar Tahlili:
                         </h4>
 
-                        {questions.map((q, qIdx) => {
+                        {activeQuestions.map((q, qIdx) => {
                             const userAnswer = selectedAnswers[qIdx];
                             const isUserCorrect = userAnswer === q.correctAnswerIndex;
 
@@ -219,7 +243,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                                 >
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="text-xs font-bold text-foreground">
-                                            {qIdx + 1}. {q.question}
+                                            {qIdx + 1}. <FuriganaText text={q.question} />
                                         </div>
                                         {isUserCorrect ? (
                                             <span className="text-xs font-bold text-emerald-500 flex items-center gap-1 shrink-0">
@@ -235,11 +259,11 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                                     <div className="text-xs text-muted-foreground space-y-1 pt-1 border-t border-border/50">
                                         <div>
                                             <span className="font-semibold text-foreground">To'g'ri javob: </span>
-                                            <span className="text-emerald-500 font-bold">{q.options[q.correctAnswerIndex]}</span>
+                                            <span className="text-emerald-500 font-bold"><FuriganaText text={q.options[q.correctAnswerIndex]} /></span>
                                         </div>
                                         {q.explanation && (
                                             <div className="text-[11px] text-muted-foreground mt-0.5">
-                                                💡 {q.explanation}
+                                                💡 <FuriganaText text={q.explanation} />
                                             </div>
                                         )}
                                     </div>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { CheckCircle2, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { PracticeExercise } from '../../types/lesson';
+import { FuriganaText } from '../jlpt/FuriganaText';
 
 interface PracticeStepViewProps {
     instructions: string;
@@ -19,7 +20,32 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
     const [selectedOption, setSelectedOption] = useState<number | string | null>(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const currentExercise = exercises[currentIdx];
+    // Dynamic shuffle for multiple-choice exercise options
+    const activeExercises = useMemo(() => {
+        return exercises.map(ex => {
+            if (ex.type !== 'multiple-choice' || !ex.options || ex.options.length < 2) {
+                return ex;
+            }
+            const correctText = typeof ex.correctAnswer === 'number'
+                ? ex.options[ex.correctAnswer]
+                : ex.correctAnswer;
+
+            const shuffled = [...ex.options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            const newCorrectIdx = shuffled.indexOf(correctText);
+
+            return {
+                ...ex,
+                options: shuffled,
+                correctAnswer: newCorrectIdx >= 0 ? newCorrectIdx : ex.correctAnswer
+            };
+        });
+    }, [exercises]);
+
+    const currentExercise = activeExercises[currentIdx];
     const isCorrect = currentExercise && selectedOption !== null && (
         typeof currentExercise.correctAnswer === 'number'
             ? selectedOption === currentExercise.correctAnswer
@@ -94,7 +120,7 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
             {/* Exercise Card */}
             <div className="p-6 rounded-3xl bg-card border border-border shadow-sm space-y-6">
                 <div className="text-lg font-bold text-foreground leading-snug">
-                    {currentExercise.prompt}
+                    <FuriganaText text={currentExercise.prompt} />
                 </div>
 
                 {/* Options list */}
@@ -125,7 +151,7 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
                                         <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center text-xs font-black text-muted-foreground">
                                             {String.fromCharCode(65 + optIdx)}
                                         </span>
-                                        <span>{opt}</span>
+                                        <span><FuriganaText text={opt} /></span>
                                     </div>
                                     {isSubmitted && optIdx === currentExercise.correctAnswer && (
                                         <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
@@ -163,7 +189,7 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
                                 </div>
                                 {currentExercise.explanation && (
                                     <div className="mt-1 text-foreground/80">
-                                        {currentExercise.explanation}
+                                        <FuriganaText text={currentExercise.explanation} />
                                     </div>
                                 )}
                             </div>

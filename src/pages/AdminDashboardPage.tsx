@@ -14,6 +14,7 @@ import { UserNotificationService } from '../services/UserNotificationService';
 import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
 import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
 import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
+import { AdminDatasetVaultModal } from '../components/admin/AdminDatasetVaultModal';
 import { SvgLineChart } from '../components/ui/SvgCharts';
 import { toast } from '../hooks/use-toast';
 
@@ -174,6 +175,30 @@ const AdminDashboardPage: React.FC = () => {
 
     // AI Card Cleaner
     const [isCleanerOpen, setIsCleanerOpen] = useState(false);
+
+    // Secret AI Dataset Vault Modal (Easter Egg)
+    const [isVaultOpen, setIsVaultOpen] = useState(false);
+    const secretClicksRef = useRef(0);
+
+    // Secret Key Combination: Ctrl+Shift+D
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'd') {
+                e.preventDefault();
+                setIsVaultOpen(prev => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleSecretTitleClick = () => {
+        secretClicksRef.current += 1;
+        if (secretClicksRef.current >= 5) {
+            setIsVaultOpen(true);
+            secretClicksRef.current = 0;
+        }
+    };
 
     // Message modal
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
@@ -436,7 +461,13 @@ const AdminDashboardPage: React.FC = () => {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
                 <div>
-                    <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">Super Admin Paneli</h1>
+                    <h1 
+                        onClick={handleSecretTitleClick} 
+                        className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
+                        title="Kaizen Admin Console"
+                    >
+                        Super Admin Paneli
+                    </h1>
                     <p className="text-xs text-muted-foreground mt-0.5">Tizim obunalari, foydalanuvchilar va AI Coach tahlillarini boshqarish</p>
                 </div>
                 <div className="flex items-center gap-2 self-start sm:self-auto">
@@ -797,6 +828,12 @@ const AdminDashboardPage: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            {/* SECRET DEVELOPER DATASET & VOICE VAULT MODAL (EASTER EGG) */}
+            <AdminDatasetVaultModal
+                isOpen={isVaultOpen}
+                onClose={() => setIsVaultOpen(false)}
+            />
         </div>
     );
 };

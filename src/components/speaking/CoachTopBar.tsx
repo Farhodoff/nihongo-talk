@@ -35,7 +35,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     setPersona,
     targetBand,
     setTargetBand,
-    isPaidUser,
+    isPaidUser: _isPaidUser,
     isAdmin,
     isSuperAdmin: isSuper,
     onOpenProModal,
@@ -139,7 +139,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                                         const p = PERSONAS[pKey];
                                         const Icon = p.icon;
                                         const isSelected = persona === pKey;
-                                        const isLocked = !isPaidUser && pKey !== 'casual';
+                                        const isLocked = false; // Open for all users
                                         
                                         return (
                                             <button
