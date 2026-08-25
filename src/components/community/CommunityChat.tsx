@@ -16,12 +16,28 @@ interface ChatMessage {
     } | null;
 }
 
+const CHAT_CACHE_KEY = 'kaizen_chat_messages_cache';
+
 const CommunityChat: React.FC = () => {
     const { language } = useLanguage();
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>(() => {
+        try {
+            const saved = localStorage.getItem(CHAT_CACHE_KEY);
+            return saved ? JSON.parse(saved) : [];
+        } catch {
+            return [];
+        }
+    });
     const [newMessage, setNewMessage] = useState('');
     const [chatError, setChatError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(() => {
+        try {
+            const saved = localStorage.getItem(CHAT_CACHE_KEY);
+            return !(saved && JSON.parse(saved).length > 0);
+        } catch {
+            return true;
+        }
+    });
     const [isSending, setIsSending] = useState(false);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [typingUsers, setTypingUsers] = useState<string[]>([]);
@@ -39,7 +55,7 @@ const CommunityChat: React.FC = () => {
         if (!isLoading && messages.length > 0) {
             scrollToBottom('auto');
         }
-    }, [isLoading, messages.length]);
+    }, [isLoading]);
 
     useEffect(() => {
         // Only scroll if user is already near bottom or it's their own message
@@ -47,22 +63,32 @@ const CommunityChat: React.FC = () => {
         if (lastMessage?.user_id === currentUser?.id) {
             scrollToBottom('smooth');
         }
-    }, [messages, currentUser?.id]);
+    }, [messages.length, currentUser?.id]);
 
     useEffect(() => {
         let chatChannel: any = null;
         let typingChannel: any = null;
 
         const setupChat = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            setCurrentUser(user);
+            try {
+                const { data } = await supabase.auth.getSession();
+                if (data?.session?.user) {
+                    setCurrentUser(data.session.user);
+                } else {
+                    const { data: userData } = await supabase.auth.getUser();
+                    if (userData?.user) setCurrentUser(userData.user);
+                }
+            } catch (e) {
+                // ignore
+            }
+
             await fetchMessages();
             setIsLoading(false);
 
             // Subscribe to typing indicators via broadcast
             typingChannel = supabase.channel('typing-indicator')
                 .on('broadcast', { event: 'typing' }, ({ payload }) => {
-                    if (payload.user_id !== user?.id) {
+                    if (payload.user_id !== currentUser?.id) {
                         setTypingUsers(prev => {
                             if (payload.isTyping) {
                                 return prev.includes(payload.full_name) ? prev : [...prev, payload.full_name];
@@ -153,6 +179,11 @@ const CommunityChat: React.FC = () => {
                     : msg.profiles || null
             }));
             setMessages(mapped);
+            try {
+                localStorage.setItem(CHAT_CACHE_KEY, JSON.stringify(mapped));
+            } catch (e) {
+                // ignore
+            }
         }
     };
 

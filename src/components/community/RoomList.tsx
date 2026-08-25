@@ -25,8 +25,21 @@ const ROOMS = [
 const RoomList: React.FC = () => {
     const navigate = useNavigate();
     const { language } = useLanguage();
-    const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-    const [customRooms, setCustomRooms] = useState<StudyRoom[]>([]);
+    const [currentUserId, setCurrentUserId] = useState<string | null>(() => {
+        try {
+            return localStorage.getItem('kaizen_guest_user_id') || null;
+        } catch {
+            return null;
+        }
+    });
+    const [customRooms, setCustomRooms] = useState<StudyRoom[]>(() => {
+        try {
+            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            return saved ? JSON.parse(saved) : [];
+        } catch {
+            return [];
+        }
+    });
     const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
     const [newRoomName, setNewRoomName] = useState('');
     const [newRoomDesc, setNewRoomDesc] = useState('');
@@ -35,6 +48,12 @@ const RoomList: React.FC = () => {
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
     const getEffectiveUserId = async (): Promise<string> => {
+        try {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.user?.id) return data.session.user.id;
+        } catch (e) {
+            // ignore
+        }
         try {
             const { data: { user } } = await supabase.auth.getUser();
             if (user?.id) return user.id;
@@ -50,10 +69,13 @@ const RoomList: React.FC = () => {
     };
 
     useEffect(() => {
+        let isMounted = true;
         const init = async () => {
             const userId = await getEffectiveUserId();
-            setCurrentUserId(userId);
-            fetchCustomRooms(userId);
+            if (isMounted) {
+                setCurrentUserId(userId);
+                fetchCustomRooms(userId);
+            }
         };
         init();
 
@@ -63,13 +85,16 @@ const RoomList: React.FC = () => {
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'study_rooms' },
                 () => {
-                    if (currentUserId) fetchCustomRooms(currentUserId);
+                    fetchCustomRooms();
                 }
             )
             .subscribe();
 
-        return () => { supabase.removeChannel(roomsChannel); };
-    }, [currentUserId]);
+        return () => { 
+            isMounted = false;
+            supabase.removeChannel(roomsChannel); 
+        };
+    }, []);
 
     const fetchCustomRooms = async (userIdOverride?: string) => {
         const userId = userIdOverride || currentUserId || await getEffectiveUserId();

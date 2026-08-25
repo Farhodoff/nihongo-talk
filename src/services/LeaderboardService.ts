@@ -38,9 +38,60 @@ const SEED_REAL_USERS: LeaderboardEntry[] = [
     { id: '8545b7e4-9b85-4a19-a001-45a6f0823844', display_name: 'Murodjon (JDU)', total_xp: 0, level: 1, level_title: 'Boshlang\'ich Talaba', streak_days: 0, user_email: '220194m@jdu.uz' },
 ];
 
+const LEADERBOARD_CACHE_KEY = 'kaizen_leaderboard_cache';
+let inMemoryLeaderboardCache: LeaderboardEntry[] | null = null;
+
 export class LeaderboardService {
     /**
-     * Sync current user's progress to DB profiles table
+     * Get instant synchronous leaderboard data (from memory, localStorage or seeds)
+     */
+    static getCachedLeaderboard(currentUser: any, currentUserXp: number = 0, currentStreak: number = 1): LeaderboardEntry[] {
+        const userMap = new Map<string, LeaderboardEntry>();
+
+        // 1. Seed base real users
+        SEED_REAL_USERS.forEach(u => userMap.set(u.id, { ...u }));
+
+        // 2. Load from localStorage if present
+        if (!inMemoryLeaderboardCache) {
+            try {
+                const saved = localStorage.getItem(LEADERBOARD_CACHE_KEY);
+                if (saved) {
+                    inMemoryLeaderboardCache = JSON.parse(saved);
+                }
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        if (inMemoryLeaderboardCache && inMemoryLeaderboardCache.length > 0) {
+            inMemoryLeaderboardCache.forEach(u => userMap.set(u.id, { ...u }));
+        }
+
+        // 3. Overlay current user with current local XP
+        if (currentUser && currentUser.id) {
+            const name = currentUser.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Siz (Talaba)';
+            const levelInfo = getLevelInfo(currentUserXp);
+            const existing = userMap.get(currentUser.id);
+            const xp = Math.max(currentUserXp, existing?.total_xp || 0);
+            userMap.set(currentUser.id, {
+                id: currentUser.id,
+                display_name: existing?.display_name || name,
+                avatar_url: currentUser.avatar || existing?.avatar_url,
+                total_xp: xp,
+                level: levelInfo.level,
+                level_title: levelInfo.title,
+                streak_days: Math.max(currentStreak, existing?.streak_days || 0),
+                user_email: currentUser.email || '',
+            });
+        }
+
+        const list = Array.from(userMap.values());
+        list.sort((a, b) => b.total_xp - a.total_xp);
+        return list.map((item, idx) => ({ ...item, rank: idx + 1 }));
+    }
+
+    /**
+     * Sync current user's progress to DB profiles table in background
      */
     static async syncUserProgress(user: any, xp: number, streak: number = 1): Promise<void> {
         if (!user || !user.id) return;
@@ -68,12 +119,13 @@ export class LeaderboardService {
     static async getGlobalLeaderboard(currentUser: any, currentUserXp: number = 0, currentStreak: number = 1): Promise<LeaderboardEntry[]> {
         const userMap = new Map<string, LeaderboardEntry>();
 
-        // 1. Pre-fill map with ALL 21 real registered users
-        SEED_REAL_USERS.forEach(u => userMap.set(u.id, { ...u }));
+        // 1. Pre-fill map with cached / seed data immediately
+        const initial = this.getCachedLeaderboard(currentUser, currentUserXp, currentStreak);
+        initial.forEach(u => userMap.set(u.id, { ...u }));
 
-        // 2. Sync current user to DB first
+        // 2. Non-blocking background sync for current user profile
         if (currentUser && currentUser.id) {
-            await this.syncUserProgress(currentUser, currentUserXp, currentStreak);
+            this.syncUserProgress(currentUser, currentUserXp, currentStreak).catch(() => {});
         }
 
         // 3. Fetch fresh profiles from DB
@@ -106,7 +158,7 @@ export class LeaderboardService {
 
         // 4. Ensure current user is present with their latest local XP
         if (currentUser && currentUser.id) {
-            const name = currentUser.name || currentUser.email?.split('@')[0] || 'Siz (Talaba)';
+            const name = currentUser.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Siz (Talaba)';
             const levelInfo = getLevelInfo(currentUserXp);
             const existing = userMap.get(currentUser.id);
             const xp = Math.max(currentUserXp, existing?.total_xp || 0);
@@ -125,6 +177,16 @@ export class LeaderboardService {
         // 5. Convert to array and sort strictly by total_xp DESC
         const list = Array.from(userMap.values());
         list.sort((a, b) => b.total_xp - a.total_xp);
-        return list.map((item, idx) => ({ ...item, rank: idx + 1 }));
+        const finalList = list.map((item, idx) => ({ ...item, rank: idx + 1 }));
+
+        // 6. Update cache
+        inMemoryLeaderboardCache = finalList;
+        try {
+            localStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(finalList));
+        } catch (e) {
+            // ignore
+        }
+
+        return finalList;
     }
 }

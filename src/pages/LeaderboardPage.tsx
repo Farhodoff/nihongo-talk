@@ -24,21 +24,25 @@ function getAvatarGradient(name: string): string {
 
 export const LeaderboardPage: React.FC = () => {
     const { user, settings } = useStudyData();
-    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
     const currentUserId = user?.id || '';
     const totalXp = settings?.totalXp || 0;
     const currentStreak = settings?.currentStreak || 1;
 
+    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(() => 
+        LeaderboardService.getCachedLeaderboard(user, totalXp, currentStreak)
+    );
+    const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+
     const loadData = async () => {
-        setIsLoading(true);
+        setIsRefreshing(true);
         try {
             const data = await LeaderboardService.getGlobalLeaderboard(user, totalXp, currentStreak);
             setLeaderboard(data);
         } catch (e) {
             console.error('Error loading leaderboard:', e);
         } finally {
+            setIsRefreshing(false);
             setIsLoading(false);
         }
     };
@@ -54,8 +58,13 @@ export const LeaderboardPage: React.FC = () => {
     return (
         <div className="space-y-4 animate-in fade-in">
             {/* Leaderboard List */}
-            <div className="bg-card border border-border rounded-2xl overflow-hidden">
-                {isLoading ? (
+            <div className="bg-card border border-border rounded-2xl overflow-hidden relative">
+                {isRefreshing && (
+                    <div className="absolute top-2 right-3 z-10">
+                        <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin opacity-70" title="Yangilanmoqda..." />
+                    </div>
+                )}
+                {isLoading && sorted.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-20 gap-3">
                         <div className="w-7 h-7 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                         <p className="text-xs text-muted-foreground">Yuklanmoqda...</p>

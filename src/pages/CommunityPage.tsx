@@ -37,8 +37,13 @@ const CommunityPage: React.FC = () => {
             })
             .subscribe(async (status) => {
                 if (status === 'SUBSCRIBED') {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (user) await room.track({ user_id: user.id });
+                    try {
+                        const { data } = await supabase.auth.getSession();
+                        const userId = data?.session?.user?.id;
+                        if (userId) await room.track({ user_id: userId });
+                    } catch {
+                        // ignore
+                    }
                 }
             });
 
@@ -79,10 +84,16 @@ const CommunityPage: React.FC = () => {
                 ))}
             </div>
 
-            {/* Tab Content */}
-            {activeTab === 'leaderboard' && <LeaderboardPage />}
-            {activeTab === 'chat' && <CommunityChat />}
-            {activeTab === 'rooms' && <RoomList />}
+            {/* Persistent Tab Content for 0ms transitions */}
+            <div className={activeTab === 'leaderboard' ? 'block' : 'hidden'}>
+                <LeaderboardPage />
+            </div>
+            <div className={activeTab === 'rooms' ? 'block' : 'hidden'}>
+                <RoomList />
+            </div>
+            <div className={activeTab === 'chat' ? 'block' : 'hidden'}>
+                <CommunityChat />
+            </div>
         </div>
     );
 };
