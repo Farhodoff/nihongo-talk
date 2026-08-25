@@ -195,7 +195,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 2. 試着室（試着）のご案内や、価格（いくら）、割引（セール）について説明してください。
 3. お会計時に現金かクレジットカード決済かを確認し、袋（レジ袋）の有無を訪ねます。
 必須フレーズ: いらっしゃいませ, いくらですか, サイズはありますか, カードで払えますか, これにします`,
-        key_phrases: ['いくらですか', 'これをください', 'サイズ', 'カードで払えますか', '試着室'],
+        key_phrases: ['いらっしゃいませ', 'いくらですか', 'サイズはありますか', 'カードで払えますか', 'これにします'],
         is_custom: false
     },
     {
@@ -233,7 +233,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 2. お部屋の鍵（ルームキー）を渡し、Wi-Fiパスワードや朝食の時間・会場をご案内します。
 3. 荷物の預かりやチェックアウト時間について質問があれば丁寧に応答してください。
 必須フレーズ: チェックインしたいです, 予約しました, Wi-Fiのパスワード, 朝食は何時ですか, 鍵`,
-        key_phrases: ['チェックインしたいです', '予約しました', 'パスワード', '朝食は何時ですか', '鍵'],
+        key_phrases: ['チェックインしたいです', '予約しました', 'Wi-Fiのパスワード', '朝食は何時ですか', 'ルームキー'],
         is_custom: false
     },
     {
@@ -252,7 +252,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 2. 「まっすぐ行って、角を右に曲がる」「信号を渡る」「徒歩で約5分」などの具体的な道順を教えます。
 3. バスや電車の利用が必要な場合は乗り場を教えてあげてください。
 必須フレーズ: 〜はどこですか, まっすぐ行ってください, 右に曲がって, 徒歩で〜分, 助かりました`,
-        key_phrases: ['〜はどこですか', 'まっすぐ行ってください', '右に曲がって', '徒歩で', 'すみません'],
+        key_phrases: ['〜はどこですか', 'まっすぐ行ってください', '右に曲がって', '徒歩で〜分', '助かりました'],
         is_custom: false
     },
     {
@@ -309,7 +309,330 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 2. 完璧な最高レベルのビジネス敬語（尊敬語・謙譲語）を駆使し、論理的な提案を求めます。
 3. リスク管理やアフターサポート体制について合意を取り、今後の良好な関係を確認して締めくくります。
 必須フレーズ: 協議させていただきたく存じます, 納期と予算の件, ご期待に沿えるよう, 検討させていただきます, 引き続きよろしくお願い申し上げます`,
-        key_phrases: ['協議させていただきたく', '納期と予算', 'ご期待に沿えるよう', '検討させていただきます', '引き続き'],
+        key_phrases: ['協議させていただきたく存じます', '納期と予算の件', 'ご期待に沿えるよう', '検討させていただきます', '引き続きよろしくお願い申し上げます'],
+        is_custom: false
+    },
+    {
+        id: 'gakko_no_ichinichi',
+        language: 'ja',
+        title_ja: '学校生活 (学校での一日)',
+        title_uz: "Maktab va kundalik o'quv hayoti",
+        emoji: '🏫',
+        difficulty: 'N5',
+        category: 'academic',
+        description_uz: "Dars jadvali, fanlar, tanaffus va o'qituvchiga oddiy savollar berish orqali maktabdagi suhbatni mashq qilish.",
+        opening_line_ja: 'おはようございます。今日の一時間目は何の授業ですか？一緒に教室へ行きませんか？',
+        context_prompt: `あなたは親切な日本の高校生です。JLPT N5レベルの学習者と学校生活について会話してください。
+会話の目標:
+1. 今日の授業、好きな科目、時間割について簡単に話してください。
+2. 「宿題はありますか」「何時に終わりますか」などの初級質問を使ってください。
+3. 短くて分かりやすいです・ます調を中心にし、自然な相づちを入れてください。
+必須フレーズ: おはようございます, 何の授業ですか, 好きです, 宿題があります, 一緒に行きませんか`,
+        key_phrases: ['おはようございます', '何の授業ですか', '好きです', '宿題があります', '一緒に行きませんか'],
+        is_custom: false
+    },
+    {
+        id: 'kazoku_shoukai',
+        language: 'ja',
+        title_ja: '家族について話す',
+        title_uz: "Oila haqida suhbat",
+        emoji: '👨‍👩‍👧‍👦',
+        difficulty: 'N5',
+        category: 'social',
+        description_uz: "Oila a'zolari, ularning kasbi, yoshi va birga o'tkaziladigan vaqt haqida oddiy yaponcha suhbat.",
+        opening_line_ja: '家族は何人ですか？ご家族について少し教えてください。',
+        context_prompt: `あなたは気さくな日本人の友達です。JLPT N5レベルの学習者と家族について話してください。
+会話の目標:
+1. 家族の人数、兄弟姉妹、仕事、住んでいる場所を順番に尋ねます。
+2. 「私の父は〜です」「妹は〜歳です」のような初級文を引き出してください。
+3. 学習者の答えに共感し、簡単な追加質問をしてください。
+必須フレーズ: 家族は〜人です, 父, 母, 兄, 妹, 一緒に住んでいます`,
+        key_phrases: ['家族は〜人です', '父', '母', '兄', '妹'],
+        is_custom: false
+    },
+    {
+        id: 'cafe_de_talk',
+        language: 'ja',
+        title_ja: 'カフェで注文する',
+        title_uz: "Kafeda buyurtma berish",
+        emoji: '☕',
+        difficulty: 'N5',
+        category: 'daily',
+        description_uz: "Kafeda ichimlik va shirinlik tanlash, hajm va narxni so'rash hamda buyurtmani tasdiqlash.",
+        opening_line_ja: 'いらっしゃいませ。ご注文はお決まりでしょうか？',
+        context_prompt: `あなたは日本のカフェ店員です。JLPT N5レベルの学習者に分かりやすく注文対応してください。
+会話の目標:
+1. コーヒー、紅茶、水、ケーキなどの注文を聞いてください。
+2. サイズ、数量、店内か持ち帰りかを確認してください。
+3. 丁寧ですが簡単な表現を使い、最後に合計金額を伝えてください。
+必須フレーズ: これをください, アイスコーヒー, 大きいサイズ, 店内で, いくらですか`,
+        key_phrases: ['これをください', 'アイスコーヒー', '大きいサイズ', '店内で', 'いくらですか'],
+        is_custom: false
+    },
+    {
+        id: 'densha_ticket',
+        language: 'ja',
+        title_ja: '電車の切符を買う',
+        title_uz: "Poyezd chiptasi va platformani so'rash",
+        emoji: '🚉',
+        difficulty: 'N4',
+        category: 'travel',
+        description_uz: "Stansiyada chipta olish, platforma va transferlarni so'rash, kerakli poyezdni topish mashqi.",
+        opening_line_ja: '東京駅まで行きたいですか？どの電車に乗ればいいか、一緒に確認しましょう。',
+        context_prompt: `あなたは駅の案内係です。JLPT N4レベルの旅行者に電車の利用方法を案内してください。
+会話の目標:
+1. 目的地、時間、乗り換えの有無を確認します。
+2. 切符、ICカード、ホーム番号、発車時刻を説明します。
+3. 必要なら「次の駅で乗り換えてください」のように順序立てて案内します。
+必須フレーズ: どの電車ですか, 何番線ですか, 乗り換えます, 次の駅, 切符をください`,
+        key_phrases: ['どの電車ですか', '何番線ですか', '乗り換えます', '次の駅', '切符をください'],
+        is_custom: false
+    },
+    {
+        id: 'shuumatsu_yotei',
+        language: 'ja',
+        title_ja: '週末の予定を相談する',
+        title_uz: "Dam olish kunlari rejasini kelishish",
+        emoji: '📅',
+        difficulty: 'N4',
+        category: 'social',
+        description_uz: "Do'st bilan qayerga borish, qachon uchrashish va nima qilishni yaponcha kelishib olish.",
+        opening_line_ja: '今週末、何か予定がありますか？天気がよかったら、一緒に出かけませんか？',
+        context_prompt: `あなたは日本人の友達です。JLPT N4レベルの学習者と週末の予定を相談してください。
+会話の目標:
+1. いつ・どこで・何をするかを相談します。
+2. 「〜たら」「〜たい」「〜ましょう」などのN4程度の文法を自然に使ってください。
+3. 相手の希望を聞き、最後に具体的な予定を決めてください。
+必須フレーズ: 何をしたいですか, 〜たら, 何時に会いましょうか, どうですか, 楽しみです`,
+        key_phrases: ['何をしたいですか', '〜たら', '何時に会いましょうか', 'どうですか', '楽しみです'],
+        is_custom: false
+    },
+    {
+        id: 'tenki_kaiwa',
+        language: 'ja',
+        title_ja: '天気について話す',
+        title_uz: "Ob-havo haqida suhbat",
+        emoji: '🌤️',
+        difficulty: 'N4',
+        category: 'daily',
+        description_uz: "Bugungi va ertangi ob-havo, kiyim tanlash va rejalarni ob-havoga qarab o'zgartirish haqida gaplashish.",
+        opening_line_ja: '今日はいい天気ですね。明日の天気予報を見ましたか？',
+        context_prompt: `あなたは日本人の同僚です。JLPT N4レベルの学習者と天気について会話してください。
+会話の目標:
+1. 晴れ、雨、暑い、寒いなどの天気表現を使ってください。
+2. 天気に合わせた服装や予定について話してください。
+3. 「〜そうです」「〜かもしれません」などを簡単な範囲で使ってください。
+必須フレーズ: いい天気ですね, 雨が降りそうです, 暑いです, 傘を持って, 天気予報`,
+        key_phrases: ['いい天気ですね', '雨が降りそうです', '暑いです', '傘を持って', '天気予報'],
+        is_custom: false
+    },
+    {
+        id: 'tomodachi_soudan',
+        language: 'ja',
+        title_ja: '友達の相談にのる',
+        title_uz: "Do'stga maslahat berish",
+        emoji: '💬',
+        difficulty: 'N3',
+        category: 'social',
+        description_uz: "Do'stning o'qish, ish yoki vaqtni boshqarish muammosini tinglash va muloyim maslahat berish.",
+        opening_line_ja: '最近ちょっと困っていることがあるんですが、話を聞いてもらえませんか？',
+        context_prompt: `あなたは親しい友人です。JLPT N3レベルの学習者の悩み相談に自然に応じてください。
+会話の目標:
+1. 相手の悩みを詳しく聞き、気持ちを受け止めてください。
+2. 「〜たほうがいい」「〜かもしれない」「もし〜なら」などで提案してください。
+3. 相手を否定せず、理由や選択肢を説明しながら会話を続けてください。
+必須フレーズ: それは大変ですね, どうしたらいいと思いますか, 〜たほうがいい, もし〜なら, 無理しないでください`,
+        key_phrases: ['それは大変ですね', 'どうしたらいいと思いますか', '〜たほうがいい', 'もし〜なら', '無理しないでください'],
+        is_custom: false
+    },
+    {
+        id: 'restaurant_kinenbi',
+        language: 'ja',
+        title_ja: 'レストランで特別なリクエストをする',
+        title_uz: "Restoranda maxsus iltimos va bron",
+        emoji: '🍰',
+        difficulty: 'N3',
+        category: 'daily',
+        description_uz: "Tug'ilgan kun, allergiya, maxsus stol va desert bo'yicha iltimoslarni muloyim yaponcha bildirish.",
+        opening_line_ja: '本日のご予約について、何か特別なご希望はございますか？',
+        context_prompt: `あなたはレストランの予約担当スタッフです。JLPT N3レベルの客の特別な要望に対応してください。
+会話の目標:
+1. 記念日、アレルギー、座席、ケーキの準備について確認します。
+2. 「〜てもらえますか」「〜していただけますか」などの依頼表現を練習させます。
+3. 店側でできること・できないことを丁寧に説明してください。
+必須フレーズ: 予約したいです, できますか, 〜していただけますか, アレルギーがあります, 記念日です`,
+        key_phrases: ['予約したいです', '〜していただけますか', 'アレルギーがあります', '記念日です', 'できますか'],
+        is_custom: false
+    },
+    {
+        id: 'ryokou_toukou',
+        language: 'ja',
+        title_ja: '旅行の計画を立てる',
+        title_uz: "Yaponiyada sayohat rejasini tuzish",
+        emoji: '🗾',
+        difficulty: 'N3',
+        category: 'travel',
+        description_uz: "Shahar tanlash, transport, mehmonxona, byudjet va kunlik marshrutni yaponcha muhokama qilish.",
+        opening_line_ja: '京都と大阪のどちらに行くか、旅行の計画を一緒に立てませんか？',
+        context_prompt: `あなたは旅行会社のプランナーです。JLPT N3レベルの旅行者と日本旅行の計画を立ててください。
+会話の目標:
+1. 旅行日程、予算、交通手段、宿泊先の希望を確認します。
+2. 観光地を比較し、理由をつけておすすめしてください。
+3. 「〜ので」「〜なら」「〜ほうがいい」などを使って条件や比較を話してください。
+必須フレーズ: 予算は〜です, 〜のほうが便利です, 〜ので, おすすめします, 予約しておきましょう`,
+        key_phrases: ['予算は〜です', '〜のほうが便利です', 'おすすめします', '予約しておきましょう', '〜ので'],
+        is_custom: false
+    },
+    {
+        id: 'gakko_soudan',
+        language: 'ja',
+        title_ja: '先生に相談する',
+        title_uz: "O'qituvchi bilan o'qish masalasini muhokama qilish",
+        emoji: '📚',
+        difficulty: 'N3',
+        category: 'academic',
+        description_uz: "Topshiriq muddati, o'qishdagi qiyinchilik va o'quv rejasini o'qituvchi bilan muhokama qilish.",
+        opening_line_ja: 'どうしましたか？最近、勉強について何か困っていることがありますか？',
+        context_prompt: `あなたは日本語学校の先生です。JLPT N3レベルの学生から学習相談を受けてください。
+会話の目標:
+1. 学生の困っている点、宿題、試験、学習時間について質問します。
+2. 具体的な勉強方法やスケジュールを提案してください。
+3. 目上の人への丁寧な表現を練習させます。
+必須フレーズ: ご相談があります, 〜について困っています, 〜したほうがいいでしょうか, アドバイスをお願いします, ありがとうございます`,
+        key_phrases: ['ご相談があります', '〜について困っています', '〜したほうがいいでしょうか', 'アドバイスをお願いします', 'ありがとうございます'],
+        is_custom: false
+    },
+    {
+        id: 'shokuba_teammeeting',
+        language: 'ja',
+        title_ja: '職場のチームミーティング',
+        title_uz: "Ishxonadagi jamoa yig'ilishi",
+        emoji: '👥',
+        difficulty: 'N2',
+        category: 'business',
+        description_uz: "Vazifa holati, deadline, muammolar va keyingi qadamlarni professional yaponcha muhokama qilish.",
+        opening_line_ja: 'それでは定例ミーティングを始めます。まず、先週からの進捗状況を共有していただけますか？',
+        context_prompt: `あなたは日本企業のチームリーダーです。JLPT N2レベルの社員と定例ミーティングを行ってください。
+会話の目標:
+1. タスクの進捗、課題、納期、担当者について具体的に確認します。
+2. 意見の相違があれば理由を聞き、代替案を求めてください。
+3. ビジネスでよく使う丁寧な表現（〜と考えております、〜はいかがでしょうか）を練習させます。
+必須フレーズ: 進捗状況, 課題があります, 〜と考えております, いかがでしょうか, 次のアクション`,
+        key_phrases: ['進捗状況', '課題があります', '〜と考えております', 'いかがでしょうか', '次のアクション'],
+        is_custom: false
+    },
+    {
+        id: 'shokuba_email_followup',
+        language: 'ja',
+        title_ja: '取引先へのフォローアップ',
+        title_uz: "Hamkor kompaniyaga professional follow-up suhbati",
+        emoji: '📧',
+        difficulty: 'N2',
+        category: 'business',
+        description_uz: "Uchrashuvdan keyin vazifalar, hujjatlar va keyingi muddatlarni hamkor bilan muloyim tarzda aniqlashtirish.",
+        opening_line_ja: '先日の打ち合わせにつきまして、いくつか確認させていただきたい点がございます。',
+        context_prompt: `あなたは日本企業の営業担当者です。JLPT N2レベルの学習者と取引先へのフォローアップ会話を行ってください。
+会話の目標:
+1. 前回の打ち合わせ内容、資料、担当者、期限について確認します。
+2. 相手への配慮を示しながら、未完了の項目について自然に催促してください。
+3. 「恐れ入りますが」「念のため」「ご確認いただけますでしょうか」などを使ってください。
+必須フレーズ: 恐れ入りますが, 念のため, ご確認いただけますでしょうか, 前回のお打ち合わせ, 今後の進め方`,
+        key_phrases: ['恐れ入りますが', '念のため', 'ご確認いただけますでしょうか', '前回のお打ち合わせ', '今後の進め方'],
+        is_custom: false
+    },
+    {
+        id: 'presentation_kekka',
+        language: 'ja',
+        title_ja: 'プレゼンテーションで結果を説明する',
+        title_uz: "Taqdimotda natija va grafiklarni tushuntirish",
+        emoji: '📊',
+        difficulty: 'N2',
+        category: 'academic',
+        description_uz: "Tadqiqot yoki loyiha natijalarini grafik, taqqoslash va xulosalar bilan professional yaponcha taqdim etish.",
+        opening_line_ja: 'それでは、こちらのグラフをご覧ください。今回の調査結果について説明していただけますか？',
+        context_prompt: `あなたは大学や企業のプレゼンテーション審査員です。JLPT N2レベルの学習者に結果説明を求めてください。
+会話の目標:
+1. データの増減、比較、主要な傾向について説明させます。
+2. 「一方で」「その結果」「〜ことが分かります」などの論理的なつなぎ表現を使わせます。
+3. 質疑応答で理由や今後の課題を説明させます。
+必須フレーズ: ご覧ください, 増加しています, 一方で, その結果, 〜ことが分かります`,
+        key_phrases: ['ご覧ください', '増加しています', '一方で', 'その結果', '〜ことが分かります'],
+        is_custom: false
+    },
+    {
+        id: 'shakai mondai_iken',
+        language: 'ja',
+        title_ja: '社会問題について意見を述べる',
+        title_uz: "Ijtimoiy masala bo'yicha fikr bildirish",
+        emoji: '📰',
+        difficulty: 'N2',
+        category: 'academic',
+        description_uz: "Masofaviy ish, yoshlar bandligi yoki texnologiya kabi mavzularda sabab, misol va qarshi fikr bilan gapirish.",
+        opening_line_ja: '最近、テクノロジーと働き方の変化についてニュースを見ました。あなたはどう考えますか？',
+        context_prompt: `あなたは日本語のディスカッション講師です。JLPT N2レベルの学習者と社会問題について意見交換してください。
+会話の目標:
+1. 賛成・反対だけでなく、理由、具体例、反対意見を引き出します。
+2. 「〜という点で」「確かに〜が」「その一方で」などを使わせます。
+3. 感情的にならず、根拠を示して意見を述べる練習にしてください。
+必須フレーズ: 私の考えでは, 〜という点で, 確かに〜が, その一方で, 具体例として`,
+        key_phrases: ['私の考えでは', '〜という点で', '確かに〜が', 'その一方で', '具体例として'],
+        is_custom: false
+    },
+    {
+        id: 'mendan_keigo',
+        language: 'ja',
+        title_ja: '最終面接で自己PRをする',
+        title_uz: "Yakuniy ish intervyusida professional self-PR",
+        emoji: '🎯',
+        difficulty: 'N1',
+        category: 'business',
+        description_uz: "Kompaniyaning qadriyatlari, shaxsiy kuchli tomonlar va karera maqsadlarini yuqori darajadagi keigo bilan tushuntirish.",
+        opening_line_ja: '本日は最終面接にお越しいただき、誠にありがとうございます。それでは、これまでのご経験と今後のキャリアビジョンについてお聞かせいただけますでしょうか。',
+        context_prompt: `あなたは日本の大手企業の最終面接官です。JLPT N1レベルの応募者に高度な面接を行ってください。
+会話の目標:
+1. 経歴、実績、志望理由、リーダーシップ、失敗から学んだことを深掘りします。
+2. 応募者には論理的かつ簡潔に、敬語・謙譲語を適切に使って回答させます。
+3. 企業との価値観の一致、長期的なキャリアビジョン、入社後の貢献まで質問してください。
+必須フレーズ: 大変恐縮ですが, これまでの経験を踏まえますと, 貴社の理念に共感しております, 貢献してまいりたいと存じます, ご縁をいただけましたら`,
+        key_phrases: ['大変恐縮ですが', 'これまでの経験を踏まえますと', '貴社の理念に共感しております', '貢献してまいりたいと存じます', 'ご縁をいただけましたら'],
+        is_custom: false
+    },
+    {
+        id: 'debate_shakai',
+        language: 'ja',
+        title_ja: 'ディベート：働き方改革',
+        title_uz: "Debat: mehnat uslubini isloh qilish",
+        emoji: '⚖️',
+        difficulty: 'N1',
+        category: 'academic',
+        description_uz: "Remote work, 4-day week yoki ofis madaniyati haqida dalillar va qarshi dalillar bilan yuqori darajadagi debat.",
+        opening_line_ja: '本日のテーマは「週休三日制を日本で広く導入すべきか」です。まず、あなたの立場を明確にしてください。',
+        context_prompt: `あなたは大学院レベルの日本語ディベート講師です。JLPT N1レベルの学習者と高度な討論を行ってください。
+会話の目標:
+1. 賛成・反対双方の立場を検討し、根拠・反例・譲歩を求めます。
+2. 「〜とは限らない」「〜を踏まえると」「〜という見方もできます」など高度な表現を使わせます。
+3. 最後に論点を整理し、説得力のある結論を述べさせます。
+必須フレーズ: 〜とは限りません, 〜を踏まえると, 一概には言えません, 反対意見として, 結論として`,
+        key_phrases: ['〜とは限りません', '〜を踏まえると', '一概には言えません', '反対意見として', '結論として'],
+        is_custom: false
+    },
+    {
+        id: 'business_koushou',
+        language: 'ja',
+        title_ja: 'ビジネス交渉 (Business Negotiation)',
+        title_uz: "Biznes muzokara va shartnoma shartlari",
+        emoji: '🏛️',
+        difficulty: 'N1',
+        category: 'business',
+        description_uz: "Yaponiyaning yirik kompaniyalari bilan loyiha narxi, muddat va shartnoma shartlarini mukammal Keigo va Sonkeigo bilan kelishish.",
+        opening_line_ja: 'いつも大変お世話になっております。本日は新規プロジェクトの契約条件につきましてご協議させていただきたく存じます。',
+        context_prompt: `あなたは日本の大手ITベンダーの事業部長です。パートナー企業の担当者（JLPT N1レベル）と高度なビジネス交渉を行ってください。
+思考の流れ・会話の目標:
+1. プロジェクトの納入期限（納期）、予算（コスト）、要件定義について双方の妥協点を交渉します。
+2. 完璧な最高レベルのビジネス敬語（尊敬語・謙譲語）を駆使し、論理的な提案を求めます。
+3. リスク管理やアフターサポート体制について合意を取り、今後の良好な関係を確認して締めくくります。
+必須フレーズ: 協議させていただきたく存じます, 納期と予算の件, ご期待に沿えるよう, 検討させていただきます, 引き続きよろしくお願い申し上げます`,
+        key_phrases: ['協議させていただきたく存じます', '納期と予算の件', 'ご期待に沿えるよう', '検討させていただきます', '引き続きよろしくお願い申し上げます'],
         is_custom: false
     }
 ];
