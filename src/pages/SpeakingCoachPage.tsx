@@ -166,6 +166,46 @@ const SpeakingCoachPage: React.FC = () => {
     const isHandsFreeRef = useRef(false);
     useEffect(() => { isHandsFreeRef.current = isHandsFree; }, [isHandsFree]);
 
+    // Fullscreen Toggle Support (⛶ Zoom/Fullscreen mode)
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        return () => {
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
+            document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+        };
+    }, []);
+
+    const toggleFullscreen = useCallback(() => {
+        if (!document.fullscreenElement) {
+            if (containerRef.current?.requestFullscreen) {
+                containerRef.current.requestFullscreen().catch(() => {
+                    setIsFullscreen(prev => !prev);
+                });
+            } else if ((containerRef.current as any)?.webkitRequestFullscreen) {
+                (containerRef.current as any).webkitRequestFullscreen();
+            } else {
+                setIsFullscreen(true);
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {
+                    setIsFullscreen(false);
+                });
+            } else if ((document as any).webkitExitFullscreen) {
+                (document as any).webkitExitFullscreen();
+            } else {
+                setIsFullscreen(false);
+            }
+        }
+    }, []);
+
     const isSpeakingRef = useRef(isSpeaking);
     useEffect(() => { isSpeakingRef.current = isSpeaking; }, [isSpeaking]);
 
@@ -641,7 +681,14 @@ const SpeakingCoachPage: React.FC = () => {
     const currentPersona = PERSONAS[persona];
 
     return (
-        <div className="relative h-full flex flex-col overflow-hidden w-full select-none">
+        <div 
+            ref={containerRef}
+            className={`relative h-full flex flex-col overflow-hidden w-full select-none ${
+                isFullscreen 
+                    ? 'fixed inset-0 z-50 bg-background h-screen w-screen p-0 m-0' 
+                    : ''
+            }`}
+        >
             {/* Dynamic Ambient Background */}
             <div className={`absolute inset-0 bg-gradient-to-br ${currentPersona.gradientBg} transition-all duration-1000 pointer-events-none`} />
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
@@ -668,6 +715,8 @@ const SpeakingCoachPage: React.FC = () => {
                 isPaidUser={isPaidUser}
                 isAdmin={isAdmin}
                 isSuperAdmin={isSuper}
+                isFullscreen={isFullscreen}
+                onToggleFullscreen={toggleFullscreen}
                 onOpenSettings={() => setIsSettingsOpen(true)}
                 formatTimer={formatTimer}
                 activeScenario={activeScenario}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
+import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft, Maximize2, Minimize2 } from 'lucide-react';
 
 interface CoachTopBarProps {
     language: 'en' | 'ja';
@@ -18,6 +18,8 @@ interface CoachTopBarProps {
     isPaidUser?: boolean;
     isAdmin: boolean;
     isSuperAdmin?: boolean;
+    isFullscreen?: boolean;
+    onToggleFullscreen?: () => void;
     onOpenSettings: () => void;
     formatTimer: (sec: number) => string;
     activeScenario?: any;
@@ -38,6 +40,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     isPaidUser: _isPaidUser,
     isAdmin,
     isSuperAdmin: isSuper,
+    isFullscreen = false,
+    onToggleFullscreen,
     onOpenSettings,
     formatTimer,
     activeScenario
@@ -196,6 +200,22 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                             </button>
                         ))}
                     </div>
+                )}
+
+                {/* Fullscreen Toggle (⛶ Zoom/Fullscreen mode) */}
+                {onToggleFullscreen && (
+                    <button 
+                        onClick={onToggleFullscreen}
+                        className={`p-1.5 sm:p-2 backdrop-blur-xl rounded-xl border transition-all hover:shadow-md ${
+                            isFullscreen 
+                                ? 'bg-indigo-600 text-white border-indigo-500 shadow-indigo-500/25' 
+                                : 'bg-white/60 dark:bg-gray-800/60 border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                        }`}
+                        title={isFullscreen ? "Oddiy rejimga qaytish (Exit Fullscreen)" : "To'liq ekran rejimi (Fullscreen)"}
+                        aria-label={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                    >
+                        {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                    </button>
                 )}
 
                 {/* Settings */}

@@ -91,8 +91,6 @@ const Layout: React.FC = () => {
         return fullScreenPaths.some(p => location.pathname.startsWith(p));
     }, [location.pathname]);
 
-    const isCoachPage = location.pathname.startsWith('/speaking-coach');
-
     // Personalized Onboarding First-Visit Trigger (DB-synchronized across devices)
     const [showOnboarding, setShowOnboarding] = useState(false);
 
@@ -268,24 +266,21 @@ const Layout: React.FC = () => {
             )}
 
             {/* Mobile Header */}
-            {!isCoachPage && (
-                <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b relative">
-                    <div className="flex items-center gap-2">
-                        <AppLogo size="sm" showText={false} />
-                        <h1 className="text-xl font-bold text-gradient">
-                            {getPageTitle()}
-                        </h1>
-                    </div>
-                </header>
-            )}
+            <header className="md:hidden glass-card p-4 flex justify-between items-center z-30 border-b relative">
+                <div className="flex items-center gap-2">
+                    <AppLogo size="sm" showText={false} />
+                    <h1 className="text-xl font-bold text-gradient">
+                        {getPageTitle()}
+                    </h1>
+                </div>
+            </header>
 
             {/* Desktop Sidebar */}
-            {!isCoachPage && (
-                <aside
-                    className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
-                >
-                    {/* Logo Area */}
-                    <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
+            <aside
+                className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-card border-r border-border transition-all duration-300 ease-in-out z-30`}
+            >
+                {/* Logo Area */}
+                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
                     <AppLogo size="md" collapsed={isCollapsed} />
                     
                     <Button
@@ -386,7 +381,6 @@ const Layout: React.FC = () => {
                     </div>
                 </div>
             </aside>
-            )}
 
             {/* Main Content */}
             <main className="flex-1 overflow-hidden relative w-full bg-background flex flex-col">
@@ -410,46 +404,44 @@ const Layout: React.FC = () => {
             </main>
 
             {/* Mobile Bottom Navigation */}
-            {!isCoachPage && (
-                <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
-                    {[
-                        { name: t('nav.dashboard') || 'Dashboard', path: '/dashboard', icon: Home },
-                        { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
-                        { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
-                        { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock },
-                    ].map(item => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            className={({ isActive }) => `flex flex-col items-center justify-center w-16 p-1.5 rounded-xl transition-all duration-200 ${isActive ? 'text-primary bg-primary/10 font-bold scale-105' : 'text-muted-foreground hover:text-foreground'}`}
-                        >
-                            {({ isActive }) => (
-                                <>
-                                    <item.icon size={20} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
-                                    <span className="text-[10px] font-medium leading-none">{item.name}</span>
-                                </>
-                            )}
-                        </NavLink>
-                    ))}
-                    
-                    <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
-                        <SheetTrigger asChild>
-                            <button aria-label="Menyuni ochish" className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
-                                <Menu size={20} className="mb-1" />
-                                <span className="text-[10px] font-medium leading-none">Menyu</span>
-                            </button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="p-0 w-72 flex flex-col bg-card">
-                            <div className="h-16 p-4 flex items-center justify-between border-b border-border">
-                                <div className="flex items-center gap-2">
-                                    <AppLogo size="sm" />
-                                </div>
+            <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
+                {[
+                    { name: t('nav.dashboard') || 'Dashboard', path: '/dashboard', icon: Home },
+                    { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
+                    { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
+                    { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock },
+                ].map(item => (
+                    <NavLink
+                        key={item.path}
+                        to={item.path}
+                        className={({ isActive }) => `flex flex-col items-center justify-center w-16 p-1.5 rounded-xl transition-all duration-200 ${isActive ? 'text-primary bg-primary/10 font-bold scale-105' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                        {({ isActive }) => (
+                            <>
+                                <item.icon size={20} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
+                                <span className="text-[10px] font-medium leading-none">{item.name}</span>
+                            </>
+                        )}
+                    </NavLink>
+                ))}
+                
+                <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
+                    <SheetTrigger asChild>
+                        <button aria-label="Menyuni ochish" className="flex flex-col items-center justify-center w-16 p-1.5 text-muted-foreground hover:text-foreground rounded-xl transition-colors">
+                            <Menu size={20} className="mb-1" />
+                            <span className="text-[10px] font-medium leading-none">Menyu</span>
+                        </button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="p-0 w-72 flex flex-col bg-card">
+                        <div className="h-16 p-4 flex items-center justify-between border-b border-border">
+                            <div className="flex items-center gap-2">
+                                <AppLogo size="sm" />
                             </div>
-                            <NavLinks onClick={() => setSidebarOpen(false)} />
-                        </SheetContent>
-                    </Sheet>
-                </nav>
-            )}
+                        </div>
+                        <NavLinks onClick={() => setSidebarOpen(false)} />
+                    </SheetContent>
+                </Sheet>
+            </nav>
 
             {/* Personalized 60s Onboarding Wizard */}
             <PersonalizedOnboardingModal
