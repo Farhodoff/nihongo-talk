@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
 import { Check, Copy, Volume2, Mic, Plus, Sparkles } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
@@ -16,7 +16,7 @@ interface CoachChatAreaProps {
     copyToClipboard: (text: string, index: number) => void;
     speakText: (text: string) => void;
     setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
-    onAddVocabulary?: (vocab: CoachVocabularyItem) => void;
+    onAddVocabulary?: (vocab: CoachVocabularyItem) => Promise<boolean | void> | void;
 }
 
 export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
@@ -34,7 +34,18 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
     setChatHistory,
     onAddVocabulary,
 }) => {
+    const [addedVocabs, setAddedVocabs] = useState<Set<string>>(new Set());
     const ActivePersonaIcon = currentPersona?.icon || Sparkles;
+
+    const handleVocabClick = async (vocab: CoachVocabularyItem) => {
+        if (!onAddVocabulary) return;
+        setAddedVocabs(prev => new Set(prev).add(vocab.word));
+        try {
+            await onAddVocabulary(vocab);
+        } catch {
+            // Keep state as marked or handle gracefully
+        }
+    };
 
     if (chatHistory.length === 0 && !isLiveSession) return null;
 
@@ -103,25 +114,55 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             {msg.role === 'assistant' && msg.vocabulary && msg.vocabulary.length > 0 && (
                                 <div className="mt-2.5 pt-2 border-t border-gray-200/50 dark:border-gray-700/50 space-y-1.5">
                                     <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 flex items-center gap-1">
-                                        <span>🧠 Yangi Lug'atlar:</span>
+                                        <span>🧠 Yangi Lug'atlar (Fleshkarta):</span>
                                     </div>
-                                    <div className="flex flex-wrap gap-1.5">
-                                        {msg.vocabulary.map((vocab, vIdx) => (
-                                            <div key={vIdx} className="inline-flex items-center gap-1.5 px-2 py-1 bg-gray-100 dark:bg-gray-700/60 border border-gray-200/80 dark:border-gray-600/60 rounded-lg text-xs">
-                                                <span className="font-bold text-gray-900 dark:text-gray-100">{vocab.word}</span>
-                                                {vocab.reading && <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">({vocab.reading})</span>}
-                                                <span className="text-[11px] text-gray-600 dark:text-gray-300">• {vocab.meaning}</span>
-                                                {onAddVocabulary && (
-                                                    <button
-                                                        onClick={() => onAddVocabulary(vocab)}
-                                                        className="ml-0.5 p-0.5 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
-                                                        title="Flashcardga qo'shish"
-                                                    >
-                                                        <Plus size={12} />
-                                                    </button>
-                                                )}
-                                            </div>
-                                        ))}
+                                    <div className="flex flex-wrap gap-2">
+                                        {msg.vocabulary.map((vocab, vIdx) => {
+                                            const isSaved = addedVocabs.has(vocab.word);
+                                            return (
+                                                <div 
+                                                    key={vIdx} 
+                                                    className={`inline-flex items-center gap-2 px-2.5 py-1.5 border rounded-xl text-xs transition-all ${
+                                                        isSaved
+                                                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-700/50 text-emerald-800 dark:text-emerald-200 shadow-xs'
+                                                            : 'bg-gray-100/90 dark:bg-gray-700/60 border-gray-200/80 dark:border-gray-600/60 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-xs'
+                                                    }`}
+                                                >
+                                                    <div className="flex items-baseline gap-1">
+                                                        <span className="font-bold text-gray-900 dark:text-gray-100">{vocab.word}</span>
+                                                        {vocab.reading && (
+                                                            <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">({vocab.reading})</span>
+                                                        )}
+                                                    </div>
+                                                    <span className="text-[11px] text-gray-600 dark:text-gray-300">• {vocab.meaning}</span>
+                                                    
+                                                    {onAddVocabulary && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleVocabClick(vocab)}
+                                                            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[11px] font-bold transition-all ${
+                                                                isSaved
+                                                                    ? 'bg-emerald-600 text-white cursor-default'
+                                                                    : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs active:scale-95'
+                                                            }`}
+                                                            title={isSaved ? "Fleshkartaga saqlangan" : "Fleshkartaga qo'shish"}
+                                                        >
+                                                            {isSaved ? (
+                                                                <>
+                                                                    <Check size={12} className="shrink-0" />
+                                                                    <span>Saqlandi</span>
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <Plus size={12} className="shrink-0" />
+                                                                    <span>Qo'shish</span>
+                                                                </>
+                                                            )}
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}

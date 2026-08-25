@@ -45,7 +45,7 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 const SpeakingCoachPage: React.FC = () => {
     const { primaryLanguage } = useStudyData();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { user, addCoachSession, addFlashcardsBatch } = useStudyData();
+    const { user, addCoachSession, addFlashcardsBatch, subjects } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
     const isSuper = isSuperAdmin(user?.email);
 
@@ -288,7 +288,7 @@ const SpeakingCoachPage: React.FC = () => {
         }
     };
 
-    const handleAddVocabToFlashcards = async (vocab: CoachVocabularyItem) => {
+    const handleAddVocabToFlashcards = async (vocab: CoachVocabularyItem): Promise<boolean> => {
         try {
             const isJa = language === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(vocab.word);
             const front = isJa
@@ -296,10 +296,18 @@ const SpeakingCoachPage: React.FC = () => {
                 : vocab.word;
             const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}`;
 
+            // Resolve proper subject ID from user's subjects list
+            const matchedSubject = (subjects || []).find(s =>
+                isJa
+                    ? (s.name.toLowerCase().includes('japan') || s.name.toLowerCase().includes('jlpt') || s.name.toLowerCase().includes('yapon') || s.name.toLowerCase().includes('nihongo'))
+                    : (s.name.toLowerCase().includes('eng') || s.name.toLowerCase().includes('ielts') || s.name.toLowerCase().includes('ingliz'))
+            );
+            const targetSubjectId = matchedSubject?.id || (subjects?.[0]?.id) || undefined;
+
             const created = await addFlashcardsBatch([{
                 front,
                 back,
-                subjectId: isJa ? '00000000-0000-4000-8000-000000000001' : '00000000-0000-4000-8000-000000000002'
+                subjectId: targetSubjectId
             }]);
 
             if (created.length === 0) {
@@ -307,19 +315,22 @@ const SpeakingCoachPage: React.FC = () => {
                     title: 'ℹ️ Mavjud Fleshkarta',
                     description: `"${vocab.word}" so'zi fleshkartalaringizda allaqachon mavjud.`
                 });
-                return;
+                return true;
             }
 
             toast({
                 title: '🎴 Fleshkarta Qo\'shildi!',
                 description: `"${vocab.word}" Anki SM-2 Fleshkartalariga saqlandi.`
             });
+            return true;
         } catch (err) {
+            console.error('handleAddVocabToFlashcards error:', err);
             toast({
                 variant: 'destructive',
                 title: 'Xatolik',
                 description: 'Fleshkartaga saqlashda xatolik yuz berdi.'
             });
+            return false;
         }
     };
 
