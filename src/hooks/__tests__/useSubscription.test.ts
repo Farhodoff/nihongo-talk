@@ -67,7 +67,7 @@ describe('useSubscription Hook Tests', () => {
 
         expect(result.current.isPro).toBe(true);
         expect(result.current.hasCredits).toBe(true);
-        expect(result.current.subscription?.tier).toBe('pro');
+        expect(result.current.isPaidUser).toBe(true);
     });
 
     it('should calculate free vs pro tier access correctly', () => {

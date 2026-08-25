@@ -243,11 +243,13 @@ export const useSpeechRecognition = ({
                 lastSpeechTimeRef.current = Date.now();
             }
 
-            // LOW-LATENCY ADAPTIVE SILENCE TIMEOUT
-            // If the user ends the sentence with terminal words/punctuation, submit faster (1200ms)
-            // If mid-clause, wait 1800ms for natural pauses
+            // COMFORTABLE ADAPTIVE SPEECH PAUSE TIMEOUT
+            // User can pause, think for 1-2 seconds naturally without being abruptly interrupted
+            const userCustomDelay = typeof window !== 'undefined' ? parseInt(localStorage.getItem('speaking_coach_pause_delay') || '0', 10) : 0;
             const isTerminal = isSentenceTerminal(cleanText, languageRef.current);
-            const silenceThreshold = isTerminal ? 1200 : 1800;
+            const silenceThreshold = userCustomDelay > 0 
+                ? userCustomDelay 
+                : (isTerminal ? 2400 : 3000);
 
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
             silenceTimerRef.current = setTimeout(() => {

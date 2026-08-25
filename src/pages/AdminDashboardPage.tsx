@@ -226,29 +226,26 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [subsSettled, profilesSettled, speakingSettled, studySessionsSettled] = await Promise.allSettled([
-                supabase.from('user_subscriptions').select('*'),
+            const [profilesSettled, speakingSettled, studySessionsSettled] = await Promise.allSettled([
                 supabase.from('profiles').select('*').order('created_at', { ascending: false }),
                 supabase.from('speaking_sessions').select('id, user_id, duration_seconds, overall_score, created_at').order('created_at', { ascending: false }).limit(500),
                 supabase.from('study_sessions').select('id, user_id, duration, created_at').order('created_at', { ascending: false }).limit(500)
             ]);
 
             const dbProfiles = (profilesSettled.status === 'fulfilled' && Array.isArray(profilesSettled.value.data)) ? profilesSettled.value.data : [];
-            const dbSubs = (subsSettled.status === 'fulfilled' && Array.isArray(subsSettled.value.data)) ? subsSettled.value.data : [];
             const dbSpeaking = (speakingSettled.status === 'fulfilled' && Array.isArray(speakingSettled.value.data)) ? speakingSettled.value.data : [];
             const dbStudySessions = (studySessionsSettled.status === 'fulfilled' && Array.isArray(studySessionsSettled.value.data)) ? studySessionsSettled.value.data : [];
 
             // 1. Map 100% real registered users from Supabase DB
             const mappedUsers: UserSubscription[] = dbProfiles.map((p: any) => {
-                const existingSub = dbSubs.find((s: any) => s.user_id === p.id || s.id === p.id);
                 return {
                     id: p.id,
                     email: p.email || 'user@planner.app',
                     full_name: p.full_name || '',
-                    tier: (existingSub?.tier || (p.role === 'admin' || p.role === 'superadmin' ? 'premium' : 'free')) as any,
-                    ai_credits: existingSub?.ai_credits ?? (p.email === 'fsoyilov@gmail.com' ? 9999 : 100),
-                    last_reset_date: existingSub?.last_reset_date || p.created_at || new Date().toISOString(),
-                    valid_until: existingSub?.valid_until,
+                    tier: (p.role === 'admin' || p.role === 'superadmin' ? 'premium' : 'free') as any,
+                    ai_credits: 99999,
+                    last_reset_date: p.created_at || new Date().toISOString(),
+                    valid_until: undefined,
                     created_at: p.created_at || new Date().toISOString()
                 };
             });
