@@ -219,17 +219,17 @@ export const AdminSpeechAnalytics: React.FC = () => {
             }
         } catch (err) {
             console.warn('Supabase speech analytics fetch notice:', err);
+        } finally {
+            // Sort descending by created_at
+            list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+            setSessions(list);
+            if (typeof window !== 'undefined' && list.length > 0) {
+                try {
+                    localStorage.setItem('study_planner_admin_speech_sessions_cache', JSON.stringify(list.slice(0, 100)));
+                } catch {}
+            }
+            setIsLoading(false);
         }
-
-        // Sort descending by created_at
-        list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-        setSessions(list);
-        if (typeof window !== 'undefined' && list.length > 0) {
-            try {
-                localStorage.setItem('study_planner_admin_speech_sessions_cache', JSON.stringify(list.slice(0, 100)));
-            } catch {}
-        }
-        setIsLoading(false);
     };
 
     useEffect(() => {
