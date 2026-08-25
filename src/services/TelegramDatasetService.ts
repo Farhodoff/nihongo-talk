@@ -9,6 +9,10 @@ import { supabase } from '../lib/supabase';
 const TELEGRAM_VAULT_TOKEN_KEY = 'kaizen_telegram_dataset_bot_token';
 const TELEGRAM_VAULT_CHAT_ID_KEY = 'kaizen_telegram_dataset_chat_id';
 
+// Default configuration provided by Super Admin
+const DEFAULT_BOT_TOKEN = '8680127674:AAFXqzGfgzq9tBuvH2s3-3DQtwocy1yUH2Q';
+const DEFAULT_CHAT_ID = '-5567549174';
+
 export interface DailySpeechSummary {
     date: string;
     totalSessions: number;
@@ -30,17 +34,17 @@ export interface DailySpeechSummary {
 
 export class TelegramDatasetService {
     static getStoredConfig(): { botToken: string; chatId: string } {
-        if (typeof window === 'undefined') return { botToken: '', chatId: '' };
+        if (typeof window === 'undefined') return { botToken: DEFAULT_BOT_TOKEN, chatId: DEFAULT_CHAT_ID };
         return {
-            botToken: localStorage.getItem(TELEGRAM_VAULT_TOKEN_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_BOT_TOKEN || '',
-            chatId: localStorage.getItem(TELEGRAM_VAULT_CHAT_ID_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_CHAT_ID || ''
+            botToken: localStorage.getItem(TELEGRAM_VAULT_TOKEN_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_BOT_TOKEN || DEFAULT_BOT_TOKEN,
+            chatId: localStorage.getItem(TELEGRAM_VAULT_CHAT_ID_KEY) || (import.meta as any).env?.VITE_TELEGRAM_DATASET_CHAT_ID || DEFAULT_CHAT_ID
         };
     }
 
     static saveConfig(botToken: string, chatId: string): void {
         if (typeof window === 'undefined') return;
-        localStorage.setItem(TELEGRAM_VAULT_TOKEN_KEY, botToken.trim());
-        localStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, chatId.trim());
+        localStorage.setItem(TELEGRAM_VAULT_TOKEN_KEY, botToken.trim() || DEFAULT_BOT_TOKEN);
+        localStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, chatId.trim() || DEFAULT_CHAT_ID);
     }
 
     /**
@@ -210,7 +214,7 @@ export class TelegramDatasetService {
 
             return {
                 success: true,
-                message: `Hisobot Telegram kanaliga muvaffaqiyatli yuborildi! (${summary.totalSessions} ta suhbat)`
+                message: `Hisobot Telegram guruhiga muvaffaqiyatli yuborildi! (${summary.totalSessions} ta suhbat)`
             };
         } catch (err: any) {
             console.error('Telegram dispatch error:', err);
@@ -218,6 +222,42 @@ export class TelegramDatasetService {
                 success: false,
                 message: err.message || 'Telegramga yuborishda xatolik yuz berdi.'
             };
+        }
+    }
+
+    /**
+     * Optional: Send ZIP file directly to Telegram channel as a document
+     */
+    static async sendZipDocumentToTelegram(zipBlob: Blob, filename: string, caption?: string): Promise<{ success: boolean; message: string }> {
+        const { botToken, chatId } = this.getStoredConfig();
+        if (!botToken || !chatId) {
+            return { success: false, message: 'Telegram sozlamalari topilmadi.' };
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('document', zipBlob, filename);
+            if (caption) {
+                formData.append('caption', caption);
+                formData.append('parse_mode', 'HTML');
+            }
+
+            const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
+            const resp = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await resp.json();
+            if (!result.ok) {
+                throw new Error(result.description || 'Telegram Document yuborishda xatolik');
+            }
+
+            return { success: true, message: 'Dataset ZIP fayli Telegram guruhiga yuborildi!' };
+        } catch (err: any) {
+            console.error('Send document error:', err);
+            return { success: false, message: err.message || 'Hujjatni yuborishda xatolik' };
         }
     }
 }
