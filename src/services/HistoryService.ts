@@ -158,27 +158,45 @@ export class HistoryService {
         };
 
         let userId: string | null = null;
-        if (!isTableDisabled('speaking_coach_sessions')) {
-            try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                    userId = user.id;
-                    const { error } = await supabase.from('speaking_coach_sessions').insert({
-                        user_id: user.id,
-                        language: newItem.language,
-                        persona: newItem.persona,
-                        duration_seconds: newItem.durationSeconds,
-                        fluency_score: newItem.fluencyScore,
-                        pronunciation_score: newItem.pronunciationScore,
-                        transcript: newItem.transcript,
-                        feedback: newItem.feedback,
-                        created_at: newItem.createdAt
-                    });
-                    if (error) handleTableError('speaking_coach_sessions', error);
-                }
-            } catch (e) {
-                handleTableError('speaking_coach_sessions', e);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                userId = user.id;
+                
+                // 1. Primary insert into speaking_sessions
+                await supabase.from('speaking_sessions').insert({
+                    id: newItem.id,
+                    user_id: user.id,
+                    user_email: user.email,
+                    language: newItem.language,
+                    persona_title: newItem.persona,
+                    topic: newItem.persona,
+                    duration_seconds: newItem.durationSeconds,
+                    fluency_score: newItem.fluencyScore,
+                    pronunciation_score: newItem.pronunciationScore,
+                    overall_score: newItem.fluencyScore,
+                    transcript: typeof newItem.transcript === 'string' ? [{ speaker: 'user', text: newItem.transcript }] : newItem.transcript,
+                    feedback: newItem.feedback,
+                    ai_feedback: newItem.feedback,
+                    created_at: newItem.createdAt
+                });
+
+                // 2. Fallback insert into speaking_coach_sessions
+                await supabase.from('speaking_coach_sessions').insert({
+                    id: newItem.id,
+                    user_id: user.id,
+                    language: newItem.language,
+                    persona: newItem.persona,
+                    duration_seconds: newItem.durationSeconds,
+                    fluency_score: newItem.fluencyScore,
+                    pronunciation_score: newItem.pronunciationScore,
+                    transcript: newItem.transcript,
+                    feedback: newItem.feedback,
+                    created_at: newItem.createdAt
+                });
             }
+        } catch (e) {
+            console.warn('[HistoryService] DB speaking session insert notice:', e);
         }
 
         const scopedKey = getStorageKey('study_planner_speaking_coach_sessions', userId);

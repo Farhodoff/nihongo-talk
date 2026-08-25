@@ -80,19 +80,62 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
 
     const addCoachSession = useCallback(async (session: Partial<CoachSession>): Promise<void> => {
         let activeUserId: string | null = null;
+        let userEmail: string | undefined = undefined;
         try {
             const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            if (user?.id) {
+                activeUserId = user.id;
+                userEmail = user.email;
+            }
         } catch {}
 
         if (!activeUserId) return;
 
+        const sessionId = session.id || generateUUID();
+        const personaTitle = session.personaTitle || 'AI Coach';
+        const fluencyScore = Number(session.fluencyScore) || 0;
+        const pronunciationScore = Number(session.pronunciationScore) || fluencyScore;
+        const vocabularyScore = Number(session.vocabularyScore) || 0;
+        const grammarScore = Number(session.grammarScore) || 0;
+        const overallScore = Math.round((fluencyScore + pronunciationScore + (vocabularyScore || fluencyScore) + (grammarScore || fluencyScore)) / 4);
+        const feedback = session.feedback || '';
+        const createdAt = session.createdAt || new Date().toISOString();
+
+        // 1. Primary insert to speaking_sessions
+        try {
+            await supabase.from('speaking_sessions').insert({
+                id: sessionId,
+                user_id: activeUserId,
+                user_email: userEmail,
+                persona_title: personaTitle,
+                topic: personaTitle,
+                fluency_score: fluencyScore,
+                pronunciation_score: pronunciationScore,
+                vocabulary_score: vocabularyScore,
+                grammar_score: grammarScore,
+                overall_score: overallScore,
+                duration_seconds: 120,
+                feedback: feedback,
+                ai_feedback: feedback,
+                language: 'ja',
+                created_at: createdAt
+            });
+        } catch (e) {
+            console.warn('[useSessions] speaking_sessions insert notice:', e);
+        }
+
+        // 2. Insert to speaking_coach_sessions
         const dbCoachSession = {
+            id: sessionId,
             user_id: activeUserId,
-            persona: session.personaTitle || 'AI Coach',
-            fluency_score: session.fluencyScore || 0,
-            pronunciation_score: session.pronunciationScore || 0,
-            feedback: session.feedback || ''
+            persona: personaTitle,
+            persona_title: personaTitle,
+            fluency_score: fluencyScore,
+            pronunciation_score: pronunciationScore,
+            vocabulary_score: vocabularyScore,
+            grammar_score: grammarScore,
+            feedback: feedback,
+            created_at: createdAt
         };
 
         const { data, error } = await supabase.from('speaking_coach_sessions').insert(dbCoachSession).select().single();
@@ -100,14 +143,14 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
         if (error) {
             console.warn("Coach Session Supabase'ga saqlanmadi (lokal saqlanmoqda):", error);
             const newLocalSession: CoachSession = {
-                id: 'cs-' + Date.now(),
-                personaTitle: dbCoachSession.persona,
-                fluencyScore: dbCoachSession.fluency_score,
-                vocabularyScore: session.vocabularyScore || 0,
-                grammarScore: session.grammarScore || 0,
-                pronunciationScore: dbCoachSession.pronunciation_score,
-                feedback: dbCoachSession.feedback,
-                createdAt: new Date().toISOString()
+                id: sessionId,
+                personaTitle: personaTitle,
+                fluencyScore: fluencyScore,
+                vocabularyScore: vocabularyScore,
+                grammarScore: grammarScore,
+                pronunciationScore: pronunciationScore,
+                feedback: feedback,
+                createdAt: createdAt
             };
             setCoachSessions(prev => [newLocalSession, ...prev]);
             return;
@@ -116,10 +159,10 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
         if (data) {
             setCoachSessions(prev => [{
                 id: data.id,
-                personaTitle: data.persona_title,
+                personaTitle: data.persona_title || data.persona || personaTitle,
                 fluencyScore: data.fluency_score,
-                vocabularyScore: data.vocabulary_score,
-                grammarScore: data.grammar_score,
+                vocabularyScore: data.vocabulary_score || vocabularyScore,
+                grammarScore: data.grammar_score || grammarScore,
                 pronunciationScore: data.pronunciation_score,
                 feedback: data.feedback,
                 createdAt: data.created_at

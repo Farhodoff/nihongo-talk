@@ -23,6 +23,7 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { DiagnosticService } from '../services/DiagnosticService';
 import { LessonService } from '../services/LessonService';
 import { ErrorVaultService } from '../services/ErrorVaultService';
+import { DataMigrationService } from '../services/DataMigrationService';
 import { isSuperAdmin } from '../utils/admin';
 
 
@@ -373,9 +374,10 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
 
-            // Non-blocking background syncs (staggered to prevent HTTP/2 connection congestion)
+            // Non-blocking background syncs & automatic LocalStorage to DB migration
             setTimeout(() => {
                 syncGoogleEvents();
+                DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
                 MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
                 MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
                 DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});

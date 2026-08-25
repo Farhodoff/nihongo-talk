@@ -827,6 +827,30 @@ export const DiagnosticService = {
         try {
             localStorage.setItem(key, JSON.stringify(result));
 
+            // Immediate Database Persistence
+            if (activeUserId && activeUserId !== 'guest' && activeUserId !== 'local_user' && supabase?.from) {
+                const resultId = result.id ? toDeterministicUUID(String(result.id)) : toDeterministicUUID(`diag_${activeUserId}_${result.language}_${result.completedAt || Date.now()}`);
+                (async () => {
+                    try {
+                        const { error } = await supabase.from('diagnostic_results').upsert({
+                            id: resultId,
+                            user_id: activeUserId,
+                            language: result.language,
+                            score: result.overallScore,
+                            estimated_level: result.diagnosticLevel || result.recommendedStartLevel || 'A1',
+                            confidence: result.overallConfidence || 0,
+                            weaknesses: result.weaknesses || [],
+                            strengths: result.strengths || [],
+                            breakdown: result.skills || {},
+                            created_at: result.completedAt || new Date().toISOString()
+                        }, { onConflict: 'id' });
+                        if (error) console.warn('[DiagnosticService] DB save result notice:', error.message);
+                    } catch (err) {
+                        console.warn('[DiagnosticService] DB save result error:', err);
+                    }
+                })();
+            }
+
             // Phase E: Diagnostic recommendedStartLevel is only evidence/recommendation.
             // Do NOT call setCurrentLevel directly.
             // Instead, register a promotion candidate if it recommends a level different from current level.
