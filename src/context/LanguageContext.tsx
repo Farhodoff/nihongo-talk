@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import { uz } from '../i18n/uz';
+import { ja } from '../i18n/ja';
 import { en } from '../i18n/en';
 
-type Language = 'uz' | 'en';
+export type Language = 'uz' | 'ja' | 'en';
 
 interface LanguageContextType {
     language: Language;
@@ -10,16 +11,25 @@ interface LanguageContextType {
     t: (keyPath: string) => string;
 }
 
-const translations: Record<Language, any> = { uz, en };
+const translations: Record<Language, any> = { uz, ja, en };
 
 const defaultT = (keyPath: string, lang: Language = 'uz'): string => {
     const keys = keyPath.split('.');
-    let current = translations[lang];
+    let current = translations[lang] || translations.uz;
     for (const k of keys) {
         if (current && current[k] !== undefined) {
             current = current[k];
         } else {
-            return keyPath;
+            // Fallback to Uzbek if translation missing in Japanese
+            let fallback = translations.uz;
+            for (const fbKey of keys) {
+                if (fallback && fallback[fbKey] !== undefined) {
+                    fallback = fallback[fbKey];
+                } else {
+                    return keyPath;
+                }
+            }
+            return typeof fallback === 'string' ? fallback : keyPath;
         }
     }
     return typeof current === 'string' ? current : keyPath;
@@ -34,7 +44,7 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [language, setLanguageState] = useState<Language>(() => {
         const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_lang') : null;
-        return (saved === 'en' || saved === 'uz') ? saved : 'uz';
+        return (saved === 'ja' || saved === 'uz') ? (saved as Language) : 'uz';
     });
 
     const setLanguage = (lang: Language) => {

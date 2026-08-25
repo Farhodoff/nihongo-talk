@@ -74,22 +74,27 @@ const DashboardPage: React.FC = () => {
 
     const greetingSubtitle = useMemo(() => {
         if (totalTodayItems === 0) {
-            return language === 'en' 
-                ? "Ready to start today's study journey? 🚀" 
-                : "Bugungi o'quv rejangizni boshlang 🚀";
+            if (language === 'ja') return "今日の学習を始めましょう 🚀";
+            if (language === 'en') return "Ready to start today's study journey? 🚀";
+            return "Bugungi o'quv rejangizni boshlang 🚀";
         }
         if (totalPendingItems === 0) {
-            return language === 'en'
-                ? "Great job! All of today's tasks and lessons are completed 🎉"
-                : "Ajoyib! Bugungi barcha dars va vazifalar bajarildi 🎉";
+            if (language === 'ja') return "素晴らしい！今日の学習はすべて完了しました 🎉";
+            if (language === 'en') return "Great job! All of today's tasks and lessons are completed 🎉";
+            return "Ajoyib! Bugungi barcha dars va vazifalar bajarildi 🎉";
         }
-        return language === 'en'
-            ? `You have ${totalPendingItems} activities scheduled for today`
-            : `Bugun sizda ${totalPendingItems} ta dars va vazifa rejalashtirilgan`;
+        if (language === 'ja') return `今日は ${totalPendingItems} 件の学習アクティビティがあります`;
+        if (language === 'en') return `You have ${totalPendingItems} activities scheduled for today`;
+        return `Bugun sizda ${totalPendingItems} ta dars va vazifa rejalashtirilgan`;
     }, [language, totalTodayItems, totalPendingItems]);
 
     const greeting = useMemo(() => {
         const hour = new Date().getHours();
+        if (language === 'ja') {
+            if (hour < 12) return "おはようございます";
+            if (hour < 18) return "こんにちは";
+            return "こんばんは";
+        }
         if (language === 'en') {
             if (hour < 12) return "Good morning";
             if (hour < 18) return "Good afternoon";

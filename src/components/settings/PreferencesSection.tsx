@@ -3,6 +3,7 @@ import { PushNotificationService } from '../../services/PushNotificationService'
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { isSuperAdmin } from '../../utils/admin';
+import { useLanguage } from '../../context/LanguageContext';
 import AIProviderSection from './AIProviderSection';
 
 interface Settings {
@@ -21,6 +22,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
     settings,
     onToggleNotifications
 }) => {
+    const { language, setLanguage } = useLanguage();
     const { 
         user,
         primaryLanguage, 
@@ -188,9 +190,57 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                 </div>
             </div>
 
-            {/* Notifications & Tour Controls */}
+            {/* App Interface Language & Notifications */}
             <div className="space-y-4 pt-6 border-t border-border">
-                <h4 className="text-sm font-semibold text-foreground">Tizim & Bildirishnomalar</h4>
+                <h4 className="text-sm font-semibold text-foreground">Tizim & Interfeys Tili</h4>
+
+                {/* Interface Language Switcher Card */}
+                <div className="p-4 rounded-xl border border-border bg-background/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2.5 bg-primary/10 text-primary rounded-lg text-lg">
+                            🌐
+                        </div>
+                        <div>
+                            <span className="font-semibold text-sm text-foreground block">
+                                {language === 'uz' ? 'Ilova Interfeys Tili' : 'アプリの表示言語'}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                                {language === 'uz' ? 'Menyu va tugmalar tilini tanlang' : 'メニューとボタンの言語を選択'}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setLanguage('uz');
+                                toast({ title: "🇺🇿 O'zbek tili tanlandi" });
+                            }}
+                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border ${
+                                language === 'uz'
+                                    ? 'bg-primary text-primary-foreground border-primary shadow-xs'
+                                    : 'bg-card text-muted-foreground border-border hover:bg-muted'
+                            }`}
+                        >
+                            O'zbekcha 🇺🇿
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setLanguage('ja');
+                                toast({ title: "🇯🇵 日本語が選択されました" });
+                            }}
+                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border ${
+                                language === 'ja'
+                                    ? 'bg-primary text-primary-foreground border-primary shadow-xs'
+                                    : 'bg-card text-muted-foreground border-border hover:bg-muted'
+                            }`}
+                        >
+                            日本語 🇯🇵
+                        </button>
+                    </div>
+                </div>
 
                 <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">

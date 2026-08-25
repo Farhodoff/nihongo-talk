@@ -112,29 +112,29 @@ const Layout: React.FC = () => {
         // Super Admin can switch to English (IELTS) track for development
         if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
-                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
+                { name: t('nav.vocabulary') || 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
+                { name: t('nav.ieltsHub') || 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
+                { name: t('nav.scenarios') || 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
+                { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
+                { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+                { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: t('nav.progress') || 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+                { name: t('nav.community') || 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
-            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
-            { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-            { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-            { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-            { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
+            { name: t('nav.vocabulary') || 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
+            { name: t('nav.jlptHub') || 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+            { name: t('nav.scenarios') || 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
+            { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
+            { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
+            { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            { name: t('nav.progress') || 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
+            { name: t('nav.community') || 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
-    }, [primaryLanguage, isSuper]);
+    }, [primaryLanguage, isSuper, language, t]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -372,11 +372,11 @@ const Layout: React.FC = () => {
                         </NavLink>
 
                         <button
-                            onClick={() => setLanguage(language === 'uz' ? 'en' : 'uz')}
+                            onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
                             className="px-2.5 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors border border-border shrink-0"
-                            title={language === 'uz' ? 'Switch to English' : "O'zbekchaga o'tish"}
+                            title={language === 'uz' ? '日本語に切り替え (Switch to Japanese)' : "O'zbek tiliga o'tish"}
                         >
-                            {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
+                            {language === 'uz' ? '🇺🇿 UZ' : '🇯🇵 JA'}
                         </button>
                     </div>
                 </div>
@@ -406,10 +406,10 @@ const Layout: React.FC = () => {
             {/* Mobile Bottom Navigation */}
             <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
                 {[
-                    { name: 'Dashboard', path: '/dashboard', icon: Home },
-                    { name: 'Speaking', path: '/speaking-coach', icon: Mic },
-                    { name: 'Fleshkarta', path: '/flashcards', icon: Copy },
-                    { name: 'Fokus', path: '/focus', icon: Clock },
+                    { name: t('nav.dashboard') || 'Dashboard', path: '/dashboard', icon: Home },
+                    { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
+                    { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
+                    { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock },
                 ].map(item => (
                     <NavLink
                         key={item.path}

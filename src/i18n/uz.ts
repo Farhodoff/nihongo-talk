@@ -30,6 +30,7 @@ export const uz = {
         submit: 'Javoblarni Tekshirish',
         language: 'Til',
         uzbek: "O'zbekcha 🇺🇿",
+        japanese: '日本語 🇯🇵',
         english: 'English 🇬🇧',
         search: 'Qidiruv...',
         actions: 'Harakatlar',
