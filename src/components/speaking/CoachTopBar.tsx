@@ -1,6 +1,6 @@
 import React from 'react';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Crown, Check, GraduationCap, Settings as SettingsIcon } from 'lucide-react';
+import { Check, GraduationCap, Settings as SettingsIcon } from 'lucide-react';
 
 interface CoachTopBarProps {
     language: 'en' | 'ja';
@@ -14,10 +14,9 @@ interface CoachTopBarProps {
     setPersona: (p: CoachPersona) => void;
     targetBand: string;
     setTargetBand: (band: any) => void;
-    isPaidUser: boolean;
+    isPaidUser?: boolean;
     isAdmin: boolean;
     isSuperAdmin?: boolean;
-    onOpenProModal: (reason: string) => void;
     onOpenSettings: () => void;
     formatTimer: (sec: number) => string;
     activeScenario?: any;
@@ -38,7 +37,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
     isPaidUser: _isPaidUser,
     isAdmin,
     isSuperAdmin: isSuper,
-    onOpenProModal,
     onOpenSettings,
     formatTimer,
     activeScenario
@@ -139,25 +137,16 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                                         const p = PERSONAS[pKey];
                                         const Icon = p.icon;
                                         const isSelected = persona === pKey;
-                                        const isLocked = false; // Open for all users
-                                        
                                         return (
                                             <button
                                                 key={pKey}
                                                 onClick={() => {
-                                                    if (isLocked) {
-                                                        onOpenProModal(`"${p.name}" rejimi va IELTS Examiner Imtihonchi personasidan foydalanish uchun PRO yoki Premium obunaga o'ting.`);
-                                                        setShowPersonaSelector(false);
-                                                        return;
-                                                    }
                                                     setPersona(pKey);
                                                     setShowPersonaSelector(false);
                                                 }}
                                                 className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left ${
                                                     isSelected 
                                                     ? `bg-gradient-to-r ${p.color} text-white shadow-md` 
-                                                    : isLocked
-                                                    ? 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/50 opacity-80'
                                                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                                 }`}
                                             >
@@ -167,11 +156,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                                                 <div className="min-w-0 flex-1">
                                                     <div className="text-xs font-bold truncate flex items-center gap-1.5">
                                                         {p.name}
-                                                        {isLocked && (
-                                                            <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                                                                <Crown size={10} /> PRO
-                                                            </span>
-                                                        )}
                                                     </div>
                                                     <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
                                                 </div>

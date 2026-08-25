@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
-import { ShieldAlert, Lock, Sparkles, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Folder, FolderCheck, FolderPlus, ExternalLink } from 'lucide-react';
-import { useSubscription } from '../../hooks/useSubscription';
+import { ShieldAlert, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Folder, FolderCheck, FolderPlus, ExternalLink } from 'lucide-react';
 import { PresetDeckService, DeckPart } from '../../services/PresetDeckService';
 
 interface PresetDeckCardProps {
@@ -16,7 +15,7 @@ interface PresetDeckCardProps {
     onAdminAudit?: (deck: PresetDeck) => void;
     onAdminAddNextPart?: (deck: PresetDeck, nextPartNumber: number) => void;
     onOpenFolderExplorer?: (deck: PresetDeck, parts: DeckPart[]) => void;
-    onUpgradeClick: () => void;
+    onUpgradeClick?: () => void;
 }
 
 export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({ 
@@ -29,12 +28,8 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
     onRemove, 
     onAdminAudit,
     onAdminAddNextPart,
-    onOpenFolderExplorer,
-    onUpgradeClick 
+    onOpenFolderExplorer
 }) => {
-    const { isPro, subscription } = useSubscription();
-    const isLocked = deck.isPremiumOnly && !isPro && subscription?.tier !== 'premium';
-
     const [isPartsOpen, setIsPartsOpen] = useState(false);
     const [parts, setParts] = useState<DeckPart[]>([]);
     const [loadingParts, setLoadingParts] = useState(false);
@@ -55,13 +50,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
         <div className={`bg-card border rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group ${
             isAdded ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-border'
         }`}>
-            {deck.isPremiumOnly && (
-                <div className="absolute top-3 right-3 px-2.5 py-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-[11px] font-extrabold rounded-full flex items-center gap-1">
-                    {isLocked ? <Lock size={12} /> : <Sparkles size={12} />} PRO
-                </div>
-            )}
-
-            {isAdded && !deck.isPremiumOnly && (
+            {isAdded && (
                 <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-extrabold rounded-full flex items-center gap-1">
                     <Check size={12} /> Saqlangan
                 </div>
@@ -189,15 +178,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                     </Button>
                 )}
 
-                {isLocked ? (
-                    <Button
-                        variant="secondary"
-                        onClick={onUpgradeClick}
-                        className="w-full py-2.5 bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 border-amber-500/30 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
-                    >
-                        <Lock size={14} /> PRO Obuna bilan Ochish
-                    </Button>
-                ) : isAdded ? (
+                {isAdded ? (
                     <Button
                         variant="outline"
                         onClick={() => onRemove && onRemove(deck)}

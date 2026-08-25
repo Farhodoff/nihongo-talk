@@ -472,7 +472,7 @@ const AdminDashboardPage: React.FC = () => {
                     >
                         Super Admin Paneli
                     </h1>
-                    <p className="text-xs text-muted-foreground mt-0.5">Tizim obunalari, foydalanuvchilar va AI Coach tahlillarini boshqarish</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Foydalanuvchilar faolligi, ta'lim ko'rsatkichlari va AI Coach tahlillari boshqaruvi</p>
                 </div>
                 <div className="flex items-center gap-2 self-start sm:self-auto">
                     <button

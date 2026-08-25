@@ -21,7 +21,6 @@ import { CoachWelcomeScreen } from '../components/speaking/CoachWelcomeScreen';
 import { CoachChatArea } from '../components/speaking/CoachChatArea';
 import { CoachControlBar } from '../components/speaking/CoachControlBar';
 import { CoachSettingsModal } from '../components/speaking/CoachSettingsModal';
-import { CoachProModal } from '../components/speaking/CoachProModal';
 import { CoachProgressDashboard } from '../components/speaking/CoachProgressDashboard';
 import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeVoiceOverlay';
 import { playConversationChime } from '../utils/audioChime';
@@ -118,11 +117,8 @@ const SpeakingCoachPage: React.FC = () => {
     const [isReportLoading, setIsReportLoading] = useState(false);
     const [reportData, setReportData] = useState<SessionAnalysisReport | null>(null);
 
-    // Open access for all users during the growth phase
+    // Open access for all users
     const isPaidUser = true;
-    const [showProModal, setShowProModal] = useState(false);
-    const [proModalReason, setProModalReason] = useState('');
-
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const activeScenarioRef = useRef(activeScenario);
@@ -601,12 +597,6 @@ const SpeakingCoachPage: React.FC = () => {
         const msg = chatHistory[idx];
         if (!msg || msg.role !== 'assistant') return;
 
-        if (!isPaidUser) {
-            setProModalReason("🇺🇿 Real-time O'zbekcha tarjima va subtitr funksiyasidan foydalanish uchun PRO yoki Premium obunaga o'ting.");
-            setShowProModal(true);
-            return;
-        }
-
         if (msg.translation) {
             setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: !m.showTranslation } : m));
             return;
@@ -678,10 +668,6 @@ const SpeakingCoachPage: React.FC = () => {
                 isPaidUser={isPaidUser}
                 isAdmin={isAdmin}
                 isSuperAdmin={isSuper}
-                onOpenProModal={(reason) => {
-                    setProModalReason(reason);
-                    setShowProModal(true);
-                }}
                 onOpenSettings={() => setIsSettingsOpen(true)}
                 formatTimer={formatTimer}
                 activeScenario={activeScenario}
@@ -834,13 +820,6 @@ const SpeakingCoachPage: React.FC = () => {
                 onPlayRecorded={voiceRecorder.playRecorded}
                 onPauseRecorded={voiceRecorder.pauseRecorded}
                 onRetry={() => startSession()}
-            />
-
-            {/* PRO UPGRADE MODAL */}
-            <CoachProModal 
-                isOpen={showProModal}
-                onClose={() => setShowProModal(false)}
-                reason={proModalReason}
             />
         </div>
     );

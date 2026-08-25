@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, Crown, History, Clock, Timer } from 'lucide-react';
+import { FileText, Sparkles, AlertCircle, Award, BookOpen, RefreshCw, Copy, Check, ArrowRight, History, Clock, Timer } from 'lucide-react';
 import { evaluateIeltsEssay, IeltsEssayEvaluationReport } from '../utils/ai';
 import { HistoryService, WritingHistoryItem } from '../services/HistoryService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { LearningSignalService } from '../services/LearningSignalService';
 import { SvgLineChart } from '../components/ui/SvgCharts';
-import { useSubscription } from '../hooks/useSubscription';
 import { Task1GraphGenerator } from '../components/ielts/Task1GraphGenerator';
 import { WritingBandRadarChart } from '../components/ielts/WritingBandRadarChart';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -26,9 +25,7 @@ const SAMPLE_PROMPTS = {
 };
 
 const IeltsWritingPage: React.FC = () => {
-    const { subscription } = useSubscription();
     const { awardXP, user } = useStudyData();
-    const isPaidUser = subscription?.tier === 'pro' || subscription?.tier === 'premium';
 
     const [taskType, setTaskType] = useState<'task1' | 'task2'>('task2');
     const [promptQuestion, setPromptQuestion] = useState(SAMPLE_PROMPTS.task2[0]);
@@ -410,7 +407,7 @@ const IeltsWritingPage: React.FC = () => {
                                                 weaknesses: [],
                                                 grammarErrors: [],
                                                 advancedVocabularySuggestions: [],
-                                                modelAnswerBand8: 'Obuna yoki eski model hisoboti namunasini yuklang.',
+                                                modelAnswerBand8: 'Tahlil natijasi bo\'yicha model insho namunasi.',
                                                 improvementTips: []
                                             });
                                             setEssayText(item.essay);
@@ -607,35 +604,18 @@ const IeltsWritingPage: React.FC = () => {
                                         <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
                                             <Sparkles size={16} className="text-amber-500" /> Band 8.0/9.0 Model Answer
                                         </h4>
-                                        {isPaidUser && (
-                                            <button
-                                                onClick={handleCopyModelAnswer}
-                                                className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all"
-                                            >
-                                                {copied ? <Check size={14} /> : <Copy size={14} />}
-                                                <span>{copied ? "Nusxalandi!" : "Nusxalash"}</span>
-                                            </button>
-                                        )}
+                                        <button
+                                            onClick={handleCopyModelAnswer}
+                                            className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all"
+                                        >
+                                            {copied ? <Check size={14} /> : <Copy size={14} />}
+                                            <span>{copied ? "Nusxalandi!" : "Nusxalash"}</span>
+                                        </button>
                                     </div>
 
-                                    {isPaidUser ? (
-                                        <div className="p-4 bg-muted/40 border border-border rounded-xl text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap">
-                                            {report.modelAnswerBand8}
-                                        </div>
-                                    ) : (
-                                        <div className="relative">
-                                            <div className="p-4 bg-muted/40 border border-border rounded-xl text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap blur-xs select-none">
-                                                {report.modelAnswerBand8?.substring(0, 150)}...
-                                            </div>
-                                            <div className="absolute inset-0 bg-gradient-to-t from-background/95 to-transparent rounded-2xl flex flex-col items-center justify-center p-6 text-center space-y-3">
-                                                <Crown className="text-amber-500" size={24} />
-                                                <h5 className="text-xs font-bold text-foreground">Model Answer Locked</h5>
-                                                <p className="text-[10px] text-muted-foreground max-w-xs">
-                                                    AI tomonidan yozilgan model inshoni o'qish uchun PRO obunaga o'ting.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    )}
+                                    <div className="p-4 bg-muted/40 border border-border rounded-xl text-xs text-muted-foreground leading-relaxed font-serif whitespace-pre-wrap">
+                                        {report.modelAnswerBand8}
+                                    </div>
                                 </div>
                             )}
                         </div>

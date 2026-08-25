@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { 
     BarChart, BookOpen, CheckSquare, ChevronLeft, ChevronRight,
     Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, 
-    Mic, Crown, Brain, Sparkles,
+    Mic, Brain, Sparkles,
     Shield
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -381,25 +381,6 @@ const Layout: React.FC = () => {
                             {language === 'uz' ? '🇺🇿 UZ' : '🇬🇧 EN'}
                         </button>
                     </div>
-
-                    {/* Premium Upgrade Button */}
-                    {!isCollapsed ? (
-                        <button
-                            onClick={() => navigate('/pricing')}
-                            className="w-full py-2.5 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-95 border border-rose-400/30"
-                        >
-                            <Crown size={16} className="animate-bounce" />
-                            <span>{t('common.upgrade')}</span>
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => navigate('/pricing')}
-                            title="Obunani Yangilash (Get Premium)"
-                            className="w-full py-2.5 flex justify-center bg-gradient-to-r from-rose-500 to-indigo-600 text-white rounded-xl shadow-md hover:scale-110 transition-transform"
-                        >
-                            <Crown size={18} />
-                        </button>
-                    )}
                 </div>
             </aside>
 
@@ -460,18 +441,6 @@ const Layout: React.FC = () => {
                             </div>
                         </div>
                         <NavLinks onClick={() => setSidebarOpen(false)} />
-                        <div className="p-4 border-t border-border space-y-2">
-                            <button
-                                onClick={() => {
-                                    setSidebarOpen(false);
-                                    navigate('/pricing');
-                                }}
-                                className="w-full py-3 px-4 bg-gradient-to-r from-rose-500 to-indigo-600 text-white font-bold text-sm rounded-xl shadow flex items-center justify-center gap-2"
-                            >
-                                <Crown size={18} />
-                                <span>Obunani Yangilash 🚀</span>
-                            </button>
-                        </div>
                     </SheetContent>
                 </Sheet>
             </nav>

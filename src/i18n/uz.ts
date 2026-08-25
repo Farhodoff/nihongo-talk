@@ -48,7 +48,7 @@ export const uz = {
         all: 'Barchasi',
         filter: 'Saralash',
         noData: "Ma'lumot topilmadi",
-        upgrade: 'Obunani Yangilash 🚀',
+        upgrade: 'Boshlash 🚀',
         days: 'kun',
         minutes: 'daqiqa',
         hours: 'soat'

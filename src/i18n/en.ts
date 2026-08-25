@@ -48,7 +48,7 @@ export const en = {
         all: 'All',
         filter: 'Filter',
         noData: 'No data found',
-        upgrade: 'Upgrade Plan 🚀',
+        upgrade: 'Get Started 🚀',
         days: 'days',
         minutes: 'minutes',
         hours: 'hours'
