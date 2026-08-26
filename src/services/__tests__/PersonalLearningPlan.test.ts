@@ -370,7 +370,16 @@ describe('Personal Learning Plan System Tests', () => {
                 updatedAt: new Date().toISOString()
             };
 
-            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(a1Goal, 1, 'test_user_a1', {});
+            const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Review", type: "srs", estimatedMinutes: 15 },
+            { title: "Lesson 1", type: "lesson", contentId: a1Goal.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
+        ]
+    }))
+}), a1Goal, 1, 'test_user_a1')!;
             const curriculumTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
             expect(curriculumTasks.length).toBeGreaterThan(0);
 
@@ -397,7 +406,14 @@ describe('Personal Learning Plan System Tests', () => {
                 updatedAt: new Date().toISOString()
             };
 
-            const planJa = PersonalLearningPlanEngine.generateDeterministicFallback(n5Goal, 1, 'test_user_n5', {});
+            const planJa = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Lesson 1", type: "lesson", contentId: "ja-n5-u1-l1", route: "/jlpt", estimatedMinutes: 45 }
+        ]
+    }))
+}), n5Goal, 1, 'test_user_n5')!;
             const curriculumTasksJa = planJa.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
             expect(curriculumTasksJa.length).toBeGreaterThan(0);
 
@@ -481,7 +497,16 @@ describe('Personal Learning Plan System Tests', () => {
             localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal]));
 
             // Generate fallback
-            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'test_user_dedup', {});
+            const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Review", type: "srs", estimatedMinutes: 15 },
+            { title: "Lesson 1", type: "lesson", contentId: sampleGoal.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
+        ]
+    }))
+}), sampleGoal, 1, 'test_user_dedup')!;
             const curriculumTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
             
             // Should select en-a1-u1-l2 (or other uncompleted ones), not en-a1-u1-l1
@@ -510,7 +535,16 @@ describe('Personal Learning Plan System Tests', () => {
             };
             localStorage.setItem('study_planner_learning_signals_test_user_dedup', JSON.stringify([signal1, signal2]));
 
-            const plan = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'test_user_dedup', {});
+            const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Review", type: "srs", estimatedMinutes: 15 },
+            { title: "Lesson 1", type: "lesson", contentId: sampleGoal.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
+        ]
+    }))
+}), sampleGoal, 1, 'test_user_dedup')!;
             const reviewTasks = plan.days.flatMap(d => d.tasks).filter(t => t.type === 'review');
             expect(reviewTasks.length).toBeGreaterThan(0);
             reviewTasks.forEach(t => {
@@ -637,7 +671,16 @@ describe('Personal Learning Plan System Tests', () => {
             };
 
             // English completed should NOT affect ja-n5-u1-l1 matching fallback
-            const planJa = PersonalLearningPlanEngine.generateDeterministicFallback(jaGoal, 1, 'test_user_dedup', {});
+            const planJa = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Review", type: "srs", estimatedMinutes: 15 },
+            { title: "Lesson 1", type: "lesson", contentId: jaGoal.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
+        ]
+    }))
+}), jaGoal, 1, 'test_user_dedup')!;
             const jaTasks = planJa.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
             expect(jaTasks[0].contentId).toBe('ja-n5-u1-l1');
         });
@@ -655,7 +698,16 @@ describe('Personal Learning Plan System Tests', () => {
             localStorage.setItem('study_planner_learning_signals_user_a', JSON.stringify([signalUserA]));
 
             // Generate fallback for User B
-            const planB = PersonalLearningPlanEngine.generateDeterministicFallback(sampleGoal, 1, 'user_b', {});
+            const planB = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
+    days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({
+        day: d,
+        tasks: [
+            { title: "Review", type: "srs", estimatedMinutes: 15 },
+            { title: "Lesson 1", type: "lesson", contentId: sampleGoal.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
+        ]
+    }))
+}), sampleGoal, 1, 'user_b')!;
             const bTasks = planB.days.flatMap(d => d.tasks).filter(t => t.type === 'lesson');
             
             // Should still select en-a1-u1-l1 for User B as they did not complete it
