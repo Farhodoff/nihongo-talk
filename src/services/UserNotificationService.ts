@@ -26,7 +26,7 @@ export class UserNotificationService {
 
         const title = '🎉 Nihon Talk ga xush kelibsiz!';
         const message = `Assalomu alaykum! Platformamizga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n` +
-            `O'quv samaradorligingizni oshirish uchun IELTS & JLPT Hub, AI Speaking Coach hamda Kunlik dars rejalashtirgichini sinab ko'ring. Savollaringiz bo'lsa, AI Yordamchi har doim xizmatda! 🚀`;
+            `O'quv samaradorligingizni oshirish uchun JLPT Hub, AI Speaking Coach hamda Kunlik dars rejalashtirgichini sinab ko'ring. Savollaringiz bo'lsa, AI Yordamchi har doim xizmatda! 🚀`;
 
         try {
             await this.sendNotification({

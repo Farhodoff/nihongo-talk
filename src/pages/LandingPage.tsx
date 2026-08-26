@@ -38,7 +38,7 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
 /*  Interactive Live Mockup Component                                 */
 /* ------------------------------------------------------------------ */
 const LiveAppShowcase: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<'jlpt' | 'ielts' | 'focus' | 'flashcards'>('jlpt');
+    const [activeTab, setActiveTab] = useState<'jlpt' | 'focus' | 'flashcards'>('jlpt');
     const [isFlipped, setIsFlipped] = useState(false);
     const [isPlayingSound, setIsPlayingSound] = useState(false);
 
@@ -57,26 +57,7 @@ const LiveAppShowcase: React.FC = () => {
 
                 {/* Tab Switchers */}
                 <div className="flex items-center gap-1.5 p-1 bg-muted/80 rounded-2xl border border-border">
-                    <button
-                        onClick={() => setActiveTab('jlpt')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            activeTab === 'jlpt'
-                                ? 'bg-primary text-primary-foreground shadow-xs'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        🎌 Yapon Tili & JLPT
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('ielts')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            activeTab === 'ielts'
-                                ? 'bg-blue-600 text-white shadow-xs'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        🎓 IELTS & Writing
-                    </button>
+                    
                     <button
                         onClick={() => setActiveTab('focus')}
                         className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
@@ -181,58 +162,6 @@ const LiveAppShowcase: React.FC = () => {
                         </motion.div>
                     )}
 
-                    {activeTab === 'ielts' && (
-                        <motion.div
-                            key="ielts"
-                            initial={{ opacity: 0, scale: 0.96 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.96 }}
-                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
-                        >
-                            <div className="md:col-span-6 space-y-4">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs">
-                                    <GraduationCap size={14} /> IELTS AI Examiner
-                                </div>
-                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
-                                    Writing va Speaking uchun 8.0+ Band Tahlili
-                                </h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Esseingizni yuklang va 5 soniyada rasmiy 4 ta IELTS mezoni bo'yicha batafsil fikr-mulohaza oling.
-                                </p>
-                                <div className="space-y-2 pt-2">
-                                    <div className="flex items-center justify-between text-xs font-bold">
-                                        <span>Task Achievement & Coherence</span>
-                                        <span className="text-emerald-500">Band 8.0</span>
-                                    </div>
-                                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                                        <div className="h-full bg-emerald-500 rounded-full w-[85%]" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="md:col-span-6 p-6 rounded-3xl bg-card border border-border shadow-xl space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-extrabold uppercase text-muted-foreground">AI Baholash Natijasi</span>
-                                    <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black text-sm">
-                                        Overall: 7.5
-                                    </span>
-                                </div>
-                                <div className="p-3.5 rounded-2xl bg-muted/50 text-xs text-foreground space-y-1.5 border border-border">
-                                    <div className="font-bold text-primary flex items-center gap-1.5">
-                                        <Sparkles size={14} /> Kengaytirilgan So'z Boyligi (Lexical Resource):
-                                    </div>
-                                    <p className="text-muted-foreground leading-relaxed">
-                                        "substantial increase" va "dramatic surge" iboralaridan foydalanilgani balingizni 7.5 dan 8.0 ga ko'taradi.
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-between text-xs text-muted-foreground font-semibold pt-1">
-                                    <span>Grammar Accuracy: 96%</span>
-                                    <span className="text-blue-500 font-bold">Speaking Mock Tayyor 🎙️</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-
                     {activeTab === 'focus' && (
                         <motion.div
                             key="focus"
@@ -320,10 +249,10 @@ const LandingPage: React.FC = () => {
     const navigate = useNavigate();
 
     useSEO({
-        title: "Nihon Talk — Aqlli O'quv Platformasi | IELTS & JLPT",
-        description: "IELTS Band 7+ va JLPT N3 ga 60 kunda tayyorlaning. AI Speaking Examiner, Writing Evaluator, Anki SM-2 Fleshkartalar va shaxsiy o'quv rejalashtiruvchi.",
+        title: "Nihon Talk — Yapon tilini AI yordamida o'rganish",
+        description: "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Anki SM-2 Fleshkartalar va shaxsiy o'quv rejalashtiruvchi.",
         canonical: "/",
-        keywords: "Nihon Talk, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer"
+        keywords: "Nihon Talk, yapon tili, JLPT tayyorgarlik, JLPT N5-N1, Kanji, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam"
     });
 
     const [isDark, setIsDark] = useState(() => {
@@ -403,11 +332,11 @@ const LandingPage: React.FC = () => {
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
                     >
-                        Yapon va Ingliz tilini <br />
+                        Yapon tilini <br />
                         <span className="bg-gradient-to-r from-primary via-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                            AI Ustoz bilan 3x Tezroq
+                            AI ustoz bilan aqlli va tizimli
                         </span>{' '}
-                        O'rganing
+                        o'rganing
                     </motion.h1>
 
                     {/* Subtitle */}
@@ -417,7 +346,7 @@ const LandingPage: React.FC = () => {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
                     >
-                        <strong>JLPT (N5-N1)</strong>, <strong>IELTS (8.0+)</strong>, Spaced Repetition fleshkartalar, jonli Speaking Coach va Lo-Fi Fokus taymer — barchasi bitta ixcham platformada.
+                        <strong>JLPT N5-N1</strong>, Vocabulary, Kanji, Grammar, Reading, Listening, Speaking, SRS Fleshkartalar, AI Speaking Coach va Lo-Fi Fokus taymer — barchasi bitta ixcham platformada.
                     </motion.p>
 
                     {/* CTAs */}
@@ -456,15 +385,15 @@ const LandingPage: React.FC = () => {
                     >
                         <div className="flex items-center gap-1.5">
                             <span className="text-amber-500 font-black">★★★★★</span>
-                            <span>4.9/5 O'quvchilar bahosi</span>
+                            <span>JLPT Hub & Analytics</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                             <Shield size={15} className="text-emerald-500" />
-                            <span>100% Bepul Boshlash</span>
+                            <span>Bepul Boshlash</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                             <Award size={15} className="text-indigo-500" />
-                            <span>JLPT & IELTS Rasmiy formatida</span>
+                            <span>JLPT N5-N1 Formatida</span>
                         </div>
                     </motion.div>
                 </div>
@@ -496,7 +425,7 @@ const LandingPage: React.FC = () => {
                                 step: '01',
                                 icon: '🎌',
                                 title: "Til & Yo'nalishni Tanlang",
-                                desc: "Yapon tili (JLPT), Ingliz tili (IELTS) yoki Dasturlash fanlaridan birini belgilang."
+                                desc: "JLPT N5-N1 darajangizni va o'quv maqsadlaringizni belgilang."
                             },
                             {
                                 step: '02',
@@ -548,8 +477,8 @@ const LandingPage: React.FC = () => {
                         },
                         {
                             icon: GraduationCap,
-                            title: 'IELTS AI Examiner 🎓',
-                            desc: 'Writing Task 1 & 2 baholovchi, Speaking Mock imtihon va Akademik lug\'at.',
+                            title: 'JLPT Mock Exam 📝',
+                            desc: 'Haqiqiy JLPT formatida Reading va Listening imtihonlarini topshiring va natijalaringizni tahlil qiling.',
                             badge: 'AI Powered',
                             color: 'from-blue-500 to-indigo-600'
                         },
