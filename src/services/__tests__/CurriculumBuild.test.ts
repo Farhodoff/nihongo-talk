@@ -180,7 +180,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEn as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))
@@ -256,7 +256,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEn as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))
@@ -273,7 +273,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEn as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))
@@ -290,7 +290,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEn as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))
@@ -304,7 +304,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEn as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))
@@ -319,7 +319,7 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         day: d,
         tasks: [
             { title: "Review", type: "srs", estimatedMinutes: 15 },
-            { title: "Lesson 1", type: "lesson", contentId: sampleGoalEnB2 as any.language === "ja" ? "ja-n5-u1-l1" : "en-a1-u1-l1", estimatedMinutes: 30 },
+            { title: "Lesson 1", type: "lesson", contentId: "en-a1-u1-l1", estimatedMinutes: 30 },
             { title: "Practice", type: "practice", contentId: "en-a1-u1-l1", estimatedMinutes: 15 }
         ]
     }))

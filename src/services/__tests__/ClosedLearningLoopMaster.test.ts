@@ -102,11 +102,7 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
             };
 
             // Set high severity weakness to test remediation injection
-            const mockState = {
-                masteryProfile: {
-                    topWeaknesses: [{ skill: 'reading', severity: 'high', score: 35 }]
-                }
-            };
+            
 
             const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(JSON.stringify({
     days: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d => ({

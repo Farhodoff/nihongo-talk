@@ -11,7 +11,7 @@ import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
-import { WeaknessEngine } from './WeaknessEngine';
+
 import { generateUUID } from '../utils/uuid';
 
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
