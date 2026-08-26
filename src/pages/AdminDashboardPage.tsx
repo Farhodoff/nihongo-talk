@@ -244,24 +244,37 @@ const AdminDashboardPage: React.FC = () => {
 
     const fetchAdminData = async () => {
         try {
-            const [rpcSettled, profilesSettled, subsSettled, speakingSettled, coachSpeakingSettled, aiCoachSettled, studySessionsSettled] = await Promise.allSettled([
-                supabase.rpc('get_admin_all_users'),
-                supabase.from('profiles').select('*').limit(500),
-                supabase.from('user_subscriptions').select('*').limit(500),
+            // Sequential batched fetches to prevent Supabase Free Tier connection flooding.
+            // Parallel Promise.allSettled with 7 queries + other page queries = 60+ concurrent
+            // requests → ERR_CONNECTION_RESET storm → all data returns empty [].
+            const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+            // Batch 1: Primary user data (most important)
+            const rpcRes = await supabase.rpc('get_admin_all_users');
+            await delay(150);
+            const profilesRes = await supabase.from('profiles').select('*').limit(500);
+            await delay(150);
+
+            // Batch 2: Subscriptions + study sessions
+            const subsRes = await supabase.from('user_subscriptions').select('*').limit(500);
+            await delay(150);
+            const studyRes = await supabase.from('study_sessions').select('*').limit(500);
+            await delay(150);
+
+            // Batch 3: Speaking + AI data
+            const [speakingRes, coachRes, aiCoachRes] = await Promise.all([
                 supabase.from('speaking_sessions').select('*').limit(500),
                 supabase.from('speaking_coach_sessions').select('*').limit(500),
-                supabase.from('ai_coach_sessions').select('*').limit(500),
-                supabase.from('study_sessions').select('*').limit(500)
+                supabase.from('ai_coach_sessions').select('*').limit(500)
             ]);
 
-            // Debug: log each query result
-            const rpcResult = rpcSettled.status === 'fulfilled' ? rpcSettled.value : null;
-            const profilesResult = profilesSettled.status === 'fulfilled' ? profilesSettled.value : null;
-            const subsResult = subsSettled.status === 'fulfilled' ? subsSettled.value : null;
-            const speakingResult = speakingSettled.status === 'fulfilled' ? speakingSettled.value : null;
-            const coachResult = coachSpeakingSettled.status === 'fulfilled' ? coachSpeakingSettled.value : null;
-            const aiCoachResult = aiCoachSettled.status === 'fulfilled' ? aiCoachSettled.value : null;
-            const studyResult = studySessionsSettled.status === 'fulfilled' ? studySessionsSettled.value : null;
+            const rpcResult = rpcRes;
+            const profilesResult = profilesRes;
+            const subsResult = subsRes;
+            const speakingResult = speakingRes;
+            const coachResult = coachRes;
+            const aiCoachResult = aiCoachRes;
+            const studyResult = studyRes;
 
             console.log('[Admin] RPC get_admin_all_users:', rpcResult?.data?.length ?? 0, 'rows, error:', rpcResult?.error?.message || 'none');
             console.log('[Admin] profiles:', profilesResult?.data?.length ?? 0, 'rows, error:', profilesResult?.error?.message || 'none');

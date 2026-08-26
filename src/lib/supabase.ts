@@ -25,9 +25,10 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
     console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
-// High-performance concurrency queue to prevent HTTP/2 socket flooding and connection resets
+// Strict concurrency queue — Supabase Free Tier supports ~10 concurrent connections.
+// Keep MAX_CONCURRENT very low to prevent HTTP/2 socket flooding and ERR_CONNECTION_RESET storms.
 let activeRequests = 0;
-const MAX_CONCURRENT = 4;
+const MAX_CONCURRENT = 2;
 const requestQueue: Array<() => void> = [];
 
 const acquireSlot = async (): Promise<void> => {
@@ -45,26 +46,36 @@ const acquireSlot = async (): Promise<void> => {
 
 const releaseSlot = () => {
     activeRequests--;
+    // Stagger next request by 80ms to prevent burst flooding on Supabase Free Tier
     if (requestQueue.length > 0 && activeRequests < MAX_CONCURRENT) {
-        const next = requestQueue.shift();
-        if (next) next();
+        setTimeout(() => {
+            if (requestQueue.length > 0 && activeRequests < MAX_CONCURRENT) {
+                const next = requestQueue.shift();
+                if (next) next();
+            }
+        }, 80);
     }
 };
 
 // In-flight GET request deduplication map to prevent redundant concurrent fetches to the same endpoint
 const inFlightGetMap = new Map<string, Promise<Response>>();
 
-// Helper to retry fetch on transient connection resets / network drops with minimal latency and jitter
-const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxRetries = 2): Promise<Response> => {
+// Helper to retry fetch — reduced to 1 retry; connection resets are NOT retried (they indicate server overload)
+const fetchWithRetry = async (input: RequestInfo | URL, init?: RequestInit, maxRetries = 1): Promise<Response> => {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
             return await fetch(input, init);
         } catch (err: any) {
             // Aborted requests must never be retried
             if (err?.name === 'AbortError') throw err;
+            // Connection resets mean server overload — retrying makes it WORSE
+            const msg = String(err?.message || '');
+            if (msg.includes('ERR_CONNECTION_RESET') || msg.includes('ERR_HTTP2_PROTOCOL_ERROR') || msg.includes('ERR_CONNECTION_CLOSED')) {
+                throw err;
+            }
             const isLast = attempt === maxRetries;
             if (isLast) throw err;
-            const delay = 120 * Math.pow(2, attempt) + Math.floor(Math.random() * 50);
+            const delay = 300 * Math.pow(2, attempt) + Math.floor(Math.random() * 100);
             await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
