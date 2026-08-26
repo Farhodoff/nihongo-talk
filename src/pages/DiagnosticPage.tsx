@@ -154,18 +154,18 @@ export const DiagnosticPage: React.FC = () => {
                 <div className="space-y-6">
                     <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-4 shadow-md bg-gradient-to-br from-card via-card to-secondary/30">
                         <div className="flex items-center gap-2">
-                            <span className="text-2xl">{primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}</span>
+                            <span className="text-2xl">🇯🇵</span>
                             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-                                {primaryLanguage === 'ja' ? 'JLPT Adaptiv Diagnostika' : 'CEFR & IELTS Adaptive Placement'}
+                                JLPT Adaptiv Diagnostika
                             </span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black text-foreground">
-                            {isUz ? "Haqiqiy Bilim Darajangizni Aniqlang" : "Discover Your True Language Level"}
+                            {isUz ? "Haqiqiy Bilim Darajangizni Aniqlang" : "Discover Your True Japanese Level"}
                         </h1>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             {isUz 
                                 ? "Adaptiv dvigatel har bir javobingizga qarab savollar qiyinligini moslashtiradi va qisqa vaqt ichida aniq bilim darajangizni hisoblab beradi." 
-                                : "Our real-time adaptive engine adjusts question difficulty based on your answers to rapidly gauge your true CEFR / JLPT level."}
+                                : "Our real-time adaptive engine adjusts question difficulty based on your answers to rapidly gauge your true JLPT level."}
                         </p>
                     </div>
 
