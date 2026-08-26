@@ -24,7 +24,7 @@ export const PricingPage: React.FC = () => {
     const navigate = useNavigate();
     useSEO({
         title: "Barcha Imkoniyatlar Bepul — Nihon Talk",
-        description: "Nihon Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach, IELTS & JLPT darslari erkin ochiq.",
+        description: "Nihon Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach va JLPT darslari erkin ochiq.",
         canonical: "/pricing",
     });
 
@@ -51,7 +51,7 @@ export const PricingPage: React.FC = () => {
                         Barcha Funksiyalar To'liq Ochiq!
                     </h1>
                     <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-                        Nihon Talk platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, IELTS Examiner, AI Sensei va Fleshkartalar barcha o'quvchilar uchun bepul.
+                        Nihon Talk platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, AI Sensei, Anki fleshkartalari va Speaking Coach barcha o'quvchilar uchun bepul.
                     </p>
                 </div>
 
@@ -67,7 +67,7 @@ export const PricingPage: React.FC = () => {
                     <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-1">
                         <div className="flex items-center gap-2 text-xs font-bold text-foreground">
                             <BookOpen size={16} className="text-emerald-500" />
-                            <span>JLPT & IELTS Hub</span>
+                            <span>JLPT Hub</span>
                         </div>
                         <p className="text-[11px] text-muted-foreground">Barcha darajadagi to'liq darslar</p>
                     </div>

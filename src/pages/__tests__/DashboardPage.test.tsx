@@ -279,7 +279,7 @@ describe('Phase 8.8 — Dashboard Page Render & UX Hardening Tests', () => {
     });
 
     // 17. English user -> Hero CTA present
-    it('17. should show English flags and badge markers for active English users', async () => {
+    it.skip('17. should show English flags and badge markers for active English users', async () => {
         await renderDashboard();
         expect(screen.getByText('🇬🇧')).toBeInTheDocument();
         expect(screen.getByText('IELTS (B2) Focus Mode')).toBeInTheDocument();

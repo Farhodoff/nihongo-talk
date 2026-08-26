@@ -12,14 +12,13 @@ import { LearningProgressionService } from '../services/LearningProgressionServi
 import { RoadmapService } from '../services/RoadmapService';
 import { NextBestAction, DailyLearningPlan, ProgressionState, LevelPromotionCandidate } from '../types/learningPath';
 import { RoadmapSummary } from '../types/curriculum';
-import { isSuperAdmin } from '../utils/admin';
+
 
 const DashboardPage: React.FC = () => {
     const { tasks, loading, updateTaskStatus, subjects, sessions, flashcards, primaryLanguage, targetLevel, targetGoal, user } = useStudyData();
     const { language, t } = useLanguage();
-    const isSuper = isSuperAdmin(user?.email);
-    const isJaTrack = !isSuper || primaryLanguage === 'ja';
-    const cachedStateKey = `study_planner_cached_dashboard_${isJaTrack ? 'ja' : 'en'}`;
+        const isJaTrack = true; // Nihon Talk is strictly Japanese only
+    const cachedStateKey = `study_planner_cached_dashboard_ja`;
     const initialCached = useMemo(() => {
         return safeLocalStorage.getJSON<any>(cachedStateKey, null);
     }, [cachedStateKey]);
