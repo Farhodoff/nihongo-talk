@@ -1,5 +1,5 @@
 /**
- * Kaizen AI Universal SDK
+ * Nihon Talk Universal SDK
  * Lightweight, zero-dependency client for IELTS Evaluation, JLPT, Flashcards, and SM-2 Spaced Repetition.
  * Works in Node.js, Next.js, React, Vue, React Native, and vanilla JavaScript.
  */
@@ -61,7 +61,7 @@ export class KaizenAI {
     private apiKey?: string;
 
     constructor(config?: KaizenConfig) {
-        this.baseUrl = config?.baseUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://kaizen-ai.uz');
+        this.baseUrl = config?.baseUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://nihon-talk.vercel.app');
         this.apiKey = config?.apiKey;
     }
 

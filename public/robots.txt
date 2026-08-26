@@ -1,4 +1,4 @@
-# Kaizen AI Web Robots Configuration
+# Nihon Talk Web Robots Configuration
 User-agent: *
 Allow: /
 Allow: /pricing
@@ -14,5 +14,5 @@ Disallow: /admin
 Disallow: /study-room/
 
 # Host and Sitemap
-Host: https://kaizen-ai.vercel.app
-Sitemap: https://kaizen-ai.vercel.app/sitemap.xml
+Host: https://nihon-talk.vercel.app
+Sitemap: https://nihon-talk.vercel.app/sitemap.xml

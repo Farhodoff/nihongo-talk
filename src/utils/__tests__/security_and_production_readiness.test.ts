@@ -71,7 +71,7 @@ describe('PRODUCTION LAUNCH READINESS & SECURITY SUITE (15 Critical Scenarios)',
 
     // 6. Normal User -> Admin Endpoint RBAC
     it('6. Normal non-admin user cannot access admin actions or view admin dashboard', () => {
-        const normalUser = 'student@kaizen.ai';
+        const normalUser = 'student@nihon-talk.com';
         const adminUser = 'fsoyilov@gmail.com';
         expect(isAdminEmail(normalUser)).toBe(false);
         expect(isAdminEmail(adminUser)).toBe(true);

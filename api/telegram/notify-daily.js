@@ -103,7 +103,7 @@ export default async function handler(req, res) {
         taskSummary = '📌 <b>Bugungi kutilayotgan vazifalar:</b>\n' + tasks.map((t, i) => `${i + 1}. ⏳ ${escapeHTML(t.title)}`).join('\n');
       }
 
-      const messageText = `☀️ <b>Xayrli kun, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${taskSummary}${subAlert}\n\n🚀 Kunlik mashg'ulotlarni boshlash uchun platformaga kiring:\n👉 <a href="https://task-planner-tau.vercel.app/dashboard">Kaizen AI Dashboard</a>`;
+      const messageText = `☀️ <b>Xayrli kun, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${taskSummary}${subAlert}\n\n🚀 Kunlik mashg'ulotlarni boshlash uchun platformaga kiring:\n👉 <a href="https://nihon-talk.vercel.app/dashboard">Nihon Talk Dashboard</a>`;
 
       await sendTelegramMessage(u.chat_id, messageText);
       sentCount++;

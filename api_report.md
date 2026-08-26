@@ -1,6 +1,6 @@
 # 🚀 DeepSeek AI & Speaking Coach — To'liq Texnik Tahlil va Yechim Hisoboti (API Report)
 
-Ushbu hujjatda Kaizen AI platformasidagi **AI Speaking Coach** va **DeepSeek API** integratsiyasida yuzaga kelgan muammolar, ularning tub sabablari va amalga oshirilgan to'liq texnik yechimlar batafsil bayon etilgan.
+Ushbu hujjatda Nihon Talk platformasidagi **AI Speaking Coach** va **DeepSeek API** integratsiyasida yuzaga kelgan muammolar, ularning tub sabablari va amalga oshirilgan to'liq texnik yechimlar batafsil bayon etilgan.
 
 ---
 

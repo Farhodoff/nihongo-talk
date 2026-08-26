@@ -6544,7 +6544,7 @@ export const JLPT_GRAMMAR_DATA: JlptGrammarItem[] = [
         "examples": [
             {
                 "ja": "前回[ぜんかい]の反省[はんせい]を踏[ふ]まえて、改善[かいぜん]する。",
-                "romaji": "Zenkai no hansei wo fumaete, kaizen suru.",
+                "romaji": "Zenkai no hansei wo fumaete, nihon_talk suru.",
                 "uz": "O'tgan safargi xatolarni hisobga olib o'nglaymiz."
             }
         ]

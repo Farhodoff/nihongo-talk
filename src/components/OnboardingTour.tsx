@@ -12,7 +12,7 @@ interface TourStep {
 
 const TOUR_STEPS: TourStep[] = [
     {
-        title: "Kaizen AI-ga xush kelibsiz! 🎓",
+        title: "Nihon Talk-ga xush kelibsiz! 🎓",
         content: "Salom! Ushbu yo'riqnoma orqali siz loyihaning asosiy va premium imkoniyatlari bilan tezkor tanishib chiqasiz. Keling, boshlaymiz!",
         placement: "center",
         path: "/dashboard"

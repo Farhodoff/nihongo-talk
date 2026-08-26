@@ -72,7 +72,7 @@ export function telegramApiPlugin() {
                 if (pathname.startsWith('/api/')) {
                     res.setHeader('Access-Control-Allow-Origin', '*');
                     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-                    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Kaizen-Key');
+                    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Nihon Talk-Key');
                     if (req.method === 'OPTIONS') {
                         res.statusCode = 204;
                         res.end();

@@ -105,7 +105,7 @@ export class PushNotificationService {
      * Triggers a Test Notification for user verification
      */
     public static sendTestNotification(): boolean {
-        return this.sendNotification("Kaizen AI 🔔 Test Bildirishnomasi", {
+        return this.sendNotification("Nihon Talk 🔔 Test Bildirishnomasi", {
             body: "Tabriklaymiz! Mobil va brauzer bildirishnomalari muvaffaqiyatli ulindi. 🔥",
             tag: 'test-notification'
         });

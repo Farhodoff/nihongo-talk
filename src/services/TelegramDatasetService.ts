@@ -6,8 +6,8 @@
 
 import { supabase } from '../lib/supabase';
 
-const TELEGRAM_VAULT_TOKEN_KEY = 'kaizen_telegram_dataset_bot_token';
-const TELEGRAM_VAULT_CHAT_ID_KEY = 'kaizen_telegram_dataset_chat_id';
+const TELEGRAM_VAULT_TOKEN_KEY = 'nihon_talk_telegram_dataset_bot_token';
+const TELEGRAM_VAULT_CHAT_ID_KEY = 'nihon_talk_telegram_dataset_chat_id';
 
 export interface DailySpeechSummary {
     date: string;
@@ -73,7 +73,7 @@ export class TelegramDatasetService {
         // Fallback to local storage history if Supabase is offline
         if (allSessions.length === 0 && typeof window !== 'undefined') {
             try {
-                const localHistory = JSON.parse(localStorage.getItem('kaizen_scenario_history') || '[]');
+                const localHistory = JSON.parse(localStorage.getItem('nihon_talk_scenario_history') || '[]');
                 allSessions = localHistory.filter((s: any) => {
                     const d = s.created_at || s.timestamp || new Date().toISOString();
                     return d.startsWith(todayStr);
@@ -154,7 +154,7 @@ export class TelegramDatasetService {
         const summary = customSummary || await this.getDailySummary();
 
         // 1. Build Header & High-level Stats Message
-        let messageText = `📊 <b>KAIZEN AI — KUNLIK OVOZLI SUHBATLAR HISOBOTI (${summary.date})</b>\n`;
+        let messageText = `📊 <b>Nihon Talk — KUNLIK OVOZLI SUHBATLAR HISOBOTI (${summary.date})</b>\n`;
         messageText += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
         messageText += `🗣 <b>Jami suhbatlar:</b> ${summary.totalSessions} ta\n`;
         messageText += `⏱ <b>Umumiy suhbat vaqti:</b> ${summary.totalDurationMinutes} daqiqa\n`;
@@ -194,7 +194,7 @@ export class TelegramDatasetService {
             messageText += `<i>Bugun hali yangi suhbatlar yozilmadi.</i>\n`;
         }
 
-        messageText += `\n🤖 <i>Kaizen AI Speech Dataset Engine</i>`;
+        messageText += `\n🤖 <i>Nihon Talk Speech Dataset Engine</i>`;
 
         try {
             const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
@@ -272,15 +272,15 @@ export class TelegramDatasetService {
             const now = new Date();
             const currentHour = now.getHours();
             const todayStr = now.toISOString().split('T')[0];
-            const lastDispatched = localStorage.getItem('kaizen_telegram_last_dispatched_date');
+            const lastDispatched = localStorage.getItem('nihon_talk_telegram_last_dispatched_date');
 
             // Agar kechki soat 22:00 (yoki keyinroq) bo'lsa va bugun hali yuborilmagan bo'lsa
             if (currentHour >= 22 && lastDispatched !== todayStr) {
                 try {
                     const result = await TelegramDatasetService.sendDailyReportToTelegram();
                     if (result.success) {
-                        localStorage.setItem('kaizen_telegram_last_dispatched_date', todayStr);
-                        console.log('✅ Kaizen Daily 22:00 Telegram Telemetry Dispatched Successfully');
+                        localStorage.setItem('nihon_talk_telegram_last_dispatched_date', todayStr);
+                        console.log('✅ Nihon Talk Daily 22:00 Telegram Telemetry Dispatched Successfully');
                     }
                 } catch (e) {
                     console.warn('Auto 22:00 dispatch warning:', e);

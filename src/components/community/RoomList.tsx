@@ -27,14 +27,14 @@ const RoomList: React.FC = () => {
     const { language } = useLanguage();
     const [currentUserId, setCurrentUserId] = useState<string | null>(() => {
         try {
-            return localStorage.getItem('kaizen_guest_user_id') || null;
+            return localStorage.getItem('nihon_talk_guest_user_id') || null;
         } catch {
             return null;
         }
     });
     const [customRooms, setCustomRooms] = useState<StudyRoom[]>(() => {
         try {
-            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            const saved = localStorage.getItem('nihon_talk_local_custom_rooms');
             return saved ? JSON.parse(saved) : [];
         } catch {
             return [];
@@ -60,10 +60,10 @@ const RoomList: React.FC = () => {
         } catch (e) {
             console.warn('Auth check notice:', e);
         }
-        let localId = localStorage.getItem('kaizen_guest_user_id');
+        let localId = localStorage.getItem('nihon_talk_guest_user_id');
         if (!localId) {
             localId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
-            localStorage.setItem('kaizen_guest_user_id', localId);
+            localStorage.setItem('nihon_talk_guest_user_id', localId);
         }
         return localId;
     };
@@ -117,7 +117,7 @@ const RoomList: React.FC = () => {
         // Get local fallback custom rooms
         let localRooms: StudyRoom[] = [];
         try {
-            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            const saved = localStorage.getItem('nihon_talk_local_custom_rooms');
             if (saved) localRooms = JSON.parse(saved);
         } catch (e) {
             localRooms = [];
@@ -175,10 +175,10 @@ const RoomList: React.FC = () => {
 
         // Save to local storage cache for instant UI availability
         try {
-            const saved = localStorage.getItem('kaizen_local_custom_rooms');
+            const saved = localStorage.getItem('nihon_talk_local_custom_rooms');
             const localRooms: StudyRoom[] = saved ? JSON.parse(saved) : [];
             localRooms.unshift(newRoomObj);
-            localStorage.setItem('kaizen_local_custom_rooms', JSON.stringify(localRooms));
+            localStorage.setItem('nihon_talk_local_custom_rooms', JSON.stringify(localRooms));
         } catch (err) {
             console.warn('Local storage save notice:', err);
         }

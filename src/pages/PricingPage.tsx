@@ -23,8 +23,8 @@ export interface PlanOption {
 export const PricingPage: React.FC = () => {
     const navigate = useNavigate();
     useSEO({
-        title: "Barcha Imkoniyatlar Bepul — Kaizen AI",
-        description: "Kaizen AI barcha o'quvchilar uchun 100% bepul. Speaking Coach, IELTS & JLPT darslari erkin ochiq.",
+        title: "Barcha Imkoniyatlar Bepul — Nihon Talk",
+        description: "Nihon Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach, IELTS & JLPT darslari erkin ochiq.",
         canonical: "/pricing",
     });
 
@@ -51,7 +51,7 @@ export const PricingPage: React.FC = () => {
                         Barcha Funksiyalar To'liq Ochiq!
                     </h1>
                     <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-                        Kaizen AI platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, IELTS Examiner, AI Sensei va Fleshkartalar barcha o'quvchilar uchun bepul.
+                        Nihon Talk platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, IELTS Examiner, AI Sensei va Fleshkartalar barcha o'quvchilar uchun bepul.
                     </p>
                 </div>
 

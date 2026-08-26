@@ -196,7 +196,7 @@ export const QuickCommandPalette: React.FC<QuickCommandPaletteProps> = ({ isOpen
                                 <span>Tanlash: <kbd className="font-mono font-bold bg-muted px-1.5 py-0.5 rounded border border-border">↵ Enter</kbd></span>
                                 <span>Harakat: <kbd className="font-mono font-bold bg-muted px-1.5 py-0.5 rounded border border-border">↑ ↓</kbd></span>
                             </div>
-                            <span className="font-medium text-primary">Kaizen Quick Jump</span>
+                            <span className="font-medium text-primary">Nihon Talk Quick Jump</span>
                         </div>
                     </motion.div>
                 </div>

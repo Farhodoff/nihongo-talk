@@ -6,7 +6,7 @@ import { WeaknessEngine } from '../WeaknessEngine';
 import { PersonalLearningGoal } from '../../types/learningPlan';
 import { PRESET_DECKS } from '../../data/presetDecks';
 
-describe('Kaizen AI Closed Learning Loop Master Integration Tests', () => {
+describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
     const userA_id = 'guest';
     const userB_id = 'user-b-mock';
 

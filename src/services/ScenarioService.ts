@@ -2,8 +2,8 @@ import { ConversationScenario, ScenarioSessionResult } from '../components/speak
 import { DEFAULT_SCENARIOS } from '../data/defaultScenarios';
 import { supabase } from '../lib/supabase';
 
-const CUSTOM_SCENARIOS_KEY = 'kaizen_custom_scenarios';
-const SCENARIO_HISTORY_PREFIX = 'kaizen_scenario_history:';
+const CUSTOM_SCENARIOS_KEY = 'nihon_talk_custom_scenarios';
+const SCENARIO_HISTORY_PREFIX = 'nihon_talk_scenario_history:';
 let _cachedScenarios: ConversationScenario[] | null = null;
 
 const getHistoryKey = (userId?: string | null): string => {
@@ -33,7 +33,7 @@ export class ScenarioService {
         try {
             if (typeof window === 'undefined') return [];
             const key = getHistoryKey(userId);
-            const local = localStorage.getItem(key) || (userId ? localStorage.getItem('kaizen_scenario_history') : null);
+            const local = localStorage.getItem(key) || (userId ? localStorage.getItem('nihon_talk_scenario_history') : null);
             if (local) {
                 return JSON.parse(local);
             }
@@ -166,13 +166,13 @@ export class ScenarioService {
     // 4. Save Session Evaluation Result
     static async saveSessionResult(result: ScenarioSessionResult, explicitUserId?: string | null): Promise<void> {
         let userId = explicitUserId || null;
-        let userEmail = 'guest@kaizen.ai';
+        let userEmail = 'guest@nihon-talk.com';
 
         try {
             if (!userId) {
                 const { data: userData } = await supabase.auth.getUser();
                 userId = userData?.user?.id || null;
-                userEmail = userData?.user?.email || 'guest@kaizen.ai';
+                userEmail = userData?.user?.email || 'guest@nihon-talk.com';
             }
         } catch {
             // guest

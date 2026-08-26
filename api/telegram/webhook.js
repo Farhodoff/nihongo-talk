@@ -95,7 +95,7 @@ export default async function handler(req, res) {
           const credits = sub?.ai_credits ?? 5;
           const validUntil = sub?.valid_until ? new Date(sub.valid_until).toLocaleDateString('uz-UZ') : 'Cheksiz';
 
-          await sendTelegramMessage(chatId, `👑 <b>Sizning Kaizen AI Obunangiz:</b>\n\n💎 Tarif: <b>${tier}</b>\n⚡ AI Kreditlar: <b>${credits} ta</b>\n📅 Amal qilish muddati: <b>${validUntil}</b>\n\n🔗 Web sayt: <a href="https://task-planner-tau.vercel.app/pricing">Tariflar sahifasi</a>`);
+          await sendTelegramMessage(chatId, `👑 <b>Sizning Nihon Talk Obunangiz:</b>\n\n💎 Tarif: <b>${tier}</b>\n⚡ AI Kreditlar: <b>${credits} ta</b>\n📅 Amal qilish muddati: <b>${validUntil}</b>\n\n🔗 Web sayt: <a href="https://nihon-talk.vercel.app/pricing">Tariflar sahifasi</a>`);
         }
       } else {
         await answerCallbackQuery(cb.id);
@@ -132,7 +132,7 @@ export default async function handler(req, res) {
           .maybeSingle();
 
         if (codeErr || !linkRecord) {
-          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Kaizen AI saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://task-planner-tau.vercel.app/settings">Sozlamalar sahifasiga o'tish</a>`);
+          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Nihon Talk saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://nihon-talk.vercel.app/settings">Sozlamalar sahifasiga o'tish</a>`);
           return res.status(200).json({ ok: true });
         }
 
@@ -151,7 +151,7 @@ export default async function handler(req, res) {
         // Mark code as used
         await supabase.from('telegram_link_codes').update({ used: true }).eq('id', linkRecord.id);
 
-        await sendTelegramMessage(chatId, `🎉 <b>Tabriklaymiz, ${escapeHTML(firstName)}!</b>\n\nTelegram bot Kaizen AI hisobingizga muvaffaqiyatli ulandi! 🚀\n\nEndi siz:\n• Kunlik darslar va vazifalar eslatmalarini olasiz\n• Obuna muddati va AI kreditlaringizni kuzatib borasiz\n• Speaking va fleshkarta natijalaringizni bilib turasiz!`, defaultKeyboard);
+        await sendTelegramMessage(chatId, `🎉 <b>Tabriklaymiz, ${escapeHTML(firstName)}!</b>\n\nTelegram bot Nihon Talk hisobingizga muvaffaqiyatli ulandi! 🚀\n\nEndi siz:\n• Kunlik darslar va vazifalar eslatmalarini olasiz\n• Obuna muddati va AI kreditlaringizni kuzatib borasiz\n• Speaking va fleshkarta natijalaringizni bilib turasiz!`, defaultKeyboard);
         return res.status(200).json({ ok: true });
       }
 
@@ -165,7 +165,7 @@ export default async function handler(req, res) {
       if (existingUser) {
         await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum, ${escapeHTML(firstName)}!</b>\n\nHisobingiz platformaga ulangan.\n\nQuyidagi menyu orqali kerakli bo'limni tanlang:`, defaultKeyboard);
       } else {
-        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nKaizen AI Telegram botiga xush kelibsiz.\n\nBotni akkauntingizga ulash uchun saytning Sozlamalar bo'limidan kod oling:\n<a href="https://task-planner-tau.vercel.app/settings">Kaizen AI Sozlamalar</a>`);
+        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nNihon Talk Telegram botiga xush kelibsiz.\n\nBotni akkauntingizga ulash uchun saytning Sozlamalar bo'limidan kod oling:\n<a href="https://nihon-talk.vercel.app/settings">Nihon Talk Sozlamalar</a>`);
       }
       return res.status(200).json({ ok: true });
     }
@@ -193,7 +193,7 @@ export default async function handler(req, res) {
       const credits = sub?.ai_credits ?? 5;
       const validUntil = sub?.valid_until ? new Date(sub.valid_until).toLocaleDateString('uz-UZ') : (tier === 'FREE' ? 'Cheklanmagan sinov' : 'Cheksiz');
 
-      await sendTelegramMessage(chatId, `👑 <b>Sizning Kaizen AI Obunangiz:</b>\n\n💎 Joriy Tarif: <b>${tier}</b>\n⚡ Qolgan AI Kreditlar: <b>${credits} ta</b>\n📅 Amal qilish muddati: <b>${validUntil}</b>\n\n🚀 Obunani oshirish yoki yangilash:\n<a href="https://task-planner-tau.vercel.app/pricing">Tariflar sahifasi</a>`);
+      await sendTelegramMessage(chatId, `👑 <b>Sizning Nihon Talk Obunangiz:</b>\n\n💎 Joriy Tarif: <b>${tier}</b>\n⚡ Qolgan AI Kreditlar: <b>${credits} ta</b>\n📅 Amal qilish muddati: <b>${validUntil}</b>\n\n🚀 Obunani oshirish yoki yangilash:\n<a href="https://nihon-talk.vercel.app/pricing">Tariflar sahifasi</a>`);
       return res.status(200).json({ ok: true });
     }
 
@@ -218,21 +218,21 @@ export default async function handler(req, res) {
         .limit(5);
 
       if (!tasks || tasks.length === 0) {
-        await sendTelegramMessage(chatId, `📅 <b>Bugungi rejangiz:</b>\n\nHozircha yangi vazifalar belgilanmagan. Platformaga kirib yangi maqsad qo'shishingiz mumkin:\n<a href="https://task-planner-tau.vercel.app/dashboard">Dashboardga o'tish</a>`);
+        await sendTelegramMessage(chatId, `📅 <b>Bugungi rejangiz:</b>\n\nHozircha yangi vazifalar belgilanmagan. Platformaga kirib yangi maqsad qo'shishingiz mumkin:\n<a href="https://nihon-talk.vercel.app/dashboard">Dashboardga o'tish</a>`);
       } else {
         const taskLines = tasks.map((t, idx) => {
           const statusIcon = t.completed ? '✅' : '⏳';
           return `${idx + 1}. ${statusIcon} <b>${escapeHTML(t.title)}</b>`;
         }).join('\n');
 
-        await sendTelegramMessage(chatId, `📋 <b>Sizning vazifalaringiz:</b>\n\n${taskLines}\n\n👉 <a href="https://task-planner-tau.vercel.app/tasks">Barcha vazifalarni boshqarish</a>`);
+        await sendTelegramMessage(chatId, `📋 <b>Sizning vazifalaringiz:</b>\n\n${taskLines}\n\n👉 <a href="https://nihon-talk.vercel.app/tasks">Barcha vazifalarni boshqarish</a>`);
       }
       return res.status(200).json({ ok: true });
     }
 
     // D. Handle /help or 'ℹ️ Yordam'
     if (text === '/help' || text.includes('Yordam')) {
-      await sendTelegramMessage(chatId, `ℹ️ <b>Kaizen AI Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/plan - Bugungi o'quv rejalari va vazifalar\n/subscription - Obuna tarifi va AI kreditlar holati\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://task-planner-tau.vercel.app">Kaizen AI Platformasi</a>`);
+      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/plan - Bugungi o'quv rejalari va vazifalar\n/subscription - Obuna tarifi va AI kreditlar holati\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://nihon-talk.vercel.app">Nihon Talk Platformasi</a>`);
       return res.status(200).json({ ok: true });
     }
 

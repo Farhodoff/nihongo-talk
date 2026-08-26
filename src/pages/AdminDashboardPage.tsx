@@ -299,7 +299,7 @@ const AdminDashboardPage: React.FC = () => {
                 if (u.id) {
                     userMap.set(u.id, {
                         id: u.id,
-                        email: u.email || 'student@kaizen.ai',
+                        email: u.email || 'student@nihon-talk.com',
                         full_name: u.full_name || '',
                         tier: (u.role === 'admin' || u.role === 'superadmin' || u.email === 'fsoyilov@gmail.com' ? 'premium' : (u.tier || 'free')) as any,
                         ai_credits: u.ai_credits ?? 99999,
@@ -315,7 +315,7 @@ const AdminDashboardPage: React.FC = () => {
                 if (uid && !userMap.has(uid)) {
                     userMap.set(uid, {
                         id: uid,
-                        email: p.email || (p.full_name ? `${p.full_name.toLowerCase().replace(/\s+/g, '')}@kaizen.ai` : 'student@kaizen.ai'),
+                        email: p.email || (p.full_name ? `${p.full_name.toLowerCase().replace(/\s+/g, '')}@nihon-talk.com` : 'student@nihon-talk.com'),
                         full_name: p.full_name || '',
                         tier: (p.role === 'admin' || p.role === 'superadmin' || p.email === 'fsoyilov@gmail.com' ? 'premium' : 'free') as any,
                         ai_credits: 99999,
@@ -337,7 +337,7 @@ const AdminDashboardPage: React.FC = () => {
                 } else {
                     userMap.set(uid, {
                         id: uid,
-                        email: sub.email || 'student@kaizen.ai',
+                        email: sub.email || 'student@nihon-talk.com',
                         full_name: '',
                         tier: sub.tier || 'free',
                         ai_credits: sub.ai_credits ?? 99999,
@@ -356,10 +356,10 @@ const AdminDashboardPage: React.FC = () => {
                 const uid = s.user_id;
                 if (uid && !userMap.has(uid)) {
                     const isCurrentUser = uid === currentUid;
-                    const email = isCurrentUser ? currentEmail : (s.user_email || `user-${uid.slice(0, 6)}@kaizen.ai`);
+                    const email = isCurrentUser ? currentEmail : (s.user_email || `user-${uid.slice(0, 6)}@nihon-talk.com`);
                     userMap.set(uid, {
                         id: uid,
-                        email: email || 'student@kaizen.ai',
+                        email: email || 'student@nihon-talk.com',
                         full_name: isCurrentUser ? currentName : '',
                         tier: (email === 'fsoyilov@gmail.com' || isCurrentUser ? 'premium' : 'free') as any,
                         ai_credits: 99999,
@@ -657,7 +657,7 @@ const AdminDashboardPage: React.FC = () => {
                     <h1 
                         onClick={handleSecretTitleClick} 
                         className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
-                        title="Kaizen Admin Console"
+                        title="Nihon Talk Admin Console"
                     >
                         Super Admin Paneli
                     </h1>
@@ -938,13 +938,13 @@ const AdminDashboardPage: React.FC = () => {
                         />
                     </div>
 
-                    {/* Kaizen AI Gateway Status */}
+                    {/* Nihon Talk Gateway Status */}
                     <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <Cpu size={16} className="text-primary" />
                                 <div>
-                                    <h2 className="font-bold text-sm text-foreground">Kaizen AI Gateway Status</h2>
+                                    <h2 className="font-bold text-sm text-foreground">Nihon Talk Gateway Status</h2>
                                     <p className="text-[11px] text-muted-foreground">Server-side markaziy DeepSeek arxitekturasi</p>
                                 </div>
                             </div>

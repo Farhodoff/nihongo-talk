@@ -51,7 +51,7 @@ const LiveAppShowcase: React.FC = () => {
                     <div className="w-3.5 h-3.5 rounded-full bg-amber-500/80" />
                     <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/80" />
                     <span className="ml-3 text-xs font-mono text-muted-foreground hidden sm:inline">
-                        app.kaizen-ai.uz/dashboard
+                        nihon-talk.vercel.app/dashboard
                     </span>
                 </div>
 
@@ -320,10 +320,10 @@ const LandingPage: React.FC = () => {
     const navigate = useNavigate();
 
     useSEO({
-        title: "Kaizen AI — Aqlli O'quv Platformasi | IELTS & JLPT",
+        title: "Nihon Talk — Aqlli O'quv Platformasi | IELTS & JLPT",
         description: "IELTS Band 7+ va JLPT N3 ga 60 kunda tayyorlaning. AI Speaking Examiner, Writing Evaluator, Anki SM-2 Fleshkartalar va shaxsiy o'quv rejalashtiruvchi.",
         canonical: "/",
-        keywords: "Kaizen AI, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer"
+        keywords: "Nihon Talk, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer"
     });
 
     const [isDark, setIsDark] = useState(() => {
@@ -609,7 +609,7 @@ const LandingPage: React.FC = () => {
                         O'qishingizda bugun yangi bosqichga chiqing!
                     </h2>
                     <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto leading-relaxed relative z-10">
-                        Bir necha daqiqa ichida o'z yo'nalishingizni belgilang va Kaizen falsafasi bilan har kuni 1% yaxshiroq bo'ling.
+                        Bir necha daqiqa ichida o'z yo'nalishingizni belgilang va Nihon Talk falsafasi bilan har kuni 1% yaxshiroq bo'ling.
                     </p>
 
                     <div className="pt-4 relative z-10">
@@ -629,7 +629,7 @@ const LandingPage: React.FC = () => {
                 <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
                     <AppLogo size="sm" />
                     <p className="text-xs text-muted-foreground">
-                        © {new Date().getFullYear()} Kaizen AI Study Planner. Barcha huquqlar himoyalangan.
+                        © {new Date().getFullYear()} Nihon Talk Study Planner. Barcha huquqlar himoyalangan.
                     </p>
                     <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground">
                         <button onClick={() => navigate('/auth')} className="hover:text-primary transition-colors">

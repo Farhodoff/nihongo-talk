@@ -38,7 +38,7 @@ const SEED_REAL_USERS: LeaderboardEntry[] = [
     { id: '8545b7e4-9b85-4a19-a001-45a6f0823844', display_name: 'Murodjon (JDU)', total_xp: 0, level: 1, level_title: 'Boshlang\'ich Talaba', streak_days: 0, user_email: '220194m@jdu.uz' },
 ];
 
-const LEADERBOARD_CACHE_KEY = 'kaizen_leaderboard_cache';
+const LEADERBOARD_CACHE_KEY = 'nihon_talk_leaderboard_cache';
 let inMemoryLeaderboardCache: LeaderboardEntry[] | null = null;
 
 export class LeaderboardService {

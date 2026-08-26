@@ -122,7 +122,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
             zip.file('metadata.jsonl', jsonlLines);
 
             // 2. Human-readable text archive
-            let humanReadableText = `KAIZEN AI SPEECH DATASET EXPORT (${summary.date})\n`;
+            let humanReadableText = `NIHON TALK SPEECH DATASET EXPORT (${summary.date})\n`;
             humanReadableText += `=======================================================\n`;
             humanReadableText += `Jami sessiyalar: ${summary.totalSessions}\n`;
             humanReadableText += `Jami daqiqa: ${summary.totalDurationMinutes} daqiqa\n`;

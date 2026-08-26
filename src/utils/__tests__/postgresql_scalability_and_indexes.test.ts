@@ -6,7 +6,7 @@ vi.mock('../../lib/supabase', () => ({
     supabase: {
         auth: {
             getUser: vi.fn().mockResolvedValue({
-                data: { user: { id: 'scale-user-uuid-789', email: 'scale@kaizen.ai' } },
+                data: { user: { id: 'scale-user-uuid-789', email: 'scale@nihon-talk.com' } },
                 error: null
             })
         },

@@ -9,10 +9,10 @@ interface SEOProps {
     ogType?: string;
 }
 
-const DEFAULT_TITLE = "Kaizen AI — Aqlli O'quv Platformasi | IELTS & JLPT";
+const DEFAULT_TITLE = "Nihon Talk — Aqlli O'quv Platformasi | IELTS & JLPT";
 const DEFAULT_DESC = "IELTS Band 7+ va JLPT N3 ga 60 kunda tayyorlaning. AI Speaking Examiner, Writing Evaluator, SM-2 Fleshkartalar va shaxsiy kunlik reja.";
-const DEFAULT_KEYWORDS = "Kaizen AI, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
-const BASE_URL = "https://kaizen-ai.vercel.app";
+const DEFAULT_KEYWORDS = "Nihon Talk, IELTS O'zbekiston, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, IELTS Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
+const BASE_URL = "https://nihon-talk.vercel.app";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
 export const useSEO = ({
@@ -25,7 +25,7 @@ export const useSEO = ({
 }: SEOProps = {}) => {
     useEffect(() => {
         // Update Title
-        const finalTitle = title ? `${title} | Kaizen AI` : DEFAULT_TITLE;
+        const finalTitle = title ? `${title} | Nihon Talk` : DEFAULT_TITLE;
         document.title = finalTitle;
 
         // Helper to update or create meta tag

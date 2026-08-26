@@ -8,16 +8,16 @@ describe('Admin Dashboard Real Data Aggregation & Recovery Unit Tests', () => {
 
     it('TEST 1: Aggregates total users across RPC, profiles, and user_subscriptions without losing rows', () => {
         const rpcUsers = [
-            { id: 'user-1', email: 'user1@kaizen.ai', full_name: 'User 1', role: 'user', tier: 'free', ai_credits: 3 },
-            { id: 'user-2', email: 'user2@kaizen.ai', full_name: 'User 2', role: 'user', tier: 'pro', ai_credits: 50 },
+            { id: 'user-1', email: 'user1@nihon-talk.com', full_name: 'User 1', role: 'user', tier: 'free', ai_credits: 3 },
+            { id: 'user-2', email: 'user2@nihon-talk.com', full_name: 'User 2', role: 'user', tier: 'pro', ai_credits: 50 },
         ];
         const dbProfiles = [
-            { id: 'user-1', email: 'user1@kaizen.ai', full_name: 'User 1', role: 'user' },
-            { id: 'user-3', email: 'user3@kaizen.ai', full_name: 'User 3', role: 'user' },
+            { id: 'user-1', email: 'user1@nihon-talk.com', full_name: 'User 1', role: 'user' },
+            { id: 'user-3', email: 'user3@nihon-talk.com', full_name: 'User 3', role: 'user' },
         ];
         const dbSubs = [
             { id: 'user-1', tier: 'free', ai_credits: 3 },
-            { id: 'user-4', email: 'user4@kaizen.ai', tier: 'premium', ai_credits: 99999 },
+            { id: 'user-4', email: 'user4@nihon-talk.com', tier: 'premium', ai_credits: 99999 },
         ];
 
         const userMap = new Map<string, any>();

@@ -159,7 +159,7 @@ serve(async (req: Request) => {
             let message = '';
             let replyMarkup: any = null;
 
-            const baseAppUrl = 'https://kaizen-study.uz'; // Default frontend URL
+            const baseAppUrl = 'https://nihon-talk.vercel.app'; // Default frontend URL
 
             // --- MORNING / MIDDAY NOTIFICATION (09:00 / 14:00) ---
             if (currentTime === '09:00' || currentTime === '14:00') {

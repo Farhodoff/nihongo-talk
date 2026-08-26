@@ -30,7 +30,7 @@ A full-stack, AI-powered **Japanese Language (JLPT N5 – N1 & 0-Level Beginners
 
 「Study Planner」は、日本語能力試験（**JLPT N5〜N1**）および初学者（0レベル）の日本語習得を支援するフルスタックAI学習プラットフォームです。
 
-- **AI会話コーチ (Kaizen Voice AI Coach):** 音声認識（STT）と音声合成（TTS）を活用し、自然な日本語会話・文法修正・発音フィードバックをリアルタイムで提供。
+- **AI会話コーチ (Nihon Talk Voice AI Coach):** 音声認識（STT）と音声合成（TTS）を活用し、自然な日本語会話・文法修正・発音フィードバックをリアルタイムで提供。
 - **漢字・文法マスター (Kanji & Grammar Hub):** 書き順キャンバス、ふりがな表示、聴解オーディオ、模擬試験（Mock Exam）を完全網羅。
 - **SM-2暗記カード (Anki Spaced Repetition):** JLPT各レベル対応の5,000語以上の語彙を瞬時にロードする高速バッチシステム。
 - **リアルタイム自習室 (Study Room):** WebRTCビデオ通話および共有ホワイトボード（`tldraw`）によるグループ学習。
@@ -46,7 +46,7 @@ A full-stack, AI-powered **Japanese Language (JLPT N5 – N1 & 0-Level Beginners
 - **Bunpo & Dokkai**: Har bir daraja bo'yicha tuzilgan grammatika qoidalari va o'qish mashqlari.
 - **Full JLPT Mock Exams**: N5, N4, N3, N2, N1 uchun rasmiy formatdagi vaqt bilan cheklangan imtihonlar.
 
-### 2. 🎙️ Kaizen AI Speaking & Voice Coach
+### 2. 🎙️ Nihon Talk Speaking & Voice Coach
 - **Haqiqiy Jonli Audio Suhbat**: Web Speech API va DeepSeek Reasoner orqali suhbat qurish.
 - **Yaponcha Personalar**:
   - 🌸 *Sabrli Sensei (Yasashii)* — tushunarsiz joylarni xushmuomalalik bilan tushuntiruvchi o'qituvchi.

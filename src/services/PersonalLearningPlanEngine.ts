@@ -158,7 +158,7 @@ export const PersonalLearningPlanEngine = {
                 reason: w.reason
             })) || [];
 
-            const systemPrompt = `You are Kaizen AI’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
+            const systemPrompt = `You are Nihon Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
 
 Your job is to create one realistic, personalized 7-day study plan using only the student data and valid learning routes provided below.
 

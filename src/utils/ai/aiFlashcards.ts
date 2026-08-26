@@ -2,7 +2,7 @@ import { aiCache, parseAIError } from './aiConfig';
 import { callSelectedAIProvider } from './aiCore';
 
 /**
- * Generates flashcards using Kaizen AI DeepSeek engine.
+ * Generates flashcards using Nihon Talk DeepSeek engine.
  * Supports batching for large counts to prevent output truncation and token waste.
  */
 export const generateFlashcardsWithAI = async (

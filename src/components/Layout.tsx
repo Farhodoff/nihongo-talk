@@ -150,7 +150,7 @@ const Layout: React.FC = () => {
         if (location.pathname === '/dashboard') return 'Dashboard';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
-        return 'Kaizen AI';
+        return 'Nihon Talk';
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (

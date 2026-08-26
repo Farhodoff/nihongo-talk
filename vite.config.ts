@@ -13,9 +13,9 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.svg'],
             manifest: {
-                name: 'Study Planner AI',
-                short_name: 'StudyPlanner',
-                description: 'Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
+                name: "Nihon Talk",
+                short_name: "Nihon Talk",
+                description: 'Nihon Talk — Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
                 theme_color: '#6366f1',
                 background_color: '#f8fafc',
                 display: 'standalone',
@@ -25,26 +25,26 @@ export default defineConfig({
                 categories: ['education', 'productivity'],
                 shortcuts: [
                     {
-                        name: 'Bugungi Reja',
-                        short_name: 'Reja',
+                        name: "Nihon Talk",
+                        short_name: "Nihon Talk",
                         url: '/dashboard',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: 'Fokus Mode',
-                        short_name: 'Fokus',
+                        name: "Nihon Talk",
+                        short_name: "Nihon Talk",
                         url: '/focus',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: 'Vazifa Qo\'shish',
-                        short_name: 'Vazifa',
+                        name: "Nihon Talk",
+                        short_name: "Nihon Talk",
                         url: '/tasks',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: 'Analitika',
-                        short_name: 'Statistika',
+                        name: "Nihon Talk",
+                        short_name: "Nihon Talk",
                         url: '/progress',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     }

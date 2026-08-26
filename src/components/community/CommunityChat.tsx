@@ -16,7 +16,7 @@ interface ChatMessage {
     } | null;
 }
 
-const CHAT_CACHE_KEY = 'kaizen_chat_messages_cache';
+const CHAT_CACHE_KEY = 'nihon_talk_chat_messages_cache';
 
 const CommunityChat: React.FC = () => {
     const { language } = useLanguage();

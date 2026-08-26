@@ -212,9 +212,9 @@ describe('Speaking Coach & Admin Analytics Real Data Forensic & Multi-User Tests
     // TEST 8: profiles DB'da 3 user bo'lsa → Admin aynan 3 user ko'radi
     it('TEST 8: Admin user list displays exactly 3 users when database has 3 profiles', async () => {
         const profilesDB = [
-            { id: 'u1', email: 'user1@kaizen.ai', full_name: 'User One', role: 'student', created_at: '2026-08-01T00:00:00Z' },
-            { id: 'u2', email: 'user2@kaizen.ai', full_name: 'User Two', role: 'student', created_at: '2026-08-02T00:00:00Z' },
-            { id: 'u3', email: 'user3@kaizen.ai', full_name: 'User Three', role: 'student', created_at: '2026-08-03T00:00:00Z' }
+            { id: 'u1', email: 'user1@nihon-talk.com', full_name: 'User One', role: 'student', created_at: '2026-08-01T00:00:00Z' },
+            { id: 'u2', email: 'user2@nihon-talk.com', full_name: 'User Two', role: 'student', created_at: '2026-08-02T00:00:00Z' },
+            { id: 'u3', email: 'user3@nihon-talk.com', full_name: 'User Three', role: 'student', created_at: '2026-08-03T00:00:00Z' }
         ];
 
         vi.spyOn(supabase, 'from').mockImplementation((table: string) => {
@@ -229,7 +229,7 @@ describe('Speaking Coach & Admin Analytics Real Data Forensic & Multi-User Tests
 
         const { data } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
         expect(data?.length).toBe(3);
-        expect(data?.map(u => u.email)).toEqual(['user1@kaizen.ai', 'user2@kaizen.ai', 'user3@kaizen.ai']);
+        expect(data?.map(u => u.email)).toEqual(['user1@nihon-talk.com', 'user2@nihon-talk.com', 'user3@nihon-talk.com']);
     });
 
     // TEST 9: profiles DB'da 0 user bo'lsa → 21 ta hardcoded user chiqmaydi

@@ -66,7 +66,7 @@ const GoogleCalendarSection: React.FC = () => {
             let icsContent = [
                 'BEGIN:VCALENDAR',
                 'VERSION:2.0',
-                'PRODID:-//Study Planner Kaizen AI//UZ',
+                'PRODID:-//Study Planner Nihon Talk//UZ',
                 'CALSCALE:GREGORIAN',
                 'METHOD:PUBLISH'
             ];

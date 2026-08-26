@@ -162,7 +162,7 @@ const TelegramSection: React.FC = () => {
         if (!linkedAccount) return;
         setActionLoading('srs_notif');
         try {
-            const text = `🧠 <b>Kaizen AI — SRS Fleshkartalar Eslatmasi!</b>\n\n` +
+            const text = `🧠 <b>Nihon Talk — SRS Fleshkartalar Eslatmasi!</b>\n\n` +
                 `Salom, ${linkedAccount.telegram_first_name || "O'quvchi"}! 👋\n` +
                 (dueCardsCount > 0 
                     ? `Sizda bugun takrorlash uchun <b>${dueCardsCount} ta fleshkarta</b> tayyor turibdi.\n5 daqiqa ajratib takrorlang va streak ballingizni oshiring! 🚀`

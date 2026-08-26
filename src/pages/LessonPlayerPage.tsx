@@ -31,7 +31,7 @@ export const LessonPlayerPage: React.FC = () => {
     const completionInFlightRef = useRef(false);
 
     useSEO({
-        title: lesson ? `${lesson.title} - Dars Mashg'uloti` : "O'quv Darsi - Kaizen AI",
+        title: lesson ? `${lesson.title} - Dars Mashg'uloti` : "O'quv Darsi - Nihon Talk",
         description: lesson ? lesson.description : "Interaktiv til o'rganish darsi.",
         canonical: `/lesson/${lessonId || ''}`
     });

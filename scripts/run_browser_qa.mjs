@@ -17,7 +17,7 @@ function assert(condition, description) {
 
 const mockUser = {
     id: "test-user-qa-focus-123",
-    email: "qa.focus@kaizen.ai",
+    email: "qa.focus@nihon-talk.com",
     user_metadata: { name: "QA Learning Focus Tester" },
     aud: "authenticated",
     role: "authenticated",

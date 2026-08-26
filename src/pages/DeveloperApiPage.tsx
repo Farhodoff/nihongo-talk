@@ -11,9 +11,9 @@ import { useSEO } from '../hooks/useSEO';
 const DeveloperApiPage: React.FC = () => {
     useSEO({
         title: "Developer Portal & REST API Documentation",
-        description: "Kaizen AI Developer API va TypeScript SDK. IELTS Essay Scoring, Flashcard AI Generator va Anki SM-2 SRS API integratsiyasi.",
+        description: "Nihon Talk Developer API va TypeScript SDK. IELTS Essay Scoring, Flashcard AI Generator va Anki SM-2 SRS API integratsiyasi.",
         canonical: "/developers",
-        keywords: "Kaizen AI API, IELTS API, Flashcard API, Anki SM-2 REST API, educational API SDK"
+        keywords: "Nihon Talk API, IELTS API, Flashcard API, Anki SM-2 REST API, educational API SDK"
     });
 
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const DeveloperApiPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiResponse, setApiResponse] = useState<any>(null);
 
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://kaizen-ai.uz';
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://nihon-talk.vercel.app';
 
     const handleCopy = (text: string, id: string) => {
         navigator.clipboard.writeText(text);
@@ -196,13 +196,13 @@ print("Keyingi takrorlash:", response.json())`;
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-2">
                             <Terminal size={14} />
-                            Kaizen AI Developer Suite & Public API
+                            Nihon Talk Developer Suite & Public API
                         </div>
                         <h1 className="text-3xl font-black tracking-tight text-foreground">
                             Dasturchilar Uchun Ochiq API & SDK
                         </h1>
                         <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                            Istalgan tashqi loyihangizdan (Telegram bot, Mobil ilova, React/Next.js, Python) Kaizen AI imkoniyatlarini chaqiring.
+                            Istalgan tashqi loyihangizdan (Telegram bot, Mobil ilova, React/Next.js, Python) Nihon Talk imkoniyatlarini chaqiring.
                         </p>
                     </div>
 
