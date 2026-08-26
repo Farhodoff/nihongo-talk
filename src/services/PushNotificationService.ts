@@ -205,7 +205,7 @@ export class PushNotificationService {
             if (idleTimeMinutes >= inactivityMinutes) {
                 const messages = [
                     "Hey! Dars qilmayapsan 📚 Focus taymerini yoqishni unutmang!",
-                    "Hoy o'quvchi! IELTS maqsadlaringiz sizni kutmoqda 🎯 Qani darsga!",
+                    "Hoy o'quvchi! Yapon tili maqsadlaringiz sizni kutmoqda 🎯 Qani darsga!",
                     "Vaqt o'tyapti! Bugungi rejadagi topshiriqlarni yakunlab qo'yaylik 🚀",
                     "Ozroq diqqatni jamlab, 25 daqiqalik Pomodoro seansini boshlaymizmi? ⏱️"
                 ];
