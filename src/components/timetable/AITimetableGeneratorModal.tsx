@@ -23,10 +23,10 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
     if (!isOpen) return null;
 
     const PRESET_GOALS = [
+        { label: "🎌 JLPT N5 Boshlang'ich", text: "JLPT N5 imtihoniga tayyorgarlik: Hiragana, Katakana va boshlang'ich lug'at", hours: 1, days: 7 },
+        { label: "🎌 JLPT N3 O'rta Reja", text: "JLPT N3 imtihoniga tayyorgarlik: Kanji, Dokkai va o'rta daraja grammatika", hours: 2, days: 14 },
         { label: "🎌 JLPT N2 Rejasi", text: "JLPT N2 imtihoniga tayyorgarlik: Kanji, Dokkai va Kaiwa mashqlari", hours: 3, days: 14 },
-        { label: "🎓 IELTS Band 7.5", text: "IELTS Speaking va Writing Band 7.5 tayyorgarlik rejasi", hours: 4, days: 14 },
-        { label: "💻 IT Mensetsu (Yaponcha)", text: "Yaponiyada IT rekruterlar bilan ishga kirish suhbatlariga tayyorgarlik", hours: 2, days: 7 },
-        { label: "📚 Kunlik Ingliz Tili", text: "C1 Advanced English: Lug'at va Speaking mashqlari", hours: 2, days: 7 }
+        { label: "🎌 JLPT N1 Intensiv", text: "JLPT N1 imtihoniga tayyorgarlik: Kengaytirilgan kanji, murakkab matnlar va listening", hours: 4, days: 14 }
     ];
 
     const handleGenerate = async () => {
@@ -125,7 +125,7 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
                                 <textarea
                                     value={goalDescription}
                                     onChange={(e) => setGoalDescription(e.target.value)}
-                                    placeholder="Masalan: 3 oydan keyin IELTS topshiraman, Reading va Speaking bo'yicha Band 7.5 kerak..."
+                                    placeholder="Masalan: 3 oydan keyin JLPT N3 topshiraman, Kanji va Grammatika bo'yicha intensiv tayyorgarlik kerak..."
                                     rows={3}
                                     className="w-full p-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm"
                                 />
