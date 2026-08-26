@@ -398,8 +398,8 @@ export const ExamTake: React.FC = () => {
                     <div>
                         {activeSection.type === 'Writing' && (
                             <WritingSection
-                                examType={exam.type.includes('JLPT') ? 'JLPT' : 'IELTS'}
-                                promptText={activeSection.content || "IELTS/JLPT Writing Task prompti..."}
+                                examType="JLPT"
+                                promptText={activeSection.content || "JLPT Writing Task prompti..."}
                                 promptId={activeSection.id}
                                 sessionId={id || ''}
                             />
@@ -407,8 +407,8 @@ export const ExamTake: React.FC = () => {
 
                         {activeSection.type === 'Speaking' && (
                             <SpeakingSection
-                                examType={exam.type.includes('JLPT') ? 'JLPT' : 'IELTS'}
-                                promptText={activeSection.content || "IELTS/JLPT Speaking Topic..."}
+                                examType="JLPT"
+                                promptText={activeSection.content || "JLPT Speaking Topic..."}
                                 promptId={activeSection.id}
                                 sessionId={id || ''}
                             />
