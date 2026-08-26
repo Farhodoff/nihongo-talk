@@ -30,10 +30,10 @@ import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
     en: [
-        { title: "O'zingni tanishtir", text: "Hello! Can you introduce yourself and tell me how you can help my English?", icon: "👋" },
-        { title: "Roast rejimini yoq", text: "I'm ready for your toughest roast. Test my English speaking right now!", icon: "🔥" },
-        { title: "IELTS Part 2 amaliyoti", text: "Let's do IELTS Speaking Part 2. Give me a cue card topic to talk about.", icon: "📝" },
-        { title: "Intervyu savol-javob", text: "Act as a tech recruiter and ask me top 3 interview questions.", icon: "💼" }
+        { title: "Introduce Yourself", text: "Hajimemashite. Let's practice self-introduction in Japanese. Can you ask me questions to prompt my self-intro?", icon: "👋" },
+        { title: "Roast My Japanese", text: "I want you to be a strict Japanese teacher. Correct every grammatical or pronunciation mistake I make in Japanese!", icon: "🔥" },
+        { title: "JLPT Speaking Mock", text: "Let's practice for JLPT speaking. Give me a daily conversation topic to talk about.", icon: "📝" },
+        { title: "IT Mock Interview", text: "Act as a Japanese IT recruiter and ask me 3 interview questions in Japanese.", icon: "💼" }
     ],
     ja: [
         { title: "自己紹介 (Jikoshoukai)", text: "はじめまして。自己紹介の練習をしたいです。", icon: "🙋" },
@@ -475,12 +475,12 @@ const SpeakingCoachPage: React.FC = () => {
             }
         } else {
             switch (p) {
-                case 'roast': return "Hey there! Strict Roast Coach here. Speak up and let's hear your English!";
-                case 'gentle': return "Hello! I'm your tutor. Feel free to start talking whenever you're ready!";
-                case 'ielts': return "Good day! Welcome to your IELTS Speaking test practice. Shall we begin?";
-                case 'interview': return "Hello! Welcome to your Tech Mock Interview. Tell me a bit about yourself when you're ready.";
-                case 'travel': return "Hello! Welcome to the airport information & concierge desk. How can I help your journey today?";
-                case 'casual': return "Hey friend! Great to see you. What's on your mind today?";
+                case 'roast': return "Hello! Strict Japanese Roast Coach here. Speak in Japanese and prepare for corrections!";
+                case 'gentle': return "Hello! I'm your Japanese language tutor. Feel free to start talking in Japanese whenever you're ready!";
+                case 'ielts': return "Good day! Let's practice Japanese JLPT Speaking. Shall we begin?";
+                case 'interview': return "Hello! Welcome to your Japanese IT Job Mock Interview. Let's start with a self-introduction in Japanese.";
+                case 'travel': return "Konnichiwa! Welcome to Narita Airport. Let's practice travel Japanese.";
+                case 'casual': return "Hey friend! Let's chat in casual Japanese. What's on your mind today?";
             }
         }
     };
