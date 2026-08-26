@@ -1,31 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import {
-    ArrowRight, BarChart3, CheckCircle2,
-    Clock, Copy, GraduationCap, Moon, Sparkles,
-    Sun, Users, Zap, Brain,
-    Rocket, Shield, Play, Volume2, Award
+    ArrowRight, CheckCircle2, Menu, Moon, Sun, X,
+    Target, Map, Brain, Mic
 } from 'lucide-react';
 import { AppLogo } from '../components/AppLogo';
 import { useSEO } from '../hooks/useSEO';
+import { useLanguage } from '../context/LanguageContext';
 
 /* ------------------------------------------------------------------ */
-/*  Animated section wrapper – fades in when scrolled into view        */
+/*  Animated section wrapper                                          */
 /* ------------------------------------------------------------------ */
-const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
-    children,
-    className = '',
-    delay = 0,
+const FadeIn: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
+    children, className = '', delay = 0,
 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: '-60px' });
-
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ duration: 0.5, delay, ease: 'easeOut' }}
             className={className}
         >
@@ -35,237 +31,176 @@ const AnimatedSection: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 /* ------------------------------------------------------------------ */
-/*  Interactive Live Mockup Component                                 */
+/*  Dashboard Preview Mockup                                          */
 /* ------------------------------------------------------------------ */
-const LiveAppShowcase: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<'jlpt' | 'focus' | 'flashcards'>('jlpt');
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [isPlayingSound, setIsPlayingSound] = useState(false);
+const DashboardPreview: React.FC<{ t: (k: string) => string }> = ({ t }) => (
+    <div className="relative w-full max-w-md mx-auto">
+        {/* Glow behind */}
+        <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-transparent to-cyan-500/10 rounded-3xl blur-2xl -z-10" />
 
-    return (
-        <div className="relative mx-auto max-w-5xl rounded-3xl border border-white/20 dark:border-white/10 bg-card/60 backdrop-blur-2xl shadow-2xl overflow-hidden p-4 sm:p-8">
-            {/* Top Mockup Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
-                <div className="flex items-center gap-2">
-                    <div className="w-3.5 h-3.5 rounded-full bg-rose-500/80" />
-                    <div className="w-3.5 h-3.5 rounded-full bg-amber-500/80" />
-                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/80" />
-                    <span className="ml-3 text-xs font-mono text-muted-foreground hidden sm:inline">
-                        nihon-talk.vercel.app/dashboard
-                    </span>
+        <div className="rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+            {/* Browser bar */}
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/50">
+                <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
                 </div>
-
-                {/* Tab Switchers */}
-                <div className="flex items-center gap-1.5 p-1 bg-muted/80 rounded-2xl border border-border">
-                    
-                    <button
-                        onClick={() => setActiveTab('focus')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            activeTab === 'focus'
-                                ? 'bg-orange-500 text-white shadow-xs'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        ⏱️ Fokus Pomodoro
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('flashcards')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                            activeTab === 'flashcards'
-                                ? 'bg-emerald-600 text-white shadow-xs'
-                                : 'text-muted-foreground hover:text-foreground'
-                        }`}
-                    >
-                        🎴 SRS Flashcards
-                    </button>
-                </div>
+                <span className="text-[10px] font-mono text-muted-foreground ml-2">nihon-talk.vercel.app/dashboard</span>
             </div>
 
-            {/* Tab Contents */}
-            <div className="pt-6 min-h-[380px] flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                    {activeTab === 'jlpt' && (
-                        <motion.div
-                            key="jlpt"
-                            initial={{ opacity: 0, scale: 0.96 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.96 }}
-                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
-                        >
-                            <div className="md:col-span-6 space-y-4">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs">
-                                    <Sparkles size={14} /> JLPT N3 Smart Flashcard
-                                </div>
-                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
-                                    Kanji, Furigana & Audio bir teginishda
-                                </h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Yapon tili lug'atini SM-2 takrorlash algoritmi bilan o'rganing. Furigana va Romaji avtomatik ko'rsatiladi.
-                                </p>
-                                <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground pt-2">
-                                    <span className="flex items-center gap-1.5 text-emerald-500">
-                                        <CheckCircle2 size={16} /> 2,500+ N5-N1 So'zlar
-                                    </span>
-                                    <span className="flex items-center gap-1.5 text-indigo-500">
-                                        <CheckCircle2 size={16} /> Ovozli Talaffuz
-                                    </span>
-                                </div>
-                            </div>
+            {/* Dashboard content */}
+            <div className="p-5 space-y-4">
+                {/* Header row */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <p className="text-xs text-muted-foreground">{t('landing.dashToday')}</p>
+                        <p className="text-sm font-bold text-foreground">{t('landing.dashRoadmap')}</p>
+                    </div>
+                    <div className="text-right">
+                        <p className="text-2xl font-black text-primary">68%</p>
+                    </div>
+                </div>
 
-                            {/* Interactive Card */}
-                            <div className="md:col-span-6 flex justify-center">
-                                <div 
-                                    onClick={() => setIsFlipped(!isFlipped)}
-                                    className="w-full max-w-sm h-64 cursor-pointer rounded-3xl bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-rose-500/10 border-2 border-indigo-500/30 p-6 flex flex-col justify-between shadow-xl hover:scale-102 transition-all relative overflow-hidden group"
-                                >
-                                    <div className="flex items-center justify-between text-xs font-bold text-muted-foreground">
-                                        <span className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-black">JLPT N3</span>
-                                        <button 
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setIsPlayingSound(true);
-                                                setTimeout(() => setIsPlayingSound(false), 1200);
-                                            }}
-                                            className="p-2 rounded-xl bg-muted/80 hover:bg-primary/20 text-primary transition-colors"
-                                        >
-                                            <Volume2 size={18} className={isPlayingSound ? "animate-ping" : ""} />
-                                        </button>
-                                    </div>
+                {/* Progress bar */}
+                <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                    <div className="h-full w-[68%] rounded-full bg-gradient-to-r from-primary to-cyan-400" />
+                </div>
 
-                                    <div className="text-center space-y-1">
-                                        <ruby className="text-4xl sm:text-5xl font-black text-foreground">
-                                            継続
-                                            <rt className="text-sm font-semibold text-primary">けいぞく</rt>
-                                        </ruby>
-                                        <div className="text-xs text-muted-foreground font-mono">[keizoku]</div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        {isFlipped ? (
-                                            <div className="animate-in fade-in zoom-in-95 duration-200">
-                                                <div className="text-base font-extrabold text-indigo-600 dark:text-indigo-400">
-                                                    Davomiylik, to'xtovsiz harakat
-                                                </div>
-                                                <div className="text-xs text-muted-foreground mt-1 italic">
-                                                    "継続は力なり" (Davomiylik — bu kuchdir)
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="text-xs font-bold text-primary flex items-center justify-center gap-1.5 group-hover:underline">
-                                                <span>Tarjimani ko'rish uchun bosing</span>
-                                                <ArrowRight size={14} />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {activeTab === 'focus' && (
-                        <motion.div
-                            key="focus"
-                            initial={{ opacity: 0, scale: 0.96 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.96 }}
-                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
-                        >
-                            <div className="md:col-span-6 space-y-4">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold text-xs">
-                                    <Clock size={14} /> Pomodoro & Lo-Fi Studio
-                                </div>
-                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
-                                    Chalg'imasdan dars qilish va Ovoz Mikseri
-                                </h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Yomg'ir, o'rmon, qahvaxona va Lo-Fi ohanglari bilan to'liq diqqatni jamlang. Har bir dars uchun XP va streak oling.
-                                </p>
-                            </div>
-
-                            <div className="md:col-span-6 flex justify-center">
-                                <div className="w-full max-w-sm p-6 rounded-3xl bg-gradient-to-br from-orange-500/10 via-card to-amber-500/10 border border-orange-500/30 shadow-2xl text-center space-y-4">
-                                    <span className="text-xs font-black uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                                        🔥 25 Daqiqa Fokus Sessiyasi
-                                    </span>
-                                    <div className="text-5xl sm:text-6xl font-black tracking-tight text-foreground font-mono">
-                                        24:59
-                                    </div>
-                                    <div className="flex items-center justify-center gap-2 text-xs font-bold text-muted-foreground">
-                                        <span>🎧 Yomg'ir ovozi faol</span>
-                                        <span>•</span>
-                                        <span>+50 XP mukofot</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {activeTab === 'flashcards' && (
-                        <motion.div
-                            key="flashcards"
-                            initial={{ opacity: 0, scale: 0.96 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.96 }}
-                            className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
-                        >
-                            <div className="md:col-span-6 space-y-4">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
-                                    <Brain size={14} /> Interval Takrorlash (SRS)
-                                </div>
-                                <h3 className="text-2xl sm:text-3xl font-black text-foreground">
-                                    Unutish egri chizig'ini yenguvchi xotira
-                                </h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                    SM-2 algoritmi so'zni aynan siz unutish arafasida bo'lganingizda qayta takrorlatadi. Natija — 3 barobar mustahkam xotira!
-                                </p>
-                            </div>
-
-                            <div className="md:col-span-6 p-6 rounded-3xl bg-card border border-border shadow-xl space-y-3">
-                                <div className="flex items-center justify-between text-xs font-bold">
-                                    <span className="text-foreground font-extrabold">Bugungi Takrorlash: 18 ta so'z</span>
-                                    <span className="text-emerald-500">98% Eslab qolish</span>
-                                </div>
-                                <div className="space-y-2">
-                                    {['Perseverance — Matonat', 'Kanji 成長 — Rivojlanish', 'Eloquent — Notiq, ravon'].map((w, idx) => (
-                                        <div key={idx} className="p-3 rounded-xl bg-muted/50 border border-border flex items-center justify-between text-xs font-semibold">
-                                            <span>{w}</span>
-                                            <span className="text-[10px] px-2 py-0.5 rounded-md bg-primary/10 text-primary font-bold">Ertaga</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {/* Stats grid */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashVocab')}</p>
+                        <p className="text-lg font-black text-foreground">15 <span className="text-xs font-normal text-muted-foreground">/ 15</span></p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashGrammar')}</p>
+                        <p className="text-lg font-black text-foreground">1 <span className="text-xs font-normal text-muted-foreground">/ 1</span></p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashSpeaking')}</p>
+                        <p className="text-lg font-black text-foreground">08:24</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashKanji')}</p>
+                        <ruby className="text-lg font-black text-foreground">
+                            継続<rt className="text-[8px] text-primary font-semibold">けいぞく</rt>
+                        </ruby>
+                    </div>
+                </div>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 /* ------------------------------------------------------------------ */
-/*  Main Landing Page Component                                       */
+/*  Speaking Coach Mockup                                             */
+/* ------------------------------------------------------------------ */
+const SpeakingMockup: React.FC<{ t: (k: string) => string }> = ({ t }) => (
+    <div className="w-full max-w-md mx-auto rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
+        {/* Chat messages */}
+        <div className="p-5 space-y-3">
+            {/* AI message */}
+            <div className="flex gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
+                <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
+                    今日はどうでしたか？
+                </div>
+            </div>
+            {/* User message */}
+            <div className="flex gap-2.5 justify-end">
+                <div className="px-3.5 py-2.5 rounded-2xl rounded-tr-sm bg-primary text-sm text-primary-foreground max-w-[85%]">
+                    今日は仕事が大変でした。でも、夜は日本語を勉強しました。
+                </div>
+            </div>
+            {/* AI feedback */}
+            <div className="flex gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
+                <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
+                    いいですね！もう少し自然に言うなら…
+                </div>
+            </div>
+        </div>
+
+        {/* Score bars */}
+        <div className="px-5 pb-5 grid grid-cols-2 gap-2.5">
+            {[
+                { label: t('landing.speakingFluency'), score: 82, color: 'bg-emerald-500' },
+                { label: t('landing.speakingGrammar'), score: 76, color: 'bg-blue-500' },
+                { label: t('landing.speakingVocabulary'), score: 84, color: 'bg-purple-500' },
+                { label: t('landing.speakingPronunciation'), score: 79, color: 'bg-amber-500' },
+            ].map(s => (
+                <div key={s.label} className="space-y-1">
+                    <div className="flex items-center justify-between text-[10px]">
+                        <span className="text-muted-foreground font-medium">{s.label}</span>
+                        <span className="font-bold text-foreground">{s.score}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                        <div className={`h-full rounded-full ${s.color}`} style={{ width: `${s.score}%` }} />
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+/* ------------------------------------------------------------------ */
+/*  Main Landing Page                                                 */
 /* ------------------------------------------------------------------ */
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
-
-    useSEO({
-        title: "Nihon Talk — Yapon tilini AI yordamida o'rganish",
-        description: "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Anki SM-2 Fleshkartalar va shaxsiy o'quv rejalashtiruvchi.",
-        canonical: "/",
-        keywords: "Nihon Talk, yapon tili, JLPT tayyorgarlik, JLPT N5-N1, Kanji, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam"
-    });
+    const { language, setLanguage, t } = useLanguage();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const [isDark, setIsDark] = useState(() => {
         if (typeof window !== 'undefined') {
             return document.documentElement.classList.contains('dark');
         }
-        return false;
+        return true;
     });
 
     const toggleTheme = () => {
         document.documentElement.classList.toggle('dark');
-        setIsDark(!isDark);
+        setIsDark(prev => !prev);
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('study_planner_theme', isDark ? 'light' : 'dark');
+        }
     };
+
+    const toggleLang = () => {
+        const next = language === 'uz' ? 'ja' : 'uz';
+        setLanguage(next);
+    };
+
+    // Set html lang attribute
+    useEffect(() => {
+        document.documentElement.lang = language === 'ja' ? 'ja' : 'uz';
+    }, [language]);
+
+    useSEO({
+        title: language === 'ja'
+            ? 'Nihon Talk — AIで日本語を学ぶ'
+            : "Nihon Talk — Yapon tilini AI yordamida o'rganish",
+        description: language === 'ja'
+            ? 'JLPT N5–N1レベル対応。AIスピーキングコーチ、SM-2フラッシュカード、パーソナル学習プラン。'
+            : "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, SM-2 Fleshkartalar va shaxsiy o'quv reja.",
+        canonical: '/',
+        keywords: language === 'ja'
+            ? 'Nihon Talk, 日本語学習, JLPT対策, JLPT N5-N1, 漢字, SM-2, フラッシュカード, AIスピーキングコーチ'
+            : "Nihon Talk, yapon tili, JLPT tayyorgarlik, JLPT N5-N1, Kanji, SM-2, fleshkartalar, AI Speaking Coach"
+    });
+
+    const isJa = language === 'ja';
+    const scrollTo = (id: string) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        setMobileMenuOpen(false);
+    };
+
+    const navLinks = [
+        { label: t('landing.navFeatures'), target: 'features' },
+        { label: t('landing.navRoadmap'), target: 'roadmap' },
+        { label: t('landing.navSpeaking'), target: 'speaking' },
+    ];
 
     return (
         <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary">
@@ -277,297 +212,371 @@ const LandingPage: React.FC = () => {
                 className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/60"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                    {/* Left: Logo */}
                     <AppLogo size="md" />
 
-                    <div className="flex items-center gap-3">
+                    {/* Center: Nav links (desktop) */}
+                    <div className="hidden md:flex items-center gap-1">
+                        {navLinks.map(link => (
+                            <button
+                                key={link.target}
+                                onClick={() => scrollTo(link.target)}
+                                className="px-3.5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/60"
+                            >
+                                {link.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Right: Controls */}
+                    <div className="flex items-center gap-2">
+                        {/* Language switch */}
+                        <button
+                            onClick={toggleLang}
+                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-border hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                            aria-label="Switch language"
+                        >
+                            {isJa ? '🇺🇿 UZ' : '🇯🇵 日本語'}
+                        </button>
+
+                        {/* Theme switch */}
                         <button
                             onClick={toggleTheme}
-                            className="p-2.5 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-                            aria-label="Rejim o'zgartirish"
+                            className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                            aria-label={isDark ? 'Light mode' : 'Dark mode'}
                         >
-                            {isDark ? <Sun size={19} /> : <Moon size={19} />}
+                            {isDark ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
 
+                        {/* Login (desktop) */}
                         <button
                             onClick={() => navigate('/auth')}
-                            className="px-4 py-2 text-sm font-bold text-foreground hover:text-primary transition-colors rounded-xl hover:bg-muted"
+                            className="hidden md:block px-3.5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/60"
                         >
-                            Kirish
+                            {t('landing.navLogin')}
                         </button>
 
+                        {/* CTA (desktop) */}
                         <button
                             onClick={() => navigate('/auth')}
-                            className="px-5 py-2.5 text-sm font-black text-white rounded-xl bg-gradient-to-r from-primary via-indigo-600 to-primary hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+                            className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 hover:scale-[1.03] active:scale-95"
                         >
-                            <span>Boshlash</span>
-                            <ArrowRight size={16} />
+                            <span>{t('landing.navCta')}</span>
+                            <ArrowRight size={15} />
+                        </button>
+
+                        {/* Mobile menu toggle */}
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
+                            aria-label="Menu"
+                        >
+                            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
                     </div>
                 </div>
+
+                {/* Mobile menu */}
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl"
+                    >
+                        <div className="px-4 py-4 space-y-2">
+                            {navLinks.map(link => (
+                                <button
+                                    key={link.target}
+                                    onClick={() => scrollTo(link.target)}
+                                    className="block w-full text-left px-3 py-2.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
+                                >
+                                    {link.label}
+                                </button>
+                            ))}
+                            <hr className="border-border" />
+                            <button
+                                onClick={() => { navigate('/auth'); setMobileMenuOpen(false); }}
+                                className="block w-full text-left px-3 py-2.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
+                            >
+                                {t('landing.navLogin')}
+                            </button>
+                            <button
+                                onClick={() => { navigate('/auth'); setMobileMenuOpen(false); }}
+                                className="w-full px-4 py-3 text-sm font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 flex items-center justify-center gap-2"
+                            >
+                                {t('landing.navCta')} <ArrowRight size={15} />
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
             </motion.nav>
 
-            {/* ======== HERO SECTION ======== */}
-            <section className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden pt-12 pb-20 px-4 sm:px-6 lg:px-8">
-                {/* Background Glows */}
-                <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
-                <div className="absolute top-1/3 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -z-10 animate-pulse" />
-                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-indigo-500/15 rounded-full blur-3xl -z-10" />
+            {/* ======== HERO ======== */}
+            <section className="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 px-4 sm:px-6 lg:px-8">
+                {/* Background accents */}
+                <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/15 rounded-full blur-3xl -z-10" />
+                <div className="absolute top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -z-10" />
 
-                <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-                    {/* Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs sm:text-sm font-bold"
-                    >
-                        <Sparkles size={16} className="animate-spin text-primary" />
-                        <span>🚀 60 Soniyada Shaxsiy O'quv Rejangizni Yarating</span>
-                    </motion.div>
-
-                    {/* Headline */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 25 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
-                    >
-                        Yapon tilini <br />
-                        <span className="bg-gradient-to-r from-primary via-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                            AI ustoz bilan aqlli va tizimli
-                        </span>{' '}
-                        o'rganing
-                    </motion.h1>
-
-                    {/* Subtitle */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 25 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-                    >
-                        <strong>JLPT N5-N1</strong>, Vocabulary, Kanji, Grammar, Reading, Listening, Speaking, SRS Fleshkartalar, AI Speaking Coach va Lo-Fi Fokus taymer — barchasi bitta ixcham platformada.
-                    </motion.p>
-
-                    {/* CTAs */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 25 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-                    >
-                        <button
-                            onClick={() => navigate('/auth')}
-                            className="w-full sm:w-auto px-8 py-4 text-base font-black text-white rounded-2xl bg-gradient-to-r from-primary via-indigo-600 to-purple-600 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2.5"
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    {/* Left column */}
+                    <div className="space-y-6 lg:space-y-8">
+                        {/* Eyebrow */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4 }}
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold"
                         >
-                            <Zap size={20} />
-                            <span>60 Soniyada Bepul Boshlash</span>
-                            <ArrowRight size={18} />
-                        </button>
+                            {t('landing.eyebrow')}
+                        </motion.div>
 
-                        <button
-                            onClick={() => {
-                                document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                            className="w-full sm:w-auto px-8 py-4 text-base font-bold text-foreground rounded-2xl border border-border bg-card/80 hover:bg-muted transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                        {/* Headline */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className={`text-[42px] sm:text-[52px] lg:text-[64px] xl:text-[72px] font-black tracking-tight ${isJa ? 'leading-[1.2]' : 'leading-[1.08]'}`}
                         >
-                            <Play size={18} className="text-primary fill-primary" />
-                            <span>Imkoniyatlarni Ko'rish</span>
-                        </button>
-                    </motion.div>
+                            {isJa ? (
+                                <>
+                                    日本語を、もっと
+                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">賢く</span>
+                                    、もっと
+                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">体系的</span>
+                                    に学ぼう。
+                                </>
+                            ) : (
+                                <>
+                                    Yapon tilini{' '}
+                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
+                                        aqlli va tizimli
+                                    </span>{' '}
+                                    o'rganing.
+                                </>
+                            )}
+                        </motion.h1>
 
-                    {/* Social Proof Badges */}
+                        {/* Description */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className={`text-base sm:text-lg text-muted-foreground max-w-lg ${isJa ? 'leading-relaxed' : 'leading-relaxed'}`}
+                        >
+                            {t('landing.description')}
+                        </motion.p>
+
+                        {/* CTAs */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="flex flex-col sm:flex-row gap-3 pt-2"
+                        >
+                            <button
+                                onClick={() => navigate('/auth')}
+                                className="px-7 py-3.5 text-base font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-xl hover:shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-2"
+                            >
+                                {t('landing.ctaPrimary')} <ArrowRight size={18} />
+                            </button>
+                            <button
+                                onClick={() => scrollTo('features')}
+                                className="px-7 py-3.5 text-base font-semibold text-foreground rounded-xl border border-border bg-card hover:bg-muted transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                            >
+                                {t('landing.ctaSecondary')}
+                            </button>
+                        </motion.div>
+
+                        {/* Trust row */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.45 }}
+                            className="flex flex-wrap gap-3 pt-2"
+                        >
+                            {[t('landing.trustJlpt'), t('landing.trustSrs'), t('landing.trustSpeaking')].map(badge => (
+                                <span key={badge} className="px-3 py-1.5 text-xs font-semibold rounded-full bg-muted border border-border text-muted-foreground">
+                                    {badge}
+                                </span>
+                            ))}
+                        </motion.div>
+                    </div>
+
+                    {/* Right column: Dashboard preview */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.45 }}
-                        className="pt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground font-semibold"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="lg:pl-8"
                     >
-                        <div className="flex items-center gap-1.5">
-                            <span className="text-amber-500 font-black">★★★★★</span>
-                            <span>JLPT Hub & Analytics</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <Shield size={15} className="text-emerald-500" />
-                            <span>Bepul Boshlash</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <Award size={15} className="text-indigo-500" />
-                            <span>JLPT N5-N1 Formatida</span>
-                        </div>
+                        <DashboardPreview t={t} />
                     </motion.div>
-                </div>
-
-                {/* Live Showcase */}
-                <div id="demo" className="w-full mt-16">
-                    <LiveAppShowcase />
                 </div>
             </section>
 
-            {/* ======== 3-STEP EASY ONBOARDING SECTION ======== */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 border-y border-border/60 bg-muted/20">
+            {/* ======== FEATURES ======== */}
+            <section id="features" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-t border-border/60">
                 <div className="max-w-6xl mx-auto">
-                    <AnimatedSection className="text-center mb-16 space-y-3">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold">
-                            <Rocket size={16} /> Tez & Sodda
-                        </div>
-                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
-                            Qanday qilib 60 soniyada boshlaysiz?
+                    <FadeIn className="text-center mb-14 space-y-3">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground">
+                            {t('landing.featuresTitle')}
                         </h2>
-                        <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-                            Murakkab sozlamalarsiz, 3 ta oddiy savol orqali shaxsiy o'quv yo'lingizni tanlang:
-                        </p>
-                    </AnimatedSection>
+                    </FadeIn>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {[
-                            {
-                                step: '01',
-                                icon: '🎌',
-                                title: "Til & Yo'nalishni Tanlang",
-                                desc: "JLPT N5-N1 darajangizni va o'quv maqsadlaringizni belgilang."
-                            },
-                            {
-                                step: '02',
-                                icon: '🎯',
-                                title: 'Darajangizni Belgilang',
-                                desc: "Boshlang'ich (N5/5.5) dan tortib, Master (N1/8.0+) gacha bo'lgan maqsadni tanlang."
-                            },
-                            {
-                                step: '03',
-                                icon: '🚀',
-                                title: 'Kunlik Rejani Boshlang',
-                                desc: "Tizim darhol sizga mos dars to'plamini kutubxonangizga yuklaydi va dars boshlanadi."
-                            }
-                        ].map((s, idx) => (
-                            <AnimatedSection key={s.step} delay={idx * 0.15}>
-                                <div className="p-8 rounded-3xl bg-card border border-border/80 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 space-y-4">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-4xl p-3 rounded-2xl bg-muted/60">{s.icon}</span>
-                                        <span className="text-3xl font-black text-muted-foreground/30 font-mono">{s.step}</span>
+                            { icon: Target, title: t('landing.featureDiagTitle'), desc: t('landing.featureDiagDesc'), accent: 'text-rose-500 bg-rose-500/10' },
+                            { icon: Map, title: t('landing.featurePlanTitle'), desc: t('landing.featurePlanDesc'), accent: 'text-blue-500 bg-blue-500/10' },
+                            { icon: Brain, title: t('landing.featureSrsTitle'), desc: t('landing.featureSrsDesc'), accent: 'text-purple-500 bg-purple-500/10' },
+                            { icon: Mic, title: t('landing.featureSpeakingTitle'), desc: t('landing.featureSpeakingDesc'), accent: 'text-emerald-500 bg-emerald-500/10' },
+                        ].map((card, idx) => (
+                            <FadeIn key={card.title} delay={idx * 0.1}>
+                                <div className="h-full p-6 rounded-2xl bg-card border border-border hover:border-primary/30 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 space-y-3">
+                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${card.accent}`}>
+                                        <card.icon size={20} />
                                     </div>
-                                    <h3 className="text-lg font-black text-foreground">{s.title}</h3>
-                                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                                    <h3 className="text-base font-bold text-foreground">{card.title}</h3>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
                                 </div>
-                            </AnimatedSection>
+                            </FadeIn>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ======== CORE MODULES BENTO GRID ======== */}
-            <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <AnimatedSection className="text-center mb-16 space-y-3">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
-                        <Brain size={16} /> Barcha Qurollar
-                    </div>
-                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
-                        Barcha Zaruriy Qurollar Bitta Joyda
-                    </h2>
-                </AnimatedSection>
+            {/* ======== 4-STEP FLOW ======== */}
+            <section className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-y border-border/60">
+                <div className="max-w-6xl mx-auto">
+                    <FadeIn className="text-center mb-14 space-y-3">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground">
+                            {t('landing.stepsTitle')}
+                        </h2>
+                    </FadeIn>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[
-                        {
-                            icon: Sparkles,
-                            title: 'JLPT N5-N1 Hub 🎌',
-                            desc: 'Kanji, Grammatika testlari, Listening Mock va Furigana o\'qish qurollari.',
-                            badge: 'Mashhur',
-                            color: 'from-rose-500 to-pink-600'
-                        },
-                        {
-                            icon: GraduationCap,
-                            title: 'JLPT Mock Exam 📝',
-                            desc: 'Haqiqiy JLPT formatida Reading va Listening imtihonlarini topshiring va natijalaringizni tahlil qiling.',
-                            badge: 'AI Powered',
-                            color: 'from-blue-500 to-indigo-600'
-                        },
-                        {
-                            icon: Copy,
-                            title: 'Spaced Repetition Fleshkartalar 🎴',
-                            desc: 'SM-2 algoritmi asosida tuzilgan aqlli kartochkalar va tayyor albomlar.',
-                            badge: 'Samarali',
-                            color: 'from-purple-500 to-indigo-600'
-                        },
-                        {
-                            icon: Clock,
-                            title: 'Fokus Taymer & Pomodoro ⏱️',
-                            desc: 'Lo-Fi sokin musiqa mikseri va chalg\'imasdan ishlash taymeri.',
-                            badge: 'Lo-Fi Audio',
-                            color: 'from-orange-500 to-amber-600'
-                        },
-                        {
-                            icon: Users,
-                            title: 'Hamjamiyat & Study Room 👥',
-                            desc: 'Jonli ovozli/video xonalar, ekran ulashish va do\'stlar bilan o\'qish.',
-                            badge: 'Jonli',
-                            color: 'from-emerald-500 to-teal-600'
-                        },
-                        {
-                            icon: BarChart3,
-                            title: 'Statistika & O\'quv Tahlili 📊',
-                            desc: 'Kunlik progress, streak grafigi, XP reytingi va qobiliyat xaritasi.',
-                            badge: 'Gamifikatsiya',
-                            color: 'from-cyan-500 to-blue-600'
-                        },
-                    ].map((card, idx) => (
-                        <AnimatedSection key={card.title} delay={idx * 0.1}>
-                            <div className="h-full p-6 rounded-3xl bg-card border border-border/80 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${card.color} text-white flex items-center justify-center shadow-md`}>
-                                        <card.icon size={24} />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {[
+                            { num: '01', icon: '🎯', title: t('landing.step1Title'), desc: t('landing.step1Desc') },
+                            { num: '02', icon: '📊', title: t('landing.step2Title'), desc: t('landing.step2Desc') },
+                            { num: '03', icon: '📋', title: t('landing.step3Title'), desc: t('landing.step3Desc') },
+                            { num: '04', icon: '🎌', title: t('landing.step4Title'), desc: t('landing.step4Desc') },
+                        ].map((step, idx) => (
+                            <FadeIn key={step.num} delay={idx * 0.1}>
+                                <div className="h-full p-6 rounded-2xl bg-card border border-border shadow-sm space-y-4 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-2xl">{step.icon}</span>
+                                        <span className="text-2xl font-black text-muted-foreground/20 font-mono">{step.num}</span>
                                     </div>
-                                    <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-md bg-muted text-foreground border border-border">
-                                        {card.badge}
-                                    </span>
+                                    <h3 className="text-base font-bold text-foreground">{step.title}</h3>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                                 </div>
-                                <h3 className="text-base font-extrabold text-foreground">{card.title}</h3>
-                                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-                            </div>
-                        </AnimatedSection>
-                    ))}
+                            </FadeIn>
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* ======== FINAL CTA SECTION ======== */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-                <AnimatedSection className="p-10 sm:p-16 rounded-3xl bg-gradient-to-br from-primary via-indigo-600 to-purple-600 text-white shadow-2xl space-y-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,white_0%,transparent_60%)] opacity-15" />
+            {/* ======== JLPT ROADMAP ======== */}
+            <section id="roadmap" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto">
+                    <FadeIn className="text-center mb-14 space-y-3">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground">
+                            {t('landing.roadmapTitle')}
+                        </h2>
+                    </FadeIn>
 
-                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight relative z-10">
-                        O'qishingizda bugun yangi bosqichga chiqing!
-                    </h2>
-                    <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto leading-relaxed relative z-10">
-                        Bir necha daqiqa ichida o'z yo'nalishingizni belgilang va Nihon Talk falsafasi bilan har kuni 1% yaxshiroq bo'ling.
-                    </p>
+                    <FadeIn delay={0.15}>
+                        <div className="flex items-center justify-between gap-0 overflow-x-auto pb-2">
+                            {['N5', 'N4', 'N3', 'N2', 'N1'].map((level, idx) => {
+                                const isCompleted = idx === 0;
+                                const isActive = idx === 1;
 
-                    <div className="pt-4 relative z-10">
-                        <button
-                            onClick={() => navigate('/auth')}
-                            className="px-10 py-4 rounded-2xl bg-white text-indigo-700 font-black text-base shadow-xl hover:bg-white/95 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2"
-                        >
-                            <span>🚀 Hoziroq Bepul Boshlash</span>
-                            <ArrowRight size={18} />
-                        </button>
-                    </div>
-                </AnimatedSection>
+                                return (
+                                    <React.Fragment key={level}>
+                                        <div className="flex flex-col items-center gap-2 shrink-0">
+                                            <div
+                                                className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-base sm:text-lg font-black border-2 transition-all ${
+                                                    isActive
+                                                        ? 'bg-[#E85D68] border-[#E85D68] text-white shadow-lg shadow-[#E85D68]/25'
+                                                        : isCompleted
+                                                        ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
+                                                        : 'bg-muted border-border text-muted-foreground'
+                                                }`}
+                                            >
+                                                {level}
+                                            </div>
+                                            <span className={`text-[10px] font-bold ${
+                                                isActive ? 'text-[#E85D68]' : isCompleted ? 'text-emerald-500' : 'text-muted-foreground'
+                                            }`}>
+                                                {isCompleted ? '✓' : isActive ? (isJa ? '学習中' : 'Aktiv') : ''}
+                                            </span>
+                                        </div>
+                                        {idx < 4 && (
+                                            <div className={`flex-1 h-0.5 min-w-[24px] sm:min-w-[40px] mx-1 rounded-full ${
+                                                isCompleted ? 'bg-emerald-500/40' : 'bg-border'
+                                            }`} />
+                                        )}
+                                    </React.Fragment>
+                                );
+                            })}
+                        </div>
+                    </FadeIn>
+                </div>
+            </section>
+
+            {/* ======== SPEAKING COACH ======== */}
+            <section id="speaking" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-y border-border/60">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    {/* Left */}
+                    <FadeIn className="space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E85D68]/10 text-[#E85D68] text-xs font-bold">
+                            <Mic size={14} /> AI Speaking
+                        </div>
+                        <h2 className={`text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-foreground ${isJa ? 'leading-[1.3]' : 'leading-tight'}`}>
+                            {t('landing.speakingTitle')}
+                        </h2>
+                        <div className="space-y-3 pt-2">
+                            {[t('landing.speakingFluency'), t('landing.speakingGrammar'), t('landing.speakingVocabulary'), t('landing.speakingPronunciation')].map(item => (
+                                <div key={item} className="flex items-center gap-2.5 text-sm text-foreground">
+                                    <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+                                    <span className="font-medium">{item}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </FadeIn>
+
+                    {/* Right */}
+                    <FadeIn delay={0.15}>
+                        <SpeakingMockup t={t} />
+                    </FadeIn>
+                </div>
+            </section>
+
+            {/* ======== FINAL CTA ======== */}
+            <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl mx-auto text-center">
+                    <FadeIn className="space-y-6">
+                        <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground ${isJa ? 'leading-[1.3]' : 'leading-tight'}`}>
+                            {t('landing.finalCtaTitle')}
+                        </h2>
+                        <div className="pt-2">
+                            <button
+                                onClick={() => navigate('/auth')}
+                                className="px-8 py-4 text-base font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-xl hover:shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 inline-flex items-center gap-2"
+                            >
+                                {t('landing.finalCtaButton')} <ArrowRight size={18} />
+                            </button>
+                        </div>
+                    </FadeIn>
+                </div>
             </section>
 
             {/* ======== FOOTER ======== */}
-            <footer className="border-t border-border bg-card/50 py-10 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <footer className="border-t border-border py-8 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                     <AppLogo size="sm" />
-                    <p className="text-xs text-muted-foreground">
-                        © {new Date().getFullYear()} Nihon Talk Study Planner. Barcha huquqlar himoyalangan.
-                    </p>
-                    <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground">
-                        <button onClick={() => navigate('/auth')} className="hover:text-primary transition-colors">
-                            Kirish
-                        </button>
-                        <span>•</span>
-                        <button onClick={() => navigate('/auth')} className="hover:text-primary transition-colors">
-                            Ro'yxatdan o'tish
-                        </button>
+                    <div className="text-center sm:text-right">
+                        <p className="text-xs text-muted-foreground">{t('landing.footerCopy')}</p>
+                        <p className="text-xs text-muted-foreground/60 mt-0.5">{t('landing.footerSub')}</p>
                     </div>
                 </div>
             </footer>
