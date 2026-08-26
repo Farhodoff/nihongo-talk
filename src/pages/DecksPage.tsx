@@ -649,7 +649,7 @@ const DecksPage: React.FC = () => {
                                 <p className="text-muted-foreground max-w-sm mb-8">
                                     {subTab === 'archived' 
                                         ? "Siz hali hech qanday to'plamni arxivga o'tkazmagansiz."
-                                        : "O'zingiz fan qo'shing yoki Standart Kutubxonadan tayyor IELTS to'plamlarini saqlab oling."
+                                        : "O'zingiz fan qo'shing yoki Standart Kutubxonadan tayyor JLPT to'plamlarini saqlab oling."
                                     }
                                 </p>
                                 {subTab === 'active' && (

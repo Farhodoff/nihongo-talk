@@ -96,7 +96,7 @@ export const ScenarioPickerPage: React.FC = () => {
                                 ? (language === 'ja' 
                                     ? "レストラン、ショッピング、自己紹介、面接など、リアルな場面でAIと自由に会話練習をしましょう。" 
                                     : "Restoran, xarid qilish, tanishuv va ish intervyusi kabi real hayotiy ssenariylarda AI murabbiy bilan erkin muloqot qiling.")
-                                : "AQSH vizasi, IT ish intervyusi, aeroport va IELTS Speaking kabi real vaziyatlarda jonli ovozli muloqot qiling."}
+                                : "IT ish intervyusi, aeroport va turli xil real vaziyatlarda jonli ovozli muloqot qiling."}
                         </p>
                     </div>
 

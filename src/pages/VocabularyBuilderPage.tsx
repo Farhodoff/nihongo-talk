@@ -129,7 +129,7 @@ export const VocabularyBuilderPage: React.FC = () => {
         setErrorMsg(null);
         setIsAddedToFlashcards(false);
 
-        const prompt = `You are a professional linguist and dictionary expert for IELTS and JLPT students.
+        const prompt = `You are a professional linguist and dictionary expert for JLPT Japanese language students.
 Analyze the following word or phrase: "${searchTerm}".
 
 Return ONLY a raw valid JSON object (no markdown, no backticks) with this structure:
@@ -257,10 +257,8 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                         </h1>
                         <p className="text-xs text-muted-foreground">
                             {language === 'ja'
-                                ? 'JLPT・英語の単語をリアルタイムでAI分析。意味・例文・類語・コロケーションを瞬時に学習できます。'
-                                : (isSuper 
-                                    ? "IELTS C1/C2 va JLPT N5–N1 lug'at boyligingizni oshiring, sinonimlar va collocations o'rganing."
-                                    : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing.")}
+                                ? 'JLPTの単語をリアルタイムでAI分析。意味・例文・類語・漢字の読み方を瞬時に学習できます。'
+                                : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing."}
                         </p>
                     </div>
                 </div>
