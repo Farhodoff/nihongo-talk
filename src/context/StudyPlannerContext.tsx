@@ -402,7 +402,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     whiteboardsSettled,
                     eventsSettled,
                     profileSettled,
-                    coachSessionsSettled
+                    coachSessionsSettled,
+                    speakingSessionsSettled,
+                    aiCoachSessionsSettled
                 ] = await Promise.allSettled([
                     supabase.from('goals').select('*').eq('user_id', currentUser.id),
                     supabase.from('notes').select('*').eq('user_id', currentUser.id),
@@ -412,6 +414,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('events').select('*').eq('user_id', currentUser.id),
                     supabase.from('profiles').select('*').eq('id', currentUser.id).limit(1),
                     supabase.from('speaking_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
+                    supabase.from('speaking_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
+                    supabase.from('ai_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
 
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
@@ -423,6 +427,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const eventsRes = eventsSettled.status === 'fulfilled' ? eventsSettled.value : null;
                 const profileRes = profileSettled.status === 'fulfilled' ? profileSettled.value : null;
                 const coachSessionsRes = coachSessionsSettled.status === 'fulfilled' ? coachSessionsSettled.value : null;
+                const speakingSessionsRes = speakingSessionsSettled.status === 'fulfilled' ? speakingSessionsSettled.value : null;
+                const aiCoachSessionsRes = aiCoachSessionsSettled.status === 'fulfilled' ? aiCoachSessionsSettled.value : null;
 
                 // Subjects sync
                 let localCachedSubs: Subject[] = [];
@@ -572,19 +578,55 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 setEvents(mergedEvents);
                 safeLocalStorage.setJSON('study_planner_events_cache', mergedEvents);
 
-                // Coach Sessions sync
+                // Combined Coach & Speaking Sessions sync
+                const mergedCoachSessions: CoachSession[] = [];
                 if (coachSessionsRes?.data && Array.isArray(coachSessionsRes.data)) {
-                    setCoachSessions(coachSessionsRes.data.map((c: any) => ({
-                        id: c.id,
-                        personaTitle: c.persona || c.persona_title,
-                        fluencyScore: c.fluency_score,
-                        vocabularyScore: c.vocabulary_score || 0,
-                        grammarScore: c.grammar_score || 0,
-                        pronunciationScore: c.pronunciation_score,
-                        feedback: c.feedback,
-                        createdAt: c.created_at
-                    })));
+                    coachSessionsRes.data.forEach((c: any) => {
+                        mergedCoachSessions.push({
+                            id: c.id,
+                            personaTitle: c.persona || c.persona_title || 'Speaking Coach',
+                            fluencyScore: c.fluency_score || 0,
+                            vocabularyScore: c.vocabulary_score || 0,
+                            grammarScore: c.grammar_score || 0,
+                            pronunciationScore: c.pronunciation_score || 0,
+                            feedback: c.feedback || '',
+                            createdAt: c.created_at
+                        });
+                    });
                 }
+                if (speakingSessionsRes?.data && Array.isArray(speakingSessionsRes.data)) {
+                    speakingSessionsRes.data.forEach((c: any) => {
+                        if (!mergedCoachSessions.some(m => m.id === c.id)) {
+                            mergedCoachSessions.push({
+                                id: c.id,
+                                personaTitle: c.persona_title || c.topic || 'Speaking Muloqot',
+                                fluencyScore: c.fluency_score || 0,
+                                vocabularyScore: c.vocabulary_score || 0,
+                                grammarScore: c.grammar_score || 0,
+                                pronunciationScore: c.pronunciation_score || 0,
+                                feedback: c.feedback || c.ai_feedback || '',
+                                createdAt: c.created_at
+                            });
+                        }
+                    });
+                }
+                if (aiCoachSessionsRes?.data && Array.isArray(aiCoachSessionsRes.data)) {
+                    aiCoachSessionsRes.data.forEach((c: any) => {
+                        if (!mergedCoachSessions.some(m => m.id === c.id)) {
+                            mergedCoachSessions.push({
+                                id: c.id,
+                                personaTitle: c.persona_title || 'AI Coach',
+                                fluencyScore: c.fluency_score || 0,
+                                vocabularyScore: c.vocabulary_score || 0,
+                                grammarScore: c.grammar_score || 0,
+                                pronunciationScore: c.pronunciation_score || 0,
+                                feedback: c.feedback || '',
+                                createdAt: c.created_at
+                            });
+                        }
+                    });
+                }
+                setCoachSessions(mergedCoachSessions);
 
                 // Profile & Gamification sync
                 const rawProf = profileRes?.data;
@@ -592,9 +634,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 if (prof) {
                     setGamificationState(prev => ({
                         ...prev,
-                        totalXp: prof.total_xp || prev.totalXp,
-                        level: prof.level || prev.level,
-                        currentStreak: prof.current_streak || prev.currentStreak,
+                        totalXp: typeof prof.total_xp === 'number' ? prof.total_xp : prev.totalXp,
+                        level: typeof prof.level === 'number' ? prof.level : prev.level,
+                        currentStreak: typeof prof.current_streak === 'number' ? prof.current_streak : prev.currentStreak,
                         lastActivityDate: prof.last_activity_date || prev.lastActivityDate
                     }));
 
@@ -617,6 +659,18 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         setTargetGoal(prof.target_goal);
                         LearningTrackStorage.setTargetGoal(activeLang, prof.target_goal);
                     }
+                } else if (currentUser?.id) {
+                    // Initialize profiles row if not present
+                    const todayStr = new Date().toISOString().split('T')[0];
+                    supabase.from('profiles').upsert({
+                        id: currentUser.id,
+                        email: currentUser.email,
+                        total_xp: 0,
+                        level: 1,
+                        current_streak: 1,
+                        last_activity_date: todayStr,
+                        updated_at: new Date().toISOString()
+                    }).then(() => {});
                 }
             } catch (err) {
                 console.warn("[fetchData] Entity sync warning:", err);
