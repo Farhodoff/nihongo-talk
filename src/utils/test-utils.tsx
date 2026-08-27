@@ -92,7 +92,7 @@ export function renderWithProviders(
 
     function Wrapper({ children }: { children: React.ReactNode }) {
         return (
-            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <BrowserRouter>
                 <StudyPlannerProvider>{children}</StudyPlannerProvider>
             </BrowserRouter>
         );

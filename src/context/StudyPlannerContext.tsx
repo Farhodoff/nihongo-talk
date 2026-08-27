@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import type { User } from '@supabase/supabase-js';
 import type { Flashcard, Goal, Note, StudySession, Subject, Task, WhiteboardMetadata, StudyNote, Event, CoachSession } from '../types';
@@ -231,6 +231,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         syncGoogleEvents
     } = useEvents(appSettings.notificationsEnabled);
 
+    const fetchSeqRef = useRef<number>(0);
+
     const [loading, setLoading] = useState<boolean>(() => {
         // Only show loading on cold start if there is absolutely no cached user
         const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
@@ -243,7 +245,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     // Learning Focus State - Defaults to 100% Japanese ('ja') for all public users
     const [primaryLanguage, setPrimaryLanguage] = useState<'en' | 'ja'>(() => {
         const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-        const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        const email = cachedUser?.email;
         if (!isSuperAdmin(email)) {
             safeLocalStorage.setItem('study_planner_primary_language', 'ja');
             safeLocalStorage.setItem('study_planner_study_track', 'ja');
@@ -255,7 +257,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     const [enabledLanguages, setEnabledLanguages] = useState<('en' | 'ja')[]>(() => {
         const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-        const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        const email = cachedUser?.email;
         if (!isSuperAdmin(email)) {
             return ['ja'];
         }
@@ -274,7 +276,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Enforce 100% Japanese track for non-super-admins
     useEffect(() => {
-        const activeEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        const activeEmail = user?.email;
         if (!isSuperAdmin(activeEmail)) {
             if (primaryLanguage !== 'ja') {
                 setPrimaryLanguage('ja');
@@ -301,11 +303,13 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Global Data Fetcher and Synchronizer
     const fetchData = useCallback(async () => {
+        const currentSeq = ++fetchSeqRef.current;
+
         // Non-blocking background revalidation (Stale-While-Revalidate)
         try {
             if (typeof navigator !== 'undefined' && !navigator.onLine) {
                 const localSession = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-                if (localSession) {
+                if (localSession && fetchSeqRef.current === currentSeq) {
                     setUser(localSession);
                 }
                 setLoading(false);
@@ -334,6 +338,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
             }
 
+            if (fetchSeqRef.current !== currentSeq) return;
+
             if (!currentUser) {
                 // If completely unauthenticated and no cache, set loading to false and return
                 setLoading(false);
@@ -359,6 +365,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             // (Only execute when user has an active authenticated session to respect RLS)
             if (isAuthenticated && currentUser.id && isUuid(currentUser.id)) {
                 setTimeout(async () => {
+                    if (fetchSeqRef.current !== currentSeq) return;
                     try {
                         syncGoogleEvents();
                         await DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
@@ -368,7 +375,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
                         await LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
                         await LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
-                        await ErrorVaultService.syncFromDB().catch(() => {});
+                        await ErrorVaultService.syncFromDB(currentUser.id).catch(() => {});
                     } catch (bgErr) {
                         console.debug('[StudyPlannerContext] Background sync notice:', bgErr);
                     }
@@ -384,6 +391,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('subjects').select('*').eq('user_id', currentUser.id),
                 ]);
 
+                if (fetchSeqRef.current !== currentSeq) return;
+
                 if (tasksSettled.status === 'fulfilled' && tasksSettled.value) {
                     setTasks(tasksSettled.value);
                 }
@@ -393,6 +402,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
                 // Batch 2: Secondary workspace data (staggered by 150ms)
                 await new Promise(r => setTimeout(r, 150));
+                if (fetchSeqRef.current !== currentSeq) return;
 
                 const [
                     goalsSettled,
@@ -418,6 +428,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     supabase.from('ai_coach_sessions').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }),
                 ]);
 
+                if (fetchSeqRef.current !== currentSeq) return;
+
                 const subjectsRes = subjectsSettled.status === 'fulfilled' ? subjectsSettled.value : null;
                 const goalsRes = goalsSettled.status === 'fulfilled' ? goalsSettled.value : null;
                 const notesRes = notesSettled.status === 'fulfilled' ? notesSettled.value : null;
@@ -431,13 +443,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const aiCoachSessionsRes = aiCoachSessionsSettled.status === 'fulfilled' ? aiCoachSessionsSettled.value : null;
 
                 // Subjects sync
-                let localCachedSubs: Subject[] = [];
-                if (currentUser?.id) {
-                    localCachedSubs = safeLocalStorage.getJSON<Subject[]>('study_planner_subjects_cache_' + currentUser.id, []);
-                }
-                if (localCachedSubs.length === 0) {
-                    localCachedSubs = safeLocalStorage.getJSON<Subject[]>('study_planner_subjects_cache', []);
-                }
+                const userSubjectsKey = 'study_planner_subjects_cache_' + (currentUser?.id || 'guest');
+                let localCachedSubs = safeLocalStorage.getJSON<Subject[]>(userSubjectsKey, []);
 
                 let mappedSubjects: Subject[] = [];
                 if (subjectsRes?.data && Array.isArray(subjectsRes.data)) {
@@ -458,11 +465,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const uniqueLocal = localCachedSubs.filter(s => !dbSubjectIds.has(s.id));
                 const mergedSubjects = [...mappedSubjects, ...uniqueLocal];
                 setSubjects(mergedSubjects);
-
-                if (currentUser?.id) {
-                    safeLocalStorage.setJSON('study_planner_subjects_cache_' + currentUser.id, mergedSubjects);
-                }
-                safeLocalStorage.setJSON('study_planner_subjects_cache', mergedSubjects);
+                safeLocalStorage.setJSON(userSubjectsKey, mergedSubjects);
 
                 if (uniqueLocal.length > 0 && mappedSubjects.length > 0 && currentUser?.id) {
                     const dbPayload = uniqueLocal
@@ -482,7 +485,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 }
 
                 // Sessions sync
-                const localSessions = safeLocalStorage.getJSON<StudySession[]>('study_planner_sessions_cache', []);
+                const userSessionsKey = 'study_planner_sessions_cache_' + (currentUser?.id || 'guest');
+                const localSessions = safeLocalStorage.getJSON<StudySession[]>(userSessionsKey, []);
                 const dbSessions = (sessionsRes?.data || []).map((s: DatabaseSession) => ({
                     ...s,
                     subjectId: s.subject_id,
@@ -493,10 +497,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbSessionIds = new Set(dbSessions.map((s: any) => s.id));
                 const mergedSessions = [...dbSessions, ...localSessions.filter(s => !dbSessionIds.has(s.id))];
                 setSessions(mergedSessions);
-                safeLocalStorage.setJSON('study_planner_sessions_cache', mergedSessions);
+                safeLocalStorage.setJSON(userSessionsKey, mergedSessions);
 
                 // Notes sync
-                const localNotes = safeLocalStorage.getJSON<Note[]>('study_planner_notes_cache', []);
+                const userNotesKey = 'study_planner_notes_cache_' + (currentUser?.id || 'guest');
+                const localNotes = safeLocalStorage.getJSON<Note[]>(userNotesKey, []);
                 const dbNotes = (notesRes?.data || []).map((n: DatabaseNote) => ({
                     ...n,
                     subjectId: n.subject_id,
@@ -507,10 +512,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbNoteIds = new Set(dbNotes.map((n: any) => n.id));
                 const mergedNotes = [...dbNotes, ...localNotes.filter(n => !dbNoteIds.has(n.id))];
                 setNotes(mergedNotes);
-                safeLocalStorage.setJSON('study_planner_notes_cache', mergedNotes);
+                safeLocalStorage.setJSON(userNotesKey, mergedNotes);
 
                 // Study Notes (Konspektlar) sync
-                const localStudyNotes = safeLocalStorage.getJSON<StudyNote[]>('study_planner_study_notes_cache', []);
+                const userStudyNotesKey = 'study_planner_study_notes_cache_' + (currentUser?.id || 'guest');
+                const localStudyNotes = safeLocalStorage.getJSON<StudyNote[]>(userStudyNotesKey, []);
                 const dbStudyNotes = (studyNotesRes?.data || []).map((n: DatabaseStudyNote) => ({
                     ...n,
                     userId: n.user_id,
@@ -521,10 +527,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbStudyNoteIds = new Set(dbStudyNotes.map((n: any) => n.id));
                 const mergedStudyNotes = [...dbStudyNotes, ...localStudyNotes.filter(n => !dbStudyNoteIds.has(n.id))];
                 setStudyNotes(mergedStudyNotes);
-                safeLocalStorage.setJSON('study_planner_study_notes_cache', mergedStudyNotes);
+                safeLocalStorage.setJSON(userStudyNotesKey, mergedStudyNotes);
 
                 // Goals sync
-                const localGoals = safeLocalStorage.getJSON<Goal[]>('study_planner_goals_cache', []);
+                const userGoalsKey = 'study_planner_goals_cache_' + (currentUser?.id || 'guest');
+                const localGoals = safeLocalStorage.getJSON<Goal[]>(userGoalsKey, []);
                 const dbGoals = (goalsRes?.data || []).map((g: any) => ({
                     id: g.id,
                     title: g.title,
@@ -539,10 +546,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbGoalIds = new Set(dbGoals.map((g: any) => g.id));
                 const mergedGoals = [...dbGoals, ...localGoals.filter(g => !dbGoalIds.has(g.id))];
                 setGoals(mergedGoals);
-                safeLocalStorage.setJSON('study_planner_goals_cache', mergedGoals);
+                safeLocalStorage.setJSON(userGoalsKey, mergedGoals);
 
                 // Whiteboards sync
-                const localWhiteboards = safeLocalStorage.getJSON<WhiteboardMetadata[]>('study_planner_whiteboards_cache', []);
+                const userWhiteboardsKey = 'study_planner_whiteboards_cache_' + (currentUser?.id || 'guest');
+                const localWhiteboards = safeLocalStorage.getJSON<WhiteboardMetadata[]>(userWhiteboardsKey, []);
                 const dbWhiteboards = (whiteboardsRes?.data || []).map((w: DatabaseWhiteboard) => ({
                     id: w.id,
                     subjectId: w.subject_id,
@@ -553,10 +561,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbWbIds = new Set(dbWhiteboards.map(w => w.id));
                 const mergedWhiteboards = [...dbWhiteboards, ...localWhiteboards.filter(w => !dbWbIds.has(w.id))];
                 setWhiteboards(mergedWhiteboards);
-                safeLocalStorage.setJSON('study_planner_whiteboards_cache', mergedWhiteboards);
+                safeLocalStorage.setJSON(userWhiteboardsKey, mergedWhiteboards);
 
                 // Events sync
-                const localEvents = safeLocalStorage.getJSON<Event[]>('study_planner_events_cache', []);
+                const userEventsKey = 'study_planner_events_cache_' + (currentUser?.id || 'guest');
+                const localEvents = safeLocalStorage.getJSON<Event[]>(userEventsKey, []);
                 const dbEvents = (eventsRes?.data || []).map((e: DatabaseEvent) => ({
                     id: e.id,
                     userId: e.user_id,
@@ -576,7 +585,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 const dbEventIds = new Set(dbEvents.map(e => e.id));
                 const mergedEvents = [...dbEvents, ...localEvents.filter(e => !dbEventIds.has(e.id))];
                 setEvents(mergedEvents);
-                safeLocalStorage.setJSON('study_planner_events_cache', mergedEvents);
+                safeLocalStorage.setJSON(userEventsKey, mergedEvents);
 
                 // Combined Coach & Speaking Sessions sync
                 const mergedCoachSessions: CoachSession[] = [];
@@ -662,6 +671,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 } else if (currentUser?.id) {
                     // Initialize profiles row if not present
                     const todayStr = new Date().toISOString().split('T')[0];
+                    setGamificationState({
+                        totalXp: 0,
+                        level: 1,
+                        currentStreak: 1,
+                        lastActivityDate: todayStr
+                    });
                     supabase.from('profiles').upsert({
                         id: currentUser.id,
                         email: currentUser.email,
@@ -687,7 +702,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (typeof supabase?.auth?.onAuthStateChange === 'function') {
             const authSub = supabase.auth.onAuthStateChange((event, session) => {
                 if (event === 'SIGNED_OUT') {
+                    fetchSeqRef.current++;
                     setUser(null);
+                    setGamificationState(INITIAL_GAMIFICATION_STATE);
                     setTasks([]);
                     setFlashcards([]);
                     setSubjects([]);
@@ -714,7 +731,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 subscription.unsubscribe();
             }
         };
-    }, [fetchData, setTasks, setFlashcards, setSubjects, setGoals, setNotes, setStudyNotes, setSessions, setWhiteboards, setEvents, setCoachSessions]);
+    }, [fetchData, setTasks, setFlashcards, setSubjects, setGoals, setNotes, setStudyNotes, setSessions, setWhiteboards, setEvents, setCoachSessions, setGamificationState]);
 
     // Update Settings Handler
     const updateSettings = async (updates: Partial<Settings>) => {

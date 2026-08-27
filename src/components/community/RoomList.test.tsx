@@ -31,7 +31,7 @@ vi.mock('../../lib/supabase', () => ({
 
 const renderWithRouter = (ui: React.ReactElement) => {
     return render(
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <BrowserRouter>
             {ui}
         </BrowserRouter>
     );

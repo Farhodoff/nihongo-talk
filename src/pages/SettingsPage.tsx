@@ -19,9 +19,9 @@ const SettingsPage: React.FC = () => {
     const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('profile');
 
-    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
-    const isCurrentSuperAdmin = isSuperAdmin(displayEmail);
-    const isCurrentAdmin = isAdminEmail(displayEmail);
+    const displayEmail = user?.email || '';
+    const isCurrentSuperAdmin = Boolean(displayEmail && isSuperAdmin(displayEmail));
+    const isCurrentAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
 
     const tabs = [
         { id: 'profile', label: language === 'ja' ? 'プロフィール・アカウント' : 'Profil & Hisob', icon: User },
@@ -49,7 +49,7 @@ const SettingsPage: React.FC = () => {
     };
 
     const rankTitle = getRank ? getRank(settings.level || 1) : 'Bilimdon';
-    const userName = user?.user_metadata?.full_name || localStorage.getItem('study_planner_user_name') || displayEmail.split('@')[0] || "Farhod Soyilov";
+    const userName = user?.user_metadata?.full_name || (displayEmail ? displayEmail.split('@')[0] : (language === 'ja' ? '学習者' : 'Talaba'));
 
     return (
         <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6 pb-28 md:pb-12 animate-in fade-in duration-300">

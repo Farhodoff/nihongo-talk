@@ -47,13 +47,21 @@ const StudyModePage = lazyWithRetry(() => import('./pages/StudyModePage'));
 const ScenarioPickerPage = lazyWithRetry(() => import('./pages/ScenarioPickerPage').then(m => ({ default: m.ScenarioPickerPage })));
 
 
-import { isSuperAdmin } from './utils/admin';
+import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useStudyData } from './context/StudyPlannerContext';
 
 const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useStudyData();
     if (!isSuperAdmin(user?.email)) {
         return <Navigate to="/jlpt" replace />;
+    }
+    return <>{children}</>;
+};
+
+const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user } = useStudyData();
+    if (!isUserAdmin(user)) {
+        return <Navigate to="/dashboard" replace />;
     }
     return <>{children}</>;
 };
@@ -116,10 +124,7 @@ const App: React.FC = () => {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_OUT') {
-                const storedEmail = typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null;
-                if (!storedEmail) {
-                    setSession(null);
-                }
+                setSession(null);
             } else if (session) {
                 setSession(session);
             }
@@ -160,14 +165,14 @@ const App: React.FC = () => {
             <LanguageProvider>
                 <StudyPlannerProvider>
                     <FocusTimerProvider>
-                        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                        <BrowserRouter>
                         <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
                             <Suspense fallback={<PageLoader />}>
                                 <Routes>
                                     <Route path="/" element={<Layout />}>
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
-                                        <Route path="admin" element={<AdminDashboardPage />} />
+                                        <Route path="admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
                                         <Route path="roadmap" element={<RoadmapPage />} />
                                         <Route path="personal-plan" element={<PersonalPlanPage />} />
                                         <Route path="diagnostic" element={<DiagnosticPage />} />
@@ -217,9 +222,8 @@ const App: React.FC = () => {
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="developers" element={<DeveloperApiPage />} />
                                         <Route path="api-docs" element={<Navigate to="/developers" replace />} />
-                                        <Route path="admin" element={<AdminDashboardPage />} />
-                                        <Route path="admin/exams" element={<ExamsManager />} />
-                                        <Route path="admin/exams/:id" element={<QuestionEditor />} />
+                                        <Route path="admin/exams" element={<AdminRoute><ExamsManager /></AdminRoute>} />
+                                        <Route path="admin/exams/:id" element={<AdminRoute><QuestionEditor /></AdminRoute>} />
                                         <Route path="exams/:id" element={<ExamTake />} />
                                         <Route path="auth" element={<Navigate to="/dashboard" replace />} />
                                         <Route path="login" element={<Navigate to="/dashboard" replace />} />

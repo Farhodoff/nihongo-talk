@@ -1,12 +1,18 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { StudyNote } from '../types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useStudyNotes = () => {
     const [studyNotes, setStudyNotes] = useState<StudyNote[]>(() => {
-        return safeLocalStorage.getJSON<StudyNote[]>('study_planner_study_notes_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<StudyNote[]>(`study_planner_study_notes_cache_${activeId}`, []);
     });
 
     const addStudyNote = useCallback(async (noteData: Partial<StudyNote>): Promise<void> => {
@@ -37,7 +43,8 @@ export const useStudyNotes = () => {
 
         setStudyNotes(prev => {
             const updated = [...prev, newNote];
-            safeLocalStorage.setJSON('study_planner_study_notes_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -55,7 +62,8 @@ export const useStudyNotes = () => {
                 };
                 setStudyNotes(prev => {
                     const updated = prev.map(n => n.id === noteId ? returnedNote : n);
-                    safeLocalStorage.setJSON('study_planner_study_notes_cache', updated);
+                    const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                    safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, updated);
                     return updated;
                 });
             }
@@ -94,7 +102,8 @@ export const useStudyNotes = () => {
 
         setStudyNotes(prev => {
             const updated = [...newLocalNotes, ...prev];
-            safeLocalStorage.setJSON('study_planner_study_notes_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -133,7 +142,8 @@ export const useStudyNotes = () => {
                         next[idx] = inserted;
                     }
                 });
-                safeLocalStorage.setJSON('study_planner_study_notes_cache', next);
+                const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, next);
                 return next;
             });
 
@@ -145,6 +155,12 @@ export const useStudyNotes = () => {
     }, []);
 
     const updateStudyNote = useCallback(async (id: string, updates: Partial<StudyNote>) => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
+        } catch {}
+
         const dbUpdates: Record<string, any> = {};
 
         if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
@@ -154,7 +170,8 @@ export const useStudyNotes = () => {
 
         setStudyNotes(prev => {
             const updated = prev.map(n => n.id === id ? { ...n, ...updates } : n);
-            safeLocalStorage.setJSON('study_planner_study_notes_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -162,9 +179,16 @@ export const useStudyNotes = () => {
     }, []);
 
     const deleteStudyNote = useCallback(async (id: string) => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
+        } catch {}
+
         setStudyNotes(prev => {
             const updated = prev.filter(n => n.id !== id);
-            safeLocalStorage.setJSON('study_planner_study_notes_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_study_notes_cache_${activeId}`, updated);
             return updated;
         });
 

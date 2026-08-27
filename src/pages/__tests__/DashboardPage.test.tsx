@@ -130,7 +130,7 @@ describe('Phase 8.8 — Dashboard Page Render & UX Hardening Tests', () => {
     it('2. should display loading status indicator if context load is active', async () => {
         mockUseStudyData.loading = true;
         await renderDashboard();
-        expect(screen.getByRole('status', { name: /Loading study/i })).toBeInTheDocument();
+        expect(screen.getByRole('status', { name: /Loading.*dashboard/i })).toBeInTheDocument();
     });
 
     // 3. Error state

@@ -294,7 +294,7 @@ const DashboardPage: React.FC = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" role="status" aria-label="Loading study planner dashboard..." />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" role="status" aria-label="Loading Nihongo Talk dashboard..." />
             </div>
         );
     }
@@ -327,13 +327,15 @@ const DashboardPage: React.FC = () => {
         );
     }
 
+    const displayUserName = user?.user_metadata?.full_name || (user?.email ? user.email.split('@')[0] : (language === 'ja' ? '学習者' : 'Talaba'));
+
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-200">
             {/* Top Greeting & Quick Stats */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
-                        {greeting}, <span className="text-gradient">Farhod</span> 👋
+                        {greeting}, <span className="text-gradient">{displayUserName}</span> 👋
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
                         {greetingSubtitle}

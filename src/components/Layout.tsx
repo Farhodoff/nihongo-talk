@@ -42,9 +42,9 @@ const Layout: React.FC = () => {
 
     const { language, setLanguage, t } = useLanguage();
     const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus, loading } = useStudyData();
-    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
-    const isAdmin = isAdminEmail(displayEmail);
-    const isSuper = isSuperAdmin(displayEmail);
+    const displayEmail = user?.email || '';
+    const isAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
+    const isSuper = Boolean(displayEmail && isSuperAdmin(displayEmail));
 
     // Global Keyboard Shortcuts (Cmd/Ctrl+K for Quick Command Palette)
     useEffect(() => {

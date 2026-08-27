@@ -2,8 +2,13 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { StudySession, CoachSession } from '../types';
 import { DatabaseSession } from '../types/supabase-types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
     const awardXPRef = useRef(awardXP);
@@ -12,7 +17,8 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
     }, [awardXP]);
 
     const [sessions, setSessions] = useState<StudySession[]>(() => {
-        return safeLocalStorage.getJSON<StudySession[]>('study_planner_sessions_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<StudySession[]>(`study_planner_sessions_cache_${activeId}`, []);
     });
     const [coachSessions, setCoachSessions] = useState<CoachSession[]>([]);
 
@@ -49,7 +55,8 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
 
         setSessions(prev => {
             const updated = [...prev, mappedSession];
-            safeLocalStorage.setJSON('study_planner_sessions_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_sessions_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -65,7 +72,8 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
                             moodBefore: data.mood_before,
                             moodAfter: data.mood_after
                         } as StudySession : s);
-                        safeLocalStorage.setJSON('study_planner_sessions_cache', updated);
+                        const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                        safeLocalStorage.setJSON(`study_planner_sessions_cache_${activeId}`, updated);
                         return updated;
                     });
                     if (awardXPRef.current) {

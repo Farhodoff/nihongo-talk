@@ -1,12 +1,18 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { WhiteboardMetadata } from '../types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useWhiteboards = () => {
     const [whiteboards, setWhiteboards] = useState<WhiteboardMetadata[]>(() => {
-        return safeLocalStorage.getJSON<WhiteboardMetadata[]>('study_planner_whiteboards_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<WhiteboardMetadata[]>(`study_planner_whiteboards_cache_${activeId}`, []);
     });
 
     const addWhiteboard = useCallback(async (subjectId: string, title: string): Promise<string | null> => {
@@ -27,7 +33,8 @@ export const useWhiteboards = () => {
 
         setWhiteboards(prev => {
             const updated = [...prev, newWb];
-            safeLocalStorage.setJSON('study_planner_whiteboards_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_whiteboards_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -50,7 +57,8 @@ export const useWhiteboards = () => {
                             title: data.title,
                             updatedAt: data.updated_at
                         } : w);
-                        safeLocalStorage.setJSON('study_planner_whiteboards_cache', updated);
+                        const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                        safeLocalStorage.setJSON(`study_planner_whiteboards_cache_${activeId}`, updated);
                         return updated;
                     });
                 }
@@ -62,18 +70,32 @@ export const useWhiteboards = () => {
     }, []);
 
     const deleteWhiteboard = useCallback(async (id: string): Promise<void> => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
+        } catch {}
+
         setWhiteboards(prev => {
             const updated = prev.filter(w => w.id !== id);
-            safeLocalStorage.setJSON('study_planner_whiteboards_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_whiteboards_cache_${activeId}`, updated);
             return updated;
         });
         await supabase.from('whiteboards').delete().eq('id', id);
     }, []);
 
     const updateWhiteboardTitle = useCallback(async (id: string, title: string): Promise<void> => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
+        } catch {}
+
         setWhiteboards(prev => {
             const updated = prev.map(w => w.id === id ? { ...w, title } : w);
-            safeLocalStorage.setJSON('study_planner_whiteboards_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_whiteboards_cache_${activeId}`, updated);
             return updated;
         });
         await supabase.from('whiteboards').update({ title }).eq('id', id);

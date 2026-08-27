@@ -2,12 +2,18 @@ import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { Subject, Flashcard } from '../types';
 import { DatabaseSubject } from '../types/supabase-types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<Flashcard[]>>) => {
     const [subjects, setSubjects] = useState<Subject[]>(() => {
-        return safeLocalStorage.getJSON<Subject[]>('study_planner_subjects_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<Subject[]>(`study_planner_subjects_cache_${activeId}`, []);
     });
 
     const addSubject = useCallback(async (subjectData: Partial<Subject>): Promise<Subject | null> => {
@@ -34,8 +40,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
         setSubjects(prev => {
             const filtered = prev.filter(s => s.id !== tempId);
             const updated = [...filtered, optimisticSubject];
-            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeUserId, updated);
-            safeLocalStorage.setJSON('study_planner_subjects_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeId, updated);
             return updated;
         });
 
@@ -90,7 +96,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
                 if (finalId !== tempId && setFlashcards) {
                     setFlashcards(prev => {
                         const updated = prev.map(c => c.subjectId === tempId ? { ...c, subjectId: finalId } : c);
-                        safeLocalStorage.setJSON('study_planner_flashcards_cache_' + activeUserId, updated);
+                        const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                        safeLocalStorage.setJSON('study_planner_flashcards_cache_' + activeId, updated);
                         return updated;
                     });
                 }
@@ -98,8 +105,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
                 setSubjects(prev => {
                     const filtered = prev.filter(s => s.id !== tempId && s.id !== finalId);
                     const updated = [...filtered, finalSubject];
-                    safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeUserId, updated);
-                    safeLocalStorage.setJSON('study_planner_subjects_cache', updated);
+                    const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                    safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeId, updated);
                     return updated;
                 });
 
@@ -124,8 +131,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
 
         setSubjects(prev => {
             const updated = prev.map(s => s.id === id ? { ...s, ...updates } : s);
-            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeUserId, updated);
-            safeLocalStorage.setJSON('study_planner_subjects_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeId, updated);
             return updated;
         });
 
@@ -156,8 +163,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
 
         setSubjects(prev => {
             const updated = prev.filter(s => s.id !== id);
-            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeUserId, updated);
-            safeLocalStorage.setJSON('study_planner_subjects_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON('study_planner_subjects_cache_' + activeId, updated);
             return updated;
         });
 

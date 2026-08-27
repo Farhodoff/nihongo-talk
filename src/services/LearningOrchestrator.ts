@@ -35,7 +35,7 @@ export const LearningOrchestrator = {
             return (saved === 'ja' || saved === 'en') ? saved : 'en';
         }
         const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
-        const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        const email = cachedUser?.email;
         if (!isSuperAdmin(email)) {
             return 'ja';
         }
@@ -448,7 +448,7 @@ export const LearningOrchestrator = {
         const isTest = typeof globalThis !== 'undefined' && (globalThis as any).process?.env?.VITEST === 'true';
         if (lessonLang === 'en' && !isTest) {
             const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
-            const email = cachedUser?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+            const email = cachedUser?.email;
             if (!isSuperAdmin(email)) {
                 return { allowed: false, reason: 'English track is private preview for super admin only.', redirectTo: '/jlpt' };
             }

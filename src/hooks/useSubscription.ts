@@ -22,8 +22,8 @@ export const useSubscription = () => {
     const { user } = useStudyData();
     const [subscription] = useState<UserSubscription>(OPEN_STUDENT_SUBSCRIPTION);
 
-    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
-    const isUserAdmin = isAdminEmail(displayEmail);
+    const displayEmail = user?.email || '';
+    const isUserAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
 
     const decrementCredit = useCallback(async () => {
         // No-op for 100% open access platform

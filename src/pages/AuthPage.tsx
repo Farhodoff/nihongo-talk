@@ -1,5 +1,6 @@
 import { Loader2, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -8,7 +9,15 @@ import ForgotPasswordModal from '../components/auth/ForgotPasswordModal';
 import { motion } from 'framer-motion';
 
 const AuthPage: React.FC = () => {
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
+    const [isResetPassword, setIsResetPassword] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.location.pathname.includes('reset-password') || window.location.hash.includes('type=recovery');
+        }
+        return false;
+    });
+    const [resetSuccess, setResetSuccess] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
@@ -28,6 +37,15 @@ const AuthPage: React.FC = () => {
         setError('');
 
         try {
+            if (isResetPassword) {
+                const { error: resetErr } = await supabase.auth.updateUser({
+                    password,
+                });
+                if (resetErr) throw resetErr;
+                setResetSuccess(true);
+                return;
+            }
+
             if (isLogin) {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
@@ -50,7 +68,7 @@ const AuthPage: React.FC = () => {
 
                 // Agar Supabase auto-confirm yoqilgan bo'lsa yoki sessiya qaytsa, to'g'ridan-to'g'ri tizimga kiramiz
                 if (signUpData?.session) {
-                    window.location.href = '/';
+                    navigate('/');
                     return;
                 }
 
@@ -61,7 +79,7 @@ const AuthPage: React.FC = () => {
                         password,
                     });
                     if (!loginErr && loginData?.session) {
-                        window.location.href = '/';
+                        navigate('/');
                         return;
                     }
                 } catch {
@@ -90,7 +108,33 @@ const AuthPage: React.FC = () => {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="max-w-md w-full glass shadow-2xl rounded-3xl p-8 border border-white/20 relative z-10"
             >
-                {isRegistered ? (
+                {resetSuccess ? (
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }} 
+                        animate={{ opacity: 1, scale: 1 }} 
+                        className="text-center py-6"
+                    >
+                        <div className="w-20 h-20 mx-auto bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6">
+                            <Lock size={40} />
+                        </div>
+                        <h2 className="text-3xl font-extrabold text-foreground mb-4">Parol yangilandi!</h2>
+                        <p className="text-muted-foreground mb-8 text-lg">
+                            Yangi parolingiz muvaffaqiyatli saqlandi. Endi yangi parol bilan tizimga kirishingiz mumkin.
+                        </p>
+                        <Button 
+                            onClick={() => {
+                                setResetSuccess(false);
+                                setIsResetPassword(false);
+                                setIsLogin(true);
+                                navigate('/auth');
+                            }} 
+                            size="lg" 
+                            className="w-full rounded-xl"
+                        >
+                            Kirish sahifasiga o'tish
+                        </Button>
+                    </motion.div>
+                ) : isRegistered ? (
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }} 
                         animate={{ opacity: 1, scale: 1 }} 
@@ -122,10 +166,12 @@ const AuthPage: React.FC = () => {
                                 <span className="text-4xl">🎓</span>
                             </div>
                             <h1 className="text-4xl font-extrabold text-foreground mb-2 tracking-tight">
-                                {isLogin ? 'Xush kelibsiz' : "Ro'yxatdan o'tish"}
+                                {isResetPassword ? "Yangi parol o'rnatish" : (isLogin ? 'Xush kelibsiz' : "Ro'yxatdan o'tish")}
                             </h1>
                             <p className="text-muted-foreground text-sm max-w-xs mx-auto">
-                                {isLogin ? 'O\'quv rejangizga kirish uchun ma\'lumotlaringizni kiriting.' : 'Jamoaga qo\'shiling va bilim cho\'qqilarini zabt eting.'}
+                                {isResetPassword
+                                    ? "Akkauntingiz uchun yangi xavfsiz parol kiriting."
+                                    : (isLogin ? 'O\'quv rejangizga kirish uchun ma\'lumotlaringizni kiriting.' : 'Jamoaga qo\'shiling va bilim cho\'qqilarini zabt eting.')}
                             </p>
                         </div>
 
@@ -136,7 +182,7 @@ const AuthPage: React.FC = () => {
                         )}
 
                         <form onSubmit={handleAuth} className="space-y-4">
-                            {!isLogin && (
+                            {!isLogin && !isResetPassword && (
                                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
                                     <Label className="block text-sm font-medium mb-1">To'liq ism</Label>
                                     <div className="relative">
@@ -153,31 +199,35 @@ const AuthPage: React.FC = () => {
                                 </motion.div>
                             )}
 
-                            <div>
-                                <Label className="block text-sm font-medium mb-1">Email</Label>
-                                <div className="relative">
-                                    <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                                    <Input
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        autoComplete="email"
-                                        className="pl-10 h-12 rounded-xl bg-background/50 border-white/20 dark:border-gray-700/50 backdrop-blur-sm"
-                                        placeholder="siz@example.com"
-                                        required
-                                    />
+                            {!isResetPassword && (
+                                <div>
+                                    <Label className="block text-sm font-medium mb-1">Email</Label>
+                                    <div className="relative">
+                                        <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                                        <Input
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            autoComplete="email"
+                                            className="pl-10 h-12 rounded-xl bg-background/50 border-white/20 dark:border-gray-700/50 backdrop-blur-sm"
+                                            placeholder="siz@example.com"
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             <div>
-                                <Label className="block text-sm font-medium mb-1">Parol</Label>
+                                <Label className="block text-sm font-medium mb-1">
+                                    {isResetPassword ? 'Yangi parol' : 'Parol'}
+                                </Label>
                                 <div className="relative">
                                     <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        autoComplete={isLogin ? "current-password" : "new-password"}
+                                        autoComplete={isLogin && !isResetPassword ? "current-password" : "new-password"}
                                         className="pl-10 pr-12 h-12 rounded-xl bg-background/50 border-white/20 dark:border-gray-700/50 backdrop-blur-sm"
                                         placeholder="••••••••"
                                         required
@@ -193,7 +243,7 @@ const AuthPage: React.FC = () => {
                                 </div>
                             </div>
 
-                            {isLogin && (
+                            {isLogin && !isResetPassword && (
                                 <div className="text-right">
                                     <button
                                         type="button"
@@ -206,21 +256,23 @@ const AuthPage: React.FC = () => {
                             )}
 
                             <Button type="submit" size="lg" className="w-full mt-6 rounded-xl shadow-lg shadow-primary/30" disabled={loading}>
-                                {loading ? <Loader2 className="animate-spin mr-2" /> : (isLogin ? 'Kirish' : 'Ro\'yxatdan o\'tish')}
+                                {loading ? <Loader2 className="animate-spin mr-2" /> : (isResetPassword ? 'Parolni yangilash' : (isLogin ? 'Kirish' : 'Ro\'yxatdan o\'tish'))}
                             </Button>
                         </form>
 
-                        <div className="mt-6 text-center">
-                            <button
-                                onClick={() => {
-                                    setIsLogin(!isLogin);
-                                    setError('');
-                                }}
-                                className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
-                            >
-                                {isLogin ? "Akkauntingiz yo'qmi? Ro'yxatdan o'tish" : 'Akkauntingiz bormi? Kirish'}
-                            </button>
-                        </div>
+                        {!isResetPassword && (
+                            <div className="mt-6 text-center">
+                                <button
+                                    onClick={() => {
+                                        setIsLogin(!isLogin);
+                                        setError('');
+                                    }}
+                                    className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                                >
+                                    {isLogin ? "Akkauntingiz yo'qmi? Ro'yxatdan o'tish" : 'Akkauntingiz bormi? Kirish'}
+                                </button>
+                            </div>
+                        )}
                     </>
                 )}
             </motion.div>

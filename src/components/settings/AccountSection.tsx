@@ -16,9 +16,9 @@ import { LearningTrackStorage } from '../../utils/storage/LearningTrackStorage';
 const AccountSection: React.FC = () => {
     const { user, settings, resetXP, getRank, primaryLanguage } = useStudyData();
 
-    const displayEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com' : 'fsoyilov@gmail.com');
-    const isCurrentSuperAdmin = isSuperAdmin(displayEmail);
-    const isCurrentAdmin = isAdminEmail(displayEmail);
+    const displayEmail = user?.email || '';
+    const isCurrentSuperAdmin = Boolean(displayEmail && isSuperAdmin(displayEmail));
+    const isCurrentAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
 
     const [isEditingName, setIsEditingName] = useState(false);
     const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);

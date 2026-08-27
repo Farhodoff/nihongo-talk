@@ -148,65 +148,32 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
             const res = await fetchWithRetry(input, init, 2);
             if (res.status === 401) {
                 if (isAuth) {
-                    if (typeof window !== 'undefined') {
-                        const storedEmail = localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com';
-                        const cachedUser = {
-                            id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721',
-                            email: storedEmail,
-                            role: 'authenticated',
-                            app_metadata: { provider: 'email' },
-                            user_metadata: { full_name: 'Farhod Soyilov' },
-                            created_at: new Date().toISOString()
-                        };
-                        return new Response(JSON.stringify(cachedUser), {
-                            status: 200,
-                            statusText: 'OK',
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-                    }
-                } else {
-                    // Retry with clean anon key header to fix PostgREST 401 expired JWT errors
-                    try {
-                        const cleanHeaders = new Headers(init?.headers || {});
-                        cleanHeaders.set('Authorization', `Bearer ${supabaseAnonKey}`);
-                        cleanHeaders.set('apikey', supabaseAnonKey);
-                        const retryInit = { ...init, headers: cleanHeaders };
-                        const retryRes = await fetchWithRetry(input, retryInit, 1);
-                        if (retryRes.ok) {
-                            return retryRes;
-                        }
-                    } catch {}
-
-                    const isRpc = urlStr.includes('/rpc/');
-                    const isPostOrPatch = !isRpc && (init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT');
-                    const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
-                    return new Response(fallbackBody, {
-                        status: 200,
-                        statusText: 'OK',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+                    return res;
                 }
+                // Retry with clean anon key header to fix PostgREST 401 expired JWT errors
+                try {
+                    const cleanHeaders = new Headers(init?.headers || {});
+                    cleanHeaders.set('Authorization', `Bearer ${supabaseAnonKey}`);
+                    cleanHeaders.set('apikey', supabaseAnonKey);
+                    const retryInit = { ...init, headers: cleanHeaders };
+                    const retryRes = await fetchWithRetry(input, retryInit, 1);
+                    if (retryRes.ok) {
+                        return retryRes;
+                    }
+                } catch {}
+
+                const isRpc = urlStr.includes('/rpc/');
+                const isPostOrPatch = !isRpc && (init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT');
+                const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
+                return new Response(fallbackBody, {
+                    status: 200,
+                    statusText: 'OK',
+                    headers: { 'Content-Type': 'application/json' }
+                });
             }
             return res;
         } catch (err: unknown) {
             if (isAuth) {
-                // If network reset or fetch error on /auth/v1/user, return cached session so Auth client keeps session
-                if (typeof window !== 'undefined') {
-                    const storedEmail = localStorage.getItem('study_planner_user_email') || 'fsoyilov@gmail.com';
-                    const cachedUser = {
-                        id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721',
-                        email: storedEmail,
-                        role: 'authenticated',
-                        app_metadata: { provider: 'email' },
-                        user_metadata: { full_name: 'Farhod Soyilov' },
-                        created_at: new Date().toISOString()
-                    };
-                    return new Response(JSON.stringify(cachedUser), {
-                        status: 200,
-                        statusText: 'OK',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                }
                 throw err;
             }
 

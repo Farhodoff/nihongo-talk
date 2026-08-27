@@ -12,12 +12,14 @@ const PricingPage = lazy(() => import('../pages/PricingPage').then(m => ({ defau
  * It isolates the unauthenticated routes from the main application router.
  */
 export const UnauthRouter: React.FC = () => (
-  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+  <BrowserRouter>
     <Suspense fallback={<div className="flex h-screen items-center justify-center">Yuklanmoqda...</div>}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/auth/reset-password" element={<AuthPage />} />
+        <Route path="/reset-password" element={<AuthPage />} />
         <Route path="/login" element={<Navigate to="/auth" replace />} />
         <Route path="/register" element={<Navigate to="/auth" replace />} />
         <Route path="/admin/login" element={<Navigate to="/auth" replace />} />

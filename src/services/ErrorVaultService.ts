@@ -11,19 +11,29 @@ export interface SpeakingErrorItem {
     timesReviewed: number;
 }
 
-const STORAGE_KEY = 'study_planner_error_vault';
+const STORAGE_KEY_PREFIX = 'study_planner_error_vault_cache_';
 
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
 
 export class ErrorVaultService {
+    private static getStorageKey(userId?: string | null): string {
+        if (userId) return `${STORAGE_KEY_PREFIX}${userId}`;
+        try {
+            const cachedUser = JSON.parse(localStorage.getItem('study_planner_user_cache') || '{}');
+            if (cachedUser?.id) return `${STORAGE_KEY_PREFIX}${cachedUser.id}`;
+        } catch {}
+        return `${STORAGE_KEY_PREFIX}guest`;
+    }
+
     /**
-     * Gets all logged speaking errors
+     * Gets all logged speaking errors for active user
      */
-    public static getErrors(): SpeakingErrorItem[] {
+    public static getErrors(userId?: string | null): SpeakingErrorItem[] {
         if (typeof window === 'undefined') return [];
         try {
-            const data = localStorage.getItem(STORAGE_KEY);
+            const key = this.getStorageKey(userId);
+            const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : [];
         } catch (e) {
             console.error('Error loading error vault:', e);
@@ -34,17 +44,23 @@ export class ErrorVaultService {
     /**
      * Syncs error vault from Supabase speaking_errors DB table on initialization
      */
-    public static async syncFromDB(): Promise<SpeakingErrorItem[]> {
+    public static async syncFromDB(explicitUserId?: string | null): Promise<SpeakingErrorItem[]> {
         try {
-            const localErrors = this.getErrors();
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user?.id) return localErrors;
+            let userId = explicitUserId;
+            if (!userId) {
+                const { data: { user } } = await supabase.auth.getUser();
+                userId = user?.id || null;
+            }
+            if (!userId) return this.getErrors(null);
+
+            const userKey = this.getStorageKey(userId);
+            const localErrors = this.getErrors(userId);
 
             // 1. Fetch from speaking_errors table
             const { data: dbRows, error } = await supabase
                 .from('speaking_errors')
                 .select('*')
-                .eq('user_id', user.id)
+                .eq('user_id', userId)
                 .order('created_at', { ascending: false })
                 .limit(100);
 
@@ -62,29 +78,21 @@ export class ErrorVaultService {
 
                 const dbIds = new Set(mappedFromDB.map(e => e.id));
                 const merged = [...mappedFromDB, ...localErrors.filter(e => !dbIds.has(e.id))].slice(0, 100);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-                return merged;
-            }
-
-            // 2. Backward compatibility fallback in user_metadata
-            if (user?.user_metadata?.error_vault) {
-                const dbErrors = user.user_metadata.error_vault as SpeakingErrorItem[];
-                const dbIds = new Set(dbErrors.map(e => e.id));
-                const merged = [...dbErrors, ...localErrors.filter(e => !dbIds.has(e.id))].slice(0, 100);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+                localStorage.setItem(userKey, JSON.stringify(merged));
                 return merged;
             }
         } catch (e) {
             console.warn('Failed to sync error vault from DB:', e);
         }
-        return this.getErrors();
+        return this.getErrors(explicitUserId);
     }
 
     /**
      * Saves a list of speaking errors captured during session
      */
-    public static logErrors(errors: Omit<SpeakingErrorItem, 'id' | 'timestamp' | 'timesReviewed'>[]): SpeakingErrorItem[] {
-        const existing = this.getErrors();
+    public static logErrors(errors: Omit<SpeakingErrorItem, 'id' | 'timestamp' | 'timesReviewed'>[], explicitUserId?: string | null): SpeakingErrorItem[] {
+        const userKey = this.getStorageKey(explicitUserId);
+        const existing = this.getErrors(explicitUserId);
         const newItems: SpeakingErrorItem[] = errors.map(err => ({
             ...err,
             id: `err_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
@@ -94,17 +102,18 @@ export class ErrorVaultService {
 
         const updated = [...newItems, ...existing].slice(0, 100); // Keep last 100 mistakes
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+            localStorage.setItem(userKey, JSON.stringify(updated));
         } catch (e) {
             console.error('Error saving to error vault:', e);
         }
 
         // Asynchronously sync to Supabase speaking_errors table
         supabase.auth.getUser().then(({ data: { user } }) => {
-            if (user) {
+            const activeId = explicitUserId || user?.id;
+            if (activeId && activeId !== 'guest') {
                 const payloads = newItems.map(item => ({
                     id: toDeterministicUUID(item.id),
-                    user_id: user.id,
+                    user_id: activeId,
                     language: item.language,
                     verbatim: item.verbatim,
                     correction: item.correction,
@@ -118,11 +127,6 @@ export class ErrorVaultService {
                 supabase.from('speaking_errors').upsert(payloads).then(({ error }) => {
                     if (error) console.warn('[ErrorVaultService] DB upsert error:', error);
                 });
-
-                // Also update user_metadata for fallback
-                supabase.auth.updateUser({
-                    data: { error_vault: updated }
-                }).catch(err => console.warn('Failed to sync error vault to metadata:', err));
             }
         });
 
@@ -132,8 +136,8 @@ export class ErrorVaultService {
     /**
      * Converts logged error items into Flashcard objects for spaced repetition
      */
-    public static convertErrorsToFlashcards(language: 'en' | 'ja' = 'en', subjectId?: string): Partial<Flashcard>[] {
-        const errors = this.getErrors().filter(e => e.language === language);
+    public static convertErrorsToFlashcards(language: 'en' | 'ja' = 'en', subjectId?: string, userId?: string | null): Partial<Flashcard>[] {
+        const errors = this.getErrors(userId).filter(e => e.language === language);
         return errors.slice(0, 10).map(err => ({
             subjectId,
             front: language === 'ja'
@@ -146,8 +150,8 @@ export class ErrorVaultService {
     /**
      * Gets a formatted list of active weak error items to re-inject into AI Coach system prompt
      */
-    public static getWeakItemsPromptSnippet(language: 'en' | 'ja' = 'en'): string {
-        const errors = this.getErrors().filter(e => e.language === language).slice(0, 5);
+    public static getWeakItemsPromptSnippet(language: 'en' | 'ja' = 'en', userId?: string | null): string {
+        const errors = this.getErrors(userId).filter(e => e.language === language).slice(0, 5);
         if (errors.length === 0) return '';
 
         const itemsStr = errors.map(e => `- User previously said "${e.verbatim}" instead of "${e.correction}" (${e.explanation})`).join('\n');
@@ -155,11 +159,12 @@ export class ErrorVaultService {
     }
 
     /**
-     * Clears all items in Error Vault
+     * Clears all items in Error Vault for specific user
      */
-    public static clearVault(): void {
+    public static clearVault(userId?: string | null): void {
         try {
-            localStorage.removeItem(STORAGE_KEY);
+            const key = this.getStorageKey(userId);
+            localStorage.removeItem(key);
         } catch (e) {
             console.error('Error clearing vault:', e);
         }

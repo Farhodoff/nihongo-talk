@@ -1,10 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
-import { FlashcardService, setLocalFlashcardCache } from '../services/FlashcardService';
+import { FlashcardService, getLocalFlashcardCache, setLocalFlashcardCache } from '../services/FlashcardService';
 import { calculateReview, Grade } from '../utils/srs';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { LearningSignalService } from '../services/LearningSignalService';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { isUuid } from '../utils/uuid';
 
 const getAuthUserId = async (): Promise<string> => {
     try {
@@ -29,16 +31,14 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
 
     const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
         try {
-            const userKey = 'study_planner_flashcards_cache_99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
-            const rawUser = localStorage.getItem(userKey);
-            if (rawUser) {
-                const parsed = JSON.parse(rawUser);
-                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-            }
-            const rawGeneric = localStorage.getItem('study_planner_flashcards_cache_guest');
-            if (rawGeneric) {
-                const parsed = JSON.parse(rawGeneric);
-                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+            const activeId = cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+            const userCached = getLocalFlashcardCache(activeId);
+            if (userCached && userCached.length > 0) return userCached;
+
+            if (activeId !== 'guest') {
+                const generic = getLocalFlashcardCache('guest');
+                if (generic && generic.length > 0) return generic;
             }
         } catch {}
         return [];

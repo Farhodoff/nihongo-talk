@@ -28,7 +28,7 @@ const getHRRecruiterPrompt = (resumeText: string = '') => {
 2. **IT業界への志望動機と経験 (IT業界への志望動機・プロジェクト経験)**
    - Nega dasturlashni/IT sohasini tanlagansiz? (ITを選んだ理由)
    - Qaysi yo'nalishda ishlamoqchisiz? Qaysi tillarni bilasiz? (希望職種・使用言語)
-   - Qilgan loyihalaringiz (Study Planner va boshqalar) haqida batafsil aytib bering. (プロジェクトの詳細)
+   - Qilgan loyihalaringiz (Nihongo Talk va boshqalar) haqida batafsil aytib bering. (プロジェクトの詳細)
      - U nimani ta'kidlaganiga e'tibor bering: *Loyiha nima qiladi? Nima uchun yaratdingiz? Qaysi texnologiyalar ishlatilgan? Siz nima qildingiz? Qanday muammo bo'lgan? Nima o'rgandingiz?*
      - **【STARメソッドの徹底】**: プロジェクトの困難やバグ（Bug）について話す際、候補者が以下の構成で論理的に説明できているか確認し、指導してください：
        - **S (Situation)**: Loyiha yoki muammo qanday edi? (状況)
@@ -83,7 +83,7 @@ const getTechnicalRecruiterPrompt = (resumeText: string = '') => {
 
 【3つの必須ステップ】
 1. 🇯🇵 自己紹介 (Jikoshoukai) の完成と練習
-   - 候補者が日本語で自分自身とプロジェクト（Study Plannerなど）について2〜3分で魅力的に語れるように指導し、練習させてください。
+   - 候補者が日本語で自分自身とプロジェクト（Nihongo Talkなど）について2〜3分で魅力的に語れるように指導し、練習させてください。
 2. 💼 技術的・経験に基づくMock Interview（模擬面接）
    - React、Node.js、そして過去の開発経験について、日本語で深く質問（深掘り）してください。
    - 候補者が技術的な内容を日本語で正しく、論理的に説明できるかテストし、鍛えてください。

@@ -416,7 +416,6 @@ const AdminDashboardPage: React.FC = () => {
                 duration_seconds: s.duration_seconds || 0,
                 persona_title: s.persona_title || 'AI Coach',
                 score: s.grammar_score || s.vocabulary_score || 0,
-                feedback: s.feedback || "Mavjud emas",
                 transcript: Array.isArray(s.transcript) && s.transcript.length > 0 ? s.transcript : null,
                 type: 'AI Coach'
             }))
@@ -426,17 +425,25 @@ const AdminDashboardPage: React.FC = () => {
         setLoading(false);
     };
 
+    const currentEmail = user?.email || '';
+    const isAuthorized = Boolean(currentEmail && isAdminEmail(currentEmail, (user as any)?.role));
+
     useEffect(() => {
         let isMounted = true;
+        if (!isAuthorized) {
+            setLoading(false);
+            return;
+        }
         (async () => {
             try { await fetchAdminData(); }
             finally { if (isMounted) setLoading(false); }
         })();
         return () => { isMounted = false; };
-    }, [user?.email]);
+    }, [isAuthorized]);
 
     // Realtime Postgres Changes Subscription
     useEffect(() => {
+        if (!isAuthorized) return;
         const channel = supabase
             .channel('admin_dashboard_realtime')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_sessions' }, () => {
@@ -463,7 +470,7 @@ const AdminDashboardPage: React.FC = () => {
         return () => {
             supabase.removeChannel(channel);
         };
-    }, []);
+    }, [isAuthorized]);
 
     const handleRefresh = async () => {
         setRefreshing(true);
@@ -671,9 +678,6 @@ const AdminDashboardPage: React.FC = () => {
 
     const totalPages = Math.ceil(sortedUsers.length / USERS_PER_PAGE);
     const paginatedUsers = sortedUsers.slice(usersPage * USERS_PER_PAGE, (usersPage + 1) * USERS_PER_PAGE);
-
-    const currentEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || '' : '');
-    const isAuthorized = isAdminEmail(currentEmail, (user as any)?.role);
 
     if (loading) return (
         <div className="flex items-center justify-center h-[60vh]">

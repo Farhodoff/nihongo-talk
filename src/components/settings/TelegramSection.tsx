@@ -23,20 +23,19 @@ const TelegramSection: React.FC = () => {
 
     const dueCardsCount = flashcards.filter(f => !f.nextReviewDate || new Date(f.nextReviewDate) <= new Date()).length;
 
-    // Get stable user ID (authenticated user ID or fallback guest ID)
+    // Get user ID strictly from authenticated user
     const getEffectiveUserId = useCallback(() => {
-        if (user?.id) return user.id;
-        let guestId = localStorage.getItem('study_planner_guest_user_id');
-        if (!guestId) {
-            guestId = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
-            localStorage.setItem('study_planner_guest_user_id', guestId);
-        }
-        return guestId;
+        return user?.id || null;
     }, [user]);
 
     const effectiveUserId = getEffectiveUserId();
 
     const checkLinkStatus = useCallback(async (silent = false) => {
+        if (!effectiveUserId) {
+            setLinkedAccount(null);
+            setLoading(false);
+            return;
+        }
         if (!silent) setLoading(true);
         try {
             const account = await telegramService.getLinkedAccount(effectiveUserId);
@@ -64,7 +63,7 @@ const TelegramSection: React.FC = () => {
 
     // Poll for link completion after code is generated
     useEffect(() => {
-        if (!linkCode || linkedAccount) return;
+        if (!effectiveUserId || !linkCode || linkedAccount) return;
 
         const pollInterval = setInterval(async () => {
             try {
@@ -87,6 +86,10 @@ const TelegramSection: React.FC = () => {
     }, [effectiveUserId, linkCode, linkedAccount]);
 
     const handleGenerateCode = async () => {
+        if (!effectiveUserId) {
+            toast({ variant: 'destructive', title: "Telegram botni ulash uchun avval tizimga kiring" });
+            return;
+        }
         setLoading(true);
         try {
             const result = await telegramService.generateLinkCode(effectiveUserId);
@@ -119,6 +122,7 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleUnlink = async () => {
+        if (!effectiveUserId) return;
         if (!window.confirm('Haqiqatan ham Telegram akkauntini uzmoqchimisiz? Bildirishnomalar to\'xtatiladi.')) return;
 
         setActionLoading('unlink');
@@ -139,6 +143,7 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleToggleNotifications = async () => {
+        if (!effectiveUserId) return;
         const newValue = !notificationsEnabled;
         setActionLoading('toggle_notif');
         try {
@@ -159,7 +164,7 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleSendSrsNotification = async () => {
-        if (!linkedAccount) return;
+        if (!linkedAccount || !effectiveUserId) return;
         setActionLoading('srs_notif');
         try {
             const text = `🧠 <b>Nihon Talk — SRS Fleshkartalar Eslatmasi!</b>\n\n` +
@@ -189,11 +194,12 @@ const TelegramSection: React.FC = () => {
     };
 
     const handleSendTestNotification = async () => {
+        if (!effectiveUserId) return;
         setActionLoading('test_notif');
         try {
             const ok = await telegramService.sendNotification(
                 effectiveUserId,
-                "🔔 <b>Study Planner — Sinov Xabarnomasi!</b>\n\nTelegram integratsiyasi muvaffaqiyatli ishlamoqda. Kunlik rejalaringiz va eslatmalaringiz shu yerga yetkaziladi! 🚀"
+                "🔔 <b>Nihongo Talk — Sinov Xabarnomasi!</b>\n\nTelegram integratsiyasi muvaffaqiyatli ishlamoqda. Kunlik rejalaringiz va eslatmalaringiz shu yerga yetkaziladi! 🚀"
             );
             if (ok) {
                 toast({ 

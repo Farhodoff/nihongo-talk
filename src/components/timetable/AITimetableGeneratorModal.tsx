@@ -50,7 +50,7 @@ export const AITimetableGeneratorModal: React.FC<AITimetableGeneratorModalProps>
                 repetitionType: 'none'
             });
 
-            // Also Add as Study Planner Task
+            // Also Add as Nihongo Talk Task
             await addTask({
                 title: item.title,
                 dueDate: item.date,

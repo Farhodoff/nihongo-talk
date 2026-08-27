@@ -2,12 +2,21 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { Task, TaskStatus } from '../types';
 import { TaskService } from '../services/TaskService';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { isUuid } from '../utils/uuid';
 
-const LOCAL_STORAGE_KEY = 'study_planner_tasks';
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'local_user';
+};
 
-const saveTasksToLocalStorage = (taskList: Task[]) => {
+const saveTasksToLocalStorage = (taskList: Task[], userId?: string) => {
     try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(taskList));
+        const id = userId || getActiveUserId();
+        localStorage.setItem(`study_planner_tasks_${id}`, JSON.stringify(taskList));
+        if (id === 'local_user') {
+            localStorage.setItem('study_planner_tasks', JSON.stringify(taskList));
+        }
     } catch (e) {
         console.warn('Failed to sync tasks to localStorage:', e);
     }
@@ -36,10 +45,19 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
 
     const [tasks, setTasks] = useState<Task[]>(() => {
         try {
-            const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+            const activeId = getActiveUserId();
+            const userKey = `study_planner_tasks_${activeId}`;
+            const raw = localStorage.getItem(userKey);
             if (raw) {
                 const parsed = JSON.parse(raw);
                 if (Array.isArray(parsed)) return parsed;
+            }
+            if (activeId === 'local_user') {
+                const legacy = localStorage.getItem('study_planner_tasks');
+                if (legacy) {
+                    const parsed = JSON.parse(legacy);
+                    if (Array.isArray(parsed)) return parsed;
+                }
             }
         } catch (e) {
             console.warn('Failed to load initial tasks from localStorage:', e);

@@ -1,6 +1,6 @@
 /**
- * Study Planner Design System
- * Modern, clean, and accessible design for educational platform
+ * Nihongo Talk Design System
+ * Production CSS Tokens & Utility Rules
  */
 
 :root {
@@ -3797,7 +3797,7 @@ input:checked + .slider:before {
   height: 400px;
 }
 
-/* Study Planner */
+/* Nihongo Talk */
 .study-planner {
   width: 100%;
   height: 400px;

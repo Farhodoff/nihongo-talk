@@ -4,12 +4,18 @@ import { Event } from '../types';
 import { DatabaseEvent, DatabaseEventUpdate } from '../types/supabase-types';
 import { GoogleCalendarService, GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import { PushNotificationService } from '../services/PushNotificationService';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useEvents = (notificationsEnabled: boolean = true) => {
     const [events, setEvents] = useState<Event[]>(() => {
-        return safeLocalStorage.getJSON<Event[]>('study_planner_events_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<Event[]>(`study_planner_events_cache_${activeId}`, []);
     });
     const [googleEvents, setGoogleEvents] = useState<GoogleCalendarEvent[]>([]);
 
@@ -56,7 +62,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
 
         setEvents(prev => {
             const updated = [...prev, newEvent];
-            safeLocalStorage.setJSON('study_planner_events_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_events_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -104,7 +111,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
                     };
                     setEvents(prev => {
                         const updated = prev.map(e => e.id === eventId ? returnedEvent : e);
-                        safeLocalStorage.setJSON('study_planner_events_cache', updated);
+                        const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+                        safeLocalStorage.setJSON(`study_planner_events_cache_${activeId}`, updated);
                         return updated;
                     });
                     return returnedEvent;
@@ -118,6 +126,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
 
     const updateEvent = useCallback(async (id: string, updates: Partial<Event>) => {
         const { data: { session } } = await supabase.auth.getSession();
+        let activeUserId = 'local_user';
+        if (session?.user?.id) activeUserId = session.user.id;
         
         const currentEvent = events.find(e => e.id === id);
         if (currentEvent?.googleEventId && session?.provider_token) {
@@ -138,7 +148,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
         await supabase.from('events').update(dbUpdates).eq('id', id);
         setEvents(prev => {
             const updated = prev.map(e => e.id === id ? { ...e, ...updates } : e);
-            safeLocalStorage.setJSON('study_planner_events_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_events_cache_${activeId}`, updated);
             return updated;
         });
     }, [events]);
@@ -165,6 +176,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
 
     const deleteEvent = useCallback(async (id: string) => {
         const { data: { session } } = await supabase.auth.getSession();
+        let activeUserId = 'local_user';
+        if (session?.user?.id) activeUserId = session.user.id;
         
         const currentEvent = events.find(e => e.id === id);
         if (currentEvent?.googleEventId && session?.provider_token) {
@@ -173,7 +186,8 @@ export const useEvents = (notificationsEnabled: boolean = true) => {
 
         setEvents(prev => {
             const updated = prev.filter(e => e.id !== id);
-            safeLocalStorage.setJSON('study_planner_events_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_events_cache_${activeId}`, updated);
             return updated;
         });
         await supabase.from('events').delete().eq('id', id);

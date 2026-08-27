@@ -1,12 +1,18 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { Goal } from '../types';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const getActiveUserId = (): string => {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>('study_planner_user_cache', null);
+    return cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+};
 
 export const useGoals = () => {
     const [goals, setGoals] = useState<Goal[]>(() => {
-        return safeLocalStorage.getJSON<Goal[]>('study_planner_goals_cache', []);
+        const activeId = getActiveUserId();
+        return safeLocalStorage.getJSON<Goal[]>(`study_planner_goals_cache_${activeId}`, []);
     });
 
     const addGoal = useCallback(async (goalData: Partial<Goal>): Promise<Goal | null> => {
@@ -31,7 +37,8 @@ export const useGoals = () => {
 
         setGoals(prev => {
             const updated = [...prev, fullGoalData];
-            safeLocalStorage.setJSON('study_planner_goals_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_goals_cache_${activeId}`, updated);
             return updated;
         });
 
@@ -42,7 +49,7 @@ export const useGoals = () => {
                     user_id: activeUserId,
                     title: fullGoalData.title,
                     description: fullGoalData.description,
-                    target_date: fullGoalData.deadline.split('T')[0],
+                    deadline: fullGoalData.deadline,
                     progress: fullGoalData.progress,
                     color: fullGoalData.color,
                     priority: fullGoalData.priority,
@@ -68,27 +75,54 @@ export const useGoals = () => {
 
         setGoals(prev => {
             const updated = prev.map(g => g.id === id ? { ...g, ...updates } : g);
-            safeLocalStorage.setJSON('study_planner_goals_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_goals_cache_${activeId}`, updated);
             return updated;
         });
 
         if (activeUserId !== 'local_user') {
-            const dbUpdates: any = { ...updates };
-            if (updates.deadline) {
-                dbUpdates.target_date = updates.deadline.split('T')[0];
+            const dbUpdates: Record<string, any> = {};
+            if (updates.title !== undefined) dbUpdates.title = updates.title;
+            if (updates.description !== undefined) dbUpdates.description = updates.description;
+            if (updates.deadline !== undefined) dbUpdates.deadline = updates.deadline;
+            if (updates.progress !== undefined) dbUpdates.progress = updates.progress;
+            if (updates.color !== undefined) dbUpdates.color = updates.color;
+            if (updates.priority !== undefined) dbUpdates.priority = updates.priority;
+            if (updates.completed !== undefined) dbUpdates.completed = updates.completed;
+
+            try {
+                const { error } = await supabase.from('goals').update(dbUpdates).eq('id', id);
+                if (error) {
+                    console.warn('[updateGoal] DB update warning:', error.message);
+                }
+            } catch (e) {
+                console.warn('[updateGoal] DB sync error:', e);
             }
-            await supabase.from('goals').update(dbUpdates).eq('id', id);
         }
     }, []);
 
     const deleteGoal = useCallback(async (id: string) => {
+        let activeUserId = 'local_user';
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
+        } catch {}
+
         setGoals(prev => {
             const updated = prev.filter(g => g.id !== id);
-            safeLocalStorage.setJSON('study_planner_goals_cache', updated);
+            const activeId = activeUserId !== 'local_user' ? activeUserId : getActiveUserId();
+            safeLocalStorage.setJSON(`study_planner_goals_cache_${activeId}`, updated);
             return updated;
         });
 
-        await supabase.from('goals').delete().eq('id', id);
+        try {
+            const { error } = await supabase.from('goals').delete().eq('id', id);
+            if (error) {
+                console.warn('[deleteGoal] DB delete warning:', error.message);
+            }
+        } catch (e) {
+            console.warn('[deleteGoal] DB sync error:', e);
+        }
     }, []);
 
     return {
