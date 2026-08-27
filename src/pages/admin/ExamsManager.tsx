@@ -35,57 +35,17 @@ export const ExamsManager: React.FC = () => {
                 .from('exams')
                 .select('*')
                 .order('created_at', { ascending: false });
-            if (error || !data || data.length === 0) {
-                const defaultExams = [
-                    {
-                        id: 'exam_ielts_academic_1',
-                        title: 'IELTS Academic Full Mock Test #1',
-                        type: 'IELTS (Academic)',
-                        description: 'Full Reading, Listening, Writing & Speaking simulation test',
-                        is_published: true,
-                        created_at: new Date().toISOString()
-                    },
-                    {
-                        id: 'exam_jlpt_n3_1',
-                        title: 'JLPT N3 Official Practice Exam',
-                        type: 'JLPT N3',
-                        description: 'Kanji, Vocabulary, Grammar & Reading comprehensive exam',
-                        is_published: true,
-                        created_at: new Date().toISOString()
-                    },
-                    {
-                        id: 'exam_jlpt_n2_1',
-                        title: 'JLPT N2 Advanced Reading & Listening',
-                        type: 'JLPT N2',
-                        description: 'Dokkai and Chokkai mock exam for N2 candidates',
-                        is_published: true,
-                        created_at: new Date().toISOString()
-                    }
-                ];
-                setExams(data && data.length > 0 ? data : defaultExams);
+            if (error) {
+                console.error('Error fetching exams:', error.message);
+                setFetchError(error.message);
+                setExams([]);
             } else {
-                setExams(data);
+                setExams(data || []);
             }
         } catch (err: any) {
             console.error('Error fetching exams:', err);
-            setExams([
-                {
-                    id: 'exam_ielts_academic_1',
-                    title: 'IELTS Academic Full Mock Test #1',
-                    type: 'IELTS (Academic)',
-                    description: 'Full Reading, Listening, Writing & Speaking simulation test',
-                    is_published: true,
-                    created_at: new Date().toISOString()
-                },
-                {
-                    id: 'exam_jlpt_n3_1',
-                    title: 'JLPT N3 Official Practice Exam',
-                    type: 'JLPT N3',
-                    description: 'Kanji, Vocabulary, Grammar & Reading comprehensive exam',
-                    is_published: true,
-                    created_at: new Date().toISOString()
-                }
-            ]);
+            setFetchError(err?.message || 'Imtihonlarni yuklashda kutilmagan xatolik yuz berdi.');
+            setExams([]);
         } finally {
             setLoading(false);
         }

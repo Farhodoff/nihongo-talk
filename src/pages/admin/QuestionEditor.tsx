@@ -62,13 +62,25 @@ export const QuestionEditor: React.FC = () => {
             setSections(secs);
 
             const questionsMap: Record<string, any[]> = {};
-            for (const sec of secs) {
-                const { data: qData } = await supabase
+            const sectionIds = secs.map(s => s.id);
+            if (sectionIds.length > 0) {
+                const { data: allQuestions } = await supabase
                     .from('exam_questions')
                     .select('*')
-                    .eq('section_id', sec.id)
+                    .in('section_id', sectionIds)
                     .order('order_index', { ascending: true });
-                questionsMap[sec.id] = qData || [];
+
+                // Group questions by section_id
+                for (const secId of sectionIds) {
+                    questionsMap[secId] = [];
+                }
+                if (allQuestions) {
+                    for (const q of allQuestions) {
+                        if (questionsMap[q.section_id]) {
+                            questionsMap[q.section_id].push(q);
+                        }
+                    }
+                }
             }
             setSectionQuestions(questionsMap);
         } catch (err) {
@@ -579,8 +591,14 @@ export const QuestionEditor: React.FC = () => {
                                                             value={opt}
                                                             onChange={(e) => {
                                                                 const newOpts = [...questionForm.options];
+                                                                const oldVal = newOpts[i];
                                                                 newOpts[i] = e.target.value;
-                                                                setQuestionForm(f => ({ ...f, options: newOpts }));
+                                                                setQuestionForm(f => ({
+                                                                    ...f,
+                                                                    options: newOpts,
+                                                                    // Sync correct_answer if this option was the selected one
+                                                                    correct_answer: f.correct_answer === oldVal ? e.target.value : f.correct_answer
+                                                                }));
                                                             }}
                                                             placeholder={`Variant ${String.fromCharCode(65 + i)}`}
                                                             className="flex-1 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm bg-white dark:bg-slate-900 outline-none"

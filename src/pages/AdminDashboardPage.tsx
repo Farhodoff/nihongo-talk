@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { supabase } from '../lib/supabase';
 import {
@@ -95,6 +95,9 @@ const AdminDashboardPage: React.FC = () => {
     const [speechRecords, setSpeechRecords] = useState<any[]>([]);
     const [userStatsMap, setUserStatsMap] = useState<Record<string, UserAggregatedStats>>({});
 
+    // Debounce ref to prevent realtime query storms
+    const fetchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     // Detailed Table Status for Real DB Forensic Audit Bar & UI Error Indicators
     const [tableStatus, setTableStatus] = useState<TableFetchStatus>({
         rpcUsers: { ok: false, count: 0, error: null },
@@ -125,6 +128,7 @@ const AdminDashboardPage: React.FC = () => {
     const [sendingBroadcast, setSendingBroadcast] = useState(false);
     const [isRealtimeActive, setIsRealtimeActive] = useState(false);
     const secretClicksRef = useRef(0);
+    const userListRef = useRef(usersList);
 
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
     const [msgTitle, setMsgTitle] = useState('🎁 Maxsus Xabar');
@@ -151,8 +155,8 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     // Global Independent DB Data Fetcher
-    const fetchAdminData = async () => {
-        if (usersList.length === 0) setLoading(true);
+    const fetchAdminData = useCallback(async () => {
+        if (userListRef.current.length === 0) setLoading(true);
 
         // Ensure active authenticated session is restored
         try {
@@ -431,10 +435,12 @@ const AdminDashboardPage: React.FC = () => {
 
         setSpeechRecords(combinedSpeech);
         setLoading(false);
-    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const currentEmail = user?.email || '';
-    const isAuthorized = Boolean(currentEmail && isAdminEmail(currentEmail, (user as any)?.role));
+    const userRole = (user as { role?: string })?.role;
+    const isAuthorized = Boolean(currentEmail && isAdminEmail(currentEmail, userRole));
 
     useEffect(() => {
         let isMounted = true;
@@ -447,28 +453,26 @@ const AdminDashboardPage: React.FC = () => {
             finally { if (isMounted) setLoading(false); }
         })();
         return () => { isMounted = false; };
-    }, [isAuthorized]);
+    }, [isAuthorized, fetchAdminData]);
 
-    // Realtime Postgres Changes Subscription
+    // Realtime Postgres Changes Subscription (debounced to prevent query storms)
     useEffect(() => {
         if (!isAuthorized) return;
+
+        const debouncedFetch = () => {
+            if (fetchDebounceRef.current) clearTimeout(fetchDebounceRef.current);
+            fetchDebounceRef.current = setTimeout(() => {
+                fetchAdminData();
+            }, 2000); // 2s debounce — prevents rapid-fire fetches
+        };
+
         const channel = supabase
             .channel('admin_dashboard_realtime')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_sessions' }, () => {
-                fetchAdminData();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_coach_sessions' }, () => {
-                fetchAdminData();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'ai_coach_sessions' }, () => {
-                fetchAdminData();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'study_sessions' }, () => {
-                fetchAdminData();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
-                fetchAdminData();
-            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_sessions' }, debouncedFetch)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_coach_sessions' }, debouncedFetch)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'ai_coach_sessions' }, debouncedFetch)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'study_sessions' }, debouncedFetch)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, debouncedFetch)
             .subscribe(status => {
                 if (status === 'SUBSCRIBED') {
                     setIsRealtimeActive(true);
@@ -476,9 +480,10 @@ const AdminDashboardPage: React.FC = () => {
             });
 
         return () => {
+            if (fetchDebounceRef.current) clearTimeout(fetchDebounceRef.current);
             supabase.removeChannel(channel);
         };
-    }, [isAuthorized]);
+    }, [isAuthorized, fetchAdminData]);
 
     const handleRefresh = async () => {
         setRefreshing(true);
@@ -501,6 +506,12 @@ const AdminDashboardPage: React.FC = () => {
             setMsgContent('');
         } catch { toast({ variant: 'destructive', title: 'Xatolik', description: 'Xabar yuborishda xatolik yuz berdi.' }); }
         finally { setSendingMsg(false); }
+    };
+
+    const handleCloseMessageModal = () => {
+        setMessageModalUser(null);
+        setMsgContent('');
+        setMsgTitle('🎁 Maxsus Xabar');
     };
 
     const handleSendBroadcast = async () => {
@@ -530,7 +541,7 @@ const AdminDashboardPage: React.FC = () => {
         }
     };
 
-    const handleToggleAdmin = async (targetEmail: string) => {
+    const handleToggleAdmin = async (targetEmail: string, targetRole?: string) => {
         if (!isSuperAdmin(user?.email)) {
             toast({ variant: 'destructive', title: 'Ruxsat Cheklangan', description: 'Faqat Super Admin admin huquqlarini o\'zgartira oladi.' });
             return;
@@ -539,7 +550,7 @@ const AdminDashboardPage: React.FC = () => {
             toast({ variant: 'destructive', title: 'Taqiqlangan', description: 'Super Admin rolini o\'zgartirish mumkin emas.' });
             return;
         }
-        if (isAdminEmail(targetEmail)) {
+        if (isAdminEmail(targetEmail, targetRole)) {
             const success = await revokeAdminRole(targetEmail);
             if (success) {
                 toast({ title: '🛡️ Adminlik Bekor Qilindi', description: `${targetEmail} adminlikdan chiqarildi.` });
@@ -554,7 +565,7 @@ const AdminDashboardPage: React.FC = () => {
                 toast({ variant: 'destructive', title: 'Xatolik', description: `${targetEmail} ga admin roli berishda xatolik yuz berdi.` });
             }
         }
-        fetchAdminData();
+        await fetchAdminData();
     };
 
     const exportUsersToCSV = () => {
@@ -578,14 +589,16 @@ const AdminDashboardPage: React.FC = () => {
             ].join(',');
         });
 
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
-        const encodedUri = encodeURI(csvContent);
+        const csvString = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
+        link.setAttribute('href', url);
         link.setAttribute('download', `nihon_talk_users_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        URL.revokeObjectURL(url);
         toast({ title: '📥 CSV Yuklab Olindi', description: `${usersList.length} ta foydalanuvchi ma'lumoti yuklandi.` });
     };
 
@@ -605,14 +618,16 @@ const AdminDashboardPage: React.FC = () => {
             `"${s.created_at}"`
         ].join(','));
 
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
-        const encodedUri = encodeURI(csvContent);
+        const csvString = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
+        link.setAttribute('href', url);
         link.setAttribute('download', `nihon_talk_speech_history_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        URL.revokeObjectURL(url);
         toast({ title: '📥 CSV Yuklab Olindi', description: `${speechRecords.length} ta suhbat yozuvi yuklandi.` });
     };
 
@@ -1067,10 +1082,10 @@ const AdminDashboardPage: React.FC = () => {
                                                                 <Button
                                                                     size="sm"
                                                                     variant="ghost"
-                                                                    onClick={() => handleToggleAdmin(u.email)}
+                                                                    onClick={() => handleToggleAdmin(u.email, u.role)}
                                                                     className="h-7 px-2 text-[11px] text-muted-foreground hover:text-foreground"
                                                                 >
-                                                                    {isAdminEmail(u.email) ? 'Adminlikni olish' : 'Admin qilish'}
+                                                                    {isAdminEmail(u.email, u.role) ? 'Adminlikni olish' : 'Admin qilish'}
                                                                 </Button>
                                                             )}
                                                         </div>
@@ -1144,8 +1159,8 @@ const AdminDashboardPage: React.FC = () => {
 
             {/* User Profile Detail View Modal */}
             {selectedDetailUser && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-card border border-border rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl animate-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4" onClick={() => setSelectedDetailUser(null)}>
+                    <div className="bg-card border border-border rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between border-b border-border pb-3">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-lg">
@@ -1261,8 +1276,8 @@ const AdminDashboardPage: React.FC = () => {
 
             {/* Global Broadcast Announcement Modal */}
             {isBroadcastOpen && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4" onClick={() => setIsBroadcastOpen(false)}>
+                    <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between">
                             <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
                                 <Radio size={16} className="text-purple-400" />
@@ -1328,11 +1343,11 @@ const AdminDashboardPage: React.FC = () => {
 
             {/* Direct User Message Modal */}
             {messageModalUser && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-xl">
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4" onClick={handleCloseMessageModal}>
+                    <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-xl" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between">
                             <h3 className="font-bold text-sm text-foreground">Xabar Yuborish: {messageModalUser.email}</h3>
-                            <button onClick={() => setMessageModalUser(null)} className="text-muted-foreground hover:text-foreground">
+                            <button onClick={handleCloseMessageModal} className="text-muted-foreground hover:text-foreground">
                                 ✕
                             </button>
                         </div>
@@ -1351,7 +1366,7 @@ const AdminDashboardPage: React.FC = () => {
                             className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-primary resize-none"
                         />
                         <div className="flex gap-2">
-                            <Button variant="outline" onClick={() => setMessageModalUser(null)} className="flex-1 text-xs">Bekor qilish</Button>
+                            <Button variant="outline" onClick={handleCloseMessageModal} className="flex-1 text-xs">Bekor qilish</Button>
                             <Button onClick={handleSendMsg} disabled={sendingMsg} className="flex-1 text-xs">Yuborish</Button>
                         </div>
                     </div>

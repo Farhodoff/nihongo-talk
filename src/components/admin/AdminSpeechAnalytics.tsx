@@ -164,39 +164,37 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 }
             }
 
-            // 6. Scan LocalStorage for any authentic local speech sessions saved offline
+            // 6. Scan LocalStorage for authentic local speech sessions (using known key patterns only)
             if (typeof window !== 'undefined') {
                 try {
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const k = localStorage.key(i);
-                        if (k && (k.includes('scenario_history') || k.includes('speaking_sessions'))) {
-                            try {
-                                const raw = localStorage.getItem(k);
-                                if (raw) {
-                                    const parsed = JSON.parse(raw);
-                                    if (Array.isArray(parsed)) {
-                                        for (const item of parsed) {
-                                            const scId = item.id || `local-${item.created_at || item.createdAt || Date.now()}`;
-                                            if (!list.some(l => l.id === scId)) {
-                                                list.push({
-                                                    id: scId,
-                                                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'O\'quvchi',
-                                                    persona_title: item.scenario_title || item.persona_title || item.personaTitle || 'Ssenariy Muloqot',
-                                                    fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
-                                                    pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || 0,
-                                                    grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
-                                                    vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
-                                                    duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
-                                                    feedback: item.ai_feedback || item.feedback || '',
-                                                    transcript: item.transcript || [],
-                                                    created_at: item.created_at || item.createdAt || new Date().toISOString()
-                                                });
-                                            }
+                    const knownLocalKeys = ['scenario_history', 'speaking_sessions_local'];
+                    for (const k of knownLocalKeys) {
+                        try {
+                            const raw = localStorage.getItem(k);
+                            if (raw) {
+                                const parsed = JSON.parse(raw);
+                                if (Array.isArray(parsed)) {
+                                    for (const item of parsed) {
+                                        const scId = item.id || `local-${item.created_at || item.createdAt || Date.now()}`;
+                                        if (!list.some(l => l.id === scId)) {
+                                            list.push({
+                                                id: scId,
+                                                user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'O\'quvchi',
+                                                persona_title: item.scenario_title || item.persona_title || item.personaTitle || 'Ssenariy Muloqot',
+                                                fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
+                                                pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || 0,
+                                                grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
+                                                vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                                                duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
+                                                feedback: item.ai_feedback || item.feedback || '',
+                                                transcript: item.transcript || [],
+                                                created_at: item.created_at || item.createdAt || new Date().toISOString()
+                                            });
                                         }
                                     }
                                 }
-                            } catch {}
-                        }
+                            }
+                        } catch {}
                     }
                 } catch (localErr) {
                     console.warn('Local storage speech scan notice:', localErr);
