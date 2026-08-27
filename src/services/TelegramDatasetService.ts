@@ -56,18 +56,42 @@ export class TelegramDatasetService {
         
         let allSessions: any[] = [];
         try {
-            const { data, error } = await supabase
-                .from('speaking_sessions')
-                .select('*')
-                .gte('created_at', `${todayStr}T00:00:00.000Z`)
-                .lte('created_at', `${todayStr}T23:59:59.999Z`)
-                .order('created_at', { ascending: false });
-            
-            if (!error && data) {
-                allSessions = data;
+            const [spRes, scRes, aiRes] = await Promise.allSettled([
+                supabase
+                    .from('speaking_sessions')
+                    .select('*')
+                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
+                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
+                    .order('created_at', { ascending: false }),
+                supabase
+                    .from('speaking_coach_sessions')
+                    .select('*')
+                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
+                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
+                    .order('created_at', { ascending: false }),
+                supabase
+                    .from('ai_coach_sessions')
+                    .select('*')
+                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
+                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
+                    .order('created_at', { ascending: false })
+            ]);
+
+            if (spRes.status === 'fulfilled' && Array.isArray(spRes.value.data)) {
+                allSessions.push(...spRes.value.data);
+            }
+            if (scRes.status === 'fulfilled' && Array.isArray(scRes.value.data)) {
+                for (const item of scRes.value.data) {
+                    if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+                }
+            }
+            if (aiRes.status === 'fulfilled' && Array.isArray(aiRes.value.data)) {
+                for (const item of aiRes.value.data) {
+                    if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+                }
             }
         } catch (e) {
-            console.warn('Speaking sessions fetch warning:', e);
+            console.warn('Speech sessions fetch warning:', e);
         }
 
         // Fallback to local storage history if Supabase is offline

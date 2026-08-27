@@ -37,14 +37,49 @@ export const isUserAdmin = (user?: { email?: string | null; role?: string | null
     return isAdminEmail(user.email, user.role);
 };
 
-// Dynamic role grant placeholder (delegates to backend DB role)
-export const grantAdminRole = async (email: string): Promise<void> => {
-    if (!email) return;
-    console.info(`[Admin] Admin role requested for ${email}`);
+// Dynamic role grant — updates profiles.role in Supabase DB
+export const grantAdminRole = async (email: string): Promise<boolean> => {
+    if (!email) return false;
+    try {
+        const { supabase } = await import('../lib/supabase');
+        const { error } = await supabase
+            .from('profiles')
+            .update({ role: 'admin', updated_at: new Date().toISOString() })
+            .eq('email', email.toLowerCase().trim());
+        if (error) {
+            console.warn('[Admin] grantAdminRole DB error:', error.message);
+            return false;
+        }
+        console.info(`[Admin] Admin role granted to ${email} in DB`);
+        return true;
+    } catch (e: any) {
+        console.warn('[Admin] grantAdminRole exception:', e?.message);
+        return false;
+    }
 };
 
-export const revokeAdminRole = async (email: string): Promise<void> => {
-    if (!email) return;
-    console.info(`[Admin] Admin role revoke requested for ${email}`);
+export const revokeAdminRole = async (email: string): Promise<boolean> => {
+    if (!email) return false;
+    // Never allow revoking superadmin
+    if (isSuperAdmin(email)) {
+        console.warn('[Admin] Cannot revoke superadmin role');
+        return false;
+    }
+    try {
+        const { supabase } = await import('../lib/supabase');
+        const { error } = await supabase
+            .from('profiles')
+            .update({ role: 'user', updated_at: new Date().toISOString() })
+            .eq('email', email.toLowerCase().trim());
+        if (error) {
+            console.warn('[Admin] revokeAdminRole DB error:', error.message);
+            return false;
+        }
+        console.info(`[Admin] Admin role revoked from ${email} in DB`);
+        return true;
+    } catch (e: any) {
+        console.warn('[Admin] revokeAdminRole exception:', e?.message);
+        return false;
+    }
 };
 

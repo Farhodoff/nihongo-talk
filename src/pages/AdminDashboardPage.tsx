@@ -4,7 +4,8 @@ import { supabase } from '../lib/supabase';
 import {
     Users, Loader2, CheckCircle2,
     RefreshCw, Home, Activity, BookOpen,
-    Wand2, Search, Mic, MessageSquareText, Clock, AlertTriangle, ShieldCheck
+    Wand2, Search, Mic, MessageSquareText, Clock, AlertTriangle, ShieldCheck,
+    Download, Radio, Send, Eye, ArrowUpDown, ChevronRight, X
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +25,16 @@ interface UserRecord {
     role?: string;
     created_at: string;
     last_sign_in_at?: string;
+}
+
+interface UserAggregatedStats {
+    totalSessions: number;
+    studySessions: number;
+    speakingSessions: number;
+    aiCoachSessions: number;
+    totalDurationMinutes: number;
+    lastActiveDate: string | null;
+    avgScore: number | null;
 }
 
 interface TableFetchStatus {
@@ -82,6 +93,7 @@ const AdminDashboardPage: React.FC = () => {
     });
 
     const [speechRecords, setSpeechRecords] = useState<any[]>([]);
+    const [userStatsMap, setUserStatsMap] = useState<Record<string, UserAggregatedStats>>({});
 
     // Detailed Table Status for Real DB Forensic Audit Bar & UI Error Indicators
     const [tableStatus, setTableStatus] = useState<TableFetchStatus>({
@@ -97,10 +109,21 @@ const AdminDashboardPage: React.FC = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [chartMode, setChartMode] = useState<'dau' | 'duration'>('dau');
     const [userSearchQuery, setUserSearchQuery] = useState('');
+    const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'student'>('all');
+    const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'sessions' | 'duration' | 'name'>('newest');
+    const [usersPage, setUsersPage] = useState(0);
+    const USERS_PER_PAGE = 15;
     const [activeSection, setActiveSection] = useState<'users' | 'speech' | 'scenarios'>('users');
 
     const [isCleanerOpen, setIsCleanerOpen] = useState(false);
     const [isVaultOpen, setIsVaultOpen] = useState(false);
+    const [selectedDetailUser, setSelectedDetailUser] = useState<UserRecord | null>(null);
+    const [isBroadcastOpen, setIsBroadcastOpen] = useState(false);
+    const [broadcastTitle, setBroadcastTitle] = useState('');
+    const [broadcastMessage, setBroadcastMessage] = useState('');
+    const [broadcastTag, setBroadcastTag] = useState<'general' | 'system' | 'update' | 'promo'>('general');
+    const [sendingBroadcast, setSendingBroadcast] = useState(false);
+    const [isRealtimeActive, setIsRealtimeActive] = useState(false);
     const secretClicksRef = useRef(0);
 
     const [messageModalUser, setMessageModalUser] = useState<{ id: string; email: string } | null>(null);
@@ -154,7 +177,7 @@ const AdminDashboardPage: React.FC = () => {
                     newStatus.profiles = { ok: true, count: pRes.count || pRes.data.length, error: null };
                     loadedUsers = pRes.data.map((u: any) => ({
                         id: u.id,
-                        email: u.email || 'student@nihon-talk.com',
+                        email: u.email || 'Noma\'lum',
                         full_name: u.full_name || '',
                         role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
                         created_at: u.created_at || new Date().toISOString(),
@@ -165,7 +188,7 @@ const AdminDashboardPage: React.FC = () => {
                 newStatus.rpcUsers = { ok: true, count: rpcRes.data.length, error: null };
                 loadedUsers = rpcRes.data.map((u: any) => ({
                     id: u.id,
-                    email: u.email || 'student@nihon-talk.com',
+                    email: u.email || 'Noma\'lum',
                     full_name: u.full_name || '',
                     role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
                     created_at: u.created_at || new Date().toISOString(),
@@ -294,11 +317,77 @@ const AdminDashboardPage: React.FC = () => {
             try { localStorage.setItem('study_planner_admin_stats_cache', JSON.stringify(allDailyStats)); } catch {}
         }
 
-        // 4. COMBINE REAL CONVERSATION HISTORY RECORDS
+        // 4. AGGREGATE PER-USER STATISTICS FROM REAL SESSIONS
+        const statsMap: Record<string, UserAggregatedStats> = {};
+        const scoresByUser: Record<string, number[]> = {};
+
+        const initUserStat = (key: string) => {
+            if (!statsMap[key]) {
+                statsMap[key] = {
+                    totalSessions: 0,
+                    studySessions: 0,
+                    speakingSessions: 0,
+                    aiCoachSessions: 0,
+                    totalDurationMinutes: 0,
+                    lastActiveDate: null,
+                    avgScore: null,
+                };
+            }
+            return statsMap[key];
+        };
+
+        const addRecordToUser = (userId?: string, type?: 'study' | 'speak' | 'coach' | 'ai', durationMin?: number, createdAt?: string, score?: number) => {
+            if (!userId) return;
+            const stat = initUserStat(userId);
+            stat.totalSessions += 1;
+            stat.totalDurationMinutes += Math.max(0, Math.round(durationMin || 0));
+            if (type === 'study') stat.studySessions += 1;
+            else if (type === 'speak') stat.speakingSessions += 1;
+            else if (type === 'coach' || type === 'ai') stat.aiCoachSessions += 1;
+
+            if (createdAt) {
+                if (!stat.lastActiveDate || new Date(createdAt).getTime() > new Date(stat.lastActiveDate).getTime()) {
+                    stat.lastActiveDate = createdAt;
+                }
+            }
+
+            if (typeof score === 'number' && score > 0) {
+                if (!scoresByUser[userId]) scoresByUser[userId] = [];
+                scoresByUser[userId].push(score);
+            }
+        };
+
+        studyData.forEach((s: any) => addRecordToUser(s.user_id, 'study', s.duration || 0, s.created_at));
+        speakingData.forEach((s: any) => addRecordToUser(s.user_id, 'speak', (s.duration_seconds || 0) / 60, s.created_at, s.overall_score || s.grammar_score));
+        coachData.forEach((s: any) => addRecordToUser(s.user_id, 'coach', (s.duration_seconds || 0) / 60, s.created_at, s.grammar_score || (s.fluency_score ? s.fluency_score * 20 : 0)));
+        aiCoachData.forEach((s: any) => addRecordToUser(s.user_id, 'ai', (s.duration_seconds || 0) / 60, s.created_at, s.grammar_score || s.vocabulary_score));
+
+        for (const [uid, scoreList] of Object.entries(scoresByUser)) {
+            if (statsMap[uid] && scoreList.length > 0) {
+                statsMap[uid].avgScore = Math.round(scoreList.reduce((a, b) => a + b, 0) / scoreList.length);
+            }
+        }
+
+        setUserStatsMap(statsMap);
+
+        // 5. BUILD USER_ID → EMAIL MAP FROM LOADED USERS
+        const profileMap = new Map<string, string>();
+        loadedUsers.forEach(u => {
+            if (u.id && u.email) profileMap.set(u.id, u.email);
+        });
+
+        const resolveEmail = (record: any): string => {
+            if (record.user_email && record.user_email !== 'student@nihon-talk.com') return record.user_email;
+            if (record.user_id && profileMap.has(record.user_id)) return profileMap.get(record.user_id)!;
+            return 'Noma\'lum';
+        };
+
+        // 6. COMBINE REAL CONVERSATION HISTORY RECORDS
         const combinedSpeech = [
             ...speakingData.map(s => ({
                 id: s.id,
-                user_email: s.user_email || 'student@nihon-talk.com',
+                user_id: s.user_id,
+                user_email: resolveEmail(s),
                 created_at: s.created_at,
                 duration_seconds: s.duration_seconds || 0,
                 persona_title: s.persona_title || s.topic || 'Yaponcha Suhbat',
@@ -309,7 +398,8 @@ const AdminDashboardPage: React.FC = () => {
             })),
             ...coachData.map(s => ({
                 id: s.id,
-                user_email: 'student@nihon-talk.com',
+                user_id: s.user_id,
+                user_email: resolveEmail(s),
                 created_at: s.created_at,
                 duration_seconds: s.duration_seconds || 0,
                 persona_title: s.persona || s.persona_title || 'Speaking Coach',
@@ -320,7 +410,8 @@ const AdminDashboardPage: React.FC = () => {
             })),
             ...aiCoachData.map(s => ({
                 id: s.id,
-                user_email: 'student@nihon-talk.com',
+                user_id: s.user_id,
+                user_email: resolveEmail(s),
                 created_at: s.created_at,
                 duration_seconds: s.duration_seconds || 0,
                 persona_title: s.persona_title || 'AI Coach',
@@ -343,6 +434,36 @@ const AdminDashboardPage: React.FC = () => {
         })();
         return () => { isMounted = false; };
     }, [user?.email]);
+
+    // Realtime Postgres Changes Subscription
+    useEffect(() => {
+        const channel = supabase
+            .channel('admin_dashboard_realtime')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_sessions' }, () => {
+                fetchAdminData();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'speaking_coach_sessions' }, () => {
+                fetchAdminData();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'ai_coach_sessions' }, () => {
+                fetchAdminData();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'study_sessions' }, () => {
+                fetchAdminData();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
+                fetchAdminData();
+            })
+            .subscribe(status => {
+                if (status === 'SUBSCRIBED') {
+                    setIsRealtimeActive(true);
+                }
+            });
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, []);
 
     const handleRefresh = async () => {
         setRefreshing(true);
@@ -367,19 +488,117 @@ const AdminDashboardPage: React.FC = () => {
         finally { setSendingMsg(false); }
     };
 
-    const handleToggleAdmin = (targetEmail: string) => {
+    const handleSendBroadcast = async () => {
+        if (!broadcastTitle.trim() || !broadcastMessage.trim()) {
+            toast({ variant: 'destructive', title: 'To\'liq to\'ldiring', description: 'Sarlavha va xabar matnini kiriting.' });
+            return;
+        }
+        setSendingBroadcast(true);
+        try {
+            const success = await UserNotificationService.sendGlobalBroadcastAnnouncement({
+                title: broadcastTitle.trim(),
+                message: broadcastMessage.trim(),
+                tag: broadcastTag
+            });
+            if (success) {
+                toast({ title: '📢 Global E\'lon Yuborildi', description: 'Barcha platforma foydalanuvchilariga e\'lon muvaffaqiyatli tarqatildi.' });
+                setIsBroadcastOpen(false);
+                setBroadcastTitle('');
+                setBroadcastMessage('');
+            } else {
+                toast({ variant: 'destructive', title: 'Xatolik', description: 'E\'lonni yuborishda xatolik yuz berdi.' });
+            }
+        } catch (e: any) {
+            toast({ variant: 'destructive', title: 'Xatolik', description: e?.message || 'E\'lon yuborilmadi.' });
+        } finally {
+            setSendingBroadcast(false);
+        }
+    };
+
+    const handleToggleAdmin = async (targetEmail: string) => {
         if (!isSuperAdmin(user?.email)) {
             toast({ variant: 'destructive', title: 'Ruxsat Cheklangan', description: 'Faqat Super Admin admin huquqlarini o\'zgartira oladi.' });
             return;
         }
+        if (isSuperAdmin(targetEmail)) {
+            toast({ variant: 'destructive', title: 'Taqiqlangan', description: 'Super Admin rolini o\'zgartirish mumkin emas.' });
+            return;
+        }
         if (isAdminEmail(targetEmail)) {
-            revokeAdminRole(targetEmail);
-            toast({ title: '🛡️ Adminlik Bekor Qilindi', description: `${targetEmail} adminlikdan chiqarildi.` });
+            const success = await revokeAdminRole(targetEmail);
+            if (success) {
+                toast({ title: '🛡️ Adminlik Bekor Qilindi', description: `${targetEmail} adminlikdan chiqarildi.` });
+            } else {
+                toast({ variant: 'destructive', title: 'Xatolik', description: `${targetEmail} adminlikni bekor qilishda xatolik yuz berdi.` });
+            }
         } else {
-            grantAdminRole(targetEmail);
-            toast({ title: '🛡️ Admin Roli Berildi', description: `${targetEmail} ga Admin roli muvaffaqiyatli berildi!` });
+            const success = await grantAdminRole(targetEmail);
+            if (success) {
+                toast({ title: '🛡️ Admin Roli Berildi', description: `${targetEmail} ga Admin roli muvaffaqiyatli berildi!` });
+            } else {
+                toast({ variant: 'destructive', title: 'Xatolik', description: `${targetEmail} ga admin roli berishda xatolik yuz berdi.` });
+            }
         }
         fetchAdminData();
+    };
+
+    const exportUsersToCSV = () => {
+        if (usersList.length === 0) {
+            toast({ title: 'Ma\'lumot yo\'q', description: 'Eksport qilish uchun foydalanuvchilar mavjud emas.' });
+            return;
+        }
+        const headers = ['ID', 'Ism', 'Email', 'Rol', 'Royxatdan Otgan', 'Oxirgi Kirish', 'Jami Mashgulotlar', 'Jami Vaqt (daqiqa)', 'Ortacha Ball'];
+        const rows = usersList.map(u => {
+            const stat = userStatsMap[u.id];
+            return [
+                `"${u.id}"`,
+                `"${(u.full_name || '').replace(/"/g, '""')}"`,
+                `"${u.email}"`,
+                `"${u.role || 'user'}"`,
+                `"${u.created_at || ''}"`,
+                `"${u.last_sign_in_at || ''}"`,
+                stat?.totalSessions || 0,
+                stat?.totalDurationMinutes || 0,
+                stat?.avgScore ? `${stat.avgScore}%` : 'N/A'
+            ].join(',');
+        });
+
+        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `nihon_talk_users_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast({ title: '📥 CSV Yuklab Olindi', description: `${usersList.length} ta foydalanuvchi ma'lumoti yuklandi.` });
+    };
+
+    const exportSpeechToCSV = () => {
+        if (speechRecords.length === 0) {
+            toast({ title: 'Ma\'lumot yo\'q', description: 'Eksport qilish uchun muloqot yozuvlari mavjud emas.' });
+            return;
+        }
+        const headers = ['ID', 'Email', 'Turi', 'Mavzu/Persona', 'Ball', 'Davomiyligi (soniya)', 'Sana'];
+        const rows = speechRecords.map(s => [
+            `"${s.id}"`,
+            `"${s.user_email}"`,
+            `"${s.type}"`,
+            `"${(s.persona_title || '').replace(/"/g, '""')}"`,
+            s.score || 0,
+            s.duration_seconds || 0,
+            `"${s.created_at}"`
+        ].join(','));
+
+        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `nihon_talk_speech_history_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast({ title: '📥 CSV Yuklab Olindi', description: `${speechRecords.length} ta suhbat yozuvi yuklandi.` });
     };
 
     // User Role Filter Calculations
@@ -415,13 +634,43 @@ const AdminDashboardPage: React.FC = () => {
         .map(r => r.score);
     const weeklyAvgPercent = weeklyScores.length > 0 ? Math.round(weeklyScores.reduce((a, b) => a + b, 0) / weeklyScores.length) : 0;
 
-    const filteredUsers = userSearchQuery.trim()
-        ? usersList.filter(s =>
+    const roleFilteredUsers = roleFilter === 'all'
+        ? usersList
+        : roleFilter === 'admin'
+            ? usersList.filter(s => isAdminEmail(s.email, s.role))
+            : usersList.filter(s => !isAdminEmail(s.email, s.role));
+
+    const searchedUsers = userSearchQuery.trim()
+        ? roleFilteredUsers.filter(s =>
             s.email.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
             (s.full_name && s.full_name.toLowerCase().includes(userSearchQuery.toLowerCase())) ||
             (s.role && s.role.toLowerCase().includes(userSearchQuery.toLowerCase()))
         )
-        : usersList;
+        : roleFilteredUsers;
+
+    const sortedUsers = [...searchedUsers].sort((a, b) => {
+        const statA = userStatsMap[a.id];
+        const statB = userStatsMap[b.id];
+        if (sortBy === 'newest') {
+            return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+        }
+        if (sortBy === 'oldest') {
+            return new Date(a.created_at || 0).getTime() - new Date(b.created_at || 0).getTime();
+        }
+        if (sortBy === 'sessions') {
+            return (statB?.totalSessions || 0) - (statA?.totalSessions || 0);
+        }
+        if (sortBy === 'duration') {
+            return (statB?.totalDurationMinutes || 0) - (statA?.totalDurationMinutes || 0);
+        }
+        if (sortBy === 'name') {
+            return (a.full_name || a.email).localeCompare(b.full_name || b.email);
+        }
+        return 0;
+    });
+
+    const totalPages = Math.ceil(sortedUsers.length / USERS_PER_PAGE);
+    const paginatedUsers = sortedUsers.slice(usersPage * USERS_PER_PAGE, (usersPage + 1) * USERS_PER_PAGE);
 
     const currentEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') || '' : '');
     const isAuthorized = isAdminEmail(currentEmail, (user as any)?.role);
@@ -443,21 +692,47 @@ const AdminDashboardPage: React.FC = () => {
         </div>
     );
 
+    // Filter user speech records for the detail modal
+    const userDetailSpeechRecords = selectedDetailUser
+        ? speechRecords.filter(r => r.user_id === selectedDetailUser.id || r.user_email === selectedDetailUser.email)
+        : [];
+
     return (
         <div className="max-w-6xl mx-auto space-y-6 pb-20 md:pb-12 animate-in fade-in duration-300">
             {/* Top Bar Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
                 <div>
-                    <h1
-                        onClick={handleSecretTitleClick}
-                        className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
-                        title="Nihon Talk Admin Console"
-                    >
-                        Super Admin Paneli
-                    </h1>
+                    <div className="flex items-center gap-2">
+                        <h1
+                            onClick={handleSecretTitleClick}
+                            className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
+                            title="Nihon Talk Admin Console"
+                        >
+                            Super Admin Paneli
+                        </h1>
+                        {isRealtimeActive && (
+                            <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-bold flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live DB
+                            </span>
+                        )}
+                    </div>
                     <p className="text-xs text-muted-foreground mt-0.5">Foydalanuvchilar faolligi, ta'lim ko'rsatkichlari va AI Coach tahlillari boshqaruvi</p>
                 </div>
-                <div className="flex items-center gap-2 self-start sm:self-auto">
+                <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
+                    <button
+                        onClick={() => setIsBroadcastOpen(true)}
+                        className="px-3 py-1.5 bg-purple-600/10 text-purple-400 border border-purple-500/20 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-purple-600/20 transition-colors"
+                        title="Barcha foydalanuvchilarga bildirishnoma yuborish"
+                    >
+                        <Radio size={14} /> E'lon / Broadcast
+                    </button>
+                    <button
+                        onClick={activeSection === 'speech' ? exportSpeechToCSV : exportUsersToCSV}
+                        className="px-3 py-1.5 bg-card text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-muted transition-colors"
+                        title="Joriy jadvalni CSV formatida yuklab olish"
+                    >
+                        <Download size={14} /> CSV Yuklab Olish
+                    </button>
                     <button
                         onClick={() => setIsCleanerOpen(true)}
                         className="px-3 py-1.5 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-amber-500/20 transition-colors"
@@ -627,25 +902,66 @@ const AdminDashboardPage: React.FC = () => {
 
                     {/* All Registered Users Table */}
                     <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-xs">
-                        <div className="p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div className="p-4 border-b border-border flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                             <div>
                                 <h2 className="font-bold text-sm text-foreground flex items-center gap-2">
                                     <Users size={16} className="text-primary" />
-                                    Barcha Ro'yxatdan O'tgan Foydalanuvchilar ({filteredUsers.length})
+                                    Barcha Ro'yxatdan O'tgan Foydalanuvchilar ({sortedUsers.length})
                                 </h2>
                                 <p className="text-[11px] text-muted-foreground mt-0.5">
                                     Supabase Real DB (`get_admin_all_users`) dan yuklangan {totalAllUsers} ta akkount
                                 </p>
                             </div>
-                            <div className="relative">
-                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                                <input
-                                    type="text"
-                                    value={userSearchQuery}
-                                    onChange={e => setUserSearchQuery(e.target.value)}
-                                    placeholder="Qidiruv (email, ism)..."
-                                    className="pl-8 pr-3 py-1.5 bg-muted border border-border rounded-xl text-xs text-foreground outline-none focus:border-primary w-full sm:w-64"
-                                />
+                            <div className="flex items-center gap-2 flex-wrap">
+                                {/* Role Filters */}
+                                <div className="flex items-center gap-1 bg-muted p-0.5 rounded-lg border border-border text-[11px] font-semibold">
+                                    <button
+                                        onClick={() => { setRoleFilter('all'); setUsersPage(0); }}
+                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'all' ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        Barchasi ({totalAllUsers})
+                                    </button>
+                                    <button
+                                        onClick={() => { setRoleFilter('student'); setUsersPage(0); }}
+                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'student' ? 'bg-background text-emerald-500 shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        O'quvchilar ({totalStudentsCount})
+                                    </button>
+                                    <button
+                                        onClick={() => { setRoleFilter('admin'); setUsersPage(0); }}
+                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'admin' ? 'bg-background text-indigo-500 shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        Adminlar ({totalAdminsCount})
+                                    </button>
+                                </div>
+
+                                {/* Sort Dropdown */}
+                                <div className="flex items-center gap-1 bg-muted px-2 py-1 rounded-lg border border-border text-[11px] font-semibold">
+                                    <ArrowUpDown size={12} className="text-muted-foreground" />
+                                    <select
+                                        value={sortBy}
+                                        onChange={e => { setSortBy(e.target.value as any); setUsersPage(0); }}
+                                        className="bg-transparent text-foreground outline-none text-[11px] cursor-pointer"
+                                    >
+                                        <option value="newest" className="bg-card text-foreground">Yangi qo'shilganlar</option>
+                                        <option value="oldest" className="bg-card text-foreground">Eski foydalanuvchilar</option>
+                                        <option value="sessions" className="bg-card text-foreground">Mashg'ulotlar soni</option>
+                                        <option value="duration" className="bg-card text-foreground">O'rganish vaqti</option>
+                                        <option value="name" className="bg-card text-foreground">Ism / Email (A-Z)</option>
+                                    </select>
+                                </div>
+
+                                {/* Search Input */}
+                                <div className="relative">
+                                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                                    <input
+                                        type="text"
+                                        value={userSearchQuery}
+                                        onChange={e => { setUserSearchQuery(e.target.value); setUsersPage(0); }}
+                                        placeholder="Qidiruv (email, ism)..."
+                                        className="pl-8 pr-3 py-1.5 bg-muted border border-border rounded-xl text-xs text-foreground outline-none focus:border-primary w-full sm:w-52"
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -663,52 +979,96 @@ const AdminDashboardPage: React.FC = () => {
                                         <th className="p-3">#</th>
                                         <th className="p-3">Foydalanuvchi</th>
                                         <th className="p-3">Rol</th>
+                                        <th className="p-3">Mashg'ulotlar</th>
                                         <th className="p-3">Ro'yxatdan O'tgan</th>
+                                        <th className="p-3">Oxirgi Faollik</th>
                                         <th className="p-3 text-right">Amallar</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-border/60">
-                                    {filteredUsers.length > 0 ? (
-                                        filteredUsers.map((u, idx) => (
-                                            <tr key={u.id} className="hover:bg-muted/30 transition-colors">
-                                                <td className="p-3 text-muted-foreground font-mono">{idx + 1}</td>
-                                                <td className="p-3">
-                                                    <div className="font-bold text-foreground">{u.full_name || u.email.split('@')[0]}</div>
-                                                    <div className="text-[11px] text-muted-foreground font-mono">{u.email}</div>
-                                                </td>
-                                                <td className="p-3">
-                                                    <RoleBadge role={u.role} email={u.email} />
-                                                </td>
-                                                <td className="p-3 text-muted-foreground">
-                                                    {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'Noma\'lum'}
-                                                </td>
-                                                <td className="p-3 text-right">
-                                                    <div className="flex items-center justify-end gap-1.5">
-                                                        <Button
-                                                            size="sm"
-                                                            variant="outline"
-                                                            onClick={() => setMessageModalUser({ id: u.id, email: u.email })}
-                                                            className="h-7 px-2 text-[11px]"
-                                                        >
-                                                            Xabar
-                                                        </Button>
-                                                        {isSuperAdmin(user?.email) && (
+                                    {paginatedUsers.length > 0 ? (
+                                        paginatedUsers.map((u, idx) => {
+                                            const stat = userStatsMap[u.id];
+                                            return (
+                                                <tr key={u.id} className="hover:bg-muted/30 transition-colors">
+                                                    <td className="p-3 text-muted-foreground font-mono">{usersPage * USERS_PER_PAGE + idx + 1}</td>
+                                                    <td className="p-3 cursor-pointer" onClick={() => setSelectedDetailUser(u)}>
+                                                        <div className="font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1.5">
+                                                            {u.full_name || u.email.split('@')[0]}
+                                                            <ChevronRight size={12} className="text-muted-foreground opacity-50" />
+                                                        </div>
+                                                        <div className="text-[11px] text-muted-foreground font-mono">{u.email}</div>
+                                                    </td>
+                                                    <td className="p-3">
+                                                        <RoleBadge role={u.role} email={u.email} />
+                                                    </td>
+                                                    <td className="p-3">
+                                                        {stat && stat.totalSessions > 0 ? (
+                                                            <div>
+                                                                <span className="font-bold text-foreground">{stat.totalSessions} ta</span>
+                                                                <div className="text-[10px] text-muted-foreground">
+                                                                    {stat.totalDurationMinutes} daqiqa {stat.avgScore ? `• ${stat.avgScore}%` : ''}
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <span className="text-muted-foreground">—</span>
+                                                        )}
+                                                    </td>
+                                                    <td className="p-3 text-muted-foreground">
+                                                        {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'Noma\'lum'}
+                                                    </td>
+                                                    <td className="p-3 text-muted-foreground">
+                                                        {stat?.lastActiveDate ? (
+                                                            <div>
+                                                                <span className="text-emerald-400 font-semibold">{new Date(stat.lastActiveDate).toLocaleDateString()}</span>
+                                                                <div className="text-[10px] text-muted-foreground">{new Date(stat.lastActiveDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                            </div>
+                                                        ) : u.last_sign_in_at ? (
+                                                            <div>
+                                                                <span>{new Date(u.last_sign_in_at).toLocaleDateString()}</span>
+                                                                <div className="text-[10px] text-muted-foreground">{new Date(u.last_sign_in_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                            </div>
+                                                        ) : (
+                                                            '—'
+                                                        )}
+                                                    </td>
+                                                    <td className="p-3 text-right">
+                                                        <div className="flex items-center justify-end gap-1.5">
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
-                                                                onClick={() => handleToggleAdmin(u.email)}
-                                                                className="h-7 px-2 text-[11px] text-muted-foreground hover:text-foreground"
+                                                                onClick={() => setSelectedDetailUser(u)}
+                                                                className="h-7 px-2 text-[11px] text-primary hover:bg-primary/10"
+                                                                title="Batafsil ko'rish"
                                                             >
-                                                                {isAdminEmail(u.email) ? 'Adminlikni olish' : 'Admin qilish'}
+                                                                <Eye size={13} />
                                                             </Button>
-                                                        )}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
+                                                            <Button
+                                                                size="sm"
+                                                                variant="outline"
+                                                                onClick={() => setMessageModalUser({ id: u.id, email: u.email })}
+                                                                className="h-7 px-2 text-[11px]"
+                                                            >
+                                                                Xabar
+                                                            </Button>
+                                                            {isSuperAdmin(user?.email) && !isSuperAdmin(u.email) && (
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    onClick={() => handleToggleAdmin(u.email)}
+                                                                    className="h-7 px-2 text-[11px] text-muted-foreground hover:text-foreground"
+                                                                >
+                                                                    {isAdminEmail(u.email) ? 'Adminlikni olish' : 'Admin qilish'}
+                                                                </Button>
+                                                            )}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
                                     ) : (
                                         <tr>
-                                            <td colSpan={5} className="p-8 text-center text-muted-foreground">
+                                            <td colSpan={7} className="p-8 text-center text-muted-foreground">
                                                 Foydalanuvchilar topilmadi
                                             </td>
                                         </tr>
@@ -716,6 +1076,32 @@ const AdminDashboardPage: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Pagination Controls */}
+                        {totalPages > 1 && (
+                            <div className="p-3 border-t border-border flex items-center justify-between text-xs">
+                                <span className="text-muted-foreground">
+                                    {usersPage * USERS_PER_PAGE + 1}–{Math.min((usersPage + 1) * USERS_PER_PAGE, sortedUsers.length)} / {sortedUsers.length}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        onClick={() => setUsersPage(p => Math.max(0, p - 1))}
+                                        disabled={usersPage === 0}
+                                        className="px-3 py-1.5 rounded-lg bg-muted border border-border text-foreground font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-muted/80 transition-colors"
+                                    >
+                                        ← Oldingi
+                                    </button>
+                                    <span className="px-2 font-bold text-foreground">{usersPage + 1} / {totalPages}</span>
+                                    <button
+                                        onClick={() => setUsersPage(p => Math.min(totalPages - 1, p + 1))}
+                                        disabled={usersPage >= totalPages - 1}
+                                        className="px-3 py-1.5 rounded-lg bg-muted border border-border text-foreground font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-muted/80 transition-colors"
+                                    >
+                                        Keyingi →
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
@@ -744,6 +1130,190 @@ const AdminDashboardPage: React.FC = () => {
                 </div>
             </div>
 
+            {/* User Profile Detail View Modal */}
+            {selectedDetailUser && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                    <div className="bg-card border border-border rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between border-b border-border pb-3">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-lg">
+                                    {(selectedDetailUser.full_name || selectedDetailUser.email)[0].toUpperCase()}
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-foreground flex items-center gap-2">
+                                        {selectedDetailUser.full_name || selectedDetailUser.email.split('@')[0]}
+                                        <RoleBadge role={selectedDetailUser.role} email={selectedDetailUser.email} />
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground font-mono">{selectedDetailUser.email}</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setSelectedDetailUser(null)}
+                                className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        {/* Individual Stats Grid */}
+                        {(() => {
+                            const stat = userStatsMap[selectedDetailUser.id];
+                            return (
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
+                                        <span className="text-[10px] text-muted-foreground font-medium uppercase">Jami Mashg'ulot</span>
+                                        <div className="text-base font-black text-foreground mt-0.5">{stat?.totalSessions || 0} ta</div>
+                                    </div>
+                                    <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
+                                        <span className="text-[10px] text-muted-foreground font-medium uppercase">O'rganish Vaqti</span>
+                                        <div className="text-base font-black text-foreground mt-0.5">{stat?.totalDurationMinutes || 0} daqiqa</div>
+                                    </div>
+                                    <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
+                                        <span className="text-[10px] text-muted-foreground font-medium uppercase">Speaking & Coach</span>
+                                        <div className="text-base font-black text-indigo-400 mt-0.5">{(stat?.speakingSessions || 0) + (stat?.aiCoachSessions || 0)} seans</div>
+                                    </div>
+                                    <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
+                                        <span className="text-[10px] text-muted-foreground font-medium uppercase">O'rtacha Ball</span>
+                                        <div className="text-base font-black text-emerald-400 mt-0.5">{stat?.avgScore ? `${stat.avgScore}%` : '—'}</div>
+                                    </div>
+                                </div>
+                            );
+                        })()}
+
+                        {/* User Metadata */}
+                        <div className="bg-muted/20 border border-border rounded-xl p-3.5 space-y-2 text-xs">
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">Foydalanuvchi UUID:</span>
+                                <span className="font-mono text-foreground select-all">{selectedDetailUser.id}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">Ro'yxatdan o'tgan sana:</span>
+                                <span className="text-foreground">{selectedDetailUser.created_at ? new Date(selectedDetailUser.created_at).toLocaleString() : 'Noma\'lum'}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">Oxirgi login / faollik:</span>
+                                <span className="text-foreground">{selectedDetailUser.last_sign_in_at ? new Date(selectedDetailUser.last_sign_in_at).toLocaleString() : '—'}</span>
+                            </div>
+                        </div>
+
+                        {/* Speech Sessions History for this user */}
+                        <div className="space-y-2">
+                            <h4 className="font-bold text-xs text-foreground flex items-center gap-1.5">
+                                <Mic size={14} className="text-indigo-400" />
+                                Muloqot va AI Coach Tarixi ({userDetailSpeechRecords.length})
+                            </h4>
+                            {userDetailSpeechRecords.length > 0 ? (
+                                <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                    {userDetailSpeechRecords.map(rec => (
+                                        <div key={rec.id} className="p-2.5 bg-muted/40 border border-border/70 rounded-xl text-xs flex items-center justify-between gap-2">
+                                            <div>
+                                                <div className="font-bold text-foreground">{rec.persona_title}</div>
+                                                <div className="text-[10px] text-muted-foreground">{rec.type} • {new Date(rec.created_at).toLocaleString()}</div>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="font-extrabold text-emerald-400">{rec.score}%</span>
+                                                <div className="text-[10px] text-muted-foreground">{rec.duration_seconds}s</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="p-4 text-center text-xs text-muted-foreground bg-muted/20 border border-dashed border-border rounded-xl">
+                                    Ushbu foydalanuvchi hali muloqot mashg'ulotlarini bajarmagan
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Modal Action Buttons */}
+                        <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    setMessageModalUser({ id: selectedDetailUser.id, email: selectedDetailUser.email });
+                                    setSelectedDetailUser(null);
+                                }}
+                                className="text-xs gap-1.5"
+                            >
+                                <Send size={13} /> Xabar Yuborish
+                            </Button>
+                            <Button
+                                onClick={() => setSelectedDetailUser(null)}
+                                className="text-xs"
+                            >
+                                Yopish
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Global Broadcast Announcement Modal */}
+            {isBroadcastOpen && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                    <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between">
+                            <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
+                                <Radio size={16} className="text-purple-400" />
+                                Barcha Foydalanuvchilarga E'lon Yuborish
+                            </h3>
+                            <button onClick={() => setIsBroadcastOpen(false)} className="text-muted-foreground hover:text-foreground">
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className="space-y-3 text-xs">
+                            <div>
+                                <label className="text-[11px] font-semibold text-muted-foreground mb-1 block">E'lon Turi</label>
+                                <div className="grid grid-cols-4 gap-1.5">
+                                    {(['general', 'update', 'system', 'promo'] as const).map(tag => (
+                                        <button
+                                            key={tag}
+                                            type="button"
+                                            onClick={() => setBroadcastTag(tag)}
+                                            className={`py-1.5 rounded-lg border text-[11px] font-semibold capitalize transition-colors ${
+                                                broadcastTag === tag ? 'bg-primary/15 text-primary border-primary' : 'bg-muted border-border text-muted-foreground'
+                                            }`}
+                                        >
+                                            {tag}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="text-[11px] font-semibold text-muted-foreground mb-1 block">Sarlavha</label>
+                                <input
+                                    type="text"
+                                    value={broadcastTitle}
+                                    onChange={e => setBroadcastTitle(e.target.value)}
+                                    placeholder="Masalan: 📢 Yangi JLPT N3 Darslari Qo'shildi!"
+                                    className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-primary"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="text-[11px] font-semibold text-muted-foreground mb-1 block">Xabar Matni</label>
+                                <textarea
+                                    rows={4}
+                                    value={broadcastMessage}
+                                    onChange={e => setBroadcastMessage(e.target.value)}
+                                    placeholder="E'lon tafsilotlarini yozing..."
+                                    className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-primary resize-none"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2">
+                            <Button variant="outline" onClick={() => setIsBroadcastOpen(false)} className="flex-1 text-xs">Bekor qilish</Button>
+                            <Button onClick={handleSendBroadcast} disabled={sendingBroadcast} className="flex-1 text-xs gap-1.5 bg-purple-600 hover:bg-purple-700 text-white">
+                                {sendingBroadcast ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                                E'lonni Tarqatish
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Direct User Message Modal */}
             {messageModalUser && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
@@ -759,14 +1329,14 @@ const AdminDashboardPage: React.FC = () => {
                             value={msgTitle}
                             onChange={e => setMsgTitle(e.target.value)}
                             placeholder="Sarlavha"
-                            className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none"
+                            className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-primary"
                         />
                         <textarea
                             rows={3}
                             value={msgContent}
                             onChange={e => setMsgContent(e.target.value)}
                             placeholder="Xabar matni..."
-                            className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none resize-none"
+                            className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-xs text-foreground outline-none focus:border-primary resize-none"
                         />
                         <div className="flex gap-2">
                             <Button variant="outline" onClick={() => setMessageModalUser(null)} className="flex-1 text-xs">Bekor qilish</Button>

@@ -95,11 +95,10 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
             } catch {}
 
             // 2. Fetch primary speaking_sessions table with transcript JSONB (parallel fetch)
-            const [speakRes, coachSessionsRes, aiCoachRes, legacyRes] = await Promise.allSettled([
+            const [speakRes, coachSessionsRes, aiCoachRes] = await Promise.allSettled([
                 supabase.from('speaking_sessions').select('*').limit(300),
                 supabase.from('speaking_coach_sessions').select('*').limit(300),
-                supabase.from('ai_coach_sessions').select('*').limit(300),
-                supabase.from('coach_sessions').select('*').limit(100)
+                supabase.from('ai_coach_sessions').select('*').limit(300)
             ]);
 
             const speakData = speakRes.status === 'fulfilled' ? speakRes.value.data : null;
@@ -165,27 +164,6 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 }
             }
 
-            // 5. Merge legacy coach_sessions
-            const legacyData = legacyRes.status === 'fulfilled' ? legacyRes.value.data : null;
-            if (legacyData && legacyData.length > 0) {
-                for (const item of legacyData as any[]) {
-                    if (!list.some(l => l.id === item.id)) {
-                        list.push({
-                            id: item.id,
-                            user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Student',
-                            persona_title: item.persona_title || 'Yaponcha Muloqot',
-                            fluency_score: Number(item.fluency_score) || 0,
-                            pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
-                            grammar_score: Number(item.grammar_score) || 0,
-                            vocabulary_score: Number(item.vocabulary_score) || 0,
-                            duration_seconds: Number(item.duration_seconds) || 0,
-                            feedback: item.feedback || '',
-                            created_at: item.created_at || new Date().toISOString()
-                        });
-                    }
-                }
-            }
-
             // 6. Scan LocalStorage for any authentic local speech sessions saved offline
             if (typeof window !== 'undefined') {
                 try {
@@ -240,7 +218,10 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
     };
 
     useEffect(() => {
-        fetchSessions();
+        // Only fetch independently if parent didn't provide records
+        if (!records || !Array.isArray(records) || records.length === 0) {
+            fetchSessions();
+        }
     }, []);
 
     // Summary & Date Filtering calculations (100% Real from DB)
