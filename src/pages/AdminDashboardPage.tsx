@@ -435,7 +435,6 @@ const AdminDashboardPage: React.FC = () => {
 
         setSpeechRecords(combinedSpeech);
         setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const currentEmail = user?.email || '';
