@@ -99,8 +99,9 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     // Already-aborted signals go straight to the fallback path — fetching with a
     // dead signal only produces an immediate AbortError rejection.
     const isAuth = urlStr.includes('/auth/v1');
+    const isRpc = urlStr.includes('/rpc/');
     if (init?.signal?.aborted) {
-        return isAuth
+        return (isAuth || isRpc)
             ? new Response(JSON.stringify({ error: 'Request aborted' }), { status: 503, headers: { 'Content-Type': 'application/json' } })
             : new Response(JSON.stringify([]), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
@@ -147,10 +148,10 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
         try {
             const res = await fetchWithRetry(input, init, 2);
             if (res.status === 401) {
-                if (isAuth) {
+                if (isAuth || isRpc) {
                     return res;
                 }
-                // Retry with clean anon key header to fix PostgREST 401 expired JWT errors
+                // For non-RPC REST queries with expired auth token, try once with anon key
                 try {
                     const cleanHeaders = new Headers(init?.headers || {});
                     cleanHeaders.set('Authorization', `Bearer ${supabaseAnonKey}`);
@@ -162,14 +163,7 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
                     }
                 } catch {}
 
-                const isRpc = urlStr.includes('/rpc/');
-                const isPostOrPatch = !isRpc && (init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT');
-                const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
-                return new Response(fallbackBody, {
-                    status: 200,
-                    statusText: 'OK',
-                    headers: { 'Content-Type': 'application/json' }
-                });
+                return res;
             }
             return res;
         } catch (err: unknown) {

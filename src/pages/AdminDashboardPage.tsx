@@ -154,6 +154,14 @@ const AdminDashboardPage: React.FC = () => {
     const fetchAdminData = async () => {
         if (usersList.length === 0) setLoading(true);
 
+        // Ensure active authenticated session is restored
+        try {
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (!sessionData?.session) {
+                await supabase.auth.refreshSession().catch(() => {});
+            }
+        } catch {}
+
         const newStatus: TableFetchStatus = {
             rpcUsers: { ok: false, count: 0, error: null },
             profiles: { ok: false, count: 0, error: null },
