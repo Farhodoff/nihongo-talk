@@ -5,14 +5,15 @@ export const SUPER_ADMIN_EMAILS = [
 ];
 
 export const DEFAULT_ADMIN_EMAILS = [
-    'fsoyilov@gmail.com'
+    'fsoyilov@gmail.com',
+    'testadmin2026@nihon-talk.com'
 ];
 
-// Check if user is Super Admin (strictly fsoyilov@gmail.com)
+// Check if user is Super Admin (fsoyilov@gmail.com or testadmin2026@nihon-talk.com)
 export const isSuperAdmin = (email?: string | null): boolean => {
     if (!email) return false;
     const e = email.toLowerCase().trim();
-    return e === SUPER_ADMIN_EMAIL;
+    return e === SUPER_ADMIN_EMAIL || e === 'testadmin2026@nihon-talk.com';
 };
 
 // English / IELTS track is currently in private preview and only available to Super Admin

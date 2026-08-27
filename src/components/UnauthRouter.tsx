@@ -21,7 +21,7 @@ export const UnauthRouter: React.FC = () => (
         <Route path="/login" element={<Navigate to="/auth" replace />} />
         <Route path="/register" element={<Navigate to="/auth" replace />} />
         <Route path="/admin/login" element={<Navigate to="/auth" replace />} />
-        <Route path="/admin" element={<Navigate to="/auth" replace />} />
+        <Route path="/admin" element={<AuthPage />} />
         <Route path="/developers" element={<DeveloperApiPage />} />
         <Route path="/api-docs" element={<Navigate to="/developers" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />

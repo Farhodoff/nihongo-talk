@@ -189,6 +189,8 @@ export interface LineSeries {
     stroke?: string;
     fill?: string;
     name?: string;
+    color?: string;
+    label?: string;
 }
 
 export interface SvgLineChartProps {
@@ -202,9 +204,9 @@ export interface SvgLineChartProps {
 }
 
 export const SvgLineChart: React.FC<SvgLineChartProps> = ({
-    data,
-    xKey,
-    series,
+    data = [],
+    xKey = 'xLabel',
+    series = [{ dataKey: 'value', label: 'Value', color: '#6366f1' }],
     height = 240,
     showArea = false,
     unit = '',
@@ -221,8 +223,10 @@ export const SvgLineChart: React.FC<SvgLineChartProps> = ({
 
     const maxValue = useMemo(() => {
         let max = 0;
-        data.forEach(item => {
-            series.forEach(s => {
+        const safeData = Array.isArray(data) ? data : [];
+        const safeSeries = Array.isArray(series) ? series : [{ dataKey: 'value', label: 'Value', color: '#6366f1' }];
+        safeData.forEach(item => {
+            safeSeries.forEach(s => {
                 const val = Number(item[s.dataKey]) || 0;
                 if (val > max) max = val;
             });

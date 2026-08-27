@@ -11,7 +11,7 @@ export interface UserSubscription {
 }
 
 const OPEN_STUDENT_SUBSCRIPTION: UserSubscription = {
-    tier: 'free',
+    tier: 'premium',
     ai_credits: 99999,
     last_reset_date: new Date().toISOString(),
     trial_start_date: new Date().toISOString(),

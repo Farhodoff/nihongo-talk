@@ -73,8 +73,26 @@ import UnauthRouter from './components/UnauthRouter';
 import InstallPrompt from './components/pwa/InstallPrompt';
 
 const App: React.FC = () => {
-    const [session, setSession] = useState<Session | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [session, setSession] = useState<Session | null>(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && (key.includes('auth-token') || key.includes('supabase.auth.token'))) {
+                        const raw = localStorage.getItem(key);
+                        if (raw) {
+                            const parsed = JSON.parse(raw);
+                            if (parsed && (parsed.access_token || (parsed.currentSession && parsed.currentSession.access_token))) {
+                                return parsed.currentSession || parsed;
+                            }
+                        }
+                    }
+                }
+            } catch {}
+        }
+        return null;
+    });
+    const [isLoading, setIsLoading] = useState<boolean>(() => !session);
 
     useEffect(() => {
         // Safety timeout: Never leave the UI stuck on "Yuklanmoqda..."
@@ -82,9 +100,11 @@ const App: React.FC = () => {
             setIsLoading(false);
         }, 1000);
 
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.auth.getSession().then(({ data: { session: fetchedSession } }) => {
             clearTimeout(safetyTimer);
-            setSession(session);
+            if (fetchedSession) {
+                setSession(fetchedSession);
+            }
             setIsLoading(false);
         }).catch((err) => {
             clearTimeout(safetyTimer);
@@ -96,7 +116,10 @@ const App: React.FC = () => {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_OUT') {
-                setSession(null);
+                const storedEmail = typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null;
+                if (!storedEmail) {
+                    setSession(null);
+                }
             } else if (session) {
                 setSession(session);
             }
@@ -117,7 +140,10 @@ const App: React.FC = () => {
         };
     }, []);
 
-    if (isLoading) return <div className="h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-500">Yuklanmoqda...</div>;
+    console.log('[App Debug]', JSON.stringify({ sessionUser: session?.user?.email, isLoading, pathname: typeof window !== 'undefined' ? window.location.pathname : '' }));
+    if (isLoading) {
+        return <PageLoader />;
+    }
 
     if (!session) {
         return (
@@ -141,6 +167,7 @@ const App: React.FC = () => {
                                     <Route path="/" element={<Layout />}>
                                         <Route index element={<Navigate to="/dashboard" replace />} />
                                         <Route path="dashboard" element={<DashboardPage />} />
+                                        <Route path="admin" element={<AdminDashboardPage />} />
                                         <Route path="roadmap" element={<RoadmapPage />} />
                                         <Route path="personal-plan" element={<PersonalPlanPage />} />
                                         <Route path="diagnostic" element={<DiagnosticPage />} />

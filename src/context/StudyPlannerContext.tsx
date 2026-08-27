@@ -274,7 +274,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Enforce 100% Japanese track for non-super-admins
     useEffect(() => {
-        if (!isSuperAdmin(user?.email)) {
+        const activeEmail = user?.email || (typeof window !== 'undefined' ? localStorage.getItem('study_planner_user_email') : null);
+        if (!isSuperAdmin(activeEmail)) {
             if (primaryLanguage !== 'ja') {
                 setPrimaryLanguage('ja');
                 safeLocalStorage.setItem('study_planner_primary_language', 'ja');

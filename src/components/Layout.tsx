@@ -46,7 +46,7 @@ const Layout: React.FC = () => {
     const isAdmin = isAdminEmail(displayEmail);
     const isSuper = isSuperAdmin(displayEmail);
 
-    // Global Keyboard Shortcuts (Cmd/Ctrl+K, F, T, D)
+    // Global Keyboard Shortcuts (Cmd/Ctrl+K for Quick Command Palette)
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -54,31 +54,11 @@ const Layout: React.FC = () => {
                 setIsCommandPaletteOpen(prev => !prev);
                 return;
             }
-
-            const target = e.target as HTMLElement | null;
-            if (target && (
-                target.tagName === 'INPUT' || 
-                target.tagName === 'TEXTAREA' || 
-                target.tagName === 'SELECT' || 
-                target.isContentEditable
-            )) {
-                return;
-            }
-
-            if (!e.metaKey && !e.ctrlKey && !e.altKey) {
-                if (e.key === 'f' || e.key === 'F') {
-                    navigate('/focus');
-                } else if (e.key === 't' || e.key === 'T') {
-                    navigate('/tasks');
-                } else if (e.key === 'd' || e.key === 'D') {
-                    navigate('/dashboard');
-                }
-            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [navigate]);
+    }, []);
 
     const isFullScreenPage = React.useMemo(() => {
         const fullScreenPaths = [
@@ -148,6 +128,7 @@ const Layout: React.FC = () => {
         if (location.pathname.startsWith('/scenarios')) return 'Scenarios';
         if (location.pathname.startsWith('/speaking-coach')) return 'Speaking';
         if (location.pathname === '/dashboard') return 'Dashboard';
+        if (location.pathname === '/admin') return 'Super Admin Paneli';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
         return 'Nihon Talk';

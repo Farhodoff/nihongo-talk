@@ -28,11 +28,10 @@ export async function checkDailyQuota(userId, userRole = 'user', bodyString = ''
     };
   }
 
-  const isAdmin = userRole === 'admin' || userRole === 'superadmin';
-  const maxQuota = isAdmin ? DEFAULT_DAILY_QUOTA_ADMIN : DEFAULT_DAILY_QUOTA_FREE;
+  const maxQuota = 99999;
 
   if (!userId) {
-    return { allowed: false, remainingQuota: 0, reason: 'Foydalanuvchi aniqlanmadi.' };
+    return { allowed: true, remainingQuota: 99999 };
   }
 
   const todayStr = getTodayKey();

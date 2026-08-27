@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
-import { useSubscription } from '../hooks/useSubscription';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
 import AccountSection from '../components/settings/AccountSection';
@@ -17,7 +16,6 @@ import AdminDashboardPage from './AdminDashboardPage';
 
 const SettingsPage: React.FC = () => {
     const { settings, updateSettings, user, getRank } = useStudyData();
-    const { subscription } = useSubscription();
     const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('profile');
 
@@ -135,7 +133,7 @@ const SettingsPage: React.FC = () => {
                                 <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? 'AIクレジット' : 'AI Kredit'}</span>
                             </div>
                             <span className="text-base font-black text-foreground tabular-nums">
-                                {(subscription?.tier === 'pro' || subscription?.tier === 'premium') ? (language === 'ja' ? '無制限' : 'Cheksiz') : `${subscription?.ai_credits || 0} ta`}
+                                {language === 'ja' ? '無制限' : 'Cheksiz'}
                             </span>
                         </div>
                     </div>

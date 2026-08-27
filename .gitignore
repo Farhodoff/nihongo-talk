@@ -84,3 +84,4 @@ books/**/*.zip
 supabase/.temp/
 .env*
 src/data/decks/backups/
+scripts/live_session.json

@@ -73,7 +73,7 @@ export const PRESET_DECKS: PresetDeck[] = [
         badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
         icon: '📙',
         cardCount: 76,
-        isPremiumOnly: true,
+        isPremiumOnly: false,
         loadCards: async () => {
             const data = await import('./decks/c1_c2.json');
             return data.default as PresetCard[];
@@ -148,7 +148,7 @@ export const PRESET_DECKS: PresetDeck[] = [
         badgeColor: 'bg-red-500/10 text-red-600 border-red-500/20',
         icon: '👑',
         cardCount: 55,
-        isPremiumOnly: true,
+        isPremiumOnly: false,
         loadCards: async () => {
             const data = await import('./decks/jlpt_n1.json');
             return data.default as PresetCard[];

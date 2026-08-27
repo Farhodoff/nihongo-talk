@@ -32,9 +32,14 @@ export interface UserSpeechAggregation {
     lastDate: string;
 }
 
-export const AdminSpeechAnalytics: React.FC = () => {
+export interface AdminSpeechAnalyticsProps {
+    records?: any[];
+}
+
+export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ records }) => {
     // Instant SWR initial state from localStorage cache
     const [sessions, setSessions] = useState<SpeakingSessionRecord[]>(() => {
+        if (records && Array.isArray(records) && records.length > 0) return records;
         if (typeof window !== 'undefined') {
             try {
                 const cached = localStorage.getItem('study_planner_admin_speech_sessions_cache');
@@ -43,6 +48,12 @@ export const AdminSpeechAnalytics: React.FC = () => {
         }
         return [];
     });
+
+    useEffect(() => {
+        if (records && Array.isArray(records) && records.length > 0) {
+            setSessions(records);
+        }
+    }, [records]);
     const [isLoading, setIsLoading] = useState(() => sessions.length === 0);
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<'users' | 'history'>('users');
@@ -123,7 +134,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
                             pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || Number(item.fluency_score || item.fluencyScore) || 0,
                             grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
                             vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
-                            duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 120,
+                            duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
                             feedback: item.feedback || '',
                             transcript: item.transcript || [],
                             created_at: item.created_at || item.createdAt || new Date().toISOString()
@@ -145,7 +156,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
                             pronunciation_score: Number(item.pronunciation_score) || Number(item.fluency_score) || 0,
                             grammar_score: Number(item.grammar_score) || 0,
                             vocabulary_score: Number(item.vocabulary_score) || 0,
-                            duration_seconds: 120,
+                            duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
                             feedback: item.feedback || '',
                             transcript: [],
                             created_at: item.created_at || new Date().toISOString()
