@@ -13,7 +13,8 @@ export const useFontPreference = () => {
         // Load font preference from DB on mount
         const fetchDbFont = async () => {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
                 if (user?.user_metadata?.font_preference) {
                     const dbFont = user.user_metadata.font_preference as FontType;
                     setFont(dbFont);
@@ -32,7 +33,8 @@ export const useFontPreference = () => {
             localStorage.setItem('noteFont', newFont);
         } catch (e) { console.warn(e); }
 
-        supabase.auth.getUser().then(({ data: { user } }) => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            const user = session?.user;
             if (user) {
                 supabase.auth.updateUser({
                     data: { font_preference: newFont }

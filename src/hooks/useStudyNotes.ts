@@ -12,8 +12,8 @@ export const useStudyNotes = () => {
     const addStudyNote = useCallback(async (noteData: Partial<StudyNote>): Promise<void> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const noteId = noteData.id || generateUUID();
@@ -67,8 +67,8 @@ export const useStudyNotes = () => {
     const addStudyNotesBatch = useCallback(async (notesData: Partial<StudyNote>[]): Promise<StudyNote[]> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const tempNotes = notesData.map(n => {

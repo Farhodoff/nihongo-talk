@@ -99,9 +99,20 @@ export const callDeepSeek = async (
     // 1. Primary Resilient Gateway: Same-Origin /api/deepseek (Zero ISP/CORS connection resets)
     try {
         purgeOversizedCookies();
+        let authToken = anonKey;
+        try {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.access_token) {
+                authToken = data.session.access_token;
+            }
+        } catch {}
+
         const response = await fetch('/api/deepseek', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
             credentials: 'omit',
             body: JSON.stringify(payload),
             signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,

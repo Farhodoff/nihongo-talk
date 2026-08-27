@@ -24,7 +24,8 @@ export const useJlptMastery = () => {
     useEffect(() => {
         const fetchDbMastery = async () => {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
                 if (!user?.id) return;
 
                 // 1. Fetch from jlpt_item_mastery table
@@ -75,7 +76,8 @@ export const useJlptMastery = () => {
             }
 
             // Sync to Supabase DB (jlpt_item_mastery table)
-            supabase.auth.getUser().then(({ data: { user } }) => {
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                const user = session?.user;
                 if (user) {
                     const uuid = toDeterministicUUID(`jlpt_${user.id}_${itemId}`);
                     supabase.from('jlpt_item_mastery').upsert({

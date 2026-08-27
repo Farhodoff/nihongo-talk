@@ -9,6 +9,21 @@ export interface GamificationState {
     lastActivityDate: string | null;
 }
 
+const getAuthUser = async () => {
+    try {
+        if (typeof supabase?.auth?.getSession === 'function') {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.user) return data.session.user;
+            return null;
+        }
+        if (typeof supabase?.auth?.getUser === 'function') {
+            const { data } = await supabase.auth.getUser();
+            if (data?.user) return data.user;
+        }
+    } catch {}
+    return null;
+};
+
 export const useGamification = (initialState: GamificationState) => {
     const [gameState, setGameState] = useState<GamificationState>(initialState);
 
@@ -24,7 +39,7 @@ export const useGamification = (initialState: GamificationState) => {
     }, []);
 
     const awardXP = useCallback(async (amount: number) => {
-        const { data: { user } } = await supabase.auth.getUser();
+        const user = await getAuthUser();
         if (!user) return;
 
         setGameState(prev => {
@@ -62,7 +77,7 @@ export const useGamification = (initialState: GamificationState) => {
     }, []);
 
     const resetXP = useCallback(async () => {
-        const { data: { user } } = await supabase.auth.getUser();
+        const user = await getAuthUser();
         const todayStr = new Date().toISOString().split('T')[0];
         setGameState(prev => ({ ...prev, totalXp: 0, level: 1, currentStreak: 0, lastActivityDate: todayStr }));
         if (user) {

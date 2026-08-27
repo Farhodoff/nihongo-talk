@@ -181,6 +181,12 @@ export const ja = {
     landing: {
         eyebrow: '🎌 JLPT N5 → N1 · AI + SRS + スピーキング',
         headline: '日本語を、もっと賢く、もっと体系的に学ぼう。',
+        speakingAiMessage1: '今日はどうでしたか？',
+        speakingUserMessage: '今日は仕事が大変でした。でも、夜は日本語を勉強しました。',
+        speakingAiMessage2: 'いいですね！もう少し自然に言うなら…',
+        seoTitle: 'Nihon Talk — AIで日本語を学ぶ',
+        seoDescription: 'JLPT N5–N1レベル対応。AIスピーキングコーチ、SM-2フラッシュカード、パーソナル学習プラン。',
+        seoKeywords: 'Nihon Talk, 日本語学習, JLPT対策, JLPT N5-N1, 漢字, SM-2, フラッシュカード, AIスピーキングコーチ',
         description: 'レベルを確認し、自分専用の学習プランを作成。語彙、漢字、文法、読解、聴解、会話、SRSをひとつの学習フローで。',
         ctaPrimary: '1分で始める',
         ctaSecondary: '使い方を見る',

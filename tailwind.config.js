@@ -15,6 +15,7 @@ export default {
         },
         extend: {
             colors: {
+                // Primary palette (HSL vars)
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -48,6 +49,25 @@ export default {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+                // Exact hex palette for design spec
+                "bg-light": "#F7F9FC",
+                "surface-light": "#FFFFFF",
+                "surface-elevated-light": "#F1F4F9",
+                "text-light": "#101828",
+                "muted-light": "#667085",
+                "border-light": "#E4E7EC",
+                "primary-light": "#5367F6",
+                "cyan-light": "#26B9E6",
+                "accent-red-light": "#D94F5C",
+                "bg-dark": "#07101E",
+                "surface-dark": "#0D1728",
+                "surface-elevated-dark": "#111D32",
+                "text-dark": "#F5F7FF",
+                "muted-dark": "#99A7C0",
+                "border-dark": "rgba(255,255,255,0.08)",
+                "primary-dark": "#7184FF",
+                "cyan-dark": "#59D7FF",
+                "accent-red-dark": "#E85D68",
             },
             borderRadius: {
                 lg: "var(--radius)",

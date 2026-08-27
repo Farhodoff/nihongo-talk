@@ -13,8 +13,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
     const addSubject = useCallback(async (subjectData: Partial<Subject>): Promise<Subject | null> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const tempId = subjectData.id || generateUUID();
@@ -118,8 +118,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
     const updateSubject = useCallback(async (id: string, updates: Partial<Subject>) => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         setSubjects(prev => {
@@ -150,8 +150,8 @@ export const useSubjects = (setFlashcards?: React.Dispatch<React.SetStateAction<
     const deleteSubject = useCallback(async (id: string) => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         setSubjects(prev => {

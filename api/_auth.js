@@ -27,8 +27,8 @@ export function getBearerToken(req) {
  */
 export async function verifyAuth(req) {
   const token = getBearerToken(req);
-  if (!token) {
-    return { user: null, error: 'Missing or malformed Authorization header. Expected Bearer token.' };
+  if (!token || token === SUPABASE_ANON_KEY) {
+    return { user: null, error: null };
   }
 
   try {

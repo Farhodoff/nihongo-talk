@@ -12,8 +12,8 @@ export const useNotes = () => {
     const addNote = useCallback(async (noteData: Partial<Note>): Promise<Note | null> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const noteId = noteData.id || generateUUID();

@@ -159,3 +159,42 @@ button, a {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-muted-foreground/50;
 }
+
+/* --------------------------------------------------------------
+   Gradient text subtle shift animation (hero headline)
+   -------------------------------------------------------------- */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradientShift 12s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-animate {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------
+   Background floating glow (hero section) – very slow
+   -------------------------------------------------------------- */
+@keyframes floatGlow {
+  0% { transform: translate(-5%, -5%) scale(1); opacity: 0.4; }
+  50% { transform: translate(5%, 5%) scale(1.05); opacity: 0.2; }
+  100% { transform: translate(-5%, -5%) scale(1); opacity: 0.4; }
+}
+
+.float-glow {
+  animation: floatGlow 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-glow {
+    animation: none;
+  }
+}

@@ -12,8 +12,8 @@ export const useGoals = () => {
     const addGoal = useCallback(async (goalData: Partial<Goal>): Promise<Goal | null> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const goalId = goalData.id || generateUUID();
@@ -30,43 +30,27 @@ export const useGoals = () => {
         };
 
         setGoals(prev => {
-            const updated = [...prev.filter(g => g.id !== goalId), fullGoalData];
+            const updated = [...prev, fullGoalData];
             safeLocalStorage.setJSON('study_planner_goals_cache', updated);
             return updated;
         });
 
         if (activeUserId !== 'local_user') {
             try {
-                const dbPayload = {
+                const { error } = await supabase.from('goals').insert({
                     id: goalId,
                     user_id: activeUserId,
                     title: fullGoalData.title,
                     description: fullGoalData.description,
-                    deadline: fullGoalData.deadline,
                     target_date: fullGoalData.deadline.split('T')[0],
                     progress: fullGoalData.progress,
                     color: fullGoalData.color,
                     priority: fullGoalData.priority,
-                    completed: fullGoalData.completed
-                };
-                const { data } = await supabase.from('goals').upsert(dbPayload).select().maybeSingle();
-                if (data) {
-                    const mapped: Goal = {
-                        id: data.id,
-                        title: data.title,
-                        description: data.description || '',
-                        deadline: data.deadline || data.target_date || fullGoalData.deadline,
-                        progress: typeof data.progress === 'number' ? data.progress : 0,
-                        color: data.color || '#6366f1',
-                        priority: data.priority || 'medium',
-                        createdAt: data.created_at || fullGoalData.createdAt,
-                        completed: data.completed || false
-                    };
-                    setGoals(prev => {
-                        const updated = [...prev.filter(g => g.id !== goalId), mapped];
-                        safeLocalStorage.setJSON('study_planner_goals_cache', updated);
-                        return updated;
-                    });
+                    completed: fullGoalData.completed,
+                    created_at: fullGoalData.createdAt
+                });
+                if (error && !error.message?.includes('Offline') && !error.message?.includes('Network')) {
+                    console.warn("Insert goal warning:", error.message);
                 }
             } catch (e) {
                 console.warn("[addGoal] DB sync error:", e);
@@ -78,8 +62,8 @@ export const useGoals = () => {
     const updateGoal = useCallback(async (id: string, updates: Partial<Goal>) => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         setGoals(prev => {

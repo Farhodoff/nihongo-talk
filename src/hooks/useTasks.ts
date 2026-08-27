@@ -13,6 +13,21 @@ const saveTasksToLocalStorage = (taskList: Task[]) => {
     }
 };
 
+const getAuthUserId = async (): Promise<string> => {
+    try {
+        if (typeof supabase?.auth?.getSession === 'function') {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.user?.id) return data.session.user.id;
+            return 'local_user';
+        }
+        if (typeof supabase?.auth?.getUser === 'function') {
+            const { data } = await supabase.auth.getUser();
+            if (data?.user?.id) return data.user.id;
+        }
+    } catch {}
+    return 'local_user';
+};
+
 export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) => {
     const onTaskCompletedRef = useRef(onTaskCompleted);
     useEffect(() => {
@@ -37,11 +52,7 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
     }, [tasks]);
 
     const addTask = useCallback(async (taskData: Partial<Task>) => {
-        let activeUserId = 'local_user';
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
-        } catch {}
+        const activeUserId = await getAuthUserId();
 
         // Optimistic update
         const tempId = taskData.id || `temp-${Date.now()}`;
@@ -185,9 +196,9 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
     const restoreTask = useCallback(async (id: string) => {
         try {
             await TaskService.restoreTask(id);
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const updatedTasks = await TaskService.fetchTasks(user.id);
+            const userId = await getAuthUserId();
+            if (userId !== 'local_user') {
+                const updatedTasks = await TaskService.fetchTasks(userId);
                 setTasks(updatedTasks);
                 saveTasksToLocalStorage(updatedTasks);
             }
@@ -197,11 +208,11 @@ export const useTasks = (onTaskCompleted?: (amount: number) => Promise<void>) =>
     }, []);
 
     const addTasksBatch = useCallback(async (tasksData: Partial<Task>[]) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return [];
+        const userId = await getAuthUserId();
+        if (userId === 'local_user') return [];
 
         try {
-            const newTasks = await TaskService.addTasksBatch(user.id, tasksData);
+            const newTasks = await TaskService.addTasksBatch(userId, tasksData);
             if (newTasks.length > 0) {
                 setTasks(prev => {
                     const existingIds = new Set(prev.map(t => t.id));

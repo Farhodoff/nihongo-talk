@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { uz } from '../i18n/uz';
 import { ja } from '../i18n/ja';
 import { en } from '../i18n/en';
@@ -43,6 +43,16 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [language, setLanguageState] = useState<Language>(() => {
+        // Check URL query parameter first
+        if (typeof window !== 'undefined') {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam === 'ja' || langParam === 'uz') {
+                return langParam as Language;
+            }
+        }
+        
+        // Fallback to localStorage
         const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_lang') : null;
         return (saved === 'ja' || saved === 'uz') ? (saved as Language) : 'uz';
     });
@@ -52,7 +62,30 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (typeof localStorage !== 'undefined') {
             localStorage.setItem('study_planner_lang', lang);
         }
+        
+        // Update URL query parameter
+        if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url.toString());
+        }
     };
+
+    // Handle query parameter changes
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
+        const handlePopState = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam === 'ja' || langParam === 'uz') {
+                setLanguageState(langParam as Language);
+            }
+        };
+        
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
 
     const t = (keyPath: string): string => defaultT(keyPath, language);
 

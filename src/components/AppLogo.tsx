@@ -45,7 +45,9 @@ export const AppLogo: React.FC<AppLogoProps> = ({
 
             {/* Brand Title */}
             {showText && !collapsed && (
-                <div className="flex items-center animate-in fade-in zoom-in duration-300">
+                <div className="flex items-center gap-1 animate-in fade-in zoom-in duration-300">
+                    {/* Japanese torii accent (日) */}
+                    <span className="text-accent-red-dark text-2xl font-bold">日</span>
                     <span className="text-lg font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm font-sans">
                         Nihon <span className="text-indigo-500 dark:text-indigo-400">Talk</span>
                     </span>

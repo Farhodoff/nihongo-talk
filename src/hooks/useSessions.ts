@@ -19,8 +19,8 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
     const addSession = useCallback(async (sessionData: Partial<StudySession>): Promise<void> => {
         let activeUserId = 'local_user';
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) activeUserId = session.user.id;
         } catch {}
 
         const sessionId = sessionData.id || generateUUID();
@@ -82,10 +82,10 @@ export const useSessions = (awardXP?: (amount: number) => Promise<void>) => {
         let activeUserId: string | null = null;
         let userEmail: string | undefined = undefined;
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) {
-                activeUserId = user.id;
-                userEmail = user.email;
+            const { data: { session: authSession } } = await supabase.auth.getSession();
+            if (authSession?.user?.id) {
+                activeUserId = authSession.user.id;
+                userEmail = authSession.user.email;
             }
         } catch {}
 

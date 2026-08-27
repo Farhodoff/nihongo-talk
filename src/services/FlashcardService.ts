@@ -205,7 +205,24 @@ export const FlashcardService = {
     },
 
     async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {
-        const tempId = cardData.id || generateUUID();
+        const tempId = cardData.id || `temp-${Date.now()}`;
+        if (!userId || userId === 'local_user' || !isUuid(userId)) {
+            const finalCard: Flashcard = {
+                id: tempId,
+                subjectId: cardData.subjectId || '',
+                front: cardData.front || '',
+                back: cardData.back || '',
+                nextReviewDate: cardData.nextReviewDate || new Date().toISOString(),
+                easeFactor: 2.5,
+                interval: 0,
+                repetitions: 0,
+                deletedAt: undefined
+            };
+            const currentCache = getLocalFlashcardCache(userId || 'local_user');
+            setLocalFlashcardCache(userId || 'local_user', [...currentCache.filter(c => c.id !== tempId), finalCard]);
+            return finalCard;
+        }
+
         const dbCard: Record<string, any> = {
             user_id: userId,
             subject_id: cardData.subjectId && cardData.subjectId.trim().length > 0 ? cardData.subjectId : null,
@@ -220,8 +237,6 @@ export const FlashcardService = {
         if (cardData.id) {
             dbCard.id = cardData.id;
         }
-
-
 
         try {
             const upsertOp = supabase.from('flashcards').upsert(dbCard);
@@ -281,6 +296,26 @@ export const FlashcardService = {
     },
 
     async addFlashcardsBatch(userId: string, cardsData: Partial<Flashcard>[]): Promise<Flashcard[]> {
+        if (!userId || userId === 'local_user' || !isUuid(userId)) {
+            const finalCards: Flashcard[] = cardsData.map(c => ({
+                id: c.id && !c.id.startsWith('temp_') ? c.id : generateUUID(),
+                subjectId: c.subjectId && c.subjectId.trim().length > 0 ? c.subjectId : '',
+                front: c.front || '',
+                back: c.back || '',
+                nextReviewDate: c.nextReviewDate || new Date().toISOString(),
+                easeFactor: 2.5,
+                interval: 0,
+                repetitions: 0
+            }));
+            const currentCache = getLocalFlashcardCache(userId || 'local_user');
+            const merged = [...currentCache];
+            for (const fc of finalCards) {
+                if (!merged.some(x => x.id === fc.id)) merged.push(fc);
+            }
+            setLocalFlashcardCache(userId || 'local_user', merged);
+            return finalCards;
+        }
+
         const tempCards = cardsData.map(c => {
             const card: Record<string, any> = {
                 user_id: userId,

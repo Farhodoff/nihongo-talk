@@ -312,50 +312,31 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             let currentUser: any = null;
-            try {
-                const { data, error: authError } = await supabase.auth.getUser();
-                if (!authError && data?.user) {
-                    currentUser = data.user;
-                } else if (authError && authError.message && typeof authError.message === 'string' && authError.message !== 'Auth session missing!' && !authError.message.includes('Offline') && !authError.message.includes('Network') && !authError.message.includes('Failed to fetch')) {
-                    console.warn("[StudyPlannerContext] Auth getUser notice:", authError.message);
-                }
-            } catch (e) {
-                console.warn("[StudyPlannerContext] Auth exception:", e);
-            }
+            let isAuthenticated = false;
 
-            if (!currentUser && typeof supabase?.auth?.getSession === 'function') {
+            if (typeof supabase?.auth?.getSession === 'function') {
                 try {
                     const { data: sessionData } = await supabase.auth.getSession();
                     if (sessionData?.session?.user) {
                         currentUser = sessionData.session.user;
+                        isAuthenticated = Boolean(sessionData.session.access_token);
                     }
                 } catch (e) {
-                    console.warn("[StudyPlannerContext] Auth getSession exception:", e);
+                    console.debug("[StudyPlannerContext] Auth getSession exception:", e);
                 }
             }
 
-            if (!currentUser || !currentUser.id || !isUuid(currentUser.id)) {
-                // If remote fetch didn't return a valid user, check local cache or fallback
+            if (!currentUser) {
                 const localCached = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-                if (localCached && (localCached.id || localCached.email)) {
+                if (localCached && localCached.id && isUuid(localCached.id)) {
                     currentUser = localCached;
-                    if (!currentUser.id || !isUuid(currentUser.id)) {
-                        currentUser.id = '99a2f2c1-3fa0-477e-b73c-2ca6537d1721';
-                    }
-                    if (!currentUser.email) {
-                        currentUser.email = 'fsoyilov@gmail.com';
-                    }
-                } else {
-                    // Fallback to default owner profile if no user exists
-                    currentUser = {
-                        id: '99a2f2c1-3fa0-477e-b73c-2ca6537d1721',
-                        email: 'fsoyilov@gmail.com',
-                        user_metadata: { full_name: 'Farhod Soyilov' },
-                        app_metadata: {},
-                        aud: 'authenticated',
-                        created_at: new Date().toISOString()
-                    } as unknown as User;
                 }
+            }
+
+            if (!currentUser) {
+                // If completely unauthenticated and no cache, set loading to false and return
+                setLoading(false);
+                return;
             }
 
             safeLocalStorage.setJSON('study_planner_user_cache', currentUser);
@@ -373,23 +354,25 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 if (meta.target_goal_ja) LearningTrackStorage.setTargetGoal('ja', meta.target_goal_ja);
             }
 
-
-            // Non-blocking background syncs & automatic LocalStorage to DB migration (sequenced smoothly to eliminate socket congestion)
-            setTimeout(async () => {
-                try {
-                    syncGoogleEvents();
-                    await DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
-                    await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
-                    await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
-                    await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
-                    await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
-                    await LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
-                    await LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
-                    await ErrorVaultService.syncFromDB().catch(() => {});
-                } catch (bgErr) {
-                    console.debug('[StudyPlannerContext] Background sync notice:', bgErr);
-                }
-            }, 1500);
+            // Non-blocking background syncs & automatic LocalStorage to DB migration
+            // (Only execute when user has an active authenticated session to respect RLS)
+            if (isAuthenticated && currentUser.id && isUuid(currentUser.id)) {
+                setTimeout(async () => {
+                    try {
+                        syncGoogleEvents();
+                        await DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
+                        await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
+                        await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
+                        await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
+                        await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
+                        await LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
+                        await LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
+                        await ErrorVaultService.syncFromDB().catch(() => {});
+                    } catch (bgErr) {
+                        console.debug('[StudyPlannerContext] Background sync notice:', bgErr);
+                    }
+                }, 1500);
+            }
 
             // Staggered fetch in 2 smooth batches to prevent HTTP/2 connection resets
             try {
@@ -721,7 +704,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return newState;
         });
 
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user;
         if (!user) return;
 
         try {
@@ -784,9 +768,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         try {
             if (!targetUserId) {
-                const { data: authData } = await supabase.auth.getUser();
-                if (authData?.user?.id && isUuid(authData.user.id)) {
-                    targetUserId = authData.user.id;
+                const { data: sessionData } = await supabase.auth.getSession();
+                if (sessionData?.session?.user?.id && isUuid(sessionData.session.user.id)) {
+                    targetUserId = sessionData.session.user.id;
                 }
             }
 

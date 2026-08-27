@@ -6,6 +6,21 @@ import { calculateReview, Grade } from '../utils/srs';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { LearningSignalService } from '../services/LearningSignalService';
 
+const getAuthUserId = async (): Promise<string> => {
+    try {
+        if (typeof supabase?.auth?.getSession === 'function') {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session?.user?.id) return data.session.user.id;
+            return 'local_user';
+        }
+        if (typeof supabase?.auth?.getUser === 'function') {
+            const { data } = await supabase.auth.getUser();
+            if (data?.user?.id) return data.user.id;
+        }
+    } catch {}
+    return 'local_user';
+};
+
 export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>) => {
     const onCardReviewedRef = useRef(onCardReviewed);
     useEffect(() => {
@@ -30,11 +45,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     });
 
     const addFlashcard = useCallback(async (cardData: Partial<Flashcard>) => {
-        let activeUserId = 'local_user';
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
-        } catch {}
+        const activeUserId = await getAuthUserId();
 
         const newCard = await FlashcardService.addFlashcard(activeUserId, cardData);
         if (newCard) {
@@ -49,11 +60,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     }, []);
 
     const addFlashcardsBatch = useCallback(async (cardsData: Partial<Flashcard>[]) => {
-        let activeUserId = 'local_user';
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user?.id) activeUserId = user.id;
-        } catch {}
+        const activeUserId = await getAuthUserId();
 
         // 1. Deduplicate incoming cards by front text
         const uniqueIncoming = cardsData.filter((card, idx, self) =>
@@ -95,8 +102,8 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     const updateFlashcard = useCallback(async (id: string, updates: Partial<Flashcard>) => {
         setFlashcards(prev => {
             const updated = prev.map(c => c.id === id ? { ...c, ...updates } : c);
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) setLocalFlashcardCache(user.id, updated);
+            getAuthUserId().then((userId) => {
+                setLocalFlashcardCache(userId, updated);
             });
             return updated;
         });
@@ -110,8 +117,8 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     const deleteFlashcard = useCallback(async (id: string, permanent = false) => {
         setFlashcards(prev => {
             const updated = prev.filter(c => c.id !== id);
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) setLocalFlashcardCache(user.id, updated);
+            getAuthUserId().then((userId) => {
+                setLocalFlashcardCache(userId, updated);
             });
             return updated;
         });
@@ -125,9 +132,9 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     const restoreFlashcard = useCallback(async (id: string) => {
         try {
             await FlashcardService.restoreFlashcard(id);
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const updatedCards = await FlashcardService.fetchFlashcards(user.id);
+            const userId = await getAuthUserId();
+            if (userId !== 'local_user') {
+                const updatedCards = await FlashcardService.fetchFlashcards(userId);
                 setFlashcards(updatedCards);
             }
         } catch (error) {
@@ -168,9 +175,7 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
 
             const updatedCards = prev.map(c => c.id === id ? { ...c, ...updates } : c);
 
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                const activeUserId = user?.id || 'guest';
-
+            getAuthUserId().then((activeUserId) => {
                 // Update local cache synchronously with latest updatedCards
                 setLocalFlashcardCache(activeUserId, updatedCards);
 
@@ -221,10 +226,10 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     }, []);
 
     const importFlashcards = useCallback(async (subjectId: string, cards: { front: string; back: string; example?: string }[]) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return false;
+        const userId = await getAuthUserId();
+        if (userId === 'local_user') return false;
 
-        const importedCards = await FlashcardService.importFlashcards(user.id, subjectId, cards);
+        const importedCards = await FlashcardService.importFlashcards(userId, subjectId, cards);
         if (importedCards && importedCards.length > 0) {
             setFlashcards(prev => {
                 const existingIds = new Set(prev.map(c => c.id));

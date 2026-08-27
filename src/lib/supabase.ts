@@ -25,10 +25,9 @@ if (!isValidUrl(rawUrl) || !rawKey || rawKey === 'your_supabase_anon_key') {
     console.warn('Supabase client: Initialized with default or placeholder credentials.');
 }
 
-// Strict concurrency queue — Supabase Free Tier supports ~10 concurrent connections.
-// Keep MAX_CONCURRENT very low to prevent HTTP/2 socket flooding and ERR_CONNECTION_RESET storms.
+// Concurrency queue — prevent socket flooding while keeping response fast
 let activeRequests = 0;
-const MAX_CONCURRENT = 2;
+const MAX_CONCURRENT = 6;
 const requestQueue: Array<() => void> = [];
 
 const acquireSlot = async (): Promise<void> => {
@@ -46,14 +45,9 @@ const acquireSlot = async (): Promise<void> => {
 
 const releaseSlot = () => {
     activeRequests--;
-    // Stagger next request by 80ms to prevent burst flooding on Supabase Free Tier
     if (requestQueue.length > 0 && activeRequests < MAX_CONCURRENT) {
-        setTimeout(() => {
-            if (requestQueue.length > 0 && activeRequests < MAX_CONCURRENT) {
-                const next = requestQueue.shift();
-                if (next) next();
-            }
-        }, 80);
+        const next = requestQueue.shift();
+        if (next) next();
     }
 };
 
@@ -140,7 +134,8 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
             }
 
             // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
-            const isPostOrPatch = init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT';
+            const isRpc = urlStr.includes('/rpc/');
+            const isPostOrPatch = !isRpc && (init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT');
             const fallbackBody = isPostOrPatch ? JSON.stringify({ success: true, id: 1 }) : JSON.stringify([]);
 
             return new Response(

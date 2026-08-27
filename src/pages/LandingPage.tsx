@@ -12,16 +12,22 @@ import { useLanguage } from '../context/LanguageContext';
 /* ------------------------------------------------------------------ */
 /*  Animated section wrapper                                          */
 /* ------------------------------------------------------------------ */
-const FadeIn: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
-    children, className = '', delay = 0,
+const FadeIn: React.FC<{ children: React.ReactNode; className?: string; delay?: number; offsetY?: number; direction?: 'y' | 'x' }> = ({
+    children,
+    className = '',
+    delay = 0,
+    offsetY = 24,
+    direction = 'y',
 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: '-60px' });
+    const initial = direction === 'y' ? { opacity: 0, y: offsetY } : { opacity: 0, x: offsetY };
+    const animate = direction === 'y' ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 };
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            initial={initial}
+            animate={isInView ? animate : initial}
             transition={{ duration: 0.5, delay, ease: 'easeOut' }}
             className={className}
         >
@@ -69,24 +75,32 @@ const DashboardPreview: React.FC<{ t: (k: string) => string }> = ({ t }) => (
 
                 {/* Stats grid */}
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashVocab')}</p>
-                        <p className="text-lg font-black text-foreground">15 <span className="text-xs font-normal text-muted-foreground">/ 15</span></p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashGrammar')}</p>
-                        <p className="text-lg font-black text-foreground">1 <span className="text-xs font-normal text-muted-foreground">/ 1</span></p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashSpeaking')}</p>
-                        <p className="text-lg font-black text-foreground">08:24</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                        <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashKanji')}</p>
-                        <ruby className="text-lg font-black text-foreground">
-                            継続<rt className="text-[8px] text-primary font-semibold">けいぞく</rt>
-                        </ruby>
-                    </div>
+                    <FadeIn offsetY={10} delay={0.1}>
+                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashVocab')}</p>
+                            <p className="text-lg font-black text-foreground">15 <span className="text-xs font-normal text-muted-foreground">/ 15</span></p>
+                        </div>
+                    </FadeIn>
+                    <FadeIn offsetY={10} delay={0.2}>
+                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashGrammar')}</p>
+                            <p className="text-lg font-black text-foreground">1 <span className="text-xs font-normal text-muted-foreground">/ 1</span></p>
+                        </div>
+                    </FadeIn>
+                    <FadeIn offsetY={10} delay={0.3}>
+                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashSpeaking')}</p>
+                            <p className="text-lg font-black text-foreground">08:24</p>
+                        </div>
+                    </FadeIn>
+                    <FadeIn offsetY={10} delay={0.4}>
+                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
+                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashKanji')}</p>
+                            <ruby className="text-lg font-black text-foreground">
+                                <span>継続</span><rt className="text-[8px] text-primary font-semibold">けいぞく</rt>
+                            </ruby>
+                        </div>
+                    </FadeIn>
                 </div>
             </div>
         </div>
@@ -100,26 +114,30 @@ const SpeakingMockup: React.FC<{ t: (k: string) => string }> = ({ t }) => (
     <div className="w-full max-w-md mx-auto rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
         {/* Chat messages */}
         <div className="p-5 space-y-3">
-            {/* AI message */}
-            <div className="flex gap-2.5">
+            <FadeIn offsetY={10} delay={0} direction="x">
+                <div className="flex gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
                 <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
-                    今日はどうでしたか？
+                    {t('landing.speakingAiMessage1')}
                 </div>
             </div>
-            {/* User message */}
-            <div className="flex gap-2.5 justify-end">
+            </FadeIn>
+                            {/* User message */}
+            <FadeIn offsetY={10} delay={0.1} direction="x">
+                            <div className="flex gap-2.5 justify-end">
                 <div className="px-3.5 py-2.5 rounded-2xl rounded-tr-sm bg-primary text-sm text-primary-foreground max-w-[85%]">
-                    今日は仕事が大変でした。でも、夜は日本語を勉強しました。
+                    {t('landing.speakingUserMessage')}
                 </div>
             </div>
-            {/* AI feedback */}
-            <div className="flex gap-2.5">
+</FadeIn>
+            <FadeIn offsetY={10} delay={0.2} direction="x">
+                <div className="flex gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
                 <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
-                    いいですね！もう少し自然に言うなら…
+                    {t('landing.speakingAiMessage2')}
                 </div>
             </div>
+        </FadeIn>
         </div>
 
         {/* Score bars */}
@@ -178,16 +196,10 @@ const LandingPage: React.FC = () => {
     }, [language]);
 
     useSEO({
-        title: language === 'ja'
-            ? 'Nihon Talk — AIで日本語を学ぶ'
-            : "Nihon Talk — Yapon tilini AI yordamida o'rganish",
-        description: language === 'ja'
-            ? 'JLPT N5–N1レベル対応。AIスピーキングコーチ、SM-2フラッシュカード、パーソナル学習プラン。'
-            : "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, SM-2 Fleshkartalar va shaxsiy o'quv reja.",
+        title: t('landing.seoTitle'),
+        description: t('landing.seoDescription'),
         canonical: '/',
-        keywords: language === 'ja'
-            ? 'Nihon Talk, 日本語学習, JLPT対策, JLPT N5-N1, 漢字, SM-2, フラッシュカード, AIスピーキングコーチ'
-            : "Nihon Talk, yapon tili, JLPT tayyorgarlik, JLPT N5-N1, Kanji, SM-2, fleshkartalar, AI Speaking Coach"
+        keywords: t('landing.seoKeywords')
     });
 
     const isJa = language === 'ja';
@@ -314,65 +326,29 @@ const LandingPage: React.FC = () => {
             {/* ======== HERO ======== */}
             <section className="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 px-4 sm:px-6 lg:px-8">
                 {/* Background accents */}
-                <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/15 rounded-full blur-3xl -z-10" />
-                <div className="absolute top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -z-10" />
+                <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/15 rounded-full blur-3xl -z-10 float-glow" />
+                <div className="absolute top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -z-10 float-glow" />
 
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Left column */}
                     <div className="space-y-6 lg:space-y-8">
                         {/* Eyebrow */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
-                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold"
-                        >
-                            {t('landing.eyebrow')}
-                        </motion.div>
+                        <FadeIn offsetY={14} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold">
+                                                {t('landing.eyebrow')}
+                                            </FadeIn>
+                        
 
-                        {/* Headline */}
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className={`text-[42px] sm:text-[52px] lg:text-[64px] xl:text-[72px] font-black tracking-tight ${isJa ? 'leading-[1.2]' : 'leading-[1.08]'}`}
-                        >
-                            {isJa ? (
-                                <>
-                                    日本語を、もっと
-                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">賢く</span>
-                                    、もっと
-                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">体系的</span>
-                                    に学ぼう。
-                                </>
-                            ) : (
-                                <>
-                                    Yapon tilini{' '}
-                                    <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
-                                        aqlli va tizimli
-                                    </span>{' '}
-                                    o'rganing.
-                                </>
-                            )}
-                        </motion.h1>
+                        {/* Headline */}<FadeIn offsetY={22} delay={0.1} className={`text-[42px] sm:text-[52px] lg:text-[64px] xl:text-[72px] font-black tracking-tight ${isJa ? 'leading-[1.2]' : 'leading-[1.08]'}`}>
+                            {t('landing.headline')}
+                        </FadeIn>
 
                         {/* Description */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            className={`text-base sm:text-lg text-muted-foreground max-w-lg ${isJa ? 'leading-relaxed' : 'leading-relaxed'}`}
-                        >
+                        <FadeIn offsetY={18} delay={0.2} className={`text-base sm:text-lg text-muted-foreground max-w-lg ${isJa ? 'leading-relaxed' : 'leading-relaxed'}`}>
                             {t('landing.description')}
-                        </motion.p>
+                        </FadeIn>
 
                         {/* CTAs */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            className="flex flex-col sm:flex-row gap-3 pt-2"
-                        >
+                        <FadeIn offsetY={12} delay={0.4} className="flex flex-col sm:flex-row gap-3 pt-2">
                             <button
                                 onClick={() => navigate('/auth')}
                                 className="px-7 py-3.5 text-base font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-xl hover:shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-2"
@@ -385,21 +361,14 @@ const LandingPage: React.FC = () => {
                             >
                                 {t('landing.ctaSecondary')}
                             </button>
-                        </motion.div>
-
-                        {/* Trust row */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.45 }}
-                            className="flex flex-wrap gap-3 pt-2"
-                        >
+                        </FadeIn>
+                        <FadeIn offsetY={12} delay={0.45} className="flex flex-wrap gap-3 pt-2">
                             {[t('landing.trustJlpt'), t('landing.trustSrs'), t('landing.trustSpeaking')].map(badge => (
                                 <span key={badge} className="px-3 py-1.5 text-xs font-semibold rounded-full bg-muted border border-border text-muted-foreground">
                                     {badge}
                                 </span>
                             ))}
-                        </motion.div>
+                        </FadeIn>
                     </div>
 
                     {/* Right column: Dashboard preview */}
@@ -409,7 +378,9 @@ const LandingPage: React.FC = () => {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="lg:pl-8"
                     >
-                        <DashboardPreview t={t} />
+                        <FadeIn offsetY={25} delay={0.35} direction="y">
+                                                <DashboardPreview t={t} />
+                                            </FadeIn>
                     </motion.div>
                 </div>
             </section>
@@ -431,7 +402,7 @@ const LandingPage: React.FC = () => {
                             { icon: Mic, title: t('landing.featureSpeakingTitle'), desc: t('landing.featureSpeakingDesc'), accent: 'text-emerald-500 bg-emerald-500/10' },
                         ].map((card, idx) => (
                             <FadeIn key={card.title} delay={idx * 0.1}>
-                                <div className="h-full p-6 rounded-2xl bg-card border border-border hover:border-primary/30 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 space-y-3">
+                                <div className="h-full p-6 rounded-2xl bg-card border border-border hover:border-primary/30 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:scale-105 space-y-3">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${card.accent}`}>
                                         <card.icon size={20} />
                                     </div>
@@ -460,7 +431,7 @@ const LandingPage: React.FC = () => {
                             { num: '03', icon: '📋', title: t('landing.step3Title'), desc: t('landing.step3Desc') },
                             { num: '04', icon: '🎌', title: t('landing.step4Title'), desc: t('landing.step4Desc') },
                         ].map((step, idx) => (
-                            <FadeIn key={step.num} delay={idx * 0.1}>
+                            <FadeIn offsetY={20} delay={idx * 0.07} direction="x">
                                 <div className="h-full p-6 rounded-2xl bg-card border border-border shadow-sm space-y-4 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
                                     <div className="flex items-center justify-between">
                                         <span className="text-2xl">{step.icon}</span>
@@ -484,42 +455,40 @@ const LandingPage: React.FC = () => {
                         </h2>
                     </FadeIn>
 
-                    <FadeIn delay={0.15}>
-                        <div className="flex items-center justify-between gap-0 overflow-x-auto pb-2">
-                            {['N5', 'N4', 'N3', 'N2', 'N1'].map((level, idx) => {
-                                const isCompleted = idx === 0;
-                                const isActive = idx === 1;
+                    <div className="flex items-center justify-between gap-0 overflow-x-auto pb-2">
+                        {['N5', 'N4', 'N3', 'N2', 'N1'].map((level, idx) => {
+                            const isCompleted = idx === 0;
+                            const isActive = idx === 1;
 
-                                return (
-                                    <React.Fragment key={level}>
-                                        <div className="flex flex-col items-center gap-2 shrink-0">
-                                            <div
-                                                className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-base sm:text-lg font-black border-2 transition-all ${
-                                                    isActive
-                                                        ? 'bg-[#E85D68] border-[#E85D68] text-white shadow-lg shadow-[#E85D68]/25'
-                                                        : isCompleted
-                                                        ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
-                                                        : 'bg-muted border-border text-muted-foreground'
-                                                }`}
-                                            >
-                                                {level}
-                                            </div>
-                                            <span className={`text-[10px] font-bold ${
-                                                isActive ? 'text-[#E85D68]' : isCompleted ? 'text-emerald-500' : 'text-muted-foreground'
-                                            }`}>
-                                                {isCompleted ? '✓' : isActive ? (isJa ? '学習中' : 'Aktiv') : ''}
-                                            </span>
+                            return (
+                                <FadeIn key={level} offsetY={30} delay={idx * 0.07} direction="y">
+                                    <div className="flex flex-col items-center gap-2 shrink-0">
+                                        <div
+                                            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-base sm:text-lg font-black border-2 transition-all ${
+                                                isActive
+                                                    ? 'bg-accent-red-dark border-accent-red-dark text-white shadow-lg shadow-accent-red-dark/25'
+                                                    : isCompleted
+                                                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
+                                                    : 'bg-muted border-border text-muted-foreground'
+                                            }`}
+                                        >
+                                            {level}
                                         </div>
-                                        {idx < 4 && (
-                                            <div className={`flex-1 h-0.5 min-w-[24px] sm:min-w-[40px] mx-1 rounded-full ${
-                                                isCompleted ? 'bg-emerald-500/40' : 'bg-border'
-                                            }`} />
-                                        )}
-                                    </React.Fragment>
-                                );
-                            })}
-                        </div>
-                    </FadeIn>
+                                        <span className={`text-[10px] font-bold ${
+                                            isActive ? 'text-accent-red-dark' : isCompleted ? 'text-emerald-500' : 'text-muted-foreground'
+                                        }`}>
+                                            {isCompleted ? '✓' : isActive ? (isJa ? '学習中' : 'Aktiv') : ''}
+                                        </span>
+                                    </div>
+                                    {idx < 4 && (
+                                        <div className={`flex-1 h-0.5 min-w-[24px] sm:min-w-[40px] mx-1 rounded-full ${
+                                            isCompleted ? 'bg-emerald-500/40' : 'bg-border'
+                                        }`} />
+                                    )}
+                                </FadeIn>
+                            );
+                        })}
+                    </div>
                 </div>
             </section>
 
@@ -528,9 +497,11 @@ const LandingPage: React.FC = () => {
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Left */}
                     <FadeIn className="space-y-6">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E85D68]/10 text-[#E85D68] text-xs font-bold">
+                        <FadeIn offsetY={12} delay={0.05} direction="x">
+                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-red-dark/10 text-accent-red-dark text-xs font-bold">
                             <Mic size={14} /> AI Speaking
                         </div>
+                    </FadeIn>
                         <h2 className={`text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-foreground ${isJa ? 'leading-[1.3]' : 'leading-tight'}`}>
                             {t('landing.speakingTitle')}
                         </h2>
@@ -553,8 +524,8 @@ const LandingPage: React.FC = () => {
 
             {/* ======== FINAL CTA ======== */}
             <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto text-center">
-                    <FadeIn className="space-y-6">
+                <div className="max-w-7xl mx-auto">
+                    <FadeIn offsetY={25} delay={0.5} className="space-y-6">
                         <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground ${isJa ? 'leading-[1.3]' : 'leading-tight'}`}>
                             {t('landing.finalCtaTitle')}
                         </h2>

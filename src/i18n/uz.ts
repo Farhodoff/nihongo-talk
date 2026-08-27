@@ -65,7 +65,7 @@ export const uz = {
     },
     tasks: {
         title: 'Vazifalar Boshqaruvi',
-        subtitle: "O'quv topshiriqlaringiz va rejalar ro'yxati",
+        subtitle: "O'quv topshiriqlaringiz va rejalar ro\'yxati",
         addTask: "+ Vazifa Qo'shish",
         pending: 'Bajarilmoqda',
         completed: 'Bajarildi',
@@ -76,7 +76,7 @@ export const uz = {
     },
     goals: {
         title: 'Maqsadlar',
-        subtitle: "Akademik maqsadlaringizni qo'ying va kuzatib boring",
+        subtitle: "Akademik maqsadlaringizni qo\'ying va kuzatib boring",
         addGoal: 'Yangi Maqsad',
         aiPlan: 'AI Reja',
         deadline: 'Muddati',
@@ -85,7 +85,7 @@ export const uz = {
     },
     subjects: {
         title: "Fanlar & O'quv Reja",
-        subtitle: "Fanlaringiz ro'yxati va haftalik dars jadvali",
+        subtitle: "Fanlaringiz ro\'yxati va haftalik dars jadvali",
         addSubject: "+ Fan Qo'shish",
         noSubjects: "Hozircha fanlar mavjud emas. Yangi fan qo'shing!",
         tasksCount: 'ta vazifa',
@@ -93,7 +93,7 @@ export const uz = {
     },
     flashcards: {
         title: "Fleshkartalar & Lug'at",
-        subtitle: "Anki SM-2 algoritmi va tayyor to'plamlar bilan lug'at boyligingizni oshiring",
+        subtitle: "Anki SM-2 algoritmi va tayyor to\'plamlar bilan lug\'at boyligingizni oshiring",
         myDecks: "Mening To'plamlarim",
         library: 'Standart Kutubxona',
         createDeck: "+ Fan Qo'shish",
@@ -121,7 +121,7 @@ export const uz = {
     },
     focus: {
         title: 'Fokus Timer',
-        subtitle: "Pomodoro texnikasi bilan chalg'imasdan dars qiling",
+        subtitle: "Pomodoro texnikasi bilan chalg\'imasdan dars qiling",
         workTime: 'Fokus Vaqti',
         breakTime: 'Tanaffus',
         start: 'Boshlash',
@@ -148,7 +148,7 @@ export const uz = {
     },
     progress: {
         title: 'Analitika & Tahlil',
-        subtitle: "O'quv jarayoni va rivojlanish ko'rsatkichlari",
+        subtitle: "O\'quv jarayoni va rivojlanish ko\'rsatkichlari",
         share: 'Ulashish',
         totalHours: "Jami O'qish Vaqti",
         completedTasks: 'Bajarilgan Vazifalar',
@@ -182,6 +182,12 @@ export const uz = {
     landing: {
         eyebrow: '🎌 JLPT N5 → N1 · AI + SRS + Speaking',
         headline: 'Yapon tilini aqlli va tizimli o\'rganing.',
+        speakingAiMessage1: 'Bugun qanday kechdi?',
+        speakingUserMessage: 'Bugun ishlar juda qiyin edi. Ammo kechqurun yapon tilini o\'rganishimni davom ettirdim.',
+        speakingAiMessage2: 'Ajoyib! Biroz tabiiyroq gapirish uchun...',
+        seoTitle: 'Nihon Talk — Yapon tilini AI yordamida o\'rganish',
+        subtitle: "JLPT N5–N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, SM-2 Fleshkartalar va shaxsiy o\'quv reja.",
+        seoKeywords: 'Nihon Talk, yapon tili, JLPT tayyorgarlik, JLPT N5-N1, Kanji, SM-2, fleshkartalar, AI Speaking Coach',
         description: 'Darajangizni aniqlang, shaxsiy reja oling va har kuni nima qilishni biling. Vocabulary, Kanji, Grammar, Reading, Listening, Speaking va SRS bitta learning flow\'da.',
         ctaPrimary: '1 daqiqada boshlash',
         ctaSecondary: 'Qanday ishlaydi',

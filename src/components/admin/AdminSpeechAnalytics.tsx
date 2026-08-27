@@ -77,9 +77,9 @@ export const AdminSpeechAnalytics: React.FC = () => {
 
             // Also check current authenticated user
             try {
-                const { data: authData } = await supabase.auth.getUser();
-                if (authData?.user?.id && authData?.user?.email) {
-                    profileMap.set(authData.user.id, authData.user.email);
+                const { data: sessionData } = await supabase.auth.getSession();
+                if (sessionData?.session?.user?.id && sessionData?.session?.user?.email) {
+                    profileMap.set(sessionData.session.user.id, sessionData.session.user.email);
                 }
             } catch {}
 
@@ -175,12 +175,12 @@ export const AdminSpeechAnalytics: React.FC = () => {
                 }
             }
 
-            // 6. Scan LocalStorage for any local speech sessions & auto-sync to DB
+            // 6. Scan LocalStorage for any authentic local speech sessions saved offline
             if (typeof window !== 'undefined') {
                 try {
                     for (let i = 0; i < localStorage.length; i++) {
                         const k = localStorage.key(i);
-                        if (k && (k.includes('scenario_history') || k.includes('speaking') || k.includes('coach') || k.includes('muloqot'))) {
+                        if (k && (k.includes('scenario_history') || k.includes('speaking_sessions'))) {
                             try {
                                 const raw = localStorage.getItem(k);
                                 if (raw) {
@@ -189,19 +189,15 @@ export const AdminSpeechAnalytics: React.FC = () => {
                                         for (const item of parsed) {
                                             const scId = item.id || `local-${item.created_at || item.createdAt || Date.now()}`;
                                             if (!list.some(l => l.id === scId)) {
-                                                const sFluency = Number(item.fluency_score || item.fluencyScore) || 75;
-                                                const sPron = Number(item.pronunciation_score || item.pronunciationScore) || sFluency;
-                                                const sGrammar = Number(item.grammar_score || item.grammarScore) || 75;
-                                                const sVocab = Number(item.vocabulary_score || item.vocabularyScore) || 75;
                                                 list.push({
                                                     id: scId,
-                                                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'Siz (Admin / Local)',
+                                                    user_email: item.user_email || (item.user_id ? profileMap.get(item.user_id) : undefined) || 'O\'quvchi',
                                                     persona_title: item.scenario_title || item.persona_title || item.personaTitle || 'Ssenariy Muloqot',
-                                                    fluency_score: sFluency,
-                                                    pronunciation_score: sPron,
-                                                    grammar_score: sGrammar,
-                                                    vocabulary_score: sVocab,
-                                                    duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 120,
+                                                    fluency_score: Number(item.fluency_score || item.fluencyScore) || 0,
+                                                    pronunciation_score: Number(item.pronunciation_score || item.pronunciationScore) || 0,
+                                                    grammar_score: Number(item.grammar_score || item.grammarScore) || 0,
+                                                    vocabulary_score: Number(item.vocabulary_score || item.vocabularyScore) || 0,
+                                                    duration_seconds: Number(item.duration_seconds || item.durationSeconds) || 0,
                                                     feedback: item.ai_feedback || item.feedback || '',
                                                     transcript: item.transcript || [],
                                                     created_at: item.created_at || item.createdAt || new Date().toISOString()
@@ -236,7 +232,7 @@ export const AdminSpeechAnalytics: React.FC = () => {
         fetchSessions();
     }, []);
 
-    // Summary & Date Filtering calculations
+    // Summary & Date Filtering calculations (100% Real from DB)
     const now = new Date();
     const todayStr = now.toISOString().split('T')[0];
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -255,26 +251,19 @@ export const AdminSpeechAnalytics: React.FC = () => {
         const scores = [s.pronunciation_score, s.fluency_score, s.grammar_score, s.vocabulary_score]
             .map(x => normalizeScore(x))
             .filter(x => x > 0);
-        if (scores.length === 0) return 75;
+        if (scores.length === 0) return 0;
         return Math.round(scores.reduce((acc, curr) => acc + curr, 0) / scores.length);
     };
 
-    const overallAvgScore = sessions.length > 0
-        ? Math.round(sessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / sessions.length)
-        : 0;
-
     const todayAvgScore = todaySessions.length > 0
         ? Math.round(todaySessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / todaySessions.length)
-        : overallAvgScore;
+        : 0;
 
     const weeklyAvgScore = weeklySessions.length > 0
         ? Math.round(weeklySessions.reduce((acc, curr) => acc + getSessionScore(curr), 0) / weeklySessions.length)
-        : overallAvgScore;
+        : 0;
 
-    const totalSpokenMins = Math.max(
-        Math.round(sessions.reduce((acc, curr) => acc + (curr.duration_seconds || 120), 0) / 60),
-        sessions.length > 0 ? sessions.length * 2 : 0
-    );
+    const totalSpokenMins = Math.round(sessions.reduce((acc, curr) => acc + (curr.duration_seconds || 0), 0) / 60);
 
     // Grouping by User Email for User Analytics Aggregation
     const userAggregationsMap = new Map<string, SpeakingSessionRecord[]>();
