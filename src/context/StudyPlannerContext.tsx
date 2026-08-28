@@ -19,11 +19,6 @@ import { DatabaseSubject, DatabaseSession, DatabaseNote, DatabaseStudyNote, Data
 import { isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
-import { MasteryEngine } from '../services/MasteryEngine';
-import { DiagnosticService } from '../services/DiagnosticService';
-import { LessonService } from '../services/LessonService';
-import { ErrorVaultService } from '../services/ErrorVaultService';
-import { DataMigrationService } from '../services/DataMigrationService';
 import { isSuperAdmin } from '../utils/admin';
 
 
@@ -323,14 +318,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             let currentUser: any = null;
-            let isAuthenticated = false;
 
             if (typeof supabase?.auth?.getSession === 'function') {
                 try {
                     const { data: sessionData } = await supabase.auth.getSession();
                     if (sessionData?.session?.user) {
                         currentUser = sessionData.session.user;
-                        isAuthenticated = Boolean(sessionData.session.access_token);
                     }
                 } catch (e) {
                     console.debug("[StudyPlannerContext] Auth getSession exception:", e);
@@ -367,26 +360,8 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 if (meta.target_goal_ja) LearningTrackStorage.setTargetGoal('ja', meta.target_goal_ja);
             }
 
-            // Non-blocking background syncs & automatic LocalStorage to DB migration
-            // (Only execute when user has an active authenticated session to respect RLS)
-            if (isAuthenticated && currentUser.id && isUuid(currentUser.id)) {
-                setTimeout(async () => {
-                    if (fetchSeqRef.current !== currentSeq) return;
-                    try {
-                        syncGoogleEvents();
-                        await DataMigrationService.migrateAllLocalDataToDB(currentUser.id).catch(() => {});
-                        await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'en').catch(() => {});
-                        await MasteryEngine.syncEvidenceFromDB(currentUser.id, 'ja').catch(() => {});
-                        await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'en').catch(() => {});
-                        await DiagnosticService.syncDiagnosticFromDB(currentUser.id, 'ja').catch(() => {});
-                        await LessonService.syncLessonProgressFromDB(currentUser.id, 'en').catch(() => {});
-                        await LessonService.syncLessonProgressFromDB(currentUser.id, 'ja').catch(() => {});
-                        await ErrorVaultService.syncFromDB(currentUser.id).catch(() => {});
-                    } catch (bgErr) {
-                        console.debug('[StudyPlannerContext] Background sync notice:', bgErr);
-                    }
-                }, 1500);
-            }
+            // Startup synchronization is handled on-demand by dedicated pages
+            // to keep initial boot ultra-fast and socket-efficient.
 
             // Staggered fetch in 2 smooth batches to prevent HTTP/2 connection resets
             try {

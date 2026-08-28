@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
-import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -18,8 +17,6 @@ import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 import { QuickCommandPalette } from './common/QuickCommandPalette';
-
-import { PersonalizedOnboardingModal } from './onboarding/PersonalizedOnboardingModal';
 
 interface NavItem {
     name: string;
@@ -40,7 +37,7 @@ const Layout: React.FC = () => {
     });
 
     const { language, setLanguage, t } = useLanguage();
-    const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus, loading } = useStudyData();
+    const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
     const displayEmail = user?.email || '';
     const isAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
     const isSuper = Boolean(displayEmail && isSuperAdmin(displayEmail));
@@ -69,23 +66,6 @@ const Layout: React.FC = () => {
         ];
         return fullScreenPaths.some(p => location.pathname.startsWith(p));
     }, [location.pathname]);
-
-    // Personalized Onboarding First-Visit Trigger (DB-synchronized across devices)
-    const [showOnboarding, setShowOnboarding] = useState(false);
-
-    useEffect(() => {
-        if (loading) return;
-        const onboarded = localStorage.getItem('study_planner_personalized_onboarded');
-        // Agar foydalanuvchining DB profilingda primary_language yoki target_level saqlangan bo'lsa, qayta onboarding so'ralmaydi
-        if (!onboarded && !primaryLanguage && !targetLevel) {
-            setShowOnboarding(true);
-        } else {
-            setShowOnboarding(false);
-            if (!onboarded && (primaryLanguage || targetLevel)) {
-                localStorage.setItem('study_planner_personalized_onboarded', 'true');
-            }
-        }
-    }, [loading, primaryLanguage, targetLevel]);
 
     const navItems: NavItem[] = useMemo(() => {
         // Super Admin can switch to English (IELTS) track for development
@@ -171,8 +151,6 @@ const Layout: React.FC = () => {
 
     return (
         <div className="h-screen flex flex-col md:flex-row bg-background text-foreground transition-colors duration-300 overflow-hidden font-sans">
-            <AIAccountabilityManager />
-            
             {/* Mini Timer Overlay */}
             {focusState.isActive && location.pathname !== '/focus' && (
                 <div 
@@ -384,12 +362,6 @@ const Layout: React.FC = () => {
                     </SheetContent>
                 </Sheet>
             </nav>
-
-            {/* Personalized 60s Onboarding Wizard */}
-            <PersonalizedOnboardingModal
-                isOpen={showOnboarding}
-                onClose={() => setShowOnboarding(false)}
-            />
 
             {/* Quick Command Palette (Cmd/Ctrl + K) */}
             <QuickCommandPalette
