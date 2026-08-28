@@ -19,7 +19,6 @@ export interface DailySpeechSummary {
     sessions: Array<{
         id: string;
         anonymousUserId: string;
-        userEmail?: string;
         language: string;
         topic: string;
         durationSeconds: number;
@@ -181,7 +180,6 @@ export class TelegramDatasetService {
             return {
                 id: s.id,
                 anonymousUserId: anonUid,
-                userEmail: s.user_email, // for admin telegram internal summary only
                 language: s.language || (topic.includes('Yapon') || /[\u3040-\u30ff\u4e00-\u9faf]/.test(topic) ? 'ja' : 'en'),
                 topic,
                 durationSeconds: dur,
@@ -256,7 +254,7 @@ export class TelegramDatasetService {
             messageText += `📝 <b>SO'NGGI TRANSKRIPTLAR (Namuna):</b>\n`;
             summary.sessions.slice(0, 3).forEach((s) => {
                 messageText += `\n━━━━━━━━━━━━━━━━\n`;
-                messageText += `👤 <b>${s.userEmail}</b> [${s.language.toUpperCase()}] • ${s.topic} (${Math.round(s.durationSeconds)}s, Ball: ${s.score}%)\n`;
+                messageText += `👤 <b>${s.anonymousUserId}</b> [${s.language.toUpperCase()}] • ${s.topic} (${Math.round(s.durationSeconds)}s, Ball: ${s.score}%)\n`;
                 
                 const userTurns = s.transcript.filter(t => t.role === 'user');
                 userTurns.slice(0, 3).forEach(t => {
