@@ -232,62 +232,77 @@ const AdminDashboardPage: React.FC = () => {
             newStatus.profiles = { ok: false, count: 0, error: pErr.message || 'Profiles error' };
         }
 
-        // 2. INDEPENDENT SESSION TABLES FETCH
+        // 2. INDEPENDENT SESSION TABLES FETCH WITH RPC AND DIRECT FALLBACK
         let speakingData: any[] = [];
         let coachData: any[] = [];
         let aiCoachData: any[] = [];
         let studyData: any[] = [];
 
-        // speaking_sessions query
+        try {
+            const rpcSessions = await supabase.rpc('get_admin_all_sessions');
+            if (!rpcSessions.error && rpcSessions.data) {
+                const sObj = typeof rpcSessions.data === 'string' ? JSON.parse(rpcSessions.data) : rpcSessions.data;
+                if (sObj) {
+                    if (Array.isArray(sObj.speaking_sessions)) speakingData = sObj.speaking_sessions;
+                    if (Array.isArray(sObj.speaking_coach_sessions)) coachData = sObj.speaking_coach_sessions;
+                    if (Array.isArray(sObj.ai_coach_sessions)) aiCoachData = sObj.ai_coach_sessions;
+                    if (Array.isArray(sObj.study_sessions)) studyData = sObj.study_sessions;
+                }
+            }
+        } catch (rErr) {
+            console.warn('[AdminDashboard] get_admin_all_sessions RPC skipped, falling back to direct queries:', rErr);
+        }
+
+        // speaking_sessions query fallback
         try {
             const spRes = await supabase.from('speaking_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+            if (spRes.data && Array.isArray(spRes.data) && spRes.data.length > 0) speakingData = spRes.data;
             newStatus.speakingSessions = {
                 ok: !spRes.error,
-                count: spRes.count ?? (spRes.data ? spRes.data.length : 0),
+                count: speakingData.length || spRes.count || 0,
                 error: spRes.error?.message || null
             };
-            if (spRes.data && Array.isArray(spRes.data)) speakingData = spRes.data;
         } catch (err: any) {
-            newStatus.speakingSessions = { ok: false, count: 0, error: err.message };
+            newStatus.speakingSessions = { ok: false, count: speakingData.length, error: err.message };
         }
 
-        // speaking_coach_sessions query
+        // speaking_coach_sessions query fallback
         try {
             const scRes = await supabase.from('speaking_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+            if (scRes.data && Array.isArray(scRes.data) && scRes.data.length > 0) coachData = scRes.data;
             newStatus.speakingCoachSessions = {
                 ok: !scRes.error,
-                count: scRes.count ?? (scRes.data ? scRes.data.length : 0),
+                count: coachData.length || scRes.count || 0,
                 error: scRes.error?.message || null
             };
-            if (scRes.data && Array.isArray(scRes.data)) coachData = scRes.data;
         } catch (err: any) {
-            newStatus.speakingCoachSessions = { ok: false, count: 0, error: err.message };
+            newStatus.speakingCoachSessions = { ok: false, count: coachData.length, error: err.message };
         }
 
-        // ai_coach_sessions query
+        // ai_coach_sessions query fallback
         try {
             const aiRes = await supabase.from('ai_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+            if (aiRes.data && Array.isArray(aiRes.data) && aiRes.data.length > 0) aiCoachData = aiRes.data;
             newStatus.aiCoachSessions = {
                 ok: !aiRes.error,
-                count: aiRes.count ?? (aiRes.data ? aiRes.data.length : 0),
+                count: aiCoachData.length || aiRes.count || 0,
                 error: aiRes.error?.message || null
             };
-            if (aiRes.data && Array.isArray(aiRes.data)) aiCoachData = aiRes.data;
         } catch (err: any) {
-            newStatus.aiCoachSessions = { ok: false, count: 0, error: err.message };
+            newStatus.aiCoachSessions = { ok: false, count: aiCoachData.length, error: err.message };
         }
 
-        // study_sessions query
+        // study_sessions query fallback
         try {
             const stRes = await supabase.from('study_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+            if (stRes.data && Array.isArray(stRes.data) && stRes.data.length > 0) studyData = stRes.data;
             newStatus.studySessions = {
                 ok: !stRes.error,
-                count: stRes.count ?? (stRes.data ? stRes.data.length : 0),
+                count: studyData.length || stRes.count || 0,
                 error: stRes.error?.message || null
             };
-            if (stRes.data && Array.isArray(stRes.data)) studyData = stRes.data;
         } catch (err: any) {
-            newStatus.studySessions = { ok: false, count: 0, error: err.message };
+            newStatus.studySessions = { ok: false, count: studyData.length, error: err.message };
         }
 
         setTableStatus(newStatus);
