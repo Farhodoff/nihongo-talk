@@ -205,11 +205,6 @@ const LandingPage: React.FC = () => {
         });
     };
 
-    const toggleLang = () => {
-        const next = language === 'uz' ? 'ja' : 'uz';
-        setLanguage(next);
-    };
-
     useSEO({
         title: t('landing.seoTitle'),
         description: t('landing.seoDescription'),
@@ -257,16 +252,33 @@ const LandingPage: React.FC = () => {
 
                     {/* Right: Controls */}
                     <div className="flex items-center gap-2">
-                        {/* Language switch */}
-                        <button
-                            onClick={toggleLang}
-                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-border hover:bg-muted transition-colors text-foreground flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95"
-                            title="Tilni almashtirish / 言語切替"
-                            aria-label="Switch language"
-                        >
-                            <span>{isJa ? '🇺🇿' : '🇯🇵'}</span>
-                            <span>{isJa ? 'Oʻzbekcha' : '日本語'}</span>
-                        </button>
+                        {/* Language switcher (Segmented Desktop) */}
+                        <div className="flex items-center p-1 rounded-xl border border-border bg-card shadow-xs">
+                            <button
+                                onClick={() => setLanguage('uz')}
+                                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
+                                    language === 'uz'
+                                        ? 'bg-primary text-primary-foreground shadow-xs'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                title="Oʻzbek tiliga o'tish"
+                            >
+                                <span>🇺🇿</span>
+                                <span>UZ</span>
+                            </button>
+                            <button
+                                onClick={() => setLanguage('ja')}
+                                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
+                                    language === 'ja'
+                                        ? 'bg-primary text-primary-foreground shadow-xs'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                title="日本語に切り替え"
+                            >
+                                <span>🇯🇵</span>
+                                <span>JA</span>
+                            </button>
+                        </div>
 
                         {/* Theme switch */}
                         <button
@@ -325,21 +337,38 @@ const LandingPage: React.FC = () => {
                             ))}
                             
                             {/* Mobile Lang & Theme Row */}
-                            <div className="flex items-center justify-between pt-2 pb-1 border-t border-border gap-2">
-                                <button
-                                    onClick={toggleLang}
-                                    className="flex-1 px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
-                                >
-                                    <span>{isJa ? '🇺🇿' : '🇯🇵'}</span>
-                                    <span>{isJa ? 'Oʻzbekcha' : '日本語'}</span>
-                                </button>
+                            <div className="flex flex-col gap-2 pt-2 pb-1 border-t border-border">
+                                <div className="flex items-center p-1 rounded-xl border border-border bg-card">
+                                    <button
+                                        onClick={() => setLanguage('uz')}
+                                        className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                                            language === 'uz'
+                                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        <span>🇺🇿</span>
+                                        <span>Oʻzbekcha</span>
+                                    </button>
+                                    <button
+                                        onClick={() => setLanguage('ja')}
+                                        className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                                            language === 'ja'
+                                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                    >
+                                        <span>🇯🇵</span>
+                                        <span>日本語</span>
+                                    </button>
+                                </div>
 
                                 <button
                                     onClick={toggleTheme}
-                                    className="flex-1 px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
+                                    className="w-full px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
                                 >
                                     {isDark ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-indigo-600" />}
-                                    <span>{isDark ? 'Kunduzgi' : 'Tungi'}</span>
+                                    <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
                                 </button>
                             </div>
 
