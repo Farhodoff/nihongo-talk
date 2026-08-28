@@ -23,7 +23,7 @@ DECLARE
 BEGIN
     _uid := auth.uid();
 
-    -- 1. Check JWT email claim
+    -- Check JWT email claim
     BEGIN
         _jwt_email := LOWER(TRIM(COALESCE(auth.jwt() ->> 'email', '')));
     EXCEPTION WHEN OTHERS THEN
@@ -34,7 +34,7 @@ BEGIN
         RETURN TRUE;
     END IF;
 
-    -- 2. Check auth.users table directly (bypasses RLS)
+    -- Check auth.users table directly (bypasses RLS)
     IF _uid IS NOT NULL THEN
         SELECT LOWER(TRIM(COALESCE(email, '')))
         INTO _auth_email
@@ -45,7 +45,7 @@ BEGIN
             RETURN TRUE;
         END IF;
 
-        -- 3. Check public.profiles role & email
+        -- Check public.profiles role & email
         SELECT LOWER(TRIM(COALESCE(role, ''))), LOWER(TRIM(COALESCE(email, '')))
         INTO _profile_role, _profile_email
         FROM public.profiles
@@ -64,8 +64,7 @@ BEGIN
 END;
 $$;
 
-REVOKE EXECUTE ON FUNCTION public.is_admin() FROM public, anon;
-GRANT EXECUTE ON FUNCTION public.is_admin() TO authenticated, service_role;
+GRANT EXECUTE ON FUNCTION public.is_admin() TO anon, authenticated, service_role;
 
 -- 2. Upgrade get_admin_all_users() function
 CREATE OR REPLACE FUNCTION public.get_admin_all_users()
@@ -117,7 +116,6 @@ BEGIN
 END;
 $$;
 
-REVOKE EXECUTE ON FUNCTION public.get_admin_all_users() FROM public, anon;
-GRANT EXECUTE ON FUNCTION public.get_admin_all_users() TO authenticated, service_role;
+GRANT EXECUTE ON FUNCTION public.get_admin_all_users() TO anon, authenticated, service_role;
 
 COMMIT;
