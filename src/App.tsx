@@ -149,11 +149,11 @@ const App: React.FC = () => {
 
     if (!session) {
         return (
-            <>
+            <LanguageProvider>
                 <UnauthRouter />
                 <ReloadPrompt />
                 <InstallPrompt />
-            </>
+            </LanguageProvider>
         );
     }
 

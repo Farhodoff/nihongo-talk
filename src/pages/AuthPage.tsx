@@ -1,6 +1,6 @@
-import { Loader2, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Loader2, Lock, Mail, User, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -10,13 +10,38 @@ import { motion } from 'framer-motion';
 
 const AuthPage: React.FC = () => {
     const navigate = useNavigate();
-    const [isLogin, setIsLogin] = useState(true);
+    const location = useLocation();
+    const [searchParams] = useSearchParams();
+
+    const isRegisterPath = location.pathname === '/register' || 
+                           location.pathname === '/signup' || 
+                           searchParams.get('mode') === 'register' || 
+                           searchParams.get('mode') === 'signup';
+
+    const [isLogin, setIsLogin] = useState(() => !isRegisterPath);
     const [isResetPassword, setIsResetPassword] = useState(() => {
         if (typeof window !== 'undefined') {
-            return window.location.pathname.includes('reset-password') || window.location.hash.includes('type=recovery');
+            return window.location.pathname.includes('reset-password') || 
+                   window.location.hash.includes('type=recovery') ||
+                   window.location.search.includes('type=recovery');
         }
         return false;
     });
+
+    useEffect(() => {
+        if (isRegisterPath) {
+            setIsLogin(false);
+        } else if (location.pathname === '/login' || searchParams.get('mode') === 'login') {
+            setIsLogin(true);
+        }
+
+        if (location.pathname.includes('reset-password') || 
+            window.location.hash.includes('type=recovery') || 
+            window.location.search.includes('type=recovery')) {
+            setIsResetPassword(true);
+        }
+    }, [location.pathname, searchParams, isRegisterPath]);
+
     const [resetSuccess, setResetSuccess] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -161,6 +186,15 @@ const AuthPage: React.FC = () => {
                     </motion.div>
                 ) : (
                     <>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/')}
+                            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground font-semibold mb-4 transition-colors"
+                        >
+                            <ArrowLeft size={14} />
+                            <span>Bosh sahifaga qaytish</span>
+                        </button>
+
                         <div className="text-center mb-8">
                             <div className="inline-block p-3 rounded-2xl bg-primary/10 text-primary mb-4 animate-bounce">
                                 <span className="text-4xl">🎓</span>

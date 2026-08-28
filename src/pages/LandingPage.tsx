@@ -262,7 +262,7 @@ const LandingPage: React.FC = () => {
 
                         {/* Login (desktop) */}
                         <button
-                            onClick={() => navigate('/auth')}
+                            onClick={() => navigate('/login')}
                             className="hidden md:block px-3.5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/60"
                         >
                             {t('landing.navLogin')}
@@ -270,7 +270,7 @@ const LandingPage: React.FC = () => {
 
                         {/* CTA (desktop) */}
                         <button
-                            onClick={() => navigate('/auth')}
+                            onClick={() => navigate('/register')}
                             className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 hover:scale-[1.03] active:scale-95"
                         >
                             <span>{t('landing.navCta')}</span>
@@ -307,13 +307,13 @@ const LandingPage: React.FC = () => {
                             ))}
                             <hr className="border-border" />
                             <button
-                                onClick={() => { navigate('/auth'); setMobileMenuOpen(false); }}
+                                onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}
                                 className="block w-full text-left px-3 py-2.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
                             >
                                 {t('landing.navLogin')}
                             </button>
                             <button
-                                onClick={() => { navigate('/auth'); setMobileMenuOpen(false); }}
+                                onClick={() => { navigate('/register'); setMobileMenuOpen(false); }}
                                 className="w-full px-4 py-3 text-sm font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 flex items-center justify-center gap-2"
                             >
                                 {t('landing.navCta')} <ArrowRight size={15} />
@@ -350,7 +350,7 @@ const LandingPage: React.FC = () => {
                         {/* CTAs */}
                         <FadeIn offsetY={12} delay={0.4} className="flex flex-col sm:flex-row gap-3 pt-2">
                             <button
-                                onClick={() => navigate('/auth')}
+                                onClick={() => navigate('/register')}
                                 className="px-7 py-3.5 text-base font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-xl hover:shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-2"
                             >
                                 {t('landing.ctaPrimary')} <ArrowRight size={18} />
@@ -531,7 +531,7 @@ const LandingPage: React.FC = () => {
                         </h2>
                         <div className="pt-2">
                             <button
-                                onClick={() => navigate('/auth')}
+                                onClick={() => navigate('/register')}
                                 className="px-8 py-4 text-base font-bold text-white rounded-xl bg-gradient-to-r from-primary to-indigo-600 hover:shadow-xl hover:shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 inline-flex items-center gap-2"
                             >
                                 {t('landing.finalCtaButton')} <ArrowRight size={18} />
