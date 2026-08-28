@@ -2,6 +2,8 @@
  * Web Speech API Text-to-Speech Pronunciation Helper for Flashcards and AI Coach
  */
 
+import { cleanJapaneseTTS } from './ai/aiCoach';
+
 export function speakJapaneseText(text: string): void {
     speakText(text, 'ja-JP');
 }
@@ -15,19 +17,13 @@ export function speakText(text: string, accent: string = 'en-US'): void {
     // Cancel ongoing speech
     window.speechSynthesis.cancel();
 
-    // 1. Strip Uzbek translation e.g. "[Xush kelibsiz!]" -> ""
-    let cleanText = text.replace(/\[.*?\]/g, '').trim();
+    const hasJapaneseChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(text) || accent === 'ja-JP';
+    const textToSpeak = hasJapaneseChars ? cleanJapaneseTTS(text) : text.replace(/[*_#`~]/g, '').trim();
 
-    // 2. Strip Romaji annotation in parentheses e.g. "(Irasshaimase!)" -> "" if Japanese characters exist
-    const hasJapaneseChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(cleanText);
-    if (hasJapaneseChars) {
-        cleanText = cleanText.replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').trim();
-    }
-
-    const textToSpeak = cleanText || text;
+    if (!textToSpeak) return;
 
     // Auto-detect Japanese characters if accent wasn't explicitly set to Japanese
-    const targetLang = (hasJapaneseChars && accent !== 'ja-JP') ? 'ja-JP' : accent;
+    const targetLang = hasJapaneseChars ? 'ja-JP' : accent;
 
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.lang = targetLang;

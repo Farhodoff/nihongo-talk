@@ -66,13 +66,33 @@ export interface CoachStructuredResponse {
 
 export const cleanJapaneseTTS = (text: string): string => {
     if (!text) return '';
-    return text
-        .replace(/\[[^\]]*\]/g, '') // strip bracketed translations [Uzbek / English]
-        .replace(/\([^)]*\)/g, '')   // strip parenthesized Romaji or notes (Romaji)
-        .replace(/[a-zA-Z]/g, '')    // strip any remaining Latin alphabet characters
-        .replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '') // emojis
-        .replace(/\s+/g, ' ')
-        .trim();
+
+    // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
+    let clean = text.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
+
+    // 2. Remove markdown formatting (*, _, `, ~, #)
+    clean = clean.replace(/[*_#`~]/g, '');
+
+    // 3. Remove bracketed & parenthesized text e.g. (Konnichiwa), （Konnichiwa）, [Hello], [xush kelibsiz]
+    clean = clean.replace(/\[[^\]]*\]/g, '');
+    clean = clean.replace(/\([^)]*\)/g, '');
+    clean = clean.replace(/（[^）]*）/g, '');
+    clean = clean.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
+
+    // 4. If text contains Japanese characters (Hiragana, Katakana, Kanji):
+    const hasJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean);
+    if (hasJapanese) {
+        // Split by lines. If a line does NOT contain Japanese (e.g. Romaji "Hai, konnichiwa" or English "Hello"), filter it out
+        const lines = clean.split('\n');
+        const japaneseLines = lines.filter(l => /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(l.trim()));
+        if (japaneseLines.length > 0) {
+            clean = japaneseLines.join(' ');
+        }
+        // Strip any remaining Latin letters (a-z, A-Z) so Romaji words are never spoken by TTS
+        clean = clean.replace(/[a-zA-Z]/g, '');
+    }
+
+    return clean.replace(/\s+/g, ' ').trim();
 };
 
 export const parseCoachResponse = (raw: string, fallbackLang: 'en' | 'ja' = 'ja'): CoachStructuredResponse => {

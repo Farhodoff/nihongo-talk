@@ -1,6 +1,8 @@
 import { useRef, useCallback } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 
+import { cleanJapaneseTTS } from '../utils/ai';
+
 interface UseTTSOptions {
     language: 'en' | 'ja';
     isLiveSessionRef: React.MutableRefObject<boolean>;
@@ -59,14 +61,22 @@ export const useTTS = ({
 
     const speakText = useCallback(async (text: string) => {
         const startTime = Date.now();
-        const clean = (text || '').trim();
-        if (!clean) {
+        const rawClean = (text || '').trim();
+        if (!rawClean) {
             onSpeakEnd();
             return;
         }
 
         onSpeakStart();
         stopSpeaking();
+
+        const isJa = languageRef.current === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(rawClean);
+        const textToPlay = isJa ? cleanJapaneseTTS(rawClean) : rawClean.replace(/[*_#`~]/g, '').trim();
+
+        if (!textToPlay) {
+            onSpeakEnd();
+            return;
+        }
 
         const onSpeechFinish = (success: boolean = true, error?: string) => {
             if (ttsSafetyTimeoutRef.current) {
@@ -88,9 +98,8 @@ export const useTTS = ({
 
         // 1. Google Translate Free Audio Stream
         try {
-            const cleanText = text.replace(/[*_#`~]/g, '').trim();
-            const targetLang = languageRef.current === 'ja' ? 'ja' : 'en';
-            const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(cleanText.substring(0, 200))}&tl=${targetLang}`;
+            const targetLang = isJa ? 'ja' : 'en';
+            const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(textToPlay.substring(0, 200))}&tl=${targetLang}`;
             
             const audio = new Audio(gUrl);
             audioPlayerRef.current = audio;
@@ -118,8 +127,8 @@ export const useTTS = ({
 
             try {
                 synth.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+                const utterance = new SpeechSynthesisUtterance(textToPlay);
+                utterance.lang = isJa ? 'ja-JP' : 'en-US';
                 utterance.rate = 0.95;
                 utterance.pitch = 1.0;
 

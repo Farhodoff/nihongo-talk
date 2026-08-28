@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Award, AlertCircle, CheckCircle, Sparkles, BookOpen, Download, Volume2, Copy } from 'lucide-react';
-import { SessionAnalysisReport } from '../../utils/ai';
+import { SessionAnalysisReport, cleanJapaneseTTS } from '../../utils/ai';
 import { ErrorVaultService } from '../../services/ErrorVaultService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
@@ -78,7 +78,11 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
         if (typeof window === 'undefined' || !window.speechSynthesis) return;
         try {
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(word);
+            const isJa = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(word);
+            const cleanWord = isJa ? cleanJapaneseTTS(word) : word.trim();
+            if (!cleanWord) return;
+            const utterance = new SpeechSynthesisUtterance(cleanWord);
+            utterance.lang = isJa ? 'ja-JP' : 'en-US';
             utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
         } catch (e) {
