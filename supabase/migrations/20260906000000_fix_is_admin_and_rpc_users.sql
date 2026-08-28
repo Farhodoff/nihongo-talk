@@ -3,11 +3,10 @@
 
 BEGIN;
 
--- 0. Drop existing functions to allow signature/return type updates
+-- 0. Drop get_admin_all_users to allow return type signature updates
 DROP FUNCTION IF EXISTS public.get_admin_all_users();
-DROP FUNCTION IF EXISTS public.is_admin();
 
--- 1. Upgrade is_admin() SECURITY DEFINER function
+-- 1. Upgrade is_admin() SECURITY DEFINER function in-place (no DROP needed)
 CREATE OR REPLACE FUNCTION public.is_admin()
 RETURNS BOOLEAN
 LANGUAGE plpgsql
