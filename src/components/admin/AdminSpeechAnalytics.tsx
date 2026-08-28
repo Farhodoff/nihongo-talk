@@ -64,27 +64,26 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
         let list: SpeakingSessionRecord[] = [];
 
         try {
-            // 1. Fetch profiles & all users to map user_id -> email / full_name for clean display
-            const [profileRes, rpcUsersRes] = await Promise.allSettled([
-                supabase.from('profiles').select('*').limit(300),
-                supabase.rpc('get_admin_all_users')
-            ]);
+            // 1. Fetch profiles & user mapping sequentially
             const profileMap = new Map<string, string>();
-            
-            const profileData = profileRes.status === 'fulfilled' ? profileRes.value.data : null;
-            if (profileData) {
-                profileData.forEach((p: any) => {
-                    const uid = p.id || p.user_id;
-                    if (uid) profileMap.set(uid, p.email || p.full_name || 'Student');
-                });
-            }
+            try {
+                const pRes = await supabase.from('profiles').select('*').limit(300);
+                if (pRes.data) {
+                    pRes.data.forEach((p: any) => {
+                        const uid = p.id || p.user_id;
+                        if (uid) profileMap.set(uid, p.email || p.full_name || 'Student');
+                    });
+                }
+            } catch {}
 
-            const rpcData = rpcUsersRes.status === 'fulfilled' ? rpcUsersRes.value.data : null;
-            if (Array.isArray(rpcData)) {
-                rpcData.forEach((u: any) => {
-                    if (u.id) profileMap.set(u.id, u.email || u.full_name || 'Student');
-                });
-            }
+            try {
+                const rpcRes = await supabase.rpc('get_admin_all_users');
+                if (rpcRes.data && Array.isArray(rpcRes.data)) {
+                    rpcRes.data.forEach((u: any) => {
+                        if (u.id) profileMap.set(u.id, u.email || u.full_name || 'Student');
+                    });
+                }
+            } catch {}
 
             // Also check current authenticated user
             try {
@@ -94,14 +93,12 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 }
             } catch {}
 
-            // 2. Fetch primary speaking_sessions table with transcript JSONB (parallel fetch)
-            const [speakRes, coachSessionsRes, aiCoachRes] = await Promise.allSettled([
-                supabase.from('speaking_sessions').select('*').limit(300),
-                supabase.from('speaking_coach_sessions').select('*').limit(300),
-                supabase.from('ai_coach_sessions').select('*').limit(300)
-            ]);
-
-            const speakData = speakRes.status === 'fulfilled' ? speakRes.value.data : null;
+            // 2. Fetch primary speaking_sessions table sequentially
+            let speakData: any[] | null = null;
+            try {
+                const speakRes = await supabase.from('speaking_sessions').select('*').limit(300);
+                speakData = speakRes.data;
+            } catch {}
             if (speakData && speakData.length > 0) {
                 speakData.forEach((item: any) => {
                     list.push({
@@ -120,8 +117,12 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 });
             }
 
-            // 3. Merge speaking_coach_sessions
-            const coachSessionsData = coachSessionsRes.status === 'fulfilled' ? coachSessionsRes.value.data : null;
+            // 3. Merge speaking_coach_sessions sequentially
+            let coachSessionsData: any[] | null = null;
+            try {
+                const scRes = await supabase.from('speaking_coach_sessions').select('*').limit(300);
+                coachSessionsData = scRes.data;
+            } catch {}
             if (coachSessionsData && coachSessionsData.length > 0) {
                 for (const item of coachSessionsData as any[]) {
                     if (!list.some(l => l.id === item.id)) {
@@ -142,8 +143,12 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 }
             }
 
-            // 4. Merge ai_coach_sessions
-            const aiCoachData = aiCoachRes.status === 'fulfilled' ? aiCoachRes.value.data : null;
+            // 4. Merge ai_coach_sessions sequentially
+            let aiCoachData: any[] | null = null;
+            try {
+                const aiRes = await supabase.from('ai_coach_sessions').select('*').limit(300);
+                aiCoachData = aiRes.data;
+            } catch {}
             if (aiCoachData && aiCoachData.length > 0) {
                 for (const item of aiCoachData as any[]) {
                     if (!list.some(l => l.id === item.id)) {
