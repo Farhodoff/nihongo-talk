@@ -56,6 +56,16 @@ export const safeLocalStorage = {
         }
     },
 
+    clear(): void {
+        try {
+            if (typeof window !== 'undefined' && window.localStorage) {
+                window.localStorage.clear();
+            }
+        } catch (e) {
+            console.warn('[safeLocalStorage] Clear error:', e);
+        }
+    },
+
     getJSON<T>(key: string, defaultValue: T): T {
         const raw = this.getItem(key);
         if (!raw) return defaultValue;

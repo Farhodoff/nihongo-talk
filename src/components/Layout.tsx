@@ -358,7 +358,39 @@ const Layout: React.FC = () => {
                                 <AppLogo size="sm" />
                             </div>
                         </div>
-                        <NavLinks onClick={() => setSidebarOpen(false)} />
+                        <div className="flex-1 overflow-y-auto">
+                            <NavLinks onClick={() => setSidebarOpen(false)} />
+                        </div>
+                        <div className="p-3.5 border-t border-border/60 space-y-2 bg-card/80">
+                            {isAdmin && (
+                                <NavLink
+                                    to="/admin"
+                                    onClick={() => setSidebarOpen(false)}
+                                    className={({ isActive }) =>
+                                        `w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-bold ${isActive
+                                            ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30 shadow-xs'
+                                            : 'text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-400 border border-rose-500/20'
+                                        }`
+                                    }
+                                >
+                                    <Shield size={16} className="text-rose-500 shrink-0" />
+                                    <span>Admin Panel</span>
+                                </NavLink>
+                            )}
+                            <NavLink
+                                to="/settings"
+                                onClick={() => setSidebarOpen(false)}
+                                className={({ isActive }) =>
+                                    `w-full flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all duration-200 text-xs font-semibold ${isActive
+                                        ? 'bg-primary/10 text-primary font-bold shadow-xs'
+                                        : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+                                    }`
+                                }
+                            >
+                                <SettingsIcon size={16} className="shrink-0" />
+                                <span>{t('nav.settings') || 'Sozlamalar'}</span>
+                            </NavLink>
+                        </div>
                     </SheetContent>
                 </Sheet>
             </nav>

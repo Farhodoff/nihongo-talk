@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Sparkles, ArrowRight, ArrowLeft, X } from 'lucide-react';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface LocalTourStep {
     title: string;
@@ -8,7 +9,7 @@ export interface LocalTourStep {
     placement: 'top' | 'bottom' | 'left' | 'right' | 'center';
 }
 
-interface LocalTourProps {
+export interface LocalTourProps {
     steps: LocalTourStep[];
     tourKey: string;
 }
@@ -117,7 +118,7 @@ export const LocalTour: React.FC<LocalTourProps> = ({ steps, tourKey }) => {
     }, [currentStep, steps]);
 
     useEffect(() => {
-        const completed = localStorage.getItem(tourKey);
+        const completed = safeLocalStorage.getItem(tourKey);
         if (!completed) {
             const timer = setTimeout(() => {
                 setCurrentStep(0);
@@ -166,7 +167,7 @@ export const LocalTour: React.FC<LocalTourProps> = ({ steps, tourKey }) => {
     };
 
     const handleComplete = () => {
-        localStorage.setItem(tourKey, 'true');
+        safeLocalStorage.setItem(tourKey, 'true');
         setCurrentStep(-1);
     };
 

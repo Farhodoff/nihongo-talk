@@ -52,13 +52,18 @@ const TOUR_STEPS: TourStep[] = [
     }
 ];
 
+import { useStudyData } from '../context/StudyPlannerContext';
+import { TourService } from '../services/TourService';
+
 export const OnboardingTour: React.FC = () => {
+    const { user, loading: authLoading } = useStudyData();
     const [currentStep, setCurrentStep] = useState<number>(-1);
     const [spotlightStyle, setSpotlightStyle] = useState<React.CSSProperties>({});
     const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
     const location = useLocation();
     const navigate = useNavigate();
     const tooltipRef = useRef<HTMLDivElement>(null);
+    const hasCheckedTourRef = useRef<boolean>(false);
 
     const updatePosition = useCallback(() => {
         if (currentStep < 0 || currentStep >= TOUR_STEPS.length) return;
@@ -166,19 +171,36 @@ export const OnboardingTour: React.FC = () => {
         });
     }, [currentStep]);
 
-    // Initial check for first-time login
+    // Initial check for authenticated user tour status from Supabase (Source of Truth)
     useEffect(() => {
-        const completed = localStorage.getItem('onboarding_completed');
-        if (!completed) {
-            // Delay starting the tour slightly to allow the page to mount
-            const timer = setTimeout(() => {
-                setCurrentStep(0);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
-    }, []);
+        if (authLoading || !user?.id || hasCheckedTourRef.current) return;
+        hasCheckedTourRef.current = true;
 
-    // Listen for manual restart event
+        let isMounted = true;
+
+        const checkTourStatus = async () => {
+            try {
+                const completed = await TourService.isTourCompleted(user.id);
+                if (!completed && isMounted) {
+                    // Delay starting the tour slightly to allow the page and navigation DOM to mount
+                    const timer = setTimeout(() => {
+                        if (isMounted) setCurrentStep(0);
+                    }, 1200);
+                    return () => clearTimeout(timer);
+                }
+            } catch {
+                // Ignore and keep closed on error
+            }
+        };
+
+        checkTourStatus();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [authLoading, user?.id]);
+
+    // Listen for manual restart event (e.g. from Settings)
     useEffect(() => {
         const handleRestart = () => {
             setCurrentStep(0);
@@ -234,8 +256,16 @@ export const OnboardingTour: React.FC = () => {
         }
     };
 
-    const handleComplete = () => {
-        localStorage.setItem('onboarding_completed', 'true');
+    // Complete tour permanently in Supabase Database
+    const handleComplete = async () => {
+        if (user?.id) {
+            await TourService.completeTour(user.id);
+        }
+        setCurrentStep(-1);
+    };
+
+    // Close tour temporarily without marking DB as complete (will show again next login)
+    const handleDismiss = () => {
         setCurrentStep(-1);
     };
 
@@ -269,9 +299,9 @@ export const OnboardingTour: React.FC = () => {
                         </h4>
                     </div>
                     <button 
-                        onClick={handleComplete}
+                        onClick={handleDismiss}
                         className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                        title="Yo'riqnomani yopish"
+                        title="Vaqtincha yopish"
                     >
                         <X size={16} />
                     </button>
@@ -293,7 +323,16 @@ export const OnboardingTour: React.FC = () => {
                     </div>
 
                     {/* Navigation Buttons */}
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-2">
+                        {!isLast && (
+                            <button
+                                onClick={handleComplete}
+                                className="px-2.5 py-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                                title="Boshqa ko'rsatilmasin"
+                            >
+                                O'tkazib yuborish
+                            </button>
+                        )}
                         {!isFirst && (
                             <button
                                 onClick={handleBack}

@@ -48,7 +48,10 @@ import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useStudyData } from './context/StudyPlannerContext';
 
 const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { user } = useStudyData();
+    const { user, loading } = useStudyData();
+    if (loading && !user) {
+        return <PageLoader />;
+    }
     if (!isSuperAdmin(user?.email)) {
         return <Navigate to="/jlpt" replace />;
     }
@@ -56,7 +59,10 @@ const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) 
 };
 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { user } = useStudyData();
+    const { user, loading } = useStudyData();
+    if (loading && !user) {
+        return <PageLoader />;
+    }
     if (!isUserAdmin(user)) {
         return <Navigate to="/jlpt" replace />;
     }

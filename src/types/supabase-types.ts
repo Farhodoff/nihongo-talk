@@ -165,6 +165,7 @@ export interface DatabaseProfile {
     enabled_languages?: ('en' | 'ja')[];
     target_level?: string;
     target_goal?: string;
+    tour_completed?: boolean;
     updated_at?: string;
 }
 

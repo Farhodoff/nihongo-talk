@@ -4,6 +4,7 @@ import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { isSuperAdmin } from '../../utils/admin';
 import { useLanguage } from '../../context/LanguageContext';
+import { TourService } from '../../services/TourService';
 import AIProviderSection from './AIProviderSection';
 
 interface Settings {
@@ -291,9 +292,15 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                         </div>
                     </div>
                     <button
-                        onClick={() => {
-                            localStorage.removeItem('study_planner_tour_completed');
-                            window.location.reload();
+                        onClick={async () => {
+                            if (user?.id) {
+                                await TourService.resetTour(user.id);
+                            }
+                            window.dispatchEvent(new CustomEvent('restart-onboarding-tour'));
+                            toast({
+                                title: "Yo'riqnoma boshlandi",
+                                description: "Tizim imkoniyatlari bilan tanishish oynasi ochildi.",
+                            });
                         }}
                         className="px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                     >
