@@ -107,7 +107,7 @@ const Layout: React.FC = () => {
         if (location.pathname === '/admin') return 'Super Admin Paneli';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
-        return 'Nihon Talk';
+        return 'Nihongo Talk';
     };
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (

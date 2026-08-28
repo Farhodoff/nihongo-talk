@@ -732,7 +732,7 @@ const AdminDashboardPage: React.FC = () => {
                         <h1
                             onClick={handleSecretTitleClick}
                             className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
-                            title="Nihon Talk Admin Console"
+                            title="Nihongo Talk Admin Console"
                         >
                             Super Admin Paneli
                         </h1>

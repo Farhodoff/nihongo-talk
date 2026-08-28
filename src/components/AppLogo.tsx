@@ -30,7 +30,7 @@ export const AppLogo: React.FC<AppLogoProps> = ({
                 {/* Logo Image */}
                 <img
                     src="/logo.png"
-                    alt="Nihon Talk Logo"
+                    alt="Nihongo Talk Logo"
                     className="relative w-full h-full object-cover rounded-xl shadow-inner border border-white/20"
                     onError={(e) => {
                         // Fallback icon if image fails
@@ -49,7 +49,7 @@ export const AppLogo: React.FC<AppLogoProps> = ({
                     {/* Japanese torii accent (日) */}
                     <span className="text-accent-red-dark text-2xl font-bold">日</span>
                     <span className="text-lg font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-sm font-sans">
-                        Nihon <span className="text-indigo-500 dark:text-indigo-400">Talk</span>
+                        Nihongo <span className="text-indigo-500 dark:text-indigo-400">Talk</span>
                     </span>
                 </div>
             )}

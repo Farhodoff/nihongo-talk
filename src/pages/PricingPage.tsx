@@ -23,8 +23,8 @@ export interface PlanOption {
 export const PricingPage: React.FC = () => {
     const navigate = useNavigate();
     useSEO({
-        title: "Barcha Imkoniyatlar Bepul — Nihon Talk",
-        description: "Nihon Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach va JLPT darslari erkin ochiq.",
+        title: "Barcha Imkoniyatlar Bepul — Nihongo Talk",
+        description: "Nihongo Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach va JLPT darslari erkin ochiq.",
         canonical: "/pricing",
     });
 
@@ -51,7 +51,7 @@ export const PricingPage: React.FC = () => {
                         Barcha Funksiyalar To'liq Ochiq!
                     </h1>
                     <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-                        Nihon Talk platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, AI Sensei, Anki fleshkartalari va Speaking Coach barcha o'quvchilar uchun bepul.
+                        Nihongo Talk platformasida hech qanday to'lov yoki cheklovlar yo'q. Barcha darslar, AI Sensei, Anki fleshkartalari va Speaking Coach barcha o'quvchilar uchun bepul.
                     </p>
                 </div>
 

@@ -12,7 +12,7 @@ interface TourStep {
 
 const TOUR_STEPS: TourStep[] = [
     {
-        title: "Nihon Talk-ga xush kelibsiz! 🎓",
+        title: "Nihongo Talk-ga xush kelibsiz! 🎓",
         content: "Salom! Ushbu yo'riqnoma orqali siz loyihaning asosiy va premium imkoniyatlari bilan tezkor tanishib chiqasiz. Keling, boshlaymiz!",
         placement: "center",
         path: "/jlpt"

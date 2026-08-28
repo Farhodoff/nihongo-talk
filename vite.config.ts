@@ -13,9 +13,9 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.svg'],
             manifest: {
-                name: "Nihon Talk",
-                short_name: "Nihon Talk",
-                description: 'Nihon Talk — Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
+                name: "Nihongo Talk",
+                short_name: "Nihongo Talk",
+                description: 'Nihongo Talk — Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
                 theme_color: '#6366f1',
                 background_color: '#f8fafc',
                 display: 'standalone',
@@ -25,27 +25,27 @@ export default defineConfig({
                 categories: ['education', 'productivity'],
                 shortcuts: [
                     {
-                        name: "Nihon Talk",
-                        short_name: "Nihon Talk",
-                        url: '/dashboard',
+                        name: "Nihongo Talk",
+                        short_name: "Nihongo Talk",
+                        url: '/jlpt',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: "Nihon Talk",
-                        short_name: "Nihon Talk",
+                        name: "Nihongo Talk",
+                        short_name: "Nihongo Talk",
                         url: '/focus',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: "Nihon Talk",
-                        short_name: "Nihon Talk",
-                        url: '/tasks',
+                        name: "Nihongo Talk",
+                        short_name: "Nihongo Talk",
+                        url: '/flashcards',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     },
                     {
-                        name: "Nihon Talk",
-                        short_name: "Nihon Talk",
-                        url: '/progress',
+                        name: "Nihongo Talk",
+                        short_name: "Nihongo Talk",
+                        url: '/speaking',
                         icons: [{ src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' }]
                     }
                 ],

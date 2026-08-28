@@ -9,9 +9,9 @@ interface SEOProps {
     ogType?: string;
 }
 
-const DEFAULT_TITLE = "Nihon Talk — Yapon tilini AI yordamida o'rganish";
+const DEFAULT_TITLE = "Nihongo Talk — Yapon tilini AI yordamida o'rganish";
 const DEFAULT_DESC = "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Writing Evaluator, SM-2 Fleshkartalar va shaxsiy kunlik reja.";
-const DEFAULT_KEYWORDS = "Nihon Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
+const DEFAULT_KEYWORDS = "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
 const BASE_URL = "https://nihon-talk.vercel.app";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
@@ -25,7 +25,7 @@ export const useSEO = ({
 }: SEOProps = {}) => {
     useEffect(() => {
         // Update Title
-        const finalTitle = title ? `${title} | Nihon Talk` : DEFAULT_TITLE;
+        const finalTitle = title ? `${title} | Nihongo Talk` : DEFAULT_TITLE;
         document.title = finalTitle;
 
         // Helper to update or create meta tag

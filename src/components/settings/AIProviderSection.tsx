@@ -12,14 +12,17 @@ const AIProviderSection: React.FC = () => {
                     <div className="flex items-center justify-between">
                         <h3 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
                             <Cpu size={18} className="text-indigo-600 dark:text-indigo-400" />
-                            Nihon Talk Engine
+                            Nihongo Talk Engine
                         </h3>
-                        <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200/50">
-                            DeepSeek V3 / R1
-                        </span>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                            DeepSeek V3 & R1 Powered · Avtomatlashtirilgan
+                        </p>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Barcha AI xizmatlari (Shaxsiy Reja, Speaking Coach, Lug‘at va Tahlillar) Nihon Talk markaziy serveri orqali xavfsiz va barqaror ishlaydi.
+                </div>
+
+                <div className="p-4 rounded-xl bg-muted/40 border border-border/60 text-xs text-muted-foreground leading-relaxed">
+                    <p>
+                        Barcha AI xizmatlari (Shaxsiy Reja, Speaking Coach, Lug‘at va Tahlillar) Nihongo Talk markaziy serveri orqali xavfsiz va barqaror ishlaydi.
                     </p>
                     <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
