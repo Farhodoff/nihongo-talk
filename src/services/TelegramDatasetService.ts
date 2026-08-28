@@ -18,14 +18,29 @@ export interface DailySpeechSummary {
     topMistakes: { mistake: string; correction: string; count: number }[];
     sessions: Array<{
         id: string;
-        userEmail: string;
+        anonymousUserId: string;
+        userEmail?: string;
         language: string;
         topic: string;
         durationSeconds: number;
         score: number;
+        createdAt: string;
         audioUrl?: string;
         transcript: Array<{ role: string; content: string }>;
     }>;
+}
+
+export function toAnonymousUserId(userIdOrEmail?: string): string {
+    if (!userIdOrEmail) return 'anon_user';
+    if (userIdOrEmail.includes('-') && userIdOrEmail.length >= 8) {
+        return `user_${userIdOrEmail.split('-')[0]}`;
+    }
+    let hash = 0;
+    for (let i = 0; i < userIdOrEmail.length; i++) {
+        hash = ((hash << 5) - hash) + userIdOrEmail.charCodeAt(i);
+        hash |= 0;
+    }
+    return `user_${Math.abs(hash).toString(16).padStart(8, '0').slice(0, 8)}`;
 }
 
 export class TelegramDatasetService {
@@ -49,57 +64,89 @@ export class TelegramDatasetService {
     }
 
     /**
-     * Aggregates speech sessions for a specific date (defaults to today)
+     * Aggregates speech sessions for a specific date ('YYYY-MM-DD'), '7DAYS', or 'ALL'
      */
     static async getDailySummary(targetDate?: string): Promise<DailySpeechSummary> {
         const todayStr = targetDate || new Date().toISOString().split('T')[0];
         
         let allSessions: any[] = [];
         try {
-            const [spRes, scRes, aiRes] = await Promise.allSettled([
-                supabase
-                    .from('speaking_sessions')
-                    .select('*')
-                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
-                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
-                    .order('created_at', { ascending: false }),
-                supabase
-                    .from('speaking_coach_sessions')
-                    .select('*')
-                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
-                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
-                    .order('created_at', { ascending: false }),
-                supabase
-                    .from('ai_coach_sessions')
-                    .select('*')
-                    .gte('created_at', `${todayStr}T00:00:00.000Z`)
-                    .lte('created_at', `${todayStr}T23:59:59.999Z`)
-                    .order('created_at', { ascending: false })
-            ]);
-
-            if (spRes.status === 'fulfilled' && Array.isArray(spRes.value.data)) {
-                allSessions.push(...spRes.value.data);
-            }
-            if (scRes.status === 'fulfilled' && Array.isArray(scRes.value.data)) {
-                for (const item of scRes.value.data) {
-                    if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+            // 1. Try fetching via get_admin_all_sessions RPC
+            const { data: rpcData, error: rpcErr } = await supabase.rpc('get_admin_all_sessions');
+            if (!rpcErr && rpcData) {
+                const sp = Array.isArray(rpcData.speaking_sessions) ? rpcData.speaking_sessions : [];
+                const sc = Array.isArray(rpcData.speaking_coach_sessions) ? rpcData.speaking_coach_sessions : [];
+                const ai = Array.isArray(rpcData.ai_coach_sessions) ? rpcData.ai_coach_sessions : [];
+                
+                const merged = [...sp];
+                for (const item of [...sc, ...ai]) {
+                    if (!merged.some(s => s.id === item.id)) merged.push(item);
                 }
-            }
-            if (aiRes.status === 'fulfilled' && Array.isArray(aiRes.value.data)) {
-                for (const item of aiRes.value.data) {
-                    if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+
+                if (todayStr === 'ALL') {
+                    allSessions = merged;
+                } else if (todayStr === '7DAYS') {
+                    const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+                    allSessions = merged.filter(s => (s.created_at || '') >= cutoff);
+                } else {
+                    allSessions = merged.filter(s => (s.created_at || '').startsWith(todayStr));
                 }
             }
         } catch (e) {
-            console.warn('Speech sessions fetch warning:', e);
+            console.warn('RPC session fetch notice:', e);
         }
 
-        // Fallback to local storage history if Supabase is offline
+        // 2. Direct table fallback if RPC didn't populate sessions
+        if (allSessions.length === 0) {
+            try {
+                let spQuery = supabase.from('speaking_sessions').select('*').order('created_at', { ascending: false });
+                let scQuery = supabase.from('speaking_coach_sessions').select('*').order('created_at', { ascending: false });
+                let aiQuery = supabase.from('ai_coach_sessions').select('*').order('created_at', { ascending: false });
+
+                if (todayStr === 'ALL') {
+                    // No date filter
+                } else if (todayStr === '7DAYS') {
+                    const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+                    spQuery = spQuery.gte('created_at', cutoff);
+                    scQuery = scQuery.gte('created_at', cutoff);
+                    aiQuery = aiQuery.gte('created_at', cutoff);
+                } else {
+                    spQuery = spQuery.gte('created_at', `${todayStr}T00:00:00.000Z`).lte('created_at', `${todayStr}T23:59:59.999Z`);
+                    scQuery = scQuery.gte('created_at', `${todayStr}T00:00:00.000Z`).lte('created_at', `${todayStr}T23:59:59.999Z`);
+                    aiQuery = aiQuery.gte('created_at', `${todayStr}T00:00:00.000Z`).lte('created_at', `${todayStr}T23:59:59.999Z`);
+                }
+
+                const [spRes, scRes, aiRes] = await Promise.allSettled([spQuery, scQuery, aiQuery]);
+
+                if (spRes.status === 'fulfilled' && Array.isArray(spRes.value.data)) {
+                    allSessions.push(...spRes.value.data);
+                }
+                if (scRes.status === 'fulfilled' && Array.isArray(scRes.value.data)) {
+                    for (const item of scRes.value.data) {
+                        if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+                    }
+                }
+                if (aiRes.status === 'fulfilled' && Array.isArray(aiRes.value.data)) {
+                    for (const item of aiRes.value.data) {
+                        if (!allSessions.some(s => s.id === item.id)) allSessions.push(item);
+                    }
+                }
+            } catch (e) {
+                console.warn('Speech sessions direct fetch warning:', e);
+            }
+        }
+
+        // 3. Fallback to local storage history if Supabase is offline
         if (allSessions.length === 0 && typeof window !== 'undefined') {
             try {
                 const localHistory = JSON.parse(localStorage.getItem('nihon_talk_scenario_history') || '[]');
                 allSessions = localHistory.filter((s: any) => {
                     const d = s.created_at || s.timestamp || new Date().toISOString();
+                    if (todayStr === 'ALL') return true;
+                    if (todayStr === '7DAYS') {
+                        const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+                        return d >= cutoff;
+                    }
                     return d.startsWith(todayStr);
                 });
             } catch {}
@@ -113,8 +160,8 @@ export class TelegramDatasetService {
         const formattedSessions = allSessions.map(s => {
             const dur = s.duration_seconds || (s.duration || 0);
             totalDurationSec += dur;
-            const uId = s.user_email || s.user_id || 'Student';
-            userSet.add(uId);
+            const anonUid = toAnonymousUserId(s.user_id || s.user_email);
+            userSet.add(anonUid);
 
             const topic = s.persona_title || s.scenario_title || s.topic || 'Umumiy suhbat';
             topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
@@ -133,11 +180,13 @@ export class TelegramDatasetService {
 
             return {
                 id: s.id,
-                userEmail: uId,
+                anonymousUserId: anonUid,
+                userEmail: s.user_email, // for admin telegram internal summary only
                 language: s.language || (topic.includes('Yapon') || /[\u3040-\u30ff\u4e00-\u9faf]/.test(topic) ? 'ja' : 'en'),
                 topic,
                 durationSeconds: dur,
                 score: s.overall_score || s.fluency_score || 80,
+                createdAt: s.created_at || new Date().toISOString(),
                 audioUrl: s.audio_url || s.recorded_url || undefined,
                 transcript: Array.isArray(s.transcript) ? s.transcript : []
             };
