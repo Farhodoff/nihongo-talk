@@ -179,9 +179,23 @@ const AdminDashboardPage: React.FC = () => {
         let loadedUsers: UserRecord[] = [];
         try {
             const rpcRes = await supabase.rpc('get_admin_all_users');
-            if (rpcRes.error) {
-                newStatus.rpcUsers = { ok: false, count: 0, error: rpcRes.error.message };
-                // Fallback to profiles table
+            if (!rpcRes.error && Array.isArray(rpcRes.data) && rpcRes.data.length > 0) {
+                newStatus.rpcUsers = { ok: true, count: rpcRes.data.length, error: null };
+                loadedUsers = rpcRes.data.map((u: any) => ({
+                    id: u.id,
+                    email: u.email || 'Noma\'lum',
+                    full_name: u.full_name || '',
+                    role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
+                    created_at: u.created_at || new Date().toISOString(),
+                    last_sign_in_at: u.last_sign_in_at || u.last_sign_in
+                }));
+            } else {
+                newStatus.rpcUsers = {
+                    ok: !rpcRes.error,
+                    count: rpcRes.data?.length || 0,
+                    error: rpcRes.error?.message || (rpcRes.data?.length === 0 ? 'RPC returned 0 users, fallback to profiles' : null)
+                };
+                // Fallback to profiles table if RPC returned error or 0 users
                 const pRes = await supabase.from('profiles').select('*', { count: 'exact' }).limit(500);
                 if (pRes.error) {
                     newStatus.profiles = { ok: false, count: 0, error: pRes.error.message };
@@ -196,16 +210,6 @@ const AdminDashboardPage: React.FC = () => {
                         last_sign_in_at: u.updated_at
                     }));
                 }
-            } else if (rpcRes.data && Array.isArray(rpcRes.data)) {
-                newStatus.rpcUsers = { ok: true, count: rpcRes.data.length, error: null };
-                loadedUsers = rpcRes.data.map((u: any) => ({
-                    id: u.id,
-                    email: u.email || 'Noma\'lum',
-                    full_name: u.full_name || '',
-                    role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
-                    created_at: u.created_at || new Date().toISOString(),
-                    last_sign_in_at: u.last_sign_in_at || u.last_sign_in
-                }));
             }
         } catch (uErr: any) {
             newStatus.rpcUsers = { ok: false, count: 0, error: uErr.message || 'RPC exception' };
