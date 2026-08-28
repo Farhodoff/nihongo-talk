@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
-import InAppNotificationModal from './InAppNotificationModal';
 import AIAccountabilityManager from './AIAccountabilityManager';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -400,7 +399,6 @@ const Layout: React.FC = () => {
 
             {/* Global Modals */}
             <SessionCompleteModal />
-            <InAppNotificationModal />
         </div>
     );
 };
