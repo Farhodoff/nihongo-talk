@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { uz } from '../i18n/uz';
 import { ja } from '../i18n/ja';
 import { en } from '../i18n/en';
@@ -47,50 +47,63 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (typeof window !== 'undefined') {
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
-            if (langParam === 'ja' || langParam === 'uz') {
+            if (langParam === 'ja' || langParam === 'uz' || langParam === 'en') {
                 return langParam as Language;
             }
+            // Fallback to localStorage
+            const saved = localStorage.getItem('study_planner_lang');
+            if (saved === 'ja' || saved === 'uz' || saved === 'en') {
+                return saved as Language;
+            }
         }
-        
-        // Fallback to localStorage
-        const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('study_planner_lang') : null;
-        return (saved === 'ja' || saved === 'uz') ? (saved as Language) : 'uz';
+        return 'uz';
     });
 
-    const setLanguage = (lang: Language) => {
+    const setLanguage = useCallback((lang: Language) => {
         setLanguageState(lang);
         if (typeof localStorage !== 'undefined') {
             localStorage.setItem('study_planner_lang', lang);
         }
         
-        // Update URL query parameter
+        // Update URL query parameter without full reload
         if (typeof window !== 'undefined') {
             const url = new URL(window.location.href);
             url.searchParams.set('lang', lang);
             window.history.replaceState({}, '', url.toString());
+            document.documentElement.lang = lang;
         }
-    };
+    }, []);
 
-    // Handle query parameter changes
+    // Handle browser back/forward and initial sync
     useEffect(() => {
         if (typeof window === 'undefined') return;
         
+        document.documentElement.lang = language;
+
         const handlePopState = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
-            if (langParam === 'ja' || langParam === 'uz') {
+            if (langParam === 'ja' || langParam === 'uz' || langParam === 'en') {
                 setLanguageState(langParam as Language);
             }
         };
         
         window.addEventListener('popstate', handlePopState);
         return () => window.removeEventListener('popstate', handlePopState);
-    }, []);
+    }, [language]);
 
-    const t = (keyPath: string): string => defaultT(keyPath, language);
+    const t = useCallback((keyPath: string): string => {
+        return defaultT(keyPath, language);
+    }, [language]);
+
+    const contextValue = useMemo(() => ({
+        language,
+        setLanguage,
+        t
+    }), [language, setLanguage, t]);
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage, t }}>
+        <LanguageContext.Provider value={contextValue}>
             {children}
         </LanguageContext.Provider>
     );

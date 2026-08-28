@@ -172,28 +172,43 @@ const LandingPage: React.FC = () => {
 
     const [isDark, setIsDark] = useState(() => {
         if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('study_planner_theme');
+            if (saved) return saved === 'dark';
             return document.documentElement.classList.contains('dark');
         }
         return true;
     });
 
-    const toggleTheme = () => {
-        document.documentElement.classList.toggle('dark');
-        setIsDark(prev => !prev);
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('study_planner_theme', isDark ? 'light' : 'dark');
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
+    }, [isDark]);
+
+    const toggleTheme = () => {
+        setIsDark(prev => {
+            const next = !prev;
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('study_planner_theme', next ? 'dark' : 'light');
+            }
+            if (typeof document !== 'undefined') {
+                if (next) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+            return next;
+        });
     };
 
     const toggleLang = () => {
         const next = language === 'uz' ? 'ja' : 'uz';
         setLanguage(next);
     };
-
-    // Set html lang attribute
-    useEffect(() => {
-        document.documentElement.lang = language === 'ja' ? 'ja' : 'uz';
-    }, [language]);
 
     useSEO({
         title: t('landing.seoTitle'),
@@ -215,7 +230,7 @@ const LandingPage: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary">
+        <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary transition-colors duration-200">
             {/* ======== NAVBAR ======== */}
             <motion.nav
                 initial={{ y: -40, opacity: 0 }}
@@ -245,19 +260,22 @@ const LandingPage: React.FC = () => {
                         {/* Language switch */}
                         <button
                             onClick={toggleLang}
-                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-border hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-border hover:bg-muted transition-colors text-foreground flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95"
+                            title="Tilni almashtirish / 言語切替"
                             aria-label="Switch language"
                         >
-                            {isJa ? '🇺🇿 UZ' : '🇯🇵 日本語'}
+                            <span>{isJa ? '🇺🇿' : '🇯🇵'}</span>
+                            <span>{isJa ? 'Oʻzbekcha' : '日本語'}</span>
                         </button>
 
                         {/* Theme switch */}
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                            className="p-2 rounded-lg border border-border hover:bg-muted transition-colors text-foreground cursor-pointer shadow-sm active:scale-95"
+                            title={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
                             aria-label={isDark ? 'Light mode' : 'Dark mode'}
                         >
-                            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                            {isDark ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}
                         </button>
 
                         {/* Login (desktop) */}
@@ -305,6 +323,26 @@ const LandingPage: React.FC = () => {
                                     {link.label}
                                 </button>
                             ))}
+                            
+                            {/* Mobile Lang & Theme Row */}
+                            <div className="flex items-center justify-between pt-2 pb-1 border-t border-border gap-2">
+                                <button
+                                    onClick={toggleLang}
+                                    className="flex-1 px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
+                                >
+                                    <span>{isJa ? '🇺🇿' : '🇯🇵'}</span>
+                                    <span>{isJa ? 'Oʻzbekcha' : '日本語'}</span>
+                                </button>
+
+                                <button
+                                    onClick={toggleTheme}
+                                    className="flex-1 px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
+                                >
+                                    {isDark ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-indigo-600" />}
+                                    <span>{isDark ? 'Kunduzgi' : 'Tungi'}</span>
+                                </button>
+                            </div>
+
                             <hr className="border-border" />
                             <button
                                 onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}
