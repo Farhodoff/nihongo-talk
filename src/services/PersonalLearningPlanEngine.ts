@@ -393,7 +393,7 @@ ${prompt}`;
                     let actualTitle = this.sanitizeText(t.title || 'Dars');
                     let actualType = this.sanitizeText(t.type || 'lesson');
                     let actualContentId = t.contentId ? this.sanitizeText(t.contentId) : undefined;
-                    let rawRoute = t.route ? String(t.route).trim() : '/dashboard';
+                    let rawRoute = t.route ? String(t.route).trim() : (goal.language === 'ja' ? '/jlpt' : '/ielts');
 
                     // Completed Lesson Deduplication Check (Hard Guard)
                     if (actualType === 'lesson' && actualContentId && completedLessonIds.includes(actualContentId)) {
@@ -467,7 +467,7 @@ ${prompt}`;
                     }
 
                     // Strict route verification mapping
-                    const validStartingRoutes = ['/lesson/', '/vocabulary', '/study-mode', '/speaking-coach', '/ielts', '/jlpt', '/scenarios', '/dashboard'];
+                    const validStartingRoutes = ['/lesson/', '/vocabulary', '/study-mode', '/speaking-coach', '/ielts', '/jlpt', '/scenarios'];
                     const hasValidRoute = validStartingRoutes.some(prefix => resolvedRoute.startsWith(prefix));
                     if (!hasValidRoute) {
                         resolvedRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';

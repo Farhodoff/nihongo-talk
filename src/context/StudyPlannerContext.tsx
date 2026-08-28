@@ -232,6 +232,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     } = useEvents(appSettings.notificationsEnabled);
 
     const fetchSeqRef = useRef<number>(0);
+    const lastFetchTimeRef = useRef<number>(0);
 
     const [loading, setLoading] = useState<boolean>(() => {
         // Only show loading on cold start if there is absolutely no cached user
@@ -303,6 +304,11 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // Global Data Fetcher and Synchronizer
     const fetchData = useCallback(async () => {
+        const now = Date.now();
+        if (now - lastFetchTimeRef.current < 2000) {
+            return; // Throttle fast consecutive fetches
+        }
+        lastFetchTimeRef.current = now;
         const currentSeq = ++fetchSeqRef.current;
 
         // Non-blocking background revalidation (Stale-While-Revalidate)
@@ -310,7 +316,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             if (typeof navigator !== 'undefined' && !navigator.onLine) {
                 const localSession = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
                 if (localSession && fetchSeqRef.current === currentSeq) {
-                    setUser(localSession);
+                    setUser(prev => (prev?.id === localSession.id && prev?.email === localSession.email) ? prev : localSession);
                 }
                 setLoading(false);
                 return;
@@ -350,7 +356,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
             if (currentUser.email) {
                 safeLocalStorage.setItem('study_planner_user_email', currentUser.email);
             }
-            setUser(currentUser);
+            setUser(prev => (prev?.id === currentUser.id && prev?.email === currentUser.email) ? prev : currentUser);
             if (currentUser && currentUser.user_metadata) {
                 const meta = currentUser.user_metadata;
                 if (meta.current_level_en) LearningTrackStorage.setCurrentLevel('en', meta.current_level_en);
@@ -717,7 +723,7 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     setCoachSessions([]);
                     safeLocalStorage.removeItem('study_planner_user_cache');
                     safeLocalStorage.removeItem('study_planner_user_email');
-                } else if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'TOKEN_REFRESHED') {
+                } else if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
                     if (session?.user) {
                         fetchData();
                     }

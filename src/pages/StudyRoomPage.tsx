@@ -647,7 +647,7 @@ const StudyRoomPage: React.FC = () => {
             {/* Header */}
             <header className="flex justify-between items-center p-4 bg-[#1e293b] border border-slate-700/50 shadow-xl rounded-2xl mb-6">
                 <div className="flex items-center gap-4">
-                    <button onClick={() => navigate('/community')} className="hover:bg-slate-700 p-2 rounded-xl transition-colors">
+                    <button onClick={() => navigate('/jlpt')} className="hover:bg-slate-700 p-2 rounded-xl transition-colors">
                         <ArrowLeft size={24} className="text-gray-300" />
                     </button>
                     <div>
@@ -707,7 +707,7 @@ const StudyRoomPage: React.FC = () => {
                         </button>
                     </div>
 
-                    <Button variant="secondary" onClick={() => navigate('/community')} className="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border-none rounded-xl">
+                    <Button variant="secondary" onClick={() => navigate('/jlpt')} className="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border-none rounded-xl">
                         <VideoOff size={18} className="mr-2" /> Chiqish
                     </Button>
                 </div>

@@ -30,7 +30,7 @@ export const LessonCompletionView: React.FC<LessonCompletionViewProps> = ({
         if (nextLesson) {
             navigate(`/lesson/${nextLesson.id}`);
         } else {
-            navigate('/dashboard');
+            navigate('/jlpt');
         }
     };
 

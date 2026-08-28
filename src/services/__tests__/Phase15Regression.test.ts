@@ -269,7 +269,7 @@ describe('Phase 15 — Adaptive Level Progression & Access Hardening', () => {
         // User is A1, lesson is B2 → blocked
         expect(result.allowed).toBe(false);
         expect(result.reason).toContain('A1');
-        expect(result.redirectTo).toBe('/dashboard');
+        expect(result.redirectTo).toBe('/jlpt');
     });
 
     // ----------------------------------------------------------------

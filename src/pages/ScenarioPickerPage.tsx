@@ -74,7 +74,7 @@ export const ScenarioPickerPage: React.FC = () => {
                     <div className="space-y-3">
                         <div className="flex items-center gap-2">
                             <button
-                                onClick={() => navigate(activeLang === 'ja' ? '/jlpt' : '/dashboard')}
+                                onClick={() => navigate(activeLang === 'ja' ? '/jlpt' : '/ielts')}
                                 className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white backdrop-blur-md transition-all"
                             >
                                 <ArrowLeft size={16} />

@@ -52,7 +52,7 @@ const DashboardPreview: React.FC<{ t: (k: string) => string }> = ({ t }) => (
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
                 </div>
-                <span className="text-[10px] font-mono text-muted-foreground ml-2">nihon-talk.vercel.app/dashboard</span>
+                <span className="text-[10px] font-mono text-muted-foreground ml-2">nihon-talk.vercel.app/jlpt</span>
             </div>
 
             {/* Dashboard content */}

@@ -15,13 +15,10 @@ import { lazyWithRetry } from './utils/lazyRetry';
 
 import { OnboardingTour } from './components/OnboardingTour';
 
-const DashboardPage = lazyWithRetry(() => import('./pages/DashboardPage'));
 const CalendarPage = lazyWithRetry(() => import('./pages/CalendarPage'));
-const CommunityPage = lazyWithRetry(() => import('./pages/CommunityPage'));
 const DecksPage = lazyWithRetry(() => import('./pages/DecksPage'));
 const FlashcardForm = lazyWithRetry(() => import('./pages/FlashcardForm'));
 const FocusPage = lazyWithRetry(() => import('./pages/FocusPage'));
-const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
 const SettingsPage = lazyWithRetry(() => import('./pages/SettingsPage'));
 const StudyRoomPage = lazyWithRetry(() => import('./pages/StudyRoomPage'));
 const SubjectDetailPage = lazyWithRetry(() => import('./pages/SubjectDetailPage'));
@@ -61,7 +58,7 @@ const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useStudyData();
     if (!isUserAdmin(user)) {
-        return <Navigate to="/dashboard" replace />;
+        return <Navigate to="/jlpt" replace />;
     }
     return <>{children}</>;
 };
@@ -170,8 +167,8 @@ const App: React.FC = () => {
                             <Suspense fallback={<PageLoader />}>
                                 <Routes>
                                     <Route path="/" element={<Layout />}>
-                                        <Route index element={<Navigate to="/dashboard" replace />} />
-                                        <Route path="dashboard" element={<DashboardPage />} />
+                                        <Route index element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="dashboard" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
                                         <Route path="roadmap" element={<RoadmapPage />} />
                                         <Route path="personal-plan" element={<PersonalPlanPage />} />
@@ -200,9 +197,9 @@ const App: React.FC = () => {
                                         <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
                                         <Route path="tasks" element={<TasksPage />} />
                                         <Route path="focus" element={<FocusPage />} />
-                                        <Route path="notes" element={<Navigate to="/dashboard" replace />} />
-                                        <Route path="notes/:id" element={<Navigate to="/dashboard" replace />} />
-                                        <Route path="ai" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="notes" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="notes/:id" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="ai" element={<Navigate to="/speaking-coach" replace />} />
                                         <Route path="flashcards" element={<DecksPage />} />
                                         <Route path="deck" element={<Navigate to="/flashcards" replace />} />
                                         <Route path="decks" element={<Navigate to="/flashcards" replace />} />
@@ -212,12 +209,12 @@ const App: React.FC = () => {
                                         <Route path="study-mode" element={<StudyModePage />} />
                                         <Route path="study-mode/:subjectId" element={<StudyModePage />} />
                                         <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
-                                        <Route path="progress" element={<ProgressPage />} />
-                                        <Route path="community" element={<CommunityPage />} />
-                                        <Route path="cv-creator" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="progress" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="community" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="cv-creator" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="vocabulary" element={<VocabularyBuilderPage />} />
                                         <Route path="pricing" element={<PricingPage />} />
-                                        <Route path="leaderboard" element={<Navigate to="/community?tab=leaderboard" replace />} />
+                                        <Route path="leaderboard" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="room/:roomId" element={<StudyRoomPage />} />
                                         <Route path="settings" element={<SettingsPage />} />
                                         <Route path="developers" element={<DeveloperApiPage />} />
@@ -225,13 +222,13 @@ const App: React.FC = () => {
                                         <Route path="admin/exams" element={<AdminRoute><ExamsManager /></AdminRoute>} />
                                         <Route path="admin/exams/:id" element={<AdminRoute><QuestionEditor /></AdminRoute>} />
                                         <Route path="exams/:id" element={<ExamTake />} />
-                                        <Route path="auth" element={<Navigate to="/dashboard" replace />} />
-                                        <Route path="login" element={<Navigate to="/dashboard" replace />} />
-                                        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                                        <Route path="auth" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="login" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="*" element={<Navigate to="/jlpt" replace />} />
                                     </Route>
-                                    <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
-                                    <Route path="/login" element={<Navigate to="/dashboard" replace />} />
-                                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                                    <Route path="/auth" element={<Navigate to="/jlpt" replace />} />
+                                    <Route path="/login" element={<Navigate to="/jlpt" replace />} />
+                                    <Route path="*" element={<Navigate to="/jlpt" replace />} />
                                 </Routes>
                             </Suspense>
                             <GlobalAudioPlayer />

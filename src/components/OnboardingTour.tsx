@@ -15,53 +15,39 @@ const TOUR_STEPS: TourStep[] = [
         title: "Nihon Talk-ga xush kelibsiz! 🎓",
         content: "Salom! Ushbu yo'riqnoma orqali siz loyihaning asosiy va premium imkoniyatlari bilan tezkor tanishib chiqasiz. Keling, boshlaymiz!",
         placement: "center",
-        path: "/dashboard"
+        path: "/jlpt"
     },
     {
-        title: "Kunningiz va Progressingiz 📊",
-        content: "Bu yerda siz bugungi rejadagi vazifalar, kunlik o'quv progressi hamda sun'iy intellekt tomonidan taqdim etiladigan shaxsiy tavsiyalarni ko'rishingiz mumkin.",
-        target: "[data-tour=\"nav-dashboard\"]",
+        title: "JLPT Master Imtihon va Darslari 🎌",
+        content: "Kanji, Lug'at, Grammatika, Dokkai va Chokkai bo'yicha interaktiv darslar va to'liq mock imtihonlar.",
+        target: "[data-tour=\"nav-kanji\"]",
         placement: "right",
-        path: "/dashboard"
+        path: "/jlpt"
     },
     {
-        title: "Shaxsiy O'quv Rejasi va Maqsadlar 🎯",
-        content: "O'quv maqsadlaringizni belgilang, muddatlarni ko'rsating va sun'iy intellekt asosida haftalik shaxsiy rejangizni shakllantiring.",
-        target: "[data-tour=\"nav-personal-plan\"]",
+        title: "Smart Lug'at va SRS Fleshkartalar 🧠",
+        content: "So'zlarni intervalli takrorlash (SRS) orqali xotirada mustahkam saqlang.",
+        target: "[data-tour=\"nav-vocabulary\"]",
         placement: "right",
-        path: "/personal-plan"
+        path: "/vocabulary"
     },
     {
-        title: "Vazifalar va To-Do 📝",
-        content: "Barcha topshiriqlaringiz va vazifalaringizni fanlar kesimida boshqaring. Ularning muhimlilik darajasini belgilang.",
-        target: "[data-tour=\"nav-tasks\"]",
+        title: "AI Speaking Coach 🗣️",
+        content: "Real vaziyatlar va dialoglar bo'yicha AI bilan jonli ovozli suhbat qilib, talaffuzingizni oshiring.",
+        target: "[data-tour=\"nav-speaking\"]",
         placement: "right",
-        path: "/tasks"
+        path: "/speaking-coach"
     },
     {
         title: "Fokuslanish va Pomodoro ⏱️",
-        content: "Lo-Fi sokin musiqa mikseri va Pomodoro taymeri yordamida chalg'imasdan dars qilish bo'limi. Bu yerda siz premium tajribaga ega bo'lasiz.",
+        content: "Lo-Fi sokin musiqa mikseri va Pomodoro taymeri yordamida chalg'imasdan dars qilish bo'limi.",
         target: "[data-tour=\"nav-focus\"]",
         placement: "right",
         path: "/focus"
     },
     {
-        title: "Guruhdoshlar va Hamkorlik 📹",
-        content: "Native WebRTC video aloqa, ekran ulashish va hamkorlikda doskada chizish xonalarini yaratib, jamoaviy dars qiling.",
-        target: "[data-tour=\"nav-community\"]",
-        placement: "right",
-        path: "/community"
-    },
-    {
-        title: "Batafsil Statistika 📈",
-        content: "Dars soatlari, kayfiyat tahlili va gamifikatsiya tizimidagi XP darajalaringiz haqidagi to'liq ma'lumotlar shu yerda jamlanadi.",
-        target: "[data-tour=\"nav-progress\"]",
-        placement: "right",
-        path: "/progress"
-    },
-    {
         title: "Tugatish! 🎉",
-        content: "Ajoyib! Siz barcha asosiy bo'limlar bilan tanishdingiz. Endi o'z o'quv rejangizni shakllantirishni boshlashingiz mumkin. Omad yor bo'lsin!",
+        content: "Ajoyib! Siz barcha asosiy bo'limlar bilan tanishdingiz. Endi o'rganishni boshlashingiz mumkin. Omad yor bo'lsin!",
         placement: "center"
     }
 ];

@@ -84,7 +84,7 @@ export const PricingPage: React.FC = () => {
                 <div className="pt-4">
                     <Button 
                         size="lg" 
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/jlpt')}
                         className="w-full md:w-auto px-8 py-3.5 rounded-2xl font-black text-sm bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2 mx-auto"
                     >
                         <span>O'qishni Boshlash</span>

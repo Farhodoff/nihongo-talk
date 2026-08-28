@@ -428,7 +428,7 @@ export const PersonalizedOnboardingModal: React.FC<PersonalizedOnboardingModalPr
                         <button
                             onClick={() => {
                                 onClose();
-                                navigate('/dashboard');
+                                navigate('/jlpt');
                                 toast({ title: "🚀 Darsingiz boshlandi! Omad tilaymiz!" });
                             }}
                             className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm shadow-xl shadow-emerald-600/25 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"

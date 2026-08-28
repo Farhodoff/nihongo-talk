@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
-    BarChart, BookOpen, ChevronLeft, ChevronRight,
-    Clock, Copy, Home, Menu, Settings as SettingsIcon, Users, 
+    BookOpen, ChevronLeft, ChevronRight,
+    Clock, Copy, Menu, Settings as SettingsIcon,
     Mic, Brain, Sparkles,
     Shield
 } from 'lucide-react';
@@ -98,21 +98,17 @@ const Layout: React.FC = () => {
                 { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
                 { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
                 { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-                { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-                { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
             { name: 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
+            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
             { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
             { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
             { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
             { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
-            { name: 'Progress', path: '/progress', icon: BarChart, tourId: 'nav-progress' },
-            { name: 'Community', path: '/community', icon: Users, tourId: 'nav-community' },
         ];
     }, [primaryLanguage, isSuper]);
 
@@ -127,7 +123,8 @@ const Layout: React.FC = () => {
         if (found) return found.name;
         if (location.pathname.startsWith('/scenarios')) return 'Scenarios';
         if (location.pathname.startsWith('/speaking-coach')) return 'Speaking';
-        if (location.pathname === '/dashboard') return 'Dashboard';
+        if (location.pathname === '/jlpt') return 'JLPT Master';
+        if (location.pathname === '/ielts') return 'IELTS Master';
         if (location.pathname === '/admin') return 'Super Admin Paneli';
         if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
         if (location.pathname === '/settings') return 'Sozlamalar';
@@ -136,41 +133,6 @@ const Layout: React.FC = () => {
 
     const NavLinks = ({ onClick }: { onClick?: () => void }) => (
         <div className="flex-1 overflow-y-auto scrollbar-hide px-3.5 py-3 space-y-1.5">
-            {/* Standalone Dashboard Link */}
-            <NavLink
-                to="/dashboard"
-                onClick={onClick}
-                data-tour="nav-dashboard"
-                className={({ isActive }) =>
-                    `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 px-3.5 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
-                        ? 'bg-primary/10 text-primary font-bold shadow-xs'
-                        : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                    }`
-                }
-                title={isCollapsed ? 'Dashboard' : ''}
-            >
-                {({ isActive }) => (
-                    <>
-                        {isActive && (
-                            <motion.div
-                                layoutId="activeNavIndicator"
-                                className="absolute left-0 w-1.5 h-6 bg-primary rounded-r-full"
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            />
-                        )}
-                        <Home 
-                            size={19} 
-                            className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`} 
-                            strokeWidth={isActive ? 2.5 : 2}
-                        />
-                        {!isCollapsed && <span className="font-medium tracking-tight">Dashboard</span>}
-                    </>
-                )}
-            </NavLink>
-
-            {/* Separator Line */}
-            <div className="my-2 border-t border-border/40" />
-
             {/* Direct Flat Menu Items */}
             {navItems.map((item) => (
                 <NavLink
@@ -387,7 +349,7 @@ const Layout: React.FC = () => {
             {/* Mobile Bottom Navigation */}
             <nav className="md:hidden fixed bottom-0 w-full glass-card border-t border-border z-40 flex justify-around items-center px-2 py-2 pb-safe bg-background/90 backdrop-blur-md">
                 {[
-                    { name: t('nav.dashboard') || 'Dashboard', path: '/dashboard', icon: Home },
+                    { name: isSuper && primaryLanguage === 'en' ? 'IELTS' : 'JLPT', path: isSuper && primaryLanguage === 'en' ? '/ielts' : '/jlpt', icon: BookOpen },
                     { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
                     { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
                     { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock },

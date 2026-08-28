@@ -23,6 +23,8 @@ export class UserNotificationService {
 
         const welcomeKey = `study_planner_welcome_sent_${userId}`;
         if (localStorage.getItem(welcomeKey)) return;
+        // Immediately flag to prevent race condition loop
+        localStorage.setItem(welcomeKey, 'true');
 
         const title = '🎉 Nihon Talk ga xush kelibsiz!';
         const message = `Assalomu alaykum! Platformamizga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n` +
@@ -40,8 +42,6 @@ export class UserNotificationService {
                 body: "Platformadan unumli foydalanishingiz uchun qo'llanma tayyor!",
                 tag: 'welcome_notice'
             });
-
-            localStorage.setItem(welcomeKey, 'true');
         } catch (e) {
             console.warn('Welcome notification error:', e);
         }

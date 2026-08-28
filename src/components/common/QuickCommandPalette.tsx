@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-    Search, Home, CheckSquare, Calendar, BookOpen, Copy, 
+    Search, CheckSquare, Calendar, BookOpen, Copy, 
     Sparkles, GraduationCap, Mic, Clock, 
-    Users, BarChart, Settings, ArrowRight, X, Compass, Brain, Code2
+    Settings, ArrowRight, X, Compass, Brain, Code2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,7 +19,6 @@ interface CommandItem {
 
 const COMMANDS: CommandItem[] = [
     // Boshqaruv
-    { id: 'dashboard', title: 'Dashboard', description: 'Kunlik progress va xulosa', category: 'Boshqaruv', path: '/dashboard', icon: Home, keywords: ['bosh sahifa', 'asosiy', 'statistika', 'home'] },
     { id: 'tasks', title: 'Vazifalar & Reja', description: 'Rejalashtirilgan ishlar ro\'yxati', category: 'Boshqaruv', path: '/tasks', icon: CheckSquare, keywords: ['tasks', 'todo', 'ishlar', 'reja'] },
     { id: 'calendar', title: 'O\'quv Kalendari', description: 'Dars jadvali va voqealar', category: 'Boshqaruv', path: '/calendar', icon: Calendar, keywords: ['jadval', 'timetable', 'events', 'kun'] },
     { id: 'subjects', title: 'Fanlar & Kurslar', description: 'Fanlar va darsliklar boshqaruvi', category: 'Boshqaruv', path: '/subjects', icon: BookOpen, keywords: ['fan', 'dars', 'subjects', 'kurslar'] },
@@ -34,10 +33,8 @@ const COMMANDS: CommandItem[] = [
     { id: 'speaking', title: 'AI Speaking Coach 🗣️', description: 'Jonli ovozli suhbat mashqi', category: 'Til & Imtihonlar', path: '/speaking-coach', icon: Mic, keywords: ['speaking', 'gaplashish', 'audio', 'suhbat'] },
     { id: 'scenarios', title: 'Real Scenarios 🧭', description: 'Hayotiy dialoglar va vaziyatlar', category: 'Til & Imtihonlar', path: '/scenarios', icon: Compass, keywords: ['dialog', 'suhbat', 'restoran', 'aeroport'] },
 
-    // Fokus & Hamjamiyat
-    { id: 'focus', title: 'Fokus Taymer (Pomodoro) ⏱️', description: 'Diqqatni jamlash va tanaffus', category: 'Fokus & Hamjamiyat', path: '/focus', icon: Clock, keywords: ['pomodoro', 'timer', 'vaqt', 'diqqat'] },
-    { id: 'community', title: 'Hamjamiyat & O\'quv Xonalari 👥', description: 'Boshqalar bilan birga o\'rganish', category: 'Fokus & Hamjamiyat', path: '/community', icon: Users, keywords: ['chat', 'study room', 'jamoa', 'xona'] },
-    { id: 'progress', title: 'Natijalar & Tahlil 📊', description: 'O\'rganish grafigi va samaradorlik', category: 'Fokus & Hamjamiyat', path: '/progress', icon: BarChart, keywords: ['statistika', 'grafik', 'samaradorlik', 'analytics'] },
+    // Fokus
+    { id: 'focus', title: 'Fokus Taymer (Pomodoro) ⏱️', description: 'Diqqatni jamlash va tanaffus', category: 'Fokus', path: '/focus', icon: Clock, keywords: ['pomodoro', 'timer', 'vaqt', 'diqqat'] },
     { id: 'developers', title: 'Dasturchilar & Ochiq API 💻', description: 'Tashqi loyihalar uchun REST API va SDK', category: 'Boshqaruv', path: '/developers', icon: Code2, keywords: ['api', 'sdk', 'developer', 'dasturchi', 'rest', 'curl', 'token'] },
     { id: 'settings', title: 'Sozlamalar & Profil ⚙️', description: 'Profil, maqsadlar va interfeys', category: 'Boshqaruv', path: '/settings', icon: Settings, keywords: ['profile', 'theme', 'api', 'sozlash', 'maqsad', 'onboarding'] }
 ];

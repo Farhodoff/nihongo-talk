@@ -12,16 +12,23 @@ export const InAppNotificationModal: React.FC = () => {
 
     const activeNotif = unreadNotifs[currentNotifIndex];
 
+    const lastFetchRef = React.useRef<number>(0);
+    const userId = user?.id;
+
     useEffect(() => {
-        if (!user || !user.id || !isUuid(user.id)) return;
+        if (!userId || !isUuid(userId)) return;
 
         // 1. Check and trigger welcome message for new user
-        UserNotificationService.checkAndSendWelcomeMessage(user.id);
+        UserNotificationService.checkAndSendWelcomeMessage(userId);
 
-        // 2. Fetch unread notifications
+        // 2. Fetch unread notifications with throttling
         const fetchNotifs = async () => {
+            const now = Date.now();
+            if (now - lastFetchRef.current < 4000) return; // Debounce fast consecutive events
+            lastFetchRef.current = now;
+
             try {
-                const list = await UserNotificationService.getUnreadNotifications(user.id);
+                const list = await UserNotificationService.getUnreadNotifications(userId);
                 setUnreadNotifs(Array.isArray(list) ? list : []);
             } catch {
                 // Silently handle offline or network error
@@ -44,14 +51,14 @@ export const InAppNotificationModal: React.FC = () => {
 
         window.addEventListener('study_planner_new_notification', handleCustomEvent);
         window.addEventListener('storage', handleStorageEvent);
-        const interval = setInterval(fetchNotifs, 30000); // Check every 30 seconds (avoids aggressive polling & offline errors)
+        const interval = setInterval(fetchNotifs, 60000); // Check every 60 seconds
 
         return () => {
             window.removeEventListener('study_planner_new_notification', handleCustomEvent);
             window.removeEventListener('storage', handleStorageEvent);
             clearInterval(interval);
         };
-    }, [user]);
+    }, [userId]);
 
     if (!activeNotif) return null;
 

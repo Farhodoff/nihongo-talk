@@ -434,7 +434,7 @@ export const LearningOrchestrator = {
         const resolved = CurriculumLessonResolver.resolveLesson(lessonId, lang);
 
         if (!sampleLesson && (!resolved || !resolved.isAvailable)) {
-            return { allowed: false, reason: 'Lesson not found', redirectTo: '/dashboard' };
+            return { allowed: false, reason: 'Lesson not found', redirectTo: '/jlpt' };
         }
 
         const level = sampleLesson ? sampleLesson.level : resolved.level;
@@ -442,7 +442,7 @@ export const LearningOrchestrator = {
 
         // 2. Language isolation enforcement (TASK 7)
         if (lessonLang !== lang) {
-            return { allowed: false, reason: `Language mismatch: lesson is ${lessonLang}, user track is ${lang}`, redirectTo: '/dashboard' };
+            return { allowed: false, reason: `Language mismatch: lesson is ${lessonLang}, user track is ${lang}`, redirectTo: '/jlpt' };
         }
 
         const isTest = typeof globalThis !== 'undefined' && (globalThis as any).process?.env?.VITEST === 'true';
@@ -470,7 +470,7 @@ export const LearningOrchestrator = {
             return { allowed: true, reason: 'User level not in progression sequence, allowing access' };
         }
         if (userLevelIdx < lessonLevelIdx) {
-            return { allowed: false, reason: `Lesson requires level ${level}, currently at ${currentLevel}`, redirectTo: '/dashboard' };
+            return { allowed: false, reason: `Lesson requires level ${level}, currently at ${currentLevel}`, redirectTo: '/jlpt' };
         }
 
 
@@ -491,7 +491,7 @@ export const LearningOrchestrator = {
                 return {
                     allowed: false,
                     reason: `Prerequisite not completed: ${firstMissing}`,
-                    redirectTo: '/dashboard',
+                    redirectTo: '/jlpt',
                     missingPrerequisites: missing
                 };
             }
