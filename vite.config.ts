@@ -140,14 +140,6 @@ export default defineConfig({
                         if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router-dom/')) {
                             return 'vendor';
                         }
-                        // ESLATMA (perf, 2026-08-22): tldraw / recharts / react-markdown /
-                        // @google/generative-ai uchun manualChunks O'CHIRILDI.
-                        // Vite 8 (rolldown) funksiya-form manualChunks bilan bu
-                        // guruhlarni entry facade'ga statik import qilib qo'yardi ->
-                        // har sahifa yuklanishida ~2.5MB modulepreload. Bu kutubxonalar
-                        // faqat lazy pagelar orqali ishlatiladi — rolldown'ning
-                        // avtomatik code-splitting'i ularni async shared chunklarga
-                        // joylaydi (dastlabki holatdagidek).
                         if (id.includes('katex')) {
                             return 'katex';
                         }
@@ -157,6 +149,25 @@ export default defineConfig({
                         if (id.includes('@supabase')) {
                             return 'supabase';
                         }
+                        if (id.includes('framer-motion')) {
+                            return 'framer-motion';
+                        }
+                        if (id.includes('@dnd-kit')) {
+                            return 'dnd-kit';
+                        }
+                    }
+                    // Separate curriculum data by language to avoid monolithic 1MB bundle
+                    if (id.includes('/data/curriculum/english')) {
+                        return 'curriculum-english';
+                    }
+                    if (id.includes('/data/curriculum/japanese')) {
+                        return 'curriculum-japanese';
+                    }
+                    if (id.includes('/data/jlptGrammarKanji')) {
+                        return 'jlpt-grammar-kanji-data';
+                    }
+                    if (id.includes('/data/ielts/ielts_grammar_data')) {
+                        return 'ielts-grammar-data';
                     }
                 },
             },

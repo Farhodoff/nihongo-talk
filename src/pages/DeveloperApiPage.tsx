@@ -182,10 +182,16 @@ print("Keyingi takrorlash:", response.json())`;
                         Asosiy Sahifa
                     </button>
                     <button
-                        onClick={() => navigate('/auth')}
+                        onClick={() => navigate('/login')}
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    >
+                        Kirish
+                    </button>
+                    <button
+                        onClick={() => navigate('/register')}
                         className="px-4 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-black shadow-xs hover:scale-102 transition-all"
                     >
-                        Kirish / Ro'yxat
+                        Ro'yxatdan o'tish
                     </button>
                 </div>
             </div>

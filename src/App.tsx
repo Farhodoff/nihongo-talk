@@ -224,10 +224,14 @@ const App: React.FC = () => {
                                         <Route path="exams/:id" element={<ExamTake />} />
                                         <Route path="auth" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="login" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="register" element={<Navigate to="/jlpt" replace />} />
+                                        <Route path="signup" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="*" element={<Navigate to="/jlpt" replace />} />
                                     </Route>
                                     <Route path="/auth" element={<Navigate to="/jlpt" replace />} />
                                     <Route path="/login" element={<Navigate to="/jlpt" replace />} />
+                                    <Route path="/register" element={<Navigate to="/jlpt" replace />} />
+                                    <Route path="/signup" element={<Navigate to="/jlpt" replace />} />
                                     <Route path="*" element={<Navigate to="/jlpt" replace />} />
                                 </Routes>
                             </Suspense>

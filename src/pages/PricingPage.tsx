@@ -4,6 +4,7 @@ import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useSEO } from '../hooks/useSEO';
+import { useStudyData } from '../context/StudyPlannerContext';
 
 export interface PlanOption {
     id: string;
@@ -22,6 +23,7 @@ export interface PlanOption {
 
 export const PricingPage: React.FC = () => {
     const navigate = useNavigate();
+    const { user } = useStudyData();
     useSEO({
         title: "Barcha Imkoniyatlar Bepul — Nihongo Talk",
         description: "Nihongo Talk barcha o'quvchilar uchun 100% bepul. Speaking Coach va JLPT darslari erkin ochiq.",
@@ -84,10 +86,10 @@ export const PricingPage: React.FC = () => {
                 <div className="pt-4">
                     <Button 
                         size="lg" 
-                        onClick={() => navigate('/jlpt')}
+                        onClick={() => navigate(user ? '/jlpt' : '/register')}
                         className="w-full md:w-auto px-8 py-3.5 rounded-2xl font-black text-sm bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2 mx-auto"
                     >
-                        <span>O'qishni Boshlash</span>
+                        <span>{user ? "Darslarga O'tish" : "Bepul Boshlash"}</span>
                         <ArrowRight size={16} />
                     </Button>
                 </div>
