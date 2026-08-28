@@ -93,8 +93,9 @@ export const callDeepSeek = async (
         return `AI_ERROR: AI xizmatida xatolik yuz berdi (HTTP ${status}). Iltimos qayta urinib ko'ring.`;
     };
 
-    const directUrl = 'https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1/deepseek';
-    const anonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+    const baseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qmuimxnknxwarvnkpnlo.supabase.co';
+    const directUrl = `${baseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
+    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 
     // 1. Primary Resilient Gateway: Same-Origin /api/deepseek (Zero ISP/CORS connection resets)
     try {

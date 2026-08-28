@@ -215,6 +215,9 @@ export const supabase = createClient(
             persistSession: true,
             detectSessionInUrl: true
         },
+        realtime: {
+            timeout: 15000
+        },
         global: {
             fetch: customFetch
         }

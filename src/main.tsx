@@ -14,7 +14,12 @@ installConsoleShield();
 initErrorTracking();
 
 // PWA service worker-ni ro'yxatdan o'tkazish
-registerSW({ immediate: true });
+registerSW({
+    immediate: true,
+    onRegisterError(error) {
+        console.warn('[PWA] ServiceWorker registration ignored:', error);
+    }
+});
 
 // Yangi deploydan keyin keshdagi eski chunklar 404 berganda avtomatik yangilash
 window.addEventListener('vite:preloadError', (event) => {

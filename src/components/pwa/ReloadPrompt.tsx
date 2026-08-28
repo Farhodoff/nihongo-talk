@@ -10,15 +10,15 @@ const ReloadPrompt: React.FC = () => {
     } = useRegisterSW({
         onRegistered(r) {
             if (r) {
-                // Sahifaga kirganda va har 15 soniyada yangi versiya borligini avtomatik tekshirish
-                r.update();
+                // Sahifaga kirganda va har 1 soatda yangi versiya borligini xavfsiz tekshirish (unhandled promise rejection siz)
+                r.update().catch(() => {});
                 setInterval(() => {
-                    r.update();
-                }, 15 * 1000);
+                    r.update().catch(() => {});
+                }, 60 * 60 * 1000);
             }
         },
         onRegisterError(error) {
-            console.log('SW registration error', error);
+            console.warn('[PWA] ServiceWorker registration warning:', error);
         },
     });
 
