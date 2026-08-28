@@ -27,6 +27,8 @@ export interface ScenarioSessionResult {
     overall_score: number;        // 0-100
     duration_seconds: number;
     user_audio_url?: string;      // Recorded blob URL for playback
+    audio_path?: string;          // Storage relative path (e.g. user_id/session_id.webm)
+    audio_url?: string;           // Storage URL / audio path
     ai_feedback: string;
     key_phrases_used: string[];
     key_phrases_missed: string[];

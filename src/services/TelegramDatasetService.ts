@@ -284,6 +284,23 @@ export class TelegramDatasetService {
                 throw new Error(result.description || 'Telegram API xatoligi');
             }
 
+            // CRITICAL: Safe Audio Purge ONLY IF Telegram dispatch succeeded
+            // Removes audio files from Supabase Storage and sets audio_path to NULL. DB rows & transcripts are PRESERVED 100%.
+            try {
+                const pathsToDelete = summary.sessions
+                    .map(s => s.audioUrl)
+                    .filter(p => typeof p === 'string' && p && !p.startsWith('blob:') && !p.startsWith('http')) as string[];
+
+                if (pathsToDelete.length > 0) {
+                    await supabase.storage.from('speaking_audios').remove(pathsToDelete);
+                    const sessionIds = summary.sessions.map(s => s.id);
+                    await supabase.from('speaking_sessions').update({ audio_path: null, audio_url: null }).in('id', sessionIds);
+                    console.log(`[TelegramDatasetService] 🗑️ Safely purged ${pathsToDelete.length} audio files after Telegram dispatch.`);
+                }
+            } catch (purgeErr) {
+                console.warn('[TelegramDatasetService] Audio safe purge notice:', purgeErr);
+            }
+
             return {
                 success: true,
                 message: `Hisobot Telegram guruhiga muvaffaqiyatli yuborildi! (${summary.totalSessions} ta suhbat)`

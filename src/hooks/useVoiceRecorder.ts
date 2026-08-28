@@ -8,7 +8,7 @@ export interface UseVoiceRecorderReturn {
     isPlaying: boolean;
     audioProgress: number;
     startRecording: () => Promise<void>;
-    stopRecording: () => void;
+    stopRecording: () => Promise<Blob | null>;
     playRecorded: () => void;
     pauseRecorded: () => void;
     clearRecording: () => void;
@@ -86,16 +86,32 @@ export const useVoiceRecorder = (): UseVoiceRecorderReturn => {
         }
     }, [clearRecording]);
 
-    const stopRecording = useCallback(() => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-            mediaRecorderRef.current.stop();
-        }
-        setIsRecording(false);
-        if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-        }
-    }, []);
+    const stopRecording = useCallback((): Promise<Blob | null> => {
+        return new Promise((resolve) => {
+            const recorder = mediaRecorderRef.current;
+            if (recorder && recorder.state !== 'inactive') {
+                recorder.onstop = () => {
+                    const blob = new Blob(audioChunksRef.current, { type: recorder.mimeType || 'audio/webm' });
+                    const url = URL.createObjectURL(blob);
+                    setRecordedBlob(blob);
+                    setRecordedUrl(url);
+
+                    if (recorder.stream) {
+                        recorder.stream.getTracks().forEach(track => track.stop());
+                    }
+                    resolve(blob);
+                };
+                recorder.stop();
+            } else {
+                resolve(recordedBlob);
+            }
+            setIsRecording(false);
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+        });
+    }, [recordedBlob]);
 
     const playRecorded = useCallback(() => {
         if (!recordedUrl) return;
@@ -120,7 +136,8 @@ export const useVoiceRecorder = (): UseVoiceRecorderReturn => {
             setAudioProgress(0);
         };
 
-        audio.play().then(() => setIsPlaying(true)).catch(console.error);
+        audio.play().catch(err => console.error('Audio play error:', err));
+        setIsPlaying(true);
     }, [recordedUrl]);
 
     const pauseRecorded = useCallback(() => {
@@ -130,31 +147,17 @@ export const useVoiceRecorder = (): UseVoiceRecorderReturn => {
         }
     }, []);
 
+    // Cleanup on unmount
     useEffect(() => {
         return () => {
             if (timerRef.current) {
                 clearInterval(timerRef.current);
-                timerRef.current = null;
-            }
-            if (recordedUrl) {
-                URL.revokeObjectURL(recordedUrl);
             }
             if (audioPlayerRef.current) {
                 audioPlayerRef.current.pause();
-                audioPlayerRef.current = null;
             }
-            if (mediaRecorderRef.current) {
-                if (mediaRecorderRef.current.state !== 'inactive') {
-                    try {
-                        mediaRecorderRef.current.stop();
-                    } catch {}
-                }
-                if (mediaRecorderRef.current.stream) {
-                    try {
-                        mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
-                    } catch {}
-                }
-                mediaRecorderRef.current = null;
+            if (recordedUrl) {
+                URL.revokeObjectURL(recordedUrl);
             }
         };
     }, [recordedUrl]);
@@ -170,6 +173,6 @@ export const useVoiceRecorder = (): UseVoiceRecorderReturn => {
         stopRecording,
         playRecorded,
         pauseRecorded,
-        clearRecording,
+        clearRecording
     };
 };

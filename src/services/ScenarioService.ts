@@ -198,8 +198,7 @@ export class ScenarioService {
 
         // Sync to Supabase speaking_sessions & coach_sessions tables
         try {
-            // 1. Primary insertion into speaking_sessions (with transcript)
-            const { error: insertErr } = await supabase.from('speaking_sessions').insert({
+            const payload: any = {
                 user_id: userId,
                 user_email: userEmail,
                 language: (result as any).language || 'en',
@@ -216,10 +215,21 @@ export class ScenarioService {
                 ai_feedback: result.ai_feedback,
                 transcript: result.transcript || [],
                 created_at: result.created_at
-            });
+            };
+
+            if (result.audio_path) {
+                payload.audio_path = result.audio_path;
+            }
+
+            const { error: insertErr } = await supabase.from('speaking_sessions').insert(payload);
 
             if (insertErr) {
-                console.warn('[ScenarioService] speaking_sessions DB insert notice:', insertErr.message);
+                if (insertErr.message.includes('audio_path')) {
+                    delete payload.audio_path;
+                    await supabase.from('speaking_sessions').insert(payload);
+                } else {
+                    console.warn('[ScenarioService] speaking_sessions DB insert notice:', insertErr.message);
+                }
             }
 
             // 2. Legacy table fallback insertion

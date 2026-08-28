@@ -13,6 +13,10 @@
         {
             "path": "/api/telegram/notify-daily",
             "schedule": "0 3 * * *"
+        },
+        {
+            "path": "/api/telegram/dispatch-daily-dataset",
+            "schedule": "0 17 * * *"
         }
     ],
     "headers": [

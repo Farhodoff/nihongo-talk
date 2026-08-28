@@ -26,6 +26,8 @@ import { RealtimeVoiceOverlay, ErrorTag } from '../components/speaking/RealtimeV
 import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
+import { AudioStorageService } from '../services/AudioStorageService';
+import { supabase } from '../lib/supabase';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -527,8 +529,8 @@ const SpeakingCoachPage: React.FC = () => {
         const historyToAnalyze = [...chatHistoryRef.current];
         const durSecs = sessionSeconds;
 
-        // Stop voice recording
-        voiceRecorder.stopRecording();
+        // Stop voice recording and retrieve recorded Blob
+        const audioBlob = await voiceRecorder.stopRecording();
 
         setIsLiveSession(false);
         isLiveSessionRef.current = false;
@@ -541,6 +543,22 @@ const SpeakingCoachPage: React.FC = () => {
             try { recognitionRef.current.stop(); } catch (e) {}
         }
         stopSpeaking();
+
+        // Upload audio file to Supabase Storage in the background
+        const sessionId = `session-${Date.now()}`;
+        let uploadedAudioPath: string | undefined;
+        if (audioBlob && audioBlob.size > 0) {
+            try {
+                const user = (await supabase.auth.getUser()).data.user;
+                const uid = user?.id || 'anonymous';
+                const uploadResult = await AudioStorageService.uploadSpeakingAudio(uid, sessionId, audioBlob);
+                if (uploadResult) {
+                    uploadedAudioPath = uploadResult;
+                }
+            } catch (storageErr) {
+                console.warn('[SpeakingCoachPage] Audio upload skipped:', storageErr);
+            }
+        }
 
         // Trigger AI analysis report if user sent any messages
         const userSpoke = historyToAnalyze.some(h => h.role === 'user');
@@ -563,6 +581,8 @@ const SpeakingCoachPage: React.FC = () => {
                         timestamp: h.timestamp,
                         translation: h.translation
                     }));
+                    evalResult.audio_path = uploadedAudioPath;
+                    evalResult.audio_url = uploadedAudioPath;
 
                     setScenarioEvalResult(evalResult);
                     await ScenarioService.saveSessionResult(evalResult);
@@ -612,7 +632,7 @@ const SpeakingCoachPage: React.FC = () => {
 
                     // Save session with transcript into Supabase speaking_sessions
                     await ScenarioService.saveSessionResult({
-                        id: `session-${Date.now()}`,
+                        id: sessionId,
                         scenario_id: 'general_speaking',
                         scenario_title: personaTitle,
                         fluency_score: fluency,
@@ -621,6 +641,8 @@ const SpeakingCoachPage: React.FC = () => {
                         pronunciation_score: fluency,
                         overall_score: overall,
                         duration_seconds: durSecs,
+                        audio_path: uploadedAudioPath,
+                        audio_url: uploadedAudioPath,
                         ai_feedback: report.overall_feedback || 'Bajarildi',
                         key_phrases_used: [],
                         key_phrases_missed: [],
