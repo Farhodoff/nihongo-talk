@@ -48,8 +48,8 @@ export class ErrorVaultService {
         try {
             let userId = explicitUserId;
             if (!userId) {
-                const { data: { user } } = await supabase.auth.getUser();
-                userId = user?.id || null;
+                const sessionRes = await supabase.auth.getSession().catch(() => null);
+                userId = sessionRes?.data?.session?.user?.id || null;
             }
             if (!userId) return this.getErrors(null);
 
@@ -108,8 +108,7 @@ export class ErrorVaultService {
         }
 
         // Asynchronously sync to Supabase speaking_errors table
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            const activeId = explicitUserId || user?.id;
+        const syncToDb = (activeId: string) => {
             if (activeId && activeId !== 'guest') {
                 const payloads = newItems.map(item => ({
                     id: toDeterministicUUID(item.id),
@@ -128,7 +127,19 @@ export class ErrorVaultService {
                     if (error) console.warn('[ErrorVaultService] DB upsert error:', error);
                 });
             }
-        });
+        };
+
+        if (explicitUserId) {
+            syncToDb(explicitUserId);
+        } else if (typeof supabase?.auth?.getSession === 'function') {
+            supabase.auth.getSession().then(({ data }) => {
+                if (data?.session?.user?.id) syncToDb(data.session.user.id);
+            }).catch(() => null);
+        } else if (typeof supabase?.auth?.getUser === 'function') {
+            supabase.auth.getUser().then(({ data }) => {
+                if (data?.user?.id) syncToDb(data.user.id);
+            }).catch(() => null);
+        }
 
         return updated;
     }

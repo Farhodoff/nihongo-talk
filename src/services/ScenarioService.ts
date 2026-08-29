@@ -166,13 +166,14 @@ export class ScenarioService {
     // 4. Save Session Evaluation Result
     static async saveSessionResult(result: ScenarioSessionResult, explicitUserId?: string | null): Promise<void> {
         let userId = explicitUserId || null;
-        let userEmail = 'guest@nihon-talk.com';
+        let userEmail = 'student@nihon-talk.com';
 
         try {
             if (!userId) {
-                const { data: userData } = await supabase.auth.getUser();
-                userId = userData?.user?.id || null;
-                userEmail = userData?.user?.email || 'guest@nihon-talk.com';
+                const sessionRes = await supabase.auth.getSession();
+                const sessionUser = sessionRes?.data?.session?.user;
+                userId = sessionUser?.id || null;
+                userEmail = sessionUser?.email || 'student@nihon-talk.com';
             }
         } catch {
             // guest
@@ -196,58 +197,62 @@ export class ScenarioService {
             localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
         }
 
-        // Sync to Supabase speaking_sessions & coach_sessions tables
-        try {
-            const payload: any = {
-                user_id: userId,
-                user_email: userEmail,
-                language: (result as any).language || 'en',
-                topic: result.scenario_title,
-                scenario_id: result.scenario_id,
-                persona_title: result.scenario_title,
-                fluency_score: result.fluency_score,
-                vocabulary_score: result.vocabulary_score,
-                grammar_score: result.grammar_score,
-                pronunciation_score: result.pronunciation_score,
-                overall_score: result.overall_score,
-                duration_seconds: result.duration_seconds,
-                feedback: result.ai_feedback,
-                ai_feedback: result.ai_feedback,
-                transcript: result.transcript || [],
-                created_at: result.created_at
-            };
+        if (userId && userId !== 'guest' && userId !== 'anonymous') {
+            try {
+                const payload: any = {
+                    user_id: userId,
+                    user_email: userEmail,
+                    language: (result as any).language || 'ja',
+                    topic: result.scenario_title || 'Umumiy suhbat',
+                    scenario_id: result.scenario_id || 'general_speaking',
+                    persona_title: result.scenario_title || 'AI Coach',
+                    fluency_score: result.fluency_score || 80,
+                    vocabulary_score: result.vocabulary_score || 80,
+                    grammar_score: result.grammar_score || 80,
+                    pronunciation_score: result.pronunciation_score || 80,
+                    overall_score: result.overall_score || 80,
+                    duration_seconds: result.duration_seconds || 0,
+                    feedback: result.ai_feedback || '',
+                    ai_feedback: result.ai_feedback || '',
+                    transcript: result.transcript || [],
+                    created_at: result.created_at || new Date().toISOString()
+                };
 
-            if (result.audio_path) {
-                payload.audio_path = result.audio_path;
-            }
-
-            const { error: insertErr } = await supabase.from('speaking_sessions').insert(payload);
-
-            if (insertErr) {
-                if (insertErr.message.includes('audio_path')) {
-                    delete payload.audio_path;
-                    await supabase.from('speaking_sessions').insert(payload);
-                } else {
-                    console.warn('[ScenarioService] speaking_sessions DB insert notice:', insertErr.message);
+                // Only attach id if it does not contain invalid string prefix
+                if (result.id && !result.id.startsWith('session-')) {
+                    payload.id = result.id;
                 }
-            }
 
-            // 2. Legacy table fallback insertion
-            if (userId) {
+                if (result.audio_path) {
+                    payload.audio_path = result.audio_path;
+                }
+
+                const { error: insertErr } = await supabase.from('speaking_sessions').insert(payload);
+
+                if (insertErr) {
+                    if (insertErr.message.includes('audio_path')) {
+                        delete payload.audio_path;
+                        await supabase.from('speaking_sessions').insert(payload);
+                    } else {
+                        console.warn('[ScenarioService] speaking_sessions DB insert notice:', insertErr.message);
+                    }
+                }
+
+                // 2. Legacy table fallback insertion
                 await supabase.from('coach_sessions').insert({
                     user_id: userId,
-                    persona_title: result.scenario_title,
-                    fluency_score: result.fluency_score,
-                    vocabulary_score: result.vocabulary_score,
-                    grammar_score: result.grammar_score,
-                    pronunciation_score: result.pronunciation_score,
-                    duration_seconds: result.duration_seconds,
-                    feedback: result.ai_feedback,
-                    created_at: result.created_at
+                    persona_title: result.scenario_title || 'AI Coach',
+                    fluency_score: result.fluency_score || 80,
+                    vocabulary_score: result.vocabulary_score || 80,
+                    grammar_score: result.grammar_score || 80,
+                    pronunciation_score: result.pronunciation_score || 80,
+                    duration_seconds: result.duration_seconds || 0,
+                    feedback: result.ai_feedback || '',
+                    created_at: result.created_at || new Date().toISOString()
                 });
+            } catch (e) {
+                console.warn('Supabase session history insert notice:', e);
             }
-        } catch (e) {
-            console.warn('Supabase session history insert notice:', e);
         }
     }
 

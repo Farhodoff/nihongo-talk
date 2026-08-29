@@ -27,7 +27,6 @@ import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 import { AudioStorageService } from '../services/AudioStorageService';
-import { supabase } from '../lib/supabase';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -544,19 +543,25 @@ const SpeakingCoachPage: React.FC = () => {
         }
         stopSpeaking();
 
-        // Upload audio file to Supabase Storage in the background
-        const sessionId = `session-${Date.now()}`;
+        // Generate valid UUID for session record
+        const sessionUuid: string = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+            ? crypto.randomUUID()
+            : `${Date.now().toString(16).padStart(8, '0')}-0000-4000-8000-000000000000`;
+
+        // Upload audio file to Supabase Storage in the background (100% non-blocking)
         let uploadedAudioPath: string | undefined;
-        if (audioBlob && audioBlob.size > 0) {
+        if (audioBlob && audioBlob.size > 0 && user?.id) {
             try {
-                const user = (await supabase.auth.getUser()).data.user;
-                const uid = user?.id || 'anonymous';
-                const uploadResult = await AudioStorageService.uploadSpeakingAudio(uid, sessionId, audioBlob);
+                const uploadResult = await AudioStorageService.uploadSpeakingAudio(
+                    user.id,
+                    sessionUuid || `rec_${Date.now()}`,
+                    audioBlob
+                );
                 if (uploadResult) {
                     uploadedAudioPath = uploadResult;
                 }
             } catch (storageErr) {
-                console.warn('[SpeakingCoachPage] Audio upload skipped:', storageErr);
+                console.warn('[SpeakingCoachPage] Audio upload skipped (non-blocking):', storageErr);
             }
         }
 
@@ -583,9 +588,12 @@ const SpeakingCoachPage: React.FC = () => {
                     }));
                     evalResult.audio_path = uploadedAudioPath;
                     evalResult.audio_url = uploadedAudioPath;
+                    if (sessionUuid) {
+                        evalResult.id = sessionUuid;
+                    }
 
                     setScenarioEvalResult(evalResult);
-                    await ScenarioService.saveSessionResult(evalResult);
+                    await ScenarioService.saveSessionResult(evalResult, user?.id);
                 } catch (err) {
                     console.error("Scenario evaluation error:", err);
                 } finally {
@@ -632,7 +640,7 @@ const SpeakingCoachPage: React.FC = () => {
 
                     // Save session with transcript into Supabase speaking_sessions
                     await ScenarioService.saveSessionResult({
-                        id: sessionId,
+                        id: sessionUuid,
                         scenario_id: 'general_speaking',
                         scenario_title: personaTitle,
                         fluency_score: fluency,
@@ -653,7 +661,7 @@ const SpeakingCoachPage: React.FC = () => {
                             translation: h.translation
                         })),
                         created_at: new Date().toISOString()
-                    });
+                    }, user?.id);
                 } catch (err) {
                     console.error("Report generation error:", err);
                 } finally {

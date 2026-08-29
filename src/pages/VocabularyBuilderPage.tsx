@@ -70,14 +70,14 @@ export const VocabularyBuilderPage: React.FC = () => {
         // Load from Supabase DB (user_saved_vocabulary table + metadata fallback)
         const fetchDbVocab = async () => {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user?.id) return;
+                const targetUserId = user?.id;
+                if (!targetUserId) return;
 
                 // 1. Fetch saved words from user_saved_vocabulary table
                 const { data: dbSavedRows, error: dbErr } = await supabase
                     .from('user_saved_vocabulary')
                     .select('*')
-                    .eq('user_id', user.id)
+                    .eq('user_id', targetUserId)
                     .order('created_at', { ascending: false });
 
                 if (!dbErr && dbSavedRows && dbSavedRows.length > 0) {
@@ -167,11 +167,9 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
             try {
                 localStorage.setItem('study_planner_vocab_history', JSON.stringify(updatedHistory));
             } catch (e) { console.warn(e); }
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) {
-                    supabase.auth.updateUser({ data: { vocab_history: updatedHistory } }).catch(err => console.warn(err));
-                }
-            });
+            if (user) {
+                supabase.auth.updateUser({ data: { vocab_history: updatedHistory } }).catch(err => console.warn(err));
+            }
         } catch (err: any) {
             console.error(err);
             setErrorMsg("So'z ma'lumotlarini yuklashda xatolik. Qayta urinib ko'ring.");
@@ -193,36 +191,34 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
             localStorage.setItem('study_planner_vocab_saved', JSON.stringify(updated));
         } catch (e) { console.warn(e); }
 
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            if (user) {
-                const uuid = toDeterministicUUID(`vocab_${user.id}_${wordObj.word.toLowerCase()}`);
-                if (!isSaved) {
-                    // Insert into user_saved_vocabulary table
-                    supabase.from('user_saved_vocabulary').upsert({
-                        id: uuid,
-                        user_id: user.id,
-                        language: wordObj.language || 'en',
-                        term: wordObj.word,
-                        reading: wordObj.furigana || wordObj.phonetic || null,
-                        meaning: wordObj.uzbekTranslation || wordObj.definition,
-                        example_sentence: wordObj.examples?.[0]?.sentence || null,
-                        example_translation: wordObj.examples?.[0]?.translation || null,
-                        is_saved: true,
-                        updated_at: new Date().toISOString()
-                    }).then(({ error }) => {
-                        if (error) console.warn('[VocabularyBuilderPage] DB upsert error:', error);
-                    });
-                } else {
-                    // Delete from user_saved_vocabulary table
-                    supabase.from('user_saved_vocabulary').delete().eq('id', uuid).then(({ error }) => {
-                        if (error) console.warn('[VocabularyBuilderPage] DB delete error:', error);
-                    });
-                }
+        if (user?.id) {
+            const uuid = toDeterministicUUID(`vocab_${user.id}_${wordObj.word.toLowerCase()}`);
+            if (!isSaved) {
+                // Insert into user_saved_vocabulary table
+                supabase.from('user_saved_vocabulary').upsert({
+                    id: uuid,
+                    user_id: user.id,
+                    language: wordObj.language || 'en',
+                    term: wordObj.word,
+                    reading: wordObj.furigana || wordObj.phonetic || null,
+                    meaning: wordObj.uzbekTranslation || wordObj.definition,
+                    example_sentence: wordObj.examples?.[0]?.sentence || null,
+                    example_translation: wordObj.examples?.[0]?.translation || null,
+                    is_saved: true,
+                    updated_at: new Date().toISOString()
+                }).then(({ error }) => {
+                    if (error) console.warn('[VocabularyBuilderPage] DB upsert error:', error);
+                });
+            } else {
+                // Delete from user_saved_vocabulary table
+                supabase.from('user_saved_vocabulary').delete().eq('id', uuid).then(({ error }) => {
+                    if (error) console.warn('[VocabularyBuilderPage] DB delete error:', error);
+                });
+            }
 
                 // Fallback metadata update
                 supabase.auth.updateUser({ data: { vocab_saved: updated } }).catch(err => console.warn(err));
-            }
-        });
+        }
     };
 
     const handleCreateFlashcard = async () => {
