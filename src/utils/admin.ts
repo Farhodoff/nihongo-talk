@@ -1,11 +1,13 @@
 export const SUPER_ADMIN_EMAIL = 'fsoyilov@gmail.com';
 
 export const SUPER_ADMIN_EMAILS = [
-    'fsoyilov@gmail.com'
+    'fsoyilov@gmail.com',
+    'fsoyilovv@gmail.com'
 ];
 
 export const DEFAULT_ADMIN_EMAILS = [
-    'fsoyilov@gmail.com'
+    'fsoyilov@gmail.com',
+    'fsoyilovv@gmail.com'
 ];
 
 // Check if user is Super Admin (strictly fsoyilov@gmail.com)
