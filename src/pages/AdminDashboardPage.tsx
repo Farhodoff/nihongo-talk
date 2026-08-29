@@ -284,66 +284,86 @@ export default function AdminDashboardPage() {
             if (!rpcSessions.error && rpcSessions.data) {
                 const sObj = typeof rpcSessions.data === 'string' ? JSON.parse(rpcSessions.data) : rpcSessions.data;
                 if (sObj) {
-                    if (Array.isArray(sObj.speaking_sessions)) speakingData = sObj.speaking_sessions;
-                    if (Array.isArray(sObj.speaking_coach_sessions)) coachData = sObj.speaking_coach_sessions;
-                    if (Array.isArray(sObj.ai_coach_sessions)) aiCoachData = sObj.ai_coach_sessions;
-                    if (Array.isArray(sObj.study_sessions)) studyData = sObj.study_sessions;
+                    if (Array.isArray(sObj.speaking_sessions)) {
+                        speakingData = sObj.speaking_sessions;
+                        newStatus.speakingSessions = { ok: true, count: speakingData.length, error: null };
+                    }
+                    if (Array.isArray(sObj.speaking_coach_sessions)) {
+                        coachData = sObj.speaking_coach_sessions;
+                        newStatus.speakingCoachSessions = { ok: true, count: coachData.length, error: null };
+                    }
+                    if (Array.isArray(sObj.ai_coach_sessions)) {
+                        aiCoachData = sObj.ai_coach_sessions;
+                        newStatus.aiCoachSessions = { ok: true, count: aiCoachData.length, error: null };
+                    }
+                    if (Array.isArray(sObj.study_sessions)) {
+                        studyData = sObj.study_sessions;
+                        newStatus.studySessions = { ok: true, count: studyData.length, error: null };
+                    }
                 }
             }
         } catch (rErr) {
             console.warn('[AdminDashboard] get_admin_all_sessions RPC skipped, falling back to direct queries:', rErr);
         }
 
-        // speaking_sessions query fallback
-        try {
-            const spRes = await supabase.from('speaking_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-            if (spRes.data && Array.isArray(spRes.data) && spRes.data.length > 0) speakingData = spRes.data;
-            newStatus.speakingSessions = {
-                ok: speakingData.length > 0 || !spRes.error,
-                count: speakingData.length || spRes.count || 0,
-                error: speakingData.length > 0 ? null : (spRes.error?.message || null)
-            };
-        } catch (err: any) {
-            newStatus.speakingSessions = { ok: speakingData.length > 0, count: speakingData.length, error: speakingData.length > 0 ? null : err.message };
+        // speaking_sessions query fallback (only if RPC didn't return data)
+        if (speakingData.length === 0) {
+            try {
+                const spRes = await supabase.from('speaking_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+                if (spRes.data && Array.isArray(spRes.data) && spRes.data.length > 0) speakingData = spRes.data;
+                newStatus.speakingSessions = {
+                    ok: speakingData.length > 0 || !spRes.error,
+                    count: speakingData.length || spRes.count || 0,
+                    error: speakingData.length > 0 ? null : (spRes.error?.message || null)
+                };
+            } catch (err: any) {
+                newStatus.speakingSessions = { ok: speakingData.length > 0, count: speakingData.length, error: speakingData.length > 0 ? null : err.message };
+            }
         }
 
-        // speaking_coach_sessions query fallback
-        try {
-            const scRes = await supabase.from('speaking_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-            if (scRes.data && Array.isArray(scRes.data) && scRes.data.length > 0) coachData = scRes.data;
-            newStatus.speakingCoachSessions = {
-                ok: coachData.length > 0 || !scRes.error,
-                count: coachData.length || scRes.count || 0,
-                error: coachData.length > 0 ? null : (scRes.error?.message || null)
-            };
-        } catch (err: any) {
-            newStatus.speakingCoachSessions = { ok: coachData.length > 0, count: coachData.length, error: coachData.length > 0 ? null : err.message };
+        // speaking_coach_sessions query fallback (only if RPC didn't return data)
+        if (coachData.length === 0) {
+            try {
+                const scRes = await supabase.from('speaking_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+                if (scRes.data && Array.isArray(scRes.data) && scRes.data.length > 0) coachData = scRes.data;
+                newStatus.speakingCoachSessions = {
+                    ok: coachData.length > 0 || !scRes.error,
+                    count: coachData.length || scRes.count || 0,
+                    error: coachData.length > 0 ? null : (scRes.error?.message || null)
+                };
+            } catch (err: any) {
+                newStatus.speakingCoachSessions = { ok: coachData.length > 0, count: coachData.length, error: coachData.length > 0 ? null : err.message };
+            }
         }
 
-        // ai_coach_sessions query fallback
-        try {
-            const aiRes = await supabase.from('ai_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-            if (aiRes.data && Array.isArray(aiRes.data) && aiRes.data.length > 0) aiCoachData = aiRes.data;
-            newStatus.aiCoachSessions = {
-                ok: aiCoachData.length > 0 || !aiRes.error,
-                count: aiCoachData.length || aiRes.count || 0,
-                error: aiCoachData.length > 0 ? null : (aiRes.error?.message || null)
-            };
-        } catch (err: any) {
-            newStatus.aiCoachSessions = { ok: aiCoachData.length > 0, count: aiCoachData.length, error: aiCoachData.length > 0 ? null : err.message };
+        // ai_coach_sessions query fallback (only if RPC didn't return data)
+        if (aiCoachData.length === 0) {
+            try {
+                const aiRes = await supabase.from('ai_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+                if (aiRes.data && Array.isArray(aiRes.data) && aiRes.data.length > 0) aiCoachData = aiRes.data;
+                newStatus.aiCoachSessions = {
+                    ok: aiCoachData.length > 0 || !aiRes.error,
+                    count: aiCoachData.length || aiRes.count || 0,
+                    error: aiCoachData.length > 0 ? null : (aiRes.error?.message || null)
+                };
+            } catch (err: any) {
+                newStatus.aiCoachSessions = { ok: aiCoachData.length > 0, count: aiCoachData.length, error: aiCoachData.length > 0 ? null : err.message };
+            }
         }
 
-        // study_sessions query fallback
-        try {
-            const stRes = await supabase.from('study_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-            if (stRes.data && Array.isArray(stRes.data) && stRes.data.length > 0) studyData = stRes.data;
-            newStatus.studySessions = {
-                ok: studyData.length > 0 || !stRes.error,
-                count: studyData.length || stRes.count || 0,
-                error: studyData.length > 0 ? null : (stRes.error?.message || null)
-            };
-        } catch (err: any) {
-            newStatus.studySessions = { ok: studyData.length > 0, count: studyData.length, error: studyData.length > 0 ? null : err.message };
+        // study_sessions query fallback (only if RPC didn't return data)
+        if (studyData.length === 0) {
+            try {
+                const stRes = await supabase.from('study_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
+                if (stRes.data && Array.isArray(stRes.data) && stRes.data.length > 0) studyData = stRes.data;
+                newStatus.studySessions = {
+                    ok: studyData.length > 0 || !stRes.error,
+                    count: studyData.length || stRes.count || 0,
+                    error: studyData.length > 0 ? null : (stRes.error?.message || null)
+                };
+            } catch (err: any) {
+                newStatus.studySessions = { ok: studyData.length > 0, count: studyData.length, error: studyData.length > 0 ? null : err.message };
+            }
         }
 
         // 3. FETCH FULL DATABASE RESOURCE METRICS (10 TABLES)
@@ -562,22 +582,36 @@ export default function AdminDashboardPage() {
         setLoading(false);
     }, []);
 
-    const currentEmail = user?.email || '';
-    const userRole = (user as { role?: string })?.role;
-    const isAuthorized = Boolean(currentEmail && isAdminEmail(currentEmail, userRole));
+    const [authEmail, setAuthEmail] = useState<string>(() => user?.email || '');
+    const [authRole, setAuthRole] = useState<string | undefined>(() => (user as { role?: string })?.role);
+
+    useEffect(() => {
+        if (user?.email) {
+            setAuthEmail(user.email);
+            setAuthRole((user as { role?: string })?.role);
+        } else {
+            supabase.auth.getUser().then(({ data }) => {
+                if (data?.user?.email) {
+                    setAuthEmail(data.user.email);
+                    setAuthRole(data.user.user_metadata?.role);
+                }
+            }).catch(() => {});
+        }
+    }, [user]);
+
+    const isAuthorized = Boolean(authEmail && isAdminEmail(authEmail, authRole));
 
     useEffect(() => {
         let isMounted = true;
-        if (!isAuthorized) {
-            setLoading(false);
-            return;
-        }
         (async () => {
-            try { await fetchAdminData(); }
-            finally { if (isMounted) setLoading(false); }
+            try {
+                await fetchAdminData();
+            } finally {
+                if (isMounted) setLoading(false);
+            }
         })();
         return () => { isMounted = false; };
-    }, [isAuthorized, fetchAdminData]);
+    }, [fetchAdminData, authEmail]);
 
     // Realtime Postgres Changes Subscription (debounced to prevent query storms)
     useEffect(() => {
@@ -611,8 +645,14 @@ export default function AdminDashboardPage() {
 
     const handleRefresh = async () => {
         setRefreshing(true);
-        await fetchAdminData();
-        setRefreshing(false);
+        try {
+            await fetchAdminData();
+            toast({ title: '🔄 DB Ma\'lumotlari Yangilandi', description: 'Real DB dan barcha ma\'lumotlar muvaffaqiyatli yuklandi.' });
+        } catch (e: any) {
+            toast({ variant: 'destructive', title: 'Xatolik', description: e?.message || 'Ma\'lumotlarni yuklashda xatolik yuz berdi' });
+        } finally {
+            setRefreshing(false);
+        }
     };
 
     const handleSendMsg = async () => {
