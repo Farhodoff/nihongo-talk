@@ -10,10 +10,11 @@ import { JLPT_GRAMMAR_QUESTIONS, JlptGrammarQuestion } from '../data/jlpt/gramma
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useJlptMastery } from '../hooks/useJlptMastery';
 import { HistoryService } from '../services/HistoryService';
+import { getOrEnsureLanguageSubject } from '../utils/subjectResolver';
 
 export const JlptGrammarQuizPage: React.FC = () => {
     const navigate = useNavigate();
-    const { awardXP, addFlashcardsBatch, subjects } = useStudyData();
+    const { awardXP, addFlashcardsBatch, subjects, addSubject } = useStudyData();
     const { setItemStatus } = useJlptMastery();
 
     const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
@@ -143,9 +144,9 @@ export const JlptGrammarQuizPage: React.FC = () => {
 
     const handleCreateFlashcardsFromMistakes = async () => {
         if (missedQuestions.length === 0 || flashcardsCreated) return;
-        const subjectId = subjects[0]?.id || undefined;
+        const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
         const cards = missedQuestions.map(q => ({
-            subjectId,
+            subjectId: subjectId || undefined,
             front: `[JLPT ${level} Bunpou] ${q.pattern}\n\n${q.questionText}`,
             back: `To'g'ri javob: ${q.options[q.correctAnswer]}\n\n🇺🇿 Tahlil: ${q.explanationUzbek}`,
             interval: 1,

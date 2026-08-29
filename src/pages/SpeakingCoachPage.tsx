@@ -27,6 +27,7 @@ import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 import { AudioStorageService } from '../services/AudioStorageService';
+import { getOrEnsureLanguageSubject } from '../utils/subjectResolver';
 
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: string; icon: string }[]> = {
@@ -47,7 +48,7 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<'en' | 'ja', { title: string; text: str
 const SpeakingCoachPage: React.FC = () => {
     const { primaryLanguage } = useStudyData();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { user, addCoachSession, addFlashcardsBatch, subjects } = useStudyData();
+    const { user, addCoachSession, addFlashcardsBatch, subjects, addSubject } = useStudyData();
     const isAdmin = isAdminEmail(user?.email);
     const isSuper = isSuperAdmin(user?.email);
 
@@ -311,17 +312,12 @@ const SpeakingCoachPage: React.FC = () => {
             );
 
             // 2. Resolve proper subject ID and sync to `flashcards` table (Anki SM-2)
-            const matchedSubject = (subjects || []).find(s =>
-                isJa
-                    ? (s.name.toLowerCase().includes('japan') || s.name.toLowerCase().includes('jlpt') || s.name.toLowerCase().includes('yapon') || s.name.toLowerCase().includes('nihongo'))
-                    : (s.name.toLowerCase().includes('eng') || s.name.toLowerCase().includes('ielts') || s.name.toLowerCase().includes('ingliz'))
-            );
-            const targetSubjectId = matchedSubject?.id || (subjects?.[0]?.id) || undefined;
+            const targetSubjectId = await getOrEnsureLanguageSubject(subjects, addSubject, isJa ? 'ja' : 'en');
 
             await addFlashcardsBatch([{
                 front,
                 back,
-                subjectId: targetSubjectId
+                subjectId: targetSubjectId || undefined
             }]);
 
             toast({

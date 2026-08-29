@@ -11,9 +11,10 @@ import { KanjiStrokeOrderModal } from './KanjiStrokeOrderModal';
 import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
 import { HistoryService } from '../../services/HistoryService';
 import { useLanguage } from '../../context/LanguageContext';
+import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
-    const { addFlashcardsBatch, subjects, awardXP, addSession } = useStudyData();
+    const { addFlashcardsBatch, subjects, addSubject, awardXP, addSession } = useStudyData();
     const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
     const { language } = useLanguage();
 
@@ -34,7 +35,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
     // Direct Export to Flashcards
     const handleExportToFlashcard = async (item: JlptGrammarItem | JlptKanjiItem, isGrammar: boolean) => {
-        const subjectId = subjects[0]?.id || '';
+        const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
         
         let frontText = '';
         let backText = '';
@@ -120,7 +121,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         }
     };
 
-    const handleNextQuiz = () => {
+    const handleNextQuiz = async () => {
         setSelectedOption(null);
         if (quizIndex + 1 < quizQuestions.length) {
             setQuizIndex(prev => prev + 1);
@@ -131,11 +132,12 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                     awardXP(score * 20);
                 }
                 if (addSession) {
+                    const quizSubjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
                     addSession({
                         duration: Math.max(3, Math.round(quizQuestions.length * 1.5)),
                         type: 'focus',
                         completed: true,
-                        subjectId: subjects[0]?.id || undefined,
+                        subjectId: quizSubjectId || undefined,
                         startTime: new Date().toISOString()
                     });
                 }
@@ -154,7 +156,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
     const handleCreateFlashcardsFromMistakes = async () => {
         if (missedQuizQuestions.length === 0 || quizFlashcardsSaved) return;
-        const subjectId = subjects[0]?.id || '';
+        const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
         const cards = missedQuizQuestions.map(q => ({
             subjectId,
             front: `[JLPT ${q.level} Grammar] ${q.pattern}\n\n${q.questionText}`,

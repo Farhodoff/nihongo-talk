@@ -9,9 +9,10 @@ import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { useEnglishGrammarMastery, GrammarMasteryStatus } from '../../hooks/useEnglishGrammarMastery';
 import { toast } from '../../hooks/use-toast';
+import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 
 export const IeltsGrammarMaster: React.FC = () => {
-    const { addFlashcardsBatch, awardXP, subjects, addSession } = useStudyData();
+    const { addFlashcardsBatch, awardXP, subjects, addSubject, addSession } = useStudyData();
     const { topics: rawTopics } = useGrammarLessons('en');
     const { getItemStatus, setItemStatus, getStatsForLevel } = useEnglishGrammarMastery();
 
@@ -28,7 +29,7 @@ export const IeltsGrammarMaster: React.FC = () => {
 
     // Direct Export to Flashcards
     const handleExportToFlashcard = async (topic: IeltsGrammarTopic) => {
-        const subjectId = subjects.find(s => s.name.toLowerCase().includes('english') || s.name.toLowerCase().includes('ielts'))?.id || subjects[0]?.id || '';
+        const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'en');
         
         const frontText = `[${topic.level} English Grammar] ${topic.title}\n\n📐 Formula:\n${topic.structure}`;
         const backText = `🇺🇿 Ma'nosi: ${topic.uzbekMeaning}\n\n💡 Qoida:\n${topic.explanation}\n\n📑 Misol:\n${topic.academicExamples[0]?.sentence || ''}\n(${topic.academicExamples[0]?.translation || ''})`;
@@ -522,9 +523,9 @@ export const IeltsGrammarMaster: React.FC = () => {
                                 {missedQuestions.length > 0 && (
                                     <button
                                         onClick={async () => {
-                                            const subjectId = subjects.find(s => s.name.toLowerCase().includes('english') || s.name.toLowerCase().includes('ielts'))?.id || subjects[0]?.id || '';
+                                            const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'en');
                                             const cards = missedQuestions.map(m => ({
-                                                subjectId,
+                                                subjectId: subjectId || undefined,
                                                 front: `[${m.topic.level} Grammar Practice] ${m.topic.title}\n\n❓ ${m.q.question}`,
                                                 back: `✅ To'g'ri javob: ${m.q.correctAnswer}\n\n💡 Izoh: ${m.q.explanation}\n\n📐 Formula: ${m.topic.structure}`,
                                                 interval: 1,

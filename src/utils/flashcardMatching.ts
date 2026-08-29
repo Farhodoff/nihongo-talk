@@ -27,17 +27,17 @@ export function extractMeaningsFromBack(rawBack: string): string[] {
     }
 
     // 2. Remove common header prefixes if still present
-    text = text.replace(/^(?:📌|💬|🇺🇿|📌\s*ma'nosi:|ma'nosi:)\s*/i, '').trim();
+    text = text.replace(/^(?:📌|💬|🇺🇿|📌\s*ma'nosi:|ma'nosi:)\s*/iu, '').trim();
 
     // 3. Split by commas, semicolons, slashes, or conjunctions ("yoki", "or")
-    const parts = text.split(/[,;\/\n]|\s+yoki\s+|\s+or\s+/i);
+    const parts = text.split(/[,;\n/]|(?:\s+yoki\s+)|\s+or\s+/iu);
 
     const candidates: string[] = [];
 
     for (const part of parts) {
         // Strip emoji, quotes, leading/trailing punctuation and markdown
         const cleaned = part
-            .replace(/[📌💬🇺🇿*`"']/g, '')
+            .replace(/(?:🇺🇿|📌|💬|[*`"'])/gu, '')
             .replace(/^\s*[-–—:]\s*/, '')
             .replace(/\s*\([^)]*\)\s*/g, '') // remove parenthetical remarks e.g. "(formal)"
             .trim()
@@ -49,7 +49,7 @@ export function extractMeaningsFromBack(rawBack: string): string[] {
     }
 
     // Also include the whole cleaned primary line as a fallback candidate
-    const cleanFull = text.replace(/[📌💬🇺🇿*`"']/g, '').replace(/\s*\([^)]*\)\s*/g, '').trim().toLowerCase();
+    const cleanFull = text.replace(/(?:🇺🇿|📌|💬|[*`"'])/gu, '').replace(/\s*\([^)]*\)\s*/g, '').trim().toLowerCase();
     if (cleanFull && !candidates.includes(cleanFull)) {
         candidates.push(cleanFull);
     }
@@ -101,8 +101,8 @@ export function isFlashcardAnswerCorrect(typedAnswer: string, rawBack: string): 
         .trim();
     if (cleanRawBack === cleanTyped) return true;
 
-    const firstLine = cleanRawBack.split('\n')[0].replace(/^(?:📌\s*)?(?:ma'nosi:)?\s*/i, '').trim();
-    if (firstLine && (firstLine === cleanTyped || firstLine.split(/[,;\/]/).some(p => p.trim() === cleanTyped))) {
+    const firstLine = cleanRawBack.split('\n')[0].replace(/^(?:📌\s*)?(?:ma'nosi:)?\s*/iu, '').trim();
+    if (firstLine && (firstLine === cleanTyped || firstLine.split(/[,;/]/).some(p => p.trim() === cleanTyped))) {
         return true;
     }
 

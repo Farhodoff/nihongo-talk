@@ -8,6 +8,7 @@ import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
 import { isSuperAdmin } from '../utils/admin';
 import { useLanguage } from '../context/LanguageContext';
+import { findLanguageSubject, getOrEnsureLanguageSubject } from '../utils/subjectResolver';
 
 export interface VocabWordDetails {
     word: string;
@@ -24,7 +25,7 @@ export interface VocabWordDetails {
 }
 
 export const VocabularyBuilderPage: React.FC = () => {
-    const { user, subjects, addFlashcard, primaryLanguage } = useStudyData();
+    const { user, subjects, addFlashcard, addSubject, primaryLanguage } = useStudyData();
     const { language } = useLanguage();
     const isSuper = isSuperAdmin(user?.email);
 
@@ -117,9 +118,11 @@ export const VocabularyBuilderPage: React.FC = () => {
 
     useEffect(() => {
         if (subjects.length > 0 && !selectedSubjectId) {
-            setSelectedSubjectId(subjects[0].id);
+            const isJa = (!isSuper || primaryLanguage === 'ja');
+            const matched = findLanguageSubject(subjects, isJa ? 'ja' : 'en');
+            setSelectedSubjectId(matched ? matched.id : subjects[0].id);
         }
-    }, [subjects]);
+    }, [subjects, selectedSubjectId, isSuper, primaryLanguage]);
 
     const handleSearch = async (targetQuery?: string) => {
         const searchTerm = (targetQuery || query).trim();
@@ -152,14 +155,22 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 }`;
 
         try {
-            const raw = await generateAIResponse([
+            const res = await generateAIResponse([
                 { role: 'system', content: 'You are a dictionary JSON API provider. Return ONLY raw valid JSON object without markdown fences.' },
                 { role: 'user', content: prompt }
             ], { isJson: true });
             
-            const parsed = extractJsonFromAiResponse<VocabWordDetails>(raw);
-
+            const parsed = extractJsonFromAiResponse<VocabWordDetails>(res);
+            if (!parsed || !parsed.word) {
+                throw new Error("Failed to parse dictionary structure");
+            }
             setCurrentResult(parsed);
+
+            // Pre-select matching subject for the analyzed word language
+            const matchedSubject = findLanguageSubject(subjects, parsed.language || 'ja');
+            if (matchedSubject) {
+                setSelectedSubjectId(matchedSubject.id);
+            }
 
             // Add to history
             const updatedHistory = [parsed, ...history.filter(h => h.word.toLowerCase() !== parsed.word.toLowerCase())].slice(0, 30);
@@ -171,8 +182,8 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 supabase.auth.updateUser({ data: { vocab_history: updatedHistory } }).catch(err => console.warn(err));
             }
         } catch (err: any) {
-            console.error(err);
-            setErrorMsg("So'z ma'lumotlarini yuklashda xatolik. Qayta urinib ko'ring.");
+            console.error('Vocab search error:', err);
+            setErrorMsg("So'zni tahlil qilishda xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
         } finally {
             setIsSearching(false);
         }
@@ -222,13 +233,19 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
     };
 
     const handleCreateFlashcard = async () => {
-        if (!currentResult || !selectedSubjectId) return;
+        if (!currentResult) return;
+
+        let targetSubId = selectedSubjectId;
+        if (!targetSubId) {
+            targetSubId = await getOrEnsureLanguageSubject(subjects, addSubject, currentResult.language || 'ja');
+            setSelectedSubjectId(targetSubId);
+        }
 
         const front = currentResult.furigana || `${currentResult.word} (${currentResult.partOfSpeech}) [${currentResult.level}]`;
         const back = `Tarjimasi: ${currentResult.uzbekTranslation}\nTa'rifi: ${currentResult.definition}\nCollocations: ${currentResult.collocations.join(', ')}\n\nMisol: ${currentResult.examples[0]?.sentence || ''}`;
 
         await addFlashcard({
-            subjectId: selectedSubjectId,
+            subjectId: targetSubId || undefined,
             front,
             back
         });
