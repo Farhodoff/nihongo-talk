@@ -4,29 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const RoomWhiteboard = React.lazy(() => import('../components/study-room/RoomWhiteboard'));
 import { Button } from '../components/ui/Button';
 import { supabase } from '../lib/supabase';
-import { LocalTour, LocalTourStep } from '../components/LocalTour';
 import { recordTelemetryEvent } from '../lib/errorTracking';
-
-const ROOM_TOUR_STEPS: LocalTourStep[] = [
-    {
-        title: "Kamera va Mikrofon 🎤",
-        content: "Dars xonasiga kirganingizdan so'ng, kamera va mikrofonni shu yerdan yoqib/o'chirishingiz mumkin.",
-        target: "[data-tour=\"room-media-controls\"]",
-        placement: "top"
-    },
-    {
-        title: "Ekranni ulashish 💻",
-        content: "Agar do'stlaringizga o'z ekraningizni ko'rsatmoqchi bo'lsangiz, shu tugmani bosing.",
-        target: "[data-tour=\"room-screen-share\"]",
-        placement: "top"
-    },
-    {
-        title: "Birgalikda chizish 🖍️",
-        content: "Bu yerdan Oq Doska (Whiteboard) bo'limiga o'tib, hamma birgalikda yozishi va chizishi mumkin bo'lgan taxtani ochasiz.",
-        target: "[data-tour=\"room-whiteboard-tab\"]",
-        placement: "bottom"
-    }
-];
 
 interface UserProfile {
     id: string;
@@ -898,8 +876,6 @@ const StudyRoomPage: React.FC = () => {
                     </div>
                 )}
             </div>
-            
-            <LocalTour steps={ROOM_TOUR_STEPS} tourKey="study_room_tour_completed" />
         </div>
     );
 };

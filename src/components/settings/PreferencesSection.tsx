@@ -1,10 +1,9 @@
-import { Bell, HelpCircle, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Bell, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { isSuperAdmin } from '../../utils/admin';
 import { useLanguage } from '../../context/LanguageContext';
-import { TourService } from '../../services/TourService';
 import AIProviderSection from './AIProviderSection';
 
 interface Settings {
@@ -279,33 +278,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             <div className="w-11 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                         </label>
                     </div>
-                </div>
-
-                <div className="p-4 rounded-xl border border-border bg-background/50 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-indigo-500/10 text-indigo-500 rounded-lg">
-                            <HelpCircle size={20} />
-                        </div>
-                        <div>
-                            <span className="font-semibold text-sm text-foreground block">Tizim bo'yicha yo'riqnoma (Tour)</span>
-                            <span className="text-xs text-muted-foreground">Barcha bo'limlar bo'yicha interaktiv sayohatni qayta ko'rish</span>
-                        </div>
-                    </div>
-                    <button
-                        onClick={async () => {
-                            if (user?.id) {
-                                await TourService.resetTour(user.id);
-                            }
-                            window.dispatchEvent(new CustomEvent('restart-onboarding-tour'));
-                            toast({
-                                title: "Yo'riqnoma boshlandi",
-                                description: "Tizim imkoniyatlari bilan tanishish oynasi ochildi.",
-                            });
-                        }}
-                        className="px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                    >
-                        Boshlash
-                    </button>
                 </div>
             </div>
         </div>

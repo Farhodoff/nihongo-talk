@@ -13,8 +13,6 @@ import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt'
 import { Toaster } from './components/ui/toaster';
 import { lazyWithRetry } from './utils/lazyRetry';
 
-import { OnboardingTour } from './components/OnboardingTour';
-
 const CalendarPage = lazyWithRetry(() => import('./pages/CalendarPage'));
 const DecksPage = lazyWithRetry(() => import('./pages/DecksPage'));
 const FlashcardForm = lazyWithRetry(() => import('./pages/FlashcardForm'));
@@ -242,7 +240,6 @@ const App: React.FC = () => {
                                 </Routes>
                             </Suspense>
                             <GlobalAudioPlayer />
-                            <OnboardingTour />
                             
                             {/* PWA Prompts */}
                             <ReloadPrompt />

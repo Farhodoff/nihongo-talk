@@ -7,30 +7,8 @@ import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
 import SoundMixer from '../components/focus/SoundMixer';
-import { LocalTour, LocalTourStep } from '../components/LocalTour';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
 import { LearningSignalService } from '../services/LearningSignalService';
-
-const FOCUS_TOUR_STEPS: LocalTourStep[] = [
-    {
-        title: "Vazifa tanlash 📝",
-        content: "Ayni paytda bajarmonchi bo'lgan vazifangizni tanlang. Taymer tugagach, tizim ushbu vazifani tugatishni taklif qiladi.",
-        target: "[data-tour=\"focus-task-selector\"]",
-        placement: "bottom"
-    },
-    {
-        title: "Lo-Fi va Tabiat Ovozlari 🌧️",
-        content: "Darsga qattiqroq fokuslanish uchun sokin yomg'ir, olov yoki Lo-Fi musiqasini qoshing va ovozini o'zingizga moslang.",
-        target: "[data-tour=\"focus-sound-mixer\"]",
-        placement: "bottom"
-    },
-    {
-        title: "Taymer Sozlamalari ⏱️",
-        content: "Bu yerdan Pomodoro, Qisqa yoki Uzun tanaffus vaqtlarini tanlashingiz mumkin.",
-        target: "[data-tour=\"focus-mode-switcher\"]",
-        placement: "top"
-    }
-];
 
 const FocusPage: React.FC = () => {
     const { subjects, addSession, awardXP, tasks, updateTaskStatus, user, primaryLanguage } = useStudyData();
@@ -267,8 +245,6 @@ const FocusPage: React.FC = () => {
                 onToggle={handleStartClick}
                 onReset={resetTimer}
             />
-            
-            <LocalTour steps={FOCUS_TOUR_STEPS} tourKey="focus_page_tour_completed" />
         </div>
     );
 };
