@@ -21,7 +21,6 @@ const SettingsPage = lazyWithRetry(() => import('./pages/SettingsPage'));
 const StudyRoomPage = lazyWithRetry(() => import('./pages/StudyRoomPage'));
 const SubjectDetailPage = lazyWithRetry(() => import('./pages/SubjectDetailPage'));
 const SubjectsPage = lazyWithRetry(() => import('./pages/SubjectsPage'));
-const TasksPage = lazyWithRetry(() => import('./pages/TasksPage'));
 const AdminDashboardPage = lazyWithRetry(() => import('./pages/AdminDashboardPage'));
 const SpeakingCoachPage = lazyWithRetry(() => import('./pages/SpeakingCoachPage'));
 const IeltsHubPage = lazyWithRetry(() => import('./pages/IeltsHubPage'));
@@ -199,7 +198,7 @@ const App: React.FC = () => {
                                         <Route path="subjects/:id" element={<SubjectDetailPage />} />
                                         <Route path="plan" element={<Navigate to="/personal-plan" replace />} />
                                         <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
-                                        <Route path="tasks" element={<TasksPage />} />
+                                        <Route path="tasks" element={<Navigate to="/personal-plan" replace />} />
                                         <Route path="focus" element={<FocusPage />} />
                                         <Route path="notes" element={<Navigate to="/jlpt" replace />} />
                                         <Route path="notes/:id" element={<Navigate to="/jlpt" replace />} />

@@ -19,7 +19,7 @@ interface CommandItem {
 
 const COMMANDS: CommandItem[] = [
     // Boshqaruv
-    { id: 'tasks', title: 'Vazifalar & Reja', description: 'Rejalashtirilgan ishlar ro\'yxati', category: 'Boshqaruv', path: '/tasks', icon: CheckSquare, keywords: ['tasks', 'todo', 'ishlar', 'reja'] },
+    { id: 'plan', title: 'O\'quv Rejasi & Roadmap 🎯', description: 'Shaxsiy o\'rganish yo\'l xaritasi', category: 'Boshqaruv', path: '/personal-plan', icon: CheckSquare, keywords: ['plan', 'maqsad', 'reja', 'roadmap'] },
     { id: 'calendar', title: 'O\'quv Kalendari', description: 'Dars jadvali va voqealar', category: 'Boshqaruv', path: '/calendar', icon: Calendar, keywords: ['jadval', 'timetable', 'events', 'kun'] },
     { id: 'subjects', title: 'Fanlar & Kurslar', description: 'Fanlar va darsliklar boshqaruvi', category: 'Boshqaruv', path: '/subjects', icon: BookOpen, keywords: ['fan', 'dars', 'subjects', 'kurslar'] },
     

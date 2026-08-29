@@ -788,7 +788,7 @@ const DashboardPage: React.FC = () => {
                                 <ListTodo className="text-primary" size={24} />
                                 {t('dashboard.todayTasks')}
                             </h2>
-                            <Link to="/tasks" className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1">
+                            <Link to="/personal-plan" className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1">
                                 {t('common.all')} <ArrowRight size={16} />
                             </Link>
                         </div>
@@ -840,8 +840,8 @@ const DashboardPage: React.FC = () => {
                                     <p className="text-muted-foreground max-w-sm mx-auto mb-6">
                                         {language === 'ja' ? 'きょうの よていは すべて かんりょうしました。' : "Bugun uchun rejalashtirilgan vazifalar mavjud emas yoki hammasi bajarilgan."}
                                     </p>
-                                    <Link to="/tasks" className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
-                                        {language === 'ja' ? 'あたらしく タスクを ついか' : "Yangi vazifa qo'shish"}
+                                    <Link to="/personal-plan" className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
+                                        {language === 'ja' ? 'あたらしく けいかくを さくせい' : "Shaxsiy o'quv rejasiga o'tish"}
                                     </Link>
                                 </div>
                             )}
