@@ -9,6 +9,7 @@ import { Rating, Grade, getPreviewIntervals } from '../utils/srs';
 import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
+import { isFlashcardAnswerCorrect } from '../utils/flashcardMatching';
 
 const StudyModePage: React.FC = () => {
     const { subjectId } = useParams<{ subjectId?: string }>();
@@ -310,22 +311,34 @@ const StudyModePage: React.FC = () => {
                             onChange={(e) => { setTypedAnswer(e.target.value); setTypeResult(null); }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    const cleanTyped = typedAnswer.toLowerCase().trim();
-                                    const cleanBack = (currentCard?.back || '').toLowerCase();
-                                    if (cleanTyped && (cleanBack.includes(cleanTyped) || cleanTyped.includes(cleanBack.split('\n')[0].trim()))) {
-                                        setTypeResult('correct');
-                                        setTotalXpEarned(x => x + 25);
-                                        setTimeout(() => {
-                                            setTypedAnswer('');
-                                            setTypeResult(null);
-                                            if (currentCardIndex < queue.length - 1) {
-                                                setCurrentCardIndex(i => i + 1);
-                                            } else {
-                                                setIsFinished(true);
-                                            }
-                                        }, 1200);
+                                    if (typeResult === 'incorrect') {
+                                        setTypedAnswer('');
+                                        setTypeResult(null);
+                                        if (currentCardIndex < queue.length - 1) {
+                                            setCurrentCardIndex(i => i + 1);
+                                        } else {
+                                            completeLinkedPlanTask();
+                                            setIsFinished(true);
+                                        }
                                     } else {
-                                        setTypeResult('incorrect');
+                                        if (!typedAnswer.trim() || !currentCard) return;
+                                        const isCorrect = isFlashcardAnswerCorrect(typedAnswer, currentCard.back);
+                                        if (isCorrect) {
+                                            setTypeResult('correct');
+                                            setTotalXpEarned(x => x + 25);
+                                            setTimeout(() => {
+                                                setTypedAnswer('');
+                                                setTypeResult(null);
+                                                if (currentCardIndex < queue.length - 1) {
+                                                    setCurrentCardIndex(i => i + 1);
+                                                } else {
+                                                    completeLinkedPlanTask();
+                                                    setIsFinished(true);
+                                                }
+                                            }, 1100);
+                                        } else {
+                                            setTypeResult('incorrect');
+                                        }
                                     }
                                 }
                             }}
@@ -335,12 +348,13 @@ const StudyModePage: React.FC = () => {
                                 typeResult === 'incorrect' ? 'border-rose-500 bg-rose-500/10 text-rose-600' :
                                 'border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary'
                             }`}
+                            autoFocus
                         />
                         {typeResult === 'correct' && (
                             <p className="text-sm font-bold text-emerald-500 animate-bounce">✨ Muvaffaqiyatli! +25 XP</p>
                         )}
                         {typeResult === 'incorrect' && (
-                            <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs text-rose-500 text-left max-w-md mx-auto">
+                            <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs text-rose-500 text-left max-w-md mx-auto animate-in fade-in">
                                 <span className="font-bold block">To'g'ri ma'nosi:</span>
                                 <span className="whitespace-pre-line font-medium">{currentCard?.back}</span>
                             </div>
@@ -348,17 +362,39 @@ const StudyModePage: React.FC = () => {
                     </div>
                     <Button
                         onClick={() => {
-                            if (currentCardIndex < queue.length - 1) {
+                            if (typeResult === 'incorrect') {
                                 setTypedAnswer('');
                                 setTypeResult(null);
-                                setCurrentCardIndex(i => i + 1);
+                                if (currentCardIndex < queue.length - 1) {
+                                    setCurrentCardIndex(i => i + 1);
+                                } else {
+                                    completeLinkedPlanTask();
+                                    setIsFinished(true);
+                                }
                             } else {
-                                setIsFinished(true);
+                                if (!typedAnswer.trim() || !currentCard) return;
+                                const isCorrect = isFlashcardAnswerCorrect(typedAnswer, currentCard.back);
+                                if (isCorrect) {
+                                    setTypeResult('correct');
+                                    setTotalXpEarned(x => x + 25);
+                                    setTimeout(() => {
+                                        setTypedAnswer('');
+                                        setTypeResult(null);
+                                        if (currentCardIndex < queue.length - 1) {
+                                            setCurrentCardIndex(i => i + 1);
+                                        } else {
+                                            completeLinkedPlanTask();
+                                            setIsFinished(true);
+                                        }
+                                    }, 1100);
+                                } else {
+                                    setTypeResult('incorrect');
+                                }
                             }
                         }}
                         className="w-full py-3 font-bold rounded-2xl"
                     >
-                        {typeResult === 'incorrect' ? "Keyingi Kartaga o'tish →" : "Tekshirish / Keyingisi →"}
+                        {typeResult === 'incorrect' ? "Keyingi Kartaga o'tish →" : "Tekshirish (Enter) →"}
                     </Button>
                 </div>
             ) : (

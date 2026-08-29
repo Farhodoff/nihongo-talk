@@ -68,6 +68,9 @@ export const callDeepSeek = async (
         const lower = rawMsg.toLowerCase();
 
         const errorCode = errObj?.error?.code || (typeof errObj?.error === 'string' ? errObj.error : null);
+        if (status === 401 || lower.includes('invalid api key') || lower.includes('authentication fails') || lower.includes('authentication') || lower.includes('unauthorized')) {
+            return "AI_UNAVAILABLE: DeepSeek API kaliti noto'g'ri sozlangan yoki muddati o'tgan (Authentication Fails). Iltimos Vercel Dashboard → Settings → Environment Variables bo'limida DEEPSEEK_API_KEY kalitini yangilang.";
+        }
         if (status === 503 || errorCode === 'AI_UNAVAILABLE' || errorCode === 'AI_NOT_CONFIGURED' || lower.includes('unavailable') || lower.includes('not configured')) {
             return "AI_UNAVAILABLE: AI xizmati vaqtincha mavjud emas. Iltimos birozdan so'ng qayta urinib ko'ring.";
         }
@@ -83,9 +86,6 @@ export const callDeepSeek = async (
         }
         if (lower.includes('balance') || lower.includes('insufficient')) {
             return "AI_UNAVAILABLE: DeepSeek hisobingizda mablag' (balans) tugagan. Iltimos DeepSeek hisobini to'ldiring.";
-        }
-        if (lower.includes('invalid api key') || lower.includes('authentication') || lower.includes('unauthorized')) {
-            return "AI_UNAVAILABLE: DeepSeek API kaliti noto'g'ri sozlangan. Iltimos kalitni tekshiring.";
         }
         if (rawMsg) {
             return `AI_ERROR (${status}): ${rawMsg}`;
@@ -131,13 +131,13 @@ export const callDeepSeek = async (
         } else {
             const errData = await response.json().catch(() => ({}));
             const errMsg = formatDeepSeekError(response.status, errData);
-            if (response.status === 429 || response.status === 503 || response.status === 402) {
+            if (response.status === 401 || response.status === 429 || response.status === 503 || response.status === 402) {
                 throw new Error(errMsg);
             }
             console.warn('[DeepSeek /api/deepseek] Server returned non-200, trying direct Supabase Edge:', response.status);
         }
     } catch (apiErr: any) {
-        if (apiErr?.message && (apiErr.message.includes('AI_RATE_LIMITED') || apiErr.message.includes('balans'))) {
+        if (apiErr?.message && (apiErr.message.includes('AI_RATE_LIMITED') || apiErr.message.includes('balans') || apiErr.message.includes('DEEPSEEK_API_KEY') || apiErr.message.includes('Authentication Fails'))) {
             throw apiErr;
         }
         console.warn('[DeepSeek /api/deepseek] Proxy notice, trying direct Edge Function:', apiErr?.message);
@@ -164,8 +164,17 @@ export const callDeepSeek = async (
             }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
+        } else {
+            const errData = await response.json().catch(() => ({}));
+            const errMsg = formatDeepSeekError(response.status, errData);
+            if (response.status === 401 || response.status === 429 || response.status === 503 || response.status === 402) {
+                throw new Error(errMsg);
+            }
         }
     } catch (directErr: any) {
+        if (directErr?.message && (directErr.message.includes('AI_RATE_LIMITED') || directErr.message.includes('balans') || directErr.message.includes('DEEPSEEK_API_KEY') || directErr.message.includes('Authentication Fails'))) {
+            throw directErr;
+        }
         console.warn('[DeepSeek Edge Direct] Notice, trying supabase.functions.invoke fallback:', directErr?.message);
     }
 
@@ -182,8 +191,16 @@ export const callDeepSeek = async (
             }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
+        } else if (error) {
+            const errMsg = formatDeepSeekError(500, { message: error.message });
+            if (error.message && (error.message.includes('401') || error.message.includes('Authentication') || error.message.includes('DEEPSEEK_API_KEY'))) {
+                throw new Error(errMsg);
+            }
         }
     } catch (sdkErr: any) {
+        if (sdkErr?.message && (sdkErr.message.includes('AI_RATE_LIMITED') || sdkErr.message.includes('balans') || sdkErr.message.includes('DEEPSEEK_API_KEY') || sdkErr.message.includes('Authentication Fails'))) {
+            throw sdkErr;
+        }
         console.warn('[DeepSeek SDK] SDK invocation error:', sdkErr?.message);
     }
 
