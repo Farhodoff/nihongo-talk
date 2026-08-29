@@ -40,6 +40,9 @@ const StudyModePage: React.FC = () => {
     const [editFront, setEditFront] = useState('');
     const [editBack, setEditBack] = useState('');
 
+    const [allAvailableCards, setAllAvailableCards] = useState<Flashcard[]>([]);
+    const [batchLimit, setBatchLimit] = useState<'10' | '25' | '50' | 'all'>('25');
+
     const currentSubject = subjects.find(s => s.id === subjectId);
 
     useEffect(() => {
@@ -54,12 +57,35 @@ const StudyModePage: React.FC = () => {
                 const due = flashcards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
                 targetSet = due.length > 0 ? due : flashcards;
             }
-            setQueue([...targetSet].sort(() => Math.random() - 0.5).slice(0, 20));
+            setAllAvailableCards(targetSet);
+            const limitNum = batchLimit === 'all' ? targetSet.length : parseInt(batchLimit, 10);
+            const initialQueue = [...targetSet].sort(() => Math.random() - 0.5).slice(0, limitNum);
+            setQueue(initialQueue);
             setIsQueueInitialized(true);
         } else if (flashcards.length === 0 && !loading && !isQueueInitialized) {
             setIsQueueInitialized(true);
         }
-    }, [subjectId, flashcards, isQueueInitialized, loading]);
+    }, [subjectId, flashcards, isQueueInitialized, loading, batchLimit]);
+
+    const handleBatchLimitChange = (newLimit: '10' | '25' | '50' | 'all') => {
+        setBatchLimit(newLimit);
+        const pool = allAvailableCards.length > 0 ? allAvailableCards : (
+            subjectId ? flashcards.filter(c => c.subjectId === subjectId) : flashcards
+        );
+        const limitNum = newLimit === 'all' ? pool.length : parseInt(newLimit, 10);
+        const newQueue = [...pool].sort(() => Math.random() - 0.5).slice(0, limitNum);
+        setQueue(newQueue);
+        setCurrentCardIndex(0);
+        setIsFlipped(false);
+        setIsFinished(false);
+        setTypeResult(null);
+        setTypedAnswer('');
+        const actualCount = newQueue.length;
+        toast({
+            title: "🎯 Sessiya hajmi yangilandi",
+            description: `Mashg'ulot uchun ${newLimit === 'all' ? `barcha (${actualCount} ta)` : `${actualCount} ta`} karta belgilandi.`
+        });
+    };
 
     const currentCard = queue[currentCardIndex];
 
@@ -204,18 +230,28 @@ const StudyModePage: React.FC = () => {
 
     if (isFinished || (queue.length === 0 && !loading && isQueueInitialized)) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
-                <div className="p-4 bg-emerald-500/10 rounded-full text-emerald-500 mb-4">
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6 space-y-6 animate-in fade-in">
+                <div className="p-4 bg-emerald-500/10 rounded-full text-emerald-500 mb-2">
                     <CheckCircle2 size={48} />
                 </div>
-                <h2 className="text-2xl font-black mb-2 text-foreground">Sessiya yakunlandi! 🎉</h2>
-                <p className="text-muted-foreground text-sm max-w-md mb-6">
-                    Barcha kartochkalar SuperMemo SM-2 algoritmi bo'yicha takrorlandi. Keyingi takrorlash sanasi avtomatik belgilandi.
-                </p>
-                {totalXpEarned > 0 && <p className="text-primary font-extrabold text-lg mb-6">+{totalXpEarned} XP to'pladingiz</p>}
-                <div className="flex items-center gap-3">
-                    <Button onClick={() => navigate('/vocabulary')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">Lug'atga o'tish</Button>
-                    <Button onClick={() => navigate(-1)} className="px-8 py-3 font-bold rounded-xl">Rejaga Qaytish</Button>
+                <div className="space-y-2">
+                    <h2 className="text-2xl font-black text-foreground">Sessiya yakunlandi! 🎉</h2>
+                    <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                        Barcha {queue.length > 0 ? `${queue.length} ta ` : ''}kartochkalar SuperMemo SM-2 algoritmi bo'yicha takrorlandi. Keyingi takrorlash sanasi avtomatik belgilandi.
+                    </p>
+                    {totalXpEarned > 0 && <p className="text-primary font-extrabold text-lg pt-1">+{totalXpEarned} XP to'pladingiz</p>}
+                </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <Button onClick={() => handleBatchLimitChange(batchLimit)} className="px-6 py-2.5 font-bold rounded-xl bg-primary text-primary-foreground shadow-md">
+                        🔄 Yana O'rganish ({batchLimit === 'all' ? 'Barchasi' : `${batchLimit} ta`})
+                    </Button>
+                    <Button onClick={() => navigate('/vocabulary')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">
+                        Lug'atga o'tish
+                    </Button>
+                    <Button onClick={() => navigate('/flashcards')} variant="outline" className="px-6 py-2.5 font-bold rounded-xl">
+                        To'plamlarga qaytish
+                    </Button>
                 </div>
             </div>
         );
@@ -238,8 +274,8 @@ const StudyModePage: React.FC = () => {
                     </div>
                 </div>
             )}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                     <button onClick={() => navigate(-1)} className="p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all" title="Orqaga">
                         <ArrowLeft size={20} />
                     </button>
@@ -257,6 +293,25 @@ const StudyModePage: React.FC = () => {
                         >
                             ✏️ Yozib Tekshirish
                         </button>
+                    </div>
+
+                    {/* Configurable Batch Size Selector */}
+                    <div className="flex items-center gap-1 bg-muted/70 p-1 rounded-xl border border-border">
+                        <span className="text-[10px] font-bold text-muted-foreground px-1.5 hidden sm:inline">Hajm:</span>
+                        {(['10', '25', '50', 'all'] as const).map(option => (
+                            <button
+                                key={option}
+                                onClick={() => handleBatchLimitChange(option)}
+                                className={`px-2 py-1 text-xs font-bold rounded-lg transition-all ${
+                                    batchLimit === option
+                                        ? 'bg-primary text-primary-foreground shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                title={option === 'all' ? 'To\'plamdagi barcha kartalar' : `${option} ta karta`}
+                            >
+                                {option === 'all' ? 'Barchasi' : option}
+                            </button>
+                        ))}
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
