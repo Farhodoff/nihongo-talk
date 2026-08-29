@@ -80,9 +80,10 @@ const SpeakingCoachPage: React.FC = () => {
 
     useEffect(() => {
         if (scenarioIdParam) {
-            if (activeScenarioRef.current?.id === scenarioIdParam) return;
+            const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
+            if (activeScenarioRef.current?.id === scenarioIdParam || activeScenarioRef.current?.id === normalizedParam) return;
             ScenarioService.getScenarios().then(scenarios => {
-                const found = scenarios.find(s => s.id === scenarioIdParam);
+                const found = scenarios.find(s => s.id === scenarioIdParam || s.id === normalizedParam);
                 if (found) {
                     setActiveScenario(found);
                     const sLang = found.language || (found.title_en ? 'en' : 'ja');

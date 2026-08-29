@@ -560,7 +560,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
         is_custom: false
     },
     {
-        id: 'shakai mondai_iken',
+        id: 'shakai_mondai_iken',
         language: 'ja',
         title_ja: '社会問題について意見を述べる',
         title_uz: "Ijtimoiy masala bo'yicha fikr bildirish",
@@ -614,25 +614,6 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 3. 最後に論点を整理し、説得力のある結論を述べさせます。
 必須フレーズ: 〜とは限りません, 〜を踏まえると, 一概には言えません, 反対意見として, 結論として`,
         key_phrases: ['〜とは限りません', '〜を踏まえると', '一概には言えません', '反対意見として', '結論として'],
-        is_custom: false
-    },
-    {
-        id: 'business_koushou',
-        language: 'ja',
-        title_ja: 'ビジネス交渉 (Business Negotiation)',
-        title_uz: "Biznes muzokara va shartnoma shartlari",
-        emoji: '🏛️',
-        difficulty: 'N1',
-        category: 'business',
-        description_uz: "Yaponiyaning yirik kompaniyalari bilan loyiha narxi, muddat va shartnoma shartlarini mukammal Keigo va Sonkeigo bilan kelishish.",
-        opening_line_ja: 'いつも大変お世話になっております。本日は新規プロジェクトの契約条件につきましてご協議させていただきたく存じます。',
-        context_prompt: `あなたは日本の大手ITベンダーの事業部長です。パートナー企業の担当者（JLPT N1レベル）と高度なビジネス交渉を行ってください。
-思考の流れ・会話の目標:
-1. プロジェクトの納入期限（納期）、予算（コスト）、要件定義について双方の妥協点を交渉します。
-2. 完璧な最高レベルのビジネス敬語（尊敬語・謙譲語）を駆使し、論理的な提案を求めます。
-3. リスク管理やアフターサポート体制について合意を取り、今後の良好な関係を確認して締めくくります。
-必須フレーズ: 協議させていただきたく存じます, 納期と予算の件, ご期待に沿えるよう, 検討させていただきます, 引き続きよろしくお願い申し上げます`,
-        key_phrases: ['協議させていただきたく存じます', '納期と予算の件', 'ご期待に沿えるよう', '検討させていただきます', '引き続きよろしくお願い申し上げます'],
         is_custom: false
     }
 ];
