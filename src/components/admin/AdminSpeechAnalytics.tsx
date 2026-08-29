@@ -93,12 +93,24 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 }
             } catch {}
 
-            // 2. Fetch primary speaking_sessions table sequentially
+            // 2. Fetch via get_admin_all_sessions RPC or fallback to direct table queries
             let speakData: any[] | null = null;
             try {
-                const speakRes = await supabase.from('speaking_sessions').select('*').limit(300);
-                speakData = speakRes.data;
+                const rpcRes = await supabase.rpc('get_admin_all_sessions');
+                if (!rpcRes.error && rpcRes.data) {
+                    const sObj = typeof rpcRes.data === 'string' ? JSON.parse(rpcRes.data) : rpcRes.data;
+                    if (sObj && typeof sObj === 'object' && Array.isArray(sObj.speaking_sessions)) {
+                        speakData = sObj.speaking_sessions;
+                    }
+                }
             } catch {}
+
+            if (!speakData || speakData.length === 0) {
+                try {
+                    const speakRes = await supabase.from('speaking_sessions').select('*').limit(300);
+                    speakData = speakRes.data;
+                } catch {}
+            }
             if (speakData && speakData.length > 0) {
                 speakData.forEach((item: any) => {
                     list.push({

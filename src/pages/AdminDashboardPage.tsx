@@ -258,12 +258,12 @@ const AdminDashboardPage: React.FC = () => {
             const spRes = await supabase.from('speaking_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
             if (spRes.data && Array.isArray(spRes.data) && spRes.data.length > 0) speakingData = spRes.data;
             newStatus.speakingSessions = {
-                ok: !spRes.error,
+                ok: speakingData.length > 0 || !spRes.error,
                 count: speakingData.length || spRes.count || 0,
-                error: spRes.error?.message || null
+                error: speakingData.length > 0 ? null : (spRes.error?.message || null)
             };
         } catch (err: any) {
-            newStatus.speakingSessions = { ok: false, count: speakingData.length, error: err.message };
+            newStatus.speakingSessions = { ok: speakingData.length > 0, count: speakingData.length, error: speakingData.length > 0 ? null : err.message };
         }
 
         // speaking_coach_sessions query fallback
@@ -271,12 +271,12 @@ const AdminDashboardPage: React.FC = () => {
             const scRes = await supabase.from('speaking_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
             if (scRes.data && Array.isArray(scRes.data) && scRes.data.length > 0) coachData = scRes.data;
             newStatus.speakingCoachSessions = {
-                ok: !scRes.error,
+                ok: coachData.length > 0 || !scRes.error,
                 count: coachData.length || scRes.count || 0,
-                error: scRes.error?.message || null
+                error: coachData.length > 0 ? null : (scRes.error?.message || null)
             };
         } catch (err: any) {
-            newStatus.speakingCoachSessions = { ok: false, count: coachData.length, error: err.message };
+            newStatus.speakingCoachSessions = { ok: coachData.length > 0, count: coachData.length, error: coachData.length > 0 ? null : err.message };
         }
 
         // ai_coach_sessions query fallback
@@ -284,12 +284,12 @@ const AdminDashboardPage: React.FC = () => {
             const aiRes = await supabase.from('ai_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
             if (aiRes.data && Array.isArray(aiRes.data) && aiRes.data.length > 0) aiCoachData = aiRes.data;
             newStatus.aiCoachSessions = {
-                ok: !aiRes.error,
+                ok: aiCoachData.length > 0 || !aiRes.error,
                 count: aiCoachData.length || aiRes.count || 0,
-                error: aiRes.error?.message || null
+                error: aiCoachData.length > 0 ? null : (aiRes.error?.message || null)
             };
         } catch (err: any) {
-            newStatus.aiCoachSessions = { ok: false, count: aiCoachData.length, error: err.message };
+            newStatus.aiCoachSessions = { ok: aiCoachData.length > 0, count: aiCoachData.length, error: aiCoachData.length > 0 ? null : err.message };
         }
 
         // study_sessions query fallback
@@ -297,12 +297,12 @@ const AdminDashboardPage: React.FC = () => {
             const stRes = await supabase.from('study_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
             if (stRes.data && Array.isArray(stRes.data) && stRes.data.length > 0) studyData = stRes.data;
             newStatus.studySessions = {
-                ok: !stRes.error,
+                ok: studyData.length > 0 || !stRes.error,
                 count: studyData.length || stRes.count || 0,
-                error: stRes.error?.message || null
+                error: studyData.length > 0 ? null : (stRes.error?.message || null)
             };
         } catch (err: any) {
-            newStatus.studySessions = { ok: false, count: studyData.length, error: err.message };
+            newStatus.studySessions = { ok: studyData.length > 0, count: studyData.length, error: studyData.length > 0 ? null : err.message };
         }
 
         setTableStatus(newStatus);

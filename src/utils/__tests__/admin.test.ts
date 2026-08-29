@@ -33,18 +33,23 @@ describe('Admin Email Security & English Track Gating Tests', () => {
         expect(isSuperAdmin('  fsoyilov@gmail.com  ')).toBe(true);
         expect(isEnglishTrackAllowed('fsoyilov@gmail.com')).toBe(true);
 
-        // Removed aliases must NOT be super admins
+        // All other emails are strictly regular users
+        expect(isSuperAdmin('fsoyilovv@gmail.com')).toBe(false);
+        expect(isAdminEmail('fsoyilovv@gmail.com')).toBe(false);
+        expect(isSuperAdmin('soyilovfarhod157@gmail.com')).toBe(false);
+        expect(isAdminEmail('soyilovfarhod157@gmail.com')).toBe(false);
+        expect(isSuperAdmin('testadmin2026@nihon-talk.com')).toBe(false);
+        expect(isAdminEmail('testadmin2026@nihon-talk.com')).toBe(false);
+
         expect(isSuperAdmin('fsayilov.ml@gmail.com')).toBe(false);
         expect(isSuperAdmin('f.sayilov.ml@gmail.com')).toBe(false);
         expect(isSuperAdmin('fsoyilov.ml@gmail.com')).toBe(false);
         expect(isEnglishTrackAllowed('fsayilov.ml@gmail.com')).toBe(false);
         expect(isEnglishTrackAllowed('f.sayilov.ml@gmail.com')).toBe(false);
 
-        // Former admin candidates are strictly regular users
-        expect(isAdminEmail('soyilovfarhod157@gmail.com')).toBe(false);
+        // Former non-admin candidates are strictly regular users
         expect(isAdminEmail('220075f@jdu.uz')).toBe(false);
         expect(isAdminEmail('ssoyilov7700@gmail.com')).toBe(false);
-        expect(isAdminEmail('fsoyilovv@gmail.com')).toBe(false);
 
         // Non-super admin cannot access English track
         expect(isEnglishTrackAllowed('student@gmail.com')).toBe(false);
