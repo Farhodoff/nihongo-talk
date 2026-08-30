@@ -15,9 +15,9 @@ export default defineConfig({
             manifest: {
                 name: "Nihongo Talk",
                 short_name: "Nihongo Talk",
-                description: 'Nihongo Talk — Aqlli o\'quv rejalashtiruvchisi va AI yordamchisi',
-                theme_color: '#6366f1',
-                background_color: '#f8fafc',
+                description: 'Nihongo Talk — Aqlli yapon tili o\'quv platformasi va AI Speaking Coach',
+                theme_color: '#E8483A',
+                background_color: '#0F1419',
                 display: 'standalone',
                 orientation: 'portrait',
                 scope: '/',
@@ -83,7 +83,7 @@ export default defineConfig({
                         urlPattern: ({ request }) => request.mode === 'navigate',
                         handler: 'NetworkFirst',
                         options: {
-                            cacheName: 'html-pages-cache',
+                            cacheName: 'html-pages-cache-v2',
                             networkTimeoutSeconds: 3,
                             expiration: {
                                 maxEntries: 10,
