@@ -1,0 +1,69 @@
+=================================================================
+QOIDA GURUHI: ADMIN PANEL VA FOYDALANUVCHI ROLLARI DAXLSIZLIGI
+=================================================================
+
+1. YAGONA SUPERADMIN QOIDASI
+   - Loyihada FAQAT VA FAQAT "fsoyilov@gmail.com" superadmin bo'lishi mumkin.
+   - Boshqa hech qanday email (test, eski, yangi, "vaqtinchalik", debug uchun
+     ham) profiles.role, admin.ts dagi email ro'yxatlari, yoki SQL
+     funksiyalari (is_admin, get_admin_all_users va h.k.) ichiga
+     QO'SHILMASIN.
+   - Test qilish kerak bo'lsa, alohida test hisobi yaratiladi, lekin unga
+     HECH QACHON admin/superadmin roli berilmaydi.
+
+2. TASDIQ TALAB QILINADIGAN O'ZGARISHLAR (Pre-approval Required)
+   Quyidagilarga tegishli HAR QANDAY o'zgarish — kod, SQL, migratsiya, DB
+   UPDATE — FOYDALANUVCHIDAN OLDINDAN ANIQ YOZMA RUXSAT olinmasdan
+   BOSHLANMAYDI:
+     - profiles.role ustuni
+     - src/utils/admin.ts (SUPER_ADMIN_EMAILS, DEFAULT_ADMIN_EMAILS)
+     - is_admin(), get_admin_all_users(), get_admin_all_sessions(),
+       get_admin_database_metrics() SQL funksiyalari va ularning GRANT'lari
+     - Admin panelga tegishli har qanday RLS policy
+   Ruxsat so'rash formati: "Men X ni Y sababli o'zgartirmoqchiman, tasdiqlaysizmi?"
+   — taxmin qilib avval bajarib, keyin xabar berish TAQIQLANADI.
+
+3. PUSH QILISHDAN OLDIN MAJBURIY TASDIQ (Push Gate)
+   Admin panelga yoki foydalanuvchi rollariga tegishli HECH QANDAY commit
+   foydalanuvchining ANIQ "ha, push qil" so'zisiz origin/main'ga
+   yuborilmaydi — natija qanchalik ishonchli ko'rinishidan qat'iy nazar.
+
+4. HAR BIR O'ZGARISHDAN KEYINGI MAJBURIY TEKSHIRUV
+   Admin panelga tegishli har qanday ish tugagach, quyidagi SQL ishga
+   tushirilib, natija FOYDALANUVCHIGA TO'LIQ KO'RSATILADI:
+     SELECT email, role FROM profiles WHERE role IN ('admin', 'superadmin');
+   Natija FAQAT BITTA QATOR ("fsoyilov@gmail.com") bo'lmasa, ish
+   TUGALLANMAGAN hisoblanadi va boshqa hech narsaga o'tilmaydi.
+
+5. REAL (TAXMIN EMAS) TEKSHIRUV MAJBURIY
+   "Tuzatdim", "tozalandi", "ishlayapti" kabi umumiy javoblar YETARLI EMAS.
+   Har bir tuzatishdan keyin:
+     - Aniq fayl nomi + qator raqami ko'rsatilishi shart
+     - Real login sessiyasi bilan (yoki teng kuchga ega usul bilan) RPC/DB
+       chaqiruvlari sinovdan o'tkazilishi va aniq raqamlar (masalan
+       "Study Sessions: 48") ko'rsatilishi shart
+     - Agar biror narsa topilmasa, "topolmadim" deb ANIQ aytiladi — taxmin
+       qilib "hal bo'ldi" deb yozish TAQIQLANADI
+
+6. YON TA'SIRLARNI OLDINDAN TEKSHIRISH
+   Boshqa har qanday funksiya (Scenarios, Flashcards, cleanup, streaming va
+   h.k.) ustida ishlashdan oldin, agar o'zgarish RLS policy, SQL funksiya,
+   yoki migratsiya faylini o'z ichiga olsa — bu o'zgarish admin panel
+   funksiyalariga (is_admin, get_admin_all_users, get_admin_all_sessions,
+   GRANT'lar) ta'sir qilish ehtimoli borligi OLDINDAN tekshiriladi va
+   foydalanuvchiga xabar beriladi.
+
+7. ESKI MIGRATSIYALARGA DAXL QILMASLIK
+   Eski migratsiya fayllari (tarix sifatida) DROP/O'CHIRILMAYDI. Agar ular
+   ichida boshqa email uchun admin huquqi beruvchi qatorlar bo'lsa, bu
+   fayllar QAYTA ISHGA TUSHIRILMAYDI. Xavf mavjud bo'lsa, bu haqda
+   foydalanuvchiga xabar beriladi va yangi, zararsiz izoh (comment)
+   migratsiyasi orqali hujjatlashtiriladi — eski fayl o'zgartirilmaydi.
+
+8. QOIDABUZARLIK — JIDDIY XATO SIFATIDA QARALADI
+   Ushbu qoidalardan birortasi buzilsa (masalan qo'shimcha admin paydo
+   bo'lishi, tasdiqsiz push, taxminiy "tuzatildi" javobi), bu oddiy bag
+   emas, KRITIK XAVFSIZLIK NOSOZLIGI deb hisoblanadi — chunki bu boshqa
+   odamlarga foydalanuvchi ma'lumotlariga (email, sessiya tarixi,
+   transkriptlar) ruxsatsiz kirish imkonini beradi.
+=================================================================

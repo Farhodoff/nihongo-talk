@@ -148,10 +148,10 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
         try {
             const res = await fetchWithRetry(input, init, 2);
             if (res.status === 401) {
-                if (isAuth || isRpc) {
+                if (isAuth) {
                     return res;
                 }
-                // For non-RPC REST queries with expired auth token, try once with anon key
+                // For RPC and REST queries with expired auth token, try once with anon key
                 try {
                     const cleanHeaders = new Headers(init?.headers || {});
                     cleanHeaders.set('Authorization', `Bearer ${supabaseAnonKey}`);

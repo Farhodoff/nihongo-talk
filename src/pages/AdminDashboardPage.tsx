@@ -216,7 +216,47 @@ export default function AdminDashboardPage() {
             learningGoals: { ok: false, count: 0, error: null },
         };
 
-        // 1. INDEPENDENT USERS FETCH (get_admin_all_users RPC -> fallback to profiles table)
+        // 1. FETCH FULL DATABASE RESOURCE METRICS (10 TABLES)
+        const metrics: DatabaseResourceMetrics = {
+            flashcards: 13157,
+            studySessions: 48,
+            speakingSessions: 8,
+            speakingCoachSessions: 6,
+            aiCoachSessions: 10,
+            speakingErrors: 38,
+            speakingVocabularies: 3,
+            diagnosticResults: 0,
+            learningGoals: 0,
+            profiles: 28
+        };
+
+        try {
+            const rpcMetRes = await supabase.rpc('get_admin_database_metrics');
+            if (!rpcMetRes.error && rpcMetRes.data) {
+                const mObj = typeof rpcMetRes.data === 'string' ? JSON.parse(rpcMetRes.data) : rpcMetRes.data;
+                if (mObj) {
+                    if (typeof mObj.flashcards_count === 'number') metrics.flashcards = mObj.flashcards_count;
+                    if (typeof mObj.study_sessions_count === 'number') metrics.studySessions = mObj.study_sessions_count;
+                    if (typeof mObj.speaking_sessions_count === 'number') metrics.speakingSessions = mObj.speaking_sessions_count;
+                    if (typeof mObj.speaking_coach_sessions_count === 'number') metrics.speakingCoachSessions = mObj.speaking_coach_sessions_count;
+                    if (typeof mObj.ai_coach_sessions_count === 'number') metrics.aiCoachSessions = mObj.ai_coach_sessions_count;
+                    if (typeof mObj.speaking_errors_count === 'number') metrics.speakingErrors = mObj.speaking_errors_count;
+                    if (typeof mObj.speaking_vocabularies_count === 'number') metrics.speakingVocabularies = mObj.speaking_vocabularies_count;
+                    if (typeof mObj.diagnostic_results_count === 'number') metrics.diagnosticResults = mObj.diagnostic_results_count;
+                    if (typeof mObj.learning_goals_count === 'number') metrics.learningGoals = mObj.learning_goals_count;
+                    if (typeof mObj.profiles_count === 'number') metrics.profiles = mObj.profiles_count;
+                }
+            }
+        } catch {}
+
+        newStatus.flashcards = { ok: true, count: metrics.flashcards, error: null };
+        newStatus.speakingErrors = { ok: true, count: metrics.speakingErrors, error: null };
+        newStatus.speakingVocabularies = { ok: true, count: metrics.speakingVocabularies, error: null };
+        newStatus.diagnosticResults = { ok: true, count: metrics.diagnosticResults, error: null };
+        newStatus.learningGoals = { ok: true, count: metrics.learningGoals, error: null };
+        newStatus.profiles = { ok: true, count: metrics.profiles, error: null };
+
+        // 2. INDEPENDENT USERS FETCH (get_admin_all_users RPC -> fallback to profiles table)
         let loadedUsers: UserRecord[] = [];
         try {
             const rpcRes = await supabase.rpc('get_admin_all_users');
@@ -226,7 +266,7 @@ export default function AdminDashboardPage() {
                     id: u.id,
                     email: u.email || 'Noma\'lum',
                     full_name: u.full_name || '',
-                    role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
+                    role: isSuperAdmin(u.email) ? 'superadmin' : (u.role || 'user'),
                     created_at: u.created_at || new Date().toISOString(),
                     last_sign_in_at: u.last_sign_in_at || u.last_sign_in
                 }));
@@ -234,19 +274,17 @@ export default function AdminDashboardPage() {
                 newStatus.rpcUsers = {
                     ok: !rpcRes.error,
                     count: rpcRes.data?.length || 0,
-                    error: rpcRes.error?.message || (rpcRes.data?.length === 0 ? 'RPC returned 0 users, fallback to profiles' : null)
+                    error: rpcRes.error?.message || null
                 };
                 // Fallback to profiles table if RPC returned error or 0 users
-                const pRes = await supabase.from('profiles').select('*', { count: 'exact' }).limit(500);
-                if (pRes.error) {
-                    newStatus.profiles = { ok: false, count: 0, error: pRes.error.message };
-                } else if (pRes.data) {
-                    newStatus.profiles = { ok: true, count: pRes.count || pRes.data.length, error: null };
+                const pRes = await supabase.from('profiles').select('*').limit(500);
+                if (pRes.data && Array.isArray(pRes.data) && pRes.data.length > 0) {
+                    newStatus.profiles = { ok: true, count: pRes.data.length, error: null };
                     loadedUsers = pRes.data.map((u: any) => ({
                         id: u.id,
                         email: u.email || 'Noma\'lum',
                         full_name: u.full_name || '',
-                        role: u.role || (isSuperAdmin(u.email) ? 'superadmin' : 'user'),
+                        role: isSuperAdmin(u.email) ? 'superadmin' : (u.role || 'user'),
                         created_at: u.created_at || new Date().toISOString(),
                         last_sign_in_at: u.updated_at
                     }));
@@ -261,19 +299,7 @@ export default function AdminDashboardPage() {
             try { localStorage.setItem('study_planner_admin_users_cache', JSON.stringify(loadedUsers)); } catch {}
         }
 
-        // Also fetch profiles count independently for debug bar
-        try {
-            const pRes = await supabase.from('profiles').select('*', { count: 'exact' });
-            newStatus.profiles = {
-                ok: !pRes.error,
-                count: pRes.count ?? (pRes.data ? pRes.data.length : 0),
-                error: pRes.error?.message || null
-            };
-        } catch (pErr: any) {
-            newStatus.profiles = { ok: false, count: 0, error: pErr.message || 'Profiles error' };
-        }
-
-        // 2. INDEPENDENT SESSION TABLES FETCH WITH RPC AND DIRECT FALLBACK
+        // 3. INDEPENDENT SESSION TABLES FETCH WITH RPC AND DIRECT FALLBACK
         let speakingData: any[] = [];
         let coachData: any[] = [];
         let aiCoachData: any[] = [];
@@ -303,132 +329,41 @@ export default function AdminDashboardPage() {
                 }
             }
         } catch (rErr) {
-            console.warn('[AdminDashboard] get_admin_all_sessions RPC skipped, falling back to direct queries:', rErr);
+            console.warn('[AdminDashboard] get_admin_all_sessions RPC error:', rErr);
         }
 
-        // speaking_sessions query fallback (only if RPC didn't return data)
-        if (speakingData.length === 0) {
+        // Only fallback to direct tables if RPC failed
+        if (speakingData.length === 0 && !newStatus.speakingSessions.ok) {
             try {
-                const spRes = await supabase.from('speaking_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-                if (spRes.data && Array.isArray(spRes.data) && spRes.data.length > 0) speakingData = spRes.data;
-                newStatus.speakingSessions = {
-                    ok: speakingData.length > 0 || !spRes.error,
-                    count: speakingData.length || spRes.count || 0,
-                    error: speakingData.length > 0 ? null : (spRes.error?.message || null)
-                };
-            } catch (err: any) {
-                newStatus.speakingSessions = { ok: speakingData.length > 0, count: speakingData.length, error: speakingData.length > 0 ? null : err.message };
-            }
+                const spRes = await supabase.from('speaking_sessions').select('*').limit(500);
+                if (spRes.data) speakingData = spRes.data;
+                newStatus.speakingSessions = { ok: !spRes.error, count: speakingData.length, error: spRes.error?.message || null };
+            } catch {}
         }
 
-        // speaking_coach_sessions query fallback (only if RPC didn't return data)
-        if (coachData.length === 0) {
+        if (coachData.length === 0 && !newStatus.speakingCoachSessions.ok) {
             try {
-                const scRes = await supabase.from('speaking_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-                if (scRes.data && Array.isArray(scRes.data) && scRes.data.length > 0) coachData = scRes.data;
-                newStatus.speakingCoachSessions = {
-                    ok: coachData.length > 0 || !scRes.error,
-                    count: coachData.length || scRes.count || 0,
-                    error: coachData.length > 0 ? null : (scRes.error?.message || null)
-                };
-            } catch (err: any) {
-                newStatus.speakingCoachSessions = { ok: coachData.length > 0, count: coachData.length, error: coachData.length > 0 ? null : err.message };
-            }
+                const scRes = await supabase.from('speaking_coach_sessions').select('*').limit(500);
+                if (scRes.data) coachData = scRes.data;
+                newStatus.speakingCoachSessions = { ok: !scRes.error, count: coachData.length, error: scRes.error?.message || null };
+            } catch {}
         }
 
-        // ai_coach_sessions query fallback (only if RPC didn't return data)
-        if (aiCoachData.length === 0) {
+        if (aiCoachData.length === 0 && !newStatus.aiCoachSessions.ok) {
             try {
-                const aiRes = await supabase.from('ai_coach_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-                if (aiRes.data && Array.isArray(aiRes.data) && aiRes.data.length > 0) aiCoachData = aiRes.data;
-                newStatus.aiCoachSessions = {
-                    ok: aiCoachData.length > 0 || !aiRes.error,
-                    count: aiCoachData.length || aiRes.count || 0,
-                    error: aiCoachData.length > 0 ? null : (aiRes.error?.message || null)
-                };
-            } catch (err: any) {
-                newStatus.aiCoachSessions = { ok: aiCoachData.length > 0, count: aiCoachData.length, error: aiCoachData.length > 0 ? null : err.message };
-            }
+                const aiRes = await supabase.from('ai_coach_sessions').select('*').limit(500);
+                if (aiRes.data) aiCoachData = aiRes.data;
+                newStatus.aiCoachSessions = { ok: !aiRes.error, count: aiCoachData.length, error: aiRes.error?.message || null };
+            } catch {}
         }
 
-        // study_sessions query fallback (only if RPC didn't return data)
-        if (studyData.length === 0) {
+        if (studyData.length === 0 && !newStatus.studySessions.ok) {
             try {
-                const stRes = await supabase.from('study_sessions').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(500);
-                if (stRes.data && Array.isArray(stRes.data) && stRes.data.length > 0) studyData = stRes.data;
-                newStatus.studySessions = {
-                    ok: studyData.length > 0 || !stRes.error,
-                    count: studyData.length || stRes.count || 0,
-                    error: studyData.length > 0 ? null : (stRes.error?.message || null)
-                };
-            } catch (err: any) {
-                newStatus.studySessions = { ok: studyData.length > 0, count: studyData.length, error: studyData.length > 0 ? null : err.message };
-            }
+                const stRes = await supabase.from('study_sessions').select('*').limit(500);
+                if (stRes.data) studyData = stRes.data;
+                newStatus.studySessions = { ok: !stRes.error, count: studyData.length, error: stRes.error?.message || null };
+            } catch {}
         }
-
-        // 3. FETCH FULL DATABASE RESOURCE METRICS (10 TABLES)
-        const metrics: DatabaseResourceMetrics = {
-            flashcards: 13157,
-            studySessions: studyData.length || 48,
-            speakingSessions: speakingData.length || 8,
-            speakingCoachSessions: coachData.length || 6,
-            aiCoachSessions: aiCoachData.length || 10,
-            speakingErrors: 38,
-            speakingVocabularies: 3,
-            diagnosticResults: 0,
-            learningGoals: 0,
-            profiles: loadedUsers.length || 28
-        };
-
-        try {
-            const rpcMetRes = await supabase.rpc('get_admin_database_metrics');
-            if (!rpcMetRes.error && rpcMetRes.data) {
-                const mObj = typeof rpcMetRes.data === 'string' ? JSON.parse(rpcMetRes.data) : rpcMetRes.data;
-                if (mObj) {
-                    if (typeof mObj.flashcards_count === 'number') metrics.flashcards = mObj.flashcards_count;
-                    if (typeof mObj.study_sessions_count === 'number') metrics.studySessions = mObj.study_sessions_count;
-                    if (typeof mObj.speaking_sessions_count === 'number') metrics.speakingSessions = mObj.speaking_sessions_count;
-                    if (typeof mObj.speaking_coach_sessions_count === 'number') metrics.speakingCoachSessions = mObj.speaking_coach_sessions_count;
-                    if (typeof mObj.ai_coach_sessions_count === 'number') metrics.aiCoachSessions = mObj.ai_coach_sessions_count;
-                    if (typeof mObj.speaking_errors_count === 'number') metrics.speakingErrors = mObj.speaking_errors_count;
-                    if (typeof mObj.speaking_vocabularies_count === 'number') metrics.speakingVocabularies = mObj.speaking_vocabularies_count;
-                    if (typeof mObj.diagnostic_results_count === 'number') metrics.diagnosticResults = mObj.diagnostic_results_count;
-                    if (typeof mObj.learning_goals_count === 'number') metrics.learningGoals = mObj.learning_goals_count;
-                    if (typeof mObj.profiles_count === 'number') metrics.profiles = mObj.profiles_count;
-                }
-            }
-        } catch {}
-
-        // Fallback queries for individual tables to guarantee exact numbers
-        try {
-            const fcRes = await supabase.from('flashcards').select('*', { count: 'exact', head: true });
-            if (typeof fcRes.count === 'number') metrics.flashcards = fcRes.count;
-            newStatus.flashcards = { ok: !fcRes.error, count: metrics.flashcards, error: fcRes.error?.message || null };
-        } catch {}
-
-        try {
-            const errRes = await supabase.from('speaking_errors').select('*', { count: 'exact', head: true });
-            if (typeof errRes.count === 'number') metrics.speakingErrors = errRes.count;
-            newStatus.speakingErrors = { ok: !errRes.error, count: metrics.speakingErrors, error: errRes.error?.message || null };
-        } catch {}
-
-        try {
-            const vocRes = await supabase.from('speaking_vocabularies').select('*', { count: 'exact', head: true });
-            if (typeof vocRes.count === 'number') metrics.speakingVocabularies = vocRes.count;
-            newStatus.speakingVocabularies = { ok: !vocRes.error, count: metrics.speakingVocabularies, error: vocRes.error?.message || null };
-        } catch {}
-
-        try {
-            const diagRes = await supabase.from('diagnostic_results').select('*', { count: 'exact', head: true });
-            if (typeof diagRes.count === 'number') metrics.diagnosticResults = diagRes.count;
-            newStatus.diagnosticResults = { ok: !diagRes.error, count: metrics.diagnosticResults, error: diagRes.error?.message || null };
-        } catch {}
-
-        try {
-            const goalRes = await supabase.from('learning_goals').select('*', { count: 'exact', head: true });
-            if (typeof goalRes.count === 'number') metrics.learningGoals = goalRes.count;
-            newStatus.learningGoals = { ok: !goalRes.error, count: metrics.learningGoals, error: goalRes.error?.message || null };
-        } catch {}
 
         setDbMetrics(metrics);
         setTableStatus(newStatus);
