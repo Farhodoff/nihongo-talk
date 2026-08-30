@@ -603,15 +603,25 @@ export default function AdminDashboardPage() {
 
     useEffect(() => {
         let isMounted = true;
+        const safetyTimer = setTimeout(() => {
+            if (isMounted) setLoading(false);
+        }, 1200);
+
         (async () => {
             try {
                 await fetchAdminData();
             } finally {
-                if (isMounted) setLoading(false);
+                if (isMounted) {
+                    clearTimeout(safetyTimer);
+                    setLoading(false);
+                }
             }
         })();
-        return () => { isMounted = false; };
-    }, [fetchAdminData, authEmail]);
+        return () => {
+            isMounted = false;
+            clearTimeout(safetyTimer);
+        };
+    }, [fetchAdminData]);
 
     // Realtime Postgres Changes Subscription (debounced to prevent query storms)
     useEffect(() => {
@@ -1184,10 +1194,10 @@ export default function AdminDashboardPage() {
                             <div className="h-44 w-full pt-2">
                                 <SvgLineChart
                                     data={dailyStats.map(d => ({
-                                        xLabel: d.activity_date.substring(5),
-                                        value: chartMode === 'dau' ? d.active_users : d.total_duration_minutes,
-                                        fullDate: d.activity_date,
-                                        sessions: d.total_sessions
+                                        xLabel: (d.activity_date || d.date || '').substring(5),
+                                        value: chartMode === 'dau' ? (d.active_users || d.dau || 0) : (d.total_duration_minutes || d.duration || 0),
+                                        fullDate: d.activity_date || d.date || '',
+                                        sessions: d.total_sessions || d.sessions || 0
                                     }))}
                                     xKey="xLabel"
                                     series={[{ dataKey: 'value', stroke: chartMode === 'dau' ? '#6366f1' : '#a855f7', label: chartMode === 'dau' ? 'Faol O\'quvchilar' : 'Daqiqa' }]}

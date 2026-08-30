@@ -140,7 +140,7 @@ const FocusPage: React.FC = () => {
             />
 
             {/* Task Selector (New) */}
-            <div className="w-full max-w-sm mb-6" data-tour="focus-task-selector">
+            <div className="w-full max-w-sm mb-6">
                 <label className="block text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest text-center">
                     {language === 'ja' ? '現在取り組んでいるタスク' : 'Hozir nima ustida ishlayapsiz?'}
                 </label>
@@ -167,7 +167,7 @@ const FocusPage: React.FC = () => {
                 <p className="text-muted-foreground">{t('focus.subtitle')}</p>
             </div>
 
-            <div data-tour="focus-sound-mixer">
+            <div>
                 <SoundMixer
                     selectedSound={focusState.bgSound}
                     isMuted={focusState.isMuted}
@@ -180,7 +180,7 @@ const FocusPage: React.FC = () => {
 
             {/* Mode & Deep Work Duration Switcher */}
             <div className="flex flex-col items-center gap-3 mb-8">
-                <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50" data-tour="focus-mode-switcher">
+                <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50">
                     <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
                         {language === 'ja' ? '集中' : 'Fokus'}
                     </button>

@@ -802,7 +802,7 @@ const StudyRoomPage: React.FC = () => {
                     )}
  
                     {/* Media Controls Glassmorphism Floating Toolbar */}
-                    <div className="flex justify-center items-center gap-3 py-2.5 px-5 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl self-center" data-tour="room-media-controls">
+                    <div className="flex justify-center items-center gap-3 py-2.5 px-5 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl self-center">
                         <button
                             onClick={toggleAudio}
                             className={`p-3 rounded-xl border transition-all active:scale-95 flex items-center justify-center ${
@@ -836,7 +836,6 @@ const StudyRoomPage: React.FC = () => {
                                             : 'bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-200'
                                     }`}
                                     title={isScreenSharing ? 'Ekranni ulashishni to\'xtatish' : 'Ekranni ulashish'}
-                                    data-tour="room-screen-share"
                                 >
                                     {isScreenSharing ? <MonitorOff size={18} /> : <Monitor size={18} />}
                                 </button>
@@ -861,7 +860,7 @@ const StudyRoomPage: React.FC = () => {
                     <div className="w-full md:w-[460px] lg:w-[540px] bg-[#1e293b] border border-slate-700/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 relative animate-in fade-in slide-in-from-right-4">
                         {/* Panel Header */}
                         <div className="flex items-center justify-between bg-slate-900/80 px-5 py-4 border-b border-slate-800">
-                            <div className="flex items-center gap-2 text-white font-bold text-sm tracking-tight" data-tour="room-whiteboard-tab">
+                            <div className="flex items-center gap-2 text-white font-bold text-sm tracking-tight">
                                 <PenTool size={18} className="text-indigo-400" />
                                 <span>Oq Doska (Whiteboard)</span>
                             </div>

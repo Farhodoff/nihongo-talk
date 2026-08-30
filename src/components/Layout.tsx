@@ -22,7 +22,6 @@ interface NavItem {
     name: string;
     path: string;
     icon: React.ComponentType<any>;
-    tourId: string;
 }
 
 const Layout: React.FC = () => {
@@ -71,23 +70,23 @@ const Layout: React.FC = () => {
         // Super Admin can switch to English (IELTS) track for development
         if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain, tourId: 'nav-vocabulary' },
-                { name: 'IELTS Master', path: '/ielts', icon: BookOpen, tourId: 'nav-grammar' },
-                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles, tourId: 'nav-scenarios' },
-                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic, tourId: 'nav-speaking' },
-                { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-                { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain },
+                { name: 'IELTS Master', path: '/ielts', icon: BookOpen },
+                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles },
+                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic },
+                { name: 'Fleshkard', path: '/flashcards', icon: Copy },
+                { name: 'Pomodoro', path: '/focus', icon: Clock },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen, tourId: 'nav-kanji' },
-            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain, tourId: 'nav-vocabulary' },
-            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles, tourId: 'nav-scenarios' },
-            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic, tourId: 'nav-speaking' },
-            { name: 'Fleshkard', path: '/flashcards', icon: Copy, tourId: 'nav-flashcards' },
-            { name: 'Pomodoro', path: '/focus', icon: Clock, tourId: 'nav-focus' },
+            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen },
+            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
+            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
+            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
+            { name: 'Fleshkard', path: '/flashcards', icon: Copy },
+            { name: 'Pomodoro', path: '/focus', icon: Clock },
         ];
     }, [primaryLanguage, isSuper]);
 
@@ -118,7 +117,6 @@ const Layout: React.FC = () => {
                     key={item.path}
                     to={item.path}
                     onClick={onClick}
-                    data-tour={item.tourId}
                     className={({ isActive }) =>
                         `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 px-3.5 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium ${isActive
                             ? 'bg-primary/10 text-primary font-bold shadow-xs'
