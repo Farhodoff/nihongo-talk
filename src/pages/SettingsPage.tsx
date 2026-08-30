@@ -52,34 +52,32 @@ const SettingsPage: React.FC = () => {
     const userName = user?.user_metadata?.full_name || (displayEmail ? displayEmail.split('@')[0] : (language === 'ja' ? '学習者' : 'Talaba'));
 
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-6 pb-28 md:pb-12 animate-in fade-in duration-300">
-            {/* Hero Profile Banner */}
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-card p-6 md:p-8 shadow-xs">
-                {/* Background Ambient Glow */}
-                <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-
+        <div className="p-4 md:p-8 max-w-5xl mx-auto min-h-screen space-y-8 pb-28 md:pb-12 animate-in fade-in duration-300">
+            {/* Hero Profile Banner — Sumi-e & Hanko Aesthetic */}
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 md:p-8 shadow-xs">
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     {/* Left: Avatar & Identity */}
                     <div className="flex items-center gap-5">
-                        <div className="relative">
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-primary to-indigo-600 text-white flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg shadow-primary/25 border-2 border-background">
+                        <div className="relative shrink-0">
+                            {/* Neutral Sumi Avatar */}
+                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-muted/90 text-foreground flex items-center justify-center text-2xl md:text-3xl font-display font-black shadow-xs border border-border ring-1 ring-border/50">
                                 {userName.charAt(0).toUpperCase()}
                             </div>
-                            <div className="absolute -bottom-1.5 -right-1.5 px-2 py-0.5 rounded-full bg-background border border-border text-[10px] font-black text-primary shadow-xs">
+                            <div className="absolute -bottom-1.5 -right-1.5 px-2 py-0.5 rounded-full bg-card border border-border text-[10px] font-bold text-muted-foreground shadow-xs">
                                 Lvl {settings.level || 1}
                             </div>
                         </div>
-                        <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                                <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
+                        <div className="space-y-1">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                                <h1 className="text-2xl md:text-3xl font-display font-black text-foreground tracking-tight">
                                     {userName}
                                 </h1>
                                 {isCurrentSuperAdmin ? (
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-xs border border-rose-400/40">
+                                    <span className="badge-gold font-black">
                                         👑 SUPER ADMIN
                                     </span>
                                 ) : isCurrentAdmin ? (
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs border border-indigo-400/40">
+                                    <span className="badge-hanko font-black">
                                         🛡️ ADMIN
                                     </span>
                                 ) : (
@@ -88,53 +86,65 @@ const SettingsPage: React.FC = () => {
                                     </span>
                                 )}
                             </div>
-                            <p className="text-xs md:text-sm text-foreground/90 font-medium flex items-center gap-1.5 mt-1">
-                                <Mail size={14} className="text-primary shrink-0" />
-                                <span className="font-bold text-primary">{displayEmail}</span>
+                            <p className="text-xs md:text-sm text-muted-foreground font-medium flex items-center gap-1.5">
+                                <Mail size={14} className="text-muted-foreground shrink-0" />
+                                <span className="font-semibold text-foreground/90">{displayEmail}</span>
                             </p>
                         </div>
                     </div>
 
-                    {/* Right: 4 Quick Stats */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
-                            <div className="flex items-center justify-center gap-1 text-orange-500 mb-0.5">
+                    {/* Right: 4 Standout Quick Stats (Visual Hierarchy with Bold Numbers + Light Captions) */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                        <div className="p-3.5 rounded-2xl bg-muted/30 border border-border backdrop-blur-xs text-center transition-all hover:border-amber-500/30">
+                            <div className="flex items-center justify-center gap-1 text-[#C9A961] mb-1">
                                 <Flame size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? '連続日数' : 'Streak'}</span>
+                                <span className="text-[11px] font-bold uppercase tracking-wider">{language === 'ja' ? '連続日数' : 'Streak'}</span>
                             </div>
-                            <span className="text-base font-black text-foreground tabular-nums">
-                                {settings.currentStreak || 0} <span className="text-[11px] font-medium text-muted-foreground">{language === 'ja' ? '日' : 'kun'}</span>
-                            </span>
+                            <div className="text-xl md:text-2xl font-black text-foreground tabular-nums tracking-tight">
+                                {settings.currentStreak || 0}
+                            </div>
+                            <div className="text-[11px] font-medium text-muted-foreground mt-0.5">
+                                {language === 'ja' ? '日連続' : 'kun ketma-ket'}
+                            </div>
                         </div>
 
-                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
-                            <div className="flex items-center justify-center gap-1 text-primary mb-0.5">
+                        <div className="p-3.5 rounded-2xl bg-muted/30 border border-border backdrop-blur-xs text-center transition-all hover:border-border">
+                            <div className="flex items-center justify-center gap-1 text-[#C9A961] mb-1">
                                 <Award size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? 'ランク' : 'Daraja'}</span>
+                                <span className="text-[11px] font-bold uppercase tracking-wider">{language === 'ja' ? 'ランク' : 'Daraja'}</span>
                             </div>
-                            <span className="text-base font-black text-foreground tabular-nums">
-                                {settings.level || 1} <span className="text-[11px] font-medium text-muted-foreground">{rankTitle}</span>
-                            </span>
+                            <div className="text-xl md:text-2xl font-black text-foreground tabular-nums tracking-tight">
+                                {settings.level || 1}
+                            </div>
+                            <div className="text-[11px] font-medium text-muted-foreground mt-0.5 truncate max-w-[90px] mx-auto">
+                                {rankTitle}
+                            </div>
                         </div>
 
-                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
-                            <div className="flex items-center justify-center gap-1 text-indigo-500 mb-0.5">
+                        <div className="p-3.5 rounded-2xl bg-muted/30 border border-border backdrop-blur-xs text-center transition-all hover:border-border">
+                            <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1">
                                 <Clock size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? '目標時間' : 'Maqsad'}</span>
+                                <span className="text-[11px] font-bold uppercase tracking-wider">{language === 'ja' ? '目標時間' : 'Maqsad'}</span>
                             </div>
-                            <span className="text-base font-black text-foreground tabular-nums">
-                                {Math.floor((settings.dailyStudyGoalMinutes || 240) / 60)} <span className="text-[11px] font-medium text-muted-foreground">{language === 'ja' ? '時間/日' : 's/kun'}</span>
-                            </span>
+                            <div className="text-xl md:text-2xl font-black text-foreground tabular-nums tracking-tight">
+                                {Math.floor((settings.dailyStudyGoalMinutes || 240) / 60)}
+                            </div>
+                            <div className="text-[11px] font-medium text-muted-foreground mt-0.5">
+                                {language === 'ja' ? '時間/日' : 'soat/kun'}
+                            </div>
                         </div>
 
-                        <div className="p-3 rounded-2xl bg-background/80 border border-border backdrop-blur-xs text-center">
-                            <div className="flex items-center justify-center gap-1 text-emerald-500 mb-0.5">
+                        <div className="p-3.5 rounded-2xl bg-muted/30 border border-border backdrop-blur-xs text-center transition-all hover:border-emerald-500/30">
+                            <div className="flex items-center justify-center gap-1 text-emerald-500 mb-1">
                                 <Sparkles size={15} />
-                                <span className="text-xs font-bold uppercase tracking-wider">{language === 'ja' ? 'AIクレジット' : 'AI Kredit'}</span>
+                                <span className="text-[11px] font-bold uppercase tracking-wider">{language === 'ja' ? 'AIクレジット' : 'AI Kredit'}</span>
                             </div>
-                            <span className="text-base font-black text-foreground tabular-nums">
+                            <div className="text-base md:text-lg font-black text-emerald-600 dark:text-emerald-400 tracking-tight pt-1">
                                 {language === 'ja' ? '無制限' : 'Cheksiz'}
-                            </span>
+                            </div>
+                            <div className="text-[11px] font-medium text-muted-foreground mt-0.5">
+                                {language === 'ja' ? '完全無料' : 'Har doim bepul'}
+                            </div>
                         </div>
                     </div>
                 </div>

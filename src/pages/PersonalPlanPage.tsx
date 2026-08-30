@@ -407,7 +407,7 @@ export const PersonalPlanPage: React.FC = () => {
             {/* WIZARD FLOW */}
             {!activeGoal ? (
                 <div className="max-w-3xl mx-auto space-y-8">
-                    <div className="p-6 md:p-8 rounded-3xl glass-card border border-border bg-gradient-to-br from-card via-card to-primary/10 shadow-lg">
+                    <div className="p-6 md:p-8 rounded-3xl bg-card border border-border shadow-xl">
                         <div className="flex items-center gap-2 mb-2">
                             <Sparkles size={20} className="text-primary animate-pulse" />
                             <span className="text-xs font-black uppercase tracking-wider text-primary">AI-Powered Planning</span>
@@ -431,27 +431,27 @@ export const PersonalPlanPage: React.FC = () => {
                                     <button
                                         onClick={() => handleLangSelect('en')}
                                         className={`p-6 rounded-3xl border text-center transition-all ${
-                                            selectedLang === 'en' ? 'bg-primary/10 border-primary shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-primary/50'
+                                            selectedLang === 'en' ? 'bg-primary/10 border-primary shadow-xs scale-[1.01]' : 'border-border bg-card hover:border-primary/50'
                                         }`}
                                     >
                                         <span className="text-3xl block mb-2">🇬🇧</span>
                                         <span className="font-bold text-base block text-foreground">Ingliz Tili</span>
-                                        <span className="text-[10px] font-black uppercase text-indigo-400 block mt-1">Super Admin Preview</span>
+                                        <span className="text-[10px] font-black uppercase text-[#C9A961] block mt-1">Super Admin Preview</span>
                                     </button>
                                 )}
                                 <button
                                     onClick={() => handleLangSelect('ja')}
                                     className={`p-6 rounded-3xl border text-center transition-all ${
-                                        selectedLang === 'ja' ? 'bg-rose-500/10 border-rose-500 shadow-sm scale-[1.01]' : 'border-border glass-card hover:border-rose-500/50'
+                                        selectedLang === 'ja' ? 'bg-primary/10 border-primary shadow-xs scale-[1.01]' : 'border-border bg-card hover:border-primary/50'
                                     }`}
                                 >
                                     <span className="text-3xl block mb-2">🇯🇵</span>
                                     <span className="font-bold text-base block text-foreground">Yapon Tili (JLPT)</span>
-                                    <span className="text-[10px] font-black uppercase text-rose-500 block mt-1">★ ASOSIY FOKUS • N5 – N1</span>
+                                    <span className="text-[10px] font-black uppercase text-primary block mt-1">★ ASOSIY FOKUS • N5 – N1</span>
                                 </button>
                             </div>
                             <div className="flex justify-end pt-4">
-                                <button onClick={() => setStep(2)} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl flex items-center gap-2">
+                                <button onClick={() => setStep(2)} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl flex items-center gap-2 hover:bg-primary/90 transition-all">
                                     <span>{isUz ? 'Davom etish' : 'Continue'}</span>
                                 </button>
                             </div>
@@ -467,7 +467,7 @@ export const PersonalPlanPage: React.FC = () => {
                                     <button
                                         onClick={() => setSelectedGoalType('ielts')}
                                         className={`p-6 rounded-3xl border text-left transition-all ${
-                                            selectedGoalType === 'ielts' ? 'bg-primary/10 border-primary' : 'border-border glass-card'
+                                            selectedGoalType === 'ielts' ? 'bg-primary/10 border-primary' : 'border-border bg-card'
                                         }`}
                                     >
                                         <h4 className="font-bold text-base text-foreground">IELTS Imtihoni</h4>
@@ -476,7 +476,7 @@ export const PersonalPlanPage: React.FC = () => {
                                     <button
                                         onClick={() => setSelectedGoalType('general_en')}
                                         className={`p-6 rounded-3xl border text-left transition-all ${
-                                            selectedGoalType === 'general_en' ? 'bg-primary/10 border-primary' : 'border-border glass-card'
+                                            selectedGoalType === 'general_en' ? 'bg-primary/10 border-primary' : 'border-border bg-card'
                                         }`}
                                     >
                                         <h4 className="font-bold text-base text-foreground">General English</h4>
@@ -487,7 +487,7 @@ export const PersonalPlanPage: React.FC = () => {
                                 <div className="grid grid-cols-1 gap-4">
                                     <button
                                         onClick={() => setSelectedGoalType('jlpt')}
-                                        className="p-6 rounded-3xl border border-primary/20 bg-primary/5 text-left"
+                                        className="p-6 rounded-3xl border border-primary/30 bg-primary/5 text-left"
                                     >
                                         <h4 className="font-bold text-base text-foreground">JLPT Imtihoni (N5 - N1)</h4>
                                         <p className="text-xs text-muted-foreground mt-1">Yapon tili darajasini aniqlash imtihon strategiyalari.</p>
@@ -496,11 +496,11 @@ export const PersonalPlanPage: React.FC = () => {
                             )}
 
                             <div className="space-y-2 pt-2">
-                                <label className="block text-sm font-medium text-foreground">{isUz ? "Maqsadli Daraja (Target)" : "Target Destination Level"}</label>
+                                <label className="block text-sm font-bold text-foreground">{isUz ? "Maqsadli Daraja (Target)" : "Target Destination Level"}</label>
                                 <select
                                     value={targetsList.includes(targetLevel) ? targetLevel : targetsList[0] || ''}
                                     onChange={(e) => setTargetLevel(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground"
+                                    className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
                                 >
                                     {targetsList.map(t => <option key={t} value={t}>{t}</option>)}
                                 </select>
@@ -508,7 +508,7 @@ export const PersonalPlanPage: React.FC = () => {
 
                             <div className="flex justify-between pt-4">
                                 <button onClick={() => setStep(1)} className="px-5 py-2.5 bg-secondary text-foreground font-bold text-xs rounded-xl">Orqaga</button>
-                                <button onClick={() => setStep(3)} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl">Davom etish</button>
+                                <button onClick={() => setStep(3)} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl hover:bg-primary/90 transition-all">Davom etish</button>
                             </div>
                         </div>
                     )}
@@ -518,21 +518,20 @@ export const PersonalPlanPage: React.FC = () => {
                         <div className="space-y-6">
                             <h3 className="text-lg font-bold text-foreground">{isUz ? '3-Bosqich: Joriy darajangizni aniqlang' : 'Step 3: Establish Starting Level'}</h3>
 
-
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="p-6 rounded-3xl glass-card border border-border space-y-3 flex flex-col justify-between">
+                                <div className="p-6 rounded-3xl bg-card border border-border space-y-3 flex flex-col justify-between">
                                     <div>
                                         <h4 className="font-bold text-base text-foreground">{isUz ? "Bilimimni sinab ko'rmoqchiman" : "Unsure of Level?"}</h4>
                                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
                                             {isUz ? "10-15 ta adaptiv savoldan iborat diagnostik test topshirib, aniq darajangizni hisoblang." : "Conduct a rapid 10-15 question adaptive placement test first."}
                                         </p>
                                     </div>
-                                    <button onClick={handleNavigateToDiag} className="w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition-all">
+                                    <button onClick={handleNavigateToDiag} className="w-full py-3 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs shadow-md transition-all">
                                         Diagnostik Test Topshirish
                                     </button>
                                 </div>
 
-                                <div className="p-6 rounded-3xl glass-card border border-border space-y-3 flex flex-col justify-between">
+                                <div className="p-6 rounded-3xl bg-card border border-border space-y-3 flex flex-col justify-between">
                                     <div>
                                         <h4 className="font-bold text-base text-foreground">{isUz ? "Taxminiy darajani kiritish" : "Override Manually"}</h4>
                                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Joriy bilimingizni taxminan belgilang va yo'l xaritasini boshlang.</p>
@@ -542,8 +541,8 @@ export const PersonalPlanPage: React.FC = () => {
                                             value={currentLevelsList.includes(currentLevel) ? currentLevel : currentLevelsList[0] || ''}
                                             onChange={(e) => {
                                                 setCurrentLevel(e.target.value);
-                                                                                    }}
-                                            className="w-full px-3 py-2 rounded-xl border border-border bg-background/50 text-foreground text-xs"
+                                            }}
+                                            className="w-full px-3 py-2 rounded-xl border border-border bg-card text-foreground text-xs"
                                         >
                                             {currentLevelsList.map(cl => <option key={cl} value={cl}>{cl}</option>)}
                                         </select>
@@ -565,7 +564,7 @@ export const PersonalPlanPage: React.FC = () => {
                                         return;
                                     }
                                     setStep(4);
-                                }} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl">Davom etish</button>
+                                }} className="px-6 py-3 bg-primary text-primary-foreground font-black text-sm rounded-2xl hover:bg-primary/90 transition-all">Davom etish</button>
                             </div>
                         </div>
                     )}
@@ -581,7 +580,7 @@ export const PersonalPlanPage: React.FC = () => {
                                     <select
                                         value={deadlineMonths}
                                         onChange={(e) => setDeadlineMonths(Number(e.target.value))}
-                                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground text-sm"
+                                        className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground text-sm"
                                     >
                                         <option value={1}>1 Oy (Tezkor)</option>
                                         <option value={3}>3 Oy (Intensiv)</option>
@@ -617,7 +616,7 @@ export const PersonalPlanPage: React.FC = () => {
                                             }}
                                             placeholder="Masalan: 45"
                                             min={10} max={480}
-                                            className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground text-sm font-medium focus:ring-2 focus:ring-primary focus:outline-none"
+                                            className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground text-sm font-medium focus:ring-2 focus:ring-primary focus:outline-hidden"
                                         />
                                         <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-semibold">
                                             daqiqa
@@ -633,7 +632,7 @@ export const PersonalPlanPage: React.FC = () => {
                                                 className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border ${
                                                     dailyMinutes === preset
                                                         ? 'bg-primary text-primary-foreground border-primary'
-                                                        : 'bg-secondary/50 hover:bg-secondary border-border text-muted-foreground'
+                                                        : 'bg-card hover:bg-muted border-border text-muted-foreground'
                                                 }`}
                                             >
                                                 {preset} daq
@@ -648,21 +647,21 @@ export const PersonalPlanPage: React.FC = () => {
                                 <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
                                     <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={18} />
                                     <div>
-                                        <h5 className="text-xs font-black text-amber-600 dark:text-amber-400">{isUz ? "Agressiv Maqsad Ogohlantirishi" : "Highly Ambitious Target"}</h5>
+                                        <h5 className="text-xs font-black text-[#C9A961]">{isUz ? "Agressiv Maqsad Ogohlantirishi" : "Highly Ambitious Target"}</h5>
                                         <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{feasibility.warningMessage}</p>
                                     </div>
                                 </div>
                             )}
 
                             {/* Milestone Roadmap preview */}
-                            <div className="p-6 rounded-3xl glass-card border border-border space-y-4">
+                            <div className="p-6 rounded-3xl bg-card border border-border space-y-4 shadow-xl">
                                 <h4 className="font-bold text-sm text-foreground flex items-center gap-1.5">
                                     <Calendar size={16} className="text-primary" />
                                     {isUz ? "Yuqori darajadagi yo'l xaritasi (High-level Roadmap)" : "High-level Roadmap Milestones"}
                                 </h4>
                                 <div className="space-y-3">
                                     {roadmapMilestones.map((m, idx) => (
-                                        <div key={idx} className="flex gap-3 text-xs leading-relaxed border-l-2 border-primary/20 pl-3">
+                                        <div key={idx} className="flex gap-3 text-xs leading-relaxed border-l-2 border-primary/30 pl-3">
                                             <div>
                                                 <div className="font-bold text-foreground">{m.title}</div>
                                                 <div className="text-muted-foreground">{m.desc}</div>
@@ -674,7 +673,7 @@ export const PersonalPlanPage: React.FC = () => {
 
                             <div className="flex justify-between pt-4">
                                 <button onClick={() => setStep(3)} className="px-5 py-2.5 bg-secondary text-foreground font-bold text-xs rounded-xl">Orqaga</button>
-                                <button onClick={handleInitializePlan} className="px-6 py-3.5 bg-primary text-primary-foreground font-black text-sm rounded-2xl shadow-lg flex items-center gap-2">
+                                <button onClick={handleInitializePlan} className="px-6 py-3.5 bg-primary text-primary-foreground font-black text-sm rounded-2xl shadow-lg flex items-center gap-2 hover:bg-primary/90 transition-all">
                                     <Sparkles size={16} />
                                     <span>Shaxsiy Rejani Yaratish</span>
                                 </button>
@@ -687,7 +686,7 @@ export const PersonalPlanPage: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* LEFT PANEL: Goal Summary & Evaluations */}
                     <div className="lg:col-span-1 space-y-6">
-                        <div className="p-6 rounded-3xl glass-card border border-border space-y-4 bg-gradient-to-br from-card via-card to-primary/5">
+                        <div className="p-6 rounded-3xl bg-card border border-border space-y-4 shadow-xl">
                             <div className="flex items-center justify-between">
                                 <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
                                     {activeGoal.goalType.toUpperCase()} PLAN
@@ -723,7 +722,7 @@ export const PersonalPlanPage: React.FC = () => {
                         </div>
 
                         {/* Weekly evaluations history */}
-                        <div className="p-6 rounded-3xl glass-card border border-border space-y-4">
+                        <div className="p-6 rounded-3xl bg-card border border-border space-y-4 shadow-xl">
                             <h3 className="text-sm font-black uppercase tracking-wider text-foreground flex items-center gap-1.5">
                                 <Award size={16} className="text-primary" />
                                 <span>Haftalik Natijalar Tahlili</span>
@@ -736,7 +735,7 @@ export const PersonalPlanPage: React.FC = () => {
                                         <div key={idx} className="p-3.5 rounded-2xl bg-secondary/30 border border-border space-y-2">
                                             <div className="flex justify-between items-center">
                                                 <span className="text-xs font-black text-foreground">{e.weekNumber}-Hafta Natijalari</span>
-                                                <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-black">{e.completionRate}% completion</span>
+                                                <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 text-[10px] font-black">{e.completionRate}% completion</span>
                                             </div>
                                             <p className="text-xs text-muted-foreground leading-relaxed italic">"{e.aiFeedback}"</p>
                                         </div>
@@ -750,7 +749,7 @@ export const PersonalPlanPage: React.FC = () => {
                     <div className="lg:col-span-2 space-y-6">
                         {currentPlan ? (
                             <div className="space-y-4">
-                                <div className="p-6 rounded-3xl glass-card border border-border space-y-2">
+                                <div className="p-6 rounded-3xl bg-card border border-border space-y-2 shadow-xl">
                                     <h2 className="text-lg font-black text-foreground tracking-tight">{currentPlan.weekNumber}-Haftalik O'quv Rejasi</h2>
                                     <p className="text-xs text-muted-foreground leading-relaxed">
                                         <strong>Sabab/Tahlil:</strong> {currentPlan.reasoning}
@@ -772,7 +771,7 @@ export const PersonalPlanPage: React.FC = () => {
 
                                         return (
                                             <div key={dayPlan.day} className={`rounded-3xl border transition-all ${
-                                                isExpanded ? 'border-primary/30 shadow-md bg-card' : 'border-border glass-card'
+                                                isExpanded ? 'border-primary/40 shadow-md bg-card' : 'border-border bg-card'
                                             }`}>
                                                 <button
                                                     onClick={() => setExpandedDay(isExpanded ? '' : dayPlan.day)}
@@ -780,7 +779,7 @@ export const PersonalPlanPage: React.FC = () => {
                                                 >
                                                     <div className="flex items-center gap-3">
                                                         <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black uppercase ${
-                                                            isDayDone ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-secondary text-foreground'
+                                                            isDayDone ? 'bg-emerald-500/10 text-emerald-500' : 'bg-secondary text-foreground'
                                                         }`}>
                                                             {dayPlan.day.substring(0, 3)}
                                                         </span>
@@ -840,9 +839,9 @@ export const PersonalPlanPage: React.FC = () => {
                                 </div>
 
                                 {/* Weekly completion assessment trigger */}
-                                <div className="p-6 rounded-3xl bg-indigo-500/10 border border-indigo-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="p-6 rounded-3xl bg-primary/10 border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div className="space-y-1 text-center sm:text-left">
-                                        <h4 className="text-sm font-black text-indigo-600 dark:text-indigo-400">
+                                        <h4 className="text-sm font-black text-primary">
                                             Haftalik darslarni yakunladingizmi?
                                         </h4>
                                         <p className="text-xs text-muted-foreground leading-relaxed">
@@ -852,7 +851,7 @@ export const PersonalPlanPage: React.FC = () => {
                                     <button
                                         onClick={handleEvaluateWeek}
                                         disabled={evaluating}
-                                        className="px-5 py-2.5 bg-indigo-600 text-white font-black text-xs rounded-xl shadow-md hover:bg-indigo-700 transition-all flex items-center gap-1.5 shrink-0"
+                                        className="px-5 py-2.5 bg-primary text-primary-foreground font-black text-xs rounded-xl shadow-md hover:bg-primary/90 transition-all flex items-center gap-1.5 shrink-0"
                                     >
                                         {evaluating ? (
                                             <>
@@ -869,7 +868,7 @@ export const PersonalPlanPage: React.FC = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="p-8 text-center glass-card border border-border rounded-3xl space-y-4">
+                            <div className="p-8 text-center bg-card border border-border rounded-3xl space-y-4 shadow-xl">
                                 <Sparkles className="mx-auto text-primary" size={32} />
                                 <h3 className="text-base font-bold text-foreground">Haftalik reja tayyorlanmoqda</h3>
                                 <p className="text-xs text-muted-foreground max-w-sm mx-auto">
@@ -878,7 +877,7 @@ export const PersonalPlanPage: React.FC = () => {
                                 <div className="flex justify-center gap-3 pt-2">
                                     <button
                                         onClick={async () => {
-                                            if (!activeGoal) return;
+                                             if (!activeGoal) return;
                                             setLoading(true);
                                             const userId = user?.id || 'guest';
                                             try {
@@ -893,7 +892,7 @@ export const PersonalPlanPage: React.FC = () => {
                                             }
                                         }}
                                         disabled={loading}
-                                        className="px-6 py-2.5 bg-primary text-primary-foreground rounded-2xl font-bold text-xs shadow-md flex items-center gap-2 hover:opacity-90 transition-all"
+                                        className="px-6 py-2.5 bg-primary text-primary-foreground rounded-2xl font-bold text-xs shadow-md flex items-center gap-2 hover:bg-primary/90 transition-all"
                                     >
                                         {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
                                         <span>Haftalik Jadvalni Yaratish</span>

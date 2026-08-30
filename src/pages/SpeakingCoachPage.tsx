@@ -735,10 +735,10 @@ const SpeakingCoachPage: React.FC = () => {
             {/* Dynamic Ambient Background */}
             <div className={`absolute inset-0 bg-gradient-to-br ${currentPersona.gradientBg} transition-all duration-1000 pointer-events-none`} />
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-                <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-purple-500/10 dark:bg-purple-500/15 rounded-full blur-[120px]" style={{ animationDelay: '2s' }} />
+                <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+                <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#C9A961]/10 rounded-full blur-[120px]" style={{ animationDelay: '2s' }} />
                 {isLiveSession && (
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/5 dark:bg-indigo-600/10 rounded-full blur-[150px] animate-pulse" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] animate-pulse" />
                 )}
             </div>
 
@@ -767,21 +767,21 @@ const SpeakingCoachPage: React.FC = () => {
 
             {/* Active Conversation Scenario Banner */}
             {activeScenario && (
-                <div className="mx-3 md:mx-5 mt-1.5 p-3 bg-gradient-to-r from-indigo-950/90 via-purple-950/90 to-slate-900/90 border border-indigo-500/30 rounded-2xl text-white shadow-lg backdrop-blur-md flex items-center justify-between gap-4 z-10 animate-in fade-in shrink-0">
+                <div className="mx-3 md:mx-5 mt-1.5 p-3 bg-card border border-border rounded-2xl text-foreground shadow-md backdrop-blur-md flex items-center justify-between gap-4 z-10 animate-in fade-in shrink-0">
                     <div className="flex items-center gap-3 min-w-0">
-                        <div className="text-xl p-2 bg-indigo-500/20 rounded-xl border border-indigo-500/30 shrink-0">
+                        <div className="text-xl p-2 bg-muted rounded-xl border border-border shrink-0">
                             {activeScenario.emoji}
                         </div>
                         <div className="min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                                <span className="text-xs font-black text-white tracking-tight truncate">
+                                <span className="text-xs font-bold text-foreground tracking-tight truncate">
                                     {(activeScenario.language === 'en' ? activeScenario.title_en : activeScenario.title_ja) || activeScenario.title_en || activeScenario.title_ja} ({activeScenario.title_uz})
                                 </span>
-                                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-500/30 text-indigo-200 border border-indigo-500/40">
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#C9A961]/15 text-[#C9A961] border border-[#C9A961]/30">
                                     {activeScenario.language === 'en' ? 'CEFR / ' : 'JLPT '}{activeScenario.difficulty}
                                 </span>
                             </div>
-                            <p className="text-[11px] text-gray-300 truncate mt-0.5">
+                            <p className="text-[11px] text-muted-foreground truncate mt-0.5">
                                 {activeScenario.description_uz}
                             </p>
                         </div>
@@ -791,7 +791,7 @@ const SpeakingCoachPage: React.FC = () => {
                         onClick={() => {
                             setSearchParams({ lang: language });
                         }}
-                        className="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-gray-200 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1 shrink-0"
+                        className="px-2.5 py-1 bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border rounded-xl text-[11px] font-bold transition-all flex items-center gap-1 shrink-0 cursor-pointer"
                         title="Ssenariydan chiqish"
                     >
                         <X size={13} />

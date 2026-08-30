@@ -67,31 +67,31 @@ const FlashcardForm: React.FC = () => {
                 <h2 className="text-2xl font-bold text-foreground">Yangi Fleshkarta</h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="glass-card p-8 rounded-2xl border-border space-y-6">
+            <form onSubmit={handleSubmit} className="bg-card p-8 rounded-3xl border border-border space-y-6 shadow-xl">
                 <div>
                     <div className="flex justify-between items-center mb-2">
-                        <label className="block text-sm font-medium text-foreground">Fan</label>
+                        <label className="block text-sm font-bold text-foreground">Fan</label>
                         <button
                             type="button"
                             onClick={() => setIsCreatingNewSub(!isCreatingNewSub)}
-                            className="text-xs font-semibold text-primary hover:underline"
+                            className="text-xs font-bold text-primary hover:underline"
                         >
                             + Yangi Fan Yaratish
                         </button>
                     </div>
 
                     {isCreatingNewSub ? (
-                        <div className="p-4 bg-primary/5 rounded-xl border border-primary/20 space-y-3 mb-2">
+                        <div className="p-4 bg-primary/5 rounded-2xl border border-primary/20 space-y-3 mb-2">
                             <input
                                 type="text"
-                                placeholder="Fan nomi (masalan, Ingliz tili)..."
+                                placeholder="Fan nomi (masalan, Yapon tili)..."
                                 value={newSubName}
                                 onChange={(e) => setNewSubName(e.target.value)}
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground outline-none"
+                                className="w-full px-3 py-2 text-sm rounded-xl border border-border bg-card text-foreground outline-hidden focus:ring-2 focus:ring-primary"
                             />
                             <div className="flex items-center justify-between">
                                 <div className="flex gap-1.5">
-                                    {['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'].map(c => (
+                                    {['#E8483A', '#C9A961', '#10b981', '#3b82f6', '#8b5cf6'].map(c => (
                                         <button
                                             key={c}
                                             type="button"
@@ -112,7 +112,7 @@ const FlashcardForm: React.FC = () => {
                                     <button
                                         type="button"
                                         onClick={handleCreateSubjectInline}
-                                        className="px-3 py-1 text-xs bg-primary text-primary-foreground rounded-lg font-medium"
+                                        className="px-3 py-1 text-xs bg-primary text-primary-foreground rounded-lg font-bold"
                                     >
                                         Saqlash
                                     </button>
@@ -123,7 +123,7 @@ const FlashcardForm: React.FC = () => {
                         <select
                             value={subjectId}
                             onChange={(e) => setSubjectId(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary backdrop-blur-sm"
+                            className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
                         >
                             <option value="">Avtomatik Fan (yoki tanlang)</option>
                             {subjects.filter(s => !s.isArchived).map(s => (
@@ -134,29 +134,31 @@ const FlashcardForm: React.FC = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Old tomoni (Savol)</label>
+                    <label className="block text-sm font-bold text-foreground mb-2">Old tomoni (Savol / Ie / So'z)</label>
                     <textarea
                         value={front}
                         onChange={(e) => setFront(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none backdrop-blur-sm placeholder:text-muted-foreground"
-                        placeholder="masalan, O'zbekiston poytaxti qayer?"
+                        className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary h-32 resize-none placeholder:text-muted-foreground"
+                        placeholder="masalan, ありがとう (Arigatou)"
                         required
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Orqa tomoni (Javob)</label>
+                    <label className="block text-sm font-bold text-foreground mb-2">Orqa tomoni (Javob / Ma'nosi)</label>
                     <textarea
                         value={back}
                         onChange={(e) => setBack(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-background/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary h-32 resize-none backdrop-blur-sm placeholder:text-muted-foreground"
-                        placeholder="masalan, Toshkent"
+                        className="w-full px-4 py-3 rounded-2xl border border-border bg-card text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary h-32 resize-none placeholder:text-muted-foreground"
+                        placeholder="masalan, Rahmat, tashakkur"
                         required
                     />
                 </div>
 
                 <div className="pt-4">
-                    <Button type="submit" className="w-full py-4 text-lg">Fleshkarta Yaratish</Button>
+                    <Button type="submit" className="w-full py-4 text-base font-black rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-md">
+                        Fleshkarta Yaratish
+                    </Button>
                 </div>
             </form>
         </div>

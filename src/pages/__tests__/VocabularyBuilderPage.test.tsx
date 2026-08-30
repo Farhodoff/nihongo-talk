@@ -42,7 +42,7 @@ describe('VocabularyBuilderPage Component', () => {
             render(<VocabularyBuilderPage />);
         });
 
-        expect(screen.getByText(/Smart Vocabulary Builder 🧠/i)).toBeInTheDocument();
+        expect(screen.getByText(/Smart Vocabulary Builder/i)).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/So'z kiritib Enter bosing/i)).toBeInTheDocument();
         expect(screen.getByText('paramount (C1)')).toBeInTheDocument();
     });

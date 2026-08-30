@@ -38,10 +38,10 @@ export const PricingPage: React.FC = () => {
                 className="max-w-2xl w-full bg-card border border-border/80 rounded-3xl p-6 md:p-10 shadow-2xl text-center space-y-6 relative overflow-hidden"
             >
                 {/* Ambient Glow */}
-                <div className="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#C9A961]/10 rounded-full blur-3xl pointer-events-none" />
 
-                <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20 shadow-lg shadow-emerald-500/10">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto border border-primary/20 shadow-lg shadow-primary/10">
                     <Sparkles size={32} />
                 </div>
 
@@ -58,15 +58,15 @@ export const PricingPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left pt-2">
-                    <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-1">
+                    <div className="p-4 rounded-2xl bg-secondary/30 border border-border space-y-1">
                         <div className="flex items-center gap-2 text-xs font-bold text-foreground">
-                            <Mic size={16} className="text-indigo-500" />
+                            <Mic size={16} className="text-primary" />
                             <span>AI Speaking</span>
                         </div>
                         <p className="text-[11px] text-muted-foreground">Cheksiz jonli suhbatlar va tahlillar</p>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-1">
+                    <div className="p-4 rounded-2xl bg-secondary/30 border border-border space-y-1">
                         <div className="flex items-center gap-2 text-xs font-bold text-foreground">
                             <BookOpen size={16} className="text-emerald-500" />
                             <span>JLPT Hub</span>
@@ -74,9 +74,9 @@ export const PricingPage: React.FC = () => {
                         <p className="text-[11px] text-muted-foreground">Barcha darajadagi to'liq darslar</p>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-1">
+                    <div className="p-4 rounded-2xl bg-secondary/30 border border-border space-y-1">
                         <div className="flex items-center gap-2 text-xs font-bold text-foreground">
-                            <ShieldCheck size={16} className="text-purple-500" />
+                            <ShieldCheck size={16} className="text-[#C9A961]" />
                             <span>Cheklovlarsiz</span>
                         </div>
                         <p className="text-[11px] text-muted-foreground">Barcha o'quvchilar uchun erkin</p>

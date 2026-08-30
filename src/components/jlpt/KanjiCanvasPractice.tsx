@@ -152,7 +152,7 @@ export const KanjiCanvasPractice: React.FC = () => {
 
         // Reset brush settings
         context.setLineDash([]);
-        context.strokeStyle = '#6366f1'; // Indigo signature brush
+        context.strokeStyle = '#E8483A'; // Hanko Vermillion signature brush
         context.lineWidth = 6;
     };
 
@@ -177,9 +177,9 @@ export const KanjiCanvasPractice: React.FC = () => {
             const context = contextRef.current;
             if (!canvas || !context) return;
 
-            // Draw current stroke with red guidelines
-            context.strokeStyle = '#ef4444'; // Red brush for active simulation stroke
-            context.lineWidth = 4;
+            // Draw current stroke with vermillion guidelines
+            context.strokeStyle = '#E8483A'; // Hanko brush for active simulation stroke
+            context.lineWidth = 5;
             
             const pathData = activeKanji.strokePaths[currentStroke];
             // Basic parsing of absolute coordinates (e.g. M 30,20 L 30,80)
@@ -211,13 +211,13 @@ export const KanjiCanvasPractice: React.FC = () => {
     };
 
     return (
-        <div className="bg-card border border-border rounded-3xl p-6 shadow-sm space-y-6">
-            <div className="flex items-center gap-2 border-b border-border pb-3">
-                <div className="p-2 bg-rose-500/10 text-rose-600 rounded-xl">
-                    <Sparkles size={20} />
+        <div className="bg-card border border-border rounded-3xl p-6 shadow-xs space-y-6">
+            <div className="flex items-center gap-2.5 border-b border-border pb-3">
+                <div className="p-2 bg-muted rounded-xl text-[#C9A961] border border-border">
+                    <Sparkles size={18} />
                 </div>
                 <div>
-                    <h3 className="text-sm font-extrabold text-foreground">Interactive Kanji Stroke Writer</h3>
+                    <h3 className="text-sm font-display font-black text-foreground">Interactive Kanji Stroke Writer</h3>
                     <p className="text-[10px] text-muted-foreground mt-0.5">Yaponcha iyerogliflarni to'g'ri chizish ketma-ketligi (Canvas yordamida).</p>
                 </div>
             </div>
@@ -242,7 +242,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                         {/* Background guide template */}
                         {showGuides && !animationActive && (
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-10">
-                                <span className="text-[180px] font-serif text-slate-500 font-light">
+                                <span className="text-[180px] font-japanese font-light text-muted-foreground">
                                     {activeKanji.kanji}
                                 </span>
                             </div>
@@ -261,7 +261,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                         <Button
                             onClick={() => setShowGuides(prev => !prev)}
                             className={`px-3.5 py-2 border rounded-xl text-xs flex items-center gap-1.5 ${
-                                showGuides ? 'bg-indigo-500/10 border-indigo-500 text-indigo-600' : 'bg-muted/60 border-border text-muted-foreground'
+                                showGuides ? 'bg-amber-500/10 border-amber-500/30 text-[#C9A961]' : 'bg-muted/60 border-border text-muted-foreground'
                             }`}
                         >
                             <Eye size={14} />
@@ -270,7 +270,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                         <Button
                             onClick={animateStrokes}
                             disabled={animationActive}
-                            className="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs flex items-center gap-1.5 shadow-sm"
+                            className="px-3.5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-xs"
                         >
                             <HelpCircle size={14} />
                             Tartibni Ko'rish
@@ -281,12 +281,12 @@ export const KanjiCanvasPractice: React.FC = () => {
                 {/* Info & Navigation */}
                 <div className="space-y-4">
                     <div className="space-y-2 bg-muted/30 p-4 border border-border rounded-2xl">
-                        <span className="text-[10px] font-extrabold uppercase text-rose-500 tracking-wider">Aktiv iyeroglif</span>
-                        <h4 className="text-3xl font-black text-foreground">{activeKanji.kanji}</h4>
-                        <p className="text-xs text-muted-foreground font-semibold">Mano: {activeKanji.meaning}</p>
+                        <span className="text-[10px] font-extrabold uppercase text-[#C9A961] tracking-wider">Aktiv iyeroglif</span>
+                        <h4 className="text-3xl font-japanese font-black text-foreground">{activeKanji.kanji}</h4>
+                        <p className="text-xs text-muted-foreground font-semibold">Ma'nosi: {activeKanji.meaning}</p>
                         <p className="text-[10px] text-muted-foreground">Chiziqlar soni: {activeKanji.strokesCount} ta</p>
                         {currentStrokeAnim && (
-                            <span className="text-[10px] text-rose-500 font-extrabold animate-pulse block">
+                            <span className="text-[10px] text-[#E8483A] font-extrabold animate-pulse block">
                                 ✍️ Animatsiya: Chiziq {currentStrokeAnim} / {activeKanji.strokesCount}
                             </span>
                         )}
@@ -297,9 +297,9 @@ export const KanjiCanvasPractice: React.FC = () => {
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`py-3.5 rounded-xl border text-base font-black transition-all ${
+                                className={`py-3.5 rounded-xl border text-base font-japanese font-black transition-all ${
                                     currentIndex === idx
-                                        ? 'bg-rose-500 text-white border-rose-500 shadow-sm'
+                                        ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                                         : 'bg-muted/40 border-border text-muted-foreground hover:bg-muted'
                                 }`}
                             >

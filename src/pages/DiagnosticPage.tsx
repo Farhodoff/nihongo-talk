@@ -152,7 +152,7 @@ export const DiagnosticPage: React.FC = () => {
             {/* Step 1: Intro & Mode Selection */}
             {step === 'intro' && (
                 <div className="space-y-6">
-                    <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-4 shadow-md bg-gradient-to-br from-card via-card to-secondary/30">
+                    <div className="p-6 md:p-8 rounded-3xl bg-card border border-border space-y-4 shadow-xl">
                         <div className="flex items-center gap-2">
                             <span className="text-2xl">🇯🇵</span>
                             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -171,7 +171,7 @@ export const DiagnosticPage: React.FC = () => {
 
                     {/* Resume Banner if available */}
                     {hasSavedSession && (
-                        <div className="p-5 rounded-3xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="p-5 rounded-3xl bg-primary/10 border border-primary/30 flex flex-col sm:flex-row items-center justify-between gap-4">
                             <div className="flex items-center gap-3">
                                 <span className="text-2xl">⏳</span>
                                 <div>
@@ -185,7 +185,7 @@ export const DiagnosticPage: React.FC = () => {
                             </div>
                             <button
                                 onClick={() => handleStartTest(true)}
-                                className="px-5 py-2.5 rounded-2xl bg-amber-500 text-white font-bold text-xs shadow-md hover:bg-amber-600 transition-all flex items-center gap-1.5 shrink-0"
+                                className="px-5 py-2.5 rounded-2xl bg-primary text-primary-foreground font-black text-xs shadow-md hover:bg-primary/90 transition-all flex items-center gap-1.5 shrink-0"
                             >
                                 <Play size={14} />
                                 <span>{isUz ? "Davom Ettirish" : "Resume Test"}</span>
@@ -194,7 +194,7 @@ export const DiagnosticPage: React.FC = () => {
                     )}
 
                     {/* Quick Zero-Level Option */}
-                    <div className="p-6 rounded-3xl glass-card border border-border/80 flex flex-col sm:flex-row items-center justify-between gap-4 bg-secondary/30">
+                    <div className="p-6 rounded-3xl bg-card border border-border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
                         <div className="space-y-1 text-center sm:text-left">
                             <h3 className="text-base font-bold text-foreground flex items-center gap-2 justify-center sm:justify-start">
                                 <span>🌱</span> {isUz ? "Mutlaqo Yangi Boshlovchimisiz?" : "Complete Beginner?"}
@@ -207,14 +207,14 @@ export const DiagnosticPage: React.FC = () => {
                         </div>
                         <button
                             onClick={handleZeroLevelStart}
-                            className="px-5 py-2.5 rounded-2xl bg-secondary hover:bg-secondary/80 border border-border text-foreground text-xs font-bold transition-all shrink-0"
+                            className="px-5 py-2.5 rounded-2xl bg-secondary hover:bg-muted border border-border text-foreground text-xs font-bold transition-all shrink-0"
                         >
                             {isUz ? "Nol Darajadan Boshlash" : "Start from Zero"}
                         </button>
                     </div>
 
                     {/* Mode Selector */}
-                    <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-6">
+                    <div className="p-6 md:p-8 rounded-3xl bg-card border border-border space-y-6 shadow-xl">
                         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                             <Clock size={18} className="text-primary" />
                             {isUz ? "Test Rejimini Tanlang" : "Choose Assessment Mode"}
@@ -224,7 +224,7 @@ export const DiagnosticPage: React.FC = () => {
                             <button
                                 onClick={() => setMode('quick')}
                                 className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between gap-2 ${
-                                    mode === 'quick' ? 'bg-primary/10 border-primary shadow-sm' : 'border-border glass-card hover:border-primary/40'
+                                    mode === 'quick' ? 'bg-primary/10 border-primary shadow-xs' : 'border-border bg-card hover:border-primary/40'
                                 }`}
                             >
                                 <div className="flex items-center justify-between">
@@ -237,7 +237,7 @@ export const DiagnosticPage: React.FC = () => {
                             <button
                                 onClick={() => setMode('standard')}
                                 className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between gap-2 ${
-                                    mode === 'standard' ? 'bg-primary/10 border-primary shadow-sm' : 'border-border glass-card hover:border-primary/40'
+                                    mode === 'standard' ? 'bg-primary/10 border-primary shadow-xs' : 'border-border bg-card hover:border-primary/40'
                                 }`}
                             >
                                 <div className="flex items-center justify-between">
@@ -250,7 +250,7 @@ export const DiagnosticPage: React.FC = () => {
                             <button
                                 onClick={() => setMode('deep')}
                                 className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between gap-2 ${
-                                    mode === 'deep' ? 'bg-primary/10 border-primary shadow-sm' : 'border-border glass-card hover:border-primary/40'
+                                    mode === 'deep' ? 'bg-primary/10 border-primary shadow-xs' : 'border-border bg-card hover:border-primary/40'
                                 }`}
                             >
                                 <div className="flex items-center justify-between">
@@ -274,7 +274,7 @@ export const DiagnosticPage: React.FC = () => {
 
             {/* Step 2: Testing Phase */}
             {step === 'testing' && adaptiveState && currentQuestion && (
-                <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-6 shadow-lg">
+                <div className="p-6 md:p-8 rounded-3xl bg-card border border-border space-y-6 shadow-xl">
                     {/* Header Progress */}
                     <div className="flex items-center justify-between gap-4 pb-4 border-b border-border/60">
                         <div className="flex flex-wrap items-center gap-2">
@@ -310,7 +310,7 @@ export const DiagnosticPage: React.FC = () => {
                                         className={`p-4 rounded-2xl border text-left transition-all flex items-center justify-between gap-3 ${
                                             isSelected 
                                                 ? 'bg-primary text-primary-foreground border-primary shadow-md scale-[1.01]' 
-                                                : 'glass-card border-border hover:border-primary/40 text-foreground'
+                                                : 'bg-card border-border hover:border-primary/40 text-foreground'
                                         }`}
                                     >
                                         <div className="flex items-center gap-3">
@@ -353,7 +353,7 @@ export const DiagnosticPage: React.FC = () => {
             {/* Step 3: Result Dashboard */}
             {step === 'result' && result && (
                 <div className="space-y-6">
-                    <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-6 shadow-xl bg-gradient-to-br from-card via-card to-secondary/40">
+                    <div className="p-6 md:p-8 rounded-3xl bg-card border border-border space-y-6 shadow-xl">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/60">
                             <div className="space-y-1">
                                 <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -421,7 +421,7 @@ export const DiagnosticPage: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {result.strengths.length > 0 && (
                                 <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
-                                    <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                                    <div className="text-xs font-bold text-emerald-500 flex items-center gap-1">
                                         <CheckCircle2 size={14} /> {isUz ? "Kuchli Ko'nikmalar" : "Key Strengths"}
                                     </div>
                                     <div className="text-xs text-muted-foreground">
@@ -432,7 +432,7 @@ export const DiagnosticPage: React.FC = () => {
 
                             {result.weaknesses.length > 0 && (
                                 <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 space-y-1">
-                                    <div className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                                    <div className="text-xs font-bold text-rose-500 flex items-center gap-1">
                                         <AlertTriangle size={14} /> {isUz ? "Mustahkamlash Kerak" : "Focus Areas"}
                                     </div>
                                     <div className="text-xs text-muted-foreground">

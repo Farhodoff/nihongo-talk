@@ -322,9 +322,9 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
             {/* Title Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 className="text-base font-extrabold text-foreground flex items-center gap-2">
-                        <Mic size={18} className="text-indigo-500" />
-                        <span>🎤 Foydalanuvchilar Speech va Kunlik/Haftalik Analytics (Admin)</span>
+                    <h3 className="text-base font-display font-black text-foreground flex items-center gap-2">
+                        <Mic size={18} className="text-primary" />
+                        <span>Foydalanuvchilar Speech va Kunlik/Haftalik Analytics (Admin)</span>
                     </h3>
                     <p className="text-xs text-muted-foreground mt-0.5">
                         Kunlik va haftalik suhbat foizlari (%), seanslar chastotasi va foydalanuvchilar suhbat tarixi.
@@ -333,7 +333,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
 
                 <button
                     onClick={fetchSessions}
-                    className="px-3.5 py-1.5 bg-muted hover:bg-muted/80 text-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors self-start sm:self-auto"
+                    className="px-3.5 py-1.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors self-start sm:self-auto cursor-pointer"
                 >
                     <RefreshCw size={13} className={isLoading ? 'animate-spin' : ''} />
                     <span>Yangilash</span>
@@ -342,43 +342,43 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
 
             {/* Top Stat Cards: Daily vs Weekly % & Frequency */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-                    <div className="p-3 bg-indigo-500/10 text-indigo-500 rounded-xl">
+                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                    <div className="p-3 bg-primary/10 text-primary rounded-xl">
                         <Calendar size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-black text-indigo-500">{todaySessions.length} seans</div>
-                        <div className="text-[11px] text-muted-foreground font-medium">Bugungi Suhbatlar</div>
+                        <div className="text-xl font-black text-primary">{todaySessions.length} seans</div>
+                        <div className="text-[11px] text-muted-foreground font-semibold">Bugungi Suhbatlar</div>
                     </div>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-                    <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-xl">
+                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                    <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl">
                         <Award size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-black text-emerald-500">{todayAvgScore}%</div>
-                        <div className="text-[11px] text-muted-foreground font-medium">Kunlik O'rtacha Foiz</div>
+                        <div className="text-xl font-black text-emerald-400">{todayAvgScore}%</div>
+                        <div className="text-[11px] text-muted-foreground font-semibold">Kunlik O'rtacha Foiz</div>
                     </div>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-                    <div className="p-3 bg-purple-500/10 text-purple-500 rounded-xl">
+                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                    <div className="p-3 bg-[#C9A961]/15 text-[#C9A961] rounded-xl">
                         <TrendingUp size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-black text-purple-500">{weeklyAvgScore}%</div>
-                        <div className="text-[11px] text-muted-foreground font-medium">Haftalik O'rtacha Foiz</div>
+                        <div className="text-xl font-black text-[#C9A961]">{weeklyAvgScore}%</div>
+                        <div className="text-[11px] text-muted-foreground font-semibold">Haftalik O'rtacha Foiz</div>
                     </div>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-                    <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl">
+                <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                    <div className="p-3 bg-amber-500/10 text-amber-400 rounded-xl">
                         <Clock size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-black text-amber-500">{totalSpokenMins} min</div>
-                        <div className="text-[11px] text-muted-foreground font-medium">Jami Gapirilgan Vaqt</div>
+                        <div className="text-xl font-black text-amber-400">{totalSpokenMins} min</div>
+                        <div className="text-[11px] text-muted-foreground font-semibold">Jami Gapirilgan Vaqt</div>
                     </div>
                 </div>
             </div>
@@ -388,20 +388,20 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setActiveTab('users')}
-                        className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                        className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border cursor-pointer ${
                             activeTab === 'users'
-                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
-                                : 'bg-card text-muted-foreground border-border hover:bg-muted'
+                                ? 'bg-primary text-primary-foreground border-primary shadow-xs'
+                                : 'bg-card text-muted-foreground border-border hover:bg-muted hover:text-foreground'
                         }`}
                     >
                         👥 Foydalanuvchilar Kesimida ({userAggregations.length})
                     </button>
                     <button
                         onClick={() => setActiveTab('history')}
-                        className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border ${
+                        className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all border cursor-pointer ${
                             activeTab === 'history'
-                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
-                                : 'bg-card text-muted-foreground border-border hover:bg-muted'
+                                ? 'bg-primary text-primary-foreground border-primary shadow-xs'
+                                : 'bg-card text-muted-foreground border-border hover:bg-muted hover:text-foreground'
                         }`}
                     >
                         📜 Barcha Muloqot Tarixi ({sessions.length})
@@ -415,7 +415,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
                         placeholder="Qidiruv..."
-                        className="w-full pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-xl text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-xl text-xs text-foreground focus:border-primary outline-none"
                     />
                 </div>
             </div>
@@ -452,18 +452,18 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                             <tr key={user.email} className="hover:bg-muted/30 transition-colors">
                                                 <td className="p-3.5">
                                                     <div className="flex items-center gap-2 font-bold text-foreground">
-                                                        <User size={14} className="text-indigo-500" />
+                                                        <User size={14} className="text-primary" />
                                                         <span className="truncate max-w-[180px]">{user.email}</span>
                                                     </div>
                                                 </td>
                                                 <td className="p-3.5 text-center font-mono font-bold text-foreground">
                                                     {user.totalSessions} ta
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-indigo-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-primary">
                                                     {user.todaySessions > 0 ? (
-                                                        <span className="px-2 py-0.5 bg-indigo-500/10 rounded-md">
-                                                            {user.todaySessions} marta
-                                                        </span>
+                                                        <span className="px-2 py-0.5 bg-primary/10 rounded-md">
+                                                             {user.todaySessions} marta
+                                                         </span>
                                                     ) : (
                                                         <span className="text-muted-foreground">0</span>
                                                     )}
@@ -471,7 +471,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                                 <td className="p-3.5 text-center font-mono font-bold">
                                                     {user.todayAvgScore > 0 ? (
                                                         <span className={`px-2 py-0.5 rounded-md ${
-                                                            user.todayAvgScore >= 80 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'
+                                                            user.todayAvgScore >= 80 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
                                                         }`}>
                                                             {user.todayAvgScore}%
                                                         </span>
@@ -482,7 +482,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                                 <td className="p-3.5 text-center font-mono font-bold">
                                                     {user.weeklyAvgScore > 0 ? (
                                                         <span className={`px-2 py-0.5 rounded-md ${
-                                                            user.weeklyAvgScore >= 80 ? 'bg-purple-500/10 text-purple-500' : 'bg-indigo-500/10 text-indigo-500'
+                                                            user.weeklyAvgScore >= 80 ? 'bg-[#C9A961]/15 text-[#C9A961]' : 'bg-primary/10 text-primary'
                                                         }`}>
                                                             {user.weeklyAvgScore}%
                                                         </span>
@@ -490,7 +490,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                                         <span className="text-muted-foreground">-</span>
                                                     )}
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-emerald-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-emerald-400">
                                                     {user.overallAvgScore}%
                                                 </td>
                                                 <td className="p-3.5 text-right text-[11px] text-muted-foreground">
@@ -516,7 +516,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                 <div>
                     {isLoading ? (
                         <div className="py-12 text-center text-xs text-muted-foreground">
-                            <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-indigo-600 border-t-transparent mb-2" />
+                            <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent mb-2" />
                             <p>Muloqot tarixi yuklanmoqda...</p>
                         </div>
                     ) : filteredSessions.length === 0 ? (
@@ -552,16 +552,16 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                                 <td className="p-3.5 font-bold text-foreground">
                                                     {item.persona_title}
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-indigo-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-primary">
                                                     {item.pronunciation_score}%
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-emerald-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-emerald-400">
                                                     {item.fluency_score}%
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-purple-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-[#C9A961]">
                                                     {item.grammar_score}%
                                                 </td>
-                                                <td className="p-3.5 text-center font-mono font-bold text-amber-500">
+                                                <td className="p-3.5 text-center font-mono font-bold text-amber-400">
                                                     {item.vocabulary_score}%
                                                 </td>
                                                 <td className="p-3.5 text-center text-muted-foreground">
@@ -570,7 +570,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                                 <td className="p-3.5 text-center">
                                                     <button
                                                         onClick={() => setSelectedTranscriptSession(item)}
-                                                        className="px-2.5 py-1 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 rounded-lg text-[11px] font-extrabold inline-flex items-center gap-1 transition-all"
+                                                        className="px-2.5 py-1 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/25 rounded-lg text-[11px] font-extrabold inline-flex items-center gap-1 transition-all cursor-pointer"
                                                         title="Suhbat matnini (transcript) ko'rish"
                                                     >
                                                         <MessageSquareText size={12} />
@@ -597,7 +597,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                         {/* Modal Header */}
                         <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between gap-4 bg-muted/30">
                             <div className="flex items-center gap-3 min-w-0">
-                                <div className="p-2.5 bg-indigo-500/20 text-indigo-500 rounded-2xl shrink-0">
+                                <div className="p-2.5 bg-primary/10 text-primary rounded-2xl shrink-0">
                                     <FileText size={20} />
                                 </div>
                                 <div className="min-w-0">
@@ -611,7 +611,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                             </div>
                             <button
                                 onClick={() => setSelectedTranscriptSession(null)}
-                                className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
+                                className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors cursor-pointer"
                             >
                                 <X size={18} />
                             </button>
@@ -621,7 +621,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                         <div className="px-5 py-3 bg-muted/20 border-b border-border/60 flex flex-wrap items-center justify-between gap-3 text-xs">
                             <div className="flex items-center gap-2">
                                 <span className="text-muted-foreground font-semibold">O'rtacha Ball:</span>
-                                <span className="font-extrabold font-mono text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                                <span className="font-extrabold font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
                                     {Math.round((selectedTranscriptSession.fluency_score + selectedTranscriptSession.pronunciation_score + selectedTranscriptSession.grammar_score + selectedTranscriptSession.vocabulary_score) / 4)}%
                                 </span>
                             </div>
@@ -659,7 +659,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                                         <div
                                             className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm font-medium leading-relaxed shadow-sm ${
                                                 msg.role === 'user'
-                                                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-tr-none'
+                                                    ? 'bg-primary text-primary-foreground rounded-tr-none'
                                                     : 'bg-muted/80 text-foreground border border-border rounded-tl-none'
                                             }`}
                                         >
@@ -690,7 +690,7 @@ export const AdminSpeechAnalytics: React.FC<AdminSpeechAnalyticsProps> = ({ reco
                         <div className="p-4 border-t border-border flex justify-end bg-muted/30">
                             <button
                                 onClick={() => setSelectedTranscriptSession(null)}
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-md"
+                                className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-xs font-bold transition-all shadow-md shadow-primary/20 cursor-pointer"
                             >
                                 Yopish
                             </button>

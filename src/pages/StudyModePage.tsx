@@ -457,21 +457,21 @@ const StudyModePage: React.FC = () => {
                 <div className="perspective-1000 h-96 cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
                 <div className={`relative w-full h-full transition-all duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                     {/* Front Side */}
-                    <div className="absolute inset-0 backface-hidden glass-card border border-border bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl flex flex-col justify-between p-8">
+                    <div className="absolute inset-0 backface-hidden border border-border bg-card rounded-3xl shadow-xl flex flex-col justify-between p-8">
                         <div className="flex justify-between items-center">
                             {isAdmin ? (
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={handleStartEdit}
                                         title="Admin: Ushbu kartochkani tahrirlash"
-                                        className="p-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
+                                        className="p-2 bg-[#C9A961]/15 hover:bg-[#C9A961]/25 text-[#C9A961] rounded-xl transition-all shadow-xs active:scale-95 flex items-center gap-1 text-xs font-bold"
                                     >
                                         <Edit3 size={14} /> Tahrirlash
                                     </button>
                                     <button
                                         onClick={handleDeleteCard}
                                         title="Admin: Ushbu kartochkani bazadan o'chirish"
-                                        className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1 text-xs font-bold"
+                                        className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl transition-all shadow-xs active:scale-95 flex items-center gap-1 text-xs font-bold"
                                     >
                                         <Trash2 size={14} /> O'chirish
                                     </button>
@@ -480,7 +480,7 @@ const StudyModePage: React.FC = () => {
                             <button
                                 onClick={handleSpeak}
                                 title="Talaffuzni eshitish"
-                                className="p-3 bg-primary/10 hover:bg-primary/20 text-primary rounded-2xl transition-all shadow-sm active:scale-95"
+                                className="p-3 bg-primary/10 hover:bg-primary/20 text-primary rounded-2xl transition-all shadow-xs active:scale-95"
                             >
                                 <Volume2 size={24} />
                             </button>
@@ -492,24 +492,24 @@ const StudyModePage: React.FC = () => {
                     </div>
 
                     {/* Back Side */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl shadow-xl flex flex-col justify-between p-8 text-white">
+                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-[#1A2028] via-[#222B36] to-[#1A2028] border-2 border-primary/50 rounded-3xl shadow-2xl flex flex-col justify-between p-8 text-foreground">
                         <div className="flex justify-end">
                             <button
                                 onClick={handleSpeak}
-                                className="p-3 bg-white/20 hover:bg-white/30 text-white rounded-2xl transition-all active:scale-95"
+                                className="p-3 bg-card hover:bg-muted text-foreground rounded-2xl border border-border transition-all active:scale-95"
                             >
                                 <Volume2 size={24} />
                             </button>
                         </div>
                         <div className="text-center my-auto space-y-3 max-h-[220px] overflow-y-auto px-2 custom-scrollbar">
-                            <div className="text-xl md:text-2xl font-bold whitespace-pre-line leading-relaxed tracking-wide">
+                            <div className="text-xl md:text-2xl font-black text-primary whitespace-pre-line leading-relaxed tracking-wide">
                                 {currentCard?.back}
                             </div>
-                            <div className="pt-3 border-t border-white/20">
-                                <p className="text-xs font-semibold opacity-80">{currentCard?.front}</p>
+                            <div className="pt-3 border-t border-border">
+                                <p className="text-xs font-semibold text-muted-foreground">{currentCard?.front}</p>
                             </div>
                         </div>
-                        <p className="text-xs text-center opacity-75 font-medium">SuperMemo SM-2 bo'yicha baholang</p>
+                        <p className="text-xs text-center text-muted-foreground font-medium">SuperMemo SM-2 bo'yicha baholang</p>
                     </div>
                 </div>
             </div>
@@ -518,7 +518,7 @@ const StudyModePage: React.FC = () => {
             {studyMode === 'srs' && (
                 <div>
                     {!isFlipped ? (
-                        <Button className="w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-primary/20" onClick={() => setIsFlipped(true)}>
+                        <Button className="w-full py-4 text-base font-bold rounded-2xl shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => setIsFlipped(true)}>
                             Javobni ko'rish
                         </Button>
                     ) : (
@@ -530,16 +530,16 @@ const StudyModePage: React.FC = () => {
                             return (
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                     {[
-                                        { l: 'Qayta (❌)', v: Rating.AGAIN, sub: `${intervals[Rating.AGAIN]} kun`, c: 'bg-destructive/10 text-destructive border-destructive/20 hover:bg-destructive/20' },
-                                        { l: 'Qiyin (😐)', v: Rating.HARD, sub: `${intervals[Rating.HARD]} kun`, c: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
-                                        { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: `${intervals[Rating.GOOD]} kun`, c: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
-                                        { l: 'Oson (😄)', v: Rating.EASY, sub: `${intervals[Rating.EASY]} kun`, c: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
+                                        { l: 'Qayta (❌)', v: Rating.AGAIN, sub: `${intervals[Rating.AGAIN]} kun`, c: 'bg-rose-500/10 text-rose-500 border-rose-500/20 hover:bg-rose-500/20' },
+                                        { l: 'Qiyin (😐)', v: Rating.HARD, sub: `${intervals[Rating.HARD]} kun`, c: 'bg-[#C9A961]/15 text-[#C9A961] border-[#C9A961]/30 hover:bg-[#C9A961]/25' },
+                                        { l: 'Yaxshi (🙂)', v: Rating.GOOD, sub: `${intervals[Rating.GOOD]} kun`, c: 'bg-primary/10 text-primary border-primary/30 hover:bg-primary/20' },
+                                        { l: 'Oson (😄)', v: Rating.EASY, sub: `${intervals[Rating.EASY]} kun`, c: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/20' }
                                     ].map(b => (
                                         <button
                                             key={b.v}
                                             disabled={isProcessing}
                                             onClick={() => handleRate(b.v)}
-                                            className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-sm active:scale-95 text-center`}
+                                            className={`${b.c} p-3.5 rounded-2xl font-extrabold text-sm border transition-all shadow-xs active:scale-95 text-center`}
                                         >
                                             <div>{b.l}</div>
                                             <span className="text-[11px] font-medium opacity-80 block mt-0.5">{b.sub}</span>

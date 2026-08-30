@@ -4,6 +4,7 @@ import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { isSuperAdmin } from '../../utils/admin';
 import { useLanguage } from '../../context/LanguageContext';
+import { UzbekistanFlag, JapanFlag } from '../common/FlagIcons';
 import AIProviderSection from './AIProviderSection';
 
 interface Settings {
@@ -46,7 +47,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                         <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                            <GraduationCap size={20} className="text-primary" />
+                            <GraduationCap size={20} className="text-muted-foreground" />
                             O'quv Yo'nalishi & Tillari (Learning Focus)
                         </h3>
                         <p className="text-xs text-muted-foreground mt-0.5">
@@ -63,7 +64,7 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                                 await addSecondaryLanguage(nextLang);
                                 toast({ title: nextLang === 'ja' ? "🇯🇵 Yapon tili qo'shildi" : "🇬🇧 Ingliz tili qo'shildi" });
                             }}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 text-xs font-black transition-all self-start"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-muted/80 hover:bg-muted text-foreground border border-border text-xs font-bold transition-all self-start"
                         >
                             <Plus size={15} />
                             <span>{primaryLanguage === 'en' ? "+ 🇯🇵 Yapon tilini qo'shish" : "+ 🇬🇧 Ingliz tilini qo'shish"}</span>
@@ -74,14 +75,10 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                 {/* Primary & Additional Languages List */}
                 <div className="space-y-4">
                     {/* 1. PRIMARY LANGUAGE CARD */}
-                    <div className={`p-5 rounded-2xl border-2 transition-all ${
-                        primaryLanguage === 'ja'
-                            ? 'border-rose-500/80 bg-rose-950/20 shadow-lg shadow-rose-950/20'
-                            : 'border-indigo-500/80 bg-indigo-950/20 shadow-lg shadow-indigo-950/20'
-                    }`}>
+                    <div className="p-5 rounded-2xl border border-border border-l-4 border-l-primary bg-card/60 transition-all">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
-                                <div className="text-4xl p-2.5 rounded-2xl bg-background/80 border border-border shadow-xs">
+                                <div className="text-4xl p-2.5 rounded-2xl bg-background/90 border border-border shadow-xs">
                                     {primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}
                                 </div>
                                 <div className="space-y-1">
@@ -89,12 +86,8 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                                         <span className="text-base font-black text-foreground">
                                             {primaryLanguage === 'ja' ? 'Yapon Tili (JLPT)' : 'Ingliz Tili (IELTS)'}
                                         </span>
-                                        <span className={`text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full border ${
-                                            primaryLanguage === 'ja'
-                                                ? 'bg-rose-500 text-white border-rose-400'
-                                                : 'bg-indigo-600 text-white border-indigo-400'
-                                        }`}>
-                                            ★ ASOSIY FOKUS (PRIMARY)
+                                        <span className="badge-gold font-bold text-[10px]">
+                                            ★ ASOSIY FOKUS
                                         </span>
                                     </div>
                                     <div className="text-xs text-muted-foreground">
@@ -215,29 +208,31 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                             type="button"
                             onClick={() => {
                                 setLanguage('uz');
-                                toast({ title: "🇺🇿 O'zbek tili tanlandi" });
+                                toast({ title: "O'zbek tili tanlandi" });
                             }}
-                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border ${
+                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border flex items-center gap-2 cursor-pointer ${
                                 language === 'uz'
                                     ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                                     : 'bg-card text-muted-foreground border-border hover:bg-muted'
                             }`}
                         >
-                            O'zbekcha 🇺🇿
+                            <UzbekistanFlag className="w-4 h-2.5" />
+                            <span>O'zbekcha</span>
                         </button>
                         <button
                             type="button"
                             onClick={() => {
                                 setLanguage('ja');
-                                toast({ title: "🇯🇵 日本語が選択されました" });
+                                toast({ title: "日本語が選択されました" });
                             }}
-                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border ${
+                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border flex items-center gap-2 cursor-pointer ${
                                 language === 'ja'
                                     ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                                     : 'bg-card text-muted-foreground border-border hover:bg-muted'
                             }`}
                         >
-                            日本語 🇯🇵
+                            <JapanFlag className="w-4 h-2.5" />
+                            <span>日本語</span>
                         </button>
                     </div>
                 </div>

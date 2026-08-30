@@ -182,14 +182,14 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                     <Button
                         variant="outline"
                         onClick={() => onRemove && onRemove(deck)}
-                        className="w-full py-2.5 border-rose-500/30 text-rose-600 hover:bg-rose-500/10 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
+                        className="w-full py-2.5 border-rose-500/30 text-rose-500 hover:bg-rose-500/10 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
                     >
                         <Trash2 size={14} /> - Mening to'plamimdan o'chirish
                     </Button>
                 ) : (
                     <Button
                         onClick={() => onImport(deck)}
-                        className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow"
+                        className="w-full py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow"
                     >
                         <Plus size={14} /> + Mening to'plamimga qo'shish
                     </Button>

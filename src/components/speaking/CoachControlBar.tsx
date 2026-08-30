@@ -47,7 +47,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
 
     return (
         <div className="relative z-20 px-3 md:px-5 pb-[72px] md:pb-3 pt-1 flex-shrink-0">
-            <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl rounded-2xl shadow-2xl border border-gray-200/60 dark:border-gray-800/60 p-2.5 md:p-3">
+            <div className="bg-card/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-border p-2.5 md:p-3">
                 
                 {/* Audio Visualizer Row — Only during live session */}
                 {isLiveSession && (
@@ -69,7 +69,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                                     {status.label}
                                 </span>
                             </div>
-                            <span className="font-mono text-[11px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md">
+                            <span className="font-mono text-[11px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-md border border-border">
                                 {formatTimer(sessionSeconds)}
                             </span>
                         </div>
@@ -87,19 +87,19 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                     {/* Left: Status or Info */}
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         {!isLiveSession ? (
-                            <div className="flex items-center gap-2 text-gray-400 text-xs font-medium truncate">
+                            <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium truncate">
                                 <HeartPulse size={14} className="shrink-0 text-emerald-500 animate-pulse" />
                                 <span className="truncate">Suhbat boshlash uchun qo'ng'iroq qiling</span>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-                                <MessageCircle size={14} className="shrink-0 text-indigo-400" />
+                            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                                <MessageCircle size={14} className="shrink-0 text-primary" />
                                 <span>{chatHistoryLength} ta xabar</span>
                                 {isHandsFree ? (
                                     <button
                                         type="button"
                                         onClick={onToggleHandsFree}
-                                        className="hidden sm:inline text-emerald-400 font-bold text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors"
+                                        className="hidden sm:inline text-emerald-400 font-bold text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer"
                                         title="Hands-free rejimini o'chirish"
                                     >
                                         ⚡ Hands-free
@@ -108,7 +108,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                                     <button
                                         type="button"
                                         onClick={onToggleHandsFree}
-                                        className="hidden sm:inline text-slate-400 font-medium text-[10px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors"
+                                        className="hidden sm:inline text-muted-foreground font-medium text-[10px] px-1.5 py-0.5 rounded bg-muted border border-border hover:text-foreground transition-colors cursor-pointer"
                                         title="Hands-free rejimini yoqish"
                                     >
                                         🖐️ Qo'lda
@@ -124,7 +124,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                         {chatHistoryLength > 0 && !isLiveSession && (
                             <button
                                 onClick={onClearHistory}
-                                className="p-2.5 bg-gray-100 hover:bg-rose-100 dark:bg-gray-800 dark:hover:bg-rose-950/40 text-gray-500 dark:text-gray-400 hover:text-rose-500 rounded-xl transition-all"
+                                className="p-2.5 bg-muted hover:bg-rose-500/10 text-muted-foreground hover:text-rose-400 rounded-xl transition-all border border-border cursor-pointer"
                                 title="Chatni tozalash"
                             >
                                 <RotateCcw size={16} />
@@ -146,20 +146,20 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                                         }
                                     }
                                 }}
-                                className={`p-2.5 rounded-xl transition-all flex items-center gap-1.5 ${
+                                className={`p-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
                                     isMuted 
-                                    ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/25' 
+                                    ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' 
                                     : isSpeaking
-                                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 animate-pulse'
+                                    ? 'bg-[#C9A961]/20 text-[#C9A961] border border-[#C9A961]/40 animate-pulse'
                                     : isListening
                                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                                    : 'bg-indigo-600 text-white shadow-md hover:bg-indigo-500 animate-bounce'
+                                    : 'bg-primary text-primary-foreground shadow-md hover:bg-primary/90'
                                 }`}
                                 title={isSpeaking ? "AI ni to'xtatish va gapirish" : isMuted ? "Mikrofonni yoqish" : "Gapirish (Mikrofonni faollashtirish)"}
                             >
                                 {isMuted ? <MicOff size={16} /> : <Mic size={16} className={isListening ? "animate-pulse text-emerald-400" : ""} />}
                                 {isSpeaking ? (
-                                    <span className="text-[11px] font-bold text-cyan-300">TO'XTATISH</span>
+                                    <span className="text-[11px] font-bold text-[#C9A961]">TO'XTATISH</span>
                                 ) : !isListening && !isMuted && !isThinking ? (
                                     <span className="text-[11px] font-bold">GAPIRISH</span>
                                 ) : null}
@@ -169,10 +169,10 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                         {/* PRIMARY CALL BUTTON */}
                         <button
                             onClick={toggleSession}
-                            className={`relative group px-4 py-2 sm:px-6 sm:py-2.5 rounded-xl flex items-center gap-2 font-extrabold text-white transition-all duration-300 shadow-xl overflow-hidden active:scale-95 ${
+                            className={`relative group px-4 py-2 sm:px-6 sm:py-2.5 rounded-xl flex items-center gap-2 font-extrabold text-white transition-all duration-300 shadow-md overflow-hidden active:scale-95 cursor-pointer ${
                                 isLiveSession 
-                                ? 'bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 shadow-rose-500/25' 
-                                : 'bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 shadow-emerald-500/25 hover:scale-[1.02] hover:shadow-2xl'
+                                ? 'bg-rose-600 hover:bg-rose-700 shadow-rose-600/25' 
+                                : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/25'
                             }`}
                         >
                             {/* Shimmer effect */}
@@ -188,7 +188,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                                 </>
                             ) : (
                                 <>
-                                    <PhoneCall size={16} className="group-hover:-rotate-12 transition-transform relative z-10 shrink-0" />
+                                    <PhoneCall size={16} className="group-hover:-rotate-12 transition-transform relative z-10 shrink-0 fill-current" />
                                     <span className="text-xs tracking-wide relative z-10">QO'NG'IROQ</span>
                                 </>
                             )}

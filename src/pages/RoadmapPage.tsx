@@ -116,7 +116,7 @@ const RoadmapPage: React.FC = () => {
     return (
         <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
             {/* Header Hero Banner */}
-            <div className="p-6 md:p-8 rounded-3xl glass-card border border-border relative overflow-hidden shadow-lg bg-gradient-to-r from-card via-card to-secondary/30">
+            <div className="p-6 md:p-8 rounded-3xl bg-card border border-border relative overflow-hidden shadow-xl">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
                     <div className="space-y-3 max-w-2xl">
                         <div className="flex flex-wrap items-center gap-2">
@@ -139,7 +139,7 @@ const RoadmapPage: React.FC = () => {
                         <div className="pt-1">
                             <Link
                                 to="/diagnostic"
-                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs font-bold hover:bg-amber-500/25 transition-all"
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary/10 text-primary border border-primary/30 text-xs font-bold hover:bg-primary/20 transition-all"
                             >
                                 <span>🎯</span>
                                 <span>{isUz ? "Diagnostik Test Topshirish" : "Take Placement Test"}</span>
@@ -180,13 +180,13 @@ const RoadmapPage: React.FC = () => {
                                 className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between gap-3 ${
                                     isSelected 
                                         ? 'bg-primary text-primary-foreground border-primary shadow-md scale-[1.02]' 
-                                        : 'glass-card border-border hover:border-primary/50 text-foreground'
+                                        : 'bg-card border-border hover:border-primary/50 text-foreground'
                                 }`}
                             >
                                 <div className="flex items-center justify-between">
                                     <span className="text-lg font-black">{lvl.code}</span>
                                     {lvl.status === 'completed' && <CheckCircle2 size={16} className={isSelected ? 'text-white' : 'text-emerald-500'} />}
-                                    {lvl.status === 'current' && <Compass size={16} className={isSelected ? 'text-white animate-spin' : 'text-amber-500'} />}
+                                    {lvl.status === 'current' && <Compass size={16} className={isSelected ? 'text-white animate-spin' : 'text-[#C9A961]'} />}
                                     {lvl.status === 'locked' && <Lock size={14} className={isSelected ? 'text-white/60' : 'text-muted-foreground'} />}
                                 </div>
                                 <div>
@@ -207,7 +207,7 @@ const RoadmapPage: React.FC = () => {
 
             {/* Selected Level Deep View */}
             {activeLevelData && (
-                <div className="p-6 md:p-8 rounded-3xl glass-card border border-border space-y-6">
+                <div className="p-6 md:p-8 rounded-3xl bg-card border border-border space-y-6 shadow-xl">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
                         <div>
                             <div className="flex items-center gap-2">

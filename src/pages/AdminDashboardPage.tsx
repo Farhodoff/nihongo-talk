@@ -67,20 +67,20 @@ export interface DatabaseResourceMetrics {
 const RoleBadge: React.FC<{ role?: string; email?: string }> = ({ role, email }) => {
     if (isSuperAdmin(email) || role === 'superadmin') {
         return (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/10 text-rose-400 border border-rose-500/20 shrink-0">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#C9A961]/15 text-[#C9A961] border border-[#C9A961]/30 shrink-0 uppercase tracking-wider">
                 👑 Superadmin
             </span>
         );
     }
     if (role === 'admin' || isAdminEmail(email)) {
         return (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shrink-0">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-primary/10 text-primary border border-primary/25 shrink-0 uppercase tracking-wider">
                 🛡️ Admin
             </span>
         );
     }
     return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-muted text-muted-foreground shrink-0">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground shrink-0">
             Student
         </span>
     );
@@ -838,16 +838,16 @@ export default function AdminDashboardPage() {
             {/* Top Bar Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
                 <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                         <h1
                             onClick={handleSecretTitleClick}
-                            className="text-xl sm:text-2xl font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-indigo-400/90 active:scale-[0.99]"
+                            className="text-xl sm:text-2xl font-display font-black text-foreground tracking-tight cursor-default select-none transition-colors hover:text-primary active:scale-[0.99]"
                             title="Nihongo Talk Admin Console"
                         >
                             Super Admin Paneli
                         </h1>
                         {isRealtimeActive && (
-                            <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-bold flex items-center gap-1">
+                            <span className="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-bold flex items-center gap-1.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live DB
                             </span>
                         )}
@@ -857,33 +857,33 @@ export default function AdminDashboardPage() {
                 <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
                     <button
                         onClick={() => setIsBroadcastOpen(true)}
-                        className="px-3 py-1.5 bg-purple-600/10 text-purple-400 border border-purple-500/20 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-purple-600/20 transition-colors"
+                        className="px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                         title="Barcha foydalanuvchilarga bildirishnoma yuborish"
                     >
-                        <Radio size={14} /> E'lon / Broadcast
+                        <Radio size={14} className="text-primary" /> E'lon / Broadcast
                     </button>
                     <button
                         onClick={activeSection === 'speech' ? exportSpeechToCSV : exportUsersToCSV}
-                        className="px-3 py-1.5 bg-card text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-muted transition-colors"
+                        className="px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                         title="Joriy jadvalni CSV formatida yuklab olish"
                     >
                         <Download size={14} /> CSV Yuklab Olish
                     </button>
                     <button
                         onClick={() => setIsCleanerOpen(true)}
-                        className="px-3 py-1.5 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-amber-500/20 transition-colors"
+                        className="px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                        <Wand2 size={14} /> AI Cleaner
+                        <Wand2 size={14} className="text-[#C9A961]" /> AI Cleaner
                     </button>
                     <button
                         onClick={() => navigate('/admin/exams')}
-                        className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-indigo-700 transition-colors"
+                        className="px-3.5 py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20 transition-all cursor-pointer"
                     >
                         <BookOpen size={14} /> Imtihonlar
                     </button>
                     <button
                         onClick={handleRefresh}
-                        className="px-3 py-1.5 bg-muted text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-muted/80 transition-colors"
+                        className="px-3 py-1.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                         <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} /> Yangilash
                     </button>
@@ -891,27 +891,27 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-1 bg-muted p-1 rounded-xl border border-border w-fit text-xs font-bold">
+            <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl border border-border w-fit text-xs font-bold">
                 <button
                     onClick={() => setActiveSection('users')}
-                    className={`px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 ${
-                        activeSection === 'users' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+                    className={`px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                        activeSection === 'users' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                     <Users size={14} /> Foydalanuvchilar & Faollik ({totalAllUsers})
                 </button>
                 <button
                     onClick={() => setActiveSection('speech')}
-                    className={`px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 ${
-                        activeSection === 'speech' ? 'bg-background text-indigo-500 shadow-sm' : 'text-muted-foreground hover:text-foreground'
+                    className={`px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                        activeSection === 'speech' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                     <Mic size={14} /> AI Coach Natijalari & Transkriptlar ({speechRecords.length})
                 </button>
                 <button
                     onClick={() => setActiveSection('scenarios')}
-                    className={`px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 ${
-                        activeSection === 'scenarios' ? 'bg-background text-purple-500 shadow-sm' : 'text-muted-foreground hover:text-foreground'
+                    className={`px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                        activeSection === 'scenarios' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                     <MessageSquareText size={14} /> Yaponcha Ssenariylar
@@ -1023,7 +1023,7 @@ export default function AdminDashboardPage() {
                             <div className="bg-background/80 border border-border rounded-xl p-3 space-y-1">
                                 <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                                     <span>👥 Foydalanuvchilar</span>
-                                    <span className="text-[10px] text-indigo-400 font-bold">Profiles</span>
+                                    <span className="text-[10px] text-primary font-bold">Profiles</span>
                                 </div>
                                 <div className="text-xl font-black text-foreground">{dbMetrics.profiles.toLocaleString()} ta</div>
                                 <div className="text-[10px] text-muted-foreground">Ro'yxatdan o'tganlar</div>
@@ -1033,8 +1033,8 @@ export default function AdminDashboardPage() {
 
                     {/* Key Real DB Stats Cards */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold shrink-0">
+                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0">
                                 <Users size={18} />
                             </div>
                             <div>
@@ -1045,7 +1045,7 @@ export default function AdminDashboardPage() {
                             </div>
                         </div>
 
-                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
+                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
                             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold shrink-0">
                                 <Activity size={18} />
                             </div>
@@ -1055,7 +1055,7 @@ export default function AdminDashboardPage() {
                             </div>
                         </div>
 
-                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
+                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
                             <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold shrink-0">
                                 <CheckCircle2 size={18} />
                             </div>
@@ -1065,8 +1065,8 @@ export default function AdminDashboardPage() {
                             </div>
                         </div>
 
-                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold shrink-0">
+                        <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 shadow-xs">
+                            <div className="w-10 h-10 rounded-xl bg-[#C9A961]/15 text-[#C9A961] flex items-center justify-center font-bold shrink-0">
                                 <Clock size={18} />
                             </div>
                             <div>
@@ -1080,30 +1080,30 @@ export default function AdminDashboardPage() {
 
                     {/* Secondary Real DB Analytics Cards */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1">
+                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1 shadow-xs">
                             <span className="text-[11px] font-medium text-muted-foreground">Bugungi Suhbatlar</span>
-                            <div className="text-lg font-black text-indigo-400">{todaySessionsCount} seans</div>
+                            <div className="text-lg font-black text-primary">{todaySessionsCount} seans</div>
                         </div>
-                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1">
+                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1 shadow-xs">
                             <span className="text-[11px] font-medium text-muted-foreground">Kunlik O'rtacha Foiz</span>
                             <div className="text-lg font-black text-emerald-400">
                                 {dailyAvgPercent > 0 ? `${dailyAvgPercent}%` : '0%'}
                             </div>
                         </div>
-                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1">
+                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1 shadow-xs">
                             <span className="text-[11px] font-medium text-muted-foreground">Haftalik O'rtacha Foiz</span>
-                            <div className="text-lg font-black text-purple-400">
+                            <div className="text-lg font-black text-[#C9A961]">
                                 {weeklyAvgPercent > 0 ? `${weeklyAvgPercent}%` : '0%'}
                             </div>
                         </div>
-                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1">
+                        <div className="bg-card border border-border rounded-2xl p-3.5 space-y-1 shadow-xs">
                             <span className="text-[11px] font-medium text-muted-foreground">Jami Gapirilgan Vaqt</span>
                             <div className="text-lg font-black text-amber-400">{totalSpeakingMinutes} min</div>
                         </div>
                     </div>
 
                     {/* User Activity Chart */}
-                    <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
+                    <div className="bg-card border border-border rounded-2xl p-4 space-y-3 shadow-xs">
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
                                 <Activity size={16} className="text-primary" />
@@ -1112,13 +1112,13 @@ export default function AdminDashboardPage() {
                             <div className="flex items-center gap-1 bg-muted p-1 rounded-xl text-[11px] font-semibold border border-border">
                                 <button
                                     onClick={() => setChartMode('dau')}
-                                    className={`px-2.5 py-1 rounded-lg transition-colors ${chartMode === 'dau' ? 'bg-background text-foreground shadow-xs font-bold' : 'text-muted-foreground'}`}
+                                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${chartMode === 'dau' ? 'bg-primary text-primary-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     Faol O'quvchilar
                                 </button>
                                 <button
                                     onClick={() => setChartMode('duration')}
-                                    className={`px-2.5 py-1 rounded-lg transition-colors ${chartMode === 'duration' ? 'bg-background text-foreground shadow-xs font-bold' : 'text-muted-foreground'}`}
+                                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${chartMode === 'duration' ? 'bg-primary text-primary-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     Vaqt (Daqiqa)
                                 </button>
@@ -1135,7 +1135,7 @@ export default function AdminDashboardPage() {
                                         sessions: d.total_sessions || d.sessions || 0
                                     }))}
                                     xKey="xLabel"
-                                    series={[{ dataKey: 'value', stroke: chartMode === 'dau' ? '#6366f1' : '#a855f7', label: chartMode === 'dau' ? 'Faol O\'quvchilar' : 'Daqiqa' }]}
+                                    series={[{ dataKey: 'value', stroke: chartMode === 'dau' ? '#E8483A' : '#C9A961', label: chartMode === 'dau' ? 'Faol O\'quvchilar' : 'Daqiqa' }]}
                                     height={160}
                                     showArea={true}
                                 />
@@ -1164,19 +1164,19 @@ export default function AdminDashboardPage() {
                                 <div className="flex items-center gap-1 bg-muted p-0.5 rounded-lg border border-border text-[11px] font-semibold">
                                     <button
                                         onClick={() => { setRoleFilter('all'); setUsersPage(0); }}
-                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'all' ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${roleFilter === 'all' ? 'bg-primary text-primary-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         Barchasi ({totalAllUsers})
                                     </button>
                                     <button
                                         onClick={() => { setRoleFilter('student'); setUsersPage(0); }}
-                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'student' ? 'bg-background text-emerald-500 shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${roleFilter === 'student' ? 'bg-primary text-primary-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         O'quvchilar ({totalStudentsCount})
                                     </button>
                                     <button
                                         onClick={() => { setRoleFilter('admin'); setUsersPage(0); }}
-                                        className={`px-2.5 py-1 rounded-md transition-colors ${roleFilter === 'admin' ? 'bg-background text-indigo-500 shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${roleFilter === 'admin' ? 'bg-primary text-primary-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         Adminlar ({totalAdminsCount})
                                     </button>
@@ -1417,7 +1417,7 @@ export default function AdminDashboardPage() {
                                     </div>
                                     <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
                                         <span className="text-[10px] text-muted-foreground font-medium uppercase">Speaking & Coach</span>
-                                        <div className="text-base font-black text-indigo-400 mt-0.5">{(stat?.speakingSessions || 0) + (stat?.aiCoachSessions || 0)} seans</div>
+                                        <div className="text-base font-black text-primary mt-0.5">{(stat?.speakingSessions || 0) + (stat?.aiCoachSessions || 0)} seans</div>
                                     </div>
                                     <div className="bg-muted/40 border border-border/80 rounded-xl p-3">
                                         <span className="text-[10px] text-muted-foreground font-medium uppercase">O'rtacha Ball</span>
@@ -1446,7 +1446,7 @@ export default function AdminDashboardPage() {
                         {/* Speech Sessions History for this user */}
                         <div className="space-y-2">
                             <h4 className="font-bold text-xs text-foreground flex items-center gap-1.5">
-                                <Mic size={14} className="text-indigo-400" />
+                                <Mic size={14} className="text-primary" />
                                 Muloqot va AI Coach Tarixi ({userDetailSpeechRecords.length})
                             </h4>
                             {userDetailSpeechRecords.length > 0 ? (
@@ -1500,7 +1500,7 @@ export default function AdminDashboardPage() {
                     <div className="bg-card border border-border rounded-2xl p-5 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between">
                             <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
-                                <Radio size={16} className="text-purple-400" />
+                                <Radio size={16} className="text-primary" />
                                 Barcha Foydalanuvchilarga E'lon Yuborish
                             </h3>
                             <button onClick={() => setIsBroadcastOpen(false)} className="text-muted-foreground hover:text-foreground">
@@ -1518,7 +1518,7 @@ export default function AdminDashboardPage() {
                                             type="button"
                                             onClick={() => setBroadcastTag(tag)}
                                             className={`py-1.5 rounded-lg border text-[11px] font-semibold capitalize transition-colors ${
-                                                broadcastTag === tag ? 'bg-primary/15 text-primary border-primary' : 'bg-muted border-border text-muted-foreground'
+                                                broadcastTag === tag ? 'bg-primary text-primary-foreground border-primary' : 'bg-muted border-border text-muted-foreground'
                                             }`}
                                         >
                                             {tag}
@@ -1552,7 +1552,7 @@ export default function AdminDashboardPage() {
 
                         <div className="flex gap-2">
                             <Button variant="outline" onClick={() => setIsBroadcastOpen(false)} className="flex-1 text-xs">Bekor qilish</Button>
-                            <Button onClick={handleSendBroadcast} disabled={sendingBroadcast} className="flex-1 text-xs gap-1.5 bg-purple-600 hover:bg-purple-700 text-white">
+                            <Button onClick={handleSendBroadcast} disabled={sendingBroadcast} className="flex-1 text-xs gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md shadow-primary/20">
                                 {sendingBroadcast ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
                                 E'lonni Tarqatish
                             </Button>

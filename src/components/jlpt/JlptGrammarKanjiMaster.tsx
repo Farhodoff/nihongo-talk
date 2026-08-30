@@ -180,20 +180,17 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            {/* Header Banner */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-rose-950 via-slate-900 to-indigo-950 p-6 md:p-8 border border-rose-800/40 shadow-2xl">
-                <div className="absolute -right-12 -top-12 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute -left-12 -bottom-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
+            {/* Header Banner — Sumi-e & Hanko */}
+            <div className="relative overflow-hidden rounded-3xl bg-card p-6 md:p-8 border border-border shadow-xs">
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-3">
+                        <div className="badge-gold mb-3">
                             <Sparkles className="w-3.5 h-3.5" /> {language === 'ja' ? 'こうしき きょうかしょ＆テストの データベース' : 'Rasmiy Darsliklar & Imtihonlar Bazasi'}
                         </div>
-                        <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+                        <h1 className="text-2xl md:text-3xl font-display font-black text-foreground tracking-tight flex items-center gap-3">
                             {language === 'ja' ? '⛩️ JLPT ぶんぽう＆かんじ マスター' : '⛩️ JLPT Grammar & Kanji Master'}
                         </h1>
-                        <p className="text-slate-300 text-sm mt-1 max-w-2xl leading-relaxed">
+                        <p className="text-muted-foreground text-sm mt-1 max-w-2xl leading-relaxed">
                             {language === 'ja' 
                                 ? 'N5〜N1の こうしき ぶんぽう＆かんじ。かきじゅん アニメーション、ふりがな ひょうじ、ワンクリックで たんごちょうへ ほぞんできます！' 
                                 : "N5-N1 rasmiy darsliklar va imtihonlar bazasi. Kanji Stroke Order animatsiyalari, Furigana o'qilishlari hamda 1-Bosing bilan Flashcards eksporti!"}
@@ -201,27 +198,27 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                     </div>
 
                     {/* Quick Stats Widget */}
-                    <div className="flex items-center gap-3 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl border border-slate-800 shadow-lg">
-                        <div className="p-3 rounded-xl bg-amber-500/20 text-amber-400">
+                    <div className="flex items-center gap-3 bg-muted/40 p-3.5 rounded-2xl border border-border">
+                        <div className="p-3 rounded-xl bg-amber-500/10 text-[#C9A961] border border-amber-500/20">
                             <Flame className="w-6 h-6" />
                         </div>
                         <div>
-                            <div className="text-xs text-slate-400 font-medium">{language === 'ja' ? 'データすう' : 'Baza hajmi'}</div>
-                            <div className="text-lg font-black text-white flex items-center gap-1.5">
-                                <span>{grammarSource.length} {language === 'ja' ? 'ルール' : 'Qoida'}</span> • <span className="text-rose-400">{kanjiSource.length} {language === 'ja' ? 'かんじ' : 'Kanji'}</span>
+                            <div className="text-xs text-muted-foreground font-medium">{language === 'ja' ? 'データすう' : 'Baza hajmi'}</div>
+                            <div className="text-lg font-black text-foreground flex items-center gap-1.5">
+                                <span>{grammarSource.length} {language === 'ja' ? 'ルール' : 'Qoida'}</span> • <span className="text-[#E8483A]">{kanjiSource.length} {language === 'ja' ? 'かんじ' : 'Kanji'}</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Sub-Tabs Bar */}
-                <div className="flex items-center gap-2 mt-6 border-t border-slate-800/80 pt-4 overflow-x-auto">
+                <div className="flex items-center gap-2 mt-6 border-t border-border pt-4 overflow-x-auto">
                     <button
                         onClick={() => setActiveTab('grammar')}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                             activeTab === 'grammar'
-                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
-                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                         }`}
                     >
                         <BookOpen className="w-4 h-4" />
@@ -230,10 +227,10 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
                     <button
                         onClick={() => setActiveTab('kanji')}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                             activeTab === 'kanji'
-                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
-                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                         }`}
                     >
                         <GraduationCap className="w-4 h-4" />
@@ -242,13 +239,13 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
                     <button
                         onClick={() => setActiveTab('quiz')}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                             activeTab === 'quiz'
-                                ? 'bg-gradient-to-r from-rose-600 to-indigo-600 text-white shadow-lg shadow-indigo-600/30 font-semibold'
-                                : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                         }`}
                     >
-                        <Flame className="w-4 h-4 text-amber-400" />
+                        <Flame className="w-4 h-4 text-[#C9A961]" />
                         {language === 'ja' ? '⚡ AIテスト ジェネレーター' : '⚡ AI Test Generator'}
                     </button>
                 </div>
@@ -256,7 +253,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
             {/* Level & Search Controls (for Grammar & Kanji) */}
             {activeTab !== 'quiz' && (
-                <div className="bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                <div className="bg-card p-4 rounded-2xl border border-border shadow-xs space-y-4">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         {/* Level Pills */}
                         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
@@ -266,8 +263,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     onClick={() => setSelectedLevel(lvl)}
                                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                                         selectedLevel === lvl
-                                            ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-105'
-                                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200'
+                                            ? 'bg-primary text-primary-foreground shadow-xs'
+                                            : 'bg-muted/60 text-muted-foreground border border-border hover:bg-muted hover:text-foreground'
                                     }`}
                                 >
                                     {lvl === 'ALL' ? (language === 'ja' ? 'ぜんぶ' : 'BARCHASI') : lvl}
@@ -277,7 +274,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
                         {/* Search Bar */}
                         <div className="relative flex-1 max-w-md">
-                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                             <input
                                 type="text"
                                 value={searchQuery}
@@ -285,24 +282,24 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                 placeholder={activeTab === 'grammar' 
                                     ? (language === 'ja' ? "ぶんぽう、ローマ字、いみで さがす..." : "Grammatika, romaji yoki uzbekcha izlash...") 
                                     : (language === 'ja' ? "かんじ、よみかた、いみで さがす..." : "Kanji iyeroglif, o'qilishi yoki ma'nosi...")}
-                                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-rose-500 transition"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-muted/30 border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary transition"
                             />
                         </div>
                     </div>
 
                     {/* Mastery Filter & Progress Bar */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 border-t border-border">
                         {/* Status Filter buttons */}
                         <div className="flex items-center gap-2 text-xs">
-                            <span className="text-slate-400 font-medium mr-1">{language === 'ja' ? 'じょうたい:' : 'Holat:'}</span>
+                            <span className="text-muted-foreground font-medium mr-1">{language === 'ja' ? 'じょうたい:' : 'Holat:'}</span>
                             {(['ALL', 'mastered', 'learned', 'hard', 'unlearned'] as const).map(st => (
                                 <button
                                     key={st}
                                     onClick={() => setStatusFilter(st)}
-                                    className={`px-2.5 py-1 rounded-lg font-medium transition ${
+                                    className={`px-2.5 py-1 rounded-lg font-bold transition ${
                                         statusFilter === st
-                                            ? 'bg-indigo-600 text-white'
-                                            : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                                            ? 'bg-primary text-primary-foreground shadow-xs'
+                                            : 'bg-muted/40 text-muted-foreground hover:text-foreground border border-border'
                                     }`}
                                 >
                                     {st === 'ALL' 
@@ -320,12 +317,12 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
                         {/* Progress Bar Widget */}
                         <div className="flex items-center gap-3">
-                            <div className="text-xs text-slate-400">
-                                {language === 'ja' ? 'しんちょく' : 'Progress'} ({selectedLevel === 'ALL' && language === 'ja' ? 'ぜんぶ' : selectedLevel}): <span className="font-bold text-emerald-400">{levelStats.percentage}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
+                            <div className="text-xs text-muted-foreground">
+                                {language === 'ja' ? 'しんちょく' : 'Progress'} ({selectedLevel === 'ALL' && language === 'ja' ? 'ぜんぶ' : selectedLevel}): <span className="font-bold text-[#C9A961]">{levelStats.percentage}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
                             </div>
-                            <div className="w-32 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                            <div className="w-32 h-2.5 bg-muted rounded-full overflow-hidden border border-border">
                                 <div
-                                    className="h-full bg-gradient-to-r from-emerald-500 to-indigo-500 transition-all duration-500"
+                                    className="h-full bg-gradient-to-r from-[#C9A961] to-[#E8483A] transition-all duration-500"
                                     style={{ width: `${levelStats.percentage}%` }}
                                 />
                             </div>
@@ -344,18 +341,18 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         return (
                             <div
                                 key={item.id}
-                                className="group relative bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-300 shadow-lg flex flex-col justify-between"
+                                className="group relative bg-card rounded-2xl p-5 border border-border hover:border-primary/40 transition-all duration-200 shadow-xs flex flex-col justify-between"
                             >
                                 <div>
                                     {/* Level Badge & Audio */}
                                     <div className="flex items-center justify-between mb-3">
-                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 border border-indigo-500/30 text-indigo-300">
+                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/10 border border-amber-500/30 text-[#C9A961]">
                                             {item.level}
                                         </span>
                                         <div className="flex items-center gap-1.5">
                                             <button
                                                 onClick={() => speakText(item.title, 'ja-JP')}
-                                                className="p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 text-slate-400 hover:text-indigo-300 transition"
+                                                className="p-2 rounded-xl bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground border border-border transition"
                                                 title="Yaponcha talaffuz"
                                             >
                                                 <Volume2 className="w-4 h-4" />
@@ -364,8 +361,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                                 onClick={() => handleExportToFlashcard(item, true)}
                                                 className={`p-2 rounded-xl border transition ${
                                                     isExported
-                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                                                        : 'bg-slate-800/80 hover:bg-amber-600/30 text-slate-400 hover:text-amber-300 border-slate-800'
+                                                        ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                                                        : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground border-border'
                                                 }`}
                                                 title="Flashcards'ga saqlash"
                                             >
@@ -375,49 +372,49 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     </div>
 
                                     {/* Rule Title & Furigana */}
-                                    <h3 className="text-xl font-extrabold text-white tracking-tight mb-1 group-hover:text-indigo-300 transition">
+                                    <h3 className="text-xl font-bold font-japanese text-foreground tracking-tight mb-1 group-hover:text-primary transition">
                                         <FuriganaText text={item.title} />
                                     </h3>
-                                    <div className="text-xs text-indigo-400/90 font-mono mb-2">{item.romaji}</div>
+                                    <div className="text-xs text-[#C9A961] font-mono mb-2">{item.romaji}</div>
 
                                     {/* Structure & Uzbek Meaning */}
-                                    <div className="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60 mb-3 space-y-1">
-                                        <div className="text-xs font-semibold text-slate-300">
-                                            <span className="text-rose-400">Formula:</span> {item.structure}
+                                    <div className="bg-muted/30 p-2.5 rounded-xl border border-border mb-3 space-y-1">
+                                        <div className="text-xs font-semibold text-foreground">
+                                            <span className="text-[#E8483A]">Formula:</span> {item.structure}
                                         </div>
-                                        <div className="text-xs text-slate-300">
-                                            <span className="text-emerald-400">🇺🇿 Ma'nosi:</span> {item.meaningUz}
+                                        <div className="text-xs text-muted-foreground">
+                                            <span className="text-emerald-600 dark:text-emerald-400">🇺🇿 Ma'nosi:</span> {item.meaningUz}
                                         </div>
                                     </div>
 
                                     {/* Example Sentences */}
                                     {item.examples.map((ex, idx) => (
-                                        <div key={idx} className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/40 space-y-1">
-                                            <div className="text-sm font-medium text-slate-100 flex items-center justify-between">
+                                        <div key={idx} className="bg-muted/20 p-3 rounded-xl border border-border/80 space-y-1 mb-2">
+                                            <div className="text-sm font-medium font-japanese text-foreground flex items-center justify-between">
                                                 <span><FuriganaText text={ex.ja} /></span>
                                                 <button
                                                     onClick={() => speakText(ex.ja, 'ja-JP')}
-                                                    className="text-slate-500 hover:text-indigo-300 transition"
+                                                    className="text-muted-foreground hover:text-foreground transition"
                                                 >
                                                     <Volume2 className="w-3.5 h-3.5" />
                                                 </button>
                                             </div>
-                                            <div className="text-xs text-slate-400 italic">{ex.romaji}</div>
-                                            <div className="text-xs text-emerald-300/90">{ex.uz}</div>
+                                            <div className="text-xs text-muted-foreground italic">{ex.romaji}</div>
+                                            <div className="text-xs text-foreground/90">{ex.uz}</div>
                                         </div>
                                     ))}
                                 </div>
 
                                 {/* Status Toggle Buttons */}
-                                <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
-                                    <span className="text-slate-500">{language === 'ja' ? 'おぼえかた:' : 'Mustahkamlash:'}</span>
+                                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
+                                    <span className="text-muted-foreground">{language === 'ja' ? 'おぼえかた:' : 'Mustahkamlash:'}</span>
                                     <div className="flex items-center gap-1.5">
                                         <button
                                             onClick={() => setItemStatus(item.id, 'hard')}
                                             className={`px-2 py-1 rounded-lg border transition ${
                                                 status === 'hard'
-                                                    ? 'bg-rose-500/30 text-rose-300 border-rose-500/50 font-semibold'
-                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-rose-300'
+                                                    ? 'bg-rose-500/15 text-[#E8483A] border-[#E8483A]/30 font-bold'
+                                                    : 'bg-muted/30 text-muted-foreground border-border hover:text-[#E8483A]'
                                             }`}
                                         >
                                             {language === 'ja' ? 'むずかしい 🔴' : 'Qiyin 🔴'}
@@ -426,8 +423,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                             onClick={() => setItemStatus(item.id, 'learned')}
                                             className={`px-2 py-1 rounded-lg border transition ${
                                                 status === 'learned'
-                                                    ? 'bg-emerald-500/30 text-emerald-300 border-emerald-500/50 font-semibold'
-                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-emerald-300'
+                                                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-bold'
+                                                    : 'bg-muted/30 text-muted-foreground border-border hover:text-emerald-600'
                                             }`}
                                         >
                                             {language === 'ja' ? 'がくしゅうずみ 🟢' : "O'rganildi 🟢"}
@@ -436,8 +433,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                             onClick={() => setItemStatus(item.id, 'mastered')}
                                             className={`px-2 py-1 rounded-lg border transition ${
                                                 status === 'mastered'
-                                                    ? 'bg-indigo-500/30 text-indigo-300 border-indigo-500/50 font-semibold'
-                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-indigo-300'
+                                                    ? 'bg-amber-500/15 text-[#C9A961] border-[#C9A961]/30 font-bold'
+                                                    : 'bg-muted/30 text-muted-foreground border-border hover:text-[#C9A961]'
                                             }`}
                                         >
                                             {language === 'ja' ? 'おぼえた ⚡' : 'Mukammal ⚡'}
@@ -460,25 +457,25 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         return (
                             <div
                                 key={item.id}
-                                className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800/80 hover:border-rose-500/50 transition-all duration-300 shadow-lg flex flex-col justify-between"
+                                className="bg-card rounded-2xl p-5 border border-border hover:border-primary/40 transition-all duration-200 shadow-xs flex flex-col justify-between"
                             >
                                 <div>
                                     {/* Level Badge & Actions */}
                                     <div className="flex items-center justify-between mb-3">
-                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-500/20 border border-rose-500/30 text-rose-300">
+                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/10 border border-amber-500/30 text-[#C9A961]">
                                             {item.level} • {item.strokeCount} {language === 'ja' ? 'かく' : 'chiziq'}
                                         </span>
                                         <div className="flex items-center gap-1.5">
                                             <button
                                                 onClick={() => speakText(item.kanji, 'ja-JP')}
-                                                className="p-1.5 rounded-xl bg-slate-800/80 hover:bg-rose-600/30 text-slate-400 hover:text-rose-300 transition"
+                                                className="p-1.5 rounded-xl bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground border border-border transition"
                                                 title={language === 'ja' ? 'おんせい' : 'Talaffuz'}
                                             >
                                                 <Volume2 className="w-4 h-4" />
                                             </button>
                                             <button
                                                 onClick={() => setStrokeModalKanji(item)}
-                                                className="p-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 transition text-xs font-semibold flex items-center gap-1"
+                                                className="p-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#C9A961] border border-amber-500/30 transition text-xs font-bold flex items-center gap-1"
                                                 title="Stroke Order Animation"
                                             >
                                                 <Play className="w-3.5 h-3.5" /> {language === 'ja' ? 'かきじゅん' : 'Chizish'}
@@ -487,8 +484,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                                 onClick={() => handleExportToFlashcard(item, false)}
                                                 className={`p-1.5 rounded-xl border transition ${
                                                     isExported
-                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                                                        : 'bg-slate-800/80 hover:bg-indigo-600/30 text-slate-400 hover:text-indigo-300 border-slate-800'
+                                                        ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                                                        : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground border-border'
                                                 }`}
                                                 title={language === 'ja' ? 'たんごカードへ ほぞん' : "Flashcards'ga saqlash"}
                                             >
@@ -501,38 +498,38 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     <div className="flex items-center gap-4 mb-4">
                                         <div
                                             onClick={() => setStrokeModalKanji(item)}
-                                            className="w-20 h-20 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-4xl font-black text-rose-400 cursor-pointer hover:scale-105 transition shadow-inner"
+                                            className="w-20 h-20 rounded-2xl bg-muted/40 border border-border flex items-center justify-center text-4xl font-japanese font-black text-[#E8483A] cursor-pointer hover:scale-105 transition shadow-inner"
                                         >
                                             {item.kanji}
                                         </div>
                                         <div className="space-y-1">
-                                            <div className="text-lg font-bold text-white">{item.meaningUz}</div>
-                                            <div className="text-xs text-rose-300">Onyomi: {item.onyomi}</div>
-                                            <div className="text-xs text-emerald-300">Kunyomi: {item.kunyomi}</div>
+                                            <div className="text-base font-bold text-foreground">{item.meaningUz}</div>
+                                            <div className="text-xs text-muted-foreground"><span className="text-[#C9A961] font-bold">On:</span> {item.onyomi}</div>
+                                            <div className="text-xs text-muted-foreground"><span className="text-emerald-600 dark:text-emerald-400 font-bold">Kun:</span> {item.kunyomi}</div>
                                         </div>
                                     </div>
 
                                     {/* Examples */}
-                                    <div className="space-y-1.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/60">
+                                    <div className="space-y-1.5 bg-muted/20 p-3 rounded-xl border border-border/80">
                                         {item.examples.map((ex, idx) => (
                                             <div key={idx} className="flex items-center justify-between text-xs">
-                                                <span className="font-semibold text-slate-200">{ex.word} ({ex.reading})</span>
-                                                <span className="text-slate-400">{ex.meaning}</span>
+                                                <span className="font-semibold font-japanese text-foreground">{ex.word} ({ex.reading})</span>
+                                                <span className="text-muted-foreground">{ex.meaning}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
                                 {/* Status Toggle Buttons */}
-                                <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
-                                    <span className="text-slate-500">{language === 'ja' ? 'じょうたい:' : 'Holat:'}</span>
-                                    <div className="flex items-center gap-1">
+                                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
+                                    <span className="text-muted-foreground">{language === 'ja' ? 'じょうたい:' : 'Holat:'}</span>
+                                    <div className="flex items-center gap-1.5">
                                         <button
                                             onClick={() => setItemStatus(item.id, 'hard')}
                                             className={`px-2 py-0.5 rounded-lg border transition ${
                                                 status === 'hard'
-                                                    ? 'bg-rose-500/30 text-rose-300 border-rose-500/50'
-                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                                                    ? 'bg-rose-500/15 text-[#E8483A] border-[#E8483A]/30 font-bold'
+                                                    : 'bg-muted/30 text-muted-foreground border-border'
                                             }`}
                                         >
                                             {language === 'ja' ? 'むずかしい 🔴' : 'Qiyin 🔴'}
@@ -541,8 +538,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                             onClick={() => setItemStatus(item.id, 'mastered')}
                                             className={`px-2 py-0.5 rounded-lg border transition ${
                                                 status === 'mastered'
-                                                    ? 'bg-indigo-500/30 text-indigo-300 border-indigo-500/50'
-                                                    : 'bg-slate-950/60 text-slate-400 border-slate-800'
+                                                    ? 'bg-amber-500/15 text-[#C9A961] border-[#C9A961]/30 font-bold'
+                                                    : 'bg-muted/30 text-muted-foreground border-border'
                                             }`}
                                         >
                                             {language === 'ja' ? 'おぼえた ⚡' : 'Mukammal ⚡'}
@@ -557,15 +554,15 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
             {/* TAB 3: QUIZ MODE */}
             {activeTab === 'quiz' && (
-                <div className="max-w-2xl mx-auto bg-slate-900/90 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-slate-800 shadow-2xl space-y-6">
+                <div className="max-w-2xl mx-auto bg-card rounded-3xl p-6 md:p-8 border border-border shadow-xs space-y-6">
                     {!isQuizCompleted && quizQuestions.length > 0 ? (
                         <>
-                            <div className="flex items-center justify-between text-xs text-slate-400 font-semibold border-b border-slate-800 pb-3">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground font-semibold border-b border-border pb-3">
                                 <span>Savol {quizIndex + 1} / {quizQuestions.length} ({quizQuestions[quizIndex]?.level})</span>
-                                <span>Joriy Ball: {score}</span>
+                                <span className="font-bold text-[#C9A961]">Joriy Ball: {score}</span>
                             </div>
 
-                            <h3 className="text-xl font-bold text-white leading-relaxed">
+                            <h3 className="text-xl font-bold font-japanese text-foreground leading-relaxed">
                                 {quizQuestions[quizIndex]?.questionText}
                             </h3>
 
@@ -577,13 +574,13 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     let btnClass = "w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ";
 
                                     if (selectedOption === null) {
-                                        btnClass += "bg-slate-950/80 border-slate-800 hover:border-indigo-500/50 text-slate-200";
+                                        btnClass += "bg-muted/30 border-border hover:border-primary/40 text-foreground";
                                     } else if (isCorrect) {
-                                        btnClass += "bg-emerald-500/20 border-emerald-500/50 text-emerald-300";
+                                        btnClass += "bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-bold";
                                     } else if (isSelected) {
-                                        btnClass += "bg-rose-500/20 border-rose-500/50 text-rose-300";
+                                        btnClass += "bg-rose-500/15 border-rose-500/40 text-[#E8483A] font-bold";
                                     } else {
-                                        btnClass += "bg-slate-950/40 border-slate-800 text-slate-500";
+                                        btnClass += "bg-muted/20 border-border text-muted-foreground";
                                     }
 
                                     return (
@@ -593,20 +590,20 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                             className={btnClass}
                                         >
                                             <span>{opt}</span>
-                                            {selectedOption !== null && isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
+                                            {selectedOption !== null && isCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-500" />}
                                         </button>
                                     );
                                 })}
                             </div>
 
                             {selectedOption !== null && (
-                                <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 space-y-3 animate-fadeIn">
-                                    <div className="text-xs text-indigo-300 font-semibold">
-                                        💡 Tushuntirish: {quizQuestions[quizIndex]?.explanationUzbek}
+                                <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-3 animate-fadeIn">
+                                    <div className="text-xs text-muted-foreground font-medium">
+                                        💡 <span className="font-bold text-foreground">Tushuntirish:</span> {quizQuestions[quizIndex]?.explanationUzbek}
                                     </div>
                                     <button
                                         onClick={handleNextQuiz}
-                                        className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition"
+                                        className="w-full py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-xs flex items-center justify-center gap-2 transition"
                                     >
                                         Keyingi Savol <ArrowRight className="w-4 h-4" />
                                     </button>
@@ -615,12 +612,12 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         </>
                     ) : (
                         <div className="text-center space-y-5 py-8">
-                            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto text-2xl font-bold">
+                            <div className="w-16 h-16 rounded-full bg-amber-500/10 text-[#C9A961] border border-amber-500/30 flex items-center justify-center mx-auto text-2xl font-bold">
                                 🏆
                             </div>
-                            <h3 className="text-2xl font-black text-white">Test Yakunlandi!</h3>
-                            <p className="text-slate-400 text-sm">
-                                Siz {quizQuestions.length} ta savoldan <span className="font-bold text-emerald-400">{score} ta</span> to'g'ri javob berdingiz. (+{score * 20} XP)
+                            <h3 className="text-2xl font-display font-black text-foreground">Test Yakunlandi!</h3>
+                            <p className="text-muted-foreground text-sm">
+                                Siz {quizQuestions.length} ta savoldan <span className="font-bold text-[#C9A961]">{score} ta</span> to'g'ri javob berdingiz. (+{score * 20} XP)
                             </p>
 
                             {missedQuizQuestions.length > 0 && (
@@ -628,10 +625,10 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     <button
                                         onClick={handleCreateFlashcardsFromMistakes}
                                         disabled={quizFlashcardsSaved}
-                                        className={`w-full py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg ${
+                                        className={`w-full py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xs ${
                                             quizFlashcardsSaved
-                                                ? 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/30'
-                                                : 'bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white shadow-indigo-500/20'
+                                                ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                                                : 'bg-primary hover:bg-primary/90 text-primary-foreground'
                                         }`}
                                     >
                                         {quizFlashcardsSaved ? (
@@ -650,7 +647,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                             <div className="pt-2">
                                 <button
                                     onClick={resetQuiz}
-                                    className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition"
+                                    className="px-6 py-3 rounded-xl bg-muted hover:bg-muted/80 text-foreground border border-border font-bold text-sm transition"
                                 >
                                     Qayta Boshlash
                                 </button>

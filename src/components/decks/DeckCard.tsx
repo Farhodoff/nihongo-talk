@@ -61,8 +61,8 @@ const DeckCard: React.FC<DeckCardProps> = ({
     onExploreFolders 
 }) => {
     return (
-        <div className={`glass-card p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between relative group ${
-            isSelected ? 'ring-2 ring-indigo-500 bg-indigo-500/5' : ''
+        <div className={`bg-card border rounded-3xl p-6 hover:shadow-lg transition-all flex flex-col justify-between relative group ${
+            isSelected ? 'ring-2 ring-primary bg-primary/5 border-primary' : 'border-border hover:border-primary/40'
         }`}>
             {/* Top Bar with Select Checkbox & Quick Actions */}
             <div className="flex items-center justify-between mb-4">
@@ -74,20 +74,20 @@ const DeckCard: React.FC<DeckCardProps> = ({
                             title={isSelected ? "Tanlovni bekor qilish" : "Tanlash"}
                         >
                             {isSelected ? (
-                                <CheckSquare size={20} className="text-indigo-600 dark:text-indigo-400" />
+                                <CheckSquare size={20} className="text-primary" />
                             ) : (
                                 <Square size={20} />
                             )}
                         </button>
                     )}
 
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl flex-shrink-0" style={{ backgroundColor: subject.color + '20', color: subject.color }}>
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-xl flex-shrink-0" style={{ backgroundColor: subject.color + '20', color: subject.color }}>
                         {renderSubjectIcon(subject.icon)}
                     </div>
 
                     <div>
-                        <h3 className="text-lg font-bold text-foreground leading-snug">{subject.name}</h3>
-                        <p className="text-sm font-semibold text-muted-foreground">{cardCount} ta kartochka</p>
+                        <h3 className="text-lg font-extrabold text-foreground leading-snug">{subject.name}</h3>
+                        <p className="text-xs font-semibold text-muted-foreground">{cardCount} ta kartochka</p>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                     {onToggleArchive && (
                         <button
                             onClick={onToggleArchive}
-                            className="p-1.5 text-muted-foreground hover:text-amber-500 hover:bg-amber-500/10 rounded-lg transition-all"
+                            className="p-1.5 text-muted-foreground hover:text-[#C9A961] hover:bg-[#C9A961]/10 rounded-lg transition-all"
                             title={subject.isArchived ? "Arxivdan chiqarish" : "Arxivlash"}
                         >
                             {subject.isArchived ? <ArchiveRestore size={16} /> : <Archive size={16} />}
@@ -117,7 +117,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
 
             <div className="flex justify-between text-xs font-bold mb-4">
                 <span className="text-muted-foreground">Bugungi takrorlash:</span>
-                <span className={`px-2 py-0.5 rounded-full ${dueCount > 0 ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' : 'bg-emerald-500/10 text-emerald-600'}`}>
+                <span className={`px-2.5 py-0.5 rounded-full ${dueCount > 0 ? 'bg-[#C9A961]/15 text-[#C9A961]' : 'bg-emerald-500/10 text-emerald-500'}`}>
                     {dueCount > 0 ? `${dueCount} ta kutilmoqda` : 'Barchasi bajargan ✨'}
                 </span>
             </div>
@@ -126,7 +126,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                 {cardCount === 0 && onPopulatePreset ? (
                     <Button
                         onClick={onPopulatePreset}
-                        className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm"
+                        className="w-full py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-xs"
                     >
                         <Download size={15} /> To'plam Kartochkalarini Yuklash ⚡
                     </Button>
@@ -135,7 +135,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                         {onStudy ? (
                             <Button 
                                 onClick={onStudy}
-                                className="flex-1 flex justify-center items-center gap-2 font-bold text-xs" 
+                                className="flex-1 flex justify-center items-center gap-2 font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground" 
                                 disabled={cardCount === 0}
                             >
                                 <Play size={15} /> {dueCount > 0 ? "O'rganish" : "Qayta Ko'rib Chiqish"}
@@ -143,7 +143,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                         ) : (
                             <Link to={`/flashcards?study=${subject.id}`} className="flex-1">
                                 <Button 
-                                    className="w-full flex justify-center items-center gap-2 font-bold text-xs" 
+                                    className="w-full flex justify-center items-center gap-2 font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground" 
                                     disabled={cardCount === 0}
                                 >
                                     <Play size={15} /> {dueCount > 0 ? "O'rganish" : "Qayta Ko'rib Chiqish"}
@@ -153,7 +153,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                         {onExploreFolders && (
                             <Button
                                 variant="secondary"
-                                className="px-3 text-indigo-600 dark:text-indigo-400"
+                                className="px-3 text-foreground hover:text-primary"
                                 onClick={onExploreFolders}
                                 title="Keyingi qismlar / Jildlarni ko'rish"
                             >
@@ -162,7 +162,7 @@ const DeckCard: React.FC<DeckCardProps> = ({
                         )}
                         <Button
                             variant="secondary"
-                            className="px-3 text-primary"
+                            className="px-3 text-primary hover:bg-primary/10"
                             onClick={onAIGenerate}
                             title="AI bilan yaratish"
                         >

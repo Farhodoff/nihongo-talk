@@ -148,7 +148,7 @@ const FocusPage: React.FC = () => {
                     <select
                         value={focusState.selectedTaskId || ''}
                         onChange={(e) => setFocusTask(e.target.value || null)}
-                        className="w-full pl-4 pr-10 py-3 bg-background border border-border rounded-2xl shadow-sm text-foreground outline-none focus:ring-2 focus:ring-primary appearance-none transition-all glass-card"
+                        className="w-full pl-4 pr-10 py-3 bg-card border border-border rounded-2xl shadow-xs text-foreground outline-hidden focus:ring-2 focus:ring-primary appearance-none transition-all"
                         disabled={focusState.isActive}
                     >
                         <option value="">{language === 'ja' ? 'フリー集中セッション...' : 'Shunchaki fokuslanish...'}</option>
@@ -181,13 +181,13 @@ const FocusPage: React.FC = () => {
             {/* Mode & Deep Work Duration Switcher */}
             <div className="flex flex-col items-center gap-3 mb-8">
                 <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50">
-                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'focus' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'focus' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
                         {language === 'ja' ? '集中' : 'Fokus'}
                     </button>
-                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'short_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'short_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
                         {language === 'ja' ? '小休憩' : 'Qisqa'}
                     </button>
-                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${focusState.mode === 'long_break' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'long_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
                         {language === 'ja' ? '大休憩' : 'Uzun'}
                     </button>
                 </div>
@@ -207,8 +207,8 @@ const FocusPage: React.FC = () => {
                                 onClick={() => handleSelectDuration(p.mins)}
                                 className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                                     activeDurationMins === p.mins
-                                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20'
-                                        : 'bg-background/80 text-muted-foreground border-border hover:border-indigo-500/50'
+                                        ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                                        : 'bg-card text-muted-foreground border-border hover:border-primary/50'
                                 }`}
                             >
                                 {p.label}

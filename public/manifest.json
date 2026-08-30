@@ -1,7 +1,13 @@
 {
-  "short_name": "Nihon Talk",
-  "name": "Nihon Talk — Sun'iy Intellektual O'quv Yordamchisi",
+  "short_name": "Nihongo Talk",
+  "name": "Nihongo Talk — Yapon Tili AI Murabbiyi",
   "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "64x64",
+      "purpose": "any"
+    },
     {
       "src": "/pwa-192x192.png",
       "type": "image/png",
@@ -17,7 +23,8 @@
     {
       "src": "/logo.png",
       "type": "image/png",
-      "sizes": "1024x1024"
+      "sizes": "512x512",
+      "purpose": "any"
     },
     {
       "src": "/favicon.svg",
@@ -26,10 +33,10 @@
     }
   ],
   "start_url": "/",
-  "background_color": "#0f172a",
-  "theme_color": "#6366f1",
+  "background_color": "#0F1419",
+  "theme_color": "#0F1419",
   "display": "standalone",
   "orientation": "portrait",
-  "description": "Sun'iy intellektga asoslangan shaxsiy o'quv rejalashtiruvchisi va ovozli murabbiy",
+  "description": "JLPT N5-N1 va AI Speaking Coach yordamida yapon tilini jonli muloqot orqali o'rganish platformasi",
   "categories": ["education", "productivity", "utilities"]
 }

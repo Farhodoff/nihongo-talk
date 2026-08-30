@@ -33,20 +33,18 @@ export const JlptHubPage: React.FC = () => {
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 pb-16">
-            {/* Header Banner */}
-            <div className="bg-gradient-to-r from-rose-950/80 via-purple-950/60 to-slate-900 border border-rose-500/20 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-                
+            {/* Header Banner — Sumi-e & Hanko Aesthetic */}
+            <div className="bg-card border border-border rounded-3xl p-6 md:p-8 shadow-xs relative overflow-hidden">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div className="space-y-2 max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-rose-500/15 text-rose-400 font-extrabold text-xs rounded-full border border-rose-500/30">
-                            <Sparkles size={14} className="animate-pulse" />
+                        <div className="badge-gold">
+                            <Sparkles size={13} />
                             <span>JLPT & KAIWA JAPANESE MASTER</span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-display font-black text-foreground tracking-tight">
                             {language === 'ja' ? '日本語マスターハブ' : 'Yapon Tili Master Hub'}
                         </h1>
-                        <p className="text-sm text-slate-300 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                             {language === 'ja' 
                                 ? '漢字・文法・読解・聴解・会話シチュエーション・JLPT模擬試験の総合学習センター。' 
                                 : "Kanji, Grammatika, Dokkai, Choukai, Dialog senariylari va 180 ballik rasmiy JLPT mock imtihonlari bitta markazda."}
@@ -55,13 +53,13 @@ export const JlptHubPage: React.FC = () => {
 
                     <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
                         {/* Furigana & Romaji Controls */}
-                        <div className="flex items-center p-1 bg-black/30 border border-white/10 rounded-2xl backdrop-blur-md">
+                        <div className="flex items-center p-1 bg-muted/50 border border-border rounded-xl">
                             <button
                                 onClick={() => updateSettings({ showFurigana: !settings.showFurigana })}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                                     settings.showFurigana
-                                        ? 'bg-rose-500 text-white shadow-md'
-                                        : 'text-slate-400 hover:text-white'
+                                        ? 'bg-primary text-primary-foreground shadow-xs'
+                                        : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
                                 <Languages size={13} />
@@ -70,10 +68,10 @@ export const JlptHubPage: React.FC = () => {
                             </button>
                             <button
                                 onClick={() => updateSettings({ showRomaji: !settings.showRomaji })}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                     settings.showRomaji
-                                        ? 'bg-amber-500 text-white shadow-md'
-                                        : 'text-slate-400 hover:text-white'
+                                        ? 'bg-amber-500/15 text-[#C9A961] border border-[#C9A961]/30'
+                                        : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
                                 <span>Romaji</span>
@@ -84,9 +82,9 @@ export const JlptHubPage: React.FC = () => {
                         {/* Primary Plan Creator CTA */}
                         <button
                             onClick={() => navigate('/personal-plan')}
-                            className="px-5 py-2.5 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-rose-500/25 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+                            className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs rounded-xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                         >
-                            <Target size={16} />
+                            <Target size={15} />
                             <span>{language === 'ja' ? '学習プラン' : 'Shaxsiy Rejam'}</span>
                         </button>
                     </div>
@@ -94,19 +92,19 @@ export const JlptHubPage: React.FC = () => {
             </div>
 
             {/* Direct Link to Central Personal Learning Plan */}
-            <div className="bg-gradient-to-r from-rose-950/80 via-slate-900 to-purple-950/80 p-5 md:p-6 rounded-3xl border border-rose-500/20 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-white">
+            <div className="bg-card border border-border border-l-4 border-l-primary p-5 md:p-6 rounded-2xl shadow-xs flex flex-col md:flex-row items-center justify-between gap-4 text-foreground">
                 <div className="flex items-center gap-3.5">
-                    <div className="p-3 bg-rose-500/20 rounded-2xl text-rose-300 border border-rose-500/30 shrink-0">
-                        <Target size={24} />
+                    <div className="p-3 bg-muted/80 rounded-xl text-primary border border-border shrink-0">
+                        <Target size={22} />
                     </div>
                     <div>
-                        <h2 className="text-base md:text-lg font-black text-white flex items-center gap-2">
+                        <h2 className="text-base md:text-lg font-display font-black text-foreground flex items-center gap-2">
                             <span>{language === 'ja' ? 'JLPT個別学習プラン・レッスン' : 'JLPT Shaxsiy Rejangiz & Darslar'}</span>
-                            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                                 AI Adaptive
                             </span>
                         </h2>
-                        <p className="text-xs text-slate-300 mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                             {language === 'ja' 
                                 ? '毎日のタスク、スピーキング、漢字、単語帳、模擬試験の自動スケジュール' 
                                 : 'Kunlik va haftalik vazifalar, Speaking, Kanji, Fleshkartalar va Mock imtihonlar taqsimoti'}
@@ -116,7 +114,7 @@ export const JlptHubPage: React.FC = () => {
 
                 <button
                     onClick={() => navigate('/personal-plan')}
-                    className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                    className="w-full md:w-auto px-4 py-2 bg-muted/80 hover:bg-muted text-foreground border border-border font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                 >
                     <span>{language === 'ja' ? '学習プランを開く' : "Shaxsiy Rejamga O'tish"}</span>
                     <ArrowRight size={14} />
@@ -124,67 +122,67 @@ export const JlptHubPage: React.FC = () => {
             </div>
 
             {/* Unified JLPT Skill Navigation Tabs */}
-            <div className="flex flex-wrap items-center gap-2 p-1.5 bg-muted/40 border border-border/80 rounded-2xl w-fit">
+            <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-card/90 backdrop-blur-md rounded-2xl border border-border sticky top-0 z-20 shadow-xs">
                 <button
                     onClick={() => handleTabChange('kanji')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                         activeTab === 'kanji'
-                            ? 'bg-rose-600 text-white shadow-md'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                     }`}
                 >
-                    <BookOpen size={16} /> {language === 'ja' ? '⛩️ 漢字・文法' : '⛩️ Kanji & Grammatika'}
+                    <BookOpen size={15} /> {language === 'ja' ? '⛩️ 漢字・文法' : '⛩️ Kanji & Grammatika'}
                 </button>
 
                 <button
                     onClick={() => handleTabChange('scenarios')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                         activeTab === 'scenarios'
-                            ? 'bg-indigo-600 text-white shadow-md'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                     }`}
                 >
-                    <Compass size={16} /> {language === 'ja' ? '🎌 会話シチュエーション' : '🎌 Dialog Senariylar'}
+                    <Compass size={15} /> {language === 'ja' ? '🎌 会話シチュエーション' : '🎌 Dialog Senariylar'}
                 </button>
 
                 <button
                     onClick={() => handleTabChange('reading')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                         activeTab === 'reading'
-                            ? 'bg-emerald-600 text-white shadow-md'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                     }`}
                 >
-                    <FileText size={16} /> {language === 'ja' ? '📖 読解トレーニング' : "📖 Dokkai (O'qish)"}
+                    <FileText size={15} /> {language === 'ja' ? '📖 読解トレーニング' : "📖 Dokkai (O'qish)"}
                 </button>
 
                 <button
                     onClick={() => handleTabChange('listening')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                         activeTab === 'listening'
-                            ? 'bg-purple-600 text-white shadow-md'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                     }`}
                 >
-                    <Headphones size={16} /> {language === 'ja' ? '🎧 聴解トレーニング' : '🎧 Choukai (Tinglash)'}
+                    <Headphones size={15} /> {language === 'ja' ? '🎧 聴解トレーニング' : '🎧 Choukai (Tinglash)'}
                 </button>
 
                 <button
                     onClick={() => handleTabChange('mock')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                         activeTab === 'mock'
-                            ? 'bg-amber-600 text-white shadow-md'
-                            : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-xs scale-[1.02]'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                     }`}
                 >
-                    <GraduationCap size={16} /> {language === 'ja' ? '🏆 JLPT模擬試験' : '🏆 JLPT Mock Exam'}
+                    <GraduationCap size={15} /> {language === 'ja' ? '🏆 JLPT模擬試験' : '🏆 JLPT Mock Exam'}
                 </button>
             </div>
 
             {/* Tab Views */}
             <Suspense fallback={
                 <div className="p-12 flex items-center justify-center">
-                    <div className="w-8 h-8 border-3 border-rose-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
             }>
                 {/* Tab 1: Kanji Canvas & Bunpou Grammar Master */}

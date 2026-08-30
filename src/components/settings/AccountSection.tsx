@@ -94,7 +94,7 @@ const AccountSection: React.FC = () => {
             <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-xs">
                 <div className="p-4 border-b border-border flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <UserIcon size={16} className="text-primary" />
+                        <UserIcon size={16} className="text-muted-foreground" />
                         <span className="font-extrabold text-xs uppercase tracking-wider text-muted-foreground">
                             SHAXSIY MA'LUMOTLAR
                         </span>
@@ -102,7 +102,7 @@ const AccountSection: React.FC = () => {
                     {!isEditingName ? (
                         <button
                             onClick={() => setIsEditingName(true)}
-                            className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors px-2.5 py-1 rounded-lg hover:bg-primary/10"
+                            className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors px-2.5 py-1 rounded-lg hover:bg-muted"
                         >
                             <Edit3 size={13} />
                             Tahrirlash
@@ -140,7 +140,7 @@ const AccountSection: React.FC = () => {
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
                                     placeholder="Ismingizni kiriting"
-                                    className="w-full px-4 py-2.5 rounded-xl border border-primary/50 bg-background text-foreground font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
                                 />
                             ) : (
                                 <div className="px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground font-bold text-sm">
@@ -155,19 +155,19 @@ const AccountSection: React.FC = () => {
                                 Elektron Pochta (Gmail)
                             </label>
                             <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground text-sm font-medium">
-                                <Mail size={16} className="text-primary shrink-0" />
+                                <Mail size={16} className="text-muted-foreground shrink-0" />
                                 <span className="font-bold truncate text-foreground">{displayEmail}</span>
                                 {isCurrentSuperAdmin ? (
-                                    <span className="ml-auto text-[10px] font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/30 shadow-xs flex items-center gap-1">
-                                        <Crown size={12} className="text-rose-500" />
+                                    <span className="ml-auto badge-gold font-black">
+                                        <Crown size={12} className="text-[#C9A961]" />
                                         SUPER ADMIN
                                     </span>
                                 ) : isCurrentAdmin ? (
-                                    <span className="ml-auto text-[10px] font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/30 shadow-xs">
+                                    <span className="ml-auto badge-hanko font-black">
                                         🛡️ ADMIN
                                     </span>
                                 ) : (
-                                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                    <span className="ml-auto text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                                         Tasdiqlangan
                                     </span>
                                 )}
@@ -183,7 +183,7 @@ const AccountSection: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={() => setIsOnboardingOpen(true)}
-                                    className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+                                    className="text-xs font-bold text-muted-foreground hover:text-foreground flex items-center gap-1"
                                 >
                                     <Target size={13} />
                                     Yo'nalishni Qayta Sozlash (Onboarding)
@@ -195,17 +195,17 @@ const AccountSection: React.FC = () => {
                                     value={targetGoal}
                                     onChange={(e) => setTargetGoal(e.target.value)}
                                     placeholder="Masalan: JLPT N2, Yapon Tili, IT & Dasturlash"
-                                    className="w-full px-4 py-2.5 rounded-xl border border-primary/50 bg-background text-foreground font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
                                 />
                             ) : (
                                 <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground text-sm font-semibold">
                                     <div className="flex items-center gap-3">
-                                        <Target size={16} className="text-primary shrink-0" />
+                                        <Target size={16} className="text-muted-foreground shrink-0" />
                                         <span>{targetGoal}</span>
                                     </div>
                                     <button
                                         onClick={() => setIsOnboardingOpen(true)}
-                                        className="text-xs text-primary font-bold hover:bg-primary/10 px-2.5 py-1 rounded-lg transition-colors"
+                                        className="text-xs text-muted-foreground hover:text-foreground font-bold hover:bg-muted px-2.5 py-1 rounded-lg transition-colors"
                                     >
                                         O'zgartirish ➔
                                     </button>
@@ -225,10 +225,10 @@ const AccountSection: React.FC = () => {
             />
 
             {/* Gamification Level & Rank Summary */}
-            <div className="bg-gradient-to-br from-primary/5 via-card to-card rounded-2xl border border-primary/20 p-6 shadow-xs">
+            <div className="bg-card rounded-2xl border border-border p-6 shadow-xs">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
+                        <div className="w-10 h-10 rounded-xl bg-[#C9A961]/10 text-[#C9A961] flex items-center justify-center border border-[#C9A961]/25">
                             <Award size={20} />
                         </div>
                         <div>
@@ -236,11 +236,11 @@ const AccountSection: React.FC = () => {
                                 Daraja {settings.level || 1} — {rankTitle}
                             </h4>
                             <p className="text-xs text-muted-foreground">
-                                Jami to'plangan XP: <strong className="text-primary">{settings.totalXp || 0} XP</strong>
+                                Jami to'plangan XP: <strong className="text-[#C9A961]">{settings.totalXp || 0} XP</strong>
                             </p>
                         </div>
                     </div>
-                    <span className="text-xs font-black px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+                    <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/10 text-[#C9A961] border border-[#C9A961]/30">
                         🔥 {settings.currentStreak || 0} Kunlik Streak
                     </span>
                 </div>
@@ -253,7 +253,7 @@ const AccountSection: React.FC = () => {
                     </div>
                     <div className="h-2.5 w-full bg-muted rounded-full overflow-hidden p-0.5 border border-border">
                         <div 
-                            className="h-full bg-gradient-to-r from-primary via-indigo-500 to-primary rounded-full transition-all duration-500"
+                            className="h-full bg-[#C9A961] rounded-full transition-all duration-500"
                             style={{ width: `${Math.min(100, Math.max(5, (((settings.totalXp || 0) % 500) / 500) * 100))}%` }}
                         />
                     </div>
@@ -263,7 +263,7 @@ const AccountSection: React.FC = () => {
             {/* Security & Account Management */}
             <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-xs">
                 <div className="p-4 border-b border-border flex items-center gap-2">
-                    <Shield size={16} className="text-primary" />
+                    <Shield size={16} className="text-muted-foreground" />
                     <span className="font-extrabold text-xs uppercase tracking-wider text-muted-foreground">
                         XAVFSIZLIK VA BOSHQARUV
                     </span>

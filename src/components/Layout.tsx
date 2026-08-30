@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
+import { UzbekistanFlag, JapanFlag } from './common/FlagIcons';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 import { QuickCommandPalette } from './common/QuickCommandPalette';
 
@@ -198,7 +199,7 @@ const Layout: React.FC = () => {
                 className={`hidden md:flex flex-col relative translate-x-0 ${isCollapsed ? 'w-20' : 'w-64'} bg-card/95 backdrop-blur-md border-r border-border/70 transition-all duration-300 ease-in-out z-30`}
             >
                 {/* Logo Area */}
-                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border/60 bg-gradient-to-b from-card/80 to-card backdrop-blur-md`}>
+                <div className={`h-16 px-4 py-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border bg-card`}>
                     <AppLogo size="md" collapsed={isCollapsed} />
                     
                     <Button
@@ -291,10 +292,20 @@ const Layout: React.FC = () => {
 
                         <button
                             onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
-                            className="px-2 py-1.5 rounded-xl text-[11px] font-bold bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground transition-all border border-border/60 shrink-0"
+                            className="px-2.5 py-1.5 rounded-xl text-[11px] font-bold bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground transition-all border border-border/80 shrink-0 flex items-center gap-1.5 shadow-xs"
                             title={language === 'uz' ? '日本語に切り替え (Switch to Japanese)' : "O'zbek tiliga o'tish"}
                         >
-                            {language === 'uz' ? '🇺🇿 UZ' : '🇯🇵 JA'}
+                            {language === 'uz' ? (
+                                <>
+                                    <UzbekistanFlag className="w-4 h-2.5" />
+                                    <span>UZ</span>
+                                </>
+                            ) : (
+                                <>
+                                    <JapanFlag className="w-4 h-2.5" />
+                                    <span>JA</span>
+                                </>
+                            )}
                         </button>
                     </div>
                 </div>

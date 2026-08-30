@@ -3,11 +3,21 @@ import { DEFAULT_SCENARIOS } from '../data/defaultScenarios';
 import { supabase } from '../lib/supabase';
 
 const CUSTOM_SCENARIOS_KEY = 'nihon_talk_custom_scenarios';
+const DELETED_SCENARIOS_KEY = 'nihon_talk_deleted_scenarios';
 const SCENARIO_HISTORY_PREFIX = 'nihon_talk_scenario_history:';
 let _cachedScenarios: ConversationScenario[] | null = null;
 
 const getHistoryKey = (userId?: string | null): string => {
     return `${SCENARIO_HISTORY_PREFIX}${userId || 'anon'}`;
+};
+
+const getDeletedIds = (): string[] => {
+    try {
+        const local = typeof window !== 'undefined' ? localStorage.getItem(DELETED_SCENARIOS_KEY) : null;
+        return local ? JSON.parse(local) : [];
+    } catch {
+        return [];
+    }
 };
 
 export class ScenarioService {
@@ -25,7 +35,8 @@ export class ScenarioService {
         } catch {
             // ignore
         }
-        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios];
+        const deletedIds = new Set(getDeletedIds());
+        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios].filter(s => !deletedIds.has(s.id));
         return _cachedScenarios;
     }
 
@@ -91,13 +102,22 @@ export class ScenarioService {
             // Table might not exist yet; gracefully fallback
         }
 
-        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios];
+        const deletedIds = new Set(getDeletedIds());
+        _cachedScenarios = [...DEFAULT_SCENARIOS, ...customScenarios].filter(s => !deletedIds.has(s.id));
         return _cachedScenarios;
     }
 
     // 2. Add or Update Custom Scenario (Admin)
     static async saveScenario(scenario: ConversationScenario): Promise<void> {
         _cachedScenarios = null;
+        // Also remove from deleted set if re-saving
+        try {
+            const deleted = getDeletedIds().filter(id => id !== scenario.id);
+            localStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
+        } catch {
+            // ignore
+        }
+
         let customScenarios: ConversationScenario[] = [];
         try {
             const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
@@ -143,6 +163,17 @@ export class ScenarioService {
     // 3. Delete Custom Scenario (Admin)
     static async deleteScenario(id: string): Promise<void> {
         _cachedScenarios = null;
+        // Track deleted id
+        try {
+            const deleted = getDeletedIds();
+            if (!deleted.includes(id)) {
+                deleted.push(id);
+                localStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
+            }
+        } catch {
+            // ignore
+        }
+
         let customScenarios: ConversationScenario[] = [];
         try {
             const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);

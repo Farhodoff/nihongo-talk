@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
     X, Download, Send, RefreshCw, Database, Mic, AlertTriangle, 
-    CheckCircle2, Lock, Flame, BarChart3, Clock, Sparkles, Calendar, Layers 
+    CheckCircle2, Lock, Flame, BarChart3, Clock, Sparkles, Calendar 
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { TelegramDatasetService, DailySpeechSummary } from '../../services/TelegramDatasetService';
@@ -242,15 +242,15 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 md:p-6 animate-in fade-in duration-200">
             <div className="bg-card border border-border shadow-2xl rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
                 {/* Header */}
-                <div className="p-5 border-b border-border bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-between text-white">
+                <div className="p-5 border-b border-border bg-card flex items-center justify-between text-foreground">
                     <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl text-indigo-400">
+                        <div className="p-2.5 bg-primary/10 border border-primary/25 rounded-2xl text-primary">
                             <Lock size={20} />
                         </div>
                         <div>
                             <div className="flex items-center gap-2">
-                                <h2 className="text-lg font-black tracking-tight">AI Speech Dataset & Voice Vault</h2>
-                                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">
+                                <h2 className="text-lg font-display font-black tracking-tight text-foreground">AI Speech Dataset & Voice Vault</h2>
+                                <span className="px-2 py-0.5 rounded-full bg-[#C9A961]/15 text-[#C9A961] border border-[#C9A961]/30 text-[10px] font-bold">
                                     SECRET ADMIN PORTAL
                                 </span>
                             </div>
@@ -261,14 +261,14 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-xl text-muted-foreground hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                        className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
                 {/* Filter Toolbar */}
-                <div className="px-6 py-3 bg-secondary/30 border-b border-border flex flex-wrap items-center justify-between gap-3">
+                <div className="px-6 py-3 bg-muted/40 border-b border-border flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[11px] font-bold text-muted-foreground mr-1 flex items-center gap-1">
                             <Calendar size={13} /> Davr:
@@ -277,8 +277,8 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             onClick={() => handlePeriodChange('TODAY')}
                             className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                 period === 'TODAY' 
-                                    ? 'bg-indigo-600 text-white shadow-xs' 
-                                    : 'bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground'
+                                    ? 'bg-primary text-primary-foreground shadow-xs' 
+                                    : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             Bugun
@@ -287,8 +287,8 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             onClick={() => handlePeriodChange('YESTERDAY')}
                             className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                 period === 'YESTERDAY' 
-                                    ? 'bg-indigo-600 text-white shadow-xs' 
-                                    : 'bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground'
+                                    ? 'bg-primary text-primary-foreground shadow-xs' 
+                                    : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             Kecha
@@ -297,8 +297,8 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             onClick={() => handlePeriodChange('7DAYS')}
                             className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                 period === '7DAYS' 
-                                    ? 'bg-indigo-600 text-white shadow-xs' 
-                                    : 'bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground'
+                                    ? 'bg-primary text-primary-foreground shadow-xs' 
+                                    : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             Oxirgi 7 kun
@@ -307,12 +307,11 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             onClick={() => handlePeriodChange('ALL')}
                             className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
                                 period === 'ALL' 
-                                    ? 'bg-emerald-600 text-white shadow-xs' 
-                                    : 'bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground'
+                                    ? 'bg-primary text-primary-foreground shadow-xs' 
+                                    : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground'
                             }`}
                         >
-                            <Layers size={12} />
-                            Barcha Datasetlar
+                            <span>Barchasi (All Time)</span>
                         </button>
                     </div>
 
@@ -329,7 +328,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                         <button
                             onClick={() => loadData(period, customDate)}
                             disabled={isLoading}
-                            className="p-1.5 rounded-xl bg-secondary/80 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+                            className="p-1.5 rounded-xl bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all cursor-pointer"
                             title="Yangilash"
                         >
                             <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
@@ -348,9 +347,9 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                         <>
                     {/* Top Metric Cards */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className="p-4 rounded-2xl bg-secondary/50 border border-border space-y-1">
+                        <div className="p-4 rounded-2xl bg-card border border-border space-y-1 shadow-xs">
                             <div className="text-xs text-muted-foreground flex items-center gap-1.5">
-                                <Mic size={14} className="text-indigo-400" />
+                                <Mic size={14} className="text-primary" />
                                 <span>Suhbatlar</span>
                             </div>
                             <div className="text-2xl font-black text-foreground">
@@ -358,7 +357,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-secondary/50 border border-border space-y-1">
+                        <div className="p-4 rounded-2xl bg-card border border-border space-y-1 shadow-xs">
                             <div className="text-xs text-muted-foreground flex items-center gap-1.5">
                                 <Clock size={14} className="text-emerald-400" />
                                 <span>Umumiy Vaqt</span>
@@ -368,7 +367,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-secondary/50 border border-border space-y-1">
+                        <div className="p-4 rounded-2xl bg-card border border-border space-y-1 shadow-xs">
                             <div className="text-xs text-muted-foreground flex items-center gap-1.5">
                                 <Flame size={14} className="text-amber-400" />
                                 <span>Faol O'quvchilar</span>
@@ -378,9 +377,9 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-secondary/50 border border-border space-y-1">
+                        <div className="p-4 rounded-2xl bg-card border border-border space-y-1 shadow-xs">
                             <div className="text-xs text-muted-foreground flex items-center gap-1.5">
-                                <Database size={14} className="text-purple-400" />
+                                <Database size={14} className="text-[#C9A961]" />
                                 <span>Filtr / Sana</span>
                             </div>
                             <div className="text-sm font-bold text-foreground pt-1 truncate">
@@ -404,10 +403,10 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                     {/* Deep Breakdown: Top Topics & Top Grammar Mistakes */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Top Topics */}
-                        <div className="p-4 rounded-2xl bg-card border border-border shadow-sm space-y-3">
+                        <div className="p-4 rounded-2xl bg-card border border-border shadow-xs space-y-3">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xs font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                                    <BarChart3 size={14} className="text-indigo-400" />
+                                    <BarChart3 size={14} className="text-primary" />
                                     <span>Eng Ko'p Gaplashilgan Mavzular</span>
                                 </h3>
                                 <span className="text-[10px] text-muted-foreground">Top 5</span>
@@ -416,7 +415,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             {summary?.topTopics && summary.topTopics.length > 0 ? (
                                 <div className="space-y-2">
                                     {summary.topTopics.map((t, i) => (
-                                        <div key={i} className="flex items-center justify-between text-xs p-2 rounded-xl bg-secondary/30">
+                                        <div key={i} className="flex items-center justify-between text-xs p-2 rounded-xl bg-muted/40">
                                             <span className="font-semibold truncate max-w-[200px]">{i + 1}. {t.topic}</span>
                                             <span className="px-2 py-0.5 rounded-md bg-primary/10 text-primary font-bold">{t.count} ta</span>
                                         </div>
@@ -430,7 +429,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                         </div>
 
                         {/* Top Grammar Mistakes */}
-                        <div className="p-4 rounded-2xl bg-card border border-border shadow-sm space-y-3">
+                        <div className="p-4 rounded-2xl bg-card border border-border shadow-xs space-y-3">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xs font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                                     <AlertTriangle size={14} className="text-rose-400" />
@@ -460,11 +459,11 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                     </div>
 
                     {/* Telegram Config & 22:00 Dispatch Section */}
-                    <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent border border-indigo-500/20 space-y-4">
+                    <div className="p-5 rounded-2xl bg-card border border-border space-y-4 shadow-xs">
                         <div className="flex items-center justify-between flex-wrap gap-2">
                             <div>
                                 <h4 className="text-sm font-bold flex items-center gap-2 text-foreground">
-                                    <Send size={16} className="text-indigo-400" />
+                                    <Send size={16} className="text-primary" />
                                     <span>Telegram Yopiq Kanalga Kunlik Yuborish (22:00)</span>
                                 </h4>
                                 <p className="text-xs text-muted-foreground mt-0.5">
@@ -474,7 +473,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             <button
                                 onClick={handleSendTelegramNow}
                                 disabled={isSendingTelegram || !botToken || !chatId}
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 disabled:opacity-50 flex items-center gap-2 transition-all cursor-pointer"
+                                className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-xs font-bold shadow-md shadow-primary/20 disabled:opacity-50 flex items-center gap-2 transition-all cursor-pointer"
                             >
                                 {isSendingTelegram ? <RefreshCw size={14} className="animate-spin" /> : <Send size={14} />}
                                 <span>Hozir Telegramga Yuborish</span>
@@ -511,22 +510,28 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                             <div className="flex items-end">
                                 <button
                                     type="submit"
-                                    className="w-full py-2 bg-secondary hover:bg-secondary/80 border border-border text-foreground rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                                    className="w-full py-2 bg-muted hover:bg-muted/80 border border-border text-foreground rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                                 >
                                     {isConfigSaved ? <CheckCircle2 size={14} className="text-emerald-500" /> : <Database size={14} />}
                                     <span>{isConfigSaved ? 'Saqlandi!' : 'Sozlamani Saqlash'}</span>
                                 </button>
                             </div>
                         </form>
+                        
+                        {isConfigSaved && (
+                            <div className="text-[10px] text-emerald-500 font-bold px-1 animate-in slide-in-from-top-1">
+                                ✅ Sozlamalar muvaffaqiyatli saqlandi!
+                            </div>
+                        )}
                     </div>
                     </>
                     )}
                 </div>
 
                 {/* Footer Action */}
-                <div className="p-4 border-t border-border bg-card/80 flex items-center justify-between gap-3 flex-wrap">
+                <div className="p-4 border-t border-border bg-card flex items-center justify-between gap-3 flex-wrap">
                     <div className="text-xs text-muted-foreground flex items-center gap-1.5">
-                        <Sparkles size={14} className="text-indigo-400 shrink-0" />
+                        <Sparkles size={14} className="text-primary shrink-0" />
                         <span>Fayl arxivi: <code>metadata.jsonl</code> + <code>transcripts.txt</code> (Privacy & AI Train Ready)</span>
                     </div>
 
@@ -541,7 +546,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
                         <button
                             onClick={handleDownloadZipDataset}
                             disabled={isExportingZip || (summary?.totalSessions || 0) === 0}
-                            className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-md shadow-emerald-600/30 flex items-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-black shadow-md shadow-primary/20 flex items-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
                         >
                             {isExportingZip ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />}
                             <span>📦 Datasetni Yuklab Olish (.ZIP) ({summary?.totalSessions || 0} ta)</span>

@@ -615,5 +615,123 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
 必須フレーズ: 〜とは限りません, 〜を踏まえると, 一概には言えません, 反対意見として, 結論として`,
         key_phrases: ['〜とは限りません', '〜を踏まえると', '一概には言えません', '反対意見として', '結論として'],
         is_custom: false
+    },
+    // ==========================================
+    // 💼 ADDITIONAL JLPT N2 & N1 BUSINESS SCENARIOS
+    // ==========================================
+    {
+        id: 'shokuba_shazai_trouble',
+        language: 'ja',
+        title_ja: 'システム障害対応と社内報告 (Trouble & Apology)',
+        title_uz: "Tizimdagi nosozlik va kechirim so'rash (Incident Report)",
+        emoji: '🚨',
+        difficulty: 'N2',
+        category: 'business',
+        description_uz: "Serverdagi favqulodda nosozlik sababi, ko'rilgan tezkor choralar va zararni kamaytirish bo'yicha rahbarga professional Keigo bilan hisobot berish.",
+        opening_line_ja: '緊急で報告が入りました。本番サーバーで障害が発生しているとのことですが、現在の状況と原因を説明していただけますか？',
+        context_prompt: `あなたはIT開発部門の技術統括部長です。JLPT N2レベルのエンジニアからサーバー障害の緊急インシデント報告とお詫びを受けてください。
+会話の目標:
+1. 障害の発生時刻、影響範囲、現在実施している復旧作業（一次対応）を確認します。
+2. 再発防止策と恒久対応（根本原因の分析）について説明を求めます。
+3. 誠意あるビジネス謝罪（「多大なるご迷惑をおかけし、深くお詫び申し上げます」等）と報告の迅速さを評価してください。
+必須フレーズ: 深くお詫び申し上げます, 一次対応といたしまして, 原因を究明中, 再発防止策, 復旧の目処`,
+        key_phrases: ['深くお詫び申し上げます', '一次対応', '原因を究明中', '再発防止策', '復旧の目処'],
+        is_custom: false
+    },
+    {
+        id: 'shokuba_shinki_teian',
+        language: 'ja',
+        title_ja: '新規AIプロジェクトの企画提案 (Project Pitch)',
+        title_uz: "Yangi AI loyiha taklifini bildirish va himoya qilish",
+        emoji: '💡',
+        difficulty: 'N2',
+        category: 'business',
+        description_uz: "Kompaniyaga yangi AI texnologiyasini joriy qilish taklifi, ROI kutilmalari va xarajatlarni bo'lim boshlig'iga taqdim etish.",
+        opening_line_ja: '新しいAI導入プロジェクトの企画書を拝見しました。非常に興味深いですが、具体的な費用対効果と導入スケジュールについて詳しく教えていただけますか？',
+        context_prompt: `あなたは企画開発部門のゼネラルマネージャーです。JLPT N2レベルの社員から新規AI導入の企画提案プレゼンを受けてください。
+会話の目標:
+1. プロジェクトの背景・課題感（業務の自動化、工数削減など）を質問します。
+2. 想定されるROI（費用対効果）、開発工数、リスク対策を論理的に説明させます。
+3. 「〜をご提案申し上げます」「〜が見込めます」などの説得力あるビジネス表現を促します。
+必須フレーズ: ご提案申し上げます, 費用対効果, 工数の削減が見込めます, スケジュール案, ぜひご検討のほど`,
+        key_phrases: ['ご提案申し上げます', '費用対効果', '工数削減', 'スケジュール案', 'ご検討のほど'],
+        is_custom: false
+    },
+    {
+        id: 'torihikisaki_denwa_keigo',
+        language: 'ja',
+        title_ja: '取引先との電話対応とアポ取り (Phone Keigo)',
+        title_uz: "Hamkor kompaniyaga qo'ng'iroq va uchrashuv belgilash",
+        emoji: '📞',
+        difficulty: 'N2',
+        category: 'business',
+        description_uz: "Yapon biznesida muhim bo'lgan telefon etiketini qo'llagan holda bosh direktor bilan uchrashuv (apoint) belgilash.",
+        opening_line_ja: 'お電話ありがとうございます。ABC商事の佐藤でございます。いつも大変お世話になっております。本日はどのようなご用件でしょうか？',
+        context_prompt: `あなたは大手取引先「ABC商事」の受付・担当者です。JLPT N2レベルの学習者から商談アポイントメントの電話を受けます。
+会話の目標:
+1. 挨拶、名乗り、用件（新製品の紹介、打ち合わせの日程調整）を電話対応の定型表現で進めます。
+2. 候補日時（来週火曜日の午後など）を提示させ、日程のすり合わせを行います。
+3. 最後に確認復唱をして、丁寧な電話の締めくくり（失礼いたします）を行わせてください。
+必須フレーズ: いつもお世話になっております, 〜の件でお電話いたしました, ご都合はいかがでしょうか, 復唱いたします, 失礼いたします`,
+        key_phrases: ['いつもお世話になっております', 'お電話いたしました', 'ご都合はいかがでしょうか', '復唱いたします', '失礼いたします'],
+        is_custom: false
+    },
+    {
+        id: 'executive_board_briefing',
+        language: 'ja',
+        title_ja: '取締役会での事業戦略報告 (Board Briefing)',
+        title_uz: "Direktorlar kengashida strategik hisobot va savol-javob",
+        emoji: '🏛️',
+        difficulty: 'N1',
+        category: 'business',
+        description_uz: "Yillik moliyaviy o'sish, bozor ulushi va keyingi chorakdagi xalqaro ekspansiya strategiyasini boshqaruv kengashi a'zolariga professional taqdim etish.",
+        opening_line_ja: 'これより第3四半期の戦略報告に移ります。海外事業統括役員として、東南アジア市場への進出戦略およびリスクヘッジについてご報告いただけますでしょうか。',
+        context_prompt: `あなたは上場企業の代表取締役会長（CEO/Chair）です。JLPT N1レベルの海外事業責任者から重要経営戦略の報告を受け、鋭い質問を投げかけてください。
+会話の目標:
+1. 市場シェアの推移、競合優位性、地政学的リスクへの対応策（リスクヘッジ）を論理的に説明させます。
+2. 最高峰の謙譲語・尊敬語（「〜と推察申し上げます」「ご高覧ください」「〜に尽力してまいる所存です」）を評価します。
+3. 株主価値の最大化とコンプライアンス遵守について合意を形成してください。
+必須フレーズ: ご高覧いただけますと幸甚に存じます, リスクヘッジの観点から, 尽力してまいる所存でございます, 確固たる優位性, 経営資源の最適配分`,
+        key_phrases: ['ご高覧いただけますと幸甚に存じます', 'リスクヘッジ', '尽力してまいる所存', '確固たる優位性', '経営資源の最適配分'],
+        is_custom: false
+    },
+    {
+        id: 'm_and_a_due_diligence',
+        language: 'ja',
+        title_ja: '企業提携・M&A交渉とデューデリジェンス (M&A Negotiation)',
+        title_uz: "Korporativ birlashuv, M&A muzokara va risk audit",
+        emoji: '🤝',
+        difficulty: 'N1',
+        category: 'business',
+        description_uz: "Ikki yirik korporatsiya o'rtasida birlashuv shartlari, intellektual mulk huquqlari va moliyaviy audit natijalarini murosali kelishish.",
+        opening_line_ja: '本日のデューデリジェンス最終協議では、知的財産権の承継および企業文化の統合プロセスにおける懸念点を解消したく存じます。貴社のご見解を伺えますでしょうか。',
+        context_prompt: `あなたはグローバル投資銀行・戦略ファンドのシニアパートナーです。JLPT N1レベルの企業代表とM&A（合併・買収）の最終合意に向けた高度な交渉を行ってください。
+会話の目標:
+1. 企業価値評価（バリュエーション）、知的財産権、キーパーソン（人材）のリテンションについて協議します。
+2. 双方の利益が最大化されるような建設的な妥協点（シナジー効果）を提案させます。
+3. 非常に洗練されたビジネス語彙と格調高い敬語表現を徹底して使わせてください。
+4. 今後の調印式およびPMI（統合プロセス）のロードマップを確認して合意に至ります。
+必須フレーズ: シナジー効果を最大化すべく, 遺憾なく発揮できるよう, 懸念事項を払拭し, 双方の合意形成, 前向きに善処させていただきます`,
+        key_phrases: ['シナジー効果', '懸念事項を払拭', '双方の合意形成', '善処させていただきます', 'PMIプロセス'],
+        is_custom: false
+    },
+    {
+        id: 'cross_cultural_conflict_resolution',
+        language: 'ja',
+        title_ja: '多国籍チームのリーダーシップと対立解消 (Conflict Resolution)',
+        title_uz: "Xalqaro jamoada nizolarni hal qilish va konsensus",
+        emoji: '🌐',
+        difficulty: 'N1',
+        category: 'business',
+        description_uz: "Turli millat va madaniyatdagi jamoa a'zolari o'rtasidagi kelishmovchilikni diplomatiya va yaponcha madaniy muloyimlik bilan bartaraf etish.",
+        opening_line_ja: '東京本社と海外拠点の開発チーム間で、納期と仕様変更をめぐって深刻な意見の対立が生じています。プロジェクトマネージャーとして、どのようにこの対立を調停されますか？',
+        context_prompt: `あなたはグローバル本社の執行役員兼人事統括です。JLPT N1レベルのシニアプロジェクトマネージャーに多国籍チームの対立解消と調停案を求めてください。
+会話の目標:
+1. 各国の文化的背景やコミュニケーションスタイルの違いに配慮した調停案（落としどころ）を提示させます。
+2. 感情的な対立を排除し、ファクトベースでのスケジュール再設計とKPIの合意を導きます。
+3. 相手の立場を立てつつ毅然と合意を促すハイレベルなビジネス日本語（クッション言葉、配慮表現）を実践させます。
+必須フレーズ: お言葉を返すようではございますが, 双方の立場に鑑み, 落としどころを模索し, 誠心誠意尽くす所存, 大局的な見地から`,
+        key_phrases: ['お言葉を返すようではございますが', '双方の立場に鑑み', '落としどころ', '誠心誠意尽くす所存', '大局的な見地から'],
+        is_custom: false
     }
 ];

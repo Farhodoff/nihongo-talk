@@ -68,10 +68,10 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 // Loading component
 const PageLoader = () => (
-    <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+    <div className="h-screen flex items-center justify-center bg-background text-foreground">
         <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            <p className="mt-4 text-gray-600 dark:text-gray-400">Yuklanmoqda...</p>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="mt-4 text-muted-foreground">Yuklanmoqda...</p>
         </div>
     </div>
 );
@@ -166,7 +166,7 @@ const App: React.FC = () => {
                 <StudyPlannerProvider>
                     <FocusTimerProvider>
                         <BrowserRouter>
-                        <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden relative">
+                        <div className="h-screen bg-background text-foreground transition-colors duration-200 overflow-hidden relative">
                             <Suspense fallback={<PageLoader />}>
                                 <Routes>
                                     <Route path="/" element={<Layout />}>

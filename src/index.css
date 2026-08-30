@@ -4,67 +4,73 @@
 
 @layer base {
   :root {
-    /* Light theme — #F7F9FC base */
-    --background: 220 27% 98%;
-    --foreground: 220 43% 11%;
+    /* Sumi-e & Hanko Light theme — Warm Washi Paper Base */
+    --background: 43 33% 96%;        /* #F8F6F0 */
+    --foreground: 214 22% 13%;       /* #1A2028 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 43% 11%;
+    --card: 0 0% 100%;               /* #FFFFFF */
+    --card-foreground: 214 22% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 43% 11%;
+    --popover-foreground: 214 22% 13%;
 
-    --primary: 231 90% 65%;
+    --primary: 6 73% 53%;            /* #DC4433 Vermillion Hanko Red */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 96%;
-    --secondary-foreground: 220 43% 11%;
+    --secondary: 40 20% 93%;         /* #EFECE6 */
+    --secondary-foreground: 214 22% 13%;
 
-    --muted: 220 20% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 40 18% 92%;             /* #EAE7E0 */
+    --muted-foreground: 215 16% 47%; /* #64748B */
 
-    --accent: 220 20% 96%;
-    --accent-foreground: 220 43% 11%;
+    --accent: 6 73% 53%;             /* #DC4433 */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 84% 60%;        /* #F87171 */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 231 90% 65%;
+    --border: 40 14% 87%;            /* #E2DFD8 */
+    --input: 40 14% 87%;
+    --ring: 6 73% 53%;
 
-    --radius: 0.75rem;
+    --gold: 42 49% 58%;              /* #C9A961 */
+    --gold-foreground: 214 22% 13%;
+
+    --radius: 1rem;
   }
 
   .dark {
-    /* Dark theme — #07101E base */
-    --background: 218 65% 7%;
-    --foreground: 228 60% 98%;
+    /* Sumi-e & Hanko Dark theme — Deep Ink Navy/Sumi Charcoal Base */
+    --background: 210 25% 8%;        /* #0F1419 Deep Sumi Charcoal/Navy */
+    --foreground: 36 17% 95%;        /* #F5F3F0 Warm Off-White */
 
-    --card: 218 50% 10%;
-    --card-foreground: 228 60% 98%;
+    --card: 214 22% 13%;             /* #1A2028 Elevated Ink-Slate */
+    --card-foreground: 36 17% 95%;   /* #F5F3F0 */
 
-    --popover: 218 50% 10%;
-    --popover-foreground: 228 60% 98%;
+    --popover: 214 22% 13%;          /* #1A2028 */
+    --popover-foreground: 36 17% 95%;
 
-    --primary: 231 100% 75%;
-    --primary-foreground: 218 65% 7%;
+    --primary: 5 79% 57%;            /* #E8483A Vermillion Hanko Red */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 40% 13%;
-    --secondary-foreground: 228 60% 98%;
+    --secondary: 214 20% 17%;        /* #222B36 */
+    --secondary-foreground: 36 17% 95%;
 
-    --muted: 220 40% 13%;
-    --muted-foreground: 218 20% 68%;
+    --muted: 214 20% 17%;            /* #222B36 */
+    --muted-foreground: 35 6% 53%;   /* #8B8680 Warm Sumi Gray */
 
-    --accent: 220 40% 13%;
-    --accent-foreground: 228 60% 98%;
+    --accent: 5 79% 57%;             /* #E8483A */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 228 60% 98%;
+    --destructive: 0 84% 60%;        /* #F87171 Soft Alert Rose */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 40% 13%;
-    --input: 220 40% 13%;
-    --ring: 231 100% 75%;
+    --border: 214 20% 19%;           /* #26303B Subtle Ink Border */
+    --input: 214 20% 19%;
+    --ring: 5 79% 57%;
+
+    --gold: 42 49% 58%;              /* #C9A961 Japanese Antique Gold */
+    --gold-foreground: 210 25% 8%;
   }
 }
 
@@ -73,7 +79,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
     /* Safe Area for iOS */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -98,16 +104,44 @@ button, a {
 }
 
 @layer utilities {
+  .font-display {
+    font-family: 'Newsreader', 'Shippori Mincho', serif;
+  }
+
+  .font-japanese {
+    font-family: 'Noto Sans JP', 'Shippori Mincho', sans-serif;
+  }
+
   .glass {
-    @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-white/20 dark:border-gray-700/30 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+    @apply bg-card/85 backdrop-blur-xl border border-border shadow-[0_4px_30px_rgba(0,0,0,0.2)];
   }
   
   .glass-card {
-    @apply bg-background/80 backdrop-blur-md border border-border shadow-sm;
+    @apply bg-card/90 backdrop-blur-md border border-border shadow-xs;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-rose-500 to-amber-500;
+  }
+
+  .text-gradient-hanko {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E8483A] via-[#F87171] to-[#FBBF24];
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FDE68A] via-[#C9A961] to-[#B8964C];
+  }
+
+  .badge-hanko {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-primary/10 text-primary border border-primary/25 shadow-xs;
+  }
+
+  .badge-gold {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-amber-500/10 text-[#C9A961] border border-[#C9A961]/30 shadow-xs;
+  }
+
+  .card-sumi {
+    @apply bg-card border border-border rounded-2xl p-6 transition-all duration-200 hover:border-primary/30;
   }
 
   /* 3D Transform utilities for flashcard flip */

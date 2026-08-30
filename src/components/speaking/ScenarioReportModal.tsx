@@ -95,7 +95,7 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                 </button>
                 {isLoading || !result ? (
                     <div className="py-16 text-center space-y-4">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent" />
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent" />
                         <h3 className="text-base font-extrabold text-foreground">
                             AI Scenario va Pronunciation Tahlil qilinmoqda...
                         </h3>
@@ -108,7 +108,7 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                         {/* Header Banner */}
                         <div className="flex items-center justify-between border-b border-border/80 pb-4">
                             <div>
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-500 bg-indigo-500/10 px-2.5 py-1 rounded-full border border-indigo-500/20">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A961] bg-[#C9A961]/10 px-2.5 py-1 rounded-full border border-[#C9A961]/20">
                                     Suhbat Natijasi
                                 </span>
                                 <h2 className="text-xl font-extrabold text-foreground mt-1">
@@ -137,19 +137,19 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
 
                         {/* Score Dashboard Grid */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <div className="bg-muted/40 border border-border/60 rounded-2xl p-3.5 text-center">
+                            <div className="bg-card border border-border rounded-2xl p-3.5 text-center">
                                 <span className="text-[11px] text-muted-foreground font-medium">🎤 Talaffuz</span>
-                                <div className="text-2xl font-black text-indigo-500 mt-1">
+                                <div className="text-2xl font-black text-primary mt-1">
                                     {result.pronunciation_score}<span className="text-xs text-muted-foreground">/100</span>
                                 </div>
                                 <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">
-                                    <div className="bg-indigo-500 h-full rounded-full" style={{ width: `${result.pronunciation_score}%` }} />
+                                    <div className="bg-primary h-full rounded-full" style={{ width: `${result.pronunciation_score}%` }} />
                                 </div>
                             </div>
 
-                            <div className="bg-muted/40 border border-border/60 rounded-2xl p-3.5 text-center">
+                            <div className="bg-card border border-border rounded-2xl p-3.5 text-center">
                                 <span className="text-[11px] text-muted-foreground font-medium">⚡ Silliqlik</span>
-                                <div className="text-2xl font-black text-emerald-500 mt-1">
+                                <div className="text-2xl font-black text-emerald-400 mt-1">
                                     {result.fluency_score}<span className="text-xs text-muted-foreground">/100</span>
                                 </div>
                                 <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">
@@ -157,42 +157,42 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                                 </div>
                             </div>
 
-                            <div className="bg-muted/40 border border-border/60 rounded-2xl p-3.5 text-center">
+                            <div className="bg-card border border-border rounded-2xl p-3.5 text-center">
                                 <span className="text-[11px] text-muted-foreground font-medium">📖 Grammatika</span>
-                                <div className="text-2xl font-black text-purple-500 mt-1">
+                                <div className="text-2xl font-black text-[#C9A961] mt-1">
                                     {result.grammar_score}<span className="text-xs text-muted-foreground">/100</span>
                                 </div>
                                 <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">
-                                    <div className="bg-purple-500 h-full rounded-full" style={{ width: `${result.grammar_score}%` }} />
+                                    <div className="bg-[#C9A961] h-full rounded-full" style={{ width: `${result.grammar_score}%` }} />
                                 </div>
                             </div>
 
-                            <div className="bg-muted/40 border border-border/60 rounded-2xl p-3.5 text-center">
+                            <div className="bg-card border border-border rounded-2xl p-3.5 text-center">
                                 <span className="text-[11px] text-muted-foreground font-medium">💬 Lug'at</span>
-                                <div className="text-2xl font-black text-amber-500 mt-1">
+                                <div className="text-2xl font-black text-amber-400 mt-1">
                                     {result.vocabulary_score}<span className="text-xs text-muted-foreground">/100</span>
                                 </div>
                                 <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">
-                                    <div className="bg-amber-500 h-full rounded-full" style={{ width: `${result.vocabulary_score}%` }} />
+                                    <div className="bg-amber-400 h-full rounded-full" style={{ width: `${result.vocabulary_score}%` }} />
                                 </div>
                             </div>
                         </div>
 
                         {/* Key Phrases Checklist */}
-                        <div className="bg-muted/30 border border-border/60 rounded-2xl p-4 space-y-3">
+                        <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
                             <h4 className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                                <Sparkles size={14} className="text-amber-500" />
+                                <Sparkles size={14} className="text-[#C9A961]" />
                                 <span>Scenario Kalit Iboralari Tekshiruvi</span>
                             </h4>
                             <div className="flex flex-wrap gap-2">
                                 {result.key_phrases_used.map((phrase, i) => (
-                                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-bold">
+                                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-xs font-bold">
                                         <CheckCircle2 size={13} />
                                         <span>{phrase}</span>
                                     </span>
                                 ))}
                                 {result.key_phrases_missed.map((phrase, i) => (
-                                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1 bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-medium">
+                                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-medium">
                                         <XCircle size={13} />
                                         <span>{phrase}</span>
                                     </span>
@@ -201,8 +201,8 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                         </div>
 
                         {/* AI Coach Feedback */}
-                        <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-2xl p-4 space-y-2">
-                            <h4 className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                        <div className="bg-card border border-border rounded-2xl p-4 space-y-2">
+                            <h4 className="text-xs font-extrabold text-[#C9A961] flex items-center gap-1.5">
                                 <Sparkles size={14} />
                                 <span>AI Coach Xulosasi va Tavsiyalari</span>
                             </h4>
@@ -216,7 +216,7 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                             <button
                                 onClick={handleExportToFlashcards}
                                 disabled={isExporting}
-                                className="px-4 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-800/40 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+                                className="px-4 py-2.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                             >
                                 <Layers size={14} />
                                 <span>{isExporting ? 'Saqlanmoqda...' : "Iboralardan Fleshkarta Yaratish 🎴"}</span>
@@ -229,7 +229,7 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
                                             onClose();
                                             onRetry();
                                         }}
-                                        className="px-4 py-2.5 bg-muted hover:bg-muted/80 text-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+                                        className="px-4 py-2.5 bg-muted hover:bg-muted/80 text-foreground border border-border rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                                     >
                                         <RotateCcw size={14} />
                                         <span>Qayta Mashq Qilish</span>
@@ -238,7 +238,7 @@ export const ScenarioReportModal: React.FC<ScenarioReportModalProps> = ({
 
                                 <button
                                     onClick={onClose}
-                                    className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-500/20 transition-all"
+                                    className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20 transition-all cursor-pointer active:scale-95"
                                 >
                                     <span>Yopish va Saqlash</span>
                                     <ArrowRight size={14} />

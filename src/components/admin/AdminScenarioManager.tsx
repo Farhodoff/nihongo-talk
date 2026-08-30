@@ -134,8 +134,8 @@ export const AdminScenarioManager: React.FC = () => {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 className="text-base font-extrabold text-foreground flex items-center gap-2">
-                        <Sparkles size={18} className="text-indigo-500" />
+                    <h3 className="text-base font-display font-black text-foreground flex items-center gap-2">
+                        <Sparkles size={18} className="text-primary" />
                         <span>Rolli Muloqot Ssenariylari Boshqaruvi (Admin)</span>
                     </h3>
                     <p className="text-xs text-muted-foreground mt-0.5">
@@ -145,22 +145,22 @@ export const AdminScenarioManager: React.FC = () => {
 
                 <div className="flex items-center gap-2">
                     {/* Language Filter */}
-                    <div className="flex bg-muted p-1 rounded-xl border border-border text-xs">
+                    <div className="flex bg-muted/60 p-1 rounded-2xl border border-border text-xs">
                         <button
                             onClick={() => setFilterLang('all')}
-                            className={`px-3 py-1 rounded-lg font-bold transition-all ${filterLang === 'all' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${filterLang === 'all' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                         >
                             Barchasi
                         </button>
                         <button
                             onClick={() => setFilterLang('en')}
-                            className={`px-3 py-1 rounded-lg font-bold transition-all ${filterLang === 'en' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${filterLang === 'en' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                         >
                             🇬🇧 English
                         </button>
                         <button
                             onClick={() => setFilterLang('ja')}
-                            className={`px-3 py-1 rounded-lg font-bold transition-all ${filterLang === 'ja' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${filterLang === 'ja' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                         >
                             🎌 日本語
                         </button>
@@ -168,7 +168,7 @@ export const AdminScenarioManager: React.FC = () => {
 
                     <button
                         onClick={handleOpenCreate}
-                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all"
+                        className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20 transition-all cursor-pointer"
                     >
                         <Plus size={14} />
                         <span>Yangi Ssenariy</span>
@@ -180,7 +180,7 @@ export const AdminScenarioManager: React.FC = () => {
             {isLoading ? (
                 <div className="py-8 text-center text-muted-foreground text-xs">Yuklanmoqda...</div>
             ) : (
-                <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="bg-card border border-border rounded-3xl overflow-hidden shadow-sm">
                     <div className="divide-y divide-border">
                         {filteredScenarios.map(s => {
                             const isJa = (s.language || (s.title_en ? 'en' : 'ja')) === 'ja';
@@ -189,15 +189,15 @@ export const AdminScenarioManager: React.FC = () => {
                             return (
                                 <div key={s.id} className="p-4 flex items-center justify-between hover:bg-muted/30 transition-colors">
                                     <div className="flex items-center gap-3">
-                                        <div className="text-2xl p-2 bg-muted rounded-xl">{s.emoji}</div>
+                                        <div className="text-2xl p-2 bg-muted rounded-2xl border border-border">{s.emoji}</div>
                                         <div>
                                             <div className="flex items-center gap-2">
                                                 <h4 className="text-xs font-bold text-foreground">{title}</h4>
-                                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isJa ? 'bg-purple-500/10 text-purple-500' : 'bg-blue-500/10 text-blue-500'}`}>
+                                                <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${isJa ? 'bg-[#C9A961]/15 text-[#C9A961] border-[#C9A961]/30' : 'bg-muted text-foreground border-border'}`}>
                                                     {isJa ? '🎌 JLPT ' : '🇬🇧 '}{s.difficulty}
                                                 </span>
                                                 {s.is_custom && (
-                                                    <span className="text-[9px] font-bold px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded-md">
+                                                    <span className="text-[9px] font-bold px-1.5 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded-md">
                                                         Custom Admin
                                                     </span>
                                                 )}
@@ -209,7 +209,7 @@ export const AdminScenarioManager: React.FC = () => {
                                     <div className="flex items-center gap-2">
                                         <button
                                             onClick={() => handleOpenEdit(s)}
-                                            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                                            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors cursor-pointer"
                                             title="Tahrirlash"
                                         >
                                             <Edit2 size={14} />
@@ -217,7 +217,7 @@ export const AdminScenarioManager: React.FC = () => {
                                         {s.is_custom && (
                                             <button
                                                 onClick={() => handleDelete(s.id)}
-                                                className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors"
+                                                className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
                                                 title="O'chirish"
                                             >
                                                 <Trash2 size={14} />
@@ -236,8 +236,8 @@ export const AdminScenarioManager: React.FC = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
                     <div className="bg-card border border-border rounded-3xl p-6 max-w-xl w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
                         <div className="flex items-center justify-between pb-3 border-b border-border">
-                            <h3 className="font-extrabold text-sm text-foreground flex items-center gap-2">
-                                <Sparkles size={16} className="text-indigo-500" />
+                            <h3 className="font-display font-black text-sm text-foreground flex items-center gap-2">
+                                <Sparkles size={16} className="text-primary" />
                                 <span>{editingScenario.id?.startsWith('sc-') ? 'Yangi Ssenariy Yaratish' : 'Ssenariyni Tahrirlash'}</span>
                             </h3>
                             <button onClick={() => setIsEditing(false)} className="p-1 text-muted-foreground hover:text-foreground">
@@ -419,7 +419,7 @@ export const AdminScenarioManager: React.FC = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-md"
+                                    className="px-5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl font-bold shadow-md shadow-primary/20 transition-all cursor-pointer active:scale-95"
                                 >
                                     Saqlash
                                 </button>

@@ -414,7 +414,7 @@ const DecksPage: React.FC = () => {
             {/* Header Area */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-border/60">
                 <div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-2">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-[#C9A961]/15 text-[#C9A961] border border-[#C9A961]/30 mb-2">
                         <Layers size={14} /> ANKI SM-2 ENGINE ⚡
                     </div>
                     <h2 className="text-3xl font-black text-foreground tracking-tight">{t('flashcards.title')}</h2>
@@ -427,44 +427,44 @@ const DecksPage: React.FC = () => {
                     {/* Add Subject Button */}
                     <Button
                         onClick={() => setIsAddSubjectOpen(true)}
-                        className="font-extrabold shadow-md rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 text-xs"
+                        className="font-extrabold shadow-md rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-3 text-xs"
                     >
                         <Plus size={16} className="mr-1.5" /> {t('flashcards.createDeck')}
                     </Button>
 
                     {/* Primary Button */}
                     <Link to="/flashcards/new">
-                        <Button className="font-extrabold shadow-md rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 text-xs">
+                        <Button className="font-extrabold shadow-xs rounded-2xl bg-card hover:bg-muted text-foreground border border-border px-5 py-3 text-xs">
                             <Plus size={16} className="mr-1.5" /> {t('flashcards.addManual')}
                         </Button>
                     </Link>
 
                     {/* AI & Import Action Group */}
-                    <div className="flex items-center gap-1.5 p-1 bg-muted/60 border border-border rounded-2xl">
+                    <div className="flex items-center gap-1.5 p-1 bg-card/80 border border-border rounded-2xl">
                         <button
                             onClick={() => setIsDocGeneratorOpen(true)}
-                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl shadow-sm transition-all"
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold bg-[#C9A961]/20 text-[#C9A961] hover:bg-[#C9A961]/30 border border-[#C9A961]/30 rounded-xl shadow-xs transition-all"
                             title={language === 'ja' ? 'ノートや文章からQ&A・フラッシュカードを生成' : "Konspekt yoki matndan Q&A va test fleshkartalari tuzish"}
                         >
                             <Sparkles size={15} /> {language === 'ja' ? 'AIノート要約' : 'AI Konspekt & Quiz'}
                         </button>
                         <button
                             onClick={() => setAiSubjectId('global')}
-                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-primary hover:bg-background rounded-xl transition-all"
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-primary hover:bg-primary/10 rounded-xl transition-all"
                             title={language === 'ja' ? 'AIでカードを自動生成' : "AI bilan kartochka yaratish"}
                         >
                             <Book size={15} /> {language === 'ja' ? 'AI自動生成' : 'AI Generator'}
                         </button>
                         <button
                             onClick={() => setIsExtractModalOpen(true)}
-                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:bg-background rounded-xl transition-all"
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-xl transition-all"
                             title={language === 'ja' ? '文章から単語を抽出' : "Matndan lug'at ajratib olish"}
                         >
                             <FileText size={15} /> {language === 'ja' ? '単語抽出' : 'Extractor'}
                         </button>
                         <button
                             onClick={() => setImportModalOpen(true)}
-                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-muted-foreground hover:text-foreground hover:bg-background rounded-xl transition-all"
+                            className="flex items-center gap-1.5 px-3 py-2 text-xs font-extrabold text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-xl transition-all"
                             title={language === 'ja' ? 'JSONファイルをインポート' : "JSON formatida fayl yuklash"}
                         >
                             <Upload size={15} /> Import
@@ -472,7 +472,7 @@ const DecksPage: React.FC = () => {
                         {isAdmin && (
                             <button
                                 onClick={() => setIsAdminModalOpen(true)}
-                                className="flex items-center gap-1.5 px-3 py-2 text-xs font-black text-rose-600 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl transition-all"
+                                className="flex items-center gap-1.5 px-3 py-2 text-xs font-black text-rose-500 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl transition-all"
                                 title="Buzuq kartalarni saralash va o'chirish"
                             >
                                 <ShieldAlert size={15} /> Admin Cleaner
@@ -484,7 +484,7 @@ const DecksPage: React.FC = () => {
 
             {/* Toast/Notice for preset deck import */}
             {isImportingPreset && (
-                <div className="p-4 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-between animate-pulse">
+                <div className="p-4 bg-primary/10 border border-primary/20 text-primary rounded-2xl flex items-center justify-between animate-pulse">
                     <div className="flex items-center gap-2 font-extrabold text-sm">
                         <Sparkles size={18} className="animate-spin" />
                         <span>Kutubxonadagi barcha kartochkalar bazaga saqlanmoqda...</span>
@@ -493,7 +493,7 @@ const DecksPage: React.FC = () => {
             )}
 
             {importedDeckTitle && !isImportingPreset && (
-                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-between">
+                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-2xl flex items-center justify-between">
                     <div className="flex items-center gap-2 font-extrabold text-sm">
                         <Sparkles size={18} />
                         <span>"{importedDeckTitle}" to'plami va uning barcha kartochkalari muvaffaqiyatli saqlandi!</span>
@@ -513,39 +513,39 @@ const DecksPage: React.FC = () => {
             )}
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-2 p-1.5 bg-muted/40 border border-border/80 rounded-2xl w-fit">
+            <div className="flex items-center gap-2 p-1.5 bg-card/80 border border-border/80 rounded-2xl w-fit">
                 <button
                     onClick={() => setActiveTab('my')}
                     className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
                         activeTab === 'my'
-                            ? 'bg-background text-foreground shadow-sm'
+                            ? 'bg-primary text-primary-foreground shadow-xs'
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Layers size={16} className="text-indigo-500" /> {t('flashcards.myDecks')} ({subjects.length})
+                    <Layers size={16} /> {t('flashcards.myDecks')} ({subjects.length})
                 </button>
                 <button
                     onClick={() => setActiveTab('library')}
                     className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
                         activeTab === 'library'
-                            ? 'bg-background text-foreground shadow-sm'
+                            ? 'bg-primary text-primary-foreground shadow-xs'
                             : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
-                    <Library size={16} className="text-amber-500" /> {t('flashcards.library')} ({visiblePresetDecks.length})
+                    <Library size={16} /> {t('flashcards.library')} ({visiblePresetDecks.length})
                 </button>
             </div>
 
             {activeTab === 'my' && (
                 <div className="space-y-6">
                     {/* Sub-tabs & Multi-select Toolbar */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 p-3 bg-muted/30 border border-border/80 rounded-2xl">
+                    <div className="flex flex-wrap items-center justify-between gap-4 p-3 bg-card/60 border border-border/80 rounded-2xl">
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => { setSubTab('active'); setSelectedSubjectIds([]); }}
                                 className={`flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl transition-all ${
                                     subTab === 'active'
-                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        ? 'bg-primary text-primary-foreground shadow-xs'
                                         : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                                 }`}
                             >
@@ -555,7 +555,7 @@ const DecksPage: React.FC = () => {
                                 onClick={() => { setSubTab('archived'); setSelectedSubjectIds([]); }}
                                 className={`flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl transition-all ${
                                     subTab === 'archived'
-                                        ? 'bg-amber-600 text-white shadow-sm'
+                                        ? 'bg-[#C9A961] text-black shadow-xs font-black'
                                         : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                                 }`}
                             >
@@ -639,7 +639,7 @@ const DecksPage: React.FC = () => {
                         })}
 
                         {currentList.length === 0 && (
-                            <div className="col-span-full flex flex-col items-center justify-center p-12 text-center glass-card rounded-3xl border-dashed">
+                            <div className="col-span-full flex flex-col items-center justify-center p-12 text-center bg-card border border-border/80 rounded-3xl border-dashed">
                                 <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
                                     {subTab === 'archived' ? <FolderArchive size={40} /> : <Book size={40} />}
                                 </div>
@@ -658,7 +658,7 @@ const DecksPage: React.FC = () => {
                                             <Library size={18} className="mr-2" /> Standart Kutubxona
                                         </Button>
                                         <Link to="/subjects">
-                                            <Button className="px-6 font-bold">
+                                            <Button className="px-6 font-bold bg-primary hover:bg-primary/90 text-primary-foreground">
                                                 <Plus size={18} className="mr-2" /> Fan Qo'shish
                                             </Button>
                                         </Link>

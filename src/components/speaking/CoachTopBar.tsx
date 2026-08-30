@@ -66,34 +66,34 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                 <button
                     type="button"
                     onClick={() => navigate(-1)}
-                    className="p-2 sm:p-2.5 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-foreground hover:bg-white dark:hover:bg-gray-800 transition-all shadow-xs shrink-0"
+                    className="p-2 sm:p-2.5 bg-card/90 backdrop-blur-xl rounded-2xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all shadow-xs shrink-0 cursor-pointer"
                     title="Chiqish / Orqaga"
                 >
                     <ArrowLeft size={17} />
                 </button>
-                <div className={`relative p-2 sm:p-2.5 bg-gradient-to-tr ${currentPersona.color} text-white rounded-2xl shadow-lg flex items-center justify-center shrink-0`}>
+                <div className={`relative p-2 sm:p-2.5 bg-gradient-to-tr ${currentPersona.color} text-white rounded-2xl shadow-md flex items-center justify-center shrink-0`}>
                     {activeScenario ? (
                         <span className="text-lg">{activeScenario.emoji}</span>
                     ) : (
                         <ActivePersonaIcon size={18} />
                     )}
                     {isLiveSession && (
-                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-gray-900 animate-pulse" />
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-background animate-pulse" />
                     )}
                 </div>
                 <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                        <h2 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight text-gray-900 dark:text-white truncate">
+                        <h2 className="text-sm sm:text-base md:text-lg font-bold tracking-tight text-foreground truncate">
                             {displayName}
                         </h2>
                         {isLiveSession && (
-                            <span className="shrink-0 px-2 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-500/20 flex items-center gap-1">
+                            <span className="shrink-0 px-2 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-400 rounded-full border border-emerald-500/20 flex items-center gap-1">
                                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
                                 LIVE
                             </span>
                         )}
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 font-medium truncate">
+                    <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium truncate">
                         {isLiveSession ? `⏱ ${formatTimer(sessionSeconds)} • ${chatHistoryLength} xabar` : displayDesc}
                     </p>
                 </div>
@@ -102,15 +102,15 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             {/* Right: Controls */}
             <div className="flex items-center gap-1.5 shrink-0 ml-auto sm:ml-0">
                 {/* Language Switcher Pill */}
-                <div className="flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl p-0.5 sm:p-1 rounded-xl border border-gray-200/50 dark:border-gray-700/50">
+                <div className="flex items-center bg-card/90 backdrop-blur-xl p-0.5 sm:p-1 rounded-xl border border-border">
                     {isSuper && (
                         <button
                             onClick={() => handleLanguageChange('en')}
                             disabled={isLiveSession}
-                            className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all ${
+                            className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
                                 language === 'en'
-                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
-                                : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             🇬🇧 EN
@@ -119,13 +119,13 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                     <button
                         onClick={() => handleLanguageChange('ja')}
                         disabled={isLiveSession}
-                        className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all ${
+                        className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
                             language === 'ja'
-                            ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm'
-                            : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
+                            ? 'bg-primary text-primary-foreground shadow-xs'
+                            : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
-                        🇯🇵 JA
+                        🎌 JA
                     </button>
                 </div>
 
@@ -134,7 +134,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                     <button 
                         onClick={() => setShowPersonaSelector(!showPersonaSelector)}
                         disabled={isLiveSession}
-                        className="p-1.5 sm:p-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all disabled:opacity-40 hover:shadow-md"
+                        className="p-1.5 sm:p-2 bg-card/90 backdrop-blur-xl rounded-xl border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-all disabled:opacity-40 hover:shadow-md cursor-pointer"
                         title="Persona tanlash"
                     >
                         <span className="text-sm">{currentPersona.emoji}</span>
@@ -143,8 +143,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                     {showPersonaSelector && !isLiveSession && (
                         <>
                             <div className="fixed inset-0 z-40" onClick={() => setShowPersonaSelector(false)} />
-                            <div className="absolute right-0 top-full mt-2 z-50 w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-2xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <div className="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                            <div className="absolute right-0 top-full mt-2 z-50 w-72 bg-card/95 backdrop-blur-2xl rounded-2xl border border-border shadow-2xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="px-3 py-2 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                                     {language === 'ja' ? 'パートナーを えらぶ' : 'Persona tanlang'}
                                 </div>
                                 {(Object.keys(PERSONAS) as CoachPersona[])
@@ -160,20 +160,20 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                                                     setPersona(pKey);
                                                     setShowPersonaSelector(false);
                                                 }}
-                                                className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left ${
+                                                className={`w-full flex items-center gap-3 p-2.5 rounded-xl transition-all text-left cursor-pointer ${
                                                     isSelected 
                                                     ? `bg-gradient-to-r ${p.color} text-white shadow-md` 
-                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                                    : 'text-foreground hover:bg-muted'
                                                 }`}
                                             >
-                                                <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-white/20' : 'bg-gray-100 dark:bg-gray-800'}`}>
+                                                <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-white/20' : 'bg-muted'}`}>
                                                     <Icon size={16} />
                                                 </div>
                                                 <div className="min-w-0 flex-1">
                                                     <div className="text-xs font-bold truncate flex items-center gap-1.5">
                                                         {p.name}
                                                     </div>
-                                                    <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-gray-400'}`}>{p.desc}</div>
+                                                    <div className={`text-[10px] truncate ${isSelected ? 'text-white/70' : 'text-muted-foreground'}`}>{p.desc}</div>
                                                 </div>
                                                 {isSelected && <Check size={14} className="ml-auto shrink-0" />}
                                             </button>
@@ -186,15 +186,15 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
 
                 {/* Target Band Level Selector (Desktop & Tablet) */}
                 {language === 'en' && (
-                    <div className="hidden sm:flex items-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl px-2 py-1 rounded-xl border border-gray-200/50 dark:border-gray-700/50">
-                        <GraduationCap size={13} className="text-amber-500 mr-1.5" />
-                        <span className="text-[10px] font-bold text-gray-400 mr-1">Band:</span>
+                    <div className="hidden sm:flex items-center bg-card/90 backdrop-blur-xl px-2 py-1 rounded-xl border border-border">
+                        <GraduationCap size={13} className="text-[#C9A961] mr-1.5" />
+                        <span className="text-[10px] font-bold text-muted-foreground mr-1">Band:</span>
                         {(['6.0', '7.0', '8.0', '9.0'] as const).map(b => (
                             <button
                                 key={b}
                                 disabled={isLiveSession}
                                 onClick={() => setTargetBand(b)}
-                                className={`px-1.5 py-0.5 text-[10px] font-extrabold rounded-md transition-all ${targetBand === b ? 'bg-amber-500 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+                                className={`px-1.5 py-0.5 text-[10px] font-extrabold rounded-md transition-all cursor-pointer ${targetBand === b ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                             >
                                 {b}
                             </button>
@@ -206,10 +206,10 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                 {onToggleFullscreen && (
                     <button 
                         onClick={onToggleFullscreen}
-                        className={`p-1.5 sm:p-2 backdrop-blur-xl rounded-xl border transition-all hover:shadow-md ${
+                        className={`p-1.5 sm:p-2 backdrop-blur-xl rounded-xl border transition-all hover:shadow-md cursor-pointer ${
                             isFullscreen 
-                                ? 'bg-indigo-600 text-white border-indigo-500 shadow-indigo-500/25' 
-                                : 'bg-white/60 dark:bg-gray-800/60 border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                                ? 'bg-primary text-primary-foreground border-primary shadow-primary/25' 
+                                : 'bg-card/90 border-border text-muted-foreground hover:text-foreground hover:bg-muted'
                         }`}
                         title={isFullscreen ? "Oddiy rejimga qaytish (Exit Fullscreen)" : "To'liq ekran rejimi (Fullscreen)"}
                         aria-label={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
@@ -221,7 +221,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
                 {/* Settings */}
                 <button 
                     onClick={onOpenSettings}
-                    className="p-1.5 sm:p-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-md transition-all text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                    className="p-1.5 sm:p-2 bg-card/90 backdrop-blur-xl rounded-xl border border-border hover:shadow-md transition-all text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
                     title="Coach AI Sozlamalari"
                 >
                     <SettingsIcon size={16} />

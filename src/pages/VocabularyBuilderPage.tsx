@@ -41,12 +41,12 @@ export const VocabularyBuilderPage: React.FC = () => {
     const [savedWords, setSavedWords] = useState<VocabWordDetails[]>([]);
 
     const SAMPLE_WORDS = (!isSuper || primaryLanguage === 'ja') ? [
-        { label: '勉強[べんきょう] (N5)', query: '勉強' },
-        { label: '維持[いじ] (N2)', query: '維持' },
-        { label: '習慣[しゅうかん] (N3)', query: '習慣' },
-        { label: '挑戦[ちょうせん] (N2)', query: '挑戦' },
-        { label: '継続[けいぞく] (N1)', query: '継続' },
-        { label: '成長[せいちょう] (N3)', query: '成長' },
+        { label: '勉強 (N5)', query: '勉強' },
+        { label: '維持 (N2)', query: '維持' },
+        { label: '習慣 (N3)', query: '習慣' },
+        { label: '挑戦 (N2)', query: '挑戦' },
+        { label: '継続 (N1)', query: '継続' },
+        { label: '成長 (N3)', query: '成長' },
     ] : [
         { label: 'paramount (C1)', query: 'paramount' },
         { label: 'ubiquitous (C2)', query: 'ubiquitous' },
@@ -84,10 +84,10 @@ export const VocabularyBuilderPage: React.FC = () => {
                 if (!dbErr && dbSavedRows && dbSavedRows.length > 0) {
                     const mappedSaved: VocabWordDetails[] = dbSavedRows.map(r => ({
                         word: r.term,
-                        language: (r.language || 'en') as 'en' | 'ja',
+                        language: (r.language || 'ja') as 'en' | 'ja',
                         reading: r.reading || undefined,
                         furigana: r.reading || undefined,
-                        level: 'B2',
+                        level: 'N3',
                         partOfSpeech: '',
                         uzbekTranslation: r.meaning,
                         definition: r.meaning,
@@ -209,7 +209,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 supabase.from('user_saved_vocabulary').upsert({
                     id: uuid,
                     user_id: user.id,
-                    language: wordObj.language || 'en',
+                    language: wordObj.language || 'ja',
                     term: wordObj.word,
                     reading: wordObj.furigana || wordObj.phonetic || null,
                     meaning: wordObj.uzbekTranslation || wordObj.definition,
@@ -227,8 +227,8 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 });
             }
 
-                // Fallback metadata update
-                supabase.auth.updateUser({ data: { vocab_saved: updated } }).catch(err => console.warn(err));
+            // Fallback metadata update
+            supabase.auth.updateUser({ data: { vocab_saved: updated } }).catch(err => console.warn(err));
         }
     };
 
@@ -257,18 +257,18 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
     const isCurrentSaved = currentResult ? savedWords.some(w => w.word.toLowerCase() === currentResult.word.toLowerCase()) : false;
 
     return (
-        <div className="p-4 md:p-8 max-w-7xl mx-auto pb-16 space-y-8">
+        <div className="p-4 md:p-8 max-w-6xl mx-auto pb-16 space-y-8">
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-6">
-                <div className="flex items-center gap-3">
-                    <div className="p-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl text-white shadow-lg shadow-purple-500/20">
-                        <BookOpen size={24} />
+                <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0 shadow-xs">
+                        <BookOpen size={22} />
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-extrabold text-foreground">
-                            {language === 'ja' ? 'AI単語帳・辞書ビルダー 🧠' : 'Smart Vocabulary Builder 🧠'}
+                        <h1 className="text-2xl md:text-3xl font-display font-black tracking-tight text-foreground">
+                            {language === 'ja' ? 'AI単語帳・辞書ビルダー' : 'Smart Vocabulary Builder'}
                         </h1>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                             {language === 'ja'
                                 ? 'JLPTの単語をリアルタイムでAI分析。意味・例文・類語・漢字の読み方を瞬時に学習できます。'
                                 : "JLPT N5–N1 yapon tili lug'at boyligingizni oshiring, Kanji, sinonimlar va misollar o'rganing."}
@@ -277,27 +277,33 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 </div>
 
                 {/* Tabs */}
-                <div className="flex bg-muted p-1.5 rounded-2xl border border-border">
+                <div className="flex bg-muted/60 p-1.5 rounded-2xl border border-border">
                     <button
                         onClick={() => setActiveTab('search')}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                            activeTab === 'search' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'search'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
                         <Search size={14} /> {language === 'ja' ? '検索' : 'Qidiruv'}
                     </button>
                     <button
                         onClick={() => setActiveTab('saved')}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                            activeTab === 'saved' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'saved'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
                         <Bookmark size={14} /> {language === 'ja' ? `保存済み (${savedWords.length})` : `Saqlanganlar (${savedWords.length})`}
                     </button>
                     <button
                         onClick={() => setActiveTab('history')}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                            activeTab === 'history' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'history'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
                         }`}
                     >
                         <History size={14} /> {language === 'ja' ? '履歴' : 'Tarix'}
@@ -310,7 +316,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 <div className="space-y-6">
                     {/* Search Input Bar */}
                     <div className="bg-card border border-border p-6 rounded-3xl shadow-sm space-y-4">
-                        <div className="flex gap-3">
+                        <div className="flex flex-col sm:flex-row gap-3">
                             <div className="relative flex-1">
                                 <Search className="absolute left-4 top-3.5 text-muted-foreground" size={18} />
                                 <input
@@ -318,28 +324,28 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                     value={query}
                                     onChange={e => setQuery(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    placeholder={language === 'ja' ? '単語を入力してEnter（例: 勉強, 維持, 習慣, resilient, paramount）...' : "So'z kiritib Enter bosing (masalan: resilient, paramount, 勉強, 維持)..."}
-                                    className="w-full pl-11 pr-4 py-3.5 bg-muted/40 border border-border rounded-2xl text-sm font-medium text-foreground focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                                    placeholder={language === 'ja' ? '単語を入力してEnter（例: 勉強, 維持, 習慣, 挑戦）...' : "So'z kiritib Enter bosing (masalan: 勉強, 維持, 習慣, 挑戦)..."}
+                                    className="w-full pl-11 pr-4 py-3.5 bg-background border border-border rounded-2xl text-sm font-medium text-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-muted-foreground/60"
                                 />
                             </div>
                             <button
                                 onClick={() => handleSearch()}
                                 disabled={isSearching || !query.trim()}
-                                className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-2xl shadow-md transition-all disabled:opacity-50 flex items-center gap-2 shrink-0"
+                                className="px-6 py-3.5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs rounded-2xl shadow-md shadow-primary/20 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
                             >
                                 {isSearching ? <Sparkles size={16} className="animate-spin" /> : <Search size={16} />}
-                                <span>{isSearching ? (language === 'ja' ? "分析中..." : "Tahlil qilinmoqda...") : (language === 'ja' ? "AI分析 🚀" : "AI Tahlil 🚀")}</span>
+                                <span>{isSearching ? (language === 'ja' ? "分析中..." : "Tahlil qilinmoqda...") : (language === 'ja' ? "AI分析" : "AI Tahlil")}</span>
                             </button>
                         </div>
 
                         {/* Sample topics */}
                         <div className="flex flex-wrap items-center gap-2 pt-1">
-                            <span className="text-[10px] font-bold text-muted-foreground">{language === 'ja' ? 'おすすめ単語:' : 'Namunalar:'}</span>
+                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{language === 'ja' ? 'おすすめ単語:' : 'Namunalar:'}</span>
                             {SAMPLE_WORDS.map((w, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => { setQuery(w.query); handleSearch(w.query); }}
-                                    className="text-[10px] px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 rounded-full font-bold hover:bg-indigo-500/20 transition-all"
+                                    className="text-[11px] px-3 py-1 bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border rounded-full font-medium transition-all cursor-pointer active:scale-95"
                                 >
                                     {w.label}
                                 </button>
@@ -349,7 +355,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
                     {/* Error */}
                     {errorMsg && (
-                        <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-bold rounded-2xl">
+                        <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold rounded-2xl">
                             {errorMsg}
                         </div>
                     )}
@@ -361,14 +367,14 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-6">
                                 <div>
                                     <div className="flex items-center gap-3">
-                                        <h2 className="text-3xl font-black text-foreground">
+                                        <h2 className="text-3xl font-display font-black text-foreground">
                                             {currentResult.furigana ? (
                                                 <FuriganaText text={currentResult.furigana} />
                                             ) : (
                                                 currentResult.word
                                             )}
                                         </h2>
-                                        <span className="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-extrabold rounded-full border border-indigo-500/20 uppercase">
+                                        <span className="px-3 py-1 bg-[#C9A961]/15 text-[#C9A961] text-xs font-black rounded-full border border-[#C9A961]/30 uppercase tracking-wider">
                                             {currentResult.level}
                                         </span>
                                         <span className="text-xs text-muted-foreground italic font-serif">
@@ -385,16 +391,16 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => speakText(currentResult.word, currentResult.language === 'ja' ? 'ja-JP' : 'en-US')}
-                                        className="p-3 bg-muted hover:bg-muted/80 text-foreground rounded-2xl border border-border transition-all flex items-center gap-2 text-xs font-bold"
+                                        className="p-3 bg-muted hover:bg-muted/80 text-foreground rounded-2xl border border-border transition-all flex items-center gap-2 text-xs font-bold cursor-pointer active:scale-95"
                                     >
-                                        <Volume2 size={18} className="text-indigo-500" />
+                                        <Volume2 size={18} className="text-primary" />
                                         <span>Talaffuz</span>
                                     </button>
                                     <button
                                         onClick={() => toggleSaveWord(currentResult)}
-                                        className={`p-3 rounded-2xl border transition-all flex items-center gap-2 text-xs font-bold ${
+                                        className={`p-3 rounded-2xl border transition-all flex items-center gap-2 text-xs font-bold cursor-pointer active:scale-95 ${
                                             isCurrentSaved
-                                                ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                                                ? 'bg-[#C9A961]/15 text-[#C9A961] border-[#C9A961]/40'
                                                 : 'bg-muted hover:bg-muted/80 text-foreground border-border'
                                         }`}
                                     >
@@ -406,12 +412,12 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
                             {/* Uzbek Translation & Definition */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="p-5 bg-indigo-500/5 border border-indigo-500/20 rounded-2xl space-y-1">
-                                    <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-extrabold uppercase tracking-wider">O'zbekcha Tarjima</span>
-                                    <p className="text-xl font-black text-foreground">{currentResult.uzbekTranslation}</p>
+                                <div className="p-5 bg-card border-l-4 border-l-primary border border-border rounded-2xl space-y-1 shadow-xs">
+                                    <span className="text-[10px] text-primary font-black uppercase tracking-wider">O'zbekcha Tarjima</span>
+                                    <p className="text-xl font-bold text-foreground">{currentResult.uzbekTranslation}</p>
                                 </div>
                                 <div className="p-5 bg-muted/30 border border-border rounded-2xl space-y-1">
-                                    <span className="text-[10px] text-muted-foreground font-extrabold uppercase tracking-wider">Ta'rif (Definition)</span>
+                                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Ta'rif (Definition)</span>
                                     <p className="text-sm font-medium text-foreground">{currentResult.definition}</p>
                                 </div>
                             </div>
@@ -420,7 +426,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {currentResult.synonyms.length > 0 && (
                                     <div className="space-y-2">
-                                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Sinonimlar</h4>
+                                        <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Sinonimlar</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {currentResult.synonyms.map((syn, i) => (
                                                 <span key={i} className="px-3 py-1 bg-muted border border-border rounded-xl text-xs font-bold text-foreground">
@@ -433,10 +439,10 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
                                 {currentResult.collocations.length > 0 && (
                                     <div className="space-y-2">
-                                        <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Collocations (So'z birikmalari)</h4>
+                                        <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Collocations (So'z birikmalari)</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {currentResult.collocations.map((col, i) => (
-                                                <span key={i} className="px-3 py-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 rounded-xl text-xs font-bold">
+                                                <span key={i} className="px-3 py-1 bg-muted/80 text-foreground border border-border rounded-xl text-xs font-semibold">
                                                     {col}
                                                 </span>
                                             ))}
@@ -448,7 +454,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                             {/* Example Sentences */}
                             {currentResult.examples.length > 0 && (
                                 <div className="space-y-3">
-                                    <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider">Kontekstual Misollar (3 ta gap)</h4>
+                                    <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Kontekstual Misollar (3 ta gap)</h4>
                                     <div className="space-y-3">
                                         {currentResult.examples.map((ex, i) => (
                                             <div key={i} className="p-4 bg-muted/20 border border-border rounded-2xl space-y-1">
@@ -467,7 +473,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                     <select
                                         value={selectedSubjectId}
                                         onChange={e => setSelectedSubjectId(e.target.value)}
-                                        className="px-3 py-2 bg-muted/50 border border-border rounded-xl text-xs font-bold text-foreground focus:outline-none"
+                                        className="px-3 py-2 bg-background border border-border rounded-xl text-xs font-bold text-foreground focus:outline-none focus:border-primary"
                                     >
                                         {subjects.map(s => (
                                             <option key={s.id} value={s.id}>{s.name}</option>
@@ -478,10 +484,10 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                 <button
                                     onClick={handleCreateFlashcard}
                                     disabled={isAddedToFlashcards || !selectedSubjectId}
-                                    className={`w-full sm:w-auto px-6 py-3 rounded-2xl font-extrabold text-xs transition-all shadow-md flex items-center justify-center gap-2 ${
+                                    className={`w-full sm:w-auto px-6 py-3 rounded-2xl font-bold text-xs transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-95 ${
                                         isAddedToFlashcards
                                             ? 'bg-emerald-600 text-white'
-                                            : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                                            : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20'
                                     }`}
                                 >
                                     {isAddedToFlashcards ? <Check size={16} /> : <Plus size={16} />}
@@ -505,17 +511,17 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {savedWords.map((item, idx) => (
-                                <div key={idx} className="bg-card border border-border p-5 rounded-3xl shadow-sm space-y-3 relative group">
+                                <div key={idx} className="bg-card border border-border hover:border-primary/40 p-5 rounded-3xl shadow-sm space-y-3 relative group transition-all">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <span className="text-[10px] font-extrabold text-indigo-500 uppercase">{item.level}</span>
-                                            <h3 className="text-xl font-extrabold text-foreground">
+                                            <span className="text-[10px] font-black text-[#C9A961] uppercase tracking-wider">{item.level}</span>
+                                            <h3 className="text-xl font-display font-black text-foreground mt-0.5">
                                                 {item.furigana ? <FuriganaText text={item.furigana} /> : item.word}
                                             </h3>
                                         </div>
                                         <button
                                             onClick={() => toggleSaveWord(item)}
-                                            className="text-amber-500 hover:text-red-500 transition-colors p-1"
+                                            className="text-muted-foreground hover:text-primary transition-colors p-1 cursor-pointer"
                                             title="Saqlanganlardan o'chirish"
                                         >
                                             <Trash2 size={16} />
@@ -525,7 +531,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                     <p className="text-[11px] text-muted-foreground line-clamp-2">{item.definition}</p>
                                     <button
                                         onClick={() => { setCurrentResult(item); setActiveTab('search'); }}
-                                        className="text-[10px] font-bold text-indigo-500 hover:underline flex items-center gap-1 pt-1"
+                                        className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1 pt-1 cursor-pointer"
                                     >
                                         Batafsil ko'rish <ArrowRight size={12} />
                                     </button>
@@ -553,7 +559,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                                     className="p-4 hover:bg-muted/40 transition-all flex items-center justify-between cursor-pointer"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <span className="px-2.5 py-0.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-extrabold rounded-full border border-indigo-500/20 uppercase">
+                                        <span className="px-2.5 py-0.5 bg-[#C9A961]/15 text-[#C9A961] text-[10px] font-black rounded-full border border-[#C9A961]/30 uppercase tracking-wider">
                                             {item.level}
                                         </span>
                                         <div>

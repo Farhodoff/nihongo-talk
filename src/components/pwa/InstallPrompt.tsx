@@ -70,26 +70,26 @@ const InstallPrompt: React.FC = () => {
 
     return (
         <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:bottom-8 z-[101] animate-in slide-in-from-bottom-10 duration-500">
-            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl shadow-2xl p-6 text-white max-w-sm mx-auto relative overflow-hidden">
+            <div className="bg-card border border-border rounded-3xl shadow-2xl p-6 text-foreground max-w-sm mx-auto relative overflow-hidden ring-1 ring-primary/20">
                 {/* Background Decoration */}
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl" />
-                <div className="absolute -left-4 -bottom-4 w-24 h-24 bg-indigo-400/20 rounded-full blur-2xl" />
+                <div className="absolute -right-4 -top-4 w-28 h-28 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -left-4 -bottom-4 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
                 
                 <button 
                     onClick={handleClose}
-                    className="absolute top-4 right-4 p-1 hover:bg-white/10 rounded-full transition-colors"
+                    className="absolute top-4 right-4 p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 rounded-full transition-colors"
                 >
-                    <X size={20} />
+                    <X size={18} />
                 </button>
 
                 <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg transform -rotate-6">
-                        <Smartphone className="text-indigo-600 w-8 h-8" />
+                    <div className="w-14 h-14 bg-primary/10 border border-primary/25 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3">
+                        <Smartphone className="text-primary w-7 h-7" />
                     </div>
                     
                     <div className="space-y-1">
-                        <h3 className="text-xl font-bold">Ilovani o'rnating</h3>
-                        <p className="text-indigo-100 text-sm">
+                        <h3 className="text-lg font-display font-black text-foreground">Ilovani o'rnating</h3>
+                        <p className="text-muted-foreground text-xs leading-relaxed">
                             Nihongo Talk-ni mobil ilova sifatida ishlating va barcha imkoniyatlardan tezroq foydalaning.
                         </p>
                     </div>
@@ -97,16 +97,16 @@ const InstallPrompt: React.FC = () => {
                     {!isIOS ? (
                         <button
                             onClick={handleInstall}
-                            className="w-full py-3 bg-white text-indigo-600 font-bold rounded-2xl shadow-md hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
+                            className="w-full py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
                         >
-                            <Download size={18} />
+                            <Download size={16} />
                             O'rnatish
                         </button>
                     ) : (
-                        <div className="bg-white/10 rounded-2xl p-4 w-full text-sm flex items-start gap-3 text-left">
-                            <ArrowUpCircle className="shrink-0 mt-0.5" size={20} />
+                        <div className="bg-muted/60 border border-border rounded-2xl p-3.5 w-full text-xs flex items-start gap-2.5 text-left text-muted-foreground">
+                            <ArrowUpCircle className="shrink-0 mt-0.5 text-primary" size={18} />
                             <p>
-                                iOS uchun: <span className="font-bold">"Share"</span> tugmasini bosing va <span className="font-bold">"Add to Home Screen"</span>-ni tanlang.
+                                iOS uchun: <span className="font-bold text-foreground">"Share"</span> tugmasini bosing va <span className="font-bold text-foreground">"Add to Home Screen"</span>-ni tanlang.
                             </p>
                         </div>
                     )}
