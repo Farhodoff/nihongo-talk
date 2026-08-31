@@ -23,7 +23,7 @@ export const FuriganaText: React.FC<FuriganaTextProps> = ({
     forceShow
 }) => {
     const { settings } = useStudyData();
-    const showFurigana = forceShow !== undefined ? forceShow : settings.showFurigana;
+    const showFurigana = forceShow !== undefined ? forceShow : (settings?.showFurigana ?? true);
 
     if (!text) return null;
 

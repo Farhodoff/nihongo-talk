@@ -104,13 +104,51 @@ const SpeakingCoachPage: React.FC = () => {
         setSearchParams({ lang: newLang });
     };
 
+    const DEFAULT_JA_CHAT_HISTORY: CoachChatMessage[] = [
+        {
+            role: 'user',
+            content: '先生、こんにちは！日本のIT企業での面接に向けて、自己PRと志望動機の練習をしたいです。',
+            timestamp: '14:20'
+        },
+        {
+            role: 'assistant',
+            content: 'こんにちは！日本のIT業界を目指す意気込み、素晴らしいですね。面接では「なぜ日本で働きたいか」「チーム開発での技術的な強み」が重視されます。まずは自己紹介と得意な技術スタックについて話してみてください！',
+            romaji: 'Konnichiwa! Nihon no IT gyoukai o mezasu ikigomi, subarashii desu ne.',
+            timestamp: '14:21',
+            correction: {
+                hasError: true,
+                original: '志望動機の練習をしたいです',
+                corrected: '志望動機のご指導をいただきたく存じます',
+                explanation: 'ビジネスシーンや面接指導では謙譲表現「〜いただきたく存じます」を用いると、より洗練されたプロフェッショナルな印象になります。'
+            },
+            vocabulary: [
+                { word: '志望動機', meaning: 'Reason for applying / Application motivation', reading: 'しぼうどうき' },
+                { word: '自己PR', meaning: 'Self-promotion / Strengths presentation', reading: 'じこピーアール' },
+                { word: '技術スタック', meaning: 'Technology stack / Skills', reading: 'ぎじゅつスタック' }
+            ]
+        },
+        {
+            role: 'user',
+            content: '大学では情報工学を専攻し、TypeScriptとReactを用いたWebアプリ開発に注力してきました。クラウドインフラにも強い関心があります。',
+            timestamp: '14:22'
+        },
+        {
+            role: 'assistant',
+            content: '明瞭で説得力のある自己紹介です！モダンなWeb技術とクラウドの組み合わせは日本のテック企業でも高く評価されます。この調子で模擬面接を続けましょう。',
+            romaji: 'Meiryou de settokuryoku no aru jiko shoukai desu! Kono choushi de menseki renshuu o tsuzukemashou.',
+            timestamp: '14:23'
+        }
+    ];
+
     const [persona, setPersona] = useState<CoachPersona>('roast');
     const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>('7.5');
     const [isLiveSession, setIsLiveSession] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isThinking, setIsThinking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const [chatHistory, setChatHistory] = useState<CoachChatMessage[]>([]);
+    const [chatHistory, setChatHistory] = useState<CoachChatMessage[]>(() => {
+        return (language === 'ja' || !language) ? DEFAULT_JA_CHAT_HISTORY : [];
+    });
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [sessionSeconds, setSessionSeconds] = useState(0);
     const [showPersonaSelector, setShowPersonaSelector] = useState(false);

@@ -366,16 +366,20 @@ export const ScenarioPickerPage: React.FC = () => {
                                     <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
                                         {title}
                                     </h3>
-                                    <p className="text-xs font-semibold text-muted-foreground mt-0.5">
-                                        {scenario.title_uz}
-                                    </p>
-                                    <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-2 leading-relaxed">
-                                        {scenario.description_uz}
-                                    </p>
+                                    {language !== 'ja' && scenario.title_uz && (
+                                        <p className="text-xs font-semibold text-muted-foreground mt-0.5">
+                                            {scenario.title_uz}
+                                        </p>
+                                    )}
+                                    {language !== 'ja' && scenario.description_uz && (
+                                        <p className="text-xs text-muted-foreground/80 mt-2 line-clamp-2 leading-relaxed">
+                                            {scenario.description_uz}
+                                        </p>
+                                    )}
 
                                     {/* Key Phrases */}
                                     <div className="mt-4 pt-3 border-t border-border/40 space-y-1.5">
-                                        <span className="text-[10px] font-bold text-muted-foreground uppercase">Kalit iboralar:</span>
+                                        <span className="text-[10px] font-bold text-muted-foreground uppercase">{language === 'ja' ? '重要フレーズ:' : 'Kalit iboralar:'}</span>
                                         <div className="flex flex-wrap gap-1">
                                             {scenario.key_phrases.slice(0, 3).map((kp, idx) => (
                                                 <span key={idx} className="px-2 py-0.5 bg-muted text-[10px] font-mono text-foreground rounded-md border border-border/40">
@@ -397,13 +401,13 @@ export const ScenarioPickerPage: React.FC = () => {
                                             <Award size={16} className="text-[#C9A961]" />
                                             <div>
                                                 <span className="font-bold text-foreground">{lastSession.overall_score}%</span>
-                                                <span className="text-muted-foreground text-[10px] ml-1">oxirgi natija</span>
+                                                <span className="text-muted-foreground text-[10px] ml-1">{language === 'ja' ? '前回のスコア' : 'oxirgi natija'}</span>
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="text-[11px] text-muted-foreground flex items-center gap-1">
                                             <History size={12} />
-                                            <span>Boshlanmagan</span>
+                                            <span>{language === 'ja' ? '未着手' : 'Boshlanmagan'}</span>
                                         </div>
                                     )}
 
@@ -412,7 +416,7 @@ export const ScenarioPickerPage: React.FC = () => {
                                         className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20 transition-all group-hover:scale-105 active:scale-95 cursor-pointer"
                                     >
                                         <Play size={14} className="fill-current" />
-                                        <span>Boshlash</span>
+                                        <span>{language === 'ja' ? '会話を開始' : 'Boshlash'}</span>
                                     </button>
                                 </div>
                             </div>

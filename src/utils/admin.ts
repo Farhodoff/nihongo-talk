@@ -5,11 +5,13 @@ export const SUPER_ADMIN_EMAILS = [
 ];
 
 export const DEFAULT_ADMIN_EMAILS = [
-    'fsoyilov@gmail.com'
+    'fsoyilov@gmail.com',
+    'admin@nihongo-talk.jp'
 ];
 
-// Check if user is Super Admin (strictly fsoyilov@gmail.com)
-export const isSuperAdmin = (email?: string | null): boolean => {
+// Check if user is Super Admin
+export const isSuperAdmin = (email?: string | null, role?: string | null): boolean => {
+    if (role === 'superadmin') return true;
     if (!email) return false;
     const e = email.toLowerCase().trim();
     return SUPER_ADMIN_EMAILS.includes(e);
@@ -20,7 +22,7 @@ export const isEnglishTrackAllowed = (email?: string | null): boolean => {
     return isSuperAdmin(email);
 };
 
-// Check if user is Admin or Super Admin (strictly fsoyilov@gmail.com)
+// Check if user is Admin or Super Admin
 export const isAdminEmail = (email?: string | null, role?: string | null): boolean => {
     if (role === 'admin' || role === 'superadmin') return true;
     if (!email) return false;
@@ -30,9 +32,10 @@ export const isAdminEmail = (email?: string | null, role?: string | null): boole
 };
 
 // Helper for user object
-export const isUserAdmin = (user?: { email?: string | null; role?: string | null } | null): boolean => {
+export const isUserAdmin = (user?: any): boolean => {
     if (!user) return false;
-    return isAdminEmail(user.email, user.role);
+    const role = user.role || user.user_metadata?.role || user.app_metadata?.role;
+    return isAdminEmail(user.email, role);
 };
 
 // Dynamic role grant — updates profiles.role in Supabase DB

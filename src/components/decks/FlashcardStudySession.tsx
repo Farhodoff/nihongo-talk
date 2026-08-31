@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { ArrowLeft, CheckCircle2, Loader2, Volume2, Trash2, Edit3, Trophy, RotateCcw, Keyboard } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useStudyData } from '../../context/StudyPlannerContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { isAdminEmail } from '../../utils/admin';
 import { Flashcard } from '../../types';
 import { Rating, Grade, getPreviewIntervals } from '../../utils/srs';
@@ -18,6 +19,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     onClose
 }) => {
     const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } = useStudyData();
+    const { language } = useLanguage();
+    const isJa = language === 'ja';
     const isAdmin = isAdminEmail(user?.email);
 
     const [queue, setQueue] = useState<Flashcard[]>([]);
@@ -239,19 +242,23 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                         <Trophy size={44} />
                     </div>
                     <div className="space-y-2">
-                        <h2 className="text-2xl font-black text-foreground">Mashg'ulot Yakunlandi! 🎉</h2>
+                        <h2 className="text-2xl font-black text-foreground">{isJa ? '学習セッション完了！ 🎉' : "Mashg'ulot Yakunlandi! 🎉"}</h2>
                         <p className="text-xs text-muted-foreground">
-                            Siz <strong>{reviewedCount} ta</strong> kartochkani muvaffaqiyatli takrorladingiz va <strong>+{totalXpEarned} XP</strong> yutib oldingiz!
+                            {isJa ? (
+                                <><strong>{reviewedCount} 枚</strong>のカードを学習し、<strong>+{totalXpEarned} XP</strong> を獲得しました！</>
+                            ) : (
+                                <>Siz <strong>{reviewedCount} ta</strong> kartochkani muvaffaqiyatli takrorladingiz va <strong>+{totalXpEarned} XP</strong> yutib oldingiz!</>
+                            )}
                         </p>
                     </div>
 
                     <div className="p-4 bg-muted/40 rounded-2xl border border-border grid grid-cols-2 gap-4 text-center">
                         <div>
-                            <span className="text-[10px] font-bold text-muted-foreground uppercase block">Takrorlangan</span>
-                            <span className="text-xl font-black text-foreground">{reviewedCount} ta</span>
+                            <span className="text-[10px] font-bold text-muted-foreground uppercase block">{isJa ? '復習済みカード' : 'Takrorlangan'}</span>
+                            <span className="text-xl font-black text-foreground">{reviewedCount} {isJa ? '枚' : 'ta'}</span>
                         </div>
                         <div>
-                            <span className="text-[10px] font-bold text-[#C9A961] uppercase block">Yutilgan XP</span>
+                            <span className="text-[10px] font-bold text-[#C9A961] uppercase block">{isJa ? '獲得 XP' : 'Yutilgan XP'}</span>
                             <span className="text-xl font-black text-[#C9A961]">+{totalXpEarned} XP</span>
                         </div>
                     </div>
@@ -267,10 +274,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                             variant="secondary" 
                             className="flex-1 font-bold py-3 rounded-xl"
                         >
-                            <RotateCcw size={16} className="mr-2" /> Qayta O'rganish
+                            <RotateCcw size={16} className="mr-2" /> {isJa ? 'もう一度復習' : "Qayta O'rganish"}
                         </Button>
                         <Button onClick={onClose} className="flex-1 font-black py-3 rounded-xl bg-primary text-primary-foreground">
-                            Tugatish
+                            {isJa ? '完了' : 'Tugatish'}
                         </Button>
                     </div>
                 </div>
@@ -289,7 +296,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                     className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-xl transition-all flex items-center gap-2 text-xs font-bold cursor-pointer"
                 >
                     <ArrowLeft size={18} />
-                    <span>To'plamlarga qaytish</span>
+                    <span>{isJa ? '単語帳一覧に戻る' : "To'plamlarga qaytish"}</span>
                 </button>
 
                 {/* Progress bar */}
@@ -327,7 +334,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                 studyMode === 'srs' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground'
                             }`}
                         >
-                            SRS
+                            {isJa ? 'SRS暗記' : 'SRS'}
                         </button>
                         <button
                             onClick={() => setStudyMode('type')}
@@ -335,7 +342,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                 studyMode === 'type' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground'
                             }`}
                         >
-                            Yozma
+                            {isJa ? '入力' : 'Yozma'}
                         </button>
                     </div>
                 </div>
@@ -354,14 +361,14 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                     {/* Top Card Controls */}
                     <div className="flex items-center justify-between">
                         <span className="text-xs font-extrabold px-3 py-1 bg-primary/10 text-primary rounded-full">
-                            {currentSubject?.name || 'SRS Fleshkarta'}
+                            {currentSubject?.name || (isJa ? 'SRS 単語カード' : 'SRS Fleshkarta')}
                         </span>
 
                         <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
                             <button
                                 onClick={handleSpeak}
                                 className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-all cursor-pointer"
-                                title="Ovoz chiqarish (TTS)"
+                                title={isJa ? '音声再生 (TTS)' : "Ovoz chiqarish (TTS)"}
                             >
                                 <Volume2 size={20} />
                             </button>
@@ -370,7 +377,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                 <button
                                     onClick={handleStartEdit}
                                     className="p-2 text-muted-foreground hover:text-[#C9A961] hover:bg-[#C9A961]/10 rounded-xl transition-all cursor-pointer"
-                                    title="Tahrirlash"
+                                    title={isJa ? '編集' : "Tahrirlash"}
                                 >
                                     <Edit3 size={18} />
                                 </button>
@@ -380,7 +387,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                 <button
                                     onClick={handleDeleteCard}
                                     className="p-2 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all cursor-pointer"
-                                    title="O'chirish"
+                                    title={isJa ? '削除' : "O'chirish"}
                                 >
                                     <Trash2 size={18} />
                                 </button>
@@ -393,7 +400,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                         {isEditingCard ? (
                             <div className="space-y-3 text-left" onClick={e => e.stopPropagation()}>
                                 <div>
-                                    <label className="text-xs font-bold text-muted-foreground">Old qism (Front)</label>
+                                    <label className="text-xs font-bold text-muted-foreground">{isJa ? '表面 (Front)' : 'Old qism (Front)'}</label>
                                     <input
                                         type="text"
                                         value={editFront}
@@ -402,7 +409,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-bold text-muted-foreground">Orqa qism (Back)</label>
+                                    <label className="text-xs font-bold text-muted-foreground">{isJa ? '裏面 (Back)' : 'Orqa qism (Back)'}</label>
                                     <textarea
                                         value={editBack}
                                         onChange={e => setEditBack(e.target.value)}
@@ -412,10 +419,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                 </div>
                                 <div className="flex gap-2 justify-end pt-2">
                                     <Button onClick={() => setIsEditingCard(false)} variant="secondary" className="text-xs">
-                                        Bekor qilish
+                                        {isJa ? 'キャンセル' : 'Bekor qilish'}
                                     </Button>
                                     <Button onClick={handleSaveEdit} className="text-xs bg-primary text-primary-foreground font-bold">
-                                        Saqlash
+                                        {isJa ? '保存' : 'Saqlash'}
                                     </Button>
                                 </div>
                             </div>
@@ -433,7 +440,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                                     </div>
                                 ) : (
                                     <p className="text-xs font-bold text-muted-foreground/60 flex items-center justify-center gap-1.5 pt-4">
-                                        <Keyboard size={14} /> Bo'sh joy (Space) yoki kartani bosing
+                                        <Keyboard size={14} /> {isJa ? 'スペースキーまたはカードをタップして裏返す' : "Bo'sh joy (Space) yoki kartani bosing"}
                                     </p>
                                 )}
                             </>
@@ -442,8 +449,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
                     {/* Footer Status */}
                     <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
-                        <span>Repetitsiya: {currentCard?.repetitions || 0}</span>
-                        <span>Interval: {currentCard?.interval || 0} kun</span>
+                        <span>{isJa ? `復習回数: ${currentCard?.repetitions || 0}回` : `Repetitsiya: ${currentCard?.repetitions || 0}`}</span>
+                        <span>{isJa ? `学習間隔: ${currentCard?.interval || 0}日` : `Interval: ${currentCard?.interval || 0} kun`}</span>
                     </div>
                 </div>
 
@@ -452,14 +459,14 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                     <form onSubmit={handleTypeSubmit} className="w-full mt-4 flex gap-2">
                         <input
                             type="text"
-                            placeholder="Tarjimasini yozing..."
+                            placeholder={isJa ? "意味や読み方を入力..." : "Tarjimasini yozing..."}
                             value={typedAnswer}
                             onChange={e => setTypedAnswer(e.target.value)}
                             className="flex-1 px-4 py-3 bg-muted/60 border border-border rounded-2xl text-sm font-bold text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
                             autoFocus
                         />
                         <Button type="submit" className="px-6 font-bold rounded-2xl bg-primary text-primary-foreground">
-                            Tekshirish
+                            {isJa ? "判定" : "Tekshirish"}
                         </Button>
                     </form>
                 )}
@@ -472,7 +479,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                             disabled={isProcessing}
                             className="p-3.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-2xl border border-rose-500/20 transition-all font-black text-center group cursor-pointer active:scale-95"
                         >
-                            <span className="text-sm block leading-none mb-1">Qayta (Again)</span>
+                            <span className="text-sm block leading-none mb-1">{isJa ? 'もう一度 (Again)' : 'Qayta (Again)'}</span>
                             <span className="text-[10px] font-semibold opacity-80 block">{previewIntervals[Rating.AGAIN]} (1)</span>
                         </button>
 
@@ -481,7 +488,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                             disabled={isProcessing}
                             className="p-3.5 bg-[#C9A961]/15 hover:bg-[#C9A961]/25 text-[#C9A961] rounded-2xl border border-[#C9A961]/30 transition-all font-black text-center group cursor-pointer active:scale-95"
                         >
-                            <span className="text-sm block leading-none mb-1">Qiyin (Hard)</span>
+                            <span className="text-sm block leading-none mb-1">{isJa ? '難しい (Hard)' : 'Qiyin (Hard)'}</span>
                             <span className="text-[10px] font-semibold opacity-80 block">{previewIntervals[Rating.HARD]} (2)</span>
                         </button>
 
@@ -490,7 +497,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                             disabled={isProcessing}
                             className="p-3.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-2xl border border-primary/30 transition-all font-black text-center group cursor-pointer active:scale-95"
                         >
-                            <span className="text-sm block leading-none mb-1">Yaxshi (Good)</span>
+                            <span className="text-sm block leading-none mb-1">{isJa ? '普通 (Good)' : 'Yaxshi (Good)'}</span>
                             <span className="text-[10px] font-semibold opacity-80 block">{previewIntervals[Rating.GOOD]} (3)</span>
                         </button>
 
@@ -499,7 +506,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                             disabled={isProcessing}
                             className="p-3.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 rounded-2xl border border-emerald-500/20 transition-all font-black text-center group cursor-pointer active:scale-95"
                         >
-                            <span className="text-sm block leading-none mb-1">Oson (Easy)</span>
+                            <span className="text-sm block leading-none mb-1">{isJa ? '簡単 (Easy)' : 'Oson (Easy)'}</span>
                             <span className="text-[10px] font-semibold opacity-80 block">{previewIntervals[Rating.EASY]} (4)</span>
                         </button>
                     </div>

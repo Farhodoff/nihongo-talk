@@ -3,6 +3,7 @@ import { PresetDeck } from '../../data/presetDecks';
 import { Button } from '../ui/Button';
 import { ShieldAlert, Plus, Check, Trash2, BookOpen, ChevronDown, ChevronUp, Folder, FolderCheck, FolderPlus, ExternalLink } from 'lucide-react';
 import { PresetDeckService, DeckPart } from '../../services/PresetDeckService';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface PresetDeckCardProps {
     deck: PresetDeck;
@@ -30,6 +31,8 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
     onAdminAddNextPart,
     onOpenFolderExplorer
 }) => {
+    const { language } = useLanguage();
+    const isJa = language === 'ja';
     const [isPartsOpen, setIsPartsOpen] = useState(false);
     const [parts, setParts] = useState<DeckPart[]>([]);
     const [loadingParts, setLoadingParts] = useState(false);
@@ -52,7 +55,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
         }`}>
             {isAdded && (
                 <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-extrabold rounded-full flex items-center gap-1">
-                    <Check size={12} /> Saqlangan
+                    <Check size={12} /> {isJa ? '保存済み' : 'Saqlangan'}
                 </div>
             )}
 
@@ -74,14 +77,14 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                         <BookOpen size={14} className="text-primary" />
-                        <span>{deck.cardCount} ta kartochka</span>
+                        <span>{deck.cardCount} {isJa ? '枚のカード' : 'ta kartochka'}</span>
                     </div>
 
                     <button
                         onClick={() => setIsPartsOpen(!isPartsOpen)}
                         className="text-xs font-extrabold text-primary hover:underline flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 px-3 py-1.5 rounded-xl border border-primary/20 transition-all shadow-sm"
                     >
-                        <Folder size={14} /> Jildlar ({parts.length > 0 ? parts.length : '...'}) {isPartsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                        <Folder size={14} /> {isJa ? 'フォルダ' : 'Jildlar'} ({parts.length > 0 ? parts.length : '...'}) {isPartsOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                 </div>
 
@@ -89,13 +92,13 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                 {isPartsOpen && (
                     <div className="p-3.5 bg-muted/40 border border-border rounded-2xl space-y-3 animate-in fade-in max-h-72 overflow-y-auto">
                         <div className="text-[11px] font-extrabold text-muted-foreground flex items-center justify-between border-b border-border/80 pb-2">
-                            <span className="flex items-center gap-1">📂 Jildlar Kolleksiyasi (100 tadan)</span>
+                            <span className="flex items-center gap-1">📂 {isJa ? 'レベル別単語集（各100語）' : 'Jildlar Kolleksiyasi (100 tadan)'}</span>
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => onOpenFolderExplorer && onOpenFolderExplorer(deck, parts)}
                                     className="text-[10px] font-extrabold text-indigo-500 hover:underline flex items-center gap-1"
                                 >
-                                    <ExternalLink size={12} /> Barchasini Ochish
+                                    <ExternalLink size={12} /> {isJa ? 'すべて見る' : 'Barchasini Ochish'}
                                 </button>
                                 {isAdmin && (
                                     <button
@@ -109,9 +112,9 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                         </div>
 
                         {loadingParts ? (
-                            <p className="text-[11px] text-muted-foreground text-center py-3 animate-pulse">Jildlar yuklanmoqda...</p>
+                            <p className="text-[11px] text-muted-foreground text-center py-3 animate-pulse">{isJa ? '読み込み中...' : 'Jildlar yuklanmoqda...'}</p>
                         ) : parts.length === 0 ? (
-                            <p className="text-[11px] text-muted-foreground text-center py-3">Jildlar mavjud emas</p>
+                            <p className="text-[11px] text-muted-foreground text-center py-3">{isJa ? 'フォルダがありません' : 'Jildlar mavjud emas'}</p>
                         ) : (
                             <div className="grid grid-cols-1 gap-2">
                                 {parts.map(part => {
@@ -147,7 +150,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
 
                                             {isPartAdded ? (
                                                 <span className="px-2 py-1 text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1 shrink-0">
-                                                    <Check size={12} /> Saqlangan
+                                                    <Check size={12} /> {isJa ? '保存済み' : 'Saqlangan'}
                                                 </span>
                                             ) : (
                                                 <Button
@@ -155,7 +158,7 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                                                     onClick={() => onImportPart ? onImportPart(part) : onImport(deck)}
                                                     className="py-1 px-2.5 text-[10px] font-extrabold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-none shrink-0"
                                                 >
-                                                    + Qo'shish
+                                                    {isJa ? '+ 追加' : "+ Qo'shish"}
                                                 </Button>
                                             )}
                                         </div>
@@ -184,14 +187,14 @@ export const PresetDeckCard: React.FC<PresetDeckCardProps> = ({
                         onClick={() => onRemove && onRemove(deck)}
                         className="w-full py-2.5 border-rose-500/30 text-rose-500 hover:bg-rose-500/10 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
                     >
-                        <Trash2 size={14} /> - Mening to'plamimdan o'chirish
+                        <Trash2 size={14} /> {isJa ? '- マイ単語帳から削除' : "- Mening to'plamimdan o'chirish"}
                     </Button>
                 ) : (
                     <Button
                         onClick={() => onImport(deck)}
                         className="w-full py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow"
                     >
-                        <Plus size={14} /> + Mening to'plamimga qo'shish
+                        <Plus size={14} /> {isJa ? '+ マイ単語帳に追加' : "+ Mening to'plamimga qo'shish"}
                     </Button>
                 )}
             </div>

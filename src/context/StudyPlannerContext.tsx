@@ -683,21 +683,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (typeof supabase?.auth?.onAuthStateChange === 'function') {
             const authSub = supabase.auth.onAuthStateChange((event, session) => {
                 if (event === 'SIGNED_OUT') {
-                    fetchSeqRef.current++;
-                    setUser(null);
-                    setGamificationState(INITIAL_GAMIFICATION_STATE);
-                    setTasks([]);
-                    setFlashcards([]);
-                    setSubjects([]);
-                    setGoals([]);
-                    setNotes([]);
-                    setStudyNotes([]);
-                    setSessions([]);
-                    setWhiteboards([]);
-                    setEvents([]);
-                    setCoachSessions([]);
-                    safeLocalStorage.removeItem('study_planner_user_cache');
-                    safeLocalStorage.removeItem('study_planner_user_email');
+                    const hasLocalCache = safeLocalStorage.getItem('study_planner_user_cache');
+                    if (!hasLocalCache) {
+                        fetchSeqRef.current++;
+                        setUser(null);
+                        setGamificationState(INITIAL_GAMIFICATION_STATE);
+                        setTasks([]);
+                        setFlashcards([]);
+                        setSubjects([]);
+                        setGoals([]);
+                        setNotes([]);
+                        setStudyNotes([]);
+                        setSessions([]);
+                        setWhiteboards([]);
+                        setEvents([]);
+                        setCoachSessions([]);
+                    }
                 } else if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
                     if (session?.user) {
                         fetchData();

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mic, Sparkles, AlertCircle, CheckCircle2, Volume2, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 export interface ErrorTag {
     id: string;
@@ -29,11 +30,17 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     isAiSpeaking,
     transcript,
     errors,
+    activeCefrLevel: _activeCefrLevel,
+    activeJlptLevel: _activeJlptLevel,
     isHandsFree = false,
+    onToggleRecording: _onToggleRecording,
     onCommitNow,
     onBargeIn,
     onToggleHandsFree,
 }) => {
+    const { language } = useLanguage();
+    const isJa = language === 'ja';
+
     const getCategoryBadge = (type: string) => {
         switch (type) {
             case 'vocabulary':
@@ -46,22 +53,21 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
     };
 
     return (
-        <div className="w-full space-y-2 shrink-0">
-            {/* Sleek Compact Top Bar */}
-            <div className="w-full bg-card/90 backdrop-blur-xl border border-border rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-md">
-                {/* Left: Live Status Badge */}
+        <div className="w-full bg-card/90 backdrop-blur-md border border-border/80 rounded-3xl p-4 shadow-xl space-y-3">
+            {/* Top Row: Visual Status & Interactive Wave Indicator */}
+            <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-white shadow-md transition-colors ${
+                    <div className={`p-2.5 rounded-2xl flex items-center justify-center transition-all ${
                         isAiSpeaking 
-                            ? 'bg-[#C9A961]/20 text-[#C9A961] border border-[#C9A961]/30 animate-pulse'
+                            ? 'bg-[#C9A961]/15 text-[#C9A961] shadow-lg shadow-[#C9A961]/20 ring-2 ring-[#C9A961]/40 animate-pulse' 
                             : isRecording 
-                            ? 'bg-primary/20 text-primary border border-primary/30 animate-pulse'
-                            : 'bg-muted text-muted-foreground border border-border'
+                            ? 'bg-primary/15 text-primary shadow-lg shadow-primary/20 ring-2 ring-primary/40' 
+                            : 'bg-muted text-muted-foreground'
                     }`}>
                         {isAiSpeaking ? (
                             <Volume2 size={16} className="animate-bounce" />
                         ) : isRecording ? (
-                            <Mic size={16} className="animate-pulse text-primary" />
+                            <Mic size={16} className="animate-pulse" />
                         ) : (
                             <Sparkles size={16} />
                         )}
@@ -70,7 +76,11 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
                     <div>
                         <div className="flex items-center gap-2">
                             <span className="text-xs font-extrabold text-foreground tracking-wide">
-                                {isAiSpeaking ? 'AI Coach Gapirmoqda...' : isRecording ? 'Jonli Ovoz Yozib Olinmoqda...' : 'Real-Time Voice Coach'}
+                                {isAiSpeaking 
+                                    ? (isJa ? 'AIが発話中...' : 'AI Coach Gapirmoqda...') 
+                                    : isRecording 
+                                    ? (isJa ? '音声認識中...' : 'Jonli Ovoz Yozib Olinmoqda...') 
+                                    : (isJa ? 'リアルタイムAI音声対話' : 'Real-Time Voice Coach')}
                             </span>
                             {(isRecording || isAiSpeaking) && (
                                 <span className="flex h-2 w-2 relative">
@@ -80,7 +90,11 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
                             )}
                         </div>
                         <p className="text-[10px] text-muted-foreground font-medium flex items-center gap-1.5">
-                            {isAiSpeaking ? 'Gapirish uchun to\'xtatishingiz mumkin' : isRecording ? 'Tezkor adaptiv tahlil rejimida' : 'Jonli ovozli muloqot rejimida'}
+                            {isAiSpeaking 
+                                ? (isJa ? 'タップして発話を中断できます' : 'Gapirish uchun to\'xtatishingiz mumkin') 
+                                : isRecording 
+                                ? (isJa ? '適応型リアルタイム分析中' : 'Tezkor adaptiv tahlil rejimida') 
+                                : (isJa ? '双方向リアルタイム対話モード' : 'Jonli ovozli muloqot rejimida')}
                             {isHandsFree && (
                                 <span className="text-emerald-400 font-bold text-[9px] px-1 py-0.2 rounded bg-emerald-500/10 border border-emerald-500/20">
                                     ⚡ Hands-free

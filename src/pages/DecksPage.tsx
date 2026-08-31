@@ -737,12 +737,16 @@ const DecksPage: React.FC = () => {
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div>
                                     <h3 className="text-xl font-bold text-foreground">
-                                        {isSuper ? "Standart Darajalar Kutubxonasi" : "JLPT Darajalar Kutubxonasi"}
+                                        {language === 'ja' 
+                                            ? 'JLPT公式レベル別単語ライブラリ' 
+                                            : (isSuper ? "Standart Darajalar Kutubxonasi" : "JLPT Darajalar Kutubxonasi")}
                                     </h3>
                                     <p className="text-xs text-muted-foreground">
-                                        {isSuper 
-                                            ? "JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami" 
-                                            : "JLPT N5–N1 uchun tayyor 100 tadan bo'lingan jildlar to'plami"}
+                                        {language === 'ja'
+                                            ? 'JLPT N5〜N1の頻出重要単語を網羅した公式デッキコレクション'
+                                            : (isSuper 
+                                                ? "JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami" 
+                                                : "JLPT N5–N1 uchun tayyor 100 tadan bo'lingan jildlar to'plami")}
                                     </p>
                                 </div>
                                 

@@ -29,15 +29,67 @@ export const VocabularyBuilderPage: React.FC = () => {
     const { language } = useLanguage();
     const isSuper = isSuperAdmin(user?.email);
 
-    const [query, setQuery] = useState('');
+    const BUILTIN_VOCAB_DB: Record<string, VocabWordDetails> = {
+        '維持': {
+            word: '維持',
+            language: 'ja',
+            phonetic: 'いじ (iji)',
+            furigana: '維[い]持[じ]',
+            level: 'N2',
+            partOfSpeech: '名詞・サ変 (Noun, suru verb)',
+            uzbekTranslation: "Saqlab turish, davom ettirish (Hold/Maintenance)",
+            definition: '物事の状態をそのまま保ち続けること。衰えたり失われたりしないように支えること。',
+            synonyms: ['保持 (ほじ)', '存続 (そんぞく)', '継続 (けいぞく)', '保全 (ほぜん)'],
+            collocations: ['現状を維持する', '健康を維持する', '良好な関係を維持する', '維持管理費'],
+            examples: [
+                { sentence: '高いモチベーションを長期的に維持することが、JLPT合格において最も重要です。', translation: 'Yuqori motivatsiyani uzoq muddat saqlab turish til o\'rganishda eng muhim omildir.' },
+                { sentence: 'この歴史的な日本庭園は、市民の協力によって美しく維持されています。', translation: 'Ushbu tarixiy bog\' shahar aholisi ko\'magida chiroyli saqlab turilmoqda.' },
+                { sentence: '健康と体力を維持するため、毎朝30分の運動を欠かさず行っています。', translation: 'Sog\'lik va quvvatni saqlash uchun har kuni ertalab mashq qilaman.' }
+            ]
+        },
+        '挑戦': {
+            word: '挑戦',
+            language: 'ja',
+            phonetic: 'ちょうせん (chousen)',
+            furigana: '挑[ちょう]戦[せん]',
+            level: 'N2',
+            partOfSpeech: '名詞・サ変 (Noun, suru verb)',
+            uzbekTranslation: "Sinov, chaqiruv, o'zini sinab ko'rish (Challenge)",
+            definition: '困難な事柄や新しい領域に積極的に立ち向かうこと。',
+            synonyms: ['チャレンジ (challenge)', '試み (こころみ)', '立ち向かう (たちむかう)'],
+            collocations: ['新しい挑戦', '限界に挑戦する', '難関試験に挑戦する'],
+            examples: [
+                { sentence: '失敗を恐れず、常に新しい分野へ挑戦し続ける姿勢が大切です。', translation: 'Xatolardan qo\'rqmay, doimo yangi sohalarga intilish muhimdir.' },
+                { sentence: '彼は今年、JLPT N1の合格を目指して全力で挑戦しています。', translation: 'U bu yil JLPT N1 darajasini qo\'lga kiritish uchun bor kuchi bilan harakat qilmoqda.' }
+            ]
+        },
+        '勉強': {
+            word: '勉強',
+            language: 'ja',
+            phonetic: 'べんきょう (benkyou)',
+            furigana: '勉[べん]強[きょう]',
+            level: 'N5',
+            partOfSpeech: '名詞・サ変 (Noun, suru verb)',
+            uzbekTranslation: "O'qish, o'rganish, saboq (Study)",
+            definition: '学問や技術を身につけるために努力すること。経験から教訓を得ること。',
+            synonyms: ['学習 (がくしゅう)', '学問 (がくもん)', '研究 (けんきゅう)'],
+            collocations: ['日本語を勉強する', '勉強に励む', '大変勉強になりました'],
+            examples: [
+                { sentence: '毎晩AIコーチと一緒に日本語の発音と会話を勉強しています。', translation: 'Har oqshom AI ustoz bilan birga yapon tili talaffuzini o\'rganaman.' },
+                { sentence: '今回のプロジェクトは、私にとって非常に大きな勉強になりました。', translation: 'Bu galgi loyiha men uchun juda katta saboq bo\'ldi.' }
+            ]
+        }
+    };
+
+    const [query, setQuery] = useState('維持');
     const [isSearching, setIsSearching] = useState(false);
-    const [currentResult, setCurrentResult] = useState<VocabWordDetails | null>(null);
+    const [currentResult, setCurrentResult] = useState<VocabWordDetails | null>(() => BUILTIN_VOCAB_DB['維持']);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [isAddedToFlashcards, setIsAddedToFlashcards] = useState(false);
 
     const [activeTab, setActiveTab] = useState<'search' | 'saved' | 'history'>('search');
-    const [history, setHistory] = useState<VocabWordDetails[]>([]);
+    const [history, setHistory] = useState<VocabWordDetails[]>(() => [BUILTIN_VOCAB_DB['維持']]);
     const [savedWords, setSavedWords] = useState<VocabWordDetails[]>([]);
 
     const SAMPLE_WORDS = (!isSuper || primaryLanguage === 'ja') ? [
@@ -132,6 +184,19 @@ export const VocabularyBuilderPage: React.FC = () => {
         setErrorMsg(null);
         setIsAddedToFlashcards(false);
 
+        // Check local preloaded entries for instant zero-latency dictionary hit
+        if (BUILTIN_VOCAB_DB[searchTerm]) {
+            const hit = BUILTIN_VOCAB_DB[searchTerm];
+            setCurrentResult(hit);
+            setIsSearching(false);
+            const updatedHistory = [hit, ...history.filter(h => h.word.toLowerCase() !== hit.word.toLowerCase())].slice(0, 30);
+            setHistory(updatedHistory);
+            try {
+                localStorage.setItem('study_planner_vocab_history', JSON.stringify(updatedHistory));
+            } catch (e) {}
+            return;
+        }
+
         const prompt = `You are a professional linguist and dictionary expert for JLPT Japanese language students.
 Analyze the following word or phrase: "${searchTerm}".
 
@@ -183,7 +248,11 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
             }
         } catch (err: any) {
             console.error('Vocab search error:', err);
-            setErrorMsg("So'zni tahlil qilishda xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
+            if (BUILTIN_VOCAB_DB[searchTerm]) {
+                setCurrentResult(BUILTIN_VOCAB_DB[searchTerm]);
+            } else {
+                setErrorMsg(language === 'ja' ? "単語の分析中にエラーが発生しました。もう一度お試しください。" : "So'zni tahlil qilishda xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
+            }
         } finally {
             setIsSearching(false);
         }

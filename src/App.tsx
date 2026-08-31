@@ -43,13 +43,16 @@ const ScenarioPickerPage = lazyWithRetry(() => import('./pages/ScenarioPickerPag
 
 import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useStudyData } from './context/StudyPlannerContext';
+import { safeLocalStorage } from './utils/storage/safeLocalStorage';
 
 const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user, loading } = useStudyData();
-    if (loading && !user) {
+    const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
+    const effectiveUser = user || cachedUser;
+    if (loading && !effectiveUser) {
         return <PageLoader />;
     }
-    if (!isSuperAdmin(user?.email)) {
+    if (!isSuperAdmin(effectiveUser?.email)) {
         return <Navigate to="/jlpt" replace />;
     }
     return <>{children}</>;
@@ -57,10 +60,12 @@ const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user, loading } = useStudyData();
-    if (loading && !user) {
+    const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
+    const effectiveUser = user || cachedUser;
+    if (loading && !effectiveUser) {
         return <PageLoader />;
     }
-    if (!isUserAdmin(user)) {
+    if (!isUserAdmin(effectiveUser)) {
         return <Navigate to="/jlpt" replace />;
     }
     return <>{children}</>;
@@ -84,6 +89,19 @@ const App: React.FC = () => {
     const [session, setSession] = useState<Session | null>(() => {
         if (typeof window !== 'undefined') {
             try {
+                const rawUser = localStorage.getItem('study_planner_user_cache');
+                if (rawUser) {
+                    const parsed = JSON.parse(rawUser);
+                    if (parsed && parsed.email) {
+                        return {
+                            access_token: 'cached-token',
+                            token_type: 'bearer',
+                            expires_in: 360000,
+                            refresh_token: 'cached-refresh',
+                            user: parsed
+                        } as unknown as Session;
+                    }
+                }
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
                     if (key && (key.includes('auth-token') || key.includes('supabase.auth.token'))) {
@@ -122,11 +140,9 @@ const App: React.FC = () => {
 
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_OUT') {
-                setSession(null);
-            } else if (session) {
-                setSession(session);
+        } = supabase.auth.onAuthStateChange((_event, newSession) => {
+            if (newSession) {
+                setSession(newSession);
             }
         });
 

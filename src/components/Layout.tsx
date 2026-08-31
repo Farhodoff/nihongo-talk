@@ -68,28 +68,29 @@ const Layout: React.FC = () => {
     }, [location.pathname]);
 
     const navItems: NavItem[] = useMemo(() => {
+        const isJa = language === 'ja';
         // Super Admin can switch to English (IELTS) track for development
         if (isSuper && primaryLanguage === 'en') {
             return [
-                { name: 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain },
-                { name: 'IELTS Master', path: '/ielts', icon: BookOpen },
-                { name: 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles },
-                { name: 'Speaking', path: '/speaking-coach?lang=en', icon: Mic },
-                { name: 'Fleshkard', path: '/flashcards', icon: Copy },
-                { name: 'Pomodoro', path: '/focus', icon: Clock },
+                { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain },
+                { name: isJa ? 'IELTSマスター' : 'IELTS Master', path: '/ielts', icon: BookOpen },
+                { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles },
+                { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=en', icon: Mic },
+                { name: isJa ? 'フラッシュカード' : 'Fleshkard', path: '/flashcards', icon: Copy },
+                { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
             ];
         }
 
         // Public Focus: 100% Japanese (JLPT)
         return [
-            { name: 'JLPT Master', path: '/jlpt', icon: BookOpen },
-            { name: 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
-            { name: 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
-            { name: 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
-            { name: 'Fleshkard', path: '/flashcards', icon: Copy },
-            { name: 'Pomodoro', path: '/focus', icon: Clock },
+            { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
+            { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
+            { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
+            { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
+            { name: isJa ? 'フラッシュカード' : 'Fleshkard', path: '/flashcards', icon: Copy },
+            { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
         ];
-    }, [primaryLanguage, isSuper]);
+    }, [primaryLanguage, isSuper, language]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -98,15 +99,16 @@ const Layout: React.FC = () => {
     };
 
     const getPageTitle = () => {
+        const isJa = language === 'ja';
         const found = navItems.find(item => item.path === location.pathname);
         if (found) return found.name;
-        if (location.pathname.startsWith('/scenarios')) return 'Scenarios';
-        if (location.pathname.startsWith('/speaking-coach')) return 'Speaking';
-        if (location.pathname === '/jlpt') return 'JLPT Master';
-        if (location.pathname === '/ielts') return 'IELTS Master';
-        if (location.pathname === '/admin') return 'Super Admin Paneli';
-        if (location.pathname === '/personal-plan') return 'Shaxsiy Rejam';
-        if (location.pathname === '/settings') return 'Sozlamalar';
+        if (location.pathname.startsWith('/scenarios')) return isJa ? '会話シナリオ' : 'Scenarios';
+        if (location.pathname.startsWith('/speaking-coach')) return isJa ? 'AIスピーキング' : 'Speaking';
+        if (location.pathname === '/jlpt') return isJa ? 'JLPTマスター' : 'JLPT Master';
+        if (location.pathname === '/ielts') return isJa ? 'IELTSマスター' : 'IELTS Master';
+        if (location.pathname === '/admin') return isJa ? 'システム管理者ダッシュボード' : 'Super Admin Paneli';
+        if (location.pathname === '/personal-plan') return isJa ? '個人学習プラン' : 'Shaxsiy Rejam';
+        if (location.pathname === '/settings') return isJa ? '設定' : 'Sozlamalar';
         return 'Nihongo Talk';
     };
 
@@ -271,7 +273,7 @@ const Layout: React.FC = () => {
                             title={isCollapsed ? 'Admin Panel' : ''}
                         >
                             <Shield size={16} className="text-rose-500 shrink-0" />
-                            {!isCollapsed && <span>Admin Panel</span>}
+                            {!isCollapsed && <span>{language === 'ja' ? '管理コンソール' : 'Admin Panel'}</span>}
                         </NavLink>
                     )}
 
@@ -284,10 +286,10 @@ const Layout: React.FC = () => {
                                     : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
                                 }`
                             }
-                            title={isCollapsed ? 'Sozlamalar' : ''}
+                            title={isCollapsed ? (language === 'ja' ? '設定' : 'Sozlamalar') : ''}
                         >
                             <SettingsIcon size={16} />
-                            {!isCollapsed && <span>Sozlamalar</span>}
+                            {!isCollapsed && <span>{language === 'ja' ? '設定' : 'Sozlamalar'}</span>}
                         </NavLink>
 
                         <button

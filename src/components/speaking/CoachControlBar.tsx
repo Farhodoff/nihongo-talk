@@ -2,6 +2,8 @@ import React from 'react';
 import { Mic, HeartPulse, MessageCircle, RotateCcw, MicOff, PhoneOff, PhoneCall } from 'lucide-react';
 import AudioVisualizer from './AudioVisualizer';
 
+import { useLanguage } from '../../context/LanguageContext';
+
 interface CoachControlBarProps {
     isLiveSession: boolean;
     isSpeaking: boolean;
@@ -37,11 +39,32 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
     onToggleHandsFree,
     onBargeIn,
 }) => {
+    const { language } = useLanguage();
+    const isJa = language === 'ja';
+
     const getStatusInfo = () => {
-        if (isSpeaking) return { label: 'AI Gapirmoqda (To\'xtatish uchun bosing)', color: 'text-blue-400', pulseColor: 'bg-blue-500' };
-        if (isThinking) return { label: "O'ylamoqda...", color: 'text-purple-400', pulseColor: 'bg-purple-500' };
-        if (isListening) return { label: 'Eshitmoqda (Siz gapiryapsiz)', color: 'text-emerald-400', pulseColor: 'bg-emerald-500' };
-        return { label: isHandsFree ? 'Uzluksiz muloqotga tayyor' : 'Tayyor (Gapirish uchun mikrofonga bosing)', color: 'text-amber-400', pulseColor: 'bg-amber-500' };
+        if (isSpeaking) return { 
+            label: isJa ? 'AI音声出力中 (タップで中断)' : 'AI Gapirmoqda (To\'xtatish uchun bosing)', 
+            color: 'text-blue-400', 
+            pulseColor: 'bg-blue-500' 
+        };
+        if (isThinking) return { 
+            label: isJa ? '思考中...' : "O'ylamoqda...", 
+            color: 'text-purple-400', 
+            pulseColor: 'bg-purple-500' 
+        };
+        if (isListening) return { 
+            label: isJa ? '音声認識中 (お話しください)' : 'Eshitmoqda (Siz gapiryapsiz)', 
+            color: 'text-emerald-400', 
+            pulseColor: 'bg-emerald-500' 
+        };
+        return { 
+            label: isHandsFree 
+                ? (isJa ? 'ハンズフリー会話モード待機中' : 'Uzluksiz muloqotga tayyor')
+                : (isJa ? '会話待機中 (マイクを押して開始)' : 'Tayyor (Gapirish uchun mikrofonga bosing)'), 
+            color: 'text-amber-400', 
+            pulseColor: 'bg-amber-500' 
+        };
     };
     const status = getStatusInfo();
 
@@ -89,29 +112,29 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                         {!isLiveSession ? (
                             <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium truncate">
                                 <HeartPulse size={14} className="shrink-0 text-emerald-500 animate-pulse" />
-                                <span className="truncate">Suhbat boshlash uchun qo'ng'iroq qiling</span>
+                                <span className="truncate">{isJa ? '会話を始めるには通話開始を押してください' : "Suhbat boshlash uchun qo'ng'iroq qiling"}</span>
                             </div>
                         ) : (
                             <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
                                 <MessageCircle size={14} className="shrink-0 text-primary" />
-                                <span>{chatHistoryLength} ta xabar</span>
+                                <span>{chatHistoryLength} {isJa ? '件のメッセージ' : 'ta xabar'}</span>
                                 {isHandsFree ? (
                                     <button
                                         type="button"
                                         onClick={onToggleHandsFree}
                                         className="hidden sm:inline text-emerald-400 font-bold text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer"
-                                        title="Hands-free rejimini o'chirish"
+                                        title={isJa ? 'ハンズフリーをオフにする' : "Hands-free rejimini o'chirish"}
                                     >
-                                        ⚡ Hands-free
+                                        ⚡ {isJa ? 'ハンズフリー' : 'Hands-free'}
                                     </button>
                                 ) : onToggleHandsFree ? (
                                     <button
                                         type="button"
                                         onClick={onToggleHandsFree}
                                         className="hidden sm:inline text-muted-foreground font-medium text-[10px] px-1.5 py-0.5 rounded bg-muted border border-border hover:text-foreground transition-colors cursor-pointer"
-                                        title="Hands-free rejimini yoqish"
+                                        title={isJa ? 'ハンズフリーをオンにする' : 'Hands-free rejimini yoqish'}
                                     >
-                                        🖐️ Qo'lda
+                                        🖐️ {isJa ? '手動' : "Qo'lda"}
                                     </button>
                                 ) : null}
                             </div>
@@ -125,7 +148,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                             <button
                                 onClick={onClearHistory}
                                 className="p-2.5 bg-muted hover:bg-rose-500/10 text-muted-foreground hover:text-rose-400 rounded-xl transition-all border border-border cursor-pointer"
-                                title="Chatni tozalash"
+                                title={isJa ? '会話履歴を消去' : 'Chatni tozalash'}
                             >
                                 <RotateCcw size={16} />
                             </button>
@@ -155,13 +178,13 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                                     : 'bg-primary text-primary-foreground shadow-md hover:bg-primary/90'
                                 }`}
-                                title={isSpeaking ? "AI ni to'xtatish va gapirish" : isMuted ? "Mikrofonni yoqish" : "Gapirish (Mikrofonni faollashtirish)"}
+                                title={isSpeaking ? (isJa ? 'AI音声を中断' : "AI ni to'xtatish va gapirish") : isMuted ? (isJa ? 'マイクをオン' : "Mikrofonni yoqish") : (isJa ? '話す（マイク有効化）' : "Gapirish (Mikrofonni faollashtirish)")}
                             >
                                 {isMuted ? <MicOff size={16} /> : <Mic size={16} className={isListening ? "animate-pulse text-emerald-400" : ""} />}
                                 {isSpeaking ? (
-                                    <span className="text-[11px] font-bold text-[#C9A961]">TO'XTATISH</span>
+                                    <span className="text-[11px] font-bold text-[#C9A961]">{isJa ? '中断' : "TO'XTATISH"}</span>
                                 ) : !isListening && !isMuted && !isThinking ? (
-                                    <span className="text-[11px] font-bold">GAPIRISH</span>
+                                    <span className="text-[11px] font-bold">{isJa ? '話す' : 'GAPIRISH'}</span>
                                 ) : null}
                             </button>
                         )}
@@ -184,12 +207,12 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                             {isLiveSession ? (
                                 <>
                                     <PhoneOff size={16} className="group-hover:rotate-12 transition-transform relative z-10 shrink-0" />
-                                    <span className="text-xs tracking-wide relative z-10">TUGATISH</span>
+                                    <span className="text-xs tracking-wide relative z-10">{isJa ? '終了' : 'TUGATISH'}</span>
                                 </>
                             ) : (
                                 <>
                                     <PhoneCall size={16} className="group-hover:-rotate-12 transition-transform relative z-10 shrink-0 fill-current" />
-                                    <span className="text-xs tracking-wide relative z-10">QO'NG'IROQ</span>
+                                    <span className="text-xs tracking-wide relative z-10">{isJa ? '通話開始' : "QO'NG'IROQ"}</span>
                                 </>
                             )}
                         </button>

@@ -109,7 +109,7 @@ describe('VocabularyBuilderPage Component', () => {
             expect(screen.getByText(/bosh egmas, chidamli/i)).toBeInTheDocument();
         });
 
-        const addFlashcardBtn = screen.getByRole('button', { name: /Fleshkartalarga Qo'shish/i });
+        const addFlashcardBtn = screen.getByRole('button', { name: /Fleshkard.*qo'shish/i });
         await act(async () => {
             fireEvent.click(addFlashcardBtn);
         });

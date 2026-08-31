@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Trash2, HelpCircle, Eye, Sparkles } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface KanjiPracticeItem {
     kanji: string;
     meaning: string;
+    meaningJa?: string;
     strokesCount: number;
     strokePaths: string[]; // Mock relative coordinates for stroke simulation
 }
@@ -13,6 +15,7 @@ const KANJI_PRACTICE_LIST: KanjiPracticeItem[] = [
     {
         kanji: "日",
         meaning: "Kun, Quyosh (Sun/Day)",
+        meaningJa: "太陽・日・日付・毎日 (ひ / にち)",
         strokesCount: 4,
         strokePaths: [
             "M 30,20 L 30,80", // 1st stroke: left vertical
@@ -24,6 +27,7 @@ const KANJI_PRACTICE_LIST: KanjiPracticeItem[] = [
     {
         kanji: "本",
         meaning: "Kitob, Asos (Book/Origin)",
+        meaningJa: "もと・書籍・基本・日本 (ほん / もと)",
         strokesCount: 5,
         strokePaths: [
             "M 20,40 L 80,40", // 1st stroke: main horizontal
@@ -36,6 +40,7 @@ const KANJI_PRACTICE_LIST: KanjiPracticeItem[] = [
     {
         kanji: "人",
         meaning: "Odam (Person)",
+        meaningJa: "ひと・人間・人類 (ひと / じん / にん)",
         strokesCount: 2,
         strokePaths: [
             "M 50,20 L 25,80", // 1st stroke: left slant
@@ -45,6 +50,8 @@ const KANJI_PRACTICE_LIST: KanjiPracticeItem[] = [
 ];
 
 export const KanjiCanvasPractice: React.FC = () => {
+    const { language } = useLanguage();
+    const isJa = language === 'ja';
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showGuides, setShowGuides] = useState(true);
     const [animationActive, setAnimationActive] = useState(false);
@@ -217,8 +224,14 @@ export const KanjiCanvasPractice: React.FC = () => {
                     <Sparkles size={18} />
                 </div>
                 <div>
-                    <h3 className="text-sm font-display font-black text-foreground">Interactive Kanji Stroke Writer</h3>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">Yaponcha iyerogliflarni to'g'ri chizish ketma-ketligi (Canvas yordamida).</p>
+                    <h3 className="text-sm font-display font-black text-foreground">
+                        {isJa ? 'インタラクティブ漢字書き順トレーナー' : 'Interactive Kanji Stroke Writer'}
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                        {isJa 
+                            ? '筆順アニメーションとガイド付きで漢字の書き順を正確に習得できます。' 
+                            : "Yaponcha iyerogliflarni to'g'ri chizish ketma-ketligi (Canvas yordamida)."}
+                    </p>
                 </div>
             </div>
 
@@ -256,7 +269,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                             className="px-3.5 py-2 bg-muted/60 hover:bg-muted text-foreground border border-border rounded-xl text-xs flex items-center gap-1.5"
                         >
                             <Trash2 size={14} />
-                            Tozalash
+                            {isJa ? 'クリア' : 'Tozalash'}
                         </Button>
                         <Button
                             onClick={() => setShowGuides(prev => !prev)}
@@ -265,7 +278,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                             }`}
                         >
                             <Eye size={14} />
-                            Qoliplar
+                            {isJa ? 'ガイド線' : 'Qoliplar'}
                         </Button>
                         <Button
                             onClick={animateStrokes}
@@ -273,7 +286,7 @@ export const KanjiCanvasPractice: React.FC = () => {
                             className="px-3.5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-xs"
                         >
                             <HelpCircle size={14} />
-                            Tartibni Ko'rish
+                            {isJa ? '書き順再生' : 'Tartibni Ko\'rish'}
                         </Button>
                     </div>
                 </div>
@@ -281,13 +294,19 @@ export const KanjiCanvasPractice: React.FC = () => {
                 {/* Info & Navigation */}
                 <div className="space-y-4">
                     <div className="space-y-2 bg-muted/30 p-4 border border-border rounded-2xl">
-                        <span className="text-[10px] font-extrabold uppercase text-[#C9A961] tracking-wider">Aktiv iyeroglif</span>
+                        <span className="text-[10px] font-extrabold uppercase text-[#C9A961] tracking-wider">
+                            {isJa ? '選択中の漢字' : 'Aktiv iyeroglif'}
+                        </span>
                         <h4 className="text-3xl font-japanese font-black text-foreground">{activeKanji.kanji}</h4>
-                        <p className="text-xs text-muted-foreground font-semibold">Ma'nosi: {activeKanji.meaning}</p>
-                        <p className="text-[10px] text-muted-foreground">Chiziqlar soni: {activeKanji.strokesCount} ta</p>
+                        <p className="text-xs text-muted-foreground font-semibold">
+                            {isJa ? `意味・用例: ${activeKanji.meaningJa || activeKanji.meaning}` : `Ma'nosi: ${activeKanji.meaning}`}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground">
+                            {isJa ? `総画数: ${activeKanji.strokesCount} 画` : `Chiziqlar soni: ${activeKanji.strokesCount} ta`}
+                        </p>
                         {currentStrokeAnim && (
                             <span className="text-[10px] text-[#E8483A] font-extrabold animate-pulse block">
-                                ✍️ Animatsiya: Chiziq {currentStrokeAnim} / {activeKanji.strokesCount}
+                                {isJa ? `✍️ アニメーション: 第 ${currentStrokeAnim} 画 / 全 ${activeKanji.strokesCount} 画` : `✍️ Animatsiya: Chiziq ${currentStrokeAnim} / ${activeKanji.strokesCount}`}
                             </span>
                         )}
                     </div>
