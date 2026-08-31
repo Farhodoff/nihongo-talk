@@ -97,54 +97,9 @@ export const callDeepSeek = async (
     const directUrl = `${baseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
     const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 
-    // 1. Primary Resilient Gateway: Same-Origin /api/deepseek (Zero ISP/CORS connection resets)
+    // 1. Primary Direct Route: Supabase Edge Function (Low latency, authoritative)
     try {
         purgeOversizedCookies();
-        let authToken = anonKey;
-        try {
-            const { data } = await supabase.auth.getSession();
-            if (data?.session?.access_token) {
-                authToken = data.session.access_token;
-            }
-        } catch {}
-
-        const response = await fetch('/api/deepseek', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`
-            },
-            credentials: 'omit',
-            body: JSON.stringify(payload),
-            signal: typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal ? AbortSignal.timeout(45000) : undefined,
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.error) {
-                const status = (data as any)?.status || (data.error?.code === 'AI_NOT_CONFIGURED' ? 503 : 400);
-                throw new Error(formatDeepSeekError(status, data));
-            }
-            const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
-            if (text && text.trim().length > 0) return text;
-            throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
-        } else {
-            const errData = await response.json().catch(() => ({}));
-            const errMsg = formatDeepSeekError(response.status, errData);
-            if (response.status === 401 || response.status === 429 || response.status === 503 || response.status === 402) {
-                throw new Error(errMsg);
-            }
-            console.warn('[DeepSeek /api/deepseek] Server returned non-200, trying direct Supabase Edge:', response.status);
-        }
-    } catch (apiErr: any) {
-        if (apiErr?.message && (apiErr.message.includes('AI_RATE_LIMITED') || apiErr.message.includes('balans') || apiErr.message.includes('DEEPSEEK_API_KEY') || apiErr.message.includes('Authentication Fails'))) {
-            throw apiErr;
-        }
-        console.warn('[DeepSeek /api/deepseek] Proxy notice, trying direct Edge Function:', apiErr?.message);
-    }
-
-    // 2. Secondary: Direct HTTPS to Supabase Edge Function
-    try {
         const response = await fetch(directUrl, {
             method: 'POST',
             headers: {
@@ -164,21 +119,19 @@ export const callDeepSeek = async (
             }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
+            throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
         } else {
             const errData = await response.json().catch(() => ({}));
             const errMsg = formatDeepSeekError(response.status, errData);
             if (response.status === 401 || response.status === 429 || response.status === 503 || response.status === 402) {
-                throw new Error(errMsg);
+                console.warn('[DeepSeek Edge Direct] Status:', response.status, errMsg);
             }
         }
     } catch (directErr: any) {
-        if (directErr?.message && (directErr.message.includes('AI_RATE_LIMITED') || directErr.message.includes('balans') || directErr.message.includes('DEEPSEEK_API_KEY') || directErr.message.includes('Authentication Fails'))) {
-            throw directErr;
-        }
         console.warn('[DeepSeek Edge Direct] Notice, trying supabase.functions.invoke fallback:', directErr?.message);
     }
 
-    // 3. Tertiary: Supabase SDK Function Invoke
+    // 2. Secondary Route: Supabase SDK Function Invoke
     try {
         const { data, error } = await supabase.functions.invoke('deepseek', {
             body: payload,
@@ -191,18 +144,13 @@ export const callDeepSeek = async (
             }
             const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning_content || data.choices?.[0]?.text || data.reply || '';
             if (text && text.trim().length > 0) return text;
+            throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi.");
         } else if (error) {
-            const errMsg = formatDeepSeekError(500, { message: error.message });
-            if (error.message && (error.message.includes('401') || error.message.includes('Authentication') || error.message.includes('DEEPSEEK_API_KEY'))) {
-                throw new Error(errMsg);
-            }
+            console.warn('[DeepSeek Supabase SDK] Error:', error.message);
         }
     } catch (sdkErr: any) {
-        if (sdkErr?.message && (sdkErr.message.includes('AI_RATE_LIMITED') || sdkErr.message.includes('balans') || sdkErr.message.includes('DEEPSEEK_API_KEY') || sdkErr.message.includes('Authentication Fails'))) {
-            throw sdkErr;
-        }
-        console.warn('[DeepSeek SDK] SDK invocation error:', sdkErr?.message);
+        console.warn('[DeepSeek Supabase SDK] Exception:', sdkErr?.message);
     }
 
-    throw new Error("AI_UNAVAILABLE: AI xizmatiga ulanib bo'lmadi (Tarmoq xatosi). Iltimos internet aloqasini tekshiring va qayta urinib ko'ring.");
+    throw new Error("AI_UNAVAILABLE: AI xizmati vaqtincha mavjud emas. Iltimos qayta urinib ko'ring.");
 };
