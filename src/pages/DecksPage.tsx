@@ -512,28 +512,40 @@ const DecksPage: React.FC = () => {
                 />
             )}
 
-            {/* Navigation Tabs */}
-            <div className="flex items-center gap-2 p-1.5 bg-card/80 border border-border/80 rounded-2xl w-fit">
-                <button
-                    onClick={() => setActiveTab('my')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
-                        activeTab === 'my'
-                            ? 'bg-primary text-primary-foreground shadow-xs'
-                            : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                >
-                    <Layers size={16} /> {t('flashcards.myDecks')} ({subjects.length})
-                </button>
-                <button
-                    onClick={() => setActiveTab('library')}
-                    className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all ${
-                        activeTab === 'library'
-                            ? 'bg-primary text-primary-foreground shadow-xs'
-                            : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                >
-                    <Library size={16} /> {t('flashcards.library')} ({visiblePresetDecks.length})
-                </button>
+            {/* Navigation Tabs - Sticky */}
+            <div className="sticky top-0 z-20 bg-background/95 backdrop-blur-md py-2 -my-2 flex items-center justify-between flex-wrap gap-4 border-b border-border/40">
+                <div className="flex items-center gap-2 p-1.5 bg-card border border-border/80 rounded-2xl shadow-xs">
+                    <button
+                        onClick={() => setActiveTab('my')}
+                        className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all cursor-pointer ${
+                            activeTab === 'my'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        <Layers size={16} /> {t('flashcards.myDecks')} ({subjects.length})
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('library')}
+                        className={`flex items-center gap-2 px-5 py-2.5 font-black text-xs rounded-xl transition-all cursor-pointer ${
+                            activeTab === 'library'
+                                ? 'bg-primary text-primary-foreground shadow-xs'
+                                : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                        <Library size={16} /> {t('flashcards.library')} ({visiblePresetDecks.length})
+                    </button>
+                </div>
+
+                {activeTab === 'library' && (
+                    <button
+                        onClick={() => setActiveTab('my')}
+                        className="flex items-center gap-1.5 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl font-extrabold text-xs transition-all cursor-pointer"
+                    >
+                        <Layers size={14} />
+                        <span>{language === 'ja' ? '← マイトレーニングを表示' : "← Mening To'plamlarimni ko'rish"}</span>
+                    </button>
+                )}
             </div>
 
             {activeTab === 'my' && (
