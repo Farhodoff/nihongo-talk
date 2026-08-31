@@ -3,6 +3,7 @@ import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speak
 import { Check, Copy, Volume2, Mic, Plus, Sparkles } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
 import { UzbekistanFlag } from '../common/FlagIcons';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface CoachChatAreaProps {
     chatHistory: CoachChatMessage[];
@@ -35,6 +36,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
     setChatHistory,
     onAddVocabulary,
 }) => {
+    const { language } = useLanguage();
     const [addedVocabs, setAddedVocabs] = useState<Set<string>>(new Set());
     const ActivePersonaIcon = currentPersona?.icon || Sparkles;
 
@@ -73,7 +75,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             {/* Timestamp */}
                             <div className={`flex items-center gap-1.5 mb-1.5 text-[10px] font-semibold ${msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                                 }`}>
-                                <span>{msg.role === 'user' ? 'Siz' : currentPersona.name}</span>
+                                <span>{msg.role === 'user' ? (language === 'ja' ? 'あなた' : 'Siz') : currentPersona.name}</span>
                                 <span>•</span>
                                 <span>{msg.timestamp}</span>
                             </div>
@@ -93,7 +95,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             {msg.role === 'assistant' && msg.correction && msg.correction.hasError && msg.correction.corrected && (
                                 <div className="mt-2.5 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs space-y-1">
                                     <div className="flex items-center gap-1 font-bold text-[#C9A961] text-[11px]">
-                                        <span>💡 Grammatika / Iborani yaxshilash:</span>
+                                        <span>{language === 'ja' ? '💡 文法・表現のアドバイス:' : '💡 Grammatika / Iborani yaxshilash:'}</span>
                                     </div>
                                     {msg.correction.original && (
                                         <div className="text-rose-400 line-through text-[11px]">

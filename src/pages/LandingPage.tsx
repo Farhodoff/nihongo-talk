@@ -40,7 +40,7 @@ const FadeIn: React.FC<{ children: React.ReactNode; className?: string; delay?: 
 /* ------------------------------------------------------------------ */
 /*  Dashboard Preview Mockup                                          */
 /* ------------------------------------------------------------------ */
-const DashboardPreview: React.FC<{ t: (k: string) => string }> = ({ t }) => (
+const DashboardPreview: React.FC<{ t: (k: string) => string; language?: string }> = ({ t, language }) => (
     <div className="relative w-full max-w-md mx-auto">
         {/* Glow behind */}
         <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-transparent to-cyan-500/10 rounded-3xl blur-2xl -z-10" />
@@ -85,7 +85,7 @@ const DashboardPreview: React.FC<{ t: (k: string) => string }> = ({ t }) => (
                                 </div>
                                 <div>
                                     <p className="text-xs font-bold text-foreground">{t('landing.dashSpeaking')}</p>
-                                    <p className="text-[10px] text-muted-foreground">Jonli suhbat mashqi</p>
+                                    <p className="text-[10px] text-muted-foreground">{language === 'ja' ? 'リアルタイム会話練習' : 'Jonli suhbat mashqi'}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -457,7 +457,7 @@ const LandingPage: React.FC = () => {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="lg:pl-8"
                     >
-                        <DashboardPreview t={t} />
+                        <DashboardPreview t={t} language={language} />
                     </motion.div>
                 </div>
             </section>

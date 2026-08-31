@@ -203,9 +203,9 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                             <Flame className="w-6 h-6" />
                         </div>
                         <div>
-                            <div className="text-xs text-muted-foreground font-medium">{language === 'ja' ? 'データすう' : 'Baza hajmi'}</div>
+                            <div className="text-xs text-muted-foreground font-medium">{language === 'ja' ? '学習データ数' : 'Baza hajmi'}</div>
                             <div className="text-lg font-black text-foreground flex items-center gap-1.5">
-                                <span>{grammarSource.length} {language === 'ja' ? 'ルール' : 'Qoida'}</span> • <span className="text-[#E8483A]">{kanjiSource.length} {language === 'ja' ? 'かんじ' : 'Kanji'}</span>
+                                <span>{grammarSource.length} {language === 'ja' ? '文法項目' : 'Qoida'}</span> • <span className="text-[#E8483A]">{kanjiSource.length} {language === 'ja' ? '漢字' : 'Kanji'}</span>
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         }`}
                     >
                         <BookOpen className="w-4 h-4" />
-                        {language === 'ja' ? `📖 ぶんぽう (${grammarSource.length})` : `📖 Grammatika (${grammarSource.length})`}
+                        {language === 'ja' ? `📖 文法マスター (${grammarSource.length})` : `📖 Grammatika (${grammarSource.length})`}
                     </button>
 
                     <button
@@ -234,7 +234,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         }`}
                     >
                         <GraduationCap className="w-4 h-4" />
-                        {language === 'ja' ? `⛩️ かんじ (${kanjiSource.length})` : `⛩️ Kanji Iyerogliflar (${kanjiSource.length})`}
+                        {language === 'ja' ? `⛩️ 漢字マスター (${kanjiSource.length})` : `⛩️ Kanji Iyerogliflar (${kanjiSource.length})`}
                     </button>
 
                     <button
@@ -246,7 +246,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         }`}
                     >
                         <Flame className="w-4 h-4 text-[#C9A961]" />
-                        {language === 'ja' ? '⚡ AIテスト ジェネレーター' : '⚡ AI Test Generator'}
+                        {language === 'ja' ? '⚡ AIテスト演習' : '⚡ AI Test Generator'}
                     </button>
                 </div>
             </div>
@@ -267,7 +267,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                             : 'bg-muted/60 text-muted-foreground border border-border hover:bg-muted hover:text-foreground'
                                     }`}
                                 >
-                                    {lvl === 'ALL' ? (language === 'ja' ? 'ぜんぶ' : 'BARCHASI') : lvl}
+                                    {lvl === 'ALL' ? (language === 'ja' ? 'すべて' : 'BARCHASI') : lvl}
                                 </button>
                             ))}
                         </div>
@@ -280,8 +280,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder={activeTab === 'grammar' 
-                                    ? (language === 'ja' ? "ぶんぽう、ローマ字、いみで さがす..." : "Grammatika, romaji yoki uzbekcha izlash...") 
-                                    : (language === 'ja' ? "かんじ、よみかた、いみで さがす..." : "Kanji iyeroglif, o'qilishi yoki ma'nosi...")}
+                                    ? (language === 'ja' ? "文法・キーワード・意味で検索..." : "Grammatika, romaji yoki uzbekcha izlash...") 
+                                    : (language === 'ja' ? "漢字・読み方・意味で検索..." : "Kanji iyeroglif, o'qilishi yoki ma'nosi...")}
                                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-muted/30 border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary transition"
                             />
                         </div>
@@ -291,7 +291,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 border-t border-border">
                         {/* Status Filter buttons */}
                         <div className="flex items-center gap-2 text-xs">
-                            <span className="text-muted-foreground font-medium mr-1">{language === 'ja' ? 'じょうたい:' : 'Holat:'}</span>
+                            <span className="text-muted-foreground font-medium mr-1">{language === 'ja' ? '習得状況:' : 'Holat:'}</span>
                             {(['ALL', 'mastered', 'learned', 'hard', 'unlearned'] as const).map(st => (
                                 <button
                                     key={st}
@@ -303,14 +303,14 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                                     }`}
                                 >
                                     {st === 'ALL' 
-                                        ? (language === 'ja' ? 'ぜんぶ' : 'Barchasi') 
+                                        ? (language === 'ja' ? 'すべて' : 'Barchasi') 
                                         : st === 'mastered' 
-                                            ? (language === 'ja' ? ' おぼえた' : ' Mustahkamlandi') 
+                                            ? (language === 'ja' ? '✓ 習得済み' : ' Mustahkamlandi') 
                                             : st === 'learned' 
-                                                ? (language === 'ja' ? ' がくしゅうずみ' : " O'rganildi") 
+                                                ? (language === 'ja' ? '📖 学習中' : " O'rganildi") 
                                                 : st === 'hard' 
-                                                    ? (language === 'ja' ? ' むずかしい' : ' Qiyin') 
-                                                    : (language === 'ja' ? ' あたらしい' : ' Yangi')}
+                                                    ? (language === 'ja' ? '⚡ 苦手・復習' : ' Qiyin') 
+                                                    : (language === 'ja' ? '✨ 未学習' : ' Yangi')}
                                 </button>
                             ))}
                         </div>
@@ -318,7 +318,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         {/* Progress Bar Widget */}
                         <div className="flex items-center gap-3">
                             <div className="text-xs text-muted-foreground">
-                                {language === 'ja' ? 'しんちょく' : 'Progress'} ({selectedLevel === 'ALL' && language === 'ja' ? 'ぜんぶ' : selectedLevel}): <span className="font-bold text-[#C9A961]">{levelStats.percentage}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
+                                {language === 'ja' ? '進捗率' : 'Progress'} ({selectedLevel === 'ALL' && language === 'ja' ? 'すべて' : selectedLevel}): <span className="font-bold text-[#C9A961]">{levelStats.percentage}%</span> ({levelStats.mastered + levelStats.learned}/{levelStats.total})
                             </div>
                             <div className="w-32 h-2.5 bg-muted rounded-full overflow-hidden border border-border">
                                 <div
