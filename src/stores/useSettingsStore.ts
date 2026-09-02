@@ -10,6 +10,9 @@ export interface Settings {
   coachAiModel: string;
   showFurigana: boolean;
   showRomaji: boolean;
+  primaryLanguage?: 'en' | 'ja';
+  targetLevel?: string;
+  targetGoal?: string;
 }
 
 export interface SettingsState {
