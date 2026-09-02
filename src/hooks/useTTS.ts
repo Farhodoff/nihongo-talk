@@ -1,11 +1,11 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
 
 interface UseTTSOptions {
   language: 'en' | 'ja';
-  isLiveSessionRef: React.MutableRefObject<boolean>;
-  isProcessingRef: React.MutableRefObject<boolean>;
+  isLiveSessionRef?: React.MutableRefObject<boolean>;
+  isProcessingRef?: React.MutableRefObject<boolean>;
   onSpeakStart: () => void;
   onSpeakEnd: () => void;
 }
@@ -15,6 +15,7 @@ export interface UseTTSReturn {
   stopSpeaking: () => void;
   audioPlayerRef: React.MutableRefObject<HTMLAudioElement | null>;
   synthRef: React.MutableRefObject<SpeechSynthesis | null>;
+  unlockAudio: () => void;
 }
 
 /**
@@ -95,6 +96,58 @@ export function splitIntoTTSChunks(text: string, maxChunkLen: number = 170): str
   return chunks.filter((c) => c.length > 0);
 }
 
+function selectBestVoice(
+  voices: SpeechSynthesisVoice[],
+  isJa: boolean,
+): SpeechSynthesisVoice | null {
+  if (!voices || voices.length === 0) return null;
+  const langPrefix = isJa ? 'ja' : 'en';
+
+  const matchingVoices = voices.filter(
+    (v) =>
+      v.lang.toLowerCase().startsWith(langPrefix) ||
+      v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix),
+  );
+
+  if (matchingVoices.length === 0) {
+    return null;
+  }
+
+  if (isJa) {
+    // Prefer high-fidelity Japanese voices (macOS Kyoko/Otoya, Chrome Google 日本語, Windows Haruka)
+    const naturalJa = matchingVoices.find((v) => {
+      const name = v.name.toLowerCase();
+      return (
+        name.includes('google') ||
+        name.includes('natural') ||
+        name.includes('neural') ||
+        name.includes('kyoko') ||
+        name.includes('otoya') ||
+        name.includes('haruka') ||
+        name.includes('nanami') ||
+        name.includes('mei')
+      );
+    });
+    return naturalJa || matchingVoices[0];
+  } else {
+    // Prefer high-fidelity English voices
+    const naturalEn = matchingVoices.find((v) => {
+      const name = v.name.toLowerCase();
+      return (
+        name.includes('google') ||
+        name.includes('natural') ||
+        name.includes('neural') ||
+        name.includes('samantha') ||
+        name.includes('daniel') ||
+        name.includes('karen') ||
+        name.includes('jenny') ||
+        name.includes('guy')
+      );
+    });
+    return naturalEn || matchingVoices[0];
+  }
+}
+
 export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): UseTTSReturn => {
   const synthRef = useRef<SpeechSynthesis | null>(
     typeof window !== 'undefined' && window.speechSynthesis ? window.speechSynthesis : null,
@@ -102,14 +155,57 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
   const currentObjectUrlRef = useRef<string | null>(null);
   const ttsSafetyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const watchdogIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const isCancelledRef = useRef<boolean>(false);
+  const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
 
   const languageRef = useRef(language);
   languageRef.current = language;
 
+  // Eager voice cache and voiceschanged listener
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    const synth = window.speechSynthesis;
+
+    const updateVoices = () => {
+      try {
+        const available = synth.getVoices();
+        if (available && available.length > 0) {
+          voicesRef.current = available;
+        }
+      } catch (e) {
+        console.debug('Failed to get voices:', e);
+      }
+    };
+
+    updateVoices();
+    synth.addEventListener('voiceschanged', updateVoices);
+
+    return () => {
+      synth.removeEventListener('voiceschanged', updateVoices);
+    };
+  }, []);
+
+  const unlockAudio = useCallback(() => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      try {
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+      } catch (e) {
+        console.debug('Unlock audio failed:', e);
+      }
+    }
+  }, []);
+
   const stopSpeaking = useCallback(() => {
     isCancelledRef.current = true;
+
+    if (watchdogIntervalRef.current) {
+      clearInterval(watchdogIntervalRef.current);
+      watchdogIntervalRef.current = null;
+    }
 
     if (synthRef.current) {
       try {
@@ -119,6 +215,9 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
       }
     }
     activeUtteranceRef.current = null;
+    if (typeof window !== 'undefined') {
+      (window as any).__speakingUtterance = null;
+    }
 
     if (audioPlayerRef.current) {
       audioPlayerRef.current.onended = null;
@@ -157,7 +256,6 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
       stopSpeaking();
       isCancelledRef.current = false;
-      onSpeakStart();
 
       const isJa =
         languageRef.current === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(rawClean);
@@ -176,141 +274,137 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         return;
       }
 
+      const synth =
+        synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
+      if (!synth) {
+        console.warn('SpeechSynthesis is not available in this environment.');
+        onSpeakEnd();
+        return;
+      }
+
+      // Resume if stuck in paused state (Chromium bug)
+      try {
+        if (synth.paused) {
+          synth.resume();
+        }
+      } catch (e) {
+        console.debug('Resume failed:', e);
+      }
+
       const onSpeechFinish = (success: boolean = true, error?: string) => {
+        if (watchdogIntervalRef.current) {
+          clearInterval(watchdogIntervalRef.current);
+          watchdogIntervalRef.current = null;
+        }
         if (ttsSafetyTimeoutRef.current) {
           clearTimeout(ttsSafetyTimeoutRef.current);
           ttsSafetyTimeoutRef.current = null;
         }
-        if (currentObjectUrlRef.current) {
-          try {
-            URL.revokeObjectURL(currentObjectUrlRef.current);
-          } catch (e) {
-            console.debug('Revoke object URL in speech finish failed:', e);
-          }
-          currentObjectUrlRef.current = null;
-        }
         activeUtteranceRef.current = null;
+        if (typeof window !== 'undefined') {
+          (window as any).__speakingUtterance = null;
+        }
         trackTTSTelemetry({ durationMs: Date.now() - startTime, success, error });
         onSpeakEnd();
       };
 
-      // Adaptive safety timeout proportional to number of chunks (min 12s, max 45s)
-      const safetyTimeoutMs = Math.min(45000, Math.max(12000, chunks.length * 8000));
+      // Adaptive safety timeout proportional to number of chunks (min 15s, max 60s)
+      const safetyTimeoutMs = Math.min(60000, Math.max(15000, chunks.length * 9000));
       ttsSafetyTimeoutRef.current = setTimeout(() => {
         onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
       }, safetyTimeoutMs);
 
-      // Sequential Chunk Playback via Audio or Web Speech API
-      let currentChunkIndex = 0;
+      // Chrome long-utterance watchdog: resumes synth every 4s if Chrome arbitrarily pauses
+      watchdogIntervalRef.current = setInterval(() => {
+        if (synth && synth.paused) {
+          try {
+            synth.resume();
+          } catch (e) {
+            console.debug('Watchdog resume error:', e);
+          }
+        }
+      }, 4000);
 
-      const playNextChunk = async () => {
+      // Refresh voices list if needed
+      let currentVoices = voicesRef.current;
+      if (!currentVoices || currentVoices.length === 0) {
+        try {
+          currentVoices = synth.getVoices() || [];
+          voicesRef.current = currentVoices;
+        } catch {}
+      }
+
+      const selectedVoice = selectBestVoice(currentVoices, isJa);
+
+      // 25ms micro-pause to avoid Chromium's cancel-speak queue race condition
+      await new Promise((r) => setTimeout(r, 25));
+      if (isCancelledRef.current) return;
+
+      onSpeakStart();
+
+      let chunkIndex = 0;
+
+      const playNextChunk = () => {
         if (isCancelledRef.current) return;
 
-        if (currentChunkIndex >= chunks.length) {
+        if (chunkIndex >= chunks.length) {
           onSpeechFinish(true);
           return;
         }
 
-        const chunk = chunks[currentChunkIndex];
-        currentChunkIndex++;
+        const chunk = chunks[chunkIndex];
+        chunkIndex++;
 
         try {
-          const targetLang = isJa ? 'ja' : 'en';
-          const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(chunk)}&tl=${targetLang}`;
+          const utterance = new SpeechSynthesisUtterance(chunk);
+          utterance.lang = isJa ? 'ja-JP' : 'en-US';
+          utterance.rate = isJa ? 0.92 : 0.95;
+          utterance.pitch = 1.0;
 
-          const audio = new Audio(gUrl);
-          audioPlayerRef.current = audio;
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
+          }
 
-          audio.onended = () => {
+          // Guard against garbage collection in V8 / WebKit
+          activeUtteranceRef.current = utterance;
+          if (typeof window !== 'undefined') {
+            (window as any).__speakingUtterance = utterance;
+          }
+
+          utterance.onend = () => {
+            activeUtteranceRef.current = null;
             if (!isCancelledRef.current) {
               playNextChunk();
             }
           };
 
-          audio.onerror = () => {
+          utterance.onerror = (event) => {
+            console.warn('[useTTS] Utterance error:', event.error);
+            activeUtteranceRef.current = null;
             if (!isCancelledRef.current) {
-              fallbackWebSpeechChunk(chunk, playNextChunk);
+              playNextChunk();
             }
           };
 
-          const playPromise = audio.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              if (!isCancelledRef.current) {
-                fallbackWebSpeechChunk(chunk, playNextChunk);
-              }
-            });
-          }
-        } catch {
-          if (!isCancelledRef.current) {
-            fallbackWebSpeechChunk(chunk, playNextChunk);
-          }
-        }
-      };
-
-      const fallbackWebSpeechChunk = (chunkText: string, onChunkDone: () => void) => {
-        if (isCancelledRef.current) return;
-
-        const synth =
-          synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
-        if (!synth) {
-          onSpeechFinish(false, 'Web Speech API not available');
-          return;
-        }
-
-        try {
-          synth.cancel();
-          const utterance = new SpeechSynthesisUtterance(chunkText);
-          activeUtteranceRef.current = utterance; // iOS GC fix: hold reference in ref
-          utterance.lang = isJa ? 'ja-JP' : 'en-US';
-          utterance.rate = 0.95;
-          utterance.pitch = 1.0;
-
-          const voices = synth.getVoices() || [];
-          const langPrefix = isJa ? 'ja' : 'en';
-
-          const matchingVoices = voices.filter(
-            (v) =>
-              v.lang.toLowerCase().startsWith(langPrefix) ||
-              v.lang.toLowerCase().replace('_', '-').startsWith(langPrefix),
-          );
-
-          if (matchingVoices.length > 0) {
-            const naturalVoice =
-              matchingVoices.find(
-                (v) =>
-                  v.name.toLowerCase().includes('natural') ||
-                  v.name.toLowerCase().includes('neural') ||
-                  v.name.toLowerCase().includes('google') ||
-                  v.name.toLowerCase().includes('kyoko') ||
-                  v.name.toLowerCase().includes('otoya'),
-              ) || matchingVoices[0];
-
-            if (naturalVoice) utterance.voice = naturalVoice;
-          }
-
-          utterance.onend = () => {
-            activeUtteranceRef.current = null;
-            if (!isCancelledRef.current) onChunkDone();
-          };
-
-          utterance.onerror = () => {
-            activeUtteranceRef.current = null;
-            if (!isCancelledRef.current) onChunkDone();
-          };
-
           synth.speak(utterance);
-        } catch (e) {
+
+          // Force resume if paused right after speak
+          if (synth.paused) {
+            synth.resume();
+          }
+        } catch (err: any) {
+          console.error('[useTTS] speak error:', err);
           activeUtteranceRef.current = null;
-          if (!isCancelledRef.current) onChunkDone();
+          if (!isCancelledRef.current) {
+            playNextChunk();
+          }
         }
       };
 
-      // Start playback with first chunk
       playNextChunk();
     },
     [onSpeakStart, onSpeakEnd, stopSpeaking],
   );
 
-  return { speakText, stopSpeaking, audioPlayerRef, synthRef };
+  return { speakText, stopSpeaking, audioPlayerRef, synthRef, unlockAudio };
 };

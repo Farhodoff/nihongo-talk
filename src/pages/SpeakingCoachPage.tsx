@@ -350,7 +350,7 @@ const SpeakingCoachPage: React.FC = () => {
   const lastCoachSpokenTextRef = useRef<string>('');
 
   // TTS Hook
-  const { speakText, stopSpeaking } = useTTS({
+  const { speakText, stopSpeaking, unlockAudio } = useTTS({
     language,
     isLiveSessionRef,
     isProcessingRef,
@@ -421,6 +421,7 @@ const SpeakingCoachPage: React.FC = () => {
   }, [isSpeaking, stopSpeaking, startListening]);
 
   const toggleMic = () => {
+    unlockAudio();
     if (isSpeaking) {
       handleBargeIn();
       return;
@@ -740,6 +741,7 @@ const SpeakingCoachPage: React.FC = () => {
   };
 
   const startSession = (topicTitle?: unknown) => {
+    unlockAudio();
     setIsLiveSession(true);
     isLiveSessionRef.current = true;
     setCurrentTranscript('');
