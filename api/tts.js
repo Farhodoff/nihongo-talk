@@ -231,7 +231,7 @@ export default async function handler(req) {
       headers: {
         'Content-Type': 'audio/mpeg',
         'Content-Length': String(audioBuffer.byteLength),
-        'Cache-Control': 'private, max-age=86400',
+        'Cache-Control': 'public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400',
         'Access-Control-Allow-Origin': '*',
       },
     });
