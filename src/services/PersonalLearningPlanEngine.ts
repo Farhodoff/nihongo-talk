@@ -1,13 +1,13 @@
 import { MasterySkill } from '../types/mastery';
 import {
-    PersonalLearningGoal,
-    WeeklyLearningPlan,
-    WeeklyPlanTask,
-    WeeklyPlanDay,
-    TaskSourceType
+  PersonalLearningGoal,
+  WeeklyLearningPlan,
+  WeeklyPlanTask,
+  WeeklyPlanDay,
+  TaskSourceType,
 } from '../types/learningPlan';
 import { callSelectedAIProvider } from '../utils/ai/aiCore';
-import { CurriculumLessonResolver } from './CurriculumLessonResolver';
+import { CurriculumLessonResolver, STATIC_CURRICULUM_MAP } from './CurriculumLessonResolver';
 import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
@@ -17,148 +17,216 @@ import { generateUUID } from '../utils/uuid';
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
 
 export interface PlanGenerationResult {
-    plan: WeeklyLearningPlan;
-    isFallback: boolean;
-    noticeMessage: string | null;
+  plan: WeeklyLearningPlan;
+  isFallback: boolean;
+  noticeMessage: string | null;
 }
 
 export const PersonalLearningPlanEngine = {
-    /**
-     * Get idempotency lock key
-     */
-    getLockKey(userId: string, goalId: string, weekNumber: number): string {
-        return `${LOCK_KEY_PREFIX}${userId}:${goalId}:${weekNumber}`;
-    },
+  /**
+   * Get idempotency lock key
+   */
+  getLockKey(userId: string, goalId: string, weekNumber: number): string {
+    return `${LOCK_KEY_PREFIX}${userId}:${goalId}:${weekNumber}`;
+  },
 
-    /**
-     * Acquire generation lock
-     */
-    acquireLock(userId: string, goalId: string, weekNumber: number): boolean {
-        const key = this.getLockKey(userId, goalId, weekNumber);
-        const existing = localStorage.getItem(key);
-        if (existing) {
-            const time = Number(existing);
-            // 5 minute timeout for locks
-            if (Date.now() - time < 5 * 60 * 1000) {
-                return false;
-            }
-        }
-        localStorage.setItem(key, String(Date.now()));
-        return true;
-    },
+  /**
+   * Acquire generation lock
+   */
+  acquireLock(userId: string, goalId: string, weekNumber: number): boolean {
+    const key = this.getLockKey(userId, goalId, weekNumber);
+    const existing = localStorage.getItem(key);
+    if (existing) {
+      const time = Number(existing);
+      // 5 minute timeout for locks
+      if (Date.now() - time < 5 * 60 * 1000) {
+        return false;
+      }
+    }
+    localStorage.setItem(key, String(Date.now()));
+    return true;
+  },
 
-    /**
-     * Release generation lock
-     */
-    releaseLock(userId: string, goalId: string, weekNumber: number): void {
-        const key = this.getLockKey(userId, goalId, weekNumber);
-        localStorage.removeItem(key);
-    },
+  /**
+   * Release generation lock
+   */
+  releaseLock(userId: string, goalId: string, weekNumber: number): void {
+    const key = this.getLockKey(userId, goalId, weekNumber);
+    localStorage.removeItem(key);
+  },
 
-    /**
-     * Clean HTML and scripts to avoid XSS injections from AI outputs
-     */
-    sanitizeText(str: string): string {
-        return (str || '')
-            .replace(/<[^>]*>/g, '') // Strip HTML tags
-            .replace(/javascript:/gi, '')
-            .substring(0, 1000)
-            .trim();
-    },
+  /**
+   * Clean HTML and scripts to avoid XSS injections from AI outputs
+   */
+  sanitizeText(str: string): string {
+    return (str || '')
+      .replace(/<[^>]*>/g, '') // Strip HTML tags
+      .replace(/javascript:/gi, '')
+      .substring(0, 1000)
+      .trim();
+  },
 
-    /**
- * Generates a 7-day personalized weekly plan using the configured AI provider.
-     */
-    async generateWeeklyPlan(
-        userId: string,
-        goal: PersonalLearningGoal,
-        weekNumber: number,
-        previousWeekResult?: any
-    ): Promise<PlanGenerationResult> {
-        const hasLock = this.acquireLock(userId, goal.id, weekNumber);
-        if (!hasLock) {
-            throw new Error('Hozirda ushbu hafta uchun reja generatsiyasi kutilmoqda. Iltimos bir oz kuting.');
-        }
+  /**
+   * Generates a 7-day personalized weekly plan using the configured AI provider.
+   */
+  async generateWeeklyPlan(
+    userId: string,
+    goal: PersonalLearningGoal,
+    weekNumber: number,
+    previousWeekResult?: any,
+  ): Promise<PlanGenerationResult> {
+    const hasLock = this.acquireLock(userId, goal.id, weekNumber);
+    if (!hasLock) {
+      throw new Error(
+        'Hozirda ushbu hafta uchun reja generatsiyasi kutilmoqda. Iltimos bir oz kuting.',
+      );
+    }
 
+    try {
+      // Get user current mastery, weaknesses, and SRS state from orchestrator / engines
+      const state = await LearningPathEngine.getLearningPath(userId, {
+        forceLanguage: goal.language,
+      });
+      const srsSummary = state.srsSummary || { dueCount: 0, overdueCount: 0 };
+      const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(
+        userId,
+        goal.language,
+      );
+
+      const isJa = goal.language === 'ja';
+
+      // Resolve previous week's evaluation if not passed
+      let evaluation = previousWeekResult;
+      if (!evaluation && weekNumber > 1) {
         try {
-            // Get user current mastery, weaknesses, and SRS state from orchestrator / engines
-            const state = await LearningPathEngine.getLearningPath(userId, { forceLanguage: goal.language });
-            const srsSummary = state.srsSummary || { dueCount: 0, overdueCount: 0 };
-            const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
+          const evals = PersonalLearningPlanService.getWeeklyEvaluations(userId);
+          evaluation = evals.find((e) => e.weekNumber === weekNumber - 1);
+        } catch {}
+      }
 
-            const isJa = goal.language === 'ja';
+      let adjustedDailyMinutes = goal.dailyMinutes;
+      let timeNotice: string | null = null;
+      if (evaluation) {
+        const completion = evaluation.completionRate ?? 100;
+        if (completion < 50) {
+          adjustedDailyMinutes = Math.max(15, Math.round(goal.dailyMinutes * 0.8));
+          timeNotice = isJa
+            ? `O'tgan haftadagi topshiriqlar kam bajarilgani uchun (completion: ${completion}%), haftalik yuklama 20% ga kamaytirildi.`
+            : `Due to low completion last week (${completion}%), your daily study workload has been reduced by 20%.`;
+        } else if (completion === 100) {
+          adjustedDailyMinutes = Math.min(180, Math.round(goal.dailyMinutes * 1.2));
+          timeNotice = isJa
+            ? `O'tgan haftadagi topshiriqlar 100% bajarilgani uchun, haftalik yuklama 20% ga oshirildi.`
+            : `Excellent job! Since you completed 100% of your tasks, your daily study workload has been increased by 20%.`;
+        }
+      }
 
-            // Resolve previous week's evaluation if not passed
-            let evaluation = previousWeekResult;
-            if (!evaluation && weekNumber > 1) {
-                try {
-                    const evals = PersonalLearningPlanService.getWeeklyEvaluations(userId);
-                    evaluation = evals.find(e => e.weekNumber === weekNumber - 1);
-                } catch {}
-            }
+      // Build available content catalog for the current language and level
+      const course = CurriculumService.getCourse(goal.language);
+      const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
+      const targetLevelCode = cleanCurrent === 'ZERO' ? (isJa ? 'N5' : 'A1') : cleanCurrent;
+      const availableContent: { id: string; title: string; skill: string }[] = [];
 
-            let adjustedDailyMinutes = goal.dailyMinutes;
-            let timeNotice: string | null = null;
-            if (evaluation) {
-                const completion = evaluation.completionRate ?? 100;
-                if (completion < 50) {
-                    adjustedDailyMinutes = Math.max(15, Math.round(goal.dailyMinutes * 0.8));
-                    timeNotice = isJa
-                        ? `O'tgan haftadagi topshiriqlar kam bajarilgani uchun (completion: ${completion}%), haftalik yuklama 20% ga kamaytirildi.`
-                        : `Due to low completion last week (${completion}%), your daily study workload has been reduced by 20%.`;
-                } else if (completion === 100) {
-                    adjustedDailyMinutes = Math.min(180, Math.round(goal.dailyMinutes * 1.2));
-                    timeNotice = isJa
-                        ? `O'tgan haftadagi topshiriqlar 100% bajarilgani uchun, haftalik yuklama 20% ga oshirildi.`
-                        : `Excellent job! Since you completed 100% of your tasks, your daily study workload has been increased by 20%.`;
-                }
-            }
-
-            // Build available content catalog for the current language and level
-            const course = CurriculumService.getCourse(goal.language);
-            const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
-            const targetLevelCode = cleanCurrent === 'ZERO' ? (isJa ? 'N5' : 'A1') : cleanCurrent;
-            const availableContent: { id: string; title: string; skill: string }[] = [];
-
-            course.levels?.forEach(lvl => {
-                if (lvl.code.toUpperCase() === targetLevelCode || lvl.code.toUpperCase().includes(targetLevelCode)) {
-                    lvl.units?.forEach(u => {
-                        u.lessons?.forEach(l => {
-                            if (l.isContentAvailable && !completedLessonIds.includes(l.id)) {
-                                availableContent.push({ id: l.id, title: l.title, skill: l.skill || 'grammar' });
-                            }
-                        });
-                    });
-                }
+      course.levels?.forEach((lvl) => {
+        if (
+          lvl.code.toUpperCase() === targetLevelCode ||
+          lvl.code.toUpperCase().includes(targetLevelCode)
+        ) {
+          lvl.units?.forEach((u) => {
+            u.lessons?.forEach((l) => {
+              if (l.isContentAvailable && !completedLessonIds.includes(l.id)) {
+                availableContent.push({ id: l.id, title: l.title, skill: l.skill || 'grammar' });
+              }
             });
+          });
+        }
+      });
 
-            // If English track, also include Murphy A1 Unit IDs
-            if (!isJa) {
-                availableContent.push(
-                    { id: 'murphy_u01_am_is_are', title: 'Unit 1: am / is / are', skill: 'grammar' },
-                    { id: 'murphy_u02_am_is_are_questions', title: 'Unit 2: am / is / are questions', skill: 'grammar' },
-                    { id: 'murphy_u03_present_continuous', title: 'Unit 3: Present Continuous', skill: 'grammar' },
-                    { id: 'murphy_u05_present_simple', title: 'Unit 5: Present Simple', skill: 'grammar' },
-                    { id: 'murphy_u10_was_were', title: 'Unit 10: was / were', skill: 'grammar' },
-                    { id: 'murphy_u11_past_simple_regular_irregular', title: 'Unit 11: Past Simple', skill: 'grammar' },
-                    { id: 'murphy_u15_present_perfect_1', title: 'Unit 15: Present Perfect', skill: 'grammar' },
-                    { id: 'murphy_u31_can_could', title: 'Unit 23: can / could', skill: 'speaking' },
-                    { id: 'murphy_u36_there_is_there_are', title: 'Unit 3: there is / there are', skill: 'grammar' }
-                );
+      // If Japanese track, include authentic curriculum lessons for target level
+      if (isJa) {
+        const targetPrefix = `ja-${targetLevelCode.toLowerCase()}`;
+        Object.entries(STATIC_CURRICULUM_MAP).forEach(([lessonId, item]) => {
+          if (
+            lessonId.startsWith(targetPrefix) ||
+            (targetLevelCode === 'N5' && lessonId.startsWith('ja-n5'))
+          ) {
+            if (
+              !completedLessonIds.includes(lessonId) &&
+              !availableContent.some((c) => c.id === lessonId)
+            ) {
+              availableContent.push({
+                id: lessonId,
+                title: item.title,
+                skill: item.skill || 'grammar',
+              });
             }
+          }
+        });
+      }
 
-            const allowedRoutes = isJa
-                ? ['/jlpt', '/jlpt/grammar-quiz', '/jlpt/reading', '/jlpt/listening', '/scenarios', '/study-mode']
-                : ['/ielts?tab=grammar', '/scenarios', '/speaking-coach', '/ielts?tab=reading_listening', '/ielts?tab=writing', '/vocabulary', '/study-mode'];
+      // If English track, also include Murphy A1 Unit IDs
+      if (!isJa) {
+        availableContent.push(
+          { id: 'murphy_u01_am_is_are', title: 'Unit 1: am / is / are', skill: 'grammar' },
+          {
+            id: 'murphy_u02_am_is_are_questions',
+            title: 'Unit 2: am / is / are questions',
+            skill: 'grammar',
+          },
+          {
+            id: 'murphy_u03_present_continuous',
+            title: 'Unit 3: Present Continuous',
+            skill: 'grammar',
+          },
+          { id: 'murphy_u05_present_simple', title: 'Unit 5: Present Simple', skill: 'grammar' },
+          { id: 'murphy_u10_was_were', title: 'Unit 10: was / were', skill: 'grammar' },
+          {
+            id: 'murphy_u11_past_simple_regular_irregular',
+            title: 'Unit 11: Past Simple',
+            skill: 'grammar',
+          },
+          {
+            id: 'murphy_u15_present_perfect_1',
+            title: 'Unit 15: Present Perfect',
+            skill: 'grammar',
+          },
+          { id: 'murphy_u31_can_could', title: 'Unit 23: can / could', skill: 'speaking' },
+          {
+            id: 'murphy_u36_there_is_there_are',
+            title: 'Unit 3: there is / there are',
+            skill: 'grammar',
+          },
+        );
+      }
 
-            const strongSkills = state.masteryProfile?.topStrengths.map(s => s.skill) || [];
-            const weaknessesWithSeverity = state.masteryProfile?.topWeaknesses.map(w => ({
-                skill: w.skill,
-                severity: w.severity || 'medium',
-                reason: w.reason
-            })) || [];
+      const allowedRoutes = isJa
+        ? [
+            '/jlpt',
+            '/jlpt/grammar-quiz',
+            '/jlpt/reading',
+            '/jlpt/listening',
+            '/scenarios',
+            '/study-mode',
+          ]
+        : [
+            '/ielts?tab=grammar',
+            '/scenarios',
+            '/speaking-coach',
+            '/ielts?tab=reading_listening',
+            '/ielts?tab=writing',
+            '/vocabulary',
+            '/study-mode',
+          ];
 
-            const systemPrompt = `You are Nihon Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
+      const strongSkills = state.masteryProfile?.topStrengths.map((s) => s.skill) || [];
+      const weaknessesWithSeverity =
+        state.masteryProfile?.topWeaknesses.map((w) => ({
+          skill: w.skill,
+          severity: w.severity || 'medium',
+          reason: w.reason,
+        })) || [];
+
+      const systemPrompt = `You are Nihon Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
 
 Your job is to create one realistic, personalized 7-day study plan using only the student data and valid learning routes provided below.
 
@@ -244,7 +312,7 @@ OUTPUT JSON SCHEMA:
   "expectedOutcome": "Hafta oxirida o‘lchab bo‘ladigan o‘zbekcha natija."
 }`;
 
-            const prompt = `Create the adaptive weekly plan using this source-of-truth student profile.
+      const prompt = `Create the adaptive weekly plan using this source-of-truth student profile.
 
 Student Parameters:
 LANGUAGE_TRACK: ${goal.language}
@@ -283,7 +351,7 @@ COMPLETED_LESSON_IDS:
 ${JSON.stringify(completedLessonIds)}
 
 AVAILABLE_CONTENT_IDS:
-${JSON.stringify(availableContent.map(c => c.id))}
+${JSON.stringify(availableContent.map((c) => c.id))}
 
 ALLOWED_ROUTES:
 ${JSON.stringify(allowedRoutes)}
@@ -296,18 +364,27 @@ Before returning JSON, verify:
 - no invalid route or invented contentId exists;
 - English and Japanese content are never mixed.`;
 
-            let cleanJson = '';
-            let parsed: WeeklyLearningPlan | null = null;
+      let cleanJson = '';
+      let parsed: WeeklyLearningPlan | null = null;
 
-            // 1. Initial AI call (re-throws immediately on network/HTTP provider error)
-            const aiResponse = await callSelectedAIProvider(prompt, systemPrompt, true);
-            cleanJson = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-            parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
+      // 1. Initial AI call (re-throws immediately on network/HTTP provider error)
+      const aiResponse = await callSelectedAIProvider(prompt, systemPrompt, true);
+      cleanJson = aiResponse
+        .replace(/```json/g, '')
+        .replace(/```/g, '')
+        .trim();
+      parsed = this.parseAndValidateWeeklyPlan(
+        cleanJson,
+        goal,
+        weekNumber,
+        userId,
+        adjustedDailyMinutes,
+      );
 
-            // 2. Controlled 1-time targeted "repair JSON" retry if plan was rejected by validator
-            if (!parsed) {
-                try {
-                    const repairPrompt = `The previous JSON response was REJECTED by the validator.
+      // 2. Controlled 1-time targeted "repair JSON" retry if plan was rejected by validator
+      if (!parsed) {
+        try {
+          const repairPrompt = `The previous JSON response was REJECTED by the validator.
 Ensure:
 1. All 7 days (monday, tuesday, wednesday, thursday, friday, saturday, sunday) are present.
 2. NO day contains ONLY SRS tasks.
@@ -318,234 +395,287 @@ Ensure:
 Original Student Profile:
 ${prompt}`;
 
-                    const retryResponse = await callSelectedAIProvider(repairPrompt, systemPrompt, true);
-                    cleanJson = retryResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                    parsed = this.parseAndValidateWeeklyPlan(cleanJson, goal, weekNumber, userId, adjustedDailyMinutes);
-                } catch (retryErr: any) {
-                    console.error('[PersonalLearningPlanEngine] Repair generation attempt error:', retryErr?.message);
-                }
-            }
-
-            if (!parsed) {
-                throw new Error("AI_UNAVAILABLE: AI reja formati noto'g'ri qaytdi yoki AI xizmati vaqtincha mavjud emas.");
-            }
-
-            this.releaseLock(userId, goal.id, weekNumber);
-            return {
-                plan: parsed,
-                isFallback: false,
-                noticeMessage: timeNotice
-            };
-
-        } catch (e: any) {
-            this.releaseLock(userId, goal.id, weekNumber);
-            throw e;
+          const retryResponse = await callSelectedAIProvider(repairPrompt, systemPrompt, true);
+          cleanJson = retryResponse
+            .replace(/```json/g, '')
+            .replace(/```/g, '')
+            .trim();
+          parsed = this.parseAndValidateWeeklyPlan(
+            cleanJson,
+            goal,
+            weekNumber,
+            userId,
+            adjustedDailyMinutes,
+          );
+        } catch (retryErr: any) {
+          console.error(
+            '[PersonalLearningPlanEngine] Repair generation attempt error:',
+            retryErr?.message,
+          );
         }
-    },
+      }
 
-    /**
-     * Strict JSON validator & sanitizer
-     */
-    parseAndValidateWeeklyPlan(
-        jsonString: string,
-        goal: PersonalLearningGoal,
-        weekNumber: number,
-        userId: string,
-        dailyMinutesBudget: number = goal.dailyMinutes
-    ): WeeklyLearningPlan | null {
-        try {
-            const raw = JSON.parse(jsonString);
-            if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+      if (!parsed) {
+        throw new Error(
+          "AI_UNAVAILABLE: AI reja formati noto'g'ri qaytdi yoki AI xizmati vaqtincha mavjud emas.",
+        );
+      }
 
-            const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(userId, goal.language);
+      this.releaseLock(userId, goal.id, weekNumber);
+      return {
+        plan: parsed,
+        isFallback: false,
+        noticeMessage: timeNotice,
+      };
+    } catch (e: any) {
+      this.releaseLock(userId, goal.id, weekNumber);
+      throw e;
+    }
+  },
 
-            const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-            const objectives = Array.isArray(raw.objectives) ? raw.objectives.map((o: any) => this.sanitizeText(o)) : ['Mashq bajarish'];
-            const focusSkills = Array.isArray(raw.focusSkills) ? raw.focusSkills.map((s: any) => this.sanitizeText(s)) : ['general'];
+  /**
+   * Strict JSON validator & sanitizer
+   */
+  parseAndValidateWeeklyPlan(
+    jsonString: string,
+    goal: PersonalLearningGoal,
+    weekNumber: number,
+    userId: string,
+    dailyMinutesBudget: number = goal.dailyMinutes,
+  ): WeeklyLearningPlan | null {
+    try {
+      const raw = JSON.parse(jsonString);
+      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
 
-            const validatedDays: WeeklyPlanDay[] = daysOfWeek.map((dayName): WeeklyPlanDay => {
-                const rawDay = (raw.days || []).find((d: any) => String(d.day).toLowerCase() === dayName);
-                const rawTasks = rawDay && Array.isArray(rawDay.tasks) ? rawDay.tasks : [];
+      const completedLessonIds = PersonalLearningPlanService.getCompletedLessonIds(
+        userId,
+        goal.language,
+      );
 
-                let dayMinutesAllocated = 0;
-                const validatedTasks: WeeklyPlanTask[] = [];
+      const daysOfWeek = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+      ];
+      const objectives = Array.isArray(raw.objectives)
+        ? raw.objectives.map((o: any) => this.sanitizeText(o))
+        : ['Mashq bajarish'];
+      const focusSkills = Array.isArray(raw.focusSkills)
+        ? raw.focusSkills.map((s: any) => this.sanitizeText(s))
+        : ['general'];
 
-                for (const t of rawTasks) {
-                    if (!t || typeof t !== 'object') continue;
+      const validatedDays: WeeklyPlanDay[] = daysOfWeek.map((dayName): WeeklyPlanDay => {
+        const rawDay = (raw.days || []).find((d: any) => String(d.day).toLowerCase() === dayName);
+        const rawTasks = rawDay && Array.isArray(rawDay.tasks) ? rawDay.tasks : [];
 
-                    // Clamp task minutes between 5 and 60 minutes
-                    let minutes = Number(t.estimatedMinutes || t.minutes || 15);
-                    if (isNaN(minutes) || minutes < 5) minutes = 10;
-                    if (minutes > 60) minutes = 60;
+        let dayMinutesAllocated = 0;
+        const validatedTasks: WeeklyPlanTask[] = [];
 
-                    // Respect daily study minutes budget
-                    if (dayMinutesAllocated + minutes > dailyMinutesBudget) {
-                        const remaining = dailyMinutesBudget - dayMinutesAllocated;
-                        if (remaining >= 5) {
-                            minutes = remaining;
-                        } else {
-                            continue; // Skip task if no budget
-                        }
+        for (const t of rawTasks) {
+          if (!t || typeof t !== 'object') continue;
+
+          // Clamp task minutes between 5 and 60 minutes
+          let minutes = Number(t.estimatedMinutes || t.minutes || 15);
+          if (isNaN(minutes) || minutes < 5) minutes = 10;
+          if (minutes > 60) minutes = 60;
+
+          // Respect daily study minutes budget
+          if (dayMinutesAllocated + minutes > dailyMinutesBudget) {
+            const remaining = dailyMinutesBudget - dayMinutesAllocated;
+            if (remaining >= 5) {
+              minutes = remaining;
+            } else {
+              continue; // Skip task if no budget
+            }
+          }
+
+          dayMinutesAllocated += minutes;
+
+          let actualTitle = this.sanitizeText(t.title || 'Dars');
+          let actualType = this.sanitizeText(t.type || 'lesson');
+          let actualContentId = t.contentId ? this.sanitizeText(t.contentId) : undefined;
+          let rawRoute = t.route
+            ? String(t.route).trim()
+            : goal.language === 'ja'
+              ? '/jlpt'
+              : '/ielts';
+
+          // Completed Lesson Deduplication Check (Hard Guard)
+          if (
+            actualType === 'lesson' &&
+            actualContentId &&
+            completedLessonIds.includes(actualContentId)
+          ) {
+            // Find a replacement lesson at the same level and language
+            const course = CurriculumService.getCourse(goal.language);
+            const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
+            let targetLevelCode =
+              cleanCurrent === 'ZERO' ? (goal.language === 'ja' ? 'N5' : 'A1') : cleanCurrent;
+
+            let replacementNode: any = null;
+            course.levels?.forEach((lvl) => {
+              if (lvl.code.toUpperCase() === targetLevelCode) {
+                lvl.units?.forEach((u) => {
+                  u.lessons?.forEach((l) => {
+                    if (
+                      l.isContentAvailable &&
+                      !completedLessonIds.includes(l.id) &&
+                      l.id !== actualContentId
+                    ) {
+                      replacementNode = l;
                     }
-
-                    dayMinutesAllocated += minutes;
-
-                    let actualTitle = this.sanitizeText(t.title || 'Dars');
-                    let actualType = this.sanitizeText(t.type || 'lesson');
-                    let actualContentId = t.contentId ? this.sanitizeText(t.contentId) : undefined;
-                    let rawRoute = t.route ? String(t.route).trim() : (goal.language === 'ja' ? '/jlpt' : '/ielts');
-
-                    // Completed Lesson Deduplication Check (Hard Guard)
-                    if (actualType === 'lesson' && actualContentId && completedLessonIds.includes(actualContentId)) {
-                        // Find a replacement lesson at the same level and language
-                        const course = CurriculumService.getCourse(goal.language);
-                        const cleanCurrent = (goal.currentLevel || '').trim().toUpperCase();
-                        let targetLevelCode = cleanCurrent === 'ZERO' ? (goal.language === 'ja' ? 'N5' : 'A1') : cleanCurrent;
-                        
-                        let replacementNode: any = null;
-                        course.levels?.forEach(lvl => {
-                            if (lvl.code.toUpperCase() === targetLevelCode) {
-                                lvl.units?.forEach(u => {
-                                    u.lessons?.forEach(l => {
-                                        if (l.isContentAvailable && !completedLessonIds.includes(l.id) && l.id !== actualContentId) {
-                                            replacementNode = l;
-                                        }
-                                    });
-                                });
-                            }
-                        });
-
-                        if (replacementNode) {
-                            actualContentId = replacementNode.id;
-                            actualTitle = replacementNode.title;
-                            rawRoute = replacementNode.route || (goal.language === 'ja' ? '/jlpt' : '/ielts');
-                        } else {
-                            // Exhausted level: Fallback to review
-                            actualType = 'review';
-                            actualTitle = `${actualTitle} (Takrorlash)`;
-                        }
-                    }
-
-                    // Route Sanitation & Language isolation check
-                    let resolvedRoute = rawRoute;
-                    let sourceType: TaskSourceType = 'ai_generated';
-
-                    if (actualContentId) {
-                        try {
-                            const resolved = CurriculumLessonResolver.resolveLesson(actualContentId, goal.language);
-                            if (resolved && resolved.isAvailable) {
-                                resolvedRoute = resolved.route;
-                                sourceType = resolved.sourceType === 'lesson_player' ? 'lesson' : 'curriculum';
-                            }
-                        } catch {
-                            // Resolver failed, fallback to raw or general route
-                        }
-                    }
-
-                    // Enforce language isolations
-                    if (goal.language === 'ja') {
-                        if (
-                            resolvedRoute.includes('ielts') ||
-                            resolvedRoute.includes('/lesson/en-') ||
-                            actualTitle.toLowerCase().includes('ielts') ||
-                            actualTitle.toLowerCase().includes('english')
-                        ) {
-                            resolvedRoute = '/jlpt';
-                            sourceType = 'curriculum';
-                        }
-                    } else {
-                        if (
-                            resolvedRoute.includes('jlpt') ||
-                            resolvedRoute.includes('/lesson/ja-') ||
-                            actualTitle.toLowerCase().includes('jlpt') ||
-                            actualTitle.toLowerCase().includes('kanji') ||
-                            actualTitle.toLowerCase().includes('japanese')
-                        ) {
-                            resolvedRoute = '/ielts';
-                            sourceType = 'curriculum';
-                        }
-                    }
-
-                    // Strict route verification mapping
-                    const validStartingRoutes = ['/lesson/', '/vocabulary', '/study-mode', '/speaking-coach', '/ielts', '/jlpt', '/scenarios'];
-                    const hasValidRoute = validStartingRoutes.some(prefix => resolvedRoute.startsWith(prefix));
-                    if (!hasValidRoute) {
-                        resolvedRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
-                    }
-
-                    validatedTasks.push({
-                        id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-                        title: actualTitle,
-                        type: actualType,
-                        estimatedMinutes: minutes,
-                        completed: false,
-                        status: 'pending',
-                        sourceType,
-                        contentId: actualContentId,
-                        route: resolvedRoute,
-                        skill: t.skill || (actualType as MasterySkill)
-                    });
-                }
-
-                // If tasks are empty, append a default lesson to keep plan intact
-                if (validatedTasks.length === 0) {
-                    const fallbackRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
-                    validatedTasks.push({
-                        id: `task-fallback-${Date.now()}`,
-                        title: goal.language === 'ja' ? 'Kundalik dars va takrorlash' : 'Daily practice and review',
-                        type: 'lesson',
-                        estimatedMinutes: dailyMinutesBudget,
-                        completed: false,
-                        status: 'pending',
-                        sourceType: 'curriculum',
-                        route: fallbackRoute
-                    });
-                }
-
-                return {
-                    day: dayName as any,
-                    tasks: validatedTasks
-                };
+                  });
+                });
+              }
             });
 
-            // Get existing plans to determine version history
-            const existingPlans = PersonalLearningPlanService.getWeeklyPlans(userId);
-            const matchingWeekPlans = existingPlans.filter(p => p.goalId === goal.id && p.weekNumber === weekNumber);
-            const nextVersion = matchingWeekPlans.length > 0
-                ? Math.max(...matchingWeekPlans.map(p => p.version)) + 1
-                : 1;
+            if (replacementNode) {
+              actualContentId = replacementNode.id;
+              actualTitle = replacementNode.title;
+              rawRoute = replacementNode.route || (goal.language === 'ja' ? '/jlpt' : '/ielts');
+            } else {
+              // Exhausted level: Fallback to review
+              actualType = 'review';
+              actualTitle = `${actualTitle} (Takrorlash)`;
+            }
+          }
 
-            const reasoning = this.sanitizeText(raw.reasoning || 'Reja tayyorlandi.');
-            const expectedOutcome = this.sanitizeText(raw.expectedOutcome || 'Yaxshi natija.');
+          // Route Sanitation & Language isolation check
+          let resolvedRoute = rawRoute;
+          let sourceType: TaskSourceType = 'ai_generated';
 
-            const today = new Date();
-            const startDay = new Date(today.getTime() + 1 * 86400000); // starts tomorrow
-            const endDay = new Date(startDay.getTime() + 6 * 86400000);
+          if (actualContentId) {
+            try {
+              const resolved = CurriculumLessonResolver.resolveLesson(
+                actualContentId,
+                goal.language,
+              );
+              if (resolved && resolved.isAvailable) {
+                resolvedRoute = resolved.route;
+                sourceType = resolved.sourceType === 'lesson_player' ? 'lesson' : 'curriculum';
+              }
+            } catch {
+              // Resolver failed, fallback to raw or general route
+            }
+          }
 
-            return {
-                id: generateUUID(),
-                goalId: goal.id,
-                userId,
-                weekNumber,
-                startDate: startDay.toISOString().split('T')[0],
-                endDate: endDay.toISOString().split('T')[0],
-                objectives,
-                focusSkills,
-                days: validatedDays,
-                reasoning,
-                expectedOutcome,
-                aiGenerated: true,
-                version: nextVersion,
-                status: 'active',
-                createdAt: new Date().toISOString()
-            };
+          // Enforce language isolations
+          if (goal.language === 'ja') {
+            if (
+              resolvedRoute.includes('ielts') ||
+              resolvedRoute.includes('/lesson/en-') ||
+              actualTitle.toLowerCase().includes('ielts') ||
+              actualTitle.toLowerCase().includes('english')
+            ) {
+              resolvedRoute = '/jlpt';
+              sourceType = 'curriculum';
+            }
+          } else {
+            if (
+              resolvedRoute.includes('jlpt') ||
+              resolvedRoute.includes('/lesson/ja-') ||
+              actualTitle.toLowerCase().includes('jlpt') ||
+              actualTitle.toLowerCase().includes('kanji') ||
+              actualTitle.toLowerCase().includes('japanese')
+            ) {
+              resolvedRoute = '/ielts';
+              sourceType = 'curriculum';
+            }
+          }
 
-        } catch (err) {
-            console.warn('[PersonalLearningPlanEngine] Validation parse failed:', err);
-            return null;
+          // Strict route verification mapping
+          const validStartingRoutes = [
+            '/lesson/',
+            '/vocabulary',
+            '/study-mode',
+            '/speaking-coach',
+            '/ielts',
+            '/jlpt',
+            '/scenarios',
+          ];
+          const hasValidRoute = validStartingRoutes.some((prefix) =>
+            resolvedRoute.startsWith(prefix),
+          );
+          if (!hasValidRoute) {
+            resolvedRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
+          }
+
+          validatedTasks.push({
+            id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+            title: actualTitle,
+            type: actualType,
+            estimatedMinutes: minutes,
+            completed: false,
+            status: 'pending',
+            sourceType,
+            contentId: actualContentId,
+            route: resolvedRoute,
+            skill: t.skill || (actualType as MasterySkill),
+          });
         }
-    },
 
-    
+        // If tasks are empty, append a default lesson to keep plan intact
+        if (validatedTasks.length === 0) {
+          const fallbackRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
+          validatedTasks.push({
+            id: `task-fallback-${Date.now()}`,
+            title:
+              goal.language === 'ja' ? 'Kundalik dars va takrorlash' : 'Daily practice and review',
+            type: 'lesson',
+            estimatedMinutes: dailyMinutesBudget,
+            completed: false,
+            status: 'pending',
+            sourceType: 'curriculum',
+            route: fallbackRoute,
+          });
+        }
+
+        return {
+          day: dayName as any,
+          tasks: validatedTasks,
+        };
+      });
+
+      // Get existing plans to determine version history
+      const existingPlans = PersonalLearningPlanService.getWeeklyPlans(userId);
+      const matchingWeekPlans = existingPlans.filter(
+        (p) => p.goalId === goal.id && p.weekNumber === weekNumber,
+      );
+      const nextVersion =
+        matchingWeekPlans.length > 0 ? Math.max(...matchingWeekPlans.map((p) => p.version)) + 1 : 1;
+
+      const reasoning = this.sanitizeText(raw.reasoning || 'Reja tayyorlandi.');
+      const expectedOutcome = this.sanitizeText(raw.expectedOutcome || 'Yaxshi natija.');
+
+      const today = new Date();
+      const startDay = new Date(today.getTime() + 1 * 86400000); // starts tomorrow
+      const endDay = new Date(startDay.getTime() + 6 * 86400000);
+
+      return {
+        id: generateUUID(),
+        goalId: goal.id,
+        userId,
+        weekNumber,
+        startDate: startDay.toISOString().split('T')[0],
+        endDate: endDay.toISOString().split('T')[0],
+        objectives,
+        focusSkills,
+        days: validatedDays,
+        reasoning,
+        expectedOutcome,
+        aiGenerated: true,
+        version: nextVersion,
+        status: 'active',
+        createdAt: new Date().toISOString(),
+      };
+    } catch (err) {
+      console.warn('[PersonalLearningPlanEngine] Validation parse failed:', err);
+      return null;
+    }
+  },
 };
 export default PersonalLearningPlanEngine;
