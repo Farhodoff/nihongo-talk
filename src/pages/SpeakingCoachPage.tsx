@@ -95,10 +95,29 @@ const SpeakingCoachPage: React.FC = () => {
   const navigate = useNavigate();
   const { primaryLanguage } = useStudyData();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, addCoachSession, addFlashcardsBatch, subjects, addSubject, flashcards } =
-    useStudyData();
+  const {
+    user,
+    addCoachSession,
+    addFlashcardsBatch,
+    subjects,
+    addSubject,
+    flashcards,
+    updateFlashcard,
+  } = useStudyData();
   const isAdmin = isAdminEmail(user?.email);
   const isSuper = isSuperAdmin(user?.email);
+
+  // Clean up any legacy cards that contain "🎙️ Manba:" to keep cards clean and distraction-free
+  useEffect(() => {
+    if (flashcards && flashcards.length > 0 && updateFlashcard) {
+      flashcards.forEach((card) => {
+        if (card.back && card.back.includes('🎙️ Manba:')) {
+          const cleanedBack = card.back.replace(/\n*🎙️\s*Manba:[^\n]*/gi, '').trim();
+          updateFlashcard(card.id, { back: cleanedBack }).catch(() => {});
+        }
+      });
+    }
+  }, [flashcards, updateFlashcard]);
 
   const urlLang = searchParams.get('lang');
   const scenarioIdParam = searchParams.get('scenario');
@@ -180,15 +199,19 @@ const SpeakingCoachPage: React.FC = () => {
       vocabulary: [
         {
           word: '志望動機',
-          meaning: 'Reason for applying / Application motivation',
+          meaning: 'Ishga topshirish sababi va maqsadi (Reason for applying)',
           reading: 'しぼうどうき',
         },
         {
           word: '自己PR',
-          meaning: 'Self-promotion / Strengths presentation',
+          meaning: "O'zini tanishtirish va kuchli tomonlarini ko'rsatish (Self-promotion)",
           reading: 'じこピーアール',
         },
-        { word: '技術スタック', meaning: 'Technology stack / Skills', reading: 'ぎじゅつスタック' },
+        {
+          word: '技術スタック',
+          meaning: "Texnologiyalar to'plami va ko'nikmalar (Technology stack)",
+          reading: 'ぎじゅつスタック',
+        },
       ],
     },
     {
@@ -441,13 +464,76 @@ const SpeakingCoachPage: React.FC = () => {
 
       const targetDeckName = isJa ? "🎙️ AI Speaking Lug'atlari" : '🎙️ AI Speaking Vocabulary';
 
-      // 3. Format cards with pedagogical excellence
+      // 3. Extract or translate Uzbek and English meanings
+      let uzbekMeaning = '';
+      let englishMeaning = '';
+
+      const raw = (vocab.meaning || '').trim();
+      const parenMatch = raw.match(/^(.*?)\s*[([](.*)[)\]]$/);
+      const bulletMatch = raw.match(/^(.*?)\s*[•|/]\s*(.*)$/);
+
+      if (parenMatch) {
+        uzbekMeaning = parenMatch[1].trim();
+        englishMeaning = parenMatch[2].trim();
+      } else if (bulletMatch) {
+        uzbekMeaning = bulletMatch[1].trim();
+        englishMeaning = bulletMatch[2].trim();
+      } else if (isJa) {
+        const isPrimarilyEnglish = /^[a-zA-Z\s/,\-–.?!'"]+$/.test(raw);
+        if (isPrimarilyEnglish) {
+          englishMeaning = raw;
+          const knownTranslations: Record<string, string> = {
+            'reason for applying / application motivation': 'Ishga topshirish sababi va maqsadi',
+            'reason for applying': 'Ishga topshirish sababi',
+            'application motivation': 'Topshirish maqsadi',
+            'self-promotion / strengths presentation':
+              "O'zini tanishtirish va kuchli tomonlarini taqdim etish",
+            'self-promotion': "O'zini tanishtirish",
+            'strengths presentation': 'Kuchli tomonlarni ko‘rsatish',
+            'technology stack / skills': "Texnologiyalar to'plami va ko'nikmalar",
+            'technology stack': "Texnologiyalar to'plami",
+          };
+          const lowerRaw = raw.toLowerCase().trim();
+          if (knownTranslations[lowerRaw]) {
+            uzbekMeaning = knownTranslations[lowerRaw];
+          } else {
+            try {
+              uzbekMeaning = await translateTextToUzbek(raw);
+            } catch {
+              uzbekMeaning = raw;
+            }
+          }
+        } else {
+          uzbekMeaning = raw;
+          englishMeaning = '';
+        }
+      } else {
+        englishMeaning = raw;
+      }
+
+      // 4. Format cards with pedagogical excellence (MANBA KERAK EMAS - EXCLUDED)
       const front = isJa
         ? vocab.reading
           ? `${vocab.word}\n【${vocab.reading}】`
           : vocab.word
         : vocab.word;
-      const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}\n\n🎙️ Manba: AI Speaking Coach (${personaName || 'Jonli muloqot'})`;
+
+      let back = '';
+      if (isJa) {
+        if (uzbekMeaning && englishMeaning) {
+          back = `📌 O'zbekcha: ${uzbekMeaning}\n🌐 English: ${englishMeaning}`;
+        } else if (uzbekMeaning) {
+          back = `📌 Ma'nosi: ${uzbekMeaning}`;
+        } else {
+          back = `📌 Ma'nosi: ${vocab.meaning}`;
+        }
+      } else {
+        back = `📌 Ma'nosi: ${vocab.meaning}`;
+      }
+
+      if (vocab.example && vocab.example.trim()) {
+        back += `\n\n💬 Misol: ${vocab.example.trim()}`;
+      }
 
       // 4. Duplicate prevention: check if this word already exists in this deck
       const isAlreadyInDeck = flashcards?.some(

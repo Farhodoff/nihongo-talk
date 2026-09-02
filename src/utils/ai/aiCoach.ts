@@ -4,18 +4,18 @@ import { ErrorVaultService } from '../../services/ErrorVaultService';
 import { ConversationScenario } from '../../components/speaking/scenarioTypes';
 
 export interface SpeechAnalysisResult {
-    grammar_corrections: string[];
-    better_vocabulary: { original: string; suggested: string }[];
-    fluency_score: number;
-    overall_feedback: string;
+  grammar_corrections: string[];
+  better_vocabulary: { original: string; suggested: string }[];
+  fluency_score: number;
+  overall_feedback: string;
 }
 
 export const analyzeSpeech = async (
-    transcript: string,
-    topic: string = 'General Conversation',
-    _userKey?: string
+  transcript: string,
+  topic: string = 'General Conversation',
+  _userKey?: string,
 ): Promise<SpeechAnalysisResult> => {
-    const prompt = `
+  const prompt = `
       Act as an expert English language Speaking Coach (like an IELTS examiner).
       The user was asked to talk about: "${topic}".
       Here is the exact transcript of what they said:
@@ -31,274 +31,305 @@ export const analyzeSpeech = async (
       Constraint: ONLY return the JSON object. Do not include any markdown formatting, preamble, or explanation.
     `;
 
-    try {
-        const text = await callSelectedAIProvider(prompt, undefined, true);
-        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(cleanedText);
-    } catch (error: any) {
-        throw new Error(parseAIError(error));
-    }
+  try {
+    const text = await callSelectedAIProvider(prompt, undefined, true);
+    const cleanedText = text
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+    return JSON.parse(cleanedText);
+  } catch (error: any) {
+    throw new Error(parseAIError(error));
+  }
 };
 
 export interface CoachCorrection {
-    hasError: boolean;
-    original?: string;
-    corrected?: string;
-    explanation?: string;
+  hasError: boolean;
+  original?: string;
+  corrected?: string;
+  explanation?: string;
 }
 
 export interface CoachVocabularyItem {
-    word: string;
-    reading?: string;
-    meaning: string;
-    example?: string;
+  word: string;
+  reading?: string;
+  meaning: string;
+  example?: string;
 }
 
 export interface CoachStructuredResponse {
-    language: 'ja' | 'en';
-    reply: string;
-    ttsText: string;
-    romaji?: string;
-    correction?: CoachCorrection | null;
-    vocabulary?: CoachVocabularyItem[];
-    rawText?: string;
+  language: 'ja' | 'en';
+  reply: string;
+  ttsText: string;
+  romaji?: string;
+  correction?: CoachCorrection | null;
+  vocabulary?: CoachVocabularyItem[];
+  rawText?: string;
 }
 
 export const cleanJapaneseTTS = (text: string): string => {
-    if (!text) return '';
+  if (!text) return '';
 
-    // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
-    let clean = text.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
+  // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
+  let clean = text.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
 
-    // 2. Remove markdown formatting (*, _, `, ~, #)
-    clean = clean.replace(/[*_#`~]/g, '');
+  // 2. Remove markdown formatting (*, _, `, ~, #)
+  clean = clean.replace(/[*_#`~]/g, '');
 
-    // 3. Remove bracketed & parenthesized text e.g. (Konnichiwa), （Konnichiwa）, [Hello], [xush kelibsiz]
-    clean = clean.replace(/\[[^\]]*\]/g, '');
-    clean = clean.replace(/\([^)]*\)/g, '');
-    clean = clean.replace(/（[^）]*）/g, '');
-    clean = clean.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
+  // 3. Remove bracketed & parenthesized text e.g. (Konnichiwa), （Konnichiwa）, [Hello], [xush kelibsiz]
+  clean = clean.replace(/\[[^\]]*\]/g, '');
+  clean = clean.replace(/\([^)]*\)/g, '');
+  clean = clean.replace(/（[^）]*）/g, '');
+  clean = clean.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
 
-    // 4. If text contains Japanese characters (Hiragana, Katakana, Kanji):
-    const hasJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean);
-    if (hasJapanese) {
-        // Split by lines. If a line does NOT contain Japanese (e.g. Romaji "Hai, konnichiwa" or English "Hello"), filter it out
-        const lines = clean.split('\n');
-        const japaneseLines = lines.filter(l => /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(l.trim()));
-        if (japaneseLines.length > 0) {
-            clean = japaneseLines.join(' ');
-        }
-        // Strip any remaining Latin letters (a-z, A-Z) so Romaji words are never spoken by TTS
-        clean = clean.replace(/[a-zA-Z]/g, '');
+  // 4. If text contains Japanese characters (Hiragana, Katakana, Kanji):
+  const hasJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean);
+  if (hasJapanese) {
+    // Split by lines. If a line does NOT contain Japanese (e.g. Romaji "Hai, konnichiwa" or English "Hello"), filter it out
+    const lines = clean.split('\n');
+    const japaneseLines = lines.filter((l) =>
+      /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(l.trim()),
+    );
+    if (japaneseLines.length > 0) {
+      clean = japaneseLines.join(' ');
     }
+    // Strip any remaining Latin letters (a-z, A-Z) so Romaji words are never spoken by TTS
+    clean = clean.replace(/[a-zA-Z]/g, '');
+  }
 
-    return clean.replace(/\s+/g, ' ').trim();
+  return clean.replace(/\s+/g, ' ').trim();
 };
 
-export const parseCoachResponse = (raw: string, fallbackLang: 'en' | 'ja' = 'ja'): CoachStructuredResponse => {
-    if (!raw || typeof raw !== 'string') {
-        const defaultReply = fallbackLang === 'ja' ? 'はい、分かりました。続けましょう！' : "Understood, let's keep going!";
-        return {
-            language: fallbackLang,
-            reply: defaultReply,
-            ttsText: defaultReply,
-            romaji: fallbackLang === 'ja' ? 'Hai, wakarimashita. Tsudukemashou!' : '',
-            correction: { hasError: false },
-            vocabulary: [],
-            rawText: raw || ''
-        };
-    }
-
-    try {
-        let cleaned = raw.trim();
-        if (cleaned.startsWith('```json')) {
-            cleaned = cleaned.substring(7);
-        } else if (cleaned.startsWith('```')) {
-            cleaned = cleaned.substring(3);
-        }
-        if (cleaned.endsWith('```')) {
-            cleaned = cleaned.substring(0, cleaned.length - 3);
-        }
-        cleaned = cleaned.trim();
-
-        const firstBrace = cleaned.indexOf('{');
-        const lastBrace = cleaned.lastIndexOf('}');
-        if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-            cleaned = cleaned.substring(firstBrace, lastBrace + 1);
-        }
-
-        const parsed = JSON.parse(cleaned);
-        if (parsed && typeof parsed === 'object') {
-            let lang: 'en' | 'ja' = parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
-            let reply = typeof parsed.reply === 'string' ? parsed.reply.trim() : '';
-
-            // Search other possible keys if reply was not present
-            if (!reply) {
-                const candidates = [
-                    parsed.response, parsed.message, parsed.content, parsed.text,
-                    parsed.japanese, parsed.conversation, parsed.dialogue, parsed.answer
-                ];
-                for (const cand of candidates) {
-                    if (typeof cand === 'string' && cand.trim().length > 0) {
-                        reply = cand.trim();
-                        break;
-                    }
-                }
-            }
-
-            // If still empty, look for ANY string in the object values
-            if (!reply && fallbackLang === 'ja') {
-                for (const val of Object.values(parsed)) {
-                    if (typeof val === 'string' && /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(val)) {
-                        reply = val.trim();
-                        break;
-                    }
-                }
-            }
-
-            if (!reply) {
-                reply = raw.trim();
-            }
-
-            let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
-            if (!ttsText) ttsText = extractSpeechAudioText(reply);
-
-            let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
-            if (!romaji && parsed.reading && typeof parsed.reading === 'string' && /[a-zA-Z]/.test(parsed.reading)) {
-                romaji = parsed.reading.trim();
-            }
-
-            if (lang === 'ja') {
-                ttsText = cleanJapaneseTTS(ttsText);
-            }
-
-            let correction: CoachCorrection = { hasError: false };
-            if (parsed.correction && typeof parsed.correction === 'object') {
-                if (Array.isArray(parsed.correction.errors) && parsed.correction.errors.length > 0) {
-                    const firstErr = parsed.correction.errors[0];
-                    correction = {
-                        hasError: true,
-                        original: firstErr.original || '',
-                        corrected: firstErr.corrected || '',
-                        explanation: firstErr.explanation || ''
-                    };
-                } else {
-                    correction = {
-                        hasError: Boolean(parsed.correction.hasError),
-                        original: parsed.correction.original || '',
-                        corrected: parsed.correction.corrected || '',
-                        explanation: parsed.correction.explanation || ''
-                    };
-                }
-            }
-
-            const vocabulary: CoachVocabularyItem[] = Array.isArray(parsed.vocabulary) ? parsed.vocabulary.map((v: any) => ({
-                word: String(v.word || ''),
-                reading: String(v.reading || v.romaji || ''),
-                meaning: String(v.meaning || ''),
-                example: String(v.example || '')
-            })).filter((v: CoachVocabularyItem) => v.word.trim().length > 0) : [];
-
-            return {
-                language: lang,
-                reply,
-                ttsText,
-                romaji,
-                correction,
-                vocabulary,
-                rawText: raw
-            };
-        }
-    } catch {
-        // Fallback for non-JSON strings
-    }
-
-    const isJapanese = fallbackLang === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(raw);
-    const lang: 'en' | 'ja' = isJapanese ? 'ja' : 'en';
-
-    let extractedRomaji = '';
-    const romajiMatch = raw.match(/\(([^)]*[a-zA-Z]{3,}[^)]*)\)/);
-    if (romajiMatch && isJapanese) {
-        extractedRomaji = romajiMatch[1].replace(/romaji/gi, '').trim();
-    }
-
-    const ttsText = extractSpeechAudioText(raw);
-    const extractedErrors = parseMicroErrors(raw);
-    const hasError = extractedErrors.length > 0;
-    const firstErr = hasError ? extractedErrors[0] : null;
-
+export const parseCoachResponse = (
+  raw: string,
+  fallbackLang: 'en' | 'ja' = 'ja',
+): CoachStructuredResponse => {
+  if (!raw || typeof raw !== 'string') {
+    const defaultReply =
+      fallbackLang === 'ja'
+        ? 'はい、分かりました。続けましょう！'
+        : "Understood, let's keep going!";
     return {
-        language: lang,
-        reply: raw,
-        ttsText,
-        romaji: extractedRomaji,
-        correction: firstErr ? {
-            hasError: true,
-            original: firstErr.originalText,
-            corrected: firstErr.correction,
-            explanation: firstErr.explanation
-        } : { hasError: false },
-        vocabulary: [],
-        rawText: raw
+      language: fallbackLang,
+      reply: defaultReply,
+      ttsText: defaultReply,
+      romaji: fallbackLang === 'ja' ? 'Hai, wakarimashita. Tsudukemashou!' : '',
+      correction: { hasError: false },
+      vocabulary: [],
+      rawText: raw || '',
     };
+  }
+
+  try {
+    let cleaned = raw.trim();
+    if (cleaned.startsWith('```json')) {
+      cleaned = cleaned.substring(7);
+    } else if (cleaned.startsWith('```')) {
+      cleaned = cleaned.substring(3);
+    }
+    if (cleaned.endsWith('```')) {
+      cleaned = cleaned.substring(0, cleaned.length - 3);
+    }
+    cleaned = cleaned.trim();
+
+    const firstBrace = cleaned.indexOf('{');
+    const lastBrace = cleaned.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+    }
+
+    const parsed = JSON.parse(cleaned);
+    if (parsed && typeof parsed === 'object') {
+      let lang: 'en' | 'ja' =
+        parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
+      let reply = typeof parsed.reply === 'string' ? parsed.reply.trim() : '';
+
+      // Search other possible keys if reply was not present
+      if (!reply) {
+        const candidates = [
+          parsed.response,
+          parsed.message,
+          parsed.content,
+          parsed.text,
+          parsed.japanese,
+          parsed.conversation,
+          parsed.dialogue,
+          parsed.answer,
+        ];
+        for (const cand of candidates) {
+          if (typeof cand === 'string' && cand.trim().length > 0) {
+            reply = cand.trim();
+            break;
+          }
+        }
+      }
+
+      // If still empty, look for ANY string in the object values
+      if (!reply && fallbackLang === 'ja') {
+        for (const val of Object.values(parsed)) {
+          if (typeof val === 'string' && /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(val)) {
+            reply = val.trim();
+            break;
+          }
+        }
+      }
+
+      if (!reply) {
+        reply = raw.trim();
+      }
+
+      let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
+      if (!ttsText) ttsText = extractSpeechAudioText(reply);
+
+      let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
+      if (
+        !romaji &&
+        parsed.reading &&
+        typeof parsed.reading === 'string' &&
+        /[a-zA-Z]/.test(parsed.reading)
+      ) {
+        romaji = parsed.reading.trim();
+      }
+
+      if (lang === 'ja') {
+        ttsText = cleanJapaneseTTS(ttsText);
+      }
+
+      let correction: CoachCorrection = { hasError: false };
+      if (parsed.correction && typeof parsed.correction === 'object') {
+        if (Array.isArray(parsed.correction.errors) && parsed.correction.errors.length > 0) {
+          const firstErr = parsed.correction.errors[0];
+          correction = {
+            hasError: true,
+            original: firstErr.original || '',
+            corrected: firstErr.corrected || '',
+            explanation: firstErr.explanation || '',
+          };
+        } else {
+          correction = {
+            hasError: Boolean(parsed.correction.hasError),
+            original: parsed.correction.original || '',
+            corrected: parsed.correction.corrected || '',
+            explanation: parsed.correction.explanation || '',
+          };
+        }
+      }
+
+      const vocabulary: CoachVocabularyItem[] = Array.isArray(parsed.vocabulary)
+        ? parsed.vocabulary
+            .map((v: any) => ({
+              word: String(v.word || ''),
+              reading: String(v.reading || v.romaji || ''),
+              meaning: String(v.meaning || ''),
+              example: String(v.example || ''),
+            }))
+            .filter((v: CoachVocabularyItem) => v.word.trim().length > 0)
+        : [];
+
+      return {
+        language: lang,
+        reply,
+        ttsText,
+        romaji,
+        correction,
+        vocabulary,
+        rawText: raw,
+      };
+    }
+  } catch {
+    // Fallback for non-JSON strings
+  }
+
+  const isJapanese = fallbackLang === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(raw);
+  const lang: 'en' | 'ja' = isJapanese ? 'ja' : 'en';
+
+  let extractedRomaji = '';
+  const romajiMatch = raw.match(/\(([^)]*[a-zA-Z]{3,}[^)]*)\)/);
+  if (romajiMatch && isJapanese) {
+    extractedRomaji = romajiMatch[1].replace(/romaji/gi, '').trim();
+  }
+
+  const ttsText = extractSpeechAudioText(raw);
+  const extractedErrors = parseMicroErrors(raw);
+  const hasError = extractedErrors.length > 0;
+  const firstErr = hasError ? extractedErrors[0] : null;
+
+  return {
+    language: lang,
+    reply: raw,
+    ttsText,
+    romaji: extractedRomaji,
+    correction: firstErr
+      ? {
+          hasError: true,
+          original: firstErr.originalText,
+          corrected: firstErr.correction,
+          explanation: firstErr.explanation,
+        }
+      : { hasError: false },
+    vocabulary: [],
+    rawText: raw,
+  };
 };
 
 export const converseWithCoachStructured = async (
-    message: string,
-    history: { role: 'user' | 'assistant', content: string }[],
-    language: 'en' | 'ja' = 'en',
-    persona: string = 'roast',
-    _userKey?: string,
-    scenario?: ConversationScenario | null
+  message: string,
+  history: { role: 'user' | 'assistant'; content: string }[],
+  language: 'en' | 'ja' = 'en',
+  persona: string = 'roast',
+  _userKey?: string,
+  scenario?: ConversationScenario | null,
 ): Promise<CoachStructuredResponse> => {
-    // Keep last 6 messages to optimize token usage & ensure fast responses
-    const recentHistory = history.slice(-6);
-    const historyText = recentHistory.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
-    
-    let personaPrompt = '';
+  // Keep last 6 messages to optimize token usage & ensure fast responses
+  const recentHistory = history.slice(-6);
+  const historyText = recentHistory
+    .map((h) => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`)
+    .join('\n');
 
-    if (scenario) {
-        const isJa = (scenario.language || (scenario.title_en ? 'en' : 'ja')) === 'ja';
-        const scenarioTitle = isJa
-            ? `${scenario.title_ja || scenario.title_uz} (${scenario.title_uz})`
-            : `${scenario.title_en || scenario.title_uz} (${scenario.title_uz})`;
-        const difficultyLabel = isJa ? `JLPT ${scenario.difficulty}` : `CEFR / ${scenario.difficulty}`;
+  let personaPrompt = '';
 
-        if (isJa) {
-            personaPrompt = `IDENTITY: あなたは【${scenarioTitle}】の会話シナリオに登場するネイティブキャラクターです。
+  if (scenario) {
+    const isJa = (scenario.language || (scenario.title_en ? 'en' : 'ja')) === 'ja';
+    const scenarioTitle = isJa
+      ? `${scenario.title_ja || scenario.title_uz} (${scenario.title_uz})`
+      : `${scenario.title_en || scenario.title_uz} (${scenario.title_uz})`;
+    const difficultyLabel = isJa ? `JLPT ${scenario.difficulty}` : `CEFR / ${scenario.difficulty}`;
+
+    if (isJa) {
+      personaPrompt = `IDENTITY: あなたは【${scenarioTitle}】の会話シナリオに登場するネイティブキャラクターです。
            ROLE CONTEXT: ${scenario.context_prompt}
            TARGET DIFFICULTY: ${difficultyLabel}
            KEY PHRASES TO ENCOURAGE: ${scenario.key_phrases.join(', ')}`;
-        } else {
-            personaPrompt = `IDENTITY: You are an authentic roleplay character for the scenario: "${scenarioTitle}".
+    } else {
+      personaPrompt = `IDENTITY: You are an authentic roleplay character for the scenario: "${scenarioTitle}".
            ROLE CONTEXT: ${scenario.context_prompt}
            TARGET DIFFICULTY: ${difficultyLabel}
            KEY PHRASES TO ENCOURAGE & TEST: ${scenario.key_phrases.join(', ')}
            INSTRUCTION: Strictly stay in character, respond naturally, ask realistic follow-up questions, and evaluate user's responses.`;
-        }
-    } else if (language === 'ja') {
-        switch (persona) {
-            case 'keigo':
-                personaPrompt = `IDENTITY: 敬語・ビジネス日本語マスター教師。ビジネスシーンに相応しい尊敬語・謙譲語・丁寧語を指導します。`;
-                break;
-            case 'interview':
-                personaPrompt = `IDENTITY: 日本企業の採用面接官。PREP法に基づく自己紹介・志望動機・経験を面接形式で指導します。`;
-                break;
-            case 'examiner':
-            case 'ielts':
-                personaPrompt = `IDENTITY: JLPTスピーキング試験官。助詞や語彙の正確性を中立的・公正に評価します。`;
-                break;
-            case 'gentle':
-                personaPrompt = `IDENTITY: 優しく忍耐強い日本語教師「ケン先生」。丁寧語で温かくサポートし自信を育てます。`;
-                break;
-            case 'travel':
-                personaPrompt = `IDENTITY: 旅行会話コーチ（空港・ホテル・駅・レストラン等）。旅行で役立つ実践日本語を指導します。`;
-                break;
-            case 'casual':
-                personaPrompt = `IDENTITY: 東京在住の親しい友達「レン」。タメ口（カジュアル表現）でリアルな日常口語を教えます。`;
-                break;
-            default: // 'roast' -> 厳格な鬼先生 (Deep Savage Roast Sensei)
-                personaPrompt = `IDENTITY: 妥協を一切許さない超激辛・毒舌日本語指導官「鬼先生（おにせんせい）」。
+    }
+  } else if (language === 'ja') {
+    switch (persona) {
+      case 'keigo':
+        personaPrompt = `IDENTITY: 敬語・ビジネス日本語マスター教師。ビジネスシーンに相応しい尊敬語・謙譲語・丁寧語を指導します。`;
+        break;
+      case 'interview':
+        personaPrompt = `IDENTITY: 日本企業の採用面接官。PREP法に基づく自己紹介・志望動機・経験を面接形式で指導します。`;
+        break;
+      case 'examiner':
+      case 'ielts':
+        personaPrompt = `IDENTITY: JLPTスピーキング試験官。助詞や語彙の正確性を中立的・公正に評価します。`;
+        break;
+      case 'gentle':
+        personaPrompt = `IDENTITY: 優しく忍耐強い日本語教師「ケン先生」。丁寧語で温かくサポートし自信を育てます。`;
+        break;
+      case 'travel':
+        personaPrompt = `IDENTITY: 旅行会話コーチ（空港・ホテル・駅・レストラン等）。旅行で役立つ実践日本語を指導します。`;
+        break;
+      case 'casual':
+        personaPrompt = `IDENTITY: 東京在住の親しい友達「レン」。タメ口（カジュアル表現）でリアルな日常口語を教えます。`;
+        break;
+      default: // 'roast' -> 厳格な鬼先生 (Deep Savage Roast Sensei)
+        personaPrompt = `IDENTITY: 妥協を一切許さない超激辛・毒舌日本語指導官「鬼先生（おにせんせい）」。
                 PERSONALITY & ROAST PHILOSOPHY:
                 1. 徹底的な激辛指導（Deep Roast）: 学生の短い手抜き返答（「いいです」「はい」「どうです」等）、子供っぽい単語、助詞の乱れ、不自然な敬語を容赦なく辛辣に指摘します。
                 2. 厳しいツッコミ例:
@@ -306,39 +337,41 @@ export const converseWithCoachStructured = async (
                    - 語彙が乏しい時:「いつまでそんな初歩的な単語にしがみついているのですか！ビジネスの場なら即失格ですよ！」
                    - 助詞・文法ミスに対して:「助詞の使い方がめちゃくちゃです！聞いているこちらが恥ずかしくなりますよ！」
                 3. 教育的熱意: 単なる悪口ではなく、必ず高度な表現（N2/N1レベルや自然な慣用句）を提示し、深く考えさせる鋭い質問を浴びせて長い発話を強制してください。`;
-                break;
-        }
-    } else { // English
-        switch (persona) {
-            case 'ielts':
-                personaPrompt = `IDENTITY: Official Senior IELTS Speaking Examiner. Direct, academic, and criteria-driven.`;
-                break;
-            case 'interview':
-                personaPrompt = `IDENTITY: Tech Hiring Manager. STAR framework based behavioral and technical interviews.`;
-                break;
-            case 'gentle':
-                personaPrompt = `IDENTITY: Sarah, kind and encouraging ESL tutor. Builds confidence warmly.`;
-                break;
-            case 'travel':
-                personaPrompt = `IDENTITY: Travel Concierge and customs/hotel roleplayer. High-utility travel English.`;
-                break;
-            case 'casual':
-                personaPrompt = `IDENTITY: Alex, friendly native speaker buddy. Phrasal verbs, idioms, and natural daily chatter.`;
-                break;
-            default: // 'roast' -> Gordon, Deep Savage Band 9 Drill Coach
-                personaPrompt = `IDENTITY: Gordon, an uncompromisingly brutal, razor-sharp English Speaking Drill Master (the "Gordon Ramsay of Language Coaching").
+        break;
+    }
+  } else {
+    // English
+    switch (persona) {
+      case 'ielts':
+        personaPrompt = `IDENTITY: Official Senior IELTS Speaking Examiner. Direct, academic, and criteria-driven.`;
+        break;
+      case 'interview':
+        personaPrompt = `IDENTITY: Tech Hiring Manager. STAR framework based behavioral and technical interviews.`;
+        break;
+      case 'gentle':
+        personaPrompt = `IDENTITY: Sarah, kind and encouraging ESL tutor. Builds confidence warmly.`;
+        break;
+      case 'travel':
+        personaPrompt = `IDENTITY: Travel Concierge and customs/hotel roleplayer. High-utility travel English.`;
+        break;
+      case 'casual':
+        personaPrompt = `IDENTITY: Alex, friendly native speaker buddy. Phrasal verbs, idioms, and natural daily chatter.`;
+        break;
+      default: // 'roast' -> Gordon, Deep Savage Band 9 Drill Coach
+        personaPrompt = `IDENTITY: Gordon, an uncompromisingly brutal, razor-sharp English Speaking Drill Master (the "Gordon Ramsay of Language Coaching").
                 PERSONALITY & ROAST PHILOSOPHY:
                 1. Deep Savage Critique: Ruthlessly call out lazy, single-clause answers ("It's good", "Fine", "I like it"), elementary vocabulary, filler hesitations ("um, like"), and weak repetitive phrases.
                 2. Sarcastic & Fiery Delivery: Roast their laziness with sharp wit (e.g. "Is that your entire vocabulary or did the rest take a vacation?", "A toddler could string together a more compelling argument!").
                 3. High-Standard Force: Demand Band 8.5+ sophisticated idioms, advanced nuance, and hit them with tough, analytical follow-up questions that force multi-sentence elaboration.`;
-                break;
-        }
+        break;
     }
+  }
 
-    const weakItemsSnippet = ErrorVaultService.getWeakItemsPromptSnippet(language);
+  const weakItemsSnippet = ErrorVaultService.getWeakItemsPromptSnippet(language);
 
-    const jsonContract = language === 'ja'
-        ? `STRICT JSON OUTPUT CONTRACT:
+  const jsonContract =
+    language === 'ja'
+      ? `STRICT JSON OUTPUT CONTRACT:
 You MUST respond with a VALID JSON object matching this schema exactly:
 {
   "language": "ja",
@@ -355,12 +388,12 @@ You MUST respond with a VALID JSON object matching this schema exactly:
     {
       "word": "単語（漢字・かな）",
       "reading": "読み",
-      "meaning": "意味（ウズベク語または英語）",
+      "meaning": "意味（ウズベク語と英語を併記。例: 『Ishga topshirish maqsadi (Reason for applying)』のように、必ずウズベク語の意味を第一に記載すること）",
       "example": "短い例文"
     }
   ]
 }`
-        : `STRICT JSON OUTPUT CONTRACT:
+      : `STRICT JSON OUTPUT CONTRACT:
 You MUST respond with a VALID JSON object matching this schema exactly:
 {
   "language": "en",
@@ -383,7 +416,7 @@ You MUST respond with a VALID JSON object matching this schema exactly:
   ]
 }`;
 
-    const systemPrompt = `
+  const systemPrompt = `
       ${personaPrompt}
       Target Language: ${language === 'ja' ? 'Japanese (日本語)' : 'English'}
       ${weakItemsSnippet}
@@ -396,15 +429,16 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese (Kanji/Kana). NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji" field for UI display.
       4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be an empty string.
       5. Error Correction & Critique Policy:
-         ${persona === 'roast'
-           ? `ROAST MODE IS ACTIVE: Call out every flaw with fiery strictness and witty sarcasm. If the student gives an overly short answer (like "いいです", "yes", "fine"), uses elementary words, hesitates, or makes a particle/grammar slip, roast them sharply (e.g. "小学生のような短い返事です！もっと詳しく理由を話してください！") and challenge them with an advanced follow-up question.`
-           : `Correct ONLY meaningful mistakes (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).`
+         ${
+           persona === 'roast'
+             ? `ROAST MODE IS ACTIVE: Call out every flaw with fiery strictness and witty sarcasm. If the student gives an overly short answer (like "いいです", "yes", "fine"), uses elementary words, hesitates, or makes a particle/grammar slip, roast them sharply (e.g. "小学生のような短い返事です！もっと詳しく理由を話してください！") and challenge them with an advanced follow-up question.`
+             : `Correct ONLY meaningful mistakes (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).`
          }
-      6. Vocabulary Engine: Provide 1 to 3 truly useful, contextual words or collocations with reading, meaning, and contextual example.
+      6. Vocabulary Engine: Provide 1 to 3 truly useful, contextual words or collocations with reading, meaning, and contextual example. For Japanese, the "meaning" field MUST prioritize the Uzbek explanation followed by English in parentheses, e.g. "O'zini tanishtirish va kuchli tomonlarini ko'rsatish (Self-promotion)". The student is studying Japanese and speaks Uzbek, so the Uzbek explanation is required.
       7. Scenario & Topic Adherence: Stay in character and context throughout the dialogue.
     `;
 
-    const userPrompt = `
+  const userPrompt = `
       Conversation History:
       ${historyText}
 
@@ -412,97 +446,107 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       "${message}"
     `;
 
-    const dsResult = await callSelectedAIProvider(userPrompt, systemPrompt, true);
-    if (!dsResult || dsResult.trim().length === 0) {
-        throw new Error("AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi. Iltimos qaytadan gapiring.");
-    }
-    return parseCoachResponse(dsResult, language);
+  const dsResult = await callSelectedAIProvider(userPrompt, systemPrompt, true);
+  if (!dsResult || dsResult.trim().length === 0) {
+    throw new Error(
+      "AI_EMPTY_RESPONSE: AI xizmati bo'sh javob qaytardi. Iltimos qaytadan gapiring.",
+    );
+  }
+  return parseCoachResponse(dsResult, language);
 };
 
 export const converseWithCoach = async (
-    message: string,
-    history: { role: 'user' | 'assistant', content: string }[],
-    language: 'en' | 'ja' = 'en',
-    persona: string = 'roast',
-    userKey?: string,
-    scenario?: ConversationScenario | null
+  message: string,
+  history: { role: 'user' | 'assistant'; content: string }[],
+  language: 'en' | 'ja' = 'en',
+  persona: string = 'roast',
+  userKey?: string,
+  scenario?: ConversationScenario | null,
 ): Promise<string> => {
-    const structured = await converseWithCoachStructured(message, history, language, persona, userKey, scenario);
-    return structured.reply || structured.rawText || '';
+  const structured = await converseWithCoachStructured(
+    message,
+    history,
+    language,
+    persona,
+    userKey,
+    scenario,
+  );
+  return structured.reply || structured.rawText || '';
 };
 
-
 export interface SessionAnalysisReport {
-    lexical_score: number;
-    grammar_score: number;
-    fluency_score: number;
-    pronunciation_score: number;
-    overall_score: number;
-    user_level_eng?: string;
-    user_level_jp?: string;
-    pronunciation_feedback: string;
-    pronunciation_errors: { word: string; correctionHelp: string }[];
-    grammar_corrections: { original: string; corrected: string; explanation: string }[];
-    better_vocabulary: { original: string; suggested: string; context: string }[];
-    overall_feedback: string;
-    strengths: string[];
-    areas_to_improve: string[];
+  lexical_score: number;
+  grammar_score: number;
+  fluency_score: number;
+  pronunciation_score: number;
+  overall_score: number;
+  user_level_eng?: string;
+  user_level_jp?: string;
+  pronunciation_feedback: string;
+  pronunciation_errors: { word: string; correctionHelp: string }[];
+  grammar_corrections: { original: string; corrected: string; explanation: string }[];
+  better_vocabulary: { original: string; suggested: string; context: string }[];
+  overall_feedback: string;
+  strengths: string[];
+  areas_to_improve: string[];
 }
 
 export const calculateWeightedOverallScore = (
-    lexical: number,
-    grammar: number,
-    fluency: number,
-    pronunciation: number
+  lexical: number,
+  grammar: number,
+  fluency: number,
+  pronunciation: number,
 ): number => {
-    const overall = (0.30 * lexical) + (0.30 * grammar) + (0.25 * fluency) + (0.15 * pronunciation);
-    return Math.round(overall * 2) / 2; // Round to nearest 0.5
+  const overall = 0.3 * lexical + 0.3 * grammar + 0.25 * fluency + 0.15 * pronunciation;
+  return Math.round(overall * 2) / 2; // Round to nearest 0.5
 };
 
 export const getCEFRLevelFromScore = (score: number): string => {
-    if (score >= 8.5) return "CEFR C2 (IELTS Band 8.5 - 9.0)";
-    if (score >= 7.5) return "CEFR C1 (IELTS Band 7.5 - 8.0)";
-    if (score >= 6.0) return "CEFR B2 (IELTS Band 6.0 - 7.0)";
-    if (score >= 5.0) return "CEFR B1 (IELTS Band 5.0 - 5.5)";
-    return "CEFR A1/A2 (Basic / Elementary)";
+  if (score >= 8.5) return 'CEFR C2 (IELTS Band 8.5 - 9.0)';
+  if (score >= 7.5) return 'CEFR C1 (IELTS Band 7.5 - 8.0)';
+  if (score >= 6.0) return 'CEFR B2 (IELTS Band 6.0 - 7.0)';
+  if (score >= 5.0) return 'CEFR B1 (IELTS Band 5.0 - 5.5)';
+  return 'CEFR A1/A2 (Basic / Elementary)';
 };
 
 export const getJLPTLevelFromScore = (score: number): string => {
-    if (score >= 8.5) return "JLPT N1 (超上級 - Expert)";
-    if (score >= 7.5) return "JLPT N2 (上級 - Advanced)";
-    if (score >= 6.0) return "JLPT N3 (中級 - Intermediate)";
-    if (score >= 5.0) return "JLPT N4 (初級 - Pre-Intermediate)";
-    return "JLPT N5 (入門 - Beginner)";
+  if (score >= 8.5) return 'JLPT N1 (超上級 - Expert)';
+  if (score >= 7.5) return 'JLPT N2 (上級 - Advanced)';
+  if (score >= 6.0) return 'JLPT N3 (中級 - Intermediate)';
+  if (score >= 5.0) return 'JLPT N4 (初級 - Pre-Intermediate)';
+  return 'JLPT N5 (入門 - Beginner)';
 };
 
 export const analyzeSpeakingSession = async (
-    history: { role: 'user' | 'assistant'; content: string }[],
-    language: 'en' | 'ja' = 'en',
-    persona: string = 'roast'
+  history: { role: 'user' | 'assistant'; content: string }[],
+  language: 'en' | 'ja' = 'en',
+  persona: string = 'roast',
 ): Promise<SessionAnalysisReport> => {
-    const userMessages = history.filter(h => h.role === 'user').map(h => h.content);
-    if (userMessages.length === 0) {
-        return {
-            lexical_score: 0,
-            grammar_score: 0,
-            fluency_score: 0,
-            pronunciation_score: 0,
-            overall_score: 0,
-            user_level_eng: "Boshlang'ich (A1)",
-            user_level_jp: "Boshlang'ich (N5)",
-            pronunciation_feedback: "Talaffuz tahlili uchun suhbatda gaplar aytilishi lozim.",
-            pronunciation_errors: [],
-            grammar_corrections: [],
-            better_vocabulary: [],
-            overall_feedback: "Suhbatda hali hech qanday gap aytilmadi.",
-            strengths: ["Suhbatni boshlashga urindingiz!"],
-            areas_to_improve: ["Ovozli suhbatni sinab ko'rish uchun ko'proq gapiring."]
-        };
-    }
+  const userMessages = history.filter((h) => h.role === 'user').map((h) => h.content);
+  if (userMessages.length === 0) {
+    return {
+      lexical_score: 0,
+      grammar_score: 0,
+      fluency_score: 0,
+      pronunciation_score: 0,
+      overall_score: 0,
+      user_level_eng: "Boshlang'ich (A1)",
+      user_level_jp: "Boshlang'ich (N5)",
+      pronunciation_feedback: 'Talaffuz tahlili uchun suhbatda gaplar aytilishi lozim.',
+      pronunciation_errors: [],
+      grammar_corrections: [],
+      better_vocabulary: [],
+      overall_feedback: 'Suhbatda hali hech qanday gap aytilmadi.',
+      strengths: ['Suhbatni boshlashga urindingiz!'],
+      areas_to_improve: ["Ovozli suhbatni sinab ko'rish uchun ko'proq gapiring."],
+    };
+  }
 
-    const conversationText = history.map(h => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`).join('\n');
+  const conversationText = history
+    .map((h) => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`)
+    .join('\n');
 
-    const prompt = `
+  const prompt = `
       Act as an expert ${language === 'ja' ? 'Japanese (日本語)' : 'English'} Language Examiner & Speaking Analyst.
       The student just completed a speaking session in the scenario/persona: "${persona}".
       
@@ -554,83 +598,103 @@ export const analyzeSpeakingSession = async (
       Constraint: Return ONLY valid JSON without markdown fences.
     `;
 
-    try {
-        const response = await callSelectedAIProvider(prompt, undefined, true);
-        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-        const data = JSON.parse(cleanedText);
+  try {
+    const response = await callSelectedAIProvider(prompt, undefined, true);
+    const cleanedText = response
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+    const data = JSON.parse(cleanedText);
 
-        const lexical = typeof data.lexical_score === 'number' ? data.lexical_score : 7.0;
-        const grammar = typeof data.grammar_score === 'number' ? data.grammar_score : 7.0;
-        const fluency = typeof data.fluency_score === 'number' ? data.fluency_score : 7.0;
-        const pronunciation = typeof data.pronunciation_score === 'number' ? data.pronunciation_score : 7.5;
-        const overall = calculateWeightedOverallScore(lexical, grammar, fluency, pronunciation);
+    const lexical = typeof data.lexical_score === 'number' ? data.lexical_score : 7.0;
+    const grammar = typeof data.grammar_score === 'number' ? data.grammar_score : 7.0;
+    const fluency = typeof data.fluency_score === 'number' ? data.fluency_score : 7.0;
+    const pronunciation =
+      typeof data.pronunciation_score === 'number' ? data.pronunciation_score : 7.5;
+    const overall = calculateWeightedOverallScore(lexical, grammar, fluency, pronunciation);
 
-        return {
-            lexical_score: lexical,
-            grammar_score: grammar,
-            fluency_score: fluency,
-            pronunciation_score: pronunciation,
-            overall_score: overall,
-            user_level_eng: data.user_level_eng || getCEFRLevelFromScore(overall),
-            user_level_jp: data.user_level_jp || getJLPTLevelFromScore(overall),
-            pronunciation_feedback: data.pronunciation_feedback || "Talaffuzingiz yaxshi, urg'uga biroz e'tibor bering.",
-            pronunciation_errors: Array.isArray(data.pronunciation_errors) ? data.pronunciation_errors : [],
-            grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
-            better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
-            overall_feedback: data.overall_feedback || "Yaxshi harakat qildingiz, mashq qilishni davom eting!",
-            strengths: Array.isArray(data.strengths) ? data.strengths : ["Faol ishtirok etdingiz"],
-            areas_to_improve: Array.isArray(data.areas_to_improve) ? data.areas_to_improve : ["Grammatikani oshirish"]
-        };
-    } catch (err) {
-        console.error("Session Analysis Error:", err);
-        const totalWords = userMessages.join(' ').split(/\s+/).length;
-        const baseScore = Math.min(9.0, Math.max(5.0, 5.0 + Math.floor(totalWords / 20) * 0.5));
-        const overall = calculateWeightedOverallScore(baseScore, baseScore, baseScore, baseScore);
-        
-        return {
-            lexical_score: baseScore,
-            grammar_score: baseScore,
-            fluency_score: baseScore,
-            pronunciation_score: baseScore,
-            overall_score: overall,
-            user_level_eng: getCEFRLevelFromScore(overall),
-            user_level_jp: getJLPTLevelFromScore(overall),
-            pronunciation_feedback: "Sessiyadagi so'zlashuv tempi va grammatik bog'liqlik asosida avtomatik daraja baholandi.",
-            pronunciation_errors: [],
-            grammar_corrections: [],
-            better_vocabulary: [],
-            overall_feedback: "Suhbat yakunlandi. Yana ko'proq muloqot qilish orqali darajangizni oshirishingiz mumkin!",
-            strengths: ["Suhbatda faol gapirdingiz"],
-            areas_to_improve: ["Murakkabroq so'z birikmalarini ishlatish"]
-        };
-    }
+    return {
+      lexical_score: lexical,
+      grammar_score: grammar,
+      fluency_score: fluency,
+      pronunciation_score: pronunciation,
+      overall_score: overall,
+      user_level_eng: data.user_level_eng || getCEFRLevelFromScore(overall),
+      user_level_jp: data.user_level_jp || getJLPTLevelFromScore(overall),
+      pronunciation_feedback:
+        data.pronunciation_feedback || "Talaffuzingiz yaxshi, urg'uga biroz e'tibor bering.",
+      pronunciation_errors: Array.isArray(data.pronunciation_errors)
+        ? data.pronunciation_errors
+        : [],
+      grammar_corrections: Array.isArray(data.grammar_corrections) ? data.grammar_corrections : [],
+      better_vocabulary: Array.isArray(data.better_vocabulary) ? data.better_vocabulary : [],
+      overall_feedback:
+        data.overall_feedback || 'Yaxshi harakat qildingiz, mashq qilishni davom eting!',
+      strengths: Array.isArray(data.strengths) ? data.strengths : ['Faol ishtirok etdingiz'],
+      areas_to_improve: Array.isArray(data.areas_to_improve)
+        ? data.areas_to_improve
+        : ['Grammatikani oshirish'],
+    };
+  } catch (err) {
+    console.error('Session Analysis Error:', err);
+    const totalWords = userMessages.join(' ').split(/\s+/).length;
+    const baseScore = Math.min(9.0, Math.max(5.0, 5.0 + Math.floor(totalWords / 20) * 0.5));
+    const overall = calculateWeightedOverallScore(baseScore, baseScore, baseScore, baseScore);
+
+    return {
+      lexical_score: baseScore,
+      grammar_score: baseScore,
+      fluency_score: baseScore,
+      pronunciation_score: baseScore,
+      overall_score: overall,
+      user_level_eng: getCEFRLevelFromScore(overall),
+      user_level_jp: getJLPTLevelFromScore(overall),
+      pronunciation_feedback:
+        "Sessiyadagi so'zlashuv tempi va grammatik bog'liqlik asosida avtomatik daraja baholandi.",
+      pronunciation_errors: [],
+      grammar_corrections: [],
+      better_vocabulary: [],
+      overall_feedback:
+        "Suhbat yakunlandi. Yana ko'proq muloqot qilish orqali darajangizni oshirishingiz mumkin!",
+      strengths: ['Suhbatda faol gapirdingiz'],
+      areas_to_improve: ["Murakkabroq so'z birikmalarini ishlatish"],
+    };
+  }
 };
 
 export const translateTextToUzbek = async (text: string): Promise<string> => {
-    if (!text || typeof text !== 'string' || !text.trim()) return '';
+  if (!text || typeof text !== 'string' || !text.trim()) return '';
 
-    const cleanInput = text.trim();
+  const cleanInput = text.trim();
 
-    // 1. Instant dictionary lookup for standard coach greetings & phrases
-    const knownPhrases: Record<string, string> = {
-        'こんにちは！鬼先生です。遠慮せずに日本語で話してください！': 'Salom! Men Oni-senseiman (Qattiqqo\'l ustoz). Tortinmasdan yapon tilida gapiring!',
-        'こんにちは！日本語の先生です。いつでもお話ししてくださいね。': 'Salom! Men yapon tili o\'qituvchisiman. Istalgan vaqtda gaplashishingiz mumkin.',
-        'こんにちは！JLPTスピーキングの練習を始めましょう！': 'Salom! Keling, JLPT Speaking mashqini boshlaymiz!',
-        'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。': 'Assalomu alaykum. Bugungi IT intervyuni men olib boraman. O\'zingizni tanishtiring.',
-        'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？': 'Xush kelibsiz! Narita aeroportiga xush kelibsiz. Qanday yordam bera olaman?',
-        'やあ！元気？今日は何について話そうか！': 'Salom! Qalaysan? Bugun nima haqida gaplashamiz!',
-        '何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？': 'Nega ikkilanib turibsiz! Tortinmasdan, o\'zingizga ko\'proq ishonch bilan yapon tilida gapiring! So\'nggi paytlarda o\'qishingiz qanday ketmoqda?',
-        '何をもたもたしているのですか！遠慮せずに、もっとしっかり日本語で話してください！最近の勉強はどうですか？': 'Nega ikkilanib turibsiz! Tortinmasdan, dadilroq yapon tilida gapiring! O\'qishingiz qanday ketmoqda?',
-        'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？': 'Ha, juda yaxshi tushundim! Yapon tilida gaplashishda davom etaylik. So\'nggi paytlarda ishlaringiz qanday?'
-    };
+  // 1. Instant dictionary lookup for standard coach greetings & phrases
+  const knownPhrases: Record<string, string> = {
+    'こんにちは！鬼先生です。遠慮せずに日本語で話してください！':
+      "Salom! Men Oni-senseiman (Qattiqqo'l ustoz). Tortinmasdan yapon tilida gapiring!",
+    'こんにちは！日本語の先生です。いつでもお話ししてくださいね。':
+      "Salom! Men yapon tili o'qituvchisiman. Istalgan vaqtda gaplashishingiz mumkin.",
+    'こんにちは！JLPTスピーキングの練習を始めましょう！':
+      'Salom! Keling, JLPT Speaking mashqini boshlaymiz!',
+    'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。':
+      "Assalomu alaykum. Bugungi IT intervyuni men olib boraman. O'zingizni tanishtiring.",
+    'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？':
+      'Xush kelibsiz! Narita aeroportiga xush kelibsiz. Qanday yordam bera olaman?',
+    'やあ！元気？今日は何について話そうか！': 'Salom! Qalaysan? Bugun nima haqida gaplashamiz!',
+    '何をもたもたしているのですか！遠慮せずに、もっと自信を持って日本語で話してください！最近の勉強はどうですか？':
+      "Nega ikkilanib turibsiz! Tortinmasdan, o'zingizga ko'proq ishonch bilan yapon tilida gapiring! So'nggi paytlarda o'qishingiz qanday ketmoqda?",
+    '何をもたもたしているのですか！遠慮せずに、もっとしっかり日本語で話してください！最近の勉強はどうですか？':
+      "Nega ikkilanib turibsiz! Tortinmasdan, dadilroq yapon tilida gapiring! O'qishingiz qanday ketmoqda?",
+    'はい、よく分かりました！続けて日本語でお話ししましょう。最近はどうですか？':
+      "Ha, juda yaxshi tushundim! Yapon tilida gaplashishda davom etaylik. So'nggi paytlarda ishlaringiz qanday?",
+  };
 
-    if (knownPhrases[cleanInput]) {
-        return knownPhrases[cleanInput];
-    }
+  if (knownPhrases[cleanInput]) {
+    return knownPhrases[cleanInput];
+  }
 
-    const isJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(cleanInput);
+  const isJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(cleanInput);
 
-    const prompt = `
+  const prompt = `
       Translate the following ${isJapanese ? 'Japanese' : 'English'} text into natural, fluent Uzbek (O'zbek tili).
       
       STRICT REQUIREMENTS:
@@ -643,59 +707,73 @@ export const translateTextToUzbek = async (text: string): Promise<string> => {
       "${cleanInput}"
     `;
 
-    try {
-        const dsResult = await callSelectedAIProvider(
-            prompt,
-            "You are an expert real-time translator from Japanese and English to Uzbek. Translate accurately into Uzbek. Output only the pure Uzbek translation.",
-            false
-        );
-        if (dsResult && dsResult.trim().length > 0) {
-            const clean = dsResult.trim().replace(/^["']|["']$/g, '').replace(/```/g, '').trim();
-            if (clean !== cleanInput && !/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean)) {
-                return clean;
-            }
-        }
-    } catch (err) {
-        console.error("Translation Error:", err);
+  try {
+    const dsResult = await callSelectedAIProvider(
+      prompt,
+      'You are an expert real-time translator from Japanese and English to Uzbek. Translate accurately into Uzbek. Output only the pure Uzbek translation.',
+      false,
+    );
+    if (dsResult && dsResult.trim().length > 0) {
+      const clean = dsResult
+        .trim()
+        .replace(/^["']|["']$/g, '')
+        .replace(/```/g, '')
+        .trim();
+      if (clean !== cleanInput && !/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(clean)) {
+        return clean;
+      }
     }
+  } catch (err) {
+    console.error('Translation Error:', err);
+  }
 
-    return cleanInput;
+  return cleanInput;
 };
 
 /**
  * Dynamically builds a system prompt for adaptive CEFR / JLPT conversation tutoring
  */
 export const buildAdaptiveSystemPrompt = (
-    mode: 'eng' | 'jp' = 'eng',
-    cefrLevel: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' = 'B2',
-    jlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
+  mode: 'eng' | 'jp' = 'eng',
+  cefrLevel: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' = 'B2',
+  jlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1',
 ): string => {
-    if (mode === 'jp') {
-        return `You are Sakamoto-sensei, an expert Japanese Kaiwa coach. Target JLPT Level: ${jlptLevel || 'N3'}. Adapt vocabulary and kanji usage dynamically. If user makes a grammar error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
-    }
-    return `You are Alex, an expert IELTS Examiner and adaptive CEFR Coach. Current Target CEFR Level: ${cefrLevel}. Adapt vocabulary, speed, and question depth. If user makes a grammar/vocab error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
+  if (mode === 'jp') {
+    return `You are Sakamoto-sensei, an expert Japanese Kaiwa coach. Target JLPT Level: ${jlptLevel || 'N3'}. Adapt vocabulary and kanji usage dynamically. If user makes a grammar error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
+  }
+  return `You are Alex, an expert IELTS Examiner and adaptive CEFR Coach. Current Target CEFR Level: ${cefrLevel}. Adapt vocabulary, speed, and question depth. If user makes a grammar/vocab error, append micro-feedback format: [GRAMMAR_ERR: original -> correction | explanation].`;
 };
 
 /**
  * Parses micro-error tags from AI streaming or text output
  */
 export const parseMicroErrors = (text: string) => {
-    const errorRegex = /\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):\s*([^->]+)->([^|]+)\|\s*([^\]]+)\]/gi;
-    const errors: { id: string; type: 'grammar' | 'vocabulary' | 'pronunciation'; originalText: string; correction: string; explanation: string }[] = [];
-    
-    let match;
-    while ((match = errorRegex.exec(text)) !== null) {
-        const typeTag = match[1].toUpperCase();
-        errors.push({
-            id: Math.random().toString(36).substring(2, 9),
-            type: typeTag.includes('VOCAB') ? 'vocabulary' : typeTag.includes('PRON') ? 'pronunciation' : 'grammar',
-            originalText: match[2].trim(),
-            correction: match[3].trim(),
-            explanation: match[4].trim()
-        });
-    }
+  const errorRegex = /\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):\s*([^->]+)->([^|]+)\|\s*([^\]]+)\]/gi;
+  const errors: {
+    id: string;
+    type: 'grammar' | 'vocabulary' | 'pronunciation';
+    originalText: string;
+    correction: string;
+    explanation: string;
+  }[] = [];
 
-    return errors;
+  let match;
+  while ((match = errorRegex.exec(text)) !== null) {
+    const typeTag = match[1].toUpperCase();
+    errors.push({
+      id: Math.random().toString(36).substring(2, 9),
+      type: typeTag.includes('VOCAB')
+        ? 'vocabulary'
+        : typeTag.includes('PRON')
+          ? 'pronunciation'
+          : 'grammar',
+      originalText: match[2].trim(),
+      correction: match[3].trim(),
+      explanation: match[4].trim(),
+    });
+  }
+
+  return errors;
 };
 
 /**
@@ -703,51 +781,60 @@ export const parseMicroErrors = (text: string) => {
  * Removes visual grammar notes, emojis, PREP analysis, bracketed translations, and lecture sections so voice audio remains concise and natural (5-10 seconds max).
  */
 export const extractSpeechAudioText = (fullText: string): string => {
-    if (!fullText) return '';
+  if (!fullText) return '';
 
-    // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
-    const text = fullText.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
+  // 1. Remove micro-error tags [GRAMMAR_ERR: ...]
+  const text = fullText.replace(/\[(GRAMMAR_ERR|VOCAB_ERR|PRON_ERR):[^\]]+\]/gi, '');
 
-    // 2. Check if text contains Japanese characters (Hiragana/Katakana/Kanji)
-    const hasJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(text);
+  // 2. Check if text contains Japanese characters (Hiragana/Katakana/Kanji)
+  const hasJapanese = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(text);
 
-    if (hasJapanese) {
-        const lines = text.split('\n');
-        const spokenLines: string[] = [];
-
-        for (const rawLine of lines) {
-            const line = rawLine.trim();
-            if (!line) continue;
-            if (/^(?:📖|📝|📋|✍️|📊|💡|🎯|🔍|🌱)/u.test(line) || /^(解説|正しい文|Grammar Note|Note|ヒント|アドバイス):/i.test(line)) {
-                break;
-            }
-            spokenLines.push(line);
-        }
-
-        const joined = spokenLines.join(' ');
-        const cleanedJa = cleanJapaneseTTS(joined);
-        if (cleanedJa.length > 0) return cleanedJa;
-
-        return cleanJapaneseTTS(text);
-    }
-
-    // English text cleaning:
+  if (hasJapanese) {
     const lines = text.split('\n');
     const spokenLines: string[] = [];
 
     for (const rawLine of lines) {
-        const line = rawLine.trim();
-        if (!line) continue;
-        if (/^(?:📖|📝|📋|✍️|📊|💡|🎯|🔍|🌱)/u.test(line) || /^(Grammar Note|Note|Feedback|Analysis|Tip):/i.test(line)) {
-            break;
-        }
-        spokenLines.push(line);
+      const line = rawLine.trim();
+      if (!line) continue;
+      if (
+        /^(?:📖|📝|📋|✍️|📊|💡|🎯|🔍|🌱)/u.test(line) ||
+        /^(解説|正しい文|Grammar Note|Note|ヒント|アドバイス):/i.test(line)
+      ) {
+        break;
+      }
+      spokenLines.push(line);
     }
 
-    let spokenText = spokenLines.join(' ');
-    spokenText = spokenText.replace(/\[[^\]]*\]/g, '');
-    spokenText = spokenText.replace(/\([^)]*\)/g, '');
-    spokenText = spokenText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
+    const joined = spokenLines.join(' ');
+    const cleanedJa = cleanJapaneseTTS(joined);
+    if (cleanedJa.length > 0) return cleanedJa;
 
-    return spokenText.replace(/\s+/g, ' ').trim();
+    return cleanJapaneseTTS(text);
+  }
+
+  // English text cleaning:
+  const lines = text.split('\n');
+  const spokenLines: string[] = [];
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) continue;
+    if (
+      /^(?:📖|📝|📋|✍️|📊|💡|🎯|🔍|🌱)/u.test(line) ||
+      /^(Grammar Note|Note|Feedback|Analysis|Tip):/i.test(line)
+    ) {
+      break;
+    }
+    spokenLines.push(line);
+  }
+
+  let spokenText = spokenLines.join(' ');
+  spokenText = spokenText.replace(/\[[^\]]*\]/g, '');
+  spokenText = spokenText.replace(/\([^)]*\)/g, '');
+  spokenText = spokenText.replace(
+    /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
+    '',
+  );
+
+  return spokenText.replace(/\s+/g, ' ').trim();
 };
