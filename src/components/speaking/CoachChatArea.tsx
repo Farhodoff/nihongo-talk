@@ -1,276 +1,368 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
 import { Check, Copy, Volume2, Mic, Plus, Sparkles } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
 import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
+import { useStudyData } from '../../context/StudyPlannerContext';
+import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
 
 interface CoachChatAreaProps {
-    chatHistory: CoachChatMessage[];
-    isLiveSession: boolean;
-    currentPersona: CoachPersonaItem;
-    currentTranscript: string;
-    isListening: boolean;
-    isThinking: boolean;
-    copiedIndex: number | null;
-    chatContainerRef: React.RefObject<HTMLDivElement>;
-    handleTranslateMessage: (idx: number) => void;
-    copyToClipboard: (text: string, index: number) => void;
-    speakText: (text: string) => void;
-    setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
-    onAddVocabulary?: (vocab: CoachVocabularyItem) => Promise<boolean | void> | void;
+  chatHistory: CoachChatMessage[];
+  isLiveSession: boolean;
+  currentPersona: CoachPersonaItem;
+  currentTranscript: string;
+  isListening: boolean;
+  isThinking: boolean;
+  copiedIndex: number | null;
+  chatContainerRef: React.RefObject<HTMLDivElement>;
+  handleTranslateMessage: (idx: number) => void;
+  copyToClipboard: (text: string, index: number) => void;
+  speakText: (text: string) => void;
+  setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
+  onAddVocabulary?: (vocab: CoachVocabularyItem) => Promise<boolean | void> | void;
 }
 
 export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
-    chatHistory,
-    isLiveSession,
-    currentPersona,
-    currentTranscript,
-    isListening,
-    isThinking,
-    copiedIndex,
-    chatContainerRef,
-    handleTranslateMessage,
-    copyToClipboard,
-    speakText,
-    setChatHistory,
-    onAddVocabulary,
+  chatHistory,
+  isLiveSession,
+  currentPersona,
+  currentTranscript,
+  isListening,
+  isThinking,
+  copiedIndex,
+  chatContainerRef,
+  handleTranslateMessage,
+  copyToClipboard,
+  speakText,
+  setChatHistory,
+  onAddVocabulary,
 }) => {
-    const { language } = useLanguage();
-    const [addedVocabs, setAddedVocabs] = useState<Set<string>>(new Set());
-    const ActivePersonaIcon = currentPersona?.icon || Sparkles;
+  const { language } = useLanguage();
+  const { flashcards } = useStudyData();
+  const [addedVocabs, setAddedVocabs] = useState<Set<string>>(() => {
+    try {
+      const set = new Set<string>();
+      const jaWords = safeLocalStorage.getJSON<any[]>(
+        'study_planner_speaking_vocabularies_local_user_ja',
+        [],
+      );
+      const enWords = safeLocalStorage.getJSON<any[]>(
+        'study_planner_speaking_vocabularies_local_user_en',
+        [],
+      );
+      jaWords.forEach((w: any) => w.word && set.add(w.word.trim()));
+      enWords.forEach((w: any) => w.word && set.add(w.word.trim()));
+      return set;
+    } catch {
+      return new Set();
+    }
+  });
 
-    const handleVocabClick = async (vocab: CoachVocabularyItem) => {
-        if (!onAddVocabulary) return;
-        setAddedVocabs(prev => new Set(prev).add(vocab.word));
-        try {
-            await onAddVocabulary(vocab);
-        } catch {
-            // Keep state as marked or handle gracefully
-        }
-    };
+  useEffect(() => {
+    if (flashcards && flashcards.length > 0) {
+      setAddedVocabs((prev) => {
+        const updated = new Set(prev);
+        flashcards.forEach((f) => {
+          const firstWord = (f.front || '').split('\n')[0].trim();
+          if (firstWord) updated.add(firstWord);
+        });
+        return updated;
+      });
+    }
+  }, [flashcards]);
 
-    if (chatHistory.length === 0 && !isLiveSession) return null;
+  const ActivePersonaIcon = currentPersona?.icon || Sparkles;
 
-    return (
+  const handleVocabClick = async (vocab: CoachVocabularyItem) => {
+    if (!onAddVocabulary) return;
+    setAddedVocabs((prev) => new Set(prev).add(vocab.word.trim()));
+    try {
+      await onAddVocabulary(vocab);
+    } catch {
+      // Keep state as marked or handle gracefully
+    }
+  };
+
+  if (chatHistory.length === 0 && !isLiveSession) return null;
+
+  return (
+    <div
+      ref={chatContainerRef}
+      className="scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent flex-1 space-y-3 overflow-y-auto px-1 py-3"
+    >
+      {chatHistory.map((msg, idx) => (
         <div
-            ref={chatContainerRef}
-            className="flex-1 overflow-y-auto space-y-3 py-3 px-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent"
+          key={idx}
+          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2`}
         >
-            {chatHistory.map((msg, idx) => (
-                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2`}>
-                    {/* AI Avatar */}
-                    {msg.role === 'assistant' && (
-                        <div className={`shrink-0 w-8 h-8 rounded-xl bg-gradient-to-tr ${currentPersona.color} flex items-center justify-center mr-2 mt-1 shadow-md`}>
-                            <ActivePersonaIcon size={14} className="text-white" />
-                        </div>
+          {/* AI Avatar */}
+          {msg.role === 'assistant' && (
+            <div
+              className={`h-8 w-8 shrink-0 rounded-xl bg-gradient-to-tr ${currentPersona.color} mr-2 mt-1 flex items-center justify-center shadow-md`}
+            >
+              <ActivePersonaIcon size={14} className="text-white" />
+            </div>
+          )}
+
+          <div className="group relative max-w-[85%] transition-all sm:max-w-[75%] md:max-w-[70%]">
+            {/* Message Bubble */}
+            <div
+              className={`rounded-2xl p-3 shadow-sm sm:p-3.5 ${
+                msg.role === 'user'
+                  ? 'rounded-tr-md bg-primary text-primary-foreground shadow-md shadow-primary/20'
+                  : 'rounded-tl-md border border-border bg-card text-foreground shadow-sm'
+              }`}
+            >
+              {/* Timestamp */}
+              <div
+                className={`mb-1.5 flex items-center gap-1.5 text-[10px] font-semibold ${
+                  msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
+                }`}
+              >
+                <span>
+                  {msg.role === 'user'
+                    ? language === 'ja'
+                      ? 'あなた'
+                      : 'Siz'
+                    : currentPersona.name}
+                </span>
+                <span>•</span>
+                <span>{msg.timestamp}</span>
+              </div>
+
+              <p className="whitespace-pre-wrap text-xs font-medium leading-relaxed sm:text-sm">
+                {msg.content}
+              </p>
+
+              {/* Romaji Reading Aid */}
+              {msg.role === 'assistant' && msg.romaji && (
+                <p className="mt-1 font-mono text-[11px] italic leading-tight text-muted-foreground">
+                  {msg.romaji}
+                </p>
+              )}
+
+              {/* Instant Correction Banner */}
+              {msg.role === 'assistant' &&
+                msg.correction &&
+                msg.correction.hasError &&
+                msg.correction.corrected && (
+                  <div className="mt-2.5 space-y-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs">
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-[#C9A961]">
+                      <span>
+                        {language === 'ja'
+                          ? '💡 文法・表現のアドバイス:'
+                          : '💡 Grammatika / Iborani yaxshilash:'}
+                      </span>
+                    </div>
+                    {msg.correction.original && (
+                      <div className="text-[11px] text-rose-400 line-through">
+                        ❌ {msg.correction.original}
+                      </div>
                     )}
+                    <div className="text-xs font-semibold text-emerald-400">
+                      ✅ {msg.correction.corrected}
+                    </div>
+                    {msg.correction.explanation && (
+                      <div className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
+                        {msg.correction.explanation}
+                      </div>
+                    )}
+                  </div>
+                )}
 
-                    <div className="group relative max-w-[85%] sm:max-w-[75%] md:max-w-[70%] transition-all">
-                        {/* Message Bubble */}
-                        <div className={`p-3 sm:p-3.5 rounded-2xl shadow-sm ${msg.role === 'user'
-                                ? 'bg-primary text-primary-foreground rounded-tr-md shadow-md shadow-primary/20'
-                                : 'bg-card border border-border text-foreground rounded-tl-md shadow-sm'
-                            }`}>
-                            {/* Timestamp */}
-                            <div className={`flex items-center gap-1.5 mb-1.5 text-[10px] font-semibold ${msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                                }`}>
-                                <span>{msg.role === 'user' ? (language === 'ja' ? 'あなた' : 'Siz') : currentPersona.name}</span>
-                                <span>•</span>
-                                <span>{msg.timestamp}</span>
-                            </div>
-
-                            <p className="text-xs sm:text-sm leading-relaxed font-medium whitespace-pre-wrap">
-                                {msg.content}
-                            </p>
-
-                            {/* Romaji Reading Aid */}
-                            {msg.role === 'assistant' && msg.romaji && (
-                                <p className="text-[11px] font-mono text-muted-foreground mt-1 italic leading-tight">
-                                    {msg.romaji}
-                                </p>
+              {/* Vocabulary Recommendations */}
+              {msg.role === 'assistant' && msg.vocabulary && msg.vocabulary.length > 0 && (
+                <div className="mt-2.5 space-y-1.5 border-t border-border/50 pt-2">
+                  <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <span>
+                      {language === 'ja'
+                        ? '🧠 おすすめ単語・表現（単語帳）:'
+                        : "🧠 Yangi Lug'atlar (Fleshkarta):"}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {msg.vocabulary.map((vocab, vIdx) => {
+                      const isSaved =
+                        addedVocabs.has(vocab.word.trim()) ||
+                        (flashcards && flashcards.some((f) => f.front.includes(vocab.word.trim())));
+                      return (
+                        <div
+                          key={vIdx}
+                          className={`inline-flex items-center gap-2 rounded-xl border px-2.5 py-1.5 text-xs transition-all ${
+                            isSaved
+                              ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-xs'
+                              : 'border-border bg-muted/80 text-foreground shadow-xs hover:border-primary/50'
+                          }`}
+                        >
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-bold text-foreground">{vocab.word}</span>
+                            {vocab.reading && (
+                              <span className="font-mono text-[10px] text-muted-foreground">
+                                ({vocab.reading})
+                              </span>
                             )}
+                          </div>
+                          <span className="text-[11px] text-muted-foreground">
+                            • {vocab.meaning}
+                          </span>
 
-                            {/* Instant Correction Banner */}
-                            {msg.role === 'assistant' && msg.correction && msg.correction.hasError && msg.correction.corrected && (
-                                <div className="mt-2.5 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs space-y-1">
-                                    <div className="flex items-center gap-1 font-bold text-[#C9A961] text-[11px]">
-                                        <span>{language === 'ja' ? '💡 文法・表現のアドバイス:' : '💡 Grammatika / Iborani yaxshilash:'}</span>
-                                    </div>
-                                    {msg.correction.original && (
-                                        <div className="text-rose-400 line-through text-[11px]">
-                                            ❌ {msg.correction.original}
-                                        </div>
-                                    )}
-                                    <div className="text-emerald-400 font-semibold text-xs">
-                                        ✅ {msg.correction.corrected}
-                                    </div>
-                                    {msg.correction.explanation && (
-                                        <div className="text-muted-foreground text-[11px] mt-0.5 leading-relaxed">
-                                            {msg.correction.explanation}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Vocabulary Recommendations */}
-                            {msg.role === 'assistant' && msg.vocabulary && msg.vocabulary.length > 0 && (
-                                <div className="mt-2.5 pt-2 border-t border-border/50 space-y-1.5">
-                                    <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                                        <span>{language === 'ja' ? '🧠 おすすめ単語・表現（単語帳）:' : '🧠 Yangi Lug\'atlar (Fleshkarta):'}</span>
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {msg.vocabulary.map((vocab, vIdx) => {
-                                            const isSaved = addedVocabs.has(vocab.word);
-                                            return (
-                                                <div 
-                                                    key={vIdx} 
-                                                    className={`inline-flex items-center gap-2 px-2.5 py-1.5 border rounded-xl text-xs transition-all ${
-                                                        isSaved
-                                                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-xs'
-                                                            : 'bg-muted/80 border-border hover:border-primary/50 text-foreground shadow-xs'
-                                                    }`}
-                                                >
-                                                    <div className="flex items-baseline gap-1">
-                                                        <span className="font-bold text-foreground">{vocab.word}</span>
-                                                        {vocab.reading && (
-                                                            <span className="text-[10px] text-muted-foreground font-mono">({vocab.reading})</span>
-                                                        )}
-                                                    </div>
-                                                    <span className="text-[11px] text-muted-foreground">• {vocab.meaning}</span>
-                                                    
-                                                    {onAddVocabulary && (
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => handleVocabClick(vocab)}
-                                                            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
-                                                                isSaved
-                                                                    ? 'bg-emerald-600 text-white cursor-default'
-                                                                    : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs active:scale-95'
-                                                            }`}
-                                                            title={isSaved ? (language === 'ja' ? '単語帳に保存済み' : "Fleshkartaga saqlangan") : (language === 'ja' ? '単語帳に追加' : "Fleshkartaga qo'shish")}
-                                                        >
-                                                            {isSaved ? (
-                                                                <>
-                                                                    <Check size={12} className="shrink-0" />
-                                                                    <span>{language === 'ja' ? '保存済み' : 'Saqlandi'}</span>
-                                                                </>
-                                                            ) : (
-                                                                <>
-                                                                    <Plus size={12} className="shrink-0" />
-                                                                    <span>{language === 'ja' ? '追加' : "Qo'shish"}</span>
-                                                                </>
-                                                            )}
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Uzbek / Japanese Translation Box */}
-                            {msg.role === 'assistant' && language !== 'ja' && (
-                                <div className="mt-2.5 pt-2 border-t border-border/50">
-                                    {!msg.showTranslation ? (
-                                        <button
-                                            onClick={() => handleTranslateMessage(idx)}
-                                            disabled={msg.isTranslating}
-                                            className="inline-flex items-center gap-1.5 text-[11px] font-bold text-primary hover:text-primary/80 transition-colors bg-primary/10 px-2.5 py-1 rounded-lg border border-primary/20 cursor-pointer"
-                                        >
-                                            <UzbekistanFlag className="w-3.5 h-2.5" />
-                                            <span>{msg.isTranslating ? 'Tarjima qilinmoqda...' : "O'zbekcha tarjimasi"}</span>
-                                        </button>
-                                    ) : (
-                                        <div className="p-2.5 sm:p-3 bg-muted/80 border border-border rounded-xl text-xs text-foreground leading-relaxed font-medium animate-in fade-in">
-                                            <div className="flex justify-between items-center mb-1 font-bold text-[11px] text-primary">
-                                                <span className="flex items-center gap-1.5">
-                                                    <UzbekistanFlag className="w-3.5 h-2.5" />
-                                                    <span>O'zbekcha tarjimasi:</span>
-                                                </span>
-                                                <button
-                                                    onClick={() => setChatHistory(prev => prev.map((m, i) => i === idx ? { ...m, showTranslation: false } : m))}
-                                                    className="text-muted-foreground hover:text-foreground text-[10px] cursor-pointer"
-                                                >
-                                                    Berkitish ✕
-                                                </button>
-                                            </div>
-                                            <p className="whitespace-pre-wrap">{msg.translation}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className={`flex items-center gap-0.5 mt-1 ${msg.role === 'user' ? 'justify-end' : 'justify-start ml-0'} opacity-0 group-hover:opacity-100 transition-opacity`}>
+                          {onAddVocabulary && (
                             <button
-                                onClick={() => copyToClipboard(msg.content, idx)}
-                                className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                title="Nusxalash"
+                              type="button"
+                              onClick={() => handleVocabClick(vocab)}
+                              className={`inline-flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-[11px] font-bold transition-all ${
+                                isSaved
+                                  ? 'cursor-default bg-emerald-600 text-white'
+                                  : 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 active:scale-95'
+                              }`}
+                              title={
+                                isSaved
+                                  ? language === 'ja'
+                                    ? '単語帳に保存済み'
+                                    : 'Fleshkartaga saqlangan'
+                                  : language === 'ja'
+                                    ? '単語帳に追加'
+                                    : "Fleshkartaga qo'shish"
+                              }
                             >
-                                {copiedIndex === idx ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                              {isSaved ? (
+                                <>
+                                  <Check size={12} className="shrink-0" />
+                                  <span>{language === 'ja' ? '保存済み' : 'Saqlandi'}</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Plus size={12} className="shrink-0" />
+                                  <span>{language === 'ja' ? '追加' : "Qo'shish"}</span>
+                                </>
+                              )}
                             </button>
-                            {msg.role === 'assistant' && (
-                                <button
-                                    onClick={() => speakText(msg.ttsText || extractSpeechAudioText(msg.content))}
-                                    className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                                    title="Qayta O'qib berish"
-                                >
-                                    <Volume2 size={12} />
-                                </button>
-                            )}
+                          )}
                         </div>
-                    </div>
+                      );
+                    })}
+                  </div>
                 </div>
-            ))}
+              )}
 
-            {/* Live Transcript Bubble */}
-            {(currentTranscript || isListening) && (
-                <div className="flex justify-end animate-in fade-in slide-in-from-bottom-2">
-                    <div className="max-w-[85%] sm:max-w-[75%] p-3.5 rounded-2xl rounded-tr-md bg-primary/10 text-foreground border border-primary/30 backdrop-blur-xl">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-primary mb-1.5">
-                            <Mic size={12} className="animate-pulse" />
-                            <span>Eshitilmoqda...</span>
-                        </div>
-                        <p className="text-xs sm:text-sm italic font-medium">
-                            {currentTranscript || "Gapiring, AI sizni eshitmoqda..."}
-                        </p>
+              {/* Uzbek / Japanese Translation Box */}
+              {msg.role === 'assistant' && language !== 'ja' && (
+                <div className="mt-2.5 border-t border-border/50 pt-2">
+                  {!msg.showTranslation ? (
+                    <button
+                      onClick={() => handleTranslateMessage(idx)}
+                      disabled={msg.isTranslating}
+                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary transition-colors hover:text-primary/80"
+                    >
+                      <UzbekistanFlag className="h-2.5 w-3.5" />
+                      <span>
+                        {msg.isTranslating ? 'Tarjima qilinmoqda...' : "O'zbekcha tarjimasi"}
+                      </span>
+                    </button>
+                  ) : (
+                    <div className="rounded-xl border border-border bg-muted/80 p-2.5 text-xs font-medium leading-relaxed text-foreground animate-in fade-in sm:p-3">
+                      <div className="mb-1 flex items-center justify-between text-[11px] font-bold text-primary">
+                        <span className="flex items-center gap-1.5">
+                          <UzbekistanFlag className="h-2.5 w-3.5" />
+                          <span>O'zbekcha tarjimasi:</span>
+                        </span>
+                        <button
+                          onClick={() =>
+                            setChatHistory((prev) =>
+                              prev.map((m, i) =>
+                                i === idx ? { ...m, showTranslation: false } : m,
+                              ),
+                            )
+                          }
+                          className="cursor-pointer text-[10px] text-muted-foreground hover:text-foreground"
+                        >
+                          Berkitish ✕
+                        </button>
+                      </div>
+                      <p className="whitespace-pre-wrap">{msg.translation}</p>
                     </div>
+                  )}
                 </div>
-            )}
+              )}
+            </div>
 
-            {/* AI Thinking Indicator */}
-            {isThinking && (
-                <div className="flex justify-start animate-in fade-in slide-in-from-bottom-2">
-                    <div className={`shrink-0 w-8 h-8 rounded-xl bg-gradient-to-tr ${currentPersona.color} flex items-center justify-center mr-2 mt-1 shadow-md`}>
-                        <ActivePersonaIcon size={14} className="text-white animate-pulse" />
-                    </div>
-                    <div className="p-3.5 rounded-2xl rounded-tl-md bg-card border border-border shadow-sm">
-                        <div className="flex items-center gap-3">
-                            <div className="flex items-end gap-[3px] h-4">
-                                {[0, 1, 2, 3, 4].map(i => (
-                                    <div
-                                        key={i}
-                                        className={`w-[3px] rounded-full bg-gradient-to-t ${currentPersona.color} animate-bounce`}
-                                        style={{
-                                            animationDelay: `${i * 120}ms`,
-                                            animationDuration: '0.8s',
-                                            height: `${[60, 100, 40, 80, 50][i]}%`
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                            <span className="text-xs font-medium text-muted-foreground">
-                                {currentPersona.name} javob tayyorlamoqda...
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Action Buttons */}
+            <div
+              className={`mt-1 flex items-center gap-0.5 ${msg.role === 'user' ? 'justify-end' : 'ml-0 justify-start'} opacity-0 transition-opacity group-hover:opacity-100`}
+            >
+              <button
+                onClick={() => copyToClipboard(msg.content, idx)}
+                className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                title="Nusxalash"
+              >
+                {copiedIndex === idx ? (
+                  <Check size={12} className="text-emerald-500" />
+                ) : (
+                  <Copy size={12} />
+                )}
+              </button>
+              {msg.role === 'assistant' && (
+                <button
+                  onClick={() => speakText(msg.ttsText || extractSpeechAudioText(msg.content))}
+                  className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  title="Qayta O'qib berish"
+                >
+                  <Volume2 size={12} />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-    );
+      ))}
+
+      {/* Live Transcript Bubble */}
+      {(currentTranscript || isListening) && (
+        <div className="flex justify-end animate-in fade-in slide-in-from-bottom-2">
+          <div className="max-w-[85%] rounded-2xl rounded-tr-md border border-primary/30 bg-primary/10 p-3.5 text-foreground backdrop-blur-xl sm:max-w-[75%]">
+            <div className="mb-1.5 flex items-center gap-1.5 text-[10px] font-bold text-primary">
+              <Mic size={12} className="animate-pulse" />
+              <span>Eshitilmoqda...</span>
+            </div>
+            <p className="text-xs font-medium italic sm:text-sm">
+              {currentTranscript || 'Gapiring, AI sizni eshitmoqda...'}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* AI Thinking Indicator */}
+      {isThinking && (
+        <div className="flex justify-start animate-in fade-in slide-in-from-bottom-2">
+          <div
+            className={`h-8 w-8 shrink-0 rounded-xl bg-gradient-to-tr ${currentPersona.color} mr-2 mt-1 flex items-center justify-center shadow-md`}
+          >
+            <ActivePersonaIcon size={14} className="animate-pulse text-white" />
+          </div>
+          <div className="rounded-2xl rounded-tl-md border border-border bg-card p-3.5 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="flex h-4 items-end gap-[3px]">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className={`w-[3px] rounded-full bg-gradient-to-t ${currentPersona.color} animate-bounce`}
+                    style={{
+                      animationDelay: `${i * 120}ms`,
+                      animationDuration: '0.8s',
+                      height: `${[60, 100, 40, 80, 50][i]}%`,
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="text-xs font-medium text-muted-foreground">
+                {currentPersona.name} javob tayyorlamoqda...
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default CoachChatArea;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
 import {
   converseWithCoachStructured,
@@ -39,7 +39,7 @@ import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 import { AudioStorageService } from '../services/AudioStorageService';
-import { getOrEnsureLanguageSubject } from '../utils/subjectResolver';
+import { getOrEnsureSpeakingDeck } from '../utils/subjectResolver';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<
   'en' | 'ja',
@@ -92,9 +92,11 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<
 };
 
 const SpeakingCoachPage: React.FC = () => {
+  const navigate = useNavigate();
   const { primaryLanguage } = useStudyData();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, addCoachSession, addFlashcardsBatch, subjects, addSubject } = useStudyData();
+  const { user, addCoachSession, addFlashcardsBatch, subjects, addSubject, flashcards } =
+    useStudyData();
   const isAdmin = isAdminEmail(user?.email);
   const isSuper = isSuperAdmin(user?.email);
 
@@ -416,12 +418,8 @@ const SpeakingCoachPage: React.FC = () => {
       const isJa =
         language === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(vocab.word);
       const activeLang = isJa ? 'ja' : 'en';
-      const front = isJa
-        ? `${vocab.word}${vocab.reading ? ` (${vocab.reading})` : ''}`
-        : vocab.word;
-      const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}`;
 
-      // 1. Direct PostgreSQL DB Persist into `speaking_vocabularies`
+      // 1. Direct PostgreSQL DB Persist into `speaking_vocabularies` table
       const userId = user?.id || 'local_user';
       const personaName = PERSONAS_BY_LANG[activeLang]?.[persona]?.name;
       const scenarioName = activeScenario
@@ -434,24 +432,50 @@ const SpeakingCoachPage: React.FC = () => {
         personaName || scenarioName || 'AI Speaking Coach',
       );
 
-      // 2. Resolve proper subject ID and sync to `flashcards` table (Anki SM-2)
-      const targetSubjectId = await getOrEnsureLanguageSubject(
+      // 2. Resolve or auto-create DEDICATED Speaking Flashcard Deck (ALOHIDA ALBOM)
+      const targetSubjectId = await getOrEnsureSpeakingDeck(
         subjects,
         addSubject,
         isJa ? 'ja' : 'en',
       );
 
-      await addFlashcardsBatch([
-        {
-          front,
-          back,
-          subjectId: targetSubjectId || undefined,
-        },
-      ]);
+      const targetDeckName = isJa ? "🎙️ AI Speaking Lug'atlari" : '🎙️ AI Speaking Vocabulary';
+
+      // 3. Format cards with pedagogical excellence
+      const front = isJa
+        ? vocab.reading
+          ? `${vocab.word}\n【${vocab.reading}】`
+          : vocab.word
+        : vocab.word;
+      const back = `📌 Ma'nosi: ${vocab.meaning}${vocab.example ? `\n\n💬 Misol: ${vocab.example}` : ''}\n\n🎙️ Manba: AI Speaking Coach (${personaName || 'Jonli muloqot'})`;
+
+      // 4. Duplicate prevention: check if this word already exists in this deck
+      const isAlreadyInDeck = flashcards?.some(
+        (f) => f.subjectId === targetSubjectId && f.front.includes(vocab.word.trim()),
+      );
+
+      if (!isAlreadyInDeck) {
+        await addFlashcardsBatch([
+          {
+            front,
+            back,
+            subjectId: targetSubjectId || undefined,
+          },
+        ]);
+      }
 
       toast({
-        title: "🎴 So'z Saqlandi!",
-        description: `"${vocab.word}" so'zlar bazasi (DB) va Fleshkartalaringizga muvaffaqiyatli saqlandi.`,
+        title: '🎴 Fleshkartaga Saqlandi!',
+        description: `"${vocab.word}" so'zi alohida "${targetDeckName}" albomiga muvaffaqiyatli saqlandi.`,
+        action: (
+          <button
+            type="button"
+            onClick={() => navigate(targetSubjectId ? `/decks?study=${targetSubjectId}` : '/decks')}
+            className="inline-flex cursor-pointer items-center gap-1 rounded-lg bg-primary px-2.5 py-1 text-xs font-bold text-primary-foreground shadow-xs hover:bg-primary/90"
+          >
+            Fleshkartani Ochish
+          </button>
+        ) as any,
       });
       return true;
     } catch (err) {
