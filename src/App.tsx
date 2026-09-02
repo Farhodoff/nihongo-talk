@@ -49,6 +49,7 @@ const StudyModePage = lazyWithRetry(() => import('./pages/StudyModePage'));
 const ScenarioPickerPage = lazyWithRetry(() =>
   import('./pages/ScenarioPickerPage').then((m) => ({ default: m.ScenarioPickerPage })),
 );
+const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
 
 import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useAuthStore } from './stores';
@@ -324,7 +325,7 @@ const App: React.FC = () => {
                       <Route path="study-mode" element={<StudyModePage />} />
                       <Route path="study-mode/:subjectId" element={<StudyModePage />} />
                       <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
-                      <Route path="progress" element={<Navigate to="/jlpt" replace />} />
+                      <Route path="progress" element={<ProgressPage />} />
                       <Route path="community" element={<Navigate to="/jlpt" replace />} />
                       <Route path="cv-creator" element={<Navigate to="/jlpt" replace />} />
                       <Route path="vocabulary" element={<VocabularyBuilderPage />} />
