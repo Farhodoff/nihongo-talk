@@ -227,8 +227,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
           className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-amber-500/20 bg-amber-500/10 px-2.5 py-1.5 text-xs font-bold text-amber-500 transition-all hover:bg-amber-500/20 hover:shadow-xs"
           title="Speaking Coach lug'atlari va fleshkartalari"
         >
-          <Layers size={14} className="shrink-0" />
-          <span className="hidden sm:inline">Lug'atlarim</span>
+          <Layers size={14} className="shrink-0 text-amber-500" />
+          <span>Lug'atlarim</span>
         </button>
 
         {/* Fullscreen Toggle (⛶ Zoom/Fullscreen mode) */}

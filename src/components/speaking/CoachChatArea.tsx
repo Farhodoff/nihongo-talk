@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
-import { Check, Copy, Volume2, Mic, Plus, Sparkles } from 'lucide-react';
+import { Check, Copy, Volume2, Mic, Plus, Sparkles, ArrowRight } from 'lucide-react';
 import { extractSpeechAudioText } from '../../utils/ai';
 import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
@@ -39,6 +40,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
   onAddVocabulary,
 }) => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const { flashcards } = useStudyData();
   const [addedVocabs, setAddedVocabs] = useState<Set<string>>(() => {
     try {
@@ -174,12 +176,21 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
               {/* Vocabulary Recommendations */}
               {msg.role === 'assistant' && msg.vocabulary && msg.vocabulary.length > 0 && (
                 <div className="mt-2.5 space-y-1.5 border-t border-border/50 pt-2">
-                  <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                  <div className="flex items-center justify-between gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                     <span>
                       {language === 'ja'
                         ? '🧠 おすすめ単語・表現（単語帳）:'
                         : "🧠 Yangi Lug'atlar (Fleshkarta):"}
                     </span>
+                    <button
+                      type="button"
+                      onClick={() => navigate('/decks')}
+                      className="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-amber-500 transition-colors hover:bg-amber-500/10 hover:text-amber-400"
+                      title="Speaking fleshkartalariga o'tish"
+                    >
+                      <span>🎙️ Lug'atlarim</span>
+                      <ArrowRight size={10} />
+                    </button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {msg.vocabulary.map((vocab, vIdx) => {
