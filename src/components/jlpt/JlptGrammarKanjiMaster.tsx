@@ -24,16 +24,28 @@ import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
 import { HistoryService } from '../../services/HistoryService';
 import { useLanguage } from '../../context/LanguageContext';
 import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
+import { useSearchParams } from 'react-router-dom';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLevel = searchParams.get('level')?.toUpperCase();
+  const initialLevel: 'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
+    urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel) ? (urlLevel as any) : 'ALL';
+
   const { addFlashcardsBatch, subjects, addSubject, awardXP, addSession } = useStudyData();
   const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
   const { language } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
   const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(
-    'ALL',
+    initialLevel,
   );
+
+  useEffect(() => {
+    if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1', 'ALL'].includes(urlLevel)) {
+      setSelectedLevel(urlLevel as any);
+    }
+  }, [urlLevel]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | MasteryStatus>('ALL');
 

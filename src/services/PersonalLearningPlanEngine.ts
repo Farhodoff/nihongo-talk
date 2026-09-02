@@ -1,10 +1,12 @@
 import { MasterySkill } from '../types/mastery';
+import { SupportedLanguage } from '../types/lesson';
 import {
   PersonalLearningGoal,
   WeeklyLearningPlan,
   WeeklyPlanTask,
   WeeklyPlanDay,
   TaskSourceType,
+  PlanGoalType,
 } from '../types/learningPlan';
 import { callSelectedAIProvider } from '../utils/ai/aiCore';
 import { CurriculumLessonResolver, STATIC_CURRICULUM_MAP } from './CurriculumLessonResolver';
@@ -20,6 +22,87 @@ export interface PlanGenerationResult {
   plan: WeeklyLearningPlan;
   isFallback: boolean;
   noticeMessage: string | null;
+}
+
+export function getLevelPedagogicalDirectives(
+  language: SupportedLanguage,
+  goalType: PlanGoalType,
+  levelCode: string,
+): string {
+  if (language === 'ja') {
+    if (goalType === 'general_ja') {
+      return `JAPANESE KAIWA & DAILY COMMUNICATION DIRECTIVES:
+- Emphasize practical conversational phrases, daily situation roleplays, natural responses (aizuchi), and active pronunciation.
+- Balance Speaking (/speaking-coach?lang=ja), Dialog Scenarios (/scenarios), Listening (/jlpt?tab=listening&level=N4), and Vocabulary (/study-mode).
+- Task titles must represent real-life situations (e.g. "Restoranda taom buyurtma qilish va hisob-kitob", "Do'konda narx va chegirma so'rash", "Mehmonxona va transport yo'nalishlarini aniqlash").
+- Avoid dry grammatical jargon; emphasize situational speaking confidence.`;
+    }
+
+    const cleanLevel = (levelCode || 'N5').toUpperCase();
+    switch (cleanLevel) {
+      case 'N5':
+        return `JLPT N5 PEDAGOGICAL BLUEPRINT (Boshlang'ich daraja):
+- Grammar: Hiragana & Katakana mastery, essential particles (は, が, を, に, で, と, も, へ, から, まで), ~desu/~masu polite forms, ~te-form (requests & permission: ~てください, ~てもいいです), ~nai-form (~ないでください), ~ta-form past tense.
+- Kanji & Vocabulary: 100 base N5 Kanji (numbers, days of week, directions, basic verbs), 800 core words. Route: /jlpt?tab=kanji&level=N5
+- Dokkai (O'qish): Short Furigana texts, daily notices, simple diary entries. Route: /jlpt?tab=reading&level=N5
+- Choukai (Tinglash): Basic greetings, train station announcements, shopping numbers and prices. Route: /jlpt?tab=listening&level=N5
+- Speaking: Self-introduction (Jikoshoukai), asking prices, daily routine description. Route: /speaking-coach?lang=ja
+- Non-negotiable Rule: DO NOT assign N3 or N2 complex grammar or rare Kanji to N5. Keep tasks beginner-friendly and confidence-building.`;
+
+      case 'N4':
+        return `JLPT N4 PEDAGOGICAL BLUEPRINT (O'rta-boshlang'ich daraja):
+- Grammar: Potential verbs (~reru/rareru: 食べられる, 読める), Giving/Receiving (あげる, もらう, くれる), Conditionals (~たら, ~ば, ~なら, ~と), Volitional (~よう: 行こう), ~てしまう, ~ておく, ~やすい/~にくい.
+- Kanji & Vocabulary: 250 intermediate Kanji, 1,500 everyday words and compound verbs. Route: /jlpt?tab=kanji&level=N4
+- Dokkai (O'qish): Information retrieval, library rules, notices, email exchanges, short stories. Route: /jlpt?tab=reading&level=N4
+- Choukai (Tinglash): Dialogues in public settings (stations, clinics, supermarkets, schools). Route: /jlpt?tab=listening&level=N4
+- Speaking: Requesting permissions, explaining causes and reasons (~から, ~ので), making reservations. Route: /speaking-coach?lang=ja
+- Non-negotiable Rule: Equal balance of grammar, kanji, Dokkai and Choukai. Ensure conditional nuances are clearly practiced.`;
+
+      case 'N3':
+        return `JLPT N3 PEDAGOGICAL BLUEPRINT (O'rta daraja - Transition to Fluency):
+- Grammar: Shinkanzen Bunpou core patterns (~わけだ, ~わけではない, ~ことになっている, ~ようにする, ~をはじめ, ~に対して, ~に関して, ~にとって, ~とおりに, ~としたら).
+- Kanji & Vocabulary: 600 Kanji, 3,500 vocabulary words with kanji compounds (Jukugo). Route: /jlpt?tab=kanji&level=N3
+- Dokkai (O'qish): Analytical essays, comparison articles, opinion pieces, speed-reading short paragraphs. Route: /jlpt?tab=reading&level=N3
+- Choukai (Tinglash): Task comprehension (課題理解), Key points (ポイント理解), Quick response (即時応答). Route: /jlpt?tab=listening&level=N3
+- Speaking: Expressing opinions, explaining past events with nuance, polite Keigo foundations. Route: /speaking-coach?lang=ja
+- Non-negotiable Rule: Dokkai and Choukai MUST appear at least 2-3 times across the week to develop JLPT exam endurance.`;
+
+      case 'N2':
+        return `JLPT N2 PEDAGOGICAL BLUEPRINT (Yuqori-o'rta - Professional & Business):
+- Grammar: Advanced functional expressions (~に際して, ~を契機に, ~にほかならない, ~ざるを得ない, ~かねる, ~げ, ~ぬきで), Keigo honorific mastery (Sonkeigo, Kenjougo, Teineigo).
+- Kanji & Vocabulary: 1,000 Kanji, 6,000 words, newspaper, economic, and business terminology. Route: /jlpt?tab=kanji&level=N2
+- Dokkai (O'qish): Complex editorials, critical commentary, thematic long passages, contrasting viewpoints. Route: /jlpt?tab=reading&level=N2
+- Choukai (Tinglash): Integrated comprehension (総合理解), speaker stance, implied meaning and sarcasm. Route: /jlpt?tab=listening&level=N2
+- Exam Practice: Full-length timed mock simulation drills. Route: /jlpt?tab=mock&level=N2
+- Non-negotiable Rule: High linguistic register. Tasks must involve abstract thematic texts and fast-paced authentic audio.`;
+
+      case 'N1':
+        return `JLPT N1 PEDAGOGICAL BLUEPRINT (Oliy daraja - Academic / Literary Nuance):
+- Grammar: Classical/literary syntax (~であれ, ~を皮切りに, ~極まりない, ~ならではの, ~と相まって, ~だに), complex stylistic connectors.
+- Kanji & Vocabulary: 2,000+ Kanji, 10,000 advanced, abstract, and literary terms. Route: /jlpt?tab=kanji&level=N1
+- Dokkai (O'qish): High-difficulty essays, philosophical and scientific treatises, literary criticism. Route: /jlpt?tab=reading&level=N1
+- Choukai (Tinglash): Multi-speaker panel debates, academic lectures, subtle irony, rapid unscripted speech. Route: /jlpt?tab=listening&level=N1
+- Exam Practice: Full-length official mock exam drills. Route: /jlpt?tab=mock&level=N1
+- Non-negotiable Rule: Focus on intellectual nuance and deep comprehension of high-level Japanese discourse.`;
+
+      default:
+        return `JLPT LEVEL DIRECTIVES: Calibrate tasks directly to JLPT ${cleanLevel} standards.`;
+    }
+  } else {
+    // English Track
+    if (goalType === 'ielts') {
+      return `IELTS TARGET DIRECTIVES (Target Band: ${levelCode}):
+- Speaking: Part 1 fluency, Part 2 2-minute cue card sustained speech, Part 3 abstract discussion. Route: /speaking-coach?lang=en
+- Writing: Task 1 academic report (charts, diagrams, trends) and Task 2 argumentative/discussion essay structure. Route: /ielts?tab=writing
+- Reading: Skimming & scanning, True/False/Not Given, heading matching, speed drills under timed conditions. Route: /ielts?tab=reading_listening
+- Listening: Sections 1-4, focus on keyword prediction, distractors, and spelling accuracy. Route: /ielts?tab=reading_listening
+- Grammar & Vocab: Complex sentence structures (inversion, cleft sentences, conditionals), Academic Word List (AWL). Route: /ielts?tab=grammar`;
+    } else {
+      return `GENERAL ENGLISH DIRECTIVES (CEFR ${levelCode}):
+- Develop everyday conversational fluency, functional grammar, and rich active vocabulary.
+- Rotate grammar theory, vocabulary flashcards, speaking coach drills, and reading articles.`;
+    }
+  }
 }
 
 export const PersonalLearningPlanEngine = {
@@ -201,17 +284,19 @@ export const PersonalLearningPlanEngine = {
 
       const allowedRoutes = isJa
         ? [
-            '/jlpt',
-            '/jlpt/grammar-quiz',
-            '/jlpt/reading',
-            '/jlpt/listening',
+            `/jlpt?tab=kanji&level=${targetLevelCode}`,
+            `/jlpt?tab=reading&level=${targetLevelCode}`,
+            `/jlpt?tab=listening&level=${targetLevelCode}`,
+            `/jlpt?tab=mock&level=${targetLevelCode}`,
+            '/speaking-coach?lang=ja',
             '/scenarios',
             '/study-mode',
+            '/jlpt',
           ]
         : [
             '/ielts?tab=grammar',
             '/scenarios',
-            '/speaking-coach',
+            '/speaking-coach?lang=en',
             '/ielts?tab=reading_listening',
             '/ielts?tab=writing',
             '/vocabulary',
@@ -326,6 +411,9 @@ DEADLINE: ${goal.deadline || 'Flexible'}
 REMAINING_WEEKS: ${Math.max(1, goal.totalWeeks - weekNumber + 1)}
 CURRENT_WEEK: ${weekNumber}
 DAILY_MINUTES: ${adjustedDailyMinutes}
+
+LEVEL_PEDAGOGICAL_BLUEPRINT:
+${getLevelPedagogicalDirectives(goal.language, goal.goalType, targetLevelCode)}
 
 DIAGNOSTIC_RESULT:
 ${JSON.stringify((state as any)?.diagnosticSummary || (state as any)?.diagnosticLevel || 'Barcha diagnostik savollar topshirilgan')}
@@ -468,6 +556,11 @@ ${prompt}`;
         ? raw.focusSkills.map((s: any) => this.sanitizeText(s))
         : ['general'];
 
+      const targetLvl = (
+        goal.targetLevel ||
+        goal.currentLevel ||
+        (goal.language === 'ja' ? 'N5' : 'A1')
+      ).toUpperCase();
       const validatedDays: WeeklyPlanDay[] = daysOfWeek.map((dayName): WeeklyPlanDay => {
         const rawDay = (raw.days || []).find((d: any) => String(d.day).toLowerCase() === dayName);
         const rawTasks = rawDay && Array.isArray(rawDay.tasks) ? rawDay.tasks : [];
@@ -563,7 +656,7 @@ ${prompt}`;
             }
           }
 
-          // Enforce language isolations
+          // Enforce language isolations & Smart Level Routing
           if (goal.language === 'ja') {
             if (
               resolvedRoute.includes('ielts') ||
@@ -573,6 +666,26 @@ ${prompt}`;
             ) {
               resolvedRoute = '/jlpt';
               sourceType = 'curriculum';
+            }
+
+            // Smart Level Routing for Japanese skills
+            const effectiveSkill = t.skill || actualType;
+            if (effectiveSkill === 'reading' && !resolvedRoute.includes('tab=reading')) {
+              resolvedRoute = `/jlpt?tab=reading&level=${targetLvl}`;
+            } else if (effectiveSkill === 'listening' && !resolvedRoute.includes('tab=listening')) {
+              resolvedRoute = `/jlpt?tab=listening&level=${targetLvl}`;
+            } else if (
+              (effectiveSkill === 'kanji' || (effectiveSkill === 'grammar' && !actualContentId)) &&
+              !resolvedRoute.includes('tab=kanji')
+            ) {
+              resolvedRoute = `/jlpt?tab=kanji&level=${targetLvl}`;
+            } else if (actualType === 'mock_test' && !resolvedRoute.includes('tab=mock')) {
+              resolvedRoute = `/jlpt?tab=mock&level=${targetLvl}`;
+            } else if (
+              effectiveSkill === 'speaking' &&
+              (resolvedRoute === '/jlpt' || !resolvedRoute.includes('speaking-coach'))
+            ) {
+              resolvedRoute = '/speaking-coach?lang=ja';
             }
           } else {
             if (
@@ -601,7 +714,8 @@ ${prompt}`;
             resolvedRoute.startsWith(prefix),
           );
           if (!hasValidRoute) {
-            resolvedRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
+            resolvedRoute =
+              goal.language === 'ja' ? `/jlpt?tab=kanji&level=${targetLvl}` : '/ielts';
           }
 
           validatedTasks.push({
