@@ -5,13 +5,28 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "analyze": "ANALYZE=true npm run build",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "audit:academic-deck": "node scripts/validate_academic_deck.mjs",
     "clean:academic-deck": "node scripts/validate_academic_deck.mjs --apply",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
+    "prepare": "husky",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix --max-warnings 0"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -35,10 +50,12 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.2",
     "tailwind-merge": "^2.6.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@eslint/js": "^8.57.0",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -56,9 +73,14 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "globals": "^15.0.0",
+    "husky": "^9.1.7",
     "jsdom": "^27.4.0",
+    "lint-staged": "^17.4.1",
     "postcss": "^8.4.35",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "puppeteer-core": "^25.7.0",
+    "rollup-plugin-visualizer": "^7.1.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.1.0",

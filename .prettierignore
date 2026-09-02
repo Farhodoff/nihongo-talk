@@ -1,0 +1,7 @@
+node_modules
+build
+coverage
+.vercel
+supabase/.temp
+*.min.js
+package-lock.json

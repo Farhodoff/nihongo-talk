@@ -55,15 +55,18 @@ logs/
 
 # testing
 coverage/
-
+playwright-report/
+test-results/
 
 # Custom workspace files
+bundle-analysis.html
 scratch/
 scripts/temp/
 *.log
 key.txt
 test-report-screenshot.png
 test_reports/
+reports/
 .npm-local-cache/
 .agents/
 skills-lock.json
