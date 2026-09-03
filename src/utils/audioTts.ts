@@ -118,6 +118,19 @@ export function speakText(text: string, accent: string = 'en-US'): void {
       utterance.voice = matchedVoice;
     }
 
+    let speakStart = 0;
+    utterance.onstart = () => {
+      speakStart = Date.now();
+    };
+
+    utterance.onend = () => {
+      const elapsed = Date.now() - speakStart;
+      if (textToSpeak.length > 3 && speakStart > 0 && elapsed < 120) {
+        console.warn('[audioTts] Web Speech dropped audio, falling back to network.');
+        playNetworkFallback();
+      }
+    };
+
     utterance.onerror = (e) => {
       console.warn('[audioTts] Utterance error, falling back to network:', e.error);
       playNetworkFallback();

@@ -296,11 +296,20 @@ const SpeakingCoachPage: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Voice Mode: Click-to-Talk (default: user presses to speak) & optional Hands-Free
-  const [isHandsFree, setIsHandsFree] = useState(false);
-  const isHandsFreeRef = useRef(false);
+  // Voice Mode: Hands-Free by default for natural spoken conversation, with localStorage persistence
+  const [isHandsFree, setIsHandsFree] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('coach_hands_free');
+      if (saved !== null) return saved === 'true';
+    }
+    return true;
+  });
+  const isHandsFreeRef = useRef(isHandsFree);
   useEffect(() => {
     isHandsFreeRef.current = isHandsFree;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('coach_hands_free', String(isHandsFree));
+    }
   }, [isHandsFree]);
 
   // Fullscreen Toggle Support (⛶ Zoom/Fullscreen mode)
@@ -379,7 +388,7 @@ const SpeakingCoachPage: React.FC = () => {
           ) {
             startListening();
           }
-        }, 1000);
+        }, 400);
       }
     },
   });

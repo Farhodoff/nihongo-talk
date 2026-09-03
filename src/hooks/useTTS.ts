@@ -427,36 +427,55 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
               return;
             }
 
-            const audio = new Audio(objectUrl);
-            audioPlayerRef.current = audio;
+            if (!audioPlayerRef.current) {
+              audioPlayerRef.current = new Audio();
+            }
+            const audio = audioPlayerRef.current;
+            audio.src = objectUrl;
 
-            audio.onended = () => {
+            const cleanup = () => {
+              audio.onended = null;
+              audio.onerror = null;
               if (currentObjectUrlRef.current === objectUrl) {
                 URL.revokeObjectURL(objectUrl);
                 currentObjectUrlRef.current = null;
               }
-              audioPlayerRef.current = null;
               resolve();
             };
 
+            audio.onended = cleanup;
             audio.onerror = (e) => {
               console.warn('[useTTS] HTMLAudioElement error:', e);
-              if (currentObjectUrlRef.current === objectUrl) {
-                URL.revokeObjectURL(objectUrl);
-                currentObjectUrlRef.current = null;
-              }
-              audioPlayerRef.current = null;
-              resolve();
+              cleanup();
             };
 
             audio.play().catch((playErr) => {
-              console.warn('[useTTS] audio.play() rejected:', playErr);
-              if (currentObjectUrlRef.current === objectUrl) {
-                URL.revokeObjectURL(objectUrl);
-                currentObjectUrlRef.current = null;
-              }
-              audioPlayerRef.current = null;
-              resolve();
+              console.warn(
+                '[useTTS] audio.play() rejected, trying Web Audio API fallback:',
+                playErr,
+              );
+              try {
+                const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+                if (AudioCtx) {
+                  const ctx = new AudioCtx();
+                  blob
+                    .arrayBuffer()
+                    .then((ab) => ctx.decodeAudioData(ab))
+                    .then((buf) => {
+                      const src = ctx.createBufferSource();
+                      src.buffer = buf;
+                      src.connect(ctx.destination);
+                      src.onended = () => {
+                        ctx.close().catch(() => {});
+                        cleanup();
+                      };
+                      src.start(0);
+                    })
+                    .catch(() => cleanup());
+                  return;
+                }
+              } catch {}
+              cleanup();
             });
           });
         }
@@ -480,8 +499,12 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
-      // If Web Speech API is completely unavailable in this browser, try network TTS
-      if (!synth) {
+      // If no native Japanese voice exists locally, or Web Speech API is unavailable,
+      // route to Network Google TTS immediately so user ALWAYS hears crystal-clear voice!
+      if (!synth || (isJa && !selectedVoice)) {
+        console.info(
+          `[useTTS] Native ${isJa ? 'Japanese' : 'English'} voice not found locally. Routing to Network Google TTS.`,
+        );
         await playWithNetworkTTS(chunks);
         return;
       }
@@ -536,8 +559,24 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
             (window as any).__speakingUtterance = utterance;
           }
 
+          let speakStartTime = 0;
+          utterance.onstart = () => {
+            speakStartTime = Date.now();
+          };
+
           utterance.onend = () => {
             activeUtteranceRef.current = null;
+            // Silent drop detector: if chunk has text but finished suspiciously fast (< 120ms),
+            // Chrome skipped speaking it! Fallback to Network TTS.
+            const elapsed = Date.now() - speakStartTime;
+            if (chunk.length > 3 && speakStartTime > 0 && elapsed < 120) {
+              console.warn(
+                `[useTTS] Web Speech finished suspiciously fast (${elapsed}ms for "${chunk}"). Falling back to Network TTS!`,
+              );
+              const remaining = [chunk, ...chunks.slice(chunkIndex)];
+              playWithNetworkTTS(remaining);
+              return;
+            }
             if (!isCancelledRef.current) {
               playNextWebSpeechChunk();
             }

@@ -343,13 +343,13 @@ export const useSpeechRecognition = ({
       }
 
       // COMFORTABLE ADAPTIVE SPEECH PAUSE TIMEOUT
-      // User can pause, think for 1-2 seconds naturally without being abruptly interrupted
+      // 1400ms for terminal sentences, 2000ms for natural thinking pauses
       const userCustomDelay =
         typeof window !== 'undefined'
           ? parseInt(localStorage.getItem('speaking_coach_pause_delay') || '0', 10)
           : 0;
       const isTerminal = isSentenceTerminal(cleanText, languageRef.current);
-      const silenceThreshold = userCustomDelay > 0 ? userCustomDelay : isTerminal ? 2400 : 3000;
+      const silenceThreshold = userCustomDelay > 0 ? userCustomDelay : isTerminal ? 1400 : 2000;
 
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       silenceTimerRef.current = setTimeout(() => {
@@ -399,7 +399,7 @@ export const useSpeechRecognition = ({
       stopVolumeMeter();
 
       const spokenText = transcriptBufferRef.current.trim();
-      if (spokenText.length >= 2) {
+      if (spokenText.length >= 1) {
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current);
           silenceTimerRef.current = null;
