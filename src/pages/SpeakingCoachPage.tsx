@@ -23,7 +23,7 @@ import {
   CoachChatMessage,
 } from '../components/speaking/speakingTypes';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
-import { useTTS } from '../hooks/useTTS';
+import { useTTS, fetchTTSAudioBlob } from '../hooks/useTTS';
 import { useVoiceRecorder } from '../hooks/useVoiceRecorder';
 import { ConversationScenario, ScenarioSessionResult } from '../components/speaking/scenarioTypes';
 import { ScenarioService } from '../services/ScenarioService';
@@ -340,45 +340,77 @@ const SpeakingCoachPage: React.FC = () => {
     },
   });
 
-  // Handle Scenario selection / loading and auto-speaking opening line
+  // Warm-cache prefetch common coach greetings in idle time for 0ms instant TTS start
+  useEffect(() => {
+    const commonJaGreetings = [
+      'こんにちは！鬼先生です。遠慮せずに日本語で話してください！',
+      'こんにちは！日本語の先生です。いつでもお話ししてくださいね。',
+      'こんにちは！JLPTスピーキングの練習を始めましょう！',
+      'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。',
+      'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？',
+      'やあ！元気？今日は何について話そうか！',
+    ];
+    const timer = setTimeout(() => {
+      commonJaGreetings.forEach((g) => {
+        fetchTTSAudioBlob(g, 'ja').catch(() => {});
+      });
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle Scenario selection / loading and auto-speaking opening line with 0ms delay
   useEffect(() => {
     if (scenarioIdParam) {
       const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
-      ScenarioService.getScenarios()
-        .then((scenarios) => {
-          const found = scenarios.find((s) => s.id === scenarioIdParam || s.id === normalizedParam);
-          if (found) {
-            setActiveScenario(found);
-            activeScenarioRef.current = found;
-            const sLang = found.language || (found.title_en ? 'en' : 'ja');
-            setLanguage((prev) => (prev !== sLang ? sLang : prev));
+      const immediateList = ScenarioService.getImmediateScenarios();
+      const immediateFound = immediateList.find(
+        (s) => s.id === scenarioIdParam || s.id === normalizedParam,
+      );
 
-            const scenarioGreeting =
-              (sLang === 'en' ? found.opening_line_en : found.opening_line_ja) ||
-              found.opening_line_ja ||
-              found.opening_line_en ||
-              "Hello! Let's start our conversation practice.";
-            const timeStr = new Date().toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            });
-            const freshHistory: CoachChatMessage[] = [
-              { role: 'assistant', content: scenarioGreeting, timestamp: timeStr },
-            ];
-            setChatHistory(freshHistory);
-            chatHistoryRef.current = freshHistory;
+      const applyScenarioGreeting = (scenario: ConversationScenario) => {
+        setActiveScenario(scenario);
+        activeScenarioRef.current = scenario;
+        const sLang = scenario.language || (scenario.title_en ? 'en' : 'ja');
+        setLanguage((prev) => (prev !== sLang ? sLang : prev));
 
-            const speechAudio = extractSpeechAudioText(scenarioGreeting);
-            lastCoachSpokenTextRef.current = speechAudio;
-            unlockAudio();
-            setTimeout(() => {
-              speakText(speechAudio);
-            }, 300);
-          }
-        })
-        .catch((err) => {
-          console.error('Scenario load error:', err);
+        const scenarioGreeting =
+          (sLang === 'en' ? scenario.opening_line_en : scenario.opening_line_ja) ||
+          scenario.opening_line_ja ||
+          scenario.opening_line_en ||
+          "Hello! Let's start our conversation practice.";
+        const timeStr = new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
         });
+        const freshHistory: CoachChatMessage[] = [
+          { role: 'assistant', content: scenarioGreeting, timestamp: timeStr },
+        ];
+        setChatHistory(freshHistory);
+        chatHistoryRef.current = freshHistory;
+
+        const speechAudio = extractSpeechAudioText(scenarioGreeting);
+        lastCoachSpokenTextRef.current = speechAudio;
+        unlockAudio();
+        // Instant trigger with 0ms artificial delay
+        speakText(speechAudio);
+      };
+
+      if (immediateFound) {
+        applyScenarioGreeting(immediateFound);
+      } else {
+        ScenarioService.getScenarios()
+          .then((scenarios) => {
+            const found = scenarios.find(
+              (s) => s.id === scenarioIdParam || s.id === normalizedParam,
+            );
+            if (found) {
+              applyScenarioGreeting(found);
+            }
+          })
+          .catch((err) => {
+            console.error('Scenario load error:', err);
+          });
+      }
     } else {
       setActiveScenario((prev) => (prev !== null ? null : prev));
     }

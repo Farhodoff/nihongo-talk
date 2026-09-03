@@ -172,4 +172,30 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
       '今日は日本語の勉強をしましょう。文法と語彙の練習をしっかり行います。もしわからないことがあれば、いつでも質問してくださいね。一緒に頑張りましょう！',
     );
   });
+
+  it('15. fetchTTSAudioBlob instantly caches multiple persona greetings without network roundtrip', async () => {
+    const fakeBlob = new Blob(['persona audio'], { type: 'audio/mpeg' });
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(async () => {
+      return new Response(fakeBlob, {
+        status: 200,
+        headers: { 'Content-Type': 'audio/mpeg' },
+      });
+    });
+
+    const greetings = [
+      'こんにちは！鬼先生です。遠慮せずに日本語で話してください！',
+      'こんにちは！日本語の先生です。いつでもお話ししてくださいね。',
+      'こんにちは！JLPTスピーキングの練習を始めましょう！',
+    ];
+
+    // Warm-cache all greetings
+    await Promise.all(greetings.map((g) => fetchTTSAudioBlob(g, 'ja')));
+    expect(fetchSpy).toHaveBeenCalledTimes(3);
+
+    // Retrieve again - MUST be 0 network calls (instant cache hits)
+    const cachedBlobs = await Promise.all(greetings.map((g) => fetchTTSAudioBlob(g, 'ja')));
+    expect(cachedBlobs.length).toBe(3);
+    cachedBlobs.forEach((b) => expect(b).not.toBeNull());
+    expect(fetchSpy).toHaveBeenCalledTimes(3); // Still 3! Zero extra network calls!
+  });
 });

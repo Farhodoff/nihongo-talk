@@ -532,6 +532,19 @@ export const useTTS = ({
     async (clause: string, isJa: boolean): Promise<void> => {
       if (isCancelledRef.current) return;
 
+      // For Japanese, ALWAYS use High-Quality Network Google TTS first.
+      // Native SpeechSynthesis in Chromium has severe silent-hang bugs (12+ seconds delay)
+      // and robotic pronunciation.
+      if (isJa) {
+        try {
+          await playNetworkClause(clause, true);
+          return;
+        } catch (netErr) {
+          console.warn('[useTTS] Network TTS failed:', netErr);
+          return;
+        }
+      }
+
       const synth =
         synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
       let currentVoices = voicesRef.current;
@@ -568,14 +581,10 @@ export const useTTS = ({
         });
       }
 
-      const selectedVoice = selectBestVoice(currentVoices, isJa);
+      const hasLanguageVoice = (currentVoices || []).some((v) =>
+        v.lang.toLowerCase().startsWith('en'),
+      );
 
-      // Check if browser actually has a native voice installed for this language
-      const hasLanguageVoice = isJa
-        ? (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('ja'))
-        : (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('en'));
-
-      // When SpeechSynthesis or voice for this language is unavailable, route directly to network TTS
       if (!synth || !hasLanguageVoice) {
         try {
           await playNetworkClause(clause, isJa);
@@ -585,6 +594,8 @@ export const useTTS = ({
           return;
         }
       }
+
+      const selectedVoice = selectBestVoice(currentVoices, isJa);
 
       try {
         if (synth && synth.paused) synth.resume();
@@ -597,17 +608,40 @@ export const useTTS = ({
         }
 
         let isFinished = false;
+        let speakStartTime = 0;
+        let hasStarted = false;
+
+        let startWatchdog: ReturnType<typeof setTimeout> | null = null;
+        let watchdogTimer: ReturnType<typeof setTimeout> | null = null;
+
         const finish = (fn?: () => void) => {
           if (isFinished) return;
           isFinished = true;
+          if (startWatchdog) clearTimeout(startWatchdog);
           if (watchdogTimer) clearTimeout(watchdogTimer);
           activeUtteranceRef.current = null;
           if (fn) fn();
           resolve();
         };
 
+        // Fast 800ms start watchdog: if native speech synthesis hasn't fired onstart within 800ms,
+        // it is hung due to Chromium background/navigation state. Fallback immediately to Network TTS.
+        startWatchdog = setTimeout(() => {
+          if (!hasStarted && !isFinished) {
+            console.warn(
+              '[useTTS] Native speech failed to start within 800ms, fast fallback to Network TTS.',
+            );
+            try {
+              synth.cancel();
+            } catch {}
+            finish(() => {
+              playNetworkClause(clause, isJa).catch(() => {});
+            });
+          }
+        }, 800);
+
         const maxDurationMs = Math.max(3500, clause.length * 350);
-        const watchdogTimer = setTimeout(() => {
+        watchdogTimer = setTimeout(() => {
           if (!isFinished) {
             console.warn(
               `[useTTS] Web Speech hang detected (${maxDurationMs}ms), fallback to Network TTS.`,
@@ -636,8 +670,9 @@ export const useTTS = ({
             (window as any).__speakingUtterance = utterance;
           }
 
-          let speakStartTime = 0;
           utterance.onstart = () => {
+            hasStarted = true;
+            if (startWatchdog) clearTimeout(startWatchdog);
             speakStartTime = Date.now();
           };
 
@@ -814,9 +849,12 @@ export const useTTS = ({
         ? (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('ja'))
         : (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('en'));
 
+      // High-Quality Network Google TTS is ALWAYS used for Japanese to avoid 12s silent-hang and robotic audio
+      const useNetworkTTS = isJa || !synth || !hasLanguageVoice;
+
       onSpeakStart();
 
-      if (!synth || !hasLanguageVoice) {
+      if (useNetworkTTS) {
         // --- HIGH-SPEED PARALLEL PREFETCH & STREAMING PLAYBACK ---
         // 1. Kick off network requests for ALL chunks in parallel AT THE SAME TIME!
         const chunkPromises = chunks.map((c) => fetchTTSAudioBlob(c, isJa ? 'ja' : 'en'));
