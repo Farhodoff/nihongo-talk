@@ -492,12 +492,14 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
           utterance.onend = () => {
             activeUtteranceRef.current = null;
-            const elapsed = Date.now() - speakStartTime;
-            if (clause.length > 3 && speakStartTime > 0 && elapsed < 120) {
+            const elapsed = speakStartTime > 0 ? Date.now() - speakStartTime : 0;
+            if (clause.length > 3 && (speakStartTime === 0 || elapsed < 120)) {
               console.warn(
-                `[useTTS] Web Speech skipped (${elapsed}ms), falling back to Network TTS.`,
+                `[useTTS] Web Speech skipped (${elapsed}ms, started=${speakStartTime > 0}), falling back to Network TTS.`,
               );
-              playNetworkClause(clause, isJa).then(resolve);
+              playNetworkClause(clause, isJa)
+                .then(resolve)
+                .catch(() => resolve());
               return;
             }
             resolve();
@@ -509,13 +511,17 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
               resolve();
               return;
             }
-            playNetworkClause(clause, isJa).then(resolve);
+            playNetworkClause(clause, isJa)
+              .then(resolve)
+              .catch(() => resolve());
           };
 
           synth.speak(utterance);
           if (synth.paused) synth.resume();
         } catch {
-          playNetworkClause(clause, isJa).then(resolve);
+          playNetworkClause(clause, isJa)
+            .then(resolve)
+            .catch(() => resolve());
         }
       });
     },

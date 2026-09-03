@@ -139,37 +139,17 @@ const SpeakingCoachPage: React.FC = () => {
   }, [urlLang, primaryLanguage, isSuper]);
 
   // Scenario & Voice Recorder state
-  const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(null);
+  const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(() => {
+    if (!scenarioIdParam) return null;
+    const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
+    const immediate = ScenarioService.getImmediateScenarios();
+    return immediate.find((s) => s.id === scenarioIdParam || s.id === normalizedParam) || null;
+  });
   const [isScenarioReportOpen, setIsScenarioReportOpen] = useState(false);
   const [isScenarioEvalLoading, setIsScenarioEvalLoading] = useState(false);
   const [scenarioEvalResult, setScenarioEvalResult] = useState<ScenarioSessionResult | null>(null);
 
   const voiceRecorder = useVoiceRecorder();
-
-  useEffect(() => {
-    if (scenarioIdParam) {
-      const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
-      if (
-        activeScenarioRef.current?.id === scenarioIdParam ||
-        activeScenarioRef.current?.id === normalizedParam
-      )
-        return;
-      ScenarioService.getScenarios()
-        .then((scenarios) => {
-          const found = scenarios.find((s) => s.id === scenarioIdParam || s.id === normalizedParam);
-          if (found) {
-            setActiveScenario(found);
-            const sLang = found.language || (found.title_en ? 'en' : 'ja');
-            setLanguage((prev) => (prev !== sLang ? sLang : prev));
-          }
-        })
-        .catch((err) => {
-          console.error('Scenario load error:', err);
-        });
-    } else {
-      setActiveScenario((prev) => (prev !== null ? null : prev));
-    }
-  }, [scenarioIdParam]);
 
   const handleLanguageChange = (newLang: 'en' | 'ja') => {
     if (isLiveSession) return;
@@ -240,6 +220,21 @@ const SpeakingCoachPage: React.FC = () => {
   const [isThinking, setIsThinking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [chatHistory, setChatHistory] = useState<CoachChatMessage[]>(() => {
+    if (scenarioIdParam) {
+      const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
+      const immediate = ScenarioService.getImmediateScenarios();
+      const found = immediate.find((s) => s.id === scenarioIdParam || s.id === normalizedParam);
+      if (found) {
+        const sLang = found.language || (found.title_en ? 'en' : 'ja');
+        const greeting =
+          (sLang === 'en' ? found.opening_line_en : found.opening_line_ja) ||
+          found.opening_line_ja ||
+          found.opening_line_en ||
+          "Hello! Let's start our conversation practice.";
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return [{ role: 'assistant', content: greeting, timestamp: timeStr }];
+      }
+    }
     return language === 'ja' || !language ? DEFAULT_JA_CHAT_HISTORY : [];
   });
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -377,6 +372,10 @@ const SpeakingCoachPage: React.FC = () => {
     onSpeakEnd: () => {
       setIsSpeaking(false);
       isProcessingRef.current = false;
+      // Start recording student session after coach finishes speaking
+      if (isLiveSessionRef.current && !voiceRecorder.isRecording) {
+        voiceRecorder.startRecording().catch(() => {});
+      }
       // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
       if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
         setTimeout(() => {
@@ -392,6 +391,50 @@ const SpeakingCoachPage: React.FC = () => {
       }
     },
   });
+
+  // Handle Scenario selection / loading and auto-speaking opening line
+  useEffect(() => {
+    if (scenarioIdParam) {
+      const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
+      ScenarioService.getScenarios()
+        .then((scenarios) => {
+          const found = scenarios.find((s) => s.id === scenarioIdParam || s.id === normalizedParam);
+          if (found) {
+            setActiveScenario(found);
+            activeScenarioRef.current = found;
+            const sLang = found.language || (found.title_en ? 'en' : 'ja');
+            setLanguage((prev) => (prev !== sLang ? sLang : prev));
+
+            const scenarioGreeting =
+              (sLang === 'en' ? found.opening_line_en : found.opening_line_ja) ||
+              found.opening_line_ja ||
+              found.opening_line_en ||
+              "Hello! Let's start our conversation practice.";
+            const timeStr = new Date().toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+            const freshHistory: CoachChatMessage[] = [
+              { role: 'assistant', content: scenarioGreeting, timestamp: timeStr },
+            ];
+            setChatHistory(freshHistory);
+            chatHistoryRef.current = freshHistory;
+
+            const speechAudio = extractSpeechAudioText(scenarioGreeting);
+            lastCoachSpokenTextRef.current = speechAudio;
+            unlockAudio();
+            setTimeout(() => {
+              speakText(speechAudio);
+            }, 300);
+          }
+        })
+        .catch((err) => {
+          console.error('Scenario load error:', err);
+        });
+    } else {
+      setActiveScenario((prev) => (prev !== null ? null : prev));
+    }
+  }, [scenarioIdParam, unlockAudio, speakText]);
 
   // Speech Recognition Hook
   const {
@@ -758,15 +801,37 @@ const SpeakingCoachPage: React.FC = () => {
     }
   };
 
+  const handleResetChat = useCallback(() => {
+    stopSpeaking();
+    setIsSpeaking(false);
+    setIsThinking(false);
+    const currentScenario = activeScenarioRef.current || activeScenario;
+    let greeting = getInitialGreeting(language, persona);
+    if (currentScenario) {
+      greeting =
+        (language === 'en' ? currentScenario.opening_line_en : currentScenario.opening_line_ja) ||
+        currentScenario.opening_line_ja ||
+        currentScenario.opening_line_en ||
+        "Hello! Let's start our conversation practice.";
+    }
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const freshHistory: CoachChatMessage[] = [
+      { role: 'assistant', content: greeting, timestamp: timeStr },
+    ];
+    setChatHistory(freshHistory);
+    chatHistoryRef.current = freshHistory;
+    const speechAudio = extractSpeechAudioText(greeting);
+    lastCoachSpokenTextRef.current = speechAudio;
+    unlockAudio();
+    speakText(speechAudio);
+  }, [language, persona, activeScenario, unlockAudio, speakText, stopSpeaking]);
+
   const startSession = (topicTitle?: unknown) => {
     unlockAudio();
     setIsLiveSession(true);
     isLiveSessionRef.current = true;
     setCurrentTranscript('');
     setError(null);
-
-    // Start voice recorder for student self-audio recording
-    voiceRecorder.startRecording();
 
     const cleanTopic =
       typeof topicTitle === 'string' &&
@@ -775,12 +840,13 @@ const SpeakingCoachPage: React.FC = () => {
         ? topicTitle.trim()
         : undefined;
 
+    const currentScenario = activeScenarioRef.current || activeScenario;
     let greeting = getInitialGreeting(language, persona);
-    if (activeScenario) {
+    if (currentScenario) {
       greeting =
-        (language === 'en' ? activeScenario.opening_line_en : activeScenario.opening_line_ja) ||
-        activeScenario.opening_line_en ||
-        activeScenario.opening_line_ja ||
+        (language === 'en' ? currentScenario.opening_line_en : currentScenario.opening_line_ja) ||
+        currentScenario.opening_line_ja ||
+        currentScenario.opening_line_en ||
         "Hello! Let's start our conversation practice.";
     } else if (cleanTopic) {
       if (language === 'ja') {
@@ -1186,7 +1252,7 @@ const SpeakingCoachPage: React.FC = () => {
         sessionSeconds={sessionSeconds}
         chatHistoryLength={chatHistory.length}
         toggleSession={toggleSession}
-        onClearHistory={() => setChatHistory([])}
+        onClearHistory={handleResetChat}
         formatTimer={formatTimer}
         onForceStartListening={toggleMic}
         isHandsFree={isHandsFree}
