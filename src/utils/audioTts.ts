@@ -77,7 +77,8 @@ export function speakText(text: string, accent: string = 'en-US'): void {
     }
   };
 
-  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+  // For Japanese or when browser synth is unavailable, use High Quality Network Google TTS
+  if (isJa || typeof window === 'undefined' || !('speechSynthesis' in window)) {
     playNetworkFallback();
     return;
   }

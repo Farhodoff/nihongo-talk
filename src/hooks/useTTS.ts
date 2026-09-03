@@ -760,6 +760,10 @@ export const useTTS = ({
       if (!textToPlay) return;
 
       const chunks = splitIntoTTSChunks(textToPlay, 170);
+      // Immediately prefetch audio blobs in parallel so upcoming sentences have 0ms delay
+      chunks.forEach((chunk) => {
+        fetchTTSAudioBlob(chunk, isJa ? 'ja' : 'en').catch(() => {});
+      });
       streamQueueRef.current.push(...chunks);
 
       if (!isStreamingPlaybackActiveRef.current) {

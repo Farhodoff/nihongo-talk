@@ -424,131 +424,165 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
       {/* Main Interactive Flashcard Stage */}
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center py-4">
-        <div
-          onClick={() => {
-            if (!isEditingCard) setIsFlipped((prev) => !prev);
-          }}
-          className={`relative flex min-h-[320px] w-full cursor-pointer select-none flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-2xl transition-all duration-300 hover:border-primary/40 md:min-h-[380px] ${
-            isFlipped ? 'bg-card' : 'bg-card'
-          }`}
-        >
-          {/* Top Card Controls */}
-          <div className="flex items-center justify-between">
-            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-extrabold text-primary">
-              {currentSubject?.name || (isJa ? 'SRS 単語カード' : 'SRS Fleshkarta')}
-            </span>
-
-            <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-              <button
-                onClick={handleSpeak}
-                className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary"
-                title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
-              >
-                <Volume2 size={20} />
-              </button>
-
-              {isAdmin && !isEditingCard && (
-                <button
-                  onClick={handleStartEdit}
-                  className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961]"
-                  title={isJa ? '編集' : 'Tahrirlash'}
+        {isEditingCard ? (
+          <div className="relative flex min-h-[340px] w-full flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-2xl md:min-h-[380px]">
+            <div className="space-y-3 text-left">
+              <div>
+                <label className="text-xs font-bold text-muted-foreground">
+                  {isJa ? '表面 (Front)' : 'Old qism (Front)'}
+                </label>
+                <input
+                  type="text"
+                  value={editFront}
+                  onChange={(e) => setEditFront(e.target.value)}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-bold text-foreground"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-muted-foreground">
+                  {isJa ? '裏面 (Back)' : 'Orqa qism (Back)'}
+                </label>
+                <textarea
+                  value={editBack}
+                  onChange={(e) => setEditBack(e.target.value)}
+                  rows={3}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-foreground"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-2">
+                <Button
+                  onClick={() => setIsEditingCard(false)}
+                  variant="secondary"
+                  className="text-xs"
                 >
-                  <Edit3 size={18} />
-                </button>
-              )}
-
-              {isAdmin && (
-                <button
-                  onClick={handleDeleteCard}
-                  className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-rose-500/10 hover:text-rose-500"
-                  title={isJa ? '削除' : "O'chirish"}
+                  {isJa ? 'キャンセル' : 'Bekor qilish'}
+                </Button>
+                <Button
+                  onClick={handleSaveEdit}
+                  className="bg-primary text-xs font-bold text-primary-foreground"
                 >
-                  <Trash2 size={18} />
-                </button>
-              )}
+                  {isJa ? '保存' : 'Saqlash'}
+                </Button>
+              </div>
             </div>
           </div>
+        ) : (
+          <div
+            onClick={() => setIsFlipped((prev) => !prev)}
+            className="perspective-1000 min-h-[340px] w-full cursor-pointer select-none md:min-h-[380px]"
+          >
+            <div
+              className={`transform-style-3d relative h-full min-h-[340px] w-full transition-transform duration-500 md:min-h-[380px] ${
+                isFlipped ? 'rotate-y-180' : ''
+              }`}
+            >
+              {/* Front Side */}
+              <div className="backface-hidden absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-2xl transition-all hover:border-primary/40">
+                {/* Top Card Controls */}
+                <div className="flex items-center justify-between">
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-extrabold text-primary">
+                    {currentSubject?.name || (isJa ? 'SRS 単語カード' : 'SRS Fleshkarta')}
+                  </span>
 
-          {/* Card Content Area */}
-          <div className="my-auto space-y-4 py-6 text-center">
-            {isEditingCard ? (
-              <div className="space-y-3 text-left" onClick={(e) => e.stopPropagation()}>
-                <div>
-                  <label className="text-xs font-bold text-muted-foreground">
-                    {isJa ? '表面 (Front)' : 'Old qism (Front)'}
-                  </label>
-                  <input
-                    type="text"
-                    value={editFront}
-                    onChange={(e) => setEditFront(e.target.value)}
-                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-bold text-foreground"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-bold text-muted-foreground">
-                    {isJa ? '裏面 (Back)' : 'Orqa qism (Back)'}
-                  </label>
-                  <textarea
-                    value={editBack}
-                    onChange={(e) => setEditBack(e.target.value)}
-                    rows={3}
-                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-foreground"
-                  />
-                </div>
-                <div className="flex justify-end gap-2 pt-2">
-                  <Button
-                    onClick={() => setIsEditingCard(false)}
-                    variant="secondary"
-                    className="text-xs"
-                  >
-                    {isJa ? 'キャンセル' : 'Bekor qilish'}
-                  </Button>
-                  <Button
-                    onClick={handleSaveEdit}
-                    className="bg-primary text-xs font-bold text-primary-foreground"
-                  >
-                    {isJa ? '保存' : 'Saqlash'}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <h3 className="text-3xl font-black leading-tight tracking-tight text-foreground md:text-4xl">
-                  {currentCard?.front}
-                </h3>
+                  <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      onClick={handleSpeak}
+                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary"
+                      title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
+                    >
+                      <Volume2 size={20} />
+                    </button>
 
-                {isFlipped ? (
-                  <div className="border-t border-border/60 pt-4 duration-200 animate-in fade-in-50">
-                    <p className="text-xl font-bold text-primary md:text-2xl">
-                      {currentCard?.back}
-                    </p>
+                    {isAdmin && (
+                      <>
+                        <button
+                          onClick={handleStartEdit}
+                          className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961]"
+                          title={isJa ? '編集' : 'Tahrirlash'}
+                        >
+                          <Edit3 size={18} />
+                        </button>
+                        <button
+                          onClick={handleDeleteCard}
+                          className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-rose-500/10 hover:text-rose-500"
+                          title={isJa ? '削除' : "O'chirish"}
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </>
+                    )}
                   </div>
-                ) : (
-                  <p className="flex items-center justify-center gap-1.5 pt-4 text-xs font-bold text-muted-foreground/60">
+                </div>
+
+                {/* Card Front Content */}
+                <div className="my-auto py-6 text-center">
+                  <h3 className="text-3xl font-black leading-tight tracking-tight text-foreground md:text-4xl">
+                    {currentCard?.front}
+                  </h3>
+                  <p className="flex items-center justify-center gap-1.5 pt-6 text-xs font-bold text-muted-foreground/60">
                     <Keyboard size={14} />{' '}
                     {isJa
                       ? 'スペースキーまたはカードをタップして裏返す'
                       : "Bo'sh joy (Space) yoki kartani bosing"}
                   </p>
-                )}
-              </>
-            )}
-          </div>
+                </div>
 
-          {/* Footer Status */}
-          <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
-            <span>
-              {isJa
-                ? `復習回数: ${currentCard?.repetitions || 0}回`
-                : `Repetitsiya: ${currentCard?.repetitions || 0}`}
-            </span>
-            <span>
-              {isJa
-                ? `学習間隔: ${currentCard?.interval || 0}日`
-                : `Interval: ${currentCard?.interval || 0} kun`}
-            </span>
+                {/* Footer Status */}
+                <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
+                  <span>
+                    {isJa
+                      ? `復習回数: ${currentCard?.repetitions || 0}回`
+                      : `Repetitsiya: ${currentCard?.repetitions || 0}`}
+                  </span>
+                  <span>
+                    {isJa
+                      ? `学習間隔: ${currentCard?.interval || 0}日`
+                      : `Interval: ${currentCard?.interval || 0} kun`}
+                  </span>
+                </div>
+              </div>
+
+              {/* Back Side */}
+              <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-3xl border-2 border-primary/50 bg-gradient-to-br from-card via-card to-primary/5 p-8 shadow-2xl">
+                {/* Top Card Controls */}
+                <div className="flex items-center justify-between">
+                  <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-extrabold text-emerald-600 dark:text-emerald-400">
+                    {isJa ? '解答 (Answer)' : 'Javob'}
+                  </span>
+                  <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      onClick={handleSpeak}
+                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary"
+                      title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
+                    >
+                      <Volume2 size={20} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card Back Content */}
+                <div className="my-auto space-y-3 py-4 text-center">
+                  <p className="text-xl font-bold leading-relaxed text-primary md:text-2xl">
+                    {currentCard?.back}
+                  </p>
+                  <p className="text-xs font-semibold text-muted-foreground/80">
+                    {currentCard?.front}
+                  </p>
+                </div>
+
+                {/* Footer Status */}
+                <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
+                  <span>SM-2 Algoritmi</span>
+                  <span>
+                    {isJa
+                      ? `難易度: ${(currentCard?.easeFactor || 2.5).toFixed(2)}`
+                      : `Osonlik: ${(currentCard?.easeFactor || 2.5).toFixed(2)}`}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Typing Mode Input Form */}
         {studyMode === 'type' && !isFlipped && (

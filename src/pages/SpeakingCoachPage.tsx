@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ShieldAlert, X } from 'lucide-react';
 import {
   converseWithCoachStructured,
+  streamCoachDialogue,
+  CoachStructuredResponse,
   CoachVocabularyItem,
   analyzeSpeakingSession,
   SessionAnalysisReport,
@@ -301,9 +303,17 @@ const SpeakingCoachPage: React.FC = () => {
   }, [isSpeaking]);
 
   const lastCoachSpokenTextRef = useRef<string>('');
+  const streamAbortControllerRef = useRef<AbortController | null>(null);
 
   // TTS Hook
-  const { speakText, stopSpeaking, unlockAudio, isPreparingAudio } = useTTS({
+  const {
+    speakText,
+    stopSpeaking,
+    unlockAudio,
+    isPreparingAudio,
+    enqueueStreamSentence,
+    endStreamPlayback,
+  } = useTTS({
     language,
     isLiveSessionRef,
     isProcessingRef,
@@ -442,6 +452,10 @@ const SpeakingCoachPage: React.FC = () => {
   });
 
   const handleBargeIn = useCallback(() => {
+    if (streamAbortControllerRef.current) {
+      streamAbortControllerRef.current.abort();
+      streamAbortControllerRef.current = null;
+    }
     if (isSpeaking) {
       playConversationChime('barge_in');
       stopSpeaking();
@@ -453,7 +467,7 @@ const SpeakingCoachPage: React.FC = () => {
     }
   }, [isSpeaking, stopSpeaking, startListening]);
 
-  const toggleMic = () => {
+  const toggleMic = useCallback(() => {
     unlockAudio();
     if (isSpeaking) {
       handleBargeIn();
@@ -468,7 +482,7 @@ const SpeakingCoachPage: React.FC = () => {
     } else {
       startListening();
     }
-  };
+  }, [unlockAudio, isSpeaking, handleBargeIn, isListening, startListening]);
 
   const handleAddVocabToFlashcards = async (vocab: CoachVocabularyItem): Promise<boolean> => {
     try {
@@ -649,6 +663,13 @@ const SpeakingCoachPage: React.FC = () => {
     stopSpeaking();
     setIsSpeaking(false);
 
+    if (streamAbortControllerRef.current) {
+      streamAbortControllerRef.current.abort();
+      streamAbortControllerRef.current = null;
+    }
+    const abortController = new AbortController();
+    streamAbortControllerRef.current = abortController;
+
     const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const userMsg: CoachChatMessage = { role: 'user', content: cleanText, timestamp: timeStr };
     const updatedHistory = [...chatHistoryRef.current, userMsg];
@@ -657,14 +678,52 @@ const SpeakingCoachPage: React.FC = () => {
     chatHistoryRef.current = updatedHistory;
 
     try {
-      const structured = await converseWithCoachStructured(
-        cleanText,
-        updatedHistory.map((h) => ({ role: h.role, content: h.content })),
-        languageRef.current,
-        personaRef.current,
-        undefined,
-        activeScenarioRef.current,
-      );
+      let structured: CoachStructuredResponse;
+      let streamedSentences = 0;
+      let accumulatedSpeech = '';
+
+      try {
+        structured = await streamCoachDialogue(
+          cleanText,
+          updatedHistory.map((h) => ({ role: h.role, content: h.content })),
+          languageRef.current,
+          personaRef.current,
+          activeScenarioRef.current,
+          (sentence, index) => {
+            if (abortController.signal.aborted) return;
+            streamedSentences++;
+            accumulatedSpeech += (accumulatedSpeech ? ' ' : '') + sentence;
+            lastCoachSpokenTextRef.current = accumulatedSpeech;
+            if (index === 0) {
+              setIsThinking(false);
+            }
+            enqueueStreamSentence(sentence);
+          },
+          abortController.signal,
+        );
+        endStreamPlayback();
+      } catch (streamErr: any) {
+        if (abortController.signal.aborted || streamErr?.name === 'AbortError') {
+          return;
+        }
+        console.warn(
+          '[SpeakingCoach] Streaming dialogue failed, fallback to non-streaming:',
+          streamErr,
+        );
+        stopSpeaking();
+        structured = await converseWithCoachStructured(
+          cleanText,
+          updatedHistory.map((h) => ({ role: h.role, content: h.content })),
+          languageRef.current,
+          personaRef.current,
+          undefined,
+          activeScenarioRef.current,
+        );
+      }
+
+      if (abortController.signal.aborted) {
+        return;
+      }
 
       let cleanReply = (structured.reply || '').trim();
       if (
@@ -761,19 +820,24 @@ const SpeakingCoachPage: React.FC = () => {
       setIsThinking(false);
       isProcessingRef.current = false;
 
-      // STRICT TTS: Speak the coach utterance
-      let speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
-      if (!speechToPlay && structured.correction?.hasError) {
-        const jaAdvice = structured.correction.explanation
-          ? `${structured.correction.explanation} ${structured.correction.corrected || ''}`
-          : structured.correction.corrected || '';
-        speechToPlay = language === 'ja' ? cleanJapaneseTTS(jaAdvice) : jaAdvice;
-      }
-      lastCoachSpokenTextRef.current = speechToPlay;
-      if (speechToPlay) {
-        speakText(speechToPlay);
+      // If no sentences were streamed (e.g. non-streaming fallback or unpunctuated reply), play TTS directly
+      if (streamedSentences === 0) {
+        let speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
+        if (!speechToPlay && structured.correction?.hasError) {
+          const jaAdvice = structured.correction.explanation
+            ? `${structured.correction.explanation} ${structured.correction.corrected || ''}`
+            : structured.correction.corrected || '';
+          speechToPlay = language === 'ja' ? cleanJapaneseTTS(jaAdvice) : jaAdvice;
+        }
+        lastCoachSpokenTextRef.current = speechToPlay;
+        if (speechToPlay) {
+          speakText(speechToPlay);
+        }
       }
     } catch (err: any) {
+      if (abortController.signal.aborted || err?.name === 'AbortError') {
+        return;
+      }
       console.error('Coach response error:', err);
       let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';
       if (errorMessage.startsWith('RATE_LIMIT: ')) {
@@ -823,6 +887,10 @@ const SpeakingCoachPage: React.FC = () => {
   };
 
   const handleResetChat = useCallback(() => {
+    if (streamAbortControllerRef.current) {
+      streamAbortControllerRef.current.abort();
+      streamAbortControllerRef.current = null;
+    }
     stopSpeaking();
     setIsSpeaking(false);
     setIsThinking(false);
@@ -846,6 +914,41 @@ const SpeakingCoachPage: React.FC = () => {
     unlockAudio();
     speakText(speechAudio);
   }, [language, persona, activeScenario, unlockAudio, speakText, stopSpeaking]);
+
+  // Keyboard Accessibility Hotkeys (Space: Mic toggle, Escape: Barge-in, R: Reset chat)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      const isInput =
+        activeEl &&
+        (activeEl.tagName === 'INPUT' ||
+          activeEl.tagName === 'TEXTAREA' ||
+          (activeEl as HTMLElement).isContentEditable);
+      if (isInput) return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        toggleMic();
+      } else if (e.code === 'Escape') {
+        e.preventDefault();
+        if (isSpeaking) {
+          handleBargeIn();
+        } else if (isListening) {
+          if (recognitionRef.current) {
+            try {
+              recognitionRef.current.abort();
+            } catch {}
+          }
+        }
+      } else if (e.code === 'KeyR' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault();
+        handleResetChat();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleMic, handleBargeIn, handleResetChat, isSpeaking, isListening, recognitionRef]);
 
   const startSession = (topicTitle?: unknown) => {
     unlockAudio();
@@ -891,6 +994,10 @@ const SpeakingCoachPage: React.FC = () => {
   };
 
   const endSession = async () => {
+    if (streamAbortControllerRef.current) {
+      streamAbortControllerRef.current.abort();
+      streamAbortControllerRef.current = null;
+    }
     const historyToAnalyze = [...chatHistoryRef.current];
     const durSecs = sessionSeconds;
 
@@ -1109,7 +1216,8 @@ const SpeakingCoachPage: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className={`relative flex h-full w-full select-none flex-col overflow-hidden ${
+      onTouchStart={() => unlockAudio()}
+      className={`pb-safe relative flex h-[100dvh] w-full select-none flex-col overflow-hidden ${
         isFullscreen ? 'fixed inset-0 z-50 m-0 h-screen w-screen bg-background p-0' : ''
       }`}
     >

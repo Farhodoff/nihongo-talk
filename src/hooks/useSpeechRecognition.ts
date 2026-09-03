@@ -28,9 +28,28 @@ export interface UseSpeechRecognitionReturn {
 }
 
 /**
+ * Checks if transcript ends with mid-sentence connective particle or unfinished conjunction
+ * where the user is clearly mid-sentence and needs comfortable thinking time.
+ */
+export function isMidSentenceConjunction(text: string, lang: 'en' | 'ja'): boolean {
+  const trimmed = text.trim();
+  if (!trimmed) return false;
+
+  if (lang === 'ja') {
+    // Te-form, connective particles, conditionals, hesitation markers
+    return /(て|で|から|ので|けど|けれど|けれども|が|たら|なら|ば|のに|し|とか|たり|と|に|を|は|ええと|あのー|そのー)$/.test(
+      trimmed,
+    );
+  }
+
+  // English: conjunctions, prepositions, or hesitation fillers at end of sentence
+  return /\b(and|or|but|because|so|although|if|when|while|to|for|with|um|uh|like)$/i.test(trimmed);
+}
+
+/**
  * Checks if transcript ends with terminal punctuation or sentence-ending grammar pattern
  */
-function isSentenceTerminal(text: string, lang: 'en' | 'ja'): boolean {
+export function isSentenceTerminal(text: string, lang: 'en' | 'ja'): boolean {
   const trimmed = text.trim();
   if (!trimmed) return false;
 
@@ -70,6 +89,7 @@ export const useSpeechRecognition = ({
   const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(true);
   const [audioVolume, setAudioVolume] = useState<number>(0);
+  const audioVolumeRef = useRef<number>(0);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
@@ -82,6 +102,7 @@ export const useSpeechRecognition = ({
       animFrameRef.current = null;
     }
     analyserRef.current = null;
+    audioVolumeRef.current = 0;
     setAudioVolume(0);
     if (mediaStreamRef.current) {
       try {
@@ -122,6 +143,7 @@ export const useSpeechRecognition = ({
           }
           const avg = sum / dataArray.length;
           const normalized = Math.min(100, Math.round((avg / 128) * 100));
+          audioVolumeRef.current = normalized;
           setAudioVolume(normalized);
           animFrameRef.current = requestAnimationFrame(checkVolume);
         };
@@ -349,16 +371,48 @@ export const useSpeechRecognition = ({
       }
 
       // COMFORTABLE ADAPTIVE SPEECH PAUSE TIMEOUT
-      // 1400ms for terminal sentences, 2000ms for natural thinking pauses
       const userCustomDelay =
         typeof window !== 'undefined'
           ? parseInt(localStorage.getItem('speaking_coach_pause_delay') || '0', 10)
           : 0;
       const isTerminal = isSentenceTerminal(cleanText, languageRef.current);
-      const silenceThreshold = userCustomDelay > 0 ? userCustomDelay : isTerminal ? 1400 : 2000;
+      const isMidConjunction = isMidSentenceConjunction(cleanText, languageRef.current);
+
+      // Adaptive Smart Silence Delay:
+      // - Clearly complete terminal sentences: 1100ms (fast conversational turn)
+      // - Mid-sentence clause / connective particle: 2400ms (comfortable thinking time)
+      // - General neutral pause: 1700ms
+      let silenceThreshold = 1700;
+      if (userCustomDelay > 0) {
+        silenceThreshold = userCustomDelay;
+      } else if (isMidConjunction) {
+        silenceThreshold = 2400;
+      } else if (isTerminal) {
+        silenceThreshold = 1100;
+      }
 
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       silenceTimerRef.current = setTimeout(() => {
+        // Acoustic VAD check: if user is still vocalizing or breathing actively (volume > 18),
+        // give an additional 600ms grace period to prevent cutting off mid-speech
+        if (audioVolumeRef.current > 18) {
+          silenceTimerRef.current = setTimeout(() => {
+            if (
+              isLiveSessionRef.current &&
+              !isProcessingRef.current &&
+              transcriptBufferRef.current.trim().length > 0
+            ) {
+              isSilenceTimeoutRef.current = true;
+              try {
+                recognition.stop();
+              } catch (e) {
+                console.debug('Recognition stop failed:', e);
+              }
+            }
+          }, 600);
+          return;
+        }
+
         if (
           isLiveSessionRef.current &&
           !isProcessingRef.current &&

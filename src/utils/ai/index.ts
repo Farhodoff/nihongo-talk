@@ -7,3 +7,4 @@ export * from './aiCoach';
 export * from './aiIelts';
 export * from './aiJlpt';
 export * from './aiPlacementTest';
+export * from './aiVoiceStream';
