@@ -24,6 +24,7 @@ interface RealtimeVoiceOverlayProps {
   onCommitNow?: () => void;
   onBargeIn?: () => void;
   onToggleHandsFree?: () => void;
+  onSpeakText?: (text: string) => void;
 }
 
 export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
@@ -39,6 +40,7 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
   onCommitNow,
   onBargeIn,
   onToggleHandsFree,
+  onSpeakText,
 }) => {
   const { language } = useLanguage();
   const isJa = language === 'ja';
@@ -238,6 +240,16 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
                         <span className="flex items-center gap-0.5 font-bold text-emerald-400">
                           <CheckCircle2 size={11} /> {err.correction}
                         </span>
+                        {onSpeakText && (
+                          <button
+                            type="button"
+                            onClick={() => onSpeakText(err.correction)}
+                            className="shrink-0 cursor-pointer rounded p-0.5 text-emerald-400 transition-colors hover:bg-emerald-500/20"
+                            title="To'g'ri jumlani tinglash"
+                          >
+                            <Volume2 size={11} />
+                          </button>
+                        )}
                       </div>
                       <span
                         className={`rounded border px-1.5 py-0.5 text-[9px] font-bold uppercase ${badge.color}`}

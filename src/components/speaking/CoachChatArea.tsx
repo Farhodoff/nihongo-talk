@@ -149,21 +149,45 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                 msg.correction &&
                 msg.correction.hasError &&
                 msg.correction.corrected && (
-                  <div className="mt-2.5 space-y-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs">
-                    <div className="flex items-center gap-1 text-[11px] font-bold text-[#C9A961]">
+                  <div className="mt-2.5 space-y-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs">
+                    <div className="flex items-center justify-between gap-1 text-[11px] font-bold text-[#C9A961]">
                       <span>
                         {language === 'ja'
                           ? '💡 文法・表現のアドバイス:'
                           : '💡 Grammatika / Iborani yaxshilash:'}
                       </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          speakText(
+                            msg.correction!.explanation
+                              ? `${msg.correction!.explanation} ${msg.correction!.corrected || ''}`
+                              : msg.correction!.corrected || '',
+                          )
+                        }
+                        className="inline-flex cursor-pointer items-center gap-1 rounded-md bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-500 transition-colors hover:bg-amber-500/25"
+                        title="Maslahatni to'liq ovozda tinglash"
+                      >
+                        <Volume2 size={12} />
+                        <span>Kengashni Tinglash</span>
+                      </button>
                     </div>
                     {msg.correction.original && (
                       <div className="text-[11px] text-rose-400 line-through">
                         ❌ {msg.correction.original}
                       </div>
                     )}
-                    <div className="text-xs font-semibold text-emerald-400">
-                      ✅ {msg.correction.corrected}
+                    <div className="flex items-center justify-between gap-2 rounded-lg bg-emerald-500/10 px-2 py-1 text-xs font-semibold text-emerald-400">
+                      <span>✅ {msg.correction.corrected}</span>
+                      <button
+                        type="button"
+                        onClick={() => speakText(msg.correction?.corrected || '')}
+                        className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-emerald-400 transition-colors hover:bg-emerald-500/20"
+                        title="To'g'ri jumlani tinglash"
+                      >
+                        <Volume2 size={12} />
+                        <span>Tinglash</span>
+                      </button>
                     </div>
                     {msg.correction.explanation && (
                       <div className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
@@ -213,6 +237,14 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                                 ({vocab.reading})
                               </span>
                             )}
+                            <button
+                              type="button"
+                              onClick={() => speakText(vocab.reading || vocab.word)}
+                              className="cursor-pointer rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-amber-400"
+                              title="So'z talaffuzini tinglash"
+                            >
+                              <Volume2 size={12} />
+                            </button>
                           </div>
                           <span className="text-[11px] text-muted-foreground">
                             • {vocab.meaning}
@@ -300,26 +332,39 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
 
             {/* Action Buttons */}
             <div
-              className={`mt-1 flex items-center gap-0.5 ${msg.role === 'user' ? 'justify-end' : 'ml-0 justify-start'} opacity-0 transition-opacity group-hover:opacity-100`}
+              className={`mt-1.5 flex items-center gap-1 ${msg.role === 'user' ? 'justify-end' : 'ml-0 justify-start'}`}
             >
               <button
+                type="button"
                 onClick={() => copyToClipboard(msg.content, idx)}
                 className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 title="Nusxalash"
               >
                 {copiedIndex === idx ? (
-                  <Check size={12} className="text-emerald-500" />
+                  <Check size={13} className="text-emerald-500" />
                 ) : (
-                  <Copy size={12} />
+                  <Copy size={13} />
                 )}
               </button>
               {msg.role === 'assistant' && (
                 <button
-                  onClick={() => speakText(msg.ttsText || extractSpeechAudioText(msg.content))}
-                  className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  title="Qayta O'qib berish"
+                  type="button"
+                  onClick={() => {
+                    const toSpeak =
+                      msg.ttsText ||
+                      extractSpeechAudioText(msg.content) ||
+                      (msg.correction?.corrected
+                        ? `${msg.correction.corrected} ${msg.correction.explanation || ''}`
+                        : '');
+                    if (toSpeak) {
+                      speakText(toSpeak);
+                    }
+                  }}
+                  className="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  title="Qayta o'qib berish"
                 >
-                  <Volume2 size={12} />
+                  <Volume2 size={13} />
+                  <span className="text-[10px]">O'qish</span>
                 </button>
               )}
             </div>

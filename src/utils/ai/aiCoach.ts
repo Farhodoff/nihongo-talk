@@ -174,27 +174,6 @@ export const parseCoachResponse = (
         }
       }
 
-      if (!reply) {
-        reply = raw.trim();
-      }
-
-      let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
-      if (!ttsText) ttsText = extractSpeechAudioText(reply);
-
-      let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
-      if (
-        !romaji &&
-        parsed.reading &&
-        typeof parsed.reading === 'string' &&
-        /[a-zA-Z]/.test(parsed.reading)
-      ) {
-        romaji = parsed.reading.trim();
-      }
-
-      if (lang === 'ja') {
-        ttsText = cleanJapaneseTTS(ttsText);
-      }
-
       let correction: CoachCorrection = { hasError: false };
       if (parsed.correction && typeof parsed.correction === 'object') {
         if (Array.isArray(parsed.correction.errors) && parsed.correction.errors.length > 0) {
@@ -213,6 +192,45 @@ export const parseCoachResponse = (
             explanation: parsed.correction.explanation || '',
           };
         }
+      }
+
+      // If reply is empty, fallback to correction advice
+      if (!reply || reply.startsWith('{')) {
+        if (correction.hasError) {
+          reply = correction.explanation || correction.corrected || '';
+        }
+      }
+
+      if (!reply || reply.startsWith('{')) {
+        reply =
+          lang === 'ja'
+            ? 'はい、よく分かりました！続けて日本語でお話ししましょう。'
+            : "Understood! Let's continue speaking practice.";
+      }
+
+      let ttsText = typeof parsed.ttsText === 'string' ? parsed.ttsText.trim() : '';
+      if (!ttsText || ttsText.startsWith('{')) {
+        if (reply && !reply.startsWith('{')) {
+          ttsText = extractSpeechAudioText(reply);
+        } else if (correction.hasError) {
+          ttsText = correction.explanation
+            ? `${correction.explanation} ${correction.corrected || ''}`
+            : correction.corrected || '';
+        }
+      }
+
+      let romaji = typeof parsed.romaji === 'string' ? parsed.romaji.trim() : '';
+      if (
+        !romaji &&
+        parsed.reading &&
+        typeof parsed.reading === 'string' &&
+        /[a-zA-Z]/.test(parsed.reading)
+      ) {
+        romaji = parsed.reading.trim();
+      }
+
+      if (lang === 'ja') {
+        ttsText = cleanJapaneseTTS(ttsText);
       }
 
       const vocabulary: CoachVocabularyItem[] = Array.isArray(parsed.vocabulary)

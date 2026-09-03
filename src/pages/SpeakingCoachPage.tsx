@@ -9,6 +9,7 @@ import {
   translateTextToUzbek,
   parseMicroErrors,
   extractSpeechAudioText,
+  cleanJapaneseTTS,
 } from '../utils/ai';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { ErrorVaultService } from '../services/ErrorVaultService';
@@ -687,10 +688,18 @@ const SpeakingCoachPage: React.FC = () => {
       setIsThinking(false);
       isProcessingRef.current = false;
 
-      // STRICT TTS: Speak ONLY canonical Japanese/English TTS text (never Romaji or visual notes)
-      const speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
+      // STRICT TTS: Speak canonical Japanese/English TTS text, or correction advice if reply was blank
+      let speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
+      if (!speechToPlay && structured.correction?.hasError) {
+        const jaAdvice = structured.correction.explanation
+          ? `${structured.correction.explanation} ${structured.correction.corrected || ''}`
+          : structured.correction.corrected || '';
+        speechToPlay = language === 'ja' ? cleanJapaneseTTS(jaAdvice) : jaAdvice;
+      }
       lastCoachSpokenTextRef.current = speechToPlay;
-      speakText(speechToPlay);
+      if (speechToPlay) {
+        speakText(speechToPlay);
+      }
     } catch (err: any) {
       console.error('Coach response error:', err);
       let errorMessage = err.message || 'Tahlil qilishda xatolik yuz berdi.';
@@ -1135,6 +1144,7 @@ const SpeakingCoachPage: React.FC = () => {
                 onBargeIn={handleBargeIn}
                 onToggleRecording={toggleMic}
                 onCommitNow={commitSpeechNow}
+                onSpeakText={speakText}
               />
             )}
             <CoachChatArea

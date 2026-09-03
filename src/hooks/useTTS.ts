@@ -480,12 +480,8 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
-      // If no native voice exists for Japanese, or speech synthesis is missing,
-      // route directly to Network Google TTS so user hears crystal-clear speech.
-      if (!synth || (isJa && !selectedVoice)) {
-        console.info(
-          `[useTTS] Native ${isJa ? 'Japanese' : 'English'} voice not found locally. Routing to Network Google TTS.`,
-        );
+      // If Web Speech API is completely unavailable in this browser, try network TTS
+      if (!synth) {
         await playWithNetworkTTS(chunks);
         return;
       }
