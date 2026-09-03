@@ -1,7 +1,17 @@
-import { describe, it, expect, vi } from 'vitest';
-import { splitIntoTTSChunks, selectBestVoice, fetchTTSAudioBlob } from '../useTTS';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  splitIntoTTSChunks,
+  selectBestVoice,
+  fetchTTSAudioBlob,
+  clearTTSAudioCache,
+} from '../useTTS';
 
 describe('useTTS & Audio Chunking Resiliency Tests', () => {
+  beforeEach(() => {
+    clearTTSAudioCache();
+    vi.restoreAllMocks();
+  });
+
   it('1. returns single item array when text is shorter than maxChunkLen', () => {
     const text = 'こんにちは、元気ですか？';
     const chunks = splitIntoTTSChunks(text, 170);
@@ -101,5 +111,24 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
 
     const blob = await fetchTTSAudioBlob('こんにちは', 'ja');
     expect(blob).toBeNull();
+  });
+
+  it('11. fetchTTSAudioBlob returns cached audio without calling network again', async () => {
+    const fakeBlob = new Blob(['cached audio'], { type: 'audio/mpeg' });
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(fakeBlob, {
+        status: 200,
+        headers: { 'Content-Type': 'audio/mpeg' },
+      }),
+    );
+
+    const firstBlob = await fetchTTSAudioBlob('おはようございます', 'ja');
+    expect(firstBlob).not.toBeNull();
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+    // Second call with same text should hit cache with 0ms network calls
+    const secondBlob = await fetchTTSAudioBlob('おはようございます', 'ja');
+    expect(secondBlob).not.toBeNull();
+    expect(fetchSpy).toHaveBeenCalledTimes(1); // Not called again!
   });
 });

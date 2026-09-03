@@ -17,12 +17,18 @@ const getAuthUserId = async (): Promise<string> => {
     if (typeof supabase?.auth?.getSession === 'function') {
       const { data } = await supabase.auth.getSession();
       if (data?.session?.user?.id) return data.session.user.id;
-      return 'local_user';
     }
     if (typeof supabase?.auth?.getUser === 'function') {
       const { data } = await supabase.auth.getUser();
       if (data?.user?.id) return data.user.id;
     }
+  } catch {}
+  try {
+    const cachedUser = safeLocalStorage.getJSON<{ id?: string } | null>(
+      'study_planner_user_cache',
+      null,
+    );
+    if (cachedUser?.id && isUuid(cachedUser.id)) return cachedUser.id;
   } catch {}
   return 'local_user';
 };

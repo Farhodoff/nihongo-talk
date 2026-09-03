@@ -41,6 +41,7 @@ import { isAcousticEcho } from '../utils/echoFilter';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 import { AudioStorageService } from '../services/AudioStorageService';
 import { getOrEnsureSpeakingDeck } from '../utils/subjectResolver';
+import { supabase } from '../lib/supabase';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<
   'en' | 'ja',
@@ -157,60 +158,6 @@ const SpeakingCoachPage: React.FC = () => {
     setSearchParams({ lang: newLang });
   };
 
-  const DEFAULT_JA_CHAT_HISTORY: CoachChatMessage[] = [
-    {
-      role: 'user',
-      content:
-        '先生、こんにちは！日本のIT企業での面接に向けて、自己PRと志望動機の練習をしたいです。',
-      timestamp: '14:20',
-    },
-    {
-      role: 'assistant',
-      content:
-        'こんにちは！日本のIT業界を目指す意気込み、素晴らしいですね。面接では「なぜ日本で働きたいか」「チーム開発での技術的な強み」が重視されます。まずは自己紹介と得意な技術スタックについて話してみてください！',
-      romaji: 'Konnichiwa! Nihon no IT gyoukai o mezasu ikigomi, subarashii desu ne.',
-      timestamp: '14:21',
-      correction: {
-        hasError: true,
-        original: '志望動機の練習をしたいです',
-        corrected: '志望動機のご指導をいただきたく存じます',
-        explanation:
-          'ビジネスシーンや面接指導では謙譲表現「〜いただきたく存じます」を用いると、より洗練されたプロフェッショナルな印象になります。',
-      },
-      vocabulary: [
-        {
-          word: '志望動機',
-          meaning: 'Ishga topshirish sababi va maqsadi (Reason for applying)',
-          reading: 'しぼうどうき',
-        },
-        {
-          word: '自己PR',
-          meaning: "O'zini tanishtirish va kuchli tomonlarini ko'rsatish (Self-promotion)",
-          reading: 'じこピーアール',
-        },
-        {
-          word: '技術スタック',
-          meaning: "Texnologiyalar to'plami va ko'nikmalar (Technology stack)",
-          reading: 'ぎじゅつスタック',
-        },
-      ],
-    },
-    {
-      role: 'user',
-      content:
-        '大学では情報工学を専攻し、TypeScriptとReactを用いたWebアプリ開発に注力してきました。クラウドインフラにも強い関心があります。',
-      timestamp: '14:22',
-    },
-    {
-      role: 'assistant',
-      content:
-        '明瞭で説得力のある自己紹介です！モダンなWeb技術とクラウドの組み合わせは日本のテック企業でも高く評価されます。この調子で模擬面接を続けましょう。',
-      romaji:
-        'Meiryou de settokuryoku no aru jiko shoukai desu! Kono choushi de menseki renshuu o tsuzukemashou.',
-      timestamp: '14:23',
-    },
-  ];
-
   const [persona, setPersona] = useState<CoachPersona>('roast');
   const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>(
     '7.5',
@@ -235,7 +182,8 @@ const SpeakingCoachPage: React.FC = () => {
         return [{ role: 'assistant', content: greeting, timestamp: timeStr }];
       }
     }
-    return language === 'ja' || !language ? DEFAULT_JA_CHAT_HISTORY : [];
+    // Clean fresh session without old persistent mock chat
+    return [];
   });
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [sessionSeconds, setSessionSeconds] = useState(0);
@@ -355,7 +303,7 @@ const SpeakingCoachPage: React.FC = () => {
   const lastCoachSpokenTextRef = useRef<string>('');
 
   // TTS Hook
-  const { speakText, stopSpeaking, unlockAudio } = useTTS({
+  const { speakText, stopSpeaking, unlockAudio, isPreparingAudio } = useTTS({
     language,
     isLiveSessionRef,
     isProcessingRef,
@@ -497,7 +445,14 @@ const SpeakingCoachPage: React.FC = () => {
       const activeLang = isJa ? 'ja' : 'en';
 
       // 1. Direct PostgreSQL DB Persist into `speaking_vocabularies` table
-      const userId = user?.id || 'local_user';
+      let effectiveUserId = user?.id;
+      if (!effectiveUserId || effectiveUserId === 'local_user' || effectiveUserId === 'guest') {
+        try {
+          const { data } = await supabase.auth.getSession();
+          if (data?.session?.user?.id) effectiveUserId = data.session.user.id;
+        } catch {}
+      }
+      const userId = effectiveUserId || 'local_user';
       const personaName = PERSONAS_BY_LANG[activeLang]?.[persona]?.name;
       const scenarioName = activeScenario
         ? activeScenario.title_uz || activeScenario.title_en || activeScenario.title_ja
@@ -1265,6 +1220,7 @@ const SpeakingCoachPage: React.FC = () => {
         isHandsFree={isHandsFree}
         onToggleHandsFree={() => setIsHandsFree((prev) => !prev)}
         onBargeIn={handleBargeIn}
+        isPreparingAudio={isPreparingAudio}
       />
 
       {/* SETTINGS MODAL */}
@@ -1273,7 +1229,11 @@ const SpeakingCoachPage: React.FC = () => {
       {/* SESSION REPORT MODAL */}
       <SessionReportModal
         isOpen={isReportOpen}
-        onClose={() => setIsReportOpen(false)}
+        onClose={() => {
+          setIsReportOpen(false);
+          setChatHistory([]);
+          chatHistoryRef.current = [];
+        }}
         report={reportData}
         isLoading={isReportLoading}
         personaTitle={PERSONAS[persona].name}
@@ -1282,7 +1242,11 @@ const SpeakingCoachPage: React.FC = () => {
       {/* SCENARIO EVALUATION REPORT MODAL */}
       <ScenarioReportModal
         isOpen={isScenarioReportOpen}
-        onClose={() => setIsScenarioReportOpen(false)}
+        onClose={() => {
+          setIsScenarioReportOpen(false);
+          setChatHistory([]);
+          chatHistoryRef.current = [];
+        }}
         result={scenarioEvalResult}
         isLoading={isScenarioEvalLoading}
         recordedUrl={voiceRecorder.recordedUrl}

@@ -1,7 +1,15 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useState } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
 import { supabase } from '../lib/supabase';
+
+// High-speed In-Memory Audio Cache for 0ms TTS playback on repeated or prefetched text
+const TTS_AUDIO_CACHE = new Map<string, Blob>();
+const MAX_TTS_CACHE_ENTRIES = 80;
+
+export function clearTTSAudioCache(): void {
+  TTS_AUDIO_CACHE.clear();
+}
 
 interface UseTTSOptions {
   language: 'en' | 'ja';
@@ -9,6 +17,7 @@ interface UseTTSOptions {
   isProcessingRef?: React.MutableRefObject<boolean>;
   onSpeakStart: () => void;
   onSpeakEnd: () => void;
+  onAudioPreparing?: (isPreparing: boolean) => void;
 }
 
 export interface UseTTSReturn {
@@ -19,22 +28,23 @@ export interface UseTTSReturn {
   unlockAudio: () => void;
   enqueueStreamSentence: (sentence: string) => void;
   endStreamPlayback: () => void;
+  isPreparingAudio: boolean;
 }
 
 /**
  * Splits text into natural sentence-based chunks of <= maxChunkLen characters
  * so that Google TTS (max 200 chars) and mobile speech engines never truncate speech.
  */
-export function splitIntoTTSChunks(text: string, maxChunkLen: number = 170): string[] {
+export function splitIntoTTSChunks(text: string, maxChunkLen: number = 100): string[] {
   const trimmed = text.trim();
   if (!trimmed) return [];
-  if (trimmed.length <= maxChunkLen) return [trimmed];
 
   // Split on natural sentence endings: Japanese (。！？\n) and Latin (.!?\n)
-  const sentenceRegex = /([^。！？.!?\n]+[。！？.!?\n]+)/g;
+  const sentenceRegex = /([^。！？.!?\n]+[。！？.!?\n]*)/g;
   const rawMatches = trimmed.match(sentenceRegex);
 
   if (!rawMatches || rawMatches.length === 0) {
+    if (trimmed.length <= maxChunkLen) return [trimmed];
     const chunks: string[] = [];
     let current = '';
     const words = trimmed.split(/(\s+)/);
@@ -59,40 +69,32 @@ export function splitIntoTTSChunks(text: string, maxChunkLen: number = 170): str
   }
 
   const chunks: string[] = [];
-  let currentChunk = '';
-
   for (const match of rawMatches) {
-    if ((currentChunk + match).length <= maxChunkLen) {
-      currentChunk += match;
+    const cleanMatch = match.trim();
+    if (!cleanMatch) continue;
+    if (cleanMatch.length <= maxChunkLen) {
+      chunks.push(cleanMatch);
     } else {
-      if (currentChunk.trim()) {
-        chunks.push(currentChunk.trim());
+      // If a single long sentence exceeds maxChunkLen, split on commas or spaces
+      const subParts = cleanMatch.split(/([、,，\n]+)/);
+      let subChunk = '';
+      for (const part of subParts) {
+        if ((subChunk + part).length <= maxChunkLen) {
+          subChunk += part;
+        } else {
+          if (subChunk.trim()) chunks.push(subChunk.trim());
+          if (part.length <= maxChunkLen) {
+            subChunk = part;
+          } else {
+            for (let i = 0; i < part.length; i += maxChunkLen) {
+              chunks.push(part.slice(i, i + maxChunkLen));
+            }
+            subChunk = '';
+          }
+        }
       }
-      if (match.length <= maxChunkLen) {
-        currentChunk = match;
-      } else {
-        chunks.push(match.slice(0, maxChunkLen).trim());
-        currentChunk = match.slice(maxChunkLen);
-      }
+      if (subChunk.trim()) chunks.push(subChunk.trim());
     }
-  }
-
-  const matchedLen = rawMatches.join('').length;
-  if (matchedLen < trimmed.length) {
-    const remaining = trimmed.slice(matchedLen).trim();
-    if (remaining) {
-      if ((currentChunk + ' ' + remaining).length <= maxChunkLen) {
-        currentChunk += ' ' + remaining;
-      } else {
-        if (currentChunk.trim()) chunks.push(currentChunk.trim());
-        chunks.push(remaining.slice(0, maxChunkLen));
-        currentChunk = '';
-      }
-    }
-  }
-
-  if (currentChunk.trim()) {
-    chunks.push(currentChunk.trim());
   }
 
   return chunks.filter((c) => c.length > 0);
@@ -156,6 +158,11 @@ export function selectBestVoice(
  * Fetches high-quality Google TTS audio from the serverless /api/tts endpoint
  */
 export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promise<Blob | null> {
+  const cleanKey = `${lang}:${(text || '').trim()}`;
+  if (TTS_AUDIO_CACHE.has(cleanKey)) {
+    return TTS_AUDIO_CACHE.get(cleanKey)!;
+  }
+
   try {
     const sessionRes = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
     const token =
@@ -196,6 +203,14 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
 
     const blob = await response.blob();
     if (!blob || blob.size === 0) return null;
+
+    // Cache the audio blob
+    if (TTS_AUDIO_CACHE.size >= MAX_TTS_CACHE_ENTRIES) {
+      const oldestKey = TTS_AUDIO_CACHE.keys().next().value;
+      if (oldestKey) TTS_AUDIO_CACHE.delete(oldestKey);
+    }
+    TTS_AUDIO_CACHE.set(cleanKey, blob);
+
     return blob;
   } catch (err) {
     console.warn('[useTTS] fetchTTSAudioBlob error:', err);
@@ -203,7 +218,13 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
   }
 }
 
-export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): UseTTSReturn => {
+export const useTTS = ({
+  language,
+  onSpeakStart,
+  onSpeakEnd,
+  onAudioPreparing,
+}: UseTTSOptions): UseTTSReturn => {
+  const [isPreparingAudio, setIsPreparingAudio] = useState(false);
   const synthRef = useRef<SpeechSynthesis | null>(
     typeof window !== 'undefined' && window.speechSynthesis ? window.speechSynthesis : null,
   );
@@ -670,13 +691,20 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         return;
       }
 
-      const chunks = splitIntoTTSChunks(textToPlay, 170);
+      setIsPreparingAudio(true);
+      onAudioPreparing?.(true);
+
+      const chunks = splitIntoTTSChunks(textToPlay, 90);
       if (chunks.length === 0) {
+        setIsPreparingAudio(false);
+        onAudioPreparing?.(false);
         onSpeakEnd();
         return;
       }
 
       const onSpeechFinish = (success: boolean = true, error?: string) => {
+        setIsPreparingAudio(false);
+        onAudioPreparing?.(false);
         if (watchdogIntervalRef.current) {
           clearInterval(watchdogIntervalRef.current);
           watchdogIntervalRef.current = null;
@@ -698,16 +726,36 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
       }, safetyTimeoutMs);
 
+      // Pipelined parallel prefetcher: fetch upcoming chunks in background while current chunk is playing
+      const prefetchChunk = (idx: number) => {
+        if (idx >= 0 && idx < chunks.length) {
+          fetchTTSAudioBlob(chunks[idx], isJa ? 'ja' : 'en').catch(() => {});
+        }
+      };
+
+      // Kick off prefetch for initial chunks immediately in parallel
+      prefetchChunk(0);
+      prefetchChunk(1);
+
       onSpeakStart();
 
       for (let i = 0; i < chunks.length; i++) {
         if (isCancelledRef.current) break;
+        // Prefetch next chunk in background
+        prefetchChunk(i + 1);
+        prefetchChunk(i + 2);
+
+        if (i === 0) {
+          setIsPreparingAudio(false);
+          onAudioPreparing?.(false);
+        }
+
         await playSingleClause(chunks[i], isJa);
       }
 
       onSpeechFinish(true);
     },
-    [onSpeakStart, onSpeakEnd, stopSpeaking, playSingleClause],
+    [onSpeakStart, onSpeakEnd, onAudioPreparing, stopSpeaking, playSingleClause],
   );
 
   return {
@@ -718,5 +766,6 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
     unlockAudio,
     enqueueStreamSentence,
     endStreamPlayback,
+    isPreparingAudio,
   };
 };
