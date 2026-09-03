@@ -31,6 +31,8 @@ interface CoachTopBarProps {
   onOpenSettings: () => void;
   formatTimer: (sec: number) => string;
   activeScenario?: any;
+  speechSpeed?: number;
+  onSpeedChange?: (speed: number) => void;
 }
 
 export const CoachTopBar: React.FC<CoachTopBarProps> = ({
@@ -53,6 +55,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
   onOpenSettings,
   formatTimer,
   activeScenario,
+  speechSpeed = 1.0,
+  onSpeedChange,
 }) => {
   const navigate = useNavigate();
   const PERSONAS = PERSONAS_BY_LANG[language];
@@ -219,6 +223,26 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             ))}
           </div>
         )}
+
+        {/* AI Speech Speed Selector (0.8x, 1.0x, 1.2x) */}
+        <div className="hidden items-center rounded-xl border border-border bg-card/90 px-2 py-1 backdrop-blur-xl md:flex">
+          <span className="mr-1 text-[10px] font-bold text-muted-foreground">Tezlik:</span>
+          {([0.8, 1.0, 1.2] as const).map((spd) => (
+            <button
+              key={spd}
+              type="button"
+              onClick={() => onSpeedChange?.(spd)}
+              className={`cursor-pointer rounded-md px-1.5 py-0.5 text-[10px] font-extrabold transition-all ${
+                Math.abs(speechSpeed - spd) < 0.05
+                  ? 'bg-primary text-primary-foreground shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+              title={`AI nutq tezligi: ${spd}x`}
+            >
+              {spd}x
+            </button>
+          ))}
+        </div>
 
         {/* Speaking Flashcards Quick Access */}
         <button

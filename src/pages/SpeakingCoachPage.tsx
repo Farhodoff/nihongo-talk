@@ -44,6 +44,8 @@ import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService
 import { AudioStorageService } from '../services/AudioStorageService';
 import { getOrEnsureSpeakingDeck } from '../utils/subjectResolver';
 import { supabase } from '../lib/supabase';
+import { PitchAccentService, PitchAccentInfo } from '../services/PitchAccentService';
+import { PitchAccentModal } from '../components/speaking/PitchAccentModal';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<
   'en' | 'ja',
@@ -257,6 +259,13 @@ const SpeakingCoachPage: React.FC = () => {
     }
   }, [isHandsFree]);
 
+  // Pitch Accent inspection modal state
+  const [inspectingPitch, setInspectingPitch] = useState<PitchAccentInfo | null>(null);
+  const handleInspectPitch = useCallback((word: string, kanaHint?: string) => {
+    const info = PitchAccentService.getPitchAccent(word, kanaHint);
+    setInspectingPitch(info);
+  }, []);
+
   // Fullscreen Toggle Support (⛶ Zoom/Fullscreen mode)
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -313,6 +322,8 @@ const SpeakingCoachPage: React.FC = () => {
     isPreparingAudio,
     enqueueStreamSentence,
     endStreamPlayback,
+    speechSpeed,
+    setSpeechSpeed,
   } = useTTS({
     language,
     isLiveSessionRef,
@@ -1257,6 +1268,8 @@ const SpeakingCoachPage: React.FC = () => {
         onOpenSettings={() => setIsSettingsOpen(true)}
         formatTimer={formatTimer}
         activeScenario={activeScenario}
+        speechSpeed={speechSpeed}
+        onSpeedChange={setSpeechSpeed}
       />
 
       {/* Active Conversation Scenario Banner */}
@@ -1365,6 +1378,7 @@ const SpeakingCoachPage: React.FC = () => {
               speakText={speakText}
               setChatHistory={setChatHistory}
               onAddVocabulary={handleAddVocabToFlashcards}
+              onInspectPitch={handleInspectPitch}
             />
           </div>
         )}
@@ -1423,6 +1437,13 @@ const SpeakingCoachPage: React.FC = () => {
         onPlayRecorded={voiceRecorder.playRecorded}
         onPauseRecorded={voiceRecorder.pauseRecorded}
         onRetry={() => startSession()}
+      />
+
+      {/* PITCH ACCENT MODAL */}
+      <PitchAccentModal
+        isOpen={!!inspectingPitch}
+        onClose={() => setInspectingPitch(null)}
+        accentInfo={inspectingPitch}
       />
     </div>
   );

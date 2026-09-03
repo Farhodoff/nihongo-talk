@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
-import { Check, Copy, Volume2, Mic, Plus, Sparkles, ArrowRight } from 'lucide-react';
+import { Check, Copy, Volume2, Mic, Plus, Sparkles, ArrowRight, TrendingUp } from 'lucide-react';
 import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -21,6 +21,7 @@ interface CoachChatAreaProps {
   speakText: (text: string) => void;
   setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
   onAddVocabulary?: (vocab: CoachVocabularyItem) => Promise<boolean | void> | void;
+  onInspectPitch?: (word: string, kanaHint?: string) => void;
 }
 
 export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
@@ -37,6 +38,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
   speakText,
   setChatHistory,
   onAddVocabulary,
+  onInspectPitch,
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -252,6 +254,18 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             • {vocab.meaning}
                           </span>
 
+                          {onInspectPitch && language === 'ja' && (
+                            <button
+                              type="button"
+                              onClick={() => onInspectPitch(vocab.word, vocab.reading)}
+                              className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary transition-all hover:bg-primary/20 hover:shadow-xs active:scale-95"
+                              title="Yapon tili ohangi (Pitch Accent) grafigini ko'rish"
+                            >
+                              <TrendingUp size={11} />
+                              <span>Pitch</span>
+                            </button>
+                          )}
+
                           {onAddVocabulary && (
                             <button
                               type="button"
@@ -336,6 +350,23 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
             <div
               className={`mt-1.5 flex items-center gap-1 ${msg.role === 'user' ? 'justify-end' : 'ml-0 justify-start'}`}
             >
+              {msg.role === 'assistant' && language === 'ja' && onInspectPitch && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const firstWord = msg.content.match(/[\u3040-\u30ff\u4e00-\u9fff]+/);
+                    if (firstWord) {
+                      onInspectPitch(firstWord[0]);
+                    }
+                  }}
+                  className="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                  title="Ohang (Pitch Accent) grafigini ko'rish"
+                >
+                  <TrendingUp size={11} />
+                  <span>Pitch</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={() => copyToClipboard(msg.content, idx)}

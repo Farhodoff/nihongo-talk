@@ -31,6 +31,8 @@ export interface UseTTSReturn {
   enqueueStreamSentence: (sentence: string) => void;
   endStreamPlayback: () => void;
   isPreparingAudio: boolean;
+  speechSpeed: number;
+  setSpeechSpeed: (speed: number) => void;
 }
 
 /**
@@ -288,6 +290,34 @@ export const useTTS = ({
   onAudioPreparing,
 }: UseTTSOptions): UseTTSReturn => {
   const [isPreparingAudio, setIsPreparingAudio] = useState(false);
+  const [speechSpeed, setSpeechSpeedState] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('speaking_coach_speech_speed');
+      if (saved) {
+        const parsed = parseFloat(saved);
+        if (!isNaN(parsed) && parsed >= 0.5 && parsed <= 2.0) return parsed;
+      }
+    }
+    return 1.0;
+  });
+
+  const speechSpeedRef = useRef<number>(speechSpeed);
+  useEffect(() => {
+    speechSpeedRef.current = speechSpeed;
+  }, [speechSpeed]);
+
+  const setSpeechSpeed = useCallback((speed: number) => {
+    const validSpeed = Math.min(2.0, Math.max(0.5, speed));
+    setSpeechSpeedState(validSpeed);
+    speechSpeedRef.current = validSpeed;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('speaking_coach_speech_speed', validSpeed.toString());
+    }
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.playbackRate = validSpeed;
+    }
+  }, []);
+
   const synthRef = useRef<SpeechSynthesis | null>(
     typeof window !== 'undefined' && window.speechSynthesis ? window.speechSynthesis : null,
   );
@@ -447,6 +477,7 @@ export const useTTS = ({
       const audioBuffer = await ctx.decodeAudioData(arrayBuf);
       const source = ctx.createBufferSource();
       source.buffer = audioBuffer;
+      source.playbackRate.value = speechSpeedRef.current;
       source.connect(ctx.destination);
       source.onended = () => {
         onDone();
@@ -483,6 +514,7 @@ export const useTTS = ({
         }
         const audio = audioPlayerRef.current;
         audio.volume = 1.0;
+        audio.playbackRate = speechSpeedRef.current;
         audio.src = objectUrl;
         try {
           audio.load();
@@ -658,7 +690,7 @@ export const useTTS = ({
         try {
           const utterance = new SpeechSynthesisUtterance(clause);
           utterance.lang = isJa ? 'ja-JP' : 'en-US';
-          utterance.rate = isJa ? 0.92 : 0.95;
+          utterance.rate = (isJa ? 0.92 : 0.95) * speechSpeedRef.current;
           utterance.pitch = 1.0;
 
           if (selectedVoice) {
@@ -909,5 +941,7 @@ export const useTTS = ({
     enqueueStreamSentence,
     endStreamPlayback,
     isPreparingAudio,
+    speechSpeed,
+    setSpeechSpeed,
   };
 };
