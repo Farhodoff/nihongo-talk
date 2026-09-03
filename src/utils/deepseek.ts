@@ -322,6 +322,29 @@ export const streamDeepSeekTokens = async (
       if (!trimmed || trimmed.startsWith(':')) continue;
       if (trimmed === 'data: [DONE]') continue;
 
+      if (trimmed.startsWith('{"raw":')) {
+        try {
+          const wrapper = JSON.parse(trimmed);
+          if (typeof wrapper.raw === 'string') {
+            const rawLines = wrapper.raw.split('\n');
+            for (const rLine of rawLines) {
+              const rTrim = rLine.trim();
+              if (rTrim.startsWith('data: ') && rTrim !== 'data: [DONE]') {
+                try {
+                  const p = JSON.parse(rTrim.slice(6));
+                  const d = p.choices?.[0]?.delta?.content || '';
+                  if (d) {
+                    accumulated += d;
+                    onToken(d);
+                  }
+                } catch {}
+              }
+            }
+            continue;
+          }
+        } catch {}
+      }
+
       if (trimmed.startsWith('data: ')) {
         const jsonStr = trimmed.slice(6);
         try {

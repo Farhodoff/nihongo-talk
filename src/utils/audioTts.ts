@@ -102,11 +102,7 @@ export function speakText(text: string, accent: string = 'en-US'): void {
     }
   }
 
-  // For Japanese, ALWAYS prioritize Network Google TTS for crystal-clear native pronunciation
-  if (isJa) {
-    playNetworkFallback();
-    return;
-  }
+  // Web Speech API execution with resilient network fallback
 
   try {
     const utterance = new SpeechSynthesisUtterance(textToSpeak);

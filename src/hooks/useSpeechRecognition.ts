@@ -83,6 +83,12 @@ export const useSpeechRecognition = ({
     }
     analyserRef.current = null;
     setAudioVolume(0);
+    if (mediaStreamRef.current) {
+      try {
+        mediaStreamRef.current.getTracks().forEach((t) => t.stop());
+      } catch {}
+      mediaStreamRef.current = null;
+    }
   }, []);
 
   const startVolumeMeter = useCallback(

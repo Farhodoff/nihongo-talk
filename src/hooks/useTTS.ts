@@ -449,15 +449,14 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
-      // ALWAYS prioritize Network Google TTS for Japanese!
-      // Browser SpeechSynthesis on Mac/iOS is muted by active microphone (getUserMedia/CoreAudio)
-      // and lacks Japanese voice packs on many OS versions.
-      if (isJa || !synth || !selectedVoice) {
+      // When SpeechSynthesis is unavailable, route directly to network TTS
+      if (!synth) {
         try {
           await playNetworkClause(clause, isJa);
           return;
         } catch (netErr) {
-          console.warn('[useTTS] Network TTS failed, falling back to Web Speech:', netErr);
+          console.warn('[useTTS] Network TTS failed:', netErr);
+          return;
         }
       }
 
@@ -554,7 +553,7 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
   const enqueueStreamSentence = useCallback(
     (sentence: string) => {
-      if (isCancelledRef.current) return;
+      isCancelledRef.current = false;
       const rawClean = (sentence || '').trim();
       if (!rawClean) return;
 
