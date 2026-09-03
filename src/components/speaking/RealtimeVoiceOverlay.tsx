@@ -30,14 +30,14 @@ interface RealtimeVoiceOverlayProps {
 export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
   isRecording,
   isAiSpeaking,
-  transcript,
+  transcript: _transcript,
   errors,
   activeCefrLevel: _activeCefrLevel,
   activeJlptLevel: _activeJlptLevel,
   isHandsFree = false,
   audioVolume = 0,
   onToggleRecording: _onToggleRecording,
-  onCommitNow,
+  onCommitNow: _onCommitNow,
   onBargeIn,
   onToggleHandsFree,
   onSpeakText,
@@ -186,35 +186,6 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = ({
           )}
         </div>
       </div>
-
-      {/* Live Streaming Transcript Pill with Instant Commit */}
-      <AnimatePresence>
-        {isRecording && transcript && (
-          <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            className="flex items-center justify-between gap-2 rounded-xl border border-primary/30 bg-card/90 px-3.5 py-2 shadow-lg backdrop-blur-md"
-          >
-            <div className="flex min-w-0 items-center gap-2">
-              <span className="h-2 w-2 shrink-0 animate-ping rounded-full bg-primary" />
-              <p className="truncate text-xs font-medium text-foreground">
-                &quot;{transcript}&quot;
-              </p>
-            </div>
-            {onCommitNow && (
-              <button
-                type="button"
-                onClick={onCommitNow}
-                className="flex shrink-0 cursor-pointer items-center gap-1 rounded-lg border border-primary/40 bg-primary/20 px-2.5 py-1 text-[11px] font-bold text-primary transition-all hover:bg-primary/30"
-              >
-                <Zap size={12} className="text-primary" />
-                <span>Yuborish</span>
-              </button>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Expandable Micro-error toasts if detected */}
       <AnimatePresence>

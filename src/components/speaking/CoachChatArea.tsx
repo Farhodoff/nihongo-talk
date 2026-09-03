@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachChatMessage, CoachVocabularyItem, CoachPersonaItem } from './speakingTypes';
 import { Check, Copy, Volume2, Mic, Plus, Sparkles, ArrowRight } from 'lucide-react';
-import { extractSpeechAudioText } from '../../utils/ai';
 import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -346,27 +345,6 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                   <Copy size={13} />
                 )}
               </button>
-              {msg.role === 'assistant' && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const toSpeak =
-                      msg.ttsText ||
-                      extractSpeechAudioText(msg.content) ||
-                      (msg.correction?.corrected
-                        ? `${msg.correction.corrected} ${msg.correction.explanation || ''}`
-                        : '');
-                    if (toSpeak) {
-                      speakText(toSpeak);
-                    }
-                  }}
-                  className="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  title="Qayta o'qib berish"
-                >
-                  <Volume2 size={13} />
-                  <span className="text-[10px]">O'qish</span>
-                </button>
-              )}
             </div>
           </div>
         </div>
