@@ -34,68 +34,117 @@ export interface UseTTSReturn {
 }
 
 /**
- * Splits text into natural sentence-based chunks of <= maxChunkLen characters
- * so that Google TTS (max 200 chars) and mobile speech engines never truncate speech.
+ * Splits text into natural, cohesive speech chunks.
+ * To eliminate artificial silence gaps and encoder padding between multiple clips,
+ * it avoids fragmenting at every punctuation mark.
+ * Instead:
+ * - If text is under maxChunkLen (185 chars), it remains a single cohesive audio chunk.
+ * - If text exceeds maxChunkLen, it splits into at most 2 chunks: (a) the first short sentence for instant playback,
+ *   and (b) the remaining text as a single cohesive block.
  */
-export function splitIntoTTSChunks(text: string, maxChunkLen: number = 100): string[] {
+export function splitIntoTTSChunks(text: string, maxChunkLen: number = 185): string[] {
   const trimmed = text.trim();
   if (!trimmed) return [];
 
-  // Split on natural sentence endings: Japanese (。！？\n) and Latin (.!?\n)
-  const sentenceRegex = /([^。！？.!?\n]+[。！？.!?\n]*)/g;
-  const rawMatches = trimmed.match(sentenceRegex);
-
-  if (!rawMatches || rawMatches.length === 0) {
-    if (trimmed.length <= maxChunkLen) return [trimmed];
-    const chunks: string[] = [];
-    let current = '';
-    const words = trimmed.split(/(\s+)/);
-    for (const word of words) {
-      if (word.length > maxChunkLen) {
-        if (current.trim()) {
-          chunks.push(current.trim());
-          current = '';
-        }
-        for (let i = 0; i < word.length; i += maxChunkLen) {
-          chunks.push(word.slice(i, i + maxChunkLen));
-        }
-      } else if ((current + word).length > maxChunkLen) {
-        if (current.trim()) chunks.push(current.trim());
-        current = word;
-      } else {
-        current += word;
-      }
-    }
-    if (current.trim()) chunks.push(current.trim());
-    return chunks.length > 0 ? chunks : [trimmed.slice(0, maxChunkLen)];
+  // If text is already within maxChunkLen, return as 1 whole chunk for seamless audio
+  if (trimmed.length <= maxChunkLen) {
+    return [trimmed];
   }
 
-  const chunks: string[] = [];
-  for (const match of rawMatches) {
-    const cleanMatch = match.trim();
-    if (!cleanMatch) continue;
-    if (cleanMatch.length <= maxChunkLen) {
-      chunks.push(cleanMatch);
-    } else {
-      // If a single long sentence exceeds maxChunkLen, split on commas or spaces
-      const subParts = cleanMatch.split(/([、,，\n]+)/);
-      let subChunk = '';
-      for (const part of subParts) {
-        if ((subChunk + part).length <= maxChunkLen) {
-          subChunk += part;
+  // Find the first natural sentence boundary for instant low-latency playback
+  const firstSentenceMatch = trimmed.match(/^([^。！？.!?\n]+[。！？.!?\n]+)/);
+
+  if (
+    firstSentenceMatch &&
+    firstSentenceMatch[1].length < trimmed.length &&
+    firstSentenceMatch[1].length <= maxChunkLen
+  ) {
+    const firstSentence = firstSentenceMatch[1].trim();
+    const remainder = trimmed.slice(firstSentenceMatch[0].length).trim();
+
+    if (firstSentence.length > 0 && remainder.length > 0) {
+      if (remainder.length <= maxChunkLen) {
+        // Exactly 2 chunks: first sentence + entire remaining text as one piece!
+        return [firstSentence, remainder];
+      }
+
+      // If remainder is still long (> maxChunkLen), split remainder into large blocks
+      const remainingChunks: string[] = [];
+      let current = remainder;
+      while (current.length > 0) {
+        if (current.length <= maxChunkLen) {
+          remainingChunks.push(current.trim());
+          break;
+        }
+        // Try finding a sentence break near maxChunkLen
+        const subSlice = current.slice(0, maxChunkLen);
+        const lastPunct = Math.max(
+          subSlice.lastIndexOf('。'),
+          subSlice.lastIndexOf('！'),
+          subSlice.lastIndexOf('？'),
+          subSlice.lastIndexOf('.'),
+          subSlice.lastIndexOf('!'),
+          subSlice.lastIndexOf('?'),
+          subSlice.lastIndexOf('\n'),
+        );
+
+        if (lastPunct > 0) {
+          remainingChunks.push(current.slice(0, lastPunct + 1).trim());
+          current = current.slice(lastPunct + 1).trim();
         } else {
-          if (subChunk.trim()) chunks.push(subChunk.trim());
-          if (part.length <= maxChunkLen) {
-            subChunk = part;
+          const lastComma = Math.max(
+            subSlice.lastIndexOf('、'),
+            subSlice.lastIndexOf(','),
+            subSlice.lastIndexOf(' '),
+          );
+          if (lastComma > 0) {
+            remainingChunks.push(current.slice(0, lastComma + 1).trim());
+            current = current.slice(lastComma + 1).trim();
           } else {
-            for (let i = 0; i < part.length; i += maxChunkLen) {
-              chunks.push(part.slice(i, i + maxChunkLen));
-            }
-            subChunk = '';
+            remainingChunks.push(current.slice(0, maxChunkLen).trim());
+            current = current.slice(maxChunkLen).trim();
           }
         }
       }
-      if (subChunk.trim()) chunks.push(subChunk.trim());
+
+      return [firstSentence, ...remainingChunks.filter((c) => c.length > 0)];
+    }
+  }
+
+  // Fallback for long text without clean first sentence: split on sentence/comma boundaries up to maxChunkLen
+  const chunks: string[] = [];
+  let current = trimmed;
+  while (current.length > 0) {
+    if (current.length <= maxChunkLen) {
+      chunks.push(current.trim());
+      break;
+    }
+    const subSlice = current.slice(0, maxChunkLen);
+    const lastPunct = Math.max(
+      subSlice.lastIndexOf('。'),
+      subSlice.lastIndexOf('！'),
+      subSlice.lastIndexOf('？'),
+      subSlice.lastIndexOf('.'),
+      subSlice.lastIndexOf('!'),
+      subSlice.lastIndexOf('?'),
+      subSlice.lastIndexOf('\n'),
+    );
+    if (lastPunct > 0) {
+      chunks.push(current.slice(0, lastPunct + 1).trim());
+      current = current.slice(lastPunct + 1).trim();
+    } else {
+      const lastComma = Math.max(
+        subSlice.lastIndexOf('、'),
+        subSlice.lastIndexOf(','),
+        subSlice.lastIndexOf(' '),
+      );
+      if (lastComma > 0) {
+        chunks.push(current.slice(0, lastComma + 1).trim());
+        current = current.slice(lastComma + 1).trim();
+      } else {
+        chunks.push(current.slice(0, maxChunkLen).trim());
+        current = current.slice(maxChunkLen).trim();
+      }
     }
   }
 
@@ -719,7 +768,7 @@ export const useTTS = ({
       setIsPreparingAudio(true);
       onAudioPreparing?.(true);
 
-      const chunks = splitIntoTTSChunks(textToPlay, 90);
+      const chunks = splitIntoTTSChunks(textToPlay, 185);
       if (chunks.length === 0) {
         setIsPreparingAudio(false);
         onAudioPreparing?.(false);
@@ -786,6 +835,9 @@ export const useTTS = ({
           if (isCancelledRef.current) break;
 
           if (blob) {
+            console.log(
+              `[useTTS] Chunk ${i + 1}/${chunks.length} playback started at +${Date.now() - startTime}ms: "${chunks[i].substring(0, 30)}..."`,
+            );
             await playAudioBlob(blob);
           }
         }

@@ -26,12 +26,10 @@ vi.mock('../../lib/supabase', () => ({
     from: vi.fn().mockReturnValue({
       select: vi.fn().mockReturnThis(),
       insert: vi.fn().mockImplementation((chunk) => ({
-        select: vi
-          .fn()
-          .mockResolvedValue({
-            data: chunk.map((c: any) => ({ ...c, id: `db-${Math.random()}` })),
-            error: null,
-          }),
+        select: vi.fn().mockResolvedValue({
+          data: chunk.map((c: any) => ({ ...c, id: `db-${Math.random()}` })),
+          error: null,
+        }),
       })),
       upsert: vi.fn().mockResolvedValue({ data: null, error: null }),
       eq: vi.fn().mockReturnThis(),
@@ -379,5 +377,64 @@ newline here",
     );
     expect(parsed.reply.startsWith('{')).toBe(false);
     expect(parsed.reply.includes('"language"')).toBe(false);
+  });
+
+  it('TEST 20: parseCoachResponse marks correction as active when coach provides corrected variant for short answer', () => {
+    const aiJsonWithShortAnswerCorrection = JSON.stringify({
+      language: 'ja',
+      reply: 'こんにちは！今日は自己紹介を練習しましょう。',
+      ttsText: 'こんにちは！今日は自己紹介を練習しましょう。',
+      romaji: 'Konnichiwa! Kyou wa jiko shoukai o renshuu shimashou.',
+      correction: {
+        hasError: false, // Model marked false because greeting is not misspelled
+        original: 'こんにちは',
+        corrected: 'こんにちは、はじめまして。よろしくお願いします。',
+        explanation: 'より自然で丁寧な挨拶に広げましょう。',
+      },
+      vocabulary: [
+        {
+          word: 'はじめまして',
+          reading: 'はじめまして',
+          meaning: 'Tanishganimdan xursandman (Nice to meet you)',
+          example: 'はじめまして、田中です。',
+        },
+      ],
+    });
+
+    const parsed = parseCoachResponse(aiJsonWithShortAnswerCorrection, 'ja');
+    expect(parsed.correction?.hasError).toBe(true);
+    expect(parsed.correction?.original).toBe('こんにちは');
+    expect(parsed.correction?.corrected).toBe('こんにちは、はじめまして。よろしくお願いします。');
+    expect(parsed.correction?.explanation).toBe('より自然で丁寧な挨拶に広げましょう。');
+    expect(parsed.vocabulary?.length).toBe(1);
+    expect(parsed.vocabulary?.[0].word).toBe('はじめまして');
+  });
+
+  it('TEST 21: parseCoachResponse regex fallback extracts correction and vocabulary even when JSON fails to parse', () => {
+    // Malformed JSON with broken syntax
+    const malformedJsonWithCorrection = `{
+  "language": "ja",
+  "reply": "こんにちは！",
+  "correction": {
+    "original": "こんにちは",
+    "corrected": "こんにちは、お元気ですか？",
+    "explanation": "挨拶を広げましょう。"
+  },
+  "vocabulary": [
+    {
+      "word": "元気",
+      "meaning": "Sogʻlom, tetik"
+    }
+  ],
+  broken_unquoted: [
+}`;
+
+    const parsed = parseCoachResponse(malformedJsonWithCorrection, 'ja');
+    expect(parsed.correction?.hasError).toBe(true);
+    expect(parsed.correction?.original).toBe('こんにちは');
+    expect(parsed.correction?.corrected).toBe('こんにちは、お元気ですか？');
+    expect(parsed.correction?.explanation).toBe('挨拶を広げましょう。');
+    expect(parsed.vocabulary?.length).toBe(1);
+    expect(parsed.vocabulary?.[0].word).toBe('元気');
   });
 });

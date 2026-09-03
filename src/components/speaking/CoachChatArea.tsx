@@ -146,7 +146,10 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
               {/* Instant Correction Banner */}
               {msg.role === 'assistant' &&
                 msg.correction &&
-                msg.correction.hasError &&
+                (msg.correction.hasError ||
+                  Boolean(
+                    msg.correction.corrected && msg.correction.corrected.trim().length > 0,
+                  )) &&
                 msg.correction.corrected && (
                   <div className="mt-2.5 space-y-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs">
                     <div className="flex items-center justify-between gap-1 text-[11px] font-bold text-[#C9A961]">

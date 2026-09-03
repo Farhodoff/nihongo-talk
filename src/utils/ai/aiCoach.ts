@@ -216,11 +216,26 @@ export const parseCoachResponse = (
             explanation: firstErr.explanation || '',
           };
         } else {
+          const corrected =
+            typeof parsed.correction.corrected === 'string'
+              ? parsed.correction.corrected.trim()
+              : '';
+          const original =
+            typeof parsed.correction.original === 'string' ? parsed.correction.original.trim() : '';
+          const explanation =
+            typeof parsed.correction.explanation === 'string'
+              ? parsed.correction.explanation.trim()
+              : '';
+          const hasErr =
+            parsed.correction.hasError === true ||
+            parsed.correction.hasError === 'true' ||
+            Boolean(corrected && corrected.length > 0 && corrected !== original);
+
           correction = {
-            hasError: Boolean(parsed.correction.hasError),
-            original: parsed.correction.original || '',
-            corrected: parsed.correction.corrected || '',
-            explanation: parsed.correction.explanation || '',
+            hasError: hasErr,
+            original,
+            corrected,
+            explanation,
           };
         }
       }
@@ -343,24 +358,69 @@ export const parseCoachResponse = (
   }
 
   const ttsText = extractSpeechAudioText(finalReply);
-  const extractedErrors = parseMicroErrors(raw);
-  const hasError = extractedErrors.length > 0;
-  const firstErr = hasError ? extractedErrors[0] : null;
+
+  // Extract correction block from raw JSON string via regex
+  let fallbackCorrection: CoachCorrection = { hasError: false };
+  const corrBlockMatch = raw.match(/"correction"\s*:\s*\{([^}]+)\}/);
+  if (corrBlockMatch) {
+    const block = corrBlockMatch[1];
+    const origM = block.match(/"original"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+    const corrM = block.match(/"corrected"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+    const expM = block.match(/"explanation"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+    const hasErrM = block.match(/"hasError"\s*:\s*(true|false)/i);
+
+    const corrected = corrM ? corrM[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim() : '';
+    const original = origM ? origM[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim() : '';
+    const explanation = expM ? expM[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim() : '';
+    const hasError = hasErrM ? hasErrM[1].toLowerCase() === 'true' : Boolean(corrected);
+
+    if (corrected || hasError) {
+      fallbackCorrection = {
+        hasError: hasError || Boolean(corrected),
+        original,
+        corrected,
+        explanation,
+      };
+    }
+  } else {
+    const extractedErrors = parseMicroErrors(raw);
+    if (extractedErrors.length > 0) {
+      fallbackCorrection = {
+        hasError: true,
+        original: extractedErrors[0].originalText,
+        corrected: extractedErrors[0].correction,
+        explanation: extractedErrors[0].explanation,
+      };
+    }
+  }
+
+  // Extract vocabulary from raw JSON string via regex
+  const fallbackVocab: CoachVocabularyItem[] = [];
+  const vocabBlockMatch = raw.match(/"vocabulary"\s*:\s*\[([\s\S]*?)\]/);
+  if (vocabBlockMatch) {
+    const itemRegex =
+      /\{\s*"word"\s*:\s*"((?:[^"\\]|\\.)*)"(?:[\s\S]*?"reading"\s*:\s*"((?:[^"\\]|\\.)*)")?(?:[\s\S]*?"meaning"\s*:\s*"((?:[^"\\]|\\.)*)")?(?:[\s\S]*?"example"\s*:\s*"((?:[^"\\]|\\.)*)")?[\s\S]*?\}/gi;
+    let vMatch: RegExpExecArray | null;
+    while ((vMatch = itemRegex.exec(vocabBlockMatch[1])) !== null) {
+      const word = vMatch[1].replace(/\\"/g, '"').trim();
+      if (word) {
+        fallbackVocab.push({
+          word,
+          reading: (vMatch[2] || '').replace(/\\"/g, '"').trim(),
+          meaning: (vMatch[3] || '').replace(/\\"/g, '"').trim(),
+          example: (vMatch[4] || '').replace(/\\"/g, '"').trim(),
+        });
+      }
+    }
+  }
 
   return {
     language: lang,
     reply: finalReply,
     ttsText,
     romaji: extractedRomaji,
-    correction: firstErr
-      ? {
-          hasError: true,
-          original: firstErr.originalText,
-          corrected: firstErr.correction,
-          explanation: firstErr.explanation,
-        }
-      : { hasError: false },
-    vocabulary: [],
+    correction: fallbackCorrection,
+    vocabulary: fallbackVocab,
     rawText: raw,
   };
 };

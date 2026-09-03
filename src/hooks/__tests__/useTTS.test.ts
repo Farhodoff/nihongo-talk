@@ -152,4 +152,24 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
     expect(blob2).not.toBeNull();
     expect(fetchSpy).toHaveBeenCalledTimes(1); // Exact deduplication!
   });
+
+  it('13. splitIntoTTSChunks keeps typical 3-sentence dialogue under 185 chars as 1 single cohesive chunk', () => {
+    const dialog = 'こんにちは！お元気ですか？今日はあなたの自己紹介について話しましょう。';
+    const chunks = splitIntoTTSChunks(dialog);
+    // Preserved as exactly 1 cohesive audio clip so Google TTS produces zero silence gaps
+    expect(chunks).toEqual([dialog]);
+    expect(chunks.length).toBe(1);
+  });
+
+  it('14. splitIntoTTSChunks splits longer text into at most 2 chunks (first sentence + cohesive body)', () => {
+    const longerSpeech =
+      'こんにちは！今日は日本語の勉強をしましょう。文法と語彙の練習をしっかり行います。もしわからないことがあれば、いつでも質問してくださいね。一緒に頑張りましょう！';
+    const chunks = splitIntoTTSChunks(longerSpeech, 75);
+    // First sentence for instant <150ms start, second chunk is cohesive body
+    expect(chunks.length).toBe(2);
+    expect(chunks[0]).toBe('こんにちは！');
+    expect(chunks[1]).toBe(
+      '今日は日本語の勉強をしましょう。文法と語彙の練習をしっかり行います。もしわからないことがあれば、いつでも質問してくださいね。一緒に頑張りましょう！',
+    );
+  });
 });

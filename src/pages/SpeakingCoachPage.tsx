@@ -672,7 +672,10 @@ const SpeakingCoachPage: React.FC = () => {
       // Record structured micro-error for real-time live overlay & persist immediately to ErrorVault/MasteryEngine
       if (
         structured.correction &&
-        structured.correction.hasError &&
+        (structured.correction.hasError ||
+          Boolean(
+            structured.correction.corrected && structured.correction.corrected.trim().length > 0,
+          )) &&
         structured.correction.corrected
       ) {
         const errorTag: ErrorTag = {
