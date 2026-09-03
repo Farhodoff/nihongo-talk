@@ -1,6 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
+import { supabase } from '../lib/supabase';
 
 interface UseTTSOptions {
   language: 'en' | 'ja';
@@ -96,7 +97,11 @@ export function splitIntoTTSChunks(text: string, maxChunkLen: number = 170): str
   return chunks.filter((c) => c.length > 0);
 }
 
-function selectBestVoice(
+/**
+ * Searches available SpeechSynthesis voices for a high-quality native voice.
+ * Returns null if no voice is available for the given language.
+ */
+export function selectBestVoice(
   voices: SpeechSynthesisVoice[],
   isJa: boolean,
 ): SpeechSynthesisVoice | null {
@@ -148,6 +153,57 @@ function selectBestVoice(
   }
 }
 
+/**
+ * Fetches high-quality Google TTS audio from the serverless /api/tts endpoint
+ */
+export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promise<Blob | null> {
+  try {
+    const sessionRes = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
+    const token =
+      sessionRes.data?.session?.access_token ||
+      import.meta.env.VITE_SUPABASE_ANON_KEY ||
+      'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+
+    const response = await fetch('/api/tts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        text,
+        lang,
+      }),
+      signal:
+        typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal
+          ? AbortSignal.timeout(12000)
+          : undefined,
+    });
+
+    if (!response.ok) {
+      console.warn('[useTTS] /api/tts HTTP error:', response.status);
+      return null;
+    }
+
+    const contentType = response.headers.get('content-type') || '';
+    if (
+      !contentType.includes('audio') &&
+      !contentType.includes('mpeg') &&
+      !contentType.includes('octet-stream')
+    ) {
+      console.warn('[useTTS] /api/tts invalid content-type:', contentType);
+      return null;
+    }
+
+    const blob = await response.blob();
+    if (!blob || blob.size === 0) return null;
+    return blob;
+  } catch (err) {
+    console.warn('[useTTS] fetchTTSAudioBlob error:', err);
+    return null;
+  }
+}
+
 export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): UseTTSReturn => {
   const synthRef = useRef<SpeechSynthesis | null>(
     typeof window !== 'undefined' && window.speechSynthesis ? window.speechSynthesis : null,
@@ -187,15 +243,52 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
     };
   }, []);
 
+  /**
+   * Unlocks both Web Speech and HTMLAudioElement autoplay restrictions
+   * on mobile browsers (iOS Safari, Android Chrome).
+   */
   const unlockAudio = useCallback(() => {
+    // 1. Resume SpeechSynthesis if paused
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       try {
         if (window.speechSynthesis.paused) {
           window.speechSynthesis.resume();
         }
       } catch (e) {
-        console.debug('Unlock audio failed:', e);
+        console.debug('Unlock audio synth failed:', e);
       }
+    }
+
+    // 2. Prime Web Audio / HTMLAudioElement so iOS Safari & Chrome allow async audio playback
+    try {
+      if (typeof window !== 'undefined') {
+        const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioCtx) {
+          const dummyCtx = new AudioCtx();
+          if (dummyCtx.state === 'suspended') {
+            dummyCtx.resume().catch(() => {});
+          }
+          setTimeout(() => {
+            try {
+              if (dummyCtx.state !== 'closed') dummyCtx.close().catch(() => {});
+            } catch {}
+          }, 300);
+        }
+
+        // Prime a silent 1-sample audio buffer via HTMLAudioElement
+        const silentAudio = new Audio(
+          'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA',
+        );
+        silentAudio.volume = 0.01;
+        silentAudio
+          .play()
+          .then(() => {
+            silentAudio.pause();
+          })
+          .catch(() => {});
+      }
+    } catch (e) {
+      console.debug('Unlock audio element failed:', e);
     }
   }, []);
 
@@ -209,7 +302,9 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
     if (synthRef.current) {
       try {
-        synthRef.current.cancel();
+        if (synthRef.current.speaking || synthRef.current.pending) {
+          synthRef.current.cancel();
+        }
       } catch (e) {
         console.debug('Synth cancel failed:', e);
       }
@@ -274,23 +369,6 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         return;
       }
 
-      const synth =
-        synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
-      if (!synth) {
-        console.warn('SpeechSynthesis is not available in this environment.');
-        onSpeakEnd();
-        return;
-      }
-
-      // Resume if stuck in paused state (Chromium bug)
-      try {
-        if (synth.paused) {
-          synth.resume();
-        }
-      } catch (e) {
-        console.debug('Resume failed:', e);
-      }
-
       const onSpeechFinish = (success: boolean = true, error?: string) => {
         if (watchdogIntervalRef.current) {
           clearInterval(watchdogIntervalRef.current);
@@ -314,6 +392,113 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
       }, safetyTimeoutMs);
 
+      // -------------------------------------------------------------
+      // 1. Network TTS Playback Helper (Google TTS via /api/tts)
+      // -------------------------------------------------------------
+      const playWithNetworkTTS = async (chunksToPlay: string[]) => {
+        if (isCancelledRef.current || chunksToPlay.length === 0) {
+          onSpeechFinish(true);
+          return;
+        }
+
+        onSpeakStart();
+
+        for (let i = 0; i < chunksToPlay.length; i++) {
+          if (isCancelledRef.current) break;
+          const chunk = chunksToPlay[i];
+          const blob = await fetchTTSAudioBlob(chunk, isJa ? 'ja' : 'en');
+          if (isCancelledRef.current) break;
+
+          if (!blob) {
+            console.warn('[useTTS] Failed to retrieve network audio chunk:', chunk);
+            continue;
+          }
+
+          const objectUrl = URL.createObjectURL(blob);
+          currentObjectUrlRef.current = objectUrl;
+
+          await new Promise<void>((resolve) => {
+            if (isCancelledRef.current) {
+              URL.revokeObjectURL(objectUrl);
+              if (currentObjectUrlRef.current === objectUrl) {
+                currentObjectUrlRef.current = null;
+              }
+              resolve();
+              return;
+            }
+
+            const audio = new Audio(objectUrl);
+            audioPlayerRef.current = audio;
+
+            audio.onended = () => {
+              if (currentObjectUrlRef.current === objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+                currentObjectUrlRef.current = null;
+              }
+              audioPlayerRef.current = null;
+              resolve();
+            };
+
+            audio.onerror = (e) => {
+              console.warn('[useTTS] HTMLAudioElement error:', e);
+              if (currentObjectUrlRef.current === objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+                currentObjectUrlRef.current = null;
+              }
+              audioPlayerRef.current = null;
+              resolve();
+            };
+
+            audio.play().catch((playErr) => {
+              console.warn('[useTTS] audio.play() rejected:', playErr);
+              if (currentObjectUrlRef.current === objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+                currentObjectUrlRef.current = null;
+              }
+              audioPlayerRef.current = null;
+              resolve();
+            });
+          });
+        }
+
+        onSpeechFinish(true);
+      };
+
+      // -------------------------------------------------------------
+      // 2. Web Speech API Voice Check & Routing
+      // -------------------------------------------------------------
+      const synth =
+        synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
+
+      let currentVoices = voicesRef.current;
+      if (synth && (!currentVoices || currentVoices.length === 0)) {
+        try {
+          currentVoices = synth.getVoices() || [];
+          voicesRef.current = currentVoices;
+        } catch {}
+      }
+
+      const selectedVoice = selectBestVoice(currentVoices, isJa);
+
+      // If no native voice exists for Japanese, or speech synthesis is missing,
+      // route directly to Network Google TTS so user hears crystal-clear speech.
+      if (!synth || (isJa && !selectedVoice)) {
+        console.info(
+          `[useTTS] Native ${isJa ? 'Japanese' : 'English'} voice not found locally. Routing to Network Google TTS.`,
+        );
+        await playWithNetworkTTS(chunks);
+        return;
+      }
+
+      // Resume if stuck in paused state (Chromium bug)
+      try {
+        if (synth.paused) {
+          synth.resume();
+        }
+      } catch (e) {
+        console.debug('Resume failed:', e);
+      }
+
       // Chrome long-utterance watchdog: resumes synth every 4s if Chrome arbitrarily pauses
       watchdogIntervalRef.current = setInterval(() => {
         if (synth && synth.paused) {
@@ -325,26 +510,11 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         }
       }, 4000);
 
-      // Refresh voices list if needed
-      let currentVoices = voicesRef.current;
-      if (!currentVoices || currentVoices.length === 0) {
-        try {
-          currentVoices = synth.getVoices() || [];
-          voicesRef.current = currentVoices;
-        } catch {}
-      }
-
-      const selectedVoice = selectBestVoice(currentVoices, isJa);
-
-      // 25ms micro-pause to avoid Chromium's cancel-speak queue race condition
-      await new Promise((r) => setTimeout(r, 25));
-      if (isCancelledRef.current) return;
-
       onSpeakStart();
 
       let chunkIndex = 0;
 
-      const playNextChunk = () => {
+      const playNextWebSpeechChunk = () => {
         if (isCancelledRef.current) return;
 
         if (chunkIndex >= chunks.length) {
@@ -365,7 +535,6 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
             utterance.voice = selectedVoice;
           }
 
-          // Guard against garbage collection in V8 / WebKit
           activeUtteranceRef.current = utterance;
           if (typeof window !== 'undefined') {
             (window as any).__speakingUtterance = utterance;
@@ -374,34 +543,50 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
           utterance.onend = () => {
             activeUtteranceRef.current = null;
             if (!isCancelledRef.current) {
-              playNextChunk();
+              playNextWebSpeechChunk();
             }
           };
 
           utterance.onerror = (event) => {
-            console.warn('[useTTS] Utterance error:', event.error);
+            console.warn('[useTTS] Web Speech Utterance error:', event.error);
             activeUtteranceRef.current = null;
-            if (!isCancelledRef.current) {
-              playNextChunk();
+            if (isCancelledRef.current) return;
+
+            // If Web Speech API fails with fatal errors, seamlessly fallback to Network TTS
+            if (
+              event.error === 'language-unavailable' ||
+              event.error === 'voice-unavailable' ||
+              event.error === 'not-allowed' ||
+              event.error === 'interrupted' ||
+              event.error === 'audio-busy'
+            ) {
+              console.warn(
+                `[useTTS] Web Speech failed (${event.error}). Seamlessly falling back to Network Google TTS.`,
+              );
+              const remaining = [chunk, ...chunks.slice(chunkIndex)];
+              playWithNetworkTTS(remaining);
+              return;
             }
+
+            playNextWebSpeechChunk();
           };
 
           synth.speak(utterance);
 
-          // Force resume if paused right after speak
           if (synth.paused) {
             synth.resume();
           }
         } catch (err: any) {
-          console.error('[useTTS] speak error:', err);
+          console.error('[useTTS] Web Speech speak exception, falling back to Network TTS:', err);
           activeUtteranceRef.current = null;
           if (!isCancelledRef.current) {
-            playNextChunk();
+            const remaining = [chunk, ...chunks.slice(chunkIndex)];
+            playWithNetworkTTS(remaining);
           }
         }
       };
 
-      playNextChunk();
+      playNextWebSpeechChunk();
     },
     [onSpeakStart, onSpeakEnd, stopSpeaking],
   );

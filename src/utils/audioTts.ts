@@ -1,51 +1,131 @@
 /**
- * Web Speech API Text-to-Speech Pronunciation Helper for Flashcards and AI Coach
+ * Web Speech API + Network Fallback Text-to-Speech Pronunciation Helper for Flashcards and UI
  */
 
 import { cleanJapaneseTTS } from './ai/aiCoach';
+import { fetchTTSAudioBlob } from '../hooks/useTTS';
+
+let globalAudioPlayer: HTMLAudioElement | null = null;
+let globalObjectUrl: string | null = null;
+
+export function stopAllAudio(): void {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch {}
+  }
+  if (globalAudioPlayer) {
+    try {
+      globalAudioPlayer.pause();
+    } catch {}
+    globalAudioPlayer = null;
+  }
+  if (globalObjectUrl) {
+    try {
+      URL.revokeObjectURL(globalObjectUrl);
+    } catch {}
+    globalObjectUrl = null;
+  }
+}
 
 export function speakJapaneseText(text: string): void {
-    speakText(text, 'ja-JP');
+  speakText(text, 'ja-JP');
 }
 
 export function speakText(text: string, accent: string = 'en-US'): void {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-        console.warn('Speech synthesis is not supported in this browser.');
-        return;
+  stopAllAudio();
+
+  const hasJapaneseChars =
+    /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(text) ||
+    accent === 'ja-JP';
+  const textToSpeak = hasJapaneseChars
+    ? cleanJapaneseTTS(text)
+    : text.replace(/[*_#`~]/g, '').trim();
+
+  if (!textToSpeak) return;
+
+  const targetLang = hasJapaneseChars ? 'ja-JP' : accent;
+  const isJa = hasJapaneseChars || accent.startsWith('ja');
+
+  // Helper to play network audio
+  const playNetworkFallback = async () => {
+    try {
+      const blob = await fetchTTSAudioBlob(textToSpeak.slice(0, 200), isJa ? 'ja' : 'en');
+      if (!blob) return;
+
+      const url = URL.createObjectURL(blob);
+      globalObjectUrl = url;
+      const audio = new Audio(url);
+      globalAudioPlayer = audio;
+      audio.onended = () => {
+        if (globalObjectUrl === url) {
+          URL.revokeObjectURL(url);
+          globalObjectUrl = null;
+        }
+        globalAudioPlayer = null;
+      };
+      audio.onerror = () => {
+        if (globalObjectUrl === url) {
+          URL.revokeObjectURL(url);
+          globalObjectUrl = null;
+        }
+        globalAudioPlayer = null;
+      };
+      audio.play().catch(() => {});
+    } catch (e) {
+      console.warn('[audioTts] Network fallback error:', e);
     }
+  };
 
-    // Cancel ongoing speech
-    window.speechSynthesis.cancel();
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    playNetworkFallback();
+    return;
+  }
 
-    const hasJapaneseChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(text) || accent === 'ja-JP';
-    const textToSpeak = hasJapaneseChars ? cleanJapaneseTTS(text) : text.replace(/[*_#`~]/g, '').trim();
+  const voices = window.speechSynthesis.getVoices();
+  let matchedVoice = null;
+  if (voices && voices.length > 0) {
+    matchedVoice = voices.find(
+      (v) =>
+        (v.lang === targetLang || v.lang.startsWith(isJa ? 'ja' : 'en')) &&
+        (v.name.includes('Google') ||
+          v.name.includes('Kyoko') ||
+          v.name.includes('Otoya') ||
+          v.name.includes('Haruka') ||
+          v.name.includes('Hattori')),
+    );
 
-    if (!textToSpeak) return;
+    if (!matchedVoice) {
+      matchedVoice = voices.find(
+        (v) => v.lang === targetLang || v.lang.startsWith(targetLang.split('-')[0]),
+      );
+    }
+  }
 
-    // Auto-detect Japanese characters if accent wasn't explicitly set to Japanese
-    const targetLang = hasJapaneseChars ? 'ja-JP' : accent;
+  // If target language is Japanese and no Japanese voice is found on this device, use Network Google TTS
+  if (isJa && !matchedVoice) {
+    playNetworkFallback();
+    return;
+  }
 
+  try {
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.lang = targetLang;
-    utterance.rate = targetLang.startsWith('ja') ? 0.90 : 0.85; // Natural clear pace
+    utterance.rate = targetLang.startsWith('ja') ? 0.9 : 0.85;
     utterance.pitch = 1.0;
 
-    // Pick best available voice if possible
-    const voices = window.speechSynthesis.getVoices();
-    if (voices && voices.length > 0) {
-        let matchedVoice = voices.find(v => 
-            (v.lang === targetLang || v.lang.startsWith('ja')) &&
-            (v.name.includes('Google') || v.name.includes('Kyoko') || v.name.includes('Otoya') || v.name.includes('Haruka') || v.name.includes('Hattori'))
-        );
-
-        if (!matchedVoice) {
-            matchedVoice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.split('-')[0]));
-        }
-
-        if (matchedVoice) {
-            utterance.voice = matchedVoice;
-        }
+    if (matchedVoice) {
+      utterance.voice = matchedVoice;
     }
 
+    utterance.onerror = (e) => {
+      console.warn('[audioTts] Utterance error, falling back to network:', e.error);
+      playNetworkFallback();
+    };
+
     window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('[audioTts] Exception in speak, falling back to network:', err);
+    playNetworkFallback();
+  }
 }
