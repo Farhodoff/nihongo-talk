@@ -1,29 +1,32 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Navigation', () => {
-  test('should navigate to key pages', async ({ page }) => {
+  test('should navigate to public pages when unauthenticated', async ({ page }) => {
     // Navigate to Landing Page
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
+    await expect(page).toHaveURL(/.*localhost:5173\/?$/);
 
-    // Define the key routes to test
-    const routes = [
-      { path: '/jlpt', name: 'JLPT Hub' },
-      { path: '/flashcards', name: 'Flashcard Decks' },
-      { path: '/speaking', name: 'Speaking Coach' },
-      { path: '/settings', name: 'Settings' },
-      { path: '/leaderboard', name: 'Leaderboard' },
+    // Define the public key routes to test
+    const publicRoutes = [
+      { path: '/pricing', name: 'Pricing Page' },
+      { path: '/auth', name: 'Auth Page' },
+      { path: '/login', name: 'Login Page' },
+      { path: '/developers', name: 'Developer API' },
     ];
 
-    for (const route of routes) {
+    for (const route of publicRoutes) {
       await page.goto(route.path);
-      // Wait for the page to be reasonably loaded without relying purely on networkidle
-      // which might hang if there are polling requests.
       await page.waitForLoadState('domcontentloaded');
-
-      // Basic check that we don't have a crash (like a blank page or 404 text)
-      // Since we don't know the exact UI, we ensure the URL changed correctly.
       await expect(page).toHaveURL(new RegExp(`.*${route.path}.*`));
+      await expect(page.locator('body')).toBeVisible();
     }
+  });
+
+  test('should redirect unauthenticated protected route to landing', async ({ page }) => {
+    await page.goto('/jlpt');
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page).toHaveURL(/.*localhost:5173\/?$/);
+    await expect(page.locator('body')).toBeVisible();
   });
 });
