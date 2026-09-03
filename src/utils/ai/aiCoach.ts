@@ -121,24 +121,40 @@ export const parseCoachResponse = (
   }
 
   try {
-    let cleaned = raw.trim();
-    if (cleaned.startsWith('```json')) {
-      cleaned = cleaned.substring(7);
-    } else if (cleaned.startsWith('```')) {
-      cleaned = cleaned.substring(3);
-    }
-    if (cleaned.endsWith('```')) {
-      cleaned = cleaned.substring(0, cleaned.length - 3);
-    }
-    cleaned = cleaned.trim();
+    // 1. Strip DeepSeek Reasoner <think>...</think> blocks
+    let cleaned = raw.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
 
+    // 2. Strip markdown code fences anywhere in the string
+    cleaned = cleaned
+      .replace(/```(?:json)?/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
+    // 3. Isolate outer JSON block
     const firstBrace = cleaned.indexOf('{');
     const lastBrace = cleaned.lastIndexOf('}');
     if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
       cleaned = cleaned.substring(firstBrace, lastBrace + 1);
     }
 
-    const parsed = JSON.parse(cleaned);
+    let parsed: any = null;
+    try {
+      parsed = JSON.parse(cleaned);
+    } catch {
+      // Try fixing common LLM JSON syntax issues: trailing commas and raw control characters
+      try {
+        const sanitized = cleaned
+          .replace(/,\s*([}\]])/g, '$1')
+          .split('')
+          .filter((ch) => {
+            const code = ch.charCodeAt(0);
+            return code >= 32 || code === 10 || code === 13 || code === 9;
+          })
+          .join('');
+        parsed = JSON.parse(sanitized);
+      } catch {}
+    }
+
     if (parsed && typeof parsed === 'object') {
       let lang: 'en' | 'ja' =
         parsed.language === 'en' || parsed.language === 'ja' ? parsed.language : fallbackLang;
@@ -160,6 +176,21 @@ export const parseCoachResponse = (
           if (typeof cand === 'string' && cand.trim().length > 0) {
             reply = cand.trim();
             break;
+          }
+        }
+      }
+
+      // If reply is accidentally a stringified JSON, unwrap it
+      if (reply.startsWith('{') && (reply.includes('"reply"') || reply.includes('"language"'))) {
+        try {
+          const inner = JSON.parse(reply);
+          if (inner && inner.reply && typeof inner.reply === 'string') {
+            reply = inner.reply.trim();
+          }
+        } catch {
+          const m = reply.match(/"(?:reply|message|content|text)"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+          if (m) {
+            reply = m[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
           }
         }
       }
@@ -194,7 +225,7 @@ export const parseCoachResponse = (
         }
       }
 
-      // If reply is empty, fallback to correction advice
+      // If reply is empty or raw JSON, fallback to correction advice or clean greeting
       if (!reply || reply.startsWith('{')) {
         if (correction.hasError) {
           reply = correction.explanation || correction.corrected || '';
@@ -255,26 +286,70 @@ export const parseCoachResponse = (
       };
     }
   } catch {
-    // Fallback for non-JSON strings
+    // Fallback for non-JSON or malformed strings
   }
 
-  const isJapanese = fallbackLang === 'ja' || /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(raw);
+  // --- RESILIENT REGEX EXTRACTION FALLBACK ---
+  // When JSON.parse fails completely, extract human-readable text rather than raw JSON!
+  const replyMatch = raw.match(
+    /"(?:reply|message|content|text|japanese|dialogue)"\s*:\s*"((?:[^"\\]|\\.)*)"/i,
+  );
+  let extractedReply = replyMatch
+    ? replyMatch[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').replace(/\\t/g, '\t').trim()
+    : '';
+
+  if (!extractedReply) {
+    const multiMatch = raw.match(
+      /"(?:reply|message|content|text|japanese|dialogue)"\s*:\s*"([\s\S]*?)"\s*,\s*"/i,
+    );
+    if (multiMatch) {
+      extractedReply = multiMatch[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
+    }
+  }
+
+  const isJapanese =
+    fallbackLang === 'ja' ||
+    /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/.test(extractedReply || raw);
   const lang: 'en' | 'ja' = isJapanese ? 'ja' : 'en';
 
-  let extractedRomaji = '';
-  const romajiMatch = raw.match(/\(([^)]*[a-zA-Z]{3,}[^)]*)\)/);
-  if (romajiMatch && isJapanese) {
-    extractedRomaji = romajiMatch[1].replace(/romaji/gi, '').trim();
+  // NEVER allow raw JSON to be the reply shown to the user
+  let finalReply = extractedReply || raw.trim();
+  if (
+    finalReply.startsWith('{') &&
+    (finalReply.includes('"reply"') ||
+      finalReply.includes('"language"') ||
+      finalReply.includes('"vocabulary"'))
+  ) {
+    finalReply =
+      lang === 'ja'
+        ? 'はい、よく分かりました！続けて日本語でお話ししましょう。'
+        : "Understood! Let's continue speaking practice.";
+  } else if (finalReply.startsWith('{') && finalReply.endsWith('}')) {
+    finalReply =
+      lang === 'ja'
+        ? 'はい、よく分かりました！続けて日本語でお話ししましょう。'
+        : "Understood! Let's continue speaking practice.";
   }
 
-  const ttsText = extractSpeechAudioText(raw);
+  let extractedRomaji = '';
+  const romajiMatch = raw.match(/"romaji"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+  if (romajiMatch) {
+    extractedRomaji = romajiMatch[1].replace(/\\"/g, '"').trim();
+  } else {
+    const parenRomaji = raw.match(/\(([^)]*[a-zA-Z]{3,}[^)]*)\)/);
+    if (parenRomaji && isJapanese) {
+      extractedRomaji = parenRomaji[1].replace(/romaji/gi, '').trim();
+    }
+  }
+
+  const ttsText = extractSpeechAudioText(finalReply);
   const extractedErrors = parseMicroErrors(raw);
   const hasError = extractedErrors.length > 0;
   const firstErr = hasError ? extractedErrors[0] : null;
 
   return {
     language: lang,
-    reply: raw,
+    reply: finalReply,
     ttsText,
     romaji: extractedRomaji,
     correction: firstErr

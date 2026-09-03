@@ -634,9 +634,33 @@ const SpeakingCoachPage: React.FC = () => {
         activeScenarioRef.current,
       );
 
+      let cleanReply = (structured.reply || '').trim();
+      if (
+        cleanReply.startsWith('{') &&
+        (cleanReply.includes('"reply"') || cleanReply.includes('"language"'))
+      ) {
+        try {
+          const parsed = JSON.parse(cleanReply);
+          if (parsed && parsed.reply && typeof parsed.reply === 'string') {
+            cleanReply = parsed.reply.trim();
+          }
+        } catch {
+          const m = cleanReply.match(/"(?:reply|message|content|text)"\s*:\s*"((?:[^"\\]|\\.)*)"/i);
+          if (m) {
+            cleanReply = m[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
+          }
+        }
+      }
+      if (cleanReply.startsWith('{') && cleanReply.endsWith('}')) {
+        cleanReply =
+          languageRef.current === 'ja'
+            ? 'はい、よく分かりました！続けて日本語でお話ししましょう。'
+            : "Understood! Let's continue speaking practice.";
+      }
+
       const aiMsg: CoachChatMessage = {
         role: 'assistant',
-        content: structured.reply,
+        content: cleanReply,
         romaji: structured.romaji,
         ttsText: structured.ttsText,
         correction: structured.correction,

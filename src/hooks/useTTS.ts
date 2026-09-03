@@ -5,10 +5,12 @@ import { supabase } from '../lib/supabase';
 
 // High-speed In-Memory Audio Cache for 0ms TTS playback on repeated or prefetched text
 const TTS_AUDIO_CACHE = new Map<string, Blob>();
+const IN_FLIGHT_REQUESTS = new Map<string, Promise<Blob | null>>();
 const MAX_TTS_CACHE_ENTRIES = 80;
 
 export function clearTTSAudioCache(): void {
   TTS_AUDIO_CACHE.clear();
+  IN_FLIGHT_REQUESTS.clear();
 }
 
 interface UseTTSOptions {
@@ -162,60 +164,72 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
   if (TTS_AUDIO_CACHE.has(cleanKey)) {
     return TTS_AUDIO_CACHE.get(cleanKey)!;
   }
-
-  try {
-    const sessionRes = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
-    const token =
-      sessionRes.data?.session?.access_token ||
-      import.meta.env.VITE_SUPABASE_ANON_KEY ||
-      'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
-
-    const response = await fetch('/api/tts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        text,
-        lang,
-      }),
-      signal:
-        typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal
-          ? AbortSignal.timeout(12000)
-          : undefined,
-    });
-
-    if (!response.ok) {
-      console.warn('[useTTS] /api/tts HTTP error:', response.status);
-      return null;
-    }
-
-    const contentType = response.headers.get('content-type') || '';
-    if (
-      !contentType.includes('audio') &&
-      !contentType.includes('mpeg') &&
-      !contentType.includes('octet-stream')
-    ) {
-      console.warn('[useTTS] /api/tts invalid content-type:', contentType);
-      return null;
-    }
-
-    const blob = await response.blob();
-    if (!blob || blob.size === 0) return null;
-
-    // Cache the audio blob
-    if (TTS_AUDIO_CACHE.size >= MAX_TTS_CACHE_ENTRIES) {
-      const oldestKey = TTS_AUDIO_CACHE.keys().next().value;
-      if (oldestKey) TTS_AUDIO_CACHE.delete(oldestKey);
-    }
-    TTS_AUDIO_CACHE.set(cleanKey, blob);
-
-    return blob;
-  } catch (err) {
-    console.warn('[useTTS] fetchTTSAudioBlob error:', err);
-    return null;
+  if (IN_FLIGHT_REQUESTS.has(cleanKey)) {
+    return IN_FLIGHT_REQUESTS.get(cleanKey)!;
   }
+
+  const fetchPromise = (async (): Promise<Blob | null> => {
+    try {
+      const sessionRes = await supabase.auth
+        .getSession()
+        .catch(() => ({ data: { session: null } }));
+      const token =
+        sessionRes.data?.session?.access_token ||
+        import.meta.env.VITE_SUPABASE_ANON_KEY ||
+        'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          text,
+          lang,
+        }),
+        signal:
+          typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal
+            ? AbortSignal.timeout(12000)
+            : undefined,
+      });
+
+      if (!response.ok) {
+        console.warn('[useTTS] /api/tts HTTP error:', response.status);
+        return null;
+      }
+
+      const contentType = response.headers.get('content-type') || '';
+      if (
+        !contentType.includes('audio') &&
+        !contentType.includes('mpeg') &&
+        !contentType.includes('octet-stream')
+      ) {
+        console.warn('[useTTS] /api/tts invalid content-type:', contentType);
+        return null;
+      }
+
+      const blob = await response.blob();
+      if (!blob || blob.size === 0) return null;
+
+      // Cache the audio blob
+      if (TTS_AUDIO_CACHE.size >= MAX_TTS_CACHE_ENTRIES) {
+        const oldestKey = TTS_AUDIO_CACHE.keys().next().value;
+        if (oldestKey) TTS_AUDIO_CACHE.delete(oldestKey);
+      }
+      TTS_AUDIO_CACHE.set(cleanKey, blob);
+
+      return blob;
+    } catch (err) {
+      console.warn('[useTTS] fetchTTSAudioBlob error:', err);
+      return null;
+    } finally {
+      IN_FLIGHT_REQUESTS.delete(cleanKey);
+    }
+  })();
+
+  IN_FLIGHT_REQUESTS.set(cleanKey, fetchPromise);
+  return fetchPromise;
 }
 
 export const useTTS = ({
@@ -396,12 +410,10 @@ export const useTTS = ({
   }, []);
 
   /**
-   * Plays a single clause/sentence via Network Google TTS with Web Audio API fallback.
+   * Plays a pre-fetched Audio Blob directly with near 0ms latency.
    */
-  const playNetworkClause = useCallback(
-    async (clause: string, isJa: boolean): Promise<void> => {
-      if (isCancelledRef.current) return;
-      const blob = await fetchTTSAudioBlob(clause, isJa ? 'ja' : 'en');
+  const playAudioBlob = useCallback(
+    async (blob: Blob): Promise<void> => {
       if (isCancelledRef.current || !blob) return;
 
       const objectUrl = URL.createObjectURL(blob);
@@ -448,6 +460,19 @@ export const useTTS = ({
       });
     },
     [fallbackWebAudio],
+  );
+
+  /**
+   * Plays a single clause/sentence via Network Google TTS with Web Audio API fallback.
+   */
+  const playNetworkClause = useCallback(
+    async (clause: string, isJa: boolean): Promise<void> => {
+      if (isCancelledRef.current) return;
+      const blob = await fetchTTSAudioBlob(clause, isJa ? 'ja' : 'en');
+      if (isCancelledRef.current || !blob) return;
+      await playAudioBlob(blob);
+    },
+    [playAudioBlob],
   );
 
   /**
@@ -726,36 +751,59 @@ export const useTTS = ({
         onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
       }, safetyTimeoutMs);
 
-      // Pipelined parallel prefetcher: fetch upcoming chunks in background while current chunk is playing
-      const prefetchChunk = (idx: number) => {
-        if (idx >= 0 && idx < chunks.length) {
-          fetchTTSAudioBlob(chunks[idx], isJa ? 'ja' : 'en').catch(() => {});
-        }
-      };
-
-      // Kick off prefetch for initial chunks immediately in parallel
-      prefetchChunk(0);
-      prefetchChunk(1);
+      // Check if native browser SpeechSynthesis has voices for this language
+      const synth =
+        synthRef.current || (typeof window !== 'undefined' ? window.speechSynthesis : null);
+      let currentVoices = voicesRef.current;
+      if (synth && (!currentVoices || currentVoices.length === 0)) {
+        try {
+          currentVoices = synth.getVoices() || [];
+          voicesRef.current = currentVoices;
+        } catch {}
+      }
+      const hasLanguageVoice = isJa
+        ? (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('ja'))
+        : (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('en'));
 
       onSpeakStart();
 
-      for (let i = 0; i < chunks.length; i++) {
-        if (isCancelledRef.current) break;
-        // Prefetch next chunk in background
-        prefetchChunk(i + 1);
-        prefetchChunk(i + 2);
+      if (!synth || !hasLanguageVoice) {
+        // --- HIGH-SPEED PARALLEL PREFETCH & STREAMING PLAYBACK ---
+        // 1. Kick off network requests for ALL chunks in parallel AT THE SAME TIME!
+        const chunkPromises = chunks.map((c) => fetchTTSAudioBlob(c, isJa ? 'ja' : 'en'));
 
-        if (i === 0) {
-          setIsPreparingAudio(false);
-          onAudioPreparing?.(false);
+        // 2. Play sequentially as each chunk's audio becomes ready with 0ms gap
+        for (let i = 0; i < chunks.length; i++) {
+          if (isCancelledRef.current) break;
+
+          const blob = await chunkPromises[i];
+
+          if (i === 0) {
+            setIsPreparingAudio(false);
+            onAudioPreparing?.(false);
+          }
+
+          if (isCancelledRef.current) break;
+
+          if (blob) {
+            await playAudioBlob(blob);
+          }
         }
-
-        await playSingleClause(chunks[i], isJa);
+      } else {
+        // --- NATIVE BROWSER SPEECH SYNTHESIS ---
+        for (let i = 0; i < chunks.length; i++) {
+          if (isCancelledRef.current) break;
+          if (i === 0) {
+            setIsPreparingAudio(false);
+            onAudioPreparing?.(false);
+          }
+          await playSingleClause(chunks[i], isJa);
+        }
       }
 
       onSpeechFinish(true);
     },
-    [onSpeakStart, onSpeakEnd, onAudioPreparing, stopSpeaking, playSingleClause],
+    [onSpeakStart, onSpeakEnd, onAudioPreparing, stopSpeaking, playSingleClause, playAudioBlob],
   );
 
   return {

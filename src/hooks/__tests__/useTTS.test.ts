@@ -131,4 +131,25 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
     expect(secondBlob).not.toBeNull();
     expect(fetchSpy).toHaveBeenCalledTimes(1); // Not called again!
   });
+
+  it('12. fetchTTSAudioBlob deduplicates concurrent in-flight requests for same text', async () => {
+    const fakeBlob = new Blob(['concurrent audio'], { type: 'audio/mpeg' });
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(async () => {
+      await new Promise((r) => setTimeout(r, 20));
+      return new Response(fakeBlob, {
+        status: 200,
+        headers: { 'Content-Type': 'audio/mpeg' },
+      });
+    });
+
+    // Fire 2 parallel requests simultaneously
+    const [blob1, blob2] = await Promise.all([
+      fetchTTSAudioBlob('自己紹介をしましょう', 'ja'),
+      fetchTTSAudioBlob('自己紹介をしましょう', 'ja'),
+    ]);
+
+    expect(blob1).not.toBeNull();
+    expect(blob2).not.toBeNull();
+    expect(fetchSpy).toHaveBeenCalledTimes(1); // Exact deduplication!
+  });
 });
