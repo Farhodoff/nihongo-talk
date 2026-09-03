@@ -475,8 +475,13 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
 
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
-      // When SpeechSynthesis is unavailable, route directly to network TTS
-      if (!synth) {
+      // Check if browser actually has a native voice installed for this language
+      const hasLanguageVoice = isJa
+        ? (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('ja'))
+        : (currentVoices || []).some((v) => v.lang.toLowerCase().startsWith('en'));
+
+      // When SpeechSynthesis or voice for this language is unavailable, route directly to network TTS
+      if (!synth || !hasLanguageVoice) {
         try {
           await playNetworkClause(clause, isJa);
           return;
@@ -495,6 +500,31 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
           resolve();
           return;
         }
+
+        let isFinished = false;
+        const finish = (fn?: () => void) => {
+          if (isFinished) return;
+          isFinished = true;
+          if (watchdogTimer) clearTimeout(watchdogTimer);
+          activeUtteranceRef.current = null;
+          if (fn) fn();
+          resolve();
+        };
+
+        const maxDurationMs = Math.max(3500, clause.length * 350);
+        const watchdogTimer = setTimeout(() => {
+          if (!isFinished) {
+            console.warn(
+              `[useTTS] Web Speech hang detected (${maxDurationMs}ms), fallback to Network TTS.`,
+            );
+            try {
+              synth.cancel();
+            } catch {}
+            finish(() => {
+              playNetworkClause(clause, isJa).catch(() => {});
+            });
+          }
+        }, maxDurationMs);
 
         try {
           const utterance = new SpeechSynthesisUtterance(clause);
@@ -517,41 +547,39 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
           };
 
           utterance.onend = () => {
-            activeUtteranceRef.current = null;
             const elapsed = speakStartTime > 0 ? Date.now() - speakStartTime : 0;
             if (clause.length > 3 && (speakStartTime === 0 || elapsed < 120)) {
               console.warn(
                 `[useTTS] Web Speech skipped (${elapsed}ms, started=${speakStartTime > 0}), falling back to Network TTS.`,
               );
               playNetworkClause(clause, isJa)
-                .then(resolve)
-                .catch(() => resolve());
+                .then(() => finish())
+                .catch(() => finish());
               return;
             }
-            resolve();
+            finish();
           };
 
           utterance.onerror = (event: any) => {
-            activeUtteranceRef.current = null;
             if (isCancelledRef.current) {
-              resolve();
+              finish();
               return;
             }
             if (event?.error === 'canceled' || event?.error === 'interrupted') {
-              resolve();
+              finish();
               return;
             }
             playNetworkClause(clause, isJa)
-              .then(resolve)
-              .catch(() => resolve());
+              .then(() => finish())
+              .catch(() => finish());
           };
 
           synth.speak(utterance);
           if (synth.paused) synth.resume();
         } catch {
           playNetworkClause(clause, isJa)
-            .then(resolve)
-            .catch(() => resolve());
+            .then(() => finish())
+            .catch(() => finish());
         }
       });
     },
