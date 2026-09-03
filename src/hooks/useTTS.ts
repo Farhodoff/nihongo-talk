@@ -447,6 +447,32 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
         } catch {}
       }
 
+      if (synth && (!currentVoices || currentVoices.length === 0)) {
+        await new Promise<void>((r) => {
+          let resolved = false;
+          const onVoices = () => {
+            if (resolved) return;
+            resolved = true;
+            try {
+              currentVoices = synth.getVoices() || [];
+              voicesRef.current = currentVoices;
+              synth.removeEventListener('voiceschanged', onVoices);
+            } catch {}
+            r();
+          };
+          synth.addEventListener('voiceschanged', onVoices);
+          setTimeout(() => {
+            if (!resolved) {
+              resolved = true;
+              try {
+                synth.removeEventListener('voiceschanged', onVoices);
+              } catch {}
+              r();
+            }
+          }, 350);
+        });
+      }
+
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
       // When SpeechSynthesis is unavailable, route directly to network TTS
@@ -505,9 +531,13 @@ export const useTTS = ({ language, onSpeakStart, onSpeakEnd }: UseTTSOptions): U
             resolve();
           };
 
-          utterance.onerror = () => {
+          utterance.onerror = (event: any) => {
             activeUtteranceRef.current = null;
             if (isCancelledRef.current) {
+              resolve();
+              return;
+            }
+            if (event?.error === 'canceled' || event?.error === 'interrupted') {
               resolve();
               return;
             }

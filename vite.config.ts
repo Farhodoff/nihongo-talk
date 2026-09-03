@@ -211,6 +211,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/deepseek/, ''),
       },
+      '/api/tts': {
+        target: 'https://nihon-talk.vercel.app',
+        changeOrigin: true,
+      },
     },
     fs: {
       allow: ['..'],

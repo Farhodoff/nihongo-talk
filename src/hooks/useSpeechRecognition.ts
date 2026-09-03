@@ -323,7 +323,7 @@ export const useSpeechRecognition = ({
     };
 
     recognition.onresult = (event: any) => {
-      if (isMutedRef.current) {
+      if (isMutedRef.current || isSpeakingRef.current || isThinkingRef.current) {
         return;
       }
       if (!speechStartTimeRef.current) {
@@ -418,7 +418,13 @@ export const useSpeechRecognition = ({
         transcriptBufferRef.current = '';
         setCurrentTranscript('');
 
-        if (isLiveSessionRef.current && !isProcessingRef.current && !isMutedRef.current) {
+        if (
+          isLiveSessionRef.current &&
+          !isProcessingRef.current &&
+          !isMutedRef.current &&
+          !isSpeakingRef.current &&
+          !isThinkingRef.current
+        ) {
           onValidSpeechRef.current(spokenText);
         }
       } else if (

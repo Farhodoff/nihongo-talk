@@ -640,9 +640,16 @@ const SpeakingCoachPage: React.FC = () => {
       setIsThinking(false);
       setCurrentTranscript('');
       transcriptBufferRef.current = '';
-      if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
+      if (
+        isLiveSessionRef.current &&
+        isHandsFreeRef.current &&
+        !isMuted &&
+        !isSpeakingRef.current
+      ) {
         setTimeout(() => {
-          startListening();
+          if (!isSpeakingRef.current && !isProcessingRef.current) {
+            startListening();
+          }
         }, 500);
       }
       return;
