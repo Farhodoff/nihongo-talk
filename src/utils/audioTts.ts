@@ -102,8 +102,8 @@ export function speakText(text: string, accent: string = 'en-US'): void {
     }
   }
 
-  // If target language is Japanese and no Japanese voice is found on this device, use Network Google TTS
-  if (isJa && !matchedVoice) {
+  // For Japanese, ALWAYS prioritize Network Google TTS for crystal-clear native pronunciation
+  if (isJa) {
     playNetworkFallback();
     return;
   }

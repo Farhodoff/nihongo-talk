@@ -290,14 +290,13 @@ export const parseCoachResponse = (
   };
 };
 
-export const converseWithCoachStructured = async (
+export const buildCoachPrompts = (
   message: string,
   history: { role: 'user' | 'assistant'; content: string }[],
   language: 'en' | 'ja' = 'en',
   persona: string = 'roast',
-  _userKey?: string,
   scenario?: ConversationScenario | null,
-): Promise<CoachStructuredResponse> => {
+): { systemPrompt: string; userPrompt: string } => {
   // Keep last 6 messages to optimize token usage & ensure fast responses
   const recentHistory = history.slice(-6);
   const historyText = recentHistory
@@ -463,6 +462,25 @@ You MUST respond with a VALID JSON object matching this schema exactly:
       Student's current message:
       "${message}"
     `;
+
+  return { systemPrompt, userPrompt };
+};
+
+export const converseWithCoachStructured = async (
+  message: string,
+  history: { role: 'user' | 'assistant'; content: string }[],
+  language: 'en' | 'ja' = 'en',
+  persona: string = 'roast',
+  _userKey?: string,
+  scenario?: ConversationScenario | null,
+): Promise<CoachStructuredResponse> => {
+  const { systemPrompt, userPrompt } = buildCoachPrompts(
+    message,
+    history,
+    language,
+    persona,
+    scenario,
+  );
 
   const dsResult = await callSelectedAIProvider(userPrompt, systemPrompt, true);
   if (!dsResult || dsResult.trim().length === 0) {

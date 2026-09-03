@@ -249,3 +249,103 @@ export const callDeepSeek = async (
     "AI_UNAVAILABLE: AI xizmati vaqtincha mavjud emas. Iltimos qayta urinib ko'ring.",
   );
 };
+
+/**
+ * Streams tokens directly from DeepSeek via the Supabase Edge Function SSE stream.
+ * Invokes onToken callback immediately as each token delta arrives.
+ */
+export const streamDeepSeekTokens = async (
+  messages: { role: string; content: string }[],
+  onToken: (token: string) => void,
+  isJson: boolean = false,
+  signal?: AbortSignal,
+): Promise<string> => {
+  purgeOversizedCookies();
+
+  const baseUrl =
+    import.meta.env.VITE_SUPABASE_URL ||
+    import.meta.env.NEXT_PUBLIC_SUPABASE_URL ||
+    'https://qmuimxnknxwarvnkpnlo.supabase.co';
+  const directUrl = `${baseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
+  const anonKey =
+    import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+
+  const payload: Record<string, unknown> = {
+    model: 'deepseek-chat',
+    messages,
+    stream: true,
+  };
+
+  if (isJson) {
+    payload.response_format = { type: 'json_object' };
+  }
+
+  const response = await fetch(directUrl, {
+    method: 'POST',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${anonKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    signal,
+  });
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => '');
+    throw new Error(`Streaming failed (${response.status}): ${errText}`);
+  }
+
+  if (!response.body) {
+    throw new Error('Response body is null, cannot stream');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let accumulated = '';
+  let buffer = '';
+
+  let isReading = true;
+  while (isReading) {
+    const { done, value } = await reader.read();
+    if (done) {
+      isReading = false;
+      break;
+    }
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || '';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith(':')) continue;
+      if (trimmed === 'data: [DONE]') continue;
+
+      if (trimmed.startsWith('data: ')) {
+        const jsonStr = trimmed.slice(6);
+        try {
+          const parsed = JSON.parse(jsonStr);
+          const delta = parsed.choices?.[0]?.delta?.content || '';
+          if (delta) {
+            accumulated += delta;
+            onToken(delta);
+          }
+        } catch {}
+      }
+    }
+  }
+
+  if (buffer.trim().startsWith('data: ') && buffer.trim() !== 'data: [DONE]') {
+    try {
+      const parsed = JSON.parse(buffer.trim().slice(6));
+      const delta = parsed.choices?.[0]?.delta?.content || '';
+      if (delta) {
+        accumulated += delta;
+        onToken(delta);
+      }
+    } catch {}
+  }
+
+  return accumulated;
+};

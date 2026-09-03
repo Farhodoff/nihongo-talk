@@ -11,6 +11,7 @@ import {
   extractSpeechAudioText,
   cleanJapaneseTTS,
 } from '../utils/ai';
+import { streamCoachDialogue } from '../utils/ai/aiVoiceStream';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { ErrorVaultService } from '../services/ErrorVaultService';
 import { MasteryEngine } from '../services/MasteryEngine';
@@ -360,38 +361,40 @@ const SpeakingCoachPage: React.FC = () => {
   const lastCoachSpokenTextRef = useRef<string>('');
 
   // TTS Hook
-  const { speakText, stopSpeaking, unlockAudio } = useTTS({
-    language,
-    isLiveSessionRef,
-    isProcessingRef,
-    onSpeakStart: () => {
-      setIsSpeaking(true);
-      if (recognitionRef.current) {
-        try {
-          recognitionRef.current.abort();
-        } catch {}
-      }
-      transcriptBufferRef.current = '';
-      setCurrentTranscript('');
+  const { speakText, stopSpeaking, unlockAudio, enqueueStreamSentence, endStreamPlayback } = useTTS(
+    {
+      language,
+      isLiveSessionRef,
+      isProcessingRef,
+      onSpeakStart: () => {
+        setIsSpeaking(true);
+        if (recognitionRef.current) {
+          try {
+            recognitionRef.current.abort();
+          } catch {}
+        }
+        transcriptBufferRef.current = '';
+        setCurrentTranscript('');
+      },
+      onSpeakEnd: () => {
+        setIsSpeaking(false);
+        isProcessingRef.current = false;
+        // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
+        if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
+          setTimeout(() => {
+            if (
+              isLiveSessionRef.current &&
+              isHandsFreeRef.current &&
+              !isSpeakingRef.current &&
+              !isProcessingRef.current
+            ) {
+              startListening();
+            }
+          }, 400);
+        }
+      },
     },
-    onSpeakEnd: () => {
-      setIsSpeaking(false);
-      isProcessingRef.current = false;
-      // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
-      if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
-        setTimeout(() => {
-          if (
-            isLiveSessionRef.current &&
-            isHandsFreeRef.current &&
-            !isSpeakingRef.current &&
-            !isProcessingRef.current
-          ) {
-            startListening();
-          }
-        }, 400);
-      }
-    },
-  });
+  );
 
   // Speech Recognition Hook
   const {
@@ -620,14 +623,31 @@ const SpeakingCoachPage: React.FC = () => {
     chatHistoryRef.current = updatedHistory;
 
     try {
-      const structured = await converseWithCoachStructured(
+      let streamedAnySentence = false;
+      const streamAbortCtrl = new AbortController();
+
+      const structured = await streamCoachDialogue(
         cleanText,
         updatedHistory.map((h) => ({ role: h.role, content: h.content })),
         languageRef.current,
         personaRef.current,
-        undefined,
         activeScenarioRef.current,
-      );
+        (sentence) => {
+          streamedAnySentence = true;
+          enqueueStreamSentence(sentence);
+        },
+        streamAbortCtrl.signal,
+      ).catch(async (streamErr) => {
+        console.warn('[SpeakingCoach] Streaming error, falling back to non-stream:', streamErr);
+        return await converseWithCoachStructured(
+          cleanText,
+          updatedHistory.map((h) => ({ role: h.role, content: h.content })),
+          languageRef.current,
+          personaRef.current,
+          undefined,
+          activeScenarioRef.current,
+        );
+      });
 
       const aiMsg: CoachChatMessage = {
         role: 'assistant',
@@ -697,17 +717,23 @@ const SpeakingCoachPage: React.FC = () => {
       setIsThinking(false);
       isProcessingRef.current = false;
 
-      // STRICT TTS: Speak canonical Japanese/English TTS text, or correction advice if reply was blank
-      let speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
-      if (!speechToPlay && structured.correction?.hasError) {
-        const jaAdvice = structured.correction.explanation
-          ? `${structured.correction.explanation} ${structured.correction.corrected || ''}`
-          : structured.correction.corrected || '';
-        speechToPlay = language === 'ja' ? cleanJapaneseTTS(jaAdvice) : jaAdvice;
-      }
-      lastCoachSpokenTextRef.current = speechToPlay;
-      if (speechToPlay) {
-        speakText(speechToPlay);
+      // STRICT TTS: If streamed sentences were already pipelined, finalize stream playback
+      if (streamedAnySentence) {
+        endStreamPlayback();
+        lastCoachSpokenTextRef.current = structured.ttsText || structured.reply;
+      } else {
+        // Fallback or complete utterance speak
+        let speechToPlay = structured.ttsText || extractSpeechAudioText(structured.reply);
+        if (!speechToPlay && structured.correction?.hasError) {
+          const jaAdvice = structured.correction.explanation
+            ? `${structured.correction.explanation} ${structured.correction.corrected || ''}`
+            : structured.correction.corrected || '';
+          speechToPlay = language === 'ja' ? cleanJapaneseTTS(jaAdvice) : jaAdvice;
+        }
+        lastCoachSpokenTextRef.current = speechToPlay;
+        if (speechToPlay) {
+          speakText(speechToPlay);
+        }
       }
     } catch (err: any) {
       console.error('Coach response error:', err);
