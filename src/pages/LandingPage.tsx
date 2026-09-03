@@ -2,8 +2,18 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import {
-    ArrowRight, CheckCircle2, Menu, Moon, Sun, X,
-    Target, Map, Brain, Mic
+  ArrowRight,
+  Menu,
+  Moon,
+  Sun,
+  X,
+  Mic,
+  Volume2,
+  Flame,
+  BookOpen,
+  MessageSquare,
+  Check,
+  Lock,
 } from 'lucide-react';
 import { AppLogo } from '../components/AppLogo';
 import { UzbekistanFlag, JapanFlag } from '../components/common/FlagIcons';
@@ -11,628 +21,1188 @@ import { useSEO } from '../hooks/useSEO';
 import { useLanguage } from '../context/LanguageContext';
 
 /* ------------------------------------------------------------------ */
-/*  Animated section wrapper                                          */
+/*  Animated Section Wrapper                                          */
 /* ------------------------------------------------------------------ */
-const FadeIn: React.FC<{ children: React.ReactNode; className?: string; delay?: number; offsetY?: number; direction?: 'y' | 'x' }> = ({
-    children,
-    className = '',
-    delay = 0,
-    offsetY = 24,
-    direction = 'y',
-}) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: '-60px' });
-    const initial = direction === 'y' ? { opacity: 0, y: offsetY } : { opacity: 0, x: offsetY };
-    const animate = direction === 'y' ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 };
-    return (
-        <motion.div
-            ref={ref}
-            initial={initial}
-            animate={isInView ? animate : initial}
-            transition={{ duration: 0.5, delay, ease: 'easeOut' }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
+const FadeIn: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  offsetY?: number;
+  direction?: 'y' | 'x';
+}> = ({ children, className = '', delay = 0, offsetY = 24, direction = 'y' }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const initial = direction === 'y' ? { opacity: 0, y: offsetY } : { opacity: 0, x: offsetY };
+  const animate = direction === 'y' ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 };
+  return (
+    <motion.div
+      ref={ref}
+      initial={initial}
+      animate={isInView ? animate : initial}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 /* ------------------------------------------------------------------ */
-/*  Dashboard Preview Mockup                                          */
+/*  Phone Mockup with 3D Tilt & Typing Bubble (Hero)                  */
 /* ------------------------------------------------------------------ */
-const DashboardPreview: React.FC<{ t: (k: string) => string; language?: string }> = ({ t, language }) => (
-    <div className="relative w-full max-w-md mx-auto">
-        {/* Glow behind */}
-        <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-transparent to-cyan-500/10 rounded-3xl blur-2xl -z-10" />
+const HeroPhoneMockup: React.FC = () => {
+  const [isTranslating, setIsTranslating] = useState(true);
 
-        <div className="rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
-            {/* Browser bar */}
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/50">
-                <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
-                </div>
-                <span className="text-[10px] font-mono text-muted-foreground ml-2">nihon-talk.vercel.app/jlpt</span>
+  return (
+    <div className="mx-auto flex w-full max-w-[340px] select-none justify-center [perspective:1200px] sm:max-w-[360px]">
+      <motion.div
+        initial={{ opacity: 0, y: 30, rotateY: -12, rotateX: 4 }}
+        animate={{ opacity: 1, y: 0, rotateY: -6, rotateX: 2 }}
+        whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="relative flex h-[620px] w-full flex-col justify-between overflow-hidden rounded-[44px] border border-border bg-card p-4 shadow-2xl"
+      >
+        {/* Phone Notch */}
+        <div className="mx-auto mb-2 h-6 w-28 shrink-0 rounded-b-2xl bg-foreground/10" />
+
+        {/* Sensei Header */}
+        <div className="flex shrink-0 items-center gap-2.5 border-b border-border/80 pb-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-rose-400 text-sm font-bold text-white shadow-sm">
+            先
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-bold text-foreground">Yuki-sensei</span>
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
             </div>
-
-            {/* Dashboard content */}
-            <div className="p-5 space-y-4">
-                {/* Header row */}
-                <div className="flex items-center justify-between">
-                    <div>
-                        <p className="text-xs text-muted-foreground">{t('landing.dashToday')}</p>
-                        <p className="text-sm font-bold text-foreground">{t('landing.dashRoadmap')}</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-2xl font-black text-primary">68%</p>
-                    </div>
-                </div>
-
-                {/* Progress bar */}
-                <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full w-[68%] rounded-full bg-gradient-to-r from-primary to-cyan-400" />
-                </div>
-
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-3">
-                    {/* Featured Speaking Metric */}
-                    <FadeIn offsetY={10} delay={0.1} className="col-span-2">
-                        <div className="p-3.5 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-between shadow-xs">
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-base">
-                                    🗣️
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-foreground">{t('landing.dashSpeaking')}</p>
-                                    <p className="text-[10px] text-muted-foreground">{language === 'ja' ? 'リアルタイム会話練習' : 'Jonli suhbat mashqi'}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-lg font-black font-mono text-primary">08:24</span>
-                                <span className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-primary text-primary-foreground">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                                    LIVE
-                                </span>
-                            </div>
-                        </div>
-                    </FadeIn>
-
-                    <FadeIn offsetY={10} delay={0.2}>
-                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashVocab')}</p>
-                            <p className="text-lg font-black text-foreground">15 <span className="text-xs font-normal text-muted-foreground">/ 15</span></p>
-                        </div>
-                    </FadeIn>
-                    <FadeIn offsetY={10} delay={0.3}>
-                        <div className="p-3 rounded-xl bg-muted/50 border border-border">
-                            <p className="text-[10px] text-muted-foreground mb-1">{t('landing.dashGrammar')}</p>
-                            <p className="text-lg font-black text-foreground">1 <span className="text-xs font-normal text-muted-foreground">/ 1</span></p>
-                        </div>
-                    </FadeIn>
-                </div>
-            </div>
+            <span className="text-[11px] font-medium text-emerald-500">
+              ● onlayn · Restoran mavzusi
+            </span>
+          </div>
         </div>
+
+        {/* Chat Bubbles */}
+        <div className="no-scrollbar flex-1 space-y-3 overflow-y-auto py-4">
+          {/* AI Message 1 */}
+          <div className="rounded-bl-xs max-w-[85%] space-y-1 rounded-2xl border border-border bg-muted/80 p-3 text-sm text-foreground">
+            <p className="font-japanese text-[15px] leading-relaxed">
+              <ruby>
+                今日<rt className="text-[10px] text-muted-foreground">きょう</rt>
+              </ruby>
+              は
+              <ruby>
+                何<rt className="text-[10px] text-muted-foreground">なに</rt>
+              </ruby>
+              を
+              <ruby>
+                食<rt className="text-[10px] text-muted-foreground">た</rt>
+              </ruby>
+              べますか？
+            </p>
+            {isTranslating && (
+              <span className="block text-[11px] text-muted-foreground">Bugun nima yeysiz?</span>
+            )}
+          </div>
+
+          {/* User Message */}
+          <div className="rounded-br-xs ml-auto max-w-[85%] space-y-1 rounded-2xl bg-primary p-3 text-sm text-primary-foreground shadow-sm">
+            <p className="font-japanese text-[15px] leading-relaxed">ラーメンをたべたいです！</p>
+            {isTranslating && (
+              <span className="block text-[11px] text-primary-foreground/80">
+                Ramen yemoqchiman!
+              </span>
+            )}
+          </div>
+
+          {/* AI Message 2 */}
+          <div className="rounded-bl-xs max-w-[85%] space-y-1 rounded-2xl border border-border bg-muted/80 p-3 text-sm text-foreground">
+            <p className="font-japanese text-[15px] leading-relaxed">
+              いいですね！🍜{' '}
+              <ruby>
+                辛<rt className="text-[10px] text-muted-foreground">から</rt>
+              </ruby>
+              いのは
+              <ruby>
+                大丈夫<rt className="text-[10px] text-muted-foreground">だいじょうぶ</rt>
+              </ruby>
+              ですか？
+            </p>
+          </div>
+
+          {/* Typing indicator */}
+          <div className="rounded-bl-xs inline-flex items-center gap-1.5 rounded-2xl border border-border/60 bg-muted/60 px-3 py-2">
+            <span
+              className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60"
+              style={{ animationDelay: '0ms' }}
+            />
+            <span
+              className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60"
+              style={{ animationDelay: '150ms' }}
+            />
+            <span
+              className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60"
+              style={{ animationDelay: '300ms' }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom Input Area */}
+        <div className="flex h-12 shrink-0 items-center justify-between rounded-full border border-border bg-background px-4 text-xs text-muted-foreground shadow-inner">
+          <span>Yozing yoki gapiring…</span>
+          <button
+            onClick={() => setIsTranslating(!isTranslating)}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
+            title="Ovozli gapirish"
+          >
+            <Mic size={15} />
+          </button>
+        </div>
+      </motion.div>
     </div>
-);
+  );
+};
 
 /* ------------------------------------------------------------------ */
-/*  Speaking Coach Mockup                                             */
+/*  Product UI Showcase Mockup                                        */
 /* ------------------------------------------------------------------ */
-const SpeakingMockup: React.FC<{ t: (k: string) => string }> = ({ t }) => (
-    <div className="w-full max-w-md mx-auto rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
-        {/* Chat messages */}
-        <div className="p-5 space-y-3">
-            <FadeIn offsetY={10} delay={0} direction="x">
-                <div className="flex gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
-                <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
-                    {t('landing.speakingAiMessage1')}
-                </div>
-            </div>
-            </FadeIn>
-                            {/* User message */}
-            <FadeIn offsetY={10} delay={0.1} direction="x">
-                            <div className="flex gap-2.5 justify-end">
-                <div className="px-3.5 py-2.5 rounded-2xl rounded-tr-sm bg-primary text-sm text-primary-foreground max-w-[85%]">
-                    {t('landing.speakingUserMessage')}
-                </div>
-            </div>
-</FadeIn>
-            <FadeIn offsetY={10} delay={0.2} direction="x">
-                <div className="flex gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-xs font-bold text-primary">AI</div>
-                <div className="px-3.5 py-2.5 rounded-2xl rounded-tl-sm bg-muted text-sm text-foreground max-w-[85%]">
-                    {t('landing.speakingAiMessage2')}
-                </div>
-            </div>
-        </FadeIn>
-        </div>
+const ProductShowcase: React.FC = () => {
+  const [selectedLevel, setSelectedLevel] = useState('N4');
+  const [selectedTopic, setSelectedTopic] = useState('🍜 Restoran');
+  const [showTranslation, setShowTranslation] = useState(true);
+  const [activeHeart, setActiveHeart] = useState<Record<string, boolean>>({ 塩: true });
 
-        {/* Score bars */}
-        <div className="px-5 pb-5 grid grid-cols-2 gap-2.5">
-            {[
-                { label: t('landing.speakingFluency'), score: 82, color: 'bg-emerald-500' },
-                { label: t('landing.speakingGrammar'), score: 76, color: 'bg-cyan-500' },
-                { label: t('landing.speakingVocabulary'), score: 84, color: 'bg-[#C9A961]' },
-                { label: t('landing.speakingPronunciation'), score: 79, color: 'bg-amber-500' },
-            ].map(s => (
-                <div key={s.label} className="space-y-1">
-                    <div className="flex items-center justify-between text-[10px]">
-                        <span className="text-muted-foreground font-medium">{s.label}</span>
-                        <span className="font-bold text-foreground">{s.score}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                        <div className={`h-full rounded-full ${s.color}`} style={{ width: `${s.score}%` }} />
-                    </div>
-                </div>
+  const toggleHeart = (word: string) => {
+    setActiveHeart((prev) => ({ ...prev, [word]: !prev[word] }));
+  };
+
+  const topics = [
+    { label: '🍜 Restoran', jp: 'レストラン' },
+    { label: '✈️ Aeroport', jp: '空港' },
+    { label: '🛍 Do‘kon', jp: '買い物' },
+    { label: '🏥 Shifokor', jp: '病院' },
+    { label: '💼 Ish suhbati', jp: '面接' },
+    { label: '🎌 Erkin suhbat', jp: '自由' },
+  ];
+
+  return (
+    <div className="grid min-h-[580px] w-full grid-cols-1 overflow-hidden rounded-2xl border border-border bg-card shadow-2xl lg:grid-cols-[260px_1fr_300px]">
+      {/* LEFT SIDEBAR (Levels & Topics) */}
+      <aside className="hidden flex-col gap-5 border-r border-border bg-muted/20 p-5 lg:flex">
+        <button className="flex h-10 w-full items-center justify-center gap-1.5 rounded-xl bg-primary text-xs font-bold text-primary-foreground shadow-sm transition-opacity hover:opacity-90">
+          ＋ Yangi suhbat
+        </button>
+
+        {/* Level selector */}
+        <div>
+          <div className="mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            Daraja
+          </div>
+          <div className="grid grid-cols-5 gap-1">
+            {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
+              <button
+                key={lvl}
+                onClick={() => setSelectedLevel(lvl)}
+                className={`rounded-lg border py-1.5 text-xs font-bold transition-all ${
+                  selectedLevel === lvl
+                    ? 'border-primary bg-primary/10 text-primary shadow-xs'
+                    : 'border-border text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {lvl}
+              </button>
             ))}
+          </div>
         </div>
+
+        {/* Topics */}
+        <div className="flex-1">
+          <div className="mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            Mavzular
+          </div>
+          <div className="space-y-1">
+            {topics.map((t) => (
+              <button
+                key={t.label}
+                onClick={() => setSelectedTopic(t.label)}
+                className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition-all ${
+                  selectedTopic === t.label
+                    ? 'bg-primary/15 font-bold text-primary'
+                    : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                }`}
+              >
+                <span>{t.label}</span>
+                <span className="font-japanese text-[11px] opacity-60">{t.jp}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Recent */}
+        <div className="border-t border-border/80 pt-3">
+          <div className="mb-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            So‘nggi
+          </div>
+          <div className="space-y-1 text-xs text-muted-foreground">
+            <div className="cursor-pointer rounded-lg px-2 py-1 hover:bg-muted/40">
+              Kecha · Do‘kon
+            </div>
+            <div className="cursor-pointer rounded-lg px-2 py-1 hover:bg-muted/40">
+              Du · O‘zini tanishtirish
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* CENTER MAIN CHAT */}
+      <main className="flex min-w-0 flex-col bg-background/50">
+        {/* Top Coach Bar */}
+        <div className="flex items-center gap-3 border-b border-border bg-card/60 px-5 py-3.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-rose-400 text-xs font-bold text-white shadow-xs">
+            先
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+              <span>Yuki-sensei</span>
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            </div>
+            <span className="text-[11px] text-muted-foreground">
+              {selectedTopic.replace(/^[^\s]+\s*/, '')} · {selectedLevel} · oddiy nutq
+            </span>
+          </div>
+
+          <div className="ml-auto flex items-center gap-3">
+            <div className="hidden items-center gap-2 text-xs font-semibold text-muted-foreground sm:flex">
+              <span>Bugun 7/10 daq</span>
+              <div className="h-1.5 w-20 overflow-hidden rounded-full bg-muted">
+                <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-primary to-rose-400" />
+              </div>
+            </div>
+            <span className="flex items-center gap-1 text-xs font-black text-amber-500">
+              <Flame size={14} className="fill-amber-500" /> 12
+            </span>
+          </div>
+        </div>
+
+        {/* Chat Message Area */}
+        <div className="flex-1 space-y-4 overflow-y-auto p-5 sm:p-6">
+          {/* AI Message 1 */}
+          <div className="flex max-w-[90%] items-start gap-3">
+            <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-rose-400 text-xs font-bold text-white">
+              先
+            </div>
+            <div className="space-y-2">
+              <div className="rounded-tl-xs font-japanese rounded-2xl border border-border bg-card p-3.5 text-sm leading-relaxed text-foreground">
+                <ruby>
+                  今日<rt className="text-[10px] text-muted-foreground">きょう</rt>
+                </ruby>
+                は
+                <ruby>
+                  何<rt className="text-[10px] text-muted-foreground">なに</rt>
+                </ruby>
+                を
+                <ruby>
+                  食<rt className="text-[10px] text-muted-foreground">た</rt>
+                </ruby>
+                べますか？
+              </div>
+              <div className="flex flex-wrap gap-1.5 text-[11px] font-semibold text-muted-foreground">
+                <button className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 hover:bg-muted/80">
+                  <Volume2 size={12} /> Tinglash
+                </button>
+                <button
+                  onClick={() => setShowTranslation(!showTranslation)}
+                  className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 hover:bg-muted/80"
+                >
+                  🇺🇿 Tarjima
+                </button>
+                <button className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 hover:bg-muted/80">
+                  🐢 Sekin
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* User Message + Smart Correction Card */}
+          <div className="ml-auto flex max-w-[90%] items-start justify-end gap-3">
+            <div className="space-y-2 text-right">
+              <div className="rounded-tr-xs font-japanese inline-block rounded-2xl bg-primary p-3.5 text-left text-sm leading-relaxed text-primary-foreground shadow-sm">
+                わたしはラーメンをたべたいです。でも、からいはすきじゃない。
+              </div>
+
+              {/* Correction Card */}
+              <div className="space-y-1.5 rounded-xl border border-amber-500/25 bg-amber-500/10 p-3 text-left text-xs">
+                <div className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-amber-500">
+                  <span>✏️</span> Tuzatish
+                </div>
+                <div className="font-japanese text-[13px] leading-relaxed text-foreground">
+                  でも、
+                  <s className="font-bold text-rose-500 decoration-rose-500 decoration-2">
+                    からいは
+                  </s>{' '}
+                  <u className="border-b-2 border-emerald-500 font-bold text-emerald-500 no-underline">
+                    からいのは
+                  </u>{' '}
+                  すきじゃない
+                  <u className="border-b-2 border-emerald-500 font-bold text-emerald-500 no-underline">
+                    です
+                  </u>
+                  。
+                </div>
+                <p className="text-[11px] leading-relaxed text-muted-foreground">
+                  Sifatni ot sifatida ishlatganda <b className="text-foreground">の</b> qo‘shiladi:
+                  からい → からい<b className="text-foreground">の</b>. Va です bilan muloyimroq
+                  bo‘ladi.
+                </p>
+              </div>
+            </div>
+            <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-xs font-bold text-primary">
+              F
+            </div>
+          </div>
+
+          {/* AI Message 2 */}
+          <div className="flex max-w-[90%] items-start gap-3">
+            <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-rose-400 text-xs font-bold text-white">
+              先
+            </div>
+            <div className="space-y-2">
+              <div className="rounded-tl-xs font-japanese rounded-2xl border border-border bg-card p-3.5 text-sm leading-relaxed text-foreground">
+                いいですね！🍜 じゃあ、
+                <ruby>
+                  塩<rt className="text-[10px] text-muted-foreground">しお</rt>
+                </ruby>
+                ラーメンはどうですか？
+              </div>
+              <div className="flex flex-wrap gap-1.5 text-[11px] font-semibold text-muted-foreground">
+                <button className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 hover:bg-muted/80">
+                  <Volume2 size={12} /> Tinglash
+                </button>
+                <button className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 hover:bg-muted/80">
+                  🇺🇿 Tarjima
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat Input Bar */}
+        <div className="border-t border-border bg-card/40 p-4">
+          <div className="flex h-12 items-center gap-2 rounded-full border border-border bg-background px-4 text-xs text-muted-foreground shadow-xs">
+            <span className="flex-1 truncate">Yozing yoki bosib turib gapiring…</span>
+            <span className="hidden items-center gap-1 rounded-full border border-border bg-muted/40 px-2.5 py-1 text-[11px] font-medium sm:inline-flex">
+              ⌨️ Romaji
+            </span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <Mic size={16} />
+            </span>
+            <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xs hover:opacity-90">
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* RIGHT SIDEBAR (Vocabulary & Weak Spots) */}
+      <aside className="hidden flex-col gap-5 border-l border-border bg-muted/20 p-5 lg:flex">
+        <div>
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            Yangi so‘zlar · 3
+          </div>
+          <div className="space-y-2">
+            {[
+              { word: '辛い', reading: 'からい · karai', meaning: 'achchiq' },
+              { word: '塩', reading: 'しお · shio', meaning: 'tuz' },
+              {
+                word: '大丈夫',
+                reading: 'だいじょうぶ · daijoubu',
+                meaning: 'yaxshi, muammo yo‘q',
+              },
+            ].map((item) => (
+              <div
+                key={item.word}
+                className="space-y-0.5 rounded-xl border border-border bg-card p-3"
+              >
+                <div className="font-japanese flex items-center justify-between text-base font-bold text-foreground">
+                  <span>{item.word}</span>
+                  <button
+                    onClick={() => toggleHeart(item.word)}
+                    className={`cursor-pointer text-xs ${
+                      activeHeart[item.word]
+                        ? 'text-rose-500'
+                        : 'text-muted-foreground hover:text-rose-400'
+                    }`}
+                  >
+                    {activeHeart[item.word] ? '♥' : '♡'}
+                  </button>
+                </div>
+                <div className="text-[11px] text-muted-foreground">{item.reading}</div>
+                <div className="text-xs font-medium text-foreground/80">{item.meaning}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Weak Spots */}
+        <div className="space-y-2 rounded-xl border border-primary/20 bg-primary/5 p-3.5">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+            <span>⚠️</span> Zaif joylar
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+              の nominalizatsiya
+            </span>
+            <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+              は / が
+            </span>
+            <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+              て-forma
+            </span>
+          </div>
+        </div>
+
+        {/* Accuracy */}
+        <div className="mt-auto border-t border-border/80 pt-3 text-center text-xs text-muted-foreground">
+          Aniqlik bugun: <b className="font-bold text-emerald-500">84% ↑</b>
+        </div>
+      </aside>
     </div>
-);
+  );
+};
 
 /* ------------------------------------------------------------------ */
 /*  Main Landing Page                                                 */
 /* ------------------------------------------------------------------ */
 const LandingPage: React.FC = () => {
-    const navigate = useNavigate();
-    const { language, setLanguage, t } = useLanguage();
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { language, setLanguage, t } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedLessonTab, setSelectedLessonTab] = useState('N5');
 
-    const [isDark, setIsDark] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('study_planner_theme');
-            if (saved) return saved === 'dark';
-            return document.documentElement.classList.contains('dark');
-        }
-        return true;
-    });
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('study_planner_theme');
+      if (saved) return saved === 'dark';
+      return document.documentElement.classList.contains('dark');
+    }
+    return true;
+  });
 
-    useEffect(() => {
-        if (typeof window === 'undefined') return;
-        if (isDark) {
-            document.documentElement.classList.add('dark');
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('study_planner_theme', next ? 'dark' : 'light');
+      }
+      if (typeof document !== 'undefined') {
+        if (next) {
+          document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove('dark');
         }
-    }, [isDark]);
-
-    const toggleTheme = () => {
-        setIsDark(prev => {
-            const next = !prev;
-            if (typeof localStorage !== 'undefined') {
-                localStorage.setItem('study_planner_theme', next ? 'dark' : 'light');
-            }
-            if (typeof document !== 'undefined') {
-                if (next) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-            }
-            return next;
-        });
-    };
-
-    useSEO({
-        title: t('landing.seoTitle'),
-        description: t('landing.seoDescription'),
-        canonical: '/',
-        keywords: t('landing.seoKeywords')
+      }
+      return next;
     });
+  };
 
-    const isJa = language === 'ja';
-    const scrollTo = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-        setMobileMenuOpen(false);
-    };
+  useSEO({
+    title: t('landing.seoTitle'),
+    description: t('landing.seoDescription'),
+    canonical: '/',
+    keywords: t('landing.seoKeywords'),
+  });
 
-    const navLinks = [
-        { label: t('landing.navFeatures'), target: 'features' },
-        { label: t('landing.navRoadmap'), target: 'roadmap' },
-        { label: t('landing.navSpeaking'), target: 'speaking' },
-    ];
+  const isJa = language === 'ja';
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  };
 
-    return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary transition-colors duration-200">
-            {/* ======== NAVBAR ======== */}
-            <motion.nav
-                initial={{ y: -40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/60"
+  const navLinks = [
+    { label: t('landing.navFeatures'), target: 'features' },
+    { label: t('landing.navSpeaking'), target: 'app' },
+    { label: t('landing.navRoadmap'), target: 'lessons' },
+  ];
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-background font-sans text-foreground transition-colors duration-200 selection:bg-primary/20 selection:text-primary">
+      {/* ======== NAVBAR ======== */}
+      <motion.nav
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl"
+      >
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Left: Logo */}
+          <AppLogo size="md" />
+
+          {/* Center: Nav links (desktop) */}
+          <div className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => (
+              <button
+                key={link.target}
+                onClick={() => scrollTo(link.target)}
+                className="rounded-lg px-3.5 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Right: Controls */}
+          <div className="flex items-center gap-2">
+            {/* Language switcher (Segmented Desktop) */}
+            <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-xs">
+              <button
+                onClick={() => setLanguage('uz')}
+                className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                  language === 'uz'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Oʻzbek tiliga o'tish"
+              >
+                <UzbekistanFlag className="h-2.5 w-4" />
+                <span>UZ</span>
+              </button>
+              <button
+                onClick={() => setLanguage('ja')}
+                className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                  language === 'ja'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="日本語に切り替え"
+              >
+                <JapanFlag className="h-2.5 w-4" />
+                <span>JA</span>
+              </button>
+            </div>
+
+            {/* Theme switch */}
+            <button
+              onClick={toggleTheme}
+              className="cursor-pointer rounded-lg border border-border p-2 text-foreground shadow-sm transition-colors hover:bg-muted active:scale-95"
+              title={isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}
+              aria-label={isDark ? 'Light mode' : 'Dark mode'}
             >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    {/* Left: Logo */}
-                    <AppLogo size="md" />
+              {isDark ? (
+                <Sun size={18} className="text-amber-400" />
+              ) : (
+                <Moon size={18} className="text-muted-foreground" />
+              )}
+            </button>
 
-                    {/* Center: Nav links (desktop) */}
-                    <div className="hidden md:flex items-center gap-1">
-                        {navLinks.map(link => (
-                            <button
-                                key={link.target}
-                                onClick={() => scrollTo(link.target)}
-                                className="px-3.5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/60"
-                            >
-                                {link.label}
-                            </button>
-                        ))}
-                    </div>
+            {/* Login (desktop) */}
+            <button
+              onClick={() => navigate('/login')}
+              className="hidden rounded-lg px-3.5 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground md:block"
+            >
+              {t('landing.navLogin')}
+            </button>
 
-                    {/* Right: Controls */}
-                    <div className="flex items-center gap-2">
-                        {/* Language switcher (Segmented Desktop) */}
-                        <div className="flex items-center p-1 rounded-xl border border-border bg-card shadow-xs">
-                            <button
-                                onClick={() => setLanguage('uz')}
-                                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                                    language === 'uz'
-                                        ? 'bg-primary text-primary-foreground shadow-xs'
-                                        : 'text-muted-foreground hover:text-foreground'
-                                }`}
-                                title="Oʻzbek tiliga o'tish"
-                            >
-                                <UzbekistanFlag className="w-4 h-2.5" />
-                                <span>UZ</span>
-                            </button>
-                            <button
-                                onClick={() => setLanguage('ja')}
-                                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                                    language === 'ja'
-                                        ? 'bg-primary text-primary-foreground shadow-xs'
-                                        : 'text-muted-foreground hover:text-foreground'
-                                }`}
-                                title="日本語に切り替え"
-                            >
-                                <JapanFlag className="w-4 h-2.5" />
-                                <span>JA</span>
-                            </button>
-                        </div>
+            {/* CTA (desktop) */}
+            <button
+              onClick={() => navigate('/register')}
+              className="hidden cursor-pointer items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition-all duration-200 hover:scale-[1.03] hover:bg-primary/90 hover:shadow-md hover:shadow-primary/20 active:scale-95 md:flex"
+            >
+              <span>{t('landing.navCta')}</span>
+              <ArrowRight size={15} />
+            </button>
 
-                        {/* Theme switch */}
-                        <button
-                            onClick={toggleTheme}
-                            className="p-2 rounded-lg border border-border hover:bg-muted transition-colors text-foreground cursor-pointer shadow-sm active:scale-95"
-                            title={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
-                            aria-label={isDark ? 'Light mode' : 'Dark mode'}
-                        >
-                            {isDark ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-muted-foreground" />}
-                        </button>
-
-                        {/* Login (desktop) */}
-                        <button
-                            onClick={() => navigate('/login')}
-                            className="hidden md:block px-3.5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/60"
-                        >
-                            {t('landing.navLogin')}
-                        </button>
-
-                        {/* CTA (desktop) */}
-                        <button
-                            onClick={() => navigate('/register')}
-                            className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-primary-foreground rounded-xl bg-primary hover:bg-primary/90 hover:shadow-md hover:shadow-primary/20 transition-all duration-200 hover:scale-[1.03] active:scale-95 cursor-pointer"
-                        >
-                            <span>{t('landing.navCta')}</span>
-                            <ArrowRight size={15} />
-                        </button>
-
-                        {/* Mobile menu toggle */}
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
-                            aria-label="Menu"
-                        >
-                            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Mobile menu */}
-                {mobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl"
-                    >
-                        <div className="px-4 py-4 space-y-2">
-                            {navLinks.map(link => (
-                                <button
-                                    key={link.target}
-                                    onClick={() => scrollTo(link.target)}
-                                    className="block w-full text-left px-3 py-2.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
-                                >
-                                    {link.label}
-                                </button>
-                            ))}
-                            
-                            {/* Mobile Lang & Theme Row */}
-                            <div className="flex flex-col gap-2 pt-2 pb-1 border-t border-border">
-                                <div className="flex items-center p-1 rounded-xl border border-border bg-card">
-                                    <button
-                                        onClick={() => setLanguage('uz')}
-                                        className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                                            language === 'uz'
-                                                ? 'bg-primary text-primary-foreground shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        <UzbekistanFlag className="w-4 h-2.5" />
-                                        <span>Oʻzbekcha</span>
-                                    </button>
-                                    <button
-                                        onClick={() => setLanguage('ja')}
-                                        className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                                            language === 'ja'
-                                                ? 'bg-primary text-primary-foreground shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                    >
-                                        <JapanFlag className="w-4 h-2.5" />
-                                        <span>日本語</span>
-                                    </button>
-                                </div>
-
-                                <button
-                                    onClick={toggleTheme}
-                                    className="w-full px-3 py-2 text-xs font-bold rounded-lg border border-border bg-card hover:bg-muted transition-colors text-foreground flex items-center justify-center gap-1.5"
-                                >
-                                    {isDark ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-muted-foreground" />}
-                                    <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
-                                </button>
-                            </div>
-
-                            <hr className="border-border" />
-                            <button
-                                onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}
-                                className="block w-full text-left px-3 py-2.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
-                            >
-                                {t('landing.navLogin')}
-                            </button>
-                            <button
-                                onClick={() => { navigate('/register'); setMobileMenuOpen(false); }}
-                                className="w-full px-4 py-3 text-sm font-bold text-primary-foreground rounded-xl bg-primary hover:bg-primary/90 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-primary/20"
-                            >
-                                {t('landing.navCta')} <ArrowRight size={15} />
-                            </button>
-                        </div>
-                    </motion.div>
-                )}
-            </motion.nav>
-
-            {/* ======== HERO ======== */}
-            <section className="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 px-4 sm:px-6 lg:px-8">
-                {/* Background accents */}
-                <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/15 rounded-full blur-3xl -z-10 float-glow" />
-                <div className="absolute top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -z-10 float-glow" />
-
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    {/* Left column */}
-                    <div className="space-y-6 lg:space-y-8">
-                        {/* Eyebrow */}
-                        <FadeIn offsetY={12} delay={0.05} className="badge-gold">
-                            <span className="animate-pulse">✨</span>
-                            <span>{t('landing.eyebrow')}</span>
-                        </FadeIn>
-
-                        {/* Headline */}
-                        <FadeIn offsetY={18} delay={0.12} className={`text-[40px] sm:text-[50px] lg:text-[58px] xl:text-[66px] font-display font-black tracking-tight text-foreground ${isJa ? 'leading-[1.2]' : 'leading-[1.08]'}`}>
-                            {t('landing.headline')}
-                        </FadeIn>
-
-                        {/* Description */}
-                        <FadeIn offsetY={14} delay={0.20} className="text-base sm:text-lg text-muted-foreground max-w-lg leading-relaxed">
-                            {t('landing.description')}
-                        </FadeIn>
-
-                        {/* CTAs */}
-                        <FadeIn offsetY={12} delay={0.28} className="flex flex-col sm:flex-row gap-3 pt-2">
-                            <button
-                                onClick={() => navigate('/register')}
-                                className="px-7 py-3.5 text-base font-bold text-primary-foreground rounded-xl bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-200 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                            >
-                                {t('landing.ctaPrimary')} <ArrowRight size={18} />
-                            </button>
-                            <button
-                                onClick={() => scrollTo('features')}
-                                className="px-7 py-3.5 text-base font-semibold text-foreground rounded-xl border border-border bg-card hover:bg-muted transition-all duration-200 hover:scale-[1.01] active:scale-95 cursor-pointer"
-                            >
-                                {t('landing.ctaSecondary')}
-                            </button>
-                        </FadeIn>
-
-                        {/* Trust Badges */}
-                        <FadeIn offsetY={10} delay={0.36} className="flex flex-wrap gap-2.5 pt-2">
-                            {[t('landing.trustSpeaking'), t('landing.trustJlpt'), t('landing.trustSrs')].map(badge => (
-                                <span key={badge} className="px-3 py-1 text-xs font-semibold rounded-full bg-muted/80 border border-border text-muted-foreground">
-                                    {badge}
-                                </span>
-                            ))}
-                        </FadeIn>
-                    </div>
-
-                    {/* Right column: Dashboard preview */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.96, y: 15 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="lg:pl-8"
-                    >
-                        <DashboardPreview t={t} language={language} />
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ======== FEATURES ======== */}
-            <section id="features" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-t border-border/60">
-                <div className="max-w-6xl mx-auto">
-                    <FadeIn className="text-center mb-14 space-y-3">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight text-foreground">
-                            {t('landing.featuresTitle')}
-                        </h2>
-                    </FadeIn>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {[
-                            { icon: Mic, title: t('landing.featureSpeakingTitle'), desc: t('landing.featureSpeakingDesc'), accent: 'text-primary bg-primary/10' },
-                            { icon: Target, title: t('landing.featureDiagTitle'), desc: t('landing.featureDiagDesc'), accent: 'text-rose-500 bg-rose-500/10' },
-                            { icon: Map, title: t('landing.featurePlanTitle'), desc: t('landing.featurePlanDesc'), accent: 'text-[#C9A961] bg-[#C9A961]/10' },
-                            { icon: Brain, title: t('landing.featureSrsTitle'), desc: t('landing.featureSrsDesc'), accent: 'text-cyan-400 bg-cyan-500/10' },
-                        ].map((card, idx) => (
-                            <FadeIn key={card.title} delay={idx * 0.08}>
-                                <div className="h-full p-6 rounded-2xl bg-card border border-border hover:border-primary/40 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-1 space-y-3">
-                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${card.accent}`}>
-                                        <card.icon size={20} />
-                                    </div>
-                                    <h3 className="text-base font-bold text-foreground">{card.title}</h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-                                </div>
-                            </FadeIn>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ======== 4-STEP FLOW ======== */}
-            <section className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-y border-border/60">
-                <div className="max-w-6xl mx-auto">
-                    <FadeIn className="text-center mb-14 space-y-3">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight text-foreground">
-                            {t('landing.stepsTitle')}
-                        </h2>
-                    </FadeIn>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {[
-                            { num: '01', icon: '🎯', title: t('landing.step1Title'), desc: t('landing.step1Desc') },
-                            { num: '02', icon: '🗣️', title: t('landing.step2Title'), desc: t('landing.step2Desc') },
-                            { num: '03', icon: '📋', title: t('landing.step3Title'), desc: t('landing.step3Desc') },
-                            { num: '04', icon: '🎌', title: t('landing.step4Title'), desc: t('landing.step4Desc') },
-                        ].map((step, idx) => (
-                            <FadeIn key={step.num} offsetY={20} delay={idx * 0.07} direction="x">
-                                <div className="h-full p-6 rounded-2xl bg-card border border-border shadow-xs space-y-4 hover:shadow-md transition-all duration-200 hover:-translate-y-1">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-2xl">{step.icon}</span>
-                                        <span className="text-2xl font-black text-muted-foreground/20 font-mono">{step.num}</span>
-                                    </div>
-                                    <h3 className="text-base font-bold text-foreground">{step.title}</h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
-                                </div>
-                            </FadeIn>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ======== JLPT ROADMAP ======== */}
-            <section id="roadmap" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto">
-                    <FadeIn className="text-center mb-14 space-y-3">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight text-foreground">
-                            {t('landing.roadmapTitle')}
-                        </h2>
-                    </FadeIn>
-
-                    <div className="flex items-center justify-between gap-0 overflow-x-auto pb-2">
-                        {['N5', 'N4', 'N3', 'N2', 'N1'].map((level, idx) => {
-                            const isCompleted = idx === 0;
-                            const isActive = idx === 1;
-
-                            return (
-                                <FadeIn key={level} offsetY={20} delay={idx * 0.06} direction="y">
-                                    <div className="flex flex-col items-center gap-2 shrink-0">
-                                        <div
-                                            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-base sm:text-lg font-black border-2 transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-lg ${
-                                                isActive
-                                                    ? 'bg-primary border-primary text-primary-foreground shadow-md shadow-primary/25 hover:shadow-primary/40'
-                                                    : isCompleted
-                                                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/80 hover:shadow-emerald-500/20'
-                                                    : 'bg-card border-border text-muted-foreground hover:border-primary/50 hover:text-foreground'
-                                            }`}
-                                        >
-                                            {level}
-                                        </div>
-                                        <span className={`text-[10px] font-bold ${
-                                            isActive ? 'text-primary' : isCompleted ? 'text-emerald-500' : 'text-muted-foreground'
-                                        }`}>
-                                            {isCompleted ? '✓' : isActive ? (isJa ? '学習中' : 'Aktiv') : ''}
-                                        </span>
-                                    </div>
-                                    {idx < 4 && (
-                                        <div className={`flex-1 h-0.5 min-w-[24px] sm:min-w-[40px] mx-1 rounded-full ${
-                                            isCompleted ? 'bg-emerald-500/40' : 'bg-border'
-                                        }`} />
-                                    )}
-                                </FadeIn>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ======== SPEAKING COACH ======== */}
-            <section id="speaking" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-y border-border/60">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    {/* Left */}
-                    <FadeIn className="space-y-6">
-                        <FadeIn offsetY={12} delay={0.05} direction="x">
-                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-red-dark/10 text-accent-red-dark text-xs font-bold">
-                            <Mic size={14} /> AI Speaking
-                        </div>
-                    </FadeIn>
-                        <h2 className={`text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-foreground ${isJa ? 'leading-[1.3]' : 'leading-tight'}`}>
-                            {t('landing.speakingTitle')}
-                        </h2>
-                        <div className="space-y-3 pt-2">
-                            {[t('landing.speakingFluency'), t('landing.speakingGrammar'), t('landing.speakingVocabulary'), t('landing.speakingPronunciation')].map(item => (
-                                <div key={item} className="flex items-center gap-2.5 text-sm text-foreground">
-                                    <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
-                                    <span className="font-medium">{item}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </FadeIn>
-
-                    {/* Right */}
-                    <FadeIn delay={0.15}>
-                        <SpeakingMockup t={t} />
-                    </FadeIn>
-                </div>
-            </section>
-
-            {/* ======== FINAL CTA ======== */}
-            <section id="final-cta" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border/60">
-                <div className="max-w-4xl mx-auto text-center space-y-6">
-                    <FadeIn offsetY={20} delay={0.1} className="space-y-3">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight text-foreground">
-                            {t('landing.finalCtaTitle')}
-                        </h2>
-                        <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                            {t('landing.finalCtaDesc')}
-                        </p>
-                    </FadeIn>
-                    <FadeIn offsetY={12} delay={0.2} className="pt-2">
-                        <button
-                            onClick={() => navigate('/register')}
-                            className="px-8 py-4 text-base font-bold text-primary-foreground rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all duration-200 hover:scale-[1.03] active:scale-95 inline-flex items-center gap-2 cursor-pointer"
-                        >
-                            {t('landing.finalCtaButton')} <ArrowRight size={18} />
-                        </button>
-                    </FadeIn>
-                </div>
-            </section>
-
-            {/* ======== FOOTER ======== */}
-            <footer className="border-t border-border py-8 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <AppLogo size="sm" />
-                    <div className="text-center sm:text-right">
-                        <p className="text-xs text-muted-foreground">{t('landing.footerCopy')}</p>
-                        <p className="text-xs text-muted-foreground/60 mt-0.5">{t('landing.footerSub')}</p>
-                    </div>
-                </div>
-            </footer>
+            {/* Mobile menu toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted md:hidden"
+              aria-label="Menu"
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
-    );
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
+          >
+            <div className="space-y-2 px-4 py-4">
+              {navLinks.map((link) => (
+                <button
+                  key={link.target}
+                  onClick={() => scrollTo(link.target)}
+                  className="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-foreground hover:bg-muted"
+                >
+                  {link.label}
+                </button>
+              ))}
+
+              {/* Mobile Lang & Theme Row */}
+              <div className="flex flex-col gap-2 border-t border-border pb-1 pt-2">
+                <div className="flex items-center rounded-xl border border-border bg-card p-1">
+                  <button
+                    onClick={() => setLanguage('uz')}
+                    className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-bold transition-all ${
+                      language === 'uz'
+                        ? 'bg-primary text-primary-foreground shadow-xs'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <UzbekistanFlag className="h-2.5 w-4" />
+                    <span>Oʻzbekcha</span>
+                  </button>
+                  <button
+                    onClick={() => setLanguage('ja')}
+                    className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-bold transition-all ${
+                      language === 'ja'
+                        ? 'bg-primary text-primary-foreground shadow-xs'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <JapanFlag className="h-2.5 w-4" />
+                    <span>日本語</span>
+                  </button>
+                </div>
+
+                <button
+                  onClick={toggleTheme}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-bold text-foreground transition-colors hover:bg-muted"
+                >
+                  {isDark ? (
+                    <Sun size={15} className="text-amber-400" />
+                  ) : (
+                    <Moon size={15} className="text-muted-foreground" />
+                  )}
+                  <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
+                </button>
+              </div>
+
+              <hr className="border-border" />
+              <button
+                onClick={() => {
+                  navigate('/login');
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-foreground hover:bg-muted"
+              >
+                {t('landing.navLogin')}
+              </button>
+              <button
+                onClick={() => {
+                  navigate('/register');
+                  setMobileMenuOpen(false);
+                }}
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90"
+              >
+                {t('landing.navCta')} <ArrowRight size={15} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </motion.nav>
+
+      {/* ======== WATERMARK KANJI ACCENTS ======== */}
+      <div className="font-japanese pointer-events-none absolute left-6 top-24 -z-10 select-none text-[260px] font-black leading-none text-foreground opacity-[0.02] sm:text-[340px]">
+        話
+      </div>
+      <div className="font-japanese pointer-events-none absolute right-6 top-[850px] -z-10 select-none text-[220px] font-black leading-none text-foreground opacity-[0.02] sm:text-[300px]">
+        語
+      </div>
+
+      {/* ======== HERO SECTION ======== */}
+      <section className="relative overflow-hidden px-4 pb-20 pt-12 sm:px-6 lg:px-8 lg:pb-28 lg:pt-20">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          {/* Left Column (Copywriting & CTAs) */}
+          <div className="space-y-6 lg:space-y-8">
+            {/* Eyebrow */}
+            <FadeIn
+              offsetY={10}
+              delay={0.05}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5 text-xs font-bold tracking-wide text-primary"
+            >
+              <span className="h-2 w-2 shrink-0 animate-ping rounded-full bg-primary" />
+              <span>{t('landing.eyebrow')}</span>
+            </FadeIn>
+
+            {/* Main Headline */}
+            <FadeIn offsetY={16} delay={0.12}>
+              <h1
+                className={`font-display text-4xl font-black tracking-tight text-foreground sm:text-5xl lg:text-6xl ${isJa ? 'leading-[1.2]' : 'leading-[1.08]'}`}
+              >
+                {isJa ? (
+                  <>
+                    日本語で <br />
+                    <em className="relative inline-block not-italic text-primary">話そう。</em>{' '}
+                    <br />
+                    今日から。
+                  </>
+                ) : (
+                  <>
+                    Yapon tilida <br />
+                    <em className="relative inline-block not-italic text-primary">
+                      gapiring.
+                    </em>{' '}
+                    <br />
+                    Bugundan.
+                  </>
+                )}
+              </h1>
+            </FadeIn>
+
+            {/* Description */}
+            <FadeIn
+              offsetY={14}
+              delay={0.2}
+              className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
+            >
+              {t('landing.description')}
+            </FadeIn>
+
+            {/* Action Buttons */}
+            <FadeIn offsetY={12} delay={0.28} className="flex flex-col gap-3 pt-2 sm:flex-row">
+              <button
+                onClick={() => navigate('/register')}
+                className="flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-base font-bold text-primary-foreground shadow-md shadow-primary/25 transition-all duration-200 hover:scale-[1.02] hover:bg-primary/90 active:scale-95"
+              >
+                {t('landing.ctaPrimary')}
+              </button>
+              <button
+                onClick={() => scrollTo('app')}
+                className="cursor-pointer rounded-xl border border-border bg-card px-7 py-3.5 text-base font-semibold text-foreground transition-all duration-200 hover:scale-[1.01] hover:bg-muted active:scale-95"
+              >
+                {t('landing.ctaSecondary')}
+              </button>
+            </FadeIn>
+
+            {/* Social Proof */}
+            <FadeIn
+              offsetY={10}
+              delay={0.36}
+              className="flex items-center gap-4 pt-2 text-sm text-muted-foreground"
+            >
+              <div className="flex -space-x-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-indigo-600 text-xs font-bold text-white">
+                  A
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-primary text-xs font-bold text-white">
+                  M
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-emerald-600 text-xs font-bold text-white">
+                  S
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-amber-500 text-xs font-bold text-white">
+                  D
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-rose-400 text-xs font-bold text-white">
+                  +
+                </span>
+              </div>
+              <div>
+                <span className="font-bold text-amber-500">★★★★★</span>{' '}
+                <b className="font-bold text-foreground">4.9</b> · 12 000+{' '}
+                {isJa ? '名の学習者' : 'o‘quvchi'}
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Right Column (Interactive 3D Phone Mockup) */}
+          <FadeIn delay={0.3} className="flex justify-center">
+            <HeroPhoneMockup />
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ======== FEATURES SECTION ======== */}
+      <section
+        id="features"
+        className="border-t border-border/60 px-4 py-20 sm:px-6 lg:px-8 lg:py-24"
+      >
+        <div className="mx-auto max-w-6xl space-y-14">
+          <FadeIn className="mx-auto max-w-2xl space-y-3 text-center">
+            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary">
+              <span>{t('landing.navFeatures')}</span>
+              <span className="font-japanese text-sm font-medium text-muted-foreground">特徴</span>
+            </div>
+            <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {t('landing.featuresTitle')}
+            </h2>
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t('landing.featuresSubtitle')}
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Card 1 */}
+            <FadeIn delay={0.05}>
+              <div className="group relative h-full space-y-4 overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-xs transition-all duration-300 hover:border-primary/40 hover:shadow-xl">
+                <span className="font-japanese pointer-events-none absolute -right-3 -top-5 text-8xl font-black text-foreground opacity-[0.03] transition-opacity group-hover:opacity-[0.06]">
+                  話
+                </span>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl text-primary shadow-xs">
+                  <MessageSquare size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  {t('landing.featureSpeakingTitle')}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t('landing.featureSpeakingDesc')}
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Card 2 */}
+            <FadeIn delay={0.12}>
+              <div className="group relative h-full space-y-4 overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-xs transition-all duration-300 hover:border-primary/40 hover:shadow-xl">
+                <span className="font-japanese pointer-events-none absolute -right-3 -top-5 text-8xl font-black text-foreground opacity-[0.03] transition-opacity group-hover:opacity-[0.06]">
+                  学
+                </span>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-2xl text-cyan-500 shadow-xs">
+                  <BookOpen size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  {t('landing.featureDiagTitle')}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t('landing.featureDiagDesc')}
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Card 3 */}
+            <FadeIn delay={0.19}>
+              <div className="group relative h-full space-y-4 overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-xs transition-all duration-300 hover:border-primary/40 hover:shadow-xl">
+                <span className="font-japanese pointer-events-none absolute -right-3 -top-5 text-8xl font-black text-foreground opacity-[0.03] transition-opacity group-hover:opacity-[0.06]">
+                  炎
+                </span>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-2xl text-amber-500 shadow-xs">
+                  <Flame size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  {t('landing.featurePlanTitle')}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t('landing.featurePlanDesc')}
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ======== 3-STEP FLOW SECTION ======== */}
+      <section className="border-y border-border/60 bg-muted/20 px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-5xl space-y-14">
+          <FadeIn className="mx-auto max-w-2xl space-y-3 text-center">
+            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary">
+              <span>QANDAY ISHLAYDI</span>
+              <span className="font-japanese text-sm font-medium text-muted-foreground">
+                使い方
+              </span>
+            </div>
+            <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {t('landing.stepsTitle')}
+            </h2>
+          </FadeIn>
+
+          <div className="relative grid grid-cols-1 gap-8 md:grid-cols-3">
+            {/* Step 1 */}
+            <FadeIn delay={0.05} className="space-y-3 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary bg-background text-lg font-black text-primary shadow-xs">
+                1
+              </div>
+              <span className="font-japanese block text-xs font-semibold text-muted-foreground">
+                レベル
+              </span>
+              <h4 className="text-lg font-bold text-foreground">{t('landing.step1Title')}</h4>
+              <p className="mx-auto max-w-xs text-sm leading-relaxed text-muted-foreground">
+                {t('landing.step1Desc')}
+              </p>
+            </FadeIn>
+
+            {/* Step 2 */}
+            <FadeIn delay={0.12} className="space-y-3 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border-2 border-rose-400 bg-background text-lg font-black text-rose-400 shadow-xs">
+                2
+              </div>
+              <span className="font-japanese block text-xs font-semibold text-muted-foreground">
+                テーマ
+              </span>
+              <h4 className="text-lg font-bold text-foreground">{t('landing.step2Title')}</h4>
+              <p className="mx-auto max-w-xs text-sm leading-relaxed text-muted-foreground">
+                {t('landing.step2Desc')}
+              </p>
+            </FadeIn>
+
+            {/* Step 3 */}
+            <FadeIn delay={0.19} className="space-y-3 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border-2 border-emerald-500 bg-background text-lg font-black text-emerald-500 shadow-xs">
+                3
+              </div>
+              <span className="font-japanese block text-xs font-semibold text-muted-foreground">
+                話す
+              </span>
+              <h4 className="text-lg font-bold text-foreground">{t('landing.step3Title')}</h4>
+              <p className="mx-auto max-w-xs text-sm leading-relaxed text-muted-foreground">
+                {t('landing.step3Desc')}
+              </p>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ======== PRODUCT UI SHOWCASE ======== */}
+      <section id="app" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-6xl space-y-12">
+          <FadeIn className="mx-auto max-w-2xl space-y-3 text-center">
+            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary">
+              <span>MAHSULOT</span>
+              <span className="font-japanese text-sm font-medium text-muted-foreground">会話</span>
+            </div>
+            <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {t('landing.speakingTitle')}
+            </h2>
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t('landing.speakingSubtitle')}
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <ProductShowcase />
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ======== JLPT LESSONS ROADMAP SECTION ======== */}
+      <section
+        id="lessons"
+        className="border-y border-border/60 bg-muted/20 px-4 py-20 sm:px-6 lg:px-8 lg:py-24"
+      >
+        <div className="mx-auto max-w-5xl space-y-10">
+          <FadeIn className="mx-auto max-w-2xl space-y-3 text-center">
+            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary">
+              <span>DARSLAR</span>
+              <span className="font-japanese text-sm font-medium text-muted-foreground">授業</span>
+            </div>
+            <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {t('landing.roadmapTitle')}
+            </h2>
+          </FadeIn>
+
+          {/* Tabs */}
+          <div className="flex justify-center gap-2">
+            {['N5', 'N4', 'N3', 'N2', 'N1'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setSelectedLessonTab(tab)}
+                className={`rounded-xl border px-5 py-2.5 text-sm font-bold transition-all ${
+                  selectedLessonTab === tab
+                    ? 'border-primary bg-primary/10 text-primary shadow-xs'
+                    : 'border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* Lesson Cards Grid */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Lesson 1 (Done) */}
+            <FadeIn delay={0.05}>
+              <div className="relative h-full space-y-4 rounded-2xl border border-emerald-500/40 bg-card p-6 shadow-xs">
+                <div className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-xs">
+                  <Check size={14} />
+                </div>
+                <div className="space-y-1">
+                  <div className="font-japanese text-2xl font-bold text-foreground">自己紹介</div>
+                  <div className="text-sm text-muted-foreground">O‘zini tanishtirish</div>
+                </div>
+                <div className="flex items-center gap-2 text-sm font-bold text-emerald-500">
+                  <span>100% o‘zlashtirildi</span>
+                </div>
+                <div className="flex items-center gap-3 border-t border-border pt-2 text-xs text-muted-foreground">
+                  <span>📖 12 so‘z</span>
+                  <span>✎ 5 gap</span>
+                  <span>⏱ 8 daq</span>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Lesson 2 (In progress) */}
+            <FadeIn delay={0.12}>
+              <div className="relative h-full space-y-4 rounded-2xl border border-primary/40 bg-card p-6 shadow-xs">
+                <div className="space-y-1">
+                  <div className="font-japanese text-2xl font-bold text-foreground">
+                    レストランで
+                  </div>
+                  <div className="text-sm text-muted-foreground">Restoranda</div>
+                </div>
+                <div className="flex items-center gap-2 text-sm font-bold text-primary">
+                  <span>60% bajarildi</span>
+                </div>
+                <div className="flex items-center gap-3 border-t border-border pt-2 text-xs text-muted-foreground">
+                  <span>📖 15 so‘z</span>
+                  <span>✎ 6 gap</span>
+                  <span>⏱ 10 daq</span>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Lesson 3 (Locked) */}
+            <FadeIn delay={0.19}>
+              <div className="relative h-full space-y-4 rounded-2xl border border-border/80 bg-card p-6 opacity-60 shadow-xs">
+                <div className="absolute right-4 top-4 text-muted-foreground">
+                  <Lock size={18} />
+                </div>
+                <div className="space-y-1">
+                  <div className="font-japanese text-2xl font-bold text-foreground">道を聞く</div>
+                  <div className="text-sm text-muted-foreground">Yo‘l so‘rash</div>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span>Qulflangan</span>
+                </div>
+                <div className="flex items-center gap-3 border-t border-border pt-2 text-xs text-muted-foreground">
+                  <span>📖 14 so‘z</span>
+                  <span>✎ 5 gap</span>
+                  <span>⏱ 9 daq</span>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ======== FINAL CTA SECTION ======== */}
+      <section
+        id="final-cta"
+        className="border-t border-border/60 px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+      >
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
+          <FadeIn offsetY={20} delay={0.1} className="space-y-3">
+            <h2 className="font-display text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {t('landing.finalCtaTitle')}
+            </h2>
+            <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t('landing.finalCtaDesc')}
+            </p>
+          </FadeIn>
+          <FadeIn offsetY={12} delay={0.2} className="pt-2">
+            <button
+              onClick={() => navigate('/register')}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:scale-[1.03] hover:bg-primary/90 active:scale-95"
+            >
+              {t('landing.finalCtaButton')}
+            </button>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ======== FOOTER ======== */}
+      <footer className="border-t border-border bg-card/40 px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl space-y-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            {/* Brand Column */}
+            <div className="space-y-3 md:col-span-1">
+              <AppLogo size="md" />
+              <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                {t('landing.footerSub')}
+              </p>
+            </div>
+
+            {/* Links Column 1 */}
+            <div className="space-y-2">
+              <h5 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Mahsulot
+              </h5>
+              <div className="space-y-1.5 text-xs text-muted-foreground sm:text-sm">
+                <div>
+                  <a href="#app" className="hover:text-foreground">
+                    Suhbat
+                  </a>
+                </div>
+                <div>
+                  <a href="#lessons" className="hover:text-foreground">
+                    Darslar
+                  </a>
+                </div>
+                <div>
+                  <a href="/speaking-coach" className="hover:text-foreground">
+                    AI Coach
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Links Column 2 */}
+            <div className="space-y-2">
+              <h5 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Resurslar
+              </h5>
+              <div className="space-y-1.5 text-xs text-muted-foreground sm:text-sm">
+                <div>
+                  <a href="/jlpt" className="hover:text-foreground">
+                    JLPT N5–N1
+                  </a>
+                </div>
+                <div>
+                  <a href="/decks" className="hover:text-foreground">
+                    Lug‘atlar (Decks)
+                  </a>
+                </div>
+                <div>
+                  <a href="/developers" className="hover:text-foreground">
+                    Developer API
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Links Column 3 */}
+            <div className="space-y-2">
+              <h5 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Kompaniya
+              </h5>
+              <div className="space-y-1.5 text-xs text-muted-foreground sm:text-sm">
+                <div>
+                  <a href="/pricing" className="hover:text-foreground">
+                    100% Bepul
+                  </a>
+                </div>
+                <div>
+                  <a href="/login" className="hover:text-foreground">
+                    Kirish
+                  </a>
+                </div>
+                <div>
+                  <a href="/register" className="hover:text-foreground">
+                    Ro‘yxatdan o‘tish
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+            <span>{t('landing.footerCopy')}</span>
+            <span className="font-japanese text-sm font-bold tracking-widest text-muted-foreground">
+              日本語を話そう
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default LandingPage;
