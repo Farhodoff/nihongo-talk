@@ -296,59 +296,38 @@ export const streamDeepSeekTokens = async (
     throw new Error(`Streaming failed (${response.status}): ${errText}`);
   }
 
-  if (!response.body) {
-    throw new Error('Response body is null, cannot stream');
+  let accumulated = '';
+  const rawText = await response.text();
+
+  // 1. Check if Supabase wrapped the SSE in a JSON object: {"raw": "data: ...\n\ndata: ..."}
+  let sseString = '';
+  try {
+    const parsedObj = JSON.parse(rawText);
+    if (parsedObj && typeof parsedObj.raw === 'string') {
+      sseString = parsedObj.raw;
+    } else if (parsedObj?.choices?.[0]?.message?.content) {
+      const fullContent = parsedObj.choices[0].message.content;
+      accumulated = fullContent;
+      onToken(fullContent);
+      return accumulated;
+    }
+  } catch {
+    // Not a JSON object, raw SSE text
+    sseString = rawText;
   }
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder('utf-8');
-  let accumulated = '';
-  let buffer = '';
+  if (!sseString && rawText.includes('data: ')) {
+    sseString = rawText;
+  }
 
-  let isReading = true;
-  while (isReading) {
-    const { done, value } = await reader.read();
-    if (done) {
-      isReading = false;
-      break;
-    }
-
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split('\n');
-    buffer = lines.pop() || '';
-
+  if (sseString) {
+    const lines = sseString.split('\n');
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith(':')) continue;
-      if (trimmed === 'data: [DONE]') continue;
-
-      if (trimmed.startsWith('{"raw":')) {
-        try {
-          const wrapper = JSON.parse(trimmed);
-          if (typeof wrapper.raw === 'string') {
-            const rawLines = wrapper.raw.split('\n');
-            for (const rLine of rawLines) {
-              const rTrim = rLine.trim();
-              if (rTrim.startsWith('data: ') && rTrim !== 'data: [DONE]') {
-                try {
-                  const p = JSON.parse(rTrim.slice(6));
-                  const d = p.choices?.[0]?.delta?.content || '';
-                  if (d) {
-                    accumulated += d;
-                    onToken(d);
-                  }
-                } catch {}
-              }
-            }
-            continue;
-          }
-        } catch {}
-      }
-
+      if (!trimmed || trimmed.startsWith(':') || trimmed === 'data: [DONE]') continue;
       if (trimmed.startsWith('data: ')) {
-        const jsonStr = trimmed.slice(6);
         try {
-          const parsed = JSON.parse(jsonStr);
+          const parsed = JSON.parse(trimmed.slice(6));
           const delta = parsed.choices?.[0]?.delta?.content || '';
           if (delta) {
             accumulated += delta;
@@ -359,13 +338,16 @@ export const streamDeepSeekTokens = async (
     }
   }
 
-  if (buffer.trim().startsWith('data: ') && buffer.trim() !== 'data: [DONE]') {
+  if (!accumulated && rawText) {
     try {
-      const parsed = JSON.parse(buffer.trim().slice(6));
-      const delta = parsed.choices?.[0]?.delta?.content || '';
-      if (delta) {
-        accumulated += delta;
-        onToken(delta);
+      const fallbackObj = JSON.parse(rawText);
+      accumulated =
+        fallbackObj.reply ||
+        fallbackObj.choices?.[0]?.text ||
+        fallbackObj.choices?.[0]?.message?.content ||
+        '';
+      if (accumulated) {
+        onToken(accumulated);
       }
     } catch {}
   }

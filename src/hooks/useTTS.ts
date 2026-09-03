@@ -1,7 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
-import { supabase } from '../lib/supabase';
 
 // High-speed In-Memory Audio Cache for 0ms TTS playback on repeated or prefetched text
 const TTS_AUDIO_CACHE = new Map<string, Blob>();
@@ -221,13 +220,8 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
 
   const fetchPromise = (async (): Promise<Blob | null> => {
     try {
-      const sessionRes = await supabase.auth
-        .getSession()
-        .catch(() => ({ data: { session: null } }));
       const token =
-        sessionRes.data?.session?.access_token ||
-        import.meta.env.VITE_SUPABASE_ANON_KEY ||
-        'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+        import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 
       const response = await fetch('/api/tts', {
         method: 'POST',
@@ -241,7 +235,7 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
         }),
         signal:
           typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal
-            ? AbortSignal.timeout(12000)
+            ? AbortSignal.timeout(8000)
             : undefined,
       });
 

@@ -105,15 +105,20 @@ export const parseCoachResponse = (
   fallbackLang: 'en' | 'ja' = 'ja',
 ): CoachStructuredResponse => {
   if (!raw || typeof raw !== 'string') {
+    const jaFallbacks = [
+      'はい、よく分かりました！続けてお話ししましょう。',
+      'なるほど、いいですね！もっと詳しく日本語で教えてください。',
+      '面白いですね！では、次の質問をどうぞ。',
+    ];
     const defaultReply =
       fallbackLang === 'ja'
-        ? 'はい、分かりました。続けましょう！'
+        ? jaFallbacks[Math.floor(Math.random() * jaFallbacks.length)]
         : "Understood, let's keep going!";
     return {
       language: fallbackLang,
       reply: defaultReply,
       ttsText: defaultReply,
-      romaji: fallbackLang === 'ja' ? 'Hai, wakarimashita. Tsudukemashou!' : '',
+      romaji: fallbackLang === 'ja' ? 'Hai, yoku wakarimashita! Tsudukete ohanashi shimashou.' : '',
       correction: { hasError: false },
       vocabulary: [],
       rawText: raw || '',

@@ -707,6 +707,29 @@ const SpeakingCoachPage: React.FC = () => {
             lastCoachSpokenTextRef.current = accumulatedSpeech;
             if (index === 0) {
               setIsThinking(false);
+              const liveAiMsg: CoachChatMessage = {
+                role: 'assistant',
+                content: sentence,
+                timestamp: new Date().toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+              };
+              setChatHistory((prev) => {
+                const next = [...prev, liveAiMsg];
+                chatHistoryRef.current = next;
+                return next;
+              });
+            } else {
+              setChatHistory((prev) => {
+                const copy = [...prev];
+                const lastIdx = copy.length - 1;
+                if (lastIdx >= 0 && copy[lastIdx].role === 'assistant') {
+                  copy[lastIdx] = { ...copy[lastIdx], content: accumulatedSpeech };
+                }
+                chatHistoryRef.current = copy;
+                return copy;
+              });
             }
             enqueueStreamSentence(sentence);
           },
@@ -825,8 +848,22 @@ const SpeakingCoachPage: React.FC = () => {
         }
       }
 
-      setChatHistory(finalHistory);
-      chatHistoryRef.current = finalHistory;
+      if (streamedSentences > 0) {
+        setChatHistory((prev) => {
+          const copy = [...prev];
+          const lastIdx = copy.length - 1;
+          if (lastIdx >= 0 && copy[lastIdx].role === 'assistant') {
+            copy[lastIdx] = aiMsg;
+          } else {
+            copy.push(aiMsg);
+          }
+          chatHistoryRef.current = copy;
+          return copy;
+        });
+      } else {
+        setChatHistory(finalHistory);
+        chatHistoryRef.current = finalHistory;
+      }
 
       setIsThinking(false);
       isProcessingRef.current = false;
