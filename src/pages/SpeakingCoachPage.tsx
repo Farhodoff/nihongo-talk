@@ -18,6 +18,7 @@ import { ErrorVaultService } from '../services/ErrorVaultService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
+import { useSEO } from '../hooks/useSEO';
 import SessionReportModal from '../components/speaking/SessionReportModal';
 import {
   PERSONAS_BY_LANG,
@@ -98,6 +99,15 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<
 };
 
 const SpeakingCoachPage: React.FC = () => {
+  useSEO({
+    title: 'AI Yapon Tili Muloqot Murabbiyi (Yuki-sensei)',
+    description:
+      "Yapon tilida erkin gapirishni o'rganing. Real vaqtda talaffuz, xatolar tahlili va interaktiv hayotiy dialoglar.",
+    canonical: '/speaking',
+    keywords:
+      'yapon tili speaking, AI yapon tili suhbatdosh, Yuki sensei, yaponcha talaffuz, JLPT kaiwa',
+  });
+
   const navigate = useNavigate();
   const { primaryLanguage } = useStudyData();
   const [searchParams, setSearchParams] = useSearchParams();

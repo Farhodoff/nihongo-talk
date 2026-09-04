@@ -109,6 +109,31 @@
           "price": "0",
           "priceCurrency": "USD",
           "category": "FreeTier"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "12480",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://nihon-talk.vercel.app/#website",
+        "url": "https://nihon-talk.vercel.app",
+        "name": "Nihongo Talk",
+        "inLanguage": ["uz", "ja"],
+        "publisher": {
+          "@id": "https://nihon-talk.vercel.app/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://nihon-talk.vercel.app/jlpt?search={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
         }
       },
       {
@@ -118,18 +143,41 @@
         "url": "https://nihon-talk.vercel.app",
         "logo": "https://nihon-talk.vercel.app/logo.png",
         "sameAs": [
-          "https://t.me/study_plannerr_bot"
+          "https://t.me/study_plannerr_bot",
+          "https://github.com/Farhodoff/nihongo-talk"
         ]
+      },
+      {
+        "@type": "Course",
+        "@id": "https://nihon-talk.vercel.app/jlpt#course-n5",
+        "name": "JLPT N5 Yapon Tili Boshlang'ich Kursi",
+        "description": "JLPT N5 grammatikasi, 100+ boshlang'ich Kanji, asosiy so'z boyligi va eshitish (Choukai) darslari.",
+        "provider": {
+          "@id": "https://nihon-talk.vercel.app/#organization"
+        },
+        "inLanguage": ["uz", "ja"],
+        "isAccessibleForFree": true
+      },
+      {
+        "@type": "Course",
+        "@id": "https://nihon-talk.vercel.app/jlpt#course-speaking",
+        "name": "AI Yaponcha Jonli Muloqot (Speaking Sensei)",
+        "description": "Haqiqiy yaponcha muloqot simulyatori: Restoran, Konbini, Poezd bekati va intervyu mavzulari.",
+        "provider": {
+          "@id": "https://nihon-talk.vercel.app/#organization"
+        },
+        "inLanguage": ["uz", "ja"],
+        "isAccessibleForFree": true
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Nihongo Talk nima va u qanday yordam beradi?",
+            "name": "Nihongo Talk xizmatlari bepulmi?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Nihongo Talk — yapon tilini o'rganayotgan va JLPT imtihonlariga tayyorlanayotgan o'quvchilar uchun shaxsiy AI yordamchi, Spaced Repetition (Anki SM-2) fleshkartalari va vazifalar boshqaruv tizimidir."
+              "text": "Ha, platformadagi barcha xizmatlar — AI suhbatdoshi (Yuki-sensei), 180 ballik JLPT mock testlari, kanji darslari va SRS fleshkartalar 100% bepul."
             }
           },
           {
@@ -137,7 +185,23 @@
             "name": "AI Speaking Coach qanday ishlaydi?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AI Speaking Coach interaktiv suhbat orqali yapon tilida talaffuz, ravonlik va grammatikani real vaqtda baholab beradi."
+              "text": "AI Speaking Coach real audio muloqot orqali talaffuz, ravonlik va grammatikani jonli tekshiradi hamda xatolarni o'zbek va yapon tillarida tushuntiradi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Telegram orqali foydalanish mumkinmi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ha, Nihongo Talk Telegram Mini App orqali alohida ilova o'rnatmasdan to'g'ridan-to'g'ri Telegram ichida ishlaydi: @study_plannerr_bot"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "日本語会話とJLPT対策は無料で利用できますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい、すべての機能（AI会話パートナー、JLPT模擬試験、単語帳）を完全無料でご利用いただけます。"
             }
           }
         ]

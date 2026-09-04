@@ -1,0 +1,43 @@
+# Nihongo Talk (日本語トーク) — AI Japanese Language & JLPT Preparation Platform
+
+> An open, 100% free comprehensive Japanese language learning ecosystem combining Real-time AI Voice Sensei (Speaking Coach), Spaced Repetition (Anki SM-2) flashcards, complete JLPT N5–N1 curriculum (Kanji, Grammar, Reading, Listening), and Telegram Mini-App integration.
+
+- Website: https://nihon-talk.vercel.app
+- Telegram Mini App & Bot: https://t.me/study_plannerr_bot
+- Open Source Repository: https://github.com/Farhodoff/nihongo-talk
+- Supported Languages: Uzbek (O'zbekcha), Japanese (日本語)
+
+## Core Capabilities & Features
+
+1. **AI Speaking Sensei (Yuki-sensei)**
+   - Real-time conversational Japanese dialogue with natural voice synthesis (TTS) and speech recognition (STT).
+   - Instant grammar and pronunciation error detection with explanations in Uzbek and Japanese.
+   - Situational scenarios: Tokyo restaurant ordering, convenience store (Konbini), train station navigation, university interview, job interview, and free conversation.
+   - URL: https://nihon-talk.vercel.app/speaking
+
+2. **JLPT Master Hub (N5 to N1)**
+   - Complete coverage of official Japanese Language Proficiency Test levels N5, N4, N3, N2, and N1.
+   - 1,000+ interactive Kanji stroke animations, radicals, On'yomi, and Kun'yomi readings.
+   - Grammar database with detailed particle guides, sentence pattern breakdowns, and furigana toggles.
+   - Official-format 180-point JLPT mock exams with timed sections and score analytics.
+   - URL: https://nihon-talk.vercel.app/jlpt
+
+3. **Smart Spaced Repetition (Anki SM-2 Flashcards)**
+   - Algorithmic spaced repetition schedule based on SuperMemo SM-2.
+   - Preset decks for JLPT N5/N4 core vocabulary, essential Kanji, and conversational survival phrases.
+   - Offline-first caching via IndexedDB and automatic cross-device Supabase sync.
+   - URL: https://nihon-talk.vercel.app/decks
+
+4. **Telegram Web App (TWA) Mini-App Integration**
+   - Seamless 1-tap mobile learning directly inside Telegram without separate app installation.
+   - Native Telegram theme sync, haptic vibration feedback, and automated daily study reminders.
+   - URL: https://nihon-talk.vercel.app/twa
+
+5. **100% Free Open Educational Model**
+   - Zero subscription fees, zero paywalls, zero premium tiers.
+   - Full access to all AI models, JLPT mock exams, and personalized study roadmaps is available completely free of charge.
+   - URL: https://nihon-talk.vercel.app/pricing
+
+6. **Developer & Partner REST API**
+   - Public REST endpoints for vocabulary lookups, JLPT grammar search, and study habit webhooks.
+   - URL: https://nihon-talk.vercel.app/developers

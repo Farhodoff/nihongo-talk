@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 
-interface SEOProps {
+export interface SEOProps {
   title?: string;
   description?: string;
   keywords?: string;
   canonical?: string;
   ogImage?: string;
   ogType?: string;
+  locale?: string;
+  schema?: Record<string, any>;
+  noIndex?: boolean;
 }
 
 const DEFAULT_TITLE = 'Nihongo Talk';
@@ -24,9 +27,12 @@ export const useSEO = ({
   canonical,
   ogImage,
   ogType = 'website',
+  locale,
+  schema,
+  noIndex = false,
 }: SEOProps = {}) => {
   useEffect(() => {
-    // Update Title - avoid redundant duplication of brand name
+    // 1. Update Title - avoid redundant duplication of brand name
     let finalTitle = DEFAULT_TITLE;
     if (title && title.trim() !== DEFAULT_TITLE) {
       finalTitle = title.includes('Nihongo Talk') ? title : `${title} — Nihongo Talk`;
@@ -63,25 +69,73 @@ export const useSEO = ({
     const finalDesc = description || DEFAULT_DESC;
     const finalKeywords = keywords || DEFAULT_KEYWORDS;
     const finalImage = ogImage || DEFAULT_OG_IMAGE;
-    const finalCanonical = canonical ? `${BASE_URL}${canonical}` : window.location.href;
+    const path = canonical || (typeof window !== 'undefined' ? window.location.pathname : '/');
+    const finalCanonical = `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 
-    // Standard Meta
+    // 2. Standard Meta
     setMetaTag('meta[name="description"]', 'content', finalDesc);
     setMetaTag('meta[name="keywords"]', 'content', finalKeywords);
+    setMetaTag(
+      'meta[name="robots"]',
+      'content',
+      noIndex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large',
+    );
 
-    // Canonical
+    // 3. Canonical URL
     setMetaTag('link[rel="canonical"]', 'href', finalCanonical, 'link');
 
-    // Open Graph
+    // 4. Multilingual Hreflang Tags (SEO for Uzbek and Japanese)
+    const setHreflang = (lang: string, href: string) => {
+      let link = document.querySelector(
+        `link[rel="alternate"][hreflang="${lang}"]`,
+      ) as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'alternate');
+        link.setAttribute('hreflang', lang);
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', href);
+    };
+
+    setHreflang('uz', `${finalCanonical}?lang=uz`);
+    setHreflang('ja', `${finalCanonical}?lang=ja`);
+    setHreflang('x-default', finalCanonical);
+
+    // 5. Open Graph / Facebook / Telegram
+    const activeLocale = locale || (document.documentElement.lang === 'ja' ? 'ja_JP' : 'uz_UZ');
+    setMetaTag('meta[property="og:site_name"]', 'content', 'Nihongo Talk');
     setMetaTag('meta[property="og:title"]', 'content', finalTitle);
     setMetaTag('meta[property="og:description"]', 'content', finalDesc);
     setMetaTag('meta[property="og:image"]', 'content', finalImage);
     setMetaTag('meta[property="og:url"]', 'content', finalCanonical);
     setMetaTag('meta[property="og:type"]', 'content', ogType);
+    setMetaTag('meta[property="og:locale"]', 'content', activeLocale);
 
-    // Twitter
+    // 6. Twitter Card Tags
+    setMetaTag('meta[name="twitter:card"]', 'content', 'summary_large_image');
     setMetaTag('meta[name="twitter:title"]', 'content', finalTitle);
     setMetaTag('meta[name="twitter:description"]', 'content', finalDesc);
     setMetaTag('meta[name="twitter:image"]', 'content', finalImage);
-  }, [title, description, keywords, canonical, ogImage, ogType]);
+
+    // 7. Dynamic JSON-LD Structured Data Injection
+    let scriptTag: HTMLScriptElement | null = null;
+    if (schema) {
+      const scriptId = 'dynamic-page-schema';
+      scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
+      if (!scriptTag) {
+        scriptTag = document.createElement('script');
+        scriptTag.id = scriptId;
+        scriptTag.type = 'application/ld+json';
+        document.head.appendChild(scriptTag);
+      }
+      scriptTag.text = JSON.stringify(schema);
+    }
+
+    return () => {
+      if (scriptTag && scriptTag.parentNode) {
+        scriptTag.parentNode.removeChild(scriptTag);
+      }
+    };
+  }, [title, description, keywords, canonical, ogImage, ogType, locale, schema, noIndex]);
 };

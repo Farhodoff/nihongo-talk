@@ -16,6 +16,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
+import { useSEO } from '../hooks/useSEO';
 import { useGamificationStore, useFlashcardStore, useAuthStore } from '../stores';
 
 interface MiniQuizQuestion {
@@ -103,6 +104,15 @@ const DEFAULT_TWA_FLASHCARDS = [
 ];
 
 export const TelegramMiniAppPage: React.FC = () => {
+  useSEO({
+    title: 'Telegram Mini App — Yapon Tili Mashqlari',
+    description:
+      "Telegram ichida to'g'ridan-to'g'ri yapon tili fleshkartalari, mini-quiz va AI speaking mashqlari.",
+    canonical: '/twa',
+    keywords:
+      'telegram yapon tili, telegram bot yapon tili, nihongo talk telegram mini app, TWA japanese',
+  });
+
   const navigate = useNavigate();
   const { user: tgUser, initData, haptics, isTwa } = useTelegramWebApp();
   const { totalXp, level, currentStreak, awardXP } = useGamificationStore();

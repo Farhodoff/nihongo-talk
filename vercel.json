@@ -51,7 +51,7 @@
       ]
     },
     {
-      "source": "/(favicon\\.svg|logo\\.png|apple-touch-icon\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml)",
+      "source": "/(favicon\\.svg|logo\\.png|apple-touch-icon\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml|llms\\.txt)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -60,7 +60,7 @@
       ]
     },
     {
-      "source": "/((?!assets/|favicon\\.svg|logo\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
+      "source": "/((?!assets/|favicon\\.svg|logo\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml|llms\\.txt).*)",
       "headers": [
         {
           "key": "Cache-Control",

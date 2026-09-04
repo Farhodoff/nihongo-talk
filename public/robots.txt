@@ -1,18 +1,73 @@
-# Nihon Talk Web Robots Configuration
+# ==============================================================================
+# Nihongo Talk Robots Configuration
+# Production URL: https://nihon-talk.vercel.app
+# ==============================================================================
+
+# Default Crawlers (Googlebot, Bingbot, Yandex, DuckDuckBot, Baiduspider)
 User-agent: *
 Allow: /
-Allow: /pricing
-Allow: /ielts
 Allow: /jlpt
-Allow: /flashcards
+Allow: /speaking
+Allow: /speaking-coach
+Allow: /pricing
 Allow: /developers
-Allow: /auth
+Allow: /twa
+Allow: /llms.txt
 Disallow: /api/
+Disallow: /admin
 Disallow: /dashboard
 Disallow: /settings
-Disallow: /admin
-Disallow: /study-room/
+Disallow: /room/
+Disallow: /diagnostic
+Disallow: /personal-plan
 
-# Host and Sitemap
+# Generative AI & Search Engine Crawlers (ChatGPT Search, Perplexity, Claude, Apple Intelligence)
+User-agent: GPTBot
+Allow: /
+Allow: /jlpt
+Allow: /speaking
+Allow: /pricing
+Allow: /developers
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /jlpt
+Allow: /speaking
+Allow: /pricing
+Allow: /developers
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /jlpt
+Allow: /speaking
+Allow: /pricing
+Allow: /developers
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin
+
+User-agent: Google-Extended
+Allow: /
+Allow: /jlpt
+Allow: /speaking
+Allow: /pricing
+Allow: /developers
+Allow: /llms.txt
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /jlpt
+Allow: /speaking
+Allow: /pricing
+Allow: /developers
+Allow: /llms.txt
+
+# Host and Sitemap Declarations
 Host: https://nihon-talk.vercel.app
 Sitemap: https://nihon-talk.vercel.app/sitemap.xml

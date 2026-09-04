@@ -17,7 +17,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
     "prepare": "husky",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:seo": "node scripts/validate-seo.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
