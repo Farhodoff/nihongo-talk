@@ -805,13 +805,12 @@ const LandingPage: React.FC = () => {
                   D
                 </span>
                 <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-rose-400 text-xs font-bold text-white">
-                  +
+                  K
                 </span>
               </div>
               <div>
                 <span className="font-bold text-amber-500">★★★★★</span>{' '}
-                <b className="font-bold text-foreground">4.9</b> · 12 000+{' '}
-                {isJa ? '名の学習者' : 'o‘quvchi'}
+                <b className="font-bold text-foreground">4.9</b>
               </div>
             </FadeIn>
           </div>
