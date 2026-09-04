@@ -96,7 +96,6 @@ const PageLoader = () => (
 
 import ReloadPrompt from './components/pwa/ReloadPrompt';
 import UnauthRouter from './components/UnauthRouter';
-import InstallPrompt from './components/pwa/InstallPrompt';
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(() => {
@@ -202,7 +201,6 @@ const App: React.FC = () => {
       <LanguageProvider>
         <UnauthRouter />
         <ReloadPrompt />
-        <InstallPrompt />
       </LanguageProvider>
     );
   }
@@ -371,7 +369,6 @@ const App: React.FC = () => {
 
                 {/* PWA Prompts */}
                 <ReloadPrompt />
-                <InstallPrompt />
                 <PushNotificationPrompt />
 
                 <OfflineIndicator />
