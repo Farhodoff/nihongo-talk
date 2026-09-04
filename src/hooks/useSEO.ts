@@ -1,78 +1,87 @@
 import { useEffect } from 'react';
 
 interface SEOProps {
-    title?: string;
-    description?: string;
-    keywords?: string;
-    canonical?: string;
-    ogImage?: string;
-    ogType?: string;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
 }
 
-const DEFAULT_TITLE = "Nihongo Talk — Yapon tilini AI yordamida o'rganish";
-const DEFAULT_DESC = "JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Writing Evaluator, SM-2 Fleshkartalar va shaxsiy kunlik reja.";
-const DEFAULT_KEYWORDS = "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
-const BASE_URL = "https://nihon-talk.vercel.app";
+const DEFAULT_TITLE = 'Nihongo Talk';
+const DEFAULT_DESC =
+  'JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Writing Evaluator, SM-2 Fleshkartalar va shaxsiy kunlik reja.';
+const DEFAULT_KEYWORDS =
+  "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
+const BASE_URL = 'https://nihon-talk.vercel.app';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
 export const useSEO = ({
-    title,
-    description,
-    keywords,
-    canonical,
-    ogImage,
-    ogType = 'website'
+  title,
+  description,
+  keywords,
+  canonical,
+  ogImage,
+  ogType = 'website',
 }: SEOProps = {}) => {
-    useEffect(() => {
-        // Update Title
-        const finalTitle = title ? `${title} | Nihongo Talk` : DEFAULT_TITLE;
-        document.title = finalTitle;
+  useEffect(() => {
+    // Update Title - avoid redundant duplication of brand name
+    let finalTitle = DEFAULT_TITLE;
+    if (title && title.trim() !== DEFAULT_TITLE) {
+      finalTitle = title.includes('Nihongo Talk') ? title : `${title} — Nihongo Talk`;
+    }
+    document.title = finalTitle;
 
-        // Helper to update or create meta tag
-        const setMetaTag = (selector: string, attribute: string, value: string, createTag: string = 'meta') => {
-            let element = document.querySelector(selector) as HTMLMetaElement | HTMLLinkElement | null;
-            if (!element) {
-                element = document.createElement(createTag) as any;
-                if (selector.startsWith('meta[name=')) {
-                    const name = selector.match(/name="([^"]+)"/)?.[1];
-                    if (name) element?.setAttribute('name', name);
-                } else if (selector.startsWith('meta[property=')) {
-                    const prop = selector.match(/property="([^"]+)"/)?.[1];
-                    if (prop) element?.setAttribute('property', prop);
-                } else if (selector.startsWith('link[rel=')) {
-                    const rel = selector.match(/rel="([^"]+)"/)?.[1];
-                    if (rel) element?.setAttribute('rel', rel);
-                }
-                if (element) document.head.appendChild(element);
-            }
-            if (element) {
-                element.setAttribute(attribute, value);
-            }
-        };
+    // Helper to update or create meta tag
+    const setMetaTag = (
+      selector: string,
+      attribute: string,
+      value: string,
+      createTag: string = 'meta',
+    ) => {
+      let element = document.querySelector(selector) as HTMLMetaElement | HTMLLinkElement | null;
+      if (!element) {
+        element = document.createElement(createTag) as any;
+        if (selector.startsWith('meta[name=')) {
+          const name = selector.match(/name="([^"]+)"/)?.[1];
+          if (name) element?.setAttribute('name', name);
+        } else if (selector.startsWith('meta[property=')) {
+          const prop = selector.match(/property="([^"]+)"/)?.[1];
+          if (prop) element?.setAttribute('property', prop);
+        } else if (selector.startsWith('link[rel=')) {
+          const rel = selector.match(/rel="([^"]+)"/)?.[1];
+          if (rel) element?.setAttribute('rel', rel);
+        }
+        if (element) document.head.appendChild(element);
+      }
+      if (element) {
+        element.setAttribute(attribute, value);
+      }
+    };
 
-        const finalDesc = description || DEFAULT_DESC;
-        const finalKeywords = keywords || DEFAULT_KEYWORDS;
-        const finalImage = ogImage || DEFAULT_OG_IMAGE;
-        const finalCanonical = canonical ? `${BASE_URL}${canonical}` : window.location.href;
+    const finalDesc = description || DEFAULT_DESC;
+    const finalKeywords = keywords || DEFAULT_KEYWORDS;
+    const finalImage = ogImage || DEFAULT_OG_IMAGE;
+    const finalCanonical = canonical ? `${BASE_URL}${canonical}` : window.location.href;
 
-        // Standard Meta
-        setMetaTag('meta[name="description"]', 'content', finalDesc);
-        setMetaTag('meta[name="keywords"]', 'content', finalKeywords);
+    // Standard Meta
+    setMetaTag('meta[name="description"]', 'content', finalDesc);
+    setMetaTag('meta[name="keywords"]', 'content', finalKeywords);
 
-        // Canonical
-        setMetaTag('link[rel="canonical"]', 'href', finalCanonical, 'link');
+    // Canonical
+    setMetaTag('link[rel="canonical"]', 'href', finalCanonical, 'link');
 
-        // Open Graph
-        setMetaTag('meta[property="og:title"]', 'content', finalTitle);
-        setMetaTag('meta[property="og:description"]', 'content', finalDesc);
-        setMetaTag('meta[property="og:image"]', 'content', finalImage);
-        setMetaTag('meta[property="og:url"]', 'content', finalCanonical);
-        setMetaTag('meta[property="og:type"]', 'content', ogType);
+    // Open Graph
+    setMetaTag('meta[property="og:title"]', 'content', finalTitle);
+    setMetaTag('meta[property="og:description"]', 'content', finalDesc);
+    setMetaTag('meta[property="og:image"]', 'content', finalImage);
+    setMetaTag('meta[property="og:url"]', 'content', finalCanonical);
+    setMetaTag('meta[property="og:type"]', 'content', ogType);
 
-        // Twitter
-        setMetaTag('meta[name="twitter:title"]', 'content', finalTitle);
-        setMetaTag('meta[name="twitter:description"]', 'content', finalDesc);
-        setMetaTag('meta[name="twitter:image"]', 'content', finalImage);
-
-    }, [title, description, keywords, canonical, ogImage, ogType]);
+    // Twitter
+    setMetaTag('meta[name="twitter:title"]', 'content', finalTitle);
+    setMetaTag('meta[name="twitter:description"]', 'content', finalDesc);
+    setMetaTag('meta[name="twitter:image"]', 'content', finalImage);
+  }, [title, description, keywords, canonical, ogImage, ogType]);
 };

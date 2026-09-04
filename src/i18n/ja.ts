@@ -184,7 +184,7 @@ export const ja = {
     speakingAiMessage1: '今日は何を食べますか？',
     speakingUserMessage: 'ラーメンをたべたいです！',
     speakingAiMessage2: 'いいですね！🍜 辛いのは大丈夫ですか？',
-    seoTitle: 'Nihongo Talk — AIで日本語を学ぶ',
+    seoTitle: 'Nihongo Talk',
     seoDescription:
       '教科書ではなく、本物の会話。AIと話し、間違いをその場で修正し、毎日10分で上達しよう。',
     seoKeywords:

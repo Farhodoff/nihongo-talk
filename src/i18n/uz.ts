@@ -185,7 +185,7 @@ export const uz = {
     speakingAiMessage1: '今日は何を食べますか？',
     speakingUserMessage: 'ラーメンをたべたいです！',
     speakingAiMessage2: 'いいですね！🍜 辛いのは大丈夫ですか？',
-    seoTitle: "Nihongo Talk — Yapon tilida gapirishni o'rganing",
+    seoTitle: 'Nihongo Talk',
     subtitle:
       'Darslik emas — haqiqiy suhbat. AI bilan gaplashing, xatolaringizni shu zahoti tuzating va har kuni 10 daqiqada oldinga siljing.',
     seoKeywords:
