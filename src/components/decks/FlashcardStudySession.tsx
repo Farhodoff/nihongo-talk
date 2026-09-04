@@ -18,6 +18,7 @@ import { Flashcard } from '../../types';
 import { Rating, Grade, getPreviewIntervals, sortCardsBySRSPriority } from '../../utils/srs';
 import { speakText } from '../../utils/audioTts';
 import { toast } from '../../hooks/use-toast';
+import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
 
 interface FlashcardStudySessionProps {
   subjectId?: string | null; // null or undefined means 'all due cards'
@@ -43,6 +44,17 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const [reviewedCount, setReviewedCount] = useState(0);
   const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
   const [isQueueInitialized, setIsQueueInitialized] = useState(false);
+  const [autoAudio, setAutoAudio] = useState<boolean>(() => {
+    return safeLocalStorage.getItem('study_planner_flashcard_auto_audio') === 'true';
+  });
+
+  const toggleAutoAudio = () => {
+    setAutoAudio((prev) => {
+      const next = !prev;
+      safeLocalStorage.setItem('study_planner_flashcard_auto_audio', String(next));
+      return next;
+    });
+  };
 
   // Study Mode: 'srs' | 'type'
   const [studyMode, setStudyMode] = useState<'srs' | 'type'>('srs');
@@ -107,6 +119,17 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     },
     [currentCard, isJapanese, accent],
   );
+
+  useEffect(() => {
+    if (autoAudio && currentCard && !isFinished && !isEditingCard) {
+      const timer = setTimeout(() => {
+        if (currentCard?.front) {
+          speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
+        }
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, [currentCardIndex, autoAudio, isFinished, isEditingCard, isJapanese, accent, currentCard]);
 
   const handleReview = useCallback(
     async (grade: Grade) => {
@@ -395,6 +418,30 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
               <option value="en-GB">🇬🇧 UK</option>
             </select>
           )}
+
+          {/* Auto Audio Playback Toggle */}
+          <button
+            onClick={toggleAutoAudio}
+            className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-extrabold transition-all ${
+              autoAudio
+                ? 'border-primary/40 bg-primary/10 text-primary shadow-xs'
+                : 'border-border bg-card text-muted-foreground hover:text-foreground'
+            }`}
+            title={
+              autoAudio
+                ? isJa
+                  ? '自動音声: オン'
+                  : 'Avtomatik ovoz: Yoqilgan'
+                : isJa
+                  ? '自動音声: オフ'
+                  : 'Avtomatik ovoz: O‘chirilgan'
+            }
+          >
+            <Volume2 size={14} className={autoAudio ? 'animate-pulse text-primary' : ''} />
+            <span className="hidden sm:inline">
+              {autoAudio ? (isJa ? '音声: オン' : 'Ovoz: On') : isJa ? '音声: オフ' : 'Ovoz: Off'}
+            </span>
+          </button>
 
           {/* Study Mode: Flashcard / Typing */}
           <div className="flex rounded-xl border border-border bg-card p-1">

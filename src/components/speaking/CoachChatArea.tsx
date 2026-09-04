@@ -6,6 +6,9 @@ import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
+import { ConversationHints } from './ConversationHints';
+import { generateContextualHints } from '../../utils/ai/conversationHintGenerator';
+import { ConversationScenario } from './scenarioTypes';
 
 interface CoachChatAreaProps {
   chatHistory: CoachChatMessage[];
@@ -22,6 +25,8 @@ interface CoachChatAreaProps {
   setChatHistory: React.Dispatch<React.SetStateAction<CoachChatMessage[]>>;
   onAddVocabulary?: (vocab: CoachVocabularyItem) => Promise<boolean | void> | void;
   onInspectPitch?: (word: string, kanaHint?: string) => void;
+  activeScenario?: ConversationScenario | null;
+  onSelectHint?: (text: string) => void;
 }
 
 export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
@@ -39,6 +44,8 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
   setChatHistory,
   onAddVocabulary,
   onInspectPitch,
+  activeScenario,
+  onSelectHint,
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -383,6 +390,21 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
           </div>
         </div>
       ))}
+
+      {/* Smart Conversation Hints for Beginners */}
+      {(() => {
+        const lastCoachMessage = [...chatHistory].reverse().find((m) => m.role === 'assistant');
+        if (!lastCoachMessage || isThinking || !onSelectHint) return null;
+        const hints = generateContextualHints(lastCoachMessage.content, activeScenario);
+        return (
+          <ConversationHints
+            hints={hints}
+            onSelectHint={onSelectHint}
+            onSpeakText={speakText}
+            disabled={isThinking || isListening}
+          />
+        );
+      })()}
 
       {/* Live Transcript Bubble */}
       {(currentTranscript || isListening) && (

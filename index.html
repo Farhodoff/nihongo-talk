@@ -70,9 +70,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://qmuimxnknxwarvnkpnlo.supabase.co">
+  <!-- Non-blocking font loading for optimal Core Web Vitals (LCP/FCP) -->
   <link
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700;800&display=swap"
-    rel="stylesheet">
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700;800&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700;800&display=swap"
+    />
+  </noscript>
 
   <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
   <script type="application/ld+json">

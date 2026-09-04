@@ -83,27 +83,65 @@ export default async function handler(req, res) {
         tasks = fallbackTasks || [];
       }
 
-      // 2. Fetch subscription status
-      const { data: sub } = await supabase
-        .from('user_subscriptions')
-        .select('*')
-        .eq('id', u.user_id)
-        .maybeSingle();
-
-      let subAlert = '';
-      if (sub?.valid_until) {
-        const daysLeft = Math.ceil((new Date(sub.valid_until).getTime() - Date.now()) / (1000 * 3600 * 24));
-        if (daysLeft > 0 && daysLeft <= 3) {
-          subAlert = `\n⚠️ <i>Eslatma: ${sub.tier.toUpperCase()} obunangiz tugashiga <b>${daysLeft} kun</b> qoldi.</i>`;
-        }
+      // 2. Fetch due flashcards count (SRS)
+      const nowIso = new Date().toISOString();
+      let dueCardsCount = 0;
+      try {
+        const { count } = await supabase
+          .from('flashcards')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', u.user_id)
+          .lte('next_review', nowIso);
+        dueCardsCount = count || 0;
+      } catch (e) {
+        console.warn('Could not query due flashcards:', e?.message);
       }
 
-      let taskSummary = 'Bugun uchun yangi rejalaringizni belgilang!';
+      // 3. Check today's speaking sessions (10-minute habit)
+      const todayDateStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tashkent' }).format(new Date());
+      let todaySpeakingCount = 0;
+      try {
+        const { count } = await supabase
+          .from('speaking_sessions')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', u.user_id)
+          .gte('created_at', `${todayDateStr}T00:00:00`);
+        todaySpeakingCount = count || 0;
+      } catch (e) {
+        console.warn('Could not query speaking sessions:', e?.message);
+      }
+
+      // 4. Fetch user streak
+      let streak = 1;
+      try {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('streak, total_xp')
+          .eq('id', u.user_id)
+          .maybeSingle();
+        if (profile?.streak) streak = profile.streak;
+      } catch (e) {
+        console.warn('Could not query profile streak:', e?.message);
+      }
+
+      let habitStatus = '';
+      if (todaySpeakingCount > 0) {
+        habitStatus = `✅ <b>Speaking Coach:</b> Bugungi muloqot bajarildi (${todaySpeakingCount} ta sessiya)! 👏`;
+      } else {
+        habitStatus = `🎙 <b>Speaking Coach:</b> Bugun hali 10 daqiqalik suhbat qilmadingiz!\n<i>🔥 ${streak} kunlik streakingizni saqlab qolish uchun hoziroq gapiring.</i>`;
+      }
+
+      let flashcardStatus = '';
+      if (dueCardsCount > 0) {
+        flashcardStatus = `\n📚 <b>Anki SRS Fleshkartalar:</b> Bugun <b>${dueCardsCount} ta</b> so'zni takrorlash kerak.`;
+      }
+
+      let taskSummary = '';
       if (tasks && tasks.length > 0) {
-        taskSummary = '📌 <b>Bugungi kutilayotgan vazifalar:</b>\n' + tasks.map((t, i) => `${i + 1}. ⏳ ${escapeHTML(t.title)}`).join('\n');
+        taskSummary = '\n📌 <b>Kutilayotgan vazifalar:</b>\n' + tasks.map((t, i) => `${i + 1}. ⏳ ${escapeHTML(t.title)}`).join('\n');
       }
 
-      const messageText = `☀️ <b>Xayrli kun, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${taskSummary}${subAlert}\n\n🚀 Kunlik mashg'ulotlarni boshlash uchun platformaga kiring:\n👉 <a href="https://nihon-talk.vercel.app/dashboard">Nihon Talk Dashboard</a>`;
+      const messageText = `🌙 <b>Xayrli oqshom, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${habitStatus}${flashcardStatus}${taskSummary}\n\n🚀 <b>Darslarni bajarish:</b>\n👉 <a href="https://nihon-talk.vercel.app/speaking-coach">Speaking Coach</a> | <a href="https://nihon-talk.vercel.app/decks">Fleshkartalar</a>`;
 
       await sendTelegramMessage(u.chat_id, messageText);
       sentCount++;

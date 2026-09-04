@@ -1416,6 +1416,8 @@ const SpeakingCoachPage: React.FC = () => {
               setChatHistory={setChatHistory}
               onAddVocabulary={handleAddVocabToFlashcards}
               onInspectPitch={handleInspectPitch}
+              activeScenario={activeScenario}
+              onSelectHint={handleSendUserText}
             />
           </div>
         )}

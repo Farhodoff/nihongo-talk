@@ -1,72 +1,72 @@
 {
-    "buildCommand": "npm run build",
-    "outputDirectory": "build",
-    "devCommand": "npm run dev",
-    "installCommand": "npm install --legacy-peer-deps",
-    "rewrites": [
-        { "source": "/api/(.*)", "destination": "/api/$1" },
-        { "source": "/sw.js", "destination": "/sw.js" },
-        { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
-        { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
-    ],
-    "crons": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install --legacy-peer-deps",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
+    { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/telegram/notify-daily",
+      "schedule": "0 15 * * *"
+    },
+    {
+      "path": "/api/telegram/dispatch-daily-dataset",
+      "schedule": "0 17 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
         {
-            "path": "/api/telegram/notify-daily",
-            "schedule": "0 3 * * *"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         },
         {
-            "path": "/api/telegram/dispatch-daily-dataset",
-            "schedule": "0 17 * * *"
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(self), microphone=(self), display-capture=(self)"
         }
-    ],
-    "headers": [
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
         {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "SAMEORIGIN"
-                },
-                {
-                    "key": "Referrer-Policy",
-                    "value": "strict-origin-when-cross-origin"
-                },
-                {
-                    "key": "Permissions-Policy",
-                    "value": "camera=(self), microphone=(self), display-capture=(self)"
-                }
-            ]
-        },
-        {
-            "source": "/assets/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=31536000, immutable"
-                }
-            ]
-        },
-        {
-            "source": "/(favicon\\.svg|logo\\.png|apple-touch-icon\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=86400, stale-while-revalidate=604800"
-                }
-            ]
-        },
-        {
-            "source": "/((?!assets/|favicon\\.svg|logo\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "no-cache, no-store, must-revalidate"
-                }
-            ]
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
-    ]
+      ]
+    },
+    {
+      "source": "/(favicon\\.svg|logo\\.png|apple-touch-icon\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/((?!assets/|favicon\\.svg|logo\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
 }

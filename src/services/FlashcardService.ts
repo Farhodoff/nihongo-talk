@@ -2,6 +2,7 @@ import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
 import { generateUUID, isUuid } from '../utils/uuid';
 import { PRESET_DECKS } from '../data/presetDecks';
+import { FlashcardOfflineSync } from './FlashcardOfflineSync';
 
 const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
 
@@ -451,12 +452,21 @@ export const FlashcardService = {
     if (updates.repetitions !== undefined) dbUpdates.repetitions = updates.repetitions;
     if (updates.subjectId) dbUpdates.subject_id = updates.subjectId;
 
+    // If browser is offline, store in IndexedDB queue for later sync
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      await FlashcardOfflineSync.enqueueUpdate(id, dbUpdates);
+      return;
+    }
+
     try {
       const { error } = await supabase.from('flashcards').update(dbUpdates).eq('id', id);
-      if (error) throw error;
+      if (error) {
+        // Enqueue offline update on DB failure
+        await FlashcardOfflineSync.enqueueUpdate(id, dbUpdates);
+      }
     } catch (error) {
-      console.error('Update flashcard error:', error);
-      throw error;
+      console.warn('Update flashcard error, enqueued offline:', error);
+      await FlashcardOfflineSync.enqueueUpdate(id, dbUpdates);
     }
   },
 

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface Settings {
   theme: 'light' | 'dark' | 'system';
@@ -13,12 +14,17 @@ export interface Settings {
   primaryLanguage?: 'en' | 'ja';
   targetLevel?: string;
   targetGoal?: string;
+  level?: number;
+  currentStreak?: number;
+  totalXp?: number;
 }
 
 export interface SettingsState {
   settings: Settings;
   updateSettings: (updates: Partial<Settings>) => void;
 }
+
+const SETTINGS_STORAGE_KEY = 'study_planner_user_settings';
 
 const defaultSettings: Settings = {
   theme: 'system',
@@ -30,9 +36,27 @@ const defaultSettings: Settings = {
   coachAiModel: 'gpt-4o-mini',
   showFurigana: true,
   showRomaji: false,
+  level: 1,
+  currentStreak: 0,
+  totalXp: 0,
+};
+
+const loadPersistedSettings = (): Settings => {
+  try {
+    const raw = safeLocalStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (raw) return { ...defaultSettings, ...JSON.parse(raw) };
+  } catch {}
+  return defaultSettings;
 };
 
 export const useSettingsStore = create<SettingsState>((set) => ({
-  settings: defaultSettings,
-  updateSettings: (updates) => set((state) => ({ settings: { ...state.settings, ...updates } })),
+  settings: loadPersistedSettings(),
+  updateSettings: (updates) =>
+    set((state) => {
+      const merged = { ...state.settings, ...updates };
+      try {
+        safeLocalStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(merged));
+      } catch {}
+      return { settings: merged };
+    }),
 }));
