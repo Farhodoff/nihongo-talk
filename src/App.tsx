@@ -50,6 +50,7 @@ const ScenarioPickerPage = lazyWithRetry(() =>
   import('./pages/ScenarioPickerPage').then((m) => ({ default: m.ScenarioPickerPage })),
 );
 const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
+const TelegramMiniAppPage = lazyWithRetry(() => import('./pages/TelegramMiniAppPage'));
 
 import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useAuthStore } from './stores';
@@ -333,6 +334,7 @@ const App: React.FC = () => {
                       <Route path="leaderboard" element={<Navigate to="/jlpt" replace />} />
                       <Route path="room/:roomId" element={<StudyRoomPage />} />
                       <Route path="settings" element={<SettingsPage />} />
+                      <Route path="twa" element={<TelegramMiniAppPage />} />
                       <Route path="developers" element={<DeveloperApiPage />} />
                       <Route path="api-docs" element={<Navigate to="/developers" replace />} />
                       <Route

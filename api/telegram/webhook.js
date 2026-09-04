@@ -12,6 +12,7 @@ function escapeHTML(str) {
 
 const defaultKeyboard = {
   keyboard: [
+    [{ text: '🚀 Nihon Talk Mini App', web_app: { url: 'https://nihon-talk.vercel.app/twa' } }],
     [{ text: '📅 Bugungi reja' }, { text: '🎌 Yaponcha Quiz' }],
     [{ text: '📚 Fleshkartalar' }, { text: '🎯 Speaking Mashqi' }],
     [{ text: 'ℹ️ Yordam' }]
@@ -19,6 +20,27 @@ const defaultKeyboard = {
   resize_keyboard: true,
   one_time_keyboard: false
 };
+
+async function setTelegramMenuButton(chatId) {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  if (!botToken) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${botToken}/setChatMenuButton`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        menu_button: {
+          type: 'web_app',
+          text: 'Nihon Talk',
+          web_app: { url: 'https://nihon-talk.vercel.app/twa' }
+        }
+      })
+    });
+  } catch (e) {
+    console.warn('setChatMenuButton warning:', e.message);
+  }
+}
 
 const QUIZ_QUESTIONS = [
   {
@@ -233,15 +255,38 @@ export default async function handler(req, res) {
         .eq('telegram_id', telegramId)
         .maybeSingle();
 
+      await setTelegramMenuButton(chatId);
+      const appInlineMarkup = {
+        inline_keyboard: [
+          [{ text: '🚀 Nihon Talk Mini Appni Ochish', web_app: { url: 'https://nihon-talk.vercel.app/twa' } }]
+        ]
+      };
+
       if (existingUser) {
-        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum, ${escapeHTML(firstName)}!</b>\n\nHisobingiz platformaga ulangan.\n\nQuyidagi menyu orqali kerakli bo'limni tanlang:`, defaultKeyboard);
+        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum, ${escapeHTML(firstName)}!</b>\n\nHisobingiz platformaga ulangan.\n\nTelegram ichida tezkor o'rganish uchun Mini Appni ochishingiz yoki quyidagi menyudan foydalanishingiz mumkin:`, appInlineMarkup);
       } else {
-        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nNihon Talk Telegram botiga xush kelibsiz.\n\nBotni akkauntingizga ulash uchun saytning Sozlamalar bo'limidan kod oling:\n<a href="https://nihon-talk.vercel.app/settings">Nihon Talk Sozlamalar</a>`);
+        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nNihon Talk Telegram botiga xush kelibsiz.\n\nTelegramdan chiqmasdan darslarni boshlash uchun Mini Appni oching yoki saytdagi Sozlamalar bo'limidan kod oling:\n<a href="https://nihon-talk.vercel.app/settings">Nihon Talk Sozlamalar</a>`, appInlineMarkup);
       }
       return res.status(200).json({ ok: true });
     }
 
-    // B. Handle /quiz or '🎌 Yaponcha Quiz'
+    // B. Handle /app or 'Mini App'
+    if (text === '/app' || text.includes('Mini App')) {
+      await setTelegramMenuButton(chatId);
+      const appMarkup = {
+        inline_keyboard: [
+          [{ text: '🚀 Nihon Talk Mini Appni Ochish', web_app: { url: 'https://nihon-talk.vercel.app/twa' } }]
+        ]
+      };
+      await sendTelegramMessage(
+        chatId,
+        `📱 <b>Nihon Talk Telegram Mini App:</b>\n\nTelegramdan chiqmasdan yapon tilini o'rganing:\n• 🎴 Kunlik SRS fleshkartalari\n• 🧠 JLPT tezkor testlari\n• 🎙️ 10 daqiqalik Speaking mashqi\n• 🔥 Streak va XP to'plash\n\nIlovani ochish uchun quyidagi tugmani bosing:`,
+        appMarkup
+      );
+      return res.status(200).json({ ok: true });
+    }
+
+    // C. Handle /quiz or '🎌 Yaponcha Quiz'
     if (text === '/quiz' || text.includes('Yaponcha Quiz') || text.includes('Quiz')) {
       const randIdx = Math.floor(Math.random() * QUIZ_QUESTIONS.length);
       const q = QUIZ_QUESTIONS[randIdx];
@@ -340,7 +385,7 @@ export default async function handler(req, res) {
 
     // G. Handle /help or 'ℹ️ Yordam'
     if (text === '/help' || text.includes('Yordam')) {
-      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://nihon-talk.vercel.app">Nihon Talk Platformasi</a>`);
+      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/app - Telegram Mini App ilovasini ochish 🚀\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://nihon-talk.vercel.app">Nihon Talk Platformasi</a>`);
       return res.status(200).json({ ok: true });
     }
 

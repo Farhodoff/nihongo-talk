@@ -5,7 +5,10 @@ import React, { Suspense, lazy } from 'react';
 const AuthPage = lazy(() => import('../pages/AuthPage'));
 const LandingPage = lazy(() => import('../pages/LandingPage'));
 const DeveloperApiPage = lazy(() => import('../pages/DeveloperApiPage'));
-const PricingPage = lazy(() => import('../pages/PricingPage').then(m => ({ default: m.PricingPage })));
+const PricingPage = lazy(() =>
+  import('../pages/PricingPage').then((m) => ({ default: m.PricingPage })),
+);
+const TelegramMiniAppPage = lazy(() => import('../pages/TelegramMiniAppPage'));
 
 /**
  * Router used when the user is not authenticated.
@@ -13,9 +16,12 @@ const PricingPage = lazy(() => import('../pages/PricingPage').then(m => ({ defau
  */
 export const UnauthRouter: React.FC = () => (
   <BrowserRouter>
-    <Suspense fallback={<div className="flex h-screen items-center justify-center">Yuklanmoqda...</div>}>
+    <Suspense
+      fallback={<div className="flex h-screen items-center justify-center">Yuklanmoqda...</div>}
+    >
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/twa" element={<TelegramMiniAppPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/auth/reset-password" element={<AuthPage />} />
