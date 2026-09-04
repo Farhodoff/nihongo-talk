@@ -309,6 +309,42 @@ export function telegramApiPlugin() {
           }
         }
 
+        // Handle /api/feedback (Dev Proxy to api/feedback.js)
+        if (pathname === '/api/feedback') {
+          if (req.method !== 'POST') {
+            res.statusCode = 405;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Method not allowed' }));
+            return;
+          }
+          try {
+            const chunks = [];
+            for await (const chunk of req) chunks.push(chunk);
+            const raw = Buffer.concat(chunks).toString();
+            const payload = raw ? JSON.parse(raw) : {};
+
+            const feedbackHandler = (await import('../api/feedback.js')).default;
+            const mockRes = {
+              setHeader: (k, v) => res.setHeader(k, v),
+              status: (s) => {
+                res.statusCode = s;
+                return mockRes;
+              },
+              json: (d) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(d));
+              },
+              end: () => res.end(),
+            };
+            return await feedbackHandler({ ...req, body: payload, method: req.method }, mockRes);
+          } catch (e) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Internal Server Error', message: e.message }));
+            return;
+          }
+        }
+
         if (!url.pathname.startsWith('/api/telegram')) {
           return next();
         }

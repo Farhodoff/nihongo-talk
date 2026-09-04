@@ -4,20 +4,32 @@ import { useLanguage } from '../context/LanguageContext';
 import { requestNotificationPermission } from '../utils/notifications';
 import PreferencesSection from '../components/settings/PreferencesSection';
 import AccountSection from '../components/settings/AccountSection';
-import { User, Sliders, Shield, Send, Flame, Award, Clock, Sparkles, Mail } from 'lucide-react';
+import {
+  User,
+  Sliders,
+  Shield,
+  Send,
+  Flame,
+  Award,
+  Clock,
+  Sparkles,
+  Mail,
+  Star,
+} from 'lucide-react';
 import { isAdminEmail, isSuperAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import AdminDashboardPage from './AdminDashboardPage';
 import TelegramSection from '../components/settings/TelegramSection';
-import { useSettingsStore } from '../stores/useSettingsStore';
+import { useSettingsStore, useRatingModalStore } from '../stores';
 
 const SettingsPage: React.FC = () => {
   const { settings, updateSettings } = useSettingsStore();
   const { user, getRank } = useStudyData();
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('profile');
+  const openRatingModal = useRatingModalStore((s) => s.openModal);
 
   const displayEmail = user?.email || '';
   const isCurrentSuperAdmin = Boolean(displayEmail && isSuperAdmin(displayEmail));
@@ -174,6 +186,35 @@ const SettingsPage: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Rate App & Leave Feedback Banner */}
+      <div className="flex flex-col items-center justify-between gap-4 rounded-3xl border border-amber-500/25 bg-gradient-to-r from-amber-500/10 via-card to-primary/10 p-5 shadow-xs sm:flex-row">
+        <div className="flex items-center gap-3.5">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-500/20 text-amber-500 shadow-inner">
+            <Star className="h-6 w-6 fill-amber-400 text-amber-500" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-foreground sm:text-base">
+              {language === 'ja'
+                ? 'アプリを評価・フィードバック'
+                : 'Ilovani baholash va fikr bildirish'}
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              {language === 'ja'
+                ? '星評価やご意見を直接Telegram bot orqali jamoamizga yuboring'
+                : 'App Store uslubida yulduzchalar bilan baholang va fikringizni botga yuboring'}
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={openRatingModal}
+          className="flex shrink-0 items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-amber-500/25 transition hover:brightness-105 active:scale-95"
+        >
+          <Star className="h-4 w-4 fill-white" />
+          {language === 'ja' ? '評価する (5★)' : 'Baholash (5★)'}
+        </button>
       </div>
 
       {/* Navigation Tabs (Horizontal Scrollable Pills) */}

@@ -5,6 +5,7 @@ export * from './useSubjectStore';
 export * from './useFlashcardStore';
 export * from './useTaskStore';
 export * from './useNoteStore';
+export * from './useRatingModalStore';
 
 import { useShallow } from 'zustand/react/shallow';
 import { useAuthStore } from './useAuthStore';

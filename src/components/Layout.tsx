@@ -12,9 +12,12 @@ import {
   Sparkles,
   Shield,
   BarChart3,
+  Star,
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
+import { RatingReviewModal } from './feedback';
+import { useRatingModalStore } from '../stores';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -49,6 +52,12 @@ const Layout: React.FC = () => {
   const displayEmail = user?.email || '';
   const isAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
   const isSuper = Boolean(displayEmail && isSuperAdmin(displayEmail));
+
+  const isRatingOpen = useRatingModalStore((s) => s.isOpen);
+  const isRatingSubmitting = useRatingModalStore((s) => s.isSubmitting);
+  const closeRatingModal = useRatingModalStore((s) => s.closeModal);
+  const openRatingModal = useRatingModalStore((s) => s.openModal);
+  const submitRatingReview = useRatingModalStore((s) => s.submitReview);
 
   // Global Keyboard Shortcuts (Cmd/Ctrl+K for Quick Command Palette)
   useEffect(() => {
@@ -327,6 +336,17 @@ const Layout: React.FC = () => {
             </NavLink>
           )}
 
+          {/* Quick Rate App & Feedback Button */}
+          <button
+            type="button"
+            onClick={openRatingModal}
+            className={`flex w-full items-center ${isCollapsed ? 'justify-center' : ''} gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-amber-600 shadow-xs transition-all hover:bg-amber-500/20 active:scale-95 dark:text-amber-400`}
+            title={language === 'ja' ? 'アプリを評価・フィードバック' : 'Ilovani baholash (5★)'}
+          >
+            <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
+            {!isCollapsed && <span>{language === 'ja' ? '⭐ アプリ評価' : '⭐ Baholash'}</span>}
+          </button>
+
           <div className="flex items-center gap-1.5">
             <NavLink
               to="/settings"
@@ -435,6 +455,18 @@ const Layout: React.FC = () => {
               <NavLinks onClick={() => setSidebarOpen(false)} />
             </div>
             <div className="space-y-2 border-t border-border/60 bg-card/80 p-3.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setSidebarOpen(false);
+                  openRatingModal();
+                }}
+                className="flex w-full items-center gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 active:scale-95 dark:text-amber-400"
+              >
+                <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
+                <span>{language === 'ja' ? '⭐ アプリを評価する' : '⭐ Ilovani baholash'}</span>
+              </button>
+
               {isAdmin && (
                 <NavLink
                   to="/admin"
@@ -478,6 +510,12 @@ const Layout: React.FC = () => {
 
       {/* Global Modals */}
       <SessionCompleteModal />
+      <RatingReviewModal
+        isOpen={isRatingOpen}
+        onClose={closeRatingModal}
+        onSubmit={submitRatingReview}
+        isSubmitting={isRatingSubmitting}
+      />
     </div>
   );
 };
