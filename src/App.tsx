@@ -312,8 +312,6 @@ const App: React.FC = () => {
                       <Route path="goals" element={<Navigate to="/personal-plan" replace />} />
                       <Route path="tasks" element={<Navigate to="/personal-plan" replace />} />
                       <Route path="focus" element={<FocusPage />} />
-                      <Route path="notes" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="notes/:id" element={<Navigate to="/jlpt" replace />} />
                       <Route path="ai" element={<Navigate to="/speaking-coach" replace />} />
                       <Route path="flashcards" element={<DecksPage />} />
                       <Route path="deck" element={<Navigate to="/flashcards" replace />} />
@@ -325,11 +323,8 @@ const App: React.FC = () => {
                       <Route path="study-mode/:subjectId" element={<StudyModePage />} />
                       <Route path="flashcards/study/:subjectId" element={<StudyModePage />} />
                       <Route path="progress" element={<ProgressPage />} />
-                      <Route path="community" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="cv-creator" element={<Navigate to="/jlpt" replace />} />
                       <Route path="vocabulary" element={<VocabularyBuilderPage />} />
                       <Route path="pricing" element={<PricingPage />} />
-                      <Route path="leaderboard" element={<Navigate to="/jlpt" replace />} />
                       <Route path="room/:roomId" element={<StudyRoomPage />} />
                       <Route path="settings" element={<SettingsPage />} />
                       <Route path="twa" element={<TelegramMiniAppPage />} />

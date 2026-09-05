@@ -132,6 +132,9 @@ export const useSEO = ({
       scriptTag.text = JSON.stringify(schema);
     }
 
+    // 8. Synchronize live user rating with Google Rich Results schema
+    syncLiveAggregateRating();
+
     return () => {
       if (scriptTag && scriptTag.parentNode) {
         scriptTag.parentNode.removeChild(scriptTag);
@@ -139,3 +142,95 @@ export const useSEO = ({
     };
   }, [title, description, keywords, canonical, ogImage, ogType, locale, schema, noIndex]);
 };
+
+export interface AggregateRatingData {
+  '@type'?: string;
+  ratingValue: string | number;
+  ratingCount: string | number;
+  bestRating?: string | number;
+  worstRating?: string | number;
+  reviewCount?: number;
+}
+
+let cachedRating: AggregateRatingData | null = null;
+let isFetchingRating = false;
+
+export function applyAggregateRatingToDOM(rating: AggregateRatingData): boolean {
+  if (typeof document === 'undefined') return false;
+
+  let applied = false;
+  const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+
+  for (const script of Array.from(scripts)) {
+    // Skip per-page temporary schemas that are not the main graph
+    if (script.id === 'dynamic-page-schema') continue;
+
+    try {
+      const json = JSON.parse(script.textContent || '{}');
+      let modified = false;
+
+      if (json['@graph'] && Array.isArray(json['@graph'])) {
+        for (const item of json['@graph']) {
+          if (item['@type'] === 'WebApplication' || item['@type'] === 'Course') {
+            item.aggregateRating = {
+              '@type': 'AggregateRating',
+              ratingValue: String(rating.ratingValue),
+              ratingCount: String(rating.ratingCount),
+              bestRating: String(rating.bestRating || '5'),
+              worstRating: String(rating.worstRating || '1'),
+            };
+            modified = true;
+          }
+        }
+      } else if (json['@type'] === 'WebApplication') {
+        json.aggregateRating = {
+          '@type': 'AggregateRating',
+          ratingValue: String(rating.ratingValue),
+          ratingCount: String(rating.ratingCount),
+          bestRating: String(rating.bestRating || '5'),
+          worstRating: String(rating.worstRating || '1'),
+        };
+        modified = true;
+      }
+
+      if (modified) {
+        script.textContent = JSON.stringify(json, null, 2);
+        applied = true;
+      }
+    } catch {
+      // Gracefully ignore parse errors
+    }
+  }
+
+  return applied;
+}
+
+export async function syncLiveAggregateRating(force = false): Promise<AggregateRatingData | null> {
+  if (typeof window === 'undefined') return null;
+
+  if (cachedRating && !force) {
+    applyAggregateRatingToDOM(cachedRating);
+    return cachedRating;
+  }
+
+  if (isFetchingRating) return cachedRating;
+
+  isFetchingRating = true;
+  try {
+    const res = await fetch('/api/seo/ratings');
+    if (!res.ok) return cachedRating;
+
+    const data = await res.json();
+    if (data?.success && data?.aggregateRating) {
+      cachedRating = data.aggregateRating;
+      applyAggregateRatingToDOM(cachedRating!);
+      return cachedRating;
+    }
+  } catch (err) {
+    // Graceful fallback: existing index.html schema remains active
+  } finally {
+    isFetchingRating = false;
+  }
+
+  return cachedRating;
+}

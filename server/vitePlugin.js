@@ -345,6 +345,31 @@ export function telegramApiPlugin() {
           }
         }
 
+        // Handle /api/seo/ratings
+        if (pathname === '/api/seo/ratings') {
+          try {
+            const ratingsHandler = (await import('../api/seo/ratings.js')).default;
+            const mockRes = {
+              setHeader: (k, v) => res.setHeader(k, v),
+              status: (s) => {
+                res.statusCode = s;
+                return mockRes;
+              },
+              json: (d) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(d));
+              },
+              end: () => res.end(),
+            };
+            return await ratingsHandler({ ...req, method: req.method }, mockRes);
+          } catch (e) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Internal Server Error', message: e.message }));
+            return;
+          }
+        }
+
         if (!url.pathname.startsWith('/api/telegram')) {
           return next();
         }
