@@ -18,7 +18,7 @@ const DEFAULT_DESC =
 const DEFAULT_KEYWORDS =
   "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
 const BASE_URL = 'https://nihon-talk.vercel.app';
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg?v=2`;
 
 export const useSEO = ({
   title,
@@ -104,8 +104,13 @@ export const useSEO = ({
 
     // 5. Open Graph / Facebook / Telegram
     const activeLocale = locale || (document.documentElement.lang === 'ja' ? 'ja_JP' : 'uz_UZ');
+    const ogTitle =
+      finalTitle === DEFAULT_TITLE
+        ? "Yapon tilini AI yordamida o'rganish (JLPT N5–N1)"
+        : finalTitle.replace(/ — Nihongo Talk$/i, '');
+
     setMetaTag('meta[property="og:site_name"]', 'content', 'Nihongo Talk');
-    setMetaTag('meta[property="og:title"]', 'content', finalTitle);
+    setMetaTag('meta[property="og:title"]', 'content', ogTitle);
     setMetaTag('meta[property="og:description"]', 'content', finalDesc);
     setMetaTag('meta[property="og:image"]', 'content', finalImage);
     setMetaTag('meta[property="og:url"]', 'content', finalCanonical);
@@ -114,7 +119,7 @@ export const useSEO = ({
 
     // 6. Twitter Card Tags
     setMetaTag('meta[name="twitter:card"]', 'content', 'summary_large_image');
-    setMetaTag('meta[name="twitter:title"]', 'content', finalTitle);
+    setMetaTag('meta[name="twitter:title"]', 'content', ogTitle);
     setMetaTag('meta[name="twitter:description"]', 'content', finalDesc);
     setMetaTag('meta[name="twitter:image"]', 'content', finalImage);
 
