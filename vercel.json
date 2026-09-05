@@ -4,6 +4,7 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install --legacy-peer-deps",
   "rewrites": [
+    { "source": "/api/telegram/(.*)", "destination": "/api/telegram.js" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/sw.js", "destination": "/sw.js" },
     { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
