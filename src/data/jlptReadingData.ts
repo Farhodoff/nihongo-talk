@@ -380,4 +380,284 @@ export const JLPT_READING_PASSAGES: JlptReadingPassage[] = [
       },
     ],
   },
+  // --- N5 EXPANDED PASSAGES ---
+  {
+    id: 'n5_read_4',
+    level: 'N5',
+    title: '私[わたし]の 部屋[へや]',
+    passageType: 'short',
+    japaneseContent: `私[わたし]の 部屋[へや]は 2階[にかい]に あります。
+部屋[へや]に 机[つくえ]と ベッドが あります。
+机[つくえ]の 上[うえ]に パソコンと 本[ほん]が あります。
+窓[まど]の 近[ちか]くに 小[ちい]さい 花[はな]が あります。とても きれいです。`,
+    uzbekTranslation:
+      'Mening xonam 2-qavatda joylashgan. Xonada stol va karavot bor. Stol ustida kompyuter va kitoblar bor. Deraza yaqinida kichkina gul bor. U juda chiroyli.',
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_4_1',
+        questionText: '机[つくえ]の 上[うえ]に 何[なに]が ありますか。',
+        options: ['ベッドと 花', 'パソコンと 本', 'テレビと 本', 'かばんと 鍵'],
+        correctIndex: 1,
+        explanation:
+          'Matnda "机[つくえ]の 上[うえ]に パソコンと 本[ほん]が あります" deb yozilgan.',
+      },
+    ],
+  },
+  {
+    id: 'n5_read_5',
+    level: 'N5',
+    title: 'スーパーの セール',
+    passageType: 'information_retrieval',
+    japaneseContent: `【週末[しゅうまつ]の お知[し]らせ】
+土曜日[どようび]と 日曜日[にちようび]は、すべての 野菜[やさい]が 20％引[にじゅっぱーせんとび]きになります。
+果物[くだもの]を 3個[さんこ] 買[か]うと、100円[ひゃくえん] 安[やす]くなります。
+午前[ごぜん]10時[じゅうじ]から 開[あ]きます。`,
+    uzbekTranslation:
+      "Dam olish kunlari barcha sabzavotlar 20% chegirma bilan sotiladi. 3 dona meva xarid qilsangiz, 100 yen arzonroq bo'ladi. Ertalab soat 10:00 da ochiladi.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_5_1',
+        questionText: '野菜[やさい]は いつ 安[やす]くなりますか。',
+        options: [
+          '月曜日[げつようび]と 火曜日[かようび]',
+          '土曜日[どようび]と 日曜日[にちようび]',
+          '水曜日[すいようび]だけ',
+          '毎日[まいにち]',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnda shanba va yakshanba kunlari sabzavotlar 20% chegirmada ekanligi aniq aytilgan.',
+      },
+    ],
+  },
+
+  // --- N4 EXPANDED PASSAGES ---
+  {
+    id: 'n4_read_3',
+    level: 'N4',
+    title: 'ゴミの 分別[ぶんべつ] ルール',
+    passageType: 'information_retrieval',
+    japaneseContent: `【アパートの 住民[じゅうみん]の 皆様[みなさま]へ】
+燃[も]える ゴミは 火曜日[かようび]と 金曜日[きんようび]の 朝[あさ]8時[はちじ]までに 出[だ]してください。
+燃[も]えない ゴミは 第2[だいに]・第4[だいよん] 水曜日[すいようび]です。
+ビンや カンは 洗[あら]ってから、専用[せんよう]の カゴに 入[い]れてください。
+指定[してい]の ゴミ袋[ぶくろ]を 必ず 使[つか]ってください。`,
+    uzbekTranslation:
+      'Kvartira aholisiga: Yonadigan chiqindilarni seshanba va juma kunlari ertalab soat 8:00 gacha chiqaring. Yonmaydigan chiqindilar har oyning 2- va 4-chorshanbasida. Shisha va konserva bankalarini yuvib maxsus savatga soling. Belgilangan maxsus chiqindi xaltasidan foydalaning.',
+    recommendedTimeMinutes: 4,
+    questions: [
+      {
+        id: 'q_n4_3_1',
+        questionText: '燃[も]える ゴミは いつ 出[だ]しますか。',
+        options: [
+          '水曜日[すいようび]の 午後',
+          '火曜日[かようび]と 金曜日[きんようび]の 朝8時まで',
+          '土曜日[どようび]の 朝',
+          '毎日 いつでも よい',
+        ],
+        correctIndex: 1,
+        explanation: 'Matnda "火曜日と 金曜日の 朝8時までに 出してください" deyilgan.',
+      },
+    ],
+  },
+  {
+    id: 'n4_read_4',
+    level: 'N4',
+    title: '薬[くすり]の 飲[の]み方[かた]の 注意[ちゅうい]',
+    passageType: 'short',
+    japaneseContent: `この 薬[くすり]は 1日[いちにち] 3回[さんかい]、毎食後[まいしょくご] 30分[さんじゅっぷん]以内[いない]に 飲[の]んでください。
+お茶[ちゃ]や ジュースではなく、水[みず]または ぬるま湯[ゆ]で 飲[の]むようにしてください。
+もし 熱[ねつ]が 下[さ]がっても、渡[わた]された 3日分[みっかぶん]は 最後[さいご]まで 飲[の]み切[き]る 必要[ひつよう]があります。`,
+    uzbekTranslation:
+      "Ushbu dorini kuniga 3 mahal, har ovqatdan so'ng 30 daqiqa ichida iching. Choy yoki sharbat bilan emas, suv yoki iliq suv bilan iching. Haroratingiz tushsa ham berilgan 3 kunlik dorini oxirigacha tugatishingiz shart.",
+    recommendedTimeMinutes: 4,
+    questions: [
+      {
+        id: 'q_n4_4_1',
+        questionText: '熱[ねつ]が 下[さ]がった 後[あと]、薬[くすり]を どうしなければなりませんか。',
+        options: [
+          'すぐに 飲[の]むのを やめる',
+          '最後[さいご]まで 全部[ぜんぶ] 飲[の]み切[き]る',
+          '1日1回[いっかい]に 減[へ]らす',
+          'ジュースと 一緒[いっしょ]に 飲[の]む',
+        ],
+        correctIndex: 1,
+        explanation: 'Matnda "渡された 3日分は 最後まで 飲み切る必要があります" deb yozilgan.',
+      },
+    ],
+  },
+
+  // --- N3 EXPANDED PASSAGES ---
+  {
+    id: 'n3_read_3',
+    level: 'N3',
+    title: '日本[にほん]の 銭湯[せんとう] 文化[ぶんか]',
+    passageType: 'medium',
+    japaneseContent: `日本[にほん]の 銭湯[せんとう]は、単[たん]に 体[からだ]を 洗[あら]うだけでなく、地域[ちいき]の 人々[ひとびと]が 交流[こうりゅう]する 憩[いこ]いの 場[ば]として 親[した]しまれてきました。
+銭湯[せんとう]を 利用[りよう]する 際[さい]には、湯船[ゆぶね]に 入[はい]る 前[まえ]に 体[からだ]を 洗[あら]い、タオルを 湯船[ゆぶね]の 中[なか]に 入[い]れないといった 独自[どくじ]の マナーが 存在[そんざい]します。
+近年[きんねん]では、若者[わかもの]や 外国人[がいこくじん] 観光客[かんこうきゃく]の間[あいだ]でも、その レトロな 雰囲気[ふんいき]が 再評価[さいひょうか]されています。`,
+    uzbekTranslation:
+      "Yaponiyadagi ommaviy hammomlar (Sentou) faqat yuvinish joyi emas, balki mahalla ahlining dildan suhbatlashadigan hordiq maskani hisoblanadi. Sentoudan foydalanganda hovuzga tushishdan oldin tanani yuvish va sochiqni hovuz suviga botirmaslik kabi o'ziga xos odob-qoidalar mavjud. So'nggi yillarda yoshlar va xorijiy sayyohlar orasida ham uning retro muhiti qayta qadrlanmoqda.",
+    recommendedTimeMinutes: 5,
+    questions: [
+      {
+        id: 'q_n3_3_1',
+        questionText: '銭湯[せんとう]の マナーとして 正[ただ]しいものは どれですか。',
+        options: [
+          'タオルを 湯船[ゆぶね]の 中[なか]で 洗[あら]うこと',
+          '湯船[ゆぶね]に 入[はい]る 前[まえ]に 体[からだ]を 洗[あら]うこと',
+          '入浴[にゅうよく]しながら 大声[おおごえ]で 電話[でんわ]すること',
+          '石鹸[せっけん]を つけたまま 湯船[ゆぶね]に 入[はい]ること',
+        ],
+        correctIndex: 1,
+        explanation: 'Matnda "湯船に入る前に体を洗い" deb aniq odob qoidasi keltirilgan.',
+      },
+    ],
+  },
+  {
+    id: 'n3_read_4',
+    level: 'N3',
+    title: '電子[でんし]書籍[しょせき]と 紙[かみ]の 本[ほん]',
+    passageType: 'medium',
+    japaneseContent: `スマートフォンや 専用[せんよう]端末[たんまつ]で 読[よ]める 電子[でんし]書籍[しょせき]は、場所[ばしょ]を 取[と]らず、いつでも どこでも 読書[どくしょ]を 楽[たの]しめる 利便性[りべんせい]がある。
+しかし、紙[かみ]の 本[ほん]が 持[も]つ「手触[てざわ]り」や「ページを めくる 感覚[かんかく]」は、読書[どくしょ]の 記憶[きおく]を 定着[ていちゃく]させる 上[うえ]で 大切[たいせつ]な 役割[やくわり]を 果[は]たしているとされる。
+双方[そうほう]の 利点[りてん]を 理解[りかい]し、目的[もくてき]に 応[おう]じて 使[つか]い分[わ]けることが 望[のぞ]ましい。`,
+    uzbekTranslation:
+      "Elektron kitoblar joy egallamaydi va istalgan joyda mutolaa qilish imkonini beradi. Biroq qog'oz kitobning ushlashdagi hissi va sahifalarni varaqlash jarayoni xotirani mustahkamlashda muhim ahamiyat kasb etadi. Ikkalasining afzalliklarini tushunib, maqsadga qarab to'g'ri tanlash maqsadga muvofiqdir.",
+    recommendedTimeMinutes: 5,
+    questions: [
+      {
+        id: 'q_n3_4_1',
+        questionText:
+          '筆者[ひっしゃ]は 電子[でんし]書籍[しょせき]と 紙[かみ]の 本[ほん]について どう考[かんが]えていますか。',
+        options: [
+          '紙[かみ]の 本[ほん]は 将来[しょうらい] すべて なくなるべきだ',
+          '電子[でんし]書籍[しょせき]だけを 使[つか]うべきだ',
+          '目的[もくてき]に 応[おう]じて 両方[りょうほう]を 上手[じょうず]に 使[つか]い分[わ]けるのが よい',
+          'どちらも 読書[どくしょ]には 適[てき]していない',
+        ],
+        correctIndex: 2,
+        explanation:
+          "So'nggi jumlada maqsadga qarab ikkalasidan o'rinli foydalanish (使い分ける) maqsadga muvofiq deyilgan.",
+      },
+    ],
+  },
+
+  // --- N2 EXPANDED PASSAGES ---
+  {
+    id: 'n2_read_3',
+    level: 'N2',
+    title: '食品[しょくひん] 表示[ひょうじ]と 消費者[しょうひしゃ] 心理[しんり]',
+    passageType: 'medium',
+    japaneseContent: `製品[せいひん]の パッケージに「国産[こくさん]」や「無添加[むてんか]」と 記[しる]されていると、消費者[しょうひしゃ]は 無条件[むじょうけん]に 安全[あんぜん]かつ 高品質[こうひんしつ]だと 判断[はんだん]しがちである。
+しかし、添加物[てんかぶつ]の 全[すべ]てが 有害[ゆうがい]なわけではなく、保存性[ほぞんせい]や 安全性[あんぜんせい]を 保[たも]つために 必要不可欠[ひつようふかけつ]なものも 少[すく]なくない。
+単なる イメージや 宣伝[せんでん]文句[もんく]に 惑[まど]わされず、正確[せいかく]な 知識[ちしき]に 基[づ]いて 商品[しょうひん]を 吟味[ぎんみ]する 姿勢[しせい]が 消費者[しょうひしゃ]に 求[もと]められている。`,
+    uzbekTranslation:
+      "Qadoqda 'Mahalliy mahsulot' yoki 'Qo'shimchalarsiz' deb yozilsa, iste'molchilar so'zsiz xavfsiz va sifatli deb hisoblashga moyildirlar. Holbuki barcha qo'shimchalar zararli emas, balki mahsulotni saqlash va xavfsizligini ta'minlashda o'rni beqiyos. Shunchaki reklama so'zlariga aldanmasdan, aniq bilimlar asosida tanlash lozim.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n2_3_1',
+        questionText:
+          '筆者[ひっしゃ]が 消費者[しょうひしゃ]に 求[もと]めていることは 何[なに]ですか。',
+        options: [
+          '無添加[むてんか]の 商品[しょうひん]だけを 徹底[てってい]して 買[か]うこと',
+          '正確[せいかく]な 知識[ちしき]に 基[もと]づいて 商品[しょうひん]を 冷静[れいせい]に 選[えら]ぶこと',
+          '安[やす]い 食品[しょくひん]だけを 優先[ゆうせん]すること',
+          'すべての 添加物[てんかぶつ]の 使用[しよう]を 禁止[きんし]する 署名[しょめい]を 集[あつ]めること',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Muallif aniq bilimlar asosida mahsulotlarni xolis tekshirib tanlashni (正確な知識に基づいて商品を吟味する姿勢) so'ramoqda.",
+      },
+    ],
+  },
+  {
+    id: 'n2_read_4',
+    level: 'N2',
+    title: 'シェアリング・エコノミーの 功罪[こうざい]',
+    passageType: 'medium',
+    japaneseContent: `自動車[じどうしゃ]や 住居[じゅうきょ]、衣服[いふく]に至[いた]るまで、モノを「所有[しょゆう]」するのではなく「共有[きょうゆう]」する シェアリング・エコノミーが 急速[きゅうそく]に 浸透[しんとう]している。
+資源[しげん]の 有効[ゆうこう] 活用[かつよう]や 費用[ひよう] 削減[さくげん]という 恩恵[おんけい]をもたらす 一方[いっぽう]で、事故[じこ]や トラブルが 生[しょう]じた 際[さい]の 責任[せきにん] 所在[しょざい]の 曖昧[あいまい]さが 法的[ほうてき]な 争点[そうてん]となっている。
+利便性[りべんせい]と セーフティネットの 構築[こうちく]を 両立[りょうりつ]させることが、この 新[あら]たな 経済[けいざい]モデルの 持続[じぞく]には 欠[か]かせない。`,
+    uzbekTranslation:
+      "Buyumlarga egalik qilish emas, balki ularni birgalikda foydalanish (sharing economy) avtomobil, uy-joy va kiyimgacha shiddat bilan kirib bormoqda. Resurslarni tejash va arzonlik kabi yutuqlar bilan birga, falokat yuz berganda javobgarlikning noaniqligi huquqiy muammo tug'dirmoqda. Qulaylik va xavfsizlik kafolatlarini uyg'unlashtirish muhim shartdir.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n2_4_1',
+        questionText:
+          'シェアリング・エコノミーの 課題[かだい]として 挙[あ]げられているのは 何[なに]ですか。',
+        options: [
+          '資源[しげん]の 浪費[ろうひ]',
+          'トラブル 発生時[はっせいじ]における 責任[せきにん]の 所在[しょざい]が 曖昧[あいまい]なこと',
+          '利用[りよう] 料金[りょうきん]が 従来[じゅうらい]より はるかに 高額[こうがく]なこと',
+          '若者[わかもの]の 利用者[りようしゃ]が まったく 伸[の]びないこと',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnda "事故やトラブルが生じた際の責任所在の曖昧さ" muammo sifatida aytilgan.',
+      },
+    ],
+  },
+
+  // --- N1 EXPANDED PASSAGES ---
+  {
+    id: 'n1_read_3',
+    level: 'N1',
+    title: '身体知[しんたいち]と 暗黙知[あんもくち]の 構造[こうぞう]',
+    passageType: 'medium',
+    japaneseContent: `職人[しょくにん]の 熟練[じゅくれん]した 技[わざ]や 一流[いちりゅう]の 演奏家[えんそうか]の 表現[ひょうげん]力[りょく]は、言語化[げんごか]して 他者[たしゃ]に 伝達[でんたつ]することが 極[きわ]めて 困難[こんなん]な「暗黙知[あんもくち]」に 属[ぞく]する。
+この 身体[しんたい]に 深[ふか]く 根[ね]ざした 知[ち]の 体系[たいけい]は、試行[しこう] 錯誤[さくご]の 蓄積[ちくせき]を通じてのみ 獲得[かくとく]されるものであり、アルゴリズムによる 単純[たんじゅん]な 形式化[けいしきか]を 拒絶[きょぜつ]する。
+デジタル 時代[じだい]において 情報[じょうほう]の 共有[きょうゆう]が 容易[ようい]になったからこそ、言語[げんご]化[か]し得[え]ない 身体知[しんたいち]の 希少[きしょう] 価値[かち]は むしろ 高[たか]まっているといえる。`,
+    uzbekTranslation:
+      "Usta hunarmandlarning mahorati yoki mohir sozandaning ifoda qudrati so'z bilan boshqalarga yetkazish mushkul bo'lgan 'yashirin bilim' (tacit knowledge) sohasiga kiradi. Tanaga singgan bu bilim tizimi tinimsiz amaliy urinishlar orqaligina shakllanadi va oddiy algoritmlar bilan ifodalashga bo'ysunmaydi. Axborot oqimi cheksiz bo'lgan raqamli zamonda aynan so'z bilan ifodalab bo'lmaydigan jismoniy mahoratning qadri yanada oshmoqda.",
+    recommendedTimeMinutes: 7,
+    questions: [
+      {
+        id: 'q_n1_3_1',
+        questionText:
+          '筆者[ひっしゃ]が 主張[しゅちょう]する「身体知[しんたいち]」の 特徴[とくちょう]は どれか。',
+        options: [
+          'コンピューターの アルゴリズムで 容易[ようい]に 再現[さいげん]できる',
+          'マニュアルを 読[よ]めば 誰[だれ]でも 短期間[たんきかん]で 習得[しゅうとく]できる',
+          '単純[たんじゅん]な 言語化[げんごか]を 拒[こば]み、実践的[じっせんてき]な 蓄積[ちくせき]によってのみ 体得[たいとく]される',
+          'デジタル 社会[しゃかい]においては もはや 価値[かち]を 失[うしな]った',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Muallif jismoniy bilim oddiy so'z bilan ifodalab bo'lmasligini va tinimsiz amaliyot bilan shakllanishini aniq ta'kidlaydi.",
+      },
+    ],
+  },
+  {
+    id: 'n1_read_4',
+    level: 'N1',
+    title: '都市[とし]の 景観[けいかん]と 記憶[きおく]の 地層[ちそう]',
+    passageType: 'medium',
+    japaneseContent: `都市[とし]の 再開発[さいかいはつ]は、老朽化[ろうきゅうか]した 建造物[けんぞうぶつ]を 一掃[いっそう]し、機能的[きのうてき]で 耐震性[たいしんせい]に 優[すぐ]れた 近代的[きんだいてき] 空間[くうかん]を 生[う]み出[だ]す。
+しかし、街並[まちな]みが 均質化[きんしつか]される 過程[かてい]で、その 土地[とち]に 堆積[たいせき]していた 歴史的[れきしてき] 記憶[きおく]や 固有[こゆう]の 人間的[にんげんてき] 営[いとな]みの 痕跡[こんせき]は 容赦[ようしゃ]なく 削[そ]ぎ落[お]とされる。
+真[しん]に 豊[ゆた]かな 都市[とし]とは、新旧[しんきゅう]の 時間[じかん]が 重層的[じゅうそうてき]に 共存[きょうぞん]し、過去[かこ]の 記憶[きおく]が 息[いき]づいている 空間[くうかん]に他[ほか]ならない。`,
+    uzbekTranslation:
+      "Shaharlarni qayta qurish eski binolarni bartaraf etib, xavfsiz va zamonaviy infratuzilma yaratadi. Biroq shahar qiyofasi bir xillashuvi jarayonida ushbu zaminda asrlar davomida yig'ilgan tarixiy xotira va insoniy izlar shafqatsizlarcha yo'qotiladi. Haqiqiy boy shahar — bu o'tmish va yangi zamon bir-biri bilan qavatma-qavat uyg'un yashaydigan maskandir.",
+    recommendedTimeMinutes: 7,
+    questions: [
+      {
+        id: 'q_n1_4_1',
+        questionText:
+          '筆者[ひっしゃ]の 考[かんが]える「真[しん]に 豊[ゆた]かな 都市[とし]」とは どのようなものか。',
+        options: [
+          'すべてが 最新[さいしん]の 高層[こうそう]ビルだけで 構成[こうせい]された 都市',
+          '新[あたら]しい 機能[きのう]と 歴史的[れきしてき]な 記憶[きおく]が 共存[きょうぞん]している 都市',
+          '再開発[さいかいはつ]を 一切[いっさい] 行[おこな]わず、古[ふる]い 建物[たてもの]だけを 残[のこ]した 都市',
+          '人間[にんげん]の 居住[きょじゅう]を 制限[せいげん]した 自然[しぜん] 公園[こうえん]都市',
+        ],
+        correctIndex: 1,
+        explanation:
+          'So‘nggi jumlada yangi va eski zamonning birgalikda mavjud bo‘lishi haqiqiy boy shahar ekanligi ifodalangan.',
+      },
+    ],
+  },
 ];

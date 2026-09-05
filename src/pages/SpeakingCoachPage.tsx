@@ -98,6 +98,40 @@ const PROMPT_SUGGESTIONS_BY_LANG: Record<
   ],
 };
 
+export const getCoachInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona): string => {
+  if (lang === 'ja') {
+    switch (p) {
+      case 'roast':
+        return 'こんにちは！鬼先生です。遠慮せずに日本語で話してください！';
+      case 'gentle':
+        return 'こんにちは！日本語の先生です。いつでもお話ししてくださいね。';
+      case 'ielts':
+        return 'こんにちは！JLPTスピーキングの練習を始めましょう！';
+      case 'interview':
+        return 'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。';
+      case 'travel':
+        return 'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？';
+      case 'casual':
+        return 'やあ！元気？今日は何について話そうか！';
+    }
+  } else {
+    switch (p) {
+      case 'roast':
+        return 'Hello! Strict Japanese Roast Coach here. Speak in Japanese and prepare for corrections!';
+      case 'gentle':
+        return "Hello! I'm your Japanese language tutor. Feel free to start talking in Japanese whenever you're ready!";
+      case 'ielts':
+        return "Good day! Let's practice Japanese JLPT Speaking. Shall we begin?";
+      case 'interview':
+        return "Hello! Welcome to your Japanese IT Job Mock Interview. Let's start with a self-introduction in Japanese.";
+      case 'travel':
+        return "Konnichiwa! Welcome to Narita Airport. Let's practice travel Japanese.";
+      case 'casual':
+        return "Hey friend! Let's chat in casual Japanese. What's on your mind today?";
+    }
+  }
+};
+
 const SpeakingCoachPage: React.FC = () => {
   useSEO({
     title: 'AI Yapon Tili Muloqot Murabbiyi (Yuki-sensei)',
@@ -371,23 +405,43 @@ const SpeakingCoachPage: React.FC = () => {
     },
   });
 
-  // Warm-cache prefetch common coach greetings in idle time for 0ms instant TTS start
+  // Warm-cache prefetch active coach greeting immediately (0ms start), then stagger other personas
   useEffect(() => {
-    const commonJaGreetings = [
-      'こんにちは！鬼先生です。遠慮せずに日本語で話してください！',
-      'こんにちは！日本語の先生です。いつでもお話ししてくださいね。',
-      'こんにちは！JLPTスピーキングの練習を始めましょう！',
-      'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。',
-      'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？',
-      'やあ！元気？今日は何について話そうか！',
+    // 1. Immediately prefetch the active persona greeting (top priority)
+    const activeGreeting = getCoachInitialGreeting(language, persona);
+    if (activeGreeting) {
+      fetchTTSAudioBlob(activeGreeting, language).catch(() => {});
+    }
+
+    // 2. Stagger background caching for other personas to prevent saturating the network or serverless limits
+    const allPersonas: CoachPersona[] = [
+      'roast',
+      'gentle',
+      'ielts',
+      'interview',
+      'travel',
+      'casual',
     ];
-    const timer = setTimeout(() => {
-      commonJaGreetings.forEach((g) => {
-        fetchTTSAudioBlob(g, 'ja').catch(() => {});
-      });
-    }, 150);
-    return () => clearTimeout(timer);
-  }, []);
+    const otherPersonas = allPersonas.filter((p) => p !== persona);
+
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    otherPersonas.forEach((p, index) => {
+      const timer = setTimeout(
+        () => {
+          const greetingText = getCoachInitialGreeting(language, p);
+          if (greetingText) {
+            fetchTTSAudioBlob(greetingText, language).catch(() => {});
+          }
+        },
+        800 + index * 600,
+      );
+      timeouts.push(timer);
+    });
+
+    return () => {
+      timeouts.forEach(clearTimeout);
+    };
+  }, [language, persona]);
 
   // Handle Scenario selection / loading and auto-speaking opening line with 0ms delay
   useEffect(() => {
@@ -910,39 +964,7 @@ const SpeakingCoachPage: React.FC = () => {
     }
   };
 
-  const getInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona): string => {
-    if (lang === 'ja') {
-      switch (p) {
-        case 'roast':
-          return 'こんにちは！鬼先生です。遠慮せずに日本語で話してください！';
-        case 'gentle':
-          return 'こんにちは！日本語の先生です。いつでもお話ししてくださいね。';
-        case 'ielts':
-          return 'こんにちは！JLPTスピーキングの練習を始めましょう！';
-        case 'interview':
-          return 'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。';
-        case 'travel':
-          return 'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？';
-        case 'casual':
-          return 'やあ！元気？今日は何について話そうか！';
-      }
-    } else {
-      switch (p) {
-        case 'roast':
-          return 'Hello! Strict Japanese Roast Coach here. Speak in Japanese and prepare for corrections!';
-        case 'gentle':
-          return "Hello! I'm your Japanese language tutor. Feel free to start talking in Japanese whenever you're ready!";
-        case 'ielts':
-          return "Good day! Let's practice Japanese JLPT Speaking. Shall we begin?";
-        case 'interview':
-          return "Hello! Welcome to your Japanese IT Job Mock Interview. Let's start with a self-introduction in Japanese.";
-        case 'travel':
-          return "Konnichiwa! Welcome to Narita Airport. Let's practice travel Japanese.";
-        case 'casual':
-          return "Hey friend! Let's chat in casual Japanese. What's on your mind today?";
-      }
-    }
-  };
+  const getInitialGreeting = getCoachInitialGreeting;
 
   const handleResetChat = useCallback(() => {
     if (streamAbortControllerRef.current) {

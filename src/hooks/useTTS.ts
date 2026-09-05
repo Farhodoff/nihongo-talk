@@ -206,14 +206,48 @@ export function selectBestVoice(
   }
 }
 
+const TTS_CACHE_NAME = 'tts-audio-v1';
+
+async function getPersistentAudioBlob(cacheKey: string): Promise<Blob | null> {
+  if (typeof window === 'undefined' || !('caches' in window)) return null;
+  try {
+    const cache = await caches.open(TTS_CACHE_NAME);
+    const match = await cache.match(`https://tts.local/${encodeURIComponent(cacheKey)}`);
+    if (match) {
+      return await match.blob();
+    }
+  } catch {}
+  return null;
+}
+
+async function setPersistentAudioBlob(cacheKey: string, blob: Blob): Promise<void> {
+  if (typeof window === 'undefined' || !('caches' in window)) return;
+  try {
+    const cache = await caches.open(TTS_CACHE_NAME);
+    const res = new Response(blob, {
+      headers: { 'Content-Type': 'audio/mpeg' },
+    });
+    await cache.put(`https://tts.local/${encodeURIComponent(cacheKey)}`, res);
+  } catch {}
+}
+
 /**
  * Fetches high-quality Google TTS audio from the serverless /api/tts endpoint
+ * with in-memory (0ms) and CacheStorage persistence
  */
 export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promise<Blob | null> {
   const cleanKey = `${lang}:${(text || '').trim()}`;
   if (TTS_AUDIO_CACHE.has(cleanKey)) {
     return TTS_AUDIO_CACHE.get(cleanKey)!;
   }
+
+  // Fast-path: Check browser persistent CacheStorage
+  const diskBlob = await getPersistentAudioBlob(cleanKey);
+  if (diskBlob && diskBlob.size > 0) {
+    TTS_AUDIO_CACHE.set(cleanKey, diskBlob);
+    return diskBlob;
+  }
+
   if (IN_FLIGHT_REQUESTS.has(cleanKey)) {
     return IN_FLIGHT_REQUESTS.get(cleanKey)!;
   }
@@ -257,12 +291,15 @@ export async function fetchTTSAudioBlob(text: string, lang: 'ja' | 'en'): Promis
       const blob = await response.blob();
       if (!blob || blob.size === 0) return null;
 
-      // Cache the audio blob
+      // Cache the audio blob in memory
       if (TTS_AUDIO_CACHE.size >= MAX_TTS_CACHE_ENTRIES) {
         const oldestKey = TTS_AUDIO_CACHE.keys().next().value;
         if (oldestKey) TTS_AUDIO_CACHE.delete(oldestKey);
       }
       TTS_AUDIO_CACHE.set(cleanKey, blob);
+
+      // Persist to native CacheStorage asynchronously
+      setPersistentAudioBlob(cleanKey, blob).catch(() => {});
 
       return blob;
     } catch (err) {

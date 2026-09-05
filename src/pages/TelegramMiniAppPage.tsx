@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Flame,
@@ -14,22 +14,216 @@ import {
   MessageSquare,
   CheckSquare,
   ChevronRight,
+  Layers,
 } from 'lucide-react';
 import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import { useSEO } from '../hooks/useSEO';
 import { useGamificationStore, useFlashcardStore, useAuthStore } from '../stores';
+import { JLPT_MOCK_EXAM_DATA } from '../data/jlptMockExamData';
 
 interface MiniQuizQuestion {
   id: number;
   question: string;
   romaji?: string;
-  meaning: string;
+  meaning?: string;
   options: string[];
   correct: number;
   explanation: string;
 }
 
-const TWA_QUIZ_QUESTIONS: MiniQuizQuestion[] = [
+interface MiniCard {
+  id: string;
+  front: string;
+  romaji?: string;
+  back: string;
+  example?: string;
+}
+
+const LEVEL_VOCAB_DECKS: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', MiniCard[]> = {
+  N5: [
+    {
+      id: 'n5_1',
+      front: 'こんにちは',
+      romaji: 'Konnichiwa',
+      back: 'Assalomu alaykum / Xayrli kun',
+      example: '元気に 挨拶を しましょう。',
+    },
+    {
+      id: 'n5_2',
+      front: 'ありがとう',
+      romaji: 'Arigatou',
+      back: 'Rahmat / Tashakkur',
+      example: '手伝ってくれて ありがとう。',
+    },
+    {
+      id: 'n5_3',
+      front: '学生',
+      romaji: 'Gakusei',
+      back: "Talaba, o'quvchi",
+      example: 'わたしは 日本語の 学生です。',
+    },
+    {
+      id: 'n5_4',
+      front: '先生',
+      romaji: 'Sensei',
+      back: "O'qituvchi, ustoz",
+      example: '田中先生は とても 親切です。',
+    },
+    {
+      id: 'n5_5',
+      front: '食べる',
+      romaji: 'Taberu',
+      back: "Yemoq (fe'l)",
+      example: '毎朝 パンを 食べます。',
+    },
+    { id: 'n5_6', front: '本', romaji: 'Hon', back: 'Kitob', example: '図書館で 本を 読みます。' },
+    { id: 'n5_7', front: '水', romaji: 'Mizu', back: 'Suv', example: '冷たい 水を ください。' },
+  ],
+  N4: [
+    {
+      id: 'n4_1',
+      front: '準備',
+      romaji: 'Junbi',
+      back: 'Tayyorgarlik',
+      example: '旅行の 準備を しました。',
+    },
+    {
+      id: 'n4_2',
+      front: '約束',
+      romaji: 'Yakusoku',
+      back: "Va'da, kelishuv",
+      example: '友達と 約束が あります。',
+    },
+    {
+      id: 'n4_3',
+      front: '経験',
+      romaji: 'Keiken',
+      back: 'Tajriba',
+      example: '日本へ 行った 経験が あります。',
+    },
+    {
+      id: 'n4_4',
+      front: '案内',
+      romaji: 'Annai',
+      back: "Yo'l ko'rsatish, tanishtiruv",
+      example: '町を 案内して くれました。',
+    },
+    {
+      id: 'n4_5',
+      front: '故障',
+      romaji: 'Koshou',
+      back: 'Buzilish, nosozlik',
+      example: 'パソコンが 故障しました。',
+    },
+    {
+      id: 'n4_6',
+      front: '遠慮',
+      romaji: 'Enryo',
+      back: 'Iymanmoq, tortinmoq',
+      example: 'どうぞ 遠慮しないで ください。',
+    },
+  ],
+  N3: [
+    {
+      id: 'n3_1',
+      front: '意識',
+      romaji: 'Ishiki',
+      back: 'Ong, tushuncha',
+      example: '環境への 意識が 高まっています。',
+    },
+    {
+      id: 'n3_2',
+      front: '解決',
+      romaji: 'Kaiketsu',
+      back: 'Hal qilish, yechim',
+      example: '問題を 解決する 方法を 考えます。',
+    },
+    {
+      id: 'n3_3',
+      front: '歓迎',
+      romaji: 'Kangei',
+      back: 'Kutib olish, samimiy qabul',
+      example: '新入生を 心から 歓迎します。',
+    },
+    {
+      id: 'n3_4',
+      front: '効果',
+      romaji: 'Kouka',
+      back: "Samara, natija, ta'sir",
+      example: 'この 薬は とても 効果が あります。',
+    },
+    {
+      id: 'n3_5',
+      front: '状況',
+      romaji: 'Joukyou',
+      back: 'Vaziyat, holat',
+      example: '現在の 状況を 報告してください。',
+    },
+  ],
+  N2: [
+    {
+      id: 'n2_1',
+      front: '把握',
+      romaji: 'Haaku',
+      back: 'Mohiyatini anglash, tushunib yetish',
+      example: '現状を 正確に 把握することが 重要だ。',
+    },
+    {
+      id: 'n2_2',
+      front: '柔軟',
+      romaji: 'Juunan',
+      back: 'Moslashuvchan, egiluvchan',
+      example: '変化に 柔軟に 対応する。',
+    },
+    {
+      id: 'n2_3',
+      front: '契機',
+      romaji: 'Keiki',
+      back: 'Turtki, sabab, imkoniyat',
+      example: '留学を 契機に 価値観が 変わった。',
+    },
+    {
+      id: 'n2_4',
+      front: '徹底',
+      romaji: 'Tettei',
+      back: "Oxiriga yetkazish, qat'iy amal qilish",
+      example: '安全対策を 徹底してください。',
+    },
+  ],
+  N1: [
+    {
+      id: 'n1_1',
+      front: '未曾有',
+      romaji: 'Mizou',
+      back: "Misli ko'rilmagan, tarixdagi birinchi",
+      example: '未曾有の 危機に 直面している。',
+    },
+    {
+      id: 'n1_2',
+      front: '示唆',
+      romaji: 'Shisa',
+      back: "Ishtiboh, ma'noli ishora bermoq",
+      example: 'この データは 多くの 示唆を 含んでいる。',
+    },
+    {
+      id: 'n1_3',
+      front: '懸念',
+      romaji: 'Kenen',
+      back: 'Xavotir, andisha',
+      example: '景気の 悪化が 懸念されている。',
+    },
+    {
+      id: 'n1_4',
+      front: '包括',
+      romaji: 'Houkatsu',
+      back: 'Qamrab oluvchi, yalpi',
+      example: '包括的な 支援策が 求められる。',
+    },
+  ],
+};
+
+// Fallback baseline questions for quick N5 practice
+const N5_BASELINE_QUESTIONS: MiniQuizQuestion[] = [
   {
     id: 1,
     question: '毎朝、パン _____ 食べます。',
@@ -63,44 +257,6 @@ const TWA_QUIZ_QUESTIONS: MiniQuizQuestion[] = [
     explanation:
       "「約束」 so'zi 'yakusoku' deb o'qiladi va 'va'da/kelishuv' degan ma'noni bildiradi.",
   },
-  {
-    id: 4,
-    question: '昨日、友達 _____ 会いました。',
-    romaji: 'Kinou, tomodachi _____ aimashita.',
-    meaning: "Kecha do'stim bilan uchrashdim.",
-    options: ['に (ni)', 'を (o)', 'で (de)', 'へ (e)'],
-    correct: 0,
-    explanation: "Yapon tilida 'uchrashmoq' (会う - au) fe'li 'に' yuklamasi bilan ishlatiladi.",
-  },
-  {
-    id: 5,
-    question: '日本へ行く _____、お金をためています。',
-    romaji: 'Nihon e iku _____, okane o tamete imasu.',
-    meaning: "Yaponiyaga borish maqsadida pul yig'yapman.",
-    options: ['ために (tameni)', 'ように (youni)', 'から (kara)', 'のに (noni)'],
-    correct: 0,
-    explanation:
-      "Iroda va aniq maqsadni ifodalash uchun fe'lning oddiy shakli + 'ために' ishlatiladi.",
-  },
-];
-
-const DEFAULT_TWA_FLASHCARDS = [
-  { id: '1', front: 'こんにちは', romaji: 'Konnichiwa', back: 'Assalomu alaykum / Xayrli kun' },
-  { id: '2', front: 'ありがとう', romaji: 'Arigatou', back: 'Rahmat / Tashakkur' },
-  { id: '3', front: 'すみません', romaji: 'Sumimasen', back: "Kechirasiz / Uzr so'rayman" },
-  { id: '4', front: 'いくらですか', romaji: 'Ikura desu ka?', back: 'Bu qancha turadi?' },
-  {
-    id: '5',
-    front: '駅はどこですか',
-    romaji: 'Eki wa doko desu ka?',
-    back: 'Bekat qayerda joylashgan?',
-  },
-  {
-    id: '6',
-    front: '日本語を勉強しています',
-    romaji: 'Nihongo o benkyou shite imasu',
-    back: "Yapon tilini o'rganyapman",
-  },
 ];
 
 export const TelegramMiniAppPage: React.FC = () => {
@@ -122,21 +278,66 @@ export const TelegramMiniAppPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'flashcards' | 'quiz' | 'speaking' | 'tasks'>(
     'flashcards',
   );
+  const [selectedLevel, setSelectedLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
+  const [deckSource, setDeckSource] = useState<'jlpt' | 'user'>('jlpt');
 
-  // Flashcards state
-  const cardsList =
-    flashcards.length > 0
-      ? flashcards.map((c) => ({ id: c.id, front: c.front, romaji: '', back: c.back }))
-      : DEFAULT_TWA_FLASHCARDS;
+  // Flashcards derived from real level or user store
+  const cardsList: MiniCard[] = useMemo(() => {
+    if (deckSource === 'user' && flashcards.length > 0) {
+      return flashcards.map((c) => ({
+        id: c.id,
+        front: c.front,
+        romaji: '',
+        back: c.back,
+        example: undefined,
+      }));
+    }
+    return LEVEL_VOCAB_DECKS[selectedLevel] || LEVEL_VOCAB_DECKS['N5'];
+  }, [selectedLevel, deckSource, flashcards]);
+
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [reviewedCount, setReviewedCount] = useState(0);
 
-  // Quiz state
+  // Dynamic Quiz Questions from real JLPT data
+  const quizQuestions: MiniQuizQuestion[] = useMemo(() => {
+    if (selectedLevel === 'N5') {
+      const mockQuestions = (JLPT_MOCK_EXAM_DATA['N5'] || []).map((q, idx) => ({
+        id: idx + 10,
+        question: q.questionText,
+        meaning: q.passageText ? 'Matn savoli' : undefined,
+        options: q.options,
+        correct: q.correctAnswer,
+        explanation: q.explanationUzbek,
+      }));
+      return [...N5_BASELINE_QUESTIONS, ...mockQuestions];
+    }
+
+    const levelData = JLPT_MOCK_EXAM_DATA[selectedLevel] || [];
+    return levelData.map((q, idx) => ({
+      id: idx + 1,
+      question: q.questionText,
+      meaning: q.passageText ? 'Kontekst savoli' : undefined,
+      options: q.options,
+      correct: q.correctAnswer,
+      explanation: q.explanationUzbek,
+    }));
+  }, [selectedLevel]);
+
   const [quizIndex, setQuizIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [quizScore, setQuizScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
+
+  // Reset indices when level changes
+  useEffect(() => {
+    setCurrentCardIndex(0);
+    setIsFlipped(false);
+    setQuizIndex(0);
+    setSelectedOption(null);
+    setQuizScore(0);
+    setQuizFinished(false);
+  }, [selectedLevel]);
 
   // Tasks state
   const [tasksCompleted, setTasksCompleted] = useState<Record<string, boolean>>({
@@ -174,7 +375,7 @@ export const TelegramMiniAppPage: React.FC = () => {
             } as any);
           }
         })
-        .catch((err) => console.warn('TWA Auth background sync failed:', err));
+        .catch(() => {});
     }
   }, [initData, setUser]);
 
@@ -215,11 +416,11 @@ export const TelegramMiniAppPage: React.FC = () => {
 
   // Quiz interactions
   const handleSelectQuizOption = (optIdx: number) => {
-    if (selectedOption !== null) return; // already answered
+    if (selectedOption !== null) return;
     setSelectedOption(optIdx);
 
-    const currentQ = TWA_QUIZ_QUESTIONS[quizIndex];
-    if (optIdx === currentQ.correct) {
+    const currentQ = quizQuestions[quizIndex];
+    if (optIdx === currentQ?.correct) {
       haptics.notification('success');
       setQuizScore((prev) => prev + 1);
       awardXP(20);
@@ -231,7 +432,7 @@ export const TelegramMiniAppPage: React.FC = () => {
   const handleNextQuizQuestion = () => {
     haptics.impact('medium');
     setSelectedOption(null);
-    if (quizIndex + 1 < TWA_QUIZ_QUESTIONS.length) {
+    if (quizIndex + 1 < quizQuestions.length) {
       setQuizIndex((prev) => prev + 1);
     } else {
       setQuizFinished(true);
@@ -256,19 +457,19 @@ export const TelegramMiniAppPage: React.FC = () => {
     });
   };
 
-  const currentCard = cardsList[currentCardIndex];
-  const currentQuiz = TWA_QUIZ_QUESTIONS[quizIndex];
+  const currentCard = cardsList[currentCardIndex] || cardsList[0];
+  const currentQuiz = quizQuestions[quizIndex] || quizQuestions[0];
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md select-none flex-col bg-background p-4 pb-20 text-foreground">
-      {/* Top Telegram Native Header */}
-      <header className="mb-4 flex items-center justify-between border-b border-border/60 pb-3.5">
+    <div className="mx-auto flex min-h-screen max-w-md select-none flex-col bg-background p-4 pb-24 font-sans text-foreground">
+      {/* Top Native Header */}
+      <header className="mb-3.5 flex items-center justify-between border-b border-border/60 pb-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 text-sm font-black text-white shadow-md">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-rose-500 via-purple-600 to-indigo-600 text-sm font-black text-white shadow-md">
             {tgUser?.first_name ? tgUser.first_name[0].toUpperCase() : 'N'}
           </div>
-          <div>
-            <h1 className="flex items-center gap-1.5 text-sm font-black tracking-tight text-foreground">
+          <div className="min-w-0">
+            <h1 className="flex items-center gap-1.5 truncate text-sm font-black tracking-tight text-foreground">
               <span>{tgUser?.first_name || "O'quvchi"}</span>
               {isTwa && (
                 <span className="rounded-full bg-sky-500/20 px-2 py-0.5 text-[10px] font-bold text-sky-500">
@@ -282,22 +483,45 @@ export const TelegramMiniAppPage: React.FC = () => {
 
         {/* Gamification Stats */}
         <div className="flex items-center gap-1.5">
-          <div className="flex items-center gap-1 rounded-xl border border-rose-500/20 bg-rose-500/10 px-2 py-1 text-[11px] font-black text-rose-500">
+          <div className="flex items-center gap-1 rounded-xl border border-rose-500/20 bg-rose-500/10 px-2.5 py-1 text-[11px] font-black text-rose-500">
             <Award size={13} />
             <span>Lvl {level}</span>
           </div>
-          <div className="flex items-center gap-1 rounded-xl border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[11px] font-black text-amber-500">
+          <div className="flex items-center gap-1 rounded-xl border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-[11px] font-black text-amber-500">
             <Flame size={13} className="fill-amber-500" />
             <span>{currentStreak}d</span>
           </div>
-          <div className="flex items-center gap-1 rounded-xl border border-indigo-500/20 bg-indigo-500/10 px-2 py-1 text-[11px] font-black text-indigo-400">
+          <div className="flex items-center gap-1 rounded-xl border border-indigo-500/20 bg-indigo-500/10 px-2.5 py-1 text-[11px] font-black text-indigo-400">
             <Sparkles size={12} />
             <span>{totalXp}</span>
           </div>
         </div>
       </header>
 
-      {/* Tabs Navigation Bar */}
+      {/* Level Selector Bar (N5 - N1) */}
+      <div className="mb-3.5 flex items-center justify-between gap-1.5 rounded-2xl border border-border/60 bg-muted/40 p-1.5">
+        {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => {
+          const isActive = selectedLevel === lvl;
+          return (
+            <button
+              key={lvl}
+              onClick={() => {
+                haptics.selection();
+                setSelectedLevel(lvl);
+              }}
+              className={`flex-1 rounded-xl py-1.5 text-xs font-black transition-all ${
+                isActive
+                  ? 'scale-[1.02] bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {lvl}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Tabs Navigation */}
       <nav className="mb-4 grid grid-cols-4 gap-1.5 rounded-2xl border border-border/60 bg-muted/50 p-1 text-xs font-bold">
         <button
           onClick={() => {
@@ -364,24 +588,42 @@ export const TelegramMiniAppPage: React.FC = () => {
       {activeTab === 'flashcards' && (
         <div className="flex flex-1 flex-col justify-between space-y-4">
           <div className="flex items-center justify-between px-1 text-xs font-semibold text-muted-foreground">
-            <span>
-              Fleshkarta: {currentCardIndex + 1} / {cardsList.length}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-black text-rose-500">
+                {selectedLevel}
+              </span>
+              <span>
+                {currentCardIndex + 1} / {cardsList.length}
+              </span>
+            </div>
+            {flashcards.length > 0 && (
+              <button
+                onClick={() => {
+                  haptics.selection();
+                  setDeckSource((prev) => (prev === 'jlpt' ? 'user' : 'jlpt'));
+                }}
+                className="flex items-center gap-1 text-[11px] text-primary hover:underline"
+              >
+                <Layers size={12} />
+                <span>{deckSource === 'jlpt' ? 'Mening kartalarim' : 'JLPT Lug‘ati'}</span>
+              </button>
+            )}
             <span>Takrorlandi: {reviewedCount} ta</span>
           </div>
 
-          {/* Interactive Card */}
+          {/* Ergonomic Interactive Card */}
           <div
             onClick={handleFlipCard}
             className="relative flex min-h-[260px] cursor-pointer flex-col items-center justify-center rounded-3xl border border-border/80 bg-card p-6 text-center shadow-xl transition-all active:scale-[0.99]"
           >
             <div className="absolute right-4 top-4 flex items-center gap-2">
               <button
+                type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   speakWord(currentCard.front);
                 }}
-                className="rounded-xl bg-muted/60 p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="rounded-xl bg-muted/60 p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:scale-95"
                 title="Ovozni tinglash"
               >
                 <Volume2 size={18} />
@@ -396,6 +638,11 @@ export const TelegramMiniAppPage: React.FC = () => {
                 {currentCard.romaji && (
                   <div className="font-mono text-xs font-medium text-rose-500">
                     {currentCard.romaji}
+                  </div>
+                )}
+                {currentCard.example && (
+                  <div className="pt-2 text-xs italic text-muted-foreground">
+                    {currentCard.example}
                   </div>
                 )}
                 <div className="flex items-center justify-center gap-1 pt-4 text-[11px] text-muted-foreground">
@@ -417,23 +664,23 @@ export const TelegramMiniAppPage: React.FC = () => {
             )}
           </div>
 
-          {/* Rating Buttons */}
-          <div className="grid grid-cols-3 gap-2 pt-2">
+          {/* Rating Buttons with Ergonomic Touch Targets */}
+          <div className="grid grid-cols-3 gap-2.5 pt-2">
             <button
               onClick={() => handleNextCard('hard')}
-              className="rounded-2xl border border-rose-500/30 bg-rose-500/10 py-3 text-xs font-black text-rose-500 transition-all hover:bg-rose-500/20 active:scale-95"
+              className="min-h-[48px] rounded-2xl border border-rose-500/30 bg-rose-500/10 py-3 text-xs font-black text-rose-500 transition-all hover:bg-rose-500/20 active:scale-95"
             >
               🔴 Qiyin
             </button>
             <button
               onClick={() => handleNextCard('good')}
-              className="rounded-2xl border border-amber-500/30 bg-amber-500/10 py-3 text-xs font-black text-amber-500 transition-all hover:bg-amber-500/20 active:scale-95"
+              className="min-h-[48px] rounded-2xl border border-amber-500/30 bg-amber-500/10 py-3 text-xs font-black text-amber-500 transition-all hover:bg-amber-500/20 active:scale-95"
             >
               🟡 Yaxshi
             </button>
             <button
               onClick={() => handleNextCard('easy')}
-              className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 py-3 text-xs font-black text-emerald-500 transition-all hover:bg-emerald-500/20 active:scale-95"
+              className="min-h-[48px] rounded-2xl border border-emerald-500/30 bg-emerald-500/10 py-3 text-xs font-black text-emerald-500 transition-all hover:bg-emerald-500/20 active:scale-95"
             >
               🟢 Oson
             </button>
@@ -447,9 +694,14 @@ export const TelegramMiniAppPage: React.FC = () => {
           {!quizFinished ? (
             <>
               <div className="flex items-center justify-between px-1 text-xs font-semibold text-muted-foreground">
-                <span>
-                  Savol: {quizIndex + 1} / {TWA_QUIZ_QUESTIONS.length}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-md bg-indigo-500/10 px-1.5 py-0.5 text-[10px] font-black text-indigo-400">
+                    {selectedLevel}
+                  </span>
+                  <span>
+                    Savol: {quizIndex + 1} / {quizQuestions.length}
+                  </span>
+                </div>
                 <span className="font-bold text-indigo-400">Ball: {quizScore}</span>
               </div>
 
@@ -462,11 +714,13 @@ export const TelegramMiniAppPage: React.FC = () => {
                     {currentQuiz.romaji}
                   </div>
                 )}
-                <div className="text-xs font-medium text-indigo-400">{currentQuiz.meaning}</div>
+                {currentQuiz.meaning && (
+                  <div className="text-xs font-medium text-indigo-400">{currentQuiz.meaning}</div>
+                )}
               </div>
 
               {/* Options */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {currentQuiz.options.map((opt, idx) => {
                   const isSelected = selectedOption === idx;
                   const isCorrect = idx === currentQuiz.correct;
@@ -487,14 +741,14 @@ export const TelegramMiniAppPage: React.FC = () => {
                       key={idx}
                       onClick={() => handleSelectQuizOption(idx)}
                       disabled={selectedOption !== null}
-                      className={`flex w-full items-center justify-between rounded-2xl border p-3 text-left text-xs font-bold transition-all ${btnStyle}`}
+                      className={`flex min-h-[48px] w-full items-center justify-between rounded-2xl border p-3.5 text-left text-xs font-bold transition-all ${btnStyle}`}
                     >
                       <span>{opt}</span>
                       {selectedOption !== null && isCorrect && (
-                        <CheckCircle2 size={16} className="text-emerald-500" />
+                        <CheckCircle2 size={16} className="ml-2 shrink-0 text-emerald-500" />
                       )}
                       {selectedOption !== null && isSelected && !isCorrect && (
-                        <XCircle size={16} className="text-rose-500" />
+                        <XCircle size={16} className="ml-2 shrink-0 text-rose-500" />
                       )}
                     </button>
                   );
@@ -509,7 +763,7 @@ export const TelegramMiniAppPage: React.FC = () => {
                   </p>
                   <button
                     onClick={handleNextQuizQuestion}
-                    className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-indigo-600 py-3 text-xs font-black text-white shadow-md transition-all hover:bg-indigo-700"
+                    className="flex min-h-[44px] w-full items-center justify-center gap-1.5 rounded-xl bg-indigo-600 py-3 text-xs font-black text-white shadow-md transition-all hover:bg-indigo-700 active:scale-95"
                   >
                     <span>Keyingi savol</span>
                     <ArrowRight size={14} />
@@ -524,15 +778,15 @@ export const TelegramMiniAppPage: React.FC = () => {
               </div>
               <h2 className="text-xl font-black text-foreground">Quiz Yakunlandi! 🎉</h2>
               <div className="font-mono text-3xl font-black text-indigo-400">
-                {quizScore} / {TWA_QUIZ_QUESTIONS.length}
+                {quizScore} / {quizQuestions.length}
               </div>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Ajoyib natija! Kunlik mini-quiz sizga grammatika va so'zlarni muntazam
-                mustahkamlashga yordam beradi.
+                Ajoyib natija! {selectedLevel} darajasidagi testlar sizga imtihonga tayyorlanishda
+                katta yordam beradi.
               </p>
               <button
                 onClick={handleRestartQuiz}
-                className="flex w-full items-center justify-center gap-1.5 rounded-2xl bg-indigo-600 py-3 text-xs font-black text-white shadow-md transition-all hover:bg-indigo-700"
+                className="flex min-h-[48px] w-full items-center justify-center gap-1.5 rounded-2xl bg-indigo-600 py-3 text-xs font-black text-white shadow-md transition-all hover:bg-indigo-700 active:scale-95"
               >
                 <RotateCw size={14} />
                 <span>Qayta topshirish</span>
@@ -604,7 +858,7 @@ export const TelegramMiniAppPage: React.FC = () => {
                 haptics.impact('medium');
                 navigate('/speaking-coach?lang=ja');
               }}
-              className="active:scale-98 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 py-3.5 text-xs font-black text-white shadow-lg shadow-emerald-500/20 transition-all"
+              className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 py-3.5 text-xs font-black text-white shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.98]"
             >
               <MessageSquare size={16} />
               <span>AI Coach bilan Jonli Suhbatni Boshlash</span>
@@ -629,7 +883,7 @@ export const TelegramMiniAppPage: React.FC = () => {
               <div
                 key={t.id}
                 onClick={() => handleToggleTask(t.id)}
-                className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
+                className={`flex min-h-[48px] cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                   tasksCompleted[t.id]
                     ? 'border-emerald-500/30 bg-emerald-500/10 text-foreground'
                     : 'border-border/80 bg-card text-foreground hover:bg-muted/30'

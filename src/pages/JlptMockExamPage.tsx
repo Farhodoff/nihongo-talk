@@ -13,70 +13,7 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 
-interface ExamQuestion {
-  id: number;
-  section: 'knowledge' | 'reading' | 'listening';
-  questionText: string;
-  passageText?: string; // only for reading
-  audioUrl?: string; // only for listening
-  script?: string; // only for listening
-  options: string[];
-  correctAnswer: number;
-  explanationUzbek: string;
-}
-
-const MOCK_EXAM_QUESTIONS: { [key: string]: ExamQuestion[] } = {
-  N5: [
-    // Language Knowledge
-    {
-      id: 1,
-      section: 'knowledge',
-      questionText: 'きょうは 水曜日（すいようび）です。あしたは（　）曜日です。',
-      options: ['火', '木', '金', '土'],
-      correctAnswer: 1,
-      explanationUzbek: "Bugun Chorshanba (水曜日). Ertaga esa Payshanba (木曜日) bo'ladi.",
-    },
-    {
-      id: 2,
-      section: 'knowledge',
-      questionText: '教室（きょうしつ）の なかに つくえ（　）いすが あります。',
-      options: ['と', 'が', 'を', 'も'],
-      correctAnswer: 0,
-      explanationUzbek:
-        "Narsalarni sanashda 'va' ma'nosida 'と' predlogi keladi: tsukue to isu (stol va stul).",
-    },
-    // Reading
-    {
-      id: 3,
-      section: 'reading',
-      passageText:
-        'リーさんは 毎朝（まいあさ）７時に おきます。朝ご飯を 食べてから、８時に 自転車で 学校へ 行きます。学校は ８時半に 始まります。',
-      questionText: 'リーさんは 何で 学校へ 行きますか？',
-      options: [
-        '歩いて (piyoda)',
-        'バスで (avtobusda)',
-        '自転車で (velosipedda)',
-        '電車で (poezdda)',
-      ],
-      correctAnswer: 2,
-      explanationUzbek:
-        "Matnda aniq keltirilgan: 'jitensha de gakkou e ikimasu' (velosipedda maktabga boradi).",
-    },
-    // Listening
-    {
-      id: 4,
-      section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
-      script:
-        '女の人が話しています。テーブルの上に何を置きますか？\n女：食事の準備をしましょう。お皿を並べて、その右側にスプーンを置いてください。',
-      questionText: "お皿の右側に何を置きますか？ (Likopchaning o'ng tomoniga nima qo'yiladi?)",
-      options: ['フォーク (vilka)', 'ナイフ (pichoq)', 'スプーン (qoshiq)', "はし (cho'p)"],
-      correctAnswer: 2,
-      explanationUzbek:
-        "Ayol kishi: 'migi gawa ni supuun o oite kudasai' (o'ng tomonga qoshiqni qo'ying) deb buyuradi.",
-    },
-  ],
-};
+import { JLPT_MOCK_EXAM_DATA } from '../data/jlptMockExamData';
 
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
@@ -105,7 +42,7 @@ export const JlptMockExamPage: React.FC = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Questions filtering
-  const levelQuestions = MOCK_EXAM_QUESTIONS[level] || MOCK_EXAM_QUESTIONS['N5'];
+  const levelQuestions = JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
   const knowledgeQuestions = levelQuestions.filter((q) => q.section === 'knowledge');
   const readingQuestions = levelQuestions.filter((q) => q.section === 'reading');
   const listeningQuestions = levelQuestions.filter((q) => q.section === 'listening');

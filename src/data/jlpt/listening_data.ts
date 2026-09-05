@@ -223,4 +223,196 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     explanationUzbek:
       "Lider ochilishga 30 daqiqa qolganini va sinxron tarjima uskunalarining (同時通訳レシーバー) to'liq ovoz sinovidan o'tishini eng ustuvor vazifa deb topshirdi.",
   },
+  // ==========================================
+  // === EXPANDED LISTENING QUESTIONS =========
+  // ==========================================
+  // --- N5 EXPANDED ---
+  {
+    id: 12,
+    level: 'N5',
+    type: 'task',
+    audioUrl: '',
+    script:
+      '店で男の人と店員が話しています。男の人はどのシャツを買いますか？\n男：すみません、この白いシャツのMサイズはありますか？\n店員：申し訳ありません、白のMは売り切れてしまいました。青のMならございます。\n男：そうですか。じゃあ、青のMをお願いします。',
+    questionText: "男の人はどのシャツを買いますか？ (Erkak kishi qaysi ko'ylakni sotib oladi?)",
+    options: [
+      "白のMサイズ (Oq M o'lcham)",
+      "青のMサイズ (Ko'k M o'lcham)",
+      "白のLサイズ (Oq L o'lcham)",
+      "黒のSサイズ (Qora S o'lcham)",
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Oq M o'lcham qolmagani uchun xaridor sotuvchi taklif qilgan ko'k rangli M o'lchamdagi ko'ylakni sotib oladi.",
+  },
+  {
+    id: 13,
+    level: 'N5',
+    type: 'quick',
+    audioUrl: '',
+    script:
+      '友達の家で。友達がお茶を出してくれました。何と言いますか？\n男：お茶をどうぞ。\nあなた：あ、（　）',
+    questionText: '何と言いますか？ (Nima deb javob berasiz?)',
+    options: [
+      'いただきます (Qani, marhamat / Ichaman)',
+      "ごちそうさまでした (Rahmat, to'ydim)",
+      'いってきます (Ketdim)',
+      'ただいま (Men qaytdim)',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Ichimlik yoki taom taqdim etilganda boshlashdan oldin 'いただきます' (itadakimasu) aytiladi.",
+  },
+
+  // --- N4 EXPANDED ---
+  {
+    id: 14,
+    level: 'N4',
+    type: 'task',
+    audioUrl: '',
+    script:
+      '病院の受付で女の人と係の人が話しています。女の人はまずどこへ行きますか？\n係員：初診ですね。まずあちらの窓口で問診票を記入して出してください。その後、2階の内科の前でお待ちください。\n女：わかりました。問診票ですね。',
+    questionText: '女の人はまず何をしますか？ (Ayol kishi avval nima qiladi?)',
+    options: [
+      '2階の内科に行く (2-qavatdagi terapiyaga chiqadi)',
+      "問診票を記入して出す (Anketa savolnomasini to'ldirib topshiradi)",
+      '薬局で薬をもらう (Dorixonadan dori oladi)',
+      "会計を済ませる (To'lovni amalga oshiradi)",
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Xodim avval qabul oynasida savolnomani (問診票) to'ldirib berishni, keyin 2-qavatga chiqishni aytadi.",
+  },
+  {
+    id: 15,
+    level: 'N4',
+    type: 'quick',
+    audioUrl: '',
+    script:
+      '会社で上司に書類の提出を頼まれました。何と答えますか？\n上司：佐藤さん、この報告書を今日中にまとめてもらえるかい？\nあなた：（　）',
+    questionText: '何と答えますか？ (Nima deb javob berasiz?)',
+    options: [
+      'かしこまりました。すぐに取りかかります (Tushundim, darhol boshlayman)',
+      'どういたしまして (Arzimaydi)',
+      'お疲れ様でした (Charchamang)',
+      'ごめんなさい (Kechirasiz)',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Boshliqning rasmiy topshirig'iga xodim xushmuomalalik bilan 'かしこまりました' (kashikomarimashita) deb javob beradi.",
+  },
+
+  // --- N3 EXPANDED ---
+  {
+    id: 16,
+    level: 'N3',
+    type: 'point',
+    audioUrl: '',
+    script:
+      '留学生センターで職員が説明しています。奨学金の申請条件で変更されたのは何ですか？\n職員：今年度から申請条件が一部変更されました。成績基準のGPA3.0以上という点は去年と同じですが、アルバイトの週当たり就業時間の上限が、これまでの28時間から20時間以内に制限されることになりました。',
+    questionText: '奨学金の申請条件で新しく変更された点は何ですか？',
+    options: [
+      '成績基準がGPA3.5に上がったこと',
+      'アルバイトの週就業時間の上限が20時間以内になったこと',
+      '申請の締切日が1ヶ月早まったこと',
+      '面接試験が廃止されたこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Xodim baholar o'zgarmagani, ammo yarim kunlik ish vaqti cheklovi haftasiga 28 soatdan 20 soatga tushirilganini ta'kidlaydi.",
+  },
+  {
+    id: 17,
+    level: 'N3',
+    type: 'task',
+    audioUrl: '',
+    script:
+      'オフィスで同僚2人が話しています。男性はこれから何を注文しますか？\n女：来週の歓迎会、お店の予約は済んだ？\n男：席は確保したんだけど、飲み放題のコースにするか料理だけのコースにするか迷っていて。\n女：みんなお酒好きだから、飲み放題付きのコースのほうが安心だよ。\n男：そうだね、じゃあそっちに変更しておくよ。',
+    questionText: '男性はどのコースに変更して注文しますか？',
+    options: [
+      '料理のみのコース',
+      "飲み放題付きのコース (Ichimliklar cheksiz bo'lgan kurs)",
+      'ランチタイムの軽食コース',
+      'テイクアウトのオードブル',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Hamkasb qiz barchaga cheksiz ichimlikli (飲み放題付き) to'plam ma'qul ekanini aytadi va erkak unga o'zgartirishini tasdiqlaydi.",
+  },
+
+  // --- N2 EXPANDED ---
+  {
+    id: 18,
+    level: 'N2',
+    type: 'point',
+    audioUrl: '',
+    script:
+      'ビジネスセミナーで経営者が話しています。新規事業を成功させる上で最も重視した要素は何ですか？\n経営者：資金力や最新のITシステムも有用ですが、当社が急成長できた決定的な要因は「顧客からの不満やクレームに24時間以内に直接電話で対応する徹底したアフターフォロー」でした。顧客の信頼が最大の差別化になります。',
+    questionText: '経営者が成功の決定的要因として挙げているのは何ですか？',
+    options: [
+      '莫大な広告宣伝費の投入',
+      '競合他社より圧倒的に安い価格設定',
+      '顧客の不満に即座に対応する徹底したアフターフォロー',
+      'AIによる完全無人のカスタマー対応',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Tadbirkor eng asosiy muvaffaqiyat omili mijozlarning e'tirozlariga 24 soat ichida darhol bevosita javob berish (徹底したアフターフォロー) bo'lganini aytadi.",
+  },
+  {
+    id: 19,
+    level: 'N2',
+    type: 'quick',
+    audioUrl: '',
+    script:
+      '取引先の担当者と電話で話しています。相手が「あいにく部長の田中は席を外しております」と言いました。あなたは何と言いますか？\n相手：あいにく部長の田中は席を外しております。\nあなた：（　）',
+    questionText: "適切な返答はどれですか？ (Qaysi javob to'g'ri?)",
+    options: [
+      "では、後ほど改めてお電話差し上げます (U holda, birozdan so'ng qaytadan qo'ng'iroq qilaman)",
+      'いえ、とんでもございません',
+      'どうもごちそうさまでした',
+      'お邪魔いたします',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Boshliq joyida yo'qligi aytilganda rasmiy biznes yapon tilida '後ほど改めてお電話差し上げます' (birozdan so'ng qayta aloqaga chiqaman) deb javob beriladi.",
+  },
+
+  // --- N1 EXPANDED ---
+  {
+    id: 20,
+    level: 'N1',
+    type: 'point',
+    audioUrl: '',
+    script:
+      '環境問題の専門家フォーラムで学者が話しています。再生可能エネルギーの普及を阻む本質的なボトルネックは何だと指摘されていますか？\n学者：発電コストの低下や技術革新は著しいものの、天候による発電量の変動を吸収する大規模蓄電池インフラの未整備と、既存の基幹送電網の容量不足が、これ以上の系統連系拡大における最大の障壁となっています。',
+    questionText: '再生可能エネルギー普及の最大の障壁として指摘されているのは何ですか？',
+    options: [
+      '国民の環境意識の著しい欠如',
+      '蓄電池インフラの未整備と既存送電網の容量不足 (Akkumulyator infratuzilmasi yetishmasligi va tarmoq quvvati cheklovi)',
+      '太陽光パネルの製造コストの高騰',
+      '原子力発電所の新設ラッシュ',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Olim ob-havo o'zgaruvchanligini kompensatsiya qiluvchi ulkan akkumulyator tizimlari va uzatish tarmoqlarining sig'imi yetishmasligini asosiy to'siq deb atadi.",
+  },
+  {
+    id: 21,
+    level: 'N1',
+    type: 'task',
+    audioUrl: '',
+    script:
+      '国際共同研究プロジェクトのオンラインミーティングで研究代表者が指示を出しています。各国の研究チームは今週末までに何を提出しなければなりませんか？\n代表：論文の初稿執筆は予定通り進んでいます。しかし、査読付き学術誌への投稿に先立ち、各国の研究倫理委員会の承認証明書の英訳原本が必要です。今週末までにクラウドの共有フォルダにアップロードを完了させてください。',
+    questionText: '各研究チームが今週末までに提出すべきものは何ですか？',
+    options: [
+      '論文の最終決定稿',
+      "研究倫理委員会の承認証明書の英訳原本 (Tadqiqot etikasi komissiyasi ma'qullagan inglizcha guvohnoma asl nusxasi)",
+      '実験データの全生データファイル',
+      '来年度の研究費予算要求書',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Loyiha rahbari har bir davlat jamoasiga ilmiy etika qo'mitasining tasdiqlangan inglizcha hujjati asl nusxasini yuklashni buyurdi.",
+  },
 ];
