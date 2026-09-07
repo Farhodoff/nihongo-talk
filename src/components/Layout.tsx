@@ -75,6 +75,37 @@ const Layout: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Telegram WebApp Native BackButton Integration
+  useEffect(() => {
+    const tg = typeof window !== 'undefined' ? window.Telegram?.WebApp : undefined;
+    if (!tg?.BackButton) return;
+
+    const isTopLevel = location.pathname === '/' || location.pathname === '/jlpt';
+    if (isTopLevel) {
+      try {
+        tg.BackButton.hide();
+      } catch {}
+    } else {
+      try {
+        tg.BackButton.show();
+      } catch {}
+
+      const handleTgBack = () => {
+        navigate(-1);
+      };
+
+      try {
+        tg.BackButton.onClick(handleTgBack);
+      } catch {}
+
+      return () => {
+        try {
+          tg.BackButton.offClick(handleTgBack);
+        } catch {}
+      };
+    }
+  }, [location.pathname, navigate]);
+
   const isFullScreenPage = React.useMemo(() => {
     const fullScreenPaths = [
       '/speaking-coach',

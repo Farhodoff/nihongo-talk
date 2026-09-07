@@ -48,6 +48,7 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { isSuperAdmin } from '../utils/admin';
 import { isPublicPreviewActive, MOCK_PREVIEW_USER } from '../config/previewMode';
+import { isTelegramWebApp, initTelegramAuth } from '../utils/telegramAuth';
 import {
   useAuthStore,
   useSettingsStore,
@@ -275,16 +276,22 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const [loading, setLoading] = useState<boolean>(() => {
     if (isPublicPreviewActive()) return false;
-    // Only show loading on cold start if there is absolutely no cached user
     const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-    return !cachedUser;
+    if (cachedUser) return false;
+    if (typeof window !== 'undefined' && isTelegramWebApp()) return false;
+    return true;
   });
   const [user, setUser] = useState<User | null>(() => {
     const cached = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-    if (!cached && isPublicPreviewActive()) {
+    if (cached) return cached;
+    if (isPublicPreviewActive()) {
       return MOCK_PREVIEW_USER as unknown as User;
     }
-    return cached;
+    if (typeof window !== 'undefined' && isTelegramWebApp()) {
+      const tgAuth = initTelegramAuth();
+      if (tgAuth?.user) return tgAuth.user;
+    }
+    return null;
   });
 
   // Learning Focus State - Defaults to 100% Japanese ('ja') for all public users
@@ -438,6 +445,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const localCached = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
         if (localCached && localCached.id && isUuid(localCached.id)) {
           currentUser = localCached;
+        } else if (isTelegramWebApp()) {
+          const tgAuth = initTelegramAuth();
+          if (tgAuth?.user) currentUser = tgAuth.user;
         } else if (isPublicPreviewActive()) {
           currentUser = MOCK_PREVIEW_USER as unknown as User;
         }

@@ -50,7 +50,6 @@ const ScenarioPickerPage = lazyWithRetry(() =>
   import('./pages/ScenarioPickerPage').then((m) => ({ default: m.ScenarioPickerPage })),
 );
 const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
-const TelegramMiniAppPage = lazyWithRetry(() => import('./pages/TelegramMiniAppPage'));
 const DashboardPage = lazyWithRetry(() => import('./pages/DashboardPage'));
 const LandingPage = lazyWithRetry(() => import('./pages/LandingPage'));
 
@@ -58,6 +57,7 @@ import { isSuperAdmin, isUserAdmin } from './utils/admin';
 import { useAuthStore } from './stores';
 import { safeLocalStorage } from './utils/storage/safeLocalStorage';
 import { isPublicPreviewActive, MOCK_PREVIEW_SESSION } from './config/previewMode';
+import { isTelegramWebApp, initTelegramAuth } from './utils/telegramAuth';
 
 const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAuthStore((s) => s.user);
@@ -111,6 +111,12 @@ const App: React.FC = () => {
     if (isPublicPreviewActive()) {
       return MOCK_PREVIEW_SESSION as unknown as Session;
     }
+    if (typeof window !== 'undefined' && isTelegramWebApp()) {
+      const tgAuth = initTelegramAuth();
+      if (tgAuth?.session) {
+        return tgAuth.session;
+      }
+    }
     if (typeof window !== 'undefined') {
       try {
         const rawUser = localStorage.getItem('study_planner_user_cache');
@@ -160,6 +166,11 @@ const App: React.FC = () => {
         clearTimeout(safetyTimer);
         if (fetchedSession) {
           setSession(fetchedSession);
+        } else if (isTelegramWebApp()) {
+          const tgAuth = initTelegramAuth();
+          if (tgAuth?.session) {
+            setSession(tgAuth.session);
+          }
         } else if (isPublicPreviewActive()) {
           setSession(MOCK_PREVIEW_SESSION as unknown as Session);
         }
@@ -168,7 +179,12 @@ const App: React.FC = () => {
       .catch((err) => {
         clearTimeout(safetyTimer);
         console.warn('Session check aborted/failed:', err);
-        if (isPublicPreviewActive()) {
+        if (isTelegramWebApp()) {
+          const tgAuth = initTelegramAuth();
+          if (tgAuth?.session) {
+            setSession(tgAuth.session);
+          }
+        } else if (isPublicPreviewActive()) {
           setSession(MOCK_PREVIEW_SESSION as unknown as Session);
         }
         setIsLoading(false);
@@ -179,6 +195,11 @@ const App: React.FC = () => {
     } = supabase.auth.onAuthStateChange((_event, newSession) => {
       if (newSession) {
         setSession(newSession);
+      } else if (isTelegramWebApp()) {
+        const tgAuth = initTelegramAuth();
+        if (tgAuth?.session) {
+          setSession(tgAuth.session);
+        }
       } else if (isPublicPreviewActive()) {
         setSession(MOCK_PREVIEW_SESSION as unknown as Session);
       }
@@ -352,7 +373,7 @@ const App: React.FC = () => {
                       <Route path="pricing" element={<PricingPage />} />
                       <Route path="room/:roomId" element={<StudyRoomPage />} />
                       <Route path="settings" element={<SettingsPage />} />
-                      <Route path="twa" element={<TelegramMiniAppPage />} />
+                      <Route path="twa" element={<Navigate to="/jlpt" replace />} />
                       <Route path="developers" element={<DeveloperApiPage />} />
                       <Route path="api-docs" element={<Navigate to="/developers" replace />} />
                       <Route

@@ -9,7 +9,6 @@ const DeveloperApiPage = lazy(() => import('../pages/DeveloperApiPage'));
 const PricingPage = lazy(() =>
   import('../pages/PricingPage').then((m) => ({ default: m.PricingPage })),
 );
-const TelegramMiniAppPage = lazy(() => import('../pages/TelegramMiniAppPage'));
 const JlptHubPage = lazy(() => import('../pages/JlptHubPage'));
 const SpeakingCoachPage = lazy(() => import('../pages/SpeakingCoachPage'));
 
@@ -29,7 +28,7 @@ export const UnauthRouter: React.FC = () => (
       >
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/twa" element={<TelegramMiniAppPage />} />
+          <Route path="/twa" element={<Navigate to="/jlpt" replace />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/jlpt" element={<JlptHubPage />} />
           <Route path="/speaking" element={<SpeakingCoachPage />} />
