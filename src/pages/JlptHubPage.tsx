@@ -1,9 +1,19 @@
-import React, { Suspense, lazy } from 'react';
-import { Target, FileText, BookOpen, Languages, Headphones, GraduationCap } from 'lucide-react';
+import React, { Suspense, lazy, useState } from 'react';
+import {
+  Target,
+  FileText,
+  BookOpen,
+  Languages,
+  Headphones,
+  GraduationCap,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../hooks/useSEO';
+import { JlptDailyBlitzCard } from '../components/jlpt/JlptDailyBlitzCard';
 
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
@@ -33,6 +43,7 @@ export const JlptHubPage: React.FC = () => {
   const { language } = useLanguage();
 
   const activeTab = searchParams.get('tab') || 'kanji';
+  const [showCanvasPractice, setShowCanvasPractice] = useState(false);
 
   const handleTabChange = (tab: string) => {
     setSearchParams({ tab });
@@ -91,6 +102,9 @@ export const JlptHubPage: React.FC = () => {
         </div>
       </div>
 
+      {/* ⚡ 3-Savollik Kunlik Blitz Viktorina (Daily Quick Test) */}
+      <JlptDailyBlitzCard />
+
       {/* Unified JLPT Skill Navigation Tabs */}
       <div className="scrollbar-none sticky top-0 z-20 flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/90 p-1.5 shadow-xs backdrop-blur-md">
         <button
@@ -148,10 +162,50 @@ export const JlptHubPage: React.FC = () => {
       >
         {/* Tab 1: Kanji Canvas & Bunpou Grammar Master */}
         {activeTab === 'kanji' && (
-          <div className="space-y-8 animate-in fade-in">
-            <div>
-              <KanjiCanvasPractice />
+          <div className="space-y-6 animate-in fade-in">
+            {/* Collapsible Kanji Canvas Banner */}
+            <div className="rounded-2xl border border-border bg-card p-3 shadow-xs transition-all sm:p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-base sm:h-10 sm:w-10 sm:text-lg">
+                    ✍️
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-bold text-foreground sm:text-sm">
+                      {language === 'ja'
+                        ? '漢字の手書き練習 (Canvas)'
+                        : "Qo'lda Kanji yozib mashq qilish"}
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground sm:text-xs">
+                      {language === 'ja'
+                        ? '書き順をなぞって覚える'
+                        : 'Iyeroglif chizish va yozish mashqi'}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowCanvasPractice((prev) => !prev)}
+                  className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-muted/60 px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:bg-muted active:scale-95"
+                >
+                  {showCanvasPractice ? (
+                    <>
+                      <ChevronUp size={14} /> {language === 'ja' ? '閉じる' : 'Yopish'}
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={14} /> {language === 'ja' ? '練習する' : 'Ochish'}
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {showCanvasPractice && (
+                <div className="mt-4 border-t border-border/60 pt-4 duration-200 animate-in fade-in slide-in-from-top-2">
+                  <KanjiCanvasPractice />
+                </div>
+              )}
             </div>
+
             <div>
               <JlptGrammarKanjiMaster />
             </div>
