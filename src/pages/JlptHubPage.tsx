@@ -112,7 +112,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <FileText size={15} /> {language === 'ja' ? '📖 読解トレーニング' : "📖 Dokkai (O'qish)"}
+          <FileText size={15} /> {language === 'ja' ? '📖 読解' : '📖 Dokkai'}
         </button>
 
         <button
@@ -123,8 +123,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <Headphones size={15} />{' '}
-          {language === 'ja' ? '🎧 聴解トレーニング' : '🎧 Choukai (Tinglash)'}
+          <Headphones size={15} /> {language === 'ja' ? '🎧 聴解' : '🎧 Choukai'}
         </button>
 
         <button
@@ -135,7 +134,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <GraduationCap size={15} /> {language === 'ja' ? '🏆 JLPT模擬試験' : '🏆 JLPT Mock Exam'}
+          <GraduationCap size={15} /> {language === 'ja' ? '🏆 JLPT模擬' : '🏆 JLPT Exam'}
         </button>
       </div>
 
