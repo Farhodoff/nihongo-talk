@@ -1,9 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
 import {
   splitIntoTTSChunks,
   selectBestVoice,
   fetchTTSAudioBlob,
   clearTTSAudioCache,
+  useTTS,
 } from '../useTTS';
 
 describe('useTTS & Audio Chunking Resiliency Tests', () => {
@@ -197,5 +199,69 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
     expect(cachedBlobs.length).toBe(3);
     cachedBlobs.forEach((b) => expect(b).not.toBeNull());
     expect(fetchSpy).toHaveBeenCalledTimes(3); // Still 3! Zero extra network calls!
+  });
+
+  describe('useTTS Hook Controls & Concurrency Safety', () => {
+    it('16. initializes with default speechSpeed and provides required methods', () => {
+      const onSpeakStart = vi.fn();
+      const onSpeakEnd = vi.fn();
+
+      const { result } = renderHook(() =>
+        useTTS({
+          language: 'ja',
+          onSpeakStart,
+          onSpeakEnd,
+        }),
+      );
+
+      expect(result.current.speechSpeed).toBe(1.0);
+      expect(typeof result.current.speakText).toBe('function');
+      expect(typeof result.current.stopSpeaking).toBe('function');
+      expect(typeof result.current.unlockAudio).toBe('function');
+    });
+
+    it('17. allows updating speech speed within valid bounds (0.5 to 2.0)', () => {
+      const { result } = renderHook(() =>
+        useTTS({
+          language: 'ja',
+          onSpeakStart: vi.fn(),
+          onSpeakEnd: vi.fn(),
+        }),
+      );
+
+      act(() => {
+        result.current.setSpeechSpeed(1.5);
+      });
+      expect(result.current.speechSpeed).toBe(1.5);
+
+      act(() => {
+        result.current.setSpeechSpeed(5.0); // Clamped
+      });
+      expect(result.current.speechSpeed).toBe(2.0);
+
+      act(() => {
+        result.current.setSpeechSpeed(0.1); // Clamped
+      });
+      expect(result.current.speechSpeed).toBe(0.5);
+    });
+
+    it('18. stopSpeaking safely silences audio and stops playback without errors', () => {
+      const onSpeakStart = vi.fn();
+      const onSpeakEnd = vi.fn();
+
+      const { result } = renderHook(() =>
+        useTTS({
+          language: 'ja',
+          onSpeakStart,
+          onSpeakEnd,
+        }),
+      );
+
+      expect(() => {
+        act(() => {
+          result.current.stopSpeaking();
+        });
+      }).not.toThrow();
+    });
   });
 });

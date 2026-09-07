@@ -357,6 +357,42 @@ const SpeakingCoachPage: React.FC = () => {
 
   const lastCoachSpokenTextRef = useRef<string>('');
   const streamAbortControllerRef = useRef<AbortController | null>(null);
+  const startListeningRef = useRef<(() => void) | null>(null);
+  const scenarioIntroSpokenRef = useRef<string | null>(null);
+
+  // Stable TTS Callbacks to prevent infinite re-render cascades
+  const handleSpeakStart = useCallback(() => {
+    setIsSpeaking(true);
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch {}
+    }
+    transcriptBufferRef.current = '';
+    setCurrentTranscript('');
+  }, []);
+
+  const handleSpeakEnd = useCallback(() => {
+    setIsSpeaking(false);
+    isProcessingRef.current = false;
+    // Start recording student session after coach finishes speaking
+    if (isLiveSessionRef.current && !voiceRecorder.isRecording) {
+      voiceRecorder.startRecording().catch(() => {});
+    }
+    // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
+    if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
+      setTimeout(() => {
+        if (
+          isLiveSessionRef.current &&
+          isHandsFreeRef.current &&
+          !isSpeakingRef.current &&
+          !isProcessingRef.current
+        ) {
+          startListeningRef.current?.();
+        }
+      }, 400);
+    }
+  }, [voiceRecorder, isMuted]);
 
   // TTS Hook
   const {
@@ -372,37 +408,8 @@ const SpeakingCoachPage: React.FC = () => {
     language,
     isLiveSessionRef,
     isProcessingRef,
-    onSpeakStart: () => {
-      setIsSpeaking(true);
-      if (recognitionRef.current) {
-        try {
-          recognitionRef.current.abort();
-        } catch {}
-      }
-      transcriptBufferRef.current = '';
-      setCurrentTranscript('');
-    },
-    onSpeakEnd: () => {
-      setIsSpeaking(false);
-      isProcessingRef.current = false;
-      // Start recording student session after coach finishes speaking
-      if (isLiveSessionRef.current && !voiceRecorder.isRecording) {
-        voiceRecorder.startRecording().catch(() => {});
-      }
-      // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
-      if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
-        setTimeout(() => {
-          if (
-            isLiveSessionRef.current &&
-            isHandsFreeRef.current &&
-            !isSpeakingRef.current &&
-            !isProcessingRef.current
-          ) {
-            startListening();
-          }
-        }, 400);
-      }
-    },
+    onSpeakStart: handleSpeakStart,
+    onSpeakEnd: handleSpeakEnd,
   });
 
   // Warm-cache prefetch active coach greeting only (0ms start)
@@ -419,13 +426,19 @@ const SpeakingCoachPage: React.FC = () => {
   useEffect(() => {
     if (scenarioIdParam) {
       const normalizedParam = scenarioIdParam.trim().replace(/\s+/g, '_');
+      // Strictly prevent duplicate audio triggers across re-renders for the same scenario
+      if (scenarioIntroSpokenRef.current === normalizedParam) {
+        return;
+      }
+      scenarioIntroSpokenRef.current = normalizedParam;
+
       const immediateList = ScenarioService.getImmediateScenarios();
       const immediateFound = immediateList.find(
         (s) => s.id === scenarioIdParam || s.id === normalizedParam,
       );
 
       const applyScenarioGreeting = (scenario: ConversationScenario) => {
-        setActiveScenario(scenario);
+        setActiveScenario((prev) => (prev?.id === scenario.id ? prev : scenario));
         activeScenarioRef.current = scenario;
         const sLang = scenario.language || (scenario.title_en ? 'en' : 'ja');
         setLanguage((prev) => (prev !== sLang ? sLang : prev));
@@ -442,11 +455,14 @@ const SpeakingCoachPage: React.FC = () => {
         const freshHistory: CoachChatMessage[] = [
           { role: 'assistant', content: scenarioGreeting, timestamp: timeStr },
         ];
-        setChatHistory(freshHistory);
+        setChatHistory((prev) =>
+          prev.length > 0 && prev[0].content === scenarioGreeting ? prev : freshHistory,
+        );
         chatHistoryRef.current = freshHistory;
 
         const speechAudio = extractSpeechAudioText(scenarioGreeting);
         lastCoachSpokenTextRef.current = speechAudio;
+        stopSpeaking();
         unlockAudio();
         // Instant trigger with 0ms artificial delay
         speakText(speechAudio);
@@ -469,11 +485,11 @@ const SpeakingCoachPage: React.FC = () => {
           });
       }
     } else {
+      scenarioIntroSpokenRef.current = null;
       setActiveScenario((prev) => (prev !== null ? null : prev));
     }
-  }, [scenarioIdParam, unlockAudio, speakText]);
+  }, [scenarioIdParam, unlockAudio, speakText, stopSpeaking]);
 
-  // Speech Recognition Hook
   const {
     recognitionRef,
     isListening,
@@ -497,6 +513,10 @@ const SpeakingCoachPage: React.FC = () => {
     },
     onResumeListening: () => {},
   });
+
+  useEffect(() => {
+    startListeningRef.current = startListening;
+  }, [startListening]);
 
   const handleBargeIn = useCallback(() => {
     if (streamAbortControllerRef.current) {
@@ -963,6 +983,11 @@ const SpeakingCoachPage: React.FC = () => {
     chatHistoryRef.current = freshHistory;
     const speechAudio = extractSpeechAudioText(greeting);
     lastCoachSpokenTextRef.current = speechAudio;
+    if (currentScenario) {
+      scenarioIntroSpokenRef.current = currentScenario.id;
+    } else {
+      scenarioIntroSpokenRef.current = null;
+    }
     unlockAudio();
     speakText(speechAudio);
   }, [language, persona, activeScenario, unlockAudio, speakText, stopSpeaking]);

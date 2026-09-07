@@ -342,6 +342,21 @@ export const useTTS = ({
   onSpeakEnd,
   onAudioPreparing,
 }: UseTTSOptions): UseTTSReturn => {
+  const onSpeakStartRef = useRef(onSpeakStart);
+  useEffect(() => {
+    onSpeakStartRef.current = onSpeakStart;
+  }, [onSpeakStart]);
+
+  const onSpeakEndRef = useRef(onSpeakEnd);
+  useEffect(() => {
+    onSpeakEndRef.current = onSpeakEnd;
+  }, [onSpeakEnd]);
+
+  const onAudioPreparingRef = useRef(onAudioPreparing);
+  useEffect(() => {
+    onAudioPreparingRef.current = onAudioPreparing;
+  }, [onAudioPreparing]);
+
   const [isPreparingAudio, setIsPreparingAudio] = useState(false);
   const [speechSpeed, setSpeechSpeedState] = useState<number>(() => {
     if (typeof window !== 'undefined') {
@@ -381,6 +396,10 @@ export const useTTS = ({
   const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const isCancelledRef = useRef<boolean>(false);
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
+
+  // Generation counter to prevent concurrent / overlapping playback race conditions (Echo & Volume Blasts)
+  const activePlaybackIdRef = useRef<number>(0);
+  const activeWebAudioSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
   // Pipelined Streaming Queue State
   const streamQueueRef = useRef<string[]>([]);
@@ -439,22 +458,24 @@ export const useTTS = ({
           }
         }
 
-        // Pre-activate audioPlayerRef singleton under active user gesture
+        // Pre-activate audioPlayerRef singleton under active user gesture only if not actively playing
         if (!audioPlayerRef.current) {
           audioPlayerRef.current = new Audio();
         }
         const audio = audioPlayerRef.current;
-        audio.src =
-          'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-        audio.volume = 0.01;
-        audio
-          .play()
-          .then(() => {
-            audio.pause();
-            audio.currentTime = 0;
-            audio.volume = 1.0;
-          })
-          .catch(() => {});
+        if (audio.paused && (!audio.src || audio.src === '')) {
+          audio.src =
+            'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+          audio.volume = 0.01;
+          audio
+            .play()
+            .then(() => {
+              audio.pause();
+              audio.currentTime = 0;
+              audio.volume = 1.0;
+            })
+            .catch(() => {});
+        }
       }
     } catch (e) {
       console.debug('Unlock audio element failed:', e);
@@ -462,6 +483,8 @@ export const useTTS = ({
   }, []);
 
   const stopSpeaking = useCallback(() => {
+    // Invalidate active playback generation immediately to cancel any in-flight async tasks
+    activePlaybackIdRef.current += 1;
     isCancelledRef.current = true;
     streamQueueRef.current = [];
     isStreamingPlaybackActiveRef.current = false;
@@ -486,11 +509,21 @@ export const useTTS = ({
       (window as any).__speakingUtterance = null;
     }
 
+    // Stop active Web Audio source immediately to prevent phantom echo
+    if (activeWebAudioSourceRef.current) {
+      try {
+        activeWebAudioSourceRef.current.stop();
+        activeWebAudioSourceRef.current.disconnect();
+      } catch {}
+      activeWebAudioSourceRef.current = null;
+    }
+
     if (audioPlayerRef.current) {
       audioPlayerRef.current.onended = null;
       audioPlayerRef.current.onerror = null;
       try {
         audioPlayerRef.current.pause();
+        audioPlayerRef.current.currentTime = 0;
       } catch (e) {
         console.debug('Audio pause failed:', e);
       }
@@ -511,49 +544,78 @@ export const useTTS = ({
     }
   }, []);
 
-  const fallbackWebAudio = useCallback(async (blob: Blob, onDone: () => void) => {
-    try {
-      let ctx = sharedAudioCtxRef.current;
-      if (!ctx || ctx.state === 'closed') {
-        const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-        if (!AudioCtx) {
+  const fallbackWebAudio = useCallback(
+    async (blob: Blob, playbackId: number, onDone: () => void) => {
+      try {
+        if (activePlaybackIdRef.current !== playbackId) {
           onDone();
           return;
         }
-        ctx = new AudioCtx();
-        sharedAudioCtxRef.current = ctx;
-      }
-      if (ctx.state === 'suspended') {
-        await ctx.resume().catch(() => {});
-      }
-      const arrayBuf = await blob.arrayBuffer();
-      const audioBuffer = await ctx.decodeAudioData(arrayBuf);
-      const source = ctx.createBufferSource();
-      source.buffer = audioBuffer;
-      source.playbackRate.value = speechSpeedRef.current;
-      source.connect(ctx.destination);
-      source.onended = () => {
+        let ctx = sharedAudioCtxRef.current;
+        if (!ctx || ctx.state === 'closed') {
+          const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+          if (!AudioCtx) {
+            onDone();
+            return;
+          }
+          ctx = new AudioCtx();
+          sharedAudioCtxRef.current = ctx;
+        }
+        if (ctx.state === 'suspended') {
+          await ctx.resume().catch(() => {});
+        }
+        if (activePlaybackIdRef.current !== playbackId) {
+          onDone();
+          return;
+        }
+        const arrayBuf = await blob.arrayBuffer();
+        const audioBuffer = await ctx.decodeAudioData(arrayBuf);
+        if (activePlaybackIdRef.current !== playbackId) {
+          onDone();
+          return;
+        }
+
+        if (activeWebAudioSourceRef.current) {
+          try {
+            activeWebAudioSourceRef.current.stop();
+            activeWebAudioSourceRef.current.disconnect();
+          } catch {}
+          activeWebAudioSourceRef.current = null;
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = audioBuffer;
+        source.playbackRate.value = speechSpeedRef.current;
+        source.connect(ctx.destination);
+        activeWebAudioSourceRef.current = source;
+
+        source.onended = () => {
+          if (activeWebAudioSourceRef.current === source) {
+            activeWebAudioSourceRef.current = null;
+          }
+          onDone();
+        };
+        source.start(0);
+      } catch (e) {
+        console.warn('[useTTS] Web Audio API fallback failed:', e);
         onDone();
-      };
-      source.start(0);
-    } catch (e) {
-      console.warn('[useTTS] Web Audio API fallback failed:', e);
-      onDone();
-    }
-  }, []);
+      }
+    },
+    [],
+  );
 
   /**
    * Plays a pre-fetched Audio Blob directly with near 0ms latency.
    */
   const playAudioBlob = useCallback(
-    async (blob: Blob): Promise<void> => {
-      if (isCancelledRef.current || !blob) return;
+    async (blob: Blob, playbackId: number): Promise<void> => {
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current || !blob) return;
 
       const objectUrl = URL.createObjectURL(blob);
       currentObjectUrlRef.current = objectUrl;
 
       await new Promise<void>((resolve) => {
-        if (isCancelledRef.current) {
+        if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) {
           URL.revokeObjectURL(objectUrl);
           if (currentObjectUrlRef.current === objectUrl) {
             currentObjectUrlRef.current = null;
@@ -573,7 +635,10 @@ export const useTTS = ({
           audio.load();
         } catch {}
 
+        let isCleanedUp = false;
         const cleanup = () => {
+          if (isCleanedUp) return;
+          isCleanedUp = true;
           audio.onended = null;
           audio.onerror = null;
           if (currentObjectUrlRef.current === objectUrl) {
@@ -585,11 +650,24 @@ export const useTTS = ({
 
         audio.onended = cleanup;
         audio.onerror = () => {
-          fallbackWebAudio(blob, cleanup);
+          if (activePlaybackIdRef.current !== playbackId) {
+            cleanup();
+            return;
+          }
+          fallbackWebAudio(blob, playbackId, cleanup);
         };
 
-        audio.play().catch(() => {
-          fallbackWebAudio(blob, cleanup);
+        audio.play().catch((err: any) => {
+          // If aborted due to interruption, cancellation, or new audio, NEVER trigger fallback WebAudio!
+          if (
+            activePlaybackIdRef.current !== playbackId ||
+            isCancelledRef.current ||
+            err?.name === 'AbortError'
+          ) {
+            cleanup();
+            return;
+          }
+          fallbackWebAudio(blob, playbackId, cleanup);
         });
       });
     },
@@ -598,17 +676,15 @@ export const useTTS = ({
 
   /**
    * Plays a single clause/sentence via Network Google TTS with Web Audio API fallback.
-   */
-  /**
-   * Plays a single clause/sentence via Network Google TTS with Web Audio API fallback.
    * Returns true if audio was successfully fetched and played, false otherwise.
    */
   const playNetworkClause = useCallback(
-    async (clause: string, isJa: boolean): Promise<boolean> => {
-      if (isCancelledRef.current) return false;
+    async (clause: string, isJa: boolean, playbackId: number): Promise<boolean> => {
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) return false;
       const blob = await fetchTTSAudioBlob(clause, isJa ? 'ja' : 'en');
-      if (isCancelledRef.current || !blob) return false;
-      await playAudioBlob(blob);
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current || !blob)
+        return false;
+      await playAudioBlob(blob, playbackId);
       return true;
     },
     [playAudioBlob],
@@ -619,12 +695,12 @@ export const useTTS = ({
    * but seamlessly falls back to native browser SpeechSynthesis if network fails.
    */
   const playSingleClause = useCallback(
-    async (clause: string, isJa: boolean): Promise<void> => {
-      if (isCancelledRef.current) return;
+    async (clause: string, isJa: boolean, playbackId: number): Promise<void> => {
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) return;
 
       // 1. Try High-Quality Network Google TTS first (works for both ja and en)
       try {
-        const played = await playNetworkClause(clause, isJa);
+        const played = await playNetworkClause(clause, isJa, playbackId);
         if (played) return;
         console.warn(
           `[useTTS] Network TTS unavailable for "${clause.substring(0, 25)}...", falling back to browser SpeechSynthesis`,
@@ -632,6 +708,8 @@ export const useTTS = ({
       } catch (netErr) {
         console.warn('[useTTS] Network TTS failed:', netErr);
       }
+
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) return;
 
       // 2. Native SpeechSynthesis Fallback
       const synth =
@@ -672,6 +750,8 @@ export const useTTS = ({
         });
       }
 
+      if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) return;
+
       const selectedVoice = selectBestVoice(currentVoices, isJa);
 
       try {
@@ -679,7 +759,7 @@ export const useTTS = ({
       } catch {}
 
       await new Promise<void>((resolve) => {
-        if (isCancelledRef.current || !synth) {
+        if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current || !synth) {
           resolve();
           return;
         }
@@ -750,7 +830,7 @@ export const useTTS = ({
           };
 
           utterance.onerror = (event: any) => {
-            if (isCancelledRef.current) {
+            if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) {
               finish();
               return;
             }
@@ -777,14 +857,15 @@ export const useTTS = ({
   const processStreamQueue = useCallback(async () => {
     if (isStreamingPlaybackActiveRef.current || isCancelledRef.current) return;
     isStreamingPlaybackActiveRef.current = true;
-    onSpeakStart();
+    const playbackId = activePlaybackIdRef.current;
+    onSpeakStartRef.current();
 
     const isJa = languageRef.current === 'ja';
 
-    while (!isCancelledRef.current) {
+    while (!isCancelledRef.current && activePlaybackIdRef.current === playbackId) {
       if (streamQueueRef.current.length > 0) {
         const nextSentence = streamQueueRef.current.shift()!;
-        await playSingleClause(nextSentence, isJa);
+        await playSingleClause(nextSentence, isJa, playbackId);
       } else {
         if (isStreamCompletedRef.current) {
           break;
@@ -795,10 +876,10 @@ export const useTTS = ({
     }
 
     isStreamingPlaybackActiveRef.current = false;
-    if (!isCancelledRef.current) {
-      onSpeakEnd();
+    if (!isCancelledRef.current && activePlaybackIdRef.current === playbackId) {
+      onSpeakEndRef.current();
     }
-  }, [onSpeakStart, onSpeakEnd, playSingleClause]);
+  }, [playSingleClause]);
 
   const enqueueStreamSentence = useCallback(
     (sentence: string) => {
@@ -822,6 +903,7 @@ export const useTTS = ({
       streamQueueRef.current.push(...chunks);
 
       if (!isStreamingPlaybackActiveRef.current) {
+        activePlaybackIdRef.current += 1;
         isStreamCompletedRef.current = false;
         processStreamQueue();
       }
@@ -832,20 +914,21 @@ export const useTTS = ({
   const endStreamPlayback = useCallback(() => {
     isStreamCompletedRef.current = true;
     if (!isStreamingPlaybackActiveRef.current && streamQueueRef.current.length === 0) {
-      onSpeakEnd();
+      onSpeakEndRef.current();
     }
-  }, [onSpeakEnd]);
+  }, []);
 
   const speakText = useCallback(
     async (text: string) => {
       const startTime = Date.now();
       const rawClean = (text || '').trim();
       if (!rawClean) {
-        onSpeakEnd();
+        onSpeakEndRef.current();
         return;
       }
 
       stopSpeaking();
+      const playbackId = activePlaybackIdRef.current;
       isCancelledRef.current = false;
 
       const isJa =
@@ -855,24 +938,25 @@ export const useTTS = ({
         : rawClean.replace(/[*_#`~]/g, '').trim();
 
       if (!textToPlay) {
-        onSpeakEnd();
+        onSpeakEndRef.current();
         return;
       }
 
       setIsPreparingAudio(true);
-      onAudioPreparing?.(true);
+      onAudioPreparingRef.current?.(true);
 
       const chunks = splitIntoTTSChunks(textToPlay, 185);
       if (chunks.length === 0) {
         setIsPreparingAudio(false);
-        onAudioPreparing?.(false);
-        onSpeakEnd();
+        onAudioPreparingRef.current?.(false);
+        onSpeakEndRef.current();
         return;
       }
 
       const onSpeechFinish = (success: boolean = true, error?: string) => {
+        if (activePlaybackIdRef.current !== playbackId) return;
         setIsPreparingAudio(false);
-        onAudioPreparing?.(false);
+        onAudioPreparingRef.current?.(false);
         if (watchdogIntervalRef.current) {
           clearInterval(watchdogIntervalRef.current);
           watchdogIntervalRef.current = null;
@@ -886,12 +970,14 @@ export const useTTS = ({
           (window as any).__speakingUtterance = null;
         }
         trackTTSTelemetry({ durationMs: Date.now() - startTime, success, error });
-        onSpeakEnd();
+        onSpeakEndRef.current();
       };
 
       const safetyTimeoutMs = Math.min(60000, Math.max(15000, chunks.length * 9000));
       ttsSafetyTimeoutRef.current = setTimeout(() => {
-        onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
+        if (activePlaybackIdRef.current === playbackId) {
+          onSpeechFinish(false, `TTS timeout ${safetyTimeoutMs}ms exceeded`);
+        }
       }, safetyTimeoutMs);
 
       // Check if native browser SpeechSynthesis has voices for this language
@@ -911,7 +997,7 @@ export const useTTS = ({
       // High-Quality Network Google TTS is ALWAYS used for Japanese to avoid 12s silent-hang and robotic audio
       const useNetworkTTS = isJa || !synth || !hasLanguageVoice;
 
-      onSpeakStart();
+      onSpeakStartRef.current();
 
       if (useNetworkTTS) {
         // --- HIGH-SPEED PARALLEL PREFETCH & STREAMING PLAYBACK ---
@@ -920,44 +1006,46 @@ export const useTTS = ({
 
         // 2. Play sequentially as each chunk's audio becomes ready with 0ms gap
         for (let i = 0; i < chunks.length; i++) {
-          if (isCancelledRef.current) break;
+          if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) break;
 
           const blob = await chunkPromises[i];
 
           if (i === 0) {
             setIsPreparingAudio(false);
-            onAudioPreparing?.(false);
+            onAudioPreparingRef.current?.(false);
           }
 
-          if (isCancelledRef.current) break;
+          if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) break;
 
           if (blob) {
             console.log(
               `[useTTS] Chunk ${i + 1}/${chunks.length} playback started at +${Date.now() - startTime}ms: "${chunks[i].substring(0, 30)}..."`,
             );
-            await playAudioBlob(blob);
+            await playAudioBlob(blob, playbackId);
           } else {
             console.warn(
               `[useTTS] Network chunk ${i + 1} unavailable, fallback to browser SpeechSynthesis: "${chunks[i].substring(0, 30)}..."`,
             );
-            await playSingleClause(chunks[i], isJa);
+            await playSingleClause(chunks[i], isJa, playbackId);
           }
         }
       } else {
         // --- NATIVE BROWSER SPEECH SYNTHESIS ---
         for (let i = 0; i < chunks.length; i++) {
-          if (isCancelledRef.current) break;
+          if (activePlaybackIdRef.current !== playbackId || isCancelledRef.current) break;
           if (i === 0) {
             setIsPreparingAudio(false);
-            onAudioPreparing?.(false);
+            onAudioPreparingRef.current?.(false);
           }
-          await playSingleClause(chunks[i], isJa);
+          await playSingleClause(chunks[i], isJa, playbackId);
         }
       }
 
-      onSpeechFinish(true);
+      if (activePlaybackIdRef.current === playbackId) {
+        onSpeechFinish(true);
+      }
     },
-    [onSpeakStart, onSpeakEnd, onAudioPreparing, stopSpeaking, playSingleClause, playAudioBlob],
+    [stopSpeaking, playSingleClause, playAudioBlob],
   );
 
   return {

@@ -95,6 +95,7 @@ export interface TelegramWebApp {
   disableClosingConfirmation: () => void;
   setHeaderColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
+  isVersionAtLeast?: (version: string) => boolean;
   onEvent: (eventType: string, eventHandler: () => void) => void;
   offEvent: (eventType: string, eventHandler: () => void) => void;
 }

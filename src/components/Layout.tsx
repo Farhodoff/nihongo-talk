@@ -76,10 +76,11 @@ const Layout: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Telegram WebApp Native BackButton Integration
+  // Telegram WebApp Native BackButton Integration (Supported in WebApp 6.1+)
   useEffect(() => {
     const tg = typeof window !== 'undefined' ? window.Telegram?.WebApp : undefined;
     if (!tg?.BackButton) return;
+    if (typeof tg.isVersionAtLeast === 'function' && !tg.isVersionAtLeast('6.1')) return;
 
     const isTopLevel = location.pathname === '/' || location.pathname === '/jlpt';
     if (isTopLevel) {
