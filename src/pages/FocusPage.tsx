@@ -1,4 +1,3 @@
-import { CheckCircle2 } from 'lucide-react';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
@@ -11,242 +10,236 @@ import { PersonalLearningPlanService } from '../services/PersonalLearningPlanSer
 import { LearningSignalService } from '../services/LearningSignalService';
 
 const FocusPage: React.FC = () => {
-    const { subjects, addSession, awardXP, tasks, updateTaskStatus, user, primaryLanguage } = useStudyData();
-    const { focusState, startTimer, pauseTimer, resetTimer, switchMode, setCustomTime, setFocusSubject, setFocusTask, setBgSound, setMuted } = useFocusTimerContext();
-    const { language, t } = useLanguage();
+  const {
+    addSession,
+    awardXP,
+    tasks: _tasks,
+    updateTaskStatus,
+    user,
+    primaryLanguage,
+  } = useStudyData();
+  const {
+    focusState,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+    switchMode,
+    setCustomTime,
+    setFocusTask,
+    setBgSound,
+    setMuted,
+  } = useFocusTimerContext();
+  const { language, t } = useLanguage();
 
-    // Mood State
-    const [moodBefore, setMoodBefore] = useState<number | null>(null);
-    const [showMoodCheck, setShowMoodCheck] = useState<'before' | 'after' | null>(null);
-    const [activeDurationMins, setActiveDurationMins] = useState<number>(25);
+  // Mood State
+  const [moodBefore, setMoodBefore] = useState<number | null>(null);
+  const [showMoodCheck, setShowMoodCheck] = useState<'before' | 'after' | null>(null);
+  const [activeDurationMins, setActiveDurationMins] = useState<number>(25);
 
-    // Pending Tasks
-    const pendingTasks = tasks.filter(t => t.status !== 'done');
+  // Ringtone State
+  const ringtoneRef = useRef<HTMLAudioElement | null>(null);
 
-    // Ringtone State
-    const ringtoneRef = useRef<HTMLAudioElement | null>(null);
+  // Calculated Progress
+  const progress =
+    ((activeDurationMins * 60 - focusState.timeLeft) / (activeDurationMins * 60)) * 100;
 
-    // Calculated Progress
-    const progress = ((activeDurationMins * 60 - focusState.timeLeft) / (activeDurationMins * 60)) * 100;
+  const handleTimerEnd = useCallback(() => {
+    if (focusState.mode === 'focus') {
+      if (!showMoodCheck) setShowMoodCheck('after');
+    } else {
+      resetTimer();
+    }
+  }, [focusState.mode, showMoodCheck, resetTimer]);
 
-    const handleTimerEnd = useCallback(() => {
-        if (focusState.mode === 'focus') {
-            if (!showMoodCheck) setShowMoodCheck('after');
-        } else {
-            resetTimer();
-        }
-    }, [focusState.mode, showMoodCheck, resetTimer]);
+  // Watch for timer completion via focusState to trigger mood check
+  useEffect(() => {
+    if (focusState.timeLeft === 0 && !focusState.isActive) {
+      handleTimerEnd();
+    }
+  }, [focusState.timeLeft, focusState.isActive, handleTimerEnd]);
 
-    // Watch for timer completion via focusState to trigger mood check
-    useEffect(() => {
-        if (focusState.timeLeft === 0 && !focusState.isActive) {
-            handleTimerEnd();
-        }
-    }, [focusState.timeLeft, focusState.isActive, handleTimerEnd]);
+  const handleStartClick = () => {
+    if (focusState.isActive) {
+      pauseTimer();
+      return;
+    }
 
-    const handleStartClick = () => {
-        if (focusState.isActive) {
-            pauseTimer();
-            return;
-        }
+    if (focusState.mode === 'focus' && !moodBefore) {
+      setShowMoodCheck('before'); // Ask mood first
+    } else {
+      startTimer();
+    }
+  };
 
-        if (focusState.mode === 'focus' && !moodBefore) {
-            setShowMoodCheck('before'); // Ask mood first
-        } else {
-            startTimer();
-        }
-    };
+  const handleSelectDuration = (mins: number) => {
+    setActiveDurationMins(mins);
+    setCustomTime(mins * 60);
+  };
 
-    const handleSelectDuration = (mins: number) => {
-        setActiveDurationMins(mins);
-        setCustomTime(mins * 60);
-    };
+  const handleMoodSelect = (value: number) => {
+    if (showMoodCheck === 'before') {
+      setMoodBefore(value);
+      setShowMoodCheck(null);
+      startTimer();
+    } else if (showMoodCheck === 'after') {
+      saveSession(value);
+      setShowMoodCheck(null);
+      setMoodBefore(null); // Reset
+      resetTimer();
+    }
+  };
 
-    const handleMoodSelect = (value: number) => {
-        if (showMoodCheck === 'before') {
-            setMoodBefore(value);
-            setShowMoodCheck(null);
-            startTimer();
-        } else if (showMoodCheck === 'after') {
-            saveSession(value);
-            setShowMoodCheck(null);
-            setMoodBefore(null); // Reset
-            resetTimer();
-        }
-    };
+  const playRingtone = () => {
+    if (ringtoneRef.current) {
+      ringtoneRef.current.currentTime = 0;
+      ringtoneRef.current.play().catch((e) => console.error('Ringtone play blocked', e));
+    }
+  };
 
-    const playRingtone = () => {
-        if (ringtoneRef.current) {
-            ringtoneRef.current.currentTime = 0;
-            ringtoneRef.current.play().catch(e => console.error("Ringtone play blocked", e));
-        }
-    };
+  const saveSession = async (moodAfterValue: number) => {
+    let taskCompleted = false;
 
-    const saveSession = async (moodAfterValue: number) => {
-        let taskCompleted = false;
+    if (focusState.selectedTaskId) {
+      if (window.confirm('Tanlangan vazifani tugatdingizmi?')) {
+        await updateTaskStatus(focusState.selectedTaskId, 'done');
+        taskCompleted = true;
+      }
+    }
 
-        if (focusState.selectedTaskId) {
-            if (window.confirm("Tanlangan vazifani tugatdingizmi?")) {
-                await updateTaskStatus(focusState.selectedTaskId, 'done');
-                taskCompleted = true;
-            }
-        }
+    addSession({
+      subjectId: focusState.selectedSubjectId || undefined,
+      startTime: new Date(Date.now() - activeDurationMins * 60 * 1000).toISOString(),
+      duration: activeDurationMins,
+      type: 'focus',
+      completed: true,
+      moodBefore: moodBefore || undefined,
+      moodAfter: moodAfterValue,
+    });
 
-        addSession({
-            subjectId: focusState.selectedSubjectId || undefined,
-            startTime: new Date(Date.now() - activeDurationMins * 60 * 1000).toISOString(),
-            duration: activeDurationMins,
-            type: 'focus',
-            completed: true,
-            moodBefore: moodBefore || undefined,
-            moodAfter: moodAfterValue
-        });
+    // Dynamic XP Award: 10 XP per minute completed
+    await awardXP(activeDurationMins * 10);
 
-        // Dynamic XP Award: 10 XP per minute completed
-        await awardXP(activeDurationMins * 10);
+    // Sync with Personal Learning Plan & Learning Signals
+    const activeUserId = user?.id || 'guest';
+    const activeGoal = PersonalLearningPlanService.getActiveGoal(activeUserId);
+    if (activeGoal && activeGoal.status === 'active') {
+      LearningSignalService.recordSignal({
+        id: `focus_session_${Date.now()}`,
+        type: 'completed_lesson',
+        language: activeGoal.language || primaryLanguage || 'en',
+        userId: activeUserId,
+        timestamp: new Date().toISOString(),
+        lessonId: focusState.selectedTaskId || 'focus_pomodoro',
+        level: activeGoal.currentLevel || 'A1',
+        score: activeDurationMins,
+        total: activeGoal.dailyMinutes || 45,
+        percentage: Math.min(
+          100,
+          Math.round((activeDurationMins / (activeGoal.dailyMinutes || 45)) * 100),
+        ),
+        newCardsCreated: 0,
+        mistakesCount: 0,
+      }).catch(() => {});
+    }
 
-        // Sync with Personal Learning Plan & Learning Signals
-        const activeUserId = user?.id || 'guest';
-        const activeGoal = PersonalLearningPlanService.getActiveGoal(activeUserId);
-        if (activeGoal && activeGoal.status === 'active') {
-            LearningSignalService.recordSignal({
-                id: `focus_session_${Date.now()}`,
-                type: 'completed_lesson',
-                language: activeGoal.language || primaryLanguage || 'en',
-                userId: activeUserId,
-                timestamp: new Date().toISOString(),
-                lessonId: focusState.selectedTaskId || 'focus_pomodoro',
-                level: activeGoal.currentLevel || 'A1',
-                score: activeDurationMins,
-                total: activeGoal.dailyMinutes || 45,
-                percentage: Math.min(100, Math.round((activeDurationMins / (activeGoal.dailyMinutes || 45)) * 100)),
-                newCardsCreated: 0,
-                mistakesCount: 0
-            }).catch(() => {});
-        }
+    if (taskCompleted) setFocusTask(null);
+  };
 
-        if (taskCompleted) setFocusTask(null);
-    };
+  return (
+    <div className="relative mx-auto flex min-h-[75vh] max-w-4xl flex-col items-center justify-center space-y-4 p-3.5 pb-20 sm:space-y-6 sm:p-4 md:p-8 md:pb-8">
+      <audio
+        ref={ringtoneRef}
+        src="https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3"
+      />
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-[80vh] p-4 md:p-8 max-w-7xl mx-auto relative pb-[76px] md:pb-8">
-            <audio ref={ringtoneRef} src="https://cdn.pixabay.com/audio/2021/08/04/audio_0625c1539c.mp3" />
+      <MoodCheckOverlay
+        isVisible={!!showMoodCheck}
+        checkType={showMoodCheck}
+        onSelect={handleMoodSelect}
+        onSkip={() => setShowMoodCheck(null)}
+      />
 
-            <MoodCheckOverlay
-                isVisible={!!showMoodCheck}
-                checkType={showMoodCheck}
-                onSelect={handleMoodSelect}
-                onSkip={() => setShowMoodCheck(null)}
-            />
+      <div className="text-center">
+        <h2 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
+          {t('focus.title')}
+        </h2>
+      </div>
 
-            {/* Task Selector (New) */}
-            <div className="w-full max-w-sm mb-6">
-                <label className="block text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest text-center">
-                    {language === 'ja' ? '現在取り組んでいるタスク' : 'Hozir nima ustida ishlayapsiz?'}
-                </label>
-                <div className="relative">
-                    <select
-                        value={focusState.selectedTaskId || ''}
-                        onChange={(e) => setFocusTask(e.target.value || null)}
-                        className="w-full pl-4 pr-10 py-3 bg-card border border-border rounded-2xl shadow-xs text-foreground outline-hidden focus:ring-2 focus:ring-primary appearance-none transition-all"
-                        disabled={focusState.isActive}
-                    >
-                        <option value="">{language === 'ja' ? 'フリー集中セッション...' : 'Shunchaki fokuslanish...'}</option>
-                        {pendingTasks.map(task => (
-                            <option key={task.id} value={task.id}>{task.title}</option>
-                        ))}
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
-                        <CheckCircle2 size={16} />
-                    </div>
-                </div>
-            </div>
+      <div>
+        <SoundMixer
+          selectedSound={focusState.bgSound}
+          isMuted={focusState.isMuted}
+          isDisabled={focusState.isActive}
+          onSoundChange={setBgSound}
+          onMuteToggle={() => setMuted(!focusState.isMuted)}
+          onTestSound={playRingtone}
+        />
+      </div>
 
-            <div className="mb-4 text-center">
-                <h2 className="text-3xl font-bold text-foreground mb-2">{t('focus.title')}</h2>
-                <p className="text-muted-foreground">{t('focus.subtitle')}</p>
-            </div>
-
-            <div>
-                <SoundMixer
-                    selectedSound={focusState.bgSound}
-                    isMuted={focusState.isMuted}
-                    isDisabled={focusState.isActive}
-                    onSoundChange={setBgSound}
-                    onMuteToggle={() => setMuted(!focusState.isMuted)}
-                    onTestSound={playRingtone}
-                />
-            </div>
-
-            {/* Mode & Deep Work Duration Switcher */}
-            <div className="flex flex-col items-center gap-3 mb-8">
-                <div className="flex bg-muted/50 p-1 rounded-2xl border border-border/50">
-                    <button onClick={() => switchMode('focus')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'focus' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
-                        {language === 'ja' ? '集中' : 'Fokus'}
-                    </button>
-                    <button onClick={() => switchMode('short_break')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'short_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
-                        {language === 'ja' ? '小休憩' : 'Qisqa'}
-                    </button>
-                    <button onClick={() => switchMode('long_break')} className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${focusState.mode === 'long_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>
-                        {language === 'ja' ? '大休憩' : 'Uzun'}
-                    </button>
-                </div>
-
-                {/* Deep Work Custom Duration Presets */}
-                {focusState.mode === 'focus' && (
-                    <div className="flex items-center gap-2 flex-wrap justify-center animate-in fade-in">
-                        {[
-                            { mins: 25, label: language === 'ja' ? '⚡ 25分（標準）' : '⚡ 25m Standard' },
-                            { mins: 60, label: language === 'ja' ? '📚 60分（1時間）' : '📚 60m (1 Soat)' },
-                            { mins: 90, label: language === 'ja' ? '🎓 90分（1.5時間）' : '🎓 90m (1.5 Soat)' },
-                            { mins: 120, label: language === 'ja' ? '🚀 120分（2時間）' : '🚀 120m (2 Soat)' }
-                        ].map((p) => (
-                            <button
-                                key={p.mins}
-                                disabled={focusState.isActive}
-                                onClick={() => handleSelectDuration(p.mins)}
-                                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                                    activeDurationMins === p.mins
-                                        ? 'bg-primary text-primary-foreground border-primary shadow-md'
-                                        : 'bg-card text-muted-foreground border-border hover:border-primary/50'
-                                }`}
-                            >
-                                {p.label}
-                            </button>
-                        ))}
-                    </div>
-                )}
-            </div>
-
-            {/* Subject Selector */}
-            {focusState.mode === 'focus' && (
-                <div className="w-full max-w-xs mb-8">
-                    <select
-                        value={focusState.selectedSubjectId || ''}
-                        onChange={(e) => setFocusSubject(e.target.value)}
-                        className="w-full px-4 py-2 rounded-xl border border-border bg-background/50 text-foreground focus:ring-2 focus:ring-primary outline-none text-center appearance-none backdrop-blur-sm"
-                    >
-                        <option value="">{language === 'ja' ? '一般学習' : "Umumiy O'qish"}</option>
-                        {subjects.filter(s => !s.isArchived).map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-                    </select>
-                </div>
-            )}
-
-            <FocusTimer
-                timeLeft={focusState.timeLeft}
-                progress={progress}
-                mode={focusState.mode}
-                moodBefore={moodBefore}
-                isActive={focusState.isActive}
-            />
-
-            <FocusControls
-                isActive={focusState.isActive}
-                onToggle={handleStartClick}
-                onReset={resetTimer}
-            />
+      {/* Mode & Deep Work Duration Switcher */}
+      <div className="flex flex-col items-center gap-3">
+        <div className="flex rounded-2xl border border-border/50 bg-muted/50 p-1">
+          <button
+            onClick={() => switchMode('focus')}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'focus' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            {language === 'ja' ? '集中' : 'Fokus'}
+          </button>
+          <button
+            onClick={() => switchMode('short_break')}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'short_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            {language === 'ja' ? '小休憩' : 'Qisqa'}
+          </button>
+          <button
+            onClick={() => switchMode('long_break')}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'long_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            {language === 'ja' ? '大休憩' : 'Uzun'}
+          </button>
         </div>
-    );
+
+        {/* Deep Work Custom Duration Presets */}
+        {focusState.mode === 'focus' && (
+          <div className="flex max-w-xs flex-wrap items-center justify-center gap-1.5 animate-in fade-in sm:max-w-none sm:gap-2">
+            {[
+              { mins: 25, label: language === 'ja' ? '⚡ 25分' : '⚡ 25m Standard' },
+              { mins: 60, label: language === 'ja' ? '📚 60分' : '📚 60m (1 Soat)' },
+              { mins: 90, label: language === 'ja' ? '🎓 90分' : '🎓 90m (1.5 Soat)' },
+              { mins: 120, label: language === 'ja' ? '🚀 120分' : '🚀 120m (2 Soat)' },
+            ].map((p) => (
+              <button
+                key={p.mins}
+                disabled={focusState.isActive}
+                onClick={() => handleSelectDuration(p.mins)}
+                className={`rounded-xl border px-3 py-1.5 text-[11px] font-bold transition-all sm:text-xs ${
+                  activeDurationMins === p.mins
+                    ? 'border-primary bg-primary text-primary-foreground shadow-md'
+                    : 'border-border bg-card text-muted-foreground hover:border-primary/50'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <FocusTimer
+        timeLeft={focusState.timeLeft}
+        progress={progress}
+        mode={focusState.mode}
+        moodBefore={moodBefore}
+        isActive={focusState.isActive}
+      />
+
+      <FocusControls
+        isActive={focusState.isActive}
+        onToggle={handleStartClick}
+        onReset={resetTimer}
+      />
+    </div>
+  );
 };
 
 export default FocusPage;
