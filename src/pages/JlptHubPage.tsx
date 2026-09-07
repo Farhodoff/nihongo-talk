@@ -101,7 +101,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <BookOpen size={15} /> {language === 'ja' ? '⛩️ 漢字・文法' : '⛩️ Kanji & Grammatika'}
+          <BookOpen size={15} /> {language === 'ja' ? '⛩️ 漢字' : '⛩️ Kanji'}
         </button>
 
         <button

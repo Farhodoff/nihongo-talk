@@ -320,8 +320,8 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
           >
             <GraduationCap className="h-4 w-4" />
             {language === 'ja'
-              ? `⛩️ 漢字マスター (${kanjiSource.length})`
-              : `⛩️ Kanji Iyerogliflar (${kanjiSource.length})`}
+              ? `⛩️ 漢字 (${kanjiSource.length})`
+              : `⛩️ Kanji (${kanjiSource.length})`}
           </button>
 
           <button
@@ -333,7 +333,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             }`}
           >
             <Flame className="h-4 w-4 text-[#C9A961]" />
-            {language === 'ja' ? '⚡ AIテスト演習' : '⚡ AI Test Generator'}
+            {language === 'ja' ? '⚡ AIテスト' : '⚡ AI Test'}
           </button>
         </div>
       </div>
