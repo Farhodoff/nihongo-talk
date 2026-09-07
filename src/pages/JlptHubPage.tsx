@@ -13,7 +13,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../hooks/useSEO';
-import { JlptDailyBlitzCard } from '../components/jlpt/JlptDailyBlitzCard';
 
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
@@ -101,9 +100,6 @@ export const JlptHubPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* ⚡ 3-Savollik Kunlik Blitz Viktorina (Daily Quick Test) */}
-      <JlptDailyBlitzCard />
 
       {/* Unified JLPT Skill Navigation Tabs */}
       <div className="scrollbar-none sticky top-0 z-20 flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/90 p-1.5 shadow-xs backdrop-blur-md">
