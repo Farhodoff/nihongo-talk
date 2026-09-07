@@ -1,111 +1,107 @@
 import React, { useState } from 'react';
-import { Cpu, ShieldCheck, X, Clock, Check } from 'lucide-react';
+import { Cpu, X, Clock, Check } from 'lucide-react';
+import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
 
 interface CoachSettingsModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    isAdmin?: boolean;
-    userEmail?: string;
-    onSave?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
+  isAdmin?: boolean;
+  userEmail?: string;
+  onSave?: () => void;
 }
 
 export const CoachSettingsModal: React.FC<CoachSettingsModalProps> = ({
-    isOpen,
-    onClose,
+  isOpen,
+  onClose,
+  onSave,
 }) => {
-    const [pauseDelay, setPauseDelay] = useState<string>(() => {
-        return localStorage.getItem('speaking_coach_pause_delay') || '2800';
-    });
+  const [pauseDelay, setPauseDelay] = useState<string>(() => {
+    return safeLocalStorage.getItem('speaking_coach_pause_delay') || '2800';
+  });
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    const handleSelectDelay = (val: string) => {
-        setPauseDelay(val);
-        localStorage.setItem('speaking_coach_pause_delay', val);
-    };
+  const handleSelectDelay = (val: string) => {
+    setPauseDelay(val);
+    safeLocalStorage.setItem('speaking_coach_pause_delay', val);
+  };
 
-    const pauseOptions = [
-        { value: '2000', label: '2.0 soniya', desc: 'Tezkor suhbatlar uchun' },
-        { value: '2800', label: '2.8 soniya (Tavsiya)', desc: 'Fikrni jamlash va tabiiy pauza uchun qulay' },
-        { value: '3500', label: '3.5 soniya', desc: 'O\'ylab, sekinroq gapiruvchilar uchun' },
-        { value: '4500', label: '4.5 soniya', desc: 'Keng mulohaza vaqti' },
-    ];
+  const handleSaveAndClose = () => {
+    safeLocalStorage.setItem('speaking_coach_pause_delay', pauseDelay);
+    if (onSave) onSave();
+    onClose();
+  };
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xl p-4 animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-md shadow-2xl border border-gray-200/60 dark:border-gray-800/60 overflow-hidden animate-in zoom-in-95 duration-200">
-                {/* Modal Header */}
-                <div className="p-5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-transparent">
-                    <h3 className="font-extrabold text-gray-900 dark:text-white flex items-center gap-2.5">
-                        <div className="p-2 bg-indigo-500/10 rounded-xl">
-                            <Cpu size={18} className="text-indigo-500" />
-                        </div>
-                        Speaking Coach Sozlamalari
-                    </h3>
-                    <button onClick={onClose} className="p-2 rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-                        <X size={18} />
-                    </button>
-                </div>
-                
-                <div className="p-6 space-y-5 text-sm">
-                    {/* Pause Delay Setting */}
-                    <div className="space-y-2.5">
-                        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
-                            <Clock size={14} className="text-primary" />
-                            Nutq orasidagi pauza vaqti (Jimlik sezgirligi):
-                        </label>
-                        <p className="text-[11px] text-muted-foreground">
-                            Gapirish davomida to'xtab qolsangiz, AI sizni bo'lmasdan shu vaqt davomida kutadi:
-                        </p>
+  const pauseOptions = [
+    { value: '2000', label: '2.0 soniya' },
+    { value: '2800', label: '2.8 soniya (Tavsiya)' },
+    { value: '3500', label: '3.5 soniya' },
+    { value: '4500', label: '4.5 soniya' },
+  ];
 
-                        <div className="grid grid-cols-1 gap-2 pt-1">
-                            {pauseOptions.map(opt => {
-                                const isSelected = pauseDelay === opt.value;
-                                return (
-                                    <button
-                                        key={opt.value}
-                                        type="button"
-                                        onClick={() => handleSelectDelay(opt.value)}
-                                        className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all ${
-                                            isSelected 
-                                                ? 'border-primary bg-primary/10 text-primary shadow-xs font-bold' 
-                                                : 'border-border bg-card hover:bg-muted/50 text-foreground'
-                                        }`}
-                                    >
-                                        <div>
-                                            <div className="text-xs font-extrabold flex items-center gap-2">
-                                                <span>{opt.label}</span>
-                                            </div>
-                                            <div className="text-[10px] text-muted-foreground font-normal mt-0.5">
-                                                {opt.desc}
-                                            </div>
-                                        </div>
-                                        {isSelected && (
-                                            <div className="w-5 h-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                                                <Check size={12} strokeWidth={3} />
-                                            </div>
-                                        )}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    <div className="p-3.5 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200/60 dark:border-indigo-800/40 rounded-2xl text-indigo-700 dark:text-indigo-300 text-[11px] leading-relaxed flex items-start gap-2.5">
-                        <ShieldCheck size={18} className="shrink-0 text-indigo-500 mt-0.5" />
-                        <div>
-                            <strong>DeepSeek AI Core:</strong> Speaking Coach to‘g‘ridan-to‘g‘ri markaziy DeepSeek neyrotarmog‘i orqali cheklovlarsiz ishlaydi.
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={onClose}
-                        className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all hover:shadow-xl active:scale-[0.98] text-xs"
-                    >
-                        Saqlash va Yopish
-                    </button>
-                </div>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xl duration-200 animate-in fade-in">
+      <div className="w-full max-w-md overflow-hidden rounded-3xl border border-gray-200/60 bg-white shadow-2xl duration-200 animate-in zoom-in-95 dark:border-gray-800/60 dark:bg-gray-900">
+        {/* Modal Header */}
+        <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-transparent p-5 dark:border-gray-800">
+          <h3 className="flex items-center gap-2.5 font-extrabold text-gray-900 dark:text-white">
+            <div className="rounded-xl bg-indigo-500/10 p-2">
+              <Cpu size={18} className="text-indigo-500" />
             </div>
+            Speaking Coach Sozlamalari
+          </h3>
+          <button
+            onClick={onClose}
+            className="rounded-xl p-2 text-gray-400 transition-all hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+            aria-label="Yopish"
+          >
+            <X size={18} />
+          </button>
         </div>
-    );
+
+        <div className="space-y-5 p-6 text-sm">
+          {/* Pause Delay Setting */}
+          <div className="space-y-3">
+            <label className="flex items-center gap-1.5 text-xs font-bold text-gray-700 dark:text-gray-300">
+              <Clock size={14} className="text-primary" />
+              Nutq orasidagi pauza vaqti:
+            </label>
+
+            <div className="grid grid-cols-1 gap-2 pt-1">
+              {pauseOptions.map((opt) => {
+                const isSelected = pauseDelay === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => handleSelectDelay(opt.value)}
+                    className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition-all ${
+                      isSelected
+                        ? 'border-primary bg-primary/10 font-bold text-primary shadow-xs'
+                        : 'border-border bg-card font-medium text-foreground hover:bg-muted/50'
+                    }`}
+                  >
+                    <span className="text-sm">{opt.label}</span>
+                    {isSelected && (
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check size={12} strokeWidth={3} />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSaveAndClose}
+            className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 py-3 text-xs font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl active:scale-[0.98]"
+          >
+            Saqlash va Yopish
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
