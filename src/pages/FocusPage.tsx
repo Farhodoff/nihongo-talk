@@ -5,7 +5,6 @@ import { useLanguage } from '../context/LanguageContext';
 import FocusControls from '../components/focus/FocusControls';
 import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
-import SoundMixer from '../components/focus/SoundMixer';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
 import { LearningSignalService } from '../services/LearningSignalService';
 
@@ -26,10 +25,8 @@ const FocusPage: React.FC = () => {
     switchMode,
     setCustomTime,
     setFocusTask,
-    setBgSound,
-    setMuted,
   } = useFocusTimerContext();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
 
   // Mood State
   const [moodBefore, setMoodBefore] = useState<number | null>(null);
@@ -86,13 +83,6 @@ const FocusPage: React.FC = () => {
       setShowMoodCheck(null);
       setMoodBefore(null); // Reset
       resetTimer();
-    }
-  };
-
-  const playRingtone = () => {
-    if (ringtoneRef.current) {
-      ringtoneRef.current.currentTime = 0;
-      ringtoneRef.current.play().catch((e) => console.error('Ringtone play blocked', e));
     }
   };
 
@@ -159,23 +149,6 @@ const FocusPage: React.FC = () => {
         onSkip={() => setShowMoodCheck(null)}
       />
 
-      <div className="text-center">
-        <h2 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
-          {t('focus.title')}
-        </h2>
-      </div>
-
-      <div>
-        <SoundMixer
-          selectedSound={focusState.bgSound}
-          isMuted={focusState.isMuted}
-          isDisabled={focusState.isActive}
-          onSoundChange={setBgSound}
-          onMuteToggle={() => setMuted(!focusState.isMuted)}
-          onTestSound={playRingtone}
-        />
-      </div>
-
       {/* Mode & Deep Work Duration Switcher */}
       <div className="flex flex-col items-center gap-3">
         <div className="flex rounded-2xl border border-border/50 bg-muted/50 p-1">
@@ -203,10 +176,10 @@ const FocusPage: React.FC = () => {
         {focusState.mode === 'focus' && (
           <div className="flex max-w-xs flex-wrap items-center justify-center gap-1.5 animate-in fade-in sm:max-w-none sm:gap-2">
             {[
-              { mins: 25, label: language === 'ja' ? '⚡ 25分' : '⚡ 25m Standard' },
-              { mins: 60, label: language === 'ja' ? '📚 60分' : '📚 60m (1 Soat)' },
-              { mins: 90, label: language === 'ja' ? '🎓 90分' : '🎓 90m (1.5 Soat)' },
-              { mins: 120, label: language === 'ja' ? '🚀 120分' : '🚀 120m (2 Soat)' },
+              { mins: 25, label: '25m' },
+              { mins: 60, label: '60m' },
+              { mins: 90, label: '90m' },
+              { mins: 120, label: '120m' },
             ].map((p) => (
               <button
                 key={p.mins}
