@@ -483,19 +483,13 @@ const DecksPage: React.FC = () => {
   }, [isSuper]);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 p-4 md:p-8">
+    <div className="mx-auto max-w-7xl space-y-6 p-3.5 sm:p-4 md:space-y-8 md:p-8">
       {/* Header Area */}
-      <div className="flex flex-col justify-between gap-6 border-b border-border/60 pb-6 lg:flex-row lg:items-center">
+      <div className="flex flex-col justify-between gap-4 border-b border-border/60 pb-4 lg:flex-row lg:items-center">
         <div>
-          <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-3 py-1 text-xs font-black text-[#C9A961]">
-            <Layers size={14} /> ANKI SM-2 ENGINE ⚡
-          </div>
-          <h2 className="text-3xl font-black tracking-tight text-foreground">
+          <h2 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
             {t('flashcards.title')}
           </h2>
-          <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-            {t('flashcards.subtitle')}
-          </p>
         </div>
 
         {isSuper && (
@@ -768,10 +762,10 @@ const DecksPage: React.FC = () => {
                     ? "Arxivlangan to'plamlar yo'q"
                     : "Fleshkartalar to'plami yo'q"}
                 </h3>
-                <p className="mb-8 max-w-sm text-muted-foreground">
+                <p className="mb-6 max-w-sm text-xs text-muted-foreground">
                   {subTab === 'archived'
                     ? "Siz hali hech qanday to'plamni arxivga o'tkazmagansiz."
-                    : "O'zingiz fan qo'shing yoki Standart Kutubxonadan tayyor JLPT to'plamlarini saqlab oling."}
+                    : "Kutubxonadan tayyor JLPT to'plamlarini saqlab oling."}
                 </p>
                 {subTab === 'active' && (
                   <div className="flex gap-3">
