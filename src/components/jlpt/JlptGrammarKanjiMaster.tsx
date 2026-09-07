@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   BookOpen,
   Sparkles,
@@ -25,6 +25,7 @@ import { HistoryService } from '../../services/HistoryService';
 import { useLanguage } from '../../context/LanguageContext';
 import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 import { useSearchParams } from 'react-router-dom';
+import { CustomContentService } from '../../services/CustomContentService';
 
 export const JlptGrammarKanjiMaster: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -88,11 +89,17 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
   const [missedQuizQuestions, setMissedQuizQuestions] = useState<JlptGrammarQuestion[]>([]);
   const [quizFlashcardsSaved, setQuizFlashcardsSaved] = useState(false);
 
-  // Merge databases (or fallback)
-  const grammarSource: JlptGrammarItem[] =
+  // Merge databases (or fallback) + Admin Custom Content
+  const baseGrammar: JlptGrammarItem[] =
     JLPT_GRAMMAR_DATABASE.length > 0 ? JLPT_GRAMMAR_DATABASE : grammarData;
-  const kanjiSource: JlptKanjiItem[] =
+  const baseKanji: JlptKanjiItem[] =
     JLPT_KANJI_DATABASE.length > 0 ? JLPT_KANJI_DATABASE : kanjiData;
+
+  const grammarSource = useMemo(
+    () => CustomContentService.mergeGrammar(baseGrammar),
+    [baseGrammar],
+  );
+  const kanjiSource = useMemo(() => CustomContentService.mergeKanji(baseKanji), [baseKanji]);
 
   if (isLoadingData) {
     return (

@@ -34,6 +34,7 @@ import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerM
 import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
 import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
 import { AdminDatasetVaultModal } from '../components/admin/AdminDatasetVaultModal';
+import { AdminContentStudio } from '../components/admin/AdminContentStudio';
 import { SvgLineChart } from '../components/ui/SvgCharts';
 import { toast } from '../hooks/use-toast';
 
@@ -199,7 +200,9 @@ export default function AdminDashboardPage() {
   );
   const [usersPage, setUsersPage] = useState(0);
   const USERS_PER_PAGE = 15;
-  const [activeSection, setActiveSection] = useState<'users' | 'speech' | 'scenarios'>('users');
+  const [activeSection, setActiveSection] = useState<'users' | 'speech' | 'scenarios' | 'content'>(
+    'users',
+  );
 
   const [isCleanerOpen, setIsCleanerOpen] = useState(false);
   const [isVaultOpen, setIsVaultOpen] = useState(false);
@@ -1404,6 +1407,16 @@ export default function AdminDashboardPage() {
         >
           <MessageSquareText size={14} /> {isJa ? 'シナリオ管理' : 'Yaponcha Ssenariylar'}
         </button>
+        <button
+          onClick={() => setActiveSection('content')}
+          className={`flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 py-2 transition-all ${
+            activeSection === 'content'
+              ? 'bg-primary text-primary-foreground shadow-xs'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <BookOpen size={14} /> {isJa ? 'コンテンツ作成・管理' : "Kontent Qo'shish & Boshqaruv"}
+        </button>
       </div>
 
       {activeSection === 'users' && (
@@ -2037,6 +2050,8 @@ export default function AdminDashboardPage() {
       {activeSection === 'speech' && <AdminSpeechAnalytics records={speechRecords} />}
 
       {activeSection === 'scenarios' && <AdminScenarioManager />}
+
+      {activeSection === 'content' && <AdminContentStudio />}
 
       {/* REAL DB FORENSIC DEBUG INDICATOR BAR */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-800 bg-slate-900 p-3 font-mono text-[11px] text-slate-300">
