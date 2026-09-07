@@ -33,22 +33,9 @@ export const JlptHubPage: React.FC = () => {
   const { language } = useLanguage();
 
   const activeTab = searchParams.get('tab') || 'kanji';
-  const activeLevel = searchParams.get('level')?.toUpperCase() || 'N5';
-
-  const handleLevelChange = (lvl: string) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.set('level', lvl);
-      return next;
-    });
-  };
 
   const handleTabChange = (tab: string) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.set('tab', tab);
-      return next;
-    });
+    setSearchParams({ tab });
   };
 
   return (
@@ -56,30 +43,9 @@ export const JlptHubPage: React.FC = () => {
       {/* Header */}
       <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs md:p-6">
         <div className="relative z-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
-              {language === 'ja' ? '日本語マスターハブ' : 'JLPT Master Hub'}
-            </h1>
-            {/* Level Selector Pills */}
-            <div className="flex items-center gap-1 rounded-2xl border border-border bg-muted/60 p-1">
-              {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => {
-                const isSelected = activeLevel === lvl;
-                return (
-                  <button
-                    key={lvl}
-                    onClick={() => handleLevelChange(lvl)}
-                    className={`cursor-pointer rounded-xl px-3 py-1 text-xs font-black transition-all ${
-                      isSelected
-                        ? 'scale-[1.03] bg-primary text-primary-foreground shadow-xs'
-                        : 'text-muted-foreground hover:bg-card/60 hover:text-foreground'
-                    }`}
-                  >
-                    {lvl}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          <h1 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
+            {language === 'ja' ? '日本語マスターハブ' : 'JLPT Master Hub'}
+          </h1>
 
           <div className="flex w-full flex-wrap items-center gap-3 md:w-auto">
             {/* Furigana & Romaji Controls */}
