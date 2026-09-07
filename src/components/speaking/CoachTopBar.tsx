@@ -1,15 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import {
-  Check,
-  GraduationCap,
-  Settings as SettingsIcon,
-  ArrowLeft,
-  Maximize2,
-  Minimize2,
-  Layers,
-} from 'lucide-react';
+import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft, Layers } from 'lucide-react';
 
 interface CoachTopBarProps {
   language: 'en' | 'ja';
@@ -43,15 +35,15 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
   chatHistoryLength,
   showPersonaSelector,
   setShowPersonaSelector,
-  handleLanguageChange,
+  handleLanguageChange: _handleLanguageChange,
   setPersona,
   targetBand,
   setTargetBand,
   isPaidUser: _isPaidUser,
   isAdmin,
-  isSuperAdmin: isSuper,
-  isFullscreen = false,
-  onToggleFullscreen,
+  isSuperAdmin: _isSuper,
+  isFullscreen: _isFullscreen = false,
+  onToggleFullscreen: _onToggleFullscreen,
   onOpenSettings,
   formatTimer,
   activeScenario,
@@ -117,34 +109,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
 
       {/* Right: Controls */}
       <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:ml-0">
-        {/* Language Switcher Pill */}
-        <div className="flex items-center rounded-xl border border-border bg-card/90 p-0.5 backdrop-blur-xl sm:p-1">
-          {isSuper && (
-            <button
-              onClick={() => handleLanguageChange('en')}
-              disabled={isLiveSession}
-              className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-all sm:text-xs ${
-                language === 'en'
-                  ? 'bg-primary text-primary-foreground shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              🇬🇧 EN
-            </button>
-          )}
-          <button
-            onClick={() => handleLanguageChange('ja')}
-            disabled={isLiveSession}
-            className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-all sm:text-xs ${
-              language === 'ja'
-                ? 'bg-primary text-primary-foreground shadow-xs'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            🎌 JA
-          </button>
-        </div>
-
         {/* Persona Toggle Dropdown */}
         <div className="relative">
           <button
@@ -254,26 +218,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
           <Layers size={14} className="shrink-0 text-amber-500" />
           <span>Lug'atlarim</span>
         </button>
-
-        {/* Fullscreen Toggle (⛶ Zoom/Fullscreen mode) */}
-        {onToggleFullscreen && (
-          <button
-            onClick={onToggleFullscreen}
-            className={`cursor-pointer rounded-xl border p-1.5 backdrop-blur-xl transition-all hover:shadow-md sm:p-2 ${
-              isFullscreen
-                ? 'border-primary bg-primary text-primary-foreground shadow-primary/25'
-                : 'border-border bg-card/90 text-muted-foreground hover:bg-muted hover:text-foreground'
-            }`}
-            title={
-              isFullscreen
-                ? 'Oddiy rejimga qaytish (Exit Fullscreen)'
-                : "To'liq ekran rejimi (Fullscreen)"
-            }
-            aria-label={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-          >
-            {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-          </button>
-        )}
 
         {/* Settings */}
         <button
