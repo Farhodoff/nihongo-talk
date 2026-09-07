@@ -13,6 +13,7 @@ import {
   Shield,
   BarChart3,
   Star,
+  Target,
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -135,6 +136,7 @@ const Layout: React.FC = () => {
     // Public Focus: 100% Japanese (JLPT)
     return [
       { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
+      { name: isJa ? '個人学習プラン' : 'Shaxsiy Rejam', path: '/personal-plan', icon: Target },
       { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
       { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
       { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
@@ -489,23 +491,31 @@ const Layout: React.FC = () => {
           },
           { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
           { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
-          { name: t('nav.focus') || 'Pomodoro', path: '/focus', icon: Clock },
-        ].map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              `flex w-16 flex-col items-center justify-center rounded-xl p-1.5 transition-all duration-200 ${isActive ? 'scale-105 bg-primary/10 font-bold text-primary' : 'text-muted-foreground hover:text-foreground'}`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <item.icon size={20} className="mb-1" strokeWidth={isActive ? 2.5 : 2} />
-                <span className="text-[10px] font-medium leading-none">{item.name}</span>
-              </>
-            )}
-          </NavLink>
-        ))}
+          { name: language === 'ja' ? 'プラン' : 'Rejam', path: '/personal-plan', icon: Target },
+        ].map((item) => {
+          const isItemActive =
+            location.pathname.startsWith(item.path) ||
+            (item.path === '/jlpt' && location.pathname === '/') ||
+            (item.path === '/speaking-coach' && location.pathname.startsWith('/speaking')) ||
+            (item.path === '/flashcards' &&
+              (location.pathname.startsWith('/flashcards') ||
+                location.pathname.startsWith('/study-mode')));
+
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={`flex w-16 flex-col items-center justify-center rounded-xl p-1.5 transition-all duration-200 ${
+                isItemActive
+                  ? 'scale-105 bg-primary/10 font-bold text-primary shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <item.icon size={20} className="mb-1" strokeWidth={isItemActive ? 2.5 : 2} />
+              <span className="text-[10px] font-medium leading-none">{item.name}</span>
+            </NavLink>
+          );
+        })}
 
         <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
           <SheetTrigger asChild>

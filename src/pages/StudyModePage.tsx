@@ -28,6 +28,18 @@ const StudyModePage: React.FC = () => {
   const [totalXpEarned, setTotalXpEarned] = useState(0);
   const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
   const [isQueueInitialized, setIsQueueInitialized] = useState(false);
+  const [autoAudio, setAutoAudio] = useState<boolean>(() => {
+    return localStorage.getItem('study_planner_flashcard_auto_audio') === 'true';
+  });
+
+  const toggleAutoAudio = () => {
+    setAutoAudio((prev) => {
+      const next = !prev;
+      localStorage.setItem('study_planner_flashcard_auto_audio', String(next));
+      return next;
+    });
+  };
+
   const [planTaskCompleted, setPlanTaskCompleted] = useState(false);
   const planTask = (
     location.state as { personalPlanTask?: { planId: string; taskId: string } } | null
@@ -166,6 +178,17 @@ const StudyModePage: React.FC = () => {
       speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
     }
   };
+
+  useEffect(() => {
+    if (autoAudio && currentCard && !isFinished && !isEditingCard) {
+      const timer = setTimeout(() => {
+        if (currentCard?.front) {
+          speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
+        }
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, [currentCardIndex, autoAudio, isFinished, isEditingCard, isJapanese, accent, currentCard]);
 
   const handleDeleteCard = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -420,6 +443,21 @@ const StudyModePage: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          {/* Auto Audio Toggle */}
+          <button
+            onClick={toggleAutoAudio}
+            className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition-all active:scale-95 ${
+              autoAudio
+                ? 'border-primary/40 bg-primary/10 text-primary shadow-xs'
+                : 'border-border bg-card text-muted-foreground hover:text-foreground'
+            }`}
+            title="Karta o'zgarganda talaffuzni avtomatik eshittirish"
+          >
+            <Volume2 size={14} className={autoAudio ? 'text-primary' : ''} />
+            <span className="hidden sm:inline">Auto Ovoz</span>
+            <span className="text-[10px] opacity-75">{autoAudio ? 'ON' : 'OFF'}</span>
+          </button>
+
           {/* Accent / Language Switcher */}
           <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/60 p-1">
             {isJapanese ? (
