@@ -615,18 +615,6 @@ const DecksPage: React.FC = () => {
             <Library size={16} /> {t('flashcards.library')} ({visiblePresetDecks.length})
           </button>
         </div>
-
-        {activeTab === 'library' && (
-          <button
-            onClick={() => setActiveTab('my')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-extrabold text-primary transition-all hover:bg-primary/20"
-          >
-            <Layers size={14} />
-            <span>
-              {language === 'ja' ? '← マイトレーニングを表示' : "← Mening To'plamlarimni ko'rish"}
-            </span>
-          </button>
-        )}
       </div>
 
       {activeTab === 'my' && (
