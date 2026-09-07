@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft, Layers } from 'lucide-react';
+import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
 
 interface CoachTopBarProps {
   language: 'en' | 'ja';
@@ -207,17 +207,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             </button>
           ))}
         </div>
-
-        {/* Speaking Flashcards Quick Access */}
-        <button
-          type="button"
-          onClick={() => navigate('/decks')}
-          className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-amber-500/20 bg-amber-500/10 px-2.5 py-1.5 text-xs font-bold text-amber-500 transition-all hover:bg-amber-500/20 hover:shadow-xs"
-          title="Speaking Coach lug'atlari va fleshkartalari"
-        >
-          <Layers size={14} className="shrink-0 text-amber-500" />
-          <span>Lug'atlarim</span>
-        </button>
 
         {/* Settings */}
         <button
