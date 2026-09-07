@@ -3,8 +3,6 @@ import {
   Target,
   FileText,
   BookOpen,
-  Sparkles,
-  ArrowRight,
   Languages,
   Compass,
   Headphones,
@@ -52,23 +50,12 @@ export const JlptHubPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl max-w-full space-y-6 overflow-x-hidden p-3.5 pb-16 sm:p-4 md:space-y-8 md:p-8">
-      {/* Header Banner — Sumi-e & Hanko Aesthetic */}
-      <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
-        <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-          <div className="max-w-2xl space-y-2">
-            <div className="badge-gold">
-              <Sparkles size={13} />
-              <span>JLPT & KAIWA JAPANESE MASTER</span>
-            </div>
-            <h1 className="font-display text-3xl font-black tracking-tight text-foreground md:text-4xl">
-              {language === 'ja' ? '日本語マスターハブ' : 'Yapon Tili Master Hub'}
-            </h1>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {language === 'ja'
-                ? '漢字・文法・読解・聴解・会話シチュエーション・JLPT模擬試験の総合学習センター。'
-                : 'Kanji, Grammatika, Dokkai, Choukai, Dialog senariylari va 180 ballik rasmiy JLPT mock imtihonlari bitta markazda.'}
-            </p>
-          </div>
+      {/* Header */}
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs md:p-6">
+        <div className="relative z-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+          <h1 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
+            {language === 'ja' ? '日本語マスターハブ' : 'JLPT Master Hub'}
+          </h1>
 
           <div className="flex w-full flex-wrap items-center gap-3 md:w-auto">
             {/* Furigana & Romaji Controls */}
@@ -102,7 +89,7 @@ export const JlptHubPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Primary Plan Creator CTA */}
+            {/* Shaxsiy Reja */}
             <button
               onClick={() => navigate('/personal-plan')}
               className="flex cursor-pointer items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
@@ -112,40 +99,6 @@ export const JlptHubPage: React.FC = () => {
             </button>
           </div>
         </div>
-      </div>
-
-      {/* Direct Link to Central Personal Learning Plan */}
-      <div className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-l-4 border-border border-l-primary bg-card p-5 text-foreground shadow-xs md:flex-row md:p-6">
-        <div className="flex items-center gap-3.5">
-          <div className="shrink-0 rounded-xl border border-border bg-muted/80 p-3 text-primary">
-            <Target size={22} />
-          </div>
-          <div>
-            <h2 className="flex items-center gap-2 font-display text-base font-black text-foreground md:text-lg">
-              <span>
-                {language === 'ja'
-                  ? 'JLPT個別学習プラン・レッスン'
-                  : 'JLPT Shaxsiy Rejangiz & Darslar'}
-              </span>
-              <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-                AI Adaptive
-              </span>
-            </h2>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {language === 'ja'
-                ? '毎日のタスク、スピーキング、漢字、単語帳、模擬試験の自動スケジュール'
-                : 'Kunlik va haftalik vazifalar, Speaking, Kanji, Fleshkartalar va Mock imtihonlar taqsimoti'}
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={() => navigate('/personal-plan')}
-          className="flex w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border border-border bg-muted/80 px-4 py-2 text-xs font-bold text-foreground transition-all hover:bg-muted md:w-auto"
-        >
-          <span>{language === 'ja' ? '学習プランを開く' : "Shaxsiy Rejamga O'tish"}</span>
-          <ArrowRight size={14} />
-        </button>
       </div>
 
       {/* Unified JLPT Skill Navigation Tabs */}
