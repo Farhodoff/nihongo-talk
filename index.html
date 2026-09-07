@@ -16,6 +16,13 @@
   <script id="config-init">
     (function() {
       try {
+        if (window.location.pathname === '/twa') {
+          window.location.replace('/jlpt');
+        }
+        if (window.Telegram?.WebApp) {
+          window.Telegram.WebApp.ready();
+          window.Telegram.WebApp.expand();
+        }
         const theme = localStorage.getItem('study_planner_theme');
         if (theme === 'light') {
           document.documentElement.classList.remove('dark');
