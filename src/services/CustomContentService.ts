@@ -672,26 +672,68 @@ export class CustomContentService {
   }
 
   /**
-   * Merge base kanji with custom kanji
+   * Merge base kanji with custom kanji (Strictly Deduplicated)
    */
   static mergeKanji(baseList: JlptKanjiItem[]): JlptKanjiItem[] {
     const custom = this.getCustomKanji();
-    if (custom.length === 0) return baseList;
+    const seenKanji = new Set<string>();
+    const seenId = new Set<string>();
+    const result: JlptKanjiItem[] = [];
 
-    const customMap = new Map(custom.map((c) => [c.kanji, c]));
-    const filteredBase = baseList.filter((b) => !customMap.has(b.kanji));
-    return [...custom, ...filteredBase];
+    // Custom items take precedence
+    for (const item of custom) {
+      const char = item.kanji.trim();
+      if (!char || seenKanji.has(char) || seenId.has(item.id)) continue;
+      seenKanji.add(char);
+      seenId.add(item.id);
+      result.push(item);
+    }
+
+    // Append base items if not already present
+    for (const item of baseList) {
+      const char = item.kanji.trim();
+      if (!char || seenKanji.has(char) || seenId.has(item.id)) continue;
+      seenKanji.add(char);
+      seenId.add(item.id);
+      result.push(item);
+    }
+
+    return result;
   }
 
   /**
-   * Merge base grammar with custom grammar
+   * Merge base grammar with custom grammar (Strictly Deduplicated by ID & Cleaned Title)
    */
   static mergeGrammar(baseList: JlptGrammarItem[]): JlptGrammarItem[] {
     const custom = this.getCustomGrammar();
-    if (custom.length === 0) return baseList;
+    const seenId = new Set<string>();
+    const seenTitle = new Set<string>();
+    const result: JlptGrammarItem[] = [];
 
-    const customMap = new Map(custom.map((c) => [c.id, c]));
-    const filteredBase = baseList.filter((b) => !customMap.has(b.id));
-    return [...custom, ...filteredBase];
+    const cleanTitle = (t: string) =>
+      t
+        .replace(/\s*\([^)]*\)/g, '') // remove (romaji)
+        .replace(/[〜~・\s()（）]/g, '')
+        .toLowerCase();
+
+    // Custom items take precedence
+    for (const item of custom) {
+      const key = cleanTitle(item.title);
+      if (!key || seenId.has(item.id) || seenTitle.has(key)) continue;
+      seenId.add(item.id);
+      seenTitle.add(key);
+      result.push(item);
+    }
+
+    // Append base items if not already present
+    for (const item of baseList) {
+      const key = cleanTitle(item.title);
+      if (!key || seenId.has(item.id) || seenTitle.has(key)) continue;
+      seenId.add(item.id);
+      seenTitle.add(key);
+      result.push(item);
+    }
+
+    return result;
   }
 }

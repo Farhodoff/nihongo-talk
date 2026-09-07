@@ -245,4 +245,46 @@ describe('CustomContentService Unit Tests', () => {
     expect(CustomContentService.getCustomKanji().length).toBe(1);
     expect(CustomContentService.getCustomGrammar().length).toBe(1);
   });
+
+  it('strictly deduplicates grammar when merging custom and base items', async () => {
+    // Save custom grammar that has same title as base item but different id
+    await CustomContentService.saveCustomGrammar({
+      id: 'custom-g-override',
+      title: '〜てたまらない (te tamaranai)',
+      level: 'N3',
+      romaji: 'te tamaranai',
+      meaningUz: 'Maxsus yangilangan ma‘no',
+      structure: 'Fe‘l-te + tamaranai',
+      examples: [],
+    });
+
+    const baseGrammar: JlptGrammarItem[] = [
+      {
+        id: 'base-g-1',
+        title: '〜てたまらない (te tamaranai)',
+        level: 'N3',
+        romaji: 'te tamaranai',
+        meaningUz: 'Eski ma‘no',
+        structure: 'Fe‘l-te + tamaranai',
+        examples: [],
+      },
+      {
+        id: 'base-g-2',
+        title: '〜かねない (kanenai)',
+        level: 'N3',
+        romaji: 'kanenai',
+        meaningUz: 'Xavf bor',
+        structure: 'Fe‘l-masu + kanenai',
+        examples: [],
+      },
+    ];
+
+    const merged = CustomContentService.mergeGrammar(baseGrammar);
+    // Should NOT have 3 items; it should have exactly 2 items!
+    expect(merged.length).toBe(2);
+    // Custom item should take precedence
+    expect(merged[0].id).toBe('custom-g-override');
+    expect(merged[0].meaningUz).toBe('Maxsus yangilangan ma‘no');
+    expect(merged[1].id).toBe('base-g-2');
+  });
 });
