@@ -1,13 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import {
-  Target,
-  FileText,
-  BookOpen,
-  Languages,
-  Compass,
-  Headphones,
-  GraduationCap,
-} from 'lucide-react';
+import { Target, FileText, BookOpen, Languages, Headphones, GraduationCap } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -15,9 +7,7 @@ import { useSEO } from '../hooks/useSEO';
 
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
-const ScenarioPickerPage = lazy(() =>
-  import('./ScenarioPickerPage').then((m) => ({ default: m.ScenarioPickerPage })),
-);
+
 const JlptReadingPage = lazy(() =>
   import('./JlptReadingPage').then((m) => ({ default: m.JlptReadingPage })),
 );
@@ -59,7 +49,7 @@ export const JlptHubPage: React.FC = () => {
 
           <div className="flex w-full flex-wrap items-center gap-3 md:w-auto">
             {/* Furigana & Romaji Controls */}
-            <div className="flex items-center rounded-xl border border-border bg-muted/50 p-1">
+            <div className="hidden items-center rounded-xl border border-border bg-muted/50 p-1 md:flex">
               <button
                 onClick={() => updateSettings({ showFurigana: !settings.showFurigana })}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
@@ -115,18 +105,6 @@ export const JlptHubPage: React.FC = () => {
         </button>
 
         <button
-          onClick={() => handleTabChange('scenarios')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
-            activeTab === 'scenarios'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <Compass size={15} />{' '}
-          {language === 'ja' ? '🎌 会話シチュエーション' : '🎌 Dialog Senariylar'}
-        </button>
-
-        <button
           onClick={() => handleTabChange('reading')}
           className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
             activeTab === 'reading'
@@ -178,13 +156,6 @@ export const JlptHubPage: React.FC = () => {
             <div>
               <JlptGrammarKanjiMaster />
             </div>
-          </div>
-        )}
-
-        {/* Tab 2: Conversation Scenarios & Kaiwa Dialogue */}
-        {activeTab === 'scenarios' && (
-          <div className="animate-in fade-in">
-            <ScenarioPickerPage />
           </div>
         )}
 
