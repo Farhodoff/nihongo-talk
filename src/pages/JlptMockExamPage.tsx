@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Clock, Award, Volume2, BookOpen, CheckCircle2, FileText } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
@@ -17,10 +17,21 @@ import { JLPT_MOCK_EXAM_DATA } from '../data/jlptMockExamData';
 
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLevel = searchParams.get('level')?.toUpperCase();
+  const initialLevel: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
+    urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel) ? (urlLevel as any) : 'N5';
+
   const { user } = useStudyData();
   const { language } = useLanguage();
-  const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>('N5');
+  const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(initialLevel);
   const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
+
+  useEffect(() => {
+    if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel)) {
+      setLevel(urlLevel as any);
+    }
+  }, [urlLevel]);
 
   // Active Section State
   const [activeSection, setActiveSection] = useState<'knowledge' | 'reading' | 'listening'>(
