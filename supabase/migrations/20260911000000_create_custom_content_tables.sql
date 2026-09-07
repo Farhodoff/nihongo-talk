@@ -1,8 +1,6 @@
 -- Migration: 20260911000000_create_custom_content_tables.sql
 -- Description: Create custom_kanji and custom_grammar tables with RLS and indexes for Admin Content Studio
 
-BEGIN;
-
 -- 1. Create custom_kanji table
 CREATE TABLE IF NOT EXISTS public.custom_kanji (
     id TEXT PRIMARY KEY,
@@ -98,5 +96,3 @@ GRANT ALL ON public.custom_kanji TO authenticated, service_role;
 
 GRANT SELECT ON public.custom_grammar TO anon, authenticated;
 GRANT ALL ON public.custom_grammar TO authenticated, service_role;
-
-COMMIT;
