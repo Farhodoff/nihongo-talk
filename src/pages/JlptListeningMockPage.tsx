@@ -10,18 +10,22 @@ import {
   Pause,
   RotateCcw,
   BookOpen,
+  Sparkles,
+  CheckCircle,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { JLPT_LISTENING_QUESTIONS, JlptListeningQuestion } from '../data/jlpt/listening_data';
 import { HistoryService } from '../services/HistoryService';
+import { MasteryEngine } from '../services/MasteryEngine';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
+import { toast } from '../hooks/use-toast';
 
 export const JlptListeningMockPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const { awardXP, addSession } = useStudyData();
+  const { awardXP, addSession, addFlashcardsBatch, user } = useStudyData();
   const { language } = useLanguage();
 
   const urlLevel = (
@@ -63,6 +67,8 @@ export const JlptListeningMockPage: React.FC = () => {
 
   // TTS Fallback
   const [isUsingTts, setIsUsingTts] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isExported, setIsExported] = useState(false);
 
   // Timer Effect
   useEffect(() => {
@@ -98,6 +104,7 @@ export const JlptListeningMockPage: React.FC = () => {
     setActiveQuestions(filtered);
     setCurrentQIdx(0);
     setUserAnswers({});
+    setIsExported(false);
     setStep('test');
     setIsTimerRunning(true);
     setTimeLeft(1800);
@@ -262,8 +269,47 @@ export const JlptListeningMockPage: React.FC = () => {
         totalQuestions: activeQuestions.length,
         bandScore: Math.round((correctCount / (activeQuestions.length || 1)) * 180),
       });
+
+      // Record evidence in MasteryEngine
+      const activeUserId = user?.id || 'guest';
+      const accuracy = Math.round((correctCount / (activeQuestions.length || 1)) * 100);
+      MasteryEngine.recordEvidence(activeUserId, 'ja', {
+        id: `jlpt_choukai_${level}_${Date.now()}`,
+        skill: 'listening',
+        score: accuracy,
+        timestamp: new Date().toISOString(),
+        details: `JLPT ${level} Choukai: ${correctCount}/${activeQuestions.length} to'g'ri (${accuracy}%)`,
+        type: 'performance',
+      });
     } catch (e) {
       console.error('Failed to save JLPT score:', e);
+    }
+  };
+
+  const handleExportMistakes = async () => {
+    const wrongQs = activeQuestions.filter((q) => userAnswers[q.id] !== q.correctAnswer);
+    if (wrongQs.length === 0) return;
+    setIsExporting(true);
+    try {
+      const cards = wrongQs.map((q) => ({
+        front: `🎧 JLPT ${level} Tinglash Savoli (CHOUKAI):\n\n${q.questionText}\n\n台本 (Audio Skript):\n${q.script}`,
+        back: `✅ To'g'ri javob: ${q.options[q.correctAnswer]}\n\n❌ Sizning javob: ${userAnswers[q.id] !== undefined ? q.options[userAnswers[q.id]] : 'Javob berilmagan'}\n\n💡 Izoh: ${q.explanationUzbek}`,
+      }));
+      await addFlashcardsBatch(cards);
+      setIsExported(true);
+      toast({
+        title: '🎴 Fleshkartalarga Saqlandi!',
+        description: `${cards.length} ta tinglash savoli Anki SRS fleshkartalar to'plamiga qo'shildi.`,
+      });
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Xatolik',
+        description: 'Fleshkartalarga saqlashda xatolik yuz berdi.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -482,6 +528,47 @@ export const JlptListeningMockPage: React.FC = () => {
             </p>
           </div>
 
+          {/* Export mistakes to flashcards button */}
+          {activeQuestions.some((q) => userAnswers[q.id] !== q.correctAnswer) && (
+            <div className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 text-left sm:flex-row">
+              <div className="flex items-center gap-2.5">
+                <div className="rounded-xl bg-rose-500/20 p-2 text-rose-500">
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <h4 className="text-xs font-black text-foreground">
+                    Xato savollarni fleshkartaga saqlash
+                  </h4>
+                  <p className="text-[11px] text-muted-foreground">
+                    Tinglashda xato qilgan savollarni audio skripti bilan birga Anki SRS to'plamiga
+                    yuklang.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={handleExportMistakes}
+                disabled={isExporting || isExported}
+                className={`flex shrink-0 items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black transition-all ${
+                  isExported
+                    ? 'bg-emerald-600 text-white'
+                    : 'cursor-pointer bg-rose-600 text-white shadow-sm hover:bg-rose-700 active:scale-95'
+                }`}
+              >
+                {isExported ? (
+                  <>
+                    <CheckCircle size={14} />
+                    <span>Saqlandi (Anki SRS)</span>
+                  </>
+                ) : (
+                  <>
+                    <BookOpen size={14} />
+                    <span>{isExporting ? 'Saqlanmoqda...' : 'Fleshkartaga saqlash'}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+
           <div className="space-y-3 border-t border-border pt-4 text-left">
             <h4 className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-foreground">
               <BookOpen size={16} /> Savollar va Skript tahlili:
@@ -529,7 +616,7 @@ export const JlptListeningMockPage: React.FC = () => {
             }}
             className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg hover:bg-rose-700"
           >
-            Qayta Topsherish 🔄
+            Qayta topshirish 🔄
           </Button>
         </div>
       )}

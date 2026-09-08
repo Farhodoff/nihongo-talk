@@ -30,6 +30,22 @@ export function getLevelPedagogicalDirectives(
   levelCode: string,
 ): string {
   if (language === 'ja') {
+    const cleanLevel = (levelCode || 'N5').toUpperCase();
+    if (
+      (goalType as string) === 'zero_ja' ||
+      cleanLevel === 'ZERO' ||
+      cleanLevel === '0' ||
+      cleanLevel === 'N0'
+    ) {
+      return `JAPANESE ZERO LEVEL (MUTLAQO NOLDAN BOSHLASH) PEDAGOGICAL BLUEPRINT:
+- Target: Mutlaqo noldan boshlovchi o'quvchilar uchun poydevor qurish.
+- Pedagogical Progression for Week 1:
+  * Days 1-3 (Hiragana): 46 ta asosiy hiragana belgilari, tovushlar (dakuon/handakuon: が, ざ, だ, ば, ぱ), cho'ziq unlilar va birikmalar (きゃ, しゅ, ちょ). Yozish va talaffuz mashqlari. Route: /jlpt?tab=kanji&level=N5
+  * Days 4-5 (Katakana): Katakana alifbosi, chet eldan kirib kelgan so'zlar (gairaigo: コーヒー, バス, ホテル, テレビ) va o'qish qoidalari. Route: /jlpt?tab=kanji&level=N5
+  * Days 6-7 (Eng muhim iboralar): Kundalik salomlashuv (Ohayou gozaimasu, Konnichiwa, Arigatou gozaimasu), o'zini tanishtirish (Hajimemashite, Watashi wa... desu), oddiy ~desu jumla tuzilishi. Route: /speaking-coach?lang=ja
+- Non-negotiable Rule: MUTLAQO murakkab kanji yoki N4/N3 grammatikasi bermang. Birinchi haftada faqat Hiragana, Katakana va eng asosiy so'zlashuv iboralariga e'tibor qarating!`;
+    }
+
     if (goalType === 'general_ja') {
       return `JAPANESE KAIWA & DAILY COMMUNICATION DIRECTIVES:
 - Emphasize practical conversational phrases, daily situation roleplays, natural responses (aizuchi), and active pronunciation.
@@ -38,7 +54,6 @@ export function getLevelPedagogicalDirectives(
 - Avoid dry grammatical jargon; emphasize situational speaking confidence.`;
     }
 
-    const cleanLevel = (levelCode || 'N5').toUpperCase();
     switch (cleanLevel) {
       case 'N5':
         return `JLPT N5 PEDAGOGICAL BLUEPRINT (Boshlang'ich daraja):
@@ -349,10 +364,11 @@ monday, tuesday, wednesday, thursday, friday, saturday, sunday.
 - Give SRS 5–20 minutes depending on DUE_CARDS and OVERDUE_CARDS.
 - Higher overdue count means higher SRS priority.
 
-6. Adaptation:
-- High-severity weak skills must appear at least 3 times during the week.
-- Medium-severity weak skills must appear at least 2 times.
-- Strong skills should receive less time, but must not disappear completely if they are relevant to the user’s exam goal.
+6. Adaptation & Weakness Allocation:
+- Weakness weighting: Allocate 60-70% of weekly tasks and study minutes directly to the student's identified weak skills (e.g. Grammar, Dokkai, Choukai, Kanji), and the remaining 30-40% to maintaining strong skills and SRS review.
+- High-severity weak skills must appear at least 3-4 times during the week.
+- Medium-severity weak skills must appear at least 2-3 times.
+- Strong skills should receive maintenance time, but must not disappear completely if they are relevant to the user’s exam goal.
 - Use diagnostic, mock, SRS, and previous-week evidence as the highest-priority signals.
 
 7. Goal intensity:
@@ -414,7 +430,7 @@ CURRENT_WEEK: ${weekNumber}
 DAILY_MINUTES: ${adjustedDailyMinutes}
 
 LEVEL_PEDAGOGICAL_BLUEPRINT:
-${getLevelPedagogicalDirectives(goal.language, goal.goalType, targetLevelCode)}
+${getLevelPedagogicalDirectives(goal.language, goal.goalType, cleanCurrent === 'ZERO' ? 'ZERO' : targetLevelCode)}
 
 DIAGNOSTIC_RESULT:
 ${JSON.stringify((state as any)?.diagnosticSummary || (state as any)?.diagnosticLevel || 'Barcha diagnostik savollar topshirilgan')}

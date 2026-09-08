@@ -400,6 +400,7 @@ export const useTTS = ({
   // Generation counter to prevent concurrent / overlapping playback race conditions (Echo & Volume Blasts)
   const activePlaybackIdRef = useRef<number>(0);
   const activeWebAudioSourceRef = useRef<AudioBufferSourceNode | null>(null);
+  const activeBlobResolverRef = useRef<(() => void) | null>(null);
 
   // Pipelined Streaming Queue State
   const streamQueueRef = useRef<string[]>([]);
@@ -516,6 +517,14 @@ export const useTTS = ({
         activeWebAudioSourceRef.current.disconnect();
       } catch {}
       activeWebAudioSourceRef.current = null;
+    }
+
+    // Unblock any pending playAudioBlob promise immediately
+    if (activeBlobResolverRef.current) {
+      try {
+        activeBlobResolverRef.current();
+      } catch {}
+      activeBlobResolverRef.current = null;
     }
 
     if (audioPlayerRef.current) {
@@ -639,6 +648,7 @@ export const useTTS = ({
         const cleanup = () => {
           if (isCleanedUp) return;
           isCleanedUp = true;
+          activeBlobResolverRef.current = null;
           audio.onended = null;
           audio.onerror = null;
           if (currentObjectUrlRef.current === objectUrl) {
@@ -647,6 +657,8 @@ export const useTTS = ({
           }
           resolve();
         };
+
+        activeBlobResolverRef.current = cleanup;
 
         audio.onended = cleanup;
         audio.onerror = () => {

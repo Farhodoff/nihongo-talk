@@ -5,7 +5,7 @@ test.describe('Navigation', () => {
     // Navigate to Landing Page
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
-    await expect(page).toHaveURL(/.*localhost:5173\/?$/);
+    await expect(page).toHaveURL(/.*localhost:\d+\/?$/);
 
     // Define the public key routes to test
     const publicRoutes = [
@@ -24,9 +24,9 @@ test.describe('Navigation', () => {
   });
 
   test('should redirect unauthenticated protected route to landing', async ({ page }) => {
-    await page.goto('/jlpt');
+    await page.goto('/dashboard');
     await page.waitForLoadState('domcontentloaded');
-    await expect(page).toHaveURL(/.*localhost:5173\/?$/);
+    await expect(page).toHaveURL(/.*localhost:\d+\/?$/);
     await expect(page.locator('body')).toBeVisible();
   });
 });

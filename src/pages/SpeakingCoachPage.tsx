@@ -210,7 +210,7 @@ const SpeakingCoachPage: React.FC = () => {
   const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>(
     '7.5',
   );
-  const [isLiveSession, setIsLiveSession] = useState(false);
+  const [isLiveSession, setIsLiveSession] = useState(() => Boolean(scenarioIdParam));
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -250,7 +250,7 @@ const SpeakingCoachPage: React.FC = () => {
   const activeScenarioRef = useRef(activeScenario);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const isProcessingRef = useRef(false);
-  const isLiveSessionRef = useRef(false);
+  const isLiveSessionRef = useRef(Boolean(scenarioIdParam));
   const chatHistoryRef = useRef<CoachChatMessage[]>([]);
   const languageRef = useRef(language);
   const personaRef = useRef(persona);
@@ -363,6 +363,7 @@ const SpeakingCoachPage: React.FC = () => {
   // Stable TTS Callbacks to prevent infinite re-render cascades
   const handleSpeakStart = useCallback(() => {
     setIsSpeaking(true);
+    isSpeakingRef.current = true;
     if (recognitionRef.current) {
       try {
         recognitionRef.current.abort();
@@ -374,6 +375,7 @@ const SpeakingCoachPage: React.FC = () => {
 
   const handleSpeakEnd = useCallback(() => {
     setIsSpeaking(false);
+    isSpeakingRef.current = false;
     isProcessingRef.current = false;
     // Start recording student session after coach finishes speaking
     if (isLiveSessionRef.current && !voiceRecorder.isRecording) {
@@ -390,7 +392,7 @@ const SpeakingCoachPage: React.FC = () => {
         ) {
           startListeningRef.current?.();
         }
-      }, 400);
+      }, 500);
     }
   }, [voiceRecorder, isMuted]);
 
@@ -442,6 +444,10 @@ const SpeakingCoachPage: React.FC = () => {
         activeScenarioRef.current = scenario;
         const sLang = scenario.language || (scenario.title_en ? 'en' : 'ja');
         setLanguage((prev) => (prev !== sLang ? sLang : prev));
+
+        // Automatically activate live session when entering a scenario
+        setIsLiveSession(true);
+        isLiveSessionRef.current = true;
 
         const scenarioGreeting =
           (sLang === 'en' ? scenario.opening_line_en : scenario.opening_line_ja) ||
@@ -506,6 +512,7 @@ const SpeakingCoachPage: React.FC = () => {
     isLiveSessionRef,
     isProcessingRef,
     isSpeaking,
+    isSpeakingRef,
     isThinking,
     isMuted,
     onValidSpeech: (spokenText) => {
@@ -702,7 +709,11 @@ const SpeakingCoachPage: React.FC = () => {
     if (!cleanText || cleanText.length < 2) return;
 
     // Acoustic Echo Suppression: Discard microphone loopback of coach's own audio
-    if (isAcousticEcho(cleanText, lastCoachSpokenTextRef.current)) {
+    const lastCoachText =
+      lastCoachSpokenTextRef.current ||
+      [...chatHistoryRef.current].reverse().find((m) => m.role === 'assistant')?.content ||
+      '';
+    if (isAcousticEcho(cleanText, lastCoachText)) {
       console.warn('[SpeakingCoach] Discarded acoustic speaker echo loopback:', cleanText);
       isProcessingRef.current = false;
       setIsThinking(false);
@@ -1034,6 +1045,34 @@ const SpeakingCoachPage: React.FC = () => {
     setCurrentTranscript('');
     setError(null);
 
+    // If coach is already actively speaking (e.g. scenario greeting is currently playing),
+    // do not trigger duplicate audio playback
+    if (isSpeakingRef.current) {
+      return;
+    }
+
+    const currentScenario = activeScenarioRef.current || activeScenario;
+    const normalizedScenarioId = currentScenario?.id
+      ? currentScenario.id.trim().replace(/\s+/g, '_')
+      : null;
+
+    // If this scenario's opening greeting was already displayed and spoken,
+    // prevent replaying duplicate audio or overwriting chat history
+    if (
+      currentScenario &&
+      scenarioIntroSpokenRef.current === normalizedScenarioId &&
+      chatHistoryRef.current.length > 0
+    ) {
+      if (!isSpeakingRef.current && isHandsFreeRef.current && !isMuted) {
+        setTimeout(() => {
+          if (!isSpeakingRef.current && !isProcessingRef.current) {
+            startListeningRef.current?.();
+          }
+        }, 300);
+      }
+      return;
+    }
+
     const cleanTopic =
       typeof topicTitle === 'string' &&
       topicTitle.trim().length > 0 &&
@@ -1041,7 +1080,6 @@ const SpeakingCoachPage: React.FC = () => {
         ? topicTitle.trim()
         : undefined;
 
-    const currentScenario = activeScenarioRef.current || activeScenario;
     let greeting = getInitialGreeting(language, persona);
     if (currentScenario) {
       greeting =

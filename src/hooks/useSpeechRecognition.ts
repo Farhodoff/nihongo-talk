@@ -6,6 +6,7 @@ interface UseSpeechRecognitionOptions {
   isLiveSessionRef: React.MutableRefObject<boolean>;
   isProcessingRef: React.MutableRefObject<boolean>;
   isSpeaking: boolean;
+  isSpeakingRef?: React.MutableRefObject<boolean>;
   isThinking: boolean;
   isMuted: boolean;
   onValidSpeech: (text: string) => void;
@@ -72,6 +73,7 @@ export const useSpeechRecognition = ({
   isLiveSessionRef,
   isProcessingRef,
   isSpeaking,
+  isSpeakingRef: externalSpeakingRef,
   isThinking,
   isMuted,
   onValidSpeech,
@@ -162,7 +164,9 @@ export const useSpeechRecognition = ({
   }, [language]);
 
   // Stable references for callbacks
-  const isSpeakingRef = useRef(isSpeaking);
+  const localSpeakingRef = useRef(isSpeaking);
+  const isSpeakingRef = externalSpeakingRef || localSpeakingRef;
+  isSpeakingRef.current = isSpeaking;
   const isThinkingRef = useRef(isThinking);
   const isMutedRef = useRef(isMuted);
 
@@ -182,7 +186,7 @@ export const useSpeechRecognition = ({
       }
       setIsListening(false);
     }
-  }, [isSpeaking]);
+  }, [isSpeaking, isSpeakingRef]);
 
   useEffect(() => {
     isThinkingRef.current = isThinking;
@@ -253,27 +257,51 @@ export const useSpeechRecognition = ({
     isSilenceTimeoutRef.current = false;
     lastSpeechTimeRef.current = Date.now();
 
-    // Ensure browser mic permission is requested
+    const startRecognitionInstance = () => {
+      if (
+        recognitionRef.current &&
+        isLiveSessionRef.current &&
+        !isSpeakingRef.current &&
+        !isThinkingRef.current
+      ) {
+        try {
+          recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+          recognitionRef.current.start();
+        } catch (e) {
+          // Recognition might already be running
+        }
+      }
+    };
+
+    // Re-use active media stream if audio tracks are already live (prevents audio pops and echo)
+    const existingStream = mediaStreamRef.current;
+    const hasLiveTracks =
+      existingStream &&
+      existingStream.getTracks().some((t) => t.kind === 'audio' && t.readyState === 'live');
+
+    if (hasLiveTracks && existingStream) {
+      startVolumeMeter(existingStream);
+      startRecognitionInstance();
+      return;
+    }
+
+    // Ensure browser mic permission is requested with hardware Acoustic Echo Cancellation (AEC)
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      const audioConstraints: MediaStreamConstraints = {
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
+      };
+
       navigator.mediaDevices
-        .getUserMedia({ audio: true })
+        .getUserMedia(audioConstraints)
+        .catch(() => navigator.mediaDevices.getUserMedia({ audio: true }))
         .then((stream) => {
           mediaStreamRef.current = stream;
           startVolumeMeter(stream);
-
-          if (
-            recognitionRef.current &&
-            isLiveSessionRef.current &&
-            !isSpeakingRef.current &&
-            !isThinkingRef.current
-          ) {
-            try {
-              recognitionRef.current.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
-              recognitionRef.current.start();
-            } catch (e) {
-              // Recognition might already be running
-            }
-          }
+          startRecognitionInstance();
         })
         .catch(() => {
           stopVolumeMeter();

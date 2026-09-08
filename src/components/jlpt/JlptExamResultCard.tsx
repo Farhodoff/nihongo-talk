@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Award,
   AlertTriangle,
   Lightbulb,
   RefreshCw,
@@ -11,8 +10,13 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronUp,
+  Target,
+  ShieldAlert,
+  Headphones,
+  CheckCircle2,
 } from 'lucide-react';
 import { ExamDiagnosticReport, ExamQuestionAnswer } from '../../utils/ai/examEvaluator';
+import { JlptScoreReport } from '../../utils/jlptScoring';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 
@@ -20,30 +24,47 @@ interface JlptExamResultCardProps {
   report: ExamDiagnosticReport;
   level: string;
   mistakes?: ExamQuestionAnswer[];
+  jlptReport?: JlptScoreReport;
   onRetry: () => void;
   onBackToHub: () => void;
+  onNavigateToPlan?: () => void;
 }
 
 export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
   report,
   level,
   mistakes = [],
+  jlptReport: propJlptReport,
   onRetry,
   onBackToHub,
+  onNavigateToPlan,
 }) => {
   const { addFlashcardsBatch } = useStudyData();
   const [isExporting, setIsExporting] = useState(false);
   const [isExported, setIsExported] = useState(false);
   const [showAllMistakes, setShowAllMistakes] = useState(false);
 
+  const handleGoToPlan = () => {
+    if (onNavigateToPlan) {
+      onNavigateToPlan();
+    } else if (typeof window !== 'undefined') {
+      window.location.href = '/personal-plan';
+    }
+  };
+
+  const jlptReport = propJlptReport || report.jlptScoreReport;
+
   const handleExportMistakes = async () => {
     if (!mistakes || mistakes.length === 0) return;
     setIsExporting(true);
     try {
-      const cards = mistakes.map((q) => ({
-        front: `🎌 JLPT ${level} Savol (${(q.section || 'Imtihon').toUpperCase()}):\n\n${q.questionText}`,
-        back: `✅ To'g'ri javob:\n${q.correctAnswer}\n\n❌ Sizning javobingiz:\n${q.userAnswer}\n\n💡 Izoh:\n${q.explanationUzbek || "Ushbu savol JLPT imtihoni grammatika/lug'at qoidalariga asoslangan."}`,
-      }));
+      const cards = mistakes.map((q) => {
+        const extraScript = q.script ? `\n\n🎧 Tinglash matni (Script):\n${q.script}` : '';
+        return {
+          front: `🎌 JLPT ${level} Savol (${(q.section || 'Imtihon').toUpperCase()}):\n\n${q.questionText}${extraScript}`,
+          back: `✅ To'g'ri javob:\n${q.correctAnswer}\n\n❌ Sizning javobingiz:\n${q.userAnswer}\n\n💡 Izoh:\n${q.explanationUzbek || "Ushbu savol JLPT imtihoni grammatika/lug'at qoidalariga asoslangan."}`,
+        };
+      });
       await addFlashcardsBatch(cards);
       setIsExported(true);
       toast({
@@ -62,36 +83,218 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
     }
   };
 
+  const isPassed = jlptReport ? jlptReport.passed : report.passed;
+
   return (
-    <div className="mx-auto max-w-2xl space-y-6 py-4 animate-in fade-in slide-in-from-bottom-4">
-      {/* Header Score Card */}
+    <div className="mx-auto max-w-3xl space-y-6 py-4 animate-in fade-in slide-in-from-bottom-4">
+      {/* Official Certificate Style Header */}
       <div
-        className={`relative overflow-hidden rounded-3xl border p-6 text-center shadow-xl backdrop-blur-xl ${
-          report.passed
-            ? 'border-emerald-500/30 bg-gradient-to-b from-emerald-500/15 to-teal-500/5'
-            : 'border-amber-500/30 bg-gradient-to-b from-amber-500/15 to-rose-500/5'
+        className={`relative overflow-hidden rounded-3xl border p-6 text-center shadow-xl backdrop-blur-xl transition-all ${
+          isPassed
+            ? 'border-emerald-500/40 bg-gradient-to-b from-emerald-500/15 via-emerald-500/5 to-card'
+            : 'border-rose-500/40 bg-gradient-to-b from-rose-500/15 via-rose-500/5 to-card'
         }`}
       >
-        <div className="mb-3 inline-flex rounded-2xl bg-white/10 p-3 shadow-sm dark:bg-gray-800/40">
-          <Award size={36} className={report.passed ? 'text-emerald-500' : 'text-amber-500'} />
+        {/* Japanese Certificate Subtitle */}
+        <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <span>日本語能力試験（JLPT）</span>
+          <span>•</span>
+          <span>合否結果通知書</span>
         </div>
 
-        <h2 className="text-xl font-black text-foreground sm:text-2xl">
+        {/* Primary Title */}
+        <h2 className="mt-2 text-xl font-black tracking-tight text-foreground sm:text-3xl">
           JLPT {level} Imtihon Natijasi
         </h2>
 
-        <div className="mt-2 font-mono text-3xl font-black tracking-tight text-foreground sm:text-4xl">
-          {report.percentage}%
+        {/* Official Status Stamp (Muhri) */}
+        <div className="mt-4 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
+          <div
+            className={`inline-flex items-center gap-2 rounded-2xl border-2 px-6 py-2.5 shadow-md ${
+              isPassed
+                ? 'border-emerald-500 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+                : 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
+            }`}
+          >
+            {isPassed ? (
+              <>
+                <CheckCircle2 size={24} className="stroke-[2.5]" />
+                <span className="font-mono text-lg font-black tracking-wider">
+                  合格 (GOUKAKU - O'TDI) 🎉
+                </span>
+              </>
+            ) : (
+              <>
+                <XCircle size={24} className="stroke-[2.5]" />
+                <span className="font-mono text-lg font-black tracking-wider">
+                  不合格 (FUGOUKAKU - O'TMADI) ⚠️
+                </span>
+              </>
+            )}
+          </div>
         </div>
 
-        <div className="mt-2 inline-block rounded-full border border-border bg-background px-3 py-1 text-xs font-extrabold uppercase tracking-wide shadow-sm">
+        {/* Points Display */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+          {jlptReport ? (
+            <div className="rounded-2xl border border-border bg-background/80 px-4 py-2 shadow-xs">
+              <span className="text-xs text-muted-foreground">Rasmiy Ball: </span>
+              <span className="font-mono text-2xl font-black text-foreground">
+                {jlptReport.totalScore}
+              </span>
+              <span className="font-mono text-sm text-muted-foreground"> / 180</span>
+              <span className="ml-2 text-xs font-bold text-muted-foreground">
+                (O'tish: {jlptReport.passMark})
+              </span>
+            </div>
+          ) : null}
+
+          <div className="rounded-2xl border border-border bg-background/80 px-4 py-2 shadow-xs">
+            <span className="text-xs text-muted-foreground">To'g'rilik foizi: </span>
+            <span className="font-mono text-2xl font-black text-foreground">
+              {report.percentage}%
+            </span>
+          </div>
+        </div>
+
+        {/* Status text badge */}
+        <div className="mt-3 inline-block rounded-full border border-border bg-background px-3 py-1 text-xs font-extrabold tracking-wide shadow-xs">
           {report.overall_score_text}
         </div>
+
+        {/* Section Cutoff Alert (Crucial Pedagogical Notice) */}
+        {jlptReport && jlptReport.statusReason === 'FAILED_SECTION_CUTOFF' && (
+          <div className="mt-4 flex items-start gap-3 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-3.5 text-left text-xs leading-relaxed text-amber-700 dark:text-amber-300">
+            <ShieldAlert size={20} className="shrink-0 text-amber-500" />
+            <div>
+              <strong className="font-bold">Diqqat (Sectional Cutoff qoidasi):</strong>
+              <p className="mt-0.5">
+                Umumiy ballingiz ({jlptReport.totalScore} ball) o'tish chegarasidan (
+                {jlptReport.passMark}) yuqori bo'lsa ham, rasmiy JLPT qoidasiga ko'ra har bir
+                bo'limda kamida 19 ball to'plashingiz shart. Quyidagi bo'lim(lar)da minimal chegara
+                bajarilmadi:{' '}
+                <strong className="underline">
+                  {jlptReport.failedSections.map((s) => jlptReport.sections[s].titleUz).join(', ')}
+                </strong>
+                .
+              </p>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Official Sectional Breakdown Matrix (60 / 60 / 60) */}
+      {jlptReport && (
+        <div className="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-xs sm:p-6">
+          <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+            <div>
+              <h3 className="text-sm font-black text-foreground">
+                🎌 Bo'limlar bo'yicha Rasmiy Baholar (得点区分)
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Har bir bo'lim maksimal 60 ball. Minimal o'tish chegarasi: 19 ball.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-muted-foreground">
+              Jami: {jlptReport.totalScore} / 180 ball
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {(['knowledge', 'reading', 'listening'] as const).map((secKey) => {
+              const sec = jlptReport.sections[secKey];
+              if (!sec) return null;
+              const isSecPassed = sec.passed;
+              return (
+                <div
+                  key={secKey}
+                  className={`relative flex flex-col justify-between rounded-2xl border p-4 transition-all ${
+                    isSecPassed
+                      ? 'border-border/80 bg-muted/30'
+                      : 'border-rose-500/40 bg-rose-500/5'
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg">{sec.icon}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                          isSecPassed
+                            ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                            : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'
+                        }`}
+                      >
+                        {isSecPassed ? "O'tdi (≥19)" : 'Yiqildi (<19)'}
+                      </span>
+                    </div>
+
+                    <h4 className="text-xs font-bold text-foreground">{sec.titleUz}</h4>
+                    <p className="text-[10px] text-muted-foreground">{sec.titleJa}</p>
+                  </div>
+
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-baseline justify-between">
+                      <span className="font-mono text-xl font-black text-foreground">
+                        {sec.score}
+                        <span className="text-xs font-medium text-muted-foreground"> / 60</span>
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        {sec.correctCount}/{sec.totalQuestions} to'g'ri
+                      </span>
+                    </div>
+
+                    {/* Progress Bar with 19 Cutoff Line indicator (19/60 = 31.6%) */}
+                    <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted">
+                      <div
+                        className={`h-full transition-all duration-500 ${
+                          isSecPassed ? 'bg-primary' : 'bg-rose-500'
+                        }`}
+                        style={{ width: `${Math.min(100, Math.round((sec.score / 60) * 100))}%` }}
+                      />
+                      {/* Vertical cutoff line at 19/60 mark */}
+                      <div
+                        className="absolute bottom-0 top-0 w-0.5 bg-foreground/60"
+                        style={{ left: '31.6%' }}
+                        title="19 ballik minimal chegara chizig'i"
+                      />
+                    </div>
+                    <div className="flex justify-between text-[9px] text-muted-foreground">
+                      <span>0</span>
+                      <span className="font-bold text-foreground">| 19 chegara</span>
+                      <span>60</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Weakness action button */}
+          {jlptReport.weakestSection && (
+            <div className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-3.5 text-xs sm:flex-row">
+              <div className="flex items-center gap-2">
+                <Target size={16} className="shrink-0 text-primary" />
+                <span>
+                  Eng ko'p e'tibor talab qiladigan zaif bo'lim:{' '}
+                  <strong className="text-primary">
+                    {jlptReport.sections[jlptReport.weakestSection]?.titleUz}
+                  </strong>
+                </span>
+              </div>
+              <button
+                onClick={handleGoToPlan}
+                className="flex shrink-0 items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90"
+              >
+                <span>Shaxsiy Rejani Moslashtirish</span>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Mistakes to Flashcards Export Action */}
       {mistakes.length > 0 && (
-        <div className="space-y-4 rounded-3xl border border-rose-500/30 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-indigo-500/10 p-5 shadow-sm sm:p-6">
+        <div className="space-y-4 rounded-3xl border border-rose-500/30 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-indigo-500/10 p-5 shadow-xs sm:p-6">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-rose-500/20 p-2.5 text-rose-500 dark:text-rose-400">
@@ -110,7 +313,7 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
             <button
               onClick={handleExportMistakes}
               disabled={isExporting || isExported}
-              className={`flex shrink-0 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-black shadow-sm transition-all ${
+              className={`flex shrink-0 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-black shadow-xs transition-all ${
                 isExported
                   ? 'cursor-default bg-emerald-600 text-white'
                   : 'bg-rose-600 text-white shadow-rose-500/20 hover:bg-rose-700 active:scale-95'
@@ -155,8 +358,22 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
                       <span>
                         Savol #{idx + 1} ({m.section || 'Umumiy'})
                       </span>
+                      {m.section === 'listening' && (
+                        <span className="flex items-center gap-1 text-[10px] text-primary">
+                          <Headphones size={12} /> Tinglash savoli
+                        </span>
+                      )}
                     </div>
                     <div className="font-serif font-bold text-foreground">{m.questionText}</div>
+
+                    {/* Show listening script if present */}
+                    {m.script && (
+                      <div className="rounded-xl border border-border/40 bg-muted/40 p-2.5 text-[11px] text-muted-foreground">
+                        <span className="font-bold text-foreground">🎧 Dialog matni (Script):</span>
+                        <p className="mt-1 whitespace-pre-line font-serif">{m.script}</p>
+                      </div>
+                    )}
+
                     <div className="flex flex-wrap gap-2 pt-1 text-[11px]">
                       <span className="rounded-lg bg-rose-500/10 px-2.5 py-1 text-rose-500">
                         ❌ Sizning javob: {m.userAnswer}
@@ -180,7 +397,7 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
 
       {/* Top 3 Mistakes Section */}
       {report.top_3_mistakes.length > 0 && (
-        <div className="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-6">
+        <div className="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-xs sm:p-6">
           <div className="flex items-center gap-2 border-b border-border/60 pb-3 text-base font-extrabold text-foreground">
             <AlertTriangle size={18} className="text-amber-500" />
             <span>📌 Asosiy Topilgan Xatolar Tahlili (Top 3)</span>

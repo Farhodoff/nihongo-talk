@@ -10,6 +10,7 @@ import {
 } from '../utils/ai/examEvaluator';
 import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
 import { MasteryEngine } from '../services/MasteryEngine';
+import { calculateJlptScore } from '../utils/jlptScoring';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -22,7 +23,7 @@ export const JlptMockExamPage: React.FC = () => {
   const initialLevel: 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
     urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel) ? (urlLevel as any) : 'N5';
 
-  const { user } = useStudyData();
+  const { user, awardXP } = useStudyData();
   const { language } = useLanguage();
   const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(initialLevel);
   const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
@@ -88,23 +89,67 @@ export const JlptMockExamPage: React.FC = () => {
     setUserAnswers((prev) => ({ ...prev, [qId]: optionIdx }));
   };
 
-  // Listening Audio
-  const handlePlayAudio = (url: string) => {
-    if (isPlaying && audioRef.current) {
-      audioRef.current.pause();
+  // Listening Audio with Web Speech TTS Fallback
+  const handlePlayAudio = (url?: string, script?: string) => {
+    if (isPlaying) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
       setIsPlaying(false);
+      return;
+    }
+
+    const playTtsFallback = () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window && script) {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(script);
+        utt.lang = 'ja-JP';
+        utt.rate = 0.9;
+        utt.onend = () => setIsPlaying(false);
+        utt.onerror = () => setIsPlaying(false);
+        window.speechSynthesis.speak(utt);
+        setIsPlaying(true);
+      } else {
+        setIsPlaying(false);
+      }
+    };
+
+    if (url) {
+      try {
+        const audio = new Audio(url);
+        audioRef.current = audio;
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.warn('Audio play failed, falling back to TTS:', err);
+            playTtsFallback();
+          });
+        audio.onended = () => setIsPlaying(false);
+        audio.onerror = () => {
+          console.warn('Audio onerror, falling back to TTS');
+          playTtsFallback();
+        };
+      } catch {
+        playTtsFallback();
+      }
     } else {
-      const audio = new Audio(url);
-      audioRef.current = audio;
-      audio.play();
-      setIsPlaying(true);
-      audio.onended = () => setIsPlaying(false);
+      playTtsFallback();
     }
   };
 
   const handleSubmitExam = async () => {
     if (audioRef.current) {
       audioRef.current.pause();
+    }
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
     }
     setIsPlaying(false);
     setIsTimerRunning(false);
@@ -123,35 +168,51 @@ export const JlptMockExamPage: React.FC = () => {
         correctAnswer: q.options[q.correctAnswer],
         isCorrect: isCorr,
         explanationUzbek: q.explanationUzbek,
+        audioUrl: q.audioUrl,
+        script: q.script,
       };
     });
 
     // Track wrong questions for flashcard export
     setMistakes(questionAnswers.filter((q) => !q.isCorrect));
 
-    try {
-      const report = await evaluateMockExamSession(`JLPT ${level}`, questionAnswers, durSecs);
-      setDiagnosticReport(report);
+    // Calculate official JLPT score report with sectional cutoffs
+    const jlptScoreReport = calculateJlptScore(level, levelQuestions, userAnswers);
 
-      let correctCount = questionAnswers.filter((q) => q.isCorrect).length;
-      const totalQ = levelQuestions.length;
-      const finalScorePoints = Math.round((correctCount / totalQ) * 180);
+    try {
+      const report = await evaluateMockExamSession(
+        `JLPT ${level}`,
+        questionAnswers,
+        durSecs,
+        jlptScoreReport,
+      );
+      setDiagnosticReport(report);
 
       await HistoryService.saveMockExam({
         examType: 'jlpt',
         level: level,
-        score: finalScorePoints,
-        totalQuestions: totalQ,
+        score: jlptScoreReport.totalScore,
+        totalQuestions: levelQuestions.length,
       });
+
+      // Award XP for completing a full mock exam
+      if (awardXP) {
+        awardXP(100).catch(() => {});
+      }
 
       // Register evidence for JLPT Level Progression
       const activeUserId = user?.id || 'guest';
       MasteryEngine.recordEvidence(activeUserId, 'ja', {
         id: `jlpt_mock_${level}_${Date.now()}`,
-        skill: 'reading',
-        score: Math.min(100, Math.round((finalScorePoints / 180) * 100)),
+        skill:
+          jlptScoreReport.weakestSection === 'listening'
+            ? 'listening'
+            : jlptScoreReport.weakestSection === 'reading'
+              ? 'reading'
+              : 'grammar',
+        score: Math.min(100, Math.round((jlptScoreReport.totalScore / 180) * 100)),
         timestamp: new Date().toISOString(),
-        details: `JLPT ${level} Mock Simulation score: ${finalScorePoints}/180 (${correctCount}/${totalQ} to'g'ri javob)`,
+        details: `JLPT ${level} Official Mock: ${jlptScoreReport.totalScore}/180 ball (O'tish: ${jlptScoreReport.passMark}) - ${jlptScoreReport.passed ? 'PASSED (GOUKAKU)' : 'FAILED (FUGOUKAKU)'}. Zaif bo'lim: ${jlptScoreReport.weakestSection}`,
         type: 'performance',
       });
     } catch (e) {
@@ -357,8 +418,8 @@ export const JlptMockExamPage: React.FC = () => {
                       聴解 (Listening Question)
                     </h4>
                     <button
-                      onClick={() => q.audioUrl && handlePlayAudio(q.audioUrl)}
-                      className="flex items-center gap-1.5 rounded-xl bg-rose-500 px-3 py-1.5 text-xs font-extrabold text-white shadow"
+                      onClick={() => handlePlayAudio(q.audioUrl, q.script)}
+                      className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-rose-500 px-3 py-1.5 text-xs font-extrabold text-white shadow transition-all hover:bg-rose-600"
                     >
                       <Volume2 size={15} /> {isPlaying ? "Audio to'xtatish" : 'Audio eshitish'} 🎧
                     </button>

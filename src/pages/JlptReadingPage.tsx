@@ -15,14 +15,14 @@ import { Button } from '../components/ui/Button';
 import FuriganaText from '../components/jlpt/FuriganaText';
 import { JLPT_READING_PASSAGES, JlptReadingPassage } from '../data/jlptReadingData';
 import { useStudyData } from '../context/StudyPlannerContext';
-
+import { MasteryEngine } from '../services/MasteryEngine';
 import { HistoryService } from '../services/HistoryService';
 
 export const JlptReadingPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const { awardXP, addSession } = useStudyData();
+  const { awardXP, addSession, user } = useStudyData();
 
   const urlLevel = (
     searchParams.get('level') ||
@@ -124,6 +124,18 @@ export const JlptReadingPage: React.FC = () => {
         score: correctCount,
         totalQuestions: currentPassage.questions.length,
         bandScore: Math.round((correctCount / (currentPassage.questions.length || 1)) * 180),
+      });
+
+      // Record evidence in MasteryEngine
+      const activeUserId = user?.id || 'guest';
+      const accuracy = Math.round((correctCount / (currentPassage.questions.length || 1)) * 100);
+      MasteryEngine.recordEvidence(activeUserId, 'ja', {
+        id: `jlpt_dokkai_${selectedLevel}_${Date.now()}`,
+        skill: 'reading',
+        score: accuracy,
+        timestamp: new Date().toISOString(),
+        details: `JLPT ${selectedLevel} Dokkai: ${correctCount}/${currentPassage.questions.length} to'g'ri (${accuracy}%)`,
+        type: 'performance',
       });
     } catch (e) {
       console.warn('Failed to save JLPT reading score:', e);

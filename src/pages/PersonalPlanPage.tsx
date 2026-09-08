@@ -11,6 +11,7 @@ import {
   Loader2,
   Award,
   Play,
+  RotateCcw,
 } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -31,7 +32,7 @@ import { isSuperAdmin } from '../utils/admin';
 import { generatePersonalMilestones } from '../utils/roadmapMilestones';
 
 export const PersonalPlanPage: React.FC = () => {
-  const { user } = useStudyData();
+  const { user, awardXP } = useStudyData();
   const { language } = useLanguage();
   const isSuper = isSuperAdmin(user?.email);
   const isUz = language !== 'en';
@@ -72,6 +73,20 @@ export const PersonalPlanPage: React.FC = () => {
   const [expandedDay, setExpandedDay] = useState<string>('monday');
   const [evaluating, setEvaluating] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [regenerating, setRegenerating] = useState<boolean>(false);
+
+  const totalWeeklyTasks = useMemo(() => {
+    if (!currentPlan) return 0;
+    return currentPlan.days.reduce((acc, d) => acc + d.tasks.length, 0);
+  }, [currentPlan]);
+
+  const completedWeeklyTasks = useMemo(() => {
+    if (!currentPlan) return 0;
+    return currentPlan.days.reduce((acc, d) => acc + d.tasks.filter((t) => t.completed).length, 0);
+  }, [currentPlan]);
+
+  const weeklyCompletionRate =
+    totalWeeklyTasks > 0 ? Math.round((completedWeeklyTasks / totalWeeklyTasks) * 100) : 0;
 
   // Initial load & background sync with server
   useEffect(() => {
@@ -306,6 +321,15 @@ export const PersonalPlanPage: React.FC = () => {
               const userId = user?.id || 'guest';
               // Dynamic signals and mastery registration
               if (nextCompleted) {
+                // Award XP
+                if (awardXP) {
+                  awardXP(25).catch(() => {});
+                }
+                toast({
+                  title: isUz ? 'Topshiriq bajarildi! +25 XP' : 'Task completed! +25 XP',
+                  description: t.title,
+                });
+
                 // Record learning evidence
                 MasteryEngine.recordEvidence(userId, activeGoal?.language || selectedLang, {
                   id: `plan_task_${taskId}_${Date.now()}`,
@@ -349,6 +373,43 @@ export const PersonalPlanPage: React.FC = () => {
 
     setCurrentPlan(updatedPlan);
     await PersonalLearningPlanService.saveWeeklyPlan(updatedPlan);
+  };
+
+  // On-demand plan regeneration with AI
+  const handleRegenerateCurrentWeek = async () => {
+    if (!activeGoal || !currentPlan) return;
+    const confirmed = window.confirm(
+      isUz
+        ? "Joriy haftalik o'quv rejasini AI orqali qayta shakllantirishni xohlaysizmi?"
+        : "Do you want to regenerate this week's study plan with AI?",
+    );
+    if (!confirmed) return;
+
+    setRegenerating(true);
+    try {
+      const userId = user?.id || 'guest';
+      const result = await PersonalLearningPlanEngine.generateWeeklyPlan(
+        userId,
+        activeGoal,
+        currentPlan.weekNumber,
+      );
+      await PersonalLearningPlanService.saveWeeklyPlan(result.plan);
+      setCurrentPlan(result.plan);
+      toast({
+        title: isUz ? 'Reja yangilandi' : 'Plan Regenerated',
+        description: isUz
+          ? "Joriy hafta uchun yangi moslashtirilgan o'quv rejasi tuzildi."
+          : 'A new adaptive weekly plan has been generated.',
+      });
+    } catch (err: any) {
+      toast({
+        variant: 'destructive',
+        title: isUz ? 'Xatolik' : 'Error',
+        description: err.message || 'Qayta rejalashtirishda xatolik yuz berdi.',
+      });
+    } finally {
+      setRegenerating(false);
+    }
   };
 
   // End week evaluation triggers next week adaptation
@@ -1025,9 +1086,28 @@ export const PersonalPlanPage: React.FC = () => {
             {currentPlan ? (
               <div className="space-y-4">
                 <div className="space-y-2 rounded-3xl border border-border bg-card p-6 shadow-xl">
-                  <h2 className="text-lg font-black tracking-tight text-foreground">
-                    {currentPlan.weekNumber}-Haftalik O'quv Rejasi
-                  </h2>
+                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+                    <h2 className="text-lg font-black tracking-tight text-foreground">
+                      {currentPlan.weekNumber}-Haftalik O'quv Rejasi
+                    </h2>
+                    <button
+                      onClick={handleRegenerateCurrentWeek}
+                      disabled={regenerating}
+                      title={isUz ? 'Rejani qayta tuzish' : 'Regenerate plan'}
+                      className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground"
+                    >
+                      <RotateCcw size={13} className={regenerating ? 'animate-spin' : ''} />
+                      <span>
+                        {regenerating
+                          ? isUz
+                            ? 'Tuzilmoqda...'
+                            : 'Generating...'
+                          : isUz
+                            ? 'Qayta rejalashtirish'
+                            : 'Regenerate'}
+                      </span>
+                    </button>
+                  </div>
                   <p className="text-xs leading-relaxed text-muted-foreground">
                     <strong>Sabab/Tahlil:</strong> {currentPlan.reasoning}
                   </p>
@@ -1146,30 +1226,60 @@ export const PersonalPlanPage: React.FC = () => {
                 </div>
 
                 {/* Weekly completion assessment trigger */}
-                <div className="flex flex-col items-center justify-between gap-4 rounded-3xl border border-primary/20 bg-primary/10 p-6 sm:flex-row">
+                <div
+                  className={`flex flex-col items-center justify-between gap-4 rounded-3xl border p-6 transition-all sm:flex-row ${
+                    weeklyCompletionRate >= 80
+                      ? 'border-emerald-500/40 bg-emerald-500/10 shadow-lg'
+                      : 'border-primary/20 bg-primary/10'
+                  }`}
+                >
                   <div className="space-y-1 text-center sm:text-left">
-                    <h4 className="text-sm font-black text-primary">
-                      Haftalik darslarni yakunladingizmi?
-                    </h4>
+                    <div className="flex items-center justify-center gap-2 sm:justify-start">
+                      <h4
+                        className={`text-sm font-black ${weeklyCompletionRate >= 80 ? 'text-emerald-500' : 'text-primary'}`}
+                      >
+                        {weeklyCompletionRate >= 80
+                          ? isUz
+                            ? '🔥 Ajoyib natija! Hafta 80%+ bajarildi'
+                            : '🔥 Great job! Week 80%+ completed'
+                          : isUz
+                            ? 'Haftalik darslarni yakunladingizmi?'
+                            : 'Finished weekly tasks?'}
+                      </h4>
+                      {weeklyCompletionRate >= 80 && (
+                        <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                          {weeklyCompletionRate}%
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs leading-relaxed text-muted-foreground">
-                      Haftalik tahlilni bajaring va keyingi haftaning shaxsiy rejasini generatsiya
-                      qiling.
+                      {weeklyCompletionRate >= 80
+                        ? isUz
+                          ? "Haftalik darslarning asosiy qismi muvaffaqiyatli yakunlandi. Natijalarni tahlil qiling va keyingi haftaning shaxsiy rejasiga o'ting!"
+                          : "Most weekly tasks are done. Evaluate performance and advance to your next week's plan!"
+                        : isUz
+                          ? 'Haftalik tahlilni bajaring va keyingi haftaning shaxsiy rejasini generatsiya qiling.'
+                          : "Evaluate this week's results and generate your next week study plan."}
                     </p>
                   </div>
                   <button
                     onClick={handleEvaluateWeek}
                     disabled={evaluating}
-                    className="flex shrink-0 items-center gap-1.5 rounded-xl bg-primary px-5 py-2.5 text-xs font-black text-primary-foreground shadow-md transition-all hover:bg-primary/90"
+                    className={`flex shrink-0 items-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-black shadow-md transition-all ${
+                      weeklyCompletionRate >= 80
+                        ? 'bg-emerald-600 text-white hover:bg-emerald-500'
+                        : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    }`}
                   >
                     {evaluating ? (
                       <>
                         <Loader2 size={13} className="animate-spin" />
-                        <span>Tahlil qilinmoqda...</span>
+                        <span>{isUz ? 'Tahlil qilinmoqda...' : 'Evaluating...'}</span>
                       </>
                     ) : (
                       <>
                         <CheckCircle2 size={13} />
-                        <span>Haftani Yakunlash</span>
+                        <span>{isUz ? 'Haftani Yakunlash' : 'Complete Week'}</span>
                       </>
                     )}
                   </button>
