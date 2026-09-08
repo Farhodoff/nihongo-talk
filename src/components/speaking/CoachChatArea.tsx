@@ -49,20 +49,35 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { flashcards } = useStudyData();
+  const { flashcards, user } = useStudyData();
   const [addedVocabs, setAddedVocabs] = useState<Set<string>>(() => {
     try {
       const set = new Set<string>();
+      const uid = user?.id || 'local_user';
       const jaWords = safeLocalStorage.getJSON<any[]>(
-        'study_planner_speaking_vocabularies_local_user_ja',
+        `study_planner_speaking_vocabularies_${uid}_ja`,
         [],
       );
       const enWords = safeLocalStorage.getJSON<any[]>(
-        'study_planner_speaking_vocabularies_local_user_en',
+        `study_planner_speaking_vocabularies_${uid}_en`,
         [],
       );
       jaWords.forEach((w: any) => w.word && set.add(w.word.trim()));
       enWords.forEach((w: any) => w.word && set.add(w.word.trim()));
+
+      // Also check fallback local_user keys if different
+      if (uid !== 'local_user') {
+        const fallbackJa = safeLocalStorage.getJSON<any[]>(
+          'study_planner_speaking_vocabularies_local_user_ja',
+          [],
+        );
+        const fallbackEn = safeLocalStorage.getJSON<any[]>(
+          'study_planner_speaking_vocabularies_local_user_en',
+          [],
+        );
+        fallbackJa.forEach((w: any) => w.word && set.add(w.word.trim()));
+        fallbackEn.forEach((w: any) => w.word && set.add(w.word.trim()));
+      }
       return set;
     } catch {
       return new Set();

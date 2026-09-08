@@ -59,18 +59,46 @@ const StudyModePage: React.FC = () => {
   const [batchLimit, setBatchLimit] = useState<'10' | '25' | '50' | 'all'>('25');
 
   const currentSubject = subjects.find((s) => s.id === subjectId);
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const langFilter = searchParams.get('lang'); // 'ja' | 'en' | null
 
   useEffect(() => {
     if (flashcards.length > 0 && !isQueueInitialized) {
+      let pool = flashcards;
+
+      // Filter by language if specified in URL query params
+      if (langFilter === 'ja') {
+        pool = pool.filter((c: Flashcard) => {
+          const sub = subjects.find((s) => s.id === c.subjectId);
+          const hasJaChars =
+            /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
+              (c.front || '') + (c.back || '') + (sub?.name || ''),
+            );
+          const isJlptSubject =
+            sub?.name?.toLowerCase().includes('jlpt') ||
+            sub?.name?.toLowerCase().includes('kanji') ||
+            sub?.name?.toLowerCase().includes('yapon');
+          return hasJaChars || isJlptSubject;
+        });
+      } else if (langFilter === 'en') {
+        pool = pool.filter((c: Flashcard) => {
+          const hasJaChars =
+            /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
+              (c.front || '') + (c.back || ''),
+            );
+          return !hasJaChars;
+        });
+      }
+
       let targetSet: Flashcard[] = [];
       if (subjectId) {
-        const subjectCards = flashcards.filter((c: Flashcard) => c.subjectId === subjectId);
+        const subjectCards = pool.filter((c: Flashcard) => c.subjectId === subjectId);
         const due = subjectCards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
         targetSet = due.length > 0 ? due : subjectCards;
       } else {
-        // Global study mode across all decks / subjects
-        const due = flashcards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
-        targetSet = due.length > 0 ? due : flashcards;
+        // Global study mode across all decks / subjects (with language filter if active)
+        const due = pool.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
+        targetSet = due.length > 0 ? due : pool;
       }
       setAllAvailableCards(targetSet);
       const limitNum = batchLimit === 'all' ? targetSet.length : parseInt(batchLimit, 10);
@@ -80,16 +108,36 @@ const StudyModePage: React.FC = () => {
     } else if (flashcards.length === 0 && !loading && !isQueueInitialized) {
       setIsQueueInitialized(true);
     }
-  }, [subjectId, flashcards, isQueueInitialized, loading, batchLimit]);
+  }, [subjectId, flashcards, isQueueInitialized, loading, batchLimit, langFilter, subjects]);
 
   const handleBatchLimitChange = (newLimit: '10' | '25' | '50' | 'all') => {
     setBatchLimit(newLimit);
-    const pool =
-      allAvailableCards.length > 0
-        ? allAvailableCards
-        : subjectId
-          ? flashcards.filter((c) => c.subjectId === subjectId)
-          : flashcards;
+    let fallbackCards = subjectId
+      ? flashcards.filter((c) => c.subjectId === subjectId)
+      : flashcards;
+    if (langFilter === 'ja') {
+      fallbackCards = fallbackCards.filter((c) => {
+        const sub = subjects.find((s) => s.id === c.subjectId);
+        const hasJaChars =
+          /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
+            (c.front || '') + (c.back || '') + (sub?.name || ''),
+          );
+        const isJlptSubject =
+          sub?.name?.toLowerCase().includes('jlpt') ||
+          sub?.name?.toLowerCase().includes('kanji') ||
+          sub?.name?.toLowerCase().includes('yapon');
+        return hasJaChars || isJlptSubject;
+      });
+    } else if (langFilter === 'en') {
+      fallbackCards = fallbackCards.filter((c) => {
+        const hasJaChars =
+          /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
+            (c.front || '') + (c.back || ''),
+          );
+        return !hasJaChars;
+      });
+    }
+    const pool = allAvailableCards.length > 0 ? allAvailableCards : fallbackCards;
     const limitNum = newLimit === 'all' ? pool.length : parseInt(newLimit, 10);
     const newQueue = sortCardsBySRSPriority(pool).slice(0, limitNum);
     setQueue(newQueue);

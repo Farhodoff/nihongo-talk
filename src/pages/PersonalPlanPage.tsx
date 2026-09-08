@@ -37,13 +37,13 @@ export const PersonalPlanPage: React.FC = () => {
   const isUz = language !== 'en';
   const navigate = useNavigate();
 
-  // Wizard States
+  // Wizard States - Default to Japanese (JLPT) as primary focus
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>(isSuper ? 'en' : 'ja');
+  const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>('ja');
   const [selectedGoalType, setSelectedGoalType] = useState<
     'ielts' | 'jlpt' | 'general_en' | 'general_ja'
-  >(isSuper ? 'ielts' : 'jlpt');
-  const [targetLevel, setTargetLevel] = useState<string>(isSuper ? '7.0' : 'N3');
+  >('jlpt');
+  const [targetLevel, setTargetLevel] = useState<string>('N3');
   const [currentLevel, setCurrentLevel] = useState<string>('ZERO');
   const [deadlineMonths, setDeadlineMonths] = useState<number>(6);
   const [dailyMinutes, setDailyMinutes] = useState<number>(60);

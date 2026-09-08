@@ -290,6 +290,7 @@ export const PersonalLearningPlanEngine = {
             `/jlpt?tab=mock&level=${targetLevelCode}`,
             '/speaking-coach?lang=ja',
             '/scenarios',
+            '/study-mode?lang=ja',
             '/study-mode',
             '/jlpt',
           ]
@@ -686,6 +687,12 @@ ${prompt}`;
               (resolvedRoute === '/jlpt' || !resolvedRoute.includes('speaking-coach'))
             ) {
               resolvedRoute = '/speaking-coach?lang=ja';
+            } else if (
+              (actualType === 'srs' || effectiveSkill === 'vocabulary') &&
+              resolvedRoute.startsWith('/study-mode') &&
+              !resolvedRoute.includes('lang=')
+            ) {
+              resolvedRoute = '/study-mode?lang=ja';
             }
           } else {
             if (
