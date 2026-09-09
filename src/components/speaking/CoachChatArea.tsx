@@ -6,8 +6,6 @@ import { UzbekistanFlag } from '../common/FlagIcons';
 import { useLanguage } from '../../context/LanguageContext';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
-import { ConversationHints } from './ConversationHints';
-import { generateContextualHints } from '../../utils/ai/conversationHintGenerator';
 import { ConversationScenario } from './scenarioTypes';
 
 interface CoachChatAreaProps {
@@ -34,7 +32,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
   isLiveSession,
   currentPersona,
   currentTranscript: _currentTranscript,
-  isListening,
+  isListening: _isListening,
   isThinking,
   copiedIndex,
   chatContainerRef,
@@ -44,8 +42,8 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
   setChatHistory,
   onAddVocabulary,
   onInspectPitch,
-  activeScenario,
-  onSelectHint,
+  activeScenario: _activeScenario,
+  onSelectHint: _onSelectHint,
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -407,21 +405,6 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
           </div>
         </div>
       ))}
-
-      {/* Smart Conversation Hints for Beginners */}
-      {(() => {
-        const lastCoachMessage = [...chatHistory].reverse().find((m) => m.role === 'assistant');
-        if (!lastCoachMessage || isThinking || !onSelectHint) return null;
-        const hints = generateContextualHints(lastCoachMessage.content, activeScenario);
-        return (
-          <ConversationHints
-            hints={hints}
-            onSelectHint={onSelectHint}
-            onSpeakText={speakText}
-            disabled={isThinking || isListening}
-          />
-        );
-      })()}
 
       {/* AI Thinking Indicator */}
       {isThinking && (
