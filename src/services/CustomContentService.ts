@@ -1,10 +1,12 @@
 import { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
+import { JlptGrammarQuestion } from '../data/jlpt/grammar_data';
 import { supabase } from '../lib/supabase';
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const CUSTOM_KANJI_KEY = 'study_planner_custom_admin_kanji';
 const CUSTOM_GRAMMAR_KEY = 'study_planner_custom_admin_grammar';
+const CUSTOM_QUIZ_KEY = 'study_planner_custom_admin_quiz_questions';
 
 export interface BulkImportResult {
   added: number;
@@ -16,14 +18,20 @@ export class CustomContentService {
   /**
    * Synchronize custom content from Supabase to local storage
    */
-  static async syncFromSupabase(): Promise<{ kanjiCount: number; grammarCount: number }> {
+  static async syncFromSupabase(): Promise<{
+    kanjiCount: number;
+    grammarCount: number;
+    quizCount: number;
+  }> {
     let kanjiCount = 0;
     let grammarCount = 0;
+    let quizCount = 0;
 
     try {
-      const [kRes, gRes] = await Promise.allSettled([
+      const [kRes, gRes, qRes] = await Promise.allSettled([
         supabase.from('custom_kanji').select('*'),
         supabase.from('custom_grammar').select('*'),
+        supabase.from('custom_quiz_questions').select('*'),
       ]);
 
       if (kRes.status === 'fulfilled' && kRes.value.data && Array.isArray(kRes.value.data)) {
@@ -80,11 +88,42 @@ export class CustomContentService {
         safeLocalStorage.setJSON(CUSTOM_GRAMMAR_KEY, combined);
         grammarCount = combined.length;
       }
+
+      if (qRes.status === 'fulfilled' && qRes.value.data && Array.isArray(qRes.value.data)) {
+        const remoteQ: JlptGrammarQuestion[] = qRes.value.data.map((r: any) => ({
+          id: r.id,
+          level: r.level || 'N5',
+          pattern: r.pattern || '',
+          questionText: r.question_text || r.questionText || '',
+          options: Array.isArray(r.options) ? r.options : [],
+          correctAnswer:
+            typeof r.correct_answer === 'number'
+              ? r.correct_answer
+              : typeof r.correctAnswer === 'number'
+                ? r.correctAnswer
+                : 0,
+          explanationUzbek: r.explanation_uzbek || r.explanationUzbek || '',
+        }));
+
+        const localQ = this.getCustomQuizQuestions();
+        const mergedMap = new Map<string | number, JlptGrammarQuestion>();
+        remoteQ.forEach((item) => mergedMap.set(item.id || item.questionText, item));
+        localQ.forEach((item) => {
+          const key = item.id || item.questionText;
+          if (!mergedMap.has(key)) {
+            mergedMap.set(key, item);
+          }
+        });
+
+        const combined = Array.from(mergedMap.values());
+        safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, combined);
+        quizCount = combined.length;
+      }
     } catch (e) {
       console.warn('[CustomContentService] syncFromSupabase fallback to local:', e);
     }
 
-    return { kanjiCount, grammarCount };
+    return { kanjiCount, grammarCount, quizCount };
   }
 
   /**
@@ -636,15 +675,18 @@ export class CustomContentService {
   static exportBackupJSON(): string {
     const kanji = this.getCustomKanji();
     const grammar = this.getCustomGrammar();
+    const quiz = this.getCustomQuizQuestions();
     const payload = {
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
       counts: {
         kanji: kanji.length,
         grammar: grammar.length,
+        quiz: quiz.length,
       },
       kanji,
       grammar,
+      quiz,
     };
     return JSON.stringify(payload, null, 2);
   }
@@ -652,22 +694,27 @@ export class CustomContentService {
   /**
    * Import from full JSON backup
    */
-  static async importBackupJSON(
-    jsonStr: string,
-  ): Promise<{ kanjiResult: BulkImportResult; grammarResult: BulkImportResult }> {
+  static async importBackupJSON(jsonStr: string): Promise<{
+    kanjiResult: BulkImportResult;
+    grammarResult: BulkImportResult;
+    quizResult: BulkImportResult;
+  }> {
     try {
       const data = JSON.parse(jsonStr);
       const kanjiList = Array.isArray(data.kanji) ? data.kanji : [];
       const grammarList = Array.isArray(data.grammar) ? data.grammar : [];
+      const quizList = Array.isArray(data.quiz) ? data.quiz : [];
 
       const kanjiResult = await this.bulkImportKanji(kanjiList);
       const grammarResult = await this.bulkImportGrammar(grammarList);
+      const quizResult = await this.bulkImportQuizQuestions(quizList);
 
-      return { kanjiResult, grammarResult };
+      return { kanjiResult, grammarResult, quizResult };
     } catch {
       return {
         kanjiResult: { added: 0, updated: 0, failed: 0 },
         grammarResult: { added: 0, updated: 0, failed: 0 },
+        quizResult: { added: 0, updated: 0, failed: 0 },
       };
     }
   }
@@ -751,6 +798,324 @@ export class CustomContentService {
       if (!item.id || seenId.has(item.id) || seenWord.has(key)) continue;
       seenId.add(item.id);
       seenWord.add(key);
+      result.push(item);
+    }
+
+    return result;
+  }
+
+  // ==================== QUIZ QUESTIONS ====================
+
+  /**
+   * Get all custom admin Quiz questions
+   */
+  static getCustomQuizQuestions(): JlptGrammarQuestion[] {
+    try {
+      const data = safeLocalStorage.getJSON<JlptGrammarQuestion[]>(CUSTOM_QUIZ_KEY, []);
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * Save or insert custom Quiz question
+   */
+  static async saveCustomQuizQuestion(item: JlptGrammarQuestion): Promise<boolean> {
+    try {
+      const current = this.getCustomQuizQuestions();
+      const existingIdx = current.findIndex(
+        (q) =>
+          (item.id !== undefined && q.id === item.id) ||
+          q.questionText.trim().toLowerCase() === item.questionText.trim().toLowerCase(),
+      );
+
+      let updated: JlptGrammarQuestion[];
+      const itemId =
+        item.id || (existingIdx >= 0 ? current[existingIdx].id : `custom-q-${Date.now()}`);
+      const preparedItem: JlptGrammarQuestion = { ...item, id: itemId };
+
+      if (existingIdx >= 0) {
+        updated = [...current];
+        updated[existingIdx] = preparedItem;
+      } else {
+        updated = [preparedItem, ...current];
+      }
+
+      safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, updated);
+
+      try {
+        await (supabase.from('custom_quiz_questions') as any).upsert([
+          {
+            id: preparedItem.id,
+            level: preparedItem.level,
+            pattern: preparedItem.pattern || '',
+            question_text: preparedItem.questionText,
+            options: preparedItem.options || [],
+            correct_answer: preparedItem.correctAnswer,
+            explanation_uzbek: preparedItem.explanationUzbek || '',
+            updated_at: new Date().toISOString(),
+          },
+        ]);
+      } catch {
+        // Table might not exist or offline
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error saving custom quiz question:', e);
+      return false;
+    }
+  }
+
+  /**
+   * Update existing custom Quiz question by ID
+   */
+  static async updateCustomQuizQuestion(
+    id: number | string,
+    partial: Partial<JlptGrammarQuestion>,
+  ): Promise<boolean> {
+    try {
+      const current = this.getCustomQuizQuestions();
+      const idx = current.findIndex((q) => q.id === id);
+      if (idx < 0) return false;
+
+      const updatedItem: JlptGrammarQuestion = {
+        ...current[idx],
+        ...partial,
+        id,
+      };
+
+      current[idx] = updatedItem;
+      safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, [...current]);
+
+      try {
+        await (supabase.from('custom_quiz_questions') as any)
+          .update({
+            level: updatedItem.level,
+            pattern: updatedItem.pattern,
+            question_text: updatedItem.questionText,
+            options: updatedItem.options,
+            correct_answer: updatedItem.correctAnswer,
+            explanation_uzbek: updatedItem.explanationUzbek,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', id);
+      } catch {
+        // ignore
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error updating custom quiz question:', e);
+      return false;
+    }
+  }
+
+  /**
+   * Delete custom Quiz question
+   */
+  static async deleteCustomQuizQuestion(id: number | string): Promise<boolean> {
+    try {
+      const current = this.getCustomQuizQuestions();
+      const filtered = current.filter((q) => q.id !== id);
+      safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, filtered);
+
+      try {
+        await (supabase.from('custom_quiz_questions') as any).delete().eq('id', id);
+      } catch {
+        // ignore
+      }
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Bulk import Quiz items
+   */
+  static async bulkImportQuizQuestions(
+    items: Partial<JlptGrammarQuestion>[],
+  ): Promise<BulkImportResult> {
+    let added = 0;
+    let updated = 0;
+    let failed = 0;
+
+    const current = this.getCustomQuizQuestions();
+    const map = new Map<string, JlptGrammarQuestion>(
+      current.map((q) => [q.questionText.trim().toLowerCase(), q]),
+    );
+    const toUpsertDb: any[] = [];
+
+    for (const raw of items) {
+      if (
+        !raw.questionText ||
+        !raw.questionText.trim() ||
+        !Array.isArray(raw.options) ||
+        raw.options.length < 2
+      ) {
+        failed++;
+        continue;
+      }
+
+      const qText = raw.questionText.trim();
+      const key = qText.toLowerCase();
+      const existing = map.get(key);
+      const isUpdate = !!existing;
+
+      const item: JlptGrammarQuestion = {
+        id: existing
+          ? existing.id
+          : `custom-q-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(raw.level as any)
+          ? raw.level
+          : 'N5') as any,
+        pattern: raw.pattern?.trim() || '',
+        questionText: qText,
+        options: raw.options.map((o) => String(o).trim()),
+        correctAnswer:
+          typeof raw.correctAnswer === 'number' &&
+          raw.correctAnswer >= 0 &&
+          raw.correctAnswer < raw.options.length
+            ? raw.correctAnswer
+            : 0,
+        explanationUzbek: raw.explanationUzbek?.trim() || '',
+      };
+
+      map.set(key, item);
+      if (isUpdate) updated++;
+      else added++;
+
+      toUpsertDb.push({
+        id: item.id,
+        level: item.level,
+        pattern: item.pattern,
+        question_text: item.questionText,
+        options: item.options,
+        correct_answer: item.correctAnswer,
+        explanation_uzbek: item.explanationUzbek,
+        updated_at: new Date().toISOString(),
+      });
+    }
+
+    safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, Array.from(map.values()));
+
+    if (toUpsertDb.length > 0) {
+      try {
+        await (supabase.from('custom_quiz_questions') as any).upsert(toUpsertDb);
+      } catch {
+        // ignore
+      }
+    }
+
+    return { added, updated, failed };
+  }
+
+  /**
+   * Parse delimited text or JSON for Quiz bulk import
+   */
+  static parseQuizInput(text: string): Partial<JlptGrammarQuestion>[] {
+    const trimmed = text.trim();
+    if (!trimmed) return [];
+
+    if (
+      (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+      (trimmed.startsWith('{') && trimmed.endsWith('}'))
+    ) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        const list = Array.isArray(parsed) ? parsed : [parsed];
+        return list.map((item: any) => ({
+          level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(item.level) ? item.level : 'N5') as any,
+          pattern: item.pattern || '',
+          questionText: item.questionText || item.question_text || item.question || '',
+          options: Array.isArray(item.options) ? item.options : [],
+          correctAnswer:
+            typeof item.correctAnswer === 'number'
+              ? item.correctAnswer
+              : typeof item.correct_answer === 'number'
+                ? item.correct_answer
+                : 0,
+          explanationUzbek:
+            item.explanationUzbek || item.explanation_uzbek || item.explanation || '',
+        }));
+      } catch {
+        // fallback to line parsing
+      }
+    }
+
+    const lines = trimmed.split('\n').filter((l) => l.trim().length > 0);
+    const result: Partial<JlptGrammarQuestion>[] = [];
+
+    for (const line of lines) {
+      if (line.startsWith('#') || line.startsWith('//')) continue;
+      if (line.includes('|')) {
+        const parts = line.split('|').map((p) => p.trim());
+        const qText = parts[0] || '';
+        const opts = (parts[1] || '')
+          .split(/[,/]/)
+          .map((o) => o.trim())
+          .filter(Boolean);
+        let correctIdx = 0;
+        if (parts[2]) {
+          const num = parseInt(parts[2], 10);
+          if (!isNaN(num)) {
+            if (num >= 1 && num <= opts.length && !parts[2].startsWith('0')) {
+              correctIdx = num - 1;
+            } else if (num >= 0 && num < opts.length) {
+              correctIdx = num;
+            }
+          }
+        }
+        const expl = parts[3] || '';
+        const rawLvl = parts[4]?.toUpperCase();
+        const level = (['N5', 'N4', 'N3', 'N2', 'N1'].includes(rawLvl) ? rawLvl : 'N5') as any;
+        const pattern = parts[5] || '';
+
+        if (qText && opts.length >= 2) {
+          result.push({
+            questionText: qText,
+            options: opts,
+            correctAnswer: correctIdx,
+            explanationUzbek: expl,
+            level,
+            pattern,
+          });
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Merge base quiz questions with custom quiz questions (Strictly Deduplicated)
+   */
+  static mergeQuizQuestions(baseList: JlptGrammarQuestion[]): JlptGrammarQuestion[] {
+    const custom = this.getCustomQuizQuestions();
+    const seenId = new Set<string | number>();
+    const seenText = new Set<string>();
+    const result: JlptGrammarQuestion[] = [];
+
+    const normalize = (t: string) => t.replace(/\s+/g, ' ').trim().toLowerCase();
+
+    // Custom items take precedence
+    for (const item of custom) {
+      const normText = normalize(item.questionText);
+      if (!normText || seenId.has(item.id) || seenText.has(normText)) continue;
+      seenId.add(item.id);
+      seenText.add(normText);
+      result.push(item);
+    }
+
+    // Append base items if not already present
+    for (const item of baseList) {
+      const normText = normalize(item.questionText);
+      if (!normText || seenId.has(item.id) || seenText.has(normText)) continue;
+      seenId.add(item.id);
+      seenText.add(normText);
       result.push(item);
     }
 

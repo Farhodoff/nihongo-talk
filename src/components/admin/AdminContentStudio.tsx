@@ -16,15 +16,17 @@ import {
 } from 'lucide-react';
 import { CustomContentService, BulkImportResult } from '../../services/CustomContentService';
 import { JlptKanjiItem, JlptGrammarItem } from '../../data/jlptGrammarKanji';
+import { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { AdminScenarioManager } from './AdminScenarioManager';
+import { AdminQuizManager } from './AdminQuizManager';
 import { toast } from '../../hooks/use-toast';
 
 export const AdminContentStudio: React.FC = () => {
   const { subjects, addSubject, addFlashcardsBatch } = useStudyData();
 
   const [activeSubTab, setActiveSubTab] = useState<
-    'kanji' | 'grammar' | 'flashcards' | 'scenarios'
+    'kanji' | 'grammar' | 'quiz' | 'flashcards' | 'scenarios'
   >('kanji');
 
   const [isSyncing, setIsSyncing] = useState(false);
@@ -99,10 +101,13 @@ export const AdminContentStudio: React.FC = () => {
     'selected',
   );
 
+  const [customQuizList, setCustomQuizList] = useState<JlptGrammarQuestion[]>([]);
+
   // Load custom content on mount
   const reloadContent = () => {
     setCustomKanjiList(CustomContentService.getCustomKanji());
     setCustomGrammarList(CustomContentService.getCustomGrammar());
+    setCustomQuizList(CustomContentService.getCustomQuizQuestions());
   };
 
   useEffect(() => {
@@ -113,11 +118,11 @@ export const AdminContentStudio: React.FC = () => {
   const handleSyncFromDb = async () => {
     setIsSyncing(true);
     try {
-      const { kanjiCount, grammarCount } = await CustomContentService.syncFromSupabase();
+      const { kanjiCount, grammarCount, quizCount } = await CustomContentService.syncFromSupabase();
       reloadContent();
       toast({
         title: '☁️ Supabase bilan sinxronlandi',
-        description: `${kanjiCount} ta maxsus Kanji va ${grammarCount} ta Grammatika yangilandi.`,
+        description: `${kanjiCount} ta Kanji, ${grammarCount} ta Grammatika va ${quizCount} ta Test savoli yangilandi.`,
       });
     } catch {
       toast({
@@ -144,7 +149,7 @@ export const AdminContentStudio: React.FC = () => {
     URL.revokeObjectURL(url);
     toast({
       title: '📥 JSON Zaxira yuklandi',
-      description: 'Barcha maxsus kanji va grammatikalar faylga saqlandi.',
+      description: 'Barcha maxsus kanji, grammatika va test savollari faylga saqlandi.',
     });
   };
 
@@ -155,11 +160,12 @@ export const AdminContentStudio: React.FC = () => {
 
     try {
       const text = await file.text();
-      const { kanjiResult, grammarResult } = await CustomContentService.importBackupJSON(text);
+      const { kanjiResult, grammarResult, quizResult } =
+        await CustomContentService.importBackupJSON(text);
       reloadContent();
       toast({
         title: '📤 Zaxira nusxa tiklandi',
-        description: `Kanji: +${kanjiResult.added}, Grammatika: +${grammarResult.added}`,
+        description: `Kanji: +${kanjiResult.added}, Grammatika: +${grammarResult.added}, Testlar: +${quizResult.added}`,
       });
     } catch {
       toast({
@@ -804,6 +810,16 @@ export const AdminContentStudio: React.FC = () => {
           📝 Grammatika Boshqaruvi ({customGrammarList.length})
         </button>
         <button
+          onClick={() => setActiveSubTab('quiz')}
+          className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
+            activeSubTab === 'quiz'
+              ? 'bg-primary text-primary-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          ⚡ Test & Savollar ({customQuizList.length})
+        </button>
+        <button
           onClick={() => setActiveSubTab('flashcards')}
           className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
             activeSubTab === 'flashcards'
@@ -1443,7 +1459,10 @@ export const AdminContentStudio: React.FC = () => {
         </div>
       )}
 
-      {/* ==================== 4. SCENARIOS TAB ==================== */}
+      {/* ==================== 4. QUIZ TAB ==================== */}
+      {activeSubTab === 'quiz' && <AdminQuizManager />}
+
+      {/* ==================== 5. SCENARIOS TAB ==================== */}
       {activeSubTab === 'scenarios' && <AdminScenarioManager />}
 
       {/* ==================== MODALS ==================== */}

@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CustomContentService } from '../CustomContentService';
 import { JlptKanjiItem, JlptGrammarItem } from '../../data/jlptGrammarKanji';
+import { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 
 describe('CustomContentService Unit Tests', () => {
   beforeEach(() => {
@@ -286,5 +287,191 @@ describe('CustomContentService Unit Tests', () => {
     expect(merged[0].id).toBe('custom-g-override');
     expect(merged[0].meaningUz).toBe('Maxsus yangilangan ma‘no');
     expect(merged[1].id).toBe('base-g-2');
+  });
+
+  // ==================== QUIZ TESTS ====================
+
+  it('saves and retrieves custom Quiz question', async () => {
+    const testQuiz: JlptGrammarQuestion = {
+      id: 'custom-q-1',
+      level: 'N2',
+      pattern: '~わけにはいかない',
+      questionText: '明日は大切な試験があるので、休む（　）にはいかない。',
+      options: ['わけ', 'こと', 'はず', 'もの'],
+      correctAnswer: 0,
+      explanationUzbek: "Qolip: [Fe'l lug'at shakli] + わけにはいかない.",
+    };
+
+    const saved = await CustomContentService.saveCustomQuizQuestion(testQuiz);
+    expect(saved).toBe(true);
+
+    const list = CustomContentService.getCustomQuizQuestions();
+    expect(list.length).toBe(1);
+    expect(list[0].id).toBe('custom-q-1');
+    expect(list[0].pattern).toBe('~わけにはいかない');
+    expect(list[0].options).toHaveLength(4);
+    expect(list[0].correctAnswer).toBe(0);
+  });
+
+  it('updates existing custom Quiz question', async () => {
+    const testQuiz: JlptGrammarQuestion = {
+      id: 'custom-q-update',
+      level: 'N3',
+      pattern: '~うちに',
+      questionText: '暗くならない（　）うちに、家に帰りましょう。',
+      options: ['の', 'な', 'に', '（なし）'],
+      correctAnswer: 3,
+      explanationUzbek: 'Eski izoh',
+    };
+
+    await CustomContentService.saveCustomQuizQuestion(testQuiz);
+
+    const updated = await CustomContentService.updateCustomQuizQuestion('custom-q-update', {
+      explanationUzbek: 'Yangi mukammal izoh',
+      pattern: '~うちに (imkon borida)',
+    });
+    expect(updated).toBe(true);
+
+    const list = CustomContentService.getCustomQuizQuestions();
+    expect(list.length).toBe(1);
+    expect(list[0].explanationUzbek).toBe('Yangi mukammal izoh');
+    expect(list[0].pattern).toBe('~うちに (imkon borida)');
+  });
+
+  it('deletes custom Quiz question', async () => {
+    const testQuiz: JlptGrammarQuestion = {
+      id: 'custom-q-delete',
+      level: 'N1',
+      pattern: '~を皮切りに',
+      questionText: '東京公演（　）皮切りに、ツアーが始まる。',
+      options: ['を', 'に', 'で', 'から'],
+      correctAnswer: 0,
+      explanationUzbek: 'Izoh',
+    };
+
+    await CustomContentService.saveCustomQuizQuestion(testQuiz);
+    expect(CustomContentService.getCustomQuizQuestions().length).toBe(1);
+
+    const deleted = await CustomContentService.deleteCustomQuizQuestion('custom-q-delete');
+    expect(deleted).toBe(true);
+    expect(CustomContentService.getCustomQuizQuestions().length).toBe(0);
+  });
+
+  it('bulk imports quiz questions', async () => {
+    const questions: Partial<JlptGrammarQuestion>[] = [
+      {
+        level: 'N4',
+        pattern: '~ながら',
+        questionText: '音楽を（　）ながら勉強します。',
+        options: ['聞き', '聞く', '聞いて', '聞こえ'],
+        correctAnswer: 0,
+        explanationUzbek: 'Fe’l stem + ながら',
+      },
+      {
+        level: 'N5',
+        pattern: '~たい',
+        questionText: '日本料理を（　）たいです。',
+        options: ['食べ', '食べる', '食べた', '食べて'],
+        correctAnswer: 0,
+        explanationUzbek: 'Fe’l stem + たい',
+      },
+    ];
+
+    const result = await CustomContentService.bulkImportQuizQuestions(questions);
+    expect(result.added).toBe(2);
+    expect(result.failed).toBe(0);
+
+    const list = CustomContentService.getCustomQuizQuestions();
+    expect(list.length).toBe(2);
+  });
+
+  it('parses pipe-delimited text and JSON for quiz import', () => {
+    const pipeText = `
+      私は日本へ行ったこと（　）あります。 | が, を, に, で | 1 | Qolip: koto ga aru | N5 | ~たことがある
+    `;
+    const parsedPipe = CustomContentService.parseQuizInput(pipeText);
+    expect(parsedPipe.length).toBe(1);
+    expect(parsedPipe[0].questionText).toBe('私は日本へ行ったこと（　）あります。');
+    expect(parsedPipe[0].options).toEqual(['が', 'を', 'に', 'で']);
+    expect(parsedPipe[0].correctAnswer).toBe(0); // converted from 1 to 0-based
+    expect(parsedPipe[0].level).toBe('N5');
+    expect(parsedPipe[0].pattern).toBe('~たことがある');
+
+    const jsonText = JSON.stringify([
+      {
+        level: 'N2',
+        pattern: '~に違いない',
+        questionText: '合格する（　）。',
+        options: ['に違いない', 'にすぎない'],
+        correctAnswer: 0,
+        explanationUzbek: 'Aniq xulosa',
+      },
+    ]);
+    const parsedJson = CustomContentService.parseQuizInput(jsonText);
+    expect(parsedJson.length).toBe(1);
+    expect(parsedJson[0].pattern).toBe('~に違いない');
+  });
+
+  it('merges base quiz questions with custom quiz questions with deduplication', async () => {
+    await CustomContentService.saveCustomQuizQuestion({
+      id: 'custom-q-n2',
+      level: 'N2',
+      pattern: '~わけにはいかない',
+      questionText: '明日は大切な試験があるので、休む（　）にはいかない。',
+      options: ['わけ', 'こと', 'はず', 'もの'],
+      correctAnswer: 0,
+      explanationUzbek: 'Maxsus yangilangan tushuntirish',
+    });
+
+    const baseQuestions: JlptGrammarQuestion[] = [
+      {
+        id: 7,
+        level: 'N2',
+        pattern: '~わけにはいかない',
+        questionText: '明日は大切な試験があるので、休む（　）にはいかない。',
+        options: ['わけ', 'こと', 'はず', 'もの'],
+        correctAnswer: 0,
+        explanationUzbek: 'Eski tushuntirish',
+      },
+      {
+        id: 8,
+        level: 'N2',
+        pattern: '~に違いない',
+        questionText: '合格する（　）。',
+        options: ['に違いない', 'にすぎない'],
+        correctAnswer: 0,
+        explanationUzbek: 'Aniq',
+      },
+    ];
+
+    const merged = CustomContentService.mergeQuizQuestions(baseQuestions);
+    expect(merged.length).toBe(2);
+    // Custom item overrides base item with identical question text
+    expect(merged[0].id).toBe('custom-q-n2');
+    expect(merged[0].explanationUzbek).toBe('Maxsus yangilangan tushuntirish');
+    expect(merged[1].id).toBe(8);
+  });
+
+  it('exports and imports backup including quiz questions', async () => {
+    await CustomContentService.saveCustomQuizQuestion({
+      id: 'q-backup-1',
+      level: 'N5',
+      pattern: '~たい',
+      questionText: 'お茶を（　）たいです。',
+      options: ['飲み', '飲む', '飲んだ', '飲んで'],
+      correctAnswer: 0,
+      explanationUzbek: 'Stem + tai',
+    });
+
+    const backupJson = CustomContentService.exportBackupJSON();
+    expect(backupJson).toContain('q-backup-1');
+    expect(backupJson).toContain('お茶を（　）たいです。');
+
+    localStorage.clear();
+    expect(CustomContentService.getCustomQuizQuestions().length).toBe(0);
+
+    const importResult = await CustomContentService.importBackupJSON(backupJson);
+    expect(importResult.quizResult.added).toBe(1);
+    expect(CustomContentService.getCustomQuizQuestions().length).toBe(1);
   });
 });

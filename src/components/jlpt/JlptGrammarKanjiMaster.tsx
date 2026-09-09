@@ -119,6 +119,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   );
   const kanjiSource = useMemo(() => CustomContentService.mergeKanji(baseKanji), [baseKanji]);
   const vocabSource = useMemo(() => CustomContentService.mergeVocab(baseVocab), [baseVocab]);
+  const quizSource = useMemo(
+    () => CustomContentService.mergeQuizQuestions(grammarQuestions),
+    [grammarQuestions],
+  );
 
   if (isLoadingData) {
     return (
@@ -217,11 +221,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   const levelStats = getStatsForLevel(currentLevelItems);
 
   const quizQuestions: JlptGrammarQuestion[] =
-    selectedLevel === 'ALL'
-      ? grammarQuestions
-      : grammarQuestions.filter((q) => q.level === selectedLevel).length > 0
-        ? grammarQuestions.filter((q) => q.level === selectedLevel)
-        : grammarQuestions;
+    selectedLevel === 'ALL' ? quizSource : quizSource.filter((q) => q.level === selectedLevel);
 
   const handleAnswerQuiz = (index: number) => {
     if (selectedOption !== null) return;
@@ -388,7 +388,13 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('quiz')}
+            onClick={() => {
+              setActiveTab('quiz');
+              setQuizIndex(0);
+              setSelectedOption(null);
+              setScore(0);
+              setIsQuizCompleted(false);
+            }}
             className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
               activeTab === 'quiz'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
@@ -396,7 +402,9 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
             }`}
           >
             <Flame className="h-4 w-4 text-[#C9A961]" />
-            {language === 'ja' ? '⚡ AIテスト' : '⚡ AI Test'}
+            {language === 'ja'
+              ? `⚡ テスト (${quizSource.length})`
+              : `⚡ Test Banki (${quizSource.length})`}
           </button>
         </div>
       </div>
@@ -895,112 +903,163 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
       {/* TAB 4: QUIZ MODE */}
       {activeTab === 'quiz' && (
-        <div className="mx-auto max-w-2xl space-y-6 rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
-          {!isQuizCompleted && quizQuestions.length > 0 ? (
-            <>
-              <div className="flex items-center justify-between border-b border-border pb-3 text-xs font-semibold text-muted-foreground">
-                <span>
-                  Savol {quizIndex + 1} / {quizQuestions.length} ({quizQuestions[quizIndex]?.level})
-                </span>
-                <span className="font-bold text-[#C9A961]">Joriy Ball: {score}</span>
-              </div>
-
-              <h3 className="font-japanese text-xl font-bold leading-relaxed text-foreground">
-                {quizQuestions[quizIndex]?.questionText}
-              </h3>
-
-              <div className="space-y-3">
-                {quizQuestions[quizIndex]?.options.map((opt, idx) => {
-                  const isSelected = selectedOption === idx;
-                  const isCorrect = idx === quizQuestions[quizIndex].correctAnswer;
-
-                  let btnClass =
-                    'w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ';
-
-                  if (selectedOption === null) {
-                    btnClass += 'bg-muted/30 border-border hover:border-primary/40 text-foreground';
-                  } else if (isCorrect) {
-                    btnClass +=
-                      'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-bold';
-                  } else if (isSelected) {
-                    btnClass += 'bg-rose-500/15 border-rose-500/40 text-[#E8483A] font-bold';
-                  } else {
-                    btnClass += 'bg-muted/20 border-border text-muted-foreground';
-                  }
-
-                  return (
-                    <button key={idx} onClick={() => handleAnswerQuiz(idx)} className={btnClass}>
-                      <span>{opt}</span>
-                      {selectedOption !== null && isCorrect && (
-                        <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {selectedOption !== null && (
-                <div className="animate-fadeIn space-y-3 rounded-2xl border border-border bg-muted/40 p-4">
-                  <div className="text-xs font-medium text-muted-foreground">
-                    💡 <span className="font-bold text-foreground">Tushuntirish:</span>{' '}
-                    {quizQuestions[quizIndex]?.explanationUzbek}
-                  </div>
+        <div className="mx-auto max-w-2xl space-y-4">
+          {/* Level Switcher for Quiz */}
+          <div className="flex items-center justify-between gap-2 overflow-x-auto rounded-2xl border border-border bg-card p-3 shadow-xs">
+            <div className="scrollbar-none flex items-center gap-1.5 overflow-x-auto">
+              {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => {
+                const count =
+                  lvl === 'ALL'
+                    ? quizSource.length
+                    : quizSource.filter((q) => q.level === lvl).length;
+                return (
                   <button
-                    onClick={handleNextQuiz}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
-                  >
-                    Keyingi Savol <ArrowRight className="h-4 w-4" />
-                  </button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="space-y-5 py-8 text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10 text-2xl font-bold text-[#C9A961]">
-                🏆
-              </div>
-              <h3 className="font-display text-2xl font-black text-foreground">Test Yakunlandi!</h3>
-              <p className="text-sm text-muted-foreground">
-                Siz {quizQuestions.length} ta savoldan{' '}
-                <span className="font-bold text-[#C9A961]">{score} ta</span> to'g'ri javob
-                berdingiz. (+{score * 20} XP)
-              </p>
-
-              {missedQuizQuestions.length > 0 && (
-                <div className="pt-2">
-                  <button
-                    onClick={handleCreateFlashcardsFromMistakes}
-                    disabled={quizFlashcardsSaved}
-                    className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold shadow-xs transition-all ${
-                      quizFlashcardsSaved
-                        ? 'border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                        : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    key={lvl}
+                    onClick={() => {
+                      setSelectedLevel(lvl);
+                      setQuizIndex(0);
+                      setSelectedOption(null);
+                      setScore(0);
+                      setIsQuizCompleted(false);
+                    }}
+                    className={`shrink-0 whitespace-nowrap rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
+                      selectedLevel === lvl
+                        ? 'bg-primary text-primary-foreground shadow-xs'
+                        : 'border border-border bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
-                    {quizFlashcardsSaved ? (
-                      <>
-                        <Check className="h-4 w-4" /> Xatolar Fleshkartalarga Qo'shildi!
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="h-4 w-4" /> {missedQuizQuestions.length} ta Xatolarni
-                        Fleshkartaga Aylantirish (Anki SRS)
-                      </>
-                    )}
+                    {lvl === 'ALL' ? (language === 'ja' ? 'すべて' : 'BARCHASI') : lvl} ({count})
+                  </button>
+                );
+              })}
+            </div>
+            <span className="hidden whitespace-nowrap text-[11px] font-semibold text-muted-foreground sm:inline">
+              Jami: {quizQuestions.length} ta savol
+            </span>
+          </div>
+
+          <div className="space-y-6 rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
+            {quizQuestions.length === 0 ? (
+              <div className="space-y-3 py-10 text-center">
+                <div className="text-3xl">📭</div>
+                <h3 className="text-base font-bold text-foreground">
+                  {selectedLevel} darajasida hali test savollari yo‘q
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Admin paneldagi <strong>Test & Savollar</strong> bo‘limi orqali yangi test
+                  savollarini qo‘shishingiz mumkin.
+                </p>
+              </div>
+            ) : !isQuizCompleted ? (
+              <>
+                <div className="flex items-center justify-between border-b border-border pb-3 text-xs font-semibold text-muted-foreground">
+                  <span>
+                    Savol {quizIndex + 1} / {quizQuestions.length} (
+                    {quizQuestions[quizIndex]?.level})
+                  </span>
+                  <span className="font-bold text-[#C9A961]">Joriy Ball: {score}</span>
+                </div>
+
+                <h3 className="font-japanese text-xl font-bold leading-relaxed text-foreground">
+                  {quizQuestions[quizIndex]?.questionText}
+                </h3>
+
+                <div className="space-y-3">
+                  {quizQuestions[quizIndex]?.options.map((opt, idx) => {
+                    const isSelected = selectedOption === idx;
+                    const isCorrect = idx === quizQuestions[quizIndex].correctAnswer;
+
+                    let btnClass =
+                      'w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ';
+
+                    if (selectedOption === null) {
+                      btnClass +=
+                        'bg-muted/30 border-border hover:border-primary/40 text-foreground';
+                    } else if (isCorrect) {
+                      btnClass +=
+                        'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-bold';
+                    } else if (isSelected) {
+                      btnClass += 'bg-rose-500/15 border-rose-500/40 text-[#E8483A] font-bold';
+                    } else {
+                      btnClass += 'bg-muted/20 border-border text-muted-foreground';
+                    }
+
+                    return (
+                      <button key={idx} onClick={() => handleAnswerQuiz(idx)} className={btnClass}>
+                        <span>{opt}</span>
+                        {selectedOption !== null && isCorrect && (
+                          <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {selectedOption !== null && (
+                  <div className="animate-fadeIn space-y-3 rounded-2xl border border-border bg-muted/40 p-4">
+                    <div className="text-xs font-medium text-muted-foreground">
+                      💡 <span className="font-bold text-foreground">Tushuntirish:</span>{' '}
+                      {quizQuestions[quizIndex]?.explanationUzbek}
+                    </div>
+                    <button
+                      onClick={handleNextQuiz}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
+                    >
+                      Keyingi Savol <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="space-y-5 py-8 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10 text-2xl font-bold text-[#C9A961]">
+                  🏆
+                </div>
+                <h3 className="font-display text-2xl font-black text-foreground">
+                  Test Yakunlandi!
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Siz {quizQuestions.length} ta savoldan{' '}
+                  <span className="font-bold text-[#C9A961]">{score} ta</span> to'g'ri javob
+                  berdingiz. (+{score * 20} XP)
+                </p>
+
+                {missedQuizQuestions.length > 0 && (
+                  <div className="pt-2">
+                    <button
+                      onClick={handleCreateFlashcardsFromMistakes}
+                      disabled={quizFlashcardsSaved}
+                      className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold shadow-xs transition-all ${
+                        quizFlashcardsSaved
+                          ? 'border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                          : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                      }`}
+                    >
+                      {quizFlashcardsSaved ? (
+                        <>
+                          <Check className="h-4 w-4" /> Xatolar Fleshkartalarga Qo'shildi!
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="h-4 w-4" /> {missedQuizQuestions.length} ta Xatolarni
+                          Fleshkartaga Aylantirish (Anki SRS)
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                <div className="pt-2">
+                  <button
+                    onClick={resetQuiz}
+                    className="rounded-xl border border-border bg-muted px-6 py-3 text-sm font-bold text-foreground transition hover:bg-muted/80"
+                  >
+                    Qayta Boshlash
                   </button>
                 </div>
-              )}
-
-              <div className="pt-2">
-                <button
-                  onClick={resetQuiz}
-                  className="rounded-xl border border-border bg-muted px-6 py-3 text-sm font-bold text-foreground transition hover:bg-muted/80"
-                >
-                  Qayta Boshlash
-                </button>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
 
