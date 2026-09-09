@@ -18,12 +18,10 @@ interface RealtimeVoiceOverlayProps {
   errors: ErrorTag[];
   activeCefrLevel?: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
   activeJlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
-  isHandsFree?: boolean;
   audioVolume?: number;
   onToggleRecording: () => void;
   onCommitNow?: () => void;
   onBargeIn?: () => void;
-  onToggleHandsFree?: () => void;
   onSpeakText?: (text: string) => void;
 }
 
@@ -35,12 +33,10 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
     errors,
     activeCefrLevel: _activeCefrLevel,
     activeJlptLevel: _activeJlptLevel,
-    isHandsFree = false,
     audioVolume = 0,
     onToggleRecording: _onToggleRecording,
     onCommitNow,
     onBargeIn,
-    onToggleHandsFree,
     onSpeakText,
   }) => {
     const { language } = useLanguage();
@@ -124,11 +120,6 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
                     : isJa
                       ? '双方向リアルタイム対話モード'
                       : 'Jonli ovozli muloqot rejimida'}
-                {isHandsFree && (
-                  <span className="py-0.2 shrink-0 rounded border border-emerald-500/20 bg-emerald-500/10 px-1 text-[9px] font-bold text-emerald-400">
-                    ⚡ Hands-free
-                  </span>
-                )}
               </p>
             </div>
           </div>
@@ -145,22 +136,6 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
               >
                 <Zap size={11} className="animate-pulse text-[#C9A961] sm:size-3" />
                 <span>To'xtatish</span>
-              </button>
-            )}
-
-            {onToggleHandsFree && (
-              <button
-                type="button"
-                onClick={onToggleHandsFree}
-                className={`flex cursor-pointer items-center gap-1 rounded-xl border px-2 py-1 text-[10px] font-bold transition-all ${
-                  isHandsFree
-                    ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-300'
-                    : 'border-border bg-muted/60 text-muted-foreground hover:text-foreground'
-                }`}
-                title="Hands-free avtomatik suhbat rejimini yoqish/o'chirish"
-              >
-                <span className="hidden sm:inline">Hands-free:</span>
-                <span>{isHandsFree ? '⚡ ON' : '🖐️ OFF'}</span>
               </button>
             )}
 

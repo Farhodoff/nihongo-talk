@@ -294,22 +294,6 @@ const SpeakingCoachPage: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Voice Mode: Hands-Free by default for natural spoken conversation, with localStorage persistence
-  const [isHandsFree, setIsHandsFree] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('coach_hands_free');
-      if (saved !== null) return saved === 'true';
-    }
-    return true;
-  });
-  const isHandsFreeRef = useRef(isHandsFree);
-  useEffect(() => {
-    isHandsFreeRef.current = isHandsFree;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('coach_hands_free', String(isHandsFree));
-    }
-  }, [isHandsFree]);
-
   // Pitch Accent inspection modal state
   const [inspectingPitch, setInspectingPitch] = useState<PitchAccentInfo | null>(null);
   const handleInspectPitch = useCallback((word: string, kanaHint?: string) => {
@@ -384,20 +368,7 @@ const SpeakingCoachPage: React.FC = () => {
     setIsSpeaking(false);
     isSpeakingRef.current = false;
     isProcessingRef.current = false;
-    // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
-    if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
-      setTimeout(() => {
-        if (
-          isLiveSessionRef.current &&
-          isHandsFreeRef.current &&
-          !isSpeakingRef.current &&
-          !isProcessingRef.current
-        ) {
-          startListeningRef.current?.();
-        }
-      }, 500);
-    }
-  }, [isMuted]);
+  }, []);
 
   // TTS Hook
   const {
@@ -722,18 +693,6 @@ const SpeakingCoachPage: React.FC = () => {
       setIsThinking(false);
       setCurrentTranscript('');
       transcriptBufferRef.current = '';
-      if (
-        isLiveSessionRef.current &&
-        isHandsFreeRef.current &&
-        !isMuted &&
-        !isSpeakingRef.current
-      ) {
-        setTimeout(() => {
-          if (!isSpeakingRef.current && !isProcessingRef.current) {
-            startListening();
-          }
-        }, 500);
-      }
       return;
     }
 
@@ -1066,13 +1025,6 @@ const SpeakingCoachPage: React.FC = () => {
       scenarioIntroSpokenRef.current === normalizedScenarioId &&
       chatHistoryRef.current.length > 0
     ) {
-      if (!isSpeakingRef.current && isHandsFreeRef.current && !isMuted) {
-        setTimeout(() => {
-          if (!isSpeakingRef.current && !isProcessingRef.current) {
-            startListeningRef.current?.();
-          }
-        }, 300);
-      }
       return;
     }
 
@@ -1462,8 +1414,6 @@ const SpeakingCoachPage: React.FC = () => {
               errors={liveErrors}
               activeCefrLevel="B2"
               activeJlptLevel={language === 'ja' ? 'N3' : undefined}
-              isHandsFree={isHandsFree}
-              onToggleHandsFree={() => setIsHandsFree((prev) => !prev)}
               onBargeIn={handleBargeIn}
               onToggleRecording={toggleMic}
               onCommitNow={commitSpeechNow}
@@ -1505,8 +1455,6 @@ const SpeakingCoachPage: React.FC = () => {
         onClearHistory={handleResetChat}
         formatTimer={formatTimer}
         onForceStartListening={toggleMic}
-        isHandsFree={isHandsFree}
-        onToggleHandsFree={() => setIsHandsFree((prev) => !prev)}
         onBargeIn={handleBargeIn}
         isPreparingAudio={isPreparingAudio}
       />

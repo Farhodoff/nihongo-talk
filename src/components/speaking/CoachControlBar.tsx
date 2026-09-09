@@ -25,8 +25,6 @@ interface CoachControlBarProps {
   onClearHistory: () => void;
   formatTimer: (sec: number) => string;
   onForceStartListening?: () => void;
-  isHandsFree?: boolean;
-  onToggleHandsFree?: () => void;
   onBargeIn?: () => void;
   isPreparingAudio?: boolean;
 }
@@ -44,8 +42,6 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
   onClearHistory,
   formatTimer,
   onForceStartListening,
-  isHandsFree = false,
-  onToggleHandsFree,
   onBargeIn,
   isPreparingAudio = false,
 }) => {
@@ -78,13 +74,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
         pulseColor: 'bg-emerald-500',
       };
     return {
-      label: isHandsFree
-        ? isJa
-          ? 'ハンズフリー会話モード待機中'
-          : 'Uzluksiz muloqotga tayyor'
-        : isJa
-          ? '会話待機中 (マイクを押して開始)'
-          : 'Tayyor (Gapirish uchun mikrofonga bosing)',
+      label: isJa ? '会話待機中 (マイクを押して開始)' : 'Tayyor (Gapirish uchun mikrofonga bosing)',
       color: 'text-amber-400',
       pulseColor: 'bg-amber-500',
     };
@@ -157,25 +147,6 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                 <span>
                   {chatHistoryLength} {isJa ? '件のメッセージ' : 'ta xabar'}
                 </span>
-                {isHandsFree ? (
-                  <button
-                    type="button"
-                    onClick={onToggleHandsFree}
-                    className="hidden cursor-pointer rounded border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400 transition-colors hover:bg-emerald-500/20 sm:inline"
-                    title={isJa ? 'ハンズフリーをオフにする' : "Hands-free rejimini o'chirish"}
-                  >
-                    ⚡ {isJa ? 'ハンズフリー' : 'Hands-free'}
-                  </button>
-                ) : onToggleHandsFree ? (
-                  <button
-                    type="button"
-                    onClick={onToggleHandsFree}
-                    className="hidden cursor-pointer rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline"
-                    title={isJa ? 'ハンズフリーをオンにする' : 'Hands-free rejimini yoqish'}
-                  >
-                    🖐️ {isJa ? '手動' : "Qo'lda"}
-                  </button>
-                ) : null}
               </div>
             )}
           </div>
