@@ -92,11 +92,24 @@ export const useSpeechRecognition = ({
   const [isSupported, setIsSupported] = useState(true);
   const [audioVolume, setAudioVolume] = useState<number>(0);
   const audioVolumeRef = useRef<number>(0);
+  const lastVolumeUpdateRef = useRef<number>(0);
+  const lastReportedVolumeRef = useRef<number>(0);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const animFrameRef = useRef<number | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
+
+  const stopMicrophoneStream = useCallback(() => {
+    if (mediaStreamRef.current) {
+      try {
+        mediaStreamRef.current.getTracks().forEach((t) => {
+          if (t.readyState === 'live') t.stop();
+        });
+      } catch {}
+      mediaStreamRef.current = null;
+    }
+  }, []);
 
   const stopVolumeMeter = useCallback(() => {
     if (animFrameRef.current) {
@@ -105,58 +118,67 @@ export const useSpeechRecognition = ({
     }
     analyserRef.current = null;
     audioVolumeRef.current = 0;
-    setAudioVolume(0);
-    if (mediaStreamRef.current) {
-      try {
-        mediaStreamRef.current.getTracks().forEach((t) => t.stop());
-      } catch {}
-      mediaStreamRef.current = null;
-    }
+    setAudioVolume((prev) => (prev === 0 ? prev : 0));
   }, []);
 
-  const startVolumeMeter = useCallback(
-    (stream: MediaStream) => {
-      try {
-        stopVolumeMeter();
-        const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-        if (!AudioCtx) return;
-        if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
-          audioContextRef.current = new AudioCtx();
-        }
-        const ctx = audioContextRef.current;
-        if (ctx.state === 'suspended') {
-          ctx.resume().catch(() => {});
-        }
-        const analyser = ctx.createAnalyser();
-        analyser.fftSize = 128;
-        analyser.smoothingTimeConstant = 0.4;
-        const source = ctx.createMediaStreamSource(stream);
-        source.connect(analyser);
-
-        analyserRef.current = analyser;
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        const checkVolume = () => {
-          if (!analyserRef.current) return;
-          analyserRef.current.getByteFrequencyData(dataArray);
-          let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) {
-            sum += dataArray[i];
-          }
-          const avg = sum / dataArray.length;
-          const normalized = Math.min(100, Math.round((avg / 128) * 100));
-          audioVolumeRef.current = normalized;
-          setAudioVolume(normalized);
-          animFrameRef.current = requestAnimationFrame(checkVolume);
-        };
-
-        checkVolume();
-      } catch {
-        // Volume meter fallback
+  const startVolumeMeter = useCallback((stream: MediaStream) => {
+    try {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+        animFrameRef.current = null;
       }
-    },
-    [stopVolumeMeter],
-  );
+      analyserRef.current = null;
+
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
+        audioContextRef.current = new AudioCtx();
+      }
+      const ctx = audioContextRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 128;
+      analyser.smoothingTimeConstant = 0.4;
+      const source = ctx.createMediaStreamSource(stream);
+      source.connect(analyser);
+
+      analyserRef.current = analyser;
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+      const checkVolume = () => {
+        if (!analyserRef.current) return;
+        analyserRef.current.getByteFrequencyData(dataArray);
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          sum += dataArray[i];
+        }
+        const avg = sum / dataArray.length;
+        const normalized = Math.min(100, Math.round((avg / 128) * 100));
+        // Keep real-time value in ref for silence & VAD checks
+        audioVolumeRef.current = normalized;
+
+        // Throttle React state updates to ~12-14fps (every 75ms) and only on significant volume shifts
+        const now = Date.now();
+        if (
+          now - lastVolumeUpdateRef.current >= 75 &&
+          (Math.abs(normalized - lastReportedVolumeRef.current) >= 5 ||
+            (normalized === 0 && lastReportedVolumeRef.current !== 0))
+        ) {
+          lastVolumeUpdateRef.current = now;
+          lastReportedVolumeRef.current = normalized;
+          setAudioVolume(normalized);
+        }
+
+        animFrameRef.current = requestAnimationFrame(checkVolume);
+      };
+
+      checkVolume();
+    } catch {
+      // Volume meter fallback
+    }
+  }, []);
 
   const languageRef = useRef(language);
   useEffect(() => {
@@ -303,8 +325,10 @@ export const useSpeechRecognition = ({
           startVolumeMeter(stream);
           startRecognitionInstance();
         })
-        .catch(() => {
+        .catch((err) => {
+          console.warn('[useSpeechRecognition] getUserMedia error:', err);
           stopVolumeMeter();
+          stopMicrophoneStream();
           setError(
             'Mikrofon ruxsati berilmadi. Iltimos brauzeringiz sozlamalaridan mikrofonga ruxsat bering.',
           );
@@ -317,7 +341,7 @@ export const useSpeechRecognition = ({
         console.debug('Recognition start failed:', e);
       }
     }
-  }, [isLiveSessionRef, isProcessingRef, startVolumeMeter, stopVolumeMeter]);
+  }, [isLiveSessionRef, isProcessingRef, startVolumeMeter, stopVolumeMeter, stopMicrophoneStream]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -463,8 +487,10 @@ export const useSpeechRecognition = ({
         );
         setIsListening(false);
         stopVolumeMeter();
+        stopMicrophoneStream();
       } else if (event.error === 'network') {
         console.warn('Speech recognition network timeout, checking reconnect...');
+        setError('Nutqni aniqlash serveri bilan aloqa sekinlashdi. Qayta ulanmoqda...');
         setTimeout(() => {
           if (
             isLiveSessionRef.current &&
@@ -473,10 +499,18 @@ export const useSpeechRecognition = ({
             !isMutedRef.current
           ) {
             try {
+              recognition.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
               recognition.start();
+              setError(null);
             } catch {}
           }
         }, 1200);
+      } else if (event.error === 'audio-capture') {
+        setError(
+          'Mikrofondan ovoz olinmadi. Mikrofon ulanganini va boshqa dastur tomonidan band qilinmaganini tekshiring.',
+        );
+        setIsListening(false);
+        stopVolumeMeter();
       } else if (event.error !== 'no-speech') {
         console.warn('Speech recognition status:', event.error);
       }
@@ -484,10 +518,10 @@ export const useSpeechRecognition = ({
 
     recognition.onend = () => {
       setIsListening(false);
-      stopVolumeMeter();
 
       const spokenText = transcriptBufferRef.current.trim();
       if (spokenText.length >= 1) {
+        stopVolumeMeter();
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current);
           silenceTimerRef.current = null;
@@ -525,15 +559,14 @@ export const useSpeechRecognition = ({
         } catch (e) {
           // Recognition may already be starting or active
         }
+      } else {
+        stopVolumeMeter();
       }
     };
 
     return () => {
       stopVolumeMeter();
-      if (mediaStreamRef.current) {
-        mediaStreamRef.current.getTracks().forEach((t) => t.stop());
-        mediaStreamRef.current = null;
-      }
+      stopMicrophoneStream();
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       try {
         recognition.stop();
@@ -541,7 +574,7 @@ export const useSpeechRecognition = ({
         console.debug('Cleanup recognition stop failed:', e);
       }
     };
-  }, [stopVolumeMeter]);
+  }, [stopVolumeMeter, stopMicrophoneStream]);
 
   return {
     recognitionRef,

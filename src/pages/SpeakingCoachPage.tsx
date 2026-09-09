@@ -158,8 +158,15 @@ const SpeakingCoachPage: React.FC = () => {
   const isSuper = isSuperAdmin(user?.email);
 
   // Clean up any legacy cards that contain "🎙️ Manba:" to keep cards clean and distraction-free
+  const hasCleanedLegacyCardsRef = useRef(false);
   useEffect(() => {
-    if (flashcards && flashcards.length > 0 && updateFlashcard) {
+    if (
+      !hasCleanedLegacyCardsRef.current &&
+      flashcards &&
+      flashcards.length > 0 &&
+      updateFlashcard
+    ) {
+      hasCleanedLegacyCardsRef.current = true;
       flashcards.forEach((card) => {
         if (card.back && card.back.includes('🎙️ Manba:')) {
           const cleanedBack = card.back.replace(/\n*🎙️\s*Manba:[^\n]*/gi, '').trim();
@@ -377,10 +384,6 @@ const SpeakingCoachPage: React.FC = () => {
     setIsSpeaking(false);
     isSpeakingRef.current = false;
     isProcessingRef.current = false;
-    // Start recording student session after coach finishes speaking
-    if (isLiveSessionRef.current && !voiceRecorder.isRecording) {
-      voiceRecorder.startRecording().catch(() => {});
-    }
     // In Click-to-Talk mode (default), mic stays off so user can press "Gapirish" when ready.
     if (isLiveSessionRef.current && isHandsFreeRef.current && !isMuted) {
       setTimeout(() => {
@@ -394,7 +397,7 @@ const SpeakingCoachPage: React.FC = () => {
         }
       }, 500);
     }
-  }, [voiceRecorder, isMuted]);
+  }, [isMuted]);
 
   // TTS Hook
   const {
