@@ -111,7 +111,31 @@ export function calculateReview(
     priorEaseFactor + (0.1 - (5 - standardGrade) * (0.08 + (5 - standardGrade) * 0.02));
   if (newEaseFactor < 1.3) newEaseFactor = 1.3;
 
-  const { dueDate, nextReviewDate } = addCalendarDays(baseDate, newInterval);
+  let baseMs: number;
+  if (typeof baseDate === 'string') {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(baseDate)) {
+      baseMs = new Date(`${baseDate}T00:00:00.000Z`).getTime();
+    } else {
+      baseMs = new Date(baseDate).getTime();
+    }
+  } else if (baseDate instanceof Date) {
+    baseMs = baseDate.getTime();
+  } else {
+    baseMs = Date.now();
+  }
+  if (isNaN(baseMs)) baseMs = Date.now();
+
+  const calendar = addCalendarDays(baseDate, newInterval);
+  const dueDate = calendar.dueDate;
+  let nextReviewDate = calendar.nextReviewDate;
+
+  if (grade === Rating.AGAIN) {
+    // Intra-day lapse: repeat in 10 minutes within the same day
+    nextReviewDate = new Date(baseMs + 10 * 60 * 1000).toISOString();
+  } else if (grade === Rating.HARD && priorRepetitions === 0) {
+    // Intra-day review for new/struggling cards: repeat in 30 minutes within the same day
+    nextReviewDate = new Date(baseMs + 30 * 60 * 1000).toISOString();
+  }
 
   return {
     interval: newInterval,
@@ -161,6 +185,41 @@ export function getPreviewIntervals(
       priorEaseFactor,
       baseDate,
     ).interval,
+  };
+}
+
+/**
+ * Returns user-friendly interval labels for the 4 rating buttons:
+ * - AGAIN (0): 10 daq (10分) - intra-day repeat
+ * - HARD (1): 30 daq (30分) for initial learning, or {interval} kun for mature cards
+ * - GOOD (2): 2 kun (2日) for new cards, progressive afterwards
+ * - EASY (3): 4 kun (4日) for new cards, progressive afterwards
+ */
+export function getPreviewIntervalLabels(
+  priorInterval: number = 0,
+  priorRepetitions: number = 0,
+  priorEaseFactor: number = 2.5,
+  isJa: boolean = false,
+  baseDate: string | Date = new Date(),
+): Record<Grade, string> {
+  const intervals = getPreviewIntervals(priorInterval, priorRepetitions, priorEaseFactor, baseDate);
+
+  const minUnit = isJa ? '分' : ' daq';
+  const dayUnit = isJa ? '日' : ' kun';
+
+  const againLabel = `10${minUnit}`;
+  const hardLabel =
+    priorRepetitions === 0 || priorInterval <= 1
+      ? `30${minUnit}`
+      : `${intervals[Rating.HARD]}${dayUnit}`;
+  const goodLabel = `${intervals[Rating.GOOD]}${dayUnit}`;
+  const easyLabel = `${intervals[Rating.EASY]}${dayUnit}`;
+
+  return {
+    [Rating.AGAIN]: againLabel,
+    [Rating.HARD]: hardLabel,
+    [Rating.GOOD]: goodLabel,
+    [Rating.EASY]: easyLabel,
   };
 }
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateReview, Rating, sortCardsBySRSPriority } from './srs';
+import { calculateReview, Rating, sortCardsBySRSPriority, getPreviewIntervalLabels } from './srs';
 
 describe('SRS (Spaced Repetition System) Utils', () => {
   describe('calculateReview', () => {
@@ -196,6 +196,50 @@ describe('SRS (Spaced Repetition System) Utils', () => {
         expect(sorted[1].id).toBe('c2'); // Due today is second
         expect(sorted[2].id).toBe('c3'); // Brand-new is third
         expect(sorted[3].id).toBe('c4'); // Future is last
+      });
+    });
+
+    describe('Intra-day repetitions and getPreviewIntervalLabels', () => {
+      it('should schedule AGAIN rating 10 minutes in the future within the same day', () => {
+        const base = new Date('2026-09-10T12:00:00.000Z');
+        const result = calculateReview(Rating.AGAIN, 0, 0, 2.5, base);
+        expect(result.interval).toBe(1);
+        expect(result.repetitions).toBe(0);
+        expect(result.dueInDays).toBe(1);
+        expect(result.nextReviewDate).toBe('2026-09-10T12:10:00.000Z');
+        expect(result.dueDate).toBe('2026-09-11');
+      });
+
+      it('should schedule HARD rating for brand-new card 30 minutes in the future within the same day', () => {
+        const base = new Date('2026-09-10T12:00:00.000Z');
+        const result = calculateReview(Rating.HARD, 0, 0, 2.5, base);
+        expect(result.interval).toBe(1);
+        expect(result.repetitions).toBe(1);
+        expect(result.dueInDays).toBe(1);
+        expect(result.nextReviewDate).toBe('2026-09-10T12:30:00.000Z');
+        expect(result.dueDate).toBe('2026-09-11');
+      });
+
+      it('should provide calibrated preview interval labels for new card (0 reps)', () => {
+        const labelsUz = getPreviewIntervalLabels(0, 0, 2.5, false);
+        expect(labelsUz[Rating.AGAIN]).toBe('10 daq');
+        expect(labelsUz[Rating.HARD]).toBe('30 daq');
+        expect(labelsUz[Rating.GOOD]).toBe('2 kun');
+        expect(labelsUz[Rating.EASY]).toBe('4 kun');
+
+        const labelsJa = getPreviewIntervalLabels(0, 0, 2.5, true);
+        expect(labelsJa[Rating.AGAIN]).toBe('10分');
+        expect(labelsJa[Rating.HARD]).toBe('30分');
+        expect(labelsJa[Rating.GOOD]).toBe('2日');
+        expect(labelsJa[Rating.EASY]).toBe('4日');
+      });
+
+      it('should provide mature preview interval labels when card is advanced (>= 2 reps)', () => {
+        const labels = getPreviewIntervalLabels(6, 2, 2.5, false);
+        expect(labels[Rating.AGAIN]).toBe('10 daq');
+        expect(labels[Rating.HARD]).toBe('7 kun'); // Math.round(6 * 1.2) = 7
+        expect(labels[Rating.GOOD]).toBe('15 kun'); // Math.round(6 * 2.5) = 15
+        expect(labels[Rating.EASY]).toBe('20 kun'); // Math.round(6 * 2.5 * 1.3) = 20
       });
     });
   });

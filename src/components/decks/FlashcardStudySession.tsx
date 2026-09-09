@@ -15,7 +15,13 @@ import { useStudyData } from '../../context/StudyPlannerContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { isAdminEmail } from '../../utils/admin';
 import { Flashcard } from '../../types';
-import { Rating, Grade, getPreviewIntervals, sortCardsBySRSPriority } from '../../utils/srs';
+import {
+  Rating,
+  Grade,
+  getPreviewIntervalLabels,
+  calculateReview,
+  sortCardsBySRSPriority,
+} from '../../utils/srs';
 import { speakText } from '../../utils/audioTts';
 import { toast } from '../../hooks/use-toast';
 import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
@@ -143,12 +149,39 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         setTotalXpEarned((prev) => prev + xpGained);
         setReviewedCount((prev) => prev + 1);
 
-        const shouldRequeue = grade === Rating.AGAIN;
+        const shouldRequeue = grade === Rating.AGAIN || grade === Rating.HARD;
         if (shouldRequeue) {
-          setQueue((prev) => [...prev, currentCard]);
+          const reviewResult = calculateReview(
+            grade,
+            currentCard.interval || 0,
+            currentCard.repetitions || 0,
+            currentCard.easeFactor || 2.5,
+          );
+          const updatedCard: Flashcard = {
+            ...currentCard,
+            interval: reviewResult.interval,
+            repetitions: reviewResult.repetitions,
+            easeFactor: reviewResult.easeFactor,
+            nextReviewDate: reviewResult.nextReviewDate,
+          };
+          setQueue((prev) => [...prev, updatedCard]);
           toast({
-            title: "🔄 Karta navbat oxiriga qo'shildi",
-            description: "Ushbu so'zni sessiya oxirida yana bir bor takrorlaysiz.",
+            title:
+              grade === Rating.AGAIN
+                ? isJa
+                  ? '🔄 もう一度復習 (10分)'
+                  : '🔄 Qayta takrorlash (10 daq)'
+                : isJa
+                  ? '⚡ 復習キューに追加 (30分)'
+                  : '⚡ Qiyin karta (30 daq)',
+            description:
+              grade === Rating.AGAIN
+                ? isJa
+                  ? 'セッション最後にもう一度復習します。'
+                  : "Karta navbat oxiriga qo'shildi. Sessiya oxirida yana ko'rasiz."
+                : isJa
+                  ? '定着のためセッション最後にもう一度出題されます。'
+                  : 'Mustahkamlash uchun sessiya oxirida yana bir bor takrorlaysiz.',
           });
         }
 
@@ -251,26 +284,13 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   };
 
   const previewIntervals = useMemo(() => {
-    if (!currentCard) {
-      return {
-        [Rating.AGAIN]: '10 min',
-        [Rating.HARD]: '1 kun',
-        [Rating.GOOD]: '3 kun',
-        [Rating.EASY]: '7 kun',
-      };
-    }
-    const calculated = getPreviewIntervals(
-      currentCard.interval || 0,
-      currentCard.repetitions || 0,
-      currentCard.easeFactor || 2.5,
+    return getPreviewIntervalLabels(
+      currentCard?.interval || 0,
+      currentCard?.repetitions || 0,
+      currentCard?.easeFactor || 2.5,
+      isJa,
     );
-    return {
-      [Rating.AGAIN]: calculated[Rating.AGAIN] <= 1 ? '1 kun' : `${calculated[Rating.AGAIN]} kun`,
-      [Rating.HARD]: `${calculated[Rating.HARD]} kun`,
-      [Rating.GOOD]: `${calculated[Rating.GOOD]} kun`,
-      [Rating.EASY]: `${calculated[Rating.EASY]} kun`,
-    };
-  }, [currentCard]);
+  }, [currentCard, isJa]);
 
   if (loading && !isQueueInitialized) {
     return (

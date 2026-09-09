@@ -1,11 +1,17 @@
 import { ArrowLeft, CheckCircle2, Copy, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isAdminEmail } from '../utils/admin';
 import { Flashcard } from '../types';
-import { Rating, Grade, getPreviewIntervals, sortCardsBySRSPriority } from '../utils/srs';
+import {
+  Rating,
+  Grade,
+  getPreviewIntervalLabels,
+  calculateReview,
+  sortCardsBySRSPriority,
+} from '../utils/srs';
 import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
@@ -290,39 +296,89 @@ const StudyModePage: React.FC = () => {
     }
   };
 
-  const handleRate = async (grade: Grade) => {
-    if (!currentCard || isProcessing) return;
-    setIsProcessing(true);
+  const handleRate = useCallback(
+    async (grade: Grade) => {
+      if (!currentCard || isProcessing) return;
+      setIsProcessing(true);
 
-    try {
-      await reviewFlashcard(currentCard.id, grade, currentCard);
-      setTotalXpEarned((prev) => prev + grade * 2);
+      try {
+        await reviewFlashcard(currentCard.id, grade, currentCard);
+        const xpGained =
+          grade === Rating.EASY ? 15 : grade === Rating.GOOD ? 10 : grade === Rating.HARD ? 5 : 2;
+        setTotalXpEarned((prev) => prev + xpGained);
 
-      // True Spaced Repetition (SuperMemo): If user failed (AGAIN), re-queue at the end
-      const shouldRequeue = grade === Rating.AGAIN;
-      if (shouldRequeue) {
-        setQueue((prev) => [...prev, currentCard]);
-        toast({
-          title: "🔄 Karta navbat oxiriga qo'shildi",
-          description: "Ushbu so'zni sessiya oxirida yana bir bor takrorlaysiz.",
-        });
+        // True Spaced Repetition (SuperMemo): If user struggled (AGAIN / HARD), re-queue at the end
+        const shouldRequeue = grade === Rating.AGAIN || grade === Rating.HARD;
+        if (shouldRequeue) {
+          const reviewResult = calculateReview(
+            grade,
+            currentCard.interval || 0,
+            currentCard.repetitions || 0,
+            currentCard.easeFactor || 2.5,
+          );
+          const updatedCard = {
+            ...currentCard,
+            interval: reviewResult.interval,
+            repetitions: reviewResult.repetitions,
+            easeFactor: reviewResult.easeFactor,
+            nextReviewDate: reviewResult.nextReviewDate,
+          };
+          setQueue((prev) => [...prev, updatedCard]);
+          toast({
+            title:
+              grade === Rating.AGAIN ? '🔄 Qayta takrorlash (10 daq)' : '⚡ Qiyin karta (30 daq)',
+            description:
+              grade === Rating.AGAIN
+                ? "Karta sessiya oxirida yana bir bor takrorlash uchun qo'shildi."
+                : 'Yaxshiroq eslab qolish uchun sessiya oxirida yana bir bor chiqadi.',
+          });
+        }
+
+        if (currentCardIndex < queue.length - 1 || shouldRequeue) {
+          setIsFlipped(false);
+          setCurrentCardIndex((prev) => prev + 1);
+          setTypeResult(null);
+          setTypedAnswer('');
+        } else {
+          await completeLinkedPlanTask();
+          setIsFinished(true);
+        }
+      } catch (err) {
+        console.error('Flashcard review error:', err);
+      } finally {
+        setIsProcessing(false);
       }
+    },
+    [
+      currentCard,
+      isProcessing,
+      reviewFlashcard,
+      currentCardIndex,
+      queue.length,
+      completeLinkedPlanTask,
+    ],
+  );
 
-      if (currentCardIndex < queue.length - 1 || shouldRequeue) {
-        setIsFlipped(false);
-        setCurrentCardIndex((prev) => prev + 1);
-        setTypeResult(null);
-        setTypedAnswer('');
-      } else {
-        await completeLinkedPlanTask();
-        setIsFinished(true);
+  // Keyboard Shortcuts (Space to flip, 1-4 to rate)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isEditingCard || isFinished || isProcessing) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setIsFlipped((prev) => !prev);
+      } else if (isFlipped) {
+        if (e.key === '1') handleRate(Rating.AGAIN);
+        if (e.key === '2') handleRate(Rating.HARD);
+        if (e.key === '3') handleRate(Rating.GOOD);
+        if (e.key === '4') handleRate(Rating.EASY);
       }
-    } catch (err) {
-      console.error('Flashcard review error:', err);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEditingCard, isFinished, isProcessing, isFlipped, handleRate]);
 
   if (loading)
     return (
@@ -746,13 +802,12 @@ const StudyModePage: React.FC = () => {
             </Button>
           ) : (
             (() => {
-              const intervals = currentCard
-                ? getPreviewIntervals(
-                    currentCard.interval || 0,
-                    currentCard.repetitions || 0,
-                    currentCard.easeFactor || 2.5,
-                  )
-                : { [Rating.AGAIN]: 1, [Rating.HARD]: 3, [Rating.GOOD]: 7, [Rating.EASY]: 14 };
+              const labels = getPreviewIntervalLabels(
+                currentCard?.interval || 0,
+                currentCard?.repetitions || 0,
+                currentCard?.easeFactor || 2.5,
+                false,
+              );
 
               return (
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -760,25 +815,25 @@ const StudyModePage: React.FC = () => {
                     {
                       l: 'Qayta (❌)',
                       v: Rating.AGAIN,
-                      sub: `${intervals[Rating.AGAIN]} kun`,
+                      sub: `${labels[Rating.AGAIN]} (1)`,
                       c: 'bg-rose-500/10 text-rose-500 border-rose-500/20 hover:bg-rose-500/20',
                     },
                     {
                       l: 'Qiyin (😐)',
                       v: Rating.HARD,
-                      sub: `${intervals[Rating.HARD]} kun`,
+                      sub: `${labels[Rating.HARD]} (2)`,
                       c: 'bg-[#C9A961]/15 text-[#C9A961] border-[#C9A961]/30 hover:bg-[#C9A961]/25',
                     },
                     {
                       l: 'Yaxshi (🙂)',
                       v: Rating.GOOD,
-                      sub: `${intervals[Rating.GOOD]} kun`,
+                      sub: `${labels[Rating.GOOD]} (3)`,
                       c: 'bg-primary/10 text-primary border-primary/30 hover:bg-primary/20',
                     },
                     {
                       l: 'Oson (😄)',
                       v: Rating.EASY,
-                      sub: `${intervals[Rating.EASY]} kun`,
+                      sub: `${labels[Rating.EASY]} (4)`,
                       c: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/20',
                     },
                   ].map((b) => (
