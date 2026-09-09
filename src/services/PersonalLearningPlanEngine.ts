@@ -14,7 +14,7 @@ import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, toDeterministicUUID } from '../utils/uuid';
 
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
 
@@ -610,7 +610,8 @@ ${prompt}`;
         let dayMinutesAllocated = 0;
         const validatedTasks: WeeklyPlanTask[] = [];
 
-        for (const t of rawTasks) {
+        for (let taskIndex = 0; taskIndex < rawTasks.length; taskIndex++) {
+          const t = rawTasks[taskIndex];
           if (!t || typeof t !== 'object') continue;
 
           // Clamp task minutes between 5 and 60 minutes
@@ -766,8 +767,10 @@ ${prompt}`;
               goal.language === 'ja' ? `/jlpt?tab=kanji&level=${targetLvl}` : '/ielts';
           }
 
+          const deterministicTaskIdSeed = `${goal.id}:${weekNumber}:${dayName}:${taskIndex}:${actualContentId || actualTitle}:${actualType}`;
+
           validatedTasks.push({
-            id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+            id: `task-${toDeterministicUUID(deterministicTaskIdSeed).slice(0, 12)}`,
             title: actualTitle,
             type: actualType,
             estimatedMinutes: minutes,
@@ -784,7 +787,7 @@ ${prompt}`;
         if (validatedTasks.length === 0) {
           const fallbackRoute = goal.language === 'ja' ? '/jlpt' : '/ielts';
           validatedTasks.push({
-            id: `task-fallback-${Date.now()}`,
+            id: `task-fallback-${toDeterministicUUID(`${goal.id}:${weekNumber}:${dayName}:fallback`).slice(0, 12)}`,
             title:
               goal.language === 'ja' ? 'Kundalik dars va takrorlash' : 'Daily practice and review',
             type: 'lesson',
@@ -801,6 +804,80 @@ ${prompt}`;
           tasks: validatedTasks,
         };
       });
+
+      // Deterministic debt carry-over from previous week (incomplete lesson tasks only)
+      const previousWeekPlans = PersonalLearningPlanService.getWeeklyPlans(userId)
+        .filter(
+          (p) =>
+            p.weekNumber === weekNumber - 1 &&
+            (p.goalId === goal.id ||
+              toDeterministicUUID(p.goalId) === toDeterministicUUID(goal.id)),
+        )
+        .sort((a, b) => b.version - a.version);
+
+      const previousWeekPlan = previousWeekPlans[0];
+      if (previousWeekPlan) {
+        const existingContentIds = new Set(
+          validatedDays.flatMap((d) => d.tasks.map((t) => t.contentId).filter(Boolean)),
+        );
+
+        const debtLessonTasks = previousWeekPlan.days
+          .flatMap((d) => d.tasks)
+          .filter(
+            (t) =>
+              t.type === 'lesson' &&
+              !!t.contentId &&
+              !(t.completed || t.status === 'completed') &&
+              !existingContentIds.has(t.contentId),
+          );
+
+        const seen = new Set<string>();
+        const uniqueDebt = debtLessonTasks.filter((t) => {
+          const key = String(t.contentId);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+
+        // Keep carry-over bounded so a heavy backlog doesn't overwrite the full weekly structure.
+        const maxCarryOver = Math.min(3, uniqueDebt.length);
+
+        for (let i = 0; i < maxCarryOver; i++) {
+          const debt = uniqueDebt[i];
+          const targetDayIdx = i % validatedDays.length;
+          const targetDay = validatedDays[targetDayIdx];
+
+          let debtMinutes = Number(debt.estimatedMinutes || 15);
+          if (!Number.isFinite(debtMinutes) || debtMinutes < 5) debtMinutes = 10;
+          if (debtMinutes > 60) debtMinutes = 60;
+          if (debtMinutes > dailyMinutesBudget) debtMinutes = dailyMinutesBudget;
+
+          const dayTotal = () =>
+            targetDay.tasks.reduce((sum, t) => sum + (t.estimatedMinutes || 0), 0);
+          while (targetDay.tasks.length > 0 && dayTotal() + debtMinutes > dailyMinutesBudget) {
+            targetDay.tasks.pop();
+          }
+
+          if (dayTotal() + debtMinutes <= dailyMinutesBudget) {
+            targetDay.tasks.unshift({
+              id: `task-debt-${toDeterministicUUID(`${goal.id}:${weekNumber}:${targetDay.day}:${debt.contentId}:${i}`).slice(0, 12)}`,
+              title: `${debt.title} (Qarzdan carry-over)`,
+              type: 'lesson',
+              estimatedMinutes: debtMinutes,
+              completed: false,
+              status: 'pending',
+              sourceType: 'lesson',
+              contentId: debt.contentId,
+              route: debt.route || (goal.language === 'ja' ? '/jlpt' : '/ielts'),
+              skill: debt.skill,
+              metadata: {
+                carryOverFromWeek: weekNumber - 1,
+                originalTaskId: debt.id,
+              },
+            });
+          }
+        }
+      }
 
       // Get existing plans to determine version history
       const existingPlans = PersonalLearningPlanService.getWeeklyPlans(userId);

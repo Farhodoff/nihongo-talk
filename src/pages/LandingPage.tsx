@@ -198,9 +198,9 @@ const ProductShowcase: React.FC = () => {
             Daraja
           </div>
           <div className="grid grid-cols-5 gap-1">
-            {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
+            {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl, idx) => (
               <button
-                key={lvl}
+                key={`level-${lvl}-${idx}`}
                 onClick={() => setSelectedLevel(lvl)}
                 className={`rounded-lg border py-1.5 text-xs font-bold transition-all ${
                   selectedLevel === lvl
@@ -220,9 +220,9 @@ const ProductShowcase: React.FC = () => {
             Mavzular
           </div>
           <div className="space-y-1">
-            {topics.map((t) => (
+            {topics.map((t, idx) => (
               <button
-                key={t.label}
+                key={`topic-${t.label}-${idx}`}
                 onClick={() => setSelectedTopic(t.label)}
                 className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition-all ${
                   selectedTopic === t.label
@@ -417,9 +417,9 @@ const ProductShowcase: React.FC = () => {
                 reading: 'だいじょうぶ · daijoubu',
                 meaning: 'yaxshi, muammo yo‘q',
               },
-            ].map((item) => (
+            ].map((item, idx) => (
               <div
-                key={item.word}
+                key={`word-${item.word}-${idx}`}
                 className="space-y-0.5 rounded-xl border border-border bg-card p-3"
               >
                 <div className="font-japanese flex items-center justify-between text-base font-bold text-foreground">
@@ -547,9 +547,9 @@ const LandingPage: React.FC = () => {
 
           {/* Center: Nav links (desktop) */}
           <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
+            {navLinks.map((link, idx) => (
               <button
-                key={link.target}
+                key={`nav-desktop-${link.target}-${idx}`}
                 onClick={() => scrollTo(link.target)}
                 className="rounded-lg px-3.5 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
               >
@@ -638,9 +638,9 @@ const LandingPage: React.FC = () => {
             className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
           >
             <div className="space-y-2 px-4 py-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link, idx) => (
                 <button
-                  key={link.target}
+                  key={`nav-mobile-${link.target}-${idx}`}
                   onClick={() => scrollTo(link.target)}
                   className="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-foreground hover:bg-muted"
                 >
@@ -1000,9 +1000,9 @@ const LandingPage: React.FC = () => {
 
           {/* Tabs */}
           <div className="flex justify-center gap-2">
-            {['N5', 'N4', 'N3', 'N2', 'N1'].map((tab) => (
+            {['N5', 'N4', 'N3', 'N2', 'N1'].map((tab, idx) => (
               <button
-                key={tab}
+                key={`lesson-tab-${tab}-${idx}`}
                 onClick={() => setSelectedLessonTab(tab)}
                 className={`rounded-xl border px-5 py-2.5 text-sm font-bold transition-all ${
                   selectedLessonTab === tab

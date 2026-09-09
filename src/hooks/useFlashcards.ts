@@ -116,20 +116,23 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
     async (cardsData: Partial<Flashcard>[]) => {
       const activeUserId = await getAuthUserId();
 
-      // 1. Deduplicate incoming cards by front text
-      const uniqueIncoming = cardsData.filter(
-        (card, idx, self) =>
-          card.front &&
-          idx ===
-            self.findIndex(
-              (c) => c.front?.trim().toLowerCase() === card.front?.trim().toLowerCase(),
-            ),
-      );
+      const makeCardKey = (card: Partial<Flashcard>) => {
+        const front = (card.front || '').trim().toLowerCase();
+        const subject = (card.subjectId || '__no_subject__').trim().toLowerCase();
+        return `${subject}::${front}`;
+      };
 
-      // 2. Deduplicate against already existing flashcards in state/cache
-      const existingFronts = new Set(flashcards.map((c) => c.front.trim().toLowerCase()));
+      // 1. Deduplicate incoming cards by (subjectId + front) so the same word can exist across different folders
+      const uniqueIncoming = cardsData.filter((card, idx, self) => {
+        if (!card.front) return false;
+        const key = makeCardKey(card);
+        return idx === self.findIndex((c) => makeCardKey(c) === key);
+      });
+
+      // 2. Deduplicate against existing flashcards by (subjectId + front)
+      const existingKeys = new Set(flashcards.map((c) => makeCardKey(c)));
       const trulyNewCards = uniqueIncoming.filter(
-        (c) => c.front && !existingFronts.has(c.front.trim().toLowerCase()),
+        (c) => c.front && !existingKeys.has(makeCardKey(c)),
       );
 
       if (trulyNewCards.length === 0) {

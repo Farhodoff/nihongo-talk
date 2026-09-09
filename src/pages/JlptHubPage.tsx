@@ -115,7 +115,19 @@ export const JlptHubPage: React.FC = () => {
         </button>
 
         <button
+          onClick={() => handleTabChange('goi')}
+          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+            activeTab === 'goi'
+              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+          }`}
+        >
+          <BookOpen size={15} /> {language === 'ja' ? '📚 語彙' : '📚 Goi'}
+        </button>
+
+        <button
           onClick={() => handleTabChange('reading')}
+
           className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
             activeTab === 'reading'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
@@ -205,6 +217,13 @@ export const JlptHubPage: React.FC = () => {
             <div>
               <JlptGrammarKanjiMaster />
             </div>
+          </div>
+        )}
+
+        {/* Tab 2: Goi (Vocabulary) Master */}
+        {activeTab === 'goi' && (
+          <div className="space-y-6 animate-in fade-in">
+            <JlptGrammarKanjiMaster initialTab="goi" />
           </div>
         )}
 

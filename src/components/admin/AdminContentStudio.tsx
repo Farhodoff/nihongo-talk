@@ -29,6 +29,7 @@ export const AdminContentStudio: React.FC = () => {
 
   const [isSyncing, setIsSyncing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const flashcardFileInputRef = useRef<HTMLInputElement | null>(null);
 
   // === KANJI STATE ===
   const [customKanjiList, setCustomKanjiList] = useState<JlptKanjiItem[]>([]);
@@ -94,6 +95,9 @@ export const AdminContentStudio: React.FC = () => {
   const [singleBack, setSingleBack] = useState('');
   const [bulkText, setBulkText] = useState('');
   const [bulkSeparator, setBulkSeparator] = useState<'dash' | 'tab' | 'comma'>('dash');
+  const [uploadFolder, setUploadFolder] = useState<'selected' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(
+    'selected',
+  );
 
   // Load custom content on mount
   const reloadContent = () => {
@@ -175,6 +179,144 @@ export const AdminContentStudio: React.FC = () => {
       if (active) setSelectedSubjectId(active.id);
     }
   }, [subjects, selectedSubjectId]);
+
+  const parseFlashcardJson = (text: string): Array<{ front: string; back: string }> => {
+    const parsed = JSON.parse(text);
+    const rows = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.cards) ? parsed.cards : [];
+
+    return rows
+      .map((row: any) => {
+        const frontRaw =
+          row?.front ?? row?.question ?? row?.word ?? row?.ja ?? row?.jp ?? row?.term;
+        const backRaw =
+          row?.back ??
+          row?.answer ??
+          row?.meaning ??
+          row?.translation ??
+          row?.uz ??
+          row?.definition;
+
+        const front = String(frontRaw ?? '').trim();
+        const back = String(backRaw ?? '').trim();
+        if (!front || !back) return null;
+        return { front, back };
+      })
+      .filter(Boolean) as Array<{ front: string; back: string }>;
+  };
+
+  const parseFlashcardDelimitedText = (text: string): Array<{ front: string; back: string }> => {
+    const lines = text
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    return lines
+      .map((line) => {
+        const separators = ['\t', ',', ';', '|', ' - ', '-'];
+        let front = '';
+        let back = '';
+
+        for (const sep of separators) {
+          const parts = line.split(sep);
+          if (parts.length >= 2) {
+            front = parts[0].trim();
+            back = parts.slice(1).join(sep).trim();
+            break;
+          }
+        }
+
+        if (!front || !back) return null;
+        return { front, back };
+      })
+      .filter(Boolean) as Array<{ front: string; back: string }>;
+  };
+
+  const resolveFolderSubject = async (): Promise<string | null> => {
+    if (uploadFolder === 'selected') {
+      return selectedSubjectId || null;
+    }
+
+    const levelName = `JLPT ${uploadFolder} Asosiy Lug'at`;
+    const existing = subjects.find(
+      (s) => !s.isArchived && s.name.toLowerCase().includes(`jlpt ${uploadFolder.toLowerCase()}`),
+    );
+    if (existing?.id) return existing.id;
+
+    const palette: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', string> = {
+      N5: '#22C55E',
+      N4: '#06B6D4',
+      N3: '#3B82F6',
+      N2: '#8B5CF6',
+      N1: '#F43F5E',
+    };
+
+    const created = await addSubject({
+      name: levelName,
+      color: palette[uploadFolder],
+      schedule: [],
+      description: `Admin import: JLPT ${uploadFolder} folder`,
+      icon: '🎌',
+    });
+
+    if (created?.id) {
+      setSelectedSubjectId(created.id);
+      return created.id;
+    }
+
+    return null;
+  };
+
+  const handleFlashcardFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const targetSubjectId = await resolveFolderSubject();
+      if (!targetSubjectId) {
+        toast({
+          variant: 'destructive',
+          title: 'To‘plam topilmadi',
+          description: 'Avval mavjud to‘plamni tanlang yoki JLPT folderni belgilang.',
+        });
+        return;
+      }
+
+      const rawText = await file.text();
+      const isJson = file.name.toLowerCase().endsWith('.json');
+
+      const rows = isJson ? parseFlashcardJson(rawText) : parseFlashcardDelimitedText(rawText);
+      if (rows.length === 0) {
+        toast({
+          variant: 'destructive',
+          title: 'Yaroqli kartalar topilmadi',
+          description:
+            'JSON uchun front/back juftligini, CSV/TXT uchun ajratkich formatini tekshiring.',
+        });
+        return;
+      }
+
+      await addFlashcardsBatch(
+        rows.map((row) => ({
+          front: row.front,
+          back: row.back,
+          subjectId: targetSubjectId,
+        })),
+      );
+
+      toast({
+        title: '📥 Fayldan fleshkartalar yuklandi',
+        description: `${rows.length} ta karta muvaffaqiyatli qo‘shildi (${uploadFolder === 'selected' ? 'tanlangan to‘plam' : `JLPT ${uploadFolder}`} folder).`,
+      });
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Faylni yuklashda xatolik',
+        description: 'JSON/CSV formatini tekshirib qayta urinib ko‘ring.',
+      });
+    } finally {
+      if (flashcardFileInputRef.current) flashcardFileInputRef.current.value = '';
+    }
+  };
 
   // Handle Kanji submit
   const handleSaveKanji = async (e: React.FormEvent) => {
@@ -585,6 +727,15 @@ export const AdminContentStudio: React.FC = () => {
         ref={fileInputRef}
         onChange={handleFileChange}
         accept=".json"
+        className="hidden"
+      />
+
+      {/* Hidden file input for flashcard CSV/JSON upload */}
+      <input
+        type="file"
+        ref={flashcardFileInputRef}
+        onChange={handleFlashcardFileUpload}
+        accept=".json,.csv,.txt"
         className="hidden"
       />
 
@@ -1197,6 +1348,79 @@ export const AdminContentStudio: React.FC = () => {
                 食べる - Yemoq
               </span>
             </p>
+
+            <div className="rounded-xl border border-border/80 bg-muted/30 p-3">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-foreground">CSV/JSON fayl yuklash</div>
+                  <div className="text-[11px] text-muted-foreground">
+                    Avval folder tanlang: tanlangan to‘plam yoki JLPT N5–N1.
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <select
+                    value={uploadFolder}
+                    onChange={(e) => setUploadFolder(e.target.value as any)}
+                    className="focus:outline-hidden rounded-lg border border-border bg-background px-2 py-1.5 text-xs font-bold text-foreground"
+                  >
+                    <option value="selected">Tanlangan to‘plam</option>
+                    <option value="N5">JLPT N5 folder</option>
+                    <option value="N4">JLPT N4 folder</option>
+                    <option value="N3">JLPT N3 folder</option>
+                    <option value="N2">JLPT N2 folder</option>
+                    <option value="N1">JLPT N1 folder</option>
+                  </select>
+
+                  <button
+                    type="button"
+                    onClick={() => flashcardFileInputRef.current?.click()}
+                    className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-bold text-emerald-600 transition-colors hover:bg-emerald-500/20 dark:text-emerald-400"
+                  >
+                    <Upload size={13} /> Fayl tanlash
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <details className="rounded-xl border border-border/70 bg-background/60 p-3 text-xs">
+              <summary className="cursor-pointer font-bold text-foreground">
+                JSON/CSV format namunasini ko‘rish
+              </summary>
+              <div className="mt-3 space-y-3 text-muted-foreground">
+                <div>
+                  <div className="mb-1 font-semibold text-foreground">JSON (array)</div>
+                  <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-2 text-[11px] leading-relaxed text-foreground">
+                    {`[
+  { "front": "食べる", "back": "Yemoq" },
+  { "front": "飲む", "back": "Ichmoq" }
+]`}
+                  </pre>
+                </div>
+
+                <div>
+                  <div className="mb-1 font-semibold text-foreground">JSON (cards wrapper)</div>
+                  <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-2 text-[11px] leading-relaxed text-foreground">
+                    {`{
+  "cards": [
+    { "front": "先生", "back": "O‘qituvchi" },
+    { "front": "学生", "back": "Talaba" }
+  ]
+}`}
+                  </pre>
+                </div>
+
+                <div>
+                  <div className="mb-1 font-semibold text-foreground">CSV/TXT</div>
+                  <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-2 text-[11px] leading-relaxed text-foreground">
+                    {`猫 - Mushuk
+犬 - Kuchuk
+本, Kitob
+学校\tMaktab`}
+                  </pre>
+                </div>
+              </div>
+            </details>
 
             <form onSubmit={handleAddBulkCards} className="space-y-3">
               <textarea

@@ -101,11 +101,13 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
 
   const handleVocabClick = async (vocab: CoachVocabularyItem) => {
     if (!onAddVocabulary) return;
-    setAddedVocabs((prev) => new Set(prev).add(vocab.word.trim()));
     try {
-      await onAddVocabulary(vocab);
+      const result = await onAddVocabulary(vocab);
+      if (result !== false) {
+        setAddedVocabs((prev) => new Set(prev).add(vocab.word.trim()));
+      }
     } catch {
-      // Keep state as marked or handle gracefully
+      // Keep graceful behavior without marking failed saves as persisted
     }
   };
 

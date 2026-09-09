@@ -1,5 +1,6 @@
-import { JlptKanjiItem, JlptGrammarItem } from '../data/jlptGrammarKanji';
+import { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
 import { supabase } from '../lib/supabase';
+
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const CUSTOM_KANJI_KEY = 'study_planner_custom_admin_kanji';
@@ -731,6 +732,25 @@ export class CustomContentService {
       if (!key || seenId.has(item.id) || seenTitle.has(key)) continue;
       seenId.add(item.id);
       seenTitle.add(key);
+      result.push(item);
+    }
+
+    return result;
+  }
+
+  /**
+   * Merge base vocab with custom vocab (Strictly Deduplicated by ID & Word+Reading)
+   */
+  static mergeVocab(baseList: JlptVocabItem[]): JlptVocabItem[] {
+    const seenId = new Set<string>();
+    const seenWord = new Set<string>();
+    const result: JlptVocabItem[] = [];
+
+    for (const item of baseList) {
+      const key = `${item.word}_${item.reading}`.toLowerCase();
+      if (!item.id || seenId.has(item.id) || seenWord.has(key)) continue;
+      seenId.add(item.id);
+      seenWord.add(key);
       result.push(item);
     }
 

@@ -12,9 +12,10 @@ import {
   Play,
   ArrowRight,
 } from 'lucide-react';
-import type { JlptGrammarItem, JlptKanjiItem } from '../../data/jlptGrammarKanji';
+import type { JlptGrammarItem, JlptKanjiItem, JlptVocabItem } from '../../data/jlptGrammarKanji';
 import { JLPT_GRAMMAR_DATABASE } from '../../data/jlptGrammarDatabase';
 import { JLPT_KANJI_DATABASE } from '../../data/jlptKanjiDatabase';
+import { JLPT_VOCAB_DATABASE } from '../../data/jlptVocabDatabase';
 import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -27,7 +28,13 @@ import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 import { useSearchParams } from 'react-router-dom';
 import { CustomContentService } from '../../services/CustomContentService';
 
-export const JlptGrammarKanjiMaster: React.FC = () => {
+interface JlptGrammarKanjiMasterProps {
+  initialTab?: 'grammar' | 'kanji' | 'goi' | 'quiz';
+}
+
+export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
+  initialTab = 'grammar',
+}) => {
   const [searchParams] = useSearchParams();
   const urlLevel = searchParams.get('level')?.toUpperCase();
   const initialLevel: 'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
@@ -37,10 +44,16 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
   const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
   const { language } = useLanguage();
 
-  const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'quiz'>('grammar');
+  const [activeTab, setActiveTab] = useState<'grammar' | 'kanji' | 'goi' | 'quiz'>(initialTab);
   const [selectedLevel, setSelectedLevel] = useState<'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(
     initialLevel,
   );
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
 
   useEffect(() => {
     if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1', 'ALL'].includes(urlLevel)) {
@@ -53,18 +66,21 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
   // Lazy load data
   const [grammarData, setGrammarData] = useState<JlptGrammarItem[]>([]);
   const [kanjiData, setKanjiData] = useState<JlptKanjiItem[]>([]);
+  const [vocabData, setVocabData] = useState<JlptVocabItem[]>([]);
   const [grammarQuestions, setGrammarQuestions] = useState<JlptGrammarQuestion[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [gkModule, questionsModule] = await Promise.all([
+        const [gkModule, questionsModule, vocabModule] = await Promise.all([
           import('../../data/jlptGrammarKanji'),
           import('../../data/jlpt/grammar_data'),
+          import('../../data/jlptVocabData'),
         ]);
         setGrammarData(gkModule.JLPT_GRAMMAR_DATA);
         setKanjiData(gkModule.JLPT_KANJI_DATA);
+        setVocabData(vocabModule.JLPT_VOCAB_DATA);
         setGrammarQuestions(questionsModule.JLPT_GRAMMAR_QUESTIONS);
       } catch (err) {
         console.error('Failed to load JLPT data', err);
@@ -94,12 +110,15 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     JLPT_GRAMMAR_DATABASE.length > 0 ? JLPT_GRAMMAR_DATABASE : grammarData;
   const baseKanji: JlptKanjiItem[] =
     JLPT_KANJI_DATABASE.length > 0 ? JLPT_KANJI_DATABASE : kanjiData;
+  const baseVocab: JlptVocabItem[] =
+    JLPT_VOCAB_DATABASE.length > 0 ? JLPT_VOCAB_DATABASE : vocabData;
 
   const grammarSource = useMemo(
     () => CustomContentService.mergeGrammar(baseGrammar),
     [baseGrammar],
   );
   const kanjiSource = useMemo(() => CustomContentService.mergeKanji(baseKanji), [baseKanji]);
+  const vocabSource = useMemo(() => CustomContentService.mergeVocab(baseVocab), [baseVocab]);
 
   if (isLoadingData) {
     return (
@@ -111,22 +130,26 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
 
   // Direct Export to Flashcards
   const handleExportToFlashcard = async (
-    item: JlptGrammarItem | JlptKanjiItem,
-    isGrammar: boolean,
+    item: JlptGrammarItem | JlptKanjiItem | JlptVocabItem,
+    type: 'grammar' | 'kanji' | 'vocab',
   ) => {
     const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
 
     let frontText = '';
     let backText = '';
 
-    if (isGrammar) {
+    if (type === 'grammar') {
       const g = item as JlptGrammarItem;
       frontText = `[${g.level} Grammar] ${g.title}\nStruktura: ${g.structure}`;
       backText = `🇺🇿 Ma'nosi: ${g.meaningUz}\n\nMisol:\n${g.examples[0]?.ja || ''}\n(${g.examples[0]?.romaji || ''})\n${g.examples[0]?.uz || ''}`;
-    } else {
+    } else if (type === 'kanji') {
       const k = item as JlptKanjiItem;
       frontText = `[${k.level} Kanji] ${k.kanji}`;
       backText = `Onyomi: ${k.onyomi}\nKunyomi: ${k.kunyomi}\n\nMa'nosi: ${k.meaningUz}\n\nMisol: ${k.examples[0]?.word || ''} (${k.examples[0]?.reading || ''}) — ${k.examples[0]?.meaning || ''}`;
+    } else {
+      const v = item as JlptVocabItem;
+      frontText = `[${v.level} Goi] ${v.word} (${v.reading})\n${v.romaji}`;
+      backText = `🇺🇿 Ma'nosi: ${v.meaningUz}${v.partOfSpeech ? `\nTurkum: ${v.partOfSpeech}` : ''}\n\nMisol:\n${v.examples[0]?.ja || ''}\n(${v.examples[0]?.romaji || ''})\n${v.examples[0]?.uz || ''}`;
     }
 
     await addFlashcardsBatch([
@@ -170,8 +193,23 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
     return matchesLevel && matchesQuery && matchesStatus;
   });
 
+  // Filter Vocab Items
+  const filteredVocab = vocabSource.filter((item) => {
+    const matchesLevel = selectedLevel === 'ALL' || item.level === selectedLevel;
+    const matchesQuery =
+      !searchQuery.trim() ||
+      item.word.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.reading.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.romaji.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.meaningUz.toLowerCase().includes(searchQuery.toLowerCase());
+    const itemStatus = getItemStatus(item.id);
+    const matchesStatus = statusFilter === 'ALL' || itemStatus === statusFilter;
+    return matchesLevel && matchesQuery && matchesStatus;
+  });
+
   // Calculate level stats
-  const currentActiveList = activeTab === 'grammar' ? grammarSource : kanjiSource;
+  const currentActiveList =
+    activeTab === 'grammar' ? grammarSource : activeTab === 'kanji' ? kanjiSource : vocabSource;
   const currentLevelItems =
     selectedLevel === 'ALL'
       ? currentActiveList
@@ -269,13 +307,13 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
             </div>
             <h1 className="flex items-center gap-3 font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
               {language === 'ja'
-                ? '⛩️ JLPT ぶんぽう＆かんじ マスター'
-                : '⛩️ JLPT Grammar & Kanji Master'}
+                ? '⛩️ JLPT ぶんぽう・かんじ・ごい マスター'
+                : '⛩️ JLPT Grammar, Kanji & Goi Master'}
             </h1>
             <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {language === 'ja'
-                ? 'N5〜N1の こうしき ぶんぽう＆かんじ。かきじゅん アニメーション、ふりがな ひょうじ、ワンクリックで たんごちょうへ ほぞんできます！'
-                : "N5-N1 rasmiy darsliklar va imtihonlar bazasi. Kanji Stroke Order animatsiyalari, Furigana o'qilishlari hamda 1-Bosing bilan Flashcards eksporti!"}
+                ? 'N5〜N1の こうしき ぶんぽう、かんじ、ごい。かきじゅん アニメーション、ふりがな ひょうじ、ワンクリックで たんごちょうへ ほぞんできます！'
+                : "N5-N1 rasmiy darsliklar va imtihonlar bazasi. Kanji Stroke Order animatsiyalari, Goi lug'at boyligi, Furigana o'qilishlari hamda 1-Bosing bilan Flashcards eksporti!"}
             </p>
           </div>
 
@@ -295,6 +333,10 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                 •{' '}
                 <span className="text-[#E8483A]">
                   {kanjiSource.length} {language === 'ja' ? '漢字' : 'Kanji'}
+                </span>{' '}
+                •{' '}
+                <span className="text-emerald-600 dark:text-emerald-400">
+                  {vocabSource.length} {language === 'ja' ? '語彙' : 'Goi'}
                 </span>
               </div>
             </div>
@@ -332,6 +374,20 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
           </button>
 
           <button
+            onClick={() => setActiveTab('goi')}
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              activeTab === 'goi'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
+            }`}
+          >
+            <BookOpen className="h-4 w-4" />
+            {language === 'ja'
+              ? `📚 語彙 (${vocabSource.length})`
+              : `📚 Goi (${vocabSource.length})`}
+          </button>
+
+          <button
             onClick={() => setActiveTab('quiz')}
             className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
               activeTab === 'quiz'
@@ -345,7 +401,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         </div>
       </div>
 
-      {/* Level & Search Controls (for Grammar & Kanji) */}
+      {/* Level & Search Controls (for Grammar & Kanji & Goi) */}
       {activeTab !== 'quiz' && (
         <div className="max-w-full space-y-4 overflow-hidden rounded-2xl border border-border bg-card p-3.5 shadow-xs sm:p-4">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -378,9 +434,13 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                     ? language === 'ja'
                       ? '文法・キーワード・意味で検索...'
                       : 'Grammatika, romaji yoki uzbekcha izlash...'
-                    : language === 'ja'
-                      ? '漢字・読み方・意味で検索...'
-                      : "Kanji iyeroglif, o'qilishi yoki ma'nosi..."
+                    : activeTab === 'kanji'
+                      ? language === 'ja'
+                        ? '漢字・読み方・意味で検索...'
+                        : "Kanji iyeroglif, o'qilishi yoki ma'nosi..."
+                      : language === 'ja'
+                        ? '単語・読み方・意味で検索...'
+                        : "So'z, romaji yoki uzbekcha ma'nosi..."
                 }
                 className="w-full rounded-xl border border-border bg-muted/30 py-2.5 pl-10 pr-4 text-sm text-foreground transition placeholder:text-muted-foreground focus:border-primary focus:outline-none"
               />
@@ -473,7 +533,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         <Volume2 className="h-4 w-4" />
                       </button>
                       <button
-                        onClick={() => handleExportToFlashcard(item, true)}
+                        onClick={() => handleExportToFlashcard(item, 'grammar')}
                         className={`rounded-xl border p-2 transition ${
                           isExported
                             ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
@@ -605,7 +665,7 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
                         {language === 'ja' ? 'かきじゅん' : 'Chizish'}
                       </button>
                       <button
-                        onClick={() => handleExportToFlashcard(item, false)}
+                        onClick={() => handleExportToFlashcard(item, 'kanji')}
                         className={`rounded-xl border p-1.5 transition ${
                           isExported
                             ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
@@ -689,7 +749,151 @@ export const JlptGrammarKanjiMaster: React.FC = () => {
         </div>
       )}
 
-      {/* TAB 3: QUIZ MODE */}
+      {/* TAB 3: GOI (VOCABULARY) LIST */}
+      {activeTab === 'goi' && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredVocab.map((item) => {
+            const status = getItemStatus(item.id);
+            const isExported = savedCardIds.includes(item.id);
+
+            return (
+              <div
+                key={item.id}
+                className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-xs transition-all duration-200 hover:border-primary/40"
+              >
+                <div>
+                  {/* Level Badge & Actions */}
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                        {item.level}
+                      </span>
+                      {item.partOfSpeech && (
+                        <span className="rounded-md border border-border bg-muted/60 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                          {item.partOfSpeech}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => speakText(item.reading || item.word, 'ja-JP')}
+                        className="rounded-xl border border-border bg-muted/60 p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                        title={language === 'ja' ? 'おんせい' : 'Talaffuz'}
+                      >
+                        <Volume2 className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleExportToFlashcard(item, 'vocab')}
+                        className={`rounded-xl border p-2 transition ${
+                          isExported
+                            ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                            : 'border-border bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                        title={
+                          language === 'ja' ? 'たんごカードへ ほぞん' : "Flashcards'ga saqlash"
+                        }
+                      >
+                        {isExported ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Word & Furigana */}
+                  <h3 className="font-japanese mb-1 text-2xl font-bold tracking-tight text-foreground transition group-hover:text-primary">
+                    <FuriganaText
+                      text={
+                        item.word !== item.reading && !item.word.includes('[')
+                          ? `${item.word}[${item.reading}]`
+                          : item.word
+                      }
+                    />
+                  </h3>
+                  <div className="mb-2 font-mono text-xs text-[#C9A961]">{item.romaji}</div>
+
+                  {/* Meaning */}
+                  <div className="mb-3 space-y-1 rounded-xl border border-border bg-muted/30 p-2.5">
+                    <div className="text-xs font-semibold text-foreground">
+                      <span className="text-emerald-600 dark:text-emerald-400">🇺🇿 Ma'nosi:</span>{' '}
+                      {item.meaningUz}
+                    </div>
+                  </div>
+
+                  {/* Examples */}
+                  {item.examples && item.examples.length > 0 && (
+                    <div className="space-y-1.5">
+                      {item.examples.map((ex, idx) => (
+                        <div
+                          key={idx}
+                          className="space-y-1 rounded-xl border border-border/80 bg-muted/20 p-2.5"
+                        >
+                          <div className="font-japanese flex items-center justify-between text-xs font-medium text-foreground">
+                            <span>
+                              <FuriganaText text={ex.ja} />
+                            </span>
+                            <button
+                              onClick={() => speakText(ex.ja, 'ja-JP')}
+                              className="text-muted-foreground transition hover:text-foreground"
+                            >
+                              <Volume2 className="h-3 w-3" />
+                            </button>
+                          </div>
+                          {ex.romaji && (
+                            <div className="text-[11px] italic text-muted-foreground">
+                              {ex.romaji}
+                            </div>
+                          )}
+                          <div className="text-[11px] text-foreground/90">{ex.uz}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Status Toggle Buttons */}
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3 text-xs">
+                  <span className="shrink-0 text-muted-foreground">
+                    {language === 'ja' ? 'おぼえかた:' : 'Mustahkamlash:'}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <button
+                      onClick={() => setItemStatus(item.id, 'hard')}
+                      className={`rounded-lg border px-2 py-1 transition ${
+                        status === 'hard'
+                          ? 'border-[#E8483A]/30 bg-rose-500/15 font-bold text-[#E8483A]'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#E8483A]'
+                      }`}
+                    >
+                      {language === 'ja' ? 'むずかしい 🔴' : 'Qiyin 🔴'}
+                    </button>
+                    <button
+                      onClick={() => setItemStatus(item.id, 'learned')}
+                      className={`rounded-lg border px-2 py-1 transition ${
+                        status === 'learned'
+                          ? 'border-emerald-500/30 bg-emerald-500/15 font-bold text-emerald-600 dark:text-emerald-400'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-emerald-600'
+                      }`}
+                    >
+                      {language === 'ja' ? 'がくしゅうずみ 🟢' : "O'rganildi 🟢"}
+                    </button>
+                    <button
+                      onClick={() => setItemStatus(item.id, 'mastered')}
+                      className={`rounded-lg border px-2 py-1 transition ${
+                        status === 'mastered'
+                          ? 'border-[#C9A961]/30 bg-amber-500/15 font-bold text-[#C9A961]'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#C9A961]'
+                      }`}
+                    >
+                      {language === 'ja' ? 'おぼえた ⚡' : 'Mukammal ⚡'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* TAB 4: QUIZ MODE */}
       {activeTab === 'quiz' && (
         <div className="mx-auto max-w-2xl space-y-6 rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
           {!isQuizCompleted && quizQuestions.length > 0 ? (
