@@ -1,0 +1,10 @@
+*.pdf
+books/
+scratch/
+scripts/temp/
+*.log
+coverage/
+.venv/
+.agents/
+planner.pptx
+*.pptx
