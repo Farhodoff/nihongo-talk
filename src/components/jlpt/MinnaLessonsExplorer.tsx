@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Sparkles,
   CheckCircle2,
@@ -11,81 +11,122 @@ import {
 } from 'lucide-react';
 import { MINNA_N5_LESSONS } from '../../data/curriculum/minnaN5Lessons';
 import { MINNA_N4_LESSONS } from '../../data/curriculum/minnaN4Lessons';
+import { JAPANESE_N3_LESSONS } from '../../data/curriculum/japaneseN3';
+import { JAPANESE_N2_LESSONS } from '../../data/curriculum/japaneseN2';
 import { LessonService } from '../../services/LessonService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { Lesson } from '../../types/lesson';
 
-type MinnaLevel = 'n5' | 'n4';
+export type JlptLevel = 'n5' | 'n4' | 'n3' | 'n2';
+
+interface MinnaLessonsExplorerProps {
+  initialLevel?: 'N5' | 'N4' | 'N3' | 'N2';
+}
 
 const UNIT_TABS_N5 = [
   { id: 'all', title: 'Barcha Darslar (1–25)', titleJa: 'すべての課 (1–25)' },
+  { id: 'ja-minna-u1', title: 'Unit 1: 1–5 Darslar (Tanishuv & Harakat)', titleJa: '第1課〜第5課' },
   {
-    id: 'u1',
-    unitNum: 1,
-    title: 'Unit 1: 1–5 Darslar (Tanishuv & Harakat)',
-    titleJa: '第1課〜第5課',
-  },
-  {
-    id: 'u2',
-    unitNum: 2,
+    id: 'ja-minna-u2',
     title: 'Unit 2: 6–10 Darslar (Hayot & Mavjudlik)',
     titleJa: '第6課〜第10課',
   },
   {
-    id: 'u3',
-    unitNum: 3,
+    id: 'ja-minna-u3',
     title: 'Unit 3: 11–15 Darslar (Sanoq & Te-shakli)',
     titleJa: '第11課〜第15課',
   },
   {
-    id: 'u4',
-    unitNum: 4,
+    id: 'ja-minna-u4',
     title: 'Unit 4: 16–20 Darslar (Ketma-ketlik & Futsuugo)',
     titleJa: '第16課〜第20課',
   },
-  {
-    id: 'u5',
-    unitNum: 5,
-    title: 'Unit 5: 21–25 Darslar (Fikr & Shart)',
-    titleJa: '第21課〜第25課',
-  },
+  { id: 'ja-minna-u5', title: 'Unit 5: 21–25 Darslar (Fikr & Shart)', titleJa: '第21課〜第25課' },
 ];
 
 const UNIT_TABS_N4 = [
   { id: 'all', title: 'Barcha Darslar (26–50)', titleJa: 'すべての課 (26–50)' },
+  { id: 'ja-minna-u6', title: 'Unit 6: 26–30 Darslar (Holat & Izoh)', titleJa: '第26課〜第30課' },
+  { id: 'ja-minna-u7', title: 'Unit 7: 31–35 Darslar (Reja & Shart)', titleJa: '第31課〜第35課' },
   {
-    id: 'u6',
-    unitNum: 6,
-    title: 'Unit 6: 26–30 Darslar (Holat & Izoh)',
-    titleJa: '第26課〜第30課',
-  },
-  {
-    id: 'u7',
-    unitNum: 7,
-    title: 'Unit 7: 31–35 Darslar (Reja & Shart)',
-    titleJa: '第31課〜第35課',
-  },
-  {
-    id: 'u8',
-    unitNum: 8,
+    id: 'ja-minna-u8',
     title: "Unit 8: 36–40 Darslar (Ko'nikma & Sabab)",
     titleJa: '第36課〜第40課',
   },
+  { id: 'ja-minna-u9', title: 'Unit 9: 41–45 Darslar (Hadya & Maqsad)', titleJa: '第41課〜第45課' },
   {
-    id: 'u9',
-    unitNum: 9,
-    title: 'Unit 9: 41–45 Darslar (Hadya & Maqsad)',
-    titleJa: '第41課〜第45課',
-  },
-  {
-    id: 'u10',
-    unitNum: 10,
+    id: 'ja-minna-u10',
     title: 'Unit 10: 46–50 Darslar (Keigo & Nisbatlar)',
     titleJa: '第46課〜第50課',
   },
 ];
 
-const SCENARIO_MAP: Record<number, string> = {
+const UNIT_TABS_N3 = [
+  { id: 'all', title: 'Barcha Darslar (1–30)', titleJa: 'すべての課 (1–30)' },
+  {
+    id: 'ja-n3-u1',
+    title: 'Unit 1: Passive & Causative (受身・使役)',
+    titleJa: '第1章：受身・使役',
+  },
+  {
+    id: 'ja-n3-u2',
+    title: 'Unit 2: Decisions & Habits (決定・習慣)',
+    titleJa: '第2章：決定・習慣',
+  },
+  {
+    id: 'ja-n3-u3',
+    title: 'Unit 3: Keigo & Business (敬語・ビジネス)',
+    titleJa: '第3章：敬語・実務',
+  },
+  {
+    id: 'ja-n3-u4',
+    title: 'Unit 4: Advanced Reasoning (論理・対比)',
+    titleJa: '第4章：論理・対比',
+  },
+  { id: 'ja-n3-u5', title: 'Unit 5: Kanji & Reading (漢字・読解)', titleJa: '第5章：漢字・読解' },
+  {
+    id: 'ja-n3-u6',
+    title: 'Unit 6: Capstone Mastery (総合演習・試験対策)',
+    titleJa: '第6章：総合演習',
+  },
+];
+
+const UNIT_TABS_N2 = [
+  { id: 'all', title: 'Barcha Darslar (1–30)', titleJa: 'すべての課 (1–30)' },
+  {
+    id: 'ja-n2-u1',
+    title: 'Unit 1: Connectors & Progression (接続・変化)',
+    titleJa: '第1章：接続・変化',
+  },
+  {
+    id: 'ja-n2-u2',
+    title: 'Unit 2: Corporate Keigo (高度敬語・ビジネス)',
+    titleJa: '第2章：高度敬語',
+  },
+  {
+    id: 'ja-n2-u3',
+    title: 'Unit 3: N2 Advanced Grammar (重要文法・表現)',
+    titleJa: '第3章：重要文法',
+  },
+  {
+    id: 'ja-n2-u4',
+    title: 'Unit 4: Dokkai & Social Context (社会・評論読解)',
+    titleJa: '第4章：社会読解',
+  },
+  {
+    id: 'ja-n2-u5',
+    title: 'Unit 5: N2 Kanji & Vocabulary (漢字・重要語彙)',
+    titleJa: '第5章：漢字・語彙',
+  },
+  {
+    id: 'ja-n2-u6',
+    title: 'Unit 6: Final Assessment & N1 Bridge (総復習・N1架け橋)',
+    titleJa: '第6章：総仕上げ',
+  },
+];
+
+const SCENARIO_MAP_BY_LESSON_NUMBER: Record<number, string> = {
   1: 'minna_l1_hajimemashite',
   2: 'minna_l2_honno_kimochi',
   3: 'minna_l3_kore_wo_kudasai',
@@ -104,21 +145,146 @@ const SCENARIO_MAP: Record<number, string> = {
   50: 'minna_l50_kenjougo',
 };
 
-export const MinnaLessonsExplorer: React.FC = () => {
+const SCENARIO_MAP_BY_UNIT: Record<string, string> = {
+  'ja-n3-u1': 'byouin',
+  'ja-n3-u2': 'gakko_no_ichinichi',
+  'ja-n3-u3': 'business_koushou',
+  'ja-n3-u4': 'gakko_soudan',
+  'ja-n3-u5': 'ryokou_toukou',
+  'ja-n3-u6': 'restaurant_kinenbi',
+  'ja-n2-u1': 'presentation_kekka',
+  'ja-n2-u2': 'torihikisaki_denwa_keigo',
+  'ja-n2-u3': 'shakai_mondai_iken',
+  'ja-n2-u4': 'shokuba_email_followup',
+  'ja-n2-u5': 'shokuba_teammeeting',
+  'ja-n2-u6': 'mensetsu_it',
+};
+
+const LEVEL_CONFIGS = {
+  n5: {
+    key: 'n5' as JlptLevel,
+    name: 'JLPT N5',
+    tabLabel: '🌸 初級1 (N5)',
+    subLabel: '1–25 Darslar',
+    badge: "🌸 JLPT N5 Boshlang'ich Darslik Bazasidan",
+    title: '🌸 みんなの日本語 初級1 (Minna no Nihongo 1–25 Darslar)',
+    description:
+      "Yapon tilining eng mashhur darsligi bo'yicha 25 ta to'liq dars. 1,135 ta so'z, 144 ta grammatika qoidasi, o'zbekcha izohlar, interaktiv mashqlar va sinov testlari bilan bosqichma-bosqich o'rganing.",
+    badgeClass: 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400',
+    bannerGradient:
+      'border-rose-500/20 bg-gradient-to-br from-rose-500/10 via-amber-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-rose-500 to-amber-500',
+    numberBadgeClass: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+    iconColor: 'text-rose-500',
+    totalLessons: 25,
+  },
+  n4: {
+    key: 'n4' as JlptLevel,
+    name: 'JLPT N4',
+    tabLabel: '🌿 初級2 (N4)',
+    subLabel: '26–50 Darslar',
+    badge: "🌿 JLPT N4 O'rta-Boshlang'ich Darslik Bazasidan",
+    title: '🌿 みんなの日本語 初級2 (Minna no Nihongo 26–50 Darslar)',
+    description:
+      "Minna no Nihongo Shokyu 2 bo'yicha 25 ta to'liq dars. Potensial, majhul, majburiy nisbat, keigo hurmat tili, 450+ yangi so'z, o'zbekcha tushuntirishlar va sinov testlari bilan N4 darajasini to'liq o'zlashtiring.",
+    badgeClass: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    bannerGradient:
+      'border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-emerald-500 to-teal-500',
+    numberBadgeClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    iconColor: 'text-emerald-500',
+    totalLessons: 25,
+  },
+  n3: {
+    key: 'n3' as JlptLevel,
+    name: 'JLPT N3',
+    tabLabel: '🏮 中級 (N3)',
+    subLabel: '30 Dars',
+    badge: "🏮 JLPT N3 O'rta Daraja Darslik Bazasidan (Shin Kanzen & Sou Matome)",
+    title: "🏮 新完全マスター＆総まとめ N3 (30 ta To'liq Dars)",
+    description:
+      "JLPT N3 imtihoni uchun 30 ta tayanch dars. Murakkab passiv-kausativ (Ukemi/Shieki), rasmiy biznes yapon tili (Keigo), sabab-oqibat va publitsistik matnlarni tushunish ko'nikmalari.",
+    badgeClass: 'border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    bannerGradient:
+      'border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-purple-500 to-indigo-500',
+    numberBadgeClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    iconColor: 'text-purple-500',
+    totalLessons: 30,
+  },
+  n2: {
+    key: 'n2' as JlptLevel,
+    name: 'JLPT N2',
+    tabLabel: '🗾 上級 (N2)',
+    subLabel: '30 Dars',
+    badge: "🗾 JLPT N2 Yuqori-O'rta Daraja Bazasidan (Shin Kanzen Master)",
+    title: "🗾 新完全マスター＆総まとめ N2 (30 ta To'liq Dars)",
+    description:
+      "JLPT N2 oliy darajasi uchun 30 ta intensiv dars. Korporativ muloqot, gazeta va maqolalar tahlili, ilmiy bog'lovchilar, rasmiy taqdimot va nutq qoidalari.",
+    badgeClass: 'border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400',
+    bannerGradient:
+      'border-blue-500/20 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+    numberBadgeClass: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+    iconColor: 'text-blue-500',
+    totalLessons: 30,
+  },
+};
+
+export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ initialLevel }) => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useStudyData();
   const { language } = useLanguage();
 
-  const [activeLevel, setActiveLevel] = useState<MinnaLevel>('n5');
+  const urlLevel = searchParams.get('level')?.toLowerCase();
+
+  const resolveInitialLevel = (): JlptLevel => {
+    if (initialLevel) return initialLevel.toLowerCase() as JlptLevel;
+    if (urlLevel && ['n5', 'n4', 'n3', 'n2'].includes(urlLevel)) return urlLevel as JlptLevel;
+    return 'n5';
+  };
+
+  const [activeLevel, setActiveLevel] = useState<JlptLevel>(resolveInitialLevel);
   const [selectedUnit, setSelectedUnit] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const currentLessons = useMemo(() => {
-    return activeLevel === 'n5' ? MINNA_N5_LESSONS : MINNA_N4_LESSONS;
+  // Sync if url level changes
+  useEffect(() => {
+    if (urlLevel && ['n5', 'n4', 'n3', 'n2'].includes(urlLevel)) {
+      setActiveLevel(urlLevel as JlptLevel);
+      setSelectedUnit('all');
+    }
+  }, [urlLevel]);
+
+  const currentLessons: Lesson[] = useMemo(() => {
+    switch (activeLevel) {
+      case 'n5':
+        return MINNA_N5_LESSONS;
+      case 'n4':
+        return MINNA_N4_LESSONS;
+      case 'n3':
+        return JAPANESE_N3_LESSONS;
+      case 'n2':
+        return JAPANESE_N2_LESSONS;
+      default:
+        return MINNA_N5_LESSONS;
+    }
   }, [activeLevel]);
 
   const currentUnitTabs = useMemo(() => {
-    return activeLevel === 'n5' ? UNIT_TABS_N5 : UNIT_TABS_N4;
+    switch (activeLevel) {
+      case 'n5':
+        return UNIT_TABS_N5;
+      case 'n4':
+        return UNIT_TABS_N4;
+      case 'n3':
+        return UNIT_TABS_N3;
+      case 'n2':
+        return UNIT_TABS_N2;
+      default:
+        return UNIT_TABS_N5;
+    }
   }, [activeLevel]);
 
   // Map progress for each lesson in current level
@@ -142,9 +308,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
     return currentLessons.filter((lesson) => {
       // Unit filter
       if (selectedUnit !== 'all') {
-        const unitNum = parseInt(selectedUnit.replace('u', ''), 10);
-        const expectedUnitId = `ja-minna-u${unitNum}`;
-        if (lesson.unitId !== expectedUnitId) return false;
+        if (lesson.unitId !== selectedUnit) return false;
       }
 
       // Search query
@@ -161,87 +325,73 @@ export const MinnaLessonsExplorer: React.FC = () => {
     });
   }, [currentLessons, selectedUnit, searchQuery]);
 
-  const isN5 = activeLevel === 'n5';
+  const cfg = LEVEL_CONFIGS[activeLevel];
+
+  const resolveScenarioId = (lesson: Lesson): string => {
+    if (activeLevel === 'n5' || activeLevel === 'n4') {
+      return SCENARIO_MAP_BY_LESSON_NUMBER[lesson.lessonNumber] || '';
+    }
+    return SCENARIO_MAP_BY_UNIT[lesson.unitId] || '';
+  };
 
   return (
     <div className="space-y-6 animate-in fade-in">
-      {/* Level Switcher: Shokyu 1 (N5) vs Shokyu 2 (N4) */}
-      <div className="flex items-center gap-2 rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit">
-        <button
-          onClick={() => {
-            setActiveLevel('n5');
-            setSelectedUnit('all');
-          }}
-          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all sm:flex-initial sm:text-sm ${
-            isN5
-              ? 'border border-border bg-card text-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-          }`}
-        >
-          <span>🌸 初級1 (1–25 Darslar)</span>
-          <span className="rounded-md bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-black text-rose-600 dark:text-rose-400">
-            JLPT N5
-          </span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveLevel('n4');
-            setSelectedUnit('all');
-          }}
-          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all sm:flex-initial sm:text-sm ${
-            !isN5
-              ? 'border border-border bg-card text-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-          }`}
-        >
-          <span>🌿 初級2 (26–50 Darslar)</span>
-          <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-black text-emerald-600 dark:text-emerald-400">
-            JLPT N4
-          </span>
-        </button>
+      {/* 4-Level Switcher: N5, N4, N3, N2 */}
+      <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit">
+        {(['n5', 'n4', 'n3', 'n2'] as JlptLevel[]).map((lvl) => {
+          const lCfg = LEVEL_CONFIGS[lvl];
+          const isActive = activeLevel === lvl;
+          return (
+            <button
+              key={lvl}
+              onClick={() => {
+                setActiveLevel(lvl);
+                setSelectedUnit('all');
+                const newParams = new URLSearchParams(searchParams);
+                newParams.set('level', lvl);
+                setSearchParams(newParams, { replace: true });
+              }}
+              className={`flex cursor-pointer items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:text-sm ${
+                isActive
+                  ? 'border border-border bg-card text-foreground shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+              }`}
+            >
+              <span>{lCfg.tabLabel}</span>
+              <span
+                className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
+                  isActive ? lCfg.badgeClass : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {lCfg.name}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Course Hero Banner */}
       <div
-        className={`relative overflow-hidden rounded-3xl border p-5 shadow-xs transition-colors duration-300 sm:p-6 ${
-          isN5
-            ? 'border-rose-500/20 bg-gradient-to-br from-rose-500/10 via-amber-500/5 to-transparent'
-            : 'border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent'
-        }`}
+        className={`relative overflow-hidden rounded-3xl border p-5 shadow-xs transition-colors duration-300 sm:p-6 ${cfg.bannerGradient}`}
       >
         <div className="relative z-10 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div className="space-y-2">
             <div
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold ${
-                isN5
-                  ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                  : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-              }`}
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold ${cfg.badgeClass}`}
             >
               <Sparkles size={13} />
-              <span>
-                {isN5 ? 'JLPT N5 Rasmiy Darslik Bazasidan' : 'JLPT N4 Rasmiy Darslik Bazasidan'}
-              </span>
+              <span>{cfg.badge}</span>
             </div>
-            <h2 className="text-xl font-black text-foreground sm:text-2xl">
-              {isN5
-                ? '🌸 みんなの日本語 初級1 (Minna no Nihongo 1–25 Darslar)'
-                : '🌿 みんなの日本語 初級2 (Minna no Nihongo 26–50 Darslar)'}
-            </h2>
+            <h2 className="text-xl font-black text-foreground sm:text-2xl">{cfg.title}</h2>
             <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground sm:text-sm">
-              {isN5
-                ? "Yapon tilining eng mashhur darsligi bo'yicha 25 ta to'liq dars. 1,135 ta so'z, 144 ta grammatika qoidasi, o'zbekcha izohlar, interaktiv mashqlar va sinov testlari bilan bosqichma-bosqich o'rganing."
-                : "Minna no Nihongo Shokyu 2 bo'yicha 25 ta to'liq dars. Potensial, majhul, majburiy nisbat, keigo hurmat tili, 450+ yangi so'z, o'zbekcha tushuntirishlar va sinov testlari bilan N4 darajasini to'liq o'zlashtiring."}
+              {cfg.description}
             </p>
           </div>
 
           {/* Stats card */}
           <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-border bg-card/80 p-3.5 backdrop-blur-md">
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-xl text-xl ${
-                isN5 ? 'bg-rose-500/15' : 'bg-emerald-500/15'
-              }`}
+              className={`flex h-12 w-12 items-center justify-center rounded-xl text-xl ${cfg.numberBadgeClass}`}
             >
               🎓
             </div>
@@ -251,7 +401,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
                 <span>O'zlashtirish:</span>
               </div>
               <div className="text-lg font-black text-foreground">
-                {completedCount} / 25{' '}
+                {completedCount} / {cfg.totalLessons}{' '}
                 <span className="text-xs font-medium text-muted-foreground">dars</span>
               </div>
             </div>
@@ -261,17 +411,13 @@ export const MinnaLessonsExplorer: React.FC = () => {
         {/* Progress Bar */}
         <div className="mt-4">
           <div className="mb-1 flex items-center justify-between text-xs font-semibold text-muted-foreground">
-            <span>{isN5 ? 'Umumiy N5 Darslik Jarayoni' : 'Umumiy N4 Darslik Jarayoni'}</span>
-            <span>{Math.round((completedCount / 25) * 100)}%</span>
+            <span>Umumiy {cfg.name} Darslik Jarayoni</span>
+            <span>{Math.round((completedCount / cfg.totalLessons) * 100)}%</span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted/60">
             <div
-              className={`h-full transition-all duration-500 ${
-                isN5
-                  ? 'bg-gradient-to-r from-rose-500 to-amber-500'
-                  : 'bg-gradient-to-r from-emerald-500 to-teal-500'
-              }`}
-              style={{ width: `${(completedCount / 25) * 100}%` }}
+              className={`h-full transition-all duration-500 ${cfg.progressBarGradient}`}
+              style={{ width: `${(completedCount / cfg.totalLessons) * 100}%` }}
             />
           </div>
         </div>
@@ -322,7 +468,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
           const vocabCount = lesson.steps[0]?.learnData?.vocabulary?.length || 0;
           const grammarRules = lesson.steps[0]?.learnData?.grammarRules || [];
           const subtitle = lesson.steps[0]?.learnData?.subtitle || '';
-          const scenarioId = SCENARIO_MAP[lesson.lessonNumber];
+          const scenarioId = resolveScenarioId(lesson);
 
           return (
             <div
@@ -334,11 +480,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-black ${
-                        isN5
-                          ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                          : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                      }`}
+                      className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-black ${cfg.numberBadgeClass}`}
                     >
                       {lesson.lessonNumber}
                     </span>
@@ -354,7 +496,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
                     </span>
                   ) : (
                     <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
-                      ~20 daqiqa
+                      ~{lesson.estimatedDurationMinutes || 20} daqiqa
                     </span>
                   )}
                 </div>
@@ -377,7 +519,7 @@ export const MinnaLessonsExplorer: React.FC = () => {
                 {/* Meta stats: vocab & grammar count */}
                 <div className="mt-2.5 flex items-center gap-3 text-[11px] font-medium text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <BookOpen size={12} className={isN5 ? 'text-rose-500' : 'text-emerald-500'} />
+                    <BookOpen size={12} className={cfg.iconColor} />
                     <span>{vocabCount} ta so'z</span>
                   </span>
                   <span className="flex items-center gap-1">

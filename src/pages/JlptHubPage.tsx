@@ -47,7 +47,9 @@ export const JlptHubPage: React.FC = () => {
   const [showCanvasPractice, setShowCanvasPractice] = useState(false);
 
   const handleTabChange = (tab: string) => {
-    setSearchParams({ tab });
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('tab', tab);
+    setSearchParams(newParams);
   };
 
   return (
@@ -114,7 +116,7 @@ export const JlptHubPage: React.FC = () => {
           }`}
         >
           <Sparkles size={15} />{' '}
-          {language === 'ja' ? '🌸 初級1 (1–25課)' : '🌸 Darslar (Minna 1–25)'}
+          {language === 'ja' ? '📚 体系的レッスン (N5–N2)' : '📚 Darsliklar (N5–N2)'}
         </button>
 
         <button
