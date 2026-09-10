@@ -268,6 +268,12 @@ const App: React.FC = () => {
                         element={<Navigate to="/speaking-coach?lang=ja" replace />}
                       />
                       <Route path="jlpt-writing" element={<JlptWritingPage />} />
+                      <Route path="minna" element={<Navigate to="/jlpt?tab=lessons" replace />} />
+                      <Route path="lessons" element={<Navigate to="/jlpt?tab=lessons" replace />} />
+                      <Route
+                        path="jlpt/lessons"
+                        element={<Navigate to="/jlpt?tab=lessons" replace />}
+                      />
                       <Route
                         path="jlpt/listening"
                         element={<Navigate to="/jlpt?tab=listening" replace />}

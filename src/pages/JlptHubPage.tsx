@@ -8,12 +8,14 @@ import {
   GraduationCap,
   ChevronDown,
   ChevronUp,
+  Sparkles,
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../hooks/useSEO';
 
+const MinnaLessonsExplorer = lazy(() => import('../components/jlpt/MinnaLessonsExplorer'));
 const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
 const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
 
@@ -41,7 +43,7 @@ export const JlptHubPage: React.FC = () => {
   const { settings, updateSettings } = useStudyData();
   const { language } = useLanguage();
 
-  const activeTab = searchParams.get('tab') || 'kanji';
+  const activeTab = searchParams.get('tab') || 'lessons';
   const [showCanvasPractice, setShowCanvasPractice] = useState(false);
 
   const handleTabChange = (tab: string) => {
@@ -103,6 +105,18 @@ export const JlptHubPage: React.FC = () => {
 
       {/* Unified JLPT Skill Navigation Tabs */}
       <div className="scrollbar-none sticky top-0 z-20 flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/90 p-1.5 shadow-xs backdrop-blur-md">
+        <button
+          onClick={() => handleTabChange('lessons')}
+          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+            activeTab === 'lessons'
+              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+          }`}
+        >
+          <Sparkles size={15} />{' '}
+          {language === 'ja' ? '🌸 初級1 (1–25課)' : '🌸 Darslar (Minna 1–25)'}
+        </button>
+
         <button
           onClick={() => handleTabChange('kanji')}
           className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
@@ -168,6 +182,12 @@ export const JlptHubPage: React.FC = () => {
           </div>
         }
       >
+        {/* Tab 0: Minna no Nihongo Shokyu 1 Lessons (1–25) */}
+        {activeTab === 'lessons' && (
+          <div className="animate-in fade-in">
+            <MinnaLessonsExplorer />
+          </div>
+        )}
         {/* Tab 1: Kanji Canvas & Bunpou Grammar Master */}
         {activeTab === 'kanji' && (
           <div className="space-y-6 animate-in fade-in">
