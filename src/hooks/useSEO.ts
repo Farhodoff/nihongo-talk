@@ -14,11 +14,11 @@ export interface SEOProps {
 
 const DEFAULT_TITLE = 'Nihongo Talk';
 const DEFAULT_DESC =
-  'JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Coach, Writing Evaluator, SM-2 Fleshkartalar va shaxsiy kunlik reja.';
+  'JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Sensei, Kanji, Grammatika va Anki SM-2 Fleshkartalar.';
 const DEFAULT_KEYWORDS =
-  "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Coach, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
+  "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Sensei, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
 const BASE_URL = 'https://nihon-talk.vercel.app';
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg?v=2`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg?v=4`;
 
 export const useSEO = ({
   title,
@@ -106,7 +106,7 @@ export const useSEO = ({
     const activeLocale = locale || (document.documentElement.lang === 'ja' ? 'ja_JP' : 'uz_UZ');
     const ogTitle =
       finalTitle === DEFAULT_TITLE
-        ? "Yapon tilini AI yordamida o'rganish (JLPT N5–N1)"
+        ? "Nihongo Talk — Yapon Tilini AI Bilan O'rganish (JLPT N5–N1)"
         : finalTitle.replace(/ — Nihongo Talk$/i, '');
 
     setMetaTag('meta[property="og:site_name"]', 'content', 'Nihongo Talk');
