@@ -25,6 +25,8 @@ import {
 import { speakText } from '../../utils/audioTts';
 import { toast } from '../../hooks/use-toast';
 import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
+import { useFlashcardSwipe } from '../../hooks/useFlashcardSwipe';
 
 interface FlashcardStudySessionProps {
   subjectId?: string | null; // null or undefined means 'all due cards'
@@ -40,6 +42,33 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const { language } = useLanguage();
   const isJa = language === 'ja';
   const isAdmin = isAdminEmail(user?.email);
+  const { isTwa, haptics } = useTelegramWebApp();
+
+  // Telegram TWA keyboard viewport handler — track keyboard height so
+  // rating buttons stay visible above the soft keyboard
+  useEffect(() => {
+    if (!isTwa) return;
+
+    const vv = window.visualViewport;
+    if (!vv) return;
+
+    const handleResize = () => {
+      const keyboardOffset = window.innerHeight - vv.height;
+      document.documentElement.style.setProperty(
+        '--twa-keyboard-offset',
+        `${Math.max(0, keyboardOffset)}px`,
+      );
+    };
+
+    vv.addEventListener('resize', handleResize);
+    vv.addEventListener('scroll', handleResize);
+
+    return () => {
+      vv.removeEventListener('resize', handleResize);
+      vv.removeEventListener('scroll', handleResize);
+      document.documentElement.style.removeProperty('--twa-keyboard-offset');
+    };
+  }, [isTwa]);
 
   const [queue, setQueue] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -141,6 +170,17 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     async (grade: Grade) => {
       if (!currentCard || isProcessing) return;
 
+      // Haptic feedback based on SRS rating
+      if (grade === Rating.AGAIN) {
+        haptics.notification('warning');
+      } else if (grade === Rating.HARD) {
+        haptics.impact('medium');
+      } else if (grade === Rating.GOOD) {
+        haptics.impact('light');
+      } else if (grade === Rating.EASY) {
+        haptics.notification('success');
+      }
+
       setIsProcessing(true);
       try {
         await reviewFlashcard(currentCard.id, grade);
@@ -191,6 +231,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           setTypedAnswer('');
           setIsEditingCard(false);
         } else {
+          haptics.notification('success');
           setIsFinished(true);
         }
       } catch (error) {
@@ -204,8 +245,28 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         setIsProcessing(false);
       }
     },
-    [currentCard, isProcessing, reviewFlashcard, currentCardIndex, queue.length],
+    [currentCard, isProcessing, reviewFlashcard, currentCardIndex, queue.length, haptics, isJa],
   );
+
+  const handleToggleFlip = useCallback(() => {
+    haptics.selection();
+    setIsFlipped((prev) => !prev);
+  }, [haptics]);
+
+  const {
+    isDragging,
+    swipeDirection,
+    swipeProgress,
+    cardStyle,
+    handlers: swipeHandlers,
+  } = useFlashcardSwipe({
+    isFlipped,
+    onFlip: handleToggleFlip,
+    onSwipeLeft: () => handleReview(Rating.AGAIN),
+    onSwipeRight: () => handleReview(Rating.GOOD),
+    disabled: isEditingCard || isFinished || isProcessing,
+    onHapticThreshold: () => haptics.selection(),
+  });
 
   const handleDeleteCard = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -264,7 +325,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
       if (e.code === 'Space') {
         e.preventDefault();
-        setIsFlipped((prev) => !prev);
+        handleToggleFlip();
       } else if (isFlipped) {
         if (e.key === '1') handleReview(Rating.AGAIN);
         if (e.key === '2') handleReview(Rating.HARD);
@@ -275,11 +336,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEditingCard, isFinished, isProcessing, isFlipped, handleReview]);
+  }, [isEditingCard, isFinished, isProcessing, isFlipped, handleReview, handleToggleFlip]);
 
   const handleTypeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!typedAnswer.trim() || !currentCard) return;
+    haptics.selection();
     setIsFlipped(true);
   };
 
@@ -399,7 +461,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const progressPercentage = Math.round((currentCardIndex / queue.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-4 backdrop-blur-xl md:p-8">
+    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-4 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] backdrop-blur-xl md:p-8">
       {/* Top Bar */}
       <div className="mx-auto mb-6 flex w-full max-w-3xl items-center justify-between gap-4">
         <button
@@ -536,9 +598,30 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         ) : (
           <div
             data-testid="study-card"
-            onClick={() => setIsFlipped((prev) => !prev)}
-            className="perspective-1000 min-h-[340px] w-full cursor-pointer select-none md:min-h-[380px]"
+            style={cardStyle}
+            {...swipeHandlers}
+            className="perspective-1000 relative min-h-[340px] w-full cursor-pointer select-none md:min-h-[380px]"
           >
+            {/* Visual Swipe Badges */}
+            {isDragging && swipeDirection === 'left' && (
+              <div
+                className="pointer-events-none absolute right-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-rose-500 bg-rose-500/20 px-3.5 py-1.5 text-xs font-black text-rose-500 shadow-lg backdrop-blur-md"
+                style={{ opacity: Math.max(0.35, swipeProgress) }}
+              >
+                <span>🔄</span>
+                <span>{isJa ? 'もう一度 (Again)' : 'Qayta (Again)'}</span>
+              </div>
+            )}
+            {isDragging && swipeDirection === 'right' && (
+              <div
+                className="pointer-events-none absolute left-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-primary bg-primary/20 px-3.5 py-1.5 text-xs font-black text-primary shadow-lg backdrop-blur-md"
+                style={{ opacity: Math.max(0.35, swipeProgress) }}
+              >
+                <span>👍</span>
+                <span>{isJa ? '良好 (Good)' : 'Yaxshi (Good)'}</span>
+              </div>
+            )}
+
             <div
               className={`transform-style-3d relative h-full min-h-[340px] w-full transition-transform duration-500 md:min-h-[380px] ${
                 isFlipped ? 'rotate-y-180' : ''
@@ -588,10 +671,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                     {currentCard?.front}
                   </h3>
                   <p className="flex items-center justify-center gap-1.5 pt-6 text-xs font-bold text-muted-foreground/60">
-                    <Keyboard size={14} />{' '}
+                    <Keyboard size={14} className="hidden sm:inline" />{' '}
                     {isJa
-                      ? 'スペースキーまたはカードをタップして裏返す'
-                      : "Bo'sh joy (Space) yoki kartani bosing"}
+                      ? 'スペースキーまたはカードをタップ/スワイプして裏返す'
+                      : 'Kartani bosing yoki suring (Space)'}
                   </p>
                 </div>
 
@@ -640,7 +723,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
                 {/* Footer Status */}
                 <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
-                  <span>SM-2 Algoritmi</span>
+                  <span className="hidden sm:inline">SM-2 Algoritmi</span>
+                  <span className="font-extrabold text-primary sm:hidden">
+                    {isJa ? '👈 もう一度 | 良好 👉' : '👈 Qayta | Yaxshi 👉'}
+                  </span>
                   <span>
                     {isJa
                       ? `難易度: ${(currentCard?.easeFactor || 2.5).toFixed(2)}`
@@ -674,7 +760,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
         {/* SRS Grading Buttons (Again / Hard / Good / Easy) */}
         {isFlipped && (
-          <div className="mt-6 grid w-full grid-cols-2 gap-3 duration-200 animate-in slide-in-from-bottom-3 md:grid-cols-4">
+          <div
+            className="mt-6 grid w-full grid-cols-2 gap-3 duration-200 animate-in slide-in-from-bottom-3 md:grid-cols-4"
+            style={{ paddingBottom: isTwa ? 'var(--twa-keyboard-offset, 0px)' : undefined }}
+          >
             <button
               onClick={() => handleReview(Rating.AGAIN)}
               disabled={isProcessing}

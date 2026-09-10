@@ -112,4 +112,49 @@ describe('FlashcardStudySession Component Live QA', () => {
       );
     });
   });
+
+  it('supports mobile touch swipe: swipe right rates GOOD, swipe left rates AGAIN', async () => {
+    const mockSelection = vi.fn();
+    const mockNotification = vi.fn();
+    const mockImpact = vi.fn();
+
+    (window as any).Telegram = {
+      WebApp: {
+        initData: 'query_id=123',
+        ready: vi.fn(),
+        expand: vi.fn(),
+        onEvent: vi.fn(),
+        offEvent: vi.fn(),
+        HapticFeedback: {
+          selectionChanged: mockSelection,
+          notificationOccurred: mockNotification,
+          impactOccurred: mockImpact,
+        },
+      },
+    };
+
+    const handleClose = vi.fn();
+    render(<FlashcardStudySession subjectId="subj-1" onClose={handleClose} />);
+
+    const card = await screen.findByTestId('study-card');
+
+    // 1. Swipe on unflipped card flips to answer side
+    fireEvent.touchStart(card, { touches: [{ clientX: 100, clientY: 100 }] });
+    fireEvent.touchMove(card, { touches: [{ clientX: 190, clientY: 100 }] });
+    fireEvent.touchEnd(card);
+
+    // Answer side should now be visible
+    expect(await screen.findByText(/Qayta \(Again\)/i)).toBeDefined();
+    expect(mockSelection).toHaveBeenCalled();
+
+    // 2. Swipe right on flipped card rates as GOOD
+    fireEvent.touchStart(card, { touches: [{ clientX: 100, clientY: 100 }] });
+    fireEvent.touchMove(card, { touches: [{ clientX: 200, clientY: 100 }] }); // +100px
+    fireEvent.touchEnd(card);
+
+    await waitFor(() => {
+      expect(mockReviewFlashcard).toHaveBeenCalledWith('card-1', Rating.GOOD);
+      expect(mockImpact).toHaveBeenCalledWith('light');
+    });
+  });
 });

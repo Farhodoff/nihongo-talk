@@ -16,6 +16,8 @@ import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
 import { isFlashcardAnswerCorrect } from '../utils/flashcardMatching';
+import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
+import { useFlashcardSwipe } from '../hooks/useFlashcardSwipe';
 
 const StudyModePage: React.FC = () => {
   const { subjectId } = useParams<{ subjectId?: string }>();
@@ -25,6 +27,7 @@ const StudyModePage: React.FC = () => {
   const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } =
     useStudyData();
   const isAdmin = isAdminEmail(user?.email);
+  const { haptics } = useTelegramWebApp();
 
   const [queue, setQueue] = useState<Flashcard[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -299,6 +302,18 @@ const StudyModePage: React.FC = () => {
   const handleRate = useCallback(
     async (grade: Grade) => {
       if (!currentCard || isProcessing) return;
+
+      // Trigger haptic feedback based on SRS rating
+      if (grade === Rating.AGAIN) {
+        haptics.notification('warning');
+      } else if (grade === Rating.HARD) {
+        haptics.impact('medium');
+      } else if (grade === Rating.GOOD) {
+        haptics.impact('light');
+      } else if (grade === Rating.EASY) {
+        haptics.notification('success');
+      }
+
       setIsProcessing(true);
 
       try {
@@ -340,6 +355,7 @@ const StudyModePage: React.FC = () => {
           setTypeResult(null);
           setTypedAnswer('');
         } else {
+          haptics.notification('success');
           await completeLinkedPlanTask();
           setIsFinished(true);
         }
@@ -356,8 +372,29 @@ const StudyModePage: React.FC = () => {
       currentCardIndex,
       queue.length,
       completeLinkedPlanTask,
+      haptics,
     ],
   );
+
+  const handleToggleFlip = useCallback(() => {
+    haptics.selection();
+    setIsFlipped((prev) => !prev);
+  }, [haptics]);
+
+  const {
+    isDragging,
+    swipeDirection,
+    swipeProgress,
+    cardStyle,
+    handlers: swipeHandlers,
+  } = useFlashcardSwipe({
+    isFlipped,
+    onFlip: handleToggleFlip,
+    onSwipeLeft: () => handleRate(Rating.AGAIN),
+    onSwipeRight: () => handleRate(Rating.GOOD),
+    disabled: isEditingCard || isFinished || isProcessing,
+    onHapticThreshold: () => haptics.selection(),
+  });
 
   // Keyboard Shortcuts (Space to flip, 1-4 to rate)
   useEffect(() => {
@@ -367,7 +404,7 @@ const StudyModePage: React.FC = () => {
 
       if (e.code === 'Space') {
         e.preventDefault();
-        setIsFlipped((prev) => !prev);
+        handleToggleFlip();
       } else if (isFlipped) {
         if (e.key === '1') handleRate(Rating.AGAIN);
         if (e.key === '2') handleRate(Rating.HARD);
@@ -378,7 +415,7 @@ const StudyModePage: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEditingCard, isFinished, isProcessing, isFlipped, handleRate]);
+  }, [isEditingCard, isFinished, isProcessing, isFlipped, handleRate, handleToggleFlip]);
 
   if (loading)
     return (
@@ -467,7 +504,7 @@ const StudyModePage: React.FC = () => {
   }
 
   return (
-    <div className="relative mx-auto max-w-4xl space-y-6 p-4 md:p-8">
+    <div className="relative mx-auto max-w-4xl space-y-6 p-4 pb-[max(2rem,env(safe-area-inset-bottom,24px))] md:p-8">
       {isEditingCard && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl">
@@ -716,9 +753,31 @@ const StudyModePage: React.FC = () => {
       ) : (
         /* Professional 3D Flip Card */
         <div
-          className="perspective-1000 h-96 cursor-pointer"
-          onClick={() => setIsFlipped(!isFlipped)}
+          data-testid="study-card"
+          style={cardStyle}
+          {...swipeHandlers}
+          className="perspective-1000 relative h-96 cursor-pointer select-none"
         >
+          {/* Visual Swipe Badges for Mobile */}
+          {isDragging && swipeDirection === 'left' && (
+            <div
+              className="pointer-events-none absolute right-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-rose-500 bg-rose-500/20 px-3.5 py-1.5 text-xs font-black text-rose-500 shadow-lg backdrop-blur-md"
+              style={{ opacity: Math.max(0.35, swipeProgress) }}
+            >
+              <span>🔄</span>
+              <span>Qayta (Again)</span>
+            </div>
+          )}
+          {isDragging && swipeDirection === 'right' && (
+            <div
+              className="pointer-events-none absolute left-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-primary bg-primary/20 px-3.5 py-1.5 text-xs font-black text-primary shadow-lg backdrop-blur-md"
+              style={{ opacity: Math.max(0.35, swipeProgress) }}
+            >
+              <span>👍</span>
+              <span>Yaxshi (Good)</span>
+            </div>
+          )}
+
           <div
             className={`transform-style-3d relative h-full w-full transition-all duration-700 ${isFlipped ? 'rotate-y-180' : ''}`}
           >
@@ -759,7 +818,7 @@ const StudyModePage: React.FC = () => {
                 </p>
               </div>
               <p className="text-center text-xs font-medium text-muted-foreground">
-                Kartani bosing — Javobni ko'rish
+                👆 Kartani bosing yoki suring — Javobni ko'rish (Space)
               </p>
             </div>
 
@@ -783,9 +842,11 @@ const StudyModePage: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-center text-xs font-medium text-muted-foreground">
-                SuperMemo SM-2 bo'yicha baholang
-              </p>
+              <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
+                <span className="font-extrabold text-primary sm:hidden">👈 Qayta | Yaxshi 👉</span>
+                <span className="hidden sm:inline">SuperMemo SM-2 bo'yicha baholang</span>
+                <span>(1-4 tugmalari)</span>
+              </div>
             </div>
           </div>
         </div>

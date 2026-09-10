@@ -25,7 +25,7 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
   useEffect(() => {
     const tg = typeof window !== 'undefined' ? window.Telegram?.WebApp : undefined;
 
-    if (tg && (tg.initData || window.location.search.includes('twa=true'))) {
+    if (tg && (tg.initData || (tg as any).version || window.location.search.includes('twa=true'))) {
       setWebApp(tg);
       setIsTwa(true);
 

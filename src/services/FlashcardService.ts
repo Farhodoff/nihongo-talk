@@ -165,9 +165,21 @@ export const FlashcardService = {
       isNetworkError = true;
     }
 
-    // If network error occurred or empty DB returned with existing cache, return cached
-    if ((isNetworkError || dbCards.length === 0) && localCached.length > 0) {
-      return localCached;
+    // If network error occurred or empty DB returned, try caches
+    if (isNetworkError || dbCards.length === 0) {
+      // Prefer localStorage cache (instant, synchronous)
+      if (localCached.length > 0) {
+        return localCached;
+      }
+      // Fallback to IndexedDB cache (larger capacity, async)
+      try {
+        const idbCached = await FlashcardOfflineSync.getCachedDeck(userId);
+        if (idbCached && idbCached.cards.length > 0) {
+          return idbCached.cards;
+        }
+      } catch {}
+      // If both caches are empty and it's a network error, return empty
+      if (isNetworkError) return [];
     }
 
     const dbCardIds = new Set(dbCards.map((c) => c.id));
@@ -225,6 +237,8 @@ export const FlashcardService = {
     }
 
     setLocalFlashcardCache(userId, sanitizedMerged);
+    // Persist full deck to IndexedDB for high-capacity offline access
+    FlashcardOfflineSync.cacheDeck(userId, sanitizedMerged).catch(() => {});
     return sanitizedMerged;
   },
 

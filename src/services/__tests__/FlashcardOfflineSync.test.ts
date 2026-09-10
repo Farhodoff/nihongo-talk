@@ -1,50 +1,114 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FlashcardOfflineSync } from '../FlashcardOfflineSync';
-import * as idb from '../../utils/storage/indexedDb';
 import { supabase } from '../../lib/supabase';
+import { toast } from '../../hooks/use-toast';
 
-vi.mock('../../lib/supabase', () => ({
-  supabase: {
-    from: vi.fn(),
-  },
+vi.mock('../../hooks/use-toast', () => ({
+  toast: vi.fn(),
 }));
 
-describe('FlashcardOfflineSync', () => {
+describe('FlashcardOfflineSync Service', () => {
   beforeEach(async () => {
     vi.clearAllMocks();
-    await idb.idbDelete('study_planner_flashcard_offline_queue');
+    await FlashcardOfflineSync.clearQueue();
   });
 
-  it('enqueues an offline flashcard update correctly', async () => {
-    await FlashcardOfflineSync.enqueueUpdate('card-1', { ease_factor: 2.5, repetitions: 1 });
-    const count = await FlashcardOfflineSync.getPendingCount();
-    expect(count).toBe(1);
+  it('enqueues offline updates and increments pending count', async () => {
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(0);
 
-    // Enqueueing update for the same card merges updates
-    await FlashcardOfflineSync.enqueueUpdate('card-1', { interval: 6 });
-    const countAfter = await FlashcardOfflineSync.getPendingCount();
-    expect(countAfter).toBe(1);
+    await FlashcardOfflineSync.enqueueUpdate('card-1', {
+      interval: 1,
+      repetitions: 1,
+      ease_factor: 2.5,
+    });
 
-    const queue = await idb.idbGet<any[]>('study_planner_flashcard_offline_queue');
-    expect(queue?.[0].updates).toEqual({ ease_factor: 2.5, repetitions: 1, interval: 6 });
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(1);
+
+    // Enqueuing update for same card merges updates
+    await FlashcardOfflineSync.enqueueUpdate('card-1', {
+      interval: 4,
+      repetitions: 2,
+    });
+
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(1);
+
+    // Enqueuing update for different card increments
+    await FlashcardOfflineSync.enqueueUpdate('card-2', {
+      interval: 10,
+    });
+
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(2);
   });
 
-  it('syncs pending updates when online and clears synced items', async () => {
+  it('syncs pending offline updates to Supabase when online', async () => {
     const mockUpdate = vi.fn().mockReturnValue({
       eq: vi.fn().mockResolvedValue({ error: null }),
     });
-    (supabase.from as any).mockReturnValue({
-      update: mockUpdate,
-    });
 
-    await FlashcardOfflineSync.enqueueUpdate('card-1', { interval: 1 });
-    await FlashcardOfflineSync.enqueueUpdate('card-2', { interval: 2 });
+    vi.spyOn(supabase, 'from').mockReturnValue({
+      update: mockUpdate,
+    } as any);
+
+    await FlashcardOfflineSync.enqueueUpdate('card-101', { interval: 2 });
+    await FlashcardOfflineSync.enqueueUpdate('card-102', { interval: 4 });
 
     const result = await FlashcardOfflineSync.syncPending();
+
     expect(result.synced).toBe(2);
     expect(result.failed).toBe(0);
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(0);
+    expect(toast).toHaveBeenCalledWith(
+      expect.objectContaining({
+        title: expect.stringContaining('Sinxronlash muvaffaqiyatli'),
+        description: expect.stringContaining('2 ta oflayn'),
+      }),
+    );
+  });
 
-    const remainingCount = await FlashcardOfflineSync.getPendingCount();
-    expect(remainingCount).toBe(0);
+  it('preserves failed items in queue for next sync retry', async () => {
+    let callCount = 0;
+    const mockUpdate = vi.fn().mockImplementation(() => ({
+      eq: vi.fn().mockImplementation(async () => {
+        callCount++;
+        if (callCount === 1) {
+          return { error: null }; // First item succeeds
+        }
+        return { error: new Error('Network error on second card') }; // Second item fails
+      }),
+    }));
+
+    vi.spyOn(supabase, 'from').mockReturnValue({
+      update: mockUpdate,
+    } as any);
+
+    await FlashcardOfflineSync.enqueueUpdate('card-pass', { interval: 1 });
+    await FlashcardOfflineSync.enqueueUpdate('card-fail', { interval: 5 });
+
+    const result = await FlashcardOfflineSync.syncPending();
+
+    expect(result.synced).toBe(1);
+    expect(result.failed).toBe(1);
+    expect(await FlashcardOfflineSync.getPendingCount()).toBe(1);
+  });
+
+  it('caches and retrieves full deck from IndexedDB', async () => {
+    const mockCards = [
+      {
+        id: 'c1',
+        front: '犬',
+        back: 'it',
+        interval: 1,
+        repetitions: 1,
+        easeFactor: 2.5,
+        nextReviewDate: '2026-09-10',
+      } as any,
+    ];
+
+    await FlashcardOfflineSync.cacheDeck('user-123', mockCards);
+
+    const cached = await FlashcardOfflineSync.getCachedDeck('user-123');
+    expect(cached).not.toBeNull();
+    expect(cached?.cards).toHaveLength(1);
+    expect(cached?.cards[0].front).toBe('犬');
   });
 });
