@@ -18,6 +18,12 @@ A full-stack, AI-powered **Japanese Language (JLPT N5 – N1 & 0-Level Beginners
 
 ### ✨ Asosiy Imkoniyatlar:
 
+- 🌸 **Minna no Nihongo Shokyu 1 (1–25 Darslar To'liq O'zbekcha Baza):**
+  - **1,135 ta Tayanch So'z (Goi):** Rasmiy darslikdan olingan barcha 25 ta dars so'zlari, kanji, furigana va o'zbekcha aniq tarjimalari bilan.
+  - **144 ta Grammatik Qoida (Bunpou):** Har bir darsning grammatik formulasi, o'zbekcha tushuntirishi va misol gaplari.
+  - **25 ta Interaktiv Dars:** Learn (o'rganish), Practice (mustahkamlash mashqlari) va Test (80% o'tish balli sinov) tizimi.
+  - **25 ta Kaiwa Suhbat Stsenariysi:** Yuki Sensei bilan darslikdagi rasmiy suhbatlar asosida jonli ovozli muloqot mashqi.
+
 - ⛩️ **JLPT Master Hub (N5–N1 & 0-Level):**
   - **Hiragana & Katakana 0-Level:** Alifboni noldan boshlovchilar uchun interaktiv kartochkalar va talaffuz audiolari.
   - **Kanji Canvas & Stroke Practice:** Iyerogliflarni to'g'ri chiziqlar tartibi (stroke order) bilan yozish uchun interaktiv chizish kanvasi.

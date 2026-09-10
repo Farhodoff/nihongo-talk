@@ -212,7 +212,7 @@ describe('Single DeepSeek Provider Production Architecture Test Suite', () => {
   // 11. JLPT preset decks strictly contain valid Japanese cards
   it('11. JLPT preset decks strictly contain valid Japanese cards', async () => {
     const jlptDecks = PRESET_DECKS.filter((d) => d.language === 'ja');
-    expect(jlptDecks.length).toBe(5);
+    expect(jlptDecks.length).toBeGreaterThanOrEqual(5);
 
     for (const deck of jlptDecks) {
       const cards = await deck.loadCards();

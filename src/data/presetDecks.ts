@@ -35,6 +35,22 @@ export interface PresetSubDeck {
 
 export const PRESET_DECKS: PresetDeck[] = [
   {
+    id: 'deck_minna_shokyu1',
+    title: "🌸 Minna no Nihongo Shokyu 1 (1–25 Darslar To'liq Lug'ati)",
+    description:
+      "Minna no Nihongo Shokyu 1 darsligining barcha 25 ta darsidan 1,135 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
+    language: 'ja',
+    level: 'JLPT N5',
+    badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
+    icon: '🌸',
+    cardCount: 1135,
+    isPremiumOnly: false,
+    loadCards: async () => {
+      const data = await import('./decks/minna_shokyu1.json');
+      return data.default as PresetCard[];
+    },
+  },
+  {
     id: 'deck_jlpt_n5',
     title: '🌸 JLPT N5 Master Deck (Minna & Try)',
     description:
