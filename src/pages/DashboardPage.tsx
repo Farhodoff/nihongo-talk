@@ -272,7 +272,7 @@ const DashboardPage: React.FC = () => {
     setLoadingState('loading');
     const activeUserId = user?.id || 'default-user';
 
-    const effectiveTrack = isJaTrack ? 'ja' : 'en';
+    const effectiveTrack = 'ja';
 
     // Background load of learning path state
     const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, {
@@ -351,29 +351,23 @@ const DashboardPage: React.FC = () => {
   }, [dailyPlan]);
 
   const effectiveTargetLevel = useMemo(() => {
-    if (isJaTrack) {
-      return ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1'].includes(targetLevel?.toUpperCase())
-        ? targetLevel.toUpperCase()
-        : 'N3';
-    }
-    return targetLevel || 'B2';
-  }, [isJaTrack, targetLevel]);
+    return ['ZERO', 'N5', 'N4', 'N3', 'N2', 'N1'].includes(targetLevel?.toUpperCase())
+      ? targetLevel.toUpperCase()
+      : 'N3';
+  }, [targetLevel]);
 
   const effectiveTargetGoal = useMemo(() => {
-    if (isJaTrack) {
-      if (
-        !targetGoal ||
-        targetGoal.includes('IELTS') ||
-        targetGoal.includes('English') ||
-        targetGoal.includes('A1') ||
-        targetGoal.includes('B2')
-      ) {
-        return 'JLPT Imtihoni';
-      }
-      return targetGoal;
+    if (
+      !targetGoal ||
+      targetGoal.includes('IELTS') ||
+      targetGoal.includes('English') ||
+      targetGoal.includes('A1') ||
+      targetGoal.includes('B2')
+    ) {
+      return 'JLPT Imtihoni';
     }
-    return targetGoal || 'IELTS 7.0+';
-  }, [isJaTrack, targetGoal]);
+    return targetGoal;
+  }, [targetGoal]);
 
   if (loading) {
     return (
@@ -485,25 +479,14 @@ const DashboardPage: React.FC = () => {
             : 'border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-card to-card'
         }`}
       >
-        <div
-          className={`pointer-events-none absolute right-0 top-0 -mr-16 -mt-16 h-72 w-72 rounded-full blur-3xl ${
-            isJaTrack ? 'bg-rose-500/15' : 'bg-indigo-500/15'
-          }`}
-        />
+        <div className="pointer-events-none absolute right-0 top-0 -mr-16 -mt-16 h-72 w-72 rounded-full bg-rose-500/15 blur-3xl" />
 
         <div className="relative z-10 flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
           <div className="max-w-2xl space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-2xl">{isJaTrack ? '🇯🇵' : '🇬🇧'}</span>
-              <span
-                className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-wider ${
-                  isJaTrack
-                    ? 'border-rose-500/30 bg-rose-500/20 text-rose-400'
-                    : 'border-indigo-500/30 bg-indigo-500/20 text-indigo-400'
-                }`}
-              >
-                {isJaTrack ? `JLPT ${effectiveTargetLevel}` : `IELTS (${effectiveTargetLevel})`}{' '}
-                Focus Mode
+              <span className="text-2xl">🇯🇵</span>
+              <span className="rounded-full border border-rose-500/30 bg-rose-500/20 px-3 py-1 text-xs font-black uppercase tracking-wider text-rose-400">
+                JLPT {effectiveTargetLevel} Focus Mode
               </span>
               <span className="text-xs font-medium text-muted-foreground">
                 • {effectiveTargetGoal}
@@ -537,20 +520,14 @@ const DashboardPage: React.FC = () => {
             ) : (
               <div>
                 <h3 className="text-xl font-bold text-foreground">
-                  {isJaTrack
-                    ? language === 'ja'
-                      ? 'きょうの にほんご レッスン'
-                      : "Bugungi Yapon Tili Mashg'ulotlari"
-                    : language === 'ja'
-                      ? 'きょうの えいご レッスン'
-                      : 'Bugungi IELTS & Akademik Ingliz Tili'}
+                  {language === 'ja'
+                    ? 'きょうの にほんご レッスン'
+                    : "Bugungi Yapon Tili Mashg'ulotlari"}
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  {isJaTrack
-                    ? language === 'ja'
-                      ? 'まいにち 20この かんじ、ぶんぽう、AI かいわ。'
-                      : 'Har kuni 20 ta yangi Kanji, grammatika va AI muloqot.'
-                    : "Speaking Examiner, Writing tahlili va Oxford Academic lug'at."}
+                  {language === 'ja'
+                    ? 'まいにち 20この かんじ、ぶんぽう、AI かいわ。'
+                    : 'Har kuni 20 ta yangi Kanji, grammatika va AI muloqot.'}
                 </p>
               </div>
             )}

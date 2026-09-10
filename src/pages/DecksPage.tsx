@@ -50,7 +50,6 @@ const DecksPage: React.FC = () => {
     updateSubject,
     deleteSubject,
     addFlashcardsBatch,
-    primaryLanguage,
   } = useStudyData();
   const { t, language } = useLanguage();
   const navigate = useNavigate();
@@ -68,7 +67,6 @@ const DecksPage: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<'my' | 'library'>('my');
   const [subTab, setSubTab] = useState<'active' | 'archived'>('active');
-  const [libraryFilter, setLibraryFilter] = useState<'primary' | 'ja' | 'en' | 'all'>('primary');
   const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
   const [aiSubjectId, setAiSubjectId] = useState<string | null>(null);
   const [isImportModalOpen, setImportModalOpen] = useState(false);
@@ -848,88 +846,25 @@ const DecksPage: React.FC = () => {
                   <h3 className="text-xl font-bold text-foreground">
                     {language === 'ja'
                       ? 'JLPT公式レベル別単語ライブラリ'
-                      : isSuper
-                        ? 'Standart Darajalar Kutubxonasi'
-                        : 'JLPT Darajalar Kutubxonasi'}
+                      : 'JLPT Darajalar Kutubxonasi'}
                   </h3>
                   <p className="text-xs text-muted-foreground">
                     {language === 'ja'
                       ? 'JLPT N5〜N1の頻出重要単語を網羅した公式デッキコレクション'
-                      : isSuper
-                        ? "JLPT va IELTS uchun tayyor 100 tadan bo'lingan jildlar to'plami"
-                        : "JLPT N5–N1 uchun tayyor 100 tadan bo'lingan jildlar to'plami"}
+                      : "JLPT N5–N1 uchun tayyor 100 tadan bo'lingan jildlar to'plami"}
                   </p>
                 </div>
 
-                {/* Filter Chips (Multi-language only for Super Admin) */}
-                {isSuper ? (
-                  <div className="flex items-center gap-1.5 self-start rounded-xl border border-border bg-muted/60 p-1 sm:self-center">
-                    <button
-                      type="button"
-                      onClick={() => setLibraryFilter('primary')}
-                      className={`rounded-lg px-3 py-1 text-xs font-black transition-all ${
-                        libraryFilter === 'primary'
-                          ? 'bg-primary text-primary-foreground shadow-xs'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      ⭐ Asosiy ({primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'})
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setLibraryFilter('ja')}
-                      className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
-                        libraryFilter === 'ja'
-                          ? 'bg-rose-600 text-white shadow-xs'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      🇯🇵 JLPT
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setLibraryFilter('en')}
-                      className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
-                        libraryFilter === 'en'
-                          ? 'bg-indigo-600 text-white shadow-xs'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      🇬🇧 IELTS
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setLibraryFilter('all')}
-                      className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
-                        libraryFilter === 'all'
-                          ? 'bg-background text-foreground shadow-xs'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      Barchasi
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 p-1">
-                    <span className="flex items-center gap-1 rounded-lg px-3 py-1 text-xs font-black text-rose-500">
-                      🇯🇵 JLPT N5 – N1
-                    </span>
-                  </div>
-                )}
+                <div className="flex items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 p-1">
+                  <span className="flex items-center gap-1 rounded-lg px-3 py-1 text-xs font-black text-rose-500">
+                    🇯🇵 JLPT N5 – N1
+                  </span>
+                </div>
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[...visiblePresetDecks]
-                .filter((deck) => {
-                  const isJa = deck.level.startsWith('JLPT');
-                  if (!isSuper) return isJa;
-                  if (libraryFilter === 'primary') {
-                    return primaryLanguage === 'ja' ? isJa : !isJa;
-                  }
-                  if (libraryFilter === 'ja') return isJa;
-                  if (libraryFilter === 'en') return !isJa;
-                  return true;
-                })
+                .filter((deck) => deck.level.startsWith('JLPT'))
                 .sort((a, b) => {
                   const aIsJa = a.level.startsWith('JLPT');
                   const bIsJa = b.level.startsWith('JLPT');

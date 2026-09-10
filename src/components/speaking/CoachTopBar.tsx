@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Check, GraduationCap, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
+import { Check, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
 
 interface CoachTopBarProps {
   language: 'en' | 'ja';
@@ -37,8 +37,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
   setShowPersonaSelector,
   handleLanguageChange: _handleLanguageChange,
   setPersona,
-  targetBand,
-  setTargetBand,
+  targetBand: _targetBand,
+  setTargetBand: _setTargetBand,
   isPaidUser: _isPaidUser,
   isAdmin,
   isSuperAdmin: _isSuper,
@@ -169,24 +169,6 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             </>
           )}
         </div>
-
-        {/* Target Band Level Selector (Desktop & Tablet) */}
-        {language === 'en' && (
-          <div className="hidden items-center rounded-xl border border-border bg-card/90 px-2 py-1 backdrop-blur-xl sm:flex">
-            <GraduationCap size={13} className="mr-1.5 text-[#C9A961]" />
-            <span className="mr-1 text-[10px] font-bold text-muted-foreground">Band:</span>
-            {(['6.0', '7.0', '8.0', '9.0'] as const).map((b) => (
-              <button
-                key={b}
-                disabled={isLiveSession}
-                onClick={() => setTargetBand(b)}
-                className={`cursor-pointer rounded-md px-1.5 py-0.5 text-[10px] font-extrabold transition-all ${targetBand === b ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                {b}
-              </button>
-            ))}
-          </div>
-        )}
 
         {/* AI Speech Speed Selector (0.8x, 1.0x, 1.2x) */}
         <div className="hidden items-center rounded-xl border border-border bg-card/90 px-2 py-1 backdrop-blur-xl md:flex">

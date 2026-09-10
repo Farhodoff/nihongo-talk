@@ -24,20 +24,18 @@ import {
 } from '../types/diagnostic';
 import { CurriculumLessonResolver } from '../services/CurriculumLessonResolver';
 import { MasteryEngine } from '../services/MasteryEngine';
-import { isSuperAdmin } from '../utils/admin';
-import { speakJapaneseText, speakText, stopAllAudio } from '../utils/audioTts';
+import { speakJapaneseText, stopAllAudio } from '../utils/audioTts';
 import { FuriganaText } from '../components/jlpt/FuriganaText';
 
 export const DiagnosticPage: React.FC = () => {
-  const { primaryLanguage, targetLevel, user } = useStudyData();
-  const isSuper = isSuperAdmin(user?.email);
-  const effectiveLang = isSuper ? primaryLanguage : 'ja';
+  const { targetLevel, user } = useStudyData();
+  const effectiveLang = 'ja';
   const { language } = useLanguage();
   const isUz = language !== 'en';
   const navigate = useNavigate();
 
   const [mode, setMode] = useState<DiagnosticMode>('standard');
-  const claimedLevel = targetLevel || (effectiveLang === 'ja' ? 'N3' : 'B2');
+  const claimedLevel = targetLevel || 'N3';
   const [step, setStep] = useState<'intro' | 'testing' | 'result'>('intro');
 
   // Adaptive state
@@ -71,11 +69,7 @@ export const DiagnosticPage: React.FC = () => {
     } else {
       const textToPlay = currentQuestion.audioText || currentQuestion.prompt;
       setIsPlayingAudio(true);
-      if (effectiveLang === 'ja') {
-        speakJapaneseText(textToPlay);
-      } else {
-        speakText(textToPlay, 'en-US');
-      }
+      speakJapaneseText(textToPlay);
       const estSeconds = Math.max(3, Math.ceil(textToPlay.length * 0.22));
       setTimeout(() => {
         setIsPlayingAudio(false);

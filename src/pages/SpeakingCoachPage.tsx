@@ -143,7 +143,6 @@ const SpeakingCoachPage: React.FC = () => {
   });
 
   const navigate = useNavigate();
-  const { primaryLanguage } = useStudyData();
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     user,
@@ -176,23 +175,9 @@ const SpeakingCoachPage: React.FC = () => {
     }
   }, [flashcards, updateFlashcard]);
 
-  const urlLang = searchParams.get('lang');
   const scenarioIdParam = searchParams.get('scenario');
 
-  const initialLang: 'en' | 'ja' = isSuper && urlLang === 'en' ? 'en' : 'ja';
-  const [language, setLanguage] = useState<'en' | 'ja'>(initialLang);
-
-  useEffect(() => {
-    if (!isSuper) {
-      setLanguage('ja');
-      return;
-    }
-    if (urlLang === 'ja' || urlLang === 'en') {
-      setLanguage((prev) => (prev !== urlLang ? urlLang : prev));
-    } else if (primaryLanguage === 'ja' || primaryLanguage === 'en') {
-      setLanguage((prev) => (prev !== primaryLanguage ? primaryLanguage : prev));
-    }
-  }, [urlLang, primaryLanguage, isSuper]);
+  const language: 'en' | 'ja' = 'ja';
 
   // Scenario & Voice Recorder state
   const [activeScenario, setActiveScenario] = useState<ConversationScenario | null>(() => {
@@ -207,10 +192,8 @@ const SpeakingCoachPage: React.FC = () => {
 
   const voiceRecorder = useVoiceRecorder();
 
-  const handleLanguageChange = (newLang: 'en' | 'ja') => {
-    if (isLiveSession) return;
-    setLanguage(newLang);
-    setSearchParams({ lang: newLang });
+  const handleLanguageChange = (_newLang: 'en' | 'ja') => {
+    // Nihon Talk is strictly Japanese
   };
 
   const [persona, setPersona] = useState<CoachPersona>('roast');
@@ -416,18 +399,12 @@ const SpeakingCoachPage: React.FC = () => {
       const applyScenarioGreeting = (scenario: ConversationScenario) => {
         setActiveScenario((prev) => (prev?.id === scenario.id ? prev : scenario));
         activeScenarioRef.current = scenario;
-        const sLang = scenario.language || (scenario.title_en ? 'en' : 'ja');
-        setLanguage((prev) => (prev !== sLang ? sLang : prev));
 
         // Automatically activate live session when entering a scenario
         setIsLiveSession(true);
         isLiveSessionRef.current = true;
 
-        const scenarioGreeting =
-          (sLang === 'en' ? scenario.opening_line_en : scenario.opening_line_ja) ||
-          scenario.opening_line_ja ||
-          scenario.opening_line_en ||
-          "Hello! Let's start our conversation practice.";
+        const scenarioGreeting = scenario.opening_line_ja || 'こんにちは！会話を始めましょう。';
         const timeStr = new Date().toLocaleTimeString([], {
           hour: '2-digit',
           minute: '2-digit',
@@ -942,11 +919,7 @@ const SpeakingCoachPage: React.FC = () => {
     const currentScenario = activeScenarioRef.current || activeScenario;
     let greeting = getInitialGreeting(language, persona);
     if (currentScenario) {
-      greeting =
-        (language === 'en' ? currentScenario.opening_line_en : currentScenario.opening_line_ja) ||
-        currentScenario.opening_line_ja ||
-        currentScenario.opening_line_en ||
-        "Hello! Let's start our conversation practice.";
+      greeting = currentScenario.opening_line_ja || 'こんにちは！会話を始めましょう。';
     }
     const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const freshHistory: CoachChatMessage[] = [
@@ -1037,17 +1010,9 @@ const SpeakingCoachPage: React.FC = () => {
 
     let greeting = getInitialGreeting(language, persona);
     if (currentScenario) {
-      greeting =
-        (language === 'en' ? currentScenario.opening_line_en : currentScenario.opening_line_ja) ||
-        currentScenario.opening_line_ja ||
-        currentScenario.opening_line_en ||
-        "Hello! Let's start our conversation practice.";
+      greeting = currentScenario.opening_line_ja || 'こんにちは！会話を始めましょう。';
     } else if (cleanTopic) {
-      if (language === 'ja') {
-        greeting = `こんにちは！「${cleanTopic}」ですね。準備ができたら話しかけてください！`;
-      } else {
-        greeting = `Hello! Let's practice with "${cleanTopic}". Feel free to speak whenever you are ready!`;
-      }
+      greeting = `こんにちは！「${cleanTopic}」ですね。準備ができたら話しかけてください！`;
     }
 
     const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

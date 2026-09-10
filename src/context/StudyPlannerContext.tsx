@@ -46,7 +46,6 @@ import {
 import { isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
-import { isSuperAdmin } from '../utils/admin';
 import { isPublicPreviewActive, MOCK_PREVIEW_USER } from '../config/previewMode';
 import { isTelegramWebApp, initTelegramAuth } from '../utils/telegramAuth';
 import {
@@ -294,63 +293,40 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
     return null;
   });
 
-  // Learning Focus State - Defaults to 100% Japanese ('ja') for all public users
+  // Learning Focus State - 100% Japanese ('ja') strictly for all users in Nihongo Talk
   const [primaryLanguage, setPrimaryLanguage] = useState<'en' | 'ja'>(() => {
-    const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-    const email = cachedUser?.email;
-    if (!isSuperAdmin(email)) {
-      safeLocalStorage.setItem('study_planner_primary_language', 'ja');
-      safeLocalStorage.setItem('study_planner_study_track', 'ja');
-      return 'ja';
-    }
-    const saved =
-      safeLocalStorage.getItem('study_planner_primary_language') ||
-      safeLocalStorage.getItem('study_planner_study_track');
-    return saved === 'ja' || saved === 'en' ? saved : 'ja';
+    safeLocalStorage.setItem('study_planner_primary_language', 'ja');
+    safeLocalStorage.setItem('study_planner_study_track', 'ja');
+    return 'ja';
   });
 
-  const [enabledLanguages, setEnabledLanguages] = useState<('en' | 'ja')[]>(() => {
-    const cachedUser = safeLocalStorage.getJSON<User | null>('study_planner_user_cache', null);
-    const email = cachedUser?.email;
-    if (!isSuperAdmin(email)) {
-      return ['ja'];
-    }
-    const saved = safeLocalStorage.getJSON<('en' | 'ja')[] | null>(
-      'study_planner_enabled_languages',
-      null,
-    );
-    if (Array.isArray(saved) && saved.length > 0) return saved;
-    return [primaryLanguage];
-  });
+  const [enabledLanguages, setEnabledLanguages] = useState<('en' | 'ja')[]>(['ja']);
 
   const [targetLevel, setTargetLevel] = useState<string>(() => {
-    return LearningTrackStorage.getTargetLevel(primaryLanguage);
+    return LearningTrackStorage.getTargetLevel('ja');
   });
 
   const [targetGoal, setTargetGoal] = useState<string>(() => {
-    return LearningTrackStorage.getTargetGoal(primaryLanguage);
+    return LearningTrackStorage.getTargetGoal('ja');
   });
 
-  // Enforce 100% Japanese track for non-super-admins
+  // Enforce 100% Japanese track unconditionally
   useEffect(() => {
-    const activeEmail = user?.email;
-    if (!isSuperAdmin(activeEmail)) {
-      if (primaryLanguage !== 'ja') {
-        setPrimaryLanguage('ja');
-        safeLocalStorage.setItem('study_planner_primary_language', 'ja');
-        safeLocalStorage.setItem('study_planner_study_track', 'ja');
-      }
-      setEnabledLanguages(['ja']);
-      const currentJaTarget = LearningTrackStorage.getTargetLevel('ja');
-      if (targetLevel !== currentJaTarget) {
-        setTargetLevel(currentJaTarget);
-      }
-      const currentJaGoal = LearningTrackStorage.getTargetGoal('ja');
-      if (targetGoal !== currentJaGoal) {
-        setTargetGoal(currentJaGoal);
-      }
+    if (primaryLanguage !== 'ja') {
+      setPrimaryLanguage('ja');
+      safeLocalStorage.setItem('study_planner_primary_language', 'ja');
+      safeLocalStorage.setItem('study_planner_study_track', 'ja');
     }
-  }, [user?.email, primaryLanguage, targetLevel, targetGoal]);
+    setEnabledLanguages(['ja']);
+    const currentJaTarget = LearningTrackStorage.getTargetLevel('ja');
+    if (targetLevel !== currentJaTarget) {
+      setTargetLevel(currentJaTarget);
+    }
+    const currentJaGoal = LearningTrackStorage.getTargetGoal('ja');
+    if (targetGoal !== currentJaGoal) {
+      setTargetGoal(currentJaGoal);
+    }
+  }, [primaryLanguage, targetLevel, targetGoal]);
 
   // Combined settings for consumers
   const settings: Settings = {
@@ -1006,19 +982,15 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
   };
 
   // Learning Focus Actions
-  const setPrimaryFocus = useCallback(async (lang: 'en' | 'ja', level?: string, goal?: string) => {
-    const allowedLang = !isSuperAdmin(user?.email) ? 'ja' : lang;
-    setPrimaryLanguage(allowedLang);
-    safeLocalStorage.setItem('study_planner_primary_language', allowedLang);
-    safeLocalStorage.setItem('study_planner_study_track', allowedLang);
+  const setPrimaryFocus = useCallback(async (_lang: 'en' | 'ja', level?: string, goal?: string) => {
+    const allowedLang = 'ja' as const;
+    setPrimaryLanguage('ja');
+    safeLocalStorage.setItem('study_planner_primary_language', 'ja');
+    safeLocalStorage.setItem('study_planner_study_track', 'ja');
 
-    let currentEnabled: ('en' | 'ja')[] = [];
-    setEnabledLanguages((prev) => {
-      const next = prev.includes(allowedLang) ? prev : [allowedLang, ...prev];
-      currentEnabled = next;
-      safeLocalStorage.setJSON('study_planner_enabled_languages', next);
-      return next;
-    });
+    let currentEnabled: ('en' | 'ja')[] = ['ja'];
+    setEnabledLanguages(['ja']);
+    safeLocalStorage.setJSON('study_planner_enabled_languages', ['ja']);
 
     const newLevel = level || LearningTrackStorage.getTargetLevel(allowedLang);
     const newGoal = goal || LearningTrackStorage.getTargetGoal(allowedLang);
@@ -1050,16 +1022,16 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         await Promise.allSettled([
           supabase.from('profiles').upsert({
             id: targetUserId,
-            primary_language: lang,
-            enabled_languages: currentEnabled.length > 0 ? currentEnabled : [lang],
+            primary_language: allowedLang,
+            enabled_languages: currentEnabled.length > 0 ? currentEnabled : [allowedLang],
             target_level: newLevel,
             target_goal: newGoal,
             updated_at: new Date().toISOString(),
           }),
           supabase.auth.updateUser({
             data: {
-              primary_language: lang,
-              enabled_languages: currentEnabled.length > 0 ? currentEnabled : [lang],
+              primary_language: allowedLang,
+              enabled_languages: currentEnabled.length > 0 ? currentEnabled : [allowedLang],
               target_level: newLevel,
               target_goal: newGoal,
             },

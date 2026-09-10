@@ -1457,7 +1457,7 @@ export default function AdminDashboardPage() {
                   {dbMetrics.flashcards.toLocaleString()} {isJa ? '件' : 'ta'}
                 </div>
                 <div className="text-[10px] text-muted-foreground">
-                  {isJa ? 'Anki & JLPT公式単語' : "Anki & JLPT/IELTS so'zlar"}
+                  {isJa ? 'Anki & JLPT公式単語' : "Anki & JLPT so'zlar"}
                 </div>
               </div>
 

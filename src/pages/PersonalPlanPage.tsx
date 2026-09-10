@@ -28,22 +28,18 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { DiagnosticService } from '../services/DiagnosticService';
 import { PersonalLearningGoal, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
 import { generateUUID } from '../utils/uuid';
-import { isSuperAdmin } from '../utils/admin';
 import { generatePersonalMilestones } from '../utils/roadmapMilestones';
 
 export const PersonalPlanPage: React.FC = () => {
   const { user, awardXP } = useStudyData();
   const { language } = useLanguage();
-  const isSuper = isSuperAdmin(user?.email);
   const isUz = language !== 'en';
   const navigate = useNavigate();
 
-  // Wizard States - Default to Japanese (JLPT) as primary focus
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [selectedLang, setSelectedLang] = useState<'en' | 'ja'>('ja');
-  const [selectedGoalType, setSelectedGoalType] = useState<
-    'ielts' | 'jlpt' | 'general_en' | 'general_ja'
-  >('jlpt');
+  // Wizard States - Strictly 100% Japanese (JLPT / Kaiwa)
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const selectedLang = 'ja' as const;
+  const [selectedGoalType, setSelectedGoalType] = useState<'jlpt' | 'general_ja'>('jlpt');
   const [targetLevel, setTargetLevel] = useState<string>('N3');
   const [currentLevel, setCurrentLevel] = useState<string>('ZERO');
   const [deadlineMonths, setDeadlineMonths] = useState<number>(6);
@@ -178,39 +174,13 @@ export const PersonalPlanPage: React.FC = () => {
 
   // Available target options
   const targetsList = useMemo(() => {
-    if (selectedLang === 'ja') {
-      return ['N5', 'N4', 'N3', 'N2', 'N1'];
-    }
-    if (selectedGoalType === 'ielts') {
-      return ['5.5', '6.0', '6.5', '7.0', '7.5', '8.0', '8.5+'];
-    }
-    return ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-  }, [selectedLang, selectedGoalType]);
+    return ['N5', 'N4', 'N3', 'N2', 'N1'];
+  }, []);
 
   // Available current level options
   const currentLevelsList = useMemo(() => {
-    if (selectedLang === 'ja') {
-      return ['ZERO', 'N5', 'N4', 'N3', 'N2'];
-    }
-    if (selectedGoalType === 'ielts') {
-      return ['ZERO', '4.0', '4.5', '5.0', '5.5', '6.0', '6.5', '7.0'];
-    }
-    return ['ZERO', 'A1', 'A2', 'B1', 'B2', 'C1'];
-  }, [selectedLang, selectedGoalType]);
-
-  // Update defaults when language track changes
-  const handleLangSelect = (lang: 'en' | 'ja') => {
-    setSelectedLang(lang);
-    if (lang === 'ja') {
-      setSelectedGoalType('jlpt');
-      setTargetLevel('N5');
-      setCurrentLevel('ZERO');
-    } else {
-      setSelectedGoalType('general_en');
-      setTargetLevel('A1');
-      setCurrentLevel('ZERO');
-    }
-  };
+    return ['ZERO', 'N5', 'N4', 'N3', 'N2'];
+  }, []);
 
   // Calculate Feasibility
   const feasibility: FeasibilityResult = useMemo(() => {
@@ -223,7 +193,7 @@ export const PersonalPlanPage: React.FC = () => {
       days,
       dailyMinutes,
     );
-  }, [selectedLang, selectedGoalType, currentLevel, targetLevel, deadlineMonths, dailyMinutes]);
+  }, [selectedGoalType, currentLevel, targetLevel, deadlineMonths, dailyMinutes]);
 
   // High level Milestone roadmaps
   const roadmapMilestones = useMemo(() => {
@@ -235,7 +205,7 @@ export const PersonalPlanPage: React.FC = () => {
       deadlineMonths,
       isUz,
     );
-  }, [selectedLang, selectedGoalType, currentLevel, targetLevel, deadlineMonths, isUz]);
+  }, [selectedGoalType, currentLevel, targetLevel, deadlineMonths, isUz]);
 
   // Start plan generation wizard
   const handleInitializePlan = async () => {
@@ -262,7 +232,8 @@ export const PersonalPlanPage: React.FC = () => {
       language: selectedLang,
       goalType: selectedGoalType,
       currentLevel,
-      targetGoal: selectedGoalType === 'ielts' ? `IELTS ${targetLevel}` : `JLPT ${targetLevel}`,
+      targetGoal:
+        selectedGoalType === 'general_ja' ? `Kaiwa ${targetLevel}` : `JLPT ${targetLevel}`,
       targetLevel,
       deadline: new Date(Date.now() + deadlineMonths * 30 * 24 * 60 * 60 * 1000).toISOString(),
       dailyMinutes,
@@ -549,127 +520,42 @@ export const PersonalPlanPage: React.FC = () => {
             </p>
           </div>
 
-          {/* STEP 1: Select Language */}
+          {/* STEP 1: Goal Selection */}
           {step === 1 && (
             <div className="space-y-6">
               <h3 className="text-lg font-bold text-foreground">
-                {isUz ? '1-Bosqich: Tilni tanlang' : 'Step 1: Select Language'}
+                {isUz ? '1-Bosqich: Maqsadni tanlang' : 'Step 1: Define Goal Type'}
               </h3>
-              <div className={`grid ${isSuper ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-                {isSuper && (
-                  <button
-                    onClick={() => handleLangSelect('en')}
-                    className={`rounded-3xl border p-6 text-center transition-all ${
-                      selectedLang === 'en'
-                        ? 'scale-[1.01] border-primary bg-primary/10 shadow-xs'
-                        : 'border-border bg-card hover:border-primary/50'
-                    }`}
-                  >
-                    <span className="mb-2 block text-3xl">🇬🇧</span>
-                    <span className="block text-base font-bold text-foreground">Ingliz Tili</span>
-                    <span className="mt-1 block text-[10px] font-black uppercase text-[#C9A961]">
-                      Super Admin Preview
-                    </span>
-                  </button>
-                )}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <button
-                  onClick={() => handleLangSelect('ja')}
-                  className={`rounded-3xl border p-6 text-center transition-all ${
-                    selectedLang === 'ja'
-                      ? 'scale-[1.01] border-primary bg-primary/10 shadow-xs'
+                  type="button"
+                  onClick={() => setSelectedGoalType('jlpt')}
+                  className={`cursor-pointer rounded-3xl border p-6 text-left transition-all ${
+                    selectedGoalType === 'jlpt'
+                      ? 'border-primary bg-primary/10 shadow-xs'
                       : 'border-border bg-card hover:border-primary/50'
                   }`}
                 >
-                  <span className="mb-2 block text-3xl">🇯🇵</span>
-                  <span className="block text-base font-bold text-foreground">
-                    Yapon Tili (JLPT)
-                  </span>
-                  <span className="mt-1 block text-[10px] font-black uppercase text-primary">
-                    ★ ASOSIY FOKUS • N5 – N1
-                  </span>
+                  <h4 className="text-base font-bold text-foreground">JLPT Imtihoni (N5 - N1)</h4>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Yapon tili darajasini aniqlash imtihon strategiyalari, kanji va mock testlar.
+                  </p>
                 </button>
-              </div>
-              <div className="flex justify-end pt-4">
                 <button
-                  onClick={() => setStep(2)}
-                  className="flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-black text-primary-foreground transition-all hover:bg-primary/90"
+                  type="button"
+                  onClick={() => setSelectedGoalType('general_ja')}
+                  className={`cursor-pointer rounded-3xl border p-6 text-left transition-all ${
+                    selectedGoalType === 'general_ja'
+                      ? 'border-primary bg-primary/10 shadow-xs'
+                      : 'border-border bg-card hover:border-primary/50'
+                  }`}
                 >
-                  <span>{isUz ? 'Davom etish' : 'Continue'}</span>
+                  <h4 className="text-base font-bold text-foreground">Kundalik Muloqot & Kaiwa</h4>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Yaponiyada yashash, sayohat, suhbat va tabiiy nutqqa yo'naltirilgan amaliy reja.
+                  </p>
                 </button>
               </div>
-            </div>
-          )}
-
-          {/* STEP 2: Goal Selection */}
-          {step === 2 && (
-            <div className="space-y-6">
-              <h3 className="text-lg font-bold text-foreground">
-                {isUz ? '2-Bosqich: Maqsadni tanlang' : 'Step 2: Define Goal Type'}
-              </h3>
-              {selectedLang === 'en' ? (
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    onClick={() => setSelectedGoalType('ielts')}
-                    className={`rounded-3xl border p-6 text-left transition-all ${
-                      selectedGoalType === 'ielts'
-                        ? 'border-primary bg-primary/10'
-                        : 'border-border bg-card'
-                    }`}
-                  >
-                    <h4 className="text-base font-bold text-foreground">IELTS Imtihoni</h4>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Band Score ko'rsatkichlariga yo'naltirilgan intensiv reja.
-                    </p>
-                  </button>
-                  <button
-                    onClick={() => setSelectedGoalType('general_en')}
-                    className={`rounded-3xl border p-6 text-left transition-all ${
-                      selectedGoalType === 'general_en'
-                        ? 'border-primary bg-primary/10'
-                        : 'border-border bg-card'
-                    }`}
-                  >
-                    <h4 className="text-base font-bold text-foreground">General English</h4>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Muloqot, grammatika va so'z boyligini umumiy oshirish.
-                    </p>
-                  </button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedGoalType('jlpt')}
-                    className={`rounded-3xl border p-6 text-left transition-all ${
-                      selectedGoalType === 'jlpt'
-                        ? 'border-primary bg-primary/10 shadow-xs'
-                        : 'border-border bg-card hover:border-primary/50'
-                    }`}
-                  >
-                    <h4 className="text-base font-bold text-foreground">JLPT Imtihoni (N5 - N1)</h4>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Yapon tili darajasini aniqlash imtihon strategiyalari, kanji va mock testlar.
-                    </p>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedGoalType('general_ja')}
-                    className={`rounded-3xl border p-6 text-left transition-all ${
-                      selectedGoalType === 'general_ja'
-                        ? 'border-primary bg-primary/10 shadow-xs'
-                        : 'border-border bg-card hover:border-primary/50'
-                    }`}
-                  >
-                    <h4 className="text-base font-bold text-foreground">
-                      Kundalik Muloqot & Kaiwa
-                    </h4>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Yaponiyada yashash, sayohat, suhbat va tabiiy nutqqa yo'naltirilgan amaliy
-                      reja.
-                    </p>
-                  </button>
-                </div>
-              )}
 
               <div className="space-y-2 pt-2">
                 <label className="block text-sm font-bold text-foreground">
@@ -688,16 +574,10 @@ export const PersonalPlanPage: React.FC = () => {
                 </select>
               </div>
 
-              <div className="flex justify-between pt-4">
+              <div className="flex justify-end pt-4">
                 <button
-                  onClick={() => setStep(1)}
-                  className="rounded-xl bg-secondary px-5 py-2.5 text-xs font-bold text-foreground"
-                >
-                  Orqaga
-                </button>
-                <button
-                  onClick={() => setStep(3)}
-                  className="rounded-2xl bg-primary px-6 py-3 text-sm font-black text-primary-foreground transition-all hover:bg-primary/90"
+                  onClick={() => setStep(2)}
+                  className="cursor-pointer rounded-2xl bg-primary px-6 py-3 text-sm font-black text-primary-foreground transition-all hover:bg-primary/90"
                 >
                   Davom etish
                 </button>
@@ -705,13 +585,13 @@ export const PersonalPlanPage: React.FC = () => {
             </div>
           )}
 
-          {/* STEP 3: Current Level Assessment */}
-          {step === 3 && (
+          {/* STEP 2: Current Level Assessment */}
+          {step === 2 && (
             <div className="space-y-6">
               <h3 className="text-lg font-bold text-foreground">
                 {isUz
-                  ? '3-Bosqich: Joriy darajangizni aniqlang'
-                  : 'Step 3: Establish Starting Level'}
+                  ? '2-Bosqich: Joriy darajangizni aniqlang'
+                  : 'Step 2: Establish Starting Level'}
               </h3>
 
               {latestDiag && (
@@ -813,8 +693,8 @@ export const PersonalPlanPage: React.FC = () => {
 
               <div className="flex justify-between pt-4">
                 <button
-                  onClick={() => setStep(2)}
-                  className="rounded-xl bg-secondary px-5 py-2.5 text-xs font-bold text-foreground"
+                  onClick={() => setStep(1)}
+                  className="cursor-pointer rounded-xl bg-secondary px-5 py-2.5 text-xs font-bold text-foreground"
                 >
                   Orqaga
                 </button>
@@ -836,9 +716,9 @@ export const PersonalPlanPage: React.FC = () => {
                       });
                       return;
                     }
-                    setStep(4);
+                    setStep(3);
                   }}
-                  className="rounded-2xl bg-primary px-6 py-3 text-sm font-black text-primary-foreground transition-all hover:bg-primary/90"
+                  className="cursor-pointer rounded-2xl bg-primary px-6 py-3 text-sm font-black text-primary-foreground transition-all hover:bg-primary/90"
                 >
                   Davom etish
                 </button>
@@ -846,11 +726,11 @@ export const PersonalPlanPage: React.FC = () => {
             </div>
           )}
 
-          {/* STEP 4: Deadline & Confirmation */}
-          {step === 4 && (
+          {/* STEP 3: Deadline & Confirmation */}
+          {step === 3 && (
             <div className="space-y-6">
               <h3 className="text-lg font-bold text-foreground">
-                {isUz ? '4-Bosqich: Muddat va dars vaqti' : 'Step 4: Milestones & Schedule'}
+                {isUz ? '3-Bosqich: Muddat va dars vaqti' : 'Step 3: Milestones & Schedule'}
               </h3>
 
               <div className="grid grid-cols-2 gap-4">
@@ -980,8 +860,8 @@ export const PersonalPlanPage: React.FC = () => {
 
               <div className="flex justify-between pt-4">
                 <button
-                  onClick={() => setStep(3)}
-                  className="rounded-xl bg-secondary px-5 py-2.5 text-xs font-bold text-foreground"
+                  onClick={() => setStep(2)}
+                  className="cursor-pointer rounded-xl bg-secondary px-5 py-2.5 text-xs font-bold text-foreground"
                 >
                   Orqaga
                 </button>

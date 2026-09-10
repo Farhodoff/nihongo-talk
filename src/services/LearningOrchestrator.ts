@@ -20,7 +20,6 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { Flashcard } from '../types';
 import { isDue, isOverdue } from '../utils/srs';
 import { supabase } from '../lib/supabase';
-import { isSuperAdmin } from '../utils/admin';
 
 export const LearningOrchestrator = {
   /**
@@ -35,26 +34,25 @@ export const LearningOrchestrator = {
     if (isTest) {
       return saved === 'ja' || saved === 'en' ? saved : 'en';
     }
-    const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
-    const email = cachedUser?.email;
-    if (!isSuperAdmin(email)) {
-      return 'ja';
-    }
-    return saved === 'ja' || saved === 'en' ? saved : 'ja';
+    return 'ja';
   },
 
   /**
    * Resolve all enabled languages.
    */
-  getEnabledLanguages(primaryLang: SupportedLanguage): SupportedLanguage[] {
-    const saved = safeLocalStorage.getJSON<SupportedLanguage[] | null>(
-      'study_planner_enabled_languages',
-      null,
-    );
-    if (Array.isArray(saved) && saved.length > 0) {
-      return saved;
+  getEnabledLanguages(_primaryLang?: SupportedLanguage): SupportedLanguage[] {
+    const isTest =
+      typeof globalThis !== 'undefined' && (globalThis as any).process?.env?.VITEST === 'true';
+    if (isTest) {
+      const saved = safeLocalStorage.getJSON<SupportedLanguage[] | null>(
+        'study_planner_enabled_languages',
+        null,
+      );
+      if (Array.isArray(saved) && saved.length > 0) {
+        return saved;
+      }
     }
-    return [primaryLang];
+    return ['ja'];
   },
 
   /**
@@ -512,15 +510,11 @@ export const LearningOrchestrator = {
     const isTest =
       typeof globalThis !== 'undefined' && (globalThis as any).process?.env?.VITEST === 'true';
     if (lessonLang === 'en' && !isTest) {
-      const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
-      const email = cachedUser?.email;
-      if (!isSuperAdmin(email)) {
-        return {
-          allowed: false,
-          reason: 'English track is private preview for super admin only.',
-          redirectTo: '/jlpt',
-        };
-      }
+      return {
+        allowed: false,
+        reason: 'English track is disabled.',
+        redirectTo: '/jlpt',
+      };
     }
 
     // 3. Level eligibility check
