@@ -476,11 +476,8 @@ const DecksPage: React.FC = () => {
   };
 
   const visiblePresetDecks = useMemo(() => {
-    if (!isSuper) {
-      return PRESET_DECKS.filter((d) => d.level.startsWith('JLPT'));
-    }
     return PRESET_DECKS;
-  }, [isSuper]);
+  }, []);
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 p-3.5 sm:p-4 md:space-y-8 md:p-8">
