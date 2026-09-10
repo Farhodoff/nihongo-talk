@@ -116,7 +116,7 @@ export const JlptHubPage: React.FC = () => {
           }`}
         >
           <Sparkles size={15} />{' '}
-          {language === 'ja' ? '📚 体系的レッスン (N5–N2)' : '📚 Darsliklar (N5–N2)'}
+          {language === 'ja' ? '📚 体系的レッスン (N5–N1)' : '📚 Darsliklar (N5–N1)'}
         </button>
 
         <button

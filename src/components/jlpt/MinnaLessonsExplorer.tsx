@@ -13,15 +13,16 @@ import { MINNA_N5_LESSONS } from '../../data/curriculum/minnaN5Lessons';
 import { MINNA_N4_LESSONS } from '../../data/curriculum/minnaN4Lessons';
 import { JAPANESE_N3_LESSONS } from '../../data/curriculum/japaneseN3';
 import { JAPANESE_N2_LESSONS } from '../../data/curriculum/japaneseN2';
+import { JAPANESE_N1_LESSONS } from '../../data/curriculum/japaneseN1';
 import { LessonService } from '../../services/LessonService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { Lesson } from '../../types/lesson';
 
-export type JlptLevel = 'n5' | 'n4' | 'n3' | 'n2';
+export type JlptLevel = 'n5' | 'n4' | 'n3' | 'n2' | 'n1';
 
 interface MinnaLessonsExplorerProps {
-  initialLevel?: 'N5' | 'N4' | 'N3' | 'N2';
+  initialLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
 }
 
 const UNIT_TABS_N5 = [
@@ -126,6 +127,40 @@ const UNIT_TABS_N2 = [
   },
 ];
 
+const UNIT_TABS_N1 = [
+  { id: 'all', title: 'Barcha Darslar (1–30)', titleJa: 'すべての課 (1–30)' },
+  {
+    id: 'ja-n1-u1',
+    title: 'Unit 1: Classical & Literary Grammar (文語・格調表現)',
+    titleJa: '第1章：古典・文語',
+  },
+  {
+    id: 'ja-n1-u2',
+    title: 'Unit 2: Academic Vocabulary & Discourse (学術語彙・論理構成)',
+    titleJa: '第2章：学術語彙',
+  },
+  {
+    id: 'ja-n1-u3',
+    title: 'Unit 3: Cause, Trigger & Consequence (起因・不可避・即時)',
+    titleJa: '第3章：起因・即時',
+  },
+  {
+    id: 'ja-n1-u4',
+    title: 'Unit 4: Extreme States & Nuances (極限・評価・限定)',
+    titleJa: '第4章：極限・評価',
+  },
+  {
+    id: 'ja-n1-u5',
+    title: 'Unit 5: Advanced Kanji & Grammar Synthesis (学術漢字・四字熟語)',
+    titleJa: '第5章：漢字・熟語',
+  },
+  {
+    id: 'ja-n1-u6',
+    title: 'Unit 6: Dokkai & Ultimate Capstone (社会評論・N1卒業検定)',
+    titleJa: '第6章：総仕上げ',
+  },
+];
+
 const SCENARIO_MAP_BY_LESSON_NUMBER: Record<number, string> = {
   1: 'minna_l1_hajimemashite',
   2: 'minna_l2_honno_kimochi',
@@ -158,6 +193,12 @@ const SCENARIO_MAP_BY_UNIT: Record<string, string> = {
   'ja-n2-u4': 'shokuba_email_followup',
   'ja-n2-u5': 'shokuba_teammeeting',
   'ja-n2-u6': 'mensetsu_it',
+  'ja-n1-u1': 'shakai_mondai_iken',
+  'ja-n1-u2': 'presentation_kekka',
+  'ja-n1-u3': 'business_koushou',
+  'ja-n1-u4': 'torihikisaki_denwa_keigo',
+  'ja-n1-u5': 'shokuba_email_followup',
+  'ja-n1-u6': 'mensetsu_it',
 };
 
 const LEVEL_CONFIGS = {
@@ -204,12 +245,12 @@ const LEVEL_CONFIGS = {
     title: "🏮 新完全マスター＆総まとめ N3 (30 ta To'liq Dars)",
     description:
       "JLPT N3 imtihoni uchun 30 ta tayanch dars. Murakkab passiv-kausativ (Ukemi/Shieki), rasmiy biznes yapon tili (Keigo), sabab-oqibat va publitsistik matnlarni tushunish ko'nikmalari.",
-    badgeClass: 'border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    badgeClass: 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400',
     bannerGradient:
-      'border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent',
-    progressBarGradient: 'bg-gradient-to-r from-purple-500 to-indigo-500',
-    numberBadgeClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-    iconColor: 'text-purple-500',
+      'border-amber-500/20 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-amber-500 to-orange-500',
+    numberBadgeClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+    iconColor: 'text-amber-500',
     totalLessons: 30,
   },
   n2: {
@@ -229,6 +270,23 @@ const LEVEL_CONFIGS = {
     iconColor: 'text-blue-500',
     totalLessons: 30,
   },
+  n1: {
+    key: 'n1' as JlptLevel,
+    name: 'JLPT N1',
+    tabLabel: '👑 最上級 (N1)',
+    subLabel: '30 Dars',
+    badge: '👑 JLPT N1 Oliy Master Daraja (Shin Kanzen & Sou Matome N1)',
+    title: '👑 新完全マスター＆総まとめ N1 (30 ta Mukammal Dars)',
+    description:
+      "Yapon tilining eng yuqori akademik va professional cho'qqisi. Mumtoz adabiy grammatika (文語), akademik ilmiy matnlar tahlili, rasmiy davlat va biznes muzokaralari hamda falsafiy esselar.",
+    badgeClass: 'border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    bannerGradient:
+      'border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent',
+    progressBarGradient: 'bg-gradient-to-r from-purple-500 to-indigo-500',
+    numberBadgeClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    iconColor: 'text-purple-500',
+    totalLessons: 30,
+  },
 };
 
 export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ initialLevel }) => {
@@ -241,7 +299,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
 
   const resolveInitialLevel = (): JlptLevel => {
     if (initialLevel) return initialLevel.toLowerCase() as JlptLevel;
-    if (urlLevel && ['n5', 'n4', 'n3', 'n2'].includes(urlLevel)) return urlLevel as JlptLevel;
+    if (urlLevel && ['n5', 'n4', 'n3', 'n2', 'n1'].includes(urlLevel)) return urlLevel as JlptLevel;
     return 'n5';
   };
 
@@ -251,7 +309,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
 
   // Sync if url level changes
   useEffect(() => {
-    if (urlLevel && ['n5', 'n4', 'n3', 'n2'].includes(urlLevel)) {
+    if (urlLevel && ['n5', 'n4', 'n3', 'n2', 'n1'].includes(urlLevel)) {
       setActiveLevel(urlLevel as JlptLevel);
       setSelectedUnit('all');
     }
@@ -267,6 +325,8 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
         return JAPANESE_N3_LESSONS;
       case 'n2':
         return JAPANESE_N2_LESSONS;
+      case 'n1':
+        return JAPANESE_N1_LESSONS;
       default:
         return MINNA_N5_LESSONS;
     }
@@ -282,6 +342,8 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
         return UNIT_TABS_N3;
       case 'n2':
         return UNIT_TABS_N2;
+      case 'n1':
+        return UNIT_TABS_N1;
       default:
         return UNIT_TABS_N5;
     }
@@ -336,9 +398,9 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
 
   return (
     <div className="space-y-6 animate-in fade-in">
-      {/* 4-Level Switcher: N5, N4, N3, N2 */}
+      {/* 5-Level Switcher: N5, N4, N3, N2, N1 */}
       <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit">
-        {(['n5', 'n4', 'n3', 'n2'] as JlptLevel[]).map((lvl) => {
+        {(['n5', 'n4', 'n3', 'n2', 'n1'] as JlptLevel[]).map((lvl) => {
           const lCfg = LEVEL_CONFIGS[lvl];
           const isActive = activeLevel === lvl;
           return (
