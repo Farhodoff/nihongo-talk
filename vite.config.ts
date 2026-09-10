@@ -162,18 +162,11 @@ export default defineConfig({
               return 'dnd-kit';
             }
           }
-          // Separate curriculum data by language to avoid monolithic 1MB bundle
-          if (id.includes('/data/curriculum/english')) {
-            return 'curriculum-english';
-          }
           if (id.includes('/data/curriculum/japanese')) {
             return 'curriculum-japanese';
           }
           if (id.includes('/data/jlptGrammarKanji')) {
             return 'jlpt-grammar-kanji-data';
-          }
-          if (id.includes('/data/ielts/ielts_grammar_data')) {
-            return 'ielts-grammar-data';
           }
         },
       },

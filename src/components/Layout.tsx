@@ -22,7 +22,7 @@ import { useRatingModalStore } from '../stores';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { isAdminEmail, isSuperAdmin } from '../utils/admin';
+import { isAdminEmail } from '../utils/admin';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -49,10 +49,9 @@ const Layout: React.FC = () => {
   });
 
   const { language, setLanguage, t } = useLanguage();
-  const { user, primaryLanguage, enabledLanguages, targetLevel, setPrimaryFocus } = useStudyData();
+  const { user } = useStudyData();
   const displayEmail = user?.email || '';
   const isAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
-  const isSuper = Boolean(displayEmail && isSuperAdmin(displayEmail));
 
   const isRatingOpen = useRatingModalStore((s) => s.isOpen);
   const isRatingSubmitting = useRatingModalStore((s) => s.isSubmitting);
@@ -109,32 +108,13 @@ const Layout: React.FC = () => {
   }, [location.pathname, navigate]);
 
   const isFullScreenPage = React.useMemo(() => {
-    const fullScreenPaths = [
-      '/speaking-coach',
-      '/room',
-      '/focus',
-      '/ielts/speaking-mock',
-      '/jlpt/listening',
-    ];
+    const fullScreenPaths = ['/speaking-coach', '/room', '/focus', '/jlpt/listening'];
     return fullScreenPaths.some((p) => location.pathname.startsWith(p));
   }, [location.pathname]);
 
   const navItems: NavItem[] = useMemo(() => {
     const isJa = language === 'ja';
-    // Super Admin can switch to English (IELTS) track for development
-    if (isSuper && primaryLanguage === 'en') {
-      return [
-        { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=en', icon: Brain },
-        { name: isJa ? 'IELTSマスター' : 'IELTS Master', path: '/ielts', icon: BookOpen },
-        { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=en', icon: Sparkles },
-        { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=en', icon: Mic },
-        { name: isJa ? 'フラッシュカード' : 'Fleshkard', path: '/flashcards', icon: Copy },
-        { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
-        { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
-      ];
-    }
-
-    // Public Focus: 100% Japanese (JLPT)
+    // 100% Japanese (JLPT) Navigation
     return [
       { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
       { name: isJa ? '個人学習プラン' : 'Shaxsiy Rejam', path: '/personal-plan', icon: Target },
@@ -145,7 +125,7 @@ const Layout: React.FC = () => {
       { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
       { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
     ];
-  }, [primaryLanguage, isSuper, language]);
+  }, [language]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -161,7 +141,6 @@ const Layout: React.FC = () => {
     if (location.pathname.startsWith('/speaking-coach'))
       return isJa ? 'AIスピーキング' : 'Speaking';
     if (location.pathname === '/jlpt') return isJa ? 'JLPTマスター' : 'JLPT Master';
-    if (location.pathname === '/ielts') return isJa ? 'IELTSマスター' : 'IELTS Master';
     if (location.pathname === '/progress')
       return isJa ? '学習進捗 & アナリティクス' : "O'quv Statistikasi & Progress";
     if (location.pathname === '/admin')
@@ -340,55 +319,6 @@ const Layout: React.FC = () => {
           </Button>
         </div>
 
-        {/* Secondary Focus Quick Switcher (Only for Super Admin when 2 languages enabled) */}
-        {isSuper && enabledLanguages.length > 1 && (
-          <div className={`px-3.5 pb-1 pt-2.5 ${isCollapsed ? 'flex justify-center px-1' : ''}`}>
-            {!isCollapsed ? (
-              <div
-                className={`flex items-center justify-between rounded-xl border px-3 py-1.5 transition-all ${
-                  primaryLanguage === 'ja'
-                    ? 'border-rose-500/30 bg-rose-950/25 text-rose-300'
-                    : 'border-indigo-500/30 bg-indigo-950/25 text-indigo-300'
-                }`}
-              >
-                <div className="flex min-w-0 items-center gap-1.5">
-                  <span className="text-sm">{primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}</span>
-                  <span className="truncate text-xs font-bold text-foreground">
-                    {primaryLanguage === 'ja'
-                      ? `JLPT ${targetLevel || 'N3'}`
-                      : `IELTS ${targetLevel || 'B2'}`}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setPrimaryFocus(primaryLanguage === 'en' ? 'ja' : 'en')}
-                  className="shrink-0 rounded-lg border border-border bg-background/80 px-2 py-0.5 text-[10px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-background hover:text-foreground"
-                  title="Boshqa tilga o'tish"
-                >
-                  ⇄ Almashtirish
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setPrimaryFocus(primaryLanguage === 'en' ? 'ja' : 'en')}
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border text-sm transition-all ${
-                  primaryLanguage === 'ja'
-                    ? 'border-rose-500/30 bg-rose-950/30'
-                    : 'border-indigo-500/30 bg-indigo-950/30'
-                }`}
-                title={
-                  primaryLanguage === 'ja'
-                    ? `🇯🇵 JLPT ${targetLevel || 'N3'}`
-                    : `🇬🇧 IELTS ${targetLevel || 'B2'}`
-                }
-              >
-                {primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}
-              </button>
-            )}
-          </div>
-        )}
-
         {/* Navigation Links */}
         <NavLinks />
 
@@ -486,8 +416,8 @@ const Layout: React.FC = () => {
       <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/90 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
         {[
           {
-            name: isSuper && primaryLanguage === 'en' ? 'IELTS' : 'JLPT',
-            path: isSuper && primaryLanguage === 'en' ? '/ielts' : '/jlpt',
+            name: 'JLPT',
+            path: '/jlpt',
             icon: BookOpen,
           },
           { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },

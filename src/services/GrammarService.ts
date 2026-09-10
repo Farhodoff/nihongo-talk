@@ -1,5 +1,31 @@
 import { supabase } from '../lib/supabase';
-import type { IeltsGrammarTopic } from '../data/ielts/ielts_grammar_data';
+
+export interface IeltsGrammarTopic {
+  id: string;
+  level: 'A1-A2' | 'B1-B2' | 'C1';
+  title: string;
+  category?: string;
+  structure?: string;
+  uzbekMeaning?: string;
+  explanation?: string;
+  ieltsRelevance?: string;
+  academicExamples: {
+    sentence: string;
+    translation: string;
+    context: 'Task 1' | 'Task 2' | 'Speaking';
+  }[];
+  commonMistakes: {
+    incorrect: string;
+    correct: string;
+    explanation: string;
+  }[];
+  quizQuestions: {
+    question: string;
+    options: string[];
+    correctAnswer: string;
+    explanation: string;
+  }[];
+}
 
 export interface DbGrammarLessonRow {
   id: string;
@@ -59,9 +85,8 @@ export function mapRowToTopic(row: DbGrammarLessonRow): IeltsGrammarTopic {
   };
 }
 
-const getFallbackData = async () => {
-  const module = await import('../data/ielts/ielts_grammar_data');
-  return module.IELTS_GRAMMAR_DATABASE;
+const getFallbackData = async (): Promise<IeltsGrammarTopic[]> => {
+  return [];
 };
 
 export const GrammarService = {

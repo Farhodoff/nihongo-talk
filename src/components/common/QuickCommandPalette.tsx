@@ -7,7 +7,6 @@ import {
   BookOpen,
   Copy,
   Sparkles,
-  GraduationCap,
   Mic,
   Clock,
   Settings,
@@ -19,8 +18,6 @@ import {
   BarChart3,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuthStore } from '../../stores';
-import { isSuperAdmin } from '../../utils/admin';
 
 interface CommandItem {
   id: string;
@@ -102,15 +99,6 @@ const COMMANDS: CommandItem[] = [
     keywords: ['yapon', 'japanese', 'n5', 'n4', 'n3', 'n2', 'n1', 'kanji'],
   },
   {
-    id: 'ielts',
-    title: 'IELTS Hub 🎓',
-    description: 'IELTS Mock, Writing va Reading',
-    category: 'Til & Imtihonlar',
-    path: '/ielts',
-    icon: GraduationCap,
-    keywords: ['ingliz', 'english', 'ielts', 'writing', 'reading', 'listening'],
-  },
-  {
     id: 'speaking',
     title: 'AI Speaking Coach 🗣️',
     description: 'Jonli ovozli suhbat mashqi',
@@ -165,8 +153,6 @@ interface QuickCommandPaletteProps {
 }
 
 export const QuickCommandPalette: React.FC<QuickCommandPaletteProps> = ({ isOpen, onClose }) => {
-  const user = useAuthStore((s) => s.user);
-  const isSuper = isSuperAdmin(user?.email, (user as any)?.role);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -181,10 +167,7 @@ export const QuickCommandPalette: React.FC<QuickCommandPaletteProps> = ({ isOpen
     }
   }, [isOpen]);
 
-  const allowedCommands = COMMANDS.filter((cmd) => {
-    if (cmd.id === 'ielts' && !isSuper) return false;
-    return true;
-  });
+  const allowedCommands = COMMANDS;
 
   const filtered = allowedCommands.filter((cmd) => {
     if (!query.trim()) return true;

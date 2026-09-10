@@ -23,8 +23,6 @@ const SubjectDetailPage = lazyWithRetry(() => import('./pages/SubjectDetailPage'
 const SubjectsPage = lazyWithRetry(() => import('./pages/SubjectsPage'));
 const AdminDashboardPage = lazyWithRetry(() => import('./pages/AdminDashboardPage'));
 const SpeakingCoachPage = lazyWithRetry(() => import('./pages/SpeakingCoachPage'));
-const IeltsHubPage = lazyWithRetry(() => import('./pages/IeltsHubPage'));
-const IeltsSpeakingMockPage = lazyWithRetry(() => import('./pages/IeltsSpeakingMockPage'));
 const JlptHubPage = lazyWithRetry(() => import('./pages/JlptHubPage'));
 const JlptWritingPage = lazyWithRetry(() => import('./pages/JlptWritingPage'));
 const VocabularyBuilderPage = lazyWithRetry(() =>
@@ -53,28 +51,11 @@ const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
 const DashboardPage = lazyWithRetry(() => import('./pages/DashboardPage'));
 const LandingPage = lazyWithRetry(() => import('./pages/LandingPage'));
 
-import { isSuperAdmin, isUserAdmin } from './utils/admin';
+import { isUserAdmin } from './utils/admin';
 import { useAuthStore } from './stores';
 import { safeLocalStorage } from './utils/storage/safeLocalStorage';
 import { isPublicPreviewActive, MOCK_PREVIEW_SESSION } from './config/previewMode';
 import { isTelegramWebApp, initTelegramAuth } from './utils/telegramAuth';
-
-const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const user = useAuthStore((s) => s.user);
-  const loading = useAuthStore((s) => s.loading);
-  if (isPublicPreviewActive()) {
-    return <>{children}</>;
-  }
-  const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
-  const effectiveUser = user || cachedUser;
-  if (loading && !effectiveUser) {
-    return <PageLoader />;
-  }
-  if (!isSuperAdmin(effectiveUser?.email)) {
-    return <Navigate to="/jlpt" replace />;
-  }
-  return <>{children}</>;
-};
 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAuthStore((s) => s.user);
@@ -276,54 +257,10 @@ const App: React.FC = () => {
                       <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
                       <Route path="speaking" element={<SpeakingCoachPage />} />
                       <Route path="speaking-coach" element={<SpeakingCoachPage />} />
-                      <Route
-                        path="ielts"
-                        element={
-                          <SuperAdminRoute>
-                            <IeltsHubPage />
-                          </SuperAdminRoute>
-                        }
-                      />
-                      <Route
-                        path="ielts/grammar"
-                        element={
-                          <SuperAdminRoute>
-                            <Navigate to="/ielts?tab=grammar" replace />
-                          </SuperAdminRoute>
-                        }
-                      />
-                      <Route
-                        path="ielts/writing"
-                        element={
-                          <SuperAdminRoute>
-                            <Navigate to="/ielts?tab=writing" replace />
-                          </SuperAdminRoute>
-                        }
-                      />
-                      <Route
-                        path="ielts-writing"
-                        element={
-                          <SuperAdminRoute>
-                            <Navigate to="/ielts?tab=writing" replace />
-                          </SuperAdminRoute>
-                        }
-                      />
-                      <Route
-                        path="ielts/speaking-mock"
-                        element={
-                          <SuperAdminRoute>
-                            <IeltsSpeakingMockPage />
-                          </SuperAdminRoute>
-                        }
-                      />
-                      <Route
-                        path="ielts/reading-listening"
-                        element={
-                          <SuperAdminRoute>
-                            <Navigate to="/ielts?tab=reading_listening" replace />
-                          </SuperAdminRoute>
-                        }
-                      />
+                      {/* IELTS Legacy Routes -> Redirect to JLPT */}
+                      <Route path="ielts/*" element={<Navigate to="/jlpt" replace />} />
+                      <Route path="ielts" element={<Navigate to="/jlpt" replace />} />
+                      <Route path="ielts-writing" element={<Navigate to="/jlpt" replace />} />
                       <Route path="jlpt" element={<JlptHubPage />} />
                       <Route path="scenarios" element={<ScenarioPickerPage />} />
                       <Route

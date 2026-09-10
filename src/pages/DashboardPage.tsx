@@ -560,12 +560,8 @@ const DashboardPage: React.FC = () => {
           <div className="flex shrink-0 flex-col items-start gap-3 lg:items-end">
             {nextAction && (
               <Link
-                to={nextAction.route || (isJaTrack ? '/jlpt' : '/ielts')}
-                className={`flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-black text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] sm:w-auto ${
-                  isJaTrack
-                    ? 'bg-rose-600 shadow-rose-600/30 hover:bg-rose-500'
-                    : 'bg-indigo-600 shadow-indigo-600/30 hover:bg-indigo-500'
-                }`}
+                to={nextAction.route || '/jlpt'}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-rose-600 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-rose-600/30 transition-all hover:scale-[1.02] hover:bg-rose-500 active:scale-[0.98] sm:w-auto"
               >
                 <span>{nextAction.badgeIcon || '🚀'}</span>
                 <span>{nextAction.ctaLabel}</span>
@@ -587,61 +583,30 @@ const DashboardPage: React.FC = () => {
               >
                 <span>🎯</span> {language === 'ja' ? 'テスト' : 'Test'}
               </Link>
-              {isJaTrack ? (
-                <>
-                  <Link
-                    to="/jlpt"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
-                  >
-                    <span>🈶</span> {language === 'ja' ? 'かんじ' : 'Kanji'}
-                  </Link>
-                  <Link
-                    to="/jlpt/grammar-quiz"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
-                  >
-                    <span>📖</span> {language === 'ja' ? 'ぶんぽう' : 'Grammatika'}
-                  </Link>
-                  <Link
-                    to="/speaking-coach?lang=ja"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
-                  >
-                    <span>🗣️</span> {language === 'ja' ? 'AI かいわ' : 'AI Suhbat'}
-                  </Link>
-                  <Link
-                    to="/jlpt/mock-exam"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
-                  >
-                    <span>🎌</span> {language === 'ja' ? 'モック' : 'Mock'}
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/speaking-coach?lang=en"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-indigo-500/40"
-                  >
-                    <span>🎙️</span> Speaking
-                  </Link>
-                  <Link
-                    to="/ielts/writing"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-indigo-500/40"
-                  >
-                    <span>✍️</span> Writing
-                  </Link>
-                  <Link
-                    to="/vocabulary"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-indigo-500/40"
-                  >
-                    <span>🧠</span> Vocab
-                  </Link>
-                  <Link
-                    to="/ielts"
-                    className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-indigo-500/40"
-                  >
-                    <span>🎓</span> IELTS Hub
-                  </Link>
-                </>
-              )}
+              <Link
+                to="/jlpt"
+                className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
+              >
+                <span>🈶</span> {language === 'ja' ? 'かんじ' : 'Kanji'}
+              </Link>
+              <Link
+                to="/jlpt/grammar-quiz"
+                className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
+              >
+                <span>📖</span> {language === 'ja' ? 'ぶんぽう' : 'Grammatika'}
+              </Link>
+              <Link
+                to="/speaking-coach?lang=ja"
+                className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
+              >
+                <span>🗣️</span> {language === 'ja' ? 'AI かいわ' : 'AI Suhbat'}
+              </Link>
+              <Link
+                to="/jlpt/mock-exam"
+                className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-rose-500/40"
+              >
+                <span>🎌</span> {language === 'ja' ? 'モック' : 'Mock'}
+              </Link>
             </div>
           </div>
         </div>
@@ -704,7 +669,7 @@ const DashboardPage: React.FC = () => {
               {dailyPlan.activities.map((item, idx) => (
                 <Link
                   key={item.id || idx}
-                  to={item.route || (primaryLanguage === 'ja' ? '/jlpt' : '/ielts')}
+                  to={item.route || '/jlpt'}
                   className={`group relative flex flex-col justify-between gap-3 overflow-hidden rounded-2xl border p-4 transition-all ${
                     item.isCompleted || item.status === 'completed'
                       ? 'border-green-500/20 bg-green-500/5 opacity-70 hover:opacity-90'
