@@ -2,7 +2,6 @@ export const ja = {
   nav: {
     dashboard: 'ダッシュボード',
     vocabulary: '単語学習',
-    ieltsHub: 'IELTSマスター',
     jlptHub: 'JLPTマスター',
     scenarios: 'シチュエーション会話',
     aiCoach: 'スピーキング',
@@ -152,12 +151,6 @@ export const ja = {
     totalHours: '総学習時間',
     completedTasks: '完了したタスク',
     currentStreak: '現在の連続日数',
-  },
-  ielts: {
-    hubTitle: 'IELTS対策センター',
-    speakingMock: 'スピーキング模試',
-    writingEvaluator: 'ライティング自動採点',
-    readingListening: 'リーディング・リスニング模試',
   },
   jlpt: {
     hubTitle: 'JLPT総合学習ハブ',

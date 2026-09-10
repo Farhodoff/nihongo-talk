@@ -269,9 +269,7 @@ export const SessionReportModal: React.FC<SessionReportModalProps> = ({
                         Umumiy Natija va Daraja
                       </span>
                       <h3 className="text-2xl font-extrabold">
-                        {report.user_level_eng ||
-                          report.user_level_jp ||
-                          'CEFR B2 (IELTS Band 6.5)'}
+                        {report.user_level_jp || 'JLPT N4'}
                       </h3>
                     </div>
                   </div>

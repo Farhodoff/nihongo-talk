@@ -236,7 +236,7 @@ export const QuickCommandPalette: React.FC<QuickCommandPaletteProps> = ({ isOpen
                   setQuery(e.target.value);
                   setSelectedIndex(0);
                 }}
-                placeholder="Sahifa yoki qurol qidirish... (masalan: Fleshkartalar, IELTS, Pomodoro)"
+                placeholder="Sahifa yoki qurol qidirish... (masalan: Fleshkartalar, Kanji, JLPT, Pomodoro)"
                 className="w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
               />
               {query && (

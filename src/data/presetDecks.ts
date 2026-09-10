@@ -10,18 +10,8 @@ export interface PresetDeck {
   id: string;
   title: string;
   description: string;
-  language: 'en' | 'ja';
-  level:
-    | 'A1-A2'
-    | 'B1-B2'
-    | 'C1-C2'
-    | 'IELTS Collocations'
-    | 'IELTS Topics'
-    | 'JLPT N5'
-    | 'JLPT N4'
-    | 'JLPT N3'
-    | 'JLPT N2'
-    | 'JLPT N1';
+  language: 'ja';
+  level: 'JLPT N5' | 'JLPT N4' | 'JLPT N3' | 'JLPT N2' | 'JLPT N1';
   badgeColor: string;
   icon: string;
   cardCount: number;

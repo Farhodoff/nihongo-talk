@@ -1,11 +1,12 @@
-import { Bell, GraduationCap, Plus, Trash2, ArrowRightLeft } from 'lucide-react';
+import { Bell, GraduationCap } from 'lucide-react';
 import { PushNotificationService } from '../../services/PushNotificationService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
-import { isSuperAdmin } from '../../utils/admin';
 import { useLanguage } from '../../context/LanguageContext';
 import { UzbekistanFlag, JapanFlag } from '../common/FlagIcons';
 import AIProviderSection from './AIProviderSection';
+
+import { isSuperAdmin } from '../../utils/admin';
 
 interface Settings {
   theme: 'light' | 'dark' | 'system';
@@ -24,18 +25,9 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
   onToggleNotifications,
 }) => {
   const { language, setLanguage } = useLanguage();
-  const {
-    user,
-    primaryLanguage,
-    enabledLanguages,
-    targetLevel,
-    targetGoal,
-    setPrimaryFocus,
-    addSecondaryLanguage,
-    removeSecondaryLanguage,
-  } = useStudyData();
+  const { user, targetLevel, targetGoal, setPrimaryFocus } = useStudyData();
 
-  const isSuper = isSuperAdmin(user?.email);
+  const isSuper = Boolean(user?.email && isSuperAdmin(user.email));
 
   return (
     <div className="space-y-8 rounded-2xl border border-border bg-card p-6 duration-200 animate-in fade-in md:p-8">
@@ -54,28 +46,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
               Asosiy til menyu, o'quv rejalari va tavsiyalarni boshqaradi.
             </p>
           </div>
-
-          {/* Add Secondary Language Action (Super Admin Only) */}
-          {isSuper && enabledLanguages.length < 2 && (
-            <button
-              type="button"
-              onClick={async () => {
-                const nextLang = primaryLanguage === 'en' ? 'ja' : 'en';
-                await addSecondaryLanguage(nextLang);
-                toast({
-                  title: nextLang === 'ja' ? "🇯🇵 Yapon tili qo'shildi" : "🇬🇧 Ingliz tili qo'shildi",
-                });
-              }}
-              className="inline-flex items-center gap-1.5 self-start rounded-xl border border-border bg-muted/80 px-3.5 py-2 text-xs font-bold text-foreground transition-all hover:bg-muted"
-            >
-              <Plus size={15} />
-              <span>
-                {primaryLanguage === 'en'
-                  ? "+ 🇯🇵 Yapon tilini qo'shish"
-                  : "+ 🇬🇧 Ingliz tilini qo'shish"}
-              </span>
-            </button>
-          )}
         </div>
 
         {/* Primary & Additional Languages List */}
@@ -85,13 +55,11 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
               <div className="flex items-center gap-4">
                 <div className="rounded-2xl border border-border bg-background/90 p-2.5 text-4xl shadow-xs">
-                  {primaryLanguage === 'ja' ? '🇯🇵' : '🇬🇧'}
+                  🇯🇵
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-black text-foreground">
-                      {primaryLanguage === 'ja' ? 'Yapon Tili (JLPT)' : 'Ingliz Tili (IELTS)'}
-                    </span>
+                    <span className="text-base font-black text-foreground">Yapon Tili (JLPT)</span>
                     <span className="badge-gold text-[10px] font-bold">★ ASOSIY FOKUS</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
@@ -106,99 +74,18 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
                 <span className="text-xs font-bold text-muted-foreground">Daraja:</span>
                 <select
                   value={targetLevel}
-                  onChange={(e) => setPrimaryFocus(primaryLanguage, e.target.value, targetGoal)}
+                  onChange={(e) => setPrimaryFocus('ja', e.target.value, targetGoal)}
                   className="outline-hidden rounded-xl border border-border bg-background px-3 py-1.5 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary"
                 >
-                  {primaryLanguage === 'ja' ? (
-                    <>
-                      <option value="N5">JLPT N5 (Boshlang'ich)</option>
-                      <option value="N4">JLPT N4</option>
-                      <option value="N3">JLPT N3 (O'rta)</option>
-                      <option value="N2">JLPT N2 (Biznes)</option>
-                      <option value="N1">JLPT N1 (Yuqori)</option>
-                    </>
-                  ) : (
-                    <>
-                      <option value="A2">Beginner (A2)</option>
-                      <option value="B1">Intermediate (B1)</option>
-                      <option value="B2">Upper-Int / IELTS 6.5 (B2)</option>
-                      <option value="C1">Advanced / IELTS 7.5+ (C1)</option>
-                      <option value="C2">Mastery / IELTS 8.5+ (C2)</option>
-                    </>
-                  )}
+                  <option value="N5">JLPT N5 (Boshlang'ich)</option>
+                  <option value="N4">JLPT N4</option>
+                  <option value="N3">JLPT N3 (O'rta)</option>
+                  <option value="N2">JLPT N2 (Biznes)</option>
+                  <option value="N1">JLPT N1 (Yuqori)</option>
                 </select>
               </div>
             </div>
           </div>
-
-          {/* 2. ADDITIONAL (SECONDARY) LANGUAGES (Super Admin Only) */}
-          {isSuper &&
-            enabledLanguages
-              .filter((l) => l !== primaryLanguage)
-              .map((secLang) => (
-                <div
-                  key={secLang}
-                  className="flex flex-col justify-between gap-4 rounded-2xl border border-border bg-background/60 p-5 transition-all hover:bg-muted/40 sm:flex-row sm:items-center"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="rounded-2xl border border-border bg-muted/60 p-2 text-3xl">
-                      {secLang === 'ja' ? '🇯🇵' : '🇬🇧'}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-foreground">
-                          {secLang === 'ja' ? 'Yapon Tili (JLPT)' : 'Ingliz Tili (IELTS)'}
-                        </span>
-                        <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
-                          Qo'shimcha (Additional)
-                        </span>
-                      </div>
-                      <div className="mt-0.5 text-xs text-muted-foreground">
-                        O'rganish ma'lumotlari saqlangan
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        await setPrimaryFocus(secLang);
-                        toast({
-                          title:
-                            secLang === 'ja'
-                              ? "🇯🇵 Yapon tili asosiy fokusga o'tkazildi"
-                              : "🇬🇧 Ingliz tili asosiy fokusga o'tkazildi",
-                        });
-                      }}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-xs font-black text-primary-foreground shadow-sm transition-all hover:scale-[1.02] active:scale-95"
-                    >
-                      <ArrowRightLeft size={14} />
-                      <span>Asosiy Qilish</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        if (
-                          window.confirm(
-                            secLang === 'ja'
-                              ? "Yapon tilini qo'shimcha ro'yxatdan olib tashlamoqchimisiz?"
-                              : "Ingliz tilini qo'shimcha ro'yxatdan olib tashlamoqchimisiz?",
-                          )
-                        ) {
-                          await removeSecondaryLanguage(secLang);
-                          toast({ title: "Til ro'yxatdan olib tashlandi" });
-                        }
-                      }}
-                      className="rounded-xl border border-transparent p-2 text-muted-foreground transition-colors hover:border-rose-500/20 hover:bg-rose-500/10 hover:text-rose-400"
-                      title="Qo'shimcha ro'yxatdan o'chirish"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </div>
-              ))}
         </div>
       </div>
 

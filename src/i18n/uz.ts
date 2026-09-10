@@ -2,7 +2,6 @@ export const uz = {
   nav: {
     dashboard: 'Dashboard',
     vocabulary: 'Vocabulary',
-    ieltsHub: 'IELTS Master',
     jlptHub: 'JLPT Master',
     scenarios: 'Scenarios',
     aiCoach: 'Speaking',
@@ -153,12 +152,6 @@ export const uz = {
     totalHours: "Jami O'qish Vaqti",
     completedTasks: 'Bajarilgan Vazifalar',
     currentStreak: 'Ketma-ketlik',
-  },
-  ielts: {
-    hubTitle: 'IELTS Tayyorgarlik Markazi',
-    speakingMock: 'Speaking Simulyatori',
-    writingEvaluator: 'Writing Tekshiruvchi',
-    readingListening: 'Reading & Listening Mocks',
   },
   jlpt: {
     hubTitle: 'JLPT Tayyorgarlik Markazi',

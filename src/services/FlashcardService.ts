@@ -206,8 +206,8 @@ export const FlashcardService = {
     if (sanitizedMerged.length === 0 && !isNetworkError) {
       try {
         const autoSeededCards: Partial<Flashcard>[] = [];
-        const englishPresetDecks = PRESET_DECKS.filter((d) => d.language === 'en');
-        for (const deck of englishPresetDecks) {
+        const jlptPresetDecks = PRESET_DECKS.filter((d) => d.language === 'ja');
+        for (const deck of jlptPresetDecks.slice(0, 1)) {
           const cards = await deck.loadCards();
           if (cards && cards.length > 0) {
             cards.slice(0, 50).forEach((c) => {
