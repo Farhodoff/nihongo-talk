@@ -51,6 +51,22 @@ export const PRESET_DECKS: PresetDeck[] = [
     },
   },
   {
+    id: 'deck_minna_shokyu2',
+    title: "🌿 Minna no Nihongo Shokyu 2 (26–50 Darslar To'liq Lug'ati)",
+    description:
+      "Minna no Nihongo Shokyu 2 darsligining barcha 25 ta darsidan 454 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
+    language: 'ja',
+    level: 'JLPT N4',
+    badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
+    icon: '🌿',
+    cardCount: 454,
+    isPremiumOnly: false,
+    loadCards: async () => {
+      const data = await import('./decks/minna_shokyu2.json');
+      return data.default as PresetCard[];
+    },
+  },
+  {
     id: 'deck_jlpt_n5',
     title: '🌸 JLPT N5 Master Deck (Minna & Try)',
     description:

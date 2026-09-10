@@ -1,0 +1,3634 @@
+[
+  {
+    "front": "見ます (みます)",
+    "back": "ko'rmoq, tekshirmoq, qarab chiqmoq",
+    "phonetic": "mimasu",
+    "example": "先生に レポートを 見て いただきます。 (Ustozga hisobotimni tekshirtirib olaman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "探します (さがします)",
+    "back": "qidirmoq, izlamoq",
+    "phonetic": "sagashimasu",
+    "example": "鍵を 探して いるんです。 (Kalitimni qidirayotgan edim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "遅れます (おくれます)",
+    "back": "kechikmoq (vaqtga / darsga)",
+    "phonetic": "okuremasu",
+    "example": "電車が 遅れたんです。 (Poyezd kechikkan edi-da.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "間に合います (まにあいます)",
+    "back": "vaqtida ulgurmoq",
+    "phonetic": "maniaimasu",
+    "example": "会議の 時間に 間に合いました。 (Majlis vaqtiga ulgurdim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "やります",
+    "back": "qilmoq, bajarmoq",
+    "phonetic": "yarimasu",
+    "example": "宿題を やります。 (Vazifani bajaraman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "拾います (ひろいます)",
+    "back": "terib olmoq, topib olmoq",
+    "phonetic": "hiroimasu",
+    "example": "道で 財布を 拾いました。 (Yo'lda hamyon topib oldim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "連絡します (れんらくします)",
+    "back": "xabar bermoq, bog'lanmoq",
+    "phonetic": "renrakushimasu",
+    "example": "先生に 連絡して ください。 (Ustozga xabar bering.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "気分がいい (きぶんがいい)",
+    "back": "o'zini yaxshi his qilmoq, kayfiyat yaxshi",
+    "phonetic": "kibungaii",
+    "example": "今朝は とても 気分がいいです。 (Bugun ertalab o'zimni juda yaxshi his qilyapman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "気分が悪い (きぶんがわるい)",
+    "back": "mazasi bo'lmaslik, ko'ngil aynishi",
+    "phonetic": "kibungawarui",
+    "example": "少し 気分が 悪いんです。 (Biroz mazam bo'lmayapti-da.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "運動会 (うんどうかい)",
+    "back": "sport musobaqasi bayrami",
+    "phonetic": "undoukai",
+    "example": "明日は 学校の 運動会です。 (Ertaga maktabning sport bayrami.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "場所 (ばしょ)",
+    "back": "joy, o'rin",
+    "phonetic": "basho",
+    "example": "会議の 場所は どこですか。 (Majlis o'tkaziladigan joy qayerda?)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ボランティア",
+    "back": "ko'ngilli, volontyor",
+    "phonetic": "borantea",
+    "example": "週末 ボランティアに 参加します。 (Dam olish kunlari ko'ngillilar safiga qo'shilaman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "財布 (さいふ)",
+    "back": "hamyon",
+    "phonetic": "saifu",
+    "example": "財布を 落として しまいました。 (Hamyonimni tushirib qo'ydim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ごみ",
+    "back": "chiqindi, axlat",
+    "phonetic": "gomi",
+    "example": "ごみは どこに 出したら いいですか。 (Chiqindini qayerga chiqarsam bo'ladi?)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "国会議事堂 (こっかいぎじどう)",
+    "back": "Parlament binosi (Yaponiya)",
+    "phonetic": "kokaigijidou",
+    "example": "国会議事堂を 見学しました。 (Parlament binosini borib ko'rdim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "平日 (へいじつ)",
+    "back": "ish kunlari (hafta o'rtasi)",
+    "phonetic": "heijitsu",
+    "example": "平日は 忙しいです。 (Ish kunlari bandman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "弁護士 (べんごし)",
+    "back": "advokat, huquqshunos",
+    "phonetic": "bengoshi",
+    "example": "弁護士に 相談したいんですが。 (Advokat bilan maslahatlashmoqchi edim.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "いつでも",
+    "back": "har doim, istalgan vaqtda",
+    "phonetic": "itsumo",
+    "example": "いつでも 電話して ください。 (Istalgan vaqtda qo'ng'iroq qiling.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "どこでも",
+    "back": "har qayerda, istalgan joyda",
+    "phonetic": "dokomo",
+    "example": "コンビニは どこでも あります。 (Konbini do'konlari hamma joyda bor.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "だれでも",
+    "back": "har kim, istalgan odam",
+    "phonetic": "daremo",
+    "example": "この 漢字は だれでも 読めます。 (Bu kanjini istalgan kishi o'qiy oladi.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "何でも (なんでも)",
+    "back": "har narsa, hamma narsa",
+    "phonetic": "nanmo",
+    "example": "何でも 食べられます。 (Har qanday narsani yey olaman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "こんな〜",
+    "back": "bunday, mana bunaqa",
+    "phonetic": "konna",
+    "example": "こんな カメラが 欲しいです。 (Mana shunaqa fotoapparat xohlayman.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "燃えるごみ (もえるごみ)",
+    "back": "yonadigan chiqindi",
+    "phonetic": "moerugomi",
+    "example": "月曜日は 燃えるごみの 日です。 (Dushanba yonadigan chiqindi kuni.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "置き場 (おきば)",
+    "back": "qo'yish joyi",
+    "phonetic": "okiba",
+    "example": "自転車の 置き場は あそこです。 (Velosiped qo'yish joyi anavi yerda.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お湯 (おゆ)",
+    "back": "qaynoq suv",
+    "phonetic": "oyu",
+    "example": "お湯が 出ないんですが、見て いただけませんか。 (Issiq suv chiqmayapti, qarab bera olmaysizmi?)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ガス (がす)",
+    "back": "gaz",
+    "phonetic": "gasu",
+    "example": "ガス会社に 連絡してください。 (Gaz kompaniyasiga bog'laning.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "都合がいい (つごうがいい)",
+    "back": "qulay (vaqt, holat)",
+    "phonetic": "tsugougaii",
+    "example": "何曜日が ご都合が よろしいですか。 (Qaysi kun sizga qulay?)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "都合が悪い (つごうがわるい)",
+    "back": "noqulay (vaqt bo'lmaganda)",
+    "phonetic": "tsugougawarui",
+    "example": "今日は ちょっと 都合が 悪いんです。 (Bugun biroz noqulay edi-da.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "直接 (ちょくせつ)",
+    "back": "to'g'ridan-to'g'ri, bevosita",
+    "phonetic": "chokusetsu",
+    "example": "先生に 直接 聞いて ください。 (Ustozdan to'g'ridan-to'g'ri so'rang.)",
+    "category": "Minna no Nihongo 26-dars",
+    "level": "N4"
+  },
+  {
+    "front": "飼います (かいます)",
+    "back": "boqmoq, hayvon parvarishlamoq",
+    "phonetic": "kaimasu",
+    "example": "犬を 飼って います。 (It boqyapman.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "走ります (はしります)",
+    "back": "yugurmoq, mashina yelmoq",
+    "phonetic": "hashirimasu",
+    "example": "道を 走ります。 (Yo'lda yuguradi.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "見えます (みえます)",
+    "back": "ko'rinmoq (ko'zga o'z-o'zidan chalinmoq)",
+    "phonetic": "miemasu",
+    "example": "部屋から 富士山が 見えます。 (Xonadan Fudzi tog'i ko'rinadi.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "聞こえます (きこえます)",
+    "back": "eshitilmoq (tovush quloqqa chalinmoq)",
+    "phonetic": "kikoemasu",
+    "example": "波の 音が 聞こえます。 (To'lqin ovozi eshitilyapti.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "できます",
+    "back": "qurilmoq, tayyor bo'lmoq, uddalamoq",
+    "phonetic": "kimasu",
+    "example": "駅の 前に 大きい スーパーが できました。 (Bekat oldida katta supermarket qurildi.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "開きます (ひらきます)",
+    "back": "ochmoq (kurs, to'garak, dars)",
+    "phonetic": "hirakimasu",
+    "example": "日本語の 教室を 開きます。 (Yapon tili to'garagini ochadi.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "心配 (しんぱいな)",
+    "back": "xavotirli, tashvishli",
+    "phonetic": "shinpaina",
+    "example": "何も 心配は ありません。 (Hech qanday xavotir yo'q.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ペット",
+    "back": "uy hayvoni",
+    "phonetic": "peto",
+    "example": "マンションで ペットが 飼えますか。 (Ko'p qavatli uyda uy hayvoni boqsa bo'ladimi?)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "声 (こえ)",
+    "back": "ovoz (tirik jonlarning ovozi)",
+    "phonetic": "koe",
+    "example": "鳥の 声が 聞こえます。 (Qushlarning ovozi eshitilyapti.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "波 (なみ)",
+    "back": "to'lqin",
+    "phonetic": "nami",
+    "example": "静かな 波ですね。 (Osoyishta to'lqinlar ekan.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "花火 (はなび)",
+    "back": "mushakbozlik, feyerverk",
+    "phonetic": "hanabi",
+    "example": "夏に 花火を 見に 行きます。 (Yozda mushakbozlik ko'rgani boraman.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "道具 (どうぐ)",
+    "back": "asbob, qurol, dastgoh",
+    "phonetic": "dougu",
+    "example": "便利な 道具ですね。 (Qulay asbob ekan.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "クリーニング",
+    "back": "kimyoviy tozalash (ximchistka)",
+    "phonetic": "kuri-ningu",
+    "example": "スーツを クリーニングに 出します。 (Kastyumni kimyoviy tozalashga beraman.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "マンション",
+    "back": "zamonaviy ko'p xonadonli turar-joy",
+    "phonetic": "manshon",
+    "example": "新しい マンションに 引っ越しました。 (Yangi ko'p xonadonli uyga ko'chib o'tdim.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "台所 (だいどころ)",
+    "back": "oshxona",
+    "phonetic": "daidokoro",
+    "example": "台所を 掃除しました。 (Oshxonani tozaladim.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "〜しか",
+    "back": "faqatgina ...dan boshqa emas (inkor bilan)",
+    "phonetic": "shika",
+    "example": "千円しか ありません。 (Faqatgina 1000 yenim bor (boshqa yo'q).)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "はっきり",
+    "back": "aniq-tiniq, yaqqol",
+    "phonetic": "hakiri",
+    "example": "字が はっきり 見えます。 (Harflar aniq ko'rinyapti.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "本棚 (ほんだな)",
+    "back": "kitob javoni",
+    "phonetic": "hondana",
+    "example": "本棚を 自分で 作りました。 (Kitob javonini o'zim yasadim.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ほとんど",
+    "back": "deyarli, aksariyat",
+    "phonetic": "hotondo",
+    "example": "宿題は ほとんど 終わりました。 (Vazifa deyarli tugadi.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "日曜大工 (にちようだいく)",
+    "back": "dam olish kunidagi duradgorlik/uy ta'mirlash xobbisi",
+    "phonetic": "nichiyoudaiku",
+    "example": "父の 趣味は 日曜大工です。 (Otamning xobbisi uy buyumlarini yasash.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "夢 (ゆめ)",
+    "back": "tush, orzu",
+    "phonetic": "yume",
+    "example": "いつか 日本に 住むのが 夢です。 (Qachondir Yaponiyada yashash mening orzum.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "不思議な (ふしぎな)",
+    "back": "ajoyib, g'alati, sirli",
+    "phonetic": "fushigina",
+    "example": "不思議な ポケットですね。 (Ajoyib cho'ntak ekan-a.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "自由に (じゆうに)",
+    "back": "erkin, bemalol",
+    "phonetic": "jiyuuni",
+    "example": "空を 自由に 飛びたいです。 (Osmonda erkin uchishni istayman.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "飛びます (とびます)",
+    "back": "uchmoq",
+    "phonetic": "tobimasu",
+    "example": "鳥が 空を 飛んでいます。 (Qushlar osmonda uchyapti.)",
+    "category": "Minna no Nihongo 27-dars",
+    "level": "N4"
+  },
+  {
+    "front": "売れます (うれます)",
+    "back": "sotilmoq, xaridorgir bo'lmoq",
+    "phonetic": "uremasu",
+    "example": "この パンは よく 売れます。 (Bu non juda yaxshi sotiladi.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "踊ります (おどります)",
+    "back": "raqsqa tushmoq",
+    "phonetic": "odorimasu",
+    "example": "音楽に 合わせて 踊ります。 (Musiqaga moslab raqsga tushadi.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "かみます",
+    "back": "chaynamoq, tishlamoq",
+    "phonetic": "kamimasu",
+    "example": "ガムを かみながら 話しては いけません。 (Saqich chaynab gaplashish mumkin emas.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "選びます (えらびます)",
+    "back": "tanlamoq, saralamoq",
+    "phonetic": "erabimasu",
+    "example": "好きな 物を 選んで ください。 (Yoqtirgan narsangizni tanlang.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "通います (かよいます)",
+    "back": "qatnamoq (maktabga, universitetga, ishga)",
+    "phonetic": "kayoimasu",
+    "example": "大学に 通って います。 (Universitetga qatnayapman.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "メモします",
+    "back": "qayd qilib bormoq, yozib olmoq",
+    "phonetic": "memoshimasu",
+    "example": "先生の 話を メモします。 (Ustozning gaplarini qayd qilib boradi.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "まじめ (まじめな)",
+    "back": "tartibli, tirishqoq, jiddiy",
+    "phonetic": "majimena",
+    "example": "彼は とても まじめな 学生です。 (U juda tartibli talaba.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "熱心 (ねっしんな)",
+    "back": "g'ayratli, ixlosli, berilib ishlaydigan",
+    "phonetic": "neshinna",
+    "example": "熱心に 勉強して います。 (Ixlos bilan o'rganyapti.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "偉い (えらい)",
+    "back": "buyuk, hurmatga sazovor, qoyilmaqom",
+    "phonetic": "erai",
+    "example": "一人で やって 偉いですね。 (Bir o'zingiz uddalab, qoyilmaqomsiz-a!)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "経験 (けいけん)",
+    "back": "tajriba",
+    "phonetic": "keiken",
+    "example": "日本で いろいろな 経験を しました。 (Yaponiyada turli xil tajribalarni orttirdim.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "力 (ちから)",
+    "back": "kuch, quvvat, qobiliyat",
+    "phonetic": "chikara",
+    "example": "力を 出して ください。 (Kuchingizni to'plang.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "人気 (にんき)",
+    "back": "mashhurlik, obro'",
+    "phonetic": "ninki",
+    "example": "この 歌手は 若い 人に 人気が あります。 (Bu xonanda yoshlar orasida juda mashhur.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "値段 (ねだん)",
+    "back": "narx, baho",
+    "phonetic": "nedan",
+    "example": "この 店は 値段が 安いです。 (Bu do'konning narxlari arzon.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "給料 (きゅうりょう)",
+    "back": "oylik maosh",
+    "phonetic": "kyuuryou",
+    "example": "給料も いいし、仕事も 面白いです。 (Oylik maoshi ham yaxshi, ishi ham qiziqarli.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "それに",
+    "back": "bundan tashqari, ustiga-ustak",
+    "phonetic": "soreni",
+    "example": "頭が 痛いです。それに 熱も あります。 (Boshim og'riyapti. Bundan tashqari, isitman ham bor.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "それで",
+    "back": "shu sababli, shuning uchun",
+    "phonetic": "sore",
+    "example": "雨が 降りました。それで 遅れました。 (Yomg'ir yog'di. Shu sababli kechikdim.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "味 (あじ)",
+    "back": "ta'm, maza",
+    "phonetic": "aji",
+    "example": "この 料理は いい 味が します。 (Bu taomning mazasi juda yaxshi.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "におい",
+    "back": "hid",
+    "phonetic": "nioi",
+    "example": "いい においが しますね。 (Yoqimli hid kelyapti-ya.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "品物 (しなもの)",
+    "back": "tovar, mahsulot",
+    "phonetic": "shinamono",
+    "example": "いい 品物を 安く 買いました。 (Yaxshi tovarni arzonga sotib oldim.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ボーナス (ぼーなす)",
+    "back": "bonus, mukofot puli",
+    "phonetic": "bo-nasu",
+    "example": "夏の ボーナスを もらいました。 (Yozgi bonusni oldim.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "番組 (ばんぐみ)",
+    "back": "ko'rsatuv, dastur",
+    "phonetic": "bangumi",
+    "example": "面白い 番組を 見ています。 (Qiziqarli ko'rsatuv ko'ryapman.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "歌手 (かしゅ)",
+    "back": "qo'shiqchi, xonanda",
+    "phonetic": "kashu",
+    "example": "彼女は 有名な 歌手です。 (U mashhur xonanda.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "将来 (しょうらい)",
+    "back": "kelajak",
+    "phonetic": "shourai",
+    "example": "将来 自分の 店を 持ちたいです。 (Kelajakda shaxsiy do'konim bo'lishini xohlayman.)",
+    "category": "Minna no Nihongo 28-dars",
+    "level": "N4"
+  },
+  {
+    "front": "開きます (あきます)",
+    "back": "ochilmoq (o'z-o'zidan, jidoshi)",
+    "phonetic": "akimasu",
+    "example": "ドアが 開いて います。 (Eshik ochiq turibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "閉まります (しまります)",
+    "back": "yopilmoq (o'z-o'zidan, jidoshi)",
+    "phonetic": "shimarimasu",
+    "example": "窓が 閉まって います。 (Deraza yopiq turibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "つきます",
+    "back": "yonmoq (chiroq, elektr)",
+    "phonetic": "tsukimasu",
+    "example": "電灯が ついて います。 (Chiroq yonib turibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "消えます (きえます)",
+    "back": "o'chmoq (chiroq, olov)",
+    "phonetic": "kiemasu",
+    "example": "火が 消えました。 (Olov o'chdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "壊れます (こわれます)",
+    "back": "buzilmoq, ishdan chiqmoq",
+    "phonetic": "kowaremasu",
+    "example": "時計が 壊れて います。 (Soat buzilib qolgan.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "割れます (われます)",
+    "back": "sinmoq (shisha, idish)",
+    "phonetic": "waremasu",
+    "example": "コップが 割れて しまいました。 (Stakan sinib ketdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "折れます (おれます)",
+    "back": "sinmoq, butoqlanmoq (daraxt, qalam)",
+    "phonetic": "oremasu",
+    "example": "木の 枝が 折れて います。 (Daraxt shoxi sinib qolgan.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "破れます (やぶれます)",
+    "back": "yirtilmoq (qog'oz, kiyim)",
+    "phonetic": "yaburemasu",
+    "example": "袋が 破れて います。 (Xalta yirtilgan ekan.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "汚れます (よごれます)",
+    "back": "kirlanmoq, bulg'anmoq",
+    "phonetic": "yogoremasu",
+    "example": "服が 汚れて しまいました。 (Kiyimim kirlanib qoldi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "止まります (とまります)",
+    "back": "to'xtamoq (transport, harakat)",
+    "phonetic": "tomarimasu",
+    "example": "車が 止まって います。 (Mashina to'xtab turibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "落とします (おとします)",
+    "back": "tushirib yubormoq, yo'qotmoq",
+    "phonetic": "otoshimasu",
+    "example": "鍵を 落として しまいました。 (Kalitni tushirib yo'qotib qo'ydim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "掛かります (かかります)",
+    "back": "qulflanmoq (qulf)",
+    "phonetic": "kakarimasu",
+    "example": "鍵が 掛かって います。 (Qulf qulflangan turibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "片づけます (かたづけます)",
+    "back": "yig'ishtirmoq, tartibga keltirmoq",
+    "phonetic": "katazukemasu",
+    "example": "部屋を 片づけました。 (Xonani yig'ishtirdim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お皿 (おさら)",
+    "back": "tarelka, likopcha",
+    "phonetic": "osara",
+    "example": "お皿を 洗います。 (Likopchalarni yuvadi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "書類 (しょるい)",
+    "back": "hujjatlar",
+    "phonetic": "shorui",
+    "example": "大切な 書類を 忘れました。 (Muhim hujjatlarni unutib qoldirdim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "忘れ物 (わすれもの)",
+    "back": "unutilgan buyum",
+    "phonetic": "wasuremono",
+    "example": "電車に 忘れ物を しました。 (Poyezdda buyumimni unutib qoldirdim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "取り替えます (とりかえます)",
+    "back": "almashtirmoq (boshqasiga)",
+    "phonetic": "torikaemasu",
+    "example": "電球を 取り替えます。 (Lampochkani almashtiraman.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お茶碗 (おちゃわん)",
+    "back": "piyola, kosa",
+    "phonetic": "ochawan",
+    "example": "お茶碗を 洗います。 (Piyolalarni yuvaman.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "コップ (こっぷ)",
+    "back": "stakan",
+    "phonetic": "kopu",
+    "example": "コップが 汚れています。 (Stakan kirlanib qolibdi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ガラス (がらす)",
+    "back": "shisha",
+    "phonetic": "garasu",
+    "example": "窓の ガラスが 割れました。 (Deraza oynasi sindi.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "袋 (ふくろ)",
+    "back": "xalta, paket",
+    "phonetic": "fukuro",
+    "example": "ごみ袋を 買って きます。 (Axlat xaltasi sotib kelaman.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "交番 (こうばん)",
+    "back": "politsiya maskani (koban)",
+    "phonetic": "kouban",
+    "example": "交番に 届けました。 (Politsiya punktiga topshirdim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "駅員 (えきいん)",
+    "back": "bekat navbatchisi/xodimi",
+    "phonetic": "ekiin",
+    "example": "駅員に 落とし物を 聞きました。 (Bekat xodimidan yo'qolgan buyumni so'radim.)",
+    "category": "Minna no Nihongo 29-dars",
+    "level": "N4"
+  },
+  {
+    "front": "はります",
+    "back": "yopishtirmoq (devorga, daftarga)",
+    "phonetic": "harimasu",
+    "example": "壁に カレンダーが はって あります。 (Devorga taqvim yopishtirilgan turibdi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "掛けます (かけます)",
+    "back": "osmoq, ilmoq (palto, rasm)",
+    "phonetic": "kakemasu",
+    "example": "服を ハンガーに 掛けます。 (Kiyimni kiyim ilgichga iladi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "飾ります (かざります)",
+    "back": "bezatmoq, bezak qo'ymoq",
+    "phonetic": "kazarimasu",
+    "example": "部屋に 花を 飾ります。 (Xonaga gul qo'yib bezatadi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "並べます (ならべます)",
+    "back": "terib qo'ymoq, qatorlashtirmoq",
+    "phonetic": "narabemasu",
+    "example": "机の 上に 本を 並べました。 (Stol ustiga kitoblarni qator qilib terib qo'ydi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "植えます (うえます)",
+    "back": "ekmoq (ko'chat, daraxt)",
+    "phonetic": "uemasu",
+    "example": "庭に 木を 植えます。 (Hovliga daraxt ekadi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "戻します (もどします)",
+    "back": "o'z joyiga qaytarib qo'ymoq",
+    "phonetic": "modoshimasu",
+    "example": "使ったら、元の 所に 戻して ください。 (Ishlatganingizdan keyin o'z joyiga qaytarib qo'ying.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "まとめます",
+    "back": "jamlamoq, tartibga keltirmoq",
+    "phonetic": "matomemasu",
+    "example": "レポートを まとめます。 (Hisobotni jamlab xulosalaydi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "しまいます",
+    "back": "joyiga solib qo'ymoq, saqlamoq",
+    "phonetic": "shimaimasu",
+    "example": "引き出しに しまいます。 (Tortmaga solib qo'yadi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "決めます (きめます)",
+    "back": "qaror qilmoq, belgilamoq",
+    "phonetic": "kimemasu",
+    "example": "次の 旅行の 日を 決めました。 (Keyingi sayohat kunini belgiladim.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "相談します (そうだんします)",
+    "back": "maslahatlashmoq",
+    "phonetic": "soudanshimasu",
+    "example": "先生と 相談します。 (Ustoz bilan maslahatlashadi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "予習します (よしゅうします)",
+    "back": "yangi darsni oldindan tayyorlanmoq",
+    "phonetic": "yoshuushimasu",
+    "example": "明日の 漢字を 予習して おきます。 (Ertangi kanjilarni oldindan tayyorlanib qo'yaman.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "復習します (ふくしゅうします)",
+    "back": "o'tilgan darsni takrorlamoq",
+    "phonetic": "fukushuushimasu",
+    "example": "毎日 復習します。 (Har kuni takrorlaydi.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "そのままにします",
+    "back": "o'z holicha qoldirmoq",
+    "phonetic": "sonomamanishimasu",
+    "example": "道具は そのままに して おいて ください。 (Asboblarni o'z holicha qoldirib turing.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "予定 (よてい)",
+    "back": "reja, jadval",
+    "phonetic": "yotei",
+    "example": "今週の 予定は 何ですか。 (Bu haftadagi rejangiz nima?)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "非常袋 (ひじょうぶくろ)",
+    "back": "favqulodda vaziyat sumkasi",
+    "phonetic": "hijoubukuro",
+    "example": "非常袋を 準備して おきます。 (Favqulodda sumkani oldindan tayyorlab qo'yaman.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "カレンダー (かれんだー)",
+    "back": "taqvim, kalendar",
+    "phonetic": "karenda-",
+    "example": "壁に カレンダーが 掛けて あります。 (Devorga kalendar osib qo'yilgan.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ポスター (ぽすたー)",
+    "back": "plakat, afisha",
+    "phonetic": "posuta-",
+    "example": "案内の ポスターが はって あります。 (E'lon plakati yopishtirib qo'yilgan.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "人形 (にんぎょう)",
+    "back": "qo'g'irchoq",
+    "phonetic": "ningyou",
+    "example": "棚に 人形が 飾って あります。 (Javonga qo'g'irchoq bezab qo'yilgan.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "花瓶 (かびん)",
+    "back": "vaza, guldon",
+    "phonetic": "kabin",
+    "example": "テーブルの 上に 花瓶が 置いて あります。 (Stol ustiga guldon qo'yib qo'yilgan.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "鏡 (かがみ)",
+    "back": "oyna, ko'zgu",
+    "phonetic": "kagami",
+    "example": "鏡を 拭いて おきます。 (Ko'zguni artib qo'yaman.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "引き出し (ひきだし)",
+    "back": "g'aladon, tortma",
+    "phonetic": "hikidashi",
+    "example": "パスポートは 引き出しに しまって あります。 (Pasport tortmaga solib qo'yilgan.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "玄関 (げんかん)",
+    "back": "dahliz, kirish joyi",
+    "phonetic": "genkan",
+    "example": "玄関に 靴を 並べて おきます。 (Dahlizga poyafzallarni tartiblab qo'yaman.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "廊下 (ろうか)",
+    "back": "yo'lak, koridor",
+    "phonetic": "rouka",
+    "example": "廊下を 走らないで ください。 (Yo'lakda yugurmang.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "壁 (かべ)",
+    "back": "devor",
+    "phonetic": "kabe",
+    "example": "壁に 絵を 掛けます。 (Devorga rasm osaman.)",
+    "category": "Minna no Nihongo 30-dars",
+    "level": "N4"
+  },
+  {
+    "front": "始まります (はじまります)",
+    "back": "boshlanmoq",
+    "phonetic": "hajimarimasu",
+    "example": "式が 始まります。 (Marosim boshlanadi.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "続けます (つづけます)",
+    "back": "davom ettirmoq",
+    "phonetic": "tsuzukemasu",
+    "example": "勉強を 続けます。 (O'qishni davom ettiradi.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "見つけます (みつけます)",
+    "back": "topmoq, izlab topmoq",
+    "phonetic": "mitsukemasu",
+    "example": "いい 仕事を 見つけました。 (Yaxshi ish topdim.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "受けます (うけます)",
+    "back": "topshirmoq (imtihon)",
+    "phonetic": "ukemasu",
+    "example": "JLPT 試験を 受けます。 (JLPT imtihonini topshiraman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "入学します (にゅうがくします)",
+    "back": "o'qishga kirmoq (universitetga)",
+    "phonetic": "nyuugakushimasu",
+    "example": "大学に 入学したいです。 (Universitetga kirishni xohlayman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "卒業します (そつぎょうします)",
+    "back": "o'qishni bitirmoq",
+    "phonetic": "sotsugyoushimasu",
+    "example": "来年 大学を 卒業します。 (Kelasi yil universitetni bitiraman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "出席します (しゅっせきします)",
+    "back": "qatnashmoq, hozir bo'lmoq",
+    "phonetic": "shusekishimasu",
+    "example": "結婚式に 出席します。 (To'yda qatnashaman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "連休 (れんきゅう)",
+    "back": "ketma-ket dam olish kunlari",
+    "phonetic": "renkyuu",
+    "example": "来週は 連休です。 (Keyingi hafta ketma-ket dam olish kunlari.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "作文 (さくぶん)",
+    "back": "insho, esse",
+    "phonetic": "sakubun",
+    "example": "日本語で 作文を 書きました。 (Yapon tilida insho yozdim.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "結婚式 (けっこんしき)",
+    "back": "to'y marosimi",
+    "phonetic": "kekonshiki",
+    "example": "友だちの 結婚式に 行きます。 (Do'stimning to'yiga boraman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "本社 (ほんしゃ)",
+    "back": "bosh ofis, bosh korxona",
+    "phonetic": "honsha",
+    "example": "東京の 本社で 働きます。 (Tokiodagi bosh ofisda ishlaydi.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "支社 (ししゃ)",
+    "back": "filial, bo'lim",
+    "phonetic": "shisha",
+    "example": "大阪の 支社に 行きます。 (Osakadagi filialga boradi.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "大学院 (だいがくいん)",
+    "back": "magistratura / doktorantura",
+    "phonetic": "daigakuin",
+    "example": "大学院に 進学したいです。 (Magistraturada o'qimoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "案内します (あんないします)",
+    "back": "yo'l ko'rsatmoq, shaharni aylantirmoq",
+    "phonetic": "annaishimasu",
+    "example": "東京を 案内する つもりです。 (Tokioni aylantirib tanishtirmoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "説明します (せつめいします)",
+    "back": "tushuntirmoq, izohlamoq",
+    "phonetic": "setsumeishimasu",
+    "example": "使い方を 説明しようと 思います。 (Foydalanish tartibini tushuntirmoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "予定 (よてい)",
+    "back": "reja",
+    "phonetic": "yotei",
+    "example": "来週 出張する 予定です。 (Kelasi hafta xizmat safariga chiqish rejalashtirilgan.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "映画館 (えいがかん)",
+    "back": "kinoteatr",
+    "phonetic": "eigakan",
+    "example": "週末 映画館へ 行こうと 思っています。 (Dam olish kunlari kinoga bormoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "飛行機 (ひこうき)",
+    "back": "samolyot",
+    "phonetic": "hikouki",
+    "example": "飛行機の 予約を しようと 思います。 (Samolyotga bron qilmoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "予約 (よやく)",
+    "back": "bron, oldindan buyurtma",
+    "phonetic": "yoyaku",
+    "example": "ホテルを 予約して あります。 (Mehmonxona band qilib qo'yilgan.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "外国 (がいこく)",
+    "back": "xorijiy davlat",
+    "phonetic": "gaikoku",
+    "example": "将来 外国で 働く つもりです。 (Kelajakda xorijda ishlamoqchiman.)",
+    "category": "Minna no Nihongo 31-dars",
+    "level": "N4"
+  },
+  {
+    "front": "運動します (うんどうします)",
+    "back": "jismoniy mashq qilmoq",
+    "phonetic": "undoushimasu",
+    "example": "毎日 運動した ほうが いいです。 (Har kuni jismoniy mashq qilgan ma'qul.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "成功します (せいこうします)",
+    "back": "muvaffaqiyat qozonmoq",
+    "phonetic": "seikoushimasu",
+    "example": "実験は 成功するでしょう。 (Tajriba muvaffaqiyatli chiqsa kerak.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "失敗します (しっぱいします)",
+    "back": "muvaffaqiyatsizlikka uchramoq",
+    "phonetic": "shipaishimasu",
+    "example": "試験に 失敗しました。 (Imtihondan yiqildim.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "合格します (ごうかくします)",
+    "back": "imtihondan muvaffaqiyatli o'tmoq",
+    "phonetic": "goukakushimasu",
+    "example": "N4に 合格しました。 (N4 dan muvaffaqiyatli o'tdim.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "晴れます (はれます)",
+    "back": "havo ochilmoq, musaffo bo'lmoq",
+    "phonetic": "haremasu",
+    "example": "明日は 晴れるでしょう。 (Ertaga havo ochiq bo'lsa kerak.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "曇ります (くもります)",
+    "back": "havo bulut bo'lmoq",
+    "phonetic": "kumorimasu",
+    "example": "午後から 曇るかもしれません。 (Tushdan keyin bulut bo'lishi ham mumkin.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "治ります (なおります)",
+    "back": "tuzalmoq (kasallik)",
+    "phonetic": "naorimasu",
+    "example": "風邪が 治りました。 (Shamollashim tuzaldi.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "冷やします (ひやします)",
+    "back": "muzlatmoq, sovitmoq",
+    "phonetic": "hiyashimasu",
+    "example": "頭を 水で 冷やします。 (Boshni sovuq suv bilan sovitadi.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "心配 (しんぱいな)",
+    "back": "xavotirli",
+    "phonetic": "shinpaina",
+    "example": "無理を しない ほうが いいですよ。 (O'zingizni zo'riqtirmagan ma'qul.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "十分 (じゅうぶんな)",
+    "back": "yetarli darajada",
+    "phonetic": "juubunna",
+    "example": "時間は 十分 あります。 (Vaqt yetarlicha bor.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "やけど",
+    "back": "kuyish (olovdan yoki issiqdan)",
+    "phonetic": "yakedo",
+    "example": "手に やけどを しました。 (Qo'limni kuydirib oldim.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "せき",
+    "back": "yo'tal",
+    "phonetic": "seki",
+    "example": "せきが 出ます。 (Yo'talyapman.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "インフルエンザ",
+    "back": "gripp virusi",
+    "phonetic": "infuruenza",
+    "example": "インフルエンザに かかりました。 (Grippga chalindim.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "熱 (ねつ)",
+    "back": "isitma, harorat",
+    "phonetic": "netsu",
+    "example": "高い 熱が ありますから、病院へ 行った ほうが いいです。 (Isitmangiz baland ekan, shifoxonaga borganingiz ma'qul.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "喉 (のど)",
+    "back": "tomoq",
+    "phonetic": "nodo",
+    "example": "喉が 痛いです。 (Tomog'im og'riyapti.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "インフルエンザ (いんふるえんざ)",
+    "back": "gripp virusi",
+    "phonetic": "infuruenza",
+    "example": "インフルエンザかもしれません。 (Gripp bo'lsa kerak ehtimol.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "太陽 (たいよう)",
+    "back": "quyosh",
+    "phonetic": "taiyou",
+    "example": "太陽が 出て 暖かくなりました。 (Quyosh chiqib havo ilidi.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "星 (ほし)",
+    "back": "yulduz",
+    "phonetic": "hoshi",
+    "example": "今夜は 星が きれいに 見えます。 (Bugun tunda yulduzlar chiroyli ko'rinyapti.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "夕方 (ゆうがた)",
+    "back": "oqshom pallasi",
+    "phonetic": "yuugata",
+    "example": "夕方から 雨が 降るでしょう。 (Oqshomdan yomg'ir yog'sa kerak.)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "水道 (すいどう)",
+    "back": "suv quvuri, vodoprovod",
+    "phonetic": "suidou",
+    "example": "水道の 水を 飲んでも いいですか。 (Jo'mrak suvidan ichsa bo'ladimi?)",
+    "category": "Minna no Nihongo 32-dars",
+    "level": "N4"
+  },
+  {
+    "front": "逃げます (にげます)",
+    "back": "qochmoq, juftakni rostlamoq",
+    "phonetic": "nigemasu",
+    "example": "泥棒が 逃げました。 (O'g'ri qochib ketdi.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "騒ぎます (さわぎます)",
+    "back": "shovqin ko'tarmoq, g'alva qilmoq",
+    "phonetic": "sawagimasu",
+    "example": "教室で 騒ぐな！ (Sinfda shovqin solma! (taqiq))",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "あきらめます",
+    "back": "taslim bo'lmoq, umidni uzmoq",
+    "phonetic": "akiramemasu",
+    "example": "最後まで あきらめるな！ (Oxirigacha taslim bo'lma!)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "投げます (なげます)",
+    "back": "uloqtirmoq, tashlamoq",
+    "phonetic": "nagemasu",
+    "example": "ボールを 投げろ！ (To'pni tashla! (buyruq))",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "守ります (まもります)",
+    "back": "himoya qilmoq, qoidaga rioya qilmoq",
+    "phonetic": "mamorimasu",
+    "example": "時間と 規則を 守りなさい。 (Vaqt va qoidalarga rioya qiling.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "伝えます (つたえます)",
+    "back": "yetkazmoq, aytib qo'ymoq",
+    "phonetic": "tsutaemasu",
+    "example": "田中さんに 伝えて ください。 (Tanaka janoblariga yetkazib qo'ying.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "注意します (ちゅういします)",
+    "back": "ehtiyot bo'lmoq, ogohlantirmoq",
+    "phonetic": "chuuishimasu",
+    "example": "車に 注意して ください。 (Mashinadan ehtiyot bo'ling.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "規則 (きそく)",
+    "back": "qoida, tartib-nizom",
+    "phonetic": "kisoku",
+    "example": "会社の 規則を 守ります。 (Kompaniya qoidalariga rioya qiladi.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "立ち入り禁止 (たちいりきんし)",
+    "back": "Kirish taqiqlanadi (belgi)",
+    "phonetic": "tachiirikinshi",
+    "example": "あそこは 立ち入り禁止です。 (U yerga kirish taqiqlangan.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "非常口 (ひじょうぐち)",
+    "back": "favqulodda chiqish eshigi",
+    "phonetic": "hijouguchi",
+    "example": "非常口を 確認して ください。 (Favqulodda chiqish eshigini aniqlab oling.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "無料 (むりょう)",
+    "back": "bepul, tekin",
+    "phonetic": "muryou",
+    "example": "この 博物館は 無料です。 (Bu muzey bepul.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "使用中 (しようちゅう)",
+    "back": "band (ishlatilmoqda)",
+    "phonetic": "shiyouchuu",
+    "example": "会議室は 今 使用中です。 (Majlislar xonasi hozir band.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "法律 (ほうりつ)",
+    "back": "qonun",
+    "phonetic": "houritsu",
+    "example": "法律に 違反しては いけません。 (Qonunni buzish mumkin emas.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "マーク (まーく)",
+    "back": "belgi, ramz",
+    "phonetic": "ma-ku",
+    "example": "この マークは どういう 意味ですか。 (Bu belgi qanday ma'noni anglatadi?)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "急に (きゅうに)",
+    "back": "to'satdan, birdaniga",
+    "phonetic": "kyuuni",
+    "example": "急に 止まるな。 (To'satdan to'xtama.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "伝言 (でんごん)",
+    "back": "xabar, omonat gap",
+    "phonetic": "ngon",
+    "example": "田中さんに 伝言を お願いできますか。 (Tanaka san-ga gapimni yetkaza olasizmi?)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "席を外しています (せきをはずしています)",
+    "back": "joyida emas (vaqtincha)",
+    "phonetic": "sekiohazushiteimasu",
+    "example": "部長は 今 席を 外して おられます。 (Bo'lim boshlig'i hozir o'z joylarida yo'q edilar.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "戻ります (もどります)",
+    "back": "qaytmoq",
+    "phonetic": "modorimasu",
+    "example": "30分で 戻ると 言っていました。 (30 daqiqada qaytaman degandilar.)",
+    "category": "Minna no Nihongo 33-dars",
+    "level": "N4"
+  },
+  {
+    "front": "磨きます (みがきます)",
+    "back": "tozalamoq, yuvmoq (tish, poyabzal)",
+    "phonetic": "migakimasu",
+    "example": "毎日 歯を 磨きます。 (Har kuni tishimni yuvaman.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "組み立てます (くみたてます)",
+    "back": "yig'moq, qismlardan birlashtirmoq (mebel, mashina)",
+    "phonetic": "kumitatemasu",
+    "example": "自分で 机を 組み立てました。 (Stolni o'zim qismlardan yig'dim.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "折ります (おります)",
+    "back": "buklamoq, qayirmoq (qog'oz)",
+    "phonetic": "orimasu",
+    "example": "紙を 折って 鶴を 作ります。 (Qog'ozni buklab turna yasaydi.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "気がつきます (きがつきます)",
+    "back": "payqamoq, sezib qolmoq",
+    "phonetic": "kigatsukimasu",
+    "example": "間違いに 気がつきました。 (Xatoni payqab qoldim.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "質問します (しつもんします)",
+    "back": "savol bermoq",
+    "phonetic": "shitsumonshimasu",
+    "example": "先生に 質問します。 (Ustozga savol beradi.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "説明書 (せつめいしょ)",
+    "back": "yo'riqnoma, qo'llanma",
+    "phonetic": "setsumeisho",
+    "example": "説明書の とおりに 作ります。 (Yo'riqnomada ko'rsatilgandek yasaydi.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "図 (ず)",
+    "back": "chizma, sxema",
+    "phonetic": "zu",
+    "example": "図を 見て ください。 (Chizmaga qarang.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "線 (せん)",
+    "back": "chiziq",
+    "phonetic": "sen",
+    "example": "黒い 線を 引きます。 (Qora chiziq tortadi.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "矢印 (やじるし)",
+    "back": "strelka, yo'nalish ko'rsatkichi",
+    "phonetic": "yajirushi",
+    "example": "矢印の 方向へ 進んで ください。 (Strelka yo'nalishi bo'ylab yuring.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "しょうゆ",
+    "back": "soya sousi",
+    "phonetic": "shouyu",
+    "example": "しょうゆを 少し つけます。 (Biroz soya sousi surtadi.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "茶道 (さどう)",
+    "back": "choy marosimi san'ati",
+    "phonetic": "sadou",
+    "example": "日本で 茶道を 体験しました。 (Yaponiyada choy marosimi san'atini sinab ko'rdim.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "順番 (じゅんばん)",
+    "back": "ketma-ketlik, navbat",
+    "phonetic": "junban",
+    "example": "順番どおりに 並んで ください。 (Navbat bo'yicha turing.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ソース (そーす)",
+    "back": "sous",
+    "phonetic": "so-su",
+    "example": "ソースを かけないで 食べて みてください。 (Sous quymasdan yeb ko'ring.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お茶 (おちゃ)",
+    "back": "choy",
+    "phonetic": "ocha",
+    "example": "ご飯を 食べた あとで、お茶を 飲みます。 (Ovqatlangandan so'ng choy ichaman.)",
+    "category": "Minna no Nihongo 34-dars",
+    "level": "N4"
+  },
+  {
+    "front": "咲きます (さきます)",
+    "back": "ochilmoq, gullamoq (gul)",
+    "phonetic": "sakimasu",
+    "example": "春に なれば、桜が 咲きます。 (Bahor kelsa, sakura gullaydi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "変わります (かわります)",
+    "back": "o'zgarmoq (rang, holat)",
+    "phonetic": "kawarimasu",
+    "example": "色が 変わります。 (Rangi o'zgaradi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "困ります (こまります)",
+    "back": "qiyin ahvolda qolmoq, chorasiz bo'lmoq",
+    "phonetic": "komarimasu",
+    "example": "お金が なければ、困ります。 (Pul bo'lmasa, qiyin ahvolda qolaman.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "楽 (らくな)",
+    "back": "oson, qulay, rohatbaxsh",
+    "phonetic": "rakuna",
+    "example": "新幹線の ほう が 楽です。 (Shinkansen poyezdi qulayroq.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "正しい (ただしい)",
+    "back": "to'g'ri, haqqoniy",
+    "phonetic": "tadashii",
+    "example": "正しい 発音を 覚えます。 (To'g'ri talaffuzni yodlaydi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "珍しい (めずらしい)",
+    "back": "nodir, kamyob",
+    "phonetic": "mezurashii",
+    "example": "珍しい 鳥が います。 (Nodir qush bor.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "詳しい (くわしい)",
+    "back": "batafsil, yaxshi biladigan",
+    "phonetic": "kuwashii",
+    "example": "彼は パソコンに 詳しいです。 (U kompyuterlarni juda yaxshi biladi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "向こう (むこう)",
+    "back": "qarama-qarshi tomon, narigi taraf",
+    "phonetic": "mukou",
+    "example": "向こうに 島が 見えます。 (Narigi tomonda orol ko'rinadi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "島 (しま)",
+    "back": "orol",
+    "phonetic": "shima",
+    "example": "小さな 島に 住んで います。 (Kichik orolda yashaydi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "港 (みなと)",
+    "back": "bandargoh, port",
+    "phonetic": "minato",
+    "example": "港に 船が 着きました。 (Portga kema kelib to'xtadi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "近所 (きんじょ)",
+    "back": "mahalla, qo'shnichilik, yaqin atrofi",
+    "phonetic": "kinjo",
+    "example": "近所の 人と 仲よく します。 (Mahalla ahli bilan inoq yashaydi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "機会 (きかい)",
+    "back": "imkoniyat, fursat",
+    "phonetic": "kikai",
+    "example": "機会が あれば、日本へ 行きたいです。 (Fursat bo'lsa, Yaponiyaga borishni xohlayman.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "案内所 (あんないじょ)",
+    "back": "ma'lumotxona, axborot byurosi",
+    "phonetic": "annaijo",
+    "example": "駅の 案内所で 聞けば、分かりますよ。 (Bekat ma'lumotxonasidan so'rasangiz, bilib olasiz.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "屋上 (おくじょう)",
+    "back": "tom, bino usti",
+    "phonetic": "okujou",
+    "example": "屋上に 上がれば、町が よく 見えます。 (Tomga chiqsangiz, shahar yaxshi ko'rinadi.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "海外 (かいがい)",
+    "back": "chet el, chet davlatlar",
+    "phonetic": "kaigai",
+    "example": "時間が あれば、海外旅行に 行きたいです。 (Vaqt bo'lsa chet elga sayohat qilmoqchiman.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "歴史 (れきし)",
+    "back": "tarix",
+    "phonetic": "rekishi",
+    "example": "日本の 歴史なら、京都が 一番です。 (Yaponiya tarixi bo'yicha Kioto eng zo'ri.)",
+    "category": "Minna no Nihongo 35-dars",
+    "level": "N4"
+  },
+  {
+    "front": "貯金します (ちょきんします)",
+    "back": "pul jamg'armoq, tejab yig'moq",
+    "phonetic": "chokinshimasu",
+    "example": "将来の ために 貯金します。 (Kelajak uchun pul jamg'aradi.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "過ぎます (すぎます)",
+    "back": "o'tib ketmoq (vaqt)",
+    "phonetic": "sugimasu",
+    "example": "7時を 過ぎました。 (Soat 7 dan o'tib ketdi.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "慣れます (なれます)",
+    "back": "ko'nikmoq, o'rganib qolmoq",
+    "phonetic": "naremasu",
+    "example": "日本の 生活に 慣れました。 (Yaponiya hayotiga ko'nikib qoldim.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "腐ります (くさります)",
+    "back": "aynimoq, sasimoq, chirimoq",
+    "phonetic": "kusarimasu",
+    "example": "食べ物が 腐らない ように、冷蔵庫に 入れます。 (Ovqat aynamasligi uchun muzlatgichga soladi.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "剣道 (けんどう)",
+    "back": "kendo (yapon an'anaviy qilichbozlik sporti)",
+    "phonetic": "kendou",
+    "example": "剣道を 習って います。 (Kendo sportini o'rganyapman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ラッシュ",
+    "back": "tirbandlik, tig'iz payt",
+    "phonetic": "rashu",
+    "example": "朝の ラッシュは 大変です。 (Ertalabki tirbandlik juda qiyin.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "宇宙 (うちゅう)",
+    "back": "koinot, fazo",
+    "phonetic": "uchuu",
+    "example": "宇宙へ 行って みたいです。 (Koinotga borib ko'rishni xohlayman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "曲 (きょく)",
+    "back": "kuy, musiqa ohangi",
+    "phonetic": "kyoku",
+    "example": "この 曲を よく 聞きます。 (Bu kuyni tez-tez eshitaman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "やっと",
+    "back": "nihoyat, arang, zo'rg'a",
+    "phonetic": "yato",
+    "example": "やっと 自転車に 乗れるように なりました。 (Nihoyat velosiped haydashni o'rganib oldim.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "かなり",
+    "back": "ancha, ancha-muncha",
+    "phonetic": "kanari",
+    "example": "日本語が かなり 分かるように なりました。 (Yapon tilini ancha tushunadigan bo'lib qoldim.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "必ず (かならず)",
+    "back": "albatta, muqarrar",
+    "phonetic": "kanarazu",
+    "example": "約束を 必ず 守って ください。 (Kelishuvga albatta rioya qiling.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "絶対に (ぜったいに)",
+    "back": "mutlaqo, sira ham (inkor bilan)",
+    "phonetic": "zetaini",
+    "example": "絶対に 忘れません。 (Sira ham unutmayman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "できるだけ",
+    "back": "iloji boricha, imkon qadar",
+    "phonetic": "kirudake",
+    "example": "できるだけ 早く 来て ください。 (Iloji boricha ertaroq keling.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "練習します (れんしゅうします)",
+    "back": "mashq qilmoq",
+    "phonetic": "renshuushimasu",
+    "example": "毎日 漢字を 練習するように しています。 (Har kuni kanjilarni mashq qilishga harakat qilyapman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "習慣 (しゅうかん)",
+    "back": "odat, urf-odat",
+    "phonetic": "shuukan",
+    "example": "毎朝 散歩する 習慣が できました。 (Har kuni ertalab sayr qilish odatim shakllandi.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "健康 (けんこう)",
+    "back": "salomatlik",
+    "phonetic": "kenkou",
+    "example": "健康のために 野菜を たくさん 食べます。 (Salomatlik uchun ko'p sabzavot yeyman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "無理をします (むりをします)",
+    "back": "kuchni ortiqcha zo'riqtirmoq",
+    "phonetic": "murioshimasu",
+    "example": "無理を しないように して ください。 (O'zingizni ortiqcha zo'riqtirmaslikka harakat qiling.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "特別な (とくべつな)",
+    "back": "maxsus, alohida",
+    "phonetic": "tokubetsuna",
+    "example": "特別な 運動は していません。 (Alohida bir mashq qilayotganim yo'q.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "水泳 (すいえい)",
+    "back": "suzish sporti",
+    "phonetic": "suiei",
+    "example": "水泳が できるように なりました。 (Suzishni o'rganib oldim.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "キロ (きろ)",
+    "back": "kilogramm / kilometr",
+    "phonetic": "kiro",
+    "example": "毎朝 5キロ 走るように しています。 (Har kuni ertalab 5 km yugurishga harakat qilaman.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ショック (しょっく)",
+    "back": "shok, hayrat",
+    "phonetic": "shoku",
+    "example": "試験に 落ちて ショックを 受けました。 (Imtihondan yiqilib qattiq tushkunlikka tushdim.)",
+    "category": "Minna no Nihongo 36-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ほめます",
+    "back": "maqtamoq",
+    "phonetic": "homemasu",
+    "example": "先生に ほめられました。 (Ustozim tomonidan maqtaldim.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "しかります",
+    "back": "urishmoq, tanbeh bermoq",
+    "phonetic": "shikarimasu",
+    "example": "母に しかられました。 (Onamdan dakki eshitdim.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "誘います (さそいます)",
+    "back": "taklif qilmoq (birga biror joyga borishga)",
+    "phonetic": "sasoimasu",
+    "example": "友だちに パーティーに 誘われました。 (Do'stim tomonidan ziyofatga taklif qilindim.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "頼みます (たのみます)",
+    "back": "iltimos qilmoq, buyurmoq",
+    "phonetic": "tanomimasu",
+    "example": "仕事を 頼まれました。 (Menga ish topshirildi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "踏みます (ふみます)",
+    "back": "bosmoq (oyoqni)",
+    "phonetic": "fumimasu",
+    "example": "電車で 足を 踏まれました。 (Poyezdda oyog'imni bosib olishdi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "壊します (こわします)",
+    "back": "buzmoq, sindirmoq",
+    "phonetic": "kowashimasu",
+    "example": "弟に パソコンを 壊されました。 (Ukam kompyuterimni buzib qo'ydi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "汚します (よごします)",
+    "back": "kirlatmoq, bulg'amoq",
+    "phonetic": "yogoshimasu",
+    "example": "服を 汚されました。 (Kiyimimni kirlatishdi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "行います (おこないます)",
+    "back": "o'tkazmoq, amalga oshirmoq (tadbirlar)",
+    "phonetic": "okonaimasu",
+    "example": "オリンピックが 行われました。 (Olimpiada o'tkazildi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "輸出します (ゆしゅつします)",
+    "back": "eksport qilmoq",
+    "phonetic": "yushutsushimasu",
+    "example": "車が 世界中へ 輸出されて います。 (Avtomobillar butun dunyoga eksport qilinmoqda.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "輸入します (ゆにゅうします)",
+    "back": "import qilmoq",
+    "phonetic": "yunyuushimasu",
+    "example": "石油を 輸入して います。 (Neft import qilinadi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "翻訳します (ほんやくします)",
+    "back": "yozma tarjima qilmoq",
+    "phonetic": "honyakushimasu",
+    "example": "この 本は 英語に 翻訳されました。 (Bu kitob ingliz tiliga tarjima qilingan.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "発明します (はつめいします)",
+    "back": "ixtiro qilmoq",
+    "phonetic": "hatsumeishimasu",
+    "example": "電話は ベルによって 発明されました。 (Telefon Bell tomonidan ixtiro qilingan.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "発見します (はっけんします)",
+    "back": "kashf etmoq",
+    "phonetic": "hakenshimasu",
+    "example": "新しい 星が 発見されました。 (Yangi yulduz kashf qilindi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "泥棒 (どろぼう)",
+    "back": "o'g'ri",
+    "phonetic": "dorobou",
+    "example": "泥棒に お金を 取られました。 (O'g'ri pulimni o'g'irlab ketdi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "警官 (けいかん)",
+    "back": "politsiyachi",
+    "phonetic": "keikan",
+    "example": "泥棒は 警官に 捕まりました。 (O'g'ri politsiyachi tomonidan qo'lga olindi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "建築家 (けんちくか)",
+    "back": "me'mor, arxitektor",
+    "phonetic": "kenchikuka",
+    "example": "この ビルは 有名な 建築家によって 設計されました。 (Bu bino mashhur me'mor tomonidan loyihalashtirilgan.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "漫画 (まんが)",
+    "back": "manga (yapon komikslari)",
+    "phonetic": "manga",
+    "example": "日本の 漫画は 世界中で 読まれています。 (Yapon mangalari butun dunyoda o'qiladi.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "金 (きん)",
+    "back": "oltin",
+    "phonetic": "kin",
+    "example": "金の 寺（金閣寺）が 建てられました。 (Oltin ibodatxona barpo etilgan.)",
+    "category": "Minna no Nihongo 37-dars",
+    "level": "N4"
+  },
+  {
+    "front": "参加します (さんかします)",
+    "back": "qatnashmoq, a'zo bo'lmoq",
+    "phonetic": "sankashimasu",
+    "example": "ボランティアに 参加します。 (Ko'ngillilar faoliyatida qatnashadi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "育てます (そだてます)",
+    "back": "tarbiyalamoq, o'stirmoq (bola, o'simlik)",
+    "phonetic": "sodatemasu",
+    "example": "花を 育てるのが 好きです。 (Gul o'stirishni yoqtiraman.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "運びます (はこびます)",
+    "back": "tashimoq, eltmoq",
+    "phonetic": "hakobimasu",
+    "example": "重い 荷物を 運びます。 (Og'ir yukni tashiydi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "入院します (にゅういんします)",
+    "back": "shifoxonaga yotmoq",
+    "phonetic": "nyuuinshimasu",
+    "example": "祖父が 入院しました。 (Bobom shifoxonaga yotqizildi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "退院します (たいいんします)",
+    "back": "shifoxonadan chiqmoq",
+    "phonetic": "taiinshimasu",
+    "example": "来週 退院します。 (Keyingi hafta shifoxonadan chiqadi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "電源 (でんげん)",
+    "back": "elektr ta'minoti, manba",
+    "phonetic": "ngen",
+    "example": "電源を 入れて ください。 (Elektr manbaini yoqing.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "整理します (せいりします)",
+    "back": "tartibga solmoq, saralamoq",
+    "phonetic": "seirishimasu",
+    "example": "書類を 整理します。 (Hujjatlarni tartibga keltiradi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "似ています (にています)",
+    "back": "o'xshamoq (tashqi ko'rinish yoki xarakter)",
+    "phonetic": "niteimasu",
+    "example": "父に よく 似て います。 (Otamga juda o'xshayman.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "世話をします (せわをします)",
+    "back": "g'amxo'rlik qilmoq, parvarishlamoq",
+    "phonetic": "sewaoshimasu",
+    "example": "犬の 世話を します。 (Itni parvarish qiladi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "手袋 (てぶくろ)",
+    "back": "qo'lqop",
+    "phonetic": "tebukuro",
+    "example": "手袋を はめるのを 忘れました。 (Qo'lqop kiyishni unutibman.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "木綿 (もめん)",
+    "back": "paxta mato",
+    "phonetic": "momen",
+    "example": "木綿の シャツを 着るのが 好きです。 (Paxta ko'ylak kiyishni yoqtiraman.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "革 (かわ)",
+    "back": "charm, ko'n",
+    "phonetic": "kawa",
+    "example": "革の 財布を 買いました。 (Charm hamyon sotib oldim.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "嘘 (うそ)",
+    "back": "yolg'on",
+    "phonetic": "uso",
+    "example": "嘘を つくのは よくありません。 (Yolg'on gapirish yaxshi emas.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "星 (ほし)",
+    "back": "yulduz",
+    "phonetic": "hoshi",
+    "example": "星を 見るのが 好きです。 (Yulduzlarni tomosha qilishni yoqtiraman.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "赤ちゃん (あかちゃん)",
+    "back": "chaqaloq",
+    "phonetic": "akachan",
+    "example": "赤ちゃんが 生まれたのを 知っていますか。 (Chaqaloq tug'ilganini bilasizmi?)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "海岸 (かいがん)",
+    "back": "dengiz qirg'og'i, sohil",
+    "phonetic": "kaigan",
+    "example": "海岸を 散歩するのが 気持ちいいです。 (Sohilda sayr qilish xush yoqadi.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "工場 (こうじょう)",
+    "back": "zavod, fabrika",
+    "phonetic": "koujou",
+    "example": "車を 作る 工場を 見学しました。 (Mashina ishlab chiqaradigan zavodni ekskursiya qildik.)",
+    "category": "Minna no Nihongo 38-dars",
+    "level": "N4"
+  },
+  {
+    "front": "答えます (こたえます)",
+    "back": "javob bermoq",
+    "phonetic": "kotaemasu",
+    "example": "質問に 答えます。 (Savolga javob beradi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "倒れます (たおれます)",
+    "back": "qulamoq, yiqilmoq (bino, daraxt)",
+    "phonetic": "taoremasu",
+    "example": "地震で ビルが 倒れました。 (Zilzila sababli bino qulab tushdi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "通ります (とおれます)",
+    "back": "o'tmoq, kesib o'tmoq",
+    "phonetic": "tooremasu",
+    "example": "道を 通ります。 (Yo'ldan o'tadi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "死にます (しにます)",
+    "back": "vafot etmoq, o'lmoq",
+    "phonetic": "shinimasu",
+    "example": "犬が 死んで、悲しいです。 (Itim o'lib qolib, xafaman.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "びっくりします",
+    "back": "hayron qolmoq, cho'chib ketmoq",
+    "phonetic": "bikurishimasu",
+    "example": "ニュースを 聞いて、びっくりしました。 (Xabarni eshitib hayron qoldim.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "安心します (あんしんします)",
+    "back": "ko'ngil tinchimoq, taskin topmoq",
+    "phonetic": "anshinshimasu",
+    "example": "家族の 声を 聞いて、安心しました。 (Oilamning ovozini eshitib, ko'nglim tinchidi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "遅刻します (ちこくします)",
+    "back": "kechikmoq",
+    "phonetic": "chikokushimasu",
+    "example": "授業に 遅刻しました。 (Darsga kechikdim.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "早退します (そうたいします)",
+    "back": "ishdan/darsdan ertaroq javob olib ketmoq",
+    "phonetic": "soutaishimasu",
+    "example": "病気なので、早退します。 (Betob bo'lganim uchun ertaroq javob olib ketaman.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "複雑 (ふくざつな)",
+    "back": "murakkab, chigal",
+    "phonetic": "fukuzatsuna",
+    "example": "道が 複雑で、迷いました。 (Yo'l chigal bo'lgani sababli adashib qoldim.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "邪魔 (じゃまな)",
+    "back": "xalal beruvchi, noqulay",
+    "phonetic": "jamana",
+    "example": "荷物が 邪魔です。 (Yuklar yo'lga xalal beryapti.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "火事 (かじ)",
+    "back": "yong'in",
+    "phonetic": "kaji",
+    "example": "火事で 家が 焼けました。 (Yong'in tufayli uy yonib ketdi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "台風 (たいふう)",
+    "back": "to'fon, tayfun",
+    "phonetic": "taifuu",
+    "example": "台風で 電車が 止まりました。 (To'fon sababli poyezdlar to'xtadi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "西洋 (せいよう)",
+    "back": "G'arb mamlakatlari",
+    "phonetic": "seiyou",
+    "example": "西洋の 文化に 興味が あります。 (G'arb madaniyatiga qiziqishim bor.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "東洋 (とうよう)",
+    "back": "Sharq mamlakatlari",
+    "phonetic": "touyou",
+    "example": "東洋の 歴史を 勉強しています。 (Sharq tarixini o'rganayapman.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "汚れます (よごれます)",
+    "back": "kirlanmoq",
+    "phonetic": "yogoremasu",
+    "example": "服が 汚れて、恥ずかしかったです。 (Kiyimim kirlanib, xijolat bo'ldim.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "並びます (ならびます)",
+    "back": "navbatda turmoq",
+    "phonetic": "narabimasu",
+    "example": "人が 多くて、1時間 並びました。 (Odam ko'pligidan 1 soat navbatda turdim.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "通ります (とおりません)",
+    "back": "o'tmoq, qatnamoq",
+    "phonetic": "toorimasen",
+    "example": "事故で 車が 通れませんでした。 (Avariya sababli mashinalar o'ta olmadi.)",
+    "category": "Minna no Nihongo 39-dars",
+    "level": "N4"
+  },
+  {
+    "front": "数えます (かぞえます)",
+    "back": "sanamoq, hisoblamoq",
+    "phonetic": "kazoemasu",
+    "example": "人数を 数えます。 (Odamlar sonini sanaydi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "測ります (はかります)",
+    "back": "o'lchamoq (uzunlik, vaqt, harorat)",
+    "phonetic": "hakarimasu",
+    "example": "熱を 測ります。 (Isitmani o'lchaydi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "確かめます (たしかめます)",
+    "back": "aniqlashtirmoq, tekshirib ko'rmoq",
+    "phonetic": "tashikamemasu",
+    "example": "時間を 確かめて ください。 (Vaqtni aniqlashtirib oling.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "合います (あいます)",
+    "back": "mos kelmoq, to'g'ri kelmoq (o'lcham)",
+    "phonetic": "aimasu",
+    "example": "サイズが 合います。 (O'lchami to'g'ri keldi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "出発します (しゅっぱつします)",
+    "back": "yo'lga chiqmoq, jo'namoq",
+    "phonetic": "shupatsushimasu",
+    "example": "飛行機が 出発します。 (Samolyot yo'lga chiqadi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "到着します (とうちゃくします)",
+    "back": "yetib kelmoq",
+    "phonetic": "touchakushimasu",
+    "example": "成田に 到着しました。 (Naritaga yetib keldi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "忘年会 (ぼうねんかい)",
+    "back": "yil yakuni bayrami (Yaponiya an'anasi)",
+    "phonetic": "bounenkai",
+    "example": "忘年会に 行きます。 (Yil yakuni ziyofatiga boradi.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "傷 (きず)",
+    "back": "chiziq, tirnalish, jarohat",
+    "phonetic": "kizu",
+    "example": "車に 傷が あります。 (Mashinada tirnalgan joy bor.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "〜以上 (〜いじょう)",
+    "back": "...dan ko'p, ortiq",
+    "phonetic": "ijou",
+    "example": "18歳以上 (18 yoshdan yuqori.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "〜以下 (〜いか)",
+    "back": "...dan kam, past",
+    "phonetic": "ika",
+    "example": "1000円以下 (1000 yendan past.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ズボン (ずぼん)",
+    "back": "shim",
+    "phonetic": "zubon",
+    "example": "この ズボンを はいて みても いいですか。 (Ushbu shimni kiyib ko'rsam bo'ladimi?)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "二次会 (にじかい)",
+    "back": "ziyofatning ikkinchi davomi",
+    "phonetic": "nijikai",
+    "example": "二次会へ 行くか どうか 話し合っています。 (Davomiga boramizmi-yo'qmi maslahatlashyapmiz.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "大会 (たいかい)",
+    "back": "musobaqa, syezdd",
+    "phonetic": "taikai",
+    "example": "スピーチ大会で 誰が 優勝するか 楽しみです。 (Nutq musobaqasida kim yutishi qiziq bo'lyapti.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "表 (おもて)",
+    "back": "yuz tomon, usti",
+    "phonetic": "omote",
+    "example": "表と 裏を 確かめて ください。 (Oldi va orqa tomonini tekshiring.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "裏 (うら)",
+    "back": "orqa tomon, teskarisi",
+    "phonetic": "ura",
+    "example": "封筒の 裏に 住所を 書きます。 (Konvertning orqasiga manzil yozaman.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "返事 (へんじ)",
+    "back": "javob",
+    "phonetic": "henji",
+    "example": "メールの 返事を 出しました。 (Xatga javob qaytardim.)",
+    "category": "Minna no Nihongo 40-dars",
+    "level": "N4"
+  },
+  {
+    "front": "いただきます",
+    "back": "qabul qilib olmoq (もらいます ning hurmat shakli)",
+    "phonetic": "itadakimasu",
+    "example": "先生に 本を いただきました。 (Ustozdan kitob oldim (ehtirom bilan).)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "くださいます",
+    "back": "bermoq (kattalar menga berishi, くれます ning hurmat shakli)",
+    "phonetic": "kudasaimasu",
+    "example": "社長が お土産を くださいました。 (Kompaniya rahbari menga sovg'a berdilar.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "やります",
+    "back": "bermoq (kichiklarga, hayvonlarga, o'simliklarga)",
+    "phonetic": "yarimasu",
+    "example": "犬に えさを やります。 (Itga yemish beraman.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "上げます (あげます)",
+    "back": "ko'tarmoq, bermoq",
+    "phonetic": "agemasu",
+    "example": "給料を 上げます。 (Oylikni oshiradi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "下げます (さげます)",
+    "back": "tushirmoq, pasaytirmoq",
+    "phonetic": "sagemasu",
+    "example": "温度を 下げます。 (Haroratni pasaytiradi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "親切にします (しんせつにします)",
+    "back": "mehribonlik qilmoq, yaxshilik ko'rsatmoq",
+    "phonetic": "shinsetsunishimasu",
+    "example": "お年寄りに 親切に します。 (Keksalar bilan xushmuomala bo'ladi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "珍しい (めずらしい)",
+    "back": "nodir, kam uchraydigan",
+    "phonetic": "mezurashii",
+    "example": "珍しい 切手ですね。 (Nodir marka ekan-a.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お祝い (おいわい)",
+    "back": "tabrik sovg'asi",
+    "phonetic": "oiwai",
+    "example": "結婚の お祝いを あげます。 (To'y tabrigi sovg'asini beradi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お年玉 (おとしだま)",
+    "back": "yangi yil pul sovg'asi (bolalarga)",
+    "phonetic": "otoshidama",
+    "example": "子どもに お年玉を やります。 (Bolalarga yangi yil pul sovg'asini beradi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お見舞い (おみまい)",
+    "back": "bemor ko'rish sovg'asi / tashrifi",
+    "phonetic": "omimai",
+    "example": "お見舞いに 行きます。 (Bemor ko'rgani boradi.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "興味 (きょうみ)",
+    "back": "qiziqish",
+    "phonetic": "kyoumi",
+    "example": "日本の 文化に 興味が あります。 (Yaponiya madaniyatiga qiziqishim bor.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "情報 (じょうほう)",
+    "back": "ma'lumot, axborot",
+    "phonetic": "jouhou",
+    "example": "先生が いい 情報を くださいました。 (Ustoz menga yaxshi ma'lumot berdilar.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "文法 (ぶんぽう)",
+    "back": "grammatika",
+    "phonetic": "bunpou",
+    "example": "先生が 文法を 説明して くださいました。 (Ustoz grammatikani tushuntirib berdilar.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "発音 (はつおん)",
+    "back": "talaffuz",
+    "phonetic": "hatsuon",
+    "example": "発音を 直して いただきました。 (Talaffuzimni to'g'irlatib oldim.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "猿 (さる)",
+    "back": "maymun",
+    "phonetic": "saru",
+    "example": "動物園で 猿に えさを やりました。 (Hayvonot bog'ida maymunga yem berdim.)",
+    "category": "Minna no Nihongo 41-dars",
+    "level": "N4"
+  },
+  {
+    "front": "包みます (つつみます)",
+    "back": "o'ramoq, qadoqlamoq",
+    "phonetic": "tsutsumimasu",
+    "example": "プレゼントを きれいな 紙で 包みます。 (Sovg'ani chiroyli qog'ozga o'raydi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "沸かします (わかします)",
+    "back": "qaynatmoq (suvni)",
+    "phonetic": "wakashimasu",
+    "example": "お湯を 沸かします。 (Choynakda suv qaynatadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "混ぜます (まぜます)",
+    "back": "aralashtirmoq",
+    "phonetic": "mazemasu",
+    "example": "よく 混ぜて ください。 (Yaxshilab aralashtiring.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "計算します (けいさんします)",
+    "back": "hisoblamoq, sanamoq",
+    "phonetic": "keisanshimasu",
+    "example": "お金を 計算します。 (Pulni hisob-kitob qiladi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "並びます (ならびます)",
+    "back": "navbatda turmoq, qatorlashmoq",
+    "phonetic": "narabimasu",
+    "example": "店の 前に 人が 並んで います。 (Do'kon oldida odamlar navbatda turishibdi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "弁護士 (べんごし)",
+    "back": "advokat, himoyachi",
+    "phonetic": "bengoshi",
+    "example": "弁護士に なる ために、法律を 勉強します。 (Advokat bo'lish uchun huquqni o'rganadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "法律 (ほうりつ)",
+    "back": "qonun, huquq",
+    "phonetic": "houritsu",
+    "example": "法律を 守らなければ なりません。 (Qonunga rioya qilish shart.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "目的 (もくてき)",
+    "back": "maqsad, muddao",
+    "phonetic": "mokuteki",
+    "example": "日本へ 来た 目的は 何ですか。 (Yaponiyaga kelishdan maqsadingiz nima?)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "論文 (ろんぶん)",
+    "back": "ilmiy maqola, dissertatsiya",
+    "phonetic": "ronbun",
+    "example": "卒業論文を 書きます。 (Bitiruv malakaviy ishini yozadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "栓抜き (せんぬき)",
+    "back": "shisha ochgich",
+    "phonetic": "sennuki",
+    "example": "栓抜きは どこですか。 (Shisha ochgich qayerda?)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "缶切り (かんきり)",
+    "back": "konserva ochgich",
+    "phonetic": "kankiri",
+    "example": "缶切りで 缶詰を 開けます。 (Konserva ochgich bilan bankani ochadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "音楽家 (おんがくか)",
+    "back": "musiqachi",
+    "phonetic": "ongakuka",
+    "example": "音楽家を 目指しています。 (Musiqachi bo'lishni maqsad qilgan.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "子ども (こども)",
+    "back": "bola",
+    "phonetic": "kodomo",
+    "example": "子どもの ために 絵本を 買いました。 (Farzandim uchun ertak kitob sotib oldim.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "教育 (きょういく)",
+    "back": "ta'lim, tarbiya",
+    "phonetic": "kyouiku",
+    "example": "子どもの 教育に お金が かかります。 (Bola ta'limiga pul sarflanadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "歴史 (れきし)",
+    "back": "tarix",
+    "phonetic": "rekishi",
+    "example": "この 本は 歴史を 調べるのに 役に 立ちます。 (Bu kitob tarixni o'rganishda juda asqotadi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "文化 (ぶんか)",
+    "back": "madaniyat",
+    "phonetic": "bunka",
+    "example": "文化を 理解するのに 時間が かかります。 (Madaniyatni tushunish uchun vaqt kerak bo'ladi.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "戦争 (せんそう)",
+    "back": "urush",
+    "phonetic": "sensou",
+    "example": "平和の ために 戦争を 反対します。 (Tinchlik uchun urushga qarshimiz.)",
+    "category": "Minna no Nihongo 42-dars",
+    "level": "N4"
+  },
+  {
+    "front": "増えます (ふえます)",
+    "back": "ko'paymoq, oshmoq (son, miqdor)",
+    "phonetic": "fuemasu",
+    "example": "留学生が 増えました。 (Chet ellik talabalar soni ko'paydi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "減ります (へります)",
+    "back": "kamaymoq",
+    "phonetic": "herimasu",
+    "example": "輸出が 減りました。 (Eksport kamaydi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "上がります (あがります)",
+    "back": "ko'tarilmoq (narx, harorat)",
+    "phonetic": "agarimasu",
+    "example": "値段が 上がります。 (Narxlar ko'tariladi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "下がります (さがります)",
+    "back": "tushmoq, pasaymoq",
+    "phonetic": "sagarimasu",
+    "example": "気温が 下がりました。 (Havo harorati pasaydi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "切れます (きれます)",
+    "back": "uzilmoq (ip, tugma)",
+    "phonetic": "kiremasu",
+    "example": "ひもが 切れそうです。 (Ip uzilib ketadiganga o'xshaydi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "落ちます (おちます)",
+    "back": "qulamoq, tushib ketmoq",
+    "phonetic": "ochimasu",
+    "example": "荷物が 落ちそうです。 (Yuk tushib ketadiganga o'xshaydi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "楽 (らくな)",
+    "back": "rohat, oson, qulay",
+    "phonetic": "rakuna",
+    "example": "楽そうな 仕事ですね。 (Osondek ko'rinadigan ish ekan.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "今にも (いまにも)",
+    "back": "hozirning o'zidayoq, ayni damda",
+    "phonetic": "imanimo",
+    "example": "今にも 雨が 降りそうです。 (Hozirning o'zidayoq yomg'ir yog'adigandek turibdi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "暖房 (だんぼう)",
+    "back": "isitish tizimi (pechka)",
+    "phonetic": "danbou",
+    "example": "暖房を つけたので、部屋が 暖かくなりました。 (Isitgichni yoqqanim sababli xona ilidi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "冷房 (れいぼう)",
+    "back": "konditsioner, sovitish tizimi",
+    "phonetic": "reibou",
+    "example": "冷房が 効いて 涼しいです。 (Konditsioner ishlab salqin bo'lib turibdi.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "センス (せんす)",
+    "back": "did, nozik did",
+    "phonetic": "sensu",
+    "example": "服の センスが いいですね。 (Kiyinish didingiz ajoyib ekan.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "わあ",
+    "back": "voy (hayrat undovi)",
+    "phonetic": "waa",
+    "example": "わあ、きれいな 花火ですね。 (Voy, qanday go'zal mushakbozlik!)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "会員 (かいいん)",
+    "back": "a'zo (klub yoki tashkilot)",
+    "phonetic": "kaiin",
+    "example": "ジムの 会員に なりました。 (Sport zali a'zosiga aylandim.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "適当な (てきとうな)",
+    "back": "munosib, mos keluvchi",
+    "phonetic": "tekitouna",
+    "example": "適当な 大きさに 切って ください。 (Mos o'lchamda kesib chiqing.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "特別な (とくべつな)",
+    "back": "alohida, o'zgacha",
+    "phonetic": "tokubetsuna",
+    "example": "特別な 料理を 作りました。 (Alohida bir taom tayyorladim.)",
+    "category": "Minna no Nihongo 43-dars",
+    "level": "N4"
+  },
+  {
+    "front": "泣きます (なきます)",
+    "back": "yig'lamoq",
+    "phonetic": "nakimasu",
+    "example": "赤ちゃんが 泣いて います。 (Chaqaloq yig'layapti.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "笑います (わらいます)",
+    "back": "kulmoq, jilmaymoq",
+    "phonetic": "waraimasu",
+    "example": "みんなで 楽しく 笑いました。 (Barchamiz quvnoq kulishdik.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "乾きます (かわきます)",
+    "back": "qurimoq",
+    "phonetic": "kawakimasu",
+    "example": "洗濯物が 乾きました。 (Yuvilgan kiyimlar quridi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "滑ります (すべります)",
+    "back": "sirpanmoq",
+    "phonetic": "suberimasu",
+    "example": "道が 凍って 滑りやすいです。 (Yo'l muzlab, sirpanchiq bo'lib qolibdi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "調節します (ちょうせつします)",
+    "back": "moslamoq, sozlamoq (harorat, hajm)",
+    "phonetic": "chousetsushimasu",
+    "example": "エアコンの 温度を 調節します。 (Konditsioner haroratini sozlaydi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "安全 (あんぜんな)",
+    "back": "xavfsiz",
+    "phonetic": "anzenna",
+    "example": "安全な 道を 歩きます。 (Xavfsiz yo'ldan yuradi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "濃い (こい)",
+    "back": "quyuq, to'q (choy, rang)",
+    "phonetic": "koi",
+    "example": "濃い お茶が 好きです。 (Achchiq to'q choyni yoqtiraman.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "薄い (うすい)",
+    "back": "suyuq, och rang, yupqa",
+    "phonetic": "usui",
+    "example": "味が 薄いです。 (Ta'mi suyuq (kam tuzli).)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "厚い (あつい)",
+    "back": "qalin (kitob, kiyim)",
+    "phonetic": "atsui",
+    "example": "厚い 本を 読みます。 (Qalin kitobni o'qiydi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "太い (ふとい)",
+    "back": "yo'g'on (daraxt, chiziq)",
+    "phonetic": "futoi",
+    "example": "太い ペンで 書いて ください。 (Yo'g'on ruchka bilan yozing.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "細い (ほそい)",
+    "back": "ingichka",
+    "phonetic": "hosoi",
+    "example": "細い 道ですね。 (Ingichka yo'l ekan.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "涙 (なみだ)",
+    "back": "ko'z yoshi",
+    "phonetic": "namida",
+    "example": "涙が 出ました。 (Ko'zdan yosh chiqdi.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "理由 (りゆう)",
+    "back": "sabab, vaj",
+    "phonetic": "riyuu",
+    "example": "遅刻した 理由を 言い訳しないで ください。 (Kechikish sababini bahona qilmang.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "謝罪 (しゃざい)",
+    "back": "kechirim so'rash",
+    "phonetic": "shazai",
+    "example": "誠意を 持って 謝ります。 (Chin dildan uzr so'rayman.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "エアコン (えあこん)",
+    "back": "konditsioner",
+    "phonetic": "eakon",
+    "example": "この エアコンは 操作が しやすいです。 (Bu konditsionerni boshqarish juda oson.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "パスワード (ぱすわーど)",
+    "back": "parol",
+    "phonetic": "pasuwa-do",
+    "example": "短い パスワードは 覚えやすいですが、危険です。 (Qisqa parol eslab qolishga oson, ammo xavfli.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "薬 (くすり)",
+    "back": "dori-darmon",
+    "phonetic": "kusuri",
+    "example": "苦い 薬は 飲みにくいです。 (Achchiq dorini ichish qiyin.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "字 (じ)",
+    "back": "harf, yozuv",
+    "phonetic": "ji",
+    "example": "小さい 字は 読みにくいです。 (Kichik yozuvni o'qish qiyin.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "靴 (くつ)",
+    "back": "poyafzal",
+    "phonetic": "kutsu",
+    "example": "この 靴は 歩きやすいです。 (Bu poyafzalda yurish juda qulay.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "掃除します (そうじします)",
+    "back": "tozalamoq",
+    "phonetic": "soujishimasu",
+    "example": "部屋を きれいに 掃除しました。 (Xonani chiroyli qilib tozaladim.)",
+    "category": "Minna no Nihongo 44-dars",
+    "level": "N4"
+  },
+  {
+    "front": "信じます (しんじます)",
+    "back": "ishonmoq",
+    "phonetic": "shinjimasu",
+    "example": "友だちを 信じます。 (Do'stimga ishonaman.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "キャンセルします",
+    "back": "bekor qilmoq",
+    "phonetic": "kyanserushimasu",
+    "example": "予約を キャンセルします。 (Band qilingan joyni bekor qiladi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "保証書 (ほしょうしょ)",
+    "back": "kafolat qog'ozi (garantiya)",
+    "phonetic": "hoshousho",
+    "example": "保証書を 持って 行きます。 (Kafolat qog'ozini olib boradi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "領収書 (りょうしゅうしょ)",
+    "back": "to'lov kvitansiyasi, chek",
+    "phonetic": "ryoushuusho",
+    "example": "領収書を ください。 (Kvitansiya bering.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "中止 (ちゅうし)",
+    "back": "to'xtatish, bekor qilish",
+    "phonetic": "chuushi",
+    "example": "雨で 試合は 中止です。 (Yomg'ir tufayli musobaqa bekor qilindi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "110番 (ひゃくとおばん)",
+    "back": "110 raqami (militsiya/politsiya chaqirish)",
+    "phonetic": "hyakutooban",
+    "example": "事件の 時は 110番に かけます。 (Voqea sodir bo'lganda 110 ga qo'ng'iroq qilinadi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "119番 (ひゃくじゅうきゅうばん)",
+    "back": "119 raqami (tez yordam va o't o'chiruvchilar)",
+    "phonetic": "hyakujuukyuuban",
+    "example": "火事の 時は 119番です。 (Yong'inda 119 raqamiga qo'ng'iroq qilinadi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "急に (きゅうに)",
+    "back": "to'satdan, birdaniga",
+    "phonetic": "kyuuni",
+    "example": "急に 雨が 降り出しました。 (To'satdan yomg'ir yog'a boshladi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "楽しみにしています (たのしみにしています)",
+    "back": "intiqlik bilan kutmoq",
+    "phonetic": "tanoshiminishiteimasu",
+    "example": "会えるのを 楽しみに して います。 (Uchrashishni intiqlik bilan kutmoqdaman.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "返金します (へんきんします)",
+    "back": "pulni qaytarib bermoq",
+    "phonetic": "henkinshimasu",
+    "example": "領収書が あれば、返金いたします。 (Chek bo'lsa, pulingizni qaytarib beramiz.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "レシート (れしーと)",
+    "back": "kassa cheki",
+    "phonetic": "reshi-to",
+    "example": "レシートを なくして しまいました。 (Chekni yo'qotib qo'yibman.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "連絡先 (れんらくさき)",
+    "back": "aloqa ma'lumotlari (telefon, manzil)",
+    "phonetic": "renrakusaki",
+    "example": "緊急の 連絡先を 教えて ください。 (Favqulodda aloqa raqamingizni ayting.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "都合 (つごう)",
+    "back": "sharoit, qulaylik",
+    "phonetic": "tsugou",
+    "example": "都合が 悪い 場合は、事前に ご連絡ください。 (Vaqtingiz bo'lmasa oldindan xabar qiling.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "約束 (やくそく)",
+    "back": "va'da, kelishuv",
+    "phonetic": "yakusoku",
+    "example": "約束したのに、彼は 来なかった。 (Vadasiga qaramasdan u kelmadi.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "一生懸命 (いっしょうけんめい)",
+    "back": "bor kuch bilan, sidqidildan",
+    "phonetic": "ishoukenmei",
+    "example": "一生懸命 勉強したのに、不合格でした。 (Bor kuchim bilan o'qigan bo'lsam ham o'ta olmadim.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "給料 (きゅうりょう)",
+    "back": "oylik maosh",
+    "phonetic": "kyuuryou",
+    "example": "毎日 残業しているのに、給料が 安いです。 (Har kuni ortiqcha ishlasam ham maoshim kam.)",
+    "category": "Minna no Nihongo 45-dars",
+    "level": "N4"
+  },
+  {
+    "front": "渡します (わたします)",
+    "back": "topshirmoq, qo'liga tutqazmoq",
+    "phonetic": "watashimasu",
+    "example": "手紙を 渡します。 (Xatni topshiradi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "帰って来ます (かえってきます)",
+    "back": "qaytib kelmoq",
+    "phonetic": "kaetekimasu",
+    "example": "父が 帰って 来ました。 (Otam qaytib keldilar.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "届きます (とどきます)",
+    "back": "yetib bormoq (pochta, jo'natma)",
+    "phonetic": "todokimasu",
+    "example": "荷物が 届きました。 (Jo'natma yetib keldi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "留守 (るす)",
+    "back": "uyda yo'qlik, bekorchilik",
+    "phonetic": "rusu",
+    "example": "留守の 間に 荷物が 来ました。 (Uyda yo'qligimda jo'natma kelibdi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "宅配便 (たくはいびん)",
+    "back": "yetkazib berish xizmati (kuryerlik)",
+    "phonetic": "takuhaibin",
+    "example": "宅配便で 送ります。 (Kuryerlik xizmati orqali jo'natadi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "原因 (げんいん)",
+    "back": "sabab, omil",
+    "phonetic": "genin",
+    "example": "事故の 原因を 調べます。 (Avariya sababini o'rganadi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "たった今 (たったいま)",
+    "back": "ayni hozirgina, hozirning o'zida",
+    "phonetic": "tataima",
+    "example": "たった今 帰った ところです。 (Ayni hozirgina qaytib kelgan paytim edi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "今いいですか (いまいいですか)",
+    "back": "hozir vaqtingiz bormi?",
+    "phonetic": "imaiisuka",
+    "example": "すみません、今 いいですか。 (Kechirasiz, hozir vaqtingiz bormi?)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "出発します (しゅっぱつします)",
+    "back": "jo'namoq, yo'lga chiqmoq",
+    "phonetic": "shupatsushimasu",
+    "example": "バスは たった今 出発した ところです。 (Avtobus xuddi hozirgina jo'nab ketdi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "到着します (とうちゃくします)",
+    "back": "yetib kelmoq",
+    "phonetic": "touchakushimasu",
+    "example": "飛行機は もうすぐ 到着する はずです。 (Samolyot hozir yetib kelishi aniq.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "荷物 (にもつ)",
+    "back": "yuk, posilka",
+    "phonetic": "nimotsu",
+    "example": "荷物を まとめている ところです。 (Yuklarimni yig'ishtirayotgan joyim edi.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "結果 (けっか)",
+    "back": "natija",
+    "phonetic": "keka",
+    "example": "明日 結果が 出る はずです。 (Ertaga natija chiqishi shubhasiz.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "予定 (よてい)",
+    "back": "reja",
+    "phonetic": "yotei",
+    "example": "午後 会議が 始まる ところです。 (Tushdan keyin yig'ilish boshlanish arafasida.)",
+    "category": "Minna no Nihongo 46-dars",
+    "level": "N4"
+  },
+  {
+    "front": "集まります (あつまります)",
+    "back": "yig'ilmoq, to'planmoq",
+    "phonetic": "atsumarimasu",
+    "example": "人が たくさん 集まりました。 (Odamlar ko'p to'plandi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "別れます (わかれます)",
+    "back": "ajrashmoq, xayrlashmoq",
+    "phonetic": "wakaremasu",
+    "example": "駅で 友だちと 別れました。 (Bekatda do'stim bilan xayrlashdim.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "音 (おと)",
+    "back": "tovush (jonsiz narsalar tovushi)",
+    "phonetic": "oto",
+    "example": "変な 音が します。 (G'alati ovoz eshitilyapti.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "声 (こえ)",
+    "back": "ovoz (inson yoki jonivor)",
+    "phonetic": "koe",
+    "example": "大きな 声で 話します。 (Baland ovozda gapiradi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "味 (あじ)",
+    "back": "ta'm, maza",
+    "phonetic": "aji",
+    "example": "いい 味が します。 (Mazali ta'm sezilyapti.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "におい",
+    "back": "hid",
+    "phonetic": "nioi",
+    "example": "いい においが しますね。 (Juda xushbo'y hid kelyapti-a.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "婚約します (こんやくします)",
+    "back": "unashtirilmoq, unashtiruv",
+    "phonetic": "konyakushimasu",
+    "example": "二人は 婚約したそうです。 (Ular unashtirilgan ekan (eshitishimcha).)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "比べます (くらべます)",
+    "back": "solishtirmoq, qiyoslamoq",
+    "phonetic": "kurabemasu",
+    "example": "昔と 今を 比べます。 (O'tmish bilan bugunni solishtiradi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "天気予報 (てんきよほう)",
+    "back": "ob-havo ma'lumoti",
+    "phonetic": "tenkiyohou",
+    "example": "天気予報に よると、明日は 晴れる そうです。 (Ob-havo ma'lumotiga ko'ra ertaga ochiq havo bo'larmish.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ニュース (にゅーす)",
+    "back": "yangiliklar",
+    "phonetic": "nyu-su",
+    "example": "ニュースに よると、地震が あった そうです。 (Yangiliklarga ko'ra zilzila bo'libdi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "事故 (じこ)",
+    "back": "baxtsiz hodisa, avariya",
+    "phonetic": "jiko",
+    "example": "大きな 事故が 起きた ようです。 (Katta avariya yuz berganga o'xshaydi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "パトカー (ぱとかー)",
+    "back": "politsiya mashinasi",
+    "phonetic": "patoka-",
+    "example": "パトカーの サイレンが 聞こえますね。 (Politsiya sirenasining ovozi eshitilyapti-a.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "救急車 (きゅうきゅうしゃ)",
+    "back": "tez yordam mashinasi",
+    "phonetic": "kyuukyuusha",
+    "example": "救急車が 来たようです。 (Tez yordam yetib kelganga o'xshaydi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "うわさ",
+    "back": "mish-mish",
+    "phonetic": "uwasa",
+    "example": "あの うわさは 本当の ようです。 (U mish-mish rostga o'xshaydi.)",
+    "category": "Minna no Nihongo 47-dars",
+    "level": "N4"
+  },
+  {
+    "front": "下ろします (おろします)",
+    "back": "tushirmoq (yukni)",
+    "phonetic": "oroshimasu",
+    "example": "荷物を 下ろします。 (Yukni tushiradi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "届けます (とどけます)",
+    "back": "yetkazib bermoq",
+    "phonetic": "todokemasu",
+    "example": "書類を 届けます。 (Hujjatlarni yetkazib beradi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "世話をします (せわをします)",
+    "back": "parvarishlamoq, qaramoq",
+    "phonetic": "sewaoshimasu",
+    "example": "子どもの 世話を します。 (Bolaga qaraydi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "嫌 (いやな)",
+    "back": "yoqimsiz, istalmagan",
+    "phonetic": "iyana",
+    "example": "嫌な ことは やめましょう。 (Yoqimsiz narsani to'xtataylik.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "厳しい (きびしい)",
+    "back": "qattiqqo'l, talabchan",
+    "phonetic": "kibishii",
+    "example": "先生は とても 厳しいです。 (Ustoz juda talabchan.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "塾 (じゅく)",
+    "back": "tayyorlov kursi, qo'shimcha dars markazi",
+    "phonetic": "juku",
+    "example": "子どもを 塾に 通わせます。 (Bolani qo'shimcha dars markaziga qatnatadi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "スケジュール",
+    "back": "jadval, reja",
+    "phonetic": "sukeji-ru",
+    "example": "スケジュールを 確認します。 (Jadvalni tekshiradi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "生徒 (せいと)",
+    "back": "o'quvchi (maktab o'quvchisi)",
+    "phonetic": "seito",
+    "example": "生徒に 本を 読ませます。 (O'quvchiga kitob o'qitadi.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "意見 (いけん)",
+    "back": "fikr, mulohaza",
+    "phonetic": "iken",
+    "example": "学生に 自由に 意見を 言わせます。 (Talabalarga erkin fikr bildirishga imkon beraman.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "発表します (はっぴょうします)",
+    "back": "taqdimot qilmoq, e'lon qilmoq",
+    "phonetic": "hapyoushimasu",
+    "example": "新入社員に 発表させました。 (Yangi xodimlarga taqdimot qildirdim.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "片づけ (かたづけ)",
+    "back": "yig'ishtirish, tartibga solish",
+    "phonetic": "katazuke",
+    "example": "子どもに 自分の 部屋を 片づけさせます。 (Farzandimga o'z xonasini yig'ishtirtiraman.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "手伝い (てつだい)",
+    "back": "yordam",
+    "phonetic": "tetsudai",
+    "example": "料理を 手伝わせました。 (Ovqat qilishda yordamlashishga jalb qildim.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "買い物 (かいもの)",
+    "back": "bozor-o'char, xarid",
+    "phonetic": "kaimono",
+    "example": "息子に 買い物に 行かせました。 (O'g'limni xaridga yubordim.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "コピー (こぴー)",
+    "back": "nusxa ko'chirish",
+    "phonetic": "kopi-",
+    "example": "書類を コピーさせて いただけませんか。 (Hujjatlardan nusxa ko'chirib olsam maylimi?)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "早退します (そうたいします)",
+    "back": "ishdan/darsdan vaqtidan oldin ketmoq",
+    "phonetic": "soutaishimasu",
+    "example": "体調が 悪いので、早退させて ください。 (Tobim yo'qligi sababli barvaqt ketishga ruxsat bering.)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "有給休暇 (ゆうきゅうきゅうか)",
+    "back": "haqli mehnat ta'tili",
+    "phonetic": "yuukyuukyuuka",
+    "example": "明日 休ませて いただけませんか。 (Ertaga dam olishimga ijozat bera olmaysizmi?)",
+    "category": "Minna no Nihongo 48-dars",
+    "level": "N4"
+  },
+  {
+    "front": "勤めます (つとめます)",
+    "back": "ishlamoq, xizmat qilmoq (kompaniyada)",
+    "phonetic": "tsutomemasu",
+    "example": "銀行に 勤めて いらっしゃいます。 (Bankda xizmat qiladilar (hurmat).)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "過ごします (すごします)",
+    "back": "vaqt o'tkazmoq",
+    "phonetic": "sugoshimasu",
+    "example": "週末を どこで お過ごしに なりましたか。 (Dam olish kunlarini qayerda o'tkazdingiz? (hurmat))",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "いらっしゃいます",
+    "back": "boradilar / keladilar / borlar (行きます・来ます・います ning hurmat shakli)",
+    "phonetic": "irashaimasu",
+    "example": "社長は 部屋に いらっしゃいます。 (Prezident xonadalar.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "召し上がります (めしあがります)",
+    "back": "yeydilar / ichadilar (食べます・飲みます ning hurmat shakli)",
+    "phonetic": "meshiagarimasu",
+    "example": "何を 召し上がりますか。 (Nima tanovul qilasizlar?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "おっしゃいます",
+    "back": "deydilar, aytadilar (言います ning hurmat shakli)",
+    "phonetic": "oshaimasu",
+    "example": "先生が そう おっしゃいました。 (Ustoz shunday dedilar.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "なさいます",
+    "back": "qiladilar (します ning hurmat shakli)",
+    "phonetic": "nasaimasu",
+    "example": "ゴルフを なさいますか。 (Golf o'ynaysizmi?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ご覧に なります (ごらんになります)",
+    "back": "ko'radilar (見ます ning hurmat shakli)",
+    "phonetic": "goranninarimasu",
+    "example": "この 映画を ご覧に なりましたか。 (Bu filmni tomosha qildingizmi?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ご存じです (ごぞんじです)",
+    "back": "biladilar (知っています ning hurmat shakli)",
+    "phonetic": "gozonjisu",
+    "example": "あの方を ご存じですか。 (Anavi kishini taniysizmi / bilasizmi?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お名前 (おなまえ)",
+    "back": "ism (hurmat bilan)",
+    "phonetic": "onamae",
+    "example": "お名前は 何と おっしゃいますか。 (Ismingiz nima deb ataladi?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ご住所 (ごじゅうしょ)",
+    "back": "manzil (hurmat bilan)",
+    "phonetic": "gojuusho",
+    "example": "こちらに ご住所を お書きに なって ください。 (Bu yerga manzilingizni yozib qo'ysangiz.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "社長 (しゃちょう)",
+    "back": "kompaniya prezidenti",
+    "phonetic": "shachou",
+    "example": "社長は もう お帰りに なりました。 (Prezident janoblari allaqachon uylariga qaytdilar.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "部長 (ぶちょう)",
+    "back": "departament boshlig'i",
+    "phonetic": "buchou",
+    "example": "部長が ゴルフを なさいます。 (Boshliq golf o'ynaydilar.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "奥様 (おくさま)",
+    "back": "boshqaning rafiqasi (juda hurmatli)",
+    "phonetic": "okusama",
+    "example": "奥様も ご一緒に いらっしゃいますか。 (Rafiqa xonim ham birga tashrif buyuradilarmi?)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ご家族 (ごかぞく)",
+    "back": "boshqaning oilasi",
+    "phonetic": "gokazoku",
+    "example": "ご家族の 皆様に よろしく お伝えください。 (Oilangiz a'zolariga salomimni yetkazing.)",
+    "category": "Minna no Nihongo 49-dars",
+    "level": "N4"
+  },
+  {
+    "front": "参ります (まいります)",
+    "back": "boraman / kelaman (行きます・来ます ning kamtarlik shakli)",
+    "phonetic": "mairimasu",
+    "example": "明日 9時に 参ります。 (Ertaga soat 9 da yetib boraman (kamtarlik bilan).)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "おります",
+    "back": "turibman / borman (います ning kamtarlik shakli)",
+    "phonetic": "orimasu",
+    "example": "東京に おります。 (Tokioda istiqomat qilyapman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "いただきます",
+    "back": "yeyman / ichaman / olaman (食べます・飲みます・もらいます ning kamtarlik shakli)",
+    "phonetic": "itadakimasu",
+    "example": "お茶を いただきます。 (Choy ichaman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "申します (もうします)",
+    "back": "deyilaman, aytaman (言います ning kamtarlik shakli)",
+    "phonetic": "moushimasu",
+    "example": "ミラーと 申します。 (Meni Miller deb atashadi (ismim Miller).)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "いたします",
+    "back": "qilaman, bajaraman (します ning kamtarlik shakli)",
+    "phonetic": "itashimasu",
+    "example": "わたしが 準備いたします。 (O'zim tayyorlayman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "拝見します (はいけんします)",
+    "back": "ko'raman, qarab chiqaman (見ます ning kamtarlik shakli)",
+    "phonetic": "haikenshimasu",
+    "example": "書類を 拝見します。 (Hujjatlarni ehtirom bilan ko'rib chiqaman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "存じます (ぞんじます)",
+    "back": "bilaman / o'ylayman (知っています・思います ning kamtarlik shakli)",
+    "phonetic": "zonjimasu",
+    "example": "存じて おります。 (Bilaman, xabardorman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "伺います (うかがいます)",
+    "back": "so'rayman / tashrif buyuraman (聞きます・行きます ning kamtarlik shakli)",
+    "phonetic": "ukagaimasu",
+    "example": "明日 お宅へ 伺います。 (Ertaga xonadoningizga tashrif buyuraman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お目に掛かります (おめにかかります)",
+    "back": "uchrashaman (会います ning kamtarlik shakli)",
+    "phonetic": "omenikakarimasu",
+    "example": "社長に お目に 掛かりました。 (Prezident janoblari bilan uchrashdim.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "私 (わたくし)",
+    "back": "men (わたし ning rasmiy va kamtar shakli)",
+    "phonetic": "watakushi",
+    "example": "私が 担当いたします。 (Men o'zim mas'ul bo'laman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "私ども (わたくしども)",
+    "back": "biz (kamtarlik shakli)",
+    "phonetic": "watakushidomo",
+    "example": "私どもが ご案内いたします。 (Biz sizga hamrohlik qilamiz.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "拝見します",
+    "back": "ko'rmoq, mutolaa qilmoq (kamtarlik)",
+    "phonetic": "shimasu",
+    "example": "お名刺を 拝見いたします。 (Tashrif qog'ozingizni ko'rib olsam.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "ご案内します (ごあんないします)",
+    "back": "kuzatib bormoq, tanishtirmoq (kamtarlik)",
+    "phonetic": "goannaishimasu",
+    "example": "会議室へ ご案内いたします。 (Majlislar zaliga kuzatib qo'yaman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  },
+  {
+    "front": "お伝えします (おつたえします)",
+    "back": "yetkazmoq (kamtarlik)",
+    "phonetic": "otsutaeshimasu",
+    "example": "部長に お伝えいたします。 (Boshliqqa yetkazib qo'yaman.)",
+    "category": "Minna no Nihongo 50-dars",
+    "level": "N4"
+  }
+]

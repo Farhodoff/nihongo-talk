@@ -1,5 +1,6 @@
 import { Lesson } from '../../types/lesson';
 import { MINNA_N5_LESSONS } from './minnaN5Lessons';
+import { MINNA_N4_LESSONS } from './minnaN4Lessons';
 import { JAPANESE_N5_LESSONS } from './japaneseN5';
 import { JAPANESE_N4_LESSONS } from './japaneseN4';
 import { JAPANESE_N3_LESSONS } from './japaneseN3';
@@ -10,6 +11,7 @@ export const ALL_ENGLISH_LESSONS: Lesson[] = [];
 
 export const ALL_JAPANESE_LESSONS: Lesson[] = [
   ...MINNA_N5_LESSONS,
+  ...MINNA_N4_LESSONS,
   ...JAPANESE_N5_LESSONS,
   ...JAPANESE_N4_LESSONS,
   ...JAPANESE_N3_LESSONS,
