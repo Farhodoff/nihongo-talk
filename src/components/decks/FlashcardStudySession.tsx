@@ -535,6 +535,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           </div>
         ) : (
           <div
+            data-testid="study-card"
             onClick={() => setIsFlipped((prev) => !prev)}
             className="perspective-1000 min-h-[340px] w-full cursor-pointer select-none md:min-h-[380px]"
           >

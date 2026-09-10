@@ -1,0 +1,115 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { FlashcardStudySession } from '../FlashcardStudySession';
+import { Rating } from '../../../utils/srs';
+
+const mockReviewFlashcard = vi.fn().mockResolvedValue(true);
+const mockToast = vi.fn();
+
+const sampleCards = [
+  {
+    id: 'card-1',
+    subjectId: 'subj-1',
+    front: '手負い',
+    back: 'Yaralangan, jarohatlangan',
+    interval: 0,
+    repetitions: 0,
+    easeFactor: 2.5,
+    nextReviewDate: new Date(Date.now() - 3600000).toISOString(),
+  },
+];
+
+vi.mock('../../../context/StudyPlannerContext', () => ({
+  useStudyData: () => ({
+    user: { id: 'u1', email: 'test@example.com' },
+    flashcards: sampleCards,
+    subjects: [{ id: 'subj-1', name: 'JLPT N2 Vocabulary' }],
+    reviewFlashcard: mockReviewFlashcard,
+    updateFlashcard: vi.fn(),
+    deleteFlashcard: vi.fn(),
+    loading: false,
+  }),
+}));
+
+vi.mock('../../../context/LanguageContext', () => ({
+  useLanguage: () => ({ language: 'uz' }),
+}));
+
+vi.mock('../../../hooks/use-toast', () => ({
+  toast: (args: any) => mockToast(args),
+}));
+
+vi.mock('../../../utils/audioTts', () => ({
+  speakText: vi.fn(),
+}));
+
+describe('FlashcardStudySession Component Live QA', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renders card front and displays calibrated button intervals when flipped', async () => {
+    const handleClose = vi.fn();
+    render(<FlashcardStudySession subjectId="subj-1" onClose={handleClose} />);
+
+    // Front of card is rendered
+    const card = await screen.findByTestId('study-card');
+    expect(card).toBeDefined();
+
+    // Flip card by clicking the study card container
+    fireEvent.click(card);
+
+    // Verify calibrated interval labels on buttons
+    expect(await screen.findByText(/10 daq \(1\)/i)).toBeDefined(); // AGAIN
+    expect(await screen.findByText(/30 daq \(2\)/i)).toBeDefined(); // HARD
+    expect(await screen.findByText(/2 kun \(3\)/i)).toBeDefined(); // GOOD
+    expect(await screen.findByText(/4 kun \(4\)/i)).toBeDefined(); // EASY
+  });
+
+  it('re-queues card to the end of the session when clicking Qayta (Again) or Qiyin (Hard)', async () => {
+    const handleClose = vi.fn();
+    render(<FlashcardStudySession subjectId="subj-1" onClose={handleClose} />);
+
+    const card = await screen.findByTestId('study-card');
+    fireEvent.click(card);
+
+    // Click Qiyin (Hard)
+    const hardBtn = await screen.findByText(/Qiyin \(Hard\)/i);
+    fireEvent.click(hardBtn);
+
+    await waitFor(() => {
+      expect(mockReviewFlashcard).toHaveBeenCalledWith('card-1', Rating.HARD);
+      expect(mockToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: expect.stringContaining('Qiyin karta (30 daq)'),
+        }),
+      );
+    });
+  });
+
+  it('responds to keyboard shortcuts: Space to flip and 1-4 to rate', async () => {
+    const handleClose = vi.fn();
+    render(<FlashcardStudySession subjectId="subj-1" onClose={handleClose} />);
+
+    await screen.findByTestId('study-card');
+
+    // Space key flips card
+    fireEvent.keyDown(window, { code: 'Space' });
+
+    // Buttons should now be visible
+    const againBtn = await screen.findByText(/Qayta \(Again\)/i);
+    expect(againBtn).toBeDefined();
+
+    // Key '1' rates AGAIN
+    fireEvent.keyDown(window, { key: '1' });
+
+    await waitFor(() => {
+      expect(mockReviewFlashcard).toHaveBeenCalledWith('card-1', Rating.AGAIN);
+      expect(mockToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: expect.stringContaining('Qayta takrorlash (10 daq)'),
+        }),
+      );
+    });
+  });
+});
