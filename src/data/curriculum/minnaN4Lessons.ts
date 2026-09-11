@@ -405,12 +405,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】26-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
-                '〜を 行きます です',
-                '〜は 〜でした じゃありません',
                 'V-て形 ＋ いただけませんか',
+                'V-ます形 ＋ いただけませんか',
+                'V-ない形 ＋ いただけませんか',
+                'V-辞書形 ＋ いただけませんか',
               ],
-              correctAnswerIndex: 3,
+              correctAnswerIndex: 0,
               explanation: "To'g'ri grammatik formula: 「V-て形 ＋ いただけませんか」.",
             },
             {
@@ -805,12 +805,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】27-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜を 行きます です',
-                '〜に 食べません でした',
+                '見ます vs 見せます / 聞きます vs 聞かせます',
                 '見えます vs 見られます / 聞こえます vs 聞けます',
-                '〜は 〜でした じゃありません',
+                '見られます vs 見させます / 聞けます vs 聞かせます',
+                '見えます vs 見せます / 聞こえます vs 聞かせます',
               ],
-              correctAnswerIndex: 2,
+              correctAnswerIndex: 1,
               explanation:
                 "To'g'ri grammatik formula: 「見えます vs 見られます / 聞こえます vs 聞けます」.",
             },
@@ -1195,12 +1195,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】28-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'V-てあります (Tayyorgarlik natijasi)',
+                'V-ておきます (Oldindan tayyorgarlik)',
                 'V-ています (Doimiy odat va kasbiy holat)',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
-                '〜に 食べません でした',
+                "V-てみます (Sinab ko'rish)",
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation:
                 "To'g'ri grammatik formula: 「V-ています (Doimiy odat va kasbiy holat)」.",
             },
@@ -1575,9 +1575,9 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】29-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
-                '〜を 行きます です',
+                'V-ます形 ＋ しまいました',
+                'V-た形 ＋ しまいました',
+                'V-辞書形 ＋ しまいました',
                 'V-て形 ＋ しまいました',
               ],
               correctAnswerIndex: 3,
@@ -1961,12 +1961,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】30-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
-                '〜を 行きます です',
                 'V-て形 ＋ おきます',
+                'V-ます形 ＋ おきます',
+                'V-た形 ＋ おきます',
+                'V-辞書形 ＋ おきます',
               ],
-              correctAnswerIndex: 3,
+              correctAnswerIndex: 0,
               explanation: "To'g'ri grammatik formula: 「V-て形 ＋ おきます」.",
             },
             {
@@ -2324,12 +2324,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】31-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'V-ます形 ＋ と 思っています',
                 'V-意向形 ＋ と 思っています',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
-                '〜に 食べません でした',
+                'V-た形 ＋ と 思っています',
+                'V-辞書形 ＋ と 思っています',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 1,
               explanation: "To'g'ri grammatik formula: 「V-意向形 ＋ と 思っています」.",
             },
             {
@@ -2694,12 +2694,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】32-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
+                'ます形 ＋ でしょう',
+                'て形 ＋ でしょう',
                 '普通形 ＋ でしょう',
-                '〜を 行きます です',
-                '〜は 〜でした じゃありません',
+                '意向形 ＋ でしょう',
               ],
-              correctAnswerIndex: 1,
+              correctAnswerIndex: 2,
               explanation: "To'g'ri grammatik formula: 「普通形 ＋ でしょう」.",
             },
             {
@@ -3050,12 +3050,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】33-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                '「〜」 という 読み方です',
+                '「〜」 という 名前です',
+                '「〜」 という 理由です',
                 '「〜」 という 意味です',
-                '〜に 食べません でした',
-                '〜を 行きます です',
-                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 3,
               explanation: "To'g'ri grammatik formula: 「「〜」 という 意味です」.",
             },
             {
@@ -3379,9 +3379,9 @@ export const MINNA_N4_LESSONS: Lesson[] = [
                 "【Mondai 3: Bunpo】34-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
                 'V1-た形 / Nの ＋ あとで V2',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
-                '〜に 食べません でした',
+                'V1-て形 / Nの ＋ あとで V2',
+                'V1-ます形 / Nの ＋ あとで V2',
+                'V1-辞書形 / Nの ＋ あとで V2',
               ],
               correctAnswerIndex: 0,
               explanation: "To'g'ri grammatik formula: 「V1-た形 / Nの ＋ あとで V2」.",
@@ -3719,13 +3719,8 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               id: 'ja-minna-l35-q3',
               question:
                 "【Mondai 3: Bunpo】35-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'N ＋ なら',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
-                '〜に 食べません でした',
-              ],
-              correctAnswerIndex: 0,
+              options: ['N ＋ ば', 'N ＋ なら', 'N ＋ たら', 'N ＋ と'],
+              correctAnswerIndex: 1,
               explanation: "To'g'ri grammatik formula: 「N ＋ なら」.",
             },
             {
@@ -4101,12 +4096,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】36-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'V-ます形 ＋ ように なりました',
+                'V-た形 ＋ ように なりました',
                 'V-辞書形 ＋ ように なりました',
-                '〜に 食べません でした',
-                '〜を 行きます です',
-                '〜は 〜でした じゃありません',
+                'V-て形 ＋ ように なりました',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation: "To'g'ri grammatik formula: 「V-辞書形 ＋ ように なりました」.",
             },
             {
@@ -4458,12 +4453,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】37-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
+                'N1 は N2 を N3 に V-受身',
+                'N1 は N2 に N3 を V-使役',
+                'N1 は N2 を N3 に V-可能',
                 "N1 は N2 に N3 を V-受身 (Noqulaylik / Ziyon ko'rish majhulligi)",
-                '〜を 行きます です',
               ],
-              correctAnswerIndex: 2,
+              correctAnswerIndex: 3,
               explanation:
                 "To'g'ri grammatik formula: 「N1 は N2 に N3 を V-受身 (Noqulaylik / Ziyon ko'rish majhulligi)」.",
             },
@@ -4803,12 +4798,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】38-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
                 'V-普通形 ＋ のが 好き / 上手 / 下手 / 速い です',
-                '〜を 行きます です',
+                'V-ます形 ＋ のが 好き / 上手 / 下手 です',
+                'V-て形 ＋ のが 好き / 上手 / 下手 です',
+                'V-意向形 ＋ のが 好き / 上手 / 下手 です',
               ],
-              correctAnswerIndex: 2,
+              correctAnswerIndex: 0,
               explanation:
                 "To'g'ri grammatik formula: 「V-普通形 ＋ のが 好き / 上手 / 下手 / 速い です」.",
             },
@@ -5147,10 +5142,10 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】39-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜は 〜でした じゃありません',
+                'N ＋ に (Sabab)',
                 'N ＋ で (Tabiiy ofat yoki hodisa sababi)',
-                '〜を 行きます です',
-                '〜に 食べません でした',
+                'N ＋ を (Sabab)',
+                'N ＋ へ (Sabab)',
               ],
               correctAnswerIndex: 1,
               explanation:
@@ -5485,12 +5480,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】40-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜を 行きます です',
+                'ます形 ＋ かどうか、〜',
+                'て形 ＋ かどうか、〜',
                 '普通形 ＋ かどうか、〜',
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
+                '意向形 ＋ かどうか、〜',
               ],
-              correctAnswerIndex: 1,
+              correctAnswerIndex: 2,
               explanation: "To'g'ri grammatik formula: 「普通形 ＋ かどうか、〜」.",
             },
             {
@@ -5815,12 +5810,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】41-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'わたしが N1 に N2 を くださいます',
+                'N1 が わたしに N2 を やります',
+                'N1 が わたしに N2 を いただきます',
                 'N1 が わたしに N2 を くださいます',
-                '〜を 行きます です',
-                '〜に 食べません でした',
-                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 3,
               explanation: "To'g'ri grammatik formula: 「N1 が わたしに N2 を くださいます」.",
             },
             {
@@ -6156,12 +6151,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】42-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜を 行きます です',
-                '〜に 食べません でした',
                 'V-辞書形 ＋ のに 使います / 便利です / 時間がかかります',
-                '〜は 〜でした じゃありません',
+                'V-ます形 ＋ のに 使います / 便利です',
+                'V-た形 ＋ のに 使います / 便利です',
+                'V-て形 ＋ のに 使います / 便利です',
               ],
-              correctAnswerIndex: 2,
+              correctAnswerIndex: 0,
               explanation:
                 "To'g'ri grammatik formula: 「V-辞書形 ＋ のに 使います / 便利です / 時間がかかります」.",
             },
@@ -6476,10 +6471,10 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】43-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
+                'V-ます形 ＋ きます',
                 'V-て形 ＋ きます',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
+                'V-た形 ＋ きます',
+                'V-辞書形 ＋ きます',
               ],
               correctAnswerIndex: 1,
               explanation: "To'g'ri grammatik formula: 「V-て形 ＋ きます」.",
@@ -6852,12 +6847,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】44-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'V-辞書形 ＋ やすい / にくい',
+                'V-て形 ＋ やすい / にくい',
                 'V-ます形 ＋ やすい / にくい',
-                '〜に 食べません でした',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
+                'V-た形 ＋ やすい / にくい',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation: "To'g'ri grammatik formula: 「V-ます形 ＋ やすい / にくい」.",
             },
             {
@@ -7189,12 +7184,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】45-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                '普通形 (Naだ / Nだ) ＋ のに、〜',
+                'ます形 ＋ のに、〜',
+                'て形 ＋ のに、〜',
                 '普通形 (Naな / Nな) ＋ のに、〜',
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
-                '〜を 行きます です',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 3,
               explanation: "To'g'ri grammatik formula: 「普通形 (Naな / Nな) ＋ のに、〜」.",
             },
             {
@@ -7514,12 +7509,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】46-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
                 'V-た形 ＋ ばかりです',
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
+                'V-辞書形 ＋ ばかりです',
+                'V-ている ＋ ばかりです',
+                'V-ます形 ＋ ばかりです',
               ],
-              correctAnswerIndex: 1,
+              correctAnswerIndex: 0,
               explanation: "To'g'ri grammatik formula: 「V-た形 ＋ ばかりです」.",
             },
             {
@@ -7838,10 +7833,10 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】47-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜を 行きます です',
+                '普通形 (Naだ / Nだ) ＋ ようです',
                 '普通形 (Naな / Nの) ＋ ようです',
-                '〜に 食べません でした',
-                '〜は 〜でした じゃありません',
+                'ます形 ＋ ようです',
+                'て形 ＋ ようです',
               ],
               correctAnswerIndex: 1,
               explanation: "To'g'ri grammatik formula: 「普通形 (Naな / Nの) ＋ ようです」.",
@@ -8172,12 +8167,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】48-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
+                'V-受身て形 ＋ いただけませんか',
+                'V-可能て形 ＋ いただけませんか',
                 'V-使役て形 ＋ いただけませんか',
-                '〜は 〜でした じゃありません',
-                '〜に 食べません でした',
-                '〜を 行きます です',
+                'V-意向形 ＋ いただけませんか',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation: "To'g'ri grammatik formula: 「V-使役て形 ＋ いただけませんか」.",
             },
             {
@@ -8500,12 +8495,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】49-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
+                "特殊謙譲語 (Maxsus kamtarlik fe'llari)",
+                'お ＋ V-ます形 ＋ します',
+                'お ＋ V-て形 ＋ ください',
                 "特殊尊敬語 (Maxsus hurmat fe'llari)",
-                '〜は 〜でした じゃありません',
-                '〜を 行きます です',
               ],
-              correctAnswerIndex: 1,
+              correctAnswerIndex: 3,
               explanation: "To'g'ri grammatik formula: 「特殊尊敬語 (Maxsus hurmat fe'llari)」.",
             },
             {
@@ -8835,12 +8830,12 @@ export const MINNA_N4_LESSONS: Lesson[] = [
               question:
                 "【Mondai 3: Bunpo】50-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '〜に 食べません でした',
                 "特殊謙譲語 (Maxsus kamtarlik fe'llari)",
-                '〜を 行きます です',
-                '〜は 〜でした じゃありません',
+                "特殊尊敬語 (Maxsus hurmat fe'llari)",
+                'お ＋ V-ます形 ＋ になります',
+                'お ＋ V-て形 ＋ ください',
               ],
-              correctAnswerIndex: 1,
+              correctAnswerIndex: 0,
               explanation: "To'g'ri grammatik formula: 「特殊謙譲語 (Maxsus kamtarlik fe'llari)」.",
             },
             {

@@ -10,16 +10,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'kanji',
     difficulty: 'easy',
-    prompt: "「日」 kanjisining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'ひ (hi) — Quyosh / Kun',
-      'つき (tsuki) — Oy',
-      'みず (mizu) — Suv',
-      'き (ki) — Daraxt',
-    ],
+    prompt: "「日」 kanjisining to'g'ri o'qilishi qaysi?",
+    options: ['ひ', 'つき', 'みず', 'き'],
     correctAnswerIndex: 0,
     explanation:
-      "「日」 belgisi kun yoki quyosh ma'nosini anglatadi (kundalik so'zlarda: 日本, 日曜日).",
+      "「日」 belgisi quyosh yoki kun ma'nosini anglatadi va yakka holda 「ひ」 deb o'qiladi (shuningdek: 日本 - にほん, 日曜日 - にちようび).",
     topic: "N5 Boshlang'ich Kanji",
   },
   {
@@ -28,10 +23,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'kanji',
     difficulty: 'easy',
-    prompt: "「水」 kanjisining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: ['ひ (hi) — Olov', 'みず (mizu) — Suv', "やま (yama) — Tog'", 'かわ (kawa) — Daryo'],
+    prompt: "「水」 kanjisining to'g'ri o'qilishi qaysi?",
+    options: ['ひ', 'みず', 'やま', 'かわ'],
     correctAnswerIndex: 1,
-    explanation: "「水」 (kun-o'qilishi: みず) — suv degani (on-o'qilishi: スイ, 水曜日).",
+    explanation:
+      "「水」 ning kun-o'qilishi 「みず」 (suv) bo'ladi (on-o'qilishi esa スイ, masalan, 水曜日).",
     topic: 'N5 Elementlar Kanjisi',
   },
   {
@@ -40,15 +36,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'kanji',
     difficulty: 'medium',
-    prompt: "「車」 kanjisining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'でんしゃ (densha) — Poyezd',
-      'くるま (kuruma) — Avtomobil / Mashina',
-      'ふね (fune) — Kema',
-      'じてんしゃ (jitensha) — Velosiped',
-    ],
-    correctAnswerIndex: 1,
-    explanation: "「車」 belgisi kuruma (avtomobil, mashina) degan ma'noni anglatadi.",
+    prompt: "「車」 kanjisining to'g'ri o'qilishi qaysi?",
+    options: ['でんしゃ', 'ふね', 'くるま', 'じてんしゃ'],
+    correctAnswerIndex: 2,
+    explanation: "「車」 belgisi yakka holda 「くるま」 (mashina, avtomobil) deb o'qiladi.",
     topic: 'N5 Transport Kanjisi',
   },
   {
@@ -58,11 +49,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'easy',
     prompt: 'Mavzu (ega) zarrachasini tanlang: 「わたし _______ がくせいです。」',
-    options: ['を (o)', 'は (wa)', 'に (ni)', 'で (de)'],
-    correctAnswerIndex: 1,
+    options: ['を', 'に', 'で', 'は'],
+    correctAnswerIndex: 3,
     explanation:
-      'Mavzu zarrachasi: 「は」 (tovushi: wa). "Men talabaman" jumlasida ega orqasidan keladi.',
-    topic: 'N5 Asosiy Zarrachalar (Particles)',
+      "Gap mavzusini yoki egani ko'rsatish uchun 「は (wa)」 zarrachasi qo'llaniladi: わたしは がくせいです (Men talabaman).",
+    topic: "N5 Boshlang'ich Zarrachalar (Wa)",
   },
   {
     id: 'diag-ja-n5-g2',
@@ -70,12 +61,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'grammar',
     difficulty: 'easy',
-    prompt: "Vositasiz to'ldiruvchi zarrachasini tanlang: 「まいあさ、パン _______ たべます。」",
-    options: ['を (o)', 'が (ga)', 'へ (e)', 'と (to)'],
+    prompt: "Yo'nalish zarrachasini to'g'ri tanlang: 「あした とうきょう _______ いきます。」",
+    options: ['へ', 'で', 'を', 'から'],
     correctAnswerIndex: 0,
     explanation:
-      "Fe'l ta'sir qilayotgan ob'ekt (non yeyman) uchun 「を」 (o) zarrachasi ishlatiladi.",
-    topic: 'N5 Obyekt Zarrachasi (Wo)',
+      "Harakat yo'nalishini (qayerga borishni) ko'rsatish uchun 「へ (e)」 zarrachasi ishlatiladi: とうきょうへ いきます (Tokioga boraman).",
+    topic: "N5 Harakat va Yo'nalish Zarrachalari (He)",
   },
   {
     id: 'diag-ja-n5-g3',
@@ -85,10 +76,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'medium',
     prompt:
       "Iltimos ifodasini to'g'ri shaklda qo'ying: 「すみません、ちょっと _______ ください。」",
-    options: ['まち (machi)', 'まって (matte)', 'まつ (matsu)', 'またない (matanai)'],
+    options: ['まち', 'まって', 'まつ', 'またない'],
     correctAnswerIndex: 1,
     explanation:
-      "〜てください (iltimos qiling) uchun fe'l Te-shaklida bo'lishi shart: 待つ -> 待って (matte kudasai).",
+      "〜てください (iltimos qiling) qolipi uchun fe'l Te-shaklida bo'lishi shart: 待つ (kutmoq) -> 待って (kutib turing).",
     topic: 'N5 Te-Form Iltimoslar',
   },
   {
@@ -97,10 +88,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'vocabulary',
     difficulty: 'easy',
-    prompt: "「ともだち (tomodachi)」 so'zining ma'nosi nima?",
-    options: ["Do'st / O'rtoq", "O'qituvchi", 'Shifokor', "Qo'shni"],
-    correctAnswerIndex: 0,
-    explanation: "友達 (ともだち) — do'st, birodar degani.",
+    prompt: "「ともだち」 so'zining to'g'ri ma'nosi qaysi?",
+    options: ["O'qituvchi", 'Shifokor', "Do'st / O'rtoq", "Qo'shni"],
+    correctAnswerIndex: 2,
+    explanation: "友達 (ともだち) — do'st, birodar yoki o'rtoq degan ma'noni bildiradi.",
     topic: "N5 Kundalik Lug'at",
   },
   {
@@ -109,10 +100,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'vocabulary',
     difficulty: 'easy',
-    prompt: "「あした (ashita)」 so'zi qaysi vaqtni anglatadi?",
-    options: ['Kecha', 'Bugun', 'Ertaga', 'Indinga'],
-    correctAnswerIndex: 2,
-    explanation: '明日 (あした) — ertaga (ertangi kun).',
+    prompt: "「あした」 so'zi qaysi vaqtni anglatadi?",
+    options: ['Kecha', 'Bugun', 'Indinga', 'Ertaga'],
+    correctAnswerIndex: 3,
+    explanation:
+      '明日 (あした) — ertaga (ertangi kun). Bugun esa 今日 (きょう), kecha esa 昨日 (きのう).',
     topic: 'N5 Vaqt va Taqvim',
   },
   {
@@ -121,15 +113,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N5',
     skill: 'vocabulary',
     difficulty: 'medium',
-    prompt: "「おおきい (ookii - katta)」 sifatining qarama-qarshi (zid) so'zi qaysi?",
-    options: [
-      'ちいさい (chiisai - kichik)',
-      'たかい (takai - baland)',
-      'あたらしい (atarashii - yangi)',
-      'ながい (nagai - uzun)',
-    ],
+    prompt: "「おおきい」 sifatining qarama-qarshi (zid) ma'noli so'zini tanlang:",
+    options: ['ちいさい', 'たかい', 'あたらしい', 'ながい'],
     correctAnswerIndex: 0,
-    explanation: '大きい (ookii) ning antonimi — 小さい (chiisai - kichik).',
+    explanation:
+      '「大きい (おおきい - katta)」 sifatining antonimi — 「小さい (ちいさい - kichik)」. 高い (baland/qimmat), 新しい (yangi), 長い (uzun).',
     topic: 'N5 Sifatlar va Antonimlar',
   },
   {
@@ -139,15 +127,15 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'reading',
     difficulty: 'medium',
     prompt:
-      "読解 (O'qish): 「スーパーは午前10時から午後8時まで開いています。」 Ushbu do'kon haqida qaysi ma'lumot to'g'ri?",
+      "読解: 「スーパーは午前10時から午後8時まで開いています。」 Ushbu do'kon haqida qaysi ma'lumot to'g'ri?",
     options: [
-      "Kechki soat 8 gacha ochiq bo'ladi",
       'Ertalab soat 8 da ochiladi',
+      "Kechki soat 8 gacha ochiq bo'ladi",
       'Kechasi 10 gacha ishlaydi',
       "Yakshanba kuni yopiq bo'ladi",
     ],
-    correctAnswerIndex: 0,
-    explanation: '午前10時 (ertalab 10) dan 午後8時 (kechki 8) gacha ochiq (開いています).',
+    correctAnswerIndex: 1,
+    explanation: '午前10時 (ertalab 10:00) dan 午後8時 (kechki 20:00) gacha ochiq (開いています).',
     topic: 'N5 Kundalik Xabarnomalar',
   },
   {
@@ -159,14 +147,14 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     prompt:
       '読解: 「あしたは日曜日です。学校へ行きません。うちで日本語を勉強します。」 Muallif ertaga nima qilmoqchi?',
     options: [
-      'Maktabga boradi',
-      "Uyda yapon tili o'rganadi",
-      "Do'stlari bilan sayr qiladi",
-      'Kutubxonaga boradi',
+      'Maktabga bormoqchi',
+      "Do'stlari bilan sayr qilmoqchi",
+      "Uyda yapon tili o'rganmoqchi",
+      'Kutubxonaga bormoqchi',
     ],
-    correctAnswerIndex: 1,
-    explanation: "うちで日本語を勉強します — uyda yapon tilini o'rganadi.",
-    topic: 'N5 Qisqa Matn Tushunish',
+    correctAnswerIndex: 2,
+    explanation: "「うちで日本語を勉強します」 — uyda yapon tilini o'rganaman.",
+    topic: 'N5 Qisqa Matnni Tushunish',
   },
   {
     id: 'diag-ja-n5-l1',
@@ -175,11 +163,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'easy',
     prompt: "Tinglash: Suhbatda nima so'ralmoqda? (Audioni eshiting)",
-    audioText: 'すみません、トイレはどこですか？ あそこです。階段の隣にありますよ。',
-    options: ['Hojatxona qayerdaligi', "Poyezd jo'nash vaqti", 'Chipta narxi', 'Telefon raqami'],
-    correctAnswerIndex: 0,
+    options: ["Poyezd jo'nash vaqti", 'Chipta narxi', 'Telefon raqami', 'Hojatxona qayerdaligi'],
+    correctAnswerIndex: 3,
     explanation: "「トイレはどこですか」 — hojatxona qayerdaligi so'ralmoqda.",
     topic: "N5 Choukai: Manzil So'rash",
+    audioText: 'すみません、トイレはどこですか？ あそこです。階段の隣にありますよ。',
   },
   {
     id: 'diag-ja-n5-l2',
@@ -188,8 +176,6 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'medium',
     prompt: 'Tinglash: Xaridor nima sotib olmoqchi va narxi qancha?',
-    audioText:
-      'いらっしゃいませ。このリンゴはひとついくらですか？ ひとつ150円です。じゃあ、ふたつください。',
     options: [
       '2 ta olma, har biri 150 yendan',
       '1 ta nok, 300 yenga',
@@ -199,6 +185,8 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     correctAnswerIndex: 0,
     explanation: 'ひとつ150円 (donasi 150 yen), ふたつください (2 ta bering) deyildi.',
     topic: 'N5 Choukai: Savdo va Narxlar',
+    audioText:
+      'いらっしゃいませ。このリンゴはひとついくらですか？ ひとつ150円です。じゃあ、ふたつください。',
   },
 
   // =========================================================================
@@ -210,15 +198,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'kanji',
     difficulty: 'medium',
-    prompt: "「駅」 kanjisining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'えき (eki) — Vokzal / Bekat',
-      "みち (michi) — Yo'l",
-      'くるま (kuruma) — Mashina',
-      'まち (machi) — Shahar',
-    ],
-    correctAnswerIndex: 0,
-    explanation: '駅 (えき) — poyezd yoki metro bekati.',
+    prompt: "「駅」 kanjisining to'g'ri o'qilishi qaysi?",
+    options: ['みち', 'えき', 'くるま', 'まち'],
+    correctAnswerIndex: 1,
+    explanation:
+      "駅 (えき) — poyezd yoki metro bekati (vokzal). 道 (みち) — yo'l, 町 (まち) — shahar.",
     topic: 'N4 Transport Kanjilari',
   },
   {
@@ -227,15 +211,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'kanji',
     difficulty: 'medium',
-    prompt: "「便利」 birikmasining o'qilishi va ma'nosi qaysi?",
-    options: [
-      'べんり (benri) — Qulay',
-      'ふべん (fuben) — Noqulay',
-      'ゆうめい (yuumei) — Mashhur',
-      'たいせつ (taisetsu) — Muhim',
-    ],
-    correctAnswerIndex: 0,
-    explanation: '便利 (べんり) — qulay, qulaylik yaratuvchi degani.',
+    prompt: "「便利」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['ふべん', 'ゆうめい', 'べんり', 'たいせつ'],
+    correctAnswerIndex: 2,
+    explanation: '便利 (べんり) — qulay. 不便 (ふべん) — noqulay, 有名 (ゆうめい) — mashhur.',
     topic: 'N4 Kanji Birikmalari',
   },
   {
@@ -244,15 +223,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「案内」 kanji so'zining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      "あんない (annai) — Yo'l ko'rsatish / Tanishtirish",
-      'あんぜん (anzen) — Xavfsiz',
-      'あんしん (anshin) — Xotirjamlik',
-      'いんない (innai) — Bino ichi',
-    ],
-    correctAnswerIndex: 0,
-    explanation: "案内 (あんない) — tanishtiruv, ekskursiya, yo'l-yo'riq ko'rsatish.",
+    prompt: "「案内」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['あんぜん', 'あんしん', 'いんない', 'あんない'],
+    correctAnswerIndex: 3,
+    explanation:
+      "案内 (あんない) — tanishtirish, yo'l ko'rsatish, ekskursiya. 安全 (あんぜん) — xavfsiz.",
     topic: 'N4 Kanji Birikmalari',
   },
   {
@@ -262,12 +237,7 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'medium',
     prompt: "Potensial (imkoniyat) fe'l shaklini tanlang: 「日本語の新聞が _______。」",
-    options: [
-      '読めます (yomemasu)',
-      '読みます (yomimasu)',
-      '読まれます (yomaremasu)',
-      '読ませます (yomasemasu)',
-    ],
+    options: ['読めます', '読みます', '読まれます', '読ませます'],
     correctAnswerIndex: 0,
     explanation:
       "Potensial fe'l (o'qiy olaman): 読む -> 読める (読めます). Qoidaga ko'ra obyekt zarrachasi が bo'ladi.",
@@ -280,8 +250,8 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'medium',
     prompt: 'Shart ergash gap shaklini tanlang: 「安かっ _______、たくさん買いたいです。」',
-    options: ['たら (tara)', 'ば (ba)', 'なら (nara)', 'ても (temo)'],
-    correctAnswerIndex: 0,
+    options: ['ば', 'たら', 'なら', 'ても'],
+    correctAnswerIndex: 1,
     explanation: "I-sifatlar o'tgan zamon + ra: 安かった -> 安かったら (agar arzon bo'lsa).",
     topic: 'N4 Shart Mayllari (~tara)',
   },
@@ -292,15 +262,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'hard',
     prompt: 'Minnatdorlik (yordam olish) ifodasini tanlang: 「先生に日本語を教えて _______。」',
-    options: [
-      'いただきました (itadakimashita)',
-      'あげました (agemashita)',
-      'くれました (kuremashita)',
-      'やりました (yarimashita)',
-    ],
-    correctAnswerIndex: 0,
+    options: ['あげました', 'くれました', 'いただきました', 'やりました'],
+    correctAnswerIndex: 2,
     explanation:
-      "O'qituvchi yoki kattalardan ezgulik/yordam qabul qilinganda もらう ning hurmat shakli: いただく (いただきました).",
+      'Ustoz yoki hurmatli shaxsdan yordam qabul qilinganda もらう ning xushmuomala hurmat shakli: いただく (いただきました).',
     topic: "N4 Berish-Olish Fe'llari (Juju Doushi)",
   },
   {
@@ -309,11 +274,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'vocabulary',
     difficulty: 'medium',
-    prompt: "「遠慮する (えんりょする)」 iborasi qanday ma'noni bildiradi?",
-    options: ['Tortinmoq / Iymanmoq', "G'azablanmoq", 'Kechikmoq', 'Tasdiqlamoq'],
-    correctAnswerIndex: 0,
+    prompt: "「遠慮する」 iborasi qanday ma'noni bildiradi?",
+    options: ["G'azablanmoq", 'Kechikmoq', 'Tasdiqlamoq', 'Tortinmoq / Iymanmoq'],
+    correctAnswerIndex: 3,
     explanation:
-      '遠慮する — tortinish, istihola qilish (masalan, 遠慮しないでください — tortinmang).',
+      '遠慮する (えんりょする) — tortinish, istihola qilish (masalan, 遠慮しないでください — tortinmang).',
     topic: "N4 Fe'llar va Iboralar",
   },
   {
@@ -322,16 +287,16 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'vocabulary',
     difficulty: 'medium',
-    prompt: '「間に合う (まにあう)」 iborasi nimani bildiradi?',
+    prompt: '「間に合う」 iborasi nimani bildiradi?',
     options: [
-      'Vaqtidan kechikib qolmoq',
       'Vaqtida ulgurmoq / yetib kelmoq',
+      'Vaqtidan kechikib qolmoq',
       "Yo'qolib qolmoq",
       'Tugab qolmoq',
     ],
-    correctAnswerIndex: 1,
+    correctAnswerIndex: 0,
     explanation:
-      "間に合う (まにあう) — o'z vaqtida ulgurish (masalan, 電車に間に合う — poyezdga ulgurish).",
+      "間に合う (まニアう) — o'z vaqtida ulgurish (masalan, 電車に間に合う — poyezdga o'z vaqtida ulgurish).",
     topic: "N4 Qo'shma Fe'llar",
   },
   {
@@ -340,16 +305,17 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N4',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「片付ける (かたづける)」 fe'lining ma'nosi nima?",
+    prompt: "「片付ける」 fe'lining ma'nosi nima?",
     options: [
-      "Tartibga keltirmoq / yig'ishtirmoq",
       'Buzib tashlamoq',
+      "Tartibga keltirmoq / yig'ishtirmoq",
       'Eslab qolmoq',
       'Qarzga bermoq',
     ],
-    correctAnswerIndex: 0,
-    explanation: "片付ける — xona yoki narsalarni tartibga solish, yig'ishtirish.",
-    topic: 'N4 Kundalik Amallar',
+    correctAnswerIndex: 1,
+    explanation:
+      "片付ける (かたづける) — xona yoki narsalarni tartibga solish, tozalash va yig'ishtirish.",
+    topic: "N4 Kundalik Amaliy Fe'llar",
   },
   {
     id: 'diag-ja-n4-r1',
@@ -358,17 +324,17 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'reading',
     difficulty: 'medium',
     prompt:
-      "読解: 「薬は食後に2錠飲んでください。水またはぬるま湯でお飲みください。」 Ko'rsatma qanday dori ichishni buyurmoqda?",
+      "読解: 「図書館では飲み物を飲んではいけません。ただし、ふた付きの水筒やペットボトルなら持ち込んでも構いません。」 Kutubxona qoidasiga ko'ra nima ruxsat etiladi?",
     options: [
-      'Ovqatdan keyin 2 dona tabletka suv bilan',
-      'Ovqatdan oldin 1 dona tabletka',
-      'Har soatda 2 tabletka sharbat bilan',
-      'Faqat uyqudan oldin ichilsin',
+      'Har qanday ichimlikni erkin ichish',
+      'Faqat qahva olib kirish',
+      'Qopqoqli termos yoki plastik idishdagi ichimlik olib kirish',
+      'Barcha turdagi suyuqliklarni butunlay taqiqlash',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     explanation:
-      '食後に2錠 (ovqatdan keyin 2 tabletka), 水またはぬるま湯 (suv yoki iliq suv bilan).',
-    topic: "N4 Amaliy Yo'riqnomalar",
+      'ただし、ふた付き (lekin qopqogʻi yopiladigan) idishlar boʻlsa ruxsat (構いません - mayli).',
+    topic: "N4 Qoidalar va E'lonlar",
   },
   {
     id: 'diag-ja-n4-r2',
@@ -377,16 +343,17 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'reading',
     difficulty: 'hard',
     prompt:
-      "読解: 「図書館の本は1人3冊まで、2週間借りることができます。ただし、辞書や雑誌は館内でのみご利用いただけます。」 Lug'atlar haqida qoidada nima deyilgan?",
+      '読解: 「田中さんは来週の会議に出席できないと言っていました。出張の日程が急に変更になったためです。」 Tanaka nima sababdan majlisga kela olmaydi?',
     options: [
-      "Lug'atlarni uyga olib ketish mumkin emas, faqat kutubxona ichida ishlatiladi",
-      "Lug'atlarni 3 hafta o'qish mumkin",
-      "Lug'atlar faqat o'qituvchilarga beriladi",
-      'Barcha kitoblar singari 2 haftaga olinadi',
+      "Kasal bo'lib qolgani uchun",
+      "Majlis bekor bo'lgani uchun",
+      "Boshqa kompaniyaga ishga o'tgani uchun",
+      "Xizmat safari jadvali to'satdan o'zgarganligi sababli",
     ],
-    correctAnswerIndex: 0,
-    explanation: '「辞書や雑誌は館内でのみ (faqat bino ichida)」 berilgan.',
-    topic: 'N4 Qoidalar va Shartlar',
+    correctAnswerIndex: 3,
+    explanation:
+      "出張の日程が急に変更になったため (xizmat safari sanasi kutilmaganda o'zgargani tufayli).",
+    topic: 'N4 Sabab-Oqibat Matnlari',
   },
   {
     id: 'diag-ja-n4-l1',
@@ -395,8 +362,6 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'medium',
     prompt: 'Tinglash: Ikki kishi qayerda uchrashishga kelishib oldi?',
-    audioText:
-      '明日の待ち合わせ、駅の改札口でいい？ うーん、明日は雨が降るそうだから、駅の南口にある本屋さんの前にしようよ。 分かった、じゃあそこに1時にね。',
     options: [
       "Janubiy chiqishdagi kitob do'koni oldida",
       'Poyezd kassa zali oldida',
@@ -404,8 +369,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
       'Kutubxonada',
     ],
     correctAnswerIndex: 0,
-    explanation: "Yomg'ir yog'ishi sababli 「駅の南口にある本屋さんの前」 tanlandi.",
-    topic: 'N4 Choukai: Uchrashuv Rejalashtirish',
+    explanation:
+      "南口 (janubiy chiqish) 改札を出た本屋の前 (kitob do'koni oldida) uchrashish kelishildi.",
+    topic: 'N4 Choukai: Uchrashuv Joyi',
+    audioText:
+      '駅に着いたら連絡してください。南口の改札を出たところにある本屋の前で待っています。わかりました、そうします。',
   },
   {
     id: 'diag-ja-n4-l2',
@@ -414,22 +382,22 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'hard',
     prompt: 'Tinglash: Erkak kishi ayolga qanday maslahat berdi?',
-    audioText:
-      '最近、頭が痛くて仕事に集中できないんだ。 それは大変ですね。今日はもう無理しないで、早く帰って休んだほうがいいですよ。 そうするよ、ありがとう。',
     options: [
-      "Ishni to'xtatib, uyga barvaqt borib dam olishni",
       'Shifoxonaga bormasdan dori ichishni',
+      "Ishni to'xtatib, uyga barvaqt borib dam olishni",
       'Kechgacha ishlab loyihani tugatishni',
       "Do'stlari bilan sayr qilishni",
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 1,
     explanation:
-      "早く帰って休んだほうがいい (barvaqt uyga borib dam olganing ma'qul) deb maslahat berdi.",
-    topic: 'N4 Choukai: Maslahat Berish',
+      '早く帰って休んだほうがいい (barvaqt uyga borib dam olgan yaxshiroq) deb maslahat berdi.',
+    topic: 'N4 Choukai: Holat va Maslahatlar',
+    audioText:
+      '顔色が悪いですね。大丈夫ですか？ 実は昨日の夜から熱があって… 無理をしないで、今日は早く帰って休んだほうがいいですよ。',
   },
 
   // =========================================================================
-  // 🔵 JLPT N3 (13 SAVOL) - O'RTA DARAJA (INTERMEDIATE)
+  // 🔵 JLPT N3 (13 SAVOL) - O'RTA DARAJA
   // =========================================================================
   {
     id: 'diag-ja-n3-k1',
@@ -437,16 +405,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'kanji',
     difficulty: 'medium',
-    prompt: "「複雑」 kanji birikmasining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'ふくざつ (fukuzatsu) — Murakkab / Chigal',
-      'かんたん (kantan) — Oson',
-      'しんせつ (shinsetsu) — Mehribon',
-      'べんり (benri) — Qulay',
-    ],
-    correctAnswerIndex: 0,
-    explanation: "複雑 (ふくざつ) — murakkab, chigal, oson bo'lmagan holat.",
-    topic: "N3 O'rta Bosqich Kanjilari",
+    prompt: "「複雑」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['かんたん', 'しんせつ', 'ふくざつ', 'べんり'],
+    correctAnswerIndex: 2,
+    explanation: '複雑 (ふくざつ) — murakkab, chigal. 簡単 (かんたん) — oson, oddiy.',
+    topic: 'N3 Kanji Birikmalari',
   },
   {
     id: 'diag-ja-n3-k2',
@@ -454,16 +417,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'kanji',
     difficulty: 'medium',
-    prompt: "「環境」 kanji so'zining o'qilishi va ma'nosi qaysi?",
-    options: [
-      'かんきょう (kankyou) — Atrof-muhit',
-      'かんけい (kankei) — Munosabat',
-      'かんきょう (kankyou) — Muzey',
-      'こうきょう (koukyou) — Jamoat',
-    ],
-    correctAnswerIndex: 0,
-    explanation: '環境 (かんきょう) — ekologiya va atrof-muhit.',
-    topic: 'N3 Jamiyat Kanjilari',
+    prompt: "「環境」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['かんけい', 'かんこう', 'こうきょう', 'かんきょう'],
+    correctAnswerIndex: 3,
+    explanation: '環境 (かんきょう) — atrof-muhit, ekologiya. 関係 (かんけい) — munosabat, aloqa.',
+    topic: 'N3 Kanji Jamiyat va Tabiat',
   },
   {
     id: 'diag-ja-n3-k3',
@@ -471,16 +429,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「技術」 so'zining to'g'ri o'qilishi qaysi?",
-    options: [
-      'ぎじゅつ (gijutsu) — Texnologiya / Mahorat',
-      'しじゅつ (shijutsu)',
-      'ぎじつ (gijitsu)',
-      'きじゅつ (kijutsu)',
-    ],
+    prompt: "「技術」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['ぎじゅつ', 'しじゅつ', 'ぎじつ', 'きじゅつ'],
     correctAnswerIndex: 0,
-    explanation: '技術 (ぎじゅつ) — texnika, texnologiya, mahorat.',
-    topic: 'N3 Ilm-fan va Sanoat',
+    explanation: '技術 (ぎじゅつ) — texnologiya, mahorat, texnika.',
+    topic: 'N3 Fan va Texnika Kanjilari',
   },
   {
     id: 'diag-ja-n3-g1',
@@ -489,29 +442,25 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'medium',
     prompt:
-      'Shaxsiy qaror qabul qilish grammatikasini tanlang: 「来月から毎朝ジョギングする _______ にしました。」',
-    options: ['こと (koto)', 'もの (mono)', 'わけ (wake)', 'ところ (tokoro)'],
-    correctAnswerIndex: 0,
-    explanation: "〜ことにする — o'z oldiga qat'iy shaxsiy qaror qo'ymoq (\"qaror qildim\").",
-    topic: 'N3 Qaror Grammatikasi (~koto ni suru)',
+      "Shaxsiy qat'iy qaror qabul qilish grammatikasini tanlang: 「来月から毎朝ジョギングする _______ にしました。」",
+    options: ['もの', 'こと', 'わけ', 'ところ'],
+    correctAnswerIndex: 1,
+    explanation:
+      "〜ことにする — o'zining shaxsiy irodasi bilan biror narsani rejalashtirish yoki qaror qilish.",
+    topic: 'N3 Qaror Qabul Qilish (~koto ni suru)',
   },
   {
     id: 'diag-ja-n3-g2',
     language: 'ja',
     level: 'N3',
     skill: 'grammar',
-    difficulty: 'medium',
+    difficulty: 'hard',
     prompt:
       "Qisman inkor ifodasini to'ldiring: 「お酒が嫌いな _______ が、健康のために控えています。」",
-    options: [
-      'わけではない (wake dewa nai)',
-      'はずがない (hazu ga nai)',
-      'に違いない (ni chigainai)',
-      'きりがない (kiri ga nai)',
-    ],
-    correctAnswerIndex: 0,
+    options: ['はずがない', 'に違いない', 'わけではない', 'きりがない'],
+    correctAnswerIndex: 2,
     explanation:
-      '〜わけではない — "butunlay shunday degani emas / qisman inkor" (Ichishni yoqtirmasligim emas, lekin salomatlik uchun tiyilyapman).',
+      '〜わけではない — "umuman yoqtirmaydi degani emas, lekin..." qisman inkor konstruksiyasi.',
     topic: 'N3 Qisman Inkor (~wake dewa nai)',
   },
   {
@@ -522,16 +471,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'hard',
     prompt:
       'Taqqoslash va qarama-qarshilik grammatikasini tanlang: 「若者が都市に集中するの _______、地方では過疎化が進んでいる。」',
-    options: [
-      'に対して (ni taishite)',
-      'をはじめ (wo hajime)',
-      'にとって (ni totte)',
-      'を通じて (wo tsuujite)',
-    ],
-    correctAnswerIndex: 0,
+    options: ['をはじめ', 'にとって', 'を通じて', 'に対して'],
+    correctAnswerIndex: 3,
     explanation:
-      '〜に対して (ni taishite) — "... ga qarama-qarshi o\'laroq / nisbatan" (Yoshlar shaharga intilayotganiga qarama-qarshi qishloqlarda aholi kamaymoqda).',
-    topic: 'N3 Taqqoslash (~ni taishite)',
+      '〜に対して (ni taishite) — "shunga qarama-qarshi o\'laroq / nisbatan" ikki hodisani taqqoslaydi.',
+    topic: 'N3 Ziddiyat va Nisbat (~ni taishite)',
   },
   {
     id: 'diag-ja-n3-v1',
@@ -539,7 +483,7 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'vocabulary',
     difficulty: 'medium',
-    prompt: "「曖昧 (あいまい)」 so'zining ma'nosi nima?",
+    prompt: "「曖昧」 so'zining to'g'ri ma'nosi qaysi?",
     options: [
       'Noaniq / Mujmal / Tuturuqsiz',
       'Juda aniq va ravshan',
@@ -547,8 +491,8 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
       'Qimmatbaho',
     ],
     correctAnswerIndex: 0,
-    explanation: "曖昧 (あいまい) — tushunarsiz, mujmal, aniq bo'lmagan javob yoki holat.",
-    topic: 'N3 Sifatlar va Holat',
+    explanation: '曖昧 (あいまい) — noaniq, mujmal (masalan, 曖昧な返事 — mavhum javob).',
+    topic: "N3 Abstrakt Lug'at",
   },
   {
     id: 'diag-ja-n3-v2',
@@ -556,11 +500,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'vocabulary',
     difficulty: 'medium',
-    prompt: "「効率 (こうりつ)」 so'zining ma'nosi nima?",
-    options: ['Samaradorlik / Unumdorlik', 'Narx-navo', 'Muvaffaqiyatsizlik', 'Qiyinchilik'],
-    correctAnswerIndex: 0,
-    explanation: "効率 (こうりつ) — samaradorlik (masalan, 効率的な勉強 — samarali o'qish).",
-    topic: 'N3 Biznes va Mehnat',
+    prompt: "「効率」 so'zining to'g'ri ma'nosi qaysi?",
+    options: ['Narx-navo', 'Samaradorlik / Unumdorlik', 'Muvaffaqiyatsizlik', 'Qiyinchilik'],
+    correctAnswerIndex: 1,
+    explanation:
+      "効率 (こうりつ) — samaradorlik (masalan, 効率的な勉強法 — samarali o'qish usuli).",
+    topic: "N3 Ish va Biznes Lug'ati",
   },
   {
     id: 'diag-ja-n3-v3',
@@ -568,35 +513,36 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「思いがけない (おもいがけない)」 so'zining ma'nosi qaysi?",
+    prompt: "「思いがけない」 so'zining to'g'ri ma'nosi qaysi?",
     options: [
-      'Kutilmagan / Tasodifiy',
       "Eslab qolish qiyin bo'lgan",
       'Zerikarli',
+      'Kutilmagan / Tasodifiy',
       'Qasddan qilingan',
     ],
-    correctAnswerIndex: 0,
-    explanation: "思いがけない — kutmagan, kutilmaganda sodir bo'lgan (tasodifiy uchrashuv).",
-    topic: 'N3 Murakkab Sifatlar',
+    correctAnswerIndex: 2,
+    explanation:
+      '思いがけない (おもいがけない) — xayolga ham kelmagan, tasodifiy, kutilmagan hodisa.',
+    topic: 'N3 Sifatlar va Iboralar',
   },
   {
     id: 'diag-ja-n3-r1',
     language: 'ja',
     level: 'N3',
     skill: 'reading',
-    difficulty: 'hard',
+    difficulty: 'medium',
     prompt:
       "読解: 「台風15号の接近に伴い、本日の新幹線は全線で運転を見合わせます。乗車券の払い戻しは各駅窓口にて承ります。」 Ushbu e'londan qanday xulosa chiqadi?",
     options: [
-      "Poyezdlar harakati to'xtatilgan va chiptalar puli qaytarib beriladi",
       "Poyezdlar jadval bo'yicha kechikyapti",
       "Barcha yo'lovchilar yangi chipta sotib olishi shart",
       "Yomg'ir to'xtagach poyezdlar faqat kechasi yuradi",
+      "Poyezdlar harakati to'xtatilgan va chiptalar puli qaytarib beriladi",
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
     explanation:
-      "運転を見合わせます (harakat to'xtatiladi), 払い戻しは承ります (pul qaytarilishi qabul qilinadi).",
-    topic: 'N3 Dokkai: Rasmiy Ogohlantirishlar',
+      "運転を見合わせます (qatnov vaqtincha to'xtatildi) va 払い戻し (pulni qaytarish) nazarda tutilgan.",
+    topic: 'N3 Rasmiy Ogohlantirishlar',
   },
   {
     id: 'diag-ja-n3-r2',
@@ -614,22 +560,28 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     ],
     correctAnswerIndex: 0,
     explanation:
-      "画面の光による疲れ (ekran charchog'i) va 触感 (qo'l bilan his qilish) sabab qilib ko'rsatilgan.",
-    topic: 'N3 Dokkai: Qisqa Maqolalar',
+      "画面の光による疲れ (ekran yorug'idan toliqish) va ページをめくる触感 (varaq hissi).",
+    topic: 'N3 Ommabop Maqolalar',
   },
   {
     id: 'diag-ja-n3-l1',
     language: 'ja',
     level: 'N3',
     skill: 'listening',
-    difficulty: 'hard',
+    difficulty: 'medium',
     prompt: 'Tinglash: Majlis soat nechada boshlanadi?',
+    options: [
+      'Soat 10:00 da',
+      'Ertalab soat 9:00 da',
+      'Soat 11:00 da',
+      'Kechiktirilib bekor qilindi',
+    ],
+    correctAnswerIndex: 1,
+    explanation:
+      '1時間前倒し (1 soat oldinga surilib), 9時スタート (soat 9 da boshlanadi) deyildi.',
+    topic: "N3 Choukai: Rejalar O'zgarishi",
     audioText:
-      '部長、明日の企画会議ですが、10時からに変更になったと聞いたのですが。 いや、それは別のプロジェクトだよ。企画会議は予定通り9時から始めるから、遅れないようにね。 かしこまりました。',
-    options: ['Ertalab soat 9:00 da', 'Soat 10:00 da', 'Kechiktirildi', 'Bekor qilindi'],
-    correctAnswerIndex: 0,
-    explanation: "Rahbar uchrashuv o'z vaqtida (予定通り9時から) boshlanishini aytdi.",
-    topic: 'N3 Choukai: Vazifa va Reja Aniqlash',
+      '明日の会議ですが、当初予定の10時開始から1時間前倒しして、9時スタートに変更となりました。資料の印刷を事前にお願いします。',
   },
   {
     id: 'diag-ja-n3-l2',
@@ -637,23 +589,23 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N3',
     skill: 'listening',
     difficulty: 'hard',
-    prompt: "Tinglash: Xodim nima qilishga rozi bo'ldi?",
-    audioText:
-      '山田さん、このプレゼン資料、午後2時の会議までに20部コピーしておいてくれる？ はい、承知いたしました。すぐに準備いたします。あと、会議室のプロジェクターも確認しておきますね。 助かるよ、よろしく。',
+    prompt: "Tinglash: Hamkasb qaysi vazifani o'z zimmasiga oldi?",
     options: [
-      'Materiallarni nusxalash va proyektorni tekshirish',
-      'Prezentatsiyani qaytadan yozish',
-      'Majlisni boshqa kunga surish',
-      'Mehmonlarni kutib olish',
+      'Prezentatsiyani butunlay qaytadan yozishni',
+      "Mijozlar bilan uchrashuv o'tkazishni",
+      "Ma'lumotlar tahlili va grafiklarni tayyorlashni",
+      'Loyiha muddatini uzaytirishni',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     explanation:
-      '20部コピー (20 nusxa) va プロジェクターの確認 (proyektorni tekshirish) vazifasini oldi.',
-    topic: 'N3 Choukai: Ish Joyidagi Muloqot',
+      'データの分析とグラフの作成なら私の方で引き受けます (tahlil va grafiklarni men bajaraman).',
+    topic: 'N3 Choukai: Hamkorlik va Vazifalar',
+    audioText:
+      'プロジェクトの進捗報告書の作成、手伝ってもらえないでしょうか？ いいですよ、データの分析とグラフの作成なら私の方で引き受けます。',
   },
 
   // =========================================================================
-  // 🟣 JLPT N2 (13 SAVOL) - YUQORI O'RTA DARAJA (UPPER-INTERMEDIATE)
+  // 🟣 JLPT N2 (13 SAVOL) - YUQORI O'RTA DARAJA
   // =========================================================================
   {
     id: 'diag-ja-n2-k1',
@@ -661,17 +613,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「把握」 so'zining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      "はあく (haaku) — To'liq tushunish / O'zlashtirish",
-      'はそく (hasoku)',
-      'ほうあく (houaku)',
-      'はくしゅ (hakushu)',
-    ],
-    correctAnswerIndex: 0,
+    prompt: "「把握」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['はそく', 'ほうあく', 'はくしゅ', 'はあく'],
+    correctAnswerIndex: 3,
     explanation:
-      "把握 (はあく) — vaziyat yoki mohiyatni to'liq anglab yetish (masalan, 現状を把握する — hozirgi vaziyatni anglash).",
-    topic: 'N2 Yuqori Kanji Birikmalari',
+      "把握 (はあく) — vaziyat yoki ma'lumotni to'liq tushunish, anglab yetish (masalan, 状況を把握する).",
+    topic: 'N2 Rasmiy Kanji Birikmalari',
   },
   {
     id: 'diag-ja-n2-k2',
@@ -679,12 +626,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「措置」 kanji so'zining o'qilishi va ma'nosi qaysi?",
-    options: ['そち (sochi) — Chora-tadbir', 'しょち (shochi)', 'そじ (soji)', 'さち (sachi)'],
+    prompt: "「措置」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['そち', 'しょち', 'そじ', 'さち'],
     correctAnswerIndex: 0,
-    explanation:
-      '措置 (そち) — muammoni hal qilish chorasi (masalan, 緊急措置 — favqulodda choralar).',
-    topic: 'N2 Rasmiy va Hukumat Kanjilari',
+    explanation: '措置 (そち) — chora-tadbir (masalan, 緊急措置 — favqulodda chora-tadbir).',
+    topic: 'N2 Qonun va Siyosat Kanjilari',
   },
   {
     id: 'diag-ja-n2-k3',
@@ -693,15 +639,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'kanji',
     difficulty: 'hard',
     prompt: "「著しい」 so'zining to'g'ri o'qilishi qaysi?",
-    options: [
-      "いちじるしい (ichijirushii) — Ko'zga tashlanadigan / Sezilarli",
-      'めざましい (mezamashii)',
-      'すばらしい (subarashii)',
-      'はなはだしい (hanahadashii)',
-    ],
-    correctAnswerIndex: 0,
-    explanation: "著しい (いちじるしい) — nihoyatda sezilarli o'zgarish yoki rivojlanish.",
-    topic: 'N2 Murakkab I-sifatlar',
+    options: ['めざましい', 'いちじるしい', 'すばらしい', 'はなはだしい'],
+    correctAnswerIndex: 1,
+    explanation:
+      "著しい (いちじるしい) — yaqqol, ko'zga tashlanadigan, sezilarli darajadagi (masalan, 著しい進歩).",
+    topic: 'N2 Adabiy Sifatlar',
   },
   {
     id: 'diag-ja-n2-g1',
@@ -709,17 +651,18 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'grammar',
     difficulty: 'hard',
-    prompt: 'Sonkeigo (boshqalarga hurmat) shaklini tanlang: 「社長はもうオフィスを _______。」',
+    prompt:
+      "Sonkeigo (boshqalarga hurmat) shaklini to'g'ri tanlang: 「社長はもうオフィスを _______。」",
     options: [
-      'お出かけになりました (o-dekake ni narimashita)',
-      '出かけさせられました (dekakesaseraremashita)',
-      '出かけたいです (dekaketai desu)',
-      '出かけるはずでした (dekakeru hazu deshita)',
+      '出かけさせられました',
+      '出かけたいです',
+      'お出かけになりました',
+      '出かけるはずでした',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     explanation:
-      "Kattalar va mijozlar harakatiga Sonkeigo: お + fe'l o'zagi + になる (お出かけになりました).",
-    topic: 'N2 Keigo va Biznes Etiketi',
+      "お＋fe'l asosi＋になる — uchinchi shaxs yoki rahbar harakatini ulug'lash (chiqib ketdilar).",
+    topic: 'N2 Keigo (Hurmat Uslubi)',
   },
   {
     id: 'diag-ja-n2-g2',
@@ -729,16 +672,10 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'hard',
     prompt:
       'Chegaralash grammatikasini tanlang: 「これは私の個人的な推測 _______、確証はありません。」',
-    options: [
-      'にすぎず (ni sugizu)',
-      'に相違なく (ni souinaku)',
-      'にほかならず (ni hokanarazu)',
-      'にかかわらず (ni kakawarazu)',
-    ],
-    correctAnswerIndex: 0,
-    explanation:
-      '〜にすぎない / にすぎず — "... dan boshqa narsa emas / bor-yo\'g\'i shu" (faqat shaxsiy taxminim xolos).',
-    topic: 'N2 Chegaralash (~ni suginai)',
+    options: ['に相違なく', 'にほかならず', 'にかかわらず', 'にすぎず'],
+    correctAnswerIndex: 3,
+    explanation: '〜にすぎない / にすぎず — "...dan nariga o\'tmaydi / shunchaki ... xolos".',
+    topic: 'N2 Chegara va Cheklov (~ni sugizu)',
   },
   {
     id: 'diag-ja-n2-g3',
@@ -748,15 +685,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'hard',
     prompt:
       'Turtki / sabab grammatikasini tanlang: 「友人の成功を _______、自分も起業することを決意した。」',
-    options: [
-      'きっかけに (kikkake ni)',
-      'もとに (moto ni)',
-      'めぐって (megutte)',
-      'よそに (yosoni)',
-    ],
+    options: ['きっかけに', 'もとに', 'めぐって', 'よそに'],
     correctAnswerIndex: 0,
-    explanation: '〜をきっかけに — "... dan ilhomlanib / turtki olib yangi qadam qo\'ymoq".',
-    topic: 'N2 Turtki va Sabab (~wo kikkake ni)',
+    explanation:
+      "〜をきっかけに / を契機に — biror voqea sabab bo'lib yangi katta harakat boshlanishi.",
+    topic: 'N2 Sabab va Boshlanish Turtkisi (~kikkake ni)',
   },
   {
     id: 'diag-ja-n2-v1',
@@ -764,12 +697,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「妥協 (だきょう)」 so'zining ma'nosi nima?",
-    options: ['Murosaga kelish / Kelishuv', "Qat'iy rad etish", 'Chekinish', 'Hujum qilish'],
-    correctAnswerIndex: 0,
-    explanation:
-      "妥協 (だきょう) — o'zaro yon berib murosaga kelish (masalan, 妥協点を見出す — murosa nuqtasini topish).",
-    topic: "N2 Muzokara va Biznes Lug'ati",
+    prompt: "「妥協」 so'zining to'g'ri ma'nosi qaysi?",
+    options: ["Qat'iy rad etish", 'Murosaga kelish / Kelishuv', 'Chekinish', 'Hujum qilish'],
+    correctAnswerIndex: 1,
+    explanation: "妥協 (だきょう) — tomonlar o'rtasida o'zaro yon berish, murosaga kelish.",
+    topic: "N2 Muzokara Lug'ati",
   },
   {
     id: 'diag-ja-n2-v2',
@@ -777,16 +709,15 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「顕著 (けんちょ)」 so'zining ma'nosi qaysi?",
+    prompt: "「顕著」 so'zining to'g'ri ma'nosi qaysi?",
     options: [
-      "Yaqqol / Ochiq-oydin ko'zga tashlanadigan",
       'Yashirin',
       'Xavfli',
+      "Yaqqol / Ochiq-oydin ko'zga tashlanadigan",
       'Kamdan-kam uchraydigan',
     ],
-    correctAnswerIndex: 0,
-    explanation:
-      '顕著 (けんちょ) — sezilarli, yaqqol bilinib turuvchi (masalan, 顕著な回復 — yaqqol tuzalish).',
+    correctAnswerIndex: 2,
+    explanation: "顕著 (けんちょ) — shubhasiz va aniq ko'zga tashlanib turuvchi holat.",
     topic: "N2 Ilmiy va Tahliliy Lug'at",
   },
   {
@@ -795,17 +726,17 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N2',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「手配 (てはい)」 so'zining ma'nosi nima?",
+    prompt: "「手配」 so'zining to'g'ri ma'nosi qaysi?",
     options: [
-      "Rejalashtirish / Tayyorgarlik ko'rish (bron qilish)",
       "Qo'l berib ko'rishish",
       'Xato qilish',
       'Voz kechish',
+      "Rejalashtirish / Tayyorgarlik ko'rish (bron qilish)",
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
     explanation:
-      '手配 (てはい) — kerakli narsalarni tayyorlash, buyurtma qilish (masalan, ホテルの手配 — mehmonxonani band qilish).',
-    topic: "N2 Amaliy Tashkiliy Lug'at",
+      '手配 (てはい) — kerakli narsalarni oldindan tayyorlash, bron qilish, tashkillashtirish.',
+    topic: 'N2 Ishbilarmonlik Amaliyoti',
   },
   {
     id: 'diag-ja-n2-r1',
@@ -824,7 +755,7 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     correctAnswerIndex: 0,
     explanation:
       '通勤ストレス軽減 (ijobiy tomoni) bilan birga イノベーション創出が難しくなった (salbiy tomoni) taqqoslangan.',
-    topic: 'N2 Dokkai: Ijtimoiy Tahlil',
+    topic: 'N2 Tahliliy Matnlar',
   },
   {
     id: 'diag-ja-n2-r2',
@@ -835,15 +766,15 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     prompt:
       '読解: 「製品の安全性に関するリコール通知。該当製品をお持ちのお客様は、直ちに使用を中止し、下記フリーダイヤルまでご連絡ください。無償にて部品交換を行います。」 Ushbu bildirishnomada mijozdan nima talab qilinmoqda?',
     options: [
-      "Mahsulotdan foydalanishni darhol to'xtatish va bepul qism almashtirish uchun qo'ng'iroq qilish",
       "Mahsulotni do'konga olib borib yangisini sotib olish",
+      "Mahsulotdan foydalanishni darhol to'xtatish va bepul qism almashtirish uchun qo'ng'iroq qilish",
       "Qo'shimcha to'lov evaziga ta'mirlatish",
       'Mahsulot xavfsiz ekanligini tasdiqlash',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 1,
     explanation:
       "直ちに使用を中止 (darhol to'xtatish) va 無償にて部品交換 (bepul almashtirish) aytilgan.",
-    topic: 'N2 Dokkai: Rasmiy Kompaniya Xabarlari',
+    topic: "N2 Rasmiy E'lonlar va Xabarnomalar",
   },
   {
     id: 'diag-ja-n2-l1',
@@ -852,18 +783,17 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'hard',
     prompt: 'Tinglash: Telefon suhbatida kotiba qanday taklif berdi?',
-    audioText:
-      '恐れ入ります、営業部の佐藤様はいらっしゃいますでしょうか？ あいにく佐藤はただいま外出しておりまして、夕方5時頃の帰社を予定しております。よろしければ、戻り次第、こちらから折り返しお電話を差し上げましょうか？',
     options: [
-      "Xodim soat 5 larda qaytgach, o'zlari qayta qo'ng'iroq qilishini taklif qildi",
       'Xodim bugun ishga kelmasligini aytdi',
       "Mijozdan hozir kutib turishni so'radi",
+      "Xodim soat 5 larda qaytgach, o'zlari qayta qo'ng'iroq qilishini taklif qildi",
       "Boshqa bo'limga ulab yubordi",
     ],
-    correctAnswerIndex: 0,
-    explanation:
-      "「戻り次第、こちらから折り返しお電話を差し上げましょうか (qaytgach qaytib qo'ng'iroq qilaylikmi)」 deb taklif etdi.",
-    topic: 'N2 Choukai: Rasmiy Telefon Muloqoti (Keigo)',
+    correctAnswerIndex: 2,
+    explanation: '「戻り次第、こちらから折り返しお電話を差し上げましょうか」 deb taklif etdi.',
+    topic: 'N2 Biznes Telefon Muloqoti',
+    audioText:
+      '恐れ入ります、山田部長はいらっしゃいますでしょうか？ あいにく山田は外出中でして、夕方5時頃には戻る予定です。戻り次第、こちらから折り返しお電話を差し上げましょうか。',
   },
   {
     id: 'diag-ja-n2-l2',
@@ -872,22 +802,22 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'hard',
     prompt: 'Tinglash: Loyiha kechikishi sababi nima ekan?',
-    audioText:
-      '課長、新システムの納品ですが、仕様の追加変更が重なったため、予定より1週間ほど遅れそうです。 そうか、クライアント側の要望なら仕方ないが、現場の負担が増えすぎないように人員を補強しよう。',
     options: [
-      "Buyurtmachi tomonidan tizim talablariga qo'shimcha o'zgartirishlar kiritilgani sababli",
       'Dasturchilar ish tashlagani uchun',
       'Byudjet yetishmagani uchun',
       'Serverlar ishdan chiqqani uchun',
+      "Buyurtmachi tomonidan tizim talablariga qo'shimcha o'zgartirishlar kiritilgani sababli",
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
     explanation:
       "「仕様の追加変更が重なったため (talablarga qo'shimchalar ko'paygani sabab)」 kechikishi aytildi.",
-    topic: 'N2 Choukai: Biznes Muzokaralari',
+    topic: 'N2 Loyiha Hisoboti va Sabablar',
+    audioText:
+      '新規システム導入のスケジュールが2ヶ月遅延している件ですが、原因は何ですか？ クライアント側からの仕様追加と変更要求が重なり、設計の見直しが必要になったためです。',
   },
 
   // =========================================================================
-  // 🔴 JLPT N1 (13 SAVOL) - OLIY DARAJA (ADVANCED FLUENCY)
+  // 🔴 JLPT N1 (13 SAVOL) - PROFESSIONAL / OLIY DARAJA
   // =========================================================================
   {
     id: 'diag-ja-n1-k1',
@@ -895,17 +825,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「脆弱」 so'zining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'ぜいじゃく (zeijaku) — Zaif / Omonat / Nozik',
-      'きじゃく (kijaku)',
-      'せいじゃく (seijaku)',
-      'たいじゃく (taijaku)',
-    ],
+    prompt: "「脆弱」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['ぜいじゃく', 'きじゃく', 'せいじゃく', 'たいじゃく'],
     correctAnswerIndex: 0,
     explanation:
       '脆弱 (ぜいじゃく) — zaif, himoyasiz (masalan, 脆弱なセキュリティ — zaif xavfsizlik tizimi).',
-    topic: 'N1 Oliy Darajali Kanji',
+    topic: 'N1 Ilmiy va Ijtimoiy Kanjilar',
   },
   {
     id: 'diag-ja-n1-k2',
@@ -913,17 +838,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「躊躇」 so'zining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'ちゅうちょ (chuucho) — Ikkilanish / Payhonlik',
-      'しゅうちょ (shuucho)',
-      'ちゅうしょ (chuusho)',
-      'とうちょ (toucho)',
-    ],
-    correctAnswerIndex: 0,
+    prompt: "「躊躇」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['しゅうちょ', 'ちゅうちょ', 'ちゅうしょ', 'とうちょ'],
+    correctAnswerIndex: 1,
     explanation:
-      '躊躇 (ちゅうちょ) — ikkilanmoq (masalan, 躊躇なく決断する — ikkilanmasdan qaror qabul qilmoq).',
-    topic: 'N1 Akademik Kanji',
+      '躊躇 (ちゅうちょ) — ikkilanish (masalan, 躊躇なく決断する — ikkilanmasdan qaror qabul qilmoq).',
+    topic: 'N1 Murakkab Kanjilar',
   },
   {
     id: 'diag-ja-n1-k3',
@@ -931,17 +851,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'kanji',
     difficulty: 'hard',
-    prompt: "「巧妙」 so'zining to'g'ri o'qilishi va ma'nosi qaysi?",
-    options: [
-      'こうみょう (koumyou) — Ustomonlik / Mohirona',
-      'きょうみょう (kyoumyou)',
-      'こうしょう (koushou)',
-      'こうめい (koumei)',
-    ],
-    correctAnswerIndex: 0,
+    prompt: "「巧妙」 kanji birikmasining to'g'ri o'qilishi qaysi?",
+    options: ['きょうみょう', 'こうしょう', 'こうみょう', 'こうめい'],
+    correctAnswerIndex: 2,
     explanation:
       '巧妙 (こうみょう) — nihoyatda mohirona, ayyorlik bilan tuzilgan (masalan, 巧妙な手口).',
-    topic: "N1 Oliy Lug'at Birikmalari",
+    topic: 'N1 Oliy Darajadagi Kanjilar',
   },
   {
     id: 'diag-ja-n1-g1',
@@ -951,16 +866,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'hard',
     prompt:
       "Imkonsiz / shubhasiz ma'nosidagi N1 qoidasini tanlang: 「彼の実力をもってすれば、今回のコンクール優勝は _______。」",
-    options: [
-      '疑うべくもない (utagau beku mo nai)',
-      '疑うしかない (utagau shika nai)',
-      '疑いかねない (utagai kanenai)',
-      '疑うはずがない (utagau hazu ga nai)',
-    ],
-    correctAnswerIndex: 0,
+    options: ['疑うしかない', '疑いかねない', '疑うはずがない', '疑うべくもない'],
+    correctAnswerIndex: 3,
     explanation:
       '〜べくもない — "... qilish mutlaqo mumkin emas / shubhasiz" (g\'alaba qozonishiga zarracha shubha yo\'q).',
-    topic: 'N1 Rasmiy Uslub (~beku mo nai)',
+    topic: 'N1 Yuqori Grammatika (~beku mo nai)',
   },
   {
     id: 'diag-ja-n1-g2',
@@ -970,16 +880,11 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     difficulty: 'hard',
     prompt:
       "Zudlik bilan sodir bo'lish qoidasini tanlang: 「終業のベルが _______、社員たちは一斉に席を立った。」",
-    options: [
-      '鳴るや否や (naru ya ina ya)',
-      '鳴ったが最後 (natta ga saigo)',
-      '鳴るそばから (naru soba kara)',
-      '鳴るなり (naru nari)',
-    ],
+    options: ['鳴るや否や', '鳴ったが最後', '鳴るそばから', '鳴るなり'],
     correctAnswerIndex: 0,
     explanation:
       '〜や否や (ya ina ya) — "... bo\'lishi bilanoq / shu zahotiyoq" ketma-ket sodir bo\'lgan lahzalik harakat.',
-    topic: 'N1 Tezkor Ketma-ketlik (~ya ina ya)',
+    topic: 'N1 Ketma-ketlik va Zudlik (~ya ina ya)',
   },
   {
     id: 'diag-ja-n1-g3',
@@ -988,17 +893,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'grammar',
     difficulty: 'hard',
     prompt:
-      "Qat'iy shart va qat'iyat ifodasini tanlang: 「たとえいかなる困難 _______、我々は最後までやり抜く覚悟だ。」",
-    options: [
-      'であろうと (de arou to)',
-      'であれども (de aredomo)',
-      'であろうがなかろうが (de arou ga nakarou ga)',
-      'にあろうと (ni arou to)',
-    ],
-    correctAnswerIndex: 0,
+      "Qat'iy shart va chekinmaslik ifodasini tanlang: 「たとえいかなる困難 _______、我々は最後までやり抜く覚悟だ。」",
+    options: ['であれども', 'であろうと', 'であろうがなかろうが', 'にあろうと'],
+    correctAnswerIndex: 1,
     explanation:
       "たとえ〜であろうと — \"har qancha qiyinchilik bo'lsa ham / nima bo'lishidan qat'i nazar\" qat'iy xulosa.",
-    topic: "N1 Shart va Qat'iyat (~de arou to)",
+    topic: "N1 Qat'iyat va Shart Mayllari (~de arou to)",
   },
   {
     id: 'diag-ja-n1-v1',
@@ -1006,14 +906,14 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「画期的 (かっきてき)」 so'zining ma'nosi nima?",
+    prompt: "「画期的」 so'zining to'g'ri ma'nosi qaysi?",
     options: [
-      'Inqilobiy / Yangi davr ochib beruvchi',
       'Vaqtinchalik',
       "An'anaviy",
+      'Inqilobiy / Yangi davr ochib beruvchi',
       'Eski uslubdagi',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     explanation:
       "画期的 (かっきてき) — yangi bosqichni boshlab beruvchi buyuk kashfiyot yoki o'zgarish.",
     topic: "N1 Ilmiy va Ijtimoiy Lug'at",
@@ -1024,12 +924,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「遺憾 (いかん)」 so'zining ma'nosi qaysi?",
-    options: ['Chuqur afsus / Achinarli holat', "G'urur va iftixor", "Qat'iy rozilik", 'Qiziqish'],
-    correctAnswerIndex: 0,
+    prompt: "「遺憾」 so'zining to'g'ri ma'nosi qaysi?",
+    options: ["G'urur va iftixor", "Qat'iy rozilik", 'Qiziqish', 'Chuqur afsus / Achinarli holat'],
+    correctAnswerIndex: 3,
     explanation:
       '遺憾 (いかん) — diplomatik va rasmiy bayonotlarda "juda afsusdaman" (masalan, 遺憾の意を表明する).',
-    topic: "N1 Diplomatik va Siyosiy Lug'at",
+    topic: "N1 Diplomatik va Rasmiy Lug'at",
   },
   {
     id: 'diag-ja-n1-v3',
@@ -1037,12 +937,12 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     level: 'N1',
     skill: 'vocabulary',
     difficulty: 'hard',
-    prompt: "「拍車をかける (はくしゃをかける)」 iborasining ma'nosi nima?",
+    prompt: "「拍車をかける」 iborasining to'g'ri ma'nosi nima?",
     options: ['Jadallashtirmoq / Tezlatmoq', "To'xtatib qo'ymoq", 'Yashirmoq', 'Rad etmoq'],
     correctAnswerIndex: 0,
     explanation:
-      "拍車をかける — biror jarayon yoki o'zgarishning tezlashishiga sabab bo'lmoq (otga qamchi urmoq).",
-    topic: 'N1 Idiomalar va Frazeologizmlar',
+      "拍車をかける (はくしゃをかける) — biror jarayon yoki o'zgarishning tezlashishiga sabab bo'lmoq.",
+    topic: 'N1 Idiomalar va Metaforalar',
   },
   {
     id: 'diag-ja-n1-r1',
@@ -1053,15 +953,15 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     prompt:
       '読解: 「科学技術の進歩は人類に物質的な豊かさをもたらした反面、精神的な充足感をも同時に担保しているとは言い難い。真の豊かさとは何かという根源的な問いに、我々は今一度立ち返る必要がある。」 Muallif nima haqida xulosa qilmoqda?',
     options: [
-      "Texnologik rivojlanish moddiy boylik bersa-da, ruhiy to'kinlikni to'liq ta'minlay olmadi; insoniyat asl boylik nimaligini qayta o'ylashi zarur",
       'Texnologiyadan butunlay voz kechish kerak',
+      "Texnologik rivojlanish moddiy boylik bersa-da, ruhiy to'kinlikni to'liq ta'minlay olmadi; insoniyat asl boylik nimaligini qayta o'ylashi zarur",
       'Moddiy boylik ruhiy erkinlikdan har doim muhimroq',
       'Insoniyat kelajakda faqat robotlarga tayanadi',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 1,
     explanation:
       '反面 (ikkinchi tomondan) va 根源的な問いに立ち返る (asl savolga qaytish) orqali chuqur falsafiy xulosa chiqarilgan.',
-    topic: 'N1 Dokkai: Falsafiy va Jamiyat Esseylari',
+    topic: 'N1 Falsafiy va Jamiyatshunoslik Esse',
   },
   {
     id: 'diag-ja-n1-r2',
@@ -1072,15 +972,15 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     prompt:
       "読解: 「言語は単なる意思疎通の道具に留まらず、その話者の世界認識そのものを規定しているという仮説がある。多言語を習得することは、すなわち複数の異なる視座から世界を再構築することに他ならない。」 Chet tillarini o'rganish haqida qanday fikr bildirilgan?",
     options: [
-      "Chet tillarini o'rganish dunyoni bir nechta turlicha nuqtai nazardan yangitdan anglash demakdir",
       "Til faqat oddiy ma'lumot almashish vositasidir",
       'Barcha tillar bir xil fikrlash tizimiga ega',
+      "Chet tillarini o'rganish dunyoni bir nechta turlicha nuqtai nazardan yangitdan anglash demakdir",
       'Grammatik qoidalarni yodlash eng muhim omildir',
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 2,
     explanation:
-      "「複数の異なる視座から世界を再構築することに他ならない」 matnning asosiy ma'g'zidir.",
-    topic: 'N1 Dokkai: Lingvistika va Madaniyat',
+      "「複数の異なる視座から世界を再構築することに他ならない」 matnning asosiy mag'zidir.",
+    topic: 'N1 Tilshunoslik va Kognitiv Matnlar',
   },
   {
     id: 'diag-ja-n1-l1',
@@ -1089,18 +989,18 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'hard',
     prompt: "Tinglash: Boshqaruv kengashi yig'ilishida yakuniy qaror qanday bo'ldi?",
-    audioText:
-      '海外進出計画についてですが、現地の法規制リスクを鑑みますと、拙速な合弁会社設立は避けるべきとの意見が大勢を占めました。まずは現地調査の期間を半年延長し、リスクヘッジ策を講じた上で最終判断を下す運びとなりました。',
     options: [
-      "Shoshilinch qo'shma korxona ochmasdan, o'rganish muddatini 6 oyga uzaytirib xatarlarni kamaytirishga kelishildi",
       "Xorijiy filial darhol ochiladigan bo'ldi",
       'Loyiha butunlay bekor qilindi',
       "Mahalliy qonunchilik e'tiborga olinmaydigan bo'ldi",
+      "Shoshilinch qo'shma korxona ochmasdan, o'rganish muddatini 6 oyga uzaytirib xatarlarni kamaytirishga kelishildi",
     ],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
     explanation:
       '「拙速な設立は避ける (shoshilinch ochishdan qochish)」 va 「半年延長しリスクヘッジ (6 oyga uzaytirish)」 deb xulosa qilindi.',
-    topic: 'N1 Choukai: Direktorlar Kengashi Qarori',
+    topic: 'N1 Korporativ Strategik Qarorlar',
+    audioText:
+      '海外新規事業の立ち上げについてですが、現地の法規制が不透明な現状では拙速な設立は避けるべきとの意見が大勢を占めました。調査期間を半年延長し、リスクヘッジを徹底した上で再検討することに決定しました。',
   },
   {
     id: 'diag-ja-n1-l2',
@@ -1109,8 +1009,6 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     skill: 'listening',
     difficulty: 'hard',
     prompt: "Tinglash: Olim yangi nazariya bo'yicha nima deb hisoblamoqda?",
-    audioText:
-      '今回の実証実験において得られたデータは、従来の学説を根底から覆すものとは言い難いものの、特定条件下における微細な変動を示唆しております。再現性の検証を待たずして早急な結論を導くことは厳に慎まねbaなりません。',
     options: [
       'Hali takroriy sinovlar tasdiqlanmasdan oldin shoshma-shosharlik bilan xulosa chiqarishdan tiyilish kerak',
       "Eski nazariya to'liq bekor qilindi deb e'lon qilish zarur",
@@ -1120,6 +1018,8 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
     correctAnswerIndex: 0,
     explanation:
       "「早急な結論を導くことは厳に慎まねばならない (tezkor xulosa chiqarishdan qat'iyan tiyilish kerak)」 deyildi.",
-    topic: 'N1 Choukai: Ilmiy Tezis va Bahs',
+    topic: 'N1 Ilmiy Tadqiqot Muhokamasi',
+    audioText:
+      '今回の実験データは従来の学説を覆す画期的なものに見えますが、再現性の確認がまだ不十分です。追試による裏付けが得られるまでは、学会への正式発表や早急な結論を導くことは厳に慎まねばならないと考えています。',
   },
 ];

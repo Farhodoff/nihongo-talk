@@ -90,6 +90,50 @@ describe('Japanese Diagnostic Bank (65 Questions Integrity)', () => {
     const n1Questions = bank.filter((q) => q.level === 'N1');
     expect(n1Questions.length).toBeGreaterThanOrEqual(13);
   });
+
+  it('should ensure no translation spoilers or romaji exist in kanji and grammar options', () => {
+    JAPANESE_DIAGNOSTIC_BANK.forEach((q) => {
+      if (q.skill === 'kanji') {
+        q.options.forEach((opt) => {
+          // Kanji options must be pure Japanese readings without Uzbek translation or romaji
+          expect(opt).not.toMatch(/[a-zA-Z]/);
+          expect(opt).not.toContain('—');
+        });
+      }
+      if (q.skill === 'grammar') {
+        q.options.forEach((opt) => {
+          // Grammar options should not have romaji attached in parentheses
+          expect(opt).not.toMatch(/\([a-zA-Z\s]+\)/);
+        });
+      }
+      if (q.id === 'diag-ja-n5-v3') {
+        // Specific user-reported question: antonym test must not have translation spoilers
+        expect(q.prompt).not.toContain('katta');
+        expect(q.prompt).not.toContain('ookii');
+        q.options.forEach((opt) => {
+          expect(opt).not.toMatch(/[a-zA-Z]/);
+          expect(opt).not.toContain('kichik');
+        });
+      }
+    });
+  });
+
+  it('should ensure balanced distribution of correctAnswerIndex across all 4 options', () => {
+    const counts: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
+    JAPANESE_DIAGNOSTIC_BANK.forEach((q) => {
+      counts[q.correctAnswerIndex] = (counts[q.correctAnswerIndex] || 0) + 1;
+    });
+
+    // Each option (0, 1, 2, 3) must represent between 14 and 18 questions (~25% each)
+    expect(counts[0]).toBeGreaterThanOrEqual(14);
+    expect(counts[0]).toBeLessThanOrEqual(18);
+    expect(counts[1]).toBeGreaterThanOrEqual(14);
+    expect(counts[1]).toBeLessThanOrEqual(18);
+    expect(counts[2]).toBeGreaterThanOrEqual(14);
+    expect(counts[2]).toBeLessThanOrEqual(18);
+    expect(counts[3]).toBeGreaterThanOrEqual(14);
+    expect(counts[3]).toBeLessThanOrEqual(18);
+  });
 });
 
 describe('Personal Learning Plan Engine Zero-Level & Adaptation Directives', () => {
