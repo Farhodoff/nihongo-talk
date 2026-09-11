@@ -1,14 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import {
-  Sparkles,
-  CheckCircle2,
-  Play,
-  Search,
-  MessageSquare,
-  Layers,
-  BookOpen,
-} from 'lucide-react';
+import { Sparkles, CheckCircle2, Play, Search, MessageSquare, BookOpen } from 'lucide-react';
 import { MINNA_N5_LESSONS } from '../../data/curriculum/minnaN5Lessons';
 import { MINNA_N4_LESSONS } from '../../data/curriculum/minnaN4Lessons';
 import { JAPANESE_N3_LESSONS } from '../../data/curriculum/japaneseN3';
@@ -621,14 +613,6 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                 >
                   <Play size={13} fill="currentColor" />
                   <span>{prog?.completed ? "Qayta O'qish" : 'Darsni Boshlash'}</span>
-                </button>
-
-                <button
-                  onClick={() => navigate('/flashcards')}
-                  title="Fleshkartalarni takrorlash"
-                  className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
-                >
-                  <Layers size={14} />
                 </button>
 
                 <button
